@@ -5,8 +5,8 @@
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
-// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/master/mb_bulk_copy_work_codes.user.js
-// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/master/mb_bulk_copy_work_codes.user.js
+// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_bulk_copy_work_codes.user.js
+// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_bulk_copy_work_codes.user.js
 // @match        https://iswcnet.cisac.org/*
 // @match        *://musicbrainz.org/*/edit
 // @match        *://*.musicbrainz.org/*/edit
