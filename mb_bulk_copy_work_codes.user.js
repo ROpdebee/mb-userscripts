@@ -363,7 +363,7 @@ function handleISWCNet() {
         let entry = viewMoreDiv.parentNode.parentNode.parentNode;
 
         let button = document.createElement('button');
-        button.innerText = 'Copy to clipboard';
+        button.innerText = 'Copy work codes';
         button.onclick = (() => parseAndCopy(entry));
         viewMoreDiv.prepend(button);
     }
