@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.02.11
+// @version      2021.02.11.2
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -10,6 +10,8 @@
 // @match        https://iswcnet.cisac.org/*
 // @match        *://musicbrainz.org/*/edit
 // @match        *://*.musicbrainz.org/*/edit
+// @match        *://musicbrainz.org/release/*/edit-relationships
+// @match        *://*.musicbrainz.org/release/*/edit-relationships
 // @match        *://musicbrainz.org/*/create
 // @match        *://*.musicbrainz.org/*/create
 // @run-at       document-end
