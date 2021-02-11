@@ -7,3 +7,10 @@ Quickly copy-paste work idenitifiers (ISWC, agency work codes) from CISAC's ISWC
 
 [![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](https://github.com/ROpdebee/mb-userscripts/blob/main/mb_bulk_copy_work_codes.user.js)
 [![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](https://github.com/ROpdebee/mb-userscripts/raw/main/mb_bulk_copy_work_codes.user.js)
+
+## MB: Display CAA image dimensions
+
+Loads and displays the image dimensions of images in the cover art archive.
+
+[![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](https://github.com/ROpdebee/mb-userscripts/blob/main/mb_caa_dimensions.user.js)
+[![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](https://github.com/ROpdebee/mb-userscripts/raw/main/mb_caa_dimensions.user.js)
