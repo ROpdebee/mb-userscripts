@@ -18,6 +18,7 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_deleteValue
+// @grant        GM_info
 // ==/UserScript==
 
 
@@ -273,7 +274,7 @@ function handleMB() {
             return acc + agencyKey + ': ' + agencyCodes.join(', ') + '\n';
         }, unknownAgencies.length ? 'Unsupported agencies:\n' : '');
         noteContent += '\n---\n';
-        noteContent += 'MB: Bulk copy-paste work codes with data from ' + source;
+        noteContent += `${GM_info.script.name} v${GM_info.script.version} (with data from ${source})\n`;
 
         let note = theForm.querySelector('textarea[name="edit-work.edit_note"]');
         let prevVal = note.value;
