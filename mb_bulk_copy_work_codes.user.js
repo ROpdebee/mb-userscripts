@@ -185,7 +185,7 @@ function handleMB() {
 
         let newCodes = retainOnlyNew(externalCodes, mbCodes);
 
-        fillData(theForm, newISWCs, newCodes, data['source']);
+        fillData(theForm, newISWCs, newCodes, data['title'], data['source']);
     }
 
     function fillInput(inp, val) {
@@ -194,7 +194,7 @@ function handleMB() {
     }
 
 
-    function fillData(theForm, iswcs, codes, source) {
+    function fillData(theForm, iswcs, codes, title, source) {
         iswcs.forEach(iswc => fillISWC(theForm, iswc));
         let unknownAgencyCodes = Object.entries(codes).reduce(
             (acc, [agencyKey, agencyCodes]) => {
@@ -210,7 +210,24 @@ function handleMB() {
                 return acc;
             }, []);
 
+        maybeFillTitle(theForm, title);
         fillEditNote(theForm, unknownAgencyCodes, source);
+    }
+
+    function maybeFillTitle(root, title) {
+        let titleInp = root.querySelector('input[name="edit-work.name"]');
+        if (titleInp.value) {
+            // Not filling if already filled.
+            return;
+        }
+
+        // Completely lowercase the title before adding it. ISWCNet has completely
+        // uppercased titles. Depending on the guesscase_keepuppercase cookie,
+        // guess case might not properly transform it.
+        fillInput(titleInp, title.toLowerCase());
+        titleInp.closest('div.row')
+            .querySelector('button.guesscase-title')
+            .click();
     }
 
     function getEmptyRow(root, parentSelector, inputName) {
@@ -324,11 +341,12 @@ function handleMB() {
 // ISWCNet
 //////////////
 
-function storeData(source, iswcs, codes) {
+function storeData(source, iswcs, codes, title) {
     let obj = {
         'source': source,
         'iswcs': iswcs,
-        'agencyCodes': codes
+        'agencyCodes': codes,
+        'title': title,
     };
 
     console.log(obj);
@@ -353,11 +371,16 @@ function handleISWCNet() {
         return table.querySelector('td[id="Preferred ISWC:"]').innerText;
     }
 
+    function findTitle(table) {
+        return table.querySelector('td[id="Original Title:"]').innerText;
+    }
+
     function parseAndCopy(table) {
         let workCodes = findAgencyWorkCodes(table);
         let iswcs = [findIswc(table)];
+        let title = findTitle(table);
 
-        storeData('CISAC ISWCNet', iswcs, workCodes);
+        storeData('CISAC ISWCNet', iswcs, workCodes, title);
     }
 
     function handleChangeCisac(mutationRec) {
