@@ -14,10 +14,19 @@
 // @grant        none
 // ==/UserScript==
 
+const DEBUG = false;
+function _debug_int(msg) {
+    console.debug('[caa_dimensions] ' + msg);
+}
+let _debug = DEBUG ? _debug_int : ((msg) => {});
+function _log(msg) {
+    console.log('[caa_dimensions] ' + msg);
+}
 
 let $ = this.$ = this.jQuery = jQuery.noConflict(true);
 
-function loadImageDimensions(imgUrl) {
+function actuallyLoadImageDimensions(imgUrl) {
+    _log(`Getting image dimensions for ${imgUrl}`);
     return new Promise((resolve, reject) => {
         // Create dummy element to contain the image, from which we retrieve the natural width and height.
         var img = document.createElement('img');
@@ -58,6 +67,24 @@ function loadImageDimensions(imgUrl) {
     });
 }
 
+let loadImageDimensions = (function() {
+    // Maps URLs to the promise that loads the image dimensions if it exists.
+    let windowCache = new Map();
+    function loadImageDimensions(imgUrl) {
+        if (windowCache.has(imgUrl)) {
+            _debug(`Using pre-existing promise for ${imgUrl}`);
+            return windowCache.get(imgUrl);
+        }
+
+        _debug(`Creating new promise for ${imgUrl}`);
+        let promise = actuallyLoadImageDimensions(imgUrl);
+        windowCache.set(imgUrl, promise);
+        return promise;
+    }
+
+    return loadImageDimensions;
+})();
+
 function displayDimensions(imgElement, dims) {
     imgElement.setAttribute('ROpdebee_lazyDimensions', 'pending...');
 
@@ -75,8 +102,6 @@ function cbImageInView(imgElement) {
     if (imgElement.getAttribute('ROpdebee_lazyDimensions')) {
         return;
     }
-
-    console.log(`Getting image dimensions for ${imgElement.getAttribute('fullSizeURL')}`);
 
     // Placeholder while loading, prevent from loading again.
     displayDimensions(imgElement, 'pending...');
