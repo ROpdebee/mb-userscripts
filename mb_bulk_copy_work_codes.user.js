@@ -66,33 +66,67 @@ function findDivByText(parent, text) {
 // MB
 //////////////
 
-function handleMB() {
 
-    // For agencies where the MB ID isn't just `<agency name> ID`
-    const agencyKeyTransformers = {
-        'BUMA': 'BUMA/STEMRA ID',
-        'PRS': 'PRS tune code',
-    };
+function normaliseID(id) {
+    // Fairly aggressive normalisation, just used for comparisons
+    // https://tickets.metabrainz.org/browse/MBS-11377
+    return id.replace(/(?:^0+|[\.\s-])/g, '');
+}
 
-    function agencyNameToID(agencyName) {
-        if (agencyKeyTransformers.hasOwnProperty(agencyName)) {
-            return agencyKeyTransformers[agencyName];
-        }
-        return agencyName += ' ID';
+// For agencies where the MB ID isn't just `<agency name> ID`
+const agencyKeyTransformations = {
+    'BUMA': 'BUMA/STEMRA ID',
+    'PRS': 'PRS tune code',
+};
+
+function agencyNameToID(agencyName) {
+    if (agencyKeyTransformations.hasOwnProperty(agencyName)) {
+        return agencyKeyTransformations[agencyName];
+    }
+    return agencyName += ' ID';
+}
+
+function getSelectedID(select) {
+    return select.options[select.selectedIndex].text.trim();
+}
+
+function computeAgencyConflicts(mbCodes, extCodes) {
+    // Conflicting IDs when MB already has IDs for this key and the external codes
+    // don't match the IDs that MB already has
+    let commonKeys = Object.keys(mbCodes).intersect(Object.keys(extCodes));
+    return commonKeys
+        .filter(k => mbCodes[k].length) // No MB codes => no conflicts
+        .filter(extCodes[k].map(normaliseID).difference(mbCodes[k].map(normaliseID)).length);
+}
+
+function confirmConflicts(conflicts) {
+    let msg = `Uh-oh. MB already has the following codes with conflicting data:
+${conflicts.join(', ')}
+Are you sure you want to fill these?
+Note: New codes will be added and will not replace the existing ones.`;
+    return window.confirm(msg);
+}
+
+
+class WorkEditForm {
+    constructor(theForm) {
+        this.form = form;
+        // Add the button to paste work codes
+        let btn = document.createElement('button');
+        btn.innerText = 'Paste work codes';
+        btn.id = 'ROpdebee_MB_Paste_Work';
+        btn.onclick = (evt) => {
+            evt.preventDefault();
+            // Since we use an arrow function, current `this` is the instance itself.
+            // We need to bind it properly to give a method reference though.
+            this.readData(this.pasteCodes.bind(this));
+        };
+
+        form.querySelector('table#work-attributes').prepend(btn);
     }
 
-    function normaliseID(id) {
-        // Fairly aggressive normalisation, just used for comparisons
-        // https://tickets.metabrainz.org/browse/MBS-11377
-        return id.replace(/(?:^0+|[\.\s-])/g, '');
-    }
-
-    function getSelectedID(select) {
-        return select.options[select.selectedIndex].text.trim();
-    }
-
-    function findExistingCodes(theForm) {
-        return [...theForm
+    get existingCodes() {
+        return [...this.form
             .querySelectorAll('table#work-attributes tr')]
             .map(row => ({
                     'select': row.querySelector('td > select'),
@@ -104,19 +138,31 @@ function handleMB() {
                 ({ input: { value }}) => value);
     }
 
-    function findISWCs(theForm) {
-        return [...theForm
-            .querySelectorAll('input[name*="edit-work.iswcs."]')]
+    get existingISWCs() {
+        return [...this.form
+            .querySelectorAll('input[name^="edit-work.iswcs."]')]
             .map(({ value }) => value)
             .filter(({ length }) => length);
     }
 
-    function getAgencyConflicts(mbCodes, extCodes) {
-        // Conflicting IDs when MB already has IDs for this key and the external codes
-        // don't match the IDs that MB already has
-        let commonKeys = Object.keys(mbCodes).intersect(Object.keys(extCodes));
-        return commonKeys.filter(k => mbCodes[k].length && extCodes[k].map(normaliseID).difference(mbCodes[k].map(normaliseID)).length);
+    findEmptyRow(parentSelector, inputName) {
+        let parent = this.form.querySelector(parentSelector);
+        let rows = [...parent.querySelectorAll('input[name*="' + inputName + '"]')];
+        let emptyRows = rows.filter(({value}) => !value.length);
+        if (emptyRows.length) {
+            return emptyRows[0];
+        }
+
+        // Need to add a new row
+        let newRowBtn = parent.querySelector('button.add-item');
+        newRowBtn.click();
+        return this.getEmptyRow(parentSelector, inputName);
     }
+
+
+}
+
+function handleMB() {
 
     function parse(raw) {
         try {
@@ -127,15 +173,6 @@ function handleMB() {
             console.log(e);
             return {};
         }
-    }
-
-
-    function askForConfirmation(conflicts) {
-        let msg = 'Uh-oh. MB already has the following codes with conflicting data:\n';
-        msg += conflicts.join(', ');
-        msg += '\nAre you sure you want to fill these?';
-        msg += '\nNote: New codes will be added and will not replace the existing ones.';
-        return window.confirm(msg);
     }
 
 
@@ -228,20 +265,6 @@ function handleMB() {
         titleInp.closest('div.row')
             .querySelector('button.guesscase-title')
             .click();
-    }
-
-    function getEmptyRow(root, parentSelector, inputName) {
-        let parent = root.querySelector(parentSelector);
-        let rows = [...parent.querySelectorAll('input[name*="' + inputName + '"]')];
-        let emptyRows = rows.filter(({value}) => !value.length);
-        if (emptyRows.length) {
-            return emptyRows[0];
-        }
-
-        // Need to add a new row
-        let newRowBtn = parent.querySelector('button.add-item');
-        newRowBtn.click();
-        return getEmptyRow(root, parentSelector, inputName);
     }
 
     function fillISWC(theForm, iswc) {
