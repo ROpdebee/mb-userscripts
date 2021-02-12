@@ -17,34 +17,45 @@
 
 let $ = this.$ = this.jQuery = jQuery.noConflict(true);
 
-function loadImageDimensions(imgUrl, cb) {
-    // Create dummy element to contain the image, from which we retrieve the natural width and height.
-    var img = document.createElement('img');
-    img.src = imgUrl;
+function loadImageDimensions(imgUrl) {
+    return new Promise((resolve, reject) => {
+        // Create dummy element to contain the image, from which we retrieve the natural width and height.
+        var img = document.createElement('img');
+        img.src = imgUrl;
 
-    let done = false;
-    // Poll continuously until we can retrieve the heigth/width of the element
-    // Ideally, this is before the image is fully loaded.
-    var poll = setInterval(function () {
-        if (img.naturalWidth) {
+        let done = false;
+        // Poll continuously until we can retrieve the height/width of the element
+        // Ideally, this is before the image is fully loaded.
+        var poll = setInterval(function () {
+            if (img.naturalWidth) {
+                clearInterval(poll);
+                let [w, h] = [img.naturalWidth, img.naturalHeight];
+                img.src = '';
+                done = true;
+                resolve([w, h]);
+            }
+        }, 50);
+
+        img.addEventListener('load', () => {
             clearInterval(poll);
-            let [w, h] = [img.naturalWidth, img.naturalHeight];
-            img.src = '';
-            done = true;
-            cb(w, h);
-        }
-    }, 50);
+            // If loaded but not yet done, fire the callback. Otherwise the interval is cleared
+            // and no results are sent to the CB.
+            if (!done) {
+                let [w, h] = [img.naturalWidth, img.naturalHeight];
+                done = true;
+                resolve([w, h]);
+            }
+        });
 
-    img.onload = function () {
-        clearInterval(poll);
-        // If loaded but not yet done, fire the callback. Otherwise the interval is cleared
-        // and no results are sent to the CB.
-        if (!done) {
-            let [w, h] = [img.naturalWidth, img.naturalHeight];
-            done = true;
-            cb(w, h);
-        }
-    }
+        img.addEventListener('error', () => {
+            clearInterval(poll);
+            if (!done) {
+                done = true;
+                reject();
+            }
+        });
+
+    });
 }
 
 function displayDimensions(imgElement, dims) {
@@ -70,9 +81,9 @@ function cbImageInView(imgElement) {
     // Placeholder while loading, prevent from loading again.
     displayDimensions(imgElement, 'pending...');
 
-    loadImageDimensions(imgElement.getAttribute('fullSizeURL'), (w, h) => {
-        displayDimensions(imgElement, `${w}x${h}`);
-    });
+    loadImageDimensions(imgElement.getAttribute('fullSizeURL'))
+        .then(([w, h]) => displayDimensions(imgElement, `${w}x${h}`))
+        .catch(() => displayDimensions(imgElement, 'failed :('));
 }
 
 let getDimensionsWhenInView = (function() {
