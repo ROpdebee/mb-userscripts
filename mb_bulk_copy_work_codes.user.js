@@ -188,6 +188,11 @@ function handleMB() {
         fillData(theForm, newISWCs, newCodes, data['source']);
     }
 
+    function fillInput(inp, val) {
+        inp.value = val;
+        inp.style.backgroundColor = 'yellow';
+    }
+
 
     function fillData(theForm, iswcs, codes, source) {
         iswcs.forEach(iswc => fillISWC(theForm, iswc));
@@ -224,7 +229,7 @@ function handleMB() {
 
     function fillISWC(theForm, iswc) {
         let row = getEmptyRow(theForm, 'div.form-row-text-list', 'edit-work.iswcs.');
-        row.value = iswc;
+        fillInput(row, iswc);
     }
 
 
@@ -241,7 +246,7 @@ function handleMB() {
             let input = getEmptyRow(theForm, 'table#work-attributes', 'edit-work.attributes.');
             // Will throw when the agency isn't know the MB, handled by caller.
             setRowKey(input.closest('tr').querySelector('td > select'), agencyKey);
-            input.value = code;
+            fillInput(input, code);
         });
     }
 
