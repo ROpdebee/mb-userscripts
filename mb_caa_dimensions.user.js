@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.2.12
+// @version      2021.2.13
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -25,6 +25,117 @@ function _log(msg) {
 
 let $ = this.$ = this.jQuery = jQuery.noConflict(true);
 
+const CACHE_DB_NAME = 'ROpdebee_CAA_Dimensions_Cache';
+const CACHE_STORE_NAME = 'cacheStore';
+const CACHE_DB_VERSION = 1;
+
+const CACHE_TIMESTAMP_NAME = 'ROpdebee_Last_Cache_Prune_Check';
+const CACHE_CHECK_INTERVAL = 24 * 60 * 60 * 1000;   // Daily
+const CACHE_STALE_TIME = 14 * 24 * 60 * 60 * 1000;  // 2 weeks
+
+function maybePruneCache(db) {
+    const lastCheck = parseInt(window.localStorage.getItem(CACHE_TIMESTAMP_NAME)) || 0;
+    const timeElapsed = Date.now() - lastCheck;
+    if (lastCheck && timeElapsed < CACHE_CHECK_INTERVAL) {
+        _debug(`Last checked at ${new Date(lastCheck)}, not pruning cache`);
+        return;
+    }
+
+    _log('Pruning stale entries from cache');
+    let idx = db
+        .transaction(CACHE_STORE_NAME, 'readwrite')
+        .objectStore(CACHE_STORE_NAME)
+        .index('added_datetime');
+    let range = IDBKeyRange.upperBound(Date.now() - CACHE_STALE_TIME);
+    idx.openCursor(range).onsuccess = function (evt) {
+        let cursor = evt.target.result;
+        if (cursor) {
+            _debug(`Removing ${cursor.value.url} (added at ${new Date(cursor.value.added_datetime)})`);
+            cursor.delete();
+            cursor.continue();
+        } else {
+            // Done
+            _debug('Done pruning stale entries');
+            window.localStorage.setItem(CACHE_TIMESTAMP_NAME, Date.now());
+        }
+    }
+
+}
+
+class CacheMgr {
+    constructor() {
+        // Promise that is resolved when a DB is successfully opened, and
+        // rejected when a DB cannot be opened or isn't available.
+        this.dbProm = new Promise((resolve, reject) => {
+            if (!window.indexedDB) {
+                _log('Not using cache, IndexedDB not supported?');
+                reject();
+            }
+
+            // Try to open a DB, if it fails, just don't use the cache
+            let dbReq = window.indexedDB.open(CACHE_DB_NAME, CACHE_DB_VERSION);
+            dbReq.onsuccess = ((evt) => {
+                _debug('Successfully opened indexed DB');
+                resolve(evt.target.result);
+            });
+            dbReq.onupgradeneeded = ((evt) => {
+                _log('Creating indexed DB object store');
+                let store = evt.target.result
+                    .createObjectStore(CACHE_STORE_NAME, { keyPath: 'url' });
+                // Index to quickly remove stale entries.
+                store.createIndex('added_datetime', 'added_datetime');
+            });
+            dbReq.onerror = ((evt) => {
+                _log(`Failed to open indexedDB: ${evt.target.errorCode}`);
+                reject();
+            });
+        });
+
+        this.dbProm.then(maybePruneCache);
+    }
+
+    loadFromCache(imgUrl) {
+        return this.dbProm
+            // If the DB was successfully loaded, use it to get the cache.
+            .then((db) => new Promise((resolve, reject) => {
+                let t = db.transaction(CACHE_STORE_NAME)
+                    .objectStore(CACHE_STORE_NAME)
+                    .get(imgUrl)
+                t.onsuccess = ((evt) => {
+                    let res = evt.target.result;
+                    if (res) {
+                        _debug(`${imgUrl}: Cache hit`);
+                        resolve([res.width, res.height]);
+                    } else {
+                        _debug(`${imgUrl}: Cache miss`);
+                        reject(null);
+                    }
+                });
+                t.onerror = ((evt) => {
+                    _log(`Failed to load ${imgUrl} from cache: ${evt.target.error}`);
+                    reject(evt.target.error);
+                });
+            }));
+    }
+
+    storeInCache(imgUrl, width, height) {
+        this.dbProm.then((db) => {
+            let obj = {url: imgUrl, width: width, height: height, added_datetime: Date.now()};
+            let t = db.transaction(CACHE_STORE_NAME, 'readwrite')
+                .objectStore(CACHE_STORE_NAME)
+                .put(obj)
+            t.onerror = ((evt) => {
+                _log(`Failed to store ${imgUrl} into cache: ${evt.target.error}`)
+            });
+            t.onsuccess = ((evt) => {
+                _debug(`${imgUrl} successfully stored in cache.`);
+            })
+        });
+    }
+}
+
+const cacheMgr = new CacheMgr();
+
 function actuallyLoadImageDimensions(imgUrl) {
     _log(`Getting image dimensions for ${imgUrl}`);
     return new Promise((resolve, reject) => {
@@ -41,6 +152,7 @@ function actuallyLoadImageDimensions(imgUrl) {
                 let [w, h] = [img.naturalWidth, img.naturalHeight];
                 img.src = '';
                 done = true;
+                cacheMgr.storeInCache(imgUrl, w, h);
                 resolve([w, h]);
             }
         }, 50);
@@ -52,15 +164,16 @@ function actuallyLoadImageDimensions(imgUrl) {
             if (!done) {
                 let [w, h] = [img.naturalWidth, img.naturalHeight];
                 done = true;
+                cacheMgr.storeInCache(imgUrl, w, h);
                 resolve([w, h]);
             }
         });
 
-        img.addEventListener('error', () => {
+        img.addEventListener('error', (evt) => {
             clearInterval(poll);
             if (!done) {
                 done = true;
-                reject();
+                reject(evt.target.error);
             }
         });
 
@@ -77,7 +190,11 @@ let loadImageDimensions = (function() {
         }
 
         _debug(`Creating new promise for ${imgUrl}`);
-        let promise = actuallyLoadImageDimensions(imgUrl);
+        let promise = cacheMgr
+            // Try loading from cache first
+            .loadFromCache(imgUrl)
+            // If we couldn't load it from the cache, actually do the loading
+            .catch((err) => actuallyLoadImageDimensions(imgUrl));
         windowCache.set(imgUrl, promise);
         return promise;
     }
@@ -108,7 +225,10 @@ function cbImageInView(imgElement) {
 
     loadImageDimensions(imgElement.getAttribute('fullSizeURL'))
         .then(([w, h]) => displayDimensions(imgElement, `${w}x${h}`))
-        .catch(() => displayDimensions(imgElement, 'failed :('));
+        .catch((err) => {
+            _log(err);
+            displayDimensions(imgElement, 'failed :(')
+        });
 }
 
 let getDimensionsWhenInView = (function() {
