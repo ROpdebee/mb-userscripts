@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.2.12
+// @version      2021.2.14
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -174,6 +174,13 @@ function handleMB() {
         let mbISWCs = findISWCs(theForm);
 
         // Sanity check
+        let dupeAgencies = Object.entries(externalCodes)
+            .filter(([key, codes]) => codes.length > 1)
+            .map(([key, codes]) => key);
+        if (dupeAgencies.length) {
+            alert(`WARNING: Found multiple codes for ${dupeAgencies.join(', ')}. `
+                + 'Please double-check whether all of these codes belong to this work.');
+        }
         let newISWCs = externalISWCs.difference(mbISWCs);
         let conflicts = getAgencyConflicts(mbCodes, externalCodes);
         if (newISWCs.length && mbISWCs.length) {
