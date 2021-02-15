@@ -280,15 +280,14 @@ function handleMB() {
         let noteContent = unknownAgencies.reduce((acc, [agencyKey, agencyCodes]) => {
             return acc + agencyKey + ': ' + agencyCodes.join(', ') + '\n';
         }, unknownAgencies.length ? 'Unsupported agencies:\n' : '');
-        noteContent += '\n---\n';
+        noteContent += '---\n';
         noteContent += `${GM_info.script.name} v${GM_info.script.version} (with data from ${source})\n`;
 
         let note = theForm.querySelector('textarea[name="edit-work.edit_note"]');
-        let prevVal = note.value;
+        let prevVal = note.value || '';
 
-        if (prevVal) {
-            noteContent = prevVal + noteContent;
-        }
+        // Adding a newline even if there's no content to add space for an edit note.
+        noteContent = prevVal + '\n' + noteContent;
 
         note.value = noteContent;
     }
