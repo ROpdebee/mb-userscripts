@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.2.15
+// @version      2021.2.15.2
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -99,7 +99,7 @@ function handleMB() {
                     'select': row.querySelector('td > select'),
                     'input': row.querySelector('td > input'),
                 }))
-            .filter(({ select, input }) => select !== null && select.selectedIndex !== 0 && input.value)
+            .filter(({ select, input }) => select !== null && select.selectedIndex !== 0 && input !== null && input.value)
             .groupBy(
                 ({ select }) => getSelectedID(select),
                 ({ input: { value }}) => value);
