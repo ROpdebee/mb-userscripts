@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.2.14
+// @version      2021.2.15
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -204,7 +204,9 @@ function handleMB() {
 
     function fillData(theForm, iswcs, codes, title, source) {
         iswcs.forEach(iswc => fillISWC(theForm, iswc));
-        let unknownAgencyCodes = Object.entries(codes).reduce(
+        let entries = Object.entries(codes);
+        entries.sort();
+        let unknownAgencyCodes = entries.reduce(
             (acc, [agencyKey, agencyCodes]) => {
                 try {
                     fillAgencyCodes(theForm, agencyKey, agencyCodes);
