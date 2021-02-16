@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.2.15.2
+// @version      2021.2.16
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -73,6 +73,7 @@ function handleMB() {
     const agencyKeyTransformers = {
         'BUMA': 'BUMA/STEMRA ID',
         'PRS': 'PRS tune code',
+        'SESAC Inc.': 'SESAC ID',
     };
 
     function agencyNameToID(agencyName) {
