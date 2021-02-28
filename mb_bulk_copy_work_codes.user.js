@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.2.11.2
+// @version      2021.2.17
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -18,6 +18,7 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_deleteValue
+// @grant        GM_info
 // ==/UserScript==
 
 
@@ -77,6 +78,8 @@ function normaliseID(id) {
 const agencyKeyTransformations = {
     'BUMA': 'BUMA/STEMRA ID',
     'PRS': 'PRS tune code',
+    'SESAC Inc.': 'SESAC ID',
+    'ZAIKS': 'ZAiKS ID',
 };
 
 function agencyNameToID(agencyName) {
@@ -132,7 +135,7 @@ class WorkEditForm {
                     'select': row.querySelector('td > select'),
                     'input': row.querySelector('td > input'),
                 }))
-            .filter(({ select, input }) => select !== null && select.selectedIndex !== 0 && input.value)
+            .filter(({ select, input }) => select !== null && select.selectedIndex !== 0 && input !== null && input.value)
             .groupBy(
                 ({ select }) => getSelectedID(select),
                 ({ input: { value }}) => value);
@@ -210,6 +213,13 @@ function handleMB() {
         let mbISWCs = findISWCs(theForm);
 
         // Sanity check
+        let dupeAgencies = Object.entries(externalCodes)
+            .filter(([key, codes]) => codes.length > 1)
+            .map(([key, codes]) => key);
+        if (dupeAgencies.length) {
+            alert(`WARNING: Found multiple codes for ${dupeAgencies.join(', ')}. `
+                + 'Please double-check whether all of these codes belong to this work.');
+        }
         let newISWCs = externalISWCs.difference(mbISWCs);
         let conflicts = getAgencyConflicts(mbCodes, externalCodes);
         if (newISWCs.length && mbISWCs.length) {
@@ -233,7 +243,9 @@ function handleMB() {
 
     function fillData(theForm, iswcs, codes, title, source) {
         iswcs.forEach(iswc => fillISWC(theForm, iswc));
-        let unknownAgencyCodes = Object.entries(codes).reduce(
+        let entries = Object.entries(codes);
+        entries.sort();
+        let unknownAgencyCodes = entries.reduce(
             (acc, [agencyKey, agencyCodes]) => {
                 try {
                     fillAgencyCodes(theForm, agencyKey, agencyCodes);
@@ -295,15 +307,14 @@ function handleMB() {
         let noteContent = unknownAgencies.reduce((acc, [agencyKey, agencyCodes]) => {
             return acc + agencyKey + ': ' + agencyCodes.join(', ') + '\n';
         }, unknownAgencies.length ? 'Unsupported agencies:\n' : '');
-        noteContent += '\n---\n';
-        noteContent += 'MB: Bulk copy-paste work codes with data from ' + source;
+        noteContent += '---\n';
+        noteContent += `${GM_info.script.name} v${GM_info.script.version} (with data from ${source})\n`;
 
         let note = theForm.querySelector('textarea[name="edit-work.edit_note"]');
-        let prevVal = note.value;
+        let prevVal = note.value || '';
 
-        if (prevVal) {
-            noteContent = prevVal + noteContent;
-        }
+        // Adding a newline even if there's no content to add space for an edit note.
+        noteContent = prevVal + '\n' + noteContent;
 
         note.value = noteContent;
     }
