@@ -93,13 +93,21 @@ function getSelectedID(select) {
     return select.options[select.selectedIndex].text.trim();
 }
 
+function setRowKey(select, agencyKey) {
+    let idx = [...select.options].findIndex(opt => opt.text.trim() === agencyKey);
+    if (idx < 0) {
+        throw new Error('Unknown agency key');
+    }
+    select.selectedIndex = idx;
+}
+
 function computeAgencyConflicts(mbCodes, extCodes) {
     // Conflicting IDs when MB already has IDs for this key and the external codes
     // don't match the IDs that MB already has
     let commonKeys = Object.keys(mbCodes).intersect(Object.keys(extCodes));
     return commonKeys
         .filter(k => mbCodes[k].length) // No MB codes => no conflicts
-        .filter(extCodes[k].map(normaliseID).difference(mbCodes[k].map(normaliseID)).length);
+        .filter(k => extCodes[k].map(normaliseID).difference(mbCodes[k].map(normaliseID)).length);
 }
 
 function confirmConflicts(conflicts) {
@@ -110,10 +118,69 @@ Note: New codes will be added and will not replace the existing ones.`;
     return window.confirm(msg);
 }
 
+function parseData(raw) {
+    try {
+        return JSON.parse(raw);
+    } catch(e) {
+        alert('Invalid data');
+        console.log(raw);
+        console.log(e);
+        return {};
+    }
+}
+
+
+function extractCodes(data) {
+    let agencyCodes = data['agencyCodes'];
+    return Object.entries(agencyCodes).reduce(
+        (acc, [key, codes]) => {
+            acc[agencyNameToID(key)] = codes;
+            return acc;
+        }, {});
+}
+
+
+function retainOnlyNew(externalCodes, mbCodes) {
+    return Object.entries(externalCodes).reduce((acc, [key, codes]) => {
+        if (!mbCodes.hasOwnProperty(key)) {
+            acc[key] = codes;
+        } else {
+            let mbNormCodes = mbCodes[key].map(normaliseID)
+            acc[key] = codes
+                .filter(id => !mbNormCodes.includes(normaliseID(id)));
+        }
+        return acc;
+    }, {});
+}
+
+function fillInput(inp, val) {
+    inp.value = val;
+    inp.style.backgroundColor = 'yellow';
+}
+
+
+function readData(cb) {
+    let data = GM_getValue('workCodeData');
+    if (!data) {
+        alert('No data found. Did you copy anything?');
+        return;
+    }
+
+    cb(data);
+    // Reset again to prevent filling the same data on another edit page.
+    GM_deleteValue('workCodeData');
+}
+
 
 class WorkEditForm {
     constructor(theForm) {
-        this.form = form;
+        this.form = theForm;
+        this.form.ROpdebee_Work_Codes_Found = true; // Prevent processing it again
+
+        this.addToolsUI();
+    }
+
+    addToolsUI() {
         // Add the button to paste work codes
         let btn = document.createElement('button');
         btn.innerText = 'Paste work codes';
@@ -122,10 +189,10 @@ class WorkEditForm {
             evt.preventDefault();
             // Since we use an arrow function, current `this` is the instance itself.
             // We need to bind it properly to give a method reference though.
-            this.readData(this.pasteCodes.bind(this));
+            readData(this.checkAndFill.bind(this));
         };
 
-        form.querySelector('table#work-attributes').prepend(btn);
+        this.form.querySelector('table#work-attributes').prepend(btn);
     }
 
     get existingCodes() {
@@ -159,58 +226,16 @@ class WorkEditForm {
         // Need to add a new row
         let newRowBtn = parent.querySelector('button.add-item');
         newRowBtn.click();
-        return this.getEmptyRow(parentSelector, inputName);
+        return this.findEmptyRow(parentSelector, inputName);
     }
 
-
-}
-
-function handleMB() {
-
-    function parse(raw) {
-        try {
-            return JSON.parse(raw);
-        } catch(e) {
-            alert('Invalid data');
-            console.log(raw);
-            console.log(e);
-            return {};
-        }
-    }
-
-
-    function extractCodes(data) {
-        let agencyCodes = data['agencyCodes'];
-        return Object.entries(agencyCodes).reduce(
-            (acc, [key, codes]) => {
-                acc[agencyNameToID(key)] = codes;
-                return acc;
-            }, {});
-    }
-
-
-    function retainOnlyNew(externalCodes, mbCodes) {
-        return Object.entries(externalCodes).reduce((acc, [key, codes]) => {
-            if (!mbCodes.hasOwnProperty(key)) {
-                acc[key] = codes;
-            } else {
-                let mbNormCodes = mbCodes[key].map(normaliseID)
-                acc[key] = codes
-                    .filter(id => !mbNormCodes.includes(normaliseID(id)));
-            }
-            return acc;
-        }, {});
-    }
-
-
-    function pasteCodes(raw, table) {
-        let data = parse(raw);
-        let theForm = table.closest('form.edit-work');
+    checkAndFill(rawData) {
+        let data = parseData(rawData);
         console.log(data);
         let externalCodes = extractCodes(data);
         let externalISWCs = data['iswcs'];
-        let mbCodes = findExistingCodes(theForm);
-        let mbISWCs = findISWCs(theForm);
+        let mbCodes = this.existingCodes;
+        let mbISWCs = this.existingISWCs;
 
         // Sanity check
         let dupeAgencies = Object.entries(externalCodes)
@@ -221,7 +246,7 @@ function handleMB() {
                 + 'Please double-check whether all of these codes belong to this work.');
         }
         let newISWCs = externalISWCs.difference(mbISWCs);
-        let conflicts = getAgencyConflicts(mbCodes, externalCodes);
+        let conflicts = computeAgencyConflicts(mbCodes, externalCodes);
         if (newISWCs.length && mbISWCs.length) {
             conflicts.unshift('ISWC');
         }
@@ -232,39 +257,33 @@ function handleMB() {
 
         let newCodes = retainOnlyNew(externalCodes, mbCodes);
 
-        fillData(theForm, newISWCs, newCodes, data['title'], data['source']);
+        this.fillData(newISWCs, newCodes, data['title'], data['source']);
     }
 
-    function fillInput(inp, val) {
-        inp.value = val;
-        inp.style.backgroundColor = 'yellow';
-    }
-
-
-    function fillData(theForm, iswcs, codes, title, source) {
-        iswcs.forEach(iswc => fillISWC(theForm, iswc));
+    fillData(iswcs, codes, title, source) {
+        iswcs.forEach(this.fillISWC.bind(this));
         let entries = Object.entries(codes);
         entries.sort();
         let unknownAgencyCodes = entries.reduce(
             (acc, [agencyKey, agencyCodes]) => {
                 try {
-                    fillAgencyCodes(theForm, agencyKey, agencyCodes);
+                    this.fillAgencyCodes(agencyKey, agencyCodes);
                 } catch (e) {
                     if (e.message === 'Unknown agency key') {
                         acc.push([agencyKey, agencyCodes]);
-                    } else{
+                    } else {
                         throw e;
                     }
                 }
                 return acc;
             }, []);
 
-        maybeFillTitle(theForm, title);
-        fillEditNote(theForm, unknownAgencyCodes, source);
+        this.maybeFillTitle(title);
+        this.fillEditNote(unknownAgencyCodes, source);
     }
 
-    function maybeFillTitle(root, title) {
-        let titleInp = root.querySelector('input[name="edit-work.name"]');
+    maybeFillTitle(title) {
+        let titleInp = this.form.querySelector('input[name="edit-work.name"]');
         if (titleInp.value) {
             // Not filling if already filled.
             return;
@@ -279,23 +298,14 @@ function handleMB() {
             .click();
     }
 
-    function fillISWC(theForm, iswc) {
-        let row = getEmptyRow(theForm, 'div.form-row-text-list', 'edit-work.iswcs.');
+    fillISWC(iswc) {
+        let row = this.findEmptyRow('div.form-row-text-list', 'edit-work.iswcs.');
         fillInput(row, iswc);
     }
 
-
-    function setRowKey(select, agencyKey) {
-        let idx = [...select.options].findIndex(opt => opt.text.trim() === agencyKey);
-        if (idx < 0) {
-            throw new Error('Unknown agency key');
-        }
-        select.selectedIndex = idx;
-    }
-
-    function fillAgencyCodes(theForm, agencyKey, agencyCodes) {
+    fillAgencyCodes(agencyKey, agencyCodes) {
         agencyCodes.forEach(code => {
-            let input = getEmptyRow(theForm, 'table#work-attributes', 'edit-work.attributes.');
+            let input = this.findEmptyRow('table#work-attributes', 'edit-work.attributes.');
             // Will throw when the agency isn't know the MB, handled by caller.
             setRowKey(input.closest('tr').querySelector('td > select'), agencyKey);
             fillInput(input, code);
@@ -303,14 +313,14 @@ function handleMB() {
     }
 
 
-    function fillEditNote(theForm, unknownAgencies, source) {
+    fillEditNote(unknownAgencies, source) {
         let noteContent = unknownAgencies.reduce((acc, [agencyKey, agencyCodes]) => {
             return acc + agencyKey + ': ' + agencyCodes.join(', ') + '\n';
         }, unknownAgencies.length ? 'Unsupported agencies:\n' : '');
         noteContent += '---\n';
         noteContent += `${GM_info.script.name} v${GM_info.script.version} (with data from ${source})\n`;
 
-        let note = theForm.querySelector('textarea[name="edit-work.edit_note"]');
+        let note = this.form.querySelector('textarea[name="edit-work.edit_note"]');
         let prevVal = note.value || '';
 
         // Adding a newline even if there's no content to add space for an edit note.
@@ -319,47 +329,27 @@ function handleMB() {
         note.value = noteContent;
     }
 
-    function readData(cb) {
-        let data = GM_getValue('workCodeData');
-        if (!data) {
-            alert('No data found. Did you copy anything?');
-            return;
-        }
 
-        cb(data);
-        // Reset again to prevent filling the same data on another edit page.
-        GM_deleteValue('workCodeData');
-    }
+}
+
+function handleMB() {
 
     function handleChange(mutationRec) {
         // Whenever a change occurs, try to add buttons to the attr table.
-        let attrTables = [...document.querySelectorAll('table#work-attributes')];
+        let workForms = [...document.querySelectorAll('form.edit-work')];
         document.querySelectorAll('iframe').forEach(iframe =>
             iframe.contentWindow.document
-                .querySelectorAll('table#work-attributes')
-                .forEach(table => attrTables.push(table)));
+                .querySelectorAll('form.edit-work')
+                .forEach(form => workForms.push(form)));
 
-        attrTables.forEach(addBtnToAttrTable);
+        workForms
+            .filter(f => !f.ROpdebee_Work_Codes_Found)
+            .forEach(f => new WorkEditForm(f));
     }
 
-    function addBtnToAttrTable(attrTable) {
-        if (attrTable.querySelector('button#ROpdebee_MB_Paste_Work')) {
-            // Already added
-            return;
-        }
-        let btn = document.createElement('button');
-        btn.innerText = 'Paste work codes';
-        btn.id = 'ROpdebee_MB_Paste_Work';
-        btn.onclick = (evt) => {
-            evt.preventDefault();
-            readData(data => pasteCodes(data, attrTable));
-        };
-        attrTable.prepend(btn);
-    }
-
-    let attrTable = document.querySelector('table#work-attributes');
-    if (attrTable) {
-        addBtnToAttrTable(attrTable);
+    let theForm = document.querySelector('form.edit-work');
+    if (theForm && !theForm.ROpdebee_Work_Codes_Found) {
+        new WorkEditForm(theForm);
     }
 
     let observer = new MutationObserver(handleChange);
