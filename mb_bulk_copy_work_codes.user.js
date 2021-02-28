@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.2.17
+// @version      2021.2.28
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -68,6 +68,13 @@ function findDivByText(parent, text) {
 //////////////
 
 
+const LOG_STYLES = {
+    'error': 'background-color: FireBrick; color: white; font-weight: bold;',
+    'warning': 'background-color: Gold;',
+    'info': 'background-color: GainsBoro;',
+    'success': 'background-color: LightGreen;',
+};
+
 function normaliseID(id) {
     // Fairly aggressive normalisation, just used for comparisons
     // https://tickets.metabrainz.org/browse/MBS-11377
@@ -107,26 +114,8 @@ function computeAgencyConflicts(mbCodes, extCodes) {
     let commonKeys = Object.keys(mbCodes).intersect(Object.keys(extCodes));
     return commonKeys
         .filter(k => mbCodes[k].length) // No MB codes => no conflicts
-        .filter(k => extCodes[k].map(normaliseID).difference(mbCodes[k].map(normaliseID)).length);
-}
-
-function confirmConflicts(conflicts) {
-    let msg = `Uh-oh. MB already has the following codes with conflicting data:
-${conflicts.join(', ')}
-Are you sure you want to fill these?
-Note: New codes will be added and will not replace the existing ones.`;
-    return window.confirm(msg);
-}
-
-function parseData(raw) {
-    try {
-        return JSON.parse(raw);
-    } catch(e) {
-        alert('Invalid data');
-        console.log(raw);
-        console.log(e);
-        return {};
-    }
+        .filter(k => extCodes[k].map(normaliseID).difference(mbCodes[k].map(normaliseID)).length)
+        .map(k => [k, mbCodes[k], extCodes[k]]);
 }
 
 
@@ -158,41 +147,54 @@ function fillInput(inp, val) {
     inp.style.backgroundColor = 'yellow';
 }
 
+// Style and concept by loujine
+// https://github.com/loujine/musicbrainz-scripts/blob/master/mbz-loujine-common.js (MIT license).
+const mainUIHTML = `<div id="ropdebee-work-menu"
+        style="background-color: white;
+        padding: 8px; margin: 0px -6px 6px 550px;
+        border: 5px dotted rgb(115, 109, 171);">
+    <h2>ROpdebee's work code tools</h2><br/>
+    <div class="buttons">
+        <button type="button" id="ROpdebee_MB_Paste_Work"
+                title="Fill work codes from previously copied agency data."
+                style="cursor: help;"
+            >Fill work codes</button>
+        <button type="button" id="ROpdebee_MB_Format_Codes"
+                title="Correct work code formatting."
+                style="cursor: help; display: none;"
+            >Format work codes</button>
+    </div>
+    <div id="ROpdebee_MB_Paste_Work_Log" style="display: none; max-height: 100px; overflow: auto;"><h3>Log</h3></div>
+    <div id="ROpdebee_MB_Code_Validation_Errors" style="display: none;"><h3>Validation errors</h3></div> <!-- spoiler alert -->
+</div>`
 
-function readData(cb) {
-    let data = GM_getValue('workCodeData');
-    if (!data) {
-        alert('No data found. Did you copy anything?');
-        return;
-    }
-
-    cb(data);
-    // Reset again to prevent filling the same data on another edit page.
-    GM_deleteValue('workCodeData');
-}
-
-
-class WorkEditForm {
+class BaseWorkForm {
     constructor(theForm) {
         this.form = theForm;
         this.form.ROpdebee_Work_Codes_Found = true; // Prevent processing it again
 
         this.addToolsUI();
+        this.activateButtons();
     }
 
-    addToolsUI() {
-        // Add the button to paste work codes
-        let btn = document.createElement('button');
-        btn.innerText = 'Paste work codes';
-        btn.id = 'ROpdebee_MB_Paste_Work';
-        btn.onclick = (evt) => {
+    activateButtons() {
+        // The button to paste work codes
+        let pasteBtn = this.form.querySelector('button#ROpdebee_MB_Paste_Work');
+        pasteBtn.onclick = (evt) => {
             evt.preventDefault();
             // Since we use an arrow function, current `this` is the instance itself.
             // We need to bind it properly to give a method reference though.
-            readData(this.checkAndFill.bind(this));
+            this.resetLog();
+            this.readData(this.checkAndFill.bind(this));
         };
+    }
 
-        this.form.querySelector('table#work-attributes').prepend(btn);
+    resetLog() {
+        let logDiv = this.form.querySelector('div#ROpdebee_MB_Paste_Work_Log');
+        logDiv.style.display = 'none';
+        [...logDiv.children]
+            .slice(1)  // Skip the heading
+            .forEach(el => el.remove());
     }
 
     get existingCodes() {
@@ -230,7 +232,7 @@ class WorkEditForm {
     }
 
     checkAndFill(rawData) {
-        let data = parseData(rawData);
+        let data = this.parseData(rawData);
         console.log(data);
         let externalCodes = extractCodes(data);
         let externalISWCs = data['iswcs'];
@@ -242,22 +244,28 @@ class WorkEditForm {
             .filter(([key, codes]) => codes.length > 1)
             .map(([key, codes]) => key);
         if (dupeAgencies.length) {
-            alert(`WARNING: Found multiple codes for ${dupeAgencies.join(', ')}. `
-                + 'Please double-check whether all of these codes belong to this work.');
+            const lis = dupeAgencies.reduce((acc, agncy) => {
+                return acc + `<li>${agncy}: ${externalCodes[agncy].join(', ')}</li>`
+            }, '');
+            this.log('warning', `
+                Found duplicate work codes in input.
+                Please double-check whether all of these codes belong to this work.
+                <ul>${lis}</ul>`);
         }
         let newISWCs = externalISWCs.difference(mbISWCs);
         let conflicts = computeAgencyConflicts(mbCodes, externalCodes);
         if (newISWCs.length && mbISWCs.length) {
-            conflicts.unshift('ISWC');
-        }
-        if (conflicts.length && !askForConfirmation(conflicts)) {
-            console.log('Refusing to input codes');
-            return;
+            conflicts.unshift(['ISWC', mbISWCs, externalISWCs]);
         }
 
-        let newCodes = retainOnlyNew(externalCodes, mbCodes);
-
-        this.fillData(newISWCs, newCodes, data['title'], data['source']);
+        // Confirm in case of conflicts.
+        let confirmProm = conflicts.length ? this.promptForConfirmation(conflicts) : new Promise((resolve, reject) => resolve());
+        confirmProm.then(() => {
+            let newCodes = retainOnlyNew(externalCodes, mbCodes);
+            this.fillData(newISWCs, newCodes, data['title'], data['source']);
+            let numWarnings = this.form.querySelectorAll('div#ROpdebee_MB_Paste_Work_Log > div').length;
+            this.log('success', 'Filled successfully' + (numWarnings ? ` (${numWarnings} message(s))` : ''));
+        });
     }
 
     fillData(iswcs, codes, title, source) {
@@ -278,6 +286,15 @@ class WorkEditForm {
                 return acc;
             }, []);
 
+        if (unknownAgencyCodes.length) {
+            const lis = unknownAgencyCodes.reduce((acc, [agncy, codes]) => {
+                return acc + `<li>${agncy}: ${codes.join(', ')}</li>`
+            }, '');
+            this.log('warning', `
+                Encountered unsupported agencies.
+                If you encounter these a lot, please consider filing a ticket.
+                <ul>${lis}</ul>`);
+        }
         this.maybeFillTitle(title);
         this.fillEditNote(unknownAgencyCodes, source);
     }
@@ -329,27 +346,97 @@ class WorkEditForm {
         note.value = noteContent;
     }
 
+    readData(cb) {
+        let data = GM_getValue('workCodeData');
+        if (!data) {
+            this.log('error', 'No data found. Did you copy anything?');
+            return;
+        }
 
+        cb(data);
+        // Reset again to prevent filling the same data on another edit page.
+        GM_deleteValue('workCodeData');
+    }
+
+    parseData(raw) {
+        try {
+            return JSON.parse(raw);
+        } catch(e) {
+            this.log('error', 'Invalid data');
+            console.log(raw);
+            console.log(e);
+            return {};
+        }
+    }
+
+    promptForConfirmation(conflicts) {
+        const lis = conflicts.reduce((acc, [agncy, mbCodes, extCodes]) => {
+            return acc + `<li>${agncy}: [${mbCodes.join(', ')}] vs [${extCodes.join(', ')}]</li>`
+        }, '');
+        let msg = `Uh-oh. MB already has the following codes with conflicting data:
+        Are you sure you want to fill these?
+        Note: New codes will be added and will not replace the existing ones.<br/>
+        <ul>${lis}</ul>
+        <button type="button" class="conflict-confirm">Confirm</button>`;
+        this.log('warning', msg);
+        return new Promise((resolve, reject) => {
+            this.form.querySelector('.conflict-confirm').addEventListener('click', (evt) => {
+                evt.target.disabled = true;
+                evt.preventDefault();
+                resolve();
+            });
+        });
+    }
+
+    log(level, html) {
+        let logDiv = this.form.querySelector('div#ROpdebee_MB_Paste_Work_Log');
+        logDiv.insertAdjacentHTML('beforeend', `
+            <div style="border: 1px dashed gray; padding: 2px 2px 5px 5px; margin-top: 2px; ${LOG_STYLES[level]}">${html}</div>`);
+        logDiv.style.display = 'block';
+        logDiv.scrollTop = logDiv.scrollHeight;
+    }
+}
+
+class WorkEditForm extends BaseWorkForm {
+    addToolsUI() {
+        this.form.querySelector('.documentation').insertAdjacentHTML('beforebegin', mainUIHTML);
+    }
+}
+
+class IframeEditForm extends BaseWorkForm {
+    addToolsUI() {
+        this.form.querySelector('.half-width').insertAdjacentHTML('beforebegin', mainUIHTML);
+        this.form.querySelector('#ropdebee-work-menu').style['margin-left'] = 0;
+    }
+}
+
+
+function editFormFactory(theForm, inIframe) {
+    if (inIframe) {
+        return new IframeEditForm(theForm);
+    }
+
+    return new WorkEditForm(theForm);
 }
 
 function handleMB() {
 
     function handleChange(mutationRec) {
         // Whenever a change occurs, try to add buttons to the attr table.
-        let workForms = [...document.querySelectorAll('form.edit-work')];
+        let workForms = [...document.querySelectorAll('form.edit-work')].map(f => [f, false]);
         document.querySelectorAll('iframe').forEach(iframe =>
             iframe.contentWindow.document
                 .querySelectorAll('form.edit-work')
-                .forEach(form => workForms.push(form)));
+                .forEach(form => workForms.push([form, true])));
 
         workForms
-            .filter(f => !f.ROpdebee_Work_Codes_Found)
-            .forEach(f => new WorkEditForm(f));
+            .filter(f => !f[0].ROpdebee_Work_Codes_Found)
+            .forEach(([f, inIframe]) => editFormFactory(f, inIframe));
     }
 
     let theForm = document.querySelector('form.edit-work');
     if (theForm && !theForm.ROpdebee_Work_Codes_Found) {
-        new WorkEditForm(theForm);
+        editFormFactory(theForm, false);
     }
 
     let observer = new MutationObserver(handleChange);
