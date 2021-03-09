@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.2.19
+// @version      2021.3.9
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -255,19 +255,16 @@ $(document).ready(() => {
             return;
         }
         let anchor = $(div).find('p.small > a:last')[0];
+        if (!anchor) return;
         imgElement.setAttribute('fullSizeURL', anchor.href);
         getDimensionsWhenInView(imgElement);
     });
 
-    // edit pages
-    $('td.edit-cover-art img').each((i, img) => {
-        img.setAttribute('fullSizeURL', img.closest('a.artwork-image').href);
-        getDimensionsWhenInView(img);
-    });
-
-    // release page
-    $('#sidebar .cover-art-image > img').each((i, img) => {
-        img.setAttribute('fullSizeURL', img.closest('a.artwork-image').href);
+    // edit pages + release page
+    $('td.edit-cover-art img, #sidebar .cover-art-image > img').each((i, img) => {
+        let anchor = img.closest('a.artwork-image');
+        if (!anchor) return;
+        img.setAttribute('fullSizeURL', anchor.href);
         getDimensionsWhenInView(img);
     });
 });
