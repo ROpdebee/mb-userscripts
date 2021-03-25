@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.3.9
+// @version      2021.3.25
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@
 // @match        *://musicbrainz.org/*
 // @match        *://*.musicbrainz.org/*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js
-// @run-at       document-end
+// @run-at       document-start
 // @grant        none
 // ==/UserScript==
 
@@ -243,9 +243,10 @@ let getDimensionsWhenInView = (function() {
     return (elmt) => observer.observe(elmt);
 })();
 
-$(document).ready(() => {
-    // Expose the function for use in other scripts that may load images.
-    window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
+// Expose the function for use in other scripts that may load images.
+window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
+
+$(window).on('load', () => {
 
     // cover art pages
     $('#content div.artwork-cont').each((i, div) => {
