@@ -304,6 +304,7 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
   setImage: function(container, image) {
     // Remove pre-existing image, if any.
     container.find('img').off('load').off('error').remove();
+    container.find('span#dimensions').remove();
     container.find('span.error').remove();
     let $types = container.find('p.ROpdebee_coverTypes');
     if (!$types.length) {
@@ -378,6 +379,8 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
     if (!$similarity.length) {
         $similarity = $('<p>').addClass('ROpdebee_similarity');
         $diff.append($similarity);
+    } else {
+        $similarity.text('');
     }
 
     let $img = $('<img>').addClass('ROpdebee_loading');
