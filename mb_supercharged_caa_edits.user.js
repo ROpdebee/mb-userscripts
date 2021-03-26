@@ -289,7 +289,7 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         .removeClass('ROpdebee_dialogSbs')
         .addClass('ROpdebee_dialogOverlay');
 
-    this.$source.find('h2').text('Source (hover for target)');
+    this.$source.find('h3').text('Source (hover for target)');
     this.$target.hide();
     this.$source.mouseenter(() => {
         this.$source.toggle();
