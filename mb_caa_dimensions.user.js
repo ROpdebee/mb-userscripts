@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.3.25
+// @version      2021.3.26
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -203,15 +203,15 @@ let loadImageDimensions = (function() {
 })();
 
 function displayDimensions(imgElement, dims) {
-    imgElement.setAttribute('ROpdebee_lazyDimensions', 'pending...');
+    imgElement.setAttribute('ROpdebee_lazyDimensions', 'pending…');
 
     let dimensionStr = `Dimensions: ${dims}`;
-    let existing = $(imgElement).parent().find('span#dimensions');
-    if (existing.length) {
-        existing[0].innerText = dimensionStr;
-    } else {
-        $(imgElement).after(`<br/><span id="dimensions">${dimensionStr}</span>`);
+    let existing = $(imgElement).parent().find('span.ROpdebee_dimensions');
+    if (!existing.length) {
+        existing = $('<span>').addClass('ROpdebee_dimensions').css('display', 'block');
+        $(imgElement).after(existing);
     }
+    existing.text(dimensionStr);
 }
 
 function cbImageInView(imgElement) {
@@ -220,8 +220,14 @@ function cbImageInView(imgElement) {
         return;
     }
 
+    // If there's no full size URL, don't attempt to load dimensions
+    if (!imgElement.getAttribute('fullSizeURL')) {
+        _log('No fullSizeURL on image, not loading');
+        return;
+    }
+
     // Placeholder while loading, prevent from loading again.
-    displayDimensions(imgElement, 'pending...');
+    displayDimensions(imgElement, 'pending…');
 
     loadImageDimensions(imgElement.getAttribute('fullSizeURL'))
         .then(([w, h]) => displayDimensions(imgElement, `${w}x${h}`))

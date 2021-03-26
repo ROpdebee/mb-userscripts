@@ -304,11 +304,10 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
   setImage: function(container, image) {
     // Remove pre-existing image, if any.
     container.find('img').off('load').off('error').remove();
-    container.find('span#dimensions').remove();
     container.find('span.error').remove();
-    let $types = container.find('p.ROpdebee_coverTypes');
+    let $types = container.find('span.ROpdebee_coverTypes');
     if (!$types.length) {
-        $types = $('<p>').addClass('ROpdebee_coverTypes');
+        $types = $('<span>').addClass('ROpdebee_coverTypes');
         container.append($types);
     }
 
@@ -348,13 +347,12 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
             let ctx = canvas.getContext('2d');
             ctx.drawImage($img[0], 0, 0, w, h);
             resolve(canvas.toDataURL());
-
-            getDimensionsWhenInView($img[0]);
         });
 
         // First try with a 1200px thumb, we'll retry with 500px if it fails
         $img.attr('src', fixCaaUrl(this.useFullSize ? image.image : image.thumbnails['1200']));
         container.find('h3').after($img);
+        getDimensionsWhenInView($img[0]);
     });
   },
 
@@ -375,9 +373,9 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
     // resolves late, it won't change anything on screen.
     $diff.find('img').remove();
 
-    let $similarity = $diff.find('p.ROpdebee_similarity');
+    let $similarity = $diff.find('span.ROpdebee_similarity');
     if (!$similarity.length) {
-        $similarity = $('<p>').addClass('ROpdebee_similarity');
+        $similarity = $('<span>').addClass('ROpdebee_similarity');
         $diff.append($similarity);
     } else {
         $similarity.text('');
@@ -488,7 +486,7 @@ class CAAEdit {
     insertComparisonImages() {
         let $td = this.$edit.find('td.ROpdebee_comparisonImage');
         if (this.otherImages.length === 0) {
-            let $span = $('<p>').text('No other images found!');
+            let $span = $('<span>').text('No other images found!');
             $td.append($span);
             $td.removeClass('ROpdebee_loading');
             return;
@@ -513,9 +511,9 @@ class CAAEdit {
                 .text('Previous')
                 .click(this.prevImage.bind(this));
 
-            $td.append(this.$a, this.$prev, this.$next, this.$compare, '<br />', this.$types);
+            $td.append(this.$a, this.$prev, this.$next, this.$compare, this.$types);
         } else {
-            $td.append(this.$a, this.$compare, '<br />', this.$types);
+            $td.append(this.$a, this.$compare, this.$types);
         }
 
         $td.removeClass('ROpdebee_loading');
@@ -548,7 +546,7 @@ class CAAEdit {
         let thumbUrl = fixCaaUrl(selectedImg.thumbnails.large);
         let fullSizeUrl = fixCaaUrl(selectedImg.image);
 
-        this.$a.href = fullSizeUrl;
+        this.$a.attr('href', fullSizeUrl);
 
         // Remove previous element, if any
         // We remove and add rather than just modify in place, because modifying
@@ -556,8 +554,8 @@ class CAAEdit {
         this.$edit.find('.ROpdebee_comparisonImage img').remove();
 
         let $img = $('<img>')
-            .attr('src', thumbUrl)
             .attr('fullSizeURL', fullSizeUrl)
+            .attr('src', thumbUrl)
             .addClass('ROpdebee_loading');
         $img.on('load', $img.removeClass.bind($img, 'ROpdebee_loading'));
         this.$a.prepend($img);
