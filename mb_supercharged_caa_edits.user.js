@@ -5,8 +5,8 @@
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
-// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_cover_art_replacements.user.js
-// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_cover_art_replacements.user.js
+// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_supercharged_caa_edits.user.js
+// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_supercharged_caa_edits.user.js
 // @match        *://musicbrainz.org/*
 // @match        *://*.musicbrainz.org/*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js
