@@ -499,7 +499,7 @@ class CAAEdit {
             .text('Compare')
             .css('float', 'right')
             .click(openComparisonDialog.bind(null, this));
-        this.$types = $('<span>');
+        this.$types = $('<span>').css('display', 'block');
 
         if (this.otherImages.length > 1) {
             this.$next = $('<button>')
@@ -511,9 +511,9 @@ class CAAEdit {
                 .text('Previous')
                 .click(this.prevImage.bind(this));
 
-            $td.append(this.$a, this.$prev, this.$next, this.$compare, this.$types);
+            $td.append(this.$a, this.$types, this.$prev, this.$next, this.$compare);
         } else {
-            $td.append(this.$a, this.$compare, this.$types);
+            $td.append(this.$a, this.$types, this.$compare);
         }
 
         $td.removeClass('ROpdebee_loading');
@@ -666,9 +666,6 @@ function setupStyle() {
         width: 33vw;
         height: 33vw;
     }`);
-    /*style.sheet.insertRule(`.ROpdebee_dialogImage.ROpdebee_dialogOverlay:nth-of-type(2) {
-        position: absolute;
-    }`);*/
 
 }
 
