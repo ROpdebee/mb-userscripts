@@ -642,8 +642,11 @@ async function processEdit(edit) {
     let releaseDetails = await getReleaseDetails(mbid);
     let gid = releaseDetails.id;
     let allImages = await getAllImages(mbid);
-    let pendingRemovals = await getPendingRemovals(gid);
-    let retainedImages = allImages.filter(img => !pendingRemovals.has(img.id) || img.id === imageId);
+    let retainedImages = allImages;
+    if ($edit.hasClass('remove-cover-art')) {
+        let pendingRemovals = await getPendingRemovals(gid);
+        retainedImages = allImages.filter(img => !pendingRemovals.has(img.id) || img.id === imageId);
+    }
     let currImage = allImages.find(img => img.id == imageId);
     let currTypes = currImage ? currImage.types : [];
 
@@ -702,7 +705,7 @@ function setupStyle() {
 function main() {
     setupStyle();
 
-    $('.open.remove-cover-art').parent().each((i, e) => processEditWhenInView(e));
+    $('.open.remove-cover-art, .open.add-cover-art').parent().each((i, e) => processEditWhenInView(e));
 }
 
 main();
