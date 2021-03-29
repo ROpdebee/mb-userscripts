@@ -643,7 +643,7 @@ async function processEdit(edit) {
     let gid = releaseDetails.id;
     let allImages = await getAllImages(mbid);
     let retainedImages = allImages;
-    if ($edit.hasClass('remove-cover-art')) {
+    if ($edit.find('.remove-cover-art').length) {
         let pendingRemovals = await getPendingRemovals(gid);
         retainedImages = allImages.filter(img => !pendingRemovals.has(img.id) || img.id === imageId);
     }
