@@ -56,6 +56,166 @@ const PACKAGING_TYPES = {
     20: 'Slidepack',
 }
 
+// SHA256 digest of https://github.com/rsmbl/Resemble.js/raw/v3.2.4/resemble.js
+// To verify integrity later on, since this code is loaded in a worker from a string
+// Akin to eval(), *shivers*
+const RESEMBLE_SHA256_DIGEST = 'B29Rv8vhoD10cS0xLLhArhXtUfAIq5xDOteFzRovkvQ=';
+const RESEMBLE_URL = 'https://raw.github.com/ROpdebee/mb-userscripts/main/lib/resemble.js';
+
+function webWorkerSupported() {
+    return ![
+        typeof Worker,
+        typeof ImageBitmap,
+        typeof OffscreenCanvas,
+        typeof createImageBitmap].includes('undefined');
+}
+
+async function verifyDigest(text, expectedDigest) {
+    return true;
+    let encoder = new TextEncoder();
+    let bin = encoder.encode(text);
+    // https://stackoverflow.com/a/42334410
+    return expectedDigest == btoa(
+        new Uint8Array(await crypto.subtle.digest('SHA-256', bin))
+            .reduce((data, byte) => data + String.fromCharCode(byte), ''));
+}
+
+async function loadResembleJSCode() {
+    let cached = localStorage.getItem('ROpdebee_resemble.js_code');
+    if (cached) {
+        // Let's also verify its integrity here too
+        if (await verifyDigest(cached, RESEMBLE_SHA256_DIGEST)) {
+            return cached;
+        }
+        console.error('localStorage cache of resemble.js tainted??!!');
+    }
+
+    let code = await (await fetch(RESEMBLE_URL)).text();
+
+    if (await verifyDigest(code, RESEMBLE_SHA256_DIGEST)) {
+        localStorage.setItem('ROpdebee_resemble.js_code', code);
+        return code;
+    }
+
+    throw new Error('Could not retrieve resemble.js code with proper digest');
+}
+
+// Be sure to use /* */ style comments in all code included in here, otherwise
+// we get syntax errors in the worker
+async function createWorkerCode() {
+    let resembleCode = await loadResembleJSCode();
+    return encodeURIComponent(`${resembleCode}
+
+    ${_diffImagesInt.toString()}
+    (${diffWorkerCode.toString()})();`);
+}
+
+diffWorkerCode = () => {
+    onmessage = async function(msg) {
+        let result = await _diffImagesInt(msg.data.source, msg.data.target);
+        postMessage({id: msg.data.id, result: result});
+    };
+}
+
+function _diffImagesInt(source, target) {
+    return new Promise((resolve, reject) => {
+        resemble(source)
+            .compareTo(target)
+            .scaleToSameSize()
+            .ignoreAntialiasing()
+            .onComplete((data) => {
+                if (data.error) {
+                    return resolve({error: data.error});
+                }
+
+                return resolve({
+                    diffData: data.getImageDataUrl(),
+                    misMatchPercentage: data.misMatchPercentage,
+                });
+            });
+    });
+}
+
+let diffWithWorker = null;
+
+// We use a web worker when possible because the diffing can take a while and
+// because it's expensive, it locks up the event loop and makes the browser
+// non-responsive for a noticeable period of time.
+if (webWorkerSupported()) {
+    let workerProm;
+    try {
+        workerProm = (async () => new Worker('data:text/javascript,' + await createWorkerCode()))();
+    } catch (e) {
+        console.error(e);
+        return;
+    }
+    let jobMap = new Map();
+    let jobId = 0;
+    let crashed = false;
+    workerProm.then(worker => {
+        worker.addEventListener('message', (msg) => {
+            let job = jobMap.get(msg.id);
+            jobMap.delete(msg.id);
+
+            if (msg.result.error) {
+                // Try without worker
+                return diffWithoutWorker(job.source, job.target, job.resultImg);
+            }
+
+            setDiffImageResult(job.resultImg, msg.result);
+        });
+
+        worker.addEventListener('error', (err) => {
+            // Worker crashed, retry the pending jobs without a worker.
+            console.error(err);
+            crashed = true;
+            jobMap.forEach((job) => {
+                diffWithoutWorker(job.source, job.target, job.resultImg);
+            });
+            jobMap.clear();
+        });
+    });
+
+    diffWithWorker = async function diffWithWorker(source, target, resultImg) {
+        if (crashed) {
+            return diffWithoutWorker(source, target, resultImg);
+        }
+
+        let thisJob = jobId++;
+        jobMap.set(thisJob, {source: source, target: target, resultImg: resultImg});
+        let srcBitmap = await createImageBitmap(source);
+        let targetBitmap = await createImageBitmap(target);
+
+        (await workerProm).postMessage({
+            id: thisJob,
+            source: srcBitmap,
+            target: targetBitmap,
+        });
+    }
+}
+
+// Either the web worker won't work in this browser due to incompatibilities,
+// or initialising the web worker failed. Try diffing in the tab itself.
+function diffWithoutWorker(source, target, resultImg) {
+    let $info = $('<span>').addClass('error').text('Computing diff in the foreground, this may be slow and lock up your browser. Firefox users: Make sure to set gfx.offscreencanvas.enabled to true in about:config for better performance.');
+    resultImg.parent().append($info);
+    _diffImagesInt(source, target).then(setDiffImageResult.bind(null, resultImg));
+}
+
+let diffImages = diffWithWorker ? diffWithWorker : diffWithoutWorker;
+
+function setDiffImageResult(resultImg, diffResult) {
+    resultImg.removeClass('ROpdebee_loading');
+    if (data.error) {
+        let $error = $('<span>').addClass('error').text(`Encountered an error: ${data.error}`);
+        resultImg.parent().append($error);
+        return;
+    }
+    resultImg.attr('src', data.getImageDataUrl());
+    resultImg.parent().find('span.ROpdebee_similarity')
+        .text(`Images are ${100 - data.misMatchPercentage}% similar`);
+}
+
 getDimensionsWhenInView = (() => {
     actualFn = window.ROpdebee_getDimensionsWhenInView;
 
@@ -338,15 +498,7 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
 
         $img.on('load', (e) => {
             $img.removeClass('ROpdebee_loading');
-
-            let canvas = document.createElement('canvas');
-            const w = $img[0].naturalWidth;
-            const h = $img[0].naturalHeight;
-            canvas.width = w;
-            canvas.height = h;
-            let ctx = canvas.getContext('2d');
-            ctx.drawImage($img[0], 0, 0, w, h);
-            resolve(canvas.toDataURL());
+            resolve($img[0]);
         });
 
         // First try with a 1200px thumb, we'll retry with 500px if it fails
@@ -384,33 +536,16 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
     let $img = $('<img>').addClass('ROpdebee_loading');
     $diff.find('h3').after($img);
 
-    function setError(msg) {
-        let $error = $('<span>').addClass('error').text(msg);
-        $diff.append($error);
-    }
-
     let srcData, targetData;
     try {
         [srcData, targetData] = await Promise.all([this.sourceDataProm, this.targetDataProm]);
     } catch (e) {
-        setError(`Cannot generate diff: ${e}`);
+        let $error = $('<span>').addClass('error').text(`Cannot generate diff: ${e}`);
+        $diff.append($error);
         return;
     }
 
-    let diff = resemble(srcData)
-        .compareTo(targetData)
-        .scaleToSameSize()
-        .ignoreAntialiasing()
-        .onComplete((data) => {
-            $img.removeClass('ROpdebee_loading');
-            if (data.error) {
-                setError(`Encountered an error: ${data.error}`);
-                return;
-            }
-            $img.attr('src', data.getImageDataUrl());
-            $similarity
-                .text(`Images are ${100 - data.misMatchPercentage}% similar`);
-        });
+    diffImages(srcData, targetData, $img);
   },
 
   prevImage: function () {
@@ -499,7 +634,7 @@ class CAAEdit {
             .text('Compare')
             .css('float', 'right')
             .click(openComparisonDialog.bind(null, this));
-        this.$types = $('<span>');
+        this.$types = $('<span>').css('display', 'block');
 
         if (this.otherImages.length > 1) {
             this.$next = $('<button>')
@@ -511,9 +646,9 @@ class CAAEdit {
                 .text('Previous')
                 .click(this.prevImage.bind(this));
 
-            $td.append(this.$a, this.$prev, this.$next, this.$compare, this.$types);
+            $td.append(this.$a, this.$types, this.$prev, this.$next, this.$compare);
         } else {
-            $td.append(this.$a, this.$compare, this.$types);
+            $td.append(this.$a, this.$types, this.$compare);
         }
 
         $td.removeClass('ROpdebee_loading');
@@ -666,9 +801,6 @@ function setupStyle() {
         width: 33vw;
         height: 33vw;
     }`);
-    /*style.sheet.insertRule(`.ROpdebee_dialogImage.ROpdebee_dialogOverlay:nth-of-type(2) {
-        position: absolute;
-    }`);*/
 
 }
 
