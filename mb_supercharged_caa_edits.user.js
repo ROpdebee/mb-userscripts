@@ -221,10 +221,20 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         }
     });
 
+    this.$autoComputeDiff = $('<input>').attr('type', 'checkbox')
+        .attr('id', 'ROpdebee_autoComputeDiff')
+        .attr('checked', !!localStorage.getItem('ROpdebee_autoComputeDiff'))
+    let $autoComputeDiffLabel = $('<label>').attr('for', 'ROpdebee_autoComputeDiff')
+        .text('Automatically compute diff');
+
+    this.$autoComputeDiff.on('change', () => {
+        localStorage.setItem('ROpdebee_autoComputeDiff', this.$autoComputeDiff.prop('checked'));
+    });
+
     let $buttons = $('<div>').addClass('buttons').append(this.$switchViewMode, this.$prev, this.$next);
 
     this.uiDialog.append(
-        $('<div>').addClass('artwork-dialog-controls').append(this.$useFullSize, $useFullSizeLabel, $buttons));
+        $('<div>').addClass('artwork-dialog-controls').append(this.$useFullSize, $useFullSizeLabel, this.$autoComputeDiff, $autoComputeDiffLabel, $buttons));
 
     this.element.addClass('artwork-dialog');
 
@@ -381,13 +391,32 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         $similarity.text('');
     }
 
-    let $img = $('<img>').addClass('ROpdebee_loading');
+    let $img = $('<img>');
     $diff.find('h3').after($img);
 
     function setError(msg) {
         let $error = $('<span>').addClass('error').text(msg);
         $diff.append($error);
     }
+
+    let userReqProm;
+    if (this.$autoComputeDiff.prop('checked')) {
+        userReqProm = Promise.resolve();
+    } else {
+        let $info = $('<span>')
+            .attr('id', 'ROpdebee_click_for_diff')
+            .text('Click to generate diff');
+        $diff.append($info);
+        userReqProm = new Promise(resolve => $diff.click((e) => {
+            e.preventDefault();
+            $diff.off('click');
+            $img.addClass('ROpdebee_loading');
+            resolve();
+            $info.remove();
+        }));
+    }
+
+    await userReqProm;
 
     let srcData, targetData;
     try {
@@ -446,9 +475,9 @@ openComparisonDialog = (() => {
                 dialog.close();
             }
         })
-        // Prevent MB's own dialog controls from trying to close a non-existant
+        // Prevent MB's own dialog controls from trying to close a non-existent
         // dialog when clicking on the artwork.
-        .on('click', '.artwork-dialog img', (e) => e.preventDefault())
+        .on('click', '.artwork-dialog img', (e) => e.stopImmediatePropagation())
         .on('keydown', (e) => {
             if (![37, 39].includes(e.keyCode)) return;
             let op = e.keyCode === 37 ? 'prevImage' : 'nextImage';
