@@ -376,7 +376,8 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
 
   setDiff: async function() {
     const $diff = this.$diff;
-    $diff.find('span.error').remove();
+    $diff.find('span.error, span#ROpdebee_click_for_diff').remove();
+    $diff.off('click');
     // We could maybe reuse the previous image here, but if the promises resolve
     // after images are changed, it might overwrite the diff. Therefore, we actually
     // remove the old image and insert a new one, so that when the old promise
