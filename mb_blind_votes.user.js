@@ -54,7 +54,7 @@ function setupStyle() {
 }
 
 function setupUnblindListeners() {
-    $(document).on('click', 'input[name^="enter-vote.vote"]:not([id$="-None"])', (evt) => {
+    $('input[name^="enter-vote.vote"]:not([id$="-None"])').change((evt) => {
         let $target = $(evt.currentTarget);
         $target
             .closest('div.edit-list')
@@ -65,12 +65,18 @@ function setupUnblindListeners() {
             .closest('div#content')
             .addClass('unblind');
     });
+    $('input[name^="enter-vote.vote"][id$="-None"]').change((evt) => {
+        $(evt.currentTarget)
+            .closest('div.edit-list, div#content')
+            .removeClass('unblind');
+    });
 }
 
 setupStyle();
 setupUnblindListeners();
 // Unblind any edits that aren't open, are your own, or on which you already voted
 $(document).ready(() => {
+    setupUnblindListeners();
     let $unblindEdits = $(`
         div.edit-header:not(.open),
         div.cancel-edit > a.negative[href*="/cancel"],
