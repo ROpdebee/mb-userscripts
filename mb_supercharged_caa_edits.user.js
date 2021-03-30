@@ -639,13 +639,14 @@ async function processEdit(edit) {
     insertPlaceholder($edit);
 
     let [mbid, imageId] = $edit.find('a.artwork-image').attr('href').match(ID_RGX).slice(1);
+    imageId = parseInt(imageId);
     let releaseDetails = await getReleaseDetails(mbid);
     let gid = releaseDetails.id;
     let allImages = await getAllImages(mbid);
-    let retainedImages = allImages;
+    let retainedImages = allImages.filter(img => img.id !== imageId);
     if ($edit.find('.remove-cover-art').length) {
         let pendingRemovals = await getPendingRemovals(gid);
-        retainedImages = allImages.filter(img => !pendingRemovals.has(img.id) || img.id === imageId);
+        retainedImages = allImages.filter(img => !pendingRemovals.has(img.id) || img.id !== imageId);
     }
     let currImage = allImages.find(img => img.id == imageId);
     let currTypes = currImage ? currImage.types : [];
