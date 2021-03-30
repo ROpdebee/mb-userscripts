@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.3.30
+// @version      2021.3.31
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -588,6 +588,11 @@ class CAAEdit {
             .attr('src', thumbUrl)
             .addClass('ROpdebee_loading');
         $img.on('load', $img.removeClass.bind($img, 'ROpdebee_loading'));
+        $img.on('error', () => {
+            $img.removeClass('ROpdebee_loading');
+            // FIXME: Fallback to original image, see issue #10
+            $img.after($('<span class="error">Failed to load thumb</span>'));
+        });
         this.$a.prepend($img);
         this.$types.text(`Types: ${selectedImg.types.join(', ')}`);
 
