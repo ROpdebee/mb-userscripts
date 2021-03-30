@@ -646,7 +646,7 @@ async function processEdit(edit) {
     let retainedImages = allImages.filter(img => img.id !== imageId);
     if ($edit.find('.remove-cover-art').length) {
         let pendingRemovals = await getPendingRemovals(gid);
-        retainedImages = allImages.filter(img => !pendingRemovals.has(img.id) || img.id !== imageId);
+        retainedImages = allImages.filter(img => !pendingRemovals.has(img.id) && img.id !== imageId);
     }
     let currImage = allImages.find(img => img.id == imageId);
     let currTypes = currImage ? currImage.types : [];
