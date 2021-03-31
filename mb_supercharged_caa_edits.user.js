@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.3.31.4
+// @version      2021.3.31.5
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -66,8 +66,8 @@ const NONSQUARE_PACKAGING_TYPES = [
 ];
 
 const LIKELY_DIGITAL_DIMENSIONS = [
-    [1400, 1400],
-    [3000, 3000],
+    '1400x1400',
+    '3000x3000',
 ];
 
 const SHADY_REASONS = {
@@ -921,8 +921,9 @@ class CAAEdit {
             this.markShady(this.$edit.find('span[data-name="Format"]'), SHADY_REASONS.nonsquareDigital);
         }
 
-        if (LIKELY_DIGITAL_DIMENSIONS.includes(dimensions) && !this.isDigitalMedia) {
-            this.markShady(this.$edit.find('span.ROpdebee_dimensions').first(), SHADY_REASONS.digitalDimensions);
+        let dimStr = `${dimensions[0]}x${dimensions[1]}`;
+        if (LIKELY_DIGITAL_DIMENSIONS.includes(dimStr) && !this.isDigitalMedia) {
+            this.markShady(this.$edit.find('span.ROpdebee_dimensions, span[data-name="Format"]').first(), SHADY_REASONS.digitalDimensions);
         }
     }
 }
