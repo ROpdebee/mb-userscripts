@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.3.31
+// @version      2021.3.31.2
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -490,6 +490,37 @@ openComparisonDialog = (() => {
     return open;
 })();
 
+function stringifyDate(date) {
+    let year = date.year ? date.year.toString().padStart(4, '0') : '????';
+    let month = date.month ? date.month.toString().padStart(2, '0') : '??';
+    let day = date.day ? date.day.toString().padStart(2, '0') : '??';
+    return [year, month, day].join('-')
+        .replace(/(?:-\?{2}){1,2}$/, ''); // Remove -?? or -??-?? suffix.
+        // If neither year, month, or day is set, will return '????'
+}
+
+function processReleaseEvents(events) {
+    let dateToCountries = events
+        .map(evt =>[evt.country.primary_code, stringifyDate(evt.date)])
+        .reduce((acc, evt) => {
+            if (!acc.has(evt[1])) {
+                acc.set(evt[1], []);
+            }
+            if (evt[0]) {
+                acc.get(evt[1]).push(evt[0]);
+            }
+            return acc;
+        }, new Map());
+    let arr = [...dateToCountries.entries()];
+    arr.sort((a, b) => {
+        if (a[0] < b[0]) return -1;
+        if (a[0] > b[0]) return 1;
+        return 0;
+    });
+
+    return arr;
+}
+
 class CAAEdit {
     constructor($edit, releaseDetails, otherImages, currentImage) {
         this.$edit = $edit;
@@ -502,15 +533,44 @@ class CAAEdit {
     }
 
     insertReleaseInfo() {
-        let packaging = PACKAGING_TYPES[this.releaseDetails.packagingID] || 'unknown';
-        let status = STATUSES[this.releaseDetails.statusID] || 'unknown';
+        let packaging = PACKAGING_TYPES[this.releaseDetails.packagingID] || '??';
+        let status = STATUSES[this.releaseDetails.statusID] || '??';
+        let format = this.releaseDetails.combined_format_name;
+        let events = processReleaseEvents(this.releaseDetails.events);
+        let barcode = this.releaseDetails.barcode || '??';
+        let catnos = new Set(this.releaseDetails.labels
+            .map(lbl => lbl.catalogNumber)
+            .filter(catno => catno));
+        let labels = new Set(this.releaseDetails.labels
+            .filter(lbl => lbl.label)
+            .map(lbl => [lbl.label.gid, lbl.label.name]));
 
-        let detailsStr = `Status: ${status}, Packaging: ${packaging}, Format: ${this.releaseDetails.combined_format_name}`;
+        let detailsStr = `Status: ${status}, Packaging: ${packaging}, Format: ${format}`;
+        let eventsStr = events.reduce((acc, evt) => {
+            let countries = (evt[1].length <= 3 && evt[1].length > 0)
+                ? evt[1].join(', ')
+                : `${evt[1].length} countries`;
+            acc.push(`${evt[0]} (${countries})`);
+            return acc;
+        }, []).join('; ');
+        let labelsStr = [...labels]
+            .map(lbl => `<a href="/label/${lbl[0]}">${lbl[1]}</a>`)
+            .join(', ');
+        let identifiersStr = `Cat#: ${[...catnos].join(', ') || '??'}; Barcode: ${barcode}`;
 
-        this.$edit
-            .find('.edit-details tr, .details tr')
-            .first()
-            .after(`<tr><th>Release details:</th><td>${detailsStr}</td></tr>`);
+        function insertRow($edit, header, rowText) {
+            $edit
+                .find('.edit-details tr, .details tr')
+                .first()
+                .after(`<tr><th>${header}</th><td>${rowText}</td></tr>`);
+        }
+
+        // Opposite order in which it appears, since it always inserts in the
+        // second row.
+        insertRow(this.$edit, 'Identifiers:', identifiersStr);
+        insertRow(this.$edit, 'Labels:', labelsStr);
+        insertRow(this.$edit, 'Release events:', eventsStr);
+        insertRow(this.$edit, 'Release details:', detailsStr);
     }
 
     insertComparisonImages() {
