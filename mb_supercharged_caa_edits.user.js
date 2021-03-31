@@ -224,7 +224,6 @@ async function checkAlive(url) {
 
 async function selectImage(imageData, use1200) {
     // Select 1200px thumb, 500px thumb, or full size based on availability
-    console.log(imageData);
     let candidates = [
         imageData.thumbnails['500'] || imageData.thumbnails['large'],
         imageData.image];
