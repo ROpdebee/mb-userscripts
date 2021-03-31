@@ -71,14 +71,14 @@ const LIKELY_DIGITAL_DIMENSIONS = [
 ];
 
 const SHADY_REASONS = {
-    releaseDate: 'This release date occurs after the end of the voting period for this edit. The cover art may not be accurate at this time.',
-    incorrectDimensions: 'This packaging is typically non-square, but this cover art is. It likely belongs to another release.',
+    releaseDate: 'The release date occurs after the end of the voting period for this edit. The cover art may not be accurate at this time.',
+    incorrectDimensions: 'This packaging is typically non-square, but this cover art is square. It likely belongs to another release.',
     nonsquareDigital: 'This is a digital media release with non-square cover art. Although this is possible, it is uncommon.',
     digitalDimensions: 'This is a physical release but the added cover art has dimensions typical of digital store fronts. Care should be taken to ensure the cover matches the actual physical release.',
     digitalNonFront: 'This type of artwork is very uncommon on digital releases, and might not belong here.',
     trackOnPhysical: 'Covers of type “track” should not appear on physical releases.',
     linerOnNonVinyl: 'Covers of type “liner” typically appear on Vinyl releases. Although it can appear on other releases, this is uncommon.',
-    noTypesSet: 'This cover has no types set. This is non-ideal.',
+    noTypesSet: 'This cover has no types set. This is not ideal.',
     obiOutsideJapan: 'Covers of type “obi” typically occur on Japanese releases only. JP is not in the release countries.',
     watermark: 'This cover may contain watermarks, and should ideally be superseded by one without watermarks.',
     pseudoRelease: 'Pseudo-releases typically should not have cover art attached.',
