@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.3.26
+// @version      2021.3.31
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -251,6 +251,7 @@ let getDimensionsWhenInView = (function() {
 
 // Expose the function for use in other scripts that may load images.
 window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
+window.ROpdebee_loadImageDimensions = loadImageDimensions;
 
 $(window).on('load', () => {
 
