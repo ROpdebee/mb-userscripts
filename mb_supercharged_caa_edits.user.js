@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.3.31.2
+// @version      2021.3.31.3
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -13,6 +13,7 @@
 // @require      https://code.jquery.com/ui/1.12.1/jquery-ui.min.js
 // @require      https://github.com/rsmbl/Resemble.js/raw/v3.2.4/resemble.js
 // @run-at       document-end
+// @grant        none
 // ==/UserScript==
 
 let $ = this.$ = this.jQuery = jQuery.noConflict(true);
@@ -169,6 +170,36 @@ function fixCaaUrl(url) {
     return url.replace(/^http:/, '');
 }
 
+async function checkAlive(url) {
+    let httpResp;
+    try {
+        httpResp = await fetch(url, {method: 'HEAD'});
+    } catch (e) {
+        // 404 leads to CORS error. GM_xmlHttpRequest would overcome this, but
+        // would lead us to be unable to use @grant none, so we wouldn't be
+        // able to access the CAA Dimensions handler.
+        return false;
+    }
+    return httpResp.status >= 200 && httpResp.status < 400;
+}
+
+async function selectImage(imageData, use1200) {
+    // Select 1200px thumb, 500px thumb, or full size based on availability
+    let candidates = [imageData.thumbnails['500'], imageData.image];
+    if (use1200) {
+        candidates.unshift(imageData.thumbnails['1200']);
+    }
+    candidates = candidates.map(fixCaaUrl);
+
+    for (let candidate of candidates) {
+        if (await checkAlive(candidate)) {
+            return candidate;
+        }
+    }
+
+    return null;
+}
+
 // Adapted from https://github.com/metabrainz/musicbrainz-server/blob/a632e0a8a5dd88964107a626f500fbb89ba38734/root/static/scripts/common/artworkViewer.js
 $.widget('ropdebee.artworkCompare', $.ui.dialog, {
 
@@ -323,27 +354,20 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
 
     $types.text(`Types: ${image.types.join(', ')}`);
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let $img = $('<img>')
             .addClass('ROpdebee_loading')
             .attr('fullSizeURL', fixCaaUrl(image.image))
             .attr('crossorigin', 'anonymous');
 
         $img.on('error', (e) => {
-            // Retry with a 500 thumb
-            if (!this.useFullSize && e.currentTarget.src.endsWith(fixCaaUrl(image.thumbnails['1200']))) {
-                e.currentTarget.src = fixCaaUrl(image.thumbnails['500']);
-            } else {
-                $img.remove();
-                let errorText = 'Unable to load this image.';
-                if (!this.useFullSize) {
-                    errorText += ' Maybe try with full-size images?';
-                }
-                let $errorMsg = $('<span>').addClass('error').text(errorText);
-                container.prepend($errorMsg)
-                $img.off('error');
-                reject('An image failed to load');
-            }
+            let errorText = 'Unable to load this image.';
+            let $errorMsg = $('<span>').addClass('error')
+                .css('display', 'block').text(errorText);
+            container.append($errorMsg);
+            $img.removeClass('ROpdebee_loading');
+            $img.off('error');
+            reject('An image failed to load');
         });
 
         $img.on('load', (e) => {
@@ -359,9 +383,16 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
             resolve(canvas.toDataURL());
         });
 
-        // First try with a 1200px thumb, we'll retry with 500px if it fails
-        $img.attr('src', fixCaaUrl(this.useFullSize ? image.image : image.thumbnails['1200']));
+        // Insert the image before awaiting the source URL, otherwise the dialog
+        // won't be of proper size and the UI will be ugly until the URL resolves.
         container.find('h3').after($img);
+        if (this.useFullSize) {
+            $img.attr('src', fixCaaUrl(image.image));
+        } else {
+            let srcUrl = await selectImage(image, true);
+            if (!srcUrl) $img.trigger('error');
+            else $img.attr('src', srcUrl);
+        }
         getDimensionsWhenInView($img[0]);
     });
   },
@@ -396,7 +427,8 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
     $diff.find('h3').after($img);
 
     function setError(msg) {
-        let $error = $('<span>').addClass('error').text(msg);
+        let $error = $('<span>').addClass('error')
+            .css('display', 'block').text(msg);
         $diff.append($error);
     }
 
@@ -417,8 +449,6 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         }));
     }
 
-    await userReqProm;
-
     let srcData, targetData;
     try {
         [srcData, targetData] = await Promise.all([this.sourceDataProm, this.targetDataProm]);
@@ -426,6 +456,8 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         setError(`Cannot generate diff: ${e}`);
         return;
     }
+
+    await userReqProm;
 
     let diff = resemble(srcData)
         .compareTo(targetData)
@@ -631,9 +663,8 @@ class CAAEdit {
         this.setImage();
     }
 
-    setImage() {
+    async setImage() {
         let selectedImg = this.otherImages[this.selectedIdx];
-        let thumbUrl = fixCaaUrl(selectedImg.thumbnails.large);
         let fullSizeUrl = fixCaaUrl(selectedImg.image);
 
         this.$a.attr('href', fullSizeUrl);
@@ -641,20 +672,29 @@ class CAAEdit {
         // Remove previous element, if any
         // We remove and add rather than just modify in place, because modifying
         // in place doesn't trigger the intersection observer
-        this.$edit.find('.ROpdebee_comparisonImage img').remove();
+        this.$edit.find('.ROpdebee_comparisonImage img, .ROpdebee_comparisonImage span.error').remove();
 
         let $img = $('<img>')
             .attr('fullSizeURL', fullSizeUrl)
-            .attr('src', thumbUrl)
             .addClass('ROpdebee_loading');
         $img.on('load', $img.removeClass.bind($img, 'ROpdebee_loading'));
         $img.on('error', () => {
+            let errorText = 'Unable to load this image.';
+            let $errorMsg = $('<span>').addClass('error')
+                .css('display', 'block').text(errorText);
+            this.$a.prepend($errorMsg);
+            $img.off('error');
             $img.removeClass('ROpdebee_loading');
-            // FIXME: Fallback to original image, see issue #10
-            $img.after($('<span class="error">Failed to load thumb</span>'));
         });
         this.$a.prepend($img);
         this.$types.text(`Types: ${selectedImg.types.join(', ')}`);
+
+        let imgUrl = await selectImage(selectedImg);
+        if (!imgUrl) {
+            $img.trigger('error');
+        } else {
+            $img.attr('src', imgUrl);
+        }
 
         getDimensionsWhenInView($img[0]);
     }
