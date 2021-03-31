@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.3.31.5
+// @version      2021.3.31.6
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -224,8 +224,11 @@ async function checkAlive(url) {
 
 async function selectImage(imageData, use1200) {
     // Select 1200px thumb, 500px thumb, or full size based on availability
-    let candidates = [imageData.thumbnails['500'], imageData.image];
-    if (use1200) {
+    console.log(imageData);
+    let candidates = [
+        imageData.thumbnails['500'] || imageData.thumbnails['large'],
+        imageData.image];
+    if (use1200 && imageData.thumbnails['1200']) {
         candidates.unshift(imageData.thumbnails['1200']);
     }
     candidates = candidates.map(fixCaaUrl);
