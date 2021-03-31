@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.3.31.3
+// @version      2021.3.31.4
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -57,12 +57,51 @@ const PACKAGING_TYPES = {
     20: 'Slidepack',
 }
 
+const NONSQUARE_PACKAGING_TYPES = [
+    3, // Digipak
+    6, // Keep case
+    8, // Cassette
+    9, // Book
+    17, // Digibook
+];
+
+const LIKELY_DIGITAL_DIMENSIONS = [
+    [1400, 1400],
+    [3000, 3000],
+];
+
+const SHADY_REASONS = {
+    releaseDate: 'This release date occurs after the end of the voting period for this edit. The cover art may not be accurate at this time.',
+    incorrectDimensions: 'This packaging is typically non-square, but this cover art is. It likely belongs to another release.',
+    nonsquareDigital: 'This is a digital media release with non-square cover art. Although this is possible, it is uncommon.',
+    digitalDimensions: 'This is a physical release but the added cover art has dimensions typical of digital store fronts. Care should be taken to ensure the cover matches the actual physical release.',
+    digitalNonFront: 'This type of artwork is very uncommon on digital releases, and might not belong here.',
+    trackOnPhysical: 'Covers of type “track” should not appear on physical releases.',
+    linerOnNonVinyl: 'Covers of type “liner” typically appear on Vinyl releases. Although it can appear on other releases, this is uncommon.',
+    noTypesSet: 'This cover has no types set. This is non-ideal.',
+    obiOutsideJapan: 'Covers of type “obi” typically occur on Japanese releases only. JP is not in the release countries.',
+    watermark: 'This cover may contain watermarks, and should ideally be superseded by one without watermarks.',
+    pseudoRelease: 'Pseudo-releases typically should not have cover art attached.',
+    urlInComment: 'The comment appears to contain a URL. This is often unnecessary clutter.',
+};
+
 getDimensionsWhenInView = (() => {
     actualFn = window.ROpdebee_getDimensionsWhenInView;
 
     if (!actualFn) {
         console.log('Will not be able to get dimensions, script not installed?');
         return () => null;
+    }
+
+    return actualFn;
+})();
+
+loadImageDimensions = (() => {
+    actualFn = window.ROpdebee_loadImageDimensions;
+
+    if (!actualFn) {
+        console.log('Will not be able to get dimensions, script not installed?');
+        return () => Promise.reject('Script unavailable');
     }
 
     return actualFn;
@@ -533,7 +572,7 @@ function stringifyDate(date) {
 
 function processReleaseEvents(events) {
     let dateToCountries = events
-        .map(evt =>[evt.country.primary_code, stringifyDate(evt.date)])
+        .map(evt =>[(evt.country || {}).primary_code, stringifyDate(evt.date || {})])
         .reduce((acc, evt) => {
             if (!acc.has(evt[1])) {
                 acc.set(evt[1], []);
@@ -560,49 +599,80 @@ class CAAEdit {
         this.otherImages = otherImages;
         this._selectedIdx = 0;
         this.currentImage = currentImage;
+        this.setTypes();
         this.insertReleaseInfo();
         this.insertComparisonImages();
+        this.insertWarnings();
+        this.warningMsgs = new Set();
+        this.performSanityChecks();
+    }
+
+    setTypes() {
+        let trs = this.$edit.find('table.details > tbody > tr');
+        let typesRow = trs.toArray().find(tr => $(tr).children('th').text() === 'Types:');
+        if (!typesRow) {
+            this.insertRow('Types:', '<span data-name="artwork-type">-</span>');
+        } else {
+            let $td = $(typesRow).find('td');
+            let existingTypes = $td.text();
+            let newHtml = existingTypes.split(', ')
+                .map(type => `<span data-name="artwork-type">${type}</span>`)
+                .join(', ');
+            $td.html(newHtml);
+        }
+    }
+
+    insertWarnings() {
+        let $tr = $('<tr><th>Warnings:</th><td><ul></ul></td></tr>');
+        $tr.hide();
+        this.$edit
+            .find('.edit-details tr, .details tr')
+            .last()
+            .after($tr);
+        this.$warningsUl = $tr.find('ul');
+    }
+
+    insertRow(header, rowText) {
+        this.$edit
+            .find('.edit-details tr, .details tr')
+            .first()
+            .after(`<tr><th>${header}</th><td>${rowText}</td></tr>`);
     }
 
     insertReleaseInfo() {
         let packaging = PACKAGING_TYPES[this.releaseDetails.packagingID] || '??';
         let status = STATUSES[this.releaseDetails.statusID] || '??';
         let format = this.releaseDetails.combined_format_name;
-        let events = processReleaseEvents(this.releaseDetails.events);
+        let events = processReleaseEvents(this.releaseDetails.events || []);
         let barcode = this.releaseDetails.barcode || '??';
-        let catnos = new Set(this.releaseDetails.labels
+        let catnos = new Set((this.releaseDetails.labels || [])
             .map(lbl => lbl.catalogNumber)
             .filter(catno => catno));
-        let labels = new Set(this.releaseDetails.labels
+        let labels = new Set((this.releaseDetails.labels || [])
             .filter(lbl => lbl.label)
             .map(lbl => [lbl.label.gid, lbl.label.name]));
 
-        let detailsStr = `Status: ${status}, Packaging: ${packaging}, Format: ${format}`;
+        let detailsStr = [['Status', status], ['Packaging', packaging], ['Format', format]]
+            .map(([title, value]) => `${title}: <span data-name="${title}">${value}</span>`)
+            .join('; ');
         let eventsStr = events.reduce((acc, evt) => {
             let countries = (evt[1].length <= 3 && evt[1].length > 0)
                 ? evt[1].join(', ')
                 : `${evt[1].length} countries`;
-            acc.push(`${evt[0]} (${countries})`);
+            acc.push(`<span data-name="release-date">${evt[0]}</span> (${countries})`);
             return acc;
         }, []).join('; ');
         let labelsStr = [...labels]
             .map(lbl => `<a href="/label/${lbl[0]}">${lbl[1]}</a>`)
             .join(', ');
-        let identifiersStr = `Cat#: ${[...catnos].join(', ') || '??'}; Barcode: ${barcode}`;
-
-        function insertRow($edit, header, rowText) {
-            $edit
-                .find('.edit-details tr, .details tr')
-                .first()
-                .after(`<tr><th>${header}</th><td>${rowText}</td></tr>`);
-        }
+        let identifiersStr = `Cat#: ${[...catnos].join(', ') || '??'}; Barcode: <span data-name="Barcode">${barcode}</span>`;
 
         // Opposite order in which it appears, since it always inserts in the
         // second row.
-        insertRow(this.$edit, 'Identifiers:', identifiersStr);
-        insertRow(this.$edit, 'Labels:', labelsStr);
-        insertRow(this.$edit, 'Release events:', eventsStr);
-        insertRow(this.$edit, 'Release details:', detailsStr);
+        this.insertRow('Identifiers:', identifiersStr);
+        this.insertRow('Labels:', labelsStr);
+        this.insertRow('Release events:', eventsStr);
+        this.insertRow('Release details:', detailsStr);
     }
 
     insertComparisonImages() {
@@ -699,8 +769,161 @@ class CAAEdit {
         getDimensionsWhenInView($img[0]);
     }
 
-    openComparisonDialog() {
-        alert('Would open');
+    get closeDate() {
+        let $expire;
+        if (this.$edit.is('#content')) {
+            // Edit-specific page
+            $expire = this.$edit.next('#sidebar').find('.edit-expiration');
+        } else {
+            $expire = this.$edit.find('div.edit-description td.edit-expiration');
+        }
+        let $tooltip = $expire.find('span.tooltip');
+        if (!$tooltip.length) {
+            // "About to expire"
+            return new Date();
+        }
+
+        let dateStr = $tooltip.attr('title');
+        return new Date(dateStr.replace(' UTC', 'Z'));
+    }
+
+    get formats() {
+        return this.releaseDetails.mediums
+            .map(medium => medium.format ? medium.format.name : 'unknown');
+    }
+
+    get isDigitalMedia() {
+        return this.formats.every(format => format === 'Digital Media');
+    }
+
+    get isPhysical() {
+        return !this.formats.includes('Digital Media');
+    }
+
+    get isVinyl() {
+        return this.formats.some(format => format.includes('Vinyl'));
+    }
+
+    get shouldBeNonSquare() {
+        return NONSQUARE_PACKAGING_TYPES.includes(this.releaseDetails.packagingID);
+    }
+
+    markShady($els, reason) {
+        if (!$els.length) return;
+
+        $els.addClass('ROpdebee_shady');
+        $els.each((i, el) => {
+            let prevTitle = el.getAttribute('title') || '';
+            el.setAttribute('title', [prevTitle, reason].join(' ').trim());
+        });
+
+        if (!this.warningMsgs.has(reason)) {
+            this.$warningsUl.append(`<li>${reason}</li>`);
+            this.$warningsUl.closest('tr').show();
+            this.warningMsgs.add(reason);
+        }
+    }
+
+    // Sanity checks
+    performSanityChecks() {
+        this.checkReleaseDate();
+        this.checkPseudoReleaseCover();
+        this.checkTypes();
+        this.checkUrlInComment();
+        this.checkDimensions();
+    }
+
+    checkReleaseDate() {
+        let dates = new Set((this.releaseDetails.events || [])
+            .map(evt => [evt.date, new Date(evt.date.year, evt.date.month ? evt.date.month - 1 : null, evt.date.day)]));
+        let closeDate = this.closeDate;
+
+        let tooLateDates = [...dates]
+            .filter(d => d[1] > closeDate)
+            .map(d => stringifyDate(d[0]));
+
+        let shadyDates = this.$edit.find('span[data-name="release-date"]')
+            .filter((i, el) => tooLateDates.includes(el.innerText));
+        this.markShady(shadyDates, SHADY_REASONS.releaseDate);
+    }
+
+    checkPseudoReleaseCover() {
+        if (this.releaseDetails.statusID === 4) {
+            this.markShady(this.$edit.find('span[data-name="Status"]'), SHADY_REASONS.pseudoRelease);
+        }
+    }
+
+    checkTypes() {
+        this.$edit.find('span[data-name="artwork-type"]')
+            .each((i, el) => this._checkType($(el)));
+    }
+
+    _checkType($typeEl) {
+        let type = $typeEl.text();
+
+        // Watermark types
+        if (type === 'Watermark') {
+            this.markShady($typeEl, SHADY_REASONS.watermark);
+        }
+
+        // Unexpected type on digital media
+        if (!['Front', 'Track'].includes(type) && this.isDigitalMedia) {
+            this.markShady($typeEl, SHADY_REASONS.digitalNonFront);
+        }
+
+        // No types set
+        if (type === '-') {
+            this.markShady($typeEl, SHADY_REASONS.noTypesSet);
+        }
+
+        // Track on physical release
+        if (type === 'Track' && this.isPhysical) {
+            this.markShady($typeEl, SHADY_REASONS.trackOnPhysical);
+        }
+
+        // Liner on non-Vinyl release
+        if (type === 'Liner' && !this.isVinyl) {
+            this.markShady($typeEl, SHADY_REASONS.linerOnNonVinyl);
+        }
+
+        // Obi on non-JP release
+        if (type === 'Obi'
+            && (this.releaseDetails.events || []).every(evt => !evt.country || evt.country.primary_code !== 'JP')) {
+            this.markShady($typeEl, SHADY_REASONS.obiOutsideJapan);
+        }
+    }
+
+    checkUrlInComment() {
+        let trs = this.$edit.find('table.details > tbody > tr');
+        let commentRow = trs.toArray().find(tr => $(tr).children('th').text() === 'Comment:');
+        let $commentEl = $(commentRow).find('td');
+        if ($commentEl.text().includes('://')) {
+            this.markShady($commentEl, SHADY_REASONS.urlInComment);
+        }
+    }
+
+    async checkDimensions() {
+        let dimensions;
+        try {
+            dimensions = await loadImageDimensions(fixCaaUrl(this.currentImage.image));
+        } catch(e) {
+            return;
+        }
+
+        let aspectRatio = dimensions[0] / dimensions[1];
+        let isSquare = Math.abs(1 - aspectRatio) < .05;
+
+        if (isSquare && this.shouldBeNonSquare) {
+            this.markShady(this.$edit.find('span[data-name="Packaging"]'), SHADY_REASONS.incorrectDimensions);
+        }
+
+        if (!isSquare && this.isDigitalMedia) {
+            this.markShady(this.$edit.find('span[data-name="Format"]'), SHADY_REASONS.nonsquareDigital);
+        }
+
+        if (LIKELY_DIGITAL_DIMENSIONS.includes(dimensions) && !this.isDigitalMedia) {
+            this.markShady(this.$edit.find('span.ROpdebee_dimensions').first(), SHADY_REASONS.digitalDimensions);
+        }
     }
 }
 
@@ -747,10 +970,10 @@ async function processEdit(edit) {
     imageId = parseInt(imageId);
     let releaseDetails = await getReleaseDetails(mbid);
     let gid = releaseDetails.id;
-    let allImages = await getAllImages(mbid);
+    let allImages = await getAllImages(mbid).catch(() => []);
     let retainedImages = allImages.filter(img => img.id !== imageId);
     if ($edit.find('.remove-cover-art').length) {
-        let pendingRemovals = await getPendingRemovals(gid);
+        let pendingRemovals = await getPendingRemovals(gid).catch(() => []);
         retainedImages = allImages.filter(img => !pendingRemovals.has(img.id) && img.id !== imageId);
     }
     let currImage = allImages.find(img => img.id == imageId);
@@ -804,6 +1027,11 @@ function setupStyle() {
     style.sheet.insertRule(`.ROpdebee_dialogOverlay > img {
         width: 33vw;
         height: 33vw;
+    }`);
+    style.sheet.insertRule(`.ROpdebee_shady {
+        color: red;
+        font-weight: bold;
+        border-bottom: 1px dotted;
     }`);
 
 }
