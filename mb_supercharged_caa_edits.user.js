@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.1
+// @version      2021.4.1.2
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -63,6 +63,11 @@ const NONSQUARE_PACKAGING_TYPES = [
     8, // Cassette
     9, // Book
     17, // Digibook
+];
+
+const NONSQUARE_PACKAGING_COVER_TYPES = [
+    'Front',
+    'Back',
 ];
 
 const LIKELY_DIGITAL_DIMENSIONS = [
@@ -822,7 +827,12 @@ class CAAEdit {
     }
 
     get shouldBeNonSquare() {
-        return NONSQUARE_PACKAGING_TYPES.includes(this.releaseDetails.packagingID);
+        return NONSQUARE_PACKAGING_TYPES.includes(this.releaseDetails.packagingID)
+            && this.types.some(type => NONSQUARE_PACKAGING_COVER_TYPES.includes(type));
+    }
+
+    get types() {
+        return this.$edit.find('span[data-name="artwork-type"]').toArray().map(span => span.innerText);
     }
 
     markShady($els, reason) {
