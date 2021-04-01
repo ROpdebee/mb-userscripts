@@ -257,16 +257,14 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
   _create: function() {
     this._super();
 
-    this.currentViewMode = 'sbs';
+    this.currentViewMode = localStorage.getItem('ROpdebee_preferredDialogViewMode') || 'sbs';
     this.viewModeTexts = {
         sbs: 'Side-by-side mode',
         overlay: 'Overlay mode',
     };
-    this.useFullSizeImages = false;
 
     this.$switchViewMode = $('<button>')
         .attr('type', 'button')
-        .text(this.viewModeTexts['overlay'])
         .click(this.switchViewMode.bind(this));
 
     // prev/next
@@ -279,13 +277,12 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         .click(this.nextImage.bind(this));
 
     this.$useFullSize = $('<input>').attr('type', 'checkbox')
-        .attr('id', 'ROpdebee_useFullSize')
-        .attr('checked', false);
+        .attr('id', 'ROpdebee_useFullSize');
     let $useFullSizeLabel = $('<label>').attr('for', 'ROpdebee_useFullSize')
-        .text('Use full-size images');
+        .text('Always use full-size images')
+        .attr('title', 'Full-size images are by default only loaded if no thumbnails exist. Check this box to always load them.');
 
     this.$useFullSize.on('change', () => {
-        this.useFullSize = this.$useFullSize.prop('checked');
         if (this.isOpen) {
             this.setSourceImage();
             this.setTargetImage();
@@ -294,17 +291,21 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
     });
 
     this.$autoComputeDiff = $('<input>').attr('type', 'checkbox')
-        .attr('id', 'ROpdebee_autoComputeDiff')
-        .attr('checked', !!localStorage.getItem('ROpdebee_autoComputeDiff'))
+        .attr('id', 'ROpdebee_autoComputeDiff');
+    this.$autoComputeDiff.on('change', this.setDiff.bind(this));
     let $autoComputeDiffLabel = $('<label>').attr('for', 'ROpdebee_autoComputeDiff')
         .text('Automatically compute diff');
 
-    this.$autoComputeDiff.on('change', () => {
-        if (this.$autoComputeDiff.prop('checked')) {
-            localStorage.setItem('ROpdebee_autoComputeDiff', 'this api sucks. let me store bools!');
-        } else {
-            localStorage.removeItem('ROpdebee_autoComputeDiff');
-        }
+    [this.$useFullSize, this.$autoComputeDiff].forEach($el => {
+        $el.on('change', () => {
+            if ($el.prop('checked')) {
+                localStorage.setItem($el.attr('id'), 'delete me to disable');
+            } else {
+                localStorage.removeItem($el.attr('id'));
+            }
+        });
+
+        $el.prop('checked', !!localStorage.getItem($el.attr('id')));
     });
 
     let $buttons = $('<div>').addClass('buttons').append(this.$switchViewMode, this.$prev, this.$next);
@@ -325,7 +326,7 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
     this.element.find('.ROpdebee_dialogImage, .ROpdebee_dialogDiff')
         .each((i, e) => $(e).append($('<h3>').text(labels[i])));
 
-    this.setSbsView();
+    this.setViewMode();
   },
 
   open: function(edit) {
@@ -348,14 +349,21 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
 
   switchViewMode: function(e) {
     let newViewMode = this.currentViewMode === 'overlay' ? 'sbs' : 'overlay';
-    this.$switchViewMode.text(this.viewModeTexts[this.currentViewMode]);
     this.currentViewMode = newViewMode;
 
-    if (newViewMode === 'sbs') {
+    this.setViewMode();
+  },
+
+  setViewMode: function() {
+    let otherViewMode = this.currentViewMode === 'overlay' ? 'sbs' : 'overlay';
+    this.$switchViewMode.text(this.viewModeTexts[otherViewMode]);
+    if (this.currentViewMode === 'sbs') {
         this.setSbsView();
     } else {
         this.setOverlayView();
     }
+
+    localStorage.setItem('ROpdebee_preferredDialogViewMode', this.currentViewMode);
   },
 
   setSbsView: function() {
@@ -431,7 +439,7 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         // Insert the image before awaiting the source URL, otherwise the dialog
         // won't be of proper size and the UI will be ugly until the URL resolves.
         container.find('h3').after($img);
-        if (this.useFullSize) {
+        if (this.$useFullSize.prop('checked')) {
             $img.attr('src', fixCaaUrl(image.image));
         } else {
             let srcUrl = await selectImage(image, true);
@@ -506,7 +514,6 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
     }
 
     await userReqProm;
-
 
     let diff = resemble(srcData)
         .compareTo(targetData)
