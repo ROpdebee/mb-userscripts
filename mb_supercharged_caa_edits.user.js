@@ -300,7 +300,11 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         .text('Automatically compute diff');
 
     this.$autoComputeDiff.on('change', () => {
-        localStorage.setItem('ROpdebee_autoComputeDiff', this.$autoComputeDiff.prop('checked'));
+        if (this.$autoComputeDiff.prop('checked')) {
+            localStorage.setItem('ROpdebee_autoComputeDiff', 'this api sucks. let me store bools!');
+        } else {
+            localStorage.removeItem('ROpdebee_autoComputeDiff');
+        }
     });
 
     let $buttons = $('<div>').addClass('buttons').append(this.$switchViewMode, this.$prev, this.$next);
@@ -490,6 +494,9 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         }));
     }
 
+    // Do the promises for the data before awaiting the user click, otherwise
+    // when an image fails to load, there might not be a handler on the promise
+    // yet, leading to an unnecessary error in the console.
     let srcData, targetData;
     try {
         [srcData, targetData] = await Promise.all([this.sourceDataProm, this.targetDataProm]);
@@ -499,6 +506,7 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
     }
 
     await userReqProm;
+
 
     let diff = resemble(srcData)
         .compareTo(targetData)
