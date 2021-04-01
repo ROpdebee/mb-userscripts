@@ -969,7 +969,7 @@ async function processEdit(edit) {
 
     insertPlaceholder($edit);
 
-    let [mbid, imageId] = $edit.find('a.artwork-image').attr('href').match(ID_RGX).slice(1);
+    let [mbid, imageId] = $edit.find('a.artwork-image, a.artwork-pdf').attr('href').match(ID_RGX).slice(1);
     imageId = parseInt(imageId);
     let releaseDetails = await getReleaseDetails(mbid);
     let gid = releaseDetails.id;
