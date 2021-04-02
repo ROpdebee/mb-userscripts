@@ -244,8 +244,8 @@ class BaseWorkForm {
             .filter(([key, codes]) => codes.length > 1)
             .map(([key, codes]) => key);
         if (dupeAgencies.length) {
-            const lis = dupeAgencies.reduce((acc, agncy) => {
-                return acc + `<li>${agncy}: ${externalCodes[agncy].join(', ')}</li>`
+            const lis = dupeAgencies.reduce((acc, agency) => {
+                return acc + `<li>${agency}: ${externalCodes[agency].join(', ')}</li>`
             }, '');
             this.log('warning', `
                 Found duplicate work codes in input.
@@ -287,8 +287,8 @@ class BaseWorkForm {
             }, []);
 
         if (unknownAgencyCodes.length) {
-            const lis = unknownAgencyCodes.reduce((acc, [agncy, codes]) => {
-                return acc + `<li>${agncy}: ${codes.join(', ')}</li>`
+            const lis = unknownAgencyCodes.reduce((acc, [agency, codes]) => {
+                return acc + `<li>${agency}: ${codes.join(', ')}</li>`
             }, '');
             this.log('warning', `
                 Encountered unsupported agencies.
@@ -370,8 +370,8 @@ class BaseWorkForm {
     }
 
     promptForConfirmation(conflicts) {
-        const lis = conflicts.reduce((acc, [agncy, mbCodes, extCodes]) => {
-            return acc + `<li>${agncy}: [${mbCodes.join(', ')}] vs [${extCodes.join(', ')}]</li>`
+        const lis = conflicts.reduce((acc, [agency, mbCodes, extCodes]) => {
+            return acc + `<li>${agency}: [${mbCodes.join(', ')}] vs [${extCodes.join(', ')}]</li>`
         }, '');
         let msg = `Uh-oh. MB already has the following codes with conflicting data:
         Are you sure you want to fill these?
