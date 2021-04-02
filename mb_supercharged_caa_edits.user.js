@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.2.2
+// @version      2021.4.2.3
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -647,7 +647,7 @@ class CAAEdit {
     }
 
     insertWarnings() {
-        let $tr = $('<tr><th>Warnings:</th><td><ul></ul></td></tr>');
+        let $tr = $('<tr><th>Warnings:</th><td colspan="2"><ul></ul></td></tr>');
         $tr.hide();
         this.$edit
             .find('.edit-details tr, .details tr')
