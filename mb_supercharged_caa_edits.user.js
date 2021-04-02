@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.2
+// @version      2021.4.2.2
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -63,6 +63,7 @@ const NONSQUARE_PACKAGING_TYPES = [
     8, // Cassette
     9, // Book
     10, // Fatbox
+    11, // Snap case
     17, // Digibook
 ];
 
