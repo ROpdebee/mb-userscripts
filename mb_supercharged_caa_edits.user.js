@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.2.3
+// @version      2021.4.3
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -93,7 +93,7 @@ const SHADY_REASONS = {
 };
 
 getDimensionsWhenInView = (() => {
-    actualFn = window.ROpdebee_getDimensionsWhenInView;
+    let actualFn = window.ROpdebee_getDimensionsWhenInView;
 
     if (!actualFn) {
         console.log('Will not be able to get dimensions, script not installed?');
@@ -104,10 +104,11 @@ getDimensionsWhenInView = (() => {
 })();
 
 loadImageDimensions = (() => {
-    actualFn = window.ROpdebee_loadImageDimensions;
+    let actualFn = window.ROpdebee_loadImageDimensions;
 
     if (!actualFn) {
-        console.log('Will not be able to get dimensions, script not installed?');
+        // Don't warn here, if we can't find this function, we likely won't have
+        // found the other either
         return () => Promise.reject('Script unavailable');
     }
 
