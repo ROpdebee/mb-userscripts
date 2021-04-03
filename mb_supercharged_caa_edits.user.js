@@ -863,6 +863,12 @@ class CAAEdit {
     }
 
     checkReleaseDate() {
+        if (isNaN(this.closeDate.valueOf())) {
+            this.markShady(
+                this.$edit.find('span[data-name="release-date"]'),
+                'Cannot determine the closing date of this edit, the release event check will not work. Please report this issue.');
+            return;
+        }
         let dates = new Set((this.releaseDetails.events || [])
             .map(evt => [evt.date, new Date(evt.date.year, evt.date.month ? evt.date.month - 1 : null, evt.date.day)]));
         let closeDate = this.closeDate;
