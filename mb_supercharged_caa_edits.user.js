@@ -808,7 +808,7 @@ class CAAEdit {
         }
 
         let dateStr = $tooltip.attr('title');
-        return new Date(dateStr.replace(' UTC', 'Z'));
+        return new Date(dateStr.split(' ')[0]);
     }
 
     get formats() {
