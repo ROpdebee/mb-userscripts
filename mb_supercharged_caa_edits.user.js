@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.5.2
+// @version      2021.4.6
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -12,6 +12,7 @@
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js
 // @require      https://code.jquery.com/ui/1.12.1/jquery-ui.min.js
 // @require      https://github.com/rsmbl/Resemble.js/raw/v3.2.4/resemble.js
+// @require      https://momentjs.com/downloads/moment-with-locales.min.js
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
@@ -93,6 +94,31 @@ const SHADY_REASONS = {
     pseudoRelease: 'Pseudo-releases typically should not have cover art attached.',
     urlInComment: 'The comment appears to contain a URL. This is often unnecessary clutter.',
 };
+
+const DATE_FORMAT_TO_MOMENT = {
+    '%A %B %e %Y, %H:%M': 'dddd MMMM DD YYYY, HH:mm',  // Monday April 7 2021, 00:34
+}
+
+const MB_FORMAT_TRANSLATIONS = {
+    '%A': 'dddd',  // Monday, Tuesday, ...
+    '%a': 'ddd',   // mon, tue, ...
+    '%B': 'MMMM',  // January, February, ...
+    '%b': 'MMM',   // Jan, Feb, ...
+    '%d': 'DD',    // 2-digit day
+    '%e': 'D',     // 1/2-digit day
+    '%m': 'MM',    // 2-digit month
+    '%Y': 'YYYY',  // 4-digit year
+    '%H': 'HH',    // 00-23 hour
+    '%M': 'mm',    // 00-59 minutes
+    '%c': 'DD/MM/YYYY, hh:mm:ss a',
+    '%x': 'DD/MM/YYYY',
+    '%X': 'hh:mm:ss a',
+}
+
+// MB and moments' locale for German short month names don't match
+moment.updateLocale('de', {
+    monthsShort: 'Jan_Feb_Mär_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Dez'.split('_'),
+});
 
 getDimensionsWhenInView = (() => {
     let actualFn = window.ROpdebee_getDimensionsWhenInView;
@@ -597,6 +623,12 @@ function stringifyDate(date) {
         // If neither year, month, or day is set, will return '????'
 }
 
+function translateMBDateFormatToMoments(dateFormat) {
+    return Object.entries(MB_FORMAT_TRANSLATIONS).reduce((format, [mbToken, momentsToken]) => {
+        return format.replace(mbToken, momentsToken);
+    }, dateFormat);
+}
+
 function processReleaseEvents(events) {
     let dateToCountries = events
         .map(evt =>[(evt.country || {}).primary_code, stringifyDate(evt.date || {})])
@@ -807,11 +839,14 @@ class CAAEdit {
         let $tooltip = $expire.find('span.tooltip');
         if (!$tooltip.length) {
             // "About to expire"
-            return new Date();
+            return moment();
         }
 
         let dateStr = $tooltip.attr('title');
-        return new Date(dateStr.split(' ')[0]);
+        return moment(
+            dateStr,
+            translateMBDateFormatToMoments(window.__MB__.$c.user.preferences.datetime_format),
+            window.__MB__.$c.stash.current_language || 'en');
     }
 
     get formats() {
@@ -870,7 +905,7 @@ class CAAEdit {
     }
 
     checkReleaseDate() {
-        if (isNaN(this.closeDate.valueOf())) {
+        if (!this.closeDate.isValid()) {
             this.markShady(
                 this.$edit.find('span[data-name="release-date"]'),
                 'Cannot determine the closing date of this edit, the release event check will not work. Please report this issue.');
