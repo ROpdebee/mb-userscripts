@@ -22,7 +22,7 @@ resemble.outputSettings({
     errorColor: {red: 0, green: 0, blue: 0},
     errorType: 'movementDifferenceIntensity',
     transparency: .25,
-})
+});
 
 const ID_RGX = /release\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\/(\d+)\.\w+/;
 
@@ -35,7 +35,7 @@ const STATUSES = {
     2: 'Promotion',
     3: 'Bootleg',
     4: 'Pseudo-Release',
-}
+};
 
 const PACKAGING_TYPES = {
     1: 'Jewel Case',
@@ -56,7 +56,7 @@ const PACKAGING_TYPES = {
     18: 'Plastic Sleeve',
     19: 'Box',
     20: 'Slidepack',
-}
+};
 
 const NONSQUARE_PACKAGING_TYPES = [
     3, // Digipak
@@ -95,10 +95,6 @@ const SHADY_REASONS = {
     urlInComment: 'The comment appears to contain a URL. This is often unnecessary clutter.',
 };
 
-const DATE_FORMAT_TO_MOMENT = {
-    '%A %B %e %Y, %H:%M': 'dddd MMMM DD YYYY, HH:mm',  // Monday April 7 2021, 00:34
-}
-
 const MB_FORMAT_TRANSLATIONS = {
     '%A': 'dddd',  // Monday, Tuesday, ...
     '%a': 'ddd',   // mon, tue, ...
@@ -113,7 +109,7 @@ const MB_FORMAT_TRANSLATIONS = {
     '%c': 'DD/MM/YYYY, hh:mm:ss a',
     '%x': 'DD/MM/YYYY',
     '%X': 'hh:mm:ss a',
-}
+};
 
 // MB and moments' locale for German short month names don't match
 moment.updateLocale('de', {
