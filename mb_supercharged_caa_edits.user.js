@@ -859,7 +859,7 @@ class CAAEdit {
     }
 
     get isPhysical() {
-        return !this.formats.includes('Digital Media');
+        return !this.formats.includes('Digital Media') && !this.formats.includes('(unknown)');
     }
 
     get isVinyl() {
