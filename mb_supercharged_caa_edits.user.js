@@ -944,7 +944,7 @@ class CAAEdit {
         }
 
         // Unexpected type on digital media
-        if (!['Front', 'Track'].includes(type) && this.isDigitalMedia) {
+        if (!['Front', 'Track', '-'].includes(type) && this.isDigitalMedia) {
             this.markShady($typeEl, SHADY_REASONS.digitalNonFront);
         }
 
