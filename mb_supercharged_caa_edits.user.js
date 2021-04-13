@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.6
+// @version      2021.4.13
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -145,6 +145,13 @@ loadImageDimensions = (() => {
 
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// https://forum.freecodecamp.org/t/how-to-make-js-wait-until-dom-is-updated/122067
+async function waitUntilRedrawn() {
+    return new Promise(resolve => {
+        window.requestAnimationFrame(() => window.requestAnimationFrame(resolve));
+    });
 }
 
 async function fetchWithRetry(url, options, tries = DEFAULT_TRIES) {
@@ -328,7 +335,11 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
 
     this.$autoComputeDiff = $('<input>').attr('type', 'checkbox')
         .attr('id', 'ROpdebee_autoComputeDiff');
-    this.$autoComputeDiff.on('change', this.setDiff.bind(this));
+    this.$autoComputeDiff.on('change', () => {
+        if (this.$autoComputeDiff.prop('checked') && this.triggerDiffGeneration) {
+            this.triggerDiffGeneration();
+        }
+    });
     let $autoComputeDiffLabel = $('<label>').attr('for', 'ROpdebee_autoComputeDiff')
         .text('Automatically compute diff');
 
@@ -521,21 +532,25 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         $diff.append($error);
     }
 
-    let userReqProm;
+    let waitToGenerateDiff = new Promise(resolve => this.triggerDiffGeneration = (() => {
+        this.triggerDiffGeneration = null; // Don't trigger twice
+        $img.addClass('ROpdebee_loading');
+        $diff.off('click');
+        $diff.find('span#ROpdebee_click_for_diff').remove();
+        resolve();
+    }));
+
     if (this.$autoComputeDiff.prop('checked')) {
-        userReqProm = Promise.resolve();
+        this.triggerDiffGeneration();
     } else {
         let $info = $('<span>')
             .attr('id', 'ROpdebee_click_for_diff')
             .text('Click to generate diff');
         $diff.append($info);
-        userReqProm = new Promise(resolve => $diff.click((e) => {
+        $diff.click((e) => {
             e.preventDefault();
-            $diff.off('click');
-            $img.addClass('ROpdebee_loading');
-            resolve();
-            $info.remove();
-        }));
+            this.triggerDiffGeneration();
+        });
     }
 
     // Do the promises for the data before awaiting the user click, otherwise
@@ -549,7 +564,15 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
         return;
     }
 
-    await userReqProm;
+    await waitToGenerateDiff;
+    // Wait until the loading GIF is drawn and text is removed.
+    // If we don't do this, chances are that the diffing will start before these
+    // are actually shown on screen and locks up the browser so that it cannot
+    // draw these until it's too late.
+    // FIXME: The diffing really should defer once in a while to allow the browser
+    // to handle other events, but that requires reimplementing the library
+    // (either to defer directly or for it to work in a web worker).
+    await waitUntilRedrawn();
 
     let diff = resemble(srcData)
         .compareTo(targetData)
