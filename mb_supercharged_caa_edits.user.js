@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.13
+// @version      2021.4.13.2
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -878,7 +878,7 @@ class CAAEdit {
     }
 
     get isPhysical() {
-        return !this.formats.includes('Digital Media') && !this.formats.includes('(unknown)');
+        return !this.formats.includes('Digital Media') && !this.formats.includes('unknown');
     }
 
     get isVinyl() {
