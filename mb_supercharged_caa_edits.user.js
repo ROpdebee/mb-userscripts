@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.14.2
+// @version      2021.4.14.3
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -719,7 +719,7 @@ class CAAEdit {
     insertReleaseInfo() {
         let packaging = PACKAGING_TYPES[this.releaseDetails.packagingID] || '??';
         let status = STATUSES[this.releaseDetails.statusID] || '??';
-        let format = this.releaseDetails.combined_format_name;
+        let format = this.releaseDetails.combined_format_name || '[missing media]';
         let events = processReleaseEvents(this.releaseDetails.events || []);
         let barcode = this.releaseDetails.barcode;
         if (barcode == '') barcode = '[none]';
