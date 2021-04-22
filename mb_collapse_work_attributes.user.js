@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Collapse Work Attributes
-// @version      2021.3.30
+// @version      2021.4.22
 // @description  Collapses work attributes when there are too many. Workaround for MBS-11535/MBS-11537.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -15,6 +15,8 @@
 // @match        *://*.musicbrainz.org/edit/*
 // @match        *://musicbrainz.org/*/edits*
 // @match        *://*.musicbrainz.org/*/edits*
+// @match        *://musicbrainz.org/collection/*
+// @match        *://*.musicbrainz.org/collection/*
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @run-at       document-end
 // ==/UserScript==
@@ -47,7 +49,7 @@ function createAnchor() {
             .attr('role', 'button')
 }
 
-function processArtistPage() {
+function processTabulatedPage() {
     let columnIdx = 1 + [...$('table.tbl thead th')]
         .findIndex(th => ATTR_TRANSLATIONS.includes(th.innerText));
     let tooLongAttrColumns = $('table.tbl td:nth-child(8)')
@@ -107,8 +109,8 @@ function processEditPage() {
     });
 }
 
-if (location.pathname.startsWith('/artist/') && location.pathname.split('/')[3] !== 'edits') {
-    processArtistPage();
+if ((location.pathname.startsWith('/artist/') || location.pathname.startsWith('/collection/')) && location.pathname.split('/')[3] !== 'edits') {
+    processTabulatedPage();
 } else if (location.pathname.startsWith('/work/') && location.pathname.split('/')[3] !== 'edits') {
     processWorkPage();
 } else {
