@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.2.28
+// @version      2021.4.24
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -62,6 +62,297 @@ function findDivByText(parent, text) {
     return divs.filter(n => n.innerText === text);
 }
 
+// Helper for LatinNet agencies, optionally suffixed by their CISAC agency number,
+// which is removed.
+function latinNetID(agencyId) {
+    return {
+        inRegexp: new RegExp(`(\\d{0,7})(?:${agencyId})?`),
+        outFormat: '$1',
+        keepLeadingZeroes: false,
+    }
+}
+
+/**
+ * Key: Agency property name
+ * Value:
+ *      inRegexp: A RegExp applied on the input to validate the input. ^ and $
+ *                will automatically be inserted at the start and end of the regexp,
+ *                respectively.
+ *      outFormat: A string applied to transform the input to a formatted output.
+ *                 Captured groups of the input RegExp will be available here,
+ *                 the same format can be used as String.replace. If empty or
+ *                 undefined, defaults to the portion of the string that is
+ *                 matched by the inRegexp. Can also be a function.
+ *      keepLeadingZeroes: Boolean flag, optional, by default false. If true,
+ *                         leading zeroes will not be trimmed from the input
+ *                         before feeding into the input regexp.
+ *      ensureLength: Integer, pads the input to the given length at the start
+ *                    with the given padCharacter if the input is not of that
+ *                    length.
+ *      padCharacter: 1 character string, used to pad to the ensured length.
+ *      message: Additional info to show when validation/formatting fails.
+ * The value can also be an array of different options to try.
+ */
+const CODE_FORMATS = {
+    'AACIMH ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'ACAM ID': latinNetID('107'),
+    'ACDAM ID': latinNetID('103'),
+    'AEI ID': latinNetID('250'),
+    'AGADU ID': latinNetID('004'),
+    'AKKA/LAA ID': [{
+        inRegexp: /\d{0,8}/,
+    }, {
+        inRegexp: /\d{5}M/,
+        keepLeadingZeroes: true,
+    }],
+    'AKM ID': {
+        // FIXME: This cannot distinguish between bare work codes and work codes with revision numbers.
+        // E.g. 649501
+        inRegexp: /\d{0,8}(?:-?\d{2})?/,
+    },
+    'AMRA ID': {
+        inRegexp: /AWK\d{0,7}/,
+    },
+    'APA ID': latinNetID('015'),
+    'APDAYC ID': [
+        latinNetID('007'),
+        {
+            inRegexp: /\d{8}/,
+        }],
+    'APRA ID': {
+        inRegexp: /(?:GW|BG|JG|PM)\d{8}/,
+    },
+    'ARTISJUS ID': {
+        inRegexp: /4\d{9}/,
+    },
+    'ASCAP ID': {
+        inRegexp: /\d{0,14}/,
+    },
+    'BMI ID': {
+        inRegexp: /\d{0,8}/,
+    },
+    'BUMA/STEMRA ID': {
+        inRegexp: /W-\d{9}/,
+    },
+    'CASH ID': {
+        inRegexp: /[CMPU]-\d{10}/,
+        message: 'CISAC ISWCNet does not include the letter prefix, this has to be retrieved from CASH\'s repertory itself.'
+    },
+    'CCLI ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'COMPASS ID': {
+        inRegexp: /\d{0,8}/,
+    },
+    'COTT ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'ECAD ID': {
+        inRegexp: /\d{0,8}/,
+    },
+    'GEMA ID': {
+        inRegexp: /(\d{0,8})[\-‐](\d{3})/,
+        outFormat: '$1-$2',
+    },
+    'HFA ID': {
+        inRegexp: /[A-Z0-9]{6}/,
+    },
+    'ICE ID': {
+        inRegexp: /\d{0,8}/,
+    },
+    'IMRO ID': {
+        inRegexp: /R\d{0,8}/,
+    },
+    'JASRAC ID': {
+        inRegexp: /(\d[0-9A-Z]\d)-?(\d{4})-?(\d)/,
+        outFormat: '$1-$2-$3',
+        keepLeadingZeroes: true,
+    },
+    'KODA ID': {
+        inRegexp: /\d{0,8}/,
+    },
+    'KOMCA ID': [{
+        inRegexp: /\d{12}/,
+    }, {
+        inRegexp: /0000M\d{5,7}/,
+        keepLeadingZeroes: true,
+    }],
+    'LatinNet ID': {
+        inRegexp: /\d{3,4}/,
+    },
+    'MACP ID': {
+        inRegexp: /1\d{9}/,
+    },
+    'MÜST ID': {
+        inRegexp: /1\d{9}/,
+    },
+    'NexTone ID': {
+        inRegexp: /N\d{8}/,
+    },
+    'NICAUTOR ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'OSA ID': {
+        inRegexp: /(I\d{3})\.?(\d{2})\.?(\d{2})\.?(\d{2})/,
+        outFormat: '$1.$2.$3.$4',
+    },
+    'PRS tune code': {
+        inRegexp: /\d{4,6}[0-9A-Z][A-Z]/,
+    },
+    'SABAM ID': {
+        inRegexp: /\d{0,9}|[A-Z0-9]{7}\d{2}/,
+    },
+    'SACEM ID': {
+        inRegexp: /(\d{2})\s?(\d{3})\s?(\d{3})\s?(\d{2})/,
+        outFormat: '$1 $2 $3 $4',
+    },
+    'SACM ID': {
+        // NOTE: Keeping all leading zeroes here, because without the leading
+        // zeroes, their own repertory search doesn't find the work.
+        inRegexp: /[0-9A-Z]\d{8}/,
+        ensureLength: 9,
+        padCharacter: '0',
+        message: 'SACM IDs are required to be zero-padded until 9 characters.'
+    },
+    'SACIM ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'SACVEN ID': latinNetID('060'),
+    'SADAIC ID': latinNetID('061'),
+    'SAYCE ID': {
+        inRegexp: /(\d{0,8})(?:065)?/,
+        outFormat: '$1',
+    },
+    'SAYCO ID': {
+        inRegexp: /(\d{0,8})(?:084)?/,
+        outFormat: '$1',
+    },
+    'SESAC ID': {
+        inRegexp: /\d{0,9}/,
+    },
+    'SGACEDOM ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'SGAE ID': {
+        inRegexp: /(\d{1,3})(?:\.?(\d{3}))?(?:\.?(\d{3}))?/,
+        outFormat: (match, p1, p2, p3) => [p1, p2, p3].filter(Boolean).join('.'),
+    },
+    'SIAE ID': {
+        inRegexp: /\d{7,9}0[01]/,
+    },
+    'SOBODAYCOM ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'SOCAN ID': {
+        inRegexp: /2?\d{8}/,
+    },
+    'SODRAC ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'SPA ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'SPAC ID': {
+        inRegexp: /\d{0,7}/,
+    },
+    'STEF ID': {
+        inRegexp: /\d{0,8}/,
+    },
+    'STIM ID': {
+        inRegexp: /\d{0,8}/,
+    },
+    'SUISA ID': {
+        inRegexp: /(\d{6})\s?(\d{3})\s?(\d{2})/,
+        outFormat: '$1 $2 $3',
+        ensureLength: 13,  // Account for possible spaces too
+        padCharacter: '0',  // Extraneous spaces inserted here will be removed
+    },
+    'TEOSTO ID': {
+        inRegexp: /\d{8,9}/,
+    },
+    'ZAiKS ID': {
+        inRegexp: /\d{0,7}/,
+    },
+};
+
+function wrapRegex(start, regexp, end) {
+    return new RegExp(start + regexp.source + end);
+}
+
+function validateCode(code, agencyId) {
+    let rules = CODE_FORMATS[agencyId];
+    if (!rules) {
+        // We don't have a validator for this agency, assume it's valid.
+        return {
+            isValid: true,
+            input: code,
+        };
+    }
+
+    if (rules instanceof Array) {
+        let partialResult;
+        for (let i = 0; i < rules.length; i++) {
+            partialResult = validateCodeSingleRule(code, rules[i]);
+            if (partialResult.isValid) {
+                break;
+            }
+        }
+
+        return partialResult;
+    }
+    return validateCodeSingleRule(code, rules);
+}
+
+function validateCodeSingleRule(code, rule) {
+    let inputRegexp = rule.inRegexp;
+    let outFormat = rule.outFormat;
+    if (!outFormat) {
+        // Insert a capture group
+        inputRegexp = wrapRegex('(', inputRegexp, ')');
+        outFormat = '$1';
+    } else {
+        inputRegexp = wrapRegex('(?:', inputRegexp, ')');
+    }
+
+    if (!rule.keepLeadingZeroes) {
+        inputRegexp = wrapRegex('0*', inputRegexp, '');
+    }
+
+    inputRegexp = wrapRegex('^', inputRegexp, '$');
+
+    if (rule.ensureLength && rule.padCharacter) {
+        code = code.padStart(rule.ensureLength, rule.padCharacter);
+    }
+
+    let result = {
+        input: code,
+    };
+
+    if (!inputRegexp.test(code)) {
+        result.isValid = false;
+        if (rule.message) {
+            result.message = rule.message;
+        }
+        return result;
+    }
+
+    result.isValid = true;
+
+    // Try formatting
+    let formatted = code.replace(inputRegexp, outFormat);
+
+    if (!formatted) {
+        console.error(`Failed to format ${code}`);
+        formatted = code;
+    }
+
+    result.formattedCode = formatted;
+    result.wasChanged = formatted != code;
+
+    return result;
+}
 
 //////////////
 // MB
@@ -160,12 +451,14 @@ const mainUIHTML = `<div id="ropdebee-work-menu"
                 style="cursor: help;"
             >Fill work codes</button>
         <button type="button" id="ROpdebee_MB_Format_Codes"
-                title="Correct work code formatting."
-                style="cursor: help; display: none;"
+                title="Correct work code formatting (EXPERIMENTAL)."
+                style="cursor: help;"
             >Format work codes</button>
+        <input type="checkbox" id="ROpdebee_MB_Autoformat_Codes">
+        <label for="ROpdebee_MB_Autoformat_Codes">Automatically format work codes on paste (EXPERIMENTAL)</label>
     </div>
     <div id="ROpdebee_MB_Paste_Work_Log" style="display: none; max-height: 100px; overflow: auto;"><h3>Log</h3></div>
-    <div id="ROpdebee_MB_Code_Validation_Errors" style="display: none;"><h3>Validation errors</h3></div> <!-- spoiler alert -->
+    <div id="ROpdebee_MB_Code_Validation_Errors" style="display: none;"><h3>Validation errors</h3></div>
 </div>`
 
 class BaseWorkForm {
@@ -175,18 +468,72 @@ class BaseWorkForm {
 
         this.addToolsUI();
         this.activateButtons();
+        this.checkExistingCodes();
     }
 
     activateButtons() {
         // The button to paste work codes
-        let pasteBtn = this.form.querySelector('button#ROpdebee_MB_Paste_Work');
-        pasteBtn.onclick = (evt) => {
-            evt.preventDefault();
-            // Since we use an arrow function, current `this` is the instance itself.
-            // We need to bind it properly to give a method reference though.
-            this.resetLog();
-            this.readData(this.checkAndFill.bind(this));
-        };
+        this.form.querySelector('button#ROpdebee_MB_Paste_Work')
+            .addEventListener('click', (evt) => {
+                evt.preventDefault();
+                // Since we use an arrow function, current `this` is the instance itself.
+                // We need to bind it properly to give a method reference though.
+                this.resetLog();
+                this.readData(this.checkAndFill.bind(this));
+            });
+
+        this.form.querySelector('button#ROpdebee_MB_Format_Codes')
+            .addEventListener('click', (evt) => {
+                evt.preventDefault();
+                this.resetLog();
+                this.formatExistingCodes();
+            });
+
+        let autoFormatCheckbox = this.form.querySelector('input#ROpdebee_MB_Autoformat_Codes');
+        autoFormatCheckbox
+            .addEventListener('change', (evt) => {
+                evt.preventDefault();
+                if (evt.currentTarget.checked) {
+                    localStorage.setItem(evt.currentTarget.id, 'delete me to disable');
+                } else {
+                    localStorage.removeItem(evt.currentTarget.id);
+                }
+            });
+    }
+
+    checkExistingCodes() {
+        this.existingCodeInputs.forEach(({ select, input }) => {
+            let agencyKey = getSelectedID(select);
+            let agencyCode = input.value;
+            let checkResult = validateCode(agencyCode, agencyKey);
+
+            if (!checkResult.isValid) {
+                input.style.backgroundColor = 'red';
+                this.addValidationError(agencyKey, agencyCode, checkResult.message);
+            } else if (checkResult.wasChanged) {
+                input.style.backgroundColor = 'orange';
+                this.addFormatWarning(agencyKey, agencyCode);
+            }
+        })
+    }
+
+    formatExistingCodes() {
+        let formattedAny = false;
+        this.existingCodeInputs.forEach(({ select, input }) => {
+            let agencyKey = getSelectedID(select);
+            let agencyCode = input.value;
+            let checkResult = validateCode(agencyCode, agencyKey);
+
+            if (checkResult.isValid && checkResult.wasChanged) {
+                fillInput(input, checkResult.formattedCode);
+                this.log('info', `Changed ${agencyKey} ${agencyCode} to ${checkResult.formattedCode}`);
+                formattedAny = true;
+            }
+        });
+
+        if (formattedAny) {
+            this.fillEditNote([], 'existing', true);
+        }
     }
 
     resetLog() {
@@ -197,14 +544,22 @@ class BaseWorkForm {
             .forEach(el => el.remove());
     }
 
-    get existingCodes() {
+    get autoformatCodes() {
+        return this.form.querySelector('input#ROpdebee_MB_Autoformat_Codes').checked;
+    }
+
+    get existingCodeInputs() {
         return [...this.form
             .querySelectorAll('table#work-attributes tr')]
             .map(row => ({
                     'select': row.querySelector('td > select'),
                     'input': row.querySelector('td > input'),
                 }))
-            .filter(({ select, input }) => select !== null && select.selectedIndex !== 0 && input !== null && input.value)
+            .filter(({ select, input }) => select !== null && select.selectedIndex !== 0 && input !== null && input.value);
+    }
+
+    get existingCodes() {
+        return this.existingCodeInputs
             .groupBy(
                 ({ select }) => getSelectedID(select),
                 ({ input: { value }}) => value);
@@ -296,7 +651,7 @@ class BaseWorkForm {
                 <ul>${lis}</ul>`);
         }
         this.maybeFillTitle(title);
-        this.fillEditNote(unknownAgencyCodes, source);
+        this.fillEditNote(unknownAgencyCodes, source, this.autoformatCodes);
     }
 
     maybeFillTitle(title) {
@@ -322,28 +677,63 @@ class BaseWorkForm {
 
     fillAgencyCodes(agencyKey, agencyCodes) {
         agencyCodes.forEach(code => {
+            let formatResult = validateCode(code, agencyKey);
+            let fillCode = formatResult.isValid && this.autoformatCodes ? formatResult.formattedCode : formatResult.input;
             let input = this.findEmptyRow('table#work-attributes', 'edit-work.attributes.');
             // Will throw when the agency isn't know the MB, handled by caller.
             setRowKey(input.closest('tr').querySelector('td > select'), agencyKey);
-            fillInput(input, code);
+            fillInput(input, fillCode);
+            if (!formatResult.isValid) {
+                input.style.backgroundColor = 'red';
+                this.addValidationError(agencyKey, fillCode, formatResult.message);
+            } else if (formatResult.wasChanged && this.autoformatCodes) {
+                this.log('info', `Changed ${agencyKey} ${code} to ${fillCode}`);
+            } else if (formatResult.wasChanged) {
+                this.addFormatWarning(agencyKey, fillCode);
+            }
         });
     }
 
 
-    fillEditNote(unknownAgencies, source) {
+    fillEditNote(unknownAgencies, source, wasFormatted) {
         let noteContent = unknownAgencies.reduce((acc, [agencyKey, agencyCodes]) => {
             return acc + agencyKey + ': ' + agencyCodes.join(', ') + '\n';
         }, unknownAgencies.length ? 'Unsupported agencies:\n' : '');
-        noteContent += '---\n';
-        noteContent += `${GM_info.script.name} v${GM_info.script.version} (with data from ${source})\n`;
 
+        if (noteContent) {
+            this.fillEditNoteTop(noteContent);
+        }
+
+        let editNoteBottom = `${GM_info.script.name} v${GM_info.script.version} (source: ${source}, formatting applied: ${wasFormatted})`;
+
+        this.fillEditNoteBottom(editNoteBottom);
+    }
+
+    fillEditNoteTop(content) {
         let note = this.form.querySelector('textarea[name="edit-work.edit_note"]');
-        let prevVal = note.value || '';
+        let noteParts = note.value.split('–\n');
+        let top = noteParts[0];
+        if (!top) {
+            top = content + '\n';
+        } else {
+            top += content;
+        }
+        noteParts[0] = top;
+        note.value = noteParts.join('–\n');
+    }
 
-        // Adding a newline even if there's no content to add space for an edit note.
-        noteContent = prevVal + '\n' + noteContent;
-
-        note.value = noteContent;
+    fillEditNoteBottom(content) {
+        let note = this.form.querySelector('textarea[name="edit-work.edit_note"]');
+        let noteParts = note.value.split('–\n');
+        let bottom = noteParts[1];
+        if (!bottom) {
+            bottom = content;
+        } else {
+            bottom += '\n' + content;
+        }
+        noteParts[0] = noteParts[0] ? noteParts[0] : '\n';
+        noteParts[1] = bottom;
+        note.value = noteParts.join('–\n');
     }
 
     readData(cb) {
@@ -392,6 +782,27 @@ class BaseWorkForm {
         let logDiv = this.form.querySelector('div#ROpdebee_MB_Paste_Work_Log');
         logDiv.insertAdjacentHTML('beforeend', `
             <div style="border: 1px dashed gray; padding: 2px 2px 5px 5px; margin-top: 2px; ${LOG_STYLES[level]}">${html}</div>`);
+        logDiv.style.display = 'block';
+        logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    addValidationError(agencyKey, code, message) {
+        let logDiv = this.form.querySelector('div#ROpdebee_MB_Code_Validation_Errors');
+        let msg = `${code} does not look like a valid ${agencyKey}.`;
+        if (message) {
+            msg += ' ' + message;
+        }
+        logDiv.insertAdjacentHTML('beforeend',
+            `<div style="border: 1px dashed gray; padding: 2px 2px 5px 5px; margin-top: 2px; ${LOG_STYLES['error']}">${msg}</div>`);
+        logDiv.style.display = 'block';
+        logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    addFormatWarning(agencyKey, code) {
+        let logDiv = this.form.querySelector('div#ROpdebee_MB_Code_Validation_Errors');
+        let msg = `${code} is not a well-formatted ${agencyKey}.`;
+        logDiv.insertAdjacentHTML('beforeend',
+            `<div style="border: 1px dashed gray; padding: 2px 2px 5px 5px; margin-top: 2px; ${LOG_STYLES['warning']}">${msg}</div>`);
         logDiv.style.display = 'block';
         logDiv.scrollTop = logDiv.scrollHeight;
     }
