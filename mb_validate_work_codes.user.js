@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Validate Work Codes
-// @version      2021.4.25
+// @version      2021.4.25.2
 // @description  Validate work identifier codes: Highlight invalid or ill-formatted work codes.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -81,8 +81,8 @@ function processWorkPage() {
     let attrs = $('dl.properties > dd.work-attribute');
 
     attrs.each((i, el) => {
-        let agencyDD = el.previousSibling();
-        let agencyId = agencyId.innerText.slice(0, -1);
+        let agencyDD = el.previousSibling;
+        let agencyId = agencyDD.innerText.slice(0, -1);
 
         checkElement(el, el.innerText, agencyId);
     });
