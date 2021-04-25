@@ -14,7 +14,7 @@
 // @match        *://*.musicbrainz.org/release/*/edit-relationships
 // @match        *://musicbrainz.org/*/create
 // @match        *://*.musicbrainz.org/*/create
-// @require      https://raw.github.com/ROpdebee/mb-userscripts/rework-work-codes/lib/work_identifiers.js
+// @require      https://raw.github.com/ROpdebee/mb-userscripts/main/lib/work_identifiers.js
 // @run-at       document-end
 // @grant        GM_getValue
 // @grant        GM_setValue
