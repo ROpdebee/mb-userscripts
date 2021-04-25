@@ -399,7 +399,8 @@ class BaseWorkForm {
             this.fillEditNoteTop(noteContent);
         }
 
-        let editNoteBottom = `${GM_info.script.name} v${GM_info.script.version} (source: ${source}, formatting applied: ${wasFormatted})`;
+        let fmtAppliedStr = wasFormatted ? MBWorkIdentifiers.VERSION : 'not applied';
+        let editNoteBottom = `${GM_info.script.name} v${GM_info.script.version} (source: ${source}, formatting: ${fmtAppliedStr})`;
 
         this.fillEditNoteBottom(editNoteBottom);
     }
