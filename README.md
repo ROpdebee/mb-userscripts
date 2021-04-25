@@ -35,3 +35,10 @@ Supercharges reviewing cover art edits. Displays release information on CAA edit
 
 [![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](mb_supercharged_caa_edits.user.js)
 [![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](mb_supercharged_caa_edits.user.js?raw=1)
+
+## MB: Validate Work Codes
+
+Validate work attributes on various MB pages. Highlights invalid (red) or ill-formatted (yellow) work codes.
+
+[![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](mb_validate_work_codes.user.js)
+[![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](mb_validate_work_codes.user.js?raw=1)
