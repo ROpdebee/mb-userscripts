@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Collapse Work Attributes
-// @version      2021.4.25
+// @version      2021.4.25.2
 // @description  Collapses work attributes when there are too many. Workaround for MBS-11535/MBS-11537.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -50,10 +50,14 @@ function createAnchor() {
 }
 
 function processTabulatedPage() {
-    let columnIdx = 1 + [...$('table.tbl thead th')]
+    document.querySelectorAll('table.tbl').forEach(processTable);
+}
+
+function processTable(table) {
+    let columnIdx = 1 + [...table.querySelectorAll('thead th')]
         .findIndex(th => ATTR_TRANSLATIONS.includes(th.innerText));
-    let tooLongAttrColumns = $('table.tbl td:nth-child(' + columnIdx + ')')
-        .filter((i, col) => $(col).find('li').length > 4);
+    let tooLongAttrColumns = $(table).find('td:nth-child(' + columnIdx + ')')
+        .filter((i, col) => col.querySelectorAll('li').length > 4);
 
     tooLongAttrColumns.each((i, col) => {
         let $col = $(col);
@@ -106,6 +110,10 @@ function processEditPage() {
             hidden = !hidden;
             setAnchorText($showAllAnchor, tooLongAttrs.length, hidden);
         }).trigger('click');
+    });
+
+    $('table.details.merge-works').each((i, tbl) => {
+        tbl.querySelectorAll('table.tbl').forEach(processTable);
     });
 }
 
