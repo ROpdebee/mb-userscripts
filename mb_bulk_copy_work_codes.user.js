@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.4.25.2
+// @version      2021.4.25.3
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -170,7 +170,10 @@ class BaseWorkForm {
             .addEventListener('click', (evt) => {
                 evt.preventDefault();
                 this.resetLog();
-                this.formatExistingCodes();
+                let formattedAny = this.formatExistingCodes();
+                if (formattedAny) {
+                    this.fillEditNote([], 'existing', true);
+                }
             });
 
         let autoFormatCheckbox = this.form.querySelector('input#ROpdebee_MB_Autoformat_Codes');
@@ -217,9 +220,7 @@ class BaseWorkForm {
             }
         });
 
-        if (formattedAny) {
-            this.fillEditNote([], 'existing', true);
-        }
+        return formattedAny;
     }
 
     resetLog() {
