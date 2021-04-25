@@ -193,6 +193,7 @@ class BaseWorkForm {
                     localStorage.removeItem(evt.currentTarget.id);
                 }
             });
+        autoFormatCheckbox.checked = !!localStorage.getItem('ROpdebee_MB_Autoformat_Codes');
     }
 
     checkExistingCodes() {
