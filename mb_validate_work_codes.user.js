@@ -99,7 +99,7 @@ function processEditPage() {
 
         attrRows.each((i, row) => {
             let agencyId = row.querySelector('th').innerText.slice(0, -1);
-            row.querySelectorAll('li > span').forEach(el => {
+            row.querySelectorAll('li').forEach(el => {
                 checkElement(el, el.innerText, agencyId);
             });
         });
