@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.4.25
+// @version      2021.4.25.2
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -101,6 +101,7 @@ function computeAgencyConflicts(mbCodes, extCodes) {
     // don't match the IDs that MB already has
     let commonKeys = Object.keys(mbCodes).intersect(Object.keys(extCodes));
     return commonKeys
+        .filter(k => k !== 'CASH ID')  // Skip checking CASH, ISWCNet is missing the prefix. We'll filter out conflicts later.
         .filter(k => mbCodes[k].length) // No MB codes => no conflicts
         .filter(k => extCodes[k].map(c => normaliseID(c, k)).difference(mbCodes[k].map(c => normaliseID(c, k))).length)
         .map(k => [k, mbCodes[k], extCodes[k]]);
@@ -114,20 +115,6 @@ function extractCodes(data) {
             acc[MBWorkIdentifiers.agencyNameToID(key)] = codes;
             return acc;
         }, {});
-}
-
-
-function retainOnlyNew(externalCodes, mbCodes) {
-    return Object.entries(externalCodes).reduce((acc, [key, codes]) => {
-        if (!mbCodes.hasOwnProperty(key)) {
-            acc[key] = codes;
-        } else {
-            let mbNormCodes = mbCodes[key].map(c => normaliseID(c, key))
-            acc[key] = codes
-                .filter(id => !mbNormCodes.includes(normaliseID(id, key)));
-        }
-        return acc;
-    }, {});
 }
 
 function fillInput(inp, val) {
@@ -323,11 +310,30 @@ class BaseWorkForm {
         // Confirm in case of conflicts.
         let confirmProm = conflicts.length ? this.promptForConfirmation(conflicts) : new Promise((resolve, reject) => resolve());
         confirmProm.then(() => {
-            let newCodes = retainOnlyNew(externalCodes, mbCodes);
+            let newCodes = this.retainOnlyNew(externalCodes, mbCodes);
             this.fillData(newISWCs, newCodes, data['title'], data['source']);
             let numWarnings = this.form.querySelectorAll('div#ROpdebee_MB_Paste_Work_Log > div').length;
             this.log('success', 'Filled successfully' + (numWarnings ? ` (${numWarnings} message(s))` : ''));
         });
+    }
+
+    retainOnlyNew(externalCodes, mbCodes) {
+        return Object.entries(externalCodes).reduce((acc, [key, codes]) => {
+            if (!mbCodes.hasOwnProperty(key)) {
+                acc[key] = codes;
+            } else if (key === 'CASH ID') {
+                this.log('warning', `
+                    Refusing to enter CASH IDs ${codes.join(', ')}:
+                    MB already has CASH IDs, ISWCNet is missing prefixes.
+                    Please check CASH's own repertory to find the correct prefixes, if necessary.`);
+                return acc;
+            } else {
+                let mbNormCodes = mbCodes[key].map(c => normaliseID(c, key))
+                acc[key] = codes
+                    .filter(id => !mbNormCodes.includes(normaliseID(id, key)));
+            }
+            return acc;
+        }, {});
     }
 
     fillData(iswcs, codes, title, source) {
