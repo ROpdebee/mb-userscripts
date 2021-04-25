@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.4.25.3
+// @version      2021.4.26
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -598,8 +598,13 @@ function handleISWCNet() {
                 row => row.querySelector('td[id="Agency Work Code:"]').innerText);
     }
 
-    function findIswc(table) {
-        return table.querySelector('td[id="Preferred ISWC:"]').innerText;
+    function findIswcs(table) {
+        iswcs = [table.querySelector('td[id="Preferred ISWC:"]').innerText];
+        findDivByText(table, 'Archived ISWCs').forEach(archivedTitle => {
+            let archivedISWCsDiv = archivedTitle.nextSibling;
+            iswcs = iswcs.concat(archivedISWCsDiv.childNodes[0].textContent.split(', '));
+        });
+        return iswcs;
     }
 
     function findTitle(table) {
@@ -608,7 +613,7 @@ function handleISWCNet() {
 
     function parseAndCopy(table) {
         let workCodes = findAgencyWorkCodes(table);
-        let iswcs = [findIswc(table)];
+        let iswcs = findIswcs(table);
         let title = findTitle(table);
 
         storeData('CISAC ISWCNet', iswcs, workCodes, title);
