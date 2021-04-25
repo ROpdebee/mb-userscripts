@@ -75,10 +75,13 @@ const LOG_STYLES = {
     'success': 'background-color: LightGreen;',
 };
 
-function normaliseID(id) {
-    // Fairly aggressive normalisation, just used for comparisons
-    // https://tickets.metabrainz.org/browse/MBS-11377
-    return id.replace(/(?:^0+|[\.\s-])/g, '');
+function normaliseID(id, agencyKey) {
+    let formatResult = MBWorkIdentifiers.validateCode(id, agencyKey)
+    if (!formatResult.isValid) {
+        return id.replace(/(?:^0+|[\.\s-])/g, '');
+    }
+
+    return formatResult.formattedCode;
 }
 
 function getSelectedID(select) {
@@ -99,7 +102,7 @@ function computeAgencyConflicts(mbCodes, extCodes) {
     let commonKeys = Object.keys(mbCodes).intersect(Object.keys(extCodes));
     return commonKeys
         .filter(k => mbCodes[k].length) // No MB codes => no conflicts
-        .filter(k => extCodes[k].map(normaliseID).difference(mbCodes[k].map(normaliseID)).length)
+        .filter(k => extCodes[k].map(c => normaliseID(c, k)).difference(mbCodes[k].map(c => normaliseID(c, k))).length)
         .map(k => [k, mbCodes[k], extCodes[k]]);
 }
 
@@ -119,9 +122,9 @@ function retainOnlyNew(externalCodes, mbCodes) {
         if (!mbCodes.hasOwnProperty(key)) {
             acc[key] = codes;
         } else {
-            let mbNormCodes = mbCodes[key].map(normaliseID)
+            let mbNormCodes = mbCodes[key].map(c => normaliseID(c, key))
             acc[key] = codes
-                .filter(id => !mbNormCodes.includes(normaliseID(id)));
+                .filter(id => !mbNormCodes.includes(normaliseID(id, key)));
         }
         return acc;
     }, {});
@@ -197,6 +200,7 @@ class BaseWorkForm {
     }
 
     checkExistingCodes() {
+        this.resetValidationLog();
         this.existingCodeInputs.forEach(({ select, input }) => {
             let agencyKey = getSelectedID(select);
             let agencyCode = input.value;
@@ -233,6 +237,14 @@ class BaseWorkForm {
 
     resetLog() {
         let logDiv = this.form.querySelector('div#ROpdebee_MB_Paste_Work_Log');
+        logDiv.style.display = 'none';
+        [...logDiv.children]
+            .slice(1)  // Skip the heading
+            .forEach(el => el.remove());
+    }
+
+    resetValidationLog() {
+        let logDiv = this.form.querySelector('div#ROpdebee_MB_Code_Validation_Errors');
         logDiv.style.display = 'none';
         [...logDiv.children]
             .slice(1)  // Skip the heading
@@ -345,6 +357,10 @@ class BaseWorkForm {
                 If you encounter these a lot, please consider filing a ticket.
                 <ul>${lis}</ul>`);
         }
+        if (this.autoformatCodes) {
+            this.formatExistingCodes();
+        }
+        this.checkExistingCodes();
         this.maybeFillTitle(title);
         this.fillEditNote(unknownAgencyCodes, source, this.autoformatCodes);
     }
@@ -372,20 +388,10 @@ class BaseWorkForm {
 
     fillAgencyCodes(agencyKey, agencyCodes) {
         agencyCodes.forEach(code => {
-            let formatResult = MBWorkIdentifiers.validateCode(code, agencyKey);
-            let fillCode = formatResult.isValid && this.autoformatCodes ? formatResult.formattedCode : formatResult.input;
             let input = this.findEmptyRow('table#work-attributes', 'edit-work.attributes.');
             // Will throw when the agency isn't know the MB, handled by caller.
             setRowKey(input.closest('tr').querySelector('td > select'), agencyKey);
-            fillInput(input, fillCode);
-            if (!formatResult.isValid) {
-                input.style.backgroundColor = 'red';
-                this.addValidationError(agencyKey, fillCode, formatResult.message);
-            } else if (formatResult.wasChanged && this.autoformatCodes) {
-                this.log('info', `Changed ${agencyKey} ${code} to ${fillCode}`);
-            } else if (formatResult.wasChanged) {
-                this.addFormatWarning(agencyKey, fillCode);
-            }
+            fillInput(input, code);
         });
     }
 
