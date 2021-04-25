@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Collapse Work Attributes
-// @version      2021.4.22
+// @version      2021.4.25
 // @description  Collapses work attributes when there are too many. Workaround for MBS-11535/MBS-11537.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -52,7 +52,7 @@ function createAnchor() {
 function processTabulatedPage() {
     let columnIdx = 1 + [...$('table.tbl thead th')]
         .findIndex(th => ATTR_TRANSLATIONS.includes(th.innerText));
-    let tooLongAttrColumns = $('table.tbl td:nth-child(8)')
+    let tooLongAttrColumns = $('table.tbl td:nth-child(' + columnIdx + ')')
         .filter((i, col) => $(col).find('li').length > 4);
 
     tooLongAttrColumns.each((i, col) => {
