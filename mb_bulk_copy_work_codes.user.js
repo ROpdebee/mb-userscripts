@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.4.24
+// @version      2021.4.25
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -14,6 +14,7 @@
 // @match        *://*.musicbrainz.org/release/*/edit-relationships
 // @match        *://musicbrainz.org/*/create
 // @match        *://*.musicbrainz.org/*/create
+// @require      https://raw.github.com/ROpdebee/mb-userscripts/main/lib/work_identifiers.js
 // @run-at       document-end
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -62,298 +63,6 @@ function findDivByText(parent, text) {
     return divs.filter(n => n.innerText === text);
 }
 
-// Helper for LatinNet agencies, optionally suffixed by their CISAC agency number,
-// which is removed.
-function latinNetID(agencyId) {
-    return {
-        inRegexp: new RegExp(`(\\d{0,7})(?:${agencyId})?`),
-        outFormat: '$1',
-        keepLeadingZeroes: false,
-    }
-}
-
-/**
- * Key: Agency property name
- * Value:
- *      inRegexp: A RegExp applied on the input to validate the input. ^ and $
- *                will automatically be inserted at the start and end of the regexp,
- *                respectively.
- *      outFormat: A string applied to transform the input to a formatted output.
- *                 Captured groups of the input RegExp will be available here,
- *                 the same format can be used as String.replace. If empty or
- *                 undefined, defaults to the portion of the string that is
- *                 matched by the inRegexp. Can also be a function.
- *      keepLeadingZeroes: Boolean flag, optional, by default false. If true,
- *                         leading zeroes will not be trimmed from the input
- *                         before feeding into the input regexp.
- *      ensureLength: Integer, pads the input to the given length at the start
- *                    with the given padCharacter if the input is not of that
- *                    length.
- *      padCharacter: 1 character string, used to pad to the ensured length.
- *      message: Additional info to show when validation/formatting fails.
- * The value can also be an array of different options to try.
- */
-const CODE_FORMATS = {
-    'AACIMH ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'ACAM ID': latinNetID('107'),
-    'ACDAM ID': latinNetID('103'),
-    'AEI ID': latinNetID('250'),
-    'AGADU ID': latinNetID('004'),
-    'AKKA/LAA ID': [{
-        inRegexp: /\d{0,8}/,
-    }, {
-        inRegexp: /\d{5}M/,
-        keepLeadingZeroes: true,
-    }],
-    'AKM ID': {
-        // FIXME: This cannot distinguish between bare work codes and work codes with revision numbers.
-        // E.g. 649501
-        inRegexp: /\d{0,8}(?:-?\d{2})?/,
-    },
-    'AMRA ID': {
-        inRegexp: /AWK\d{0,7}/,
-    },
-    'APA ID': latinNetID('015'),
-    'APDAYC ID': [
-        latinNetID('007'),
-        {
-            inRegexp: /\d{8}/,
-        }],
-    'APRA ID': {
-        inRegexp: /(?:GW|BG|JG|PM)\d{8}/,
-    },
-    'ARTISJUS ID': {
-        inRegexp: /4\d{9}/,
-    },
-    'ASCAP ID': {
-        inRegexp: /\d{0,14}/,
-    },
-    'BMI ID': {
-        inRegexp: /\d{0,8}/,
-    },
-    'BUMA/STEMRA ID': {
-        inRegexp: /W-\d{9}/,
-    },
-    'CASH ID': {
-        inRegexp: /[CMPU]-\d{10}/,
-        message: 'CISAC ISWCNet does not include the letter prefix, this has to be retrieved from CASH\'s repertory itself.'
-    },
-    'CCLI ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'COMPASS ID': {
-        inRegexp: /\d{0,8}/,
-    },
-    'COTT ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'ECAD ID': {
-        inRegexp: /\d{0,8}/,
-    },
-    'GEMA ID': {
-        inRegexp: /(\d{0,8})[\-‐](\d{3})/,
-        outFormat: '$1-$2',
-    },
-    'HFA ID': {
-        inRegexp: /[A-Z0-9]{6}/,
-    },
-    'ICE ID': {
-        inRegexp: /\d{0,8}/,
-    },
-    'IMRO ID': {
-        inRegexp: /R\d{0,8}/,
-    },
-    'JASRAC ID': {
-        inRegexp: /(\d[0-9A-Z]\d)-?(\d{4})-?(\d)/,
-        outFormat: '$1-$2-$3',
-        keepLeadingZeroes: true,
-    },
-    'KODA ID': {
-        inRegexp: /\d{0,8}/,
-    },
-    'KOMCA ID': [{
-        inRegexp: /\d{12}/,
-    }, {
-        inRegexp: /0000M\d{5,7}/,
-        keepLeadingZeroes: true,
-    }],
-    'LatinNet ID': {
-        inRegexp: /\d{3,4}/,
-    },
-    'MACP ID': {
-        inRegexp: /1\d{9}/,
-    },
-    'MÜST ID': {
-        inRegexp: /1\d{9}/,
-    },
-    'NexTone ID': {
-        inRegexp: /N\d{8}/,
-    },
-    'NICAUTOR ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'OSA ID': {
-        inRegexp: /(I\d{3})\.?(\d{2})\.?(\d{2})\.?(\d{2})/,
-        outFormat: '$1.$2.$3.$4',
-    },
-    'PRS tune code': {
-        inRegexp: /\d{4,6}[0-9A-Z][A-Z]/,
-    },
-    'SABAM ID': {
-        inRegexp: /\d{0,9}|[A-Z0-9]{7}\d{2}/,
-    },
-    'SACEM ID': {
-        inRegexp: /(\d{2})\s?(\d{3})\s?(\d{3})\s?(\d{2})/,
-        outFormat: '$1 $2 $3 $4',
-    },
-    'SACM ID': {
-        // NOTE: Keeping all leading zeroes here, because without the leading
-        // zeroes, their own repertory search doesn't find the work.
-        inRegexp: /[0-9A-Z]\d{8}/,
-        ensureLength: 9,
-        padCharacter: '0',
-        message: 'SACM IDs are required to be zero-padded until 9 characters.'
-    },
-    'SACIM ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'SACVEN ID': latinNetID('060'),
-    'SADAIC ID': latinNetID('061'),
-    'SAYCE ID': {
-        inRegexp: /(\d{0,8})(?:065)?/,
-        outFormat: '$1',
-    },
-    'SAYCO ID': {
-        inRegexp: /(\d{0,8})(?:084)?/,
-        outFormat: '$1',
-    },
-    'SESAC ID': {
-        inRegexp: /\d{0,9}/,
-    },
-    'SGACEDOM ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'SGAE ID': {
-        inRegexp: /(\d{1,3})(?:\.?(\d{3}))?(?:\.?(\d{3}))?/,
-        outFormat: (match, p1, p2, p3) => [p1, p2, p3].filter(Boolean).join('.'),
-    },
-    'SIAE ID': {
-        inRegexp: /\d{7,9}0[01]/,
-    },
-    'SOBODAYCOM ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'SOCAN ID': {
-        inRegexp: /2?\d{8}/,
-    },
-    'SODRAC ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'SPA ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'SPAC ID': {
-        inRegexp: /\d{0,7}/,
-    },
-    'STEF ID': {
-        inRegexp: /\d{0,8}/,
-    },
-    'STIM ID': {
-        inRegexp: /\d{0,8}/,
-    },
-    'SUISA ID': {
-        inRegexp: /(\d{6})\s?(\d{3})\s?(\d{2})/,
-        outFormat: '$1 $2 $3',
-        ensureLength: 13,  // Account for possible spaces too
-        padCharacter: '0',  // Extraneous spaces inserted here will be removed
-    },
-    'TEOSTO ID': {
-        inRegexp: /\d{8,9}/,
-    },
-    'ZAiKS ID': {
-        inRegexp: /\d{0,7}/,
-    },
-};
-
-function wrapRegex(start, regexp, end) {
-    return new RegExp(start + regexp.source + end);
-}
-
-function validateCode(code, agencyId) {
-    let rules = CODE_FORMATS[agencyId];
-    if (!rules) {
-        // We don't have a validator for this agency, assume it's valid.
-        return {
-            isValid: true,
-            input: code,
-        };
-    }
-
-    if (rules instanceof Array) {
-        let partialResult;
-        for (let i = 0; i < rules.length; i++) {
-            partialResult = validateCodeSingleRule(code, rules[i]);
-            if (partialResult.isValid) {
-                break;
-            }
-        }
-
-        return partialResult;
-    }
-    return validateCodeSingleRule(code, rules);
-}
-
-function validateCodeSingleRule(code, rule) {
-    let inputRegexp = rule.inRegexp;
-    let outFormat = rule.outFormat;
-    if (!outFormat) {
-        // Insert a capture group
-        inputRegexp = wrapRegex('(', inputRegexp, ')');
-        outFormat = '$1';
-    } else {
-        inputRegexp = wrapRegex('(?:', inputRegexp, ')');
-    }
-
-    if (!rule.keepLeadingZeroes) {
-        inputRegexp = wrapRegex('0*', inputRegexp, '');
-    }
-
-    inputRegexp = wrapRegex('^', inputRegexp, '$');
-
-    if (rule.ensureLength && rule.padCharacter) {
-        code = code.padStart(rule.ensureLength, rule.padCharacter);
-    }
-
-    let result = {
-        input: code,
-    };
-
-    if (!inputRegexp.test(code)) {
-        result.isValid = false;
-        if (rule.message) {
-            result.message = rule.message;
-        }
-        return result;
-    }
-
-    result.isValid = true;
-
-    // Try formatting
-    let formatted = code.replace(inputRegexp, outFormat);
-
-    if (!formatted) {
-        console.error(`Failed to format ${code}`);
-        formatted = code;
-    }
-
-    result.formattedCode = formatted;
-    result.wasChanged = formatted != code;
-
-    return result;
-}
-
 //////////////
 // MB
 //////////////
@@ -370,21 +79,6 @@ function normaliseID(id) {
     // Fairly aggressive normalisation, just used for comparisons
     // https://tickets.metabrainz.org/browse/MBS-11377
     return id.replace(/(?:^0+|[\.\s-])/g, '');
-}
-
-// For agencies where the MB ID isn't just `<agency name> ID`
-const agencyKeyTransformations = {
-    'BUMA': 'BUMA/STEMRA ID',
-    'PRS': 'PRS tune code',
-    'SESAC Inc.': 'SESAC ID',
-    'ZAIKS': 'ZAiKS ID',
-};
-
-function agencyNameToID(agencyName) {
-    if (agencyKeyTransformations.hasOwnProperty(agencyName)) {
-        return agencyKeyTransformations[agencyName];
-    }
-    return agencyName += ' ID';
 }
 
 function getSelectedID(select) {
@@ -414,7 +108,7 @@ function extractCodes(data) {
     let agencyCodes = data['agencyCodes'];
     return Object.entries(agencyCodes).reduce(
         (acc, [key, codes]) => {
-            acc[agencyNameToID(key)] = codes;
+            acc[MBWorkIdentifiers.agencyNameToID(key)] = codes;
             return acc;
         }, {});
 }
@@ -499,13 +193,14 @@ class BaseWorkForm {
                     localStorage.removeItem(evt.currentTarget.id);
                 }
             });
+        autoFormatCheckbox.checked = !!localStorage.getItem('ROpdebee_MB_Autoformat_Codes');
     }
 
     checkExistingCodes() {
         this.existingCodeInputs.forEach(({ select, input }) => {
             let agencyKey = getSelectedID(select);
             let agencyCode = input.value;
-            let checkResult = validateCode(agencyCode, agencyKey);
+            let checkResult = MBWorkIdentifiers.validateCode(agencyCode, agencyKey);
 
             if (!checkResult.isValid) {
                 input.style.backgroundColor = 'red';
@@ -522,7 +217,7 @@ class BaseWorkForm {
         this.existingCodeInputs.forEach(({ select, input }) => {
             let agencyKey = getSelectedID(select);
             let agencyCode = input.value;
-            let checkResult = validateCode(agencyCode, agencyKey);
+            let checkResult = MBWorkIdentifiers.validateCode(agencyCode, agencyKey);
 
             if (checkResult.isValid && checkResult.wasChanged) {
                 fillInput(input, checkResult.formattedCode);
@@ -677,7 +372,7 @@ class BaseWorkForm {
 
     fillAgencyCodes(agencyKey, agencyCodes) {
         agencyCodes.forEach(code => {
-            let formatResult = validateCode(code, agencyKey);
+            let formatResult = MBWorkIdentifiers.validateCode(code, agencyKey);
             let fillCode = formatResult.isValid && this.autoformatCodes ? formatResult.formattedCode : formatResult.input;
             let input = this.findEmptyRow('table#work-attributes', 'edit-work.attributes.');
             // Will throw when the agency isn't know the MB, handled by caller.
@@ -704,7 +399,8 @@ class BaseWorkForm {
             this.fillEditNoteTop(noteContent);
         }
 
-        let editNoteBottom = `${GM_info.script.name} v${GM_info.script.version} (source: ${source}, formatting applied: ${wasFormatted})`;
+        let fmtAppliedStr = wasFormatted ? MBWorkIdentifiers.VERSION : 'not applied';
+        let editNoteBottom = `${GM_info.script.name} v${GM_info.script.version} (source: ${source}, formatting: ${fmtAppliedStr})`;
 
         this.fillEditNoteBottom(editNoteBottom);
     }
