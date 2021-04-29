@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.14.3
+// @version      2021.4.29
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -688,7 +688,7 @@ class CAAEdit {
         let trs = this.$edit.find('table.details > tbody > tr');
         let typesRow = trs.toArray().find(tr => $(tr).children('th').text() === 'Types:');
         if (!typesRow) {
-            this.insertRow('Types:', '<span data-name="artwork-type">-</span>');
+            this.insertRow('Types:', '<span data-name="artwork-type">(none)</span>');
         } else {
             let $td = $(typesRow).find('td');
             let existingTypes = $td.text();
@@ -965,12 +965,12 @@ class CAAEdit {
         }
 
         // Unexpected type on digital media
-        if (!['Front', 'Track', '-'].includes(type) && this.isDigitalMedia) {
+        if (!['Front', 'Track', '-', '(none)'].includes(type) && this.isDigitalMedia) {
             this.markShady($typeEl, SHADY_REASONS.digitalNonFront);
         }
 
         // No types set
-        if (type === '-') {
+        if (type === '-' || type === '(none)') {
             this.markShady($typeEl, SHADY_REASONS.noTypesSet);
         }
 
