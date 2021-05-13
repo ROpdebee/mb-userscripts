@@ -36,6 +36,13 @@ Supercharges reviewing cover art edits. Displays release information on CAA edit
 [![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](mb_supercharged_caa_edits.user.js)
 [![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](mb_supercharged_caa_edits.user.js?raw=1)
 
+## MB: Upload to CAA From URL
+
+Upload covers to the CAA by pasting a URL! Workaround for MBS-4641.
+
+[![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](mb_upload_to_caa_from_url.user.js)
+[![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](mb_upload_to_caa_from_url.user.js?raw=1)
+
 ## MB: Validate Work Codes
 
 Validate work attributes on various MB pages. Highlights invalid (red) or ill-formatted (yellow) work codes.
