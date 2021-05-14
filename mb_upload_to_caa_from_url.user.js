@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Upload to CAA From URL
-// @version      2021.5.13
+// @version      2021.5.14
 // @description  Upload covers to the CAA by pasting a URL! Workaround for MBS-4641.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -69,7 +69,7 @@ async function addImage(url, log) {
 }
 
 function setupPage() {
-    let $div = $('<div style="display: inline-block; margin-left: 24px; vertical-align: middle;">');
+    let $div = $('<div style="display: inline-block; margin-left: 32px; vertical-align: middle;">');
     let $input = $('<input type="text" id="ROpdebee_paste_url" placeholder="or paste a URL here" size=47 />');
     let $status = $('<span style="display:block;" id="ROpdebee_paste_url_status" />');
 
