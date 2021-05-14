@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Upload to CAA From URL
-// @version      2021.5.14.1
+// @version      2021.5.14.2
 // @description  Upload covers to the CAA by pasting a URL! Workaround for MBS-4641.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -11,6 +11,7 @@
 // @match        *://*.musicbrainz.org/release/*/add-cover-art
 // @run-at       document-idle
 // @grant        GM_xmlhttpRequest
+// @connect      *
 // ==/UserScript==
 
 // NOTE: It's imperative not to use a custom jQuery instance here, and reuse
