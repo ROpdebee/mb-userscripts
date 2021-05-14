@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Upload to CAA From URL
-// @version      2021.5.14
+// @version      2021.5.14.1
 // @description  Upload covers to the CAA by pasting a URL! Workaround for MBS-4641.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -53,7 +53,7 @@ async function addImage(url, log) {
         log(exc);
         return;
     }
-    log(`Successfully loaded ${file.name}`);
+    log(`Successfully loaded ${fileName} as ${file.type}`);
 
     // Create a fake event to trigger the drop event on the drag'n'drop element
     let fakeEvent = $.Event('drop');
