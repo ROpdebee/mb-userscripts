@@ -239,7 +239,7 @@ async function _getPendingRemovalsInt(gid) {
 }
 
 async function getReleaseDetails(mbid) {
-    let resp = await fetchWithRetry(`${window.location.origin}/ws/js/entity/${mbid}`);
+    let resp = await fetchWithRetry(`${window.location.origin}/ws/js/release/${mbid}`);
     return resp.json();
 }
 
