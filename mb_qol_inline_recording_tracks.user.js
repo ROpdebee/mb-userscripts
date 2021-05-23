@@ -12,6 +12,7 @@
 // @exclude      *://*musicbrainz.org/release/*/*
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @run-at       document-end
+// @grant        none
 // ==/UserScript==
 
 let $ = this.$ = this.jQuery = jQuery.noConflict(true);
