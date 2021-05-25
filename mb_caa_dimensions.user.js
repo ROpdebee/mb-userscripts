@@ -304,10 +304,16 @@ function loadImageDimensions(imgUrl) {
 function displayInfo(imgElement, infoStr) {
     imgElement.setAttribute('ROpdebee_lazyDimensions', infoStr);
 
-    let dimensionStr = `Dimensions: ${infoStr}`;
+    let dimensionStr;
+    if (imgElement.closest('div.thumb-position')) {
+        // Shorter for thumbnails
+        dimensionStr = infoStr;
+    } else {
+        dimensionStr = `Dimensions: ${infoStr}`;
+    }
     let $existing = $(imgElement).parent().find('span.ROpdebee_dimensions');
     if (!$existing.length) {
-        $existing = $('<span>').addClass('ROpdebee_dimensions').css('display', 'block');
+        $existing = $('<span>').addClass('ROpdebee_dimensions');
         $(imgElement).after($existing);
     }
     $existing.text(dimensionStr);
@@ -370,7 +376,37 @@ window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
 window.ROpdebee_loadImageDimensions = loadImageDimensions;
 window.ROpdebee_loadImageInfo = loadImageInfo;
 
+function setupStyle() {
+    let style = document.createElement('style');
+    style.type = 'text/css';
+    style.id = 'ROpdebee_CAA_Dimensions';
+    document.head.appendChild(style);
+    // Thumbnails in add/reorder cover art pages
+    style.sheet.insertRule(`div.thumb-position {
+        height: auto;
+        position: relative;
+    }`);
+    style.sheet.insertRule(`#reorder-cover-art div.thumb-position {
+        min-height: 200px;
+    }`);
+    style.sheet.insertRule(`#add-cover-art div.thumb-position {
+        min-height: 180px;
+    }`);
+    // Put the reorder buttons at the bottom
+    style.sheet.insertRule(`div.thumb-position > div:last-of-type {
+        bottom: 5px;
+        position: absolute;
+        width: inherit;
+    }`);
+
+    style.sheet.insertRule(`span.ROpdebee_dimensions {
+        display: block;
+    }`);
+}
+
 $(window).on('load', () => {
+
+    setupStyle();
 
     // cover art pages
     $('#content div.artwork-cont').each((i, div) => {
@@ -385,8 +421,8 @@ $(window).on('load', () => {
         getDimensionsWhenInView(imgElement);
     });
 
-    // edit pages + release page
-    $('td.edit-cover-art img, #sidebar .cover-art-image > img').each((i, img) => {
+    // edit pages + release page + add/remove/edit/reorder cover art pages
+    $('.edit-cover-art img, p.artwork img, #sidebar .cover-art-image > img, div.thumb-position > a.artwork-image img').each((i, img) => {
         let anchor = img.closest('a.artwork-image');
         if (!anchor) return;
         img.setAttribute('fullSizeURL', anchor.href);
