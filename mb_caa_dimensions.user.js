@@ -62,6 +62,30 @@ function maybePruneCache(db) {
 
 }
 
+function async_memoised(fn, keyFn) {
+    // Wrap the given asynchronous function into a memoised one
+    // keyFn extracts the cache key from the arguments, it is given the arguments
+    // as the actual call.
+
+    // Maps the keys to the promise of the first call
+    let cache = new Map();
+
+    function wrapper(...args) {
+        let key = keyFn(...args);
+        if (cache.has(key)) {
+            _debug(`Using pre-existing promise for ${key}`);
+            return cache.get(key);
+        }
+
+        _debug(`Creating new promise for ${key}`);
+        let promise = fn(...args);
+        cache.set(key, promise);
+        return promise;
+    }
+
+    return wrapper;
+}
+
 class CacheMgr {
     constructor() {
         // Promise that is resolved when a DB is successfully opened, and
@@ -180,27 +204,16 @@ function actuallyLoadImageDimensions(imgUrl) {
     });
 }
 
-let loadImageDimensions = (function() {
-    // Maps URLs to the promise that loads the image dimensions if it exists.
-    let windowCache = new Map();
-    function loadImageDimensions(imgUrl) {
-        if (windowCache.has(imgUrl)) {
-            _debug(`Using pre-existing promise for ${imgUrl}`);
-            return windowCache.get(imgUrl);
-        }
-
-        _debug(`Creating new promise for ${imgUrl}`);
-        let promise = cacheMgr
-            // Try loading from cache first
-            .loadFromCache(imgUrl)
-            // If we couldn't load it from the cache, actually do the loading
-            .catch((err) => actuallyLoadImageDimensions(imgUrl));
-        windowCache.set(imgUrl, promise);
-        return promise;
-    }
-
-    return loadImageDimensions;
-})();
+function _loadImageDimensions(imgUrl) {
+    return cacheMgr
+        // Try loading from cache first
+        .loadFromCache(imgUrl)
+        // If we couldn't load it from the cache, actually do the loading
+        .catch((err) => actuallyLoadImageDimensions(imgUrl));
+}
+const loadImageDimensions = async_memoised(
+        _loadImageDimensions,
+        (url, ...args) => url);
 
 function displayDimensions(imgElement, dims) {
     imgElement.setAttribute('ROpdebee_lazyDimensions', 'pending…');
