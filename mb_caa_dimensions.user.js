@@ -9,7 +9,7 @@
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_caa_dimensions.user.js
 // @match        *://musicbrainz.org/*
 // @match        *://*.musicbrainz.org/*
-// @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js
+// @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
