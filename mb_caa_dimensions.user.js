@@ -128,7 +128,7 @@ class CacheMgr {
                     let res = evt.target.result;
                     if (res) {
                         _debug(`${imgUrl}: Cache hit`);
-                        resolve([res.width, res.height]);
+                        resolve(res);
                     } else {
                         _debug(`${imgUrl}: Cache miss`);
                         reject(null);
@@ -142,7 +142,7 @@ class CacheMgr {
     }
 
     storeInCache(imgUrl, width, height) {
-        this.dbProm.then((db) => {
+        return this.dbProm.then((db) => {
             let obj = {url: imgUrl, width: width, height: height, added_datetime: Date.now()};
             let t = db.transaction(CACHE_STORE_NAME, 'readwrite')
                 .objectStore(CACHE_STORE_NAME)
@@ -152,14 +152,16 @@ class CacheMgr {
             });
             t.onsuccess = ((evt) => {
                 _debug(`${imgUrl} successfully stored in cache.`);
-            })
+            });
+
+            return obj;
         });
     }
 }
 
 const cacheMgr = new CacheMgr();
 
-function actuallyLoadImageDimensions(imgUrl) {
+function actuallyLoadImageInfo(imgUrl) {
     _log(`Getting image dimensions for ${imgUrl}`);
     return new Promise((resolve, reject) => {
         // Create dummy element to contain the image, from which we retrieve the natural width and height.
@@ -175,8 +177,7 @@ function actuallyLoadImageDimensions(imgUrl) {
                 let [w, h] = [img.naturalWidth, img.naturalHeight];
                 img.src = '';
                 done = true;
-                cacheMgr.storeInCache(imgUrl, w, h);
-                resolve([w, h]);
+                resolve(cacheMgr.storeInCache(imgUrl, w, h));
             }
         }, 50);
 
@@ -187,8 +188,7 @@ function actuallyLoadImageDimensions(imgUrl) {
             if (!done) {
                 let [w, h] = [img.naturalWidth, img.naturalHeight];
                 done = true;
-                cacheMgr.storeInCache(imgUrl, w, h);
-                resolve([w, h]);
+                resolve(cacheMgr.storeInCache(imgUrl, w, h));
             }
         });
 
@@ -203,7 +203,7 @@ function actuallyLoadImageDimensions(imgUrl) {
     });
 }
 
-function _loadImageDimensions(imgUrl) {
+function _loadImageInfo(imgUrl) {
     let urlObj = new URL(imgUrl);
     if (urlObj.hostname === 'coverartarchive.org') {
         // Bypass the redirect and go to IA directly. No use hitting CAA with
@@ -217,11 +217,16 @@ function _loadImageDimensions(imgUrl) {
         // Try loading from cache first
         .loadFromCache(imgUrl)
         // If we couldn't load it from the cache, actually do the loading
-        .catch((err) => actuallyLoadImageDimensions(imgUrl));
+        .catch((err) => actuallyLoadImageInfo(imgUrl));
 }
-const loadImageDimensions = async_memoised(
-        _loadImageDimensions,
+const loadImageInfo = async_memoised(
+        _loadImageInfo,
         (url, ...args) => url);
+
+// For compatibility with older scripts. Deprecated.
+function loadImageDimensions(imgUrl) {
+    return loadImageInfo(imgUrl).then((res) => [res.width, res.height]);
+}
 
 function displayDimensions(imgElement, dims) {
     imgElement.setAttribute('ROpdebee_lazyDimensions', 'pending…');
@@ -250,8 +255,8 @@ function cbImageInView(imgElement) {
     // Placeholder while loading, prevent from loading again.
     displayDimensions(imgElement, 'pending…');
 
-    loadImageDimensions(imgElement.getAttribute('fullSizeURL'))
-        .then(([w, h]) => displayDimensions(imgElement, `${w}x${h}`))
+    loadImageInfo(imgElement.getAttribute('fullSizeURL'))
+        .then((res) => displayDimensions(imgElement, `${res.width}x${res.height}`))
         .catch((err) => {
             _log(err);
             displayDimensions(imgElement, 'failed :(')
@@ -273,6 +278,7 @@ let getDimensionsWhenInView = (function() {
 // Expose the function for use in other scripts that may load images.
 window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
 window.ROpdebee_loadImageDimensions = loadImageDimensions;
+window.ROpdebee_loadImageInfo = loadImageInfo;
 
 $(window).on('load', () => {
 
