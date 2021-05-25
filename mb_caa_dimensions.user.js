@@ -57,6 +57,12 @@ function async_memoised(fn, keyFn) {
     return wrapper;
 }
 
+// Thanks to https://stackoverflow.com/a/20732091
+function humanFileSize(size) {
+    let i = Math.floor(Math.log(size) / Math.log(1024));
+    return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+};
+
 class CacheMgr {
     constructor() {
         // Promise that is resolved when a DB is successfully opened, and
@@ -79,6 +85,7 @@ class CacheMgr {
                     .createObjectStore(CACHE_STORE_NAME, { keyPath: 'url' });
                 // Index to quickly remove stale entries.
                 store.createIndex('added_datetime', 'added_datetime');
+                resolve(evt.target.result);
             });
             dbReq.onerror = ((evt) => {
                 _log(`Failed to open indexedDB: ${evt.target.errorCode}`);
@@ -141,9 +148,9 @@ class CacheMgr {
             }));
     }
 
-    storeInCache(imgUrl, width, height) {
+    storeInCache(imgUrl, width, height, size) {
         return this.dbProm.then((db) => {
-            let obj = {url: imgUrl, width: width, height: height, added_datetime: Date.now()};
+            let obj = {url: imgUrl, width: width, height: height, size: size, added_datetime: Date.now()};
             let t = db.transaction(CACHE_STORE_NAME, 'readwrite')
                 .objectStore(CACHE_STORE_NAME)
                 .put(obj)
@@ -161,7 +168,7 @@ class CacheMgr {
 
 const cacheMgr = new CacheMgr();
 
-function actuallyLoadImageInfo(imgUrl) {
+function actuallyLoadImageDimensions(imgUrl) {
     _log(`Getting image dimensions for ${imgUrl}`);
     return new Promise((resolve, reject) => {
         // Create dummy element to contain the image, from which we retrieve the natural width and height.
@@ -177,7 +184,7 @@ function actuallyLoadImageInfo(imgUrl) {
                 let [w, h] = [img.naturalWidth, img.naturalHeight];
                 img.src = '';
                 done = true;
-                resolve(cacheMgr.storeInCache(imgUrl, w, h));
+                resolve([w, h]);
             }
         }, 50);
 
@@ -186,9 +193,8 @@ function actuallyLoadImageInfo(imgUrl) {
             // If loaded but not yet done, fire the callback. Otherwise the interval is cleared
             // and no results are sent to the CB.
             if (!done) {
-                let [w, h] = [img.naturalWidth, img.naturalHeight];
                 done = true;
-                resolve(cacheMgr.storeInCache(imgUrl, w, h));
+                resolve([img.naturalWidth, img.naturalHeight]);
             }
         });
 
@@ -199,8 +205,75 @@ function actuallyLoadImageInfo(imgUrl) {
                 reject(evt.target.error);
             }
         });
-
     });
+}
+
+async function _fetchIAMetadata(itemId) {
+    let resp = await fetch(`https://archive.org/metadata/${itemId}/files`);
+    let metadata = await resp.json();
+    return metadata;
+}
+// Use memoised fetch so that a single page can reuse the same metadata.
+// Don't cache metadata across page loads, as it might change.
+const fetchIAMetadata = async_memoised(_fetchIAMetadata, (itemId) => itemId);
+
+async function loadImageFileSize(imgUrl) {
+    let urlObj = new URL(imgUrl);
+    if (urlObj.hostname !== 'archive.org') {
+        return 0;
+    }
+
+    let [itemId, imagePath] = urlObj.pathname.split('/').slice(2);
+
+    let metadata = await fetchIAMetadata(itemId);
+    if (!metadata) {
+        _log(`${imgUrl}: Empty metadata. Darked?`);
+        return 0;
+    }
+
+    let imgMeta = metadata.result.find((meta) => meta.name === imagePath);
+    if (!imgMeta) {
+        _log(`${imgUrl}: Could not find image in metadata.`);
+        return 0;
+    }
+
+    return parseInt(imgMeta.size);
+}
+
+function actuallyLoadImageInfo(imgUrl) {
+    const loaders = [actuallyLoadImageDimensions, loadImageFileSize];
+    return Promise.allSettled(loaders.map((fn) => fn(imgUrl)))
+        .then((results) => {
+            let [dimFailed, sizeFailed] = results.map((res) => res.status !== 'fulfilled');
+            let [dimResult, sizeResult] = results;
+
+            if (dimFailed && sizeFailed) {
+                throw new Error(`${imgUrl}: ${dimResult.reason}, ${sizeResult.reason}`);
+            }
+
+            let w, h, size;
+            if (!dimFailed) {
+                [w, h] = dimResult.value;
+            } else {
+                _log(`${imgUrl}: Failed to load dimensions: ${dimResult.reason}`);
+                [w, h] = [0, 0];
+            }
+
+            if (!sizeFailed) {
+                size = sizeResult.value;
+            } else {
+                _log(`${imgUrl}: Failed to load size: ${sizeResult.reason}`);
+                size = 0;
+            }
+
+            if (dimFailed || sizeFailed) {
+                // Don't store in cache if either of the two failed, but still
+                // return a result
+                return {url: imgUrl, width: w, height: h, size: size};
+            }
+
+            return cacheMgr.storeInCache(imgUrl, w, h, size);
+        });
 }
 
 function _loadImageInfo(imgUrl) {
@@ -228,16 +301,33 @@ function loadImageDimensions(imgUrl) {
     return loadImageInfo(imgUrl).then((res) => [res.width, res.height]);
 }
 
-function displayDimensions(imgElement, dims) {
-    imgElement.setAttribute('ROpdebee_lazyDimensions', 'pending…');
+function displayInfo(imgElement, infoStr) {
+    imgElement.setAttribute('ROpdebee_lazyDimensions', infoStr);
 
-    let dimensionStr = `Dimensions: ${dims}`;
-    let existing = $(imgElement).parent().find('span.ROpdebee_dimensions');
-    if (!existing.length) {
-        existing = $('<span>').addClass('ROpdebee_dimensions').css('display', 'block');
-        $(imgElement).after(existing);
+    let dimensionStr = `Dimensions: ${infoStr}`;
+    let $existing = $(imgElement).parent().find('span.ROpdebee_dimensions');
+    if (!$existing.length) {
+        $existing = $('<span>').addClass('ROpdebee_dimensions').css('display', 'block');
+        $(imgElement).after($existing);
     }
-    existing.text(dimensionStr);
+    $existing.text(dimensionStr);
+}
+
+function createInfoString(result) {
+    let dimStr, sizeStr;
+    if (!result.width || !result.height) {
+        dimStr = 'failed :(';
+    } else {
+        dimStr = `${result.width}x${result.height}`;
+    }
+
+    if (!result.size) {
+        sizeStr = '??? KB';
+    } else {
+        sizeStr = humanFileSize(result.size);
+    }
+
+    return `${dimStr} (${sizeStr})`;
 }
 
 function cbImageInView(imgElement) {
@@ -253,13 +343,13 @@ function cbImageInView(imgElement) {
     }
 
     // Placeholder while loading, prevent from loading again.
-    displayDimensions(imgElement, 'pending…');
+    displayInfo(imgElement, 'pending…');
 
     loadImageInfo(imgElement.getAttribute('fullSizeURL'))
-        .then((res) => displayDimensions(imgElement, `${res.width}x${res.height}`))
+        .then((res) => displayInfo(imgElement, createInfoString(res)))
         .catch((err) => {
             _log(err);
-            displayDimensions(imgElement, 'failed :(')
+            displayInfo(imgElement, 'failed :(')
         });
 }
 
