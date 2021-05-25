@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.3.31
+// @version      2021.5.25
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
