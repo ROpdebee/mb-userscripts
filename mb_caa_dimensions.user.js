@@ -305,7 +305,7 @@ function displayInfo(imgElement, infoStr) {
     imgElement.setAttribute('ROpdebee_lazyDimensions', infoStr);
 
     let dimensionStr;
-    if (imgElement.closest('div.thumb-position')) {
+    if (imgElement.closest('div.thumb-position') || imgElement.classList.contains('uploader-preview-image')) {
         // Shorter for thumbnails
         dimensionStr = infoStr;
     } else {
@@ -402,6 +402,23 @@ function setupStyle() {
     style.sheet.insertRule(`span.ROpdebee_dimensions {
         display: block;
     }`);
+
+    style.sheet.insertRule(`img.uploader-preview-column > span.ROpdebee_dimensions {
+        display: inline;
+    }`);
+}
+
+function listenForNewCoverArtThumbs() {
+    // On add cover art pages
+    // Continuously check for images and display their dimensions.
+    setInterval(() => {
+        $('img.uploader-preview-image').each((i, img) => {
+            if (img.getAttribute('ROpdebee_lazyDimensions')) return;
+
+            // No need to load these through the network here.
+            displayInfo(img, `${img.naturalHeight}x${img.naturalWidth}`);
+        });
+    }, 500);
 }
 
 $(window).on('load', () => {
@@ -428,4 +445,9 @@ $(window).on('load', () => {
         img.setAttribute('fullSizeURL', anchor.href);
         getDimensionsWhenInView(img);
     });
+
+    // add cover art pages, listen for new images
+    if ($('#add-cover-art').length) {
+        listenForNewCoverArtThumbs();
+    }
 });
