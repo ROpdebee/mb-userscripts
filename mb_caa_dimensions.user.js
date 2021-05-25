@@ -33,35 +33,6 @@ const CACHE_TIMESTAMP_NAME = 'ROpdebee_Last_Cache_Prune_Check';
 const CACHE_CHECK_INTERVAL = 24 * 60 * 60 * 1000;   // Daily
 const CACHE_STALE_TIME = 14 * 24 * 60 * 60 * 1000;  // 2 weeks
 
-function maybePruneCache(db) {
-    const lastCheck = parseInt(window.localStorage.getItem(CACHE_TIMESTAMP_NAME)) || 0;
-    const timeElapsed = Date.now() - lastCheck;
-    if (lastCheck && timeElapsed < CACHE_CHECK_INTERVAL) {
-        _debug(`Last checked at ${new Date(lastCheck)}, not pruning cache`);
-        return;
-    }
-
-    _log('Pruning stale entries from cache');
-    let idx = db
-        .transaction(CACHE_STORE_NAME, 'readwrite')
-        .objectStore(CACHE_STORE_NAME)
-        .index('added_datetime');
-    let range = IDBKeyRange.upperBound(Date.now() - CACHE_STALE_TIME);
-    idx.openCursor(range).onsuccess = function (evt) {
-        let cursor = evt.target.result;
-        if (cursor) {
-            _debug(`Removing ${cursor.value.url} (added at ${new Date(cursor.value.added_datetime)})`);
-            cursor.delete();
-            cursor.continue();
-        } else {
-            // Done
-            _debug('Done pruning stale entries');
-            window.localStorage.setItem(CACHE_TIMESTAMP_NAME, Date.now());
-        }
-    }
-
-}
-
 function async_memoised(fn, keyFn) {
     // Wrap the given asynchronous function into a memoised one
     // keyFn extracts the cache key from the arguments, it is given the arguments
@@ -115,7 +86,35 @@ class CacheMgr {
             });
         });
 
-        this.dbProm.then(maybePruneCache);
+        this.dbProm.then(this.maybePruneCache.bind(this));
+    }
+
+    maybePruneCache(db) {
+        const lastCheck = parseInt(window.localStorage.getItem(CACHE_TIMESTAMP_NAME)) || 0;
+        const timeElapsed = Date.now() - lastCheck;
+        if (lastCheck && timeElapsed < CACHE_CHECK_INTERVAL) {
+            _debug(`Last checked at ${new Date(lastCheck)}, not pruning cache`);
+            return;
+        }
+
+        _log('Pruning stale entries from cache');
+        let idx = db
+            .transaction(CACHE_STORE_NAME, 'readwrite')
+            .objectStore(CACHE_STORE_NAME)
+            .index('added_datetime');
+        let range = IDBKeyRange.upperBound(Date.now() - CACHE_STALE_TIME);
+        idx.openCursor(range).onsuccess = function (evt) {
+            let cursor = evt.target.result;
+            if (cursor) {
+                _debug(`Removing ${cursor.value.url} (added at ${new Date(cursor.value.added_datetime)})`);
+                cursor.delete();
+                cursor.continue();
+            } else {
+                // Done
+                _debug('Done pruning stale entries');
+                window.localStorage.setItem(CACHE_TIMESTAMP_NAME, Date.now());
+            }
+        }
     }
 
     loadFromCache(imgUrl) {
