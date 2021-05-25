@@ -204,6 +204,15 @@ function actuallyLoadImageDimensions(imgUrl) {
 }
 
 function _loadImageDimensions(imgUrl) {
+    let urlObj = new URL(imgUrl);
+    if (urlObj.hostname === 'coverartarchive.org') {
+        // Bypass the redirect and go to IA directly. No use hitting CAA with
+        // requests, and it's likely we'll get 429s when there are too many
+        // images on the page.
+        let [mbid, imgPath] = urlObj.pathname.split('/').slice(2);
+        imgUrl = `https://archive.org/download/mbid-${mbid}/mbid-${mbid}-${imgPath}`;
+    }
+
     return cacheMgr
         // Try loading from cache first
         .loadFromCache(imgUrl)
