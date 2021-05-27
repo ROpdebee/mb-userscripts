@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.5.25.2
+// @version      2021.5.27
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -384,23 +384,35 @@ function setupStyle() {
     // Thumbnails in add/reorder cover art pages
     style.sheet.insertRule(`div.thumb-position {
         height: auto;
-        position: relative;
+        display: flex;
+        flex-direction: column;
     }`);
-    style.sheet.insertRule(`#reorder-cover-art div.thumb-position {
-        min-height: 200px;
-    }`);
-    style.sheet.insertRule(`#add-cover-art div.thumb-position {
-        min-height: 180px;
+    style.sheet.insertRule(`.image-position {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
     }`);
     // Put the reorder buttons at the bottom
+    style.sheet.insertRule(`div.thumb-position > div:last-of-type::before {
+        margin-bottom: auto;
+    }`);
     style.sheet.insertRule(`div.thumb-position > div:last-of-type {
-        bottom: 5px;
-        position: absolute;
-        width: inherit;
+        margin-top: auto;
+        padding-top: 5px;
+    }`);
+    // Center the thumbnail img
+    style.sheet.insertRule(`div.thumb-position img {
+        display: block;
+        margin: auto;
     }`);
 
     style.sheet.insertRule(`span.ROpdebee_dimensions {
         display: block;
+    }`);
+    style.sheet.insertRule(`div.thumb-position span.ROpdebee_dimensions {
+        text-align: center;
+        font-size: smaller;
+        padding: 0.5em 0;
     }`);
 
     style.sheet.insertRule(`img.uploader-preview-column > span.ROpdebee_dimensions {
