@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.5.25
+// @version      2021.5.27
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -101,7 +101,6 @@ function computeAgencyConflicts(mbCodes, extCodes) {
     // don't match the IDs that MB already has
     let commonKeys = Object.keys(mbCodes).intersect(Object.keys(extCodes));
     return commonKeys
-        .filter(k => k !== 'CASH ID')  // Skip checking CASH, ISWCNet is missing the prefix. We'll filter out conflicts later.
         .filter(k => mbCodes[k].length) // No MB codes => no conflicts
         .filter(k => extCodes[k].map(c => normaliseID(c, k)).difference(mbCodes[k].map(c => normaliseID(c, k))).length)
         .map(k => [k, mbCodes[k], extCodes[k]]);
@@ -322,12 +321,6 @@ class BaseWorkForm {
         return Object.entries(externalCodes).reduce((acc, [key, codes]) => {
             if (!mbCodes.hasOwnProperty(key)) {
                 acc[key] = codes;
-            } else if (key === 'CASH ID') {
-                this.log('warning', `
-                    Refusing to enter CASH IDs ${codes.join(', ')}:
-                    MB already has CASH IDs, ISWCNet is missing prefixes.
-                    Please check CASH's own repertory to find the correct prefixes, if necessary.`);
-                return acc;
             } else {
                 let mbNormCodes = mbCodes[key].map(c => normaliseID(c, key))
                 acc[key] = codes
@@ -593,9 +586,19 @@ function handleISWCNet() {
         if (!codeTable.length) return {};
 
         let rows = [...codeTable[0].querySelectorAll('tbody > tr')];
-        return rows.groupBy(
+        let groupedCodes = rows.groupBy(
                 row => row.querySelector('td[id="Agency Name:"]').innerText,
                 row => row.querySelector('td[id="Agency Work Code:"]').innerText);
+
+        // CASH IDs always start with "C-", but this prefix is not stored on ISWCNet.
+        // The prefix indicates the originating agency from the DIVA family, which
+        // also includes MUST, MACP, MCSC, and MCT. Those codes are stored under
+        // their respective agency in ISWCNet.
+        if ('CASH' in groupedCodes) {
+            groupedCodes['CASH'] = groupedCodes['CASH'].map(code => `C-${code}`);
+        }
+
+        return groupedCodes;
     }
 
     function findIswcs(table) {
