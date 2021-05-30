@@ -116,7 +116,7 @@ moment.updateLocale('de', {
     monthsShort: 'Jan_Feb_Mär_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Dez'.split('_'),
 });
 
-getDimensionsWhenInView = (() => {
+const getDimensionsWhenInView = (() => {
     let actualFn = window.ROpdebee_getDimensionsWhenInView;
 
     if (!actualFn) {
@@ -127,7 +127,7 @@ getDimensionsWhenInView = (() => {
     return actualFn;
 })();
 
-loadImageDimensions = (() => {
+const loadImageDimensions = (() => {
     let actualFn = window.ROpdebee_loadImageDimensions;
 
     if (!actualFn) {
@@ -599,7 +599,7 @@ $.widget('ropdebee.artworkCompare', $.ui.dialog, {
 
 });
 
-openComparisonDialog = (() => {
+const openComparisonDialog = (() => {
     let $activeDialog = $();
 
     let viewer = $('<div>').appendTo('body')
