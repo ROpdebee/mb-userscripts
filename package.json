@@ -1,0 +1,25 @@
+{
+  "name": "mb-userscripts",
+  "version": "1.0.0",
+  "description": "Build package for MB userscripts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ROpdebee/mb-userscripts.git"
+  },
+  "author": "ROpdebee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ROpdebee/mb-userscripts/issues"
+  },
+  "homepage": "https://github.com/ROpdebee/mb-userscripts#readme",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^7.27.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
+  }
+}
