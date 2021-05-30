@@ -18,8 +18,16 @@
   "homepage": "https://github.com/ROpdebee/mb-userscripts#readme",
   "private": true,
   "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "babel-loader": "^8.2.2",
     "eslint": "^7.27.0",
+    "uglify-loader": "^3.0.0",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "core-js": "^3.13.1"
   }
 }

@@ -117,15 +117,19 @@ async function transformFile(chunk, originalFile, compilation) {
 module.exports = class UserscriptPlugin {
     apply(compiler) {
         // Inspired by https://github.com/momocow/webpack-userscript/
-        compiler.hooks.emit.tapPromise(PLUGIN_NAME, async (compilation) => {
+        compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) =>
+            compilation.hooks.processAssets.tap(PLUGIN_NAME, (assets) => {
+            for (const i in assets) {
+                console.log(i);
+            }
             for (const chunk of compilation.chunks) {
                 if (!chunk.canBeInitial()) { // non-entry
                     continue;
                 }
 
-                await Promise.all([...chunk.files]
+                Promise.all([...chunk.files]
                     .map((file) => transformFile(chunk, file, compilation)));
             }
-        });
+        }));
     }
 };

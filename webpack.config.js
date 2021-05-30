@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const TerserPlugin = require('terser-webpack-plugin');
+
 const UserscriptPlugin = require('./webpack/userscriptPlugin');
 
 const userscripts = fs
@@ -23,7 +25,22 @@ module.exports = {
     optimization: {
         minimize: false,
     },
+    target: 'es5',
     plugins: [
         new UserscriptPlugin(),
-    ]
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+        ]
+    }
 };
