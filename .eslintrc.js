@@ -1,6 +1,7 @@
 module.exports = {
     env: {
         node: true,
+        sourceType: 'module',
         es2021: true
     },
     extends: 'eslint:recommended',

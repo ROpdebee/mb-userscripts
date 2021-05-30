@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Build package for MB userscripts",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "rollup -c",
     "lint": "eslint . --ext .js"
   },
   "repository": {
@@ -21,11 +21,13 @@
     "@babel/core": "^7.14.3",
     "@babel/plugin-transform-runtime": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
-    "babel-loader": "^8.2.2",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
     "eslint": "^7.27.0",
-    "uglify-loader": "^3.0.0",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0"
+    "rollup": "^2.50.5",
+    "rollup-plugin-terser": "^7.0.2",
+    "terser": "^5.7.0"
   },
   "dependencies": {
     "core-js": "^3.13.1"
