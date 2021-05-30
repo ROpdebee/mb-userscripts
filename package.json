@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Build package for MB userscripts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "lint": "eslint . --ext .js"
   },
   "repository": {
     "type": "git",

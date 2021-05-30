@@ -8,7 +8,11 @@ module.exports = {
         ecmaVersion: 12
     },
     ignorePatterns: [
-        'dist/**/*.js',
+        'dist/',
+        'node_modules/',
+        // Ignore top-level scripts for now
+        'mb_*.js',
+        'lib/',
     ],
     rules: {
         'indent': [
