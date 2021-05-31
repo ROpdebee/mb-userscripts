@@ -1,16 +1,17 @@
 module.exports = {
     env: {
         node: true,
-        sourceType: 'module',
         es2021: true
     },
     extends: 'eslint:recommended',
     parserOptions: {
-        ecmaVersion: 12
+        ecmaVersion: 12,
+        sourceType: 'module',
     },
     ignorePatterns: [
         'dist/',
         'node_modules/',
+        'tmp_build/',
         // Ignore top-level scripts for now
         'mb_*.js',
         'lib/',

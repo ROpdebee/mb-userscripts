@@ -7,7 +7,7 @@ const BROWSER_TARGETS = {
     safari: '9.0',
 };
 
-module.exports = {
+export default {
     presets: [
         ['@babel/preset-env', {
             corejs: '3',

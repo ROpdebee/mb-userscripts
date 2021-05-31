@@ -1,6 +1,6 @@
 /* global jQuery */
 
-let $ = this.$ = this.jQuery = jQuery.noConflict(true);
+let $ = jQuery.noConflict(true);
 
 function setupStyle() {
     let style = document.createElement('style');

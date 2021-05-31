@@ -119,17 +119,17 @@ module.exports = class UserscriptPlugin {
         // Inspired by https://github.com/momocow/webpack-userscript/
         compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) =>
             compilation.hooks.processAssets.tap(PLUGIN_NAME, (assets) => {
-            for (const i in assets) {
-                console.log(i);
-            }
-            for (const chunk of compilation.chunks) {
-                if (!chunk.canBeInitial()) { // non-entry
-                    continue;
+                for (const i in assets) {
+                    console.log(i);
                 }
+                for (const chunk of compilation.chunks) {
+                    if (!chunk.canBeInitial()) { // non-entry
+                        continue;
+                    }
 
-                Promise.all([...chunk.files]
-                    .map((file) => transformFile(chunk, file, compilation)));
-            }
-        }));
+                    Promise.all([...chunk.files]
+                        .map((file) => transformFile(chunk, file, compilation)));
+                }
+            }));
     }
 };

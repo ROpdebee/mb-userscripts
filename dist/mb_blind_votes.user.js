@@ -1,12 +1,8 @@
 (function () {
   'use strict';
 
-  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-  var mb_blind_votes = {};
-
   /* global jQuery */
-  var $ = commonjsGlobal.$ = commonjsGlobal.jQuery = jQuery.noConflict(true);
+  var $ = jQuery.noConflict(true);
 
   function setupStyle() {
     var style = document.createElement('style');
@@ -41,7 +37,5 @@
     $unblindEdits.closest('div.edit-list').addClass('unblind');
     $unblindEdits.closest('div#content').addClass('unblind');
   });
-
-  return mb_blind_votes;
 
 }());
