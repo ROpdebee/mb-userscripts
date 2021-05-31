@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Build package for MB userscripts",
   "scripts": {
-    "build": "node --loader ts-node/esm rollup.ts",
+    "build": "node --unhandled-rejections=strict --loader ts-node/esm rollup.ts",
     "lint": "eslint . --ext .js,.ts",
     "typecheck": "tsc"
   },
@@ -36,6 +36,7 @@
     "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.27.0",
     "node-sass": "^6.0.0",
+    "postcss": "^8.3.0",
     "postcss-preset-env": "^6.7.0",
     "rollup": "^2.50.5",
     "rollup-plugin-delete": "^2.0.0",

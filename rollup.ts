@@ -66,8 +66,8 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
     try {
         inputPath = await Promise.any(EXTENSIONS.map(async (ext) => {
             const filePath = path.resolve('./src', userscriptDir, 'index' + ext);
-            await fs.promises.stat(filePath);
-            return filePath;
+            return fs.promises.stat(filePath)
+                .then(() => filePath);
         }));
     } catch {
         throw new Error(`No top-level file found in ${userscriptDir}`);
