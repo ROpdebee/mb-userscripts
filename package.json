@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Build package for MB userscripts",
   "scripts": {
-    "build": "node rollup.js",
-    "lint": "eslint . --ext .js"
+    "build": "node --loader ts-node/esm rollup.ts",
+    "lint": "eslint . --ext .js,.ts",
+    "typecheck": "tsc"
   },
   "repository": {
     "type": "git",
@@ -22,15 +23,23 @@
     "@babel/core": "^7.14.3",
     "@babel/plugin-transform-runtime": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
+    "@babel/preset-typescript": "^7.13.0",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-virtual": "^2.0.3",
+    "@types/babel__core": "^7.1.14",
+    "@types/rollup__plugin-virtual": "^2.0.1",
+    "@types/rollup-plugin-progress": "^1.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.27.0",
     "rollup": "^2.50.5",
     "rollup-plugin-progress": "^1.1.2",
-    "rollup-plugin-terser": "^7.0.2",
-    "terser": "^5.7.0"
+    "terser": "^5.7.0",
+    "ts-node": "^10.0.0",
+    "type-fest": "^0.20.2",
+    "typescript": "^4.3.2"
   },
   "dependencies": {
     "core-js": "^3.13.1"

@@ -3,7 +3,14 @@ module.exports = {
         node: true,
         es2021: true
     },
-    extends: 'eslint:recommended',
+    extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended'
+    ],
+    plugins: [
+        '@typescript-eslint',
+    ],
     parserOptions: {
         ecmaVersion: 12,
         sourceType: 'module',
@@ -11,7 +18,6 @@ module.exports = {
     ignorePatterns: [
         'dist/',
         'node_modules/',
-        'tmp_build/',
         // Ignore top-level scripts for now
         'mb_*.js',
         'lib/',
@@ -37,5 +43,15 @@ module.exports = {
             'error',
             'always',
         ],
-    }
+    },
+    overrides: [
+        {
+            files: ['*.ts'],
+            parserOptions: {
+                parser: '@typescript-eslint/parser',
+            },
+            rules: {
+                '@typescript-eslint/explicit-function-return-type': ['warn'],
+            }
+        }]
 };

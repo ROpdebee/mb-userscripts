@@ -1,6 +1,25 @@
 import fs from 'fs';
 import path from 'path';
 
+import { Plugin } from 'rollup';
+
+import { PackageJson } from 'type-fest';
+
+import { UserscriptMetadata, AllUserscriptMetadata } from '../userscriptMetadata.js';
+
+interface UserscriptOptions {
+    userscriptName: string
+    outputDir: string
+    include: RegExp
+    branchName?: string
+    metadataOrder?: string[]
+}
+
+interface _UserscriptOptionsWithDefaults extends UserscriptOptions {
+    metadataOrder: string[]
+    branchName: string
+}
+
 
 const DEFAULT_OPTIONS = {
     branchName: 'main',
@@ -11,25 +30,36 @@ const DEFAULT_OPTIONS = {
     ],
 };
 
-export function userscript(options) {
-    options = {...options, ...DEFAULT_OPTIONS};
+function _userscript(options: _UserscriptOptionsWithDefaults): Plugin {
     const longestMetadataField = [...options.metadataOrder]
         .sort((a, b) => b.length - a.length)[0];
+
+    interface GitURLs {
+        homepageURL: string
+        rawURL: string
+        issuesURL: string
+    }
 
     /**
      * Derive a number of GitHub-related URLs from a git+ repo URL.
      *
-     * @param      {Object}  gitRepoObject          The package.json repository
-     *                                              object. Assumed to contain a
-     *                                              "branch" property, in case of
-     *                                              absence, uses the provided
-     *                                              default.
-     * @param      {string}  [branchName='master']  The branch name.
-     * @return     {Object}  GitHub related URLs, maybe empty.
+     * @param      {Object}   gitRepoObject  The package.json repository
+     *                                       object. Assumed to contain a
+     *                                       "branch" property, in case of
+     *                                       absence, uses the provided
+     *                                       default.
+     * @return     {GitURLs}  GitHub related URLs.
      */
-    function deriveBaseURLsFromGitRepo(gitRepoObject) {
-        const baseRepo = gitRepoObject.url.match(/:\/\/github\.com\/(.+?\/.+?)(?:\.git)?$/)?.[1];
-        if (!baseRepo) return {};
+    function deriveBaseURLsFromGitRepo(gitRepoObject: string | { url: string }): GitURLs {
+        let repoUrl;
+        if (typeof gitRepoObject === 'string') {
+            repoUrl = gitRepoObject;
+        } else {
+            repoUrl = gitRepoObject.url;
+        }
+
+        const baseRepo = repoUrl.match(/:\/\/github\.com\/(.+?\/.+?)(?:\.git)?$/)?.[1];
+        if (!baseRepo) throw new Error(`Cannot parse GitHub URL ${repoUrl}`);
 
         const homepageURL = `https://github.com/${baseRepo}`;
         const rawURL = `https://raw.github.com/${baseRepo}`;
@@ -44,17 +74,20 @@ export function userscript(options) {
     /**
      * Insert missing metadata from defaults.
      *
-     * @param      {Object}  specificMetadata  The userscript-specific metadata.
-     * @return     {Object}  The full metadata.
+     * @param      {UserscriptMetadata}              specificMetadata  The userscript-specific metadata.
+     * @return     {Promise<AllUserscriptMetadata>}  The specific metadata amended with defaults.
      */
-    async function insertDefaultMetadata(specificMetadata) {
-        const npmPackage = await fs.promises.readFile('package.json', {
+    async function insertDefaultMetadata(specificMetadata: UserscriptMetadata): Promise<AllUserscriptMetadata> {
+        const npmPackage: PackageJson = await fs.promises.readFile('package.json', {
             encoding: 'utf-8',
         }).then((content) => JSON.parse(content));
 
+        if (!npmPackage.repository) {
+            throw new Error('No repository defined in package.json');
+        }
         const githubURLs = deriveBaseURLsFromGitRepo(npmPackage.repository);
 
-        function constructRawURL(fileName) {
+        function constructRawURL(fileName: string): string {
             return [
                 githubURLs.rawURL,
                 options.branchName,
@@ -63,10 +96,14 @@ export function userscript(options) {
             ].join('/');
         }
 
+        if (!npmPackage.author) {
+            throw new Error('No author set in package.json');
+        }
+
         const defaultMetadata = {
-            author: npmPackage.author,
+            author: typeof npmPackage.author === 'string' ? npmPackage.author : npmPackage.author?.name,
             license: npmPackage.license,
-            supportURL: npmPackage.bugs?.url ?? githubURLs.issuesURL,
+            supportURL: (typeof npmPackage.bugs === 'string' ? npmPackage.bugs : npmPackage.bugs?.url) ?? githubURLs.issuesURL,
             homepageURL: githubURLs.homepageURL,
             downloadURL: constructRawURL(`${options.userscriptName}.user.js`),
             updateURL: constructRawURL(`${options.userscriptName}.meta.js`),
@@ -80,10 +117,9 @@ export function userscript(options) {
     /**
      * Loads the userscript's metadata.
      *
-     * @param      {string}  userscriptName  The name of the userscript directory.
-     * @return     {Object}  The userscript's metadata.
+     * @return     {Promise<UserscriptMetadata>}  The userscript's metadata.
      */
-    async function loadMetadata() {
+    async function loadMetadata(): Promise<AllUserscriptMetadata> {
         const metadataFile = path.resolve('./src', options.userscriptName, 'meta.js');
         const { default: specificMetadata } = await import(metadataFile);
         return insertDefaultMetadata(specificMetadata);
@@ -96,7 +132,7 @@ export function userscript(options) {
      * @param      {string}  metadataValue  The metadata value
      * @return     {string}  Metadata line.
      */
-    function createMetadataLine(metadataField, metadataValue) {
+    function createMetadataLine(metadataField: string, metadataValue: string): string {
         const fieldIndented = metadataField.padEnd(longestMetadataField.length);
         return `@${fieldIndented}  ${metadataValue}`;
     }
@@ -107,7 +143,7 @@ export function userscript(options) {
      * @param      {string}  [metadataField, metadataValue]  The metadata field and value.
      * @return     {Array}   Metadata lines.
      */
-    function createMetadataLines([metadataField, metadataValue]) {
+    function createMetadataLines([metadataField, metadataValue]: [string, string | string[]]): string[] {
         if (typeof metadataValue === 'string') {
             return [createMetadataLine(metadataField, metadataValue)];
         }
@@ -118,10 +154,11 @@ export function userscript(options) {
     /**
      * Creates the userscript's metadata block.
      *
-     * @param      {string}  scriptName  The name of the userscript.
-     * @param      {object}  metadata    The userscript metadata.
+     * @param      {AllUserscriptMetadata}  metadata  The userscript metadata.
+     * @return     {string}                 The metadata block for the
+     *                                      userscript.
      */
-    function createMetadataBlock(scriptName, metadata) {
+    function createMetadataBlock(metadata: AllUserscriptMetadata): string {
         let metadataLines = Object.entries(metadata)
             .sort((a, b) => options.metadataOrder.indexOf(a[0]) - options.metadataOrder.indexOf(b[0]))
             .flatMap(createMetadataLines);
@@ -136,44 +173,51 @@ export function userscript(options) {
 
     // Will be set to the string content of the metadata block during the build
     // phase, and will be used again during the output phase.
-    let metadataBlock;
+    let metadataBlock: string;
 
     return {
+        name: 'UserscriptPlugin',
+
         /**
          * Hook for the plugin. Emits the .meta.js file. Doesn't actually
          * transform the code, but we need it to run sequentially.
          *
-         * @param      {string}   code    The code
-         * @param      {string}   id      The identifier
-         * @return     {Promise}  The new code.
+         * @param      {string}              _code    The chunk's code.
+         * @param      {string}              id      The chunk's identifier.
+         * @return     {Promise<undefined>}  Nothing, resolves after emitted.
          */
-        async transform(code, id) {
+        async transform(_code: string, id: string): Promise<undefined> {
             // We're not using createFilter from @rollup/pluginutils here,
             // since that filters out the virtual files, which we actually
             // need
             if (!id.match(options.include)) return;
 
-            metadataBlock = createMetadataBlock(
-                options.userscriptName,
-                await loadMetadata());
+            metadataBlock = createMetadataBlock(await loadMetadata());
 
             this.emitFile({
                 type: 'asset',
                 fileName: `${options.userscriptName}.meta.js`,
                 source: metadataBlock,
             });
+
+            return;
         },
 
         // Using renderChunk rather than banner because with banner, it adds
         // an empty line at the top for some reason.
+
         /**
          * Prepend the metadata block to the output.
          *
          * @param      {String}  code    The code
          * @return     {String}  The code with the metadata block prepended.
          */
-        renderChunk(code) {
+        renderChunk(code: string): string {
             return `${metadataBlock}\n\n${code}`;
         }
     };
+}
+
+export function userscript(options: UserscriptOptions): Plugin {
+    return _userscript({...options, ...DEFAULT_OPTIONS} as _UserscriptOptionsWithDefaults);
 }

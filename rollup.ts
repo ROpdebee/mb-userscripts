@@ -1,33 +1,34 @@
 import fs from 'fs';
 import path from 'path';
 
-import { rollup } from 'rollup';
-import { babel } from '@rollup/plugin-babel';
+import { OutputPlugin, Plugin, RenderedChunk, rollup, RollupOutput, SourceMapInput } from 'rollup';
+import { babel, RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import virtual from '@rollup/plugin-virtual';
 import progress from 'rollup-plugin-progress';
-import { terser } from 'rollup-plugin-terser';
 
 import { userscript } from './rollup/plugin-userscript.js';
+import { minify, MinifyOptions } from 'terser';
 
 const OUTPUT_DIR = 'dist';
 const VENDOR_CHUNK_NAME = 'vendor';
 
-const BABEL_OPTIONS = {
+const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
     babelHelpers: 'bundled',
     exclude: 'node_modules/core-js*/**',
 };
 
-const TERSER_OPTIONS = {
+const TERSER_OPTIONS: MinifyOptions = {
     ecma: 5,
     safari10: true,  // Supported by MB
     compress: {
         passes: 4,
     },
+    module: true,
 };
 
-async function buildUserscripts() {
+async function buildUserscripts(): Promise<void> {
     const userscriptDirs = await fs.promises.readdir('./src');
 
     await Promise.all(userscriptDirs
@@ -35,7 +36,7 @@ async function buildUserscripts() {
         .map(buildUserscript));
 }
 
-async function buildUserscript(userscriptDir) {
+async function buildUserscript(userscriptDir: string): Promise<void> {
     console.log(`Building ${userscriptDir}`);
     const passOneOutput = await buildUserscriptPassOne(userscriptDir);
     await buildUserscriptPassTwo(passOneOutput, userscriptDir);
@@ -53,11 +54,11 @@ async function buildUserscript(userscriptDir) {
  * @return     {Promise}  Promise that resolves to the output as described
  *                        above.
  */
-async function buildUserscriptPassOne(userscriptDir) {
+async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutput> {
     const bundle = await rollup({
         input: path.resolve('./src', userscriptDir, 'index.js'),
         plugins: [
-            progress(),
+            progress() as Plugin,
             // To resolve node_modules imports
             nodeResolve(),
             // To import with CJS require() statements
@@ -71,6 +72,7 @@ async function buildUserscriptPassOne(userscriptDir) {
         format: 'es',
         manualChunks: (modulePath) => {
             if (isExternalLibrary(modulePath)) return VENDOR_CHUNK_NAME;
+            return null;
         },
         plugins: [minifyPlugin],
     });
@@ -91,23 +93,24 @@ async function buildUserscriptPassOne(userscriptDir) {
  * @return     {Promise}  Promise that resolves once the files have been
  *                        written.
  */
-async function buildUserscriptPassTwo(passOneResult, userscriptDir) {
+async function buildUserscriptPassTwo(passOneResult: RollupOutput, userscriptDir: string): Promise<void> {
+    const fileMapping = passOneResult.output.reduce((acc, curr) => {
+        if (curr.type === 'chunk') acc[curr.fileName] = curr.code;
+        return acc;
+    }, {} as {[fileName: string]: string});
 
     const bundle = await rollup({
         input: 'index.js',
         plugins: [
             // Feed the code of the previous pass as virtual files
-            virtual(passOneResult.output.reduce((acc, curr) => {
-                acc[curr.fileName] = curr.code;
-                return acc;
-            }, {})),
+            virtual(fileMapping) as Plugin,
             userscript({
                 userscriptName: userscriptDir,
-                branch: 'main',
+                branchName: 'main',
                 outputDir: OUTPUT_DIR,
                 include: /index\.js/,
-            })
-        ]
+            }),
+        ],
     });
 
     await bundle.write({
@@ -118,11 +121,11 @@ async function buildUserscriptPassTwo(passOneResult, userscriptDir) {
     await bundle.close();
 }
 
-function isExternalLibrary(modulePath) {
+function isExternalLibrary(modulePath: string): boolean {
     return !path.relative('.', modulePath).startsWith('src');
 }
 
-function getVendorMinifiedPreamble(chunk) {
+function getVendorMinifiedPreamble(chunk: RenderedChunk): string {
     const bundledModules = Object.keys(chunk.modules)
         .filter((module) => !module.startsWith('\x00'))
         .map((module) => path.relative('./node_modules', module))
@@ -132,18 +135,23 @@ function getVendorMinifiedPreamble(chunk) {
     return `/* minified: babel helpers, ${uniqueBundledModules.join(', ')} */`;
 }
 
-const minifyPlugin = {
+const minifyPlugin: OutputPlugin = {
     name: 'customMinifier',
-    async renderChunk(code, chunk, outputOptions) {
+    async renderChunk(
+        code: string,
+        chunk: RenderedChunk,
+    ): Promise<{ code: string; map?: SourceMapInput } | null> {
         // Only minify the vendor chunks
-        if (chunk.name !== VENDOR_CHUNK_NAME) return;
+        if (chunk.name !== VENDOR_CHUNK_NAME) return null;
         const terserOptions = {
             ...TERSER_OPTIONS,
             format: {
                 preamble: getVendorMinifiedPreamble(chunk),
             },
         };
-        return terser(terserOptions).renderChunk(code, chunk, outputOptions);
+
+        return await minify(code, terserOptions)
+            .then((result) => result?.code ? { code: result.code } : null);
     },
 };
 
