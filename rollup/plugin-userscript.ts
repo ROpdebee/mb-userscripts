@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Plugin } from 'rollup';
+import type { Plugin } from 'rollup';
 
 import { PackageJson } from 'type-fest';
 
-import { UserscriptMetadata, AllUserscriptMetadata } from '../userscriptMetadata.js';
+import type { UserscriptMetadata, AllUserscriptMetadata } from 'userscriptMetadata.js';
 
 interface UserscriptOptions {
     userscriptName: string

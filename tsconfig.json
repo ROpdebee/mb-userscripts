@@ -8,14 +8,20 @@
         "moduleResolution": "node",
         "esModuleInterop": true,
         "noImplicitReturns": true,
-        "pretty": true
+        "pretty": true,
+        "baseUrl": "./",
+        "paths": {
+            "*": [
+                "types/*",
+                "node_modules/@types/*",
+            ]
+        }
     },
     "include": ["**/*"],
     "exclude": [
         "node_modules/**",
         "mb_*.user.js",
         "dist/**",
-        "src/**",
         "lib/**"
     ]
 }

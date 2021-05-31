@@ -5,7 +5,7 @@ interface UserscriptCustomMetadata {
     match: string[]
     exclude?: string[]
     require?: string[]
-    'run-at'?: string[]
+    'run-at'?: string
     grant?: string[]
     connect?: string[]
 }
