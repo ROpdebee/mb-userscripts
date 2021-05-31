@@ -1,6 +1,6 @@
-const { transformMBRequires } = require('../lib/util/metadata');
+import { transformMBRequires } from '../lib/util/metadata.js';
 
-module.exports = {
+export default {
     name: 'MB: Blind votes',
     version: '2021.3.30',
     description: 'Blinds editor details before your votes are cast.',

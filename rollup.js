@@ -9,7 +9,9 @@ import virtual from '@rollup/plugin-virtual';
 import progress from 'rollup-plugin-progress';
 import { terser } from 'rollup-plugin-terser';
 
-const OUTPUT_DIR = './dist';
+import { userscript } from './rollup/plugin-userscript.js';
+
+const OUTPUT_DIR = 'dist';
 const VENDOR_CHUNK_NAME = 'vendor';
 
 const BABEL_OPTIONS = {
@@ -68,7 +70,7 @@ async function buildUserscriptPassOne(userscriptDir) {
     const output = await bundle.generate({
         format: 'es',
         manualChunks: (modulePath) => {
-            if (isExternalLibrary(modulePath)) return 'vendor';
+            if (isExternalLibrary(modulePath)) return VENDOR_CHUNK_NAME;
         },
         plugins: [minifyPlugin],
     });
@@ -85,11 +87,12 @@ async function buildUserscriptPassOne(userscriptDir) {
  * directory.
  *
  * @param      {?}        passOneResult   The result of the first build pass.
- * @param      {String}   userscriptName  The userscript name.
+ * @param      {String}   userscriptDir  The userscript directory.
  * @return     {Promise}  Promise that resolves once the files have been
  *                        written.
  */
-async function buildUserscriptPassTwo(passOneResult, userscriptName) {
+async function buildUserscriptPassTwo(passOneResult, userscriptDir) {
+
     const bundle = await rollup({
         input: 'index.js',
         plugins: [
@@ -97,13 +100,19 @@ async function buildUserscriptPassTwo(passOneResult, userscriptName) {
             virtual(passOneResult.output.reduce((acc, curr) => {
                 acc[curr.fileName] = curr.code;
                 return acc;
-            }, {}))
+            }, {})),
+            userscript({
+                userscriptName: userscriptDir,
+                branch: 'main',
+                outputDir: OUTPUT_DIR,
+                include: /index\.js/,
+            })
         ]
     });
 
     await bundle.write({
         format: 'iife',
-        file: path.resolve(OUTPUT_DIR, `${userscriptName}.user.js`),
+        file: path.resolve(OUTPUT_DIR, `${userscriptDir}.user.js`),
     });
 
     await bundle.close();

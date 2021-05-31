@@ -11,7 +11,7 @@
     "url": "git+https://github.com/ROpdebee/mb-userscripts.git"
   },
   "author": "ROpdebee",
-  "license": "MIT",
+  "license": "MIT; https://opensource.org/licenses/MIT",
   "bugs": {
     "url": "https://github.com/ROpdebee/mb-userscripts/issues"
   },
