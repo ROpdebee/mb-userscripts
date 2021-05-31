@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Build package for MB userscripts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "node rollup.js",
     "lint": "eslint . --ext .js"
   },
   "repository": {
