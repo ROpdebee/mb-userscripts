@@ -1,0 +1,28 @@
+/* Edit pages */
+div#content:not(.unblind) div.edit-header > p.subheader > a, /* Editor */
+div#content:not(.unblind) table.vote-tally tr:nth-child(n+3), /* Vote */
+div#content:not(.unblind) table.vote-tally tr:nth-child(n+3) a, /* Voter */
+div#content:not(.unblind) table.vote-tally tr:nth-child(1) td, /* Vote tally */
+div#content:not(.unblind) div.edit-notes h3 > a:not(.date), /* Edit note author */
+
+/* Edit lists */
+div.edit-list:not(.unblind) div.edit-header > p.subheader > a, /* Editor */
+div.edit-list:not(.unblind) div.edit-notes h3 > a:not(.date) /* Edit note author */
+{
+    color: black;
+    background-color: black;
+}
+
+/* Edit pages */
+div#content:not(.unblind) div.edit-header > p.subheader > a > img, /* Editor */
+div#content:not(.unblind) table.vote-tally th > a > img, /* Voter */
+div#content:not(.unblind) div.edit-notes h3 > a:not(.date) > img, /* Edit note author */
+div#content:not(.unblind) div.edit-notes h3 > div.voting-icon, /* Vote icon */
+
+/* Edit lists */
+div.edit-list:not(.unblind) div.edit-header > p.subheader > a > img, /* Editor */
+div.edit-list:not(.unblind) div.edit-notes h3 > a:not(.date) > img, /* Edit note author */
+div.edit-list:not(.unblind) div.edit-notes h3 > div.voting-icon /* Vote icon */
+{
+    display: none;
+}
