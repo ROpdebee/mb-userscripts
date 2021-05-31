@@ -176,24 +176,4 @@ export function userscript(options) {
             return `${metadataBlock}\n\n${code}`;
         }
     };
-
-    /**
-     * Transform the emitted output of the file.
-     *
-     * @param      {Chunk}    chunk         The chunk
-     * @param      {String}   originalFile  The original file
-     * @param      {?}        compilation   The compilation context.
-     */
-    async function transformFile(chunk, originalFile, compilation) {
-        const metaOutputName = `${chunk.name}.meta.js`;
-
-        const metadata = await loadMetadata(chunk.name);
-        const metadataContent = this.createMetadataBlock(chunk.name, metadata);
-
-        compilation.assets[originalFile] = new ConcatSource(
-            metadataContent,
-            '\n',
-            compilation.assets[originalFile]);
-        compilation.assets[metaOutputName] = new RawSource(metadataContent);
-    }
 }
