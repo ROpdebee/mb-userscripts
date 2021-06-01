@@ -9,9 +9,7 @@ declare module '*.module.css' {
   /**
    * Exported classes
    */
-  const classMap: {
-    [key: string]: string;
-  };
+  const classMap: Record<string, string>;
 
   export default classMap;
 }

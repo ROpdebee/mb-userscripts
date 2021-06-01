@@ -1,16 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 
+import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, SourceMapInput } from 'rollup';
+import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
+import type { MinifyOptions, MinifyOutput } from 'terser';
+
 import postcssPresetEnv from 'postcss-preset-env';
-import { OutputPlugin, Plugin, RenderedChunk, rollup, RollupOutput, SourceMapInput } from 'rollup';
-import { babel, RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
+import { rollup } from 'rollup';
+import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import virtual from '@rollup/plugin-virtual';
 import del from 'rollup-plugin-delete';
 import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
-import { minify, MinifyOptions } from 'terser';
+import { minify } from 'terser';
 
 import { userscript } from './rollup/plugin-userscript.js';
 
@@ -123,11 +127,11 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
  * @return     {Promise}  Promise that resolves once the files have been
  *                        written.
  */
-async function buildUserscriptPassTwo(passOneResult: RollupOutput, userscriptDir: string): Promise<void> {
-    const fileMapping = passOneResult.output.reduce((acc, curr) => {
+async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string): Promise<void> {
+    const fileMapping = passOneResult.output.reduce<Record<string, string>>((acc, curr) => {
         if (curr.type === 'chunk') acc[curr.fileName] = curr.code;
         return acc;
-    }, {} as { [fileName: string]: string });
+    }, {});
 
     const bundle = await rollup({
         input: 'index.js',
@@ -155,7 +159,7 @@ function isExternalLibrary(modulePath: string): boolean {
     return !path.relative('.', modulePath).startsWith('src');
 }
 
-function getVendorMinifiedPreamble(chunk: RenderedChunk): string {
+function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
     const bundledModules = Object.keys(chunk.modules)
         .filter((module) => !module.startsWith('\x00'))
         .map((module) => path.relative('./node_modules', module))
@@ -169,7 +173,7 @@ const minifyPlugin: OutputPlugin = {
     name: 'customMinifier',
     async renderChunk(
         code: string,
-        chunk: RenderedChunk,
+        chunk: Readonly<RenderedChunk>,
     ): Promise<{ code: string; map?: SourceMapInput } | null> {
         // Only minify the vendor chunks
         if (chunk.name !== VENDOR_CHUNK_NAME) return null;
@@ -181,7 +185,8 @@ const minifyPlugin: OutputPlugin = {
         };
 
         return await minify(code, terserOptions)
-            .then((result) => result?.code ? { code: result.code } : null);
+            .then((result: Readonly<MinifyOutput>) =>
+                result.code ? { code: result.code } : null);
     },
 };
 

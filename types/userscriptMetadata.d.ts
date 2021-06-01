@@ -2,12 +2,12 @@ interface UserscriptCustomMetadata {
     name: string
     description: string
     version: string
-    match: string[]
-    exclude?: string[]
-    require?: string[]
+    match: readonly string[]
+    exclude?: readonly string[]
+    require?: readonly string[]
     'run-at'?: string
-    grant?: string[]
-    connect?: string[]
+    grant?: readonly string[]
+    connect?: readonly string[]
 }
 
 export interface UserscriptDefaultMetadata {

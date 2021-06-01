@@ -10,7 +10,7 @@ function setupStyle(): void {
 
 function setupUnblindListeners(): void {
     document.querySelector('input[name^="enter-vote.vote"]:not([id$="-None"])')
-        ?.addEventListener('change', (evt) => {
+        ?.addEventListener('change', (evt: Readonly<Event>) => {
             const target = evt.currentTarget as HTMLInputElement;
             target
                 .closest('div.edit-list')
@@ -23,7 +23,7 @@ function setupUnblindListeners(): void {
         });
 
     document.querySelector('input[name^="enter-vote.vote"][id$="-None"]')
-        ?.addEventListener('change', (evt) => {
+        ?.addEventListener('change', (evt: Readonly<Event>) => {
             (evt.currentTarget as HTMLInputElement)
                 .closest('div.edit-list, div#content')
                 ?.classList.remove('unblind');
