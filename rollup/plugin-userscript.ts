@@ -219,5 +219,5 @@ function _userscript(options: _UserscriptOptionsWithDefaults): Plugin {
 }
 
 export function userscript(options: UserscriptOptions): Plugin {
-    return _userscript({...options, ...DEFAULT_OPTIONS} as _UserscriptOptionsWithDefaults);
+    return _userscript({...DEFAULT_OPTIONS, ...options} as _UserscriptOptionsWithDefaults);
 }
