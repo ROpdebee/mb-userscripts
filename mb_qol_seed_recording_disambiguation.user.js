@@ -167,6 +167,7 @@ function fillInput($input, value) {
 
 function seedDJMix() {
     fillInput($('input#all-recording-comments'), getDJMixComment());
+    fillInput($('textarea#recording-comments-edit-note'), `${GM_info.script.name} v${GM_info.script.version}: Seed DJ‐mix comments`);
 }
 
 function displayWarning(msg) {
@@ -202,6 +203,8 @@ async function seedLive() {
     } else {
         recComments.forEach(([trackGid, comment]) => fillInput($(`tr#${trackGid} input.recording-comment`), comment));
     }
+
+    fillInput($('textarea#recording-comments-edit-note'), `${GM_info.script.name} v${GM_info.script.version}: Seed live comments`);
 }
 
 function insertButtons() {
