@@ -1,21 +1,32 @@
 // ==UserScript==
 // @name         MB: QoL: Seed the batch recording comments script
-// @version      2021.5.23
+// @version      2021.6.2.2
 // @description  Seed the recording comments for the batch recording comments userscripts with live and DJ-mix data.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
 // @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_seed_recording_disambiguation.user.js
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_seed_recording_disambiguation.user.js
-// @match        *://*musicbrainz.org/release/*
-// @exclude      *://*musicbrainz.org/release/add
-// @exclude      *://*musicbrainz.org/release/*/*
+// @match        *://*.musicbrainz.org/release/*
+// @exclude      *://*.musicbrainz.org/release/add
+// @exclude      *://*.musicbrainz.org/release/*/*
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
 
 // Similarly to mb_upload_to_caa_from_url, we reuse MB's own jQuery here so that
 // we can trigger the relevant events.
+
+
+class ConflictError extends Error {}
+
+function unicodeToAscii(s) {
+    // Facilitate comparisons
+    return s
+        .replace(/[“”″]/g, '"')
+        .replace(/[‘’′]/g, "'")
+        .replace(/[‐‒–]/g, '-');
+}
 
 function getReleaseTitle() {
     return $('.releaseheader > h1:first-child bdi').text();
@@ -50,21 +61,45 @@ function getDateStr(rel) {
     else return `${beginStr}–${endStr}`;
 }
 
-function getRecordingVenue(rels) {
-    let recordedAtRels = rels.filter((rel) => rel.linkTypeID === 693);
-    if (recordedAtRels.length !== 1) return null;
+function selectCommentPart(candidates, partName) {
+    if (!candidates.size) return null;
 
-    return recordedAtRels[0].target.name + ', ' + formatRecordingArea(recordedAtRels[0].target.area);
+    if (candidates.size > 1) {
+        throw new ConflictError(`Conflicting ${partName}: ${[...candidates].join(' vs. ')}`);
+    }
+
+    return candidates.values().next().value;
+}
+
+function getRecordingVenue(rels) {
+    let venuesFormatted = new Set(rels
+        // 693 = <recording> recorded at <place>
+        .filter((rel) => rel.linkTypeID === 693)
+        .map(formatRecordingVenue));
+
+    return selectCommentPart(venuesFormatted, '“recorded at” ARs');
 }
 
 function getRecordingArea(rels) {
-    let recordedInRels = rels.filter((rel) => rel.linkTypeID === 698);
-    if (recordedInRels.length !== 1) return null;
+    let recordedInRels = new Set(rels
+        // 698 = <recording> recorded in <area>
+        .filter((rel) => rel.linkTypeID === 698)
+        .map(formatRecordingArea));
 
-    return formatRecordingArea(recordedInRels[0].target);
+    return selectCommentPart(recordedInRels, '“recorded in” ARs');
 }
 
-function formatRecordingArea(area) {
+function formatRecordingVenue(placeRel) {
+    // place ARs returned by the API seem to always be in the backward direction,
+    // i.e. the place is the target, but entity0 remains the place.
+    return (placeRel.entity0_credit || placeRel.target.name) + ', ' + formatRecordingBareArea(placeRel.target.area);
+}
+
+function formatRecordingArea(areaRel) {
+    return formatRecordingBareArea(areaRel.target);
+}
+
+function formatRecordingBareArea(area) {
     let areaList = [area, ...area.containment];
     let city = null;
     let country = null;
@@ -100,12 +135,12 @@ function formatRecordingArea(area) {
 }
 
 function getRecordingDate(rels) {
-    let dateStrs = [...new Set(rels
+    let dateStrs = new Set(rels
         .filter((rel) => [698, 693, 278].includes(rel.linkTypeID))
         .map(getDateStr)
-        .filter((dateStr) => dateStr))];
-    if (dateStrs.length !== 1) return null;
-    return dateStrs[0];
+        .filter((dateStr) => dateStr));
+
+    return selectCommentPart(dateStrs, 'recording dates');
 }
 
 function getRecordingLiveComment(rec) {
@@ -115,6 +150,7 @@ function getRecordingLiveComment(rec) {
     if (!place) {
         place = getRecordingArea(rels);
     }
+
     let date = getRecordingDate(rels);
 
     let comment = 'live';
@@ -124,6 +160,15 @@ function getRecordingLiveComment(rec) {
     return comment;
 }
 
+function isLiveRecording(rec) {
+    return rec.relationships
+        // 278 = <recording> recording of <work>
+        .filter((rel) => rel.linkTypeID === 278)
+        // attr 578 = live
+        .filter((recRel) => (recRel.attributes || []).find((attr) => attr.typeID === 578))
+        .length >= 1;
+}
+
 function fillInput($input, value) {
     $input.val(value);
     $input.trigger('input').trigger('input.rc');
@@ -131,19 +176,50 @@ function fillInput($input, value) {
 
 function seedDJMix() {
     fillInput($('input#all-recording-comments'), getDJMixComment());
+    fillInput($('textarea#recording-comments-edit-note'), `${GM_info.script.name} v${GM_info.script.version}: Seed DJ‐mix comments`);
+}
+
+function displayWarning(msg) {
+    const $warnList = $('#ROpdebee_seed_comments_warnings')
+    $warnList.append(`<li>${msg}</li>`);
+    $warnList.closest('tr').show();
 }
 
 async function seedLive() {
     let relInfo = await getRecordingRels(location.pathname.split('/')[2]);
     let recComments = relInfo.mediums
-        .flatMap((medium) => medium.tracks.map((track) => [track.gid, getRecordingLiveComment(track.recording)]));
+        .flatMap((medium) => medium.tracks
+            .map((track) => {
+                const rec = track.recording;
 
-    let uniqueComments = [...new Set(recComments.map(([gid, comment]) => comment))];
+                if (!isLiveRecording(rec)) {
+                    displayWarning(`Skipping track #${medium.position}.${track.number}: Not a live recording`);
+                    return [track.gid, rec.comment];
+                }
+
+                const existing = unicodeToAscii(rec.comment.trim());
+                try {
+                    let newComment = getRecordingLiveComment(rec);
+                    if (existing && existing !== 'live' && existing !== unicodeToAscii(newComment)) {
+                        // Conflicting comments, refuse to enter
+                        throw new ConflictError(`Significant differences between old and new comments: ${existing} vs ${newComment}`);
+                    }
+                    return [track.gid, newComment];
+                } catch (e) {
+                    if (!(e instanceof ConflictError)) throw e;
+                    displayWarning(`Track #${medium.position}.${track.number}: Refusing to update comment: ${e.message}`);
+                    return [track.gid, rec.comment];
+                }
+            }));
+
+    let uniqueComments = [...new Set(recComments.map(([_gid, comment]) => comment))];
     if (uniqueComments.length === 1) {
         fillInput($('input#all-recording-comments'), uniqueComments[0]);
     } else {
         recComments.forEach(([trackGid, comment]) => fillInput($(`tr#${trackGid} input.recording-comment`), comment));
     }
+
+    fillInput($('textarea#recording-comments-edit-note'), `${GM_info.script.name} v${GM_info.script.version}: Seed live comments`);
 }
 
 function insertButtons() {
@@ -160,6 +236,11 @@ function insertButtons() {
             |
             <button id="ROpdebee_seed_comments_djmix" class="btn-link" type="button">DJ‐mix</button>
         </td>
+    </tr>
+    <tr style="display: none;">
+        <td>Warnings</td>
+        <td><ul id="ROpdebee_seed_comments_warnings" style="color: red;">
+        </ul></td>
     </tr>`);
 
     $('#ROpdebee_seed_comments_live').click(seedLive);
