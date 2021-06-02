@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Seed the batch recording comments script
-// @version      2021.6.2
+// @version      2021.6.2.2
 // @description  Seed the recording comments for the batch recording comments userscripts with live and DJ-mix data.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -160,6 +160,15 @@ function getRecordingLiveComment(rec) {
     return comment;
 }
 
+function isLiveRecording(rec) {
+    return rec.relationships
+        // 278 = <recording> recording of <work>
+        .filter((rel) => rel.linkTypeID === 278)
+        // attr 578 = live
+        .filter((recRel) => (recRel.attributes || []).find((attr) => attr.typeID === 578))
+        .length >= 1;
+}
+
 function fillInput($input, value) {
     $input.val(value);
     $input.trigger('input').trigger('input.rc');
@@ -182,6 +191,12 @@ async function seedLive() {
         .flatMap((medium) => medium.tracks
             .map((track) => {
                 const rec = track.recording;
+
+                if (!isLiveRecording(rec)) {
+                    displayWarning(`Skipping track #${medium.position}.${track.number}: Not a live recording`);
+                    return [track.gid, rec.comment];
+                }
+
                 const existing = unicodeToAscii(rec.comment.trim());
                 try {
                     let newComment = getRecordingLiveComment(rec);
