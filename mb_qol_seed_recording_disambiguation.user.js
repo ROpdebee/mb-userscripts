@@ -90,7 +90,9 @@ function getRecordingArea(rels) {
 }
 
 function formatRecordingVenue(placeRel) {
-    return placeRel.target.name + ', ' + formatRecordingBareArea(placeRel.target.area);
+    // place ARs returned by the API seem to always be in the backward direction,
+    // i.e. the place is the target, but entity0 remains the place.
+    return (placeRel.entity0_credit || placeRel.target.name) + ', ' + formatRecordingBareArea(placeRel.target.area);
 }
 
 function formatRecordingArea(areaRel) {
