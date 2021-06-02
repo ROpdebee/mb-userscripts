@@ -55,6 +55,7 @@ async function addImage(url, log) {
         return;
     }
     log(`Successfully loaded ${fileName} as ${file.type}`);
+    addToEditNote(url);
 
     // Create a fake event to trigger the drop event on the drag'n'drop element
     let fakeEvent = $.Event('drop');
@@ -67,6 +68,11 @@ async function addImage(url, log) {
     // If we don't reuse MB's jQuery here, we won't be able to trigger the
     // event handler, perhaps because of browser security.
     $('#drop-zone').trigger(fakeEvent);
+}
+
+function addToEditNote(msg) {
+    const $editNote = $('[name="add-cover-art.edit_note"]');
+    $editNote.val($editNote.val() + '\n' + msg);
 }
 
 function setupPage() {
@@ -87,6 +93,7 @@ function setupPage() {
 
         addImage($input.val().trim(), (msg) => $status.text(msg));
         $status.show();
+        addToEditNote(`–\n${GM_info.script.name} ${GM_info.script.version}`);
     });
 }
 
