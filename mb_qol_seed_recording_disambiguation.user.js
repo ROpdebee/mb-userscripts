@@ -17,6 +17,9 @@
 // Similarly to mb_upload_to_caa_from_url, we reuse MB's own jQuery here so that
 // we can trigger the relevant events.
 
+
+class ConflictError extends Error {}
+
 function getReleaseTitle() {
     return $('.releaseheader > h1:first-child bdi').text();
 }
@@ -50,21 +53,43 @@ function getDateStr(rel) {
     else return `${beginStr}–${endStr}`;
 }
 
-function getRecordingVenue(rels) {
-    let recordedAtRels = rels.filter((rel) => rel.linkTypeID === 693);
-    if (recordedAtRels.length !== 1) return null;
+function selectCommentPart(candidates, partName) {
+    if (!candidates.size) return null;
 
-    return recordedAtRels[0].target.name + ', ' + formatRecordingArea(recordedAtRels[0].target.area);
+    if (candidates.size > 1) {
+        throw new ConflictError(`Conflicting ${partName}: ${[...candidates].join(' vs. ')}`);
+    }
+
+    return candidates.values().next().value;
+}
+
+function getRecordingVenue(rels) {
+    let venuesFormatted = new Set(rels
+        // 693 = <recording> recorded at <place>
+        .filter((rel) => rel.linkTypeID === 693)
+        .map(formatRecordingVenue));
+
+    return selectCommentPart(venuesFormatted, '“recorded at” ARs');
 }
 
 function getRecordingArea(rels) {
-    let recordedInRels = rels.filter((rel) => rel.linkTypeID === 698);
-    if (recordedInRels.length !== 1) return null;
+    let recordedInRels = new Set(rels
+        // 698 = <recording> recorded in <area>
+        .filter((rel) => rel.linkTypeID === 698)
+        .map(formatRecordingArea));
 
-    return formatRecordingArea(recordedInRels[0].target);
+    return selectCommentPart(recordedInRels, '“recorded in” ARs');
 }
 
-function formatRecordingArea(area) {
+function formatRecordingVenue(placeRel) {
+    return placeRel.target.name + ', ' + formatRecordingBareArea(placeRel.target.area);
+}
+
+function formatRecordingArea(areaRel) {
+    return formatRecordingBareArea(areaRel.target);
+}
+
+function formatRecordingBareArea(area) {
     let areaList = [area, ...area.containment];
     let city = null;
     let country = null;
@@ -100,22 +125,40 @@ function formatRecordingArea(area) {
 }
 
 function getRecordingDate(rels) {
-    let dateStrs = [...new Set(rels
+    let dateStrs = new Set(rels
         .filter((rel) => [698, 693, 278].includes(rel.linkTypeID))
         .map(getDateStr)
-        .filter((dateStr) => dateStr))];
-    if (dateStrs.length !== 1) return null;
-    return dateStrs[0];
+        .filter((dateStr) => dateStr));
+
+    return selectCommentPart(dateStrs, 'recording dates');
 }
 
 function getRecordingLiveComment(rec) {
     let rels = rec.relationships;
-    let place = getRecordingVenue(rels);
-    // Fall back on "recorded in" rels if we can't extract a place
-    if (!place) {
-        place = getRecordingArea(rels);
+    try {
+        let place = getRecordingVenue(rels);
+        // Fall back on "recorded in" rels if we can't extract a place
+        if (!place) {
+            place = getRecordingArea(rels);
+        }
+    } catch (e) {
+        if (e instanceof ConflictError) {
+            place = null;
+        } else {
+            throw e;
+        }
     }
-    let date = getRecordingDate(rels);
+
+    let date;
+    try {
+        date = getRecordingDate(rels);
+    } catch (e) {
+        if (e instanceof ConflictError) {
+            date = null;
+        } else {
+            throw e;
+        }
+    }
 
     let comment = 'live';
     if (date) comment += ', ' + date;
@@ -138,7 +181,7 @@ async function seedLive() {
     let recComments = relInfo.mediums
         .flatMap((medium) => medium.tracks.map((track) => [track.gid, getRecordingLiveComment(track.recording)]));
 
-    let uniqueComments = [...new Set(recComments.map(([gid, comment]) => comment))];
+    let uniqueComments = [...new Set(recComments.map(([_gid, comment]) => comment))];
     if (uniqueComments.length === 1) {
         fillInput($('input#all-recording-comments'), uniqueComments[0]);
     } else {
