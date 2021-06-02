@@ -20,6 +20,14 @@
 
 class ConflictError extends Error {}
 
+function unicodeToAscii(s) {
+    // Facilitate comparisons
+    return s
+        .replace(/[“”″]/g, '"')
+        .replace(/[‘’′]/g, "'")
+        .replace(/[‐‒–]/g, '-');
+}
+
 function getReleaseTitle() {
     return $('.releaseheader > h1:first-child bdi').text();
 }
@@ -135,30 +143,13 @@ function getRecordingDate(rels) {
 
 function getRecordingLiveComment(rec) {
     let rels = rec.relationships;
-    try {
-        let place = getRecordingVenue(rels);
-        // Fall back on "recorded in" rels if we can't extract a place
-        if (!place) {
-            place = getRecordingArea(rels);
-        }
-    } catch (e) {
-        if (e instanceof ConflictError) {
-            place = null;
-        } else {
-            throw e;
-        }
+    let place = getRecordingVenue(rels);
+    // Fall back on "recorded in" rels if we can't extract a place
+    if (!place) {
+        place = getRecordingArea(rels);
     }
 
-    let date;
-    try {
-        date = getRecordingDate(rels);
-    } catch (e) {
-        if (e instanceof ConflictError) {
-            date = null;
-        } else {
-            throw e;
-        }
-    }
+    let date = getRecordingDate(rels);
 
     let comment = 'live';
     if (date) comment += ', ' + date;
@@ -176,10 +167,32 @@ function seedDJMix() {
     fillInput($('input#all-recording-comments'), getDJMixComment());
 }
 
+function displayWarning(msg) {
+    const $warnList = $('#ROpdebee_seed_comments_warnings')
+    $warnList.append(`<li>${msg}</li>`);
+    $warnList.closest('tr').show();
+}
+
 async function seedLive() {
     let relInfo = await getRecordingRels(location.pathname.split('/')[2]);
     let recComments = relInfo.mediums
-        .flatMap((medium) => medium.tracks.map((track) => [track.gid, getRecordingLiveComment(track.recording)]));
+        .flatMap((medium) => medium.tracks
+            .map((track) => {
+                const rec = track.recording;
+                const existing = unicodeToAscii(rec.comment.trim());
+                try {
+                    let newComment = getRecordingLiveComment(rec);
+                    if (existing && existing !== 'live' && existing !== unicodeToAscii(newComment)) {
+                        // Conflicting comments, refuse to enter
+                        throw new ConflictError(`Significant differences between old and new comments: ${existing} vs ${newComment}`);
+                    }
+                    return [track.gid, newComment];
+                } catch (e) {
+                    if (!(e instanceof ConflictError)) throw e;
+                    displayWarning(`Track #${medium.position}.${track.number}: Refusing to update comment: ${e.message}`);
+                    return [track.gid, rec.comment];
+                }
+            }));
 
     let uniqueComments = [...new Set(recComments.map(([_gid, comment]) => comment))];
     if (uniqueComments.length === 1) {
@@ -203,6 +216,11 @@ function insertButtons() {
             |
             <button id="ROpdebee_seed_comments_djmix" class="btn-link" type="button">DJ‐mix</button>
         </td>
+    </tr>
+    <tr style="display: none;">
+        <td>Warnings</td>
+        <td><ul id="ROpdebee_seed_comments_warnings" style="color: red;">
+        </ul></td>
     </tr>`);
 
     $('#ROpdebee_seed_comments_live').click(seedLive);
