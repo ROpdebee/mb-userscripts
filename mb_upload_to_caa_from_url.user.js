@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Upload to CAA From URL
-// @version      2021.5.14.2
+// @version      2021.6.2
 // @description  Upload covers to the CAA by pasting a URL! Workaround for MBS-4641.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -31,7 +31,7 @@ async function urlToFile(url, fileName) {
                 }
 
                 // Get the file MIME type from MB's built-in validation
-                let rawFile = new File([resp.response], fileName);
+                const rawFile = new File([resp.response], fileName);
                 MB.CoverArt.validate_file(rawFile)
                     .fail(reject)
                     .done(mimeType =>
@@ -42,9 +42,11 @@ async function urlToFile(url, fileName) {
 }
 
 // Add the image at the URL to the upload queue
-async function addImage(url, log) {
-    let pathParts = url.split('/');
-    let fileName = pathParts[pathParts.length - 1] || 'image';
+async function addImage($urlInput, log) {
+    const inputVal = $urlInput.val();
+    const url = inputVal.trim();
+    const pathParts = url.split('/');
+    const fileName = pathParts[pathParts.length - 1] || 'image';
 
     let file;
     try {
@@ -54,10 +56,9 @@ async function addImage(url, log) {
         log(exc);
         return;
     }
-    log(`Successfully loaded ${fileName} as ${file.type}`);
 
     // Create a fake event to trigger the drop event on the drag'n'drop element
-    let fakeEvent = $.Event('drop');
+    const fakeEvent = $.Event('drop');
     fakeEvent.originalEvent = {
         dataTransfer: {
             files: [file]
@@ -67,26 +68,42 @@ async function addImage(url, log) {
     // If we don't reuse MB's jQuery here, we won't be able to trigger the
     // event handler, perhaps because of browser security.
     $('#drop-zone').trigger(fakeEvent);
+
+    // Clear the old input, but only if it hasn't changed since. Because this
+    // is asynchronous code, it's entirely possible for another image to be
+    // loading at the same time
+    if ($urlInput.val() === inputVal) {
+        $urlInput.val('');
+    }
+
+    addToEditNote(url);
+    log(`Successfully loaded ${fileName} as ${file.type}`);
+}
+
+function addToEditNote(msg) {
+    const $editNote = $('[name="add-cover-art.edit_note"]');
+    $editNote.val($editNote.val() + '\n' + msg);
 }
 
 function setupPage() {
-    let $div = $('<div style="display: inline-block; margin-left: 32px; vertical-align: middle;">');
-    let $input = $('<input type="text" id="ROpdebee_paste_url" placeholder="or paste a URL here" size=47 />');
-    let $status = $('<span style="display:block;" id="ROpdebee_paste_url_status" />');
+    const $div = $('<div style="display: inline-block; margin-left: 32px; vertical-align: middle;">');
+    const $input = $('<input type="text" id="ROpdebee_paste_url" placeholder="or paste a URL here" size=47 />');
+    const $status = $('<span style="display:block;" id="ROpdebee_paste_url_status" />');
 
     $('#ROpdebee_paste_url_status').hide();
     $div.append($input);
     $div.append($status);
     $('#drop-zone').after($div);
 
-    $input.on('input', evt => {
+    $input.on('input', () => {
         if (!$input.val().trim()) {
             $status.text('').hide();
             return;
         }
 
-        addImage($input.val().trim(), (msg) => $status.text(msg));
+        addImage($input, (msg) => $status.text(msg));
         $status.show();
+        addToEditNote(`–\n${GM_info.script.name} ${GM_info.script.version}`);
     });
 }
 
