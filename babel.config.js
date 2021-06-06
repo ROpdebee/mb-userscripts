@@ -9,5 +9,6 @@ export default {
             useBuiltIns: 'entry',
         }],
     ],
+    plugins: ['@babel/plugin-syntax-jsx'],
     sourceType: 'unambiguous',
 };

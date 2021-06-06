@@ -16,12 +16,13 @@ import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
+import { nativejsx } from './rollup/plugin-nativejsx.js';
 import { userscript } from './rollup/plugin-userscript.js';
 
 const OUTPUT_DIR = 'dist';
 const VENDOR_CHUNK_NAME = 'vendor';
 
-const EXTENSIONS = ['.js', '.ts'];
+const EXTENSIONS = ['.js', '.ts', '.jsx', '.tsx'];
 
 const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
     babelHelpers: 'bundled',
@@ -90,6 +91,19 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
             commonjs(),
             // Transpilation
             babel(BABEL_OPTIONS),
+            // NativeJSX transformations. Must be run after babel to remove
+            // TypeScript syntax. Using NativeJSX instead of builtin babel
+            // transpilation with custom createElement pragmas because NativeJSX
+            // produces more natural code. However, it doesn't support all JSX
+            // features yet.
+            nativejsx({
+                prototypes: 'module',
+                acorn: {
+                    ecmaVersion: 'latest',
+                    sourceType: 'module',
+                },
+                include: '**/*.tsx',
+            }),
             // To bundle and import CSS/SCSS etc
             postcss({
                 inject: false,
@@ -108,7 +122,7 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
             if (isExternalLibrary(modulePath)) return VENDOR_CHUNK_NAME;
             return null;
         },
-        plugins: [minifyPlugin],
+        plugins: process.env.NODE_ENV == 'production' ? [minifyPlugin] : [],
     });
 
     await bundle.close();
@@ -163,10 +177,16 @@ function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
     const bundledModules = Object.keys(chunk.modules)
         .filter((module) => !module.startsWith('\x00'))
         .map((module) => path.relative('./node_modules', module))
-        .map((module) => module.split(path.sep)[0]);
+        .map((module) => module.split(path.sep).slice(0, module.startsWith('@') ? 2 : 1).join('/'));
 
     const uniqueBundledModules = [...new Set(bundledModules)];
-    return `/* minified: babel helpers, ${uniqueBundledModules.join(', ')} */`;
+    if ('\x00rollupPluginBabelHelpers.js' in chunk.modules) {
+        uniqueBundledModules.unshift('babel helpers');
+    }
+
+    if (!uniqueBundledModules.length) return '';
+
+    return `/* minified: ${uniqueBundledModules.join(', ')} */`;
 }
 
 const minifyPlugin: OutputPlugin = {

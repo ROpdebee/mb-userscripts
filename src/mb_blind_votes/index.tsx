@@ -1,11 +1,7 @@
 import blindCss from './blind.css';
 
 function setupStyle(): void {
-    const style = document.createElement('style');
-    // style.type = 'text/css';
-    style.id = 'ROpdebee_blind_votes';
-    document.head.appendChild(style);
-    style.sheet?.insertRule(blindCss);
+    document.head.append(<style id='ROpdebee_blind_votes'>{blindCss}</style>);
 }
 
 function setupUnblindListeners(): void {
