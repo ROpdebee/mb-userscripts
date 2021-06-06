@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Seed the batch recording comments script
-// @version      2021.6.2.2
+// @version      2021.6.5
 // @description  Seed the recording comments for the batch recording comments userscripts with live and DJ-mix data.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -33,7 +33,7 @@ function getReleaseTitle() {
 }
 
 function getDJMixComment() {
-    return `part of a “${getReleaseTitle()}” DJ‐mix`;
+    return `part of “${getReleaseTitle()}” DJ‐mix`;
 }
 
 async function getRecordingRels(relGid) {
