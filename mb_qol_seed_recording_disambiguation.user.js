@@ -124,7 +124,7 @@ function formatRecordingBareArea(area) {
     }
 
     if (!country) country = null;
-    else if (country.primary_code === 'US') country = 'US';
+    else if (country.primary_code === 'US') country = 'USA';
     else if (country.primary_code === 'GB') country = 'UK';
     else country = country.name;
 
