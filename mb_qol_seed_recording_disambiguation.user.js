@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Seed the batch recording comments script
-// @version      2021.6.5
+// @version      2021.6.7
 // @description  Seed the recording comments for the batch recording comments userscripts with live and DJ-mix data.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -124,7 +124,7 @@ function formatRecordingBareArea(area) {
     }
 
     if (!country) country = null;
-    else if (country.primary_code === 'US') country = 'US';
+    else if (country.primary_code === 'US') country = 'USA';
     else if (country.primary_code === 'GB') country = 'UK';
     else country = country.name;
 
@@ -160,13 +160,22 @@ function getRecordingLiveComment(rec) {
     return comment;
 }
 
-function isLiveRecording(rec) {
-    return rec.relationships
+function isLiveRecording(rec, releaseGroup) {
+    const recordingRelationships = rec.relationships
         // 278 = <recording> recording of <work>
-        .filter((rel) => rel.linkTypeID === 278)
-        // attr 578 = live
-        .filter((recRel) => (recRel.attributes || []).find((attr) => attr.typeID === 578))
-        .length >= 1;
+        .filter((rel) => rel.linkTypeID === 278);
+
+    // Consider this a live recording if there is a linked work with a live
+    // attribute set or if there is no linked recording but the RG has the live
+    // type set. If there are linked recordings but no live attributes, or
+    // there are no linked recordings and no live on the RG, be conservative
+    // and don't consider it live.
+    if (recordingRelationships.length) {
+        return recordingRelationships
+            .some((recRel) => (recRel.attributes || []).find((attr) => attr.typeID === 578));
+    } else {
+        return (releaseGroup.secondaryTypeIDs || []).includes(6);
+    }
 }
 
 function fillInput($input, value) {
@@ -192,7 +201,7 @@ async function seedLive() {
             .map((track) => {
                 const rec = track.recording;
 
-                if (!isLiveRecording(rec)) {
+                if (!isLiveRecording(rec, relInfo.releaseGroup)) {
                     displayWarning(`Skipping track #${medium.position}.${track.number}: Not a live recording`);
                     return [track.gid, rec.comment];
                 }
