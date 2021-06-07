@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Upload to CAA From URL
-// @version      2021.6.2
+// @version      2021.6.7
 // @description  Upload covers to the CAA by pasting a URL! Workaround for MBS-4641.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -76,7 +76,9 @@ async function addImage($urlInput, log) {
         $urlInput.val('');
     }
 
-    addToEditNote(url);
+    if (!url.startsWith('data:')) {
+        addToEditNote(url);
+    }
     log(`Successfully loaded ${fileName} as ${file.type}`);
 }
 
