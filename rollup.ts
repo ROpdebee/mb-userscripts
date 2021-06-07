@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, SourceMapInput } from 'rollup';
+import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, RollupWarning, SourceMapInput } from 'rollup';
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import type { MinifyOptions, MinifyOutput } from 'terser';
 
@@ -21,6 +21,7 @@ import { userscript } from './rollup/plugin-userscript.js';
 
 const OUTPUT_DIR = 'dist';
 const VENDOR_CHUNK_NAME = 'vendor';
+const BUILTIN_LIB_CHUNK_NAME = 'lib';
 
 const EXTENSIONS = ['.js', '.ts', '.jsx', '.tsx'];
 
@@ -31,13 +32,18 @@ const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
     extensions: EXTENSIONS,
 };
 
-const TERSER_OPTIONS: MinifyOptions = {
+const TERSER_BASE_OPTIONS: MinifyOptions = {
     ecma: 5,
     safari10: true,  // Supported by MB
     compress: {
         passes: 4,
     },
-    module: true,
+};
+
+const TERSER_OPTIONS = {
+    [VENDOR_CHUNK_NAME]: {...TERSER_BASE_OPTIONS, module: true},
+    // Don't garble top-level names for built-in lib.
+    [BUILTIN_LIB_CHUNK_NAME]: {...TERSER_BASE_OPTIONS, module: false},
 };
 
 async function buildUserscripts(): Promise<void> {
@@ -86,7 +92,9 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
             }),
             progress() as Plugin,
             // To resolve node_modules imports
-            nodeResolve(),
+            nodeResolve({
+                extensions: EXTENSIONS,
+            }),
             // To import with CJS require() statements
             commonjs(),
             // Transpilation
@@ -111,15 +119,29 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
                 plugins: [
                     // Transpile CSS for older browsers
                     postcssPresetEnv,
-                ]
+                ],
+                extensions: ['.css', '.scss', '.sass']
             }),
         ],
+        onwarn: (warning: RollupWarning) => {
+            // Silence "this" at top level is undefined warnings.
+            // They occur because JSX is transformed to an IIFE called with
+            // `this`, which is may be undefined at the top level.
+            if (warning.code === 'THIS_IS_UNDEFINED') return;
+
+            // If the above warning is produced, it'll likely also produce this
+            // one, since we don't generate sourcemaps (yet).
+            if (warning.code === 'SOURCEMAP_ERROR') return;
+
+            console.warn(warning.message);
+        }
     });
 
     const output = await bundle.generate({
         format: 'es',
         manualChunks: (modulePath) => {
             if (isExternalLibrary(modulePath)) return VENDOR_CHUNK_NAME;
+            if (isBuiltinLib(modulePath)) return BUILTIN_LIB_CHUNK_NAME;
             return null;
         },
         plugins: process.env.NODE_ENV == 'production' ? [minifyPlugin] : [],
@@ -173,7 +195,13 @@ function isExternalLibrary(modulePath: string): boolean {
     return !path.relative('.', modulePath).startsWith('src');
 }
 
+function isBuiltinLib(modulePath: string): boolean {
+    return path.relative('.', modulePath).startsWith(['src', 'lib'].join(path.sep));
+}
+
 function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
+    if (chunk.name === BUILTIN_LIB_CHUNK_NAME) return '/* minified: lib */';
+
     const bundledModules = Object.keys(chunk.modules)
         .filter((module) => !module.startsWith('\x00'))
         .map((module) => path.relative('./node_modules', module))
@@ -195,10 +223,10 @@ const minifyPlugin: OutputPlugin = {
         code: string,
         chunk: Readonly<RenderedChunk>,
     ): Promise<{ code: string; map?: SourceMapInput } | null> {
-        // Only minify the vendor chunks
-        if (chunk.name !== VENDOR_CHUNK_NAME) return null;
+        // Only minify the vendor and lib chunks
+        if (![VENDOR_CHUNK_NAME, BUILTIN_LIB_CHUNK_NAME].includes(chunk.name)) return null;
         const terserOptions = {
-            ...TERSER_OPTIONS,
+            ...TERSER_OPTIONS[chunk.name as keyof typeof TERSER_OPTIONS],
             format: {
                 preamble: getVendorMinifiedPreamble(chunk),
             },

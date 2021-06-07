@@ -23,3 +23,27 @@ declare module '*.css' {
 
   export default css;
 }
+
+declare module '*.module.scss' {
+  /**
+   * Generated CSS for CSS modules
+   */
+  export const stylesheet: string;
+
+  /**
+   * Exported classes
+   */
+  const classMap: Record<string, string>;
+
+  export default classMap;
+}
+
+declare module '*.scss' {
+
+  /**
+   * Generated CSS
+   */
+  const css: string;
+
+  export default css;
+}

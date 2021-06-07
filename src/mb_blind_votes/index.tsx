@@ -1,42 +1,35 @@
-import blindCss from './blind.css';
+import css from './main.scss';
+import { Edit, Vote } from '../lib/MB/DOM/Edit';
+import { onDocumentLoaded } from '../lib/util/dom';
 
-function setupStyle(): void {
-    document.head.append(<style id='ROpdebee_blind_votes'>{blindCss}</style>);
+// Add unblind stylesheet
+document.head.append(<style id='ROpdebee_blind_votes'>{css}</style>);
+
+function blindEdit(edit: Edit) {
+    edit.baseContainer.classList.remove('unblind');
 }
 
-function setupUnblindListeners(): void {
-    document.querySelector('input[name^="enter-vote.vote"]:not([id$="-None"])')
-        ?.addEventListener('change', (evt: Readonly<Event>) => {
-            const target = evt.currentTarget as HTMLInputElement;
-            target
-                .closest('div.edit-list')
-                ?.classList.add('unblind');
-            // Make sure we also add .unblind to the content div on edit lists
-            // otherwise the CSS rules for the edit page still apply.
-            target
-                .closest('div#content')
-                ?.classList.add('unblind');
-        });
-
-    document.querySelector('input[name^="enter-vote.vote"][id$="-None"]')
-        ?.addEventListener('change', (evt: Readonly<Event>) => {
-            (evt.currentTarget as HTMLInputElement)
-                .closest('div.edit-list, div#content')
-                ?.classList.remove('unblind');
-        });
+function unblindEdit(edit: Edit) {
+    edit.baseContainer.classList.add('unblind');
 }
 
-setupStyle();
-setupUnblindListeners();
+// Change blind status when a vote is changed.
+Edit.onVoteChanged((edit: Edit) => {
+    // We cannot use classList.toggle here, since a vote may have changed from
+    // 'No' to 'Yes', both of which need to be unblinded.
+    let blindToggler: (edit: Edit) => void;
+    if (edit.myVote === Vote.None) {
+        blindToggler = blindEdit;
+    } else {
+        blindToggler = unblindEdit;
+    }
+
+    blindToggler(edit);
+});
+
 // Unblind any edits that aren't open, are your own, or on which you already voted
-document.addEventListener('DOMContentLoaded', () => {
-    setupUnblindListeners();
-    const unblindEdits = document.querySelectorAll(`
-        div.edit-header:not(.open),
-        div.cancel-edit > a.negative[href*="/cancel"],
-        input[name^="enter-vote.vote"]:checked:not([id$="-None"])`);
-    Array.from(unblindEdits)
-        .forEach((edit) => edit.closest('div.edit-list')?.classList.add('unblind'));
-    Array.from(unblindEdits)
-        .forEach((edit) => edit.closest('div#content')?.classList.add('unblind'));
+onDocumentLoaded(() => {
+    Edit.getEdits()
+        .filter((edit) => edit.myVote !== Vote.None || edit.isOwnEdit || (!edit.isOpen) || edit.myVote !== Vote.None)
+        .forEach(unblindEdit);
 });

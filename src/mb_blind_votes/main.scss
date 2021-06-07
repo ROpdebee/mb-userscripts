@@ -1,0 +1,71 @@
+@mixin blind-text {
+    color: black;
+    background-color: black;
+    pointer-events: none;
+
+    ::selection, &::selection {
+        color: black;
+        background-color: black;
+    }
+}
+
+@mixin blind-editor {
+    a:not(.date) {
+        @include blind-text;
+
+        // Profile image
+        img {
+            display: none
+        }
+    }
+}
+
+@mixin blind-edit-note {
+    div.edit-notes h3 {
+        @include blind-editor;
+
+        // Voting icon
+        > div.voting-icon {
+            display: none;
+        }
+    }
+}
+
+/* Edit lists page */
+div.edit-list:not(.unblind) {
+    /* Editor */
+    div.edit-header > p.subheader {
+        @include blind-editor;
+    }
+
+    @include blind-edit-note;
+}
+
+/* Single edit page */
+div#page:not(.unblind) > div#content {
+    >.edit-header {
+        > p.subheader {
+            @include blind-editor;
+        }
+
+        &~ form {
+            @include blind-edit-note;
+
+            table.vote-tally {
+                // Vote tally
+                tr:first-child td {
+                    @include blind-text;
+                }
+
+                // Voters. From third row, since row 1 is vote tally and
+                // row 2 are the vote options. This will break on edits that
+                // are already closed, since vote options aren't present there,
+                // but in that case, they should be unblinded automatically.
+                tr:nth-child(n+3) {
+                    @include blind-editor;
+                    @include blind-text;
+                }
+            }
+        }
+    }
+}
