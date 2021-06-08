@@ -1,29 +1,33 @@
 import { filterNonNull, findRight } from '../../util/array';
 import { assert, assertDefined, assertNonNull } from '../../util/assert';
 import { qs, qsa, qsMaybe } from '../../util/dom';
+import { createReverseEnum } from '../../util/object';
 
 /**
  * The possible types of votes.
  */
-export enum Vote {
-    None = 'None',
-    Yes = 'Yes',
-    No = 'No',
-    Abstain = 'Abstain',
-    Approve = 'Approve',
-}
-
-type VoteKey = keyof typeof Vote;
+export const Vote = {
+    NONE: 'None',
+    YES: 'Yes',
+    NO: 'No',
+    ABSTAIN: 'Abstain',
+    APPROVE: 'Approve',
+} as const;
+type Vote = typeof Vote[keyof typeof Vote];
+const VOTE_TEXT_TO_VOTE = createReverseEnum(Vote);
+// These occur on your own edits
+VOTE_TEXT_TO_VOTE.set('N/A', Vote.NONE);
 
 /**
  * Edit statuses that can be queried via class name.
  */
-export enum QueryableStatus {
-    Open = 'Open',
-    Applied = 'Applied',
-    FailedVote = 'Failed vote',
-    Cancelled = 'Cancelled',
-}
+export const QueryableStatus = {
+    OPEN: 'Open',
+    APPLIED: 'Applied',
+    FAILED_VOTE: 'Failed vote',
+    CANCELLED: 'Cancelled',
+} as const;
+export type QueryableStatus = typeof QueryableStatus[keyof typeof QueryableStatus];
 
 /**
  * Edit statuses which cannot be queried via class name.
@@ -31,24 +35,20 @@ export enum QueryableStatus {
  * Their class is always edit-error, with no distinction between the different
  * errors.
  */
-export enum NonQueryableStatus {
-    FailedDependency = 'Failed dependency',
-    Error = 'Error',
-    FailedPrerequisite = 'Failed prerequisite',
-    NoVotes = 'No votes',
-}
+export const NonQueryableStatus = {
+    FAILED_DEPENDENCY: 'Failed dependency',
+    ERROR: 'Error',
+    FAILED_PREREQUISITE: 'Failed prerequisite',
+    NO_VOTES: 'No votes',
+} as const;
+export type NonQueryableStatus = typeof NonQueryableStatus[keyof typeof NonQueryableStatus];
 
 /**
  * Edit statuses.
  */
-export const Status = {...QueryableStatus, ...NonQueryableStatus};
-export type Status = QueryableStatus | NonQueryableStatus;
-
-type StatusKey = keyof typeof Status;
-
-const STATUS_TEXT_TO_STATUS: Map<string, Status> = new Map(
-    Object.values(Status)
-        .map((status) => [status as string, status]));
+export const Status = {...QueryableStatus, ...NonQueryableStatus} as const;
+export type Status = typeof Status[keyof typeof Status];
+const STATUS_TEXT_TO_STATUS = createReverseEnum(Status);
 
 /**
  * Vote counts for an edit.
@@ -155,7 +155,7 @@ export abstract class Edit {
      * Determines if edit is open.
      */
     get isOpen(): boolean {
-        return this.status === Status.Open;
+        return this.status === Status.OPEN;
     }
 
     /**
@@ -183,9 +183,9 @@ export abstract class Edit {
         }
 
         const selectedInput = qs<HTMLInputElement>('input:checked', voteOpts);
-        const vote = selectedInput.id.split('-').at(-1);
+        const vote = VOTE_TEXT_TO_VOTE.get(selectedInput.id.split('-').at(-1));
         assertDefined(vote, 'Cannot find vote');
-        return Vote[vote as VoteKey];
+        return vote;
     }
 
     protected abstract get myOldVote(): Vote
@@ -248,7 +248,8 @@ class EditSingle extends Edit {
         const lastVoteRow = findRight(
             voteTallyRows,
             (voteRow) => voteRow.cells[0].textContent === __MB__.$c.user.name);
-        const vote = Vote[(lastVoteRow?.cells[1].textContent ?? 'None') as VoteKey];
+        const voteText = lastVoteRow?.cells[1].textContent ?? 'None';
+        const vote = VOTE_TEXT_TO_VOTE.get(voteText);
         assertDefined(vote);
         return vote;
     }
@@ -287,15 +288,15 @@ class EditList extends Edit {
         assert(!this.isOpen, 'Cannot get old vote of open edit');
 
         const oldVoteDiv = qs<HTMLDivElement>('div.my-vote', this.editHeader);
-        const vote = Vote[oldVoteDiv.childNodes[2].textContent as VoteKey];
+        const vote = VOTE_TEXT_TO_VOTE.get(oldVoteDiv.childNodes[2].textContent ?? '');
         assertDefined(vote);
         return vote;
     }
 
     override get status() {
         // FIXME: This won't work on non-English pages.
-        if (this.editHeader.classList.contains('open')) return Status.Open;
-        if (this.editHeader.classList.contains('applied')) return Status.Applied;
+        if (this.editHeader.classList.contains('open')) return Status.OPEN;
+        if (this.editHeader.classList.contains('applied')) return Status.APPLIED;
 
         const statusText = qs('.edit-actions > .edit-status', this.listDiv).textContent;
         const status = STATUS_TEXT_TO_STATUS.get(statusText ?? '');

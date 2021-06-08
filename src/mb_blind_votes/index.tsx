@@ -18,7 +18,7 @@ Edit.onVoteChanged((edit: Edit) => {
     // We cannot use classList.toggle here, since a vote may have changed from
     // 'No' to 'Yes', both of which need to be unblinded.
     let blindToggler: (edit: Edit) => void;
-    if (edit.myVote === Vote.None) {
+    if (edit.myVote === Vote.NONE) {
         blindToggler = blindEdit;
     } else {
         blindToggler = unblindEdit;
@@ -30,6 +30,6 @@ Edit.onVoteChanged((edit: Edit) => {
 // Unblind any edits that aren't open, are your own, or on which you already voted
 onDocumentLoaded(() => {
     Edit.getEdits()
-        .filter((edit) => edit.myVote !== Vote.None || edit.isOwnEdit || (!edit.isOpen) || edit.myVote !== Vote.None)
+        .filter((edit) => edit.isOwnEdit || (!edit.isOpen) || edit.myVote !== Vote.NONE)
         .forEach(unblindEdit);
 });
