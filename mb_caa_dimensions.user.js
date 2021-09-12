@@ -278,7 +278,7 @@ function actuallyLoadImageInfo(imgUrl) {
 
 function _loadImageInfo(imgUrl) {
     let urlObj = new URL(imgUrl);
-    if (urlObj.hostname === 'coverartarchive.org') {
+    if (urlObj.hostname === 'coverartarchive.org' && !urlObj.pathname.startsWith('/release-group/')) {
         // Bypass the redirect and go to IA directly. No use hitting CAA with
         // requests, and it's likely we'll get 429s when there are too many
         // images on the page.
