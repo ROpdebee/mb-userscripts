@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.9.12
+// @version      2021.9.13
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -432,6 +432,8 @@ function listenForNewCoverArtThumbs() {
     setInterval(() => {
         $('img.uploader-preview-image').each((i, img) => {
             if (img.getAttribute('ROpdebee_lazyDimensions')) return;
+            // Too early to get dimensions, src hasn't been set yet
+            if (!img.naturalWidth) return;
 
             // No need to load these through the network here.
             displayInfo(img, `${img.naturalWidth}x${img.naturalHeight}`);
