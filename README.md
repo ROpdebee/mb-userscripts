@@ -70,3 +70,9 @@ Seed the recording comments for the batch recording comments userscripts with li
 
 [![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](mb_qol_seed_recording_disambiguation.user.js)
 [![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](mb_qol_seed_recording_disambiguation.user.js?raw=1)
+
+### MB: QoL: Paste multiple external links at once
+Paste multiple external links at once into the external link editor. Input is split on whitespace (newlines, tabs, spaces, etc.) and fed into the link editor separately.
+
+[![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](mb_multi_external_links.user.js)
+[![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](mb_multi_external_links.user.js?raw=1)
