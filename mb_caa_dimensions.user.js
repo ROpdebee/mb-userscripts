@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.5.27
+// @version      2021.9.13
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -148,9 +148,9 @@ class CacheMgr {
             }));
     }
 
-    storeInCache(imgUrl, width, height, size) {
+    storeInCache(imgUrl, width, height, size, format) {
         return this.dbProm.then((db) => {
-            let obj = {url: imgUrl, width: width, height: height, size: size, added_datetime: Date.now()};
+            let obj = {url: imgUrl, width: width, height: height, size: size, format: format, added_datetime: Date.now()};
             let t = db.transaction(CACHE_STORE_NAME, 'readwrite')
                 .objectStore(CACHE_STORE_NAME)
                 .put(obj)
@@ -217,10 +217,10 @@ async function _fetchIAMetadata(itemId) {
 // Don't cache metadata across page loads, as it might change.
 const fetchIAMetadata = async_memoised(_fetchIAMetadata, (itemId) => itemId);
 
-async function loadImageFileSize(imgUrl) {
+async function loadImageFileMeta(imgUrl) {
     let urlObj = new URL(imgUrl);
     if (urlObj.hostname !== 'archive.org') {
-        return 0;
+        return {};
     }
 
     let [itemId, imagePath] = urlObj.pathname.split('/').slice(2);
@@ -228,27 +228,27 @@ async function loadImageFileSize(imgUrl) {
     let metadata = await fetchIAMetadata(itemId);
     if (!metadata) {
         _log(`${imgUrl}: Empty metadata. Darked?`);
-        return 0;
+        return {};
     }
 
     let imgMeta = metadata.result.find((meta) => meta.name === imagePath);
     if (!imgMeta) {
         _log(`${imgUrl}: Could not find image in metadata.`);
-        return 0;
+        return {};
     }
 
-    return parseInt(imgMeta.size);
+    return imgMeta;
 }
 
 function actuallyLoadImageInfo(imgUrl) {
-    const loaders = [actuallyLoadImageDimensions, loadImageFileSize];
+    const loaders = [actuallyLoadImageDimensions, loadImageFileMeta];
     return Promise.allSettled(loaders.map((fn) => fn(imgUrl)))
         .then((results) => {
-            let [dimFailed, sizeFailed] = results.map((res) => res.status !== 'fulfilled');
-            let [dimResult, sizeResult] = results;
+            let [dimFailed, metaFailed] = results.map((res) => res.status !== 'fulfilled');
+            let [dimResult, metaResult] = results;
 
-            if (dimFailed && sizeFailed) {
-                throw new Error(`${imgUrl}: ${dimResult.reason}, ${sizeResult.reason}`);
+            if (dimFailed && metaFailed) {
+                throw new Error(`${imgUrl}: ${dimResult.reason}, ${metaResult.reason}`);
             }
 
             let w, h, size;
@@ -259,26 +259,28 @@ function actuallyLoadImageInfo(imgUrl) {
                 [w, h] = [0, 0];
             }
 
-            if (!sizeFailed) {
-                size = sizeResult.value;
+            if (!metaFailed) {
+                size = parseInt(metaResult.value.size);
+                format = metaResult.value.format;
             } else {
-                _log(`${imgUrl}: Failed to load size: ${sizeResult.reason}`);
+                _log(`${imgUrl}: Failed to load metadata: ${metaResult.reason}`);
                 size = 0;
+                format = '';
             }
 
-            if (dimFailed || sizeFailed) {
+            if (dimFailed || metaFailed) {
                 // Don't store in cache if either of the two failed, but still
                 // return a result
-                return {url: imgUrl, width: w, height: h, size: size};
+                return {url: imgUrl, width: w, height: h, size: size, format: format};
             }
 
-            return cacheMgr.storeInCache(imgUrl, w, h, size);
+            return cacheMgr.storeInCache(imgUrl, w, h, size, format);
         });
 }
 
 function _loadImageInfo(imgUrl) {
     let urlObj = new URL(imgUrl);
-    if (urlObj.hostname === 'coverartarchive.org') {
+    if (urlObj.hostname === 'coverartarchive.org' && !urlObj.pathname.startsWith('/release-group/')) {
         // Bypass the redirect and go to IA directly. No use hitting CAA with
         // requests, and it's likely we'll get 429s when there are too many
         // images on the page.
@@ -331,6 +333,10 @@ function createInfoString(result) {
         sizeStr = '??? KB';
     } else {
         sizeStr = humanFileSize(result.size);
+    }
+
+    if (result.format) {
+        sizeStr += `, ${result.format}`;
     }
 
     return `${dimStr} (${sizeStr})`;
@@ -426,6 +432,8 @@ function listenForNewCoverArtThumbs() {
     setInterval(() => {
         $('img.uploader-preview-image').each((i, img) => {
             if (img.getAttribute('ROpdebee_lazyDimensions')) return;
+            // Too early to get dimensions, src hasn't been set yet
+            if (!img.naturalWidth) return;
 
             // No need to load these through the network here.
             displayInfo(img, `${img.naturalWidth}x${img.naturalHeight}`);

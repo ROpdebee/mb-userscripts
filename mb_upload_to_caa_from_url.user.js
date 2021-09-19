@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Upload to CAA From URL
-// @version      2021.6.2
+// @version      2021.6.14
 // @description  Upload covers to the CAA by pasting a URL! Workaround for MBS-4641.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -76,7 +76,9 @@ async function addImage($urlInput, log) {
         $urlInput.val('');
     }
 
-    addToEditNote(url);
+    if (!url.startsWith('data:')) {
+        addToEditNote(url);
+    }
     log(`Successfully loaded ${fileName} as ${file.type}`);
 }
 
@@ -85,6 +87,7 @@ function addToEditNote(msg) {
     $editNote.val($editNote.val() + '\n' + msg);
 }
 
+let EDIT_NOTE_FILLED = false;
 function setupPage() {
     const $div = $('<div style="display: inline-block; margin-left: 32px; vertical-align: middle;">');
     const $input = $('<input type="text" id="ROpdebee_paste_url" placeholder="or paste a URL here" size=47 />');
@@ -103,7 +106,10 @@ function setupPage() {
 
         addImage($input, (msg) => $status.text(msg));
         $status.show();
-        addToEditNote(`–\n${GM_info.script.name} ${GM_info.script.version}`);
+        if (!EDIT_NOTE_FILLED) {
+            addToEditNote(`–\n${GM_info.script.name} ${GM_info.script.version}`);
+            EDIT_NOTE_FILLED = true;
+        }
     });
 }
 
