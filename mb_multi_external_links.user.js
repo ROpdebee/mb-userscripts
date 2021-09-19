@@ -12,6 +12,11 @@
 // @run-at       document-end
 // ==/UserScript==
 
+const noSplitCboxHtml = `
+    <div id="ROpdebee_no_split_cont">
+        <input type="checkbox" id="ROpdebee_no_split">
+        <label for="ROpdebee_no_split">Don't split links</label>
+    </div>`
 
 function addInputHandler() {
     let inp = document.querySelector('#external-links-editor > tbody > tr.external-link-item:last-child input');
@@ -20,6 +25,12 @@ function addInputHandler() {
         return setTimeout(addInputHandler, 100);
     }
 
+    let existingCboxCont = document.querySelector('#ROpdebee_no_split_cont');
+    if (existingCboxCont) {
+        inp.insertAdjacentElement('afterend', existingCboxCont);
+    } else {
+        inp.insertAdjacentHTML('afterend', noSplitCboxHtml);
+    }
     inp.addEventListener('input', handleLinkInput);
 }
 
@@ -36,7 +47,20 @@ function getExtLinksEditor() {
 }
 
 function handleLinkInput(evt) {
-    let links = evt.currentTarget.value.trim().split(/\s+/);
+    let target = evt.currentTarget;
+
+    // Queued for execution after we've split the links
+    setTimeout(() => {
+        // Remove ourselves from this element and add ourselves to the new empty
+        // input, in case new links will be pasted. The current event target
+        // doesn't exist anymore/was repurposed to store a pasted link.
+        target.removeEventListener('input', handleLinkInput);
+        addInputHandler();
+    }, 100);
+
+    if (document.querySelector('#ROpdebee_no_split').checked) return;
+
+    let links = target.value.trim().split(/\s+/);
 
     // No need to split the input if there's only one link.
     if (links.length <= 1) return;
@@ -64,14 +88,8 @@ function handleLinkInput(evt) {
         extLink.memoizedProps.handleUrlChange(link);
         // Normally called on blur events, to finalise the link.
         // Fake event, just needs those props.
-        extLink.memoizedProps.handleUrlBlur({ currentTarget: { value: link }});
+        extLink.memoizedProps.handleUrlBlur({ currentTarget: { value: link } });
     });
-
-    // Remove ourselves from this element and add ourselves to the new empty
-    // input, in case new links will be pasted. The current event target
-    // doesn't exist anymore/was repurposed to store a pasted link.
-    evt.currentTarget.removeEventListener('input', handleLinkInput);
-    addInputHandler();
 }
 
 // This element should be present even before React is initialized. Checking
