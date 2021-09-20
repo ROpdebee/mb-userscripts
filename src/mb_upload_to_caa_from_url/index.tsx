@@ -236,4 +236,11 @@ function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) =
     return input;
 }
 
-new ImageImporter();
+const importer = new ImageImporter();
+
+if (document.location.hostname.endsWith('musicbrainz.org')) {
+    const seeded_url = document.location.hash.match(/seed_artwork_url=(.+)/);
+    if (seeded_url?.length) {
+        importer.addImagesFromUrl(seeded_url[1]);
+    }
+}
