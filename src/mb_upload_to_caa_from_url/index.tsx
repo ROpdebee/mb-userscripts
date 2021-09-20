@@ -3,6 +3,7 @@ import { EditNote } from '../lib/util/editNotes';
 import { gmxhr } from '../lib/util/xhr';
 
 import css from './main.scss';
+import { addAtisketSeedLinks } from './atisket';
 import { getMaxUrlCandidates } from './maxurl';
 
 class StatusBanner {
@@ -71,9 +72,72 @@ class ImageImporter {
         this.#doneImages = new Set();
     }
 
+    async addImagesFromLocationHash() {
+        const seedParams: Record<string, string> = {};
+        document.location.hash.replace(/^#/, '').split('&').forEach((param) => {
+            try {
+                const [name, value] = param.split('=');
+                seedParams[name] = decodeURIComponent(value);
+            } catch (err) {
+                console.error(err);
+                return;
+            }
+        });
+
+        if (!seedParams['artwork_url']) return;
+        const url = seedParams['artwork_url'];
+        const types = [];
+        if (seedParams['artwork_type']) {
+            const artworkTypeName = seedParams['artwork_type'] as keyof typeof ArtworkTypeIDs;
+            const artworkType = ArtworkTypeIDs[artworkTypeName];
+            if (typeof artworkType !== 'undefined') {
+                types.push(artworkType);
+            }
+        }
+
+        const result = await this.#addImages(url, types);
+        if (!result) return;
+        const { wasMaximised, originalFilename } = result;
+
+        if (!url.startsWith('data:')) {
+            let infoLine = url;
+            if (wasMaximised) infoLine += ', maximised';
+            if (seedParams['origin']) {
+                infoLine += ', seeded from ' + seedParams['origin'];
+            }
+            this.#note.addExtraInfo(infoLine);
+        }
+        this.#note.fill();
+
+        this.#clearInput(url);
+        this.#banner.set(`Successfully added ${originalFilename}` + (wasMaximised ? ' (maximised)' : ''));
+
+    }
+
     async addImagesFromUrl(url: string) {
         if (!url) {
             this.#banner.clear();
+            return;
+        }
+
+        const result = await this.#addImages(url);
+        if (!result) return;
+        const { wasMaximised, originalFilename } = result;
+
+        if (!url.startsWith('data:')) {
+            this.#note.addExtraInfo(url + (wasMaximised ? ', maximised': ''));
+        }
+        this.#note.fill();
+
+        this.#clearInput(url);
+        this.#banner.set(`Successfully added ${originalFilename}` + (wasMaximised ? ' (maximised)' : ''));
+    }
+
+    async #addImages(url: string, artworkTypes: ArtworkTypeIDs[] = []): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
+        try {
+            new URL(url);
+        } catch (err) {
+            this.#banner.set('Invalid URL');
             return;
         }
 
@@ -97,30 +161,21 @@ class ImageImporter {
         }
 
         const {file, fetchedUrl} = result;
+        const wasMaximised = fetchedUrl !== url;
 
         // As above, but also checking against maximised versions
-        if (this.#doneImages.has(fetchedUrl)) {
+        if (this.#doneImages.has(fetchedUrl) && wasMaximised) {
             this.#banner.set(`${originalFilename} has already been added`);
             this.#clearInput(url);
             return;
         }
         this.#doneImages.add(fetchedUrl);
 
-        const wasMaximised = fetchedUrl !== url;
-
-        this.#enqueueImageForUpload(file);
-
-        if (!url.startsWith('data:')) {
-            this.#note.addExtraInfo(url + (wasMaximised ? ' (maximised)': ''));
-        }
-        this.#note.fill();
-
-        this.#clearInput(url);
-        if (wasMaximised) {
-            this.#banner.set(`Successfully added ${originalFilename} as ${file.type} (maximised)`);
-        } else {
-            this.#banner.set(`Successfully added ${originalFilename} as ${file.type}`);
-        }
+        this.#enqueueImageForUpload(file, artworkTypes);
+        return {
+            originalFilename,
+            wasMaximised
+        };
     }
 
     #clearInput(url: string): void {
@@ -155,6 +210,8 @@ class ImageImporter {
             responseType: 'blob',
             headers: headers,
         });
+
+        console.log(resp);
 
         const rawFile = new File([resp.response], fileName);
 
@@ -236,11 +293,11 @@ function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) =
     return input;
 }
 
-const importer = new ImageImporter();
-
 if (document.location.hostname.endsWith('musicbrainz.org')) {
-    const seeded_url = document.location.hash.match(/seed_artwork_url=(.+)/);
-    if (seeded_url?.length) {
-        importer.addImagesFromUrl(seeded_url[1]);
+    const importer = new ImageImporter();
+    if (/artwork_url=(.+)/.test(document.location.hash)) {
+        importer.addImagesFromLocationHash();
     }
+} else if (document.location.hostname === 'atisket.pulsewidth.org.uk') {
+    addAtisketSeedLinks();
 }
