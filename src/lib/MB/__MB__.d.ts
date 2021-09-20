@@ -26,3 +26,14 @@ interface __MB__ {
 }
 
 declare var __MB__: __MB__;
+
+interface CoverArt {
+    validate_file(file: File): JQuery.Promise<string, string>;
+}
+
+// Incomplete
+interface MB {
+    CoverArt: CoverArt
+}
+
+declare var MB: MB;

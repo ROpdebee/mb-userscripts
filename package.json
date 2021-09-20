@@ -32,6 +32,8 @@
     "@rollup/plugin-virtual": "^2.0.3",
     "@rollup/pluginutils": "^3.1.0",
     "@types/babel__core": "^7.1.14",
+    "@types/greasemonkey": "^3.0.1",
+    "@types/jquery": "^3.5.6",
     "@types/postcss-preset-env": "^6.7.2",
     "@types/rollup__plugin-virtual": "^2.0.1",
     "@types/rollup-plugin-progress": "^1.1.0",

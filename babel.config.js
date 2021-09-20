@@ -9,6 +9,11 @@ export default {
             useBuiltIns: 'entry',
         }],
     ],
-    plugins: ['@babel/plugin-syntax-jsx'],
+    plugins: [
+        '@babel/plugin-syntax-jsx',
+        ['@babel/plugin-transform-runtime', {
+            regenerator: true,
+        }]
+    ],
     sourceType: 'unambiguous',
 };
