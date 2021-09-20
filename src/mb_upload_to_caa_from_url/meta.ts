@@ -10,8 +10,14 @@ const metadata: UserscriptMetadata = {
     match: [
         'release/*/add-cover-art',
     ].map(transformMBMatchURL),
-    grant: ['GM_xmlhttpRequest'],
+    grant: [
+        'GM_xmlhttpRequest',
+        // We don't actually use GM_getValue, but it needs to be exposed so that
+        // maxurl exports its interface in userscripts.
+        'GM_getValue',
+    ],
     connect: '*',
+    require: ['https://github.com/qsniyg/maxurl/blob/master/userscript.user.js?raw=true']
 };
 
 export default metadata;

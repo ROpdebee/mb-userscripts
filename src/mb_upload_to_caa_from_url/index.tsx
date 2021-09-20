@@ -3,6 +3,7 @@ import { EditNote } from '../lib/util/editNotes';
 import { gmxhr } from '../lib/util/xhr';
 
 import css from './main.scss';
+import { getMaxUrlCandidates } from './maxurl';
 
 class StatusBanner {
 
@@ -48,10 +49,17 @@ enum ArtworkTypeIDs {
 }
 
 
+interface FetchResult {
+    fetchedUrl: string
+    file: File
+}
+
+
 class ImageImporter {
     #banner: StatusBanner;
     #note: EditNote;
     #urlInput: HTMLInputElement;
+    #doneImages: Set<string>;
     // Monotonically increasing ID to uniquely identify the image. We use this
     // so we can later set the image type.
     #lastId = 0;
@@ -60,6 +68,7 @@ class ImageImporter {
         this.#banner = new StatusBanner();
         this.#note = EditNote.withPreambleFromGMInfo();
         this.#urlInput = setupPage(this.#banner, this.addImagesFromUrl.bind(this));
+        this.#doneImages = new Set();
     }
 
     async addImagesFromUrl(url: string) {
@@ -69,40 +78,82 @@ class ImageImporter {
         }
 
         const originalFilename = url.split('/').at(-1) ?? 'image';
-        let file;
+
+        // Prevent re-adding one we've already done
+        if (this.#doneImages.has(url)) {
+            this.#banner.set(`${originalFilename} has already been added`);
+            this.#clearInput(url);
+            return;
+        }
+        this.#doneImages.add(url);
+
+        let result;
         try {
-            file = await this.#fetchImage(url);
-            this.#banner.set(`Successfully loaded ${originalFilename} as ${file.type}`);
+            result = await this.#fetchLargestImage(url);
         } catch (err) {
             this.#banner.set(`Failed to load ${originalFilename}: ${err.reason ?? err}`);
             console.error(err);
             return;
         }
 
+        const {file, fetchedUrl} = result;
+
+        // As above, but also checking against maximised versions
+        if (this.#doneImages.has(fetchedUrl)) {
+            this.#banner.set(`${originalFilename} has already been added`);
+            this.#clearInput(url);
+            return;
+        }
+        this.#doneImages.add(fetchedUrl);
+
+        const wasMaximised = fetchedUrl !== url;
+
         this.#enqueueImageForUpload(file);
 
+        if (!url.startsWith('data:')) {
+            this.#note.addExtraInfo(url + (wasMaximised ? ' (maximised)': ''));
+        }
+        this.#note.fill();
+
+        this.#clearInput(url);
+        if (wasMaximised) {
+            this.#banner.set(`Successfully added ${originalFilename} as ${file.type} (maximised)`);
+        } else {
+            this.#banner.set(`Successfully added ${originalFilename} as ${file.type}`);
+        }
+    }
+
+    #clearInput(url: string): void {
         // Clear the old input, but only if it hasn't changed since. Because
         // this is asynchronous code, it's entirely possible for another image
         // to be loading at the same time
         if (this.#urlInput.value == url) {
             this.#urlInput.value = '';
         }
-
-        if (!url.startsWith('data:')) {
-            this.#note.addExtraInfo(url);
-        }
-        this.#note.fill();
-
-        this.#banner.set(`Successfully added ${originalFilename} as ${file.type}`);
     }
 
-    async #fetchImage(url: string): Promise<File> {
-        const fileName = url.split('/').at(-1) || 'image';
-        this.#banner.set(`Loading ${fileName}…`);
+    async #fetchLargestImage(url: string): Promise<FetchResult> {
+        let lastError;
+        for await (const imageResult of getMaxUrlCandidates(url)) {
+            const candName = imageResult.filename || url.split('/').at(-1);
+            try {
+                this.#banner.set(`Trying ${candName}…`);
+                return await this.#fetchImage(imageResult.url, candName, imageResult.headers);
+            } catch (err) {
+                console.error(`${candName} failed: ${err.reason ?? err}`);
+                lastError = err;
+            }
+        }
+
+        throw lastError;
+    }
+
+    async #fetchImage(url: string, fileName: string, headers: Record<string, unknown>): Promise<FetchResult> {
         const resp = await gmxhr({
             url,
             method: 'GET',
             responseType: 'blob',
+            headers: headers,
         });
 
         const rawFile = new File([resp.response], fileName);
@@ -110,10 +161,13 @@ class ImageImporter {
         return new Promise((resolve, reject) => {
             MB.CoverArt.validate_file(rawFile)
                 .fail((error) => reject({reason: error, error}))
-                .done((mimeType) => resolve(new File(
-                    [resp.response],
-                    `${fileName}.${this.#lastId++}.${mimeType.split('/')[1]}`,
-                    {type: mimeType})));
+                .done((mimeType) => resolve({
+                    fetchedUrl: url,
+                    file: new File(
+                        [resp.response],
+                        `${fileName}.${this.#lastId++}.${mimeType.split('/')[1]}`,
+                        {type: mimeType}),
+                }));
         });
     }
 
