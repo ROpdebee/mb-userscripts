@@ -13,6 +13,7 @@ export default {
         '@babel/plugin-syntax-jsx',
         ['@babel/plugin-transform-runtime', {
             regenerator: true,
+            helpers: false,
         }]
     ],
     sourceType: 'unambiguous',

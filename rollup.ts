@@ -26,7 +26,7 @@ const BUILTIN_LIB_CHUNK_NAME = 'lib';
 const EXTENSIONS = ['.js', '.ts', '.jsx', '.tsx'];
 
 const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
-    babelHelpers: 'runtime',
+    babelHelpers: 'bundled',
     exclude: 'node_modules/core-js*/**',
     include: ['**/*'],
     extensions: EXTENSIONS,
