@@ -7,6 +7,8 @@ import { ArtworkTypeIDs } from './base';
 
 export class TidalProvider implements CoverArtProvider {
     supportedDomains = ['tidal.com', 'listen.tidal.com', 'store.tidal.com']
+    favicon = 'https://listen.tidal.com/favicon.ico'
+    name = 'Tidal'
 
     supportsUrl(url: URL): boolean {
         return /\/album\/\d+/.test(url.pathname);

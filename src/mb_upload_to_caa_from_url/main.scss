@@ -11,4 +11,22 @@
         text-align: right;
         font-size: smaller;
     }
+
+    + span {
+        margin-left: 32px;
+    }
 }
+
+.ROpdebee_import_url_buttons {
+    margin-left: 32px;
+    vertical-align: middle;
+
+    > button {
+        // So that they're stacked.
+        display: block;
+        float: none;
+        margin: 4px;
+    }
+}
+
+

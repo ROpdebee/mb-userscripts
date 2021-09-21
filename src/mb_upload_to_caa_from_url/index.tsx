@@ -1,3 +1,4 @@
+import { assertHasValue } from '../lib/util/assert';
 import { qs, qsa } from '../lib/util/dom';
 import { EditNote } from '../lib/util/editNotes';
 import { gmxhr } from '../lib/util/xhr';
@@ -5,7 +6,7 @@ import { gmxhr } from '../lib/util/xhr';
 import css from './main.scss';
 import { addAtisketSeedLinks } from './atisket';
 import { getMaxUrlCandidates } from './maxurl';
-import { findImages } from './providers';
+import { findImages, getProvider, hasProvider } from './providers';
 import { ArtworkTypeIDs, CoverArt } from './providers/base';
 
 class StatusBanner {
@@ -279,8 +280,7 @@ class ImageImporter {
             .filter((cbox) => artworkTypes.includes(parseInt(cbox.value)));
         checkboxesToCheck.forEach((cbox) => {
             cbox.checked = true;
-            let event = new Event('click');
-            cbox.dispatchEvent(event);
+            cbox.dispatchEvent(new Event('click'));
         });
     }
 }
@@ -312,7 +312,52 @@ function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) =
     qs('#drop-zone')
         .insertAdjacentElement('afterend', container);
 
+    // Intentionally not awaiting this, don't want to block the paste input
+    addImportButtons(addImageCallback, container);
+
     return input;
+}
+
+async function addImportButtons(addImageCallback: (url: string) => void, inputContainer: Element) {
+    const attachedURLs = await getAttachedURLs();
+    const supportedURLs = attachedURLs.filter((url) => {
+        try {
+            return hasProvider(new URL(url));
+        } catch (err) {
+            // invalid URL
+            return false;
+        }
+    });
+
+    if (!supportedURLs.length) return;
+
+    const buttons = supportedURLs
+        .map((url) => createImportButton(url, addImageCallback));
+    inputContainer.insertAdjacentElement('afterend',
+        <div className='ROpdebee_import_url_buttons buttons'>
+            {buttons}
+        </div>);
+    inputContainer.insertAdjacentElement('afterend', <span>or</span>);
+}
+
+function createImportButton(url: string, addImageCallback: (url: string) => void): HTMLElement {
+    const provider = getProvider(new URL(url));
+    return <button
+        type='button'
+        onClick={ (evt) => { evt.preventDefault(); addImageCallback(url); } }
+    >
+        <img src={provider?.favicon} alt={provider?.name} title={url}/>
+        <span>{'Import from ' + provider?.name}</span>
+    </button>;
+}
+
+async function getAttachedURLs(): Promise<string[]> {
+    const mbid = location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)?.[1];
+    assertHasValue(mbid);
+    const resp = await fetch(`/ws/2/release/${mbid}?inc=url-rels&fmt=json`);
+    const metadata = await resp.json();
+    return metadata.relations
+        ?.map((rel: { url: { resource: string } }) => rel.url.resource) ?? [];
 }
 
 if (document.location.hostname.endsWith('musicbrainz.org')) {

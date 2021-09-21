@@ -6,11 +6,11 @@ import { SpotifyProvider } from './providers/spotify';
 import { TidalProvider } from './providers/tidal';
 import { BandcampProvider } from './providers/bandcamp';
 
-const PROVIDER_DISPATCH: Record<string, CoverArtProvider | undefined> = {};
+const PROVIDER_DISPATCH: Map<string, CoverArtProvider> = new Map();
 
 function add_provider(provider: CoverArtProvider): void {
     provider.supportedDomains
-        .forEach((domain) => PROVIDER_DISPATCH[domain] = provider);
+        .forEach((domain) => PROVIDER_DISPATCH.set(domain, provider));
 }
 
 add_provider(new AppleMusicProvider());
@@ -20,20 +20,26 @@ add_provider(new DiscogsProvider());
 add_provider(new SpotifyProvider());
 add_provider(new TidalProvider());
 
-function urlToProvider(url: URL): CoverArtProvider | undefined {
+function extractDomain(url: URL): string {
     let domain = url.hostname;
     // Deal with bandcamp subdomains
     if (domain.endsWith('bandcamp.com')) domain = 'bandcamp.com';
     domain = domain.replace(/^www\./, '');
-
-    return PROVIDER_DISPATCH[domain];
+    return domain;
 }
 
+export function getProvider(url: URL): CoverArtProvider | undefined {
+    return PROVIDER_DISPATCH.get(extractDomain(url));
+}
+
+export function hasProvider(url: URL): boolean {
+    return PROVIDER_DISPATCH.has(extractDomain(url));
+}
 
 export async function findImages(url: string): Promise<CoverArt[] | undefined> {
     const urlObj = new URL(url);
 
-    const provider = urlToProvider(urlObj);
+    const provider = getProvider(urlObj);
     if (!provider || !provider.supportsUrl(urlObj)) {
         return;
     }

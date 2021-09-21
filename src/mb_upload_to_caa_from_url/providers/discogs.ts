@@ -8,6 +8,8 @@ const QUERY_SHA256 = '13e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d
 
 export class DiscogsProvider implements CoverArtProvider {
     supportedDomains = ['discogs.com']
+    favicon = 'https://catalog-assets.discogs.com/e95f0cd9.png'
+    name = 'Discogs'
 
     supportsUrl(url: URL): boolean {
         return /\/release\/\d+/.test(url.pathname);

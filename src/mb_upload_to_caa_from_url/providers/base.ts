@@ -3,6 +3,8 @@ import { gmxhr } from '../../lib/util/xhr';
 
 export interface CoverArtProvider {
     supportedDomains: string[]
+    favicon: string
+    name: string
 
     findImages(url: string): Promise<CoverArt[]>
     supportsUrl(url: URL): boolean
@@ -49,4 +51,6 @@ export abstract class HeadMetaPropertyProvider implements CoverArtProvider {
 
     abstract supportsUrl(url: URL): boolean
     abstract supportedDomains: string[]
+    abstract favicon: string
+    abstract name: string
 }
