@@ -2,16 +2,44 @@ import { qs } from '../../lib/util/dom';
 import { gmxhr } from '../../lib/util/xhr';
 
 export interface CoverArtProvider {
+    /**
+     * Domains supported by the provider, without www.
+     */
     supportedDomains: string[]
+    /**
+     * URL of the provider's favicon, for use in import buttons.
+     */
     favicon: string
+    /**
+     * Provider name, used in import buttons.
+     */
     name: string
 
+    /**
+     * Find the provider's images.
+     *
+     * @param      {string}     url     The URL to the release. Guaranteed to have passed validation.
+     * @return     {Promise<CoverArt[]>  List of cover arts that should be imported.
+     */
     findImages(url: string): Promise<CoverArt[]>
+
+    /**
+     * Check whether the provider supports the given URL.
+     *
+     * @param      {URL}    url     The provider URL.
+     * @return     {boolean}  Whether images can be extracted for this URL.
+     */
     supportsUrl(url: URL): boolean
 }
 
 export interface CoverArt {
+    /**
+     * URL to fetch.
+     */
     url: string
+    /**
+     * Artwork types to set. May be empty or undefined.
+     */
     type?: ArtworkTypeIDs[]
 }
 
