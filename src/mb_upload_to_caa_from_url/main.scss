@@ -3,7 +3,12 @@
     margin-left: 32px;
     vertical-align: middle;
 
-    > input {
+    > * {
         display: block;
+    }
+
+    > a {
+        text-align: right;
+        font-size: smaller;
     }
 }

@@ -300,6 +300,12 @@ function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) =
     const container =
         <div className='ROpdebee_paste_url_cont'>
             {input}
+            <a
+                href='https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_upload_to_caa_from_url/supportedProviders.md'
+                target='_blank'
+            >
+                Supported providers
+            </a>
             {statusBanner.htmlElement}
         </div>;
 
