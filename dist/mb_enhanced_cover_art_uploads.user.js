@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         MB: Upload to CAA From URL
-// @description  Upload covers to the CAA by pasting a URL! Workaround for MBS-4641.
+// @name         MB: Enhanced Cover Art Uploads
+// @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
 // @version      2021.9.21
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
 // @homepageURL  https://github.com/ROpdebee/mb-userscripts
 // @supportURL   https://github.com/ROpdebee/mb-userscripts/issues
-// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/dist/mb_upload_to_caa_from_url.user.js
-// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/dist/mb_upload_to_caa_from_url.meta.js
+// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/dist/mb_enhanced_cover_art_uploads.user.js
+// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/dist/mb_enhanced_cover_art_uploads.meta.js
 // @match        *://*.musicbrainz.org/release/*/add-cover-art
 // @match        *://atisket.pulsewidth.org.uk/*
 // @exclude      *://atisket.pulsewidth.org.uk/
@@ -1323,7 +1323,7 @@
           $$e.setAttribute('class', 'ROpdebee_paste_url_cont');
           t($$e, input);
           var $$g = document.createElement('a');
-          $$g.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_upload_to_caa_from_url/supportedProviders.md');
+          $$g.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/supportedProviders.md');
           $$g.setAttribute('target', '_blank');
           $$e.appendChild($$g);
           var $$h = document.createTextNode('\n                Supported providers\n            ');

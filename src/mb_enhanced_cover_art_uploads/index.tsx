@@ -301,7 +301,7 @@ function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) =
         <div className='ROpdebee_paste_url_cont'>
             {input}
             <a
-                href='https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_upload_to_caa_from_url/supportedProviders.md'
+                href='https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/supportedProviders.md'
                 target='_blank'
             >
                 Supported providers

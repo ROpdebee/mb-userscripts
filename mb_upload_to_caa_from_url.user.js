@@ -7,8 +7,8 @@
 // @namespace    https://github.com/ROpdebee/mb-userscripts
 // @homepageURL  https://github.com/ROpdebee/mb-userscripts
 // @supportURL   https://github.com/ROpdebee/mb-userscripts/issues
-// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/dist/mb_upload_to_caa_from_url.user.js
-// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/dist/mb_upload_to_caa_from_url.meta.js
+// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/dist/mb_enhanced_cover_art_uploads.user.js
+// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/dist/mb_enhanced_cover_art_uploads.meta.js
 // @match        *://*.musicbrainz.org/release/*/add-cover-art
 // @match        *://atisket.pulsewidth.org.uk/*
 // @exclude      *://atisket.pulsewidth.org.uk/
