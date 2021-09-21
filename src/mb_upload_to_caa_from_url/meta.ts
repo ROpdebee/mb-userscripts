@@ -4,7 +4,7 @@ import { transformMBMatchURL } from '../lib/util/metadata.js';
 
 const metadata: UserscriptMetadata = {
     name: 'MB: Upload to CAA From URL',
-    version: '2021.6.14',
+    version: '2021.9.21',
     description: 'Upload covers to the CAA by pasting a URL! Workaround for MBS-4641.',
     'run-at': 'document-load',
     match: [
