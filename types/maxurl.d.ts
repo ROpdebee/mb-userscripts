@@ -12,7 +12,7 @@ interface maxurlOptions {
 
     // Whether or not to store to, and use an internal cache for URLs.
     // Set this to "read" if you want to use the cache without storing results to it.
-    use_cache?: boolean,
+    use_cache?: boolean
 
     // Timeout (in seconds) for cache entries in the URL cache
     urlcache_time?: number
@@ -149,7 +149,7 @@ interface maxurl {
     default_options: maxurlOptions
     is_internet_url(url: string): boolean
     clear_caches(): void
-    loop: any
+    // loop: any
 }
 
 declare const $$IMU_EXPORT$$: maxurl;
