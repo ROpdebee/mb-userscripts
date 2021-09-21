@@ -5,7 +5,10 @@ const maxurl = $$IMU_EXPORT$$;
 const options: maxurlOptions = {
     fill_object: true,
     exclude_videos: true,
-    filter: (url) => !url.toLowerCase().endsWith('.webp'),
+    filter: (url) => (
+        !url.toLowerCase().endsWith('.webp')
+        // Blocking webp images in Discogs
+        && !/:format(webp)/.test(url.toLowerCase())),
 };
 
 export async function* getMaxUrlCandidates(smallurl: string): AsyncIterableIterator<maxurlResult> {

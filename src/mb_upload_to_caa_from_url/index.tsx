@@ -5,6 +5,8 @@ import { gmxhr } from '../lib/util/xhr';
 import css from './main.scss';
 import { addAtisketSeedLinks } from './atisket';
 import { getMaxUrlCandidates } from './maxurl';
+import { findImages } from './providers';
+import { ArtworkTypeIDs, CoverArt } from './providers/base';
 
 class StatusBanner {
 
@@ -31,24 +33,6 @@ class StatusBanner {
         return this.#elmt;
     }
 }
-
-enum ArtworkTypeIDs {
-    Back = 2,
-    Booklet = 3,
-    Front = 1,
-    Liner = 12,
-    Medium = 4,
-    Obi = 5,
-    Other = 8,
-    Poster = 11,
-    Raw = 14,  // Raw/Unedited
-    Spine = 6,
-    Sticker = 10,
-    Track = 7,
-    Tray = 9,
-    Watermark = 13,
-}
-
 
 interface FetchResult {
     fetchedUrl: string
@@ -133,12 +117,43 @@ class ImageImporter {
         this.#banner.set(`Successfully added ${originalFilename}` + (wasMaximised ? ' (maximised)' : ''));
     }
 
+    async #addImagesFromProvider(originalUrl: string, images: CoverArt[]): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
+        this.#banner.set(`Found ${images.length} images`);
+        let wasMaximised = false;
+        let successfulCount = 0;
+        for (const img of images) {
+            const result = await this.#addImages(img.url, img.type ?? []);
+            wasMaximised ||= result?.wasMaximised ?? false;
+            if (result) successfulCount += 1;
+        }
+        this.#clearInput(originalUrl);
+        this.#banner.set(`Added ${successfulCount} images from ${originalUrl}`);
+        if (!successfulCount) {
+            return;
+        }
+        return { wasMaximised, originalFilename: `${successfulCount} images`};
+    }
+
     async #addImages(url: string, artworkTypes: ArtworkTypeIDs[] = []): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
         try {
             new URL(url);
         } catch (err) {
             this.#banner.set('Invalid URL');
             return;
+        }
+
+        this.#banner.set('Searching for images…');
+        let containedImages;
+        try {
+            containedImages = await findImages(url);
+        } catch (err) {
+            this.#banner.set(`Failed to search images: ${err.reason ?? err}`);
+            console.error(err);
+            return;
+        }
+
+        if (containedImages) {
+            return this.#addImagesFromProvider(url, containedImages);
         }
 
         const originalFilename = url.split('/').at(-1) ?? 'image';
@@ -188,7 +203,6 @@ class ImageImporter {
     }
 
     async #fetchLargestImage(url: string): Promise<FetchResult> {
-        let lastError;
         for await (const imageResult of getMaxUrlCandidates(url)) {
             const candName = imageResult.filename || url.split('/').at(-1);
             try {
@@ -196,22 +210,20 @@ class ImageImporter {
                 return await this.#fetchImage(imageResult.url, candName, imageResult.headers);
             } catch (err) {
                 console.error(`${candName} failed: ${err.reason ?? err}`);
-                lastError = err;
             }
         }
 
-        throw lastError;
+        // Fall back on original image
+        return await this.#fetchImage(url, url.split('/').at(-1) || 'image');
     }
 
-    async #fetchImage(url: string, fileName: string, headers: Record<string, unknown>): Promise<FetchResult> {
+    async #fetchImage(url: string, fileName: string, headers: Record<string, unknown> = {}): Promise<FetchResult> {
         const resp = await gmxhr({
             url,
             method: 'GET',
             responseType: 'blob',
             headers: headers,
         });
-
-        console.log(resp);
 
         const rawFile = new File([resp.response], fileName);
 
@@ -265,7 +277,11 @@ class ImageImporter {
 
         const checkboxesToCheck = qsa<HTMLInputElement>('ul.cover-art-type-checkboxes input[type="checkbox"]', fileRow)
             .filter((cbox) => artworkTypes.includes(parseInt(cbox.value)));
-        checkboxesToCheck.forEach((cbox) => cbox.checked = true);
+        checkboxesToCheck.forEach((cbox) => {
+            cbox.checked = true;
+            let event = new Event('click');
+            cbox.dispatchEvent(event);
+        });
     }
 }
 

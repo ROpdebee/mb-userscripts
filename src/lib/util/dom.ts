@@ -9,7 +9,7 @@ import { assertNonNull } from "./assert";
  *
  * If element is not provided, defaults to document.
  */
-export function qs<T extends Element>(query: string, element?: Element): T {
+export function qs<T extends Element>(query: string, element?: Document | Element): T {
     const queryResult = qsMaybe<T>(query, element);
     assertNonNull(queryResult, 'Could not find required element');
     return queryResult;
@@ -20,7 +20,7 @@ export function qs<T extends Element>(query: string, element?: Element): T {
  *
  * If element is not provided, defaults to document.
  */
-export function qsMaybe<T extends Element>(query: string, element?: Element): T | null {
+export function qsMaybe<T extends Element>(query: string, element?: Document | Element): T | null {
     const target = element ?? document;
     return target.querySelector<T>(query);
 }
@@ -30,7 +30,7 @@ export function qsMaybe<T extends Element>(query: string, element?: Element): T 
  *
  * If element is not provided, defaults to document.
  */
-export function qsa<T extends Element>(query: string, element?: Element): T[] {
+export function qsa<T extends Element>(query: string, element?: Document | Element): T[] {
     const target = element ?? document;
     return [...target.querySelectorAll<T>(query)];
 }
