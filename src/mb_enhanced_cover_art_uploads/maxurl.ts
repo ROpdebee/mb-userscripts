@@ -1,5 +1,7 @@
 // Interface to maxurl
 
+import { DiscogsProvider } from './providers/discogs';
+
 const maxurl = $$IMU_EXPORT$$;
 
 const options: maxurlOptions = {
@@ -11,7 +13,19 @@ const options: maxurlOptions = {
         && !/:format(webp)/.test(url.toLowerCase())),
 };
 
-export async function* getMaxUrlCandidates(smallurl: string): AsyncIterableIterator<maxurlResult> {
+export interface MaximisedImage {
+    url: string
+    filename: string
+    headers: Record<string, unknown>
+}
+
+export async function* getMaxUrlCandidates(smallurl: string): AsyncIterableIterator<MaximisedImage> {
+    // Workaround maxurl discogs difficulties
+    if (/img\.discogs\.com\//.test(smallurl)) {
+        yield getMaxUrlDiscogs(smallurl);
+        return;
+    }
+
     const p = new Promise<maxurlResult[]>((resolve) => {
         maxurl(smallurl, {
             ...options,
@@ -26,4 +40,14 @@ export async function* getMaxUrlCandidates(smallurl: string): AsyncIterableItera
         if (current.fake || current.bad || current.likely_broken) continue;
         yield current;
     }
+}
+
+async function getMaxUrlDiscogs(smallurl: string): Promise<MaximisedImage> {
+    // Workaround for maxurl returning broken links and webp images
+    const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
+    return {
+        url: fullSizeURL,
+        filename: fullSizeURL.split('/').at(-1),
+        headers: {},
+    };
 }

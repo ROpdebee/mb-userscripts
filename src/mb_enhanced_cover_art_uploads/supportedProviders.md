@@ -8,6 +8,6 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Apple Music/iTunes | ✔️ | ✔️ |
 | Bandcamp | ✔️ | ✔️ | No custom domains |
 | Deezer | ✔️ | ✔️ |
-| Discogs | ❌ | ❌ | maxurl support broken, largest versions are retrieved when pasting a release link, but not for direct links |
+| Discogs | Partial | ❌ | Images are limited to 600x600, see [qsniyg/maxurl#689](https://github.com/qsniyg/maxurl/issues/689) |
 | Spotify | ✔️ | ✔️ |
 | Tidal | ✔️ | ✔️ | listen.tidal.com/store.tidal.com are converted to tidal.com prior to fetching |
