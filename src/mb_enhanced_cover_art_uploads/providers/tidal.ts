@@ -14,13 +14,13 @@ export class TidalProvider implements CoverArtProvider {
         return /\/album\/\d+/.test(url.pathname);
     }
 
-    async findImages(url: string): Promise<CoverArt[]> {
+    async findImages(url: URL): Promise<CoverArt[]> {
         // Rewrite the URL to point to the main page
-        const albumId = url.match(/\/album\/(\d+)/)?.[1];
+        const albumId = url.pathname.match(/\/album\/(\d+)/)?.[1];
         assertHasValue(albumId);
-        url = `https://tidal.com/browse/album/${albumId}`;
+        url.href = `https://tidal.com/browse/album/${albumId}`;
 
-        const resp = await gmxhr({ url, method: 'GET' });
+        const resp = await gmxhr({ url: url.href, method: 'GET' });
         const parser = new DOMParser();
         const respDocument = parser.parseFromString(resp.responseText, 'text/html');
 
@@ -30,7 +30,7 @@ export class TidalProvider implements CoverArtProvider {
 
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
         return [{
-            url: coverElmt.content,
+            url: new URL(coverElmt.content),
             type: [ArtworkTypeIDs.Front],
         }];
     }

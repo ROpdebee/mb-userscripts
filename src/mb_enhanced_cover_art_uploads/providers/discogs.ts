@@ -45,17 +45,16 @@ export class DiscogsProvider implements CoverArtProvider {
         return /\/release\/\d+/.test(url.pathname);
     }
 
-    async findImages(url: string): Promise<CoverArt[]> {
+    async findImages(url: URL): Promise<CoverArt[]> {
         // Loading the full HTML and parsing the metadata JSON embedded within
         // it.
-        const releaseId = url.match(/\/release\/(\d+)/)?.[1];
+        const releaseId = url.pathname.match(/\/release\/(\d+)/)?.[1];
         assertHasValue(releaseId);
 
         const data = await DiscogsProvider.getReleaseImages(releaseId);
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return data.data.release.images.edges.map((edge: Record<string, any>) => {
-            return { url: edge.node.fullsize.sourceUrl };
+        return data.data.release.images.edges.map((edge) => {
+            return { url: new URL(edge.node.fullsize.sourceUrl) };
         });
     }
 
@@ -78,16 +77,16 @@ export class DiscogsProvider implements CoverArtProvider {
         return JSON.parse(resp.responseText);
     }
 
-    static async maximiseImage(url: string): Promise<string> {
+    static async maximiseImage(url: URL): Promise<URL> {
         // Maximising by querying the API for all images of the release, finding
         // the right one, and extracting the "full size" (i.e., 600x600 JPEG) URL.
-        const imageName = url.match(/discogs-images\/(R-.+)$/)?.[1];
+        const imageName = url.pathname.match(/discogs-images\/(R-.+)$/)?.[1];
         const releaseId = imageName?.match(/^R-(\d+)/)?.[1];
         if (!releaseId) return url;
         const releaseData = await this.getReleaseImages(releaseId);
         const matchedImage = releaseData.data.release.images.edges
             .find((img) => img.node.fullsize.sourceUrl.split('/').at(-1) === imageName);
         if (!matchedImage) return url;
-        return matchedImage.node.fullsize.sourceUrl;
+        return new URL(matchedImage.node.fullsize.sourceUrl);
     }
 }

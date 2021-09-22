@@ -36,16 +36,15 @@ class StatusBanner {
 }
 
 interface FetchResult {
-    fetchedUrl: string
+    fetchedUrl: URL
     file: File
 }
-
 
 class ImageImporter {
     #banner: StatusBanner;
     #note: EditNote;
     #urlInput: HTMLInputElement;
-    #doneImages: Set<string>;
+    #doneImages: Set<URL>;
     // Monotonically increasing ID to uniquely identify the image. We use this
     // so we can later set the image type.
     #lastId = 0;
@@ -53,7 +52,7 @@ class ImageImporter {
     constructor() {
         this.#banner = new StatusBanner();
         this.#note = EditNote.withPreambleFromGMInfo();
-        this.#urlInput = setupPage(this.#banner, this.addImagesFromUrl.bind(this));
+        this.#urlInput = setupPage(this.#banner, this.cleanUrlAndAdd.bind(this));
         this.#doneImages = new Set();
     }
 
@@ -69,11 +68,13 @@ class ImageImporter {
             }
         });
 
-        if (!seedParams['artwork_url']) return;
-        const url = seedParams['artwork_url'];
+        if (!seedParams.artwork_url) return;
+        const url = this.#cleanUrl(seedParams.artwork_url);
+        if (!url) return;
+
         const types = [];
-        if (seedParams['artwork_type']) {
-            const artworkTypeName = seedParams['artwork_type'] as keyof typeof ArtworkTypeIDs;
+        if (seedParams.artwork_type) {
+            const artworkTypeName = seedParams.artwork_type as keyof typeof ArtworkTypeIDs;
             const artworkType = ArtworkTypeIDs[artworkTypeName];
             if (typeof artworkType !== 'undefined') {
                 types.push(artworkType);
@@ -84,41 +85,59 @@ class ImageImporter {
         if (!result) return;
         const { wasMaximised, originalFilename } = result;
 
-        if (!url.startsWith('data:')) {
-            let infoLine = url;
+        if (url.protocol !== 'data:') {
+            let infoLine = url.href;
             if (wasMaximised) infoLine += ', maximised';
-            if (seedParams['origin']) {
-                infoLine += ', seeded from ' + seedParams['origin'];
+            if (seedParams.origin) {
+                infoLine += ', seeded from ' + seedParams.origin;
             }
             this.#note.addExtraInfo(infoLine);
+        } else if (seedParams.origin) {
+            this.#note.addExtraInfo(`Seeded from ${seedParams.origin}`);
         }
         this.#note.fill();
 
-        this.#clearInput(url);
+        this.#clearInput(url.href);
         this.#banner.set(`Successfully added ${originalFilename}` + (wasMaximised ? ' (maximised)' : ''));
 
     }
 
-    async addImagesFromUrl(url: string) {
+    async cleanUrlAndAdd(url: string) {
+        const urlObj = this.#cleanUrl(url);
+        if (!urlObj) return;
+        await this.#addImagesFromUrl(urlObj);
+    }
+
+    #cleanUrl(url: string): URL | undefined {
+        url = url.trim();
         if (!url) {
             this.#banner.clear();
             return;
         }
 
+        try {
+            return new URL(url);
+        } catch {
+            this.#banner.set('Invalid URL');
+            return;
+        }
+    }
+
+    async #addImagesFromUrl(url: URL) {
         const result = await this.#addImages(url);
         if (!result) return;
         const { wasMaximised, originalFilename } = result;
 
-        if (!url.startsWith('data:')) {
+        if (url.protocol !== 'data:') {
             this.#note.addExtraInfo(url + (wasMaximised ? ', maximised': ''));
         }
         this.#note.fill();
 
-        this.#clearInput(url);
+        this.#clearInput(url.href);
         this.#banner.set(`Successfully added ${originalFilename}` + (wasMaximised ? ' (maximised)' : ''));
     }
 
-    async #addImagesFromProvider(originalUrl: string, images: CoverArt[]): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
+    async #addImagesFromProvider(originalUrl: URL, images: CoverArt[]): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
         this.#banner.set(`Found ${images.length} images`);
         let wasMaximised = false;
         let successfulCount = 0;
@@ -127,7 +146,7 @@ class ImageImporter {
             wasMaximised ||= result?.wasMaximised ?? false;
             if (result) successfulCount += 1;
         }
-        this.#clearInput(originalUrl);
+        this.#clearInput(originalUrl.href);
         this.#banner.set(`Added ${successfulCount} images from ${originalUrl}`);
         if (!successfulCount) {
             return;
@@ -135,7 +154,7 @@ class ImageImporter {
         return { wasMaximised, originalFilename: `${successfulCount} images`};
     }
 
-    async #addImages(url: string, artworkTypes: ArtworkTypeIDs[] = []): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
+    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = []): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
         try {
             new URL(url);
         } catch (err) {
@@ -157,12 +176,12 @@ class ImageImporter {
             return this.#addImagesFromProvider(url, containedImages);
         }
 
-        const originalFilename = url.split('/').at(-1) ?? 'image';
+        const originalFilename = url.pathname.split('/').at(-1) ?? 'image';
 
         // Prevent re-adding one we've already done
         if (this.#doneImages.has(url)) {
             this.#banner.set(`${originalFilename} has already been added`);
-            this.#clearInput(url);
+            this.#clearInput(url.href);
             return;
         }
         this.#doneImages.add(url);
@@ -182,7 +201,7 @@ class ImageImporter {
         // As above, but also checking against maximised versions
         if (this.#doneImages.has(fetchedUrl) && wasMaximised) {
             this.#banner.set(`${originalFilename} has already been added`);
-            this.#clearInput(url);
+            this.#clearInput(url.href);
             return;
         }
         this.#doneImages.add(fetchedUrl);
@@ -194,18 +213,18 @@ class ImageImporter {
         };
     }
 
-    #clearInput(url: string): void {
+    #clearInput(oldValue: string): void {
         // Clear the old input, but only if it hasn't changed since. Because
         // this is asynchronous code, it's entirely possible for another image
         // to be loading at the same time
-        if (this.#urlInput.value == url) {
+        if (this.#urlInput.value == oldValue) {
             this.#urlInput.value = '';
         }
     }
 
-    async #fetchLargestImage(url: string): Promise<FetchResult> {
+    async #fetchLargestImage(url: URL): Promise<FetchResult> {
         for await (const imageResult of getMaxUrlCandidates(url)) {
-            const candName = imageResult.filename || url.split('/').at(-1);
+            const candName = imageResult.filename || url.pathname.split('/').at(-1);
             try {
                 this.#banner.set(`Trying ${candName}…`);
                 return await this.#fetchImage(imageResult.url, candName, imageResult.headers);
@@ -215,12 +234,12 @@ class ImageImporter {
         }
 
         // Fall back on original image
-        return await this.#fetchImage(url, url.split('/').at(-1) || 'image');
+        return await this.#fetchImage(url, url.pathname.split('/').at(-1) || 'image');
     }
 
-    async #fetchImage(url: string, fileName: string, headers: Record<string, unknown> = {}): Promise<FetchResult> {
+    async #fetchImage(url: URL, fileName: string, headers: Record<string, unknown> = {}): Promise<FetchResult> {
         const resp = await gmxhr({
-            url,
+            url: url.href,
             method: 'GET',
             responseType: 'blob',
             headers: headers,
@@ -294,7 +313,7 @@ function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) =
         type='text'
         placeholder='or paste a URL here'
         size={47}
-        onInput={(evt) => addImageCallback(evt.currentTarget.value.trim())}
+        onInput={(evt) => addImageCallback(evt.currentTarget.value)}
     /> as HTMLInputElement;
 
     const container =
@@ -320,14 +339,7 @@ function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) =
 
 async function addImportButtons(addImageCallback: (url: string) => void, inputContainer: Element) {
     const attachedURLs = await getAttachedURLs();
-    const supportedURLs = attachedURLs.filter((url) => {
-        try {
-            return hasProvider(new URL(url));
-        } catch (err) {
-            // invalid URL
-            return false;
-        }
-    });
+    const supportedURLs = attachedURLs.filter(hasProvider);
 
     if (!supportedURLs.length) return;
 
@@ -340,24 +352,31 @@ async function addImportButtons(addImageCallback: (url: string) => void, inputCo
     inputContainer.insertAdjacentElement('afterend', <span>or</span>);
 }
 
-function createImportButton(url: string, addImageCallback: (url: string) => void): HTMLElement {
-    const provider = getProvider(new URL(url));
+function createImportButton(url: URL, addImageCallback: (url: string) => void): HTMLElement {
+    const provider = getProvider(url);
     return <button
         type='button'
-        onClick={ (evt) => { evt.preventDefault(); addImageCallback(url); } }
+        onClick={ (evt) => { evt.preventDefault(); addImageCallback(url.href); } }
     >
-        <img src={provider?.favicon} alt={provider?.name} title={url}/>
+        <img src={provider?.favicon} alt={provider?.name} title={url.href}/>
         <span>{'Import from ' + provider?.name}</span>
     </button>;
 }
 
-async function getAttachedURLs(): Promise<string[]> {
+async function getAttachedURLs(): Promise<URL[]> {
     const mbid = location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)?.[1];
     assertHasValue(mbid);
     const resp = await fetch(`/ws/2/release/${mbid}?inc=url-rels&fmt=json`);
     const metadata = await resp.json();
     return metadata.relations
-        ?.map((rel: { url: { resource: string } }) => rel.url.resource) ?? [];
+        ?.map(((rel) => {
+            try {
+                return new URL(rel.url.resource);
+            } catch {
+                return null;
+            }
+        }) as (rel: { url: { resource: string } }) => URL | null)
+        ?.filter((url: URL | null) => url !== null) ?? [];
 }
 
 if (document.location.hostname.endsWith('musicbrainz.org')) {

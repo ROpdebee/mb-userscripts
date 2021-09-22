@@ -21,7 +21,7 @@ export interface CoverArtProvider {
      * @param      {string}     url     The URL to the release. Guaranteed to have passed validation.
      * @return     {Promise<CoverArt[]>  List of cover arts that should be imported.
      */
-    findImages(url: string): Promise<CoverArt[]>
+    findImages(url: URL): Promise<CoverArt[]>
 
     /**
      * Check whether the provider supports the given URL.
@@ -36,7 +36,7 @@ export interface CoverArt {
     /**
      * URL to fetch.
      */
-    url: string
+    url: URL
     /**
      * Artwork types to set. May be empty or undefined.
      */
@@ -64,15 +64,15 @@ export abstract class HeadMetaPropertyProvider implements CoverArtProvider {
     // Providers for which the cover art can be retrieved from the head
     // og:image property and maximised using maxurl
 
-    async findImages(url: string): Promise<CoverArt[]> {
+    async findImages(url: URL): Promise<CoverArt[]> {
         // Find an image link from a HTML head meta property, maxurl will
         // maximize it for us. Don't want to use the API because of OAuth.
-        const resp = await gmxhr({ url, method: 'GET' });
+        const resp = await gmxhr({ url: url.href, method: 'GET' });
         const parser = new DOMParser();
         const respDocument = parser.parseFromString(resp.responseText, 'text/html');
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
         return [{
-            url: coverElmt.content,
+            url: new URL(coverElmt.content),
             type: [ArtworkTypeIDs.Front],
         }];
     }

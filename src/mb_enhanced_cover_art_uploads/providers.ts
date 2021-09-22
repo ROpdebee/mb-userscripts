@@ -36,11 +36,9 @@ export function hasProvider(url: URL): boolean {
     return PROVIDER_DISPATCH.has(extractDomain(url));
 }
 
-export async function findImages(url: string): Promise<CoverArt[] | undefined> {
-    const urlObj = new URL(url);
-
-    const provider = getProvider(urlObj);
-    if (!provider || !provider.supportsUrl(urlObj)) {
+export async function findImages(url: URL): Promise<CoverArt[] | undefined> {
+    const provider = getProvider(url);
+    if (!provider || !provider.supportsUrl(url)) {
         return;
     }
 
