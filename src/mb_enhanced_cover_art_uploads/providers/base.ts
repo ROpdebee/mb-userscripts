@@ -1,4 +1,4 @@
-import { qs } from '../../lib/util/dom';
+import { parseDOM, qs } from '../../lib/util/dom';
 import { gmxhr } from '../../lib/util/xhr';
 
 export interface CoverArtProvider {
@@ -68,8 +68,7 @@ export abstract class HeadMetaPropertyProvider implements CoverArtProvider {
         // Find an image link from a HTML head meta property, maxurl will
         // maximize it for us. Don't want to use the API because of OAuth.
         const resp = await gmxhr({ url: url.href, method: 'GET' });
-        const parser = new DOMParser();
-        const respDocument = parser.parseFromString(resp.responseText, 'text/html');
+        const respDocument = parseDOM(resp.responseText);
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
         return [{
             url: new URL(coverElmt.content),

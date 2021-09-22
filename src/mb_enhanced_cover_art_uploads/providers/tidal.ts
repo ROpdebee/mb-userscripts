@@ -1,5 +1,5 @@
 import { assertHasValue } from '../../lib/util/assert';
-import { qs, qsMaybe } from '../../lib/util/dom';
+import { parseDOM, qs, qsMaybe } from '../../lib/util/dom';
 import { gmxhr } from '../../lib/util/xhr';
 
 import type { CoverArt, CoverArtProvider } from './base';
@@ -21,8 +21,7 @@ export class TidalProvider implements CoverArtProvider {
         url.href = `https://tidal.com/browse/album/${albumId}`;
 
         const resp = await gmxhr({ url: url.href, method: 'GET' });
-        const parser = new DOMParser();
-        const respDocument = parser.parseFromString(resp.responseText, 'text/html');
+        const respDocument = parseDOM(resp.responseText);
 
         if (qsMaybe('p#cmsg') !== null) {
             throw {reason: 'captcha'};

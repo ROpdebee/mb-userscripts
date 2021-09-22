@@ -46,3 +46,7 @@ export function onDocumentLoaded(listener: () => void): void {
         document.addEventListener('DOMContentLoaded', listener);
     }
 }
+
+export function parseDOM(html: string): Document {
+    return new DOMParser().parseFromString(html, 'text/html');
+}
