@@ -7,6 +7,7 @@ import { TidalProvider } from './providers/tidal';
 import { BandcampProvider } from './providers/bandcamp';
 import { AmazonProvider } from './providers/amazon';
 import { AmazonMusicProvider } from './providers/amazon_music';
+import { QobuzProvider } from './providers/qobuz';
 
 const PROVIDER_DISPATCH: Map<string, CoverArtProvider> = new Map();
 
@@ -21,6 +22,7 @@ add_provider(new AppleMusicProvider());
 add_provider(new BandcampProvider());
 add_provider(new DeezerProvider());
 add_provider(new DiscogsProvider());
+add_provider(new QobuzProvider());
 add_provider(new SpotifyProvider());
 add_provider(new TidalProvider());
 
