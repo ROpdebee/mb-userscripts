@@ -6,6 +6,7 @@ import { SpotifyProvider } from './providers/spotify';
 import { TidalProvider } from './providers/tidal';
 import { BandcampProvider } from './providers/bandcamp';
 import { AmazonProvider } from './providers/amazon';
+import { AmazonMusicProvider } from './providers/amazon_music';
 
 const PROVIDER_DISPATCH: Map<string, CoverArtProvider> = new Map();
 
@@ -15,6 +16,7 @@ function add_provider(provider: CoverArtProvider): void {
 }
 
 add_provider(new AmazonProvider());
+add_provider(new AmazonMusicProvider());
 add_provider(new AppleMusicProvider());
 add_provider(new BandcampProvider());
 add_provider(new DeezerProvider());
