@@ -8,6 +8,7 @@ interface UserscriptCustomMetadata {
     'run-at'?: string
     grant?: readonly string[] | string
     connect?: readonly string[] | string
+    resource?: readonly string[] | string
 }
 
 export interface UserscriptDefaultMetadata {

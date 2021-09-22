@@ -17,9 +17,12 @@ const metadata: UserscriptMetadata = {
         // We don't actually use GM_getValue, but it needs to be exposed so that
         // maxurl exports its interface in userscripts.
         'GM_getValue',
+        // Used for some favicons
+        'GM_getResourceURL',
     ],
     connect: '*',
-    require: ['https://github.com/qsniyg/maxurl/blob/563626fe3b7c5ed3f6dc19d90a356746c68b5b4b/userscript.user.js?raw=true']
+    require: ['https://github.com/qsniyg/maxurl/blob/563626fe3b7c5ed3f6dc19d90a356746c68b5b4b/userscript.user.js?raw=true'],
+    resource: ['amazonFavicon https://www.amazon.com/favicon.ico'],
 };
 
 export default metadata;
