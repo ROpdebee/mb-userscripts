@@ -369,6 +369,7 @@ async function getAttachedURLs(): Promise<URL[]> {
     const resp = await fetch(`/ws/2/release/${mbid}?inc=url-rels&fmt=json`);
     const metadata = await resp.json();
     return metadata.relations
+        ?.filter((rel: { ended: boolean }) => !rel.ended)
         ?.map(((rel) => {
             try {
                 return new URL(rel.url.resource);
