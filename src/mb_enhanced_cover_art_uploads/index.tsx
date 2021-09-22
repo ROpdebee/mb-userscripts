@@ -356,9 +356,10 @@ function createImportButton(url: URL, addImageCallback: (url: string) => void): 
     const provider = getProvider(url);
     return <button
         type='button'
+        title={url.href}
         onClick={ (evt) => { evt.preventDefault(); addImageCallback(url.href); } }
     >
-        <img src={provider?.favicon} alt={provider?.name} title={url.href}/>
+        <img src={provider?.favicon} alt={provider?.name}/>
         <span>{'Import from ' + provider?.name}</span>
     </button>;
 }
