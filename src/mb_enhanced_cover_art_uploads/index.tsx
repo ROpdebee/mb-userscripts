@@ -147,7 +147,7 @@ class ImageImporter {
         let containedImages;
         try {
             containedImages = await findImages(url);
-        } catch (err) {
+        } catch (err: any) {
             this.#banner.set(`Failed to search images: ${err.reason ?? err}`);
             console.error(err);
             return;
@@ -170,7 +170,7 @@ class ImageImporter {
         let result;
         try {
             result = await this.#fetchLargestImage(url);
-        } catch (err) {
+        } catch (err: any) {
             this.#banner.set(`Failed to load ${originalFilename}: ${err.reason ?? err}`);
             console.error(err);
             return;
@@ -209,7 +209,7 @@ class ImageImporter {
             try {
                 this.#banner.set(`Trying ${candName}…`);
                 return await this.#fetchImage(imageResult.url, candName, imageResult.headers);
-            } catch (err) {
+            } catch (err: any) {
                 console.error(`${candName} failed: ${err.reason ?? err}`);
             }
         }

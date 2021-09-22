@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, RollupWarning, SourceMapInput } from 'rollup';
+import type { OutputPlugin, Plugin, RollupOutput, RollupWarning, SourceMapInput } from 'rollup';
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import type { MinifyOptions, MinifyOutput } from 'terser';
 
@@ -184,7 +184,6 @@ function createMinifyPlugin(userscriptDir: string): OutputPlugin {
         name: 'customMinifier',
         async renderChunk(
             code: string,
-            chunk: Readonly<RenderedChunk>,
         ): Promise<{ code: string; map?: SourceMapInput } | null> {
             const terserOptions = {
                 ...TERSER_OPTIONS,
