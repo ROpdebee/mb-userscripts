@@ -21,7 +21,7 @@ function loadMetaTsContents(ref: string, metaPath: string): Promise<string | nul
         // If the commit exists, then it is. If the commit doesn't exist, the
         // following line should throw.
         git.show(ref);
-        return null;
+        return Promise.resolve(null);
     }
 }
 
@@ -50,7 +50,7 @@ async function commitIfUpdated(scriptName: string): Promise<boolean> {
     }
 
     if (metaBefore === null) {
-        console.log(`First release: ${metaBefore.version}`);
+        console.log(`First release: ${metaAfter.version}`);
         await commitUpdate(scriptName, metaAfter.version);
     } else if (metaBefore.version !== metaAfter.version) {
         // Could be downgrade too, but if we deliberately downgrade the version,
