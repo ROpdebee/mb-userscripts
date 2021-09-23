@@ -22,9 +22,11 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm ci
-      - run: npm run lint
-  # This doesn't deploy them, just checks whether they can be built successfully
+      - name: Install project dependencies
+        run: npm ci
+      - name: Run ESLint
+        run: npm run lint
+
   typecheck:
     runs-on: ubuntu-latest
     name: Run TypeScript typechecker
@@ -40,15 +42,24 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm ci
-      - run: npm run typecheck
+      - name: Install project dependencies
+        run: npm ci
+      - name: Run tsc
+        run: npm run typecheck
 
-  # This doesn't deploy them, just checks whether they can be built successfully
   build:
     runs-on: ubuntu-latest
     name: Build userscripts
+    needs: [typecheck, lint]
     steps:
       - uses: actions/checkout@v2
+        with:
+          # Fully fetch the history, otherwise it only fetches the latest commit
+          # and we need an older commit to compare version numbers. This might
+          # become a bottleneck if the repo gets too large, but in that case
+          # we could possibly check out two versions (before and after push)
+          # or do some other trickery to only checkout until the desired depth.
+          fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
           node-version: 16
@@ -59,5 +70,18 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm ci
-      - run: npm run build
+      - name: Install project dependencies
+        run: npm ci
+      - name: Compile userscripts
+        run: npm run build
+      # This fails on force-pushes to the main branch, since the before SHA might point
+      # to a commit that no longer exists. However, since `main` is protected
+      # from direct pushes, a force push should never occur, and it should never
+      # be a problem. Force-pushes on other branches are still possible since this
+      # doesn't run on those branches.
+      - name: Release new userscript versions
+        run: |
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'GitHub Actions'
+          npm run commit-release ${{github.event.before}} ${{github.event.after}}
+        if: ${{github.event_name == 'push' && github.repository == 'ROpdebee/mb-userscripts' && github.ref == 'refs/heads/main'}}
