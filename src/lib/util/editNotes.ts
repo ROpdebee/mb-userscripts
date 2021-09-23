@@ -1,45 +1,54 @@
 // Edit note helpers
 
-import type { UserscriptMetadata } from 'userscriptMetadata';
 import { qs } from './dom';
 
 const separator = '\n–\n';
 
 export class EditNote {
-    #preamble: string;
-    #extraInfoLines: string[];  // Could be a Set too, but we need the ordering
+    #footer: string;
+    #extraInfoLines: Set<string>;
     #editNoteTextArea: HTMLTextAreaElement;
 
-    constructor(preamble: string) {
-        this.#preamble = preamble;
-        this.#extraInfoLines = [];
+    constructor(footer: string) {
+        this.#footer = footer;
         this.#editNoteTextArea = qs('textarea.edit-note');
+        // Maybe kept from page reload
+        const existingInfoBlock = this.#editNoteTextArea.value.split(separator)[0] ?? '';
+        if (existingInfoBlock) {
+            this.#extraInfoLines = new Set(existingInfoBlock.split('\n').map((l) => l.trimRight()));
+        } else {
+            this.#extraInfoLines = new Set();
+        }
     }
 
     addExtraInfo(infoLine: string) {
-        if (this.#extraInfoLines.includes(infoLine)) return;
-        this.#extraInfoLines.push(infoLine);
+        if (this.#extraInfoLines.has(infoLine)) return;
+        let [infoBlock, ...rest] = this.#editNoteTextArea.value.split(separator);
+        infoBlock = infoBlock?.trim() ?? '';
+        infoBlock += '\n' + infoLine;
+        this.#editNoteTextArea.value = [infoBlock, ...rest].join(separator);
+        this.#extraInfoLines.add(infoLine);
     }
 
-    fill() {
+    addFooter() {
         // Edit note content might be retained after page reload, or may have
         // already been partially filled. Search any previous content and
         // remove it
-        this.#removePreviousFragment();
-        const fragment = [this.#preamble, ...this.#extraInfoLines].join('\n');
-        let prevNote = this.#editNoteTextArea.value;
-        this.#editNoteTextArea.value = [prevNote, separator, fragment].join('');
+        this.#removePreviousFooter();
+        const prevNote = this.#editNoteTextArea.value;
+        this.#editNoteTextArea.value = [prevNote, separator, this.#footer].join('');
     }
 
-    #removePreviousFragment() {
+    #removePreviousFooter() {
         const fragments = this.#editNoteTextArea.value.split(separator);
         const otherFragments = fragments.filter(
-                (text) => !text.trim().startsWith(this.#preamble));
+                (text) => !text.trim().startsWith(this.#footer));
         this.#editNoteTextArea.value = otherFragments.join(separator);
     }
 
-    static withPreambleFromGMInfo(): EditNote {
-        const preamble = `${GM_info.script.name} ${GM_info.script.version}`;
-        return new EditNote(preamble);
+    static withFooterFromGMInfo(): EditNote {
+        const scriptMetadata = GM_info.script as unknown as { homepageURL: string, version: string, name: string };
+        const footer = `${scriptMetadata.name} ${scriptMetadata.version}\n${scriptMetadata.homepageURL}`;
+        return new EditNote(footer);
     }
 };

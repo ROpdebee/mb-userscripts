@@ -41,6 +41,10 @@ export interface CoverArt {
      * Artwork types to set. May be empty or undefined.
      */
     type?: ArtworkTypeIDs[]
+    /**
+     * Comment to set. May be empty or undefined.
+     */
+    comment?: string
 }
 
 export enum ArtworkTypeIDs {

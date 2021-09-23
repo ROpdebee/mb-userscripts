@@ -40,6 +40,18 @@ interface FetchResult {
     file: File
 }
 
+interface QueuedURL {
+    filename: string
+    originalUrl: URL
+    maximisedUrl: URL
+    wasMaximised: boolean
+}
+
+interface QueuedURLsResult {
+    queuedUrls: QueuedURL[]
+    containerUrl?: URL
+}
+
 class ImageImporter {
     #banner: StatusBanner;
     #note: EditNote;
@@ -52,7 +64,7 @@ class ImageImporter {
 
     constructor() {
         this.#banner = new StatusBanner();
-        this.#note = EditNote.withPreambleFromGMInfo();
+        this.#note = EditNote.withFooterFromGMInfo();
         this.#urlInput = setupPage(this.#banner, this.cleanUrlAndAdd.bind(this));
         this.#doneImages = new Set();
     }
@@ -84,23 +96,49 @@ class ImageImporter {
 
         const result = await this.#addImages(url, types);
         if (!result) return;
-        const { wasMaximised, originalFilename } = result;
 
-        if (url.protocol !== 'data:') {
-            let infoLine = url.href;
-            if (wasMaximised) infoLine += ', maximised';
-            if (seedParams.origin) {
-                infoLine += ', seeded from ' + seedParams.origin;
-            }
-            this.#note.addExtraInfo(infoLine);
-        } else if (seedParams.origin) {
-            this.#note.addExtraInfo(`Seeded from ${seedParams.origin}`);
-        }
-        this.#note.fill();
+        this.#fillEditNote(result, seedParams.origin ?? '');
 
         this.#clearInput(url.href);
-        this.#banner.set(`Successfully added ${originalFilename}` + (wasMaximised ? ' (maximised)' : ''));
+        this.#updateBannerSuccess(result);
+    }
 
+    #updateBannerSuccess(result: QueuedURLsResult) {
+        if (result.containerUrl) {
+            this.#banner.set(`Successfully added ${result.queuedUrls.length} URLs from ${result.containerUrl.pathname.split('/').at(-1)}`);
+        } else {
+            // There should only be one queued URL
+            this.#banner.set(`Successfully added ${result.queuedUrls[0].filename}` + (result.queuedUrls[0].wasMaximised ? ' (maximised)' : ''));
+        }
+    }
+
+    #fillEditNote(queueResult: QueuedURLsResult, origin = '') {
+        let prefix = '';
+        if (queueResult.containerUrl) {
+            prefix = ' * ';
+            this.#note.addExtraInfo(queueResult.containerUrl.href);
+        }
+
+        // Limiting to 3 URLs to reduce noise
+        for (const queuedUrl of queueResult.queuedUrls.slice(0, 3)) {
+            // Prevent noise
+            if (queuedUrl.maximisedUrl.protocol === 'data:') {
+                this.#note.addExtraInfo(prefix + 'Uploaded from data URL');
+                continue;
+            }
+            this.#note.addExtraInfo(prefix + queuedUrl.maximisedUrl.href);
+            if (queuedUrl.wasMaximised) {
+                this.#note.addExtraInfo(' '.repeat(prefix.length) + 'Maximised from ' + queuedUrl.originalUrl.href);
+            }
+        }
+        if (queueResult.queuedUrls.length > 3) {
+            this.#note.addExtraInfo(prefix + `…and ${queueResult.queuedUrls.length - 3} additional images`);
+        }
+        if (origin) {
+            this.#note.addExtraInfo(`Seeded from ${origin}`);
+        }
+
+        this.#note.addFooter();
     }
 
     async cleanUrlAndAdd(url: string) {
@@ -127,42 +165,34 @@ class ImageImporter {
     async #addImagesFromUrl(url: URL) {
         const result = await this.#addImages(url);
         if (!result) return;
-        const { wasMaximised, originalFilename } = result;
 
-        if (url.protocol !== 'data:') {
-            this.#note.addExtraInfo(url + (wasMaximised ? ', maximised': ''));
-        }
-        this.#note.fill();
-
+        this.#fillEditNote(result);
         this.#clearInput(url.href);
-        this.#banner.set(`Successfully added ${originalFilename}` + (wasMaximised ? ' (maximised)' : ''));
+        this.#updateBannerSuccess(result);
     }
 
-    async #addImagesFromProvider(originalUrl: URL, images: CoverArt[]): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
+    async #addImagesFromProvider(originalUrl: URL, images: CoverArt[]): Promise<QueuedURLsResult | undefined> {
         this.#banner.set(`Found ${images.length} images`);
-        let wasMaximised = false;
-        let successfulCount = 0;
+        let queueResults: QueuedURL[] = [];
         for (const img of images) {
-            const result = await this.#addImages(img.url, img.type ?? []);
-            wasMaximised ||= result?.wasMaximised ?? false;
-            if (result) successfulCount += 1;
+            const result = await this.#addImages(img.url, img.type ?? [], img.comment ?? '');
+            if (!result) continue;
+            queueResults = queueResults.concat(result.queuedUrls);
         }
+
         this.#clearInput(originalUrl.href);
-        this.#banner.set(`Added ${successfulCount} images from ${originalUrl}`);
-        if (!successfulCount) {
+        this.#banner.set(`Added ${queueResults.length} images from ${originalUrl}`);
+        if (!queueResults.length) {
             return;
         }
-        return { wasMaximised, originalFilename: `${successfulCount} images`};
+
+        return {
+            containerUrl: originalUrl,
+            queuedUrls: queueResults
+        };
     }
 
-    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = []): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
-        try {
-            new URL(url);
-        } catch (err) {
-            this.#banner.set('Invalid URL');
-            return;
-        }
-
+    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment = ''): Promise<QueuedURLsResult | undefined> {
         this.#banner.set('Searching for images…');
         let containedImages: CoverArt[] | undefined;
         try {
@@ -207,10 +237,14 @@ class ImageImporter {
         }
         this.#doneImages.add(fetchedUrl.href);
 
-        this.#enqueueImageForUpload(file, artworkTypes);
+        this.#enqueueImageForUpload(file, artworkTypes, comment);
         return {
-            originalFilename,
-            wasMaximised
+            queuedUrls: [{
+                filename: file.name,
+                wasMaximised: wasMaximised,
+                originalUrl: url,
+                maximisedUrl: fetchedUrl,
+            }],
         };
     }
 
@@ -225,7 +259,7 @@ class ImageImporter {
 
     async #fetchLargestImage(url: URL): Promise<FetchResult> {
         for await (const imageResult of getMaxUrlCandidates(url)) {
-            const candName = imageResult.filename || url.pathname.split('/').at(-1);
+            const candName = imageResult.filename || imageResult.url.pathname.split('/').at(-1);
             try {
                 this.#banner.set(`Trying ${candName}…`);
                 return await this.#fetchImage(imageResult.url, candName, imageResult.headers);
@@ -261,7 +295,7 @@ class ImageImporter {
         });
     }
 
-    #enqueueImageForUpload(file: File, artworkTypes: ArtworkTypeIDs[] = []) {
+    #enqueueImageForUpload(file: File, artworkTypes: ArtworkTypeIDs[], comment: string) {
         // Fake event to trigger the drop event on the drag'n'drop element
         // Using jQuery because native JS cannot manually trigger such events
         // for security reasons
@@ -277,11 +311,11 @@ class ImageImporter {
 
         if (artworkTypes.length) {
             // Asynchronous to allow the event to be handled first
-            setTimeout(() => this.#setArtworkType(file, artworkTypes), 0);
+            setTimeout(() => this.#setArtworkTypeAndComment(file, artworkTypes, comment), 0);
         }
     }
 
-    #setArtworkType(file: File, artworkTypes: ArtworkTypeIDs[]) {
+    #setArtworkTypeAndComment(file: File, artworkTypes: ArtworkTypeIDs[], comment: string) {
         // Find the row for this added image. Since we're called asynchronously,
         // we can't be 100% sure it's the last one. We find the correct image
         // via the file name, which is guaranteed to be unique since we embed
@@ -292,7 +326,7 @@ class ImageImporter {
 
         // Try again if the artwork hasn't been queued yet
         if (!fileRow) {
-            setTimeout(() => this.#setArtworkType(file, artworkTypes), 500);
+            setTimeout(() => this.#setArtworkTypeAndComment(file, artworkTypes, comment), 500);
             return;
         }
 
@@ -302,6 +336,12 @@ class ImageImporter {
             cbox.checked = true;
             cbox.dispatchEvent(new Event('click'));
         });
+
+        if (comment.trim().length) {
+            const commentInput = qs<HTMLInputElement>('div.comment > input.comment', fileRow);
+            commentInput.value = comment.trim();
+            commentInput.dispatchEvent(new Event('change'));
+        }
     }
 }
 
