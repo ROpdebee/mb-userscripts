@@ -194,6 +194,7 @@ class ImageImporter {
 
     async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment = ''): Promise<QueuedURLsResult | undefined> {
         this.#banner.set('Searching for images…');
+        // eslint-disable-next-line init-declarations
         let containedImages: CoverArt[] | undefined;
         try {
             containedImages = await findImages(url);
@@ -217,6 +218,7 @@ class ImageImporter {
         }
         this.#doneImages.add(url.href);
 
+        // eslint-disable-next-line init-declarations
         let result: FetchResult;
         try {
             result = await this.#fetchLargestImage(url);
