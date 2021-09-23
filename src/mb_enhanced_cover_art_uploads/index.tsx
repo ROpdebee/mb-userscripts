@@ -44,7 +44,8 @@ class ImageImporter {
     #banner: StatusBanner;
     #note: EditNote;
     #urlInput: HTMLInputElement;
-    #doneImages: Set<URL>;
+    // Store `URL.href`, since two `URL` objects for the same URL are not identical.
+    #doneImages: Set<string>;
     // Monotonically increasing ID to uniquely identify the image. We use this
     // so we can later set the image type.
     #lastId = 0;
@@ -163,7 +164,7 @@ class ImageImporter {
         }
 
         this.#banner.set('Searching for images…');
-        let containedImages;
+        let containedImages: CoverArt[] | undefined;
         try {
             containedImages = await findImages(url);
         } catch (err: any) {
@@ -179,14 +180,14 @@ class ImageImporter {
         const originalFilename = url.pathname.split('/').at(-1) ?? 'image';
 
         // Prevent re-adding one we've already done
-        if (this.#doneImages.has(url)) {
+        if (this.#doneImages.has(url.href)) {
             this.#banner.set(`${originalFilename} has already been added`);
             this.#clearInput(url.href);
             return;
         }
-        this.#doneImages.add(url);
+        this.#doneImages.add(url.href);
 
-        let result;
+        let result: FetchResult;
         try {
             result = await this.#fetchLargestImage(url);
         } catch (err: any) {
@@ -196,15 +197,15 @@ class ImageImporter {
         }
 
         const {file, fetchedUrl} = result;
-        const wasMaximised = fetchedUrl !== url;
+        const wasMaximised = fetchedUrl.href !== url.href;
 
         // As above, but also checking against maximised versions
-        if (this.#doneImages.has(fetchedUrl) && wasMaximised) {
+        if (wasMaximised && this.#doneImages.has(fetchedUrl.href)) {
             this.#banner.set(`${originalFilename} has already been added`);
             this.#clearInput(url.href);
             return;
         }
-        this.#doneImages.add(fetchedUrl);
+        this.#doneImages.add(fetchedUrl.href);
 
         this.#enqueueImageForUpload(file, artworkTypes);
         return {
