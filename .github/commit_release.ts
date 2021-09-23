@@ -74,7 +74,7 @@ async function scanAndPush() {
         .filter((name) => name.startsWith('mb_'));
 
     const releaseBranchName = `release_${afterSha}`;
-    await git.checkout(releaseBranchName, ['-b']);
+    await git.checkout(['-b', releaseBranchName]);
 
     let anyUpdates = false;
     for (const scriptName of userscriptDirs) {
