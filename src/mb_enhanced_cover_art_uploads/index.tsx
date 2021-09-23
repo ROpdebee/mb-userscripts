@@ -40,6 +40,18 @@ interface FetchResult {
     file: File
 }
 
+interface QueuedURL {
+    filename: string
+    originalUrl: URL
+    maximisedUrl: URL
+    wasMaximised: boolean
+}
+
+interface QueuedURLsResult {
+    queuedUrls: QueuedURL[]
+    containerUrl?: URL
+}
+
 class ImageImporter {
     #banner: StatusBanner;
     #note: EditNote;
@@ -51,7 +63,7 @@ class ImageImporter {
 
     constructor() {
         this.#banner = new StatusBanner();
-        this.#note = EditNote.withPreambleFromGMInfo();
+        this.#note = EditNote.withFooterFromGMInfo();
         this.#urlInput = setupPage(this.#banner, this.cleanUrlAndAdd.bind(this));
         this.#doneImages = new Set();
     }
@@ -83,23 +95,49 @@ class ImageImporter {
 
         const result = await this.#addImages(url, types);
         if (!result) return;
-        const { wasMaximised, originalFilename } = result;
 
-        if (url.protocol !== 'data:') {
-            let infoLine = url.href;
-            if (wasMaximised) infoLine += ', maximised';
-            if (seedParams.origin) {
-                infoLine += ', seeded from ' + seedParams.origin;
-            }
-            this.#note.addExtraInfo(infoLine);
-        } else if (seedParams.origin) {
-            this.#note.addExtraInfo(`Seeded from ${seedParams.origin}`);
-        }
-        this.#note.fill();
+        this.#fillEditNote(result, seedParams.origin ?? '');
 
         this.#clearInput(url.href);
-        this.#banner.set(`Successfully added ${originalFilename}` + (wasMaximised ? ' (maximised)' : ''));
+        this.#updateBannerSuccess(result);
+    }
 
+    #updateBannerSuccess(result: QueuedURLsResult) {
+        if (result.containerUrl) {
+            this.#banner.set(`Successfully added ${result.queuedUrls.length} URLs from ${result.containerUrl.pathname.split('/').at(-1)}`);
+        } else {
+            // There should only be one queued URL
+            this.#banner.set(`Successfully added ${result.queuedUrls[0].filename}` + (result.queuedUrls[0].wasMaximised ? ' (maximised)' : ''));
+        }
+    }
+
+    #fillEditNote(queueResult: QueuedURLsResult, origin = '') {
+        let prefix = '';
+        if (queueResult.containerUrl) {
+            prefix = ' * ';
+            this.#note.addExtraInfo(queueResult.containerUrl.href);
+        }
+
+        // Limiting to 3 URLs to reduce noise
+        for (const queuedUrl of queueResult.queuedUrls.slice(0, 3)) {
+            // Prevent noise
+            if (queuedUrl.maximisedUrl.protocol === 'data:') {
+                this.#note.addExtraInfo(prefix + 'Uploaded from data URL');
+                continue;
+            }
+            this.#note.addExtraInfo(prefix + queuedUrl.maximisedUrl.href);
+            if (queuedUrl.wasMaximised) {
+                this.#note.addExtraInfo(' '.repeat(prefix.length) + 'Maximised from ' + queuedUrl.originalUrl.href);
+            }
+        }
+        if (queueResult.queuedUrls.length > 3) {
+            this.#note.addExtraInfo(prefix + `…and ${queueResult.queuedUrls.length - 3} additional images`);
+        }
+        if (origin) {
+            this.#note.addExtraInfo(`Seeded from ${origin}`);
+        }
+
+        this.#note.addFooter();
     }
 
     async cleanUrlAndAdd(url: string) {
@@ -126,42 +164,34 @@ class ImageImporter {
     async #addImagesFromUrl(url: URL) {
         const result = await this.#addImages(url);
         if (!result) return;
-        const { wasMaximised, originalFilename } = result;
 
-        if (url.protocol !== 'data:') {
-            this.#note.addExtraInfo(url + (wasMaximised ? ', maximised': ''));
-        }
-        this.#note.fill();
-
+        this.#fillEditNote(result);
         this.#clearInput(url.href);
-        this.#banner.set(`Successfully added ${originalFilename}` + (wasMaximised ? ' (maximised)' : ''));
+        this.#updateBannerSuccess(result);
     }
 
-    async #addImagesFromProvider(originalUrl: URL, images: CoverArt[]): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
+    async #addImagesFromProvider(originalUrl: URL, images: CoverArt[]): Promise<QueuedURLsResult | undefined> {
         this.#banner.set(`Found ${images.length} images`);
-        let wasMaximised = false;
-        let successfulCount = 0;
+        let queueResults: QueuedURL[] = [];
         for (const img of images) {
             const result = await this.#addImages(img.url, img.type ?? [], img.comment ?? '');
-            wasMaximised ||= result?.wasMaximised ?? false;
-            if (result) successfulCount += 1;
+            if (!result) continue;
+            queueResults = queueResults.concat(result.queuedUrls);
         }
+
         this.#clearInput(originalUrl.href);
-        this.#banner.set(`Added ${successfulCount} images from ${originalUrl}`);
-        if (!successfulCount) {
+        this.#banner.set(`Added ${queueResults.length} images from ${originalUrl}`);
+        if (!queueResults.length) {
             return;
         }
-        return { wasMaximised, originalFilename: `${successfulCount} images`};
+
+        return {
+            containerUrl: originalUrl,
+            queuedUrls: queueResults
+        };
     }
 
-    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment: string = ''): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
-        try {
-            new URL(url);
-        } catch (err) {
-            this.#banner.set('Invalid URL');
-            return;
-        }
-
+    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment = ''): Promise<QueuedURLsResult | undefined> {
         this.#banner.set('Searching for images…');
         let containedImages;
         try {
@@ -196,7 +226,7 @@ class ImageImporter {
         }
 
         const {file, fetchedUrl} = result;
-        const wasMaximised = fetchedUrl !== url;
+        const wasMaximised = fetchedUrl.href !== url.href;
 
         // As above, but also checking against maximised versions
         if (this.#doneImages.has(fetchedUrl) && wasMaximised) {
@@ -208,8 +238,12 @@ class ImageImporter {
 
         this.#enqueueImageForUpload(file, artworkTypes, comment);
         return {
-            originalFilename,
-            wasMaximised
+            queuedUrls: [{
+                filename: file.name,
+                wasMaximised: wasMaximised,
+                originalUrl: url,
+                maximisedUrl: fetchedUrl,
+            }],
         };
     }
 
@@ -224,7 +258,7 @@ class ImageImporter {
 
     async #fetchLargestImage(url: URL): Promise<FetchResult> {
         for await (const imageResult of getMaxUrlCandidates(url)) {
-            const candName = imageResult.filename || url.pathname.split('/').at(-1);
+            const candName = imageResult.filename || imageResult.url.pathname.split('/').at(-1);
             try {
                 this.#banner.set(`Trying ${candName}…`);
                 return await this.#fetchImage(imageResult.url, candName, imageResult.headers);
