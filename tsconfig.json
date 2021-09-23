@@ -11,6 +11,10 @@
         "noImplicitReturns": true,
         "pretty": true,
         "baseUrl": "./",
+        "typeRoots": [
+            "node_modules/@types",
+            "types",
+        ],
         "paths": {
             "*": [
                 "types/*",

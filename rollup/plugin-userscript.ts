@@ -5,7 +5,7 @@ import { pathToFileURL } from 'url';
 import type { Plugin } from 'rollup';
 import type { PackageJson } from 'type-fest';
 
-import type { UserscriptMetadata, AllUserscriptMetadata } from 'userscriptMetadata.js';
+import type { UserscriptMetadata, AllUserscriptMetadata } from 'userscriptMetadata';
 
 interface UserscriptOptions {
     userscriptName: string

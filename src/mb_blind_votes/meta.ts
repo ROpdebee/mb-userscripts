@@ -1,4 +1,4 @@
-import type { UserscriptMetadata } from 'userscriptMetadata.js';
+import type { UserscriptMetadata } from 'userscriptMetadata';
 
 import { transformMBMatchURL } from '../lib/util/metadata.js';
 
