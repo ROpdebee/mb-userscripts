@@ -73,6 +73,9 @@ async function scanAndPush() {
     const userscriptDirs = (await fs.readdir('./src'))
         .filter((name) => name.startsWith('mb_'));
 
+    const releaseBranchName = `release_${afterSha}`;
+    await git.checkout(releaseBranchName, ['-b']);
+
     let anyUpdates = false;
     for (const scriptName of userscriptDirs) {
         anyUpdates ||= await commitIfUpdated(scriptName);
@@ -80,7 +83,7 @@ async function scanAndPush() {
 
     if (anyUpdates) {
         console.log('Pushing…');
-        await git.push();
+        await git.push(['-u', 'origin', releaseBranchName]);
     }
 }
 

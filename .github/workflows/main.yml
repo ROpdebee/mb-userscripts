@@ -1,8 +1,25 @@
+# Some notes on the release strategy employed here. When a commit lands in the
+# `main` branch and that commit changes the version of any userscript, this
+# workflow will build that userscript and create a commit that updates the
+# compiled version of the userscript. However, this commit cannot be pushed to
+# the `main` branch directly, since the `main` branch is protected and requires
+# that the `build` step has been completed before a push is allowed. Naturally,
+# that build step cannot have been executed yet. Therefore, we do the following
+# 1. Upon a commit to main, lint, check, test, and build the scripts.
+# 2. Create the commit with the compiled userscript, and push it to a release_*
+#    branch. That branch is not protected.
+# 3. Upon a commit to a release_* branch (i.e., after the build step from main)
+#    lint, check, test, and build again to update the check status of the new
+#    commit.
+# 4. Merge the release_* branch into main, which is now possible since the
+#    release commit has all checks passed.
+# 5. Delete the release_* branch.
 ---
 on:
   push:
     branches:
       - autorelease_test_target
+      - 'release_*'
   pull_request:
   workflow_dispatch:
 
@@ -79,9 +96,27 @@ jobs:
       # from direct pushes, a force push should never occur, and it should never
       # be a problem. Force-pushes on other branches are still possible since this
       # doesn't run on those branches.
-      - name: Release new userscript versions
+      - name: Push new userscript versions
         run: |
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'GitHub Actions'
           npm run commit-release ${{github.event.before}} ${{github.event.after}}
         if: ${{github.event_name == 'push' && github.repository == 'ROpdebee/mb-userscripts' && github.ref == 'refs/heads/autorelease_test_target'}}
+
+  release:
+    runs-on: ubuntu-latest
+    name: Release userscripts
+    needs: [build]
+    if: ${{github.event_name == 'push' && github.repository == 'ROpdebee/mb-userscripts' && startsWith(github.ref, 'refs/heads/release_')}}
+    env:
+      RELEASE_BRANCH: ${{github.ref}}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Need enough history to do the merge
+          fetch-depth: 0
+      - run: |
+          git checkout autorelease_test_target
+          git merge --ff-only
+          git push
+          git push origin --delete $RELEASE_BRANCH
