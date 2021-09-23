@@ -31,8 +31,7 @@ const DEFAULT_OPTIONS = {
 };
 
 function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin {
-    const longestMetadataField = [...options.metadataOrder]
-        .sort((a, b) => b.length - a.length)[0];
+    const longestMetadataFieldLength = Math.max(...options.metadataOrder.map((field) => field.length));
 
     interface GitURLs {
         homepageURL: string
@@ -134,7 +133,7 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
      * @return     {string}  Metadata line.
      */
     function createMetadataLine(metadataField: string, metadataValue: string): string {
-        const fieldIndented = metadataField.padEnd(longestMetadataField.length);
+        const fieldIndented = metadataField.padEnd(longestMetadataFieldLength);
         return `@${fieldIndented}  ${metadataValue}`;
     }
 
