@@ -1,6 +1,8 @@
 # MB Userscripts
 Collection of userscripts for MusicBrainz.
 
+[Dedicated support thread](https://community.metabrainz.org/t/ropdebees-userscripts-support-thread/551947)
+
 ## MB: Blind Votes
 
 Blinds editor and voter details before your votes are cast.
