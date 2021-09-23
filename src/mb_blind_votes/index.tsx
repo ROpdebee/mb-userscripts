@@ -17,6 +17,7 @@ function unblindEdit(edit: Edit) {
 Edit.onVoteChanged((edit: Edit) => {
     // We cannot use classList.toggle here, since a vote may have changed from
     // 'No' to 'Yes', both of which need to be unblinded.
+    // eslint-disable-next-line init-declarations
     let blindToggler: (edit: Edit) => void;
     if (edit.myVote === Vote.NONE) {
         blindToggler = blindEdit;

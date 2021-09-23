@@ -60,7 +60,7 @@ async function addSeedLinkToCover(fig: Element, mbid: string) {
 // dimensions. TBH CAA dimensions should operate on atisket as well.
 function getImageDimensions(url: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        // eslint-disable-next-line prefer-const
+        // eslint-disable-next-line prefer-const, init-declarations
         let interval: number;
         let done = false;
         const img = <img
