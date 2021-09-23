@@ -142,7 +142,7 @@ class ImageImporter {
         let wasMaximised = false;
         let successfulCount = 0;
         for (const img of images) {
-            const result = await this.#addImages(img.url, img.type ?? []);
+            const result = await this.#addImages(img.url, img.type ?? [], img.comment ?? '');
             wasMaximised ||= result?.wasMaximised ?? false;
             if (result) successfulCount += 1;
         }
@@ -154,7 +154,7 @@ class ImageImporter {
         return { wasMaximised, originalFilename: `${successfulCount} images`};
     }
 
-    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = []): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
+    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment: string = ''): Promise<{ wasMaximised: boolean, originalFilename: string } | undefined> {
         try {
             new URL(url);
         } catch (err) {
@@ -206,7 +206,7 @@ class ImageImporter {
         }
         this.#doneImages.add(fetchedUrl);
 
-        this.#enqueueImageForUpload(file, artworkTypes);
+        this.#enqueueImageForUpload(file, artworkTypes, comment);
         return {
             originalFilename,
             wasMaximised
@@ -260,7 +260,7 @@ class ImageImporter {
         });
     }
 
-    #enqueueImageForUpload(file: File, artworkTypes: ArtworkTypeIDs[] = []) {
+    #enqueueImageForUpload(file: File, artworkTypes: ArtworkTypeIDs[], comment: string) {
         // Fake event to trigger the drop event on the drag'n'drop element
         // Using jQuery because native JS cannot manually trigger such events
         // for security reasons
@@ -276,11 +276,11 @@ class ImageImporter {
 
         if (artworkTypes.length) {
             // Asynchronous to allow the event to be handled first
-            setTimeout(() => this.#setArtworkType(file, artworkTypes), 0);
+            setTimeout(() => this.#setArtworkTypeAndComment(file, artworkTypes, comment), 0);
         }
     }
 
-    #setArtworkType(file: File, artworkTypes: ArtworkTypeIDs[]) {
+    #setArtworkTypeAndComment(file: File, artworkTypes: ArtworkTypeIDs[], comment: string) {
         // Find the row for this added image. Since we're called asynchronously,
         // we can't be 100% sure it's the last one. We find the correct image
         // via the file name, which is guaranteed to be unique since we embed
@@ -291,7 +291,7 @@ class ImageImporter {
 
         // Try again if the artwork hasn't been queued yet
         if (!fileRow) {
-            setTimeout(() => this.#setArtworkType(file, artworkTypes), 500);
+            setTimeout(() => this.#setArtworkTypeAndComment(file, artworkTypes, comment), 500);
             return;
         }
 
@@ -301,6 +301,12 @@ class ImageImporter {
             cbox.checked = true;
             cbox.dispatchEvent(new Event('click'));
         });
+
+        if (comment.trim().length) {
+            const commentInput = qs<HTMLInputElement>('div.comment > input.comment', fileRow);
+            commentInput.value = comment.trim();
+            commentInput.dispatchEvent(new Event('change'));
+        }
     }
 }
 
