@@ -4,7 +4,7 @@ import { transformMBMatchURL } from '../lib/util/metadata.js';
 
 const metadata: UserscriptMetadata = {
     name: 'MB: Enhanced Cover Art Uploads',
-    version: '2021.9.23.5',
+    version: '2021.9.23.6',
     description: 'Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!',
     'run-at': 'document-load',
     match: [
