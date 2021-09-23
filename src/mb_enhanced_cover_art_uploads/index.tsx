@@ -7,7 +7,9 @@ import css from './main.scss';
 import { addAtisketSeedLinks } from './atisket';
 import { getMaxUrlCandidates } from './maxurl';
 import { findImages, getProvider, hasProvider } from './providers';
-import { ArtworkTypeIDs, CoverArt } from './providers/base';
+import { ArtworkTypeIDs } from './providers/base';
+
+import type { CoverArt } from './providers/base';
 
 class StatusBanner {
 
@@ -16,7 +18,7 @@ class StatusBanner {
     constructor() {
         this.#elmt = <span
             id='ROpdebee_paste_url_status'
-            style={{display: 'none'}}
+            style={{ display: 'none' }}
         />;
     }
 
@@ -69,8 +71,8 @@ class ImageImporter {
         this.#doneImages = new Set();
     }
 
-    async addImagesFromLocationHash() {
-        const seedParams: Record<string, string> = {};
+    async addImagesFromLocationHash(): Promise<void> {
+        const seedParams: Record<string, string | undefined> = {};
         document.location.hash.replace(/^#/, '').split('&').forEach((param) => {
             try {
                 const [name, value] = param.split('=');
@@ -103,7 +105,7 @@ class ImageImporter {
         this.#updateBannerSuccess(result);
     }
 
-    #updateBannerSuccess(result: QueuedURLsResult) {
+    #updateBannerSuccess(result: QueuedURLsResult): void {
         if (result.containerUrl) {
             this.#banner.set(`Successfully added ${result.queuedUrls.length} URLs from ${result.containerUrl.pathname.split('/').at(-1)}`);
         } else {
@@ -112,7 +114,7 @@ class ImageImporter {
         }
     }
 
-    #fillEditNote(queueResult: QueuedURLsResult, origin = '') {
+    #fillEditNote(queueResult: QueuedURLsResult, origin = ''): void {
         let prefix = '';
         if (queueResult.containerUrl) {
             prefix = ' * ';
@@ -141,7 +143,7 @@ class ImageImporter {
         this.#note.addFooter();
     }
 
-    async cleanUrlAndAdd(url: string) {
+    async cleanUrlAndAdd(url: string): Promise<void> {
         const urlObj = this.#cleanUrl(url);
         if (!urlObj) return;
         await this.#addImagesFromUrl(urlObj);
@@ -162,7 +164,7 @@ class ImageImporter {
         }
     }
 
-    async #addImagesFromUrl(url: URL) {
+    async #addImagesFromUrl(url: URL): Promise<void> {
         const result = await this.#addImages(url);
         if (!result) return;
 
@@ -228,7 +230,7 @@ class ImageImporter {
             return;
         }
 
-        const {file, fetchedUrl} = result;
+        const { file, fetchedUrl } = result;
         const wasMaximised = fetchedUrl.href !== url.href;
 
         // As above, but also checking against maximised versions
@@ -286,18 +288,20 @@ class ImageImporter {
 
         return new Promise((resolve, reject) => {
             MB.CoverArt.validate_file(rawFile)
-                .fail((error) => reject({reason: error, error}))
-                .done((mimeType) => resolve({
-                    fetchedUrl: url,
-                    file: new File(
-                        [resp.response],
-                        `${fileName}.${this.#lastId++}.${mimeType.split('/')[1]}`,
-                        {type: mimeType}),
-                }));
+                .fail((error) => { reject({ reason: error, error }); })
+                .done((mimeType) => {
+                    resolve({
+                        fetchedUrl: url,
+                        file: new File(
+                            [resp.response],
+                            `${fileName}.${this.#lastId++}.${mimeType.split('/')[1]}`,
+                            { type: mimeType }),
+                    });
+                });
         });
     }
 
-    #enqueueImageForUpload(file: File, artworkTypes: ArtworkTypeIDs[], comment: string) {
+    #enqueueImageForUpload(file: File, artworkTypes: ArtworkTypeIDs[], comment: string): void {
         // Fake event to trigger the drop event on the drag'n'drop element
         // Using jQuery because native JS cannot manually trigger such events
         // for security reasons
@@ -313,11 +317,11 @@ class ImageImporter {
 
         if (artworkTypes.length) {
             // Asynchronous to allow the event to be handled first
-            setTimeout(() => this.#setArtworkTypeAndComment(file, artworkTypes, comment), 0);
+            setTimeout(() => { this.#setArtworkTypeAndComment(file, artworkTypes, comment); }, 0);
         }
     }
 
-    #setArtworkTypeAndComment(file: File, artworkTypes: ArtworkTypeIDs[], comment: string) {
+    #setArtworkTypeAndComment(file: File, artworkTypes: ArtworkTypeIDs[], comment: string): void {
         // Find the row for this added image. Since we're called asynchronously,
         // we can't be 100% sure it's the last one. We find the correct image
         // via the file name, which is guaranteed to be unique since we embed
@@ -328,7 +332,7 @@ class ImageImporter {
 
         // Try again if the artwork hasn't been queued yet
         if (!fileRow) {
-            setTimeout(() => this.#setArtworkTypeAndComment(file, artworkTypes, comment), 500);
+            setTimeout(() => { this.#setArtworkTypeAndComment(file, artworkTypes, comment); }, 500);
             return;
         }
 
@@ -356,7 +360,7 @@ function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) =
         type='text'
         placeholder='or paste a URL here'
         size={47}
-        onInput={(evt) => addImageCallback(evt.currentTarget.value)}
+        onInput={(evt): void => { addImageCallback(evt.currentTarget.value); }}
     /> as HTMLInputElement;
 
     const container =
@@ -380,7 +384,7 @@ function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) =
     return input;
 }
 
-async function addImportButtons(addImageCallback: (url: string) => void, inputContainer: Element) {
+async function addImportButtons(addImageCallback: (url: string) => void, inputContainer: Element): Promise<void> {
     const attachedURLs = await getAttachedURLs();
     const supportedURLs = attachedURLs.filter(hasProvider);
 
@@ -400,9 +404,9 @@ function createImportButton(url: URL, addImageCallback: (url: string) => void): 
     return <button
         type='button'
         title={url.href}
-        onClick={ (evt) => { evt.preventDefault(); addImageCallback(url.href); } }
+        onClick={(evt): void => { evt.preventDefault(); addImageCallback(url.href); }}
     >
-        <img src={provider?.favicon} alt={provider?.name}/>
+        <img src={provider?.favicon} alt={provider?.name} />
         <span>{'Import from ' + provider?.name}</span>
     </button>;
 }

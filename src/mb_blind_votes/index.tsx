@@ -5,11 +5,11 @@ import { onDocumentLoaded } from '../lib/util/dom';
 // Add unblind stylesheet
 document.head.append(<style id='ROpdebee_blind_votes'>{css}</style>);
 
-function blindEdit(edit: Edit) {
+function blindEdit(edit: Edit): void {
     edit.baseContainer.classList.remove('unblind');
 }
 
-function unblindEdit(edit: Edit) {
+function unblindEdit(edit: Edit): void {
     edit.baseContainer.classList.add('unblind');
 }
 

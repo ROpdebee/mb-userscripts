@@ -1,7 +1,7 @@
 import { qs, qsa, qsMaybe } from '../lib/util/dom';
 
 export function addAtisketSeedLinks(): void {
-    const dispatch: Record<string, () => void> = {
+    const dispatch: Record<string, (() => void) | undefined> = {
         '/atasket.php': addOnComplementaryPage,
         '/': addOnOverviewPage,
     };
@@ -14,7 +14,7 @@ export function addAtisketSeedLinks(): void {
     }
 }
 
-function addOnComplementaryPage() {
+function addOnComplementaryPage(): void {
     const mbid = document.location.search.match(/[?&]release_mbid=([a-f0-9-]+)/)?.[1];
     if (!mbid) {
         console.error('Cannot figure out MBID :(');
@@ -23,7 +23,7 @@ function addOnComplementaryPage() {
     addSeedLinkToCovers(mbid);
 }
 
-function addOnOverviewPage() {
+function addOnOverviewPage(): void {
     const alreadyInMB = qsMaybe('.already-in-mb-item');
     if (alreadyInMB === null) {
         return;
@@ -32,11 +32,11 @@ function addOnOverviewPage() {
     addSeedLinkToCovers(qs<HTMLAnchorElement>('a.mb', alreadyInMB).innerText.trim());
 }
 
-function addSeedLinkToCovers(mbid: string) {
-    qsa('figure.cover').forEach((fig) => addSeedLinkToCover(fig, mbid));
+function addSeedLinkToCovers(mbid: string): void {
+    qsa('figure.cover').forEach((fig) => { addSeedLinkToCover(fig, mbid); });
 }
 
-async function addSeedLinkToCover(fig: Element, mbid: string) {
+async function addSeedLinkToCover(fig: Element, mbid: string): Promise<void> {
     const url = qs<HTMLAnchorElement>('a.icon', fig).href;
 
     // Not using .split('.').at(-1) here because I'm not sure whether .at is
@@ -47,11 +47,11 @@ async function addSeedLinkToCover(fig: Element, mbid: string) {
     const seedUrl = `https://musicbrainz.org/release/${mbid}/add-cover-art#artwork_url=${encodeURIComponent(url)}&origin=atisket&artwork_type=Front`;
     // Reverse order of insertion.
     qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend',
-        <a href={seedUrl} style={{display: 'block'}}>
+        <a href={seedUrl} style={{ display: 'block' }}>
             Add to release
         </a>);
     qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend',
-        <span style={{display: 'block'}}>
+        <span style={{ display: 'block' }}>
             {dimensionStr + (ext ? ` ${ext.toUpperCase()}` : '')}
         </span>);
 }
@@ -65,14 +65,14 @@ function getImageDimensions(url: string): Promise<string> {
         let done = false;
         const img = <img
             src={url}
-            onLoad={() => {
+            onLoad={(): void => {
                 clearInterval(interval);
                 if (!done) {
                     resolve(`${img.naturalHeight}x${img.naturalWidth}`);
                     done = true;
                 }
             }}
-            onError={() => {
+            onError={(): void => {
                 clearInterval(interval);
                 if (!done) {
                     done = true;
