@@ -2,7 +2,7 @@
 on:
   push:
     branches:
-      - main
+      - autorelease_test_target
   pull_request:
   workflow_dispatch:
 
