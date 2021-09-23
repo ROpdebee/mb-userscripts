@@ -94,7 +94,6 @@ for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
 
 export class VGMdbProvider implements CoverArtProvider {
     supportedDomains = ['vgmdb.net']
-    // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
     favicon = 'https://vgmdb.net/favicon.ico'
     name = 'VGMdb'
 
