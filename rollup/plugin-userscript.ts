@@ -106,7 +106,7 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
             homepageURL: githubURLs.homepageURL,
             downloadURL: constructRawURL(`${options.userscriptName}.user.js`),
             updateURL: constructRawURL(`${options.userscriptName}.meta.js`),
-            namespace: githubURLs.homepageURL,
+            namespace: githubURLs.homepageURL, // often used as homepage URL (has the widest support)
             grant: ['none'],
         };
 
