@@ -210,7 +210,7 @@ class ImageImporter {
             return this.#addImagesFromProvider(url, containedImages);
         }
 
-        const originalFilename = url.pathname.split('/').at(-1) ?? 'image';
+        const originalFilename = url.pathname.split('/').at(-1) || 'image';
 
         // Prevent re-adding one we've already done
         if (this.#doneImages.has(url.href)) {
