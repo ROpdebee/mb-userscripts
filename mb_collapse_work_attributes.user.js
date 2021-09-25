@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Collapse Work Attributes
-// @version      2021.4.25.2
+// @version      2021.9.25
 // @description  Collapses work attributes when there are too many. Workaround for MBS-11535/MBS-11537.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -8,14 +8,10 @@
 // @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_collapse_work_attributes.user.js
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_collapse_work_attributes.user.js
 // @match        *://*.musicbrainz.org/work/*
-// @match        *://musicbrainz.org/work/*
 // @match        *://*.musicbrainz.org/artist/*/works
-// @match        *://musicbrainz.org/artist/*/works
-// @match        *://musicbrainz.org/edit/*
+// @match        *://*.musicbrainz.org/artist/*/works?*
 // @match        *://*.musicbrainz.org/edit/*
-// @match        *://musicbrainz.org/*/edits*
 // @match        *://*.musicbrainz.org/*/edits*
-// @match        *://musicbrainz.org/collection/*
 // @match        *://*.musicbrainz.org/collection/*
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @run-at       document-end
