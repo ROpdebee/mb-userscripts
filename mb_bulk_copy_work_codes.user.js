@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.5.27.2
+// @version      2021.9.25
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -579,16 +579,43 @@ function storeData(source, iswcs, codes, title) {
     GM_setValue('workCodeData', JSON.stringify(obj));
 }
 
+let translateStrings = (function() {
+    let strings;
+    const stringsDefaults = {
+        AGENCY_NAME_FIELD: 'Agency Name',
+        AGENCY_WORK_CODES: 'Agency Work Codes',
+        AGENCY_WORK_CODE_FIELD: 'Agency Work Code',
+        ARCHIVED_ISWCS: 'Archived ISWCs',
+        ORIGINAL_TITLE_FIELD: 'Original Title',
+        PREFERRED_ISWC_FIELD: 'Preferred ISWC',
+    };
+
+    return function(text) {
+        if (!strings) {
+            const stringsJson = localStorage.getItem('strings');
+            if (!stringsJson) {
+                console.error('Could not extract translations!');
+                // Return as-is
+                return stringsDefaults[text];
+            }
+
+            strings = JSON.parse(stringsJson);
+        }
+
+        return strings[text] || stringsDefaults[text];
+    }
+})();
+
 function handleISWCNet() {
 
     function findAgencyWorkCodes(table) {
-        let codeTable = findDivByText(table, 'Agency Work Codes:').map(div => div.nextSibling);
+        let codeTable = findDivByText(table, `${translateStrings('AGENCY_WORK_CODES')}:`).map(div => div.nextSibling);
         if (!codeTable.length) return {};
 
         let rows = [...codeTable[0].querySelectorAll('tbody > tr')];
         let groupedCodes = rows.groupBy(
-                row => row.querySelector('td[id="Agency Name:"]').innerText,
-                row => row.querySelector('td[id="Agency Work Code:"]').innerText);
+                row => row.querySelector(`td[id="${translateStrings('AGENCY_NAME_FIELD')}:"]`).innerText,
+                row => row.querySelector(`td[id="${translateStrings('AGENCY_WORK_CODE_FIELD')}:"]`).innerText);
 
         // CASH IDs always start with "C-", but this prefix is not stored on ISWCNet.
         // The prefix indicates the originating agency from the DIVA family, which
@@ -602,8 +629,8 @@ function handleISWCNet() {
     }
 
     function findIswcs(table) {
-        iswcs = [table.querySelector('td[id="Preferred ISWC:"]').innerText];
-        findDivByText(table, 'Archived ISWCs').forEach(archivedTitle => {
+        iswcs = [table.querySelector(`td[id="${translateStrings('PREFERRED_ISWC_FIELD')}:"]`).innerText];
+        findDivByText(table, translateStrings('ARCHIVED_ISWCS')).forEach(archivedTitle => {
             let archivedISWCsDiv = archivedTitle.nextSibling;
             iswcs = iswcs.concat(archivedISWCsDiv.childNodes[0].textContent.split(', '));
         });
@@ -611,7 +638,7 @@ function handleISWCNet() {
     }
 
     function findTitle(table) {
-        return table.querySelector('td[id="Original Title:"]').innerText;
+        return table.querySelector(`td[id="${translateStrings('ORIGINAL_TITLE_FIELD')}:"]`).innerText;
     }
 
     function parseAndCopy(table) {
