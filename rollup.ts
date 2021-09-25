@@ -172,7 +172,7 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
             virtual(fileMapping) as Plugin,
             userscript({
                 userscriptName: userscriptDir,
-                branchName: 'main',
+                branchName: 'dist',
                 outputDir: OUTPUT_DIR,
                 include: /index\.js/,
             }),

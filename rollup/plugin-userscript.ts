@@ -22,7 +22,7 @@ interface _UserscriptOptionsWithDefaults extends UserscriptOptions {
 
 
 const DEFAULT_OPTIONS = {
-    branchName: 'main',
+    branchName: 'dist',
     metadataOrder: [
         'name', 'description', 'version', 'author', 'license', 'namespace',
         'homepageURL', 'supportURL', 'downloadURL', 'updateURL',
@@ -90,7 +90,6 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
             return [
                 githubURLs.rawURL,
                 options.branchName,
-                options.outputDir,
                 fileName
             ].join('/');
         }
