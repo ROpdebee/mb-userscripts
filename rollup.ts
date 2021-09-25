@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import type { OutputPlugin, Plugin, RollupOutput, RollupWarning, SourceMapInput } from 'rollup';
+import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, RollupWarning, SourceMapInput } from 'rollup';
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import type { MinifyOptions, MinifyOutput } from 'terser';
 
@@ -20,6 +20,8 @@ import { nativejsx } from './rollup/plugin-nativejsx.js';
 import { userscript } from './rollup/plugin-userscript.js';
 
 const OUTPUT_DIR = 'dist';
+const VENDOR_CHUNK_NAME = 'vendor';
+const BUILTIN_LIB_CHUNK_NAME = 'lib';
 
 const EXTENSIONS = ['.js', '.ts', '.jsx', '.tsx'];
 
@@ -30,13 +32,18 @@ const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
     extensions: EXTENSIONS,
 };
 
-const TERSER_OPTIONS: MinifyOptions = {
+const TERSER_BASE_OPTIONS: MinifyOptions = {
     ecma: 5,
     safari10: true,  // Supported by MB
     compress: {
         passes: 4,
     },
-    module: true,
+};
+
+const TERSER_OPTIONS = {
+    [VENDOR_CHUNK_NAME]: {...TERSER_BASE_OPTIONS, module: true},
+    // Don't garble top-level names for built-in lib.
+    [BUILTIN_LIB_CHUNK_NAME]: {...TERSER_BASE_OPTIONS, module: false},
 };
 
 async function buildUserscripts(): Promise<void> {
@@ -132,7 +139,12 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
 
     const output = await bundle.generate({
         format: 'es',
-        plugins: process.env.NODE_ENV == 'production' ? [createMinifyPlugin(userscriptDir)] : [],
+        manualChunks: (modulePath) => {
+            if (isExternalLibrary(modulePath)) return VENDOR_CHUNK_NAME;
+            if (isBuiltinLib(modulePath)) return BUILTIN_LIB_CHUNK_NAME;
+            return null;
+        },
+        plugins: process.env.NODE_ENV == 'production' ? [minifyPlugin] : [],
     });
 
     await bundle.close();
@@ -179,24 +191,51 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
     await bundle.close();
 }
 
-function createMinifyPlugin(userscriptDir: string): OutputPlugin {
-    return {
-        name: 'customMinifier',
-        async renderChunk(
-            code: string,
-        ): Promise<{ code: string; map?: SourceMapInput } | null> {
-            const terserOptions = {
-                ...TERSER_OPTIONS,
-                format: {
-                    preamble: `/* Please see https://github.com/ROpdebee/mb-userscripts/tree/main/src/${userscriptDir} for unminified code */`,
-                },
-            };
-
-            return await minify(code, terserOptions)
-                .then((result: Readonly<MinifyOutput>) =>
-                    result.code ? { code: result.code } : null);
-        },
-    };
+function isExternalLibrary(modulePath: string): boolean {
+    return !path.relative('.', modulePath).startsWith('src');
 }
+
+function isBuiltinLib(modulePath: string): boolean {
+    return path.relative('.', modulePath).startsWith(['src', 'lib'].join(path.sep));
+}
+
+function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
+    if (chunk.name === BUILTIN_LIB_CHUNK_NAME) return '/* minified: lib */';
+
+    const bundledModules = Object.keys(chunk.modules)
+        .filter((module) => !module.startsWith('\x00'))
+        .map((module) => path.relative('./node_modules', module))
+        .map((module) => module.split(path.sep).slice(0, module.startsWith('@') ? 2 : 1).join('/'));
+
+    const uniqueBundledModules = [...new Set(bundledModules)];
+    if ('\x00rollupPluginBabelHelpers.js' in chunk.modules) {
+        uniqueBundledModules.unshift('babel helpers');
+    }
+
+    if (!uniqueBundledModules.length) return '';
+
+    return `/* minified: ${uniqueBundledModules.join(', ')} */`;
+}
+
+const minifyPlugin: OutputPlugin = {
+    name: 'customMinifier',
+    async renderChunk(
+        code: string,
+        chunk: Readonly<RenderedChunk>,
+    ): Promise<{ code: string; map?: SourceMapInput } | null> {
+        // Only minify the vendor and lib chunks
+        if (![VENDOR_CHUNK_NAME, BUILTIN_LIB_CHUNK_NAME].includes(chunk.name)) return null;
+        const terserOptions = {
+            ...TERSER_OPTIONS[chunk.name as keyof typeof TERSER_OPTIONS],
+            format: {
+                preamble: getVendorMinifiedPreamble(chunk),
+            },
+        };
+
+        return await minify(code, terserOptions)
+            .then((result: Readonly<MinifyOutput>) =>
+                result.code ? { code: result.code } : null);
+    },
+};
 
 buildUserscripts();
