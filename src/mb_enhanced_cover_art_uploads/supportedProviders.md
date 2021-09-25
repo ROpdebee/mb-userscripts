@@ -14,4 +14,4 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Qobuz | ✔️ | ✔️ | Back covers and booklets are not supported at this time |
 | Spotify | ✔️ | ✔️ |
 | Tidal | ✔️ | ✔️ | listen.tidal.com/store.tidal.com are converted to tidal.com prior to fetching |
-| VGMdb | ✔️ | ✔️ | Types are filled on a best-effort basis, make sure to double-check. |
+| VGMdb | ✔️ | ✔️ | Types are filled on a best-effort basis, make sure to double-check. Some images are not fetched, see issue [#62](https://github.com/ROpdebee/mb-userscripts/issues/62). |
