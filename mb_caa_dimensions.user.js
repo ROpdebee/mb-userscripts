@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.9.13
+// @version      2021.9.25
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -429,11 +429,15 @@ function setupStyle() {
 function listenForNewCoverArtThumbs() {
     // On add cover art pages
     // Continuously check for images and display their dimensions.
+    // TODO: Wouldn't this be much more efficient if we were to use a mutation
+    // observer? Now it's just rechecking the same images over and over.
     setInterval(() => {
         $('img.uploader-preview-image').each((i, img) => {
             if (img.getAttribute('ROpdebee_lazyDimensions')) return;
             // Too early to get dimensions, src hasn't been set yet
             if (!img.naturalWidth) return;
+            // Don't display on PDF images
+            if (img.src.endsWith('/static/images/icons/pdf-icon.png')) return;
 
             // No need to load these through the network here.
             displayInfo(img, `${img.naturalWidth}x${img.naturalHeight}`);
