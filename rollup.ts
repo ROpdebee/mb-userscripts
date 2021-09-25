@@ -32,18 +32,14 @@ const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
     extensions: EXTENSIONS,
 };
 
-const TERSER_BASE_OPTIONS: MinifyOptions = {
+const TERSER_OPTIONS: MinifyOptions = {
     ecma: 5,
     safari10: true,  // Supported by MB
     compress: {
         passes: 4,
     },
-};
-
-const TERSER_OPTIONS = {
-    [VENDOR_CHUNK_NAME]: {...TERSER_BASE_OPTIONS, module: true},
-    // Don't garble top-level names for built-in lib.
-    [BUILTIN_LIB_CHUNK_NAME]: {...TERSER_BASE_OPTIONS, module: false},
+    // Don't garble top-level names
+    module: false,
 };
 
 async function buildUserscripts(): Promise<void> {
@@ -226,7 +222,7 @@ const minifyPlugin: OutputPlugin = {
         // Only minify the vendor and lib chunks
         if (![VENDOR_CHUNK_NAME, BUILTIN_LIB_CHUNK_NAME].includes(chunk.name)) return null;
         const terserOptions = {
-            ...TERSER_OPTIONS[chunk.name as keyof typeof TERSER_OPTIONS],
+            ...TERSER_OPTIONS,
             format: {
                 preamble: getVendorMinifiedPreamble(chunk),
             },
