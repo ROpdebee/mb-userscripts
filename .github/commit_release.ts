@@ -6,8 +6,14 @@ import type { UserscriptMetadata } from 'userscriptMetadata';
 
 const beforeSha = process.argv[2];
 const afterSha = process.argv[3];
+const distRepo = process.argv[4];
 
-const git = simpleGit();
+// We're using two separate clones of the same repo here. gitSrc is checked out
+// to the branch we're building from. gitDist is checked out to the `dist` branch.
+// We're using two copies so we can simultaneously extract versions from the source,
+// while also committing to the dist, without constantly having to change branches.
+const gitSrc = simpleGit();
+const gitDist = simpleGit(distRepo);
 
 if (!process.env.GITHUB_ACTIONS) {
     throw new Error('Refusing to run outside of CI, sorry :(');
@@ -15,12 +21,21 @@ if (!process.env.GITHUB_ACTIONS) {
 
 function loadMetaTsContents(ref: string, metaPath: string): Promise<string | null> {
     try {
-        return git.show(`${ref}:${metaPath}`);
+        return gitSrc.show(`${ref}:${metaPath}`);
     } catch {
-        // First introduction of this file?
-        // If the commit exists, then it is. If the commit doesn't exist, the
-        // following line should throw.
-        git.show(ref);
+        // Above throws if the path doesn't exist in the ref. This could happen
+        // in two cases: 1) The ref doesn't contain the file, and 2) the ref
+        // itself doesn't exist.
+        // Case 1 can occur if the script is entirely new, in which case an
+        // update should be created.
+        // Case 2 shouldn't occur, but can occur after the very first commit
+        // of the repo (a problem we shouldn't run into), or when a branch was
+        // force-pushed, in which case the beforeSha will no longer exist. This
+        // again cannot occur, since force-pushes to main are disallowed.
+        //
+        // Nonetheless, we'll make sure this ref exists. The line below will
+        // throw if it doesn't, which should never occur in practice.
+        gitSrc.show(ref);
         return Promise.resolve(null);
     }
 }
@@ -63,9 +78,16 @@ async function commitIfUpdated(scriptName: string): Promise<boolean> {
 }
 
 async function commitUpdate(scriptName: string, version: string) {
-    await git
-        // Force add because dist/ is in .gitignore
-        .add(['-f', `dist/${scriptName}.*`])
+    // Copy over the compiled files to the dist repo
+    await Promise.all(['.meta.js', '.user.js']
+        .map((suffix) => scriptName + suffix)
+        .map((distFileName) => {
+            const srcPath = path.resolve('dist', distFileName);
+            const destPath = path.resolve(distRepo, distFileName);
+            return fs.copyFile(srcPath, destPath);
+        }));
+    await gitDist
+        .add([`${scriptName}.*`])
         .commit(`🤖 ${scriptName} ${version}`);
 }
 
@@ -80,7 +102,7 @@ async function scanAndPush() {
 
     if (anyUpdates) {
         console.log('Pushing…');
-        await git.push();
+        await gitDist.push();
     }
 }
 

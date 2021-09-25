@@ -74,6 +74,13 @@ jobs:
         run: npm ci
       - name: Compile userscripts
         run: npm run build
+
+      - name: Checkout second dist copy
+        uses: actions/checkout@v2
+        with:
+          path: repoDist
+          ref: dist
+        if: ${{github.event_name == 'push' && github.repository == 'ROpdebee/mb-userscripts' && github.ref == 'refs/heads/main'}}
       # This fails on force-pushes to the main branch, since the before SHA might point
       # to a commit that no longer exists. However, since `main` is protected
       # from direct pushes, a force push should never occur, and it should never
@@ -81,7 +88,9 @@ jobs:
       # doesn't run on those branches.
       - name: Release new userscript versions
         run: |
+          cd repoDist
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'GitHub Actions'
-          npm run commit-release ${{github.event.before}} ${{github.event.after}}
+          cd -
+          npm run commit-release ${{github.event.before}} ${{github.event.after}} repoDist
         if: ${{github.event_name == 'push' && github.repository == 'ROpdebee/mb-userscripts' && github.ref == 'refs/heads/main'}}
