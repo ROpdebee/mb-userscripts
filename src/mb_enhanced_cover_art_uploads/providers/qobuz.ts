@@ -79,7 +79,6 @@ export class QobuzProvider implements CoverArtProvider {
     static async getMetadata(id: string): Promise<AlbumMetadata> {
         const resp = await gmxhr({
             url: `https://www.qobuz.com/api.json/0.2/album/get?album_id=${id}&offset=0&limit=20`,
-            method: 'GET',
             headers: {
                 'x-app-id': QOBUZ_APP_ID,
             },

@@ -71,7 +71,6 @@ export class DiscogsProvider implements CoverArtProvider {
         }));
         const resp = await gmxhr({
             url: `https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=${variables}&extensions=${extensions}`,
-            method: 'GET',
         });
 
         return JSON.parse(resp.responseText);
