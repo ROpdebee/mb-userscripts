@@ -7,7 +7,8 @@
     "build-dev": "node --unhandled-rejections=strict --loader ts-node/esm rollup.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc",
-    "commit-release": "node --unhandled-rejections=strict --loader ts-node/esm .github/commit_release.ts"
+    "commit-release": "node --unhandled-rejections=strict --loader ts-node/esm .github/commit_release.ts",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
