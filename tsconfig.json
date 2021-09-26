@@ -21,7 +21,7 @@
                 "types/*",
                 "node_modules/@types/*",
             ],
-            "lib/*": ["./src/lib/*"],
+            "@lib/*": ["./src/lib/*"],
         }
     },
     "include": ["**/*"],
