@@ -1,5 +1,5 @@
-import { parseDOM, qs } from '../../lib/util/dom';
-import { gmxhr } from '../../lib/util/xhr';
+import { parseDOM, qs } from '@lib/util/dom';
+import { gmxhr } from '@lib/util/xhr';
 
 export interface CoverArtProvider {
     /**

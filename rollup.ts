@@ -7,6 +7,7 @@ import type { MinifyOptions, MinifyOutput } from 'terser';
 
 import postcssPresetEnv from 'postcss-preset-env';
 import { rollup } from 'rollup';
+import alias from '@rollup/plugin-alias';
 import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
@@ -87,6 +88,12 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
                 targets: OUTPUT_DIR,
             }),
             progress() as Plugin,
+            // To resolve some aliases, like @lib
+            alias({
+                entries: {
+                    '@lib': path.resolve('./src/lib'),
+                },
+            }),
             // To resolve node_modules imports
             nodeResolve({
                 extensions: EXTENSIONS,

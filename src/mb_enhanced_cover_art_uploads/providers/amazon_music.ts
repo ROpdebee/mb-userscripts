@@ -1,4 +1,4 @@
-import { assertHasValue } from '../../lib/util/assert';
+import { assertHasValue } from '@lib/util/assert';
 import { AmazonProvider } from './amazon';
 
 import type { CoverArt, CoverArtProvider } from './base';

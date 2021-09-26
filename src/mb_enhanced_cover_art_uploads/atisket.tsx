@@ -1,4 +1,4 @@
-import { qs, qsa, qsMaybe } from '../lib/util/dom';
+import { qs, qsa, qsMaybe } from '@lib/util/dom';
 
 export function addAtisketSeedLinks(): void {
     const dispatch: Record<string, (() => void) | undefined> = {

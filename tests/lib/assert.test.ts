@@ -1,4 +1,4 @@
-import { assert, assertDefined, assertHasValue, AssertionError, assertNonNull } from '../../src/lib/util/assert';
+import { assert, assertDefined, assertHasValue, AssertionError, assertNonNull } from '@lib/util/assert';
 
 describe('assert', () => {
     it('throws on false condition', () => {
