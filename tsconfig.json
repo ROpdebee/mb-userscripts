@@ -9,6 +9,7 @@
         "moduleResolution": "node",
         "esModuleInterop": true,
         "noImplicitReturns": true,
+        "noImplicitOverride": true,
         "pretty": true,
         "baseUrl": "./",
         "typeRoots": [
