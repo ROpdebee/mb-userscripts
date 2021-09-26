@@ -18,7 +18,7 @@ export class AmazonProvider implements CoverArtProvider {
     }
 
     async findImages(url: URL): Promise<CoverArt[]> {
-        const pageResp = await gmxhr({ url: url.href });
+        const pageResp = await gmxhr(url);
         const pageDom = parseDOM(pageResp.responseText);
 
         if (qsMaybe('#digitalMusicProductImage_feature_div', pageDom) !== null) {

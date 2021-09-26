@@ -20,7 +20,7 @@ export class TidalProvider implements CoverArtProvider {
         assertHasValue(albumId);
         url.href = `https://tidal.com/browse/album/${albumId}`;
 
-        const resp = await gmxhr({ url: url.href });
+        const resp = await gmxhr(url);
         const respDocument = parseDOM(resp.responseText);
 
         if (qsMaybe('p#cmsg') !== null) {
