@@ -2,10 +2,11 @@
 
 // TODO: Look into using GM.* instead of GM_*, they're async
 
-type LimitedGMXHROptions = Omit<GMXMLHttpRequestOptions, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'>;
+type LimitedGMXHROptions = Omit<GMXMLHttpRequestOptions, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'|'method'>;
 
 interface GMXHROptions extends LimitedGMXHROptions {
     responseType?: XMLHttpRequestResponseType
+    method?: GMXMLHttpRequestOptions['method']
 }
 
 interface GMXHRResponse extends GMXMLHttpRequestResponse {
@@ -16,6 +17,7 @@ export async function gmxhr(options: GMXHROptions): Promise<GMXHRResponse> {
     return new Promise((resolve, reject_) => {
         const reject = (reason: string, error: any) => reject_({reason, error});
         GM_xmlhttpRequest({
+            method: 'GET',
             ...options,
             onload: (resp) => {
                 if (resp.status >= 400) reject(`HTTP error ${resp.statusText}`, resp);

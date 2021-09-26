@@ -279,7 +279,6 @@ class ImageImporter {
     async #fetchImage(url: URL, fileName: string, headers: Record<string, unknown> = {}): Promise<FetchResult> {
         const resp = await gmxhr({
             url: url.href,
-            method: 'GET',
             responseType: 'blob',
             headers: headers,
         });
