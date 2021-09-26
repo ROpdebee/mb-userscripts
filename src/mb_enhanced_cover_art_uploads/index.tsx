@@ -1,3 +1,5 @@
+import { CustomError } from 'ts-custom-error';
+
 import { assertHasValue } from '../lib/util/assert';
 import { qs, qsa } from '../lib/util/dom';
 import { EditNote } from '../lib/util/editNotes';
@@ -10,6 +12,17 @@ import { findImages, getProvider, hasProvider } from './providers';
 import { ArtworkTypeIDs } from './providers/base';
 
 import type { CoverArt } from './providers/base';
+
+class BadFileTypeError extends CustomError {
+    url: string | URL
+    fileName: string
+
+    constructor(url: string | URL, fileName: string) {
+        super(`${fileName} has an unsupported file type`);
+        this.url = url;
+        this.fileName = fileName;
+    }
+}
 
 class StatusBanner {
 
@@ -200,8 +213,8 @@ class ImageImporter {
         let containedImages: CoverArt[] | undefined;
         try {
             containedImages = await findImages(url);
-        } catch (err: any) {
-            this.#banner.set(`Failed to search images: ${err.reason ?? err}`);
+        } catch (err) {
+            this.#banner.set(`Failed to search images: ${err}`);
             console.error(err);
             return;
         }
@@ -223,8 +236,8 @@ class ImageImporter {
         let result: FetchResult;
         try {
             result = await this.#fetchLargestImage(url);
-        } catch (err: any) {
-            this.#banner.set(`Failed to load ${originalFilename}: ${err.reason ?? err}`);
+        } catch (err) {
+            this.#banner.set(`Failed to load ${originalFilename}: ${err}`);
             console.error(err);
             return;
         }
@@ -267,8 +280,8 @@ class ImageImporter {
             try {
                 this.#banner.set(`Trying ${candName}…`);
                 return await this.#fetchImage(imageResult.url, candName, imageResult.headers);
-            } catch (err: any) {
-                console.error(`${candName} failed: ${err.reason ?? err}`);
+            } catch (err) {
+                console.error(`${candName} failed: ${err}`);
             }
         }
 
@@ -286,7 +299,7 @@ class ImageImporter {
 
         return new Promise((resolve, reject) => {
             MB.CoverArt.validate_file(rawFile)
-                .fail((error) => { reject({ reason: error, error }); })
+                .fail(() => { reject(new BadFileTypeError(url, fileName)); })
                 .done((mimeType) => {
                     resolve({
                         fetchedUrl: url,

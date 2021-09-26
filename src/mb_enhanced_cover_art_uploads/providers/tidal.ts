@@ -24,7 +24,7 @@ export class TidalProvider implements CoverArtProvider {
         const respDocument = parseDOM(resp.responseText);
 
         if (qsMaybe('p#cmsg') !== null) {
-            throw {reason: 'captcha'};
+            throw new Error('Tidal presented us with a captcha');
         }
 
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
