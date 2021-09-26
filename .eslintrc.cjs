@@ -72,7 +72,6 @@ module.exports = {
                 }],
                 '@typescript-eslint/no-base-to-string': ['warn'],
                 '@typescript-eslint/no-confusing-void-expression': ['warn'],
-                '@typescript-eslint/no-implicit-any-catch': ['warn'],
                 '@typescript-eslint/no-invalid-void-type': ['warn'],
                 '@typescript-eslint/no-unnecessary-condition': ['warn'],
                 '@typescript-eslint/no-unsafe-argument': ['warn'],
