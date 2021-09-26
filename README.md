@@ -37,7 +37,7 @@ In a nutshell:
 Full list of supported artwork providers [here](src/mb_enhanced_cover_art_uploads/supportedProviders.md).
 
 [![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](src/mb_enhanced_cover_art_uploads)
-[![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](dist/mb_enhanced_cover_art_uploads.user.js?raw=1)
+[![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_enhanced_cover_art_uploads.user.js)
 
 ## MB: Supercharged Cover Art Edits
 
