@@ -69,9 +69,7 @@ export class DiscogsProvider implements CoverArtProvider {
                 sha256Hash: QUERY_SHA256,
             },
         }));
-        const resp = await gmxhr({
-            url: `https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=${variables}&extensions=${extensions}`,
-        });
+        const resp = await gmxhr(`https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=${variables}&extensions=${extensions}`);
 
         return JSON.parse(resp.responseText);
     }
