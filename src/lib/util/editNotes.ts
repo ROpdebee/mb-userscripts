@@ -13,7 +13,7 @@ export class EditNote {
         this.#footer = footer;
         this.#editNoteTextArea = qs('textarea.edit-note');
         // Maybe kept from page reload
-        const existingInfoBlock = this.#editNoteTextArea.value.split(separator)[0] ?? '';
+        const existingInfoBlock = this.#editNoteTextArea.value.split(separator)[0];
         if (existingInfoBlock) {
             this.#extraInfoLines = new Set(existingInfoBlock.split('\n').map((l) => l.trimRight()));
         } else {
@@ -24,7 +24,7 @@ export class EditNote {
     addExtraInfo(infoLine: string) {
         if (this.#extraInfoLines.has(infoLine)) return;
         let [infoBlock, ...rest] = this.#editNoteTextArea.value.split(separator);
-        infoBlock = infoBlock?.trim() ?? '';
+        infoBlock = infoBlock.trim();
         infoBlock += '\n' + infoLine;
         this.#editNoteTextArea.value = [infoBlock, ...rest].join(separator);
         this.#extraInfoLines.add(infoLine);
@@ -42,7 +42,7 @@ export class EditNote {
     #removePreviousFooter() {
         const fragments = this.#editNoteTextArea.value.split(separator);
         const otherFragments = fragments.filter(
-                (text) => !text.trim().startsWith(this.#footer));
+                (text) => text.trim() !== this.#footer);
         this.#editNoteTextArea.value = otherFragments.join(separator);
     }
 
