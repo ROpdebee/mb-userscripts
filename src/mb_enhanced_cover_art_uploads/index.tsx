@@ -1,6 +1,6 @@
+import { EditNote } from '@lib/MB/EditNote';
 import { assertHasValue } from '@lib/util/assert';
 import { qs, qsa } from '@lib/util/dom';
-import { EditNote } from '@lib/util/editNotes';
 import { gmxhr } from '@lib/util/xhr';
 
 import css from './main.scss';

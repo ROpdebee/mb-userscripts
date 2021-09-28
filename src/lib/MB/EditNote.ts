@@ -1,6 +1,6 @@
 // Edit note helpers
 
-import { qs } from './dom';
+import { qs } from '@lib/util/dom';
 
 const separator = '\n–\n';
 
