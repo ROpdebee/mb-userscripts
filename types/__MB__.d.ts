@@ -3,13 +3,7 @@
  */
 
 interface __MB__ {
-    DBDefs: {
-        test: any
-    }
     $c: {
-        action: object
-        req: object
-        stash: object
         user: {
             name: string
             entityType: 'editor'
@@ -25,10 +19,10 @@ interface __MB__ {
     }
 }
 
-declare var __MB__: __MB__;
+declare const __MB__: __MB__;
 
 interface __CoverArt {
-    validate_file(file: File): JQuery.Promise<string, string>;
+    validate_file(file: File): JQuery.Promise<string, string>
 }
 
 // Incomplete
@@ -36,4 +30,4 @@ interface MB {
     CoverArt: __CoverArt
 }
 
-declare var MB: MB;
+declare const MB: MB;
