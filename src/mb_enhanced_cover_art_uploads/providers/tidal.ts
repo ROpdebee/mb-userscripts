@@ -20,11 +20,11 @@ export class TidalProvider implements CoverArtProvider {
         assertHasValue(albumId);
         url.href = `https://tidal.com/browse/album/${albumId}`;
 
-        const resp = await gmxhr({ url: url.href, method: 'GET' });
+        const resp = await gmxhr(url);
         const respDocument = parseDOM(resp.responseText);
 
         if (qsMaybe('p#cmsg') !== null) {
-            throw {reason: 'captcha'};
+            throw new Error('Tidal presented us with a captcha');
         }
 
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);

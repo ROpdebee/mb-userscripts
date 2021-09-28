@@ -106,7 +106,7 @@ export class VGMdbProvider implements CoverArtProvider {
         const id = url.pathname.match(ID_REGEX)?.[1];
         assertHasValue(id);
         const apiUrl = `https://vgmdb.info/album/${id}?format=json`;
-        const apiResp = await gmxhr({ url: apiUrl, method: 'GET' });
+        const apiResp = await gmxhr(apiUrl);
         const metadata = JSON.parse(apiResp.responseText) as AlbumMetadata;
 
         return this.#extractImages(metadata);
