@@ -5,4 +5,5 @@ export default {
     moduleNameMapper: {
         '^@lib/(.*)$': '<rootDir>/src/lib/$1',
     },
+    setupFilesAfterEnv: ['jest-extended']
 };

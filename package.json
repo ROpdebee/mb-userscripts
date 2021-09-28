@@ -45,6 +45,7 @@
     "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.27.0",
     "jest": "^27.2.2",
+    "jest-extended": "^0.11.5",
     "license-checker": "^25.0.1",
     "nativejsx": "github:ROpdebee/nativejsx",
     "node-sass": "^6.0.0",
