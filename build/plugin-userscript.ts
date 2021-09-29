@@ -6,6 +6,7 @@ import type { Plugin } from 'rollup';
 import type { PackageJson } from 'type-fest';
 
 import type { UserscriptMetadata, AllUserscriptMetadata } from 'userscriptMetadata';
+import { assertDefined } from '../src/lib/util/assert.js';  // Don't use @lib shorthand because it breaks in ts-node
 
 interface UserscriptOptions {
     userscriptName: string
@@ -20,7 +21,6 @@ interface _UserscriptOptionsWithDefaults extends UserscriptOptions {
     branchName: string
 }
 
-
 const DEFAULT_OPTIONS = {
     branchName: 'dist',
     metadataOrder: [
@@ -30,45 +30,51 @@ const DEFAULT_OPTIONS = {
     ],
 };
 
-function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin {
-    const longestMetadataFieldLength = Math.max(...options.metadataOrder.map((field) => field.length));
+class GitURLs {
+    readonly #owner: string
+    readonly #repoName: string
 
-    interface GitURLs {
-        homepageURL: string
-        rawURL: string
-        issuesURL: string
+    constructor(repoUrl: string) {
+        const [owner, repoName] = new URL(repoUrl).pathname.match(/^\/([^/]+)\/([^/]+?)(?:\.git|$)/)?.slice(1) ?? [];
+        assertDefined(owner, `Malformed git URL ${repoUrl}`);
+        assertDefined(repoName, `Malformed git URL ${repoUrl}`);
+
+        this.#owner = owner;
+        this.#repoName = repoName;
     }
 
-    /**
-     * Derive a number of GitHub-related URLs from a git+ repo URL.
-     *
-     * @param      {Object}   gitRepoObject  The package.json repository
-     *                                       object. Assumed to contain a
-     *                                       "branch" property, in case of
-     *                                       absence, uses the provided
-     *                                       default.
-     * @return     {GitURLs}  GitHub related URLs.
-     */
-    function deriveBaseURLsFromGitRepo(gitRepoObject: string | { url: string }): GitURLs {
-        let repoUrl;
-        if (typeof gitRepoObject === 'string') {
-            repoUrl = gitRepoObject;
-        } else {
-            repoUrl = gitRepoObject.url;
+    get homepageURL(): string {
+        return `https://github.com/${this.#owner}/${this.#repoName}`;
+    }
+
+    get issuesURL(): string {
+        return `${this.homepageURL}/issues`;
+    }
+
+    constructRawURL(branchName: string, filePath: string): string {
+        return 'https://raw.github.com/' + [this.#owner, this.#repoName, branchName, filePath].join('/');
+    }
+
+    static fromPackageJson(npmPackage: PackageJson): GitURLs {
+        if (!npmPackage.repository) {
+            throw new Error('No repository defined in package.json');
         }
-
-        const baseRepo = repoUrl.match(/:\/\/github\.com\/(.+?\/.+?)(?:\.git)?$/)?.[1];
-        if (!baseRepo) throw new Error(`Cannot parse GitHub URL ${repoUrl}`);
-
-        const homepageURL = `https://github.com/${baseRepo}`;
-        const rawURL = `https://raw.github.com/${baseRepo}`;
-        return {
-            homepageURL,
-            rawURL,
-            issuesURL: `${homepageURL}/issues`
-        };
+        if (typeof npmPackage.repository === 'string') {
+            return new GitURLs(npmPackage.repository);
+        } else {
+            return new GitURLs(npmPackage.repository.url);
+        }
     }
+}
 
+class MetadataGenerator {
+    readonly options: Readonly<_UserscriptOptionsWithDefaults>
+    readonly longestMetadataFieldLength: number
+
+    constructor(options: Readonly<_UserscriptOptionsWithDefaults>) {
+        this.options = options;
+        this.longestMetadataFieldLength = Math.max(...options.metadataOrder.map((field) => field.length));
+    }
 
     /**
      * Insert missing metadata from defaults.
@@ -76,23 +82,11 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
      * @param      {UserscriptMetadata}              specificMetadata  The userscript-specific metadata.
      * @return     {Promise<AllUserscriptMetadata>}  The specific metadata amended with defaults.
      */
-    async function insertDefaultMetadata(specificMetadata: Readonly<UserscriptMetadata>): Promise<AllUserscriptMetadata> {
+    async #insertDefaultMetadata(specificMetadata: Readonly<UserscriptMetadata>): Promise<AllUserscriptMetadata> {
         const npmPackage: PackageJson = await fs.promises.readFile('package.json', {
             encoding: 'utf-8',
         }).then((content) => JSON.parse(content));
-
-        if (!npmPackage.repository) {
-            throw new Error('No repository defined in package.json');
-        }
-        const githubURLs = deriveBaseURLsFromGitRepo(npmPackage.repository);
-
-        function constructRawURL(fileName: string): string {
-            return [
-                githubURLs.rawURL,
-                options.branchName,
-                fileName
-            ].join('/');
-        }
+        const gitURLs = GitURLs.fromPackageJson(npmPackage);
 
         if (!npmPackage.author) {
             throw new Error('No author set in package.json');
@@ -101,11 +95,11 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
         const defaultMetadata = {
             author: typeof npmPackage.author === 'string' ? npmPackage.author : npmPackage.author.name,
             license: npmPackage.license,
-            supportURL: (typeof npmPackage.bugs === 'string' ? npmPackage.bugs : npmPackage.bugs?.url) ?? githubURLs.issuesURL,
-            homepageURL: githubURLs.homepageURL,
-            downloadURL: constructRawURL(`${options.userscriptName}.user.js`),
-            updateURL: constructRawURL(`${options.userscriptName}.meta.js`),
-            namespace: githubURLs.homepageURL, // often used as homepage URL (has the widest support)
+            supportURL: (typeof npmPackage.bugs === 'string' ? npmPackage.bugs : npmPackage.bugs?.url) ?? gitURLs.issuesURL,
+            homepageURL: gitURLs.homepageURL,
+            downloadURL: gitURLs.constructRawURL(this.options.branchName, `${this.options.userscriptName}.user.js`),
+            updateURL: gitURLs.constructRawURL(this.options.branchName, `${this.options.userscriptName}.meta.js`),
+            namespace: gitURLs.homepageURL, // often used as homepage URL (has the widest support)
             grant: ['none'],
         };
 
@@ -117,11 +111,11 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
      *
      * @return     {Promise<UserscriptMetadata>}  The userscript's metadata.
      */
-    async function loadMetadata(): Promise<AllUserscriptMetadata> {
+    async #loadMetadata(): Promise<AllUserscriptMetadata> {
         // use file URLs for compatibility with Windows, otherwise drive letters are recognized as an invalid protocol
-        const metadataFile = pathToFileURL(path.resolve('./src', options.userscriptName, 'meta.ts')).href;
+        const metadataFile = pathToFileURL(path.resolve('./src', this.options.userscriptName, 'meta.ts')).href;
         const specificMetadata: UserscriptMetadata = (await import(metadataFile)).default;
-        return insertDefaultMetadata(specificMetadata);
+        return this.#insertDefaultMetadata(specificMetadata);
     }
 
     /**
@@ -131,8 +125,8 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
      * @param      {string}  metadataValue  The metadata value
      * @return     {string}  Metadata line.
      */
-    function createMetadataLine(metadataField: string, metadataValue: string): string {
-        const fieldIndented = metadataField.padEnd(longestMetadataFieldLength);
+    #createMetadataLine(metadataField: string, metadataValue: string): string {
+        const fieldIndented = metadataField.padEnd(this.longestMetadataFieldLength);
         return `@${fieldIndented}  ${metadataValue}`;
     }
 
@@ -142,14 +136,14 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
      * @param      {string}  [metadataField, metadataValue]  The metadata field and value.
      * @return     {Array}   Metadata lines.
      */
-    function createMetadataLines(
+    #createMetadataLines(
         [metadataField, metadataValue]: readonly [string, string | readonly string[]]
     ): string[] {
         if (typeof metadataValue === 'string') {
-            return [createMetadataLine(metadataField, metadataValue)];
+            return [this.#createMetadataLine(metadataField, metadataValue)];
         }
 
-        return metadataValue.map((value) => createMetadataLine(metadataField, value));
+        return metadataValue.map((value) => this.#createMetadataLine(metadataField, value));
     }
 
     /**
@@ -159,19 +153,26 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
      * @return     {string}                 The metadata block for the
      *                                      userscript.
      */
-    function createMetadataBlock(metadata: Readonly<AllUserscriptMetadata>): string {
-        let metadataLines = Object.entries<string | readonly string[]>(metadata)
+    #createMetadataBlock(metadata: Readonly<AllUserscriptMetadata>): string {
+        const metadataLines = Object.entries<string | readonly string[]>(metadata)
             .sort((a: readonly [string, unknown], b: readonly [string, unknown]) =>
-                options.metadataOrder.indexOf(a[0]) - options.metadataOrder.indexOf(b[0]))
-            .flatMap(createMetadataLines);
+                this.options.metadataOrder.indexOf(a[0]) - this.options.metadataOrder.indexOf(b[0]))
+            .flatMap(this.#createMetadataLines.bind(this));
+
         metadataLines.unshift('==UserScript==');
         metadataLines.push('==/UserScript==');
 
-        metadataLines = metadataLines
-            .map((line) => `// ${line}`);
-
-        return metadataLines.join('\n');
+        return metadataLines
+            .map((line) => '// ' + line)
+            .join('\n');
     }
+
+    async generateMetadataBlock(): Promise<string> {
+        return this.#createMetadataBlock(await this.#loadMetadata());
+    }
+}
+
+export function userscript(options: Readonly<UserscriptOptions>): Plugin {
 
     // Will be set to the string content of the metadata block during the build
     // phase, and will be used again during the output phase.
@@ -194,7 +195,8 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
             // need
             if (!id.match(options.include)) return;
 
-            metadataBlock = createMetadataBlock(await loadMetadata());
+            const metaGenerator = new MetadataGenerator({ ...DEFAULT_OPTIONS, ...options });
+            metadataBlock = await metaGenerator.generateMetadataBlock();
 
             this.emitFile({
                 type: 'asset',
@@ -218,8 +220,4 @@ function _userscript(options: Readonly<_UserscriptOptionsWithDefaults>): Plugin 
             return `${metadataBlock}\n\n${code}`;
         }
     };
-}
-
-export function userscript(options: Readonly<UserscriptOptions>): Plugin {
-    return _userscript({...DEFAULT_OPTIONS, ...options} as _UserscriptOptionsWithDefaults);
 }
