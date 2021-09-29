@@ -1,7 +1,9 @@
 import { transformMBMatchURL } from '@lib/util/metadata';
 
 
-test('transforming match URLs should prefix MB domain', () => {
-    expect(transformMBMatchURL('release/add'))
-        .toStrictEqual('*://*.musicbrainz.org/release/add');
+describe('transforming match URLs', () => {
+    it('should prefix MB domain', () => {
+        expect(transformMBMatchURL('release/add'))
+            .toBe('*://*.musicbrainz.org/release/add');
+    });
 });

@@ -2,7 +2,7 @@
  * Object utilities.
  */
 
-import { ValueOf } from "type-fest";
+import type { ValueOf } from 'type-fest';
 
 /**
  * Create a reverse mapping of a string->string enum-like object.
@@ -42,7 +42,7 @@ import { ValueOf } from "type-fest";
  * @param      {Readonly<O>}     enumObj  The enum object
  * @return     {Map<V, string>}  The reverse mapping
  */
-export function createReverseEnum<O extends { [s: string]: string }>(enumObj: Readonly<O>): Map<string, ValueOf<O>> {
+export function createReverseEnum<O extends Record<string, string>>(enumObj: Readonly<O>): Map<string, ValueOf<O>> {
     return new Map(Object.entries(enumObj)
         .map(([enumKey, enumValue]) => [enumValue, enumObj[enumKey]]));
 }

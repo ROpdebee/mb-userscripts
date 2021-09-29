@@ -84,6 +84,8 @@ module.exports = {
             rules: {
                 '@typescript-eslint/unbound-method': 'off',
                 'jest/unbound-method': 'error',
+                'jest/prefer-expect-assertions': 'off',
+                'jest/no-hooks': 'off',
             },
         }]
 };

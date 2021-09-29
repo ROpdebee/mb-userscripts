@@ -77,7 +77,7 @@ async function commitIfUpdated(scriptName: string): Promise<boolean> {
     return metaBefore === null || metaBefore.version !== metaAfter.version;
 }
 
-async function commitUpdate(scriptName: string, version: string) {
+async function commitUpdate(scriptName: string, version: string): Promise<void> {
     // Copy over the compiled files to the dist repo
     await Promise.all(['.meta.js', '.user.js']
         .map((suffix) => scriptName + suffix)
@@ -91,7 +91,7 @@ async function commitUpdate(scriptName: string, version: string) {
         .commit(`🤖 ${scriptName} ${version}`);
 }
 
-async function scanAndPush() {
+async function scanAndPush(): Promise<void> {
     const userscriptDirs = (await fs.readdir('./src'))
         .filter((name) => name.startsWith('mb_'));
 

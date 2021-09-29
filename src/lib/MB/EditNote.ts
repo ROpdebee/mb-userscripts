@@ -21,8 +21,9 @@ export class EditNote {
         }
     }
 
-    addExtraInfo(infoLine: string) {
+    addExtraInfo(infoLine: string): void {
         if (this.#extraInfoLines.has(infoLine)) return;
+        // eslint-disable-next-line prefer-const
         let [infoBlock, ...rest] = this.#editNoteTextArea.value.split(separator);
         infoBlock = infoBlock.trim();
         infoBlock += '\n' + infoLine;
@@ -30,7 +31,7 @@ export class EditNote {
         this.#extraInfoLines.add(infoLine);
     }
 
-    addFooter() {
+    addFooter(): void {
         // Edit note content might be retained after page reload, or may have
         // already been partially filled. Search any previous content and
         // remove it
@@ -39,10 +40,10 @@ export class EditNote {
         this.#editNoteTextArea.value = [prevNote, separator, this.#footer].join('');
     }
 
-    #removePreviousFooter() {
+    #removePreviousFooter(): void {
         const fragments = this.#editNoteTextArea.value.split(separator);
         const otherFragments = fragments.filter(
-                (text) => text.trim() !== this.#footer);
+            (text) => text.trim() !== this.#footer);
         this.#editNoteTextArea.value = otherFragments.join(separator);
     }
 
@@ -52,4 +53,4 @@ export class EditNote {
         const footer = `${scriptMetadata.name} ${scriptMetadata.version}\n${scriptMetadata.namespace}`;
         return new EditNote(footer);
     }
-};
+}

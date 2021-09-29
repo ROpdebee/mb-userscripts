@@ -63,9 +63,9 @@ export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<
                 if (resp.status >= 400) reject(new HTTPResponseError(url, resp));
                 else resolve(resp as GMXHRResponse);
             },
-            onerror: () => reject(new NetworkError(url)),
-            onabort: () => reject(new AbortedError(url)),
-            ontimeout: () => reject(new TimeoutError(url)),
+            onerror: () => { reject(new NetworkError(url)); },
+            onabort: () => { reject(new AbortedError(url)); },
+            ontimeout: () => { reject(new TimeoutError(url)); },
         });
     });
-};
+}

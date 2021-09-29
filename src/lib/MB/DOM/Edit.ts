@@ -101,7 +101,7 @@ export abstract class Edit {
     }
 
     private static queryEdits(
-        queryOptions: { editType?: string, editStatus?: QueryableStatus }
+        queryOptions: { editType?: string; editStatus?: QueryableStatus }
     ): Edit[] {
         const classes = filterNonNull(
             ['edit-header', queryOptions.editStatus, queryOptions.editType]);
@@ -232,16 +232,16 @@ class EditSingle extends Edit {
         this.pageDiv = pageDiv;
     }
 
-    override get baseContainer() {
+    override get baseContainer(): HTMLDivElement {
         return this.pageDiv;
     }
 
-    override get votes() {
-        const voteCount = qs<HTMLTableDataCellElement>('table.vote-tally tr:first() > td.vote', this.pageDiv);
+    override get votes(): Votes {
+        const voteCount = qs<HTMLTableCellElement>('table.vote-tally tr:first() > td.vote', this.pageDiv);
         return this.extractVoteCount(voteCount);
     }
 
-    override get myOldVote() {
+    override get myOldVote(): Vote {
         assert(!this.isOpen, 'Cannot get old vote of open edit');
 
         const voteTallyRows = qsa<HTMLTableRowElement>('table.vote-tally tr', this.pageDiv);
@@ -254,7 +254,7 @@ class EditSingle extends Edit {
         return vote;
     }
 
-    override get status() {
+    override get status(): Status {
         // FIXME: This won't work on non-English pages.
         const statusText = qs<HTMLElement>('#sidebar > .edit-status > dd', this.pageDiv).textContent;
         const status = STATUS_TEXT_TO_STATUS.get(statusText ?? '');
@@ -274,17 +274,17 @@ class EditList extends Edit {
         this.listDiv = listDiv;
     }
 
-    override get baseContainer() {
+    override get baseContainer(): HTMLDivElement {
         return this.listDiv;
     }
 
-    override get votes() {
+    override get votes(): Votes | null {
         if (this.isOpen) return null;
         const voteCount = qs<HTMLDivElement>('td.vote-count > div', this.editHeader);
         return this.extractVoteCount(voteCount);
     }
 
-    override get myOldVote() {
+    override get myOldVote(): Vote {
         assert(!this.isOpen, 'Cannot get old vote of open edit');
 
         const oldVoteDiv = qs<HTMLDivElement>('div.my-vote', this.editHeader);
@@ -293,7 +293,7 @@ class EditList extends Edit {
         return vote;
     }
 
-    override get status() {
+    override get status(): Status {
         // FIXME: This won't work on non-English pages.
         if (this.editHeader.classList.contains('open')) return Status.OPEN;
         if (this.editHeader.classList.contains('applied')) return Status.APPLIED;

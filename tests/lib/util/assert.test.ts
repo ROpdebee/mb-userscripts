@@ -3,13 +3,13 @@ import { assert, assertDefined, assertHasValue, AssertionError, assertNonNull } 
 describe('assert', () => {
     it('throws on false condition', () => {
         expect(() => {
-            assert(-1 > 0);
+            assert(false);
         }).toThrow(AssertionError);
     });
 
     it('does not throw on true conditions', () => {
         expect(() => {
-            assert(-1 < 0);
+            assert(true);
         }).not.toThrow(AssertionError);
     });
 });

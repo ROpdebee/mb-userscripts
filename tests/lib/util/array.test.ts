@@ -1,4 +1,4 @@
-import { filterNonNull, findRight } from "@lib/util/array";
+import { filterNonNull, findRight } from '@lib/util/array';
 
 describe('filtering null values', () => {
     it('retains non-null values', () => {
