@@ -43,6 +43,7 @@
     "@types/rollup-plugin-progress": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
+    "babel-plugin-rewire-ts": "^1.4.0",
     "eslint": "^7.27.0",
     "eslint-plugin-jest": "^24.5.0",
     "eslint-plugin-jest-formatting": "^3.0.0",

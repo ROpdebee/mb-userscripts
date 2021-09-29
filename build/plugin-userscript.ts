@@ -6,7 +6,6 @@ import type { Plugin } from 'rollup';
 import type { PackageJson } from 'type-fest';
 
 import type { UserscriptMetadata, AllUserscriptMetadata } from 'userscriptMetadata';
-import { assertDefined } from '../src/lib/util/assert.js';  // Don't use @lib shorthand because it breaks in ts-node
 
 interface UserscriptOptions {
     userscriptName: string
@@ -36,8 +35,7 @@ class GitURLs {
 
     constructor(repoUrl: string) {
         const [owner, repoName] = new URL(repoUrl).pathname.match(/^\/([^/]+)\/([^/]+?)(?:\.git|$)/)?.slice(1) ?? [];
-        assertDefined(owner, `Malformed git URL ${repoUrl}`);
-        assertDefined(repoName, `Malformed git URL ${repoUrl}`);
+        if (!owner || !repoName) throw new Error(`Malformed git URL ${repoUrl}`);
 
         this.#owner = owner;
         this.#repoName = repoName;

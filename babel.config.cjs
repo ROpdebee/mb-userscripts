@@ -1,4 +1,14 @@
-export default {
+// CommonJS module since we're using it in Jest to transpile TypeScript,
+// ESM -> CJS, and add rewire support to the modules.
+const testConfig = {
+    plugins: [
+        '@babel/plugin-transform-typescript',
+        'rewire-ts',
+        '@babel/plugin-transform-modules-commonjs',
+    ]
+};
+
+const prodConfig = {
     presets: [
         ['@babel/preset-typescript', {
             isTSX: true,
@@ -18,3 +28,5 @@ export default {
     ],
     sourceType: 'unambiguous',
 };
+
+module.exports = (process.env.NODE_ENV === 'test' ? testConfig : prodConfig);
