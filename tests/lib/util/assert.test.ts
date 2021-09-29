@@ -12,6 +12,12 @@ describe('assert', () => {
             assert(true);
         }).not.toThrow(AssertionError);
     });
+
+    it('allows using custom messages', () => {
+        expect(() => {
+            assert(false, 'message');
+        }).toThrow(new AssertionError('message'));
+    });
 });
 
 describe('assertNonNull', () => {
@@ -37,6 +43,12 @@ describe('assertNonNull', () => {
         expect(() => {
             assertNonNull(value);
         }).not.toThrow(AssertionError);
+    });
+
+    it('allows using custom messages', () => {
+        expect(() => {
+            assertNonNull(null, 'message');
+        }).toThrow(new AssertionError('message'));
     });
 });
 
@@ -64,6 +76,12 @@ describe('assertDefined', () => {
             assertDefined(value);
         }).not.toThrow(AssertionError);
     });
+
+    it('allows using custom messages', () => {
+        expect(() => {
+            assertDefined(undefined, 'message');
+        }).toThrow(new AssertionError('message'));
+    });
 });
 
 describe('assertHasValue', () => {
@@ -89,6 +107,12 @@ describe('assertHasValue', () => {
         expect(() => {
             assertHasValue(value);
         }).not.toThrow(AssertionError);
+    });
+
+    it('allows using custom messages', () => {
+        expect(() => {
+            assertHasValue(null, 'message');
+        }).toThrow(new AssertionError('message'));
     });
 });
 
