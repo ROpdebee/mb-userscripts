@@ -18,13 +18,6 @@ module.exports = {
         ecmaVersion: 12,
         sourceType: 'module',
     },
-    ignorePatterns: [
-        'dist/',
-        'node_modules/',
-        // Ignore top-level scripts for now
-        'mb_*.js',
-        'lib/',
-    ],
     rules: {
         'indent': [
             'error',
