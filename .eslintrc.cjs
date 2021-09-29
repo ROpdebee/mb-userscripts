@@ -6,10 +6,12 @@ module.exports = {
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:@typescript-eslint/recommended'
+        'plugin:@typescript-eslint/recommended',
+        'plugin:jest/all',
     ],
     plugins: [
         '@typescript-eslint',
+        'jest',
     ],
     parserOptions: {
         ecmaVersion: 12,
@@ -43,6 +45,7 @@ module.exports = {
             'error',
             'always',
         ],
+        'jest/unbound-method': ['off'],
     },
     overrides: [
         {
@@ -81,5 +84,12 @@ module.exports = {
                 '@typescript-eslint/prefer-ts-expect-error': ['warn'],
                 '@typescript-eslint/type-annotation-spacing': ['warn'],
             }
+        }, { // Override per eslint-plugin-jest documentation.
+            files: ['tests/**'],
+            plugins: ['jest'],
+            rules: {
+                '@typescript-eslint/unbound-method': 'off',
+                'jest/unbound-method': 'error',
+            },
         }]
 };
