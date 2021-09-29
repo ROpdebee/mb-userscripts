@@ -5,7 +5,7 @@
   "scripts": {
     "build": "NODE_ENV=production node --unhandled-rejections=strict --loader ts-node/esm build/rollup.ts",
     "build-dev": "node --unhandled-rejections=strict --loader ts-node/esm build/rollup.ts",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc",
     "commit-release": "node --unhandled-rejections=strict --loader ts-node/esm build/commit_release.ts",
     "test": "jest"
