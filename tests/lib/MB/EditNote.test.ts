@@ -2,13 +2,13 @@ import { EditNote } from '@lib/MB/EditNote';
 
 let textarea: HTMLTextAreaElement;
 
-describe('adding extra info', () => {
-    beforeEach(() => {
-        document.body.innerHTML = '<textarea class="edit-note" />';
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        textarea = document.body.querySelector<HTMLTextAreaElement>('textarea')!;
-    });
+beforeEach(() => {
+    document.body.innerHTML = '<textarea class="edit-note" />';
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    textarea = document.body.querySelector<HTMLTextAreaElement>('textarea')!;
+});
 
+describe('adding extra info', () => {
     it('adds the info line', () => {
         const editNote = new EditNote('footer');
         editNote.addExtraInfo('info line');
@@ -67,12 +67,6 @@ describe('adding extra info', () => {
 
 
 describe('adding footer', () => {
-    beforeEach(() => {
-        document.body.innerHTML = '<textarea class="edit-note" />';
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        textarea = document.body.querySelector<HTMLTextAreaElement>('textarea')!;
-    });
-
     it('adds the footer', () => {
         const editNote = new EditNote('footer');
         editNote.addFooter();

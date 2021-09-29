@@ -86,6 +86,7 @@ module.exports = {
                 'jest/unbound-method': 'error',
                 'jest/prefer-expect-assertions': 'off',
                 'jest/no-hooks': 'off',
+                'jest/require-top-level-describe': 'off'
             },
         }]
 };
