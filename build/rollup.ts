@@ -17,8 +17,8 @@ import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
-import { nativejsx } from './rollup/plugin-nativejsx.js';
-import { userscript } from './rollup/plugin-userscript.js';
+import { nativejsx } from './plugin-nativejsx.js';
+import { userscript } from './plugin-userscript.js';
 
 const OUTPUT_DIR = 'dist';
 const VENDOR_CHUNK_NAME = 'vendor';

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Build package for MB userscripts",
   "scripts": {
-    "build": "NODE_ENV=production node --unhandled-rejections=strict --loader ts-node/esm rollup.ts",
-    "build-dev": "node --unhandled-rejections=strict --loader ts-node/esm rollup.ts",
+    "build": "NODE_ENV=production node --unhandled-rejections=strict --loader ts-node/esm build/rollup.ts",
+    "build-dev": "node --unhandled-rejections=strict --loader ts-node/esm build/rollup.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc",
     "commit-release": "node --unhandled-rejections=strict --loader ts-node/esm .github/commit_release.ts",
