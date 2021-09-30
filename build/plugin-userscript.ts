@@ -80,7 +80,7 @@ class MetadataGenerator {
      * @param      {UserscriptMetadata}              specificMetadata  The userscript-specific metadata.
      * @return     {Promise<AllUserscriptMetadata>}  The specific metadata amended with defaults.
      */
-    async #insertDefaultMetadata(specificMetadata: Readonly<UserscriptMetadata>): Promise<AllUserscriptMetadata> {
+    private async insertDefaultMetadata(specificMetadata: Readonly<UserscriptMetadata>): Promise<AllUserscriptMetadata> {
         const npmPackage: PackageJson = await fs.promises.readFile('package.json', {
             encoding: 'utf-8',
         }).then((content) => JSON.parse(content));
@@ -109,11 +109,11 @@ class MetadataGenerator {
      *
      * @return     {Promise<UserscriptMetadata>}  The userscript's metadata.
      */
-    async #loadMetadata(): Promise<AllUserscriptMetadata> {
+    private async loadMetadata(): Promise<AllUserscriptMetadata> {
         // use file URLs for compatibility with Windows, otherwise drive letters are recognized as an invalid protocol
         const metadataFile = pathToFileURL(path.resolve('./src', this.options.userscriptName, 'meta.ts')).href;
         const specificMetadata: UserscriptMetadata = (await import(metadataFile)).default;
-        return this.#insertDefaultMetadata(specificMetadata);
+        return this.insertDefaultMetadata(specificMetadata);
     }
 
     /**
@@ -123,7 +123,7 @@ class MetadataGenerator {
      * @param      {string}  metadataValue  The metadata value
      * @return     {string}  Metadata line.
      */
-    #createMetadataLine(metadataField: string, metadataValue: string): string {
+    private createMetadataLine(metadataField: string, metadataValue: string): string {
         const fieldIndented = metadataField.padEnd(this.longestMetadataFieldLength);
         return `@${fieldIndented}  ${metadataValue}`;
     }
@@ -134,14 +134,14 @@ class MetadataGenerator {
      * @param      {string}  [metadataField, metadataValue]  The metadata field and value.
      * @return     {Array}   Metadata lines.
      */
-    #createMetadataLines(
+    private createMetadataLines(
         [metadataField, metadataValue]: readonly [string, string | readonly string[]]
     ): string[] {
         if (typeof metadataValue === 'string') {
-            return [this.#createMetadataLine(metadataField, metadataValue)];
+            return [this.createMetadataLine(metadataField, metadataValue)];
         }
 
-        return metadataValue.map((value) => this.#createMetadataLine(metadataField, value));
+        return metadataValue.map((value) => this.createMetadataLine(metadataField, value));
     }
 
     /**
@@ -151,11 +151,11 @@ class MetadataGenerator {
      * @return     {string}                 The metadata block for the
      *                                      userscript.
      */
-    #createMetadataBlock(metadata: Readonly<AllUserscriptMetadata>): string {
+    private createMetadataBlock(metadata: Readonly<AllUserscriptMetadata>): string {
         const metadataLines = Object.entries<string | readonly string[]>(metadata)
             .sort((a: readonly [string, unknown], b: readonly [string, unknown]) =>
                 this.options.metadataOrder.indexOf(a[0]) - this.options.metadataOrder.indexOf(b[0]))
-            .flatMap(this.#createMetadataLines.bind(this));
+            .flatMap(this.createMetadataLines.bind(this));
 
         metadataLines.unshift('==UserScript==');
         metadataLines.push('==/UserScript==');
@@ -166,7 +166,7 @@ class MetadataGenerator {
     }
 
     async generateMetadataBlock(): Promise<string> {
-        return this.#createMetadataBlock(await this.#loadMetadata());
+        return this.createMetadataBlock(await this.loadMetadata());
     }
 }
 
