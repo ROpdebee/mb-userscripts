@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 // @ts-expect-error rewired
 import { __get__ } from '../../build/plugin-userscript';
 
@@ -165,6 +167,132 @@ describe('metadata generator', () => {
 // @namespace  ns
 // @name       name
 // ==/UserScript==`.trim());
+        });
+    });
+
+    describe('setting default metadata', () => {
+        const packageReaderMock = jest.spyOn(fs.promises, 'readFile');
+        const basePackageJson = {
+            repository: 'https://github.com/ROpdebee/mb-userscripts'
+        };
+        const packageJsonWithAuthor = {
+            ...basePackageJson,
+            author: 'ROpdebee',
+        };
+        const metaGen = new MetadataGenerator(options);
+
+        afterEach(() => {
+            packageReaderMock.mockReset();
+        });
+
+        afterAll(() => {
+            packageReaderMock.mockRestore();
+        });
+
+        it('throws on empty author', async () => {
+            expect.assertions(1);
+
+            packageReaderMock.mockResolvedValue(JSON.stringify(basePackageJson));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .rejects
+                .toSatisfy((err) => err.message.startsWith('No author set'));
+        });
+
+        it('uses author string in package.json', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify({ ...basePackageJson, author: 'ROpdebee' }));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({ author: 'ROpdebee' });
+        });
+
+        it('uses author object in package.json', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify({ ...basePackageJson, author: { name: 'ROpdebee' }}));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({ author: 'ROpdebee' });
+        });
+
+        it('inserts license', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor, license: 'MIT' }));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({ license: 'MIT' });
+        });
+
+        it('inserts namespace', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor }));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({ namespace: 'https://github.com/ROpdebee/mb-userscripts' });
+        });
+
+        it('inserts homepage URL', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor }));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({ homepageURL: 'https://github.com/ROpdebee/mb-userscripts' });
+        });
+
+        it('inserts issues URL from git repo', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor }));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({ supportURL: 'https://github.com/ROpdebee/mb-userscripts/issues' });
+        });
+
+        it('inserts issues URL from package.json bugs', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor, bugs: 'test URL' }));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({ supportURL: 'test URL' });
+        });
+
+        it('inserts issues URL from package.json bugs object', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor, bugs: { url: 'test URL' }}));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({ supportURL: 'test URL' });
+        });
+
+        it('inserts download and update URL', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
+            const urlBase = 'https://raw.github.com/ROpdebee/mb-userscripts/branch/';
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({
+                    downloadURL: urlBase + 'test.user.js',
+                    updateURL: urlBase + 'test.meta.js'
+                });
+        });
+
+        it('inserts @grant none by default', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
+
+            await expect(metaGen.insertDefaultMetadata({}))
+                .resolves
+                .toMatchObject({
+                    grant: ['none'],
+                });
+        });
+
+        it('allows overriding @grant none', async () => {
+            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
+
+            await expect(metaGen.insertDefaultMetadata({ grant: ['GM_xmlhttpRequest'] }))
+                .resolves
+                .toMatchObject({
+                    grant: ['GM_xmlhttpRequest'],
+                });
         });
     });
 });

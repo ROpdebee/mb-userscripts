@@ -5,4 +5,7 @@ export default {
         '^@lib/(.*)$': '<rootDir>/src/lib/$1',
     },
     setupFilesAfterEnv: ['jest-extended'],
+    collectCoverageFrom: [
+        '{build,src}/**/*.{js,ts}',
+    ],
 };

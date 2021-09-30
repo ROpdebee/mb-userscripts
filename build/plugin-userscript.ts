@@ -104,6 +104,7 @@ class MetadataGenerator {
         return {...defaultMetadata, ...specificMetadata};
     }
 
+    /* istanbul ignore next: Covered by build, testing leads to segfault because of TS import */
     /**
      * Loads the userscript's metadata.
      *
@@ -165,11 +166,13 @@ class MetadataGenerator {
             .join('\n');
     }
 
+    /* istanbul ignore next: Covered by build, see `loadMetadata`. */
     async generateMetadataBlock(): Promise<string> {
         return this.createMetadataBlock(await this.loadMetadata());
     }
 }
 
+/* istanbul ignore next: Covered by build, can't be tested, see `loadMetadata`. */
 export function userscript(options: Readonly<UserscriptOptions>): Plugin {
 
     // Will be set to the string content of the metadata block during the build
