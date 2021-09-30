@@ -6,6 +6,6 @@ export default {
     },
     setupFilesAfterEnv: ['jest-extended'],
     collectCoverageFrom: [
-        '{build,src}/**/*.{js,ts}',
+        'src/**/*.{js,ts}',
     ],
 };
