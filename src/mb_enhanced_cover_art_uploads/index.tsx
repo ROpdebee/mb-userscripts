@@ -231,7 +231,6 @@ class ImageImporter {
             this.#clearInput(url.href);
             return;
         }
-        this.#doneImages.add(url.href);
 
         // eslint-disable-next-line init-declarations
         let result: FetchResult;
@@ -252,9 +251,10 @@ class ImageImporter {
             this.#clearInput(url.href);
             return;
         }
-        this.#doneImages.add(fetchedUrl.href);
 
         this.#enqueueImageForUpload(file, artworkTypes, comment);
+        this.#doneImages.add(fetchedUrl.href);
+        this.#doneImages.add(url.href);
         return {
             queuedUrls: [{
                 filename: file.name,
