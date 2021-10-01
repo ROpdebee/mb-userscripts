@@ -1,4 +1,5 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+const esModules = ['node-fetch', 'fetch-blob'].join('|');
 export default {
     testEnvironment: 'jsdom',
     moduleNameMapper: {
@@ -7,5 +8,8 @@ export default {
     setupFilesAfterEnv: ['jest-extended'],
     collectCoverageFrom: [
         'src/**/*.{js,ts}',
+    ],
+    transformIgnorePatterns: [
+        `/node_modules/(?!${esModules})`,
     ],
 };
