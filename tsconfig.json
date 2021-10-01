@@ -22,6 +22,8 @@
                 "node_modules/@types/*",
             ],
             "@lib/*": ["./src/lib/*"],
+            "@test-utils/*": ["./tests/utils/*"],
+            "@src/*": ["./src/*"],
         }
     },
     "include": ["**/*"],

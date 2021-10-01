@@ -1,5 +1,3 @@
-/** @jest-environment setup-polly-jest/jest-environment-jsdom */
-
 import path from 'path';
 import { setupPolly } from 'setup-polly-jest';
 import FSPersister from '@pollyjs/persister-fs';
