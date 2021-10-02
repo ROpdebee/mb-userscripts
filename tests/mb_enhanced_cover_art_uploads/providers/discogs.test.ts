@@ -1,7 +1,6 @@
 import { setupPolly } from '@test-utils/pollyjs';
 
 import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { HTTPResponseError } from '@lib/util/xhr';
 import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/discogs';
 
 describe('discogs provider', () => {
