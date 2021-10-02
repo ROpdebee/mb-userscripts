@@ -3,6 +3,7 @@ import { setupPolly } from '@test-utils/pollyjs';
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 // @ts-expect-error rewired
 import { VGMdbProvider, __get__ } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
+import { HTTPResponseError } from '@lib/util/xhr';
 
 describe('vgmdb provider', () => {
     const pollyContext = setupPolly();
@@ -94,6 +95,135 @@ describe('vgmdb provider', () => {
 
             expect(caption_type_mapping[key.toLowerCase()](rest.join(' ')))
                 .toStrictEqual(expected);
+        });
+    });
+
+    describe('checking URL support', () => {
+        it('matches album URLs', () => {
+            expect(provider.supportsUrl(new URL('https://vgmdb.net/album/79')))
+                .toBeTrue();
+        });
+
+        it.each`
+            url | type
+            ${'https://vgmdb.net/artist/77'} | ${'artist'}
+            ${'https://vgmdb.net/org/186'} | ${'organisation'}
+        `('does not match artist $type URLs', ({ url }: { url: string }) => {
+            expect(provider.supportsUrl(new URL(url)))
+                .toBeFalse();
+        });
+    });
+
+    describe('finding images', () => {
+        it('finds all images if they are all public', async () => {
+            const covers = await provider.findImages(new URL('https://vgmdb.net/album/96418'));
+
+            expect(covers).toBeArrayOfSize(2);
+            expect(covers[0].url.pathname).toBe('/albums/81/96418/96418-1581893265.jpg');
+            expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+            expect(covers[0].comment).toBeEmpty();
+            expect(covers[1].url.pathname).toBe('/albums/81/96418/96418-1581893266.jpg');
+            expect(covers[1].type).toStrictEqual([ArtworkTypeIDs.Back]);
+            expect(covers[1].comment).toBeEmpty();
+        });
+
+        it('does not find all images if some are not public', async () => {
+            // This may seem like a useless test case, but if it starts working
+            // all of a sudden, I'd like to know about it
+            const covers = await provider.findImages(new URL('https://vgmdb.net/album/79'));
+
+            expect(covers).toBeArray();
+            expect(covers).not.toBeArrayOfSize(18);
+        });
+
+        it('uses picture if no covers are available', async () => {
+            const covers = await provider.findImages(new URL('https://vgmdb.net/album/90871'));
+
+            expect(covers).toBeArrayOfSize(1);
+            expect(covers[0].url.pathname).toBe('/albums/17/90871/90871-1569448344.jpg');
+            expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+            expect(covers[0].comment).toBeEmpty();
+        });
+
+        it('does not map types if there is no caption', async () => {
+            // Cannot find a real-life example of this, so let's mock a fake one
+            pollyContext.polly.server
+                .get('https://vgmdb.info/album/123?format=json')
+                .intercept((_req, res) => {
+                    res.status(200).json({
+                        covers: [{
+                            full: 'https://example.com/test',
+                            name: ''
+                        }],
+                        picture_full: 'https://example.com/test',
+                    });
+                });
+
+            const covers = await provider.findImages(new URL('https://vgmdb.net/album/123'));
+
+            expect(covers).toBeArrayOfSize(1);
+            expect(covers[0].url.pathname).toBe('/test');
+            expect(covers[0].type).toBeUndefined();
+            expect(covers[0].comment).toBeUndefined();
+        });
+
+        it('does not map types if the caption type is unknown', async () => {
+            // Cannot find a real-life example of this, so let's mock a fake one
+            pollyContext.polly.server
+                .get('https://vgmdb.info/album/123?format=json')
+                .intercept((_req, res) => {
+                    res.status(200).json({
+                        covers: [{
+                            full: 'https://example.com/test',
+                            name: 'not a correct caption'
+                        }],
+                        picture_full: 'https://example.com/test',
+                    });
+                });
+
+            const covers = await provider.findImages(new URL('https://vgmdb.net/album/123'));
+
+            expect(covers).toBeArrayOfSize(1);
+            expect(covers[0].url.pathname).toBe('/test');
+            expect(covers[0].type).toBeUndefined();
+            expect(covers[0].comment).toBe('not a correct caption');
+        });
+
+        it('includes picture if it is absent from the covers', async () => {
+            // Cannot find a real-life example of this, so let's mock a fake one
+            pollyContext.polly.server
+                .get('https://vgmdb.info/album/123?format=json')
+                .intercept((_req, res) => {
+                    res.status(200).json({
+                        covers: [{
+                            full: 'https://example.com/test',
+                            name: 'Back'
+                        }],
+                        picture_full: 'https://example.com/othertest',
+                    });
+                });
+
+            const covers = await provider.findImages(new URL('https://vgmdb.net/album/123'));
+
+            expect(covers).toBeArrayOfSize(2);
+            expect(covers[0].url.pathname).toBe('/othertest');
+            expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+            expect(covers[0].comment).toBeEmpty();
+            expect(covers[1].url.pathname).toBe('/test');
+            expect(covers[1].type).toStrictEqual([ArtworkTypeIDs.Back]);
+            expect(covers[1].comment).toBeEmpty();
+        });
+
+        it('throws if release does not exist', async () => {
+            // Cannot find a real-life example of this, so let's mock a fake one
+            pollyContext.polly.server
+                .get('https://vgmdb.info/album/404?format=json')
+                .intercept((_req, res) => {
+                    res.status(404);
+                });
+
+            await expect(provider.findImages(new URL('https://vgmdb.net/album/404')))
+                .rejects.toBeInstanceOf(HTTPResponseError);
         });
     });
 });
