@@ -6,7 +6,6 @@ import { LOGGER } from '@lib/logging/logger';
 import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 
-import css from './main.scss';
 import { addAtisketSeedLinks } from './atisket';
 import { getMaxUrlCandidates } from './maxurl';
 import { findImages, getProvider, hasProvider } from './providers';
@@ -17,6 +16,7 @@ import type { CoverArt } from './providers/base';
 import { StatusBanner } from './ui/status_banner';
 import USERSCRIPT_NAME from 'consts:userscript-name';
 import DEBUG_MODE from 'consts:debug-mode';
+import { InputForm } from './ui/main';
 
 interface FetchResult {
     fetchedUrl: URL
@@ -37,16 +37,15 @@ interface QueuedURLsResult {
 
 class ImageImporter {
     #note: EditNote;
-    #urlInput: HTMLInputElement;
+
     // Store `URL.href`, since two `URL` objects for the same URL are not identical.
     #doneImages: Set<string>;
     // Monotonically increasing ID to uniquely identify the image. We use this
     // so we can later set the image type.
     #lastId = 0;
 
-    constructor(/* temporary */ banner: StatusBanner) {
+    constructor() {
         this.#note = EditNote.withFooterFromGMInfo();
-        this.#urlInput = setupPage(banner, this.cleanUrlAndAdd.bind(this));
         this.#doneImages = new Set();
     }
 
@@ -122,12 +121,6 @@ class ImageImporter {
         this.#note.addFooter();
     }
 
-    async cleanUrlAndAdd(url: string): Promise<void> {
-        const urlObj = this.#cleanUrl(url);
-        if (!urlObj) return;
-        await this.#addImagesFromUrl(urlObj);
-    }
-
     #cleanUrl(url: string): URL | undefined {
         url = url.trim();
         if (!url) {
@@ -142,7 +135,7 @@ class ImageImporter {
         }
     }
 
-    async #addImagesFromUrl(url: URL): Promise<void> {
+    async addImagesFromUrl(url: URL): Promise<void> {
         const result = await this.#addImages(url);
         if (!result) return;
 
@@ -229,12 +222,12 @@ class ImageImporter {
     }
 
     #clearInput(oldValue: string): void {
-        // Clear the old input, but only if it hasn't changed since. Because
-        // this is asynchronous code, it's entirely possible for another image
-        // to be loading at the same time
-        if (this.#urlInput.value == oldValue) {
+        // FIXME: We don't have access to the URL inputs anymore. Instead, we
+        // should return our results and have the client of the importer do the
+        // clearing.
+        /*if (this.#urlInput.value == oldValue) {
             this.#urlInput.value = '';
-        }
+        }*/
     }
 
     async #fetchLargestImage(url: URL): Promise<FetchResult> {
@@ -327,64 +320,17 @@ class ImageImporter {
     }
 }
 
-function setupPage(statusBanner: StatusBanner, addImageCallback: (url: string) => void): HTMLInputElement {
-    document.head.append(<style id='ROpdebee_upload_to_caa_from_url'>
-        {css}
-    </style>);
-
-    const input = <input
-        type='text'
-        placeholder='or paste a URL here'
-        size={47}
-        onInput={(evt): void => { addImageCallback(evt.currentTarget.value); }}
-    /> as HTMLInputElement;
-
-    const container =
-        <div className='ROpdebee_paste_url_cont'>
-            {input}
-            <a
-                href='https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/supportedProviders.md'
-                target='_blank'
-            >
-                Supported providers
-            </a>
-            {statusBanner.htmlElement}
-        </div>;
-
-    qs('#drop-zone')
-        .insertAdjacentElement('afterend', container);
-
-    // Intentionally not awaiting this, don't want to block the paste input
-    addImportButtons(addImageCallback, container);
-
-    return input;
-}
-
-async function addImportButtons(addImageCallback: (url: string) => void, inputContainer: Element): Promise<void> {
+async function addImportButtons(ui: InputForm, importer: ImageImporter): Promise<void> {
     const attachedURLs = await getAttachedURLs();
     const supportedURLs = attachedURLs.filter(hasProvider);
 
     if (!supportedURLs.length) return;
 
-    const buttons = supportedURLs
-        .map((url) => createImportButton(url, addImageCallback));
-    inputContainer.insertAdjacentElement('afterend',
-        <div className='ROpdebee_import_url_buttons buttons'>
-            {buttons}
-        </div>);
-    inputContainer.insertAdjacentElement('afterend', <span>or</span>);
-}
-
-function createImportButton(url: URL, addImageCallback: (url: string) => void): HTMLElement {
-    const provider = getProvider(url);
-    return <button
-        type='button'
-        title={url.href}
-        onClick={(evt): void => { evt.preventDefault(); addImageCallback(url.href); }}
-    >
-        <img src={provider?.favicon} alt={provider?.name} />
-        <span>{'Import from ' + provider?.name}</span>
-    </button>;
+    supportedURLs.forEach((url) => {
+        const provider = getProvider(url);
+        assertHasValue(provider);
+        ui.addImportButton(importer.addImagesFromUrl.bind(importer, url), url.href, provider);
+    });
 }
 
 async function getAttachedURLs(): Promise<URL[]> {
@@ -418,7 +364,12 @@ LOGGER.addSink(new ConsoleSink(USERSCRIPT_NAME));
 if (document.location.hostname.endsWith('musicbrainz.org')) {
     const banner = new StatusBanner();
     LOGGER.addSink(banner);
-    const importer = new ImageImporter(banner);
+    const importer = new ImageImporter();
+
+    const ui = new InputForm(banner.htmlElement, importer.addImagesFromUrl.bind(importer));
+
+    // Deliberately not awaiting any of these, we don't need any results.
+    addImportButtons(ui, importer);
     if (/artwork_url=(.+)/.test(document.location.hash)) {
         importer.addImagesFromLocationHash();
     }
