@@ -224,7 +224,7 @@ describe('metadata generator', () => {
         });
 
         it('inserts namespace', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor }));
+            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
 
             await expect(metaGen.insertDefaultMetadata({}))
                 .resolves
@@ -232,7 +232,7 @@ describe('metadata generator', () => {
         });
 
         it('inserts homepage URL', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor }));
+            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
 
             await expect(metaGen.insertDefaultMetadata({}))
                 .resolves
@@ -240,7 +240,7 @@ describe('metadata generator', () => {
         });
 
         it('inserts issues URL from git repo', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor }));
+            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
 
             await expect(metaGen.insertDefaultMetadata({}))
                 .resolves
