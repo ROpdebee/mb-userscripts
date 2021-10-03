@@ -11,6 +11,7 @@ export default {
     setupFilesAfterEnv: ['jest-extended'],
     collectCoverageFrom: [
         'src/**/*.{js,ts}',
+        '!**/meta.ts',
     ],
     transformIgnorePatterns: [
         `/node_modules/(?!${esModules})`,
