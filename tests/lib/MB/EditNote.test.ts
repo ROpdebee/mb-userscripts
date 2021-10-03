@@ -16,12 +16,20 @@ describe('adding extra info', () => {
         expect(textarea.value.trim()).toBe('info line');
     });
 
-    it('retains previous content', () => {
+    it('retains edit note content added after instantiation', () => {
         const editNote = new EditNote('footer');
         textarea.value = 'preamble';
         editNote.addExtraInfo('info line');
 
         expect(textarea.value).toBe('preamble\ninfo line');
+    });
+
+    it('retains edit note content added before instantiation', () => {
+        textarea.value = 'preamble';
+        const editNote = new EditNote('footer');
+        editNote.addExtraInfo('info line');
+
+        expect(textarea.value.trim()).toBe('preamble\ninfo line');
     });
 
     it('filters out duplicate lines', () => {
@@ -46,14 +54,6 @@ describe('adding extra info', () => {
         editNote.addExtraInfo('info line');
 
         expect(textarea.value.trim()).toBe('info line');
-    });
-
-    it('retains pre-existing lines', () => {
-        textarea.value = 'preamble';
-        const editNote = new EditNote('footer');
-        editNote.addExtraInfo('info line');
-
-        expect(textarea.value.trim()).toBe('preamble\ninfo line');
     });
 
     it('retains footers', () => {
