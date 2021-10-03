@@ -109,6 +109,8 @@ export class QobuzProvider implements CoverArtProvider {
             // to just throw here, IMO, so we could fix any error.
             if (err instanceof HTTPResponseError && err.statusCode == 400) {
                 // Bad request, likely invalid app ID.
+                // Log the original error silently to the console, and throw
+                // a more user friendly one for displaying in the UI
                 console.error(err);
                 throw new Error('Bad request to Qobuz API, app ID invalid?');
             }
