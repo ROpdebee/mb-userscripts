@@ -1,52 +1,28 @@
 import { EditNote } from '@lib/MB/EditNote';
 import { assertHasValue } from '@lib/util/assert';
 import { qs, qsa } from '@lib/util/dom';
-import { gmxhr } from '@lib/util/xhr';
 import { LOGGER } from '@lib/logging/logger';
 import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 
 import { addAtisketSeedLinks } from './atisket';
-import { getMaximisedCandidates } from './maximise';
-import { findImages, getProvider, hasProvider } from './providers';
+import { getProvider, hasProvider } from './providers';
 import { ArtworkTypeIDs } from './providers/base';
-
-import type { CoverArt } from './providers/base';
 
 import { StatusBanner } from './ui/status_banner';
 import USERSCRIPT_NAME from 'consts:userscript-name';
 import DEBUG_MODE from 'consts:debug-mode';
 import { InputForm } from './ui/main';
-
-interface FetchResult {
-    fetchedUrl: URL
-    file: File
-}
-
-interface QueuedURL {
-    filename: string
-    originalUrl: URL
-    maximisedUrl: URL
-    wasMaximised: boolean
-}
-
-interface QueuedURLsResult {
-    queuedUrls: QueuedURL[]
-    containerUrl?: URL
-}
+import type { FetchedImages } from './fetch';
+import { ImageFetcher } from './fetch';
 
 class ImageImporter {
     #note: EditNote;
-
-    // Store `URL.href`, since two `URL` objects for the same URL are not identical.
-    #doneImages: Set<string>;
-    // Monotonically increasing ID to uniquely identify the image. We use this
-    // so we can later set the image type.
-    #lastId = 0;
+    #fetcher: ImageFetcher;
 
     constructor() {
         this.#note = EditNote.withFooterFromGMInfo();
-        this.#doneImages = new Set();
+        this.#fetcher = new ImageFetcher();
     }
 
     async addImagesFromLocationHash(): Promise<void> {
@@ -83,16 +59,42 @@ class ImageImporter {
         this.#updateBannerSuccess(result);
     }
 
-    #updateBannerSuccess(result: QueuedURLsResult): void {
+    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment = ''): Promise<FetchedImages | undefined> {
+        // eslint-disable-next-line init-declarations
+        let result: FetchedImages;
+        try {
+            result = await this.#fetcher.fetchImages(url);
+        } catch (err) {
+            LOGGER.error('Failed to grab images', err);
+            return;
+        }
+        const resultsWithTypes = {
+            containerUrl: result.containerUrl,
+            images: result.images.map((img) => {
+                return {
+                    ...img,
+                    types: img.types.length ? img.types : artworkTypes,
+                    comment: img.comment || comment,
+                };
+            }),
+        };
+
+        resultsWithTypes.images.forEach((img) => {
+            this.#enqueueImageForUpload(img.content, img.types, img.comment);
+        });
+        return resultsWithTypes;
+    }
+
+    #updateBannerSuccess(result: FetchedImages): void {
         if (result.containerUrl) {
-            LOGGER.success(`Successfully added ${result.queuedUrls.length} URLs from ${result.containerUrl.pathname.split('/').at(-1)}`);
+            LOGGER.success(`Successfully added ${result.images.length} URLs from ${result.containerUrl.pathname.split('/').at(-1)}`);
         } else {
             // There should only be one queued URL
-            LOGGER.success(`Successfully added ${result.queuedUrls[0].filename}` + (result.queuedUrls[0].wasMaximised ? ' (maximised)' : ''));
+            LOGGER.success(`Successfully added ${result.images[0].content.name}` + (result.images[0].wasMaximised ? ' (maximised)' : ''));
         }
     }
 
-    #fillEditNote(queueResult: QueuedURLsResult, origin = ''): void {
+    #fillEditNote(queueResult: FetchedImages, origin = ''): void {
         let prefix = '';
         if (queueResult.containerUrl) {
             prefix = ' * ';
@@ -100,7 +102,7 @@ class ImageImporter {
         }
 
         // Limiting to 3 URLs to reduce noise
-        for (const queuedUrl of queueResult.queuedUrls.slice(0, 3)) {
+        for (const queuedUrl of queueResult.images.slice(0, 3)) {
             // Prevent noise
             if (queuedUrl.maximisedUrl.protocol === 'data:') {
                 this.#note.addExtraInfo(prefix + 'Uploaded from data URL');
@@ -111,8 +113,8 @@ class ImageImporter {
                 this.#note.addExtraInfo(' '.repeat(prefix.length) + 'Maximised from ' + queuedUrl.originalUrl.href);
             }
         }
-        if (queueResult.queuedUrls.length > 3) {
-            this.#note.addExtraInfo(prefix + `…and ${queueResult.queuedUrls.length - 3} additional images`);
+        if (queueResult.images.length > 3) {
+            this.#note.addExtraInfo(prefix + `…and ${queueResult.images.length - 3} additional images`);
         }
         if (origin) {
             this.#note.addExtraInfo(`Seeded from ${origin}`);
@@ -144,130 +146,14 @@ class ImageImporter {
         this.#updateBannerSuccess(result);
     }
 
-    async #addImagesFromProvider(originalUrl: URL, images: CoverArt[]): Promise<QueuedURLsResult | undefined> {
-        LOGGER.info(`Found ${images.length} images`);
-        let queueResults: QueuedURL[] = [];
-        for (const img of images) {
-            const result = await this.#addImages(img.url, img.type ?? [], img.comment ?? '');
-            if (!result) continue;
-            queueResults = queueResults.concat(result.queuedUrls);
-        }
-
-        this.#clearInput(originalUrl.href);
-        LOGGER.info(`Added ${queueResults.length} images from ${originalUrl}`);
-        if (!queueResults.length) {
-            return;
-        }
-
-        return {
-            containerUrl: originalUrl,
-            queuedUrls: queueResults
-        };
-    }
-
-    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment = ''): Promise<QueuedURLsResult | undefined> {
-        LOGGER.info('Searching for images…');
-        // eslint-disable-next-line init-declarations
-        let containedImages: CoverArt[] | undefined;
-        try {
-            containedImages = await findImages(url);
-        } catch (err) {
-            LOGGER.error('Failed to search images', err);
-            return;
-        }
-
-        if (containedImages) {
-            return this.#addImagesFromProvider(url, containedImages);
-        }
-
-        const originalFilename = url.pathname.split('/').at(-1) || 'image';
-
-        // Prevent re-adding one we've already done
-        if (this.#doneImages.has(url.href)) {
-            LOGGER.warn(`${originalFilename} has already been added`);
-            this.#clearInput(url.href);
-            return;
-        }
-
-        // eslint-disable-next-line init-declarations
-        let result: FetchResult;
-        try {
-            result = await this.#fetchLargestImage(url);
-        } catch (err) {
-            LOGGER.error(`Failed to load ${originalFilename}`, err);
-            return;
-        }
-
-        const { file, fetchedUrl } = result;
-        const wasMaximised = fetchedUrl.href !== url.href;
-
-        // As above, but also checking against maximised versions
-        if (wasMaximised && this.#doneImages.has(fetchedUrl.href)) {
-            LOGGER.warn(`${originalFilename} has already been added`);
-            this.#clearInput(url.href);
-            return;
-        }
-
-        this.#enqueueImageForUpload(file, artworkTypes, comment);
-        this.#doneImages.add(fetchedUrl.href);
-        this.#doneImages.add(url.href);
-        return {
-            queuedUrls: [{
-                filename: file.name,
-                wasMaximised: wasMaximised,
-                originalUrl: url,
-                maximisedUrl: fetchedUrl,
-            }],
-        };
-    }
-
-    #clearInput(oldValue: string): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    #clearInput(_oldValue: string): void {
         // FIXME: We don't have access to the URL inputs anymore. Instead, we
         // should return our results and have the client of the importer do the
         // clearing.
         /*if (this.#urlInput.value == oldValue) {
             this.#urlInput.value = '';
         }*/
-    }
-
-    async #fetchLargestImage(url: URL): Promise<FetchResult> {
-        for await (const imageResult of getMaximisedCandidates(url)) {
-            const candName = imageResult.filename || imageResult.url.pathname.split('/').at(-1);
-            try {
-                LOGGER.info(`Trying ${candName}…`);
-                return await this.#fetchImage(imageResult.url, candName, imageResult.headers);
-            } catch (err) {
-                LOGGER.error(candName + ' failed', err);
-            }
-        }
-
-        // Fall back on original image
-        return await this.#fetchImage(url, url.pathname.split('/').at(-1) || 'image');
-    }
-
-    async #fetchImage(url: URL, fileName: string, headers: Record<string, unknown> = {}): Promise<FetchResult> {
-        const resp = await gmxhr(url, {
-            responseType: 'blob',
-            headers: headers,
-        });
-
-        const rawFile = new File([resp.response], fileName);
-
-        return new Promise((resolve, reject) => {
-            MB.CoverArt.validate_file(rawFile)
-                .fail(() => {
-                    reject(new Error(`${fileName} has an unsupported file type`));
-                })
-                .done((mimeType) => {
-                    resolve({
-                        fetchedUrl: url,
-                        file: new File(
-                            [resp.response],
-                            `${fileName}.${this.#lastId++}.${mimeType.split('/')[1]}`,
-                            { type: mimeType }),
-                    });
-                });
-        });
     }
 
     #enqueueImageForUpload(file: File, artworkTypes: ArtworkTypeIDs[], comment: string): void {

@@ -1,4 +1,4 @@
-import type { CoverArt, CoverArtProvider } from './providers/base';
+import type { CoverArtProvider } from './providers/base';
 import { AppleMusicProvider } from './providers/apple_music';
 import { DeezerProvider } from './providers/deezer';
 import { DiscogsProvider } from './providers/discogs';
@@ -37,18 +37,10 @@ function extractDomain(url: URL): string {
 }
 
 export function getProvider(url: URL): CoverArtProvider | undefined {
-    return PROVIDER_DISPATCH.get(extractDomain(url));
+    const provider = PROVIDER_DISPATCH.get(extractDomain(url));
+    return provider?.supportsUrl(url) ? provider : undefined;
 }
 
 export function hasProvider(url: URL): boolean {
-    return PROVIDER_DISPATCH.has(extractDomain(url));
-}
-
-export async function findImages(url: URL): Promise<CoverArt[] | undefined> {
-    const provider = getProvider(url);
-    if (!provider || !provider.supportsUrl(url)) {
-        return;
-    }
-
-    return provider.findImages(url);
+    return !!getProvider(url);
 }
