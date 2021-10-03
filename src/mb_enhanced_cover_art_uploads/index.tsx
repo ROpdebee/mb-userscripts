@@ -2,6 +2,9 @@ import { EditNote } from '@lib/MB/EditNote';
 import { assertHasValue } from '@lib/util/assert';
 import { qs, qsa } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
+import { LOGGER } from '@lib/logging/logger';
+import { ConsoleSink } from '@lib/logging/consoleSink';
+import { LogLevel } from '@lib/logging/levels';
 
 import css from './main.scss';
 import { addAtisketSeedLinks } from './atisket';
@@ -11,31 +14,7 @@ import { ArtworkTypeIDs } from './providers/base';
 
 import type { CoverArt } from './providers/base';
 
-class StatusBanner {
-
-    #elmt: HTMLSpanElement;
-
-    constructor() {
-        this.#elmt = <span
-            id='ROpdebee_paste_url_status'
-            style={{ display: 'none' }}
-        />;
-    }
-
-    set(message: string): void {
-        this.#elmt.innerText = message;
-        this.#elmt.style.removeProperty('display');
-    }
-
-    clear(): void {
-        this.#elmt.innerText = '';
-        this.#elmt.style.display = 'none';
-    }
-
-    get htmlElement(): HTMLSpanElement {
-        return this.#elmt;
-    }
-}
+import { StatusBanner } from './status_banner';
 
 interface FetchResult {
     fetchedUrl: URL
@@ -55,7 +34,6 @@ interface QueuedURLsResult {
 }
 
 class ImageImporter {
-    #banner: StatusBanner;
     #note: EditNote;
     #urlInput: HTMLInputElement;
     // Store `URL.href`, since two `URL` objects for the same URL are not identical.
@@ -64,10 +42,9 @@ class ImageImporter {
     // so we can later set the image type.
     #lastId = 0;
 
-    constructor() {
-        this.#banner = new StatusBanner();
+    constructor(/* temporary */ banner: StatusBanner) {
         this.#note = EditNote.withFooterFromGMInfo();
-        this.#urlInput = setupPage(this.#banner, this.cleanUrlAndAdd.bind(this));
+        this.#urlInput = setupPage(banner, this.cleanUrlAndAdd.bind(this));
         this.#doneImages = new Set();
     }
 
@@ -107,10 +84,10 @@ class ImageImporter {
 
     #updateBannerSuccess(result: QueuedURLsResult): void {
         if (result.containerUrl) {
-            this.#banner.set(`Successfully added ${result.queuedUrls.length} URLs from ${result.containerUrl.pathname.split('/').at(-1)}`);
+            LOGGER.success(`Successfully added ${result.queuedUrls.length} URLs from ${result.containerUrl.pathname.split('/').at(-1)}`);
         } else {
             // There should only be one queued URL
-            this.#banner.set(`Successfully added ${result.queuedUrls[0].filename}` + (result.queuedUrls[0].wasMaximised ? ' (maximised)' : ''));
+            LOGGER.success(`Successfully added ${result.queuedUrls[0].filename}` + (result.queuedUrls[0].wasMaximised ? ' (maximised)' : ''));
         }
     }
 
@@ -152,14 +129,13 @@ class ImageImporter {
     #cleanUrl(url: string): URL | undefined {
         url = url.trim();
         if (!url) {
-            this.#banner.clear();
             return;
         }
 
         try {
             return new URL(url);
         } catch {
-            this.#banner.set('Invalid URL');
+            LOGGER.error(`Invalid URL: ${url}`);
             return;
         }
     }
@@ -174,7 +150,7 @@ class ImageImporter {
     }
 
     async #addImagesFromProvider(originalUrl: URL, images: CoverArt[]): Promise<QueuedURLsResult | undefined> {
-        this.#banner.set(`Found ${images.length} images`);
+        LOGGER.info(`Found ${images.length} images`);
         let queueResults: QueuedURL[] = [];
         for (const img of images) {
             const result = await this.#addImages(img.url, img.type ?? [], img.comment ?? '');
@@ -183,7 +159,7 @@ class ImageImporter {
         }
 
         this.#clearInput(originalUrl.href);
-        this.#banner.set(`Added ${queueResults.length} images from ${originalUrl}`);
+        LOGGER.info(`Added ${queueResults.length} images from ${originalUrl}`);
         if (!queueResults.length) {
             return;
         }
@@ -195,14 +171,13 @@ class ImageImporter {
     }
 
     async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment = ''): Promise<QueuedURLsResult | undefined> {
-        this.#banner.set('Searching for images…');
+        LOGGER.info('Searching for images…');
         // eslint-disable-next-line init-declarations
         let containedImages: CoverArt[] | undefined;
         try {
             containedImages = await findImages(url);
         } catch (err) {
-            this.#banner.set(`Failed to search images: ${err instanceof Error ? err.message : err}`);
-            console.error(err);
+            LOGGER.error('Failed to search images', err);
             return;
         }
 
@@ -214,7 +189,7 @@ class ImageImporter {
 
         // Prevent re-adding one we've already done
         if (this.#doneImages.has(url.href)) {
-            this.#banner.set(`${originalFilename} has already been added`);
+            LOGGER.warn(`${originalFilename} has already been added`);
             this.#clearInput(url.href);
             return;
         }
@@ -224,8 +199,7 @@ class ImageImporter {
         try {
             result = await this.#fetchLargestImage(url);
         } catch (err) {
-            this.#banner.set(`Failed to load ${originalFilename}: ${err instanceof Error ? err.message : err}`);
-            console.error(err);
+            LOGGER.error(`Failed to load ${originalFilename}`, err);
             return;
         }
 
@@ -234,7 +208,7 @@ class ImageImporter {
 
         // As above, but also checking against maximised versions
         if (wasMaximised && this.#doneImages.has(fetchedUrl.href)) {
-            this.#banner.set(`${originalFilename} has already been added`);
+            LOGGER.warn(`${originalFilename} has already been added`);
             this.#clearInput(url.href);
             return;
         }
@@ -265,10 +239,10 @@ class ImageImporter {
         for await (const imageResult of getMaxUrlCandidates(url)) {
             const candName = imageResult.filename || imageResult.url.pathname.split('/').at(-1);
             try {
-                this.#banner.set(`Trying ${candName}…`);
+                LOGGER.info(`Trying ${candName}…`);
                 return await this.#fetchImage(imageResult.url, candName, imageResult.headers);
             } catch (err) {
-                console.error(`${candName} failed: ${err}`);
+                LOGGER.error(candName + ' failed', err);
             }
         }
 
@@ -434,8 +408,15 @@ async function getAttachedURLs(): Promise<URL[]> {
 
 }
 
+LOGGER.configure({
+    logLevel: LogLevel.INFO,
+});
+LOGGER.addSink(new ConsoleSink('mb_enhanced_cover_art_uploads'));
+
 if (document.location.hostname.endsWith('musicbrainz.org')) {
-    const importer = new ImageImporter();
+    const banner = new StatusBanner();
+    LOGGER.addSink(banner);
+    const importer = new ImageImporter(banner);
     if (/artwork_url=(.+)/.test(document.location.hash)) {
         importer.addImagesFromLocationHash();
     }
