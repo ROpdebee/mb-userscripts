@@ -10,6 +10,7 @@ const HANDLER_NAMES: Record<LogLevel, keyof LoggingSink> = {
     [LogLevel.DEBUG]: 'onDebug',
     [LogLevel.LOG]: 'onLog',
     [LogLevel.INFO]: 'onInfo',
+    [LogLevel.SUCCESS]: 'onSuccess',
     [LogLevel.WARNING]: 'onWarn',
     [LogLevel.ERROR]: 'onError',
 };
@@ -59,6 +60,9 @@ export class Logger {
     }
     info(message: string): void {
         this.#fireHandlers(LogLevel.INFO, message);
+    }
+    success(message: string): void {
+        this.#fireHandlers(LogLevel.SUCCESS, message);
     }
     warn(message: string): void {
         this.#fireHandlers(LogLevel.WARNING, message);

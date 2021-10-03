@@ -9,13 +9,14 @@ class FakeSink implements LoggingSink {
     onDebug = jest.fn();
     onError = jest.fn();
     onInfo = jest.fn();
+    onSuccess = jest.fn();
     onLog = jest.fn();
     onWarn = jest.fn();
 }
 
-const handlerNames: Array<keyof LoggingSink> = ['onDebug', 'onLog', 'onWarn', 'onError', 'onInfo'];
-type LoggerMethodName = 'debug' | 'log' | 'warn' | 'error' | 'info';
-const loggerMethodNames: LoggerMethodName[] = ['debug', 'log', 'info', 'warn', 'error'];
+const handlerNames: Array<keyof LoggingSink> = ['onDebug', 'onLog', 'onWarn', 'onError', 'onInfo', 'onSuccess'];
+type LoggerMethodName = 'debug' | 'log' | 'warn' | 'error' | 'info' | 'success';
+const loggerMethodNames: LoggerMethodName[] = ['debug', 'log', 'info', 'success', 'warn', 'error'];
 const loggerToHandlerNames = Object.fromEntries(loggerMethodNames
     .map((name) => [name, 'on' + name[0].toUpperCase() + name.slice(1) as keyof LoggingSink]));
 
@@ -165,7 +166,7 @@ describe('logger', () => {
     });
 
     describe.each(
-        [LogLevel.DEBUG, LogLevel.LOG, LogLevel.INFO, LogLevel.WARNING, LogLevel.ERROR]
+        [LogLevel.DEBUG, LogLevel.LOG, LogLevel.INFO, LogLevel.SUCCESS, LogLevel.WARNING, LogLevel.ERROR]
     )('logging with minimum level %i', (minLogLevel) => {
         const sink = new FakeSink();
         const logger = new Logger({

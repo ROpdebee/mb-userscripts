@@ -23,6 +23,15 @@ describe('console logging sink', () => {
         consoleMethod.mockReset();
     });
 
+    it('uses console.info for success', () => {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        jest.spyOn(console, 'info').mockImplementationOnce(() => {});
+        logger.success('test');
+
+        expect(console.info).toHaveBeenCalledTimes(1);
+        expect(console.info).toHaveBeenCalledWith('[test script] test');
+    });
+
     it('provides error to console.error', () => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         jest.spyOn(console, 'error').mockImplementationOnce(() => {});
