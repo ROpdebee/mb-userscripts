@@ -2,6 +2,8 @@
 
 import { DiscogsProvider } from './providers/discogs';
 
+// IMU does its initialisation synchronously, and it's loaded before the
+// userscript is executed, so this should already exist now.
 const maxurl = $$IMU_EXPORT$$;
 
 const options: maxurlOptions = {
@@ -19,10 +21,10 @@ export interface MaximisedImage {
     headers: Record<string, unknown>
 }
 
-export async function* getMaxUrlCandidates(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
+export async function* getMaximisedCandidates(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
     // Workaround maxurl discogs difficulties
     if (smallurl.hostname === 'img.discogs.com') {
-        yield getMaxUrlDiscogs(smallurl);
+        yield getMaximisedCandidatesDiscogs(smallurl);
         return;
     }
 
@@ -49,7 +51,7 @@ export async function* getMaxUrlCandidates(smallurl: URL): AsyncIterableIterator
     }
 }
 
-async function getMaxUrlDiscogs(smallurl: URL): Promise<MaximisedImage> {
+async function getMaximisedCandidatesDiscogs(smallurl: URL): Promise<MaximisedImage> {
     // Workaround for maxurl returning broken links and webp images
     const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
     return {

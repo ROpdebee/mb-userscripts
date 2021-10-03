@@ -7,7 +7,7 @@ import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 
 import { addAtisketSeedLinks } from './atisket';
-import { getMaxUrlCandidates } from './maxurl';
+import { getMaximisedCandidates } from './maximise';
 import { findImages, getProvider, hasProvider } from './providers';
 import { ArtworkTypeIDs } from './providers/base';
 
@@ -231,7 +231,7 @@ class ImageImporter {
     }
 
     async #fetchLargestImage(url: URL): Promise<FetchResult> {
-        for await (const imageResult of getMaxUrlCandidates(url)) {
+        for await (const imageResult of getMaximisedCandidates(url)) {
             const candName = imageResult.filename || imageResult.url.pathname.split('/').at(-1);
             try {
                 LOGGER.info(`Trying ${candName}…`);
