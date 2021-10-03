@@ -3,16 +3,23 @@
 import { DiscogsProvider } from './providers/discogs';
 
 // IMU does its initialisation synchronously, and it's loaded before the
-// userscript is executed, so this should already exist now.
-const maxurl = $$IMU_EXPORT$$;
+// userscript is executed, so $$IMU_EXPORT$$ should already exist now. However,
+// it does not exist in tests, and we can't straightforwardly inject this variable
+// without importing the module, thereby dereferencing it.
+/* istanbul ignore next: mocked out */
+function maxurl(url: string, options: maxurlOptions): void {
+    $$IMU_EXPORT$$(url, options);
+}
 
 const options: maxurlOptions = {
     fill_object: true,
     exclude_videos: true,
-    filter: (url) => (
-        !url.toLowerCase().endsWith('.webp')
-        // Blocking webp images in Discogs
-        && !/:format(webp)/.test(url.toLowerCase())),
+    /* istanbul ignore next: Cannot test in unit tests, IMU unavailable */
+    filter(url) {
+        return (!url.toLowerCase().endsWith('.webp')
+            // Blocking webp images in Discogs
+            && !/:format(webp)/.test(url.toLowerCase()));
+    },
 };
 
 export interface MaximisedImage {
