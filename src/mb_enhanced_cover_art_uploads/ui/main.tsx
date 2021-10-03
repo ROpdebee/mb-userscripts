@@ -51,9 +51,11 @@ export class InputForm {
 
         this.#buttonContainer = <div className='ROpdebee_import_url_buttons buttons'/> as HTMLDivElement;
 
+        const orSpan = <span>or</span>;
+
         qs('#drop-zone')
             .insertAdjacentElement('afterend', container)
-            ?.insertAdjacentElement('afterend', <span>or</span>)
+            ?.insertAdjacentElement('afterend', orSpan)
             ?.insertAdjacentElement('afterend', this.#buttonContainer);
     }
 
