@@ -1,5 +1,3 @@
-import { CustomError } from 'ts-custom-error';
-
 import { EditNote } from '@lib/MB/EditNote';
 import { assertHasValue } from '@lib/util/assert';
 import { qs, qsa } from '@lib/util/dom';
@@ -12,17 +10,6 @@ import { findImages, getProvider, hasProvider } from './providers';
 import { ArtworkTypeIDs } from './providers/base';
 
 import type { CoverArt } from './providers/base';
-
-class BadFileTypeError extends CustomError {
-    url: string | URL
-    fileName: string
-
-    constructor(url: string | URL, fileName: string) {
-        super(`${fileName} has an unsupported file type`);
-        this.url = url;
-        this.fileName = fileName;
-    }
-}
 
 class StatusBanner {
 
@@ -299,7 +286,9 @@ class ImageImporter {
 
         return new Promise((resolve, reject) => {
             MB.CoverArt.validate_file(rawFile)
-                .fail(() => { reject(new BadFileTypeError(url, fileName)); })
+                .fail(() => {
+                    reject(new Error(`${fileName} has an unsupported file type`));
+                })
                 .done((mimeType) => {
                     resolve({
                         fetchedUrl: url,
