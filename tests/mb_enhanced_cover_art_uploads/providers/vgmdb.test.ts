@@ -129,7 +129,10 @@ describe('vgmdb provider', () => {
 
         it('does not find all images if some are not public', async () => {
             // This may seem like a useless test case, but if it starts working
-            // all of a sudden, I'd like to know about it
+            // all of a sudden, I'd like to know about it. Although the response
+            // is cached by pollyjs, we might periodically run these tests in
+            // passthrough mode, in which case a more up-to-date response will
+            // be fetched.
             const covers = await provider.findImages(new URL('https://vgmdb.net/album/79'));
 
             expect(covers).toBeArray();
