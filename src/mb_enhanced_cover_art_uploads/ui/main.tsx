@@ -51,6 +51,9 @@ export class InputForm {
 
         this.#buttonContainer = <div className='ROpdebee_import_url_buttons buttons'/> as HTMLDivElement;
 
+        // If we inline this into the function call below, nativejsx crashes.
+        // It might have something to do with the optional chaining on the
+        // function calls.
         const orSpan = <span>or</span>;
 
         qs('#drop-zone')
