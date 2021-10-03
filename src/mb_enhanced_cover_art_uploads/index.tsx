@@ -15,6 +15,8 @@ import { ArtworkTypeIDs } from './providers/base';
 import type { CoverArt } from './providers/base';
 
 import { StatusBanner } from './ui/status_banner';
+import USERSCRIPT_NAME from 'consts:userscript-name';
+import DEBUG_MODE from 'consts:debug-mode';
 
 interface FetchResult {
     fetchedUrl: URL
@@ -409,9 +411,9 @@ async function getAttachedURLs(): Promise<URL[]> {
 }
 
 LOGGER.configure({
-    logLevel: LogLevel.INFO,
+    logLevel: DEBUG_MODE ? LogLevel.DEBUG : LogLevel.INFO,
 });
-LOGGER.addSink(new ConsoleSink('mb_enhanced_cover_art_uploads'));
+LOGGER.addSink(new ConsoleSink(USERSCRIPT_NAME));
 
 if (document.location.hostname.endsWith('musicbrainz.org')) {
     const banner = new StatusBanner();
