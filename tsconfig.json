@@ -24,7 +24,8 @@
             "@lib/*": ["./src/lib/*"],
             "@test-utils/*": ["./tests/utils/*"],
             "@src/*": ["./src/*"],
-        }
+        },
+        "skipLibCheck": true,
     },
     "include": ["**/*"],
     "exclude": [
@@ -33,5 +34,6 @@
         "dist/**",
         "lib/**",
         "coverage/**",
+        "node_modules/rollup-plugin-consts/consts.d.ts",
     ]
 }
