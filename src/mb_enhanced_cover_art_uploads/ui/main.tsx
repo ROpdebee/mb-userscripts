@@ -27,7 +27,7 @@ export class InputForm {
                 // eslint-disable-next-line init-declarations
                 let url: URL;
                 try {
-                    url = new URL(evt.currentTarget.value);
+                    url = new URL(evt.currentTarget.value.trim());
                 } catch (err) {
                     LOGGER.error('Invalid URL', err);
                     return;
