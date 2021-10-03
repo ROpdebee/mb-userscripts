@@ -14,7 +14,7 @@ import { ArtworkTypeIDs } from './providers/base';
 
 import type { CoverArt } from './providers/base';
 
-import { StatusBanner } from './status_banner';
+import { StatusBanner } from './ui/status_banner';
 
 interface FetchResult {
     fetchedUrl: URL
