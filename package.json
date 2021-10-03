@@ -66,6 +66,7 @@
     "postcss": "^8.3.0",
     "postcss-preset-env": "^6.7.0",
     "rollup": "^2.50.5",
+    "rollup-plugin-consts": "^1.0.2",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-progress": "^1.1.2",
