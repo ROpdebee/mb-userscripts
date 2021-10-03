@@ -1,6 +1,6 @@
-import { assertHasValue } from '../../lib/util/assert';
-import { parseDOM, qs, qsMaybe } from '../../lib/util/dom';
-import { gmxhr } from '../../lib/util/xhr';
+import { assertHasValue } from '@lib/util/assert';
+import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
+import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt, CoverArtProvider } from './base';
 import { ArtworkTypeIDs } from './base';

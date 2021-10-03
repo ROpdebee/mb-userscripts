@@ -2,7 +2,7 @@
  * Assertion helpers.
  */
 
-class AssertionError extends Error {}
+export class AssertionError extends Error {}
 
 /**
  * Assert a condition.

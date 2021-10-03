@@ -20,7 +20,8 @@
             "*": [
                 "types/*",
                 "node_modules/@types/*",
-            ]
+            ],
+            "@lib/*": ["./src/lib/*"],
         }
     },
     "include": ["**/*"],
@@ -28,6 +29,7 @@
         "node_modules/**",
         "mb_*.user.js",
         "dist/**",
-        "lib/**"
+        "lib/**",
+        "coverage/**",
     ]
 }

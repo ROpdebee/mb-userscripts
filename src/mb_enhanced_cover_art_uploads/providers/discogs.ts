@@ -1,5 +1,5 @@
-import { assertHasValue } from '../../lib/util/assert';
-import { gmxhr } from '../../lib/util/xhr';
+import { assertHasValue } from '@lib/util/assert';
+import { gmxhr } from '@lib/util/xhr';
 import type { CoverArt, CoverArtProvider } from './base';
 
 // Not sure if this changes often. If it does, we might have to parse it from the

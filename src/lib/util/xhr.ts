@@ -15,7 +15,7 @@ interface GMXHRResponse extends GMXMLHttpRequestResponse {
     response: Blob
 }
 
-abstract class ResponseError extends CustomError {
+export abstract class ResponseError extends CustomError {
     url: string | URL
 
     constructor(url: string | URL, extraMessage: string) {
@@ -23,7 +23,7 @@ abstract class ResponseError extends CustomError {
         this.url = url;
     }
 }
-class HTTPResponseError extends ResponseError {
+export class HTTPResponseError extends ResponseError {
     statusCode: number
     statusText: string
     response: GMXMLHttpRequestResponse
@@ -36,17 +36,17 @@ class HTTPResponseError extends ResponseError {
         this.statusText = response.statusText;
     }
 }
-class TimeoutError extends ResponseError {
+export class TimeoutError extends ResponseError {
     constructor(url: string | URL) {
         super(url, 'Request timed out');
     }
 }
-class AbortedError extends ResponseError {
+export class AbortedError extends ResponseError {
     constructor(url: string | URL) {
         super(url, 'Request aborted');
     }
 }
-class NetworkError extends ResponseError {
+export class NetworkError extends ResponseError {
     constructor(url: string | URL) {
         super(url, 'Network error');
     }
@@ -63,9 +63,9 @@ export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<
                 if (resp.status >= 400) reject(new HTTPResponseError(url, resp));
                 else resolve(resp as GMXHRResponse);
             },
-            onerror: () => reject(new NetworkError(url)),
-            onabort: () => reject(new AbortedError(url)),
-            ontimeout: () => reject(new TimeoutError(url)),
+            onerror: () => { reject(new NetworkError(url)); },
+            onabort: () => { reject(new AbortedError(url)); },
+            ontimeout: () => { reject(new TimeoutError(url)); },
         });
     });
-};
+}

@@ -2,7 +2,7 @@
  * DOM utilities.
  */
 
-import { assertNonNull } from "./assert";
+import { assertNonNull } from './assert';
 
 /**
  * Element.querySelector shorthand, query result required to exist.

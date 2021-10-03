@@ -1,5 +1,5 @@
-import { parseDOM, qs, qsa, qsMaybe } from '../../lib/util/dom';
-import { gmxhr } from '../../lib/util/xhr';
+import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
+import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt, CoverArtProvider } from './base';
 import { ArtworkTypeIDs } from './base';
