@@ -6,13 +6,6 @@ import { HTTPResponseError } from '@lib/util/xhr';
 
 describe('amazon provider', () => {
     const pollyContext = setupPolly();
-    // Not resetting this after the tests, since this will only have an
-    // effect on this suite anyway. Also doing here instead of in a beforeAll
-    // block since we need GM_getResourceURL to be stubbed out before
-    // instantiating the provider.
-    const mocked_gmgru: jest.MockedFunction<typeof GM_getResourceURL> = jest.fn();
-    global.GM_getResourceURL = mocked_gmgru;
-    mocked_gmgru.mockReturnValue('');
     const provider = new AmazonProvider();
 
     it.each`
@@ -71,5 +64,14 @@ describe('amazon provider', () => {
 
         await expect(provider.findImages(new URL('http://amazon.com/gp/product/B01NCKFNXH')))
             .rejects.toBeInstanceOf(HTTPResponseError);
+    });
+
+    it('provides a favicon', () => {
+        // Not resetting this after the tests, since this will only have an
+        // effect on this suite anyway.
+        // eslint-disable-next-line jest/prefer-spy-on
+        global.GM_getResourceURL = jest.fn().mockReturnValueOnce('testFavicon');
+
+        expect(provider.favicon).toBe('testFavicon');
     });
 });

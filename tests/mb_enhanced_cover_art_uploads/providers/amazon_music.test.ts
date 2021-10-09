@@ -5,11 +5,6 @@ import { AmazonMusicProvider } from '@src/mb_enhanced_cover_art_uploads/provider
 
 describe('amazon music provider', () => {
     setupPolly();
-    // See `amazon.test.ts`, need to mock here because this provider uses the
-    // Amazon one.
-    const mocked_gmgru: jest.MockedFunction<typeof GM_getResourceURL> = jest.fn();
-    global.GM_getResourceURL = mocked_gmgru;
-    mocked_gmgru.mockReturnValue('');
     const provider = new AmazonMusicProvider();
 
     it('matches album links', () => {
