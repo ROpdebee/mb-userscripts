@@ -71,12 +71,12 @@ export class ImageFetcher {
         // Attempt to maximise the image
         let fetchResult: ImageContents | null = null;
         for await (const maxCandidate of getMaximisedCandidates(url)) {
+            const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
             if (this.#urlAlreadyAdded(maxCandidate.url)) {
-                LOGGER.warn(`${maxCandidate.filename || getFilename(maxCandidate.url)} has already been added`);
+                LOGGER.warn(`${candidateName} has already been added`);
                 return;
             }
 
-            const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
             try {
                 fetchResult = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
                 LOGGER.debug(`Maximised ${url.href} to ${maxCandidate.url.href}`);
