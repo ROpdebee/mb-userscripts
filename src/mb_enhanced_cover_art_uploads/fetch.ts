@@ -80,6 +80,7 @@ export class ImageFetcher {
             try {
                 fetchResult = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
                 LOGGER.debug(`Maximised ${url.href} to ${maxCandidate.url.href}`);
+                break;
             } catch (err) {
                 const errDesc = err instanceof Error ? err.message : err;
                 LOGGER.warn(`Skipping maximised candidate ${candidateName}: ${errDesc}`);
