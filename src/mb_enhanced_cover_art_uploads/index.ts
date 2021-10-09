@@ -5,9 +5,8 @@ import { LOGGER } from '@lib/logging/logger';
 import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 
-import { addAtisketSeedLinks } from './atisket';
 import { getProvider, hasProvider } from './providers';
-import { ArtworkTypeIDs } from './providers/base';
+import type { ArtworkTypeIDs } from './providers/base';
 
 import { StatusBanner } from './ui/status_banner';
 import USERSCRIPT_NAME from 'consts:userscript-name';
@@ -15,6 +14,8 @@ import DEBUG_MODE from 'consts:debug-mode';
 import { InputForm } from './ui/main';
 import type { FetchedImages } from './fetch';
 import { ImageFetcher } from './fetch';
+import { SeedParameters } from './seeding/parameters';
+import { seederFactory } from './seeding';
 
 class ImageImporter {
     #note: EditNote;
@@ -25,38 +26,15 @@ class ImageImporter {
         this.#fetcher = new ImageFetcher();
     }
 
-    async addImagesFromLocationHash(): Promise<void> {
-        const seedParams: Record<string, string | undefined> = {};
-        document.location.hash.replace(/^#/, '').split('&').forEach((param) => {
-            try {
-                const [name, value] = param.split('=');
-                seedParams[name] = decodeURIComponent(value);
-            } catch (err) {
-                console.error(err);
-                return;
-            }
-        });
+    async addImagesFromSeedingParams(): Promise<void> {
+        const params = SeedParameters.decode(location.search);
 
-        if (!seedParams.artwork_url) return;
-        const url = this.#cleanUrl(seedParams.artwork_url);
-        if (!url) return;
-
-        const types = [];
-        if (seedParams.artwork_type) {
-            const artworkTypeName = seedParams.artwork_type as keyof typeof ArtworkTypeIDs;
-            const artworkType = ArtworkTypeIDs[artworkTypeName];
-            if (typeof artworkType !== 'undefined') {
-                types.push(artworkType);
-            }
-        }
-
-        const result = await this.#addImages(url, types);
-        if (!result) return;
-
-        this.#fillEditNote(result, seedParams.origin ?? '');
-
-        this.#clearInput(url.href);
-        this.#updateBannerSuccess(result);
+        await Promise.all(params.images.map(async (image) => {
+            const result = await this.#addImages(image.url, image.type, image.comment);
+            if (!result) return;
+            this.#fillEditNote(result, params.origin);
+            this.#updateBannerSuccess(result);
+        }));
     }
 
     async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment = ''): Promise<FetchedImages | undefined> {
@@ -121,20 +99,6 @@ class ImageImporter {
         }
 
         this.#note.addFooter();
-    }
-
-    #cleanUrl(url: string): URL | undefined {
-        url = url.trim();
-        if (!url) {
-            return;
-        }
-
-        try {
-            return new URL(url);
-        } catch {
-            LOGGER.error(`Invalid URL: ${url}`);
-            return;
-        }
     }
 
     async addImagesFromUrl(url: URL): Promise<void> {
@@ -256,9 +220,12 @@ if (document.location.hostname.endsWith('musicbrainz.org')) {
 
     // Deliberately not awaiting any of these, we don't need any results.
     addImportButtons(ui, importer);
-    if (/artwork_url=(.+)/.test(document.location.hash)) {
-        importer.addImagesFromLocationHash();
+    importer.addImagesFromSeedingParams();
+} else {
+    const seeder = seederFactory(document.location);
+    if (seeder) {
+        seeder.insertSeedLinks();
+    } else {
+        LOGGER.error('Somehow I am running on a page I do not support…');
     }
-} else if (document.location.hostname === 'atisket.pulsewidth.org.uk') {
-    addAtisketSeedLinks();
 }

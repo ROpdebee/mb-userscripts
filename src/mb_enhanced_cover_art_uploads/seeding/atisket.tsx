@@ -1,39 +1,43 @@
+import { LOGGER } from '@lib/logging/logger';
 import { qs, qsa, qsMaybe } from '@lib/util/dom';
+import { ArtworkTypeIDs } from '../providers/base';
+import type { Seeder } from './base';
+import { SeedParameters } from './parameters';
 
-export function addAtisketSeedLinks(): void {
-    const dispatch: Record<string, (() => void) | undefined> = {
-        '/atasket.php': addOnComplementaryPage,
-        '/': addOnOverviewPage,
-    };
+// For main page after search but before adding
+export const AtisketSeeder: Seeder = {
+    supportedDomains: ['atisket.pulsewidth.org.uk'],
+    supportedRegexes: [/\.uk\/\?.+/],
 
-    const adder = dispatch[document.location.pathname];
-    if (adder) {
-        adder();
-    } else {
-        console.error('Unsupported page for CAA URL upload seeder!');
+    insertSeedLinks(): void {
+        const alreadyInMB = qsMaybe('.already-in-mb-item');
+        if (alreadyInMB === null) {
+            return;
+        }
+        const mbid = qs<HTMLAnchorElement>('a.mb', alreadyInMB).innerText.trim();
+        addSeedLinkToCovers(mbid);
     }
-}
+};
 
-function addOnComplementaryPage(): void {
-    const mbid = document.location.search.match(/[?&]release_mbid=([a-f0-9-]+)/)?.[1];
-    if (!mbid) {
-        console.error('Cannot figure out MBID :(');
-        return;
+// For post-add page with complementary links
+export const AtasketSeeder: Seeder = {
+    supportedDomains: ['atisket.pulsewidth.org.uk'],
+    supportedRegexes: [/\.uk\/atasket\.php\?/],
+
+    insertSeedLinks(): void {
+        const mbid = document.location.search.match(/[?&]release_mbid=([a-f0-9-]+)/)?.[1];
+        if (!mbid) {
+            LOGGER.error('Cannot extract MBID! Seeding is disabled :(');
+            return;
+        }
+        addSeedLinkToCovers(mbid);
     }
-    addSeedLinkToCovers(mbid);
-}
-
-function addOnOverviewPage(): void {
-    const alreadyInMB = qsMaybe('.already-in-mb-item');
-    if (alreadyInMB === null) {
-        return;
-    }
-
-    addSeedLinkToCovers(qs<HTMLAnchorElement>('a.mb', alreadyInMB).innerText.trim());
-}
+};
 
 function addSeedLinkToCovers(mbid: string): void {
-    qsa('figure.cover').forEach((fig) => { addSeedLinkToCover(fig, mbid); });
+    qsa('figure.cover').forEach((fig) => {
+        addSeedLinkToCover(fig, mbid);
+    });
 }
 
 async function addSeedLinkToCover(fig: Element, mbid: string): Promise<void> {
@@ -44,16 +48,21 @@ async function addSeedLinkToCover(fig: Element, mbid: string): Promise<void> {
     const ext = url.match(/\.(\w+)$/)?.[1];
     const dimensionStr = await getImageDimensions(url);
 
-    const seedUrl = `https://musicbrainz.org/release/${mbid}/add-cover-art#artwork_url=${encodeURIComponent(url)}&origin=atisket&artwork_type=Front`;
-    // Reverse order of insertion.
-    qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend',
-        <a href={seedUrl} style={{ display: 'block' }}>
-            Add to release
-        </a>);
-    qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend',
-        <span style={{ display: 'block' }}>
-            {dimensionStr + (ext ? ` ${ext.toUpperCase()}` : '')}
-        </span>);
+    const params = new SeedParameters([{
+        url: new URL(url),
+        type: [ArtworkTypeIDs.Front],
+    }], 'atisket');
+    const seedUrl = params.createSeedURL(mbid);
+
+    const dimSpan = <span style={{ display: 'block' }}>
+        {dimensionStr + (ext ? ` ${ext.toUpperCase()}` : '')}
+    </span>;
+    const seedLink = <a href={seedUrl} style={{ display: 'block' }}>
+        Add to release
+    </a>;
+    qs<HTMLElement>('figcaption > a', fig)
+        .insertAdjacentElement('afterend', dimSpan)
+        ?.insertAdjacentElement('afterend', seedLink);
 }
 
 // TODO: This should probably be extracted elsewhere, it'd be useful for CAA
