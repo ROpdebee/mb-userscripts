@@ -1,14 +1,14 @@
-import type { CoverArtProvider } from './providers/base';
-import { AppleMusicProvider } from './providers/apple_music';
-import { DeezerProvider } from './providers/deezer';
-import { DiscogsProvider } from './providers/discogs';
-import { SpotifyProvider } from './providers/spotify';
-import { TidalProvider } from './providers/tidal';
-import { BandcampProvider } from './providers/bandcamp';
-import { AmazonProvider } from './providers/amazon';
-import { AmazonMusicProvider } from './providers/amazon_music';
-import { QobuzProvider } from './providers/qobuz';
-import { VGMdbProvider } from './providers/vgmdb';
+import type { CoverArtProvider } from './base';
+import { AppleMusicProvider } from './apple_music';
+import { DeezerProvider } from './deezer';
+import { DiscogsProvider } from './discogs';
+import { SpotifyProvider } from './spotify';
+import { TidalProvider } from './tidal';
+import { BandcampProvider } from './bandcamp';
+import { AmazonProvider } from './amazon';
+import { AmazonMusicProvider } from './amazon_music';
+import { QobuzProvider } from './qobuz';
+import { VGMdbProvider } from './vgmdb';
 
 const PROVIDER_DISPATCH: Map<string, CoverArtProvider> = new Map();
 
