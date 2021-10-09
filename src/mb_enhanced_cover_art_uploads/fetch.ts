@@ -115,7 +115,9 @@ export class ImageFetcher {
         for (const img of images) {
             if (this.#urlAlreadyAdded(img.url)) {
                 LOGGER.warn(`${getFilename(img.url)} has already been added`);
+                continue;
             }
+
             try {
                 const result = await this.fetchImageFromURL(img.url);
                 // Maximised image already added
