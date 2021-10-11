@@ -1,6 +1,7 @@
+/* istanbul ignore file: Covered by E2E */
+
 import { EditNote } from '@lib/MB/EditNote';
 import { assertHasValue } from '@lib/util/assert';
-import { qs, qsa } from '@lib/util/dom';
 import { LOGGER } from '@lib/logging/logger';
 import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
@@ -16,174 +17,58 @@ import type { FetchedImages } from './fetch';
 import { ImageFetcher } from './fetch';
 import { SeedParameters } from './seeding/parameters';
 import { seederFactory } from './seeding';
+import { enqueueImages, fillEditNote } from './form';
 
-class ImageImporter {
+class App {
     #note: EditNote;
     #fetcher: ImageFetcher;
+    #ui: InputForm;
 
     constructor() {
         this.#note = EditNote.withFooterFromGMInfo();
         this.#fetcher = new ImageFetcher();
+
+        const banner = new StatusBanner();
+        LOGGER.addSink(banner);
+        this.#ui = new InputForm(banner.htmlElement, this.processURL.bind(this));
     }
 
-    async addImagesFromSeedingParams(): Promise<void> {
-        const params = SeedParameters.decode(location.search);
-
-        await Promise.all(params.images.map(async (image) => {
-            const result = await this.#addImages(image.url, image.types, image.comment);
-            if (!result) return;
-            this.#fillEditNote(result, params.origin);
-            this.#updateBannerSuccess(result);
-        }));
-    }
-
-    async #addImages(url: URL, artworkTypes: ArtworkTypeIDs[] = [], comment = ''): Promise<FetchedImages | undefined> {
+    async processURL(url: URL, types: ArtworkTypeIDs[] = [], comment = '', origin = ''): Promise<void> {
         // eslint-disable-next-line init-declarations
-        let result: FetchedImages;
+        let fetchResult: FetchedImages;
         try {
-            result = await this.#fetcher.fetchImages(url);
+            fetchResult = await this.#fetcher.fetchImages(url);
         } catch (err) {
             LOGGER.error('Failed to grab images', err);
             return;
         }
-        const resultsWithTypes = {
-            containerUrl: result.containerUrl,
-            images: result.images.map((img) => {
-                return {
-                    ...img,
-                    types: img.types ?? artworkTypes,
-                    comment: img.comment ?? comment,
-                };
-            }),
-        };
 
-        resultsWithTypes.images.forEach((img) => {
-            this.#enqueueImageForUpload(img.content, img.types, img.comment);
+        enqueueImages(fetchResult, types, comment);
+        fillEditNote(fetchResult, origin, this.#note);
+        this.#ui.clearOldInputValue(url.href);
+        LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);
+    }
+
+    processSeedingParameters(): void {
+        const params = SeedParameters.decode(document.location.search);
+        params.images.forEach((image) => this.processURL(image.url, image.types, image.comment, params.origin));
+    }
+
+    async addImportButtons(): Promise<void> {
+        const attachedURLs = await getURLsAttachedToRelease();
+        const supportedURLs = attachedURLs.filter(hasProvider);
+
+        if (!supportedURLs.length) return;
+
+        supportedURLs.forEach((url) => {
+            const provider = getProvider(url);
+            assertHasValue(provider);
+            this.#ui.addImportButton(this.processURL.bind(this, url), url.href, provider);
         });
-        return resultsWithTypes;
-    }
-
-    #updateBannerSuccess(result: FetchedImages): void {
-        if (result.containerUrl) {
-            LOGGER.success(`Successfully added ${result.images.length} URLs from ${result.containerUrl.pathname.split('/').at(-1)}`);
-        } else {
-            // There should only be one queued URL
-            LOGGER.success(`Successfully added ${result.images[0].content.name}` + (result.images[0].wasMaximised ? ' (maximised)' : ''));
-        }
-    }
-
-    #fillEditNote(queueResult: FetchedImages, origin = ''): void {
-        let prefix = '';
-        if (queueResult.containerUrl) {
-            prefix = ' * ';
-            this.#note.addExtraInfo(queueResult.containerUrl.href);
-        }
-
-        // Limiting to 3 URLs to reduce noise
-        for (const queuedUrl of queueResult.images.slice(0, 3)) {
-            // Prevent noise
-            if (queuedUrl.maximisedUrl.protocol === 'data:') {
-                this.#note.addExtraInfo(prefix + 'Uploaded from data URL');
-                continue;
-            }
-            this.#note.addExtraInfo(prefix + queuedUrl.maximisedUrl.href);
-            if (queuedUrl.wasMaximised) {
-                this.#note.addExtraInfo(' '.repeat(prefix.length) + 'Maximised from ' + queuedUrl.originalUrl.href);
-            }
-        }
-        if (queueResult.images.length > 3) {
-            this.#note.addExtraInfo(prefix + `…and ${queueResult.images.length - 3} additional images`);
-        }
-        if (origin) {
-            this.#note.addExtraInfo(`Seeded from ${origin}`);
-        }
-
-        this.#note.addFooter();
-    }
-
-    async addImagesFromUrl(url: URL): Promise<void> {
-        const result = await this.#addImages(url);
-        if (!result) return;
-
-        this.#fillEditNote(result);
-        this.#clearInput(url.href);
-        this.#updateBannerSuccess(result);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    #clearInput(_oldValue: string): void {
-        // FIXME: We don't have access to the URL inputs anymore. Instead, we
-        // should return our results and have the client of the importer do the
-        // clearing.
-        /*if (this.#urlInput.value == oldValue) {
-            this.#urlInput.value = '';
-        }*/
-    }
-
-    #enqueueImageForUpload(file: File, artworkTypes: ArtworkTypeIDs[], comment: string): void {
-        // Fake event to trigger the drop event on the drag'n'drop element
-        // Using jQuery because native JS cannot manually trigger such events
-        // for security reasons
-        const dropEvent = $.Event('drop') as JQuery.TriggeredEvent;
-        dropEvent.originalEvent = {
-            dataTransfer: { files: [file] }
-        } as unknown as DragEvent;
-
-        // Note that we're using MB's own jQuery here, not a script-local one.
-        // We need to reuse MB's own jQuery to be able to trigger the event
-        // handler.
-        $('#drop-zone').trigger(dropEvent);
-
-        if (artworkTypes.length) {
-            // Asynchronous to allow the event to be handled first
-            setTimeout(() => { this.#setArtworkTypeAndComment(file, artworkTypes, comment); }, 0);
-        }
-    }
-
-    #setArtworkTypeAndComment(file: File, artworkTypes: ArtworkTypeIDs[], comment: string): void {
-        // Find the row for this added image. Since we're called asynchronously,
-        // we can't be 100% sure it's the last one. We find the correct image
-        // via the file name, which is guaranteed to be unique since we embed
-        // a unique ID into it.
-        const pendingUploadRows = qsa<HTMLTableRowElement>('tbody[data-bind="foreach: files_to_upload"] > tr');
-        const fileRow = pendingUploadRows.find((row) =>
-            qs<HTMLSpanElement>('.file-info span[data-bind="text: name"]', row).innerText == file.name);
-
-        // Try again if the artwork hasn't been queued yet
-        if (!fileRow) {
-            setTimeout(() => { this.#setArtworkTypeAndComment(file, artworkTypes, comment); }, 500);
-            return;
-        }
-
-        const checkboxesToCheck = qsa<HTMLInputElement>('ul.cover-art-type-checkboxes input[type="checkbox"]', fileRow)
-            .filter((cbox) => artworkTypes.includes(parseInt(cbox.value)));
-        checkboxesToCheck.forEach((cbox) => {
-            cbox.checked = true;
-            cbox.dispatchEvent(new Event('click'));
-        });
-
-        if (comment.trim().length) {
-            const commentInput = qs<HTMLInputElement>('div.comment > input.comment', fileRow);
-            commentInput.value = comment.trim();
-            commentInput.dispatchEvent(new Event('change'));
-        }
     }
 }
 
-async function addImportButtons(ui: InputForm, importer: ImageImporter): Promise<void> {
-    const attachedURLs = await getAttachedURLs();
-    const supportedURLs = attachedURLs.filter(hasProvider);
-
-    if (!supportedURLs.length) return;
-
-    supportedURLs.forEach((url) => {
-        const provider = getProvider(url);
-        assertHasValue(provider);
-        ui.addImportButton(importer.addImagesFromUrl.bind(importer, url), url.href, provider);
-    });
-}
-
-async function getAttachedURLs(): Promise<URL[]> {
+async function getURLsAttachedToRelease(): Promise<URL[]> {
     const mbid = location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)?.[1];
     assertHasValue(mbid);
     const resp = await fetch(`/ws/2/release/${mbid}?inc=url-rels&fmt=json`);
@@ -191,6 +76,7 @@ async function getAttachedURLs(): Promise<URL[]> {
     const urls: string[] = metadata.relations
         ?.filter((rel: { ended: boolean }) => !rel.ended)
         ?.map((rel: { url: { resource: string } }) => rel.url.resource) ?? [];
+
     // Deduplicate, e.g. bandcamp URLs may have multiple rels
     // (stream for free, purchase for download)
     return [...new Set(urls)]
@@ -211,21 +97,28 @@ LOGGER.configure({
 });
 LOGGER.addSink(new ConsoleSink(USERSCRIPT_NAME));
 
-if (document.location.hostname.endsWith('musicbrainz.org')) {
-    const banner = new StatusBanner();
-    LOGGER.addSink(banner);
-    const importer = new ImageImporter();
+function runOnMB(): void {
+    // Initialise the app, which will start listening for pasted URLs.
+    // The only reason we're using an app here is so we can easily access the
+    // UI and fetcher instances without having to pass them around as
+    // parameters.
+    const app = new App();
 
-    const ui = new InputForm(banner.htmlElement, importer.addImagesFromUrl.bind(importer));
+    app.processSeedingParameters();
+    app.addImportButtons();
+}
 
-    // Deliberately not awaiting any of these, we don't need any results.
-    addImportButtons(ui, importer);
-    importer.addImagesFromSeedingParams();
-} else {
+function runOnSeederPage(): void {
     const seeder = seederFactory(document.location);
     if (seeder) {
         seeder.insertSeedLinks();
     } else {
         LOGGER.error('Somehow I am running on a page I do not support…');
     }
+}
+
+if (document.location.hostname.endsWith('musicbrainz.org')) {
+    runOnMB();
+} else {
+    runOnSeederPage();
 }
