@@ -18,6 +18,7 @@ import { ImageFetcher } from './fetch';
 import { SeedParameters } from './seeding/parameters';
 import { seederFactory } from './seeding';
 import { enqueueImages, fillEditNote } from './form';
+import { getURLsForRelease } from '@lib/MB/URLs';
 
 class App {
     #note: EditNote;
@@ -55,7 +56,12 @@ class App {
     }
 
     async addImportButtons(): Promise<void> {
-        const attachedURLs = await getURLsAttachedToRelease();
+        const mbid = location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)?.[1];
+        assertHasValue(mbid);
+        const attachedURLs = await getURLsForRelease(mbid, {
+            excludeEnded: true,
+            excludeDuplicates: true,
+        });
         const supportedURLs = attachedURLs.filter(hasProvider);
 
         if (!supportedURLs.length) return;
@@ -66,30 +72,6 @@ class App {
             this.#ui.addImportButton(this.processURL.bind(this, url), url.href, provider);
         });
     }
-}
-
-async function getURLsAttachedToRelease(): Promise<URL[]> {
-    const mbid = location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)?.[1];
-    assertHasValue(mbid);
-    const resp = await fetch(`/ws/2/release/${mbid}?inc=url-rels&fmt=json`);
-    const metadata = await resp.json();
-    const urls: string[] = metadata.relations
-        ?.filter((rel: { ended: boolean }) => !rel.ended)
-        ?.map((rel: { url: { resource: string } }) => rel.url.resource) ?? [];
-
-    // Deduplicate, e.g. bandcamp URLs may have multiple rels
-    // (stream for free, purchase for download)
-    return [...new Set(urls)]
-        // Filter out bad URLs, you never know...
-        .map((url) => {
-            try {
-                return new URL(url);
-            } catch {
-                return null;
-            }
-        })
-        .filter((url: URL | null) => url !== null) as URL[];
-
 }
 
 LOGGER.configure({

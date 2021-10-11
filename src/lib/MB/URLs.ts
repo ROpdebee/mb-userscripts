@@ -1,0 +1,30 @@
+import type { ReleaseAdvRel, URLAdvRel } from './advanced-relationships';
+
+export async function getReleaseUrlARs(releaseId: string): Promise<Array<URLAdvRel & ReleaseAdvRel>> {
+    // TODO: Interacting with the ws/ endpoint should probably be factored out
+    const resp = await fetch(`/ws/2/release/${releaseId}?inc=url-rels&fmt=json`);
+    const metadata = await resp.json();
+    return metadata.relations ?? /* istanbul ignore next: Likely won't happen */ [];
+}
+
+export async function getURLsForRelease(releaseId: string, options?: { excludeEnded?: boolean; excludeDuplicates?: boolean }): Promise<URL[]> {
+    const { excludeEnded, excludeDuplicates } = options ?? {};
+    let urlARs = await getReleaseUrlARs(releaseId);
+    if (excludeEnded) {
+        urlARs = urlARs.filter((ar) => !ar.ended);
+    }
+    let urls = urlARs.map((ar) => ar.url.resource);
+    if (excludeDuplicates) {
+        urls = Array.from(new Set([...urls]));
+    }
+
+    return urls.flatMap((url) => {
+        try {
+            return [new URL(url)];
+        } catch /* istanbul ignore next: Likely won't happen */ {
+            // Bad URL
+            console.warn(`Found malformed URL linked to release: ${url}`);
+            return [];
+        }
+    });
+}
