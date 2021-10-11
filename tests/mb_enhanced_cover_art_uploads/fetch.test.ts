@@ -277,7 +277,7 @@ describe('fetching images from providers', () => {
     it('retains type and comment if set by provider', async () => {
         mockFindImages.mockResolvedValueOnce([{
             url: new URL('https://example.com/1'),
-            type: [ArtworkTypeIDs.Front],
+            types: [ArtworkTypeIDs.Front],
             comment: 'comment'
         }]);
 
@@ -401,7 +401,7 @@ describe('fetching images', () => {
             url: new URL('https://example.com/1'),
         }, {
             url: new URL('https://example.com/2'),
-            type: [ArtworkTypeIDs.Front],
+            types: [ArtworkTypeIDs.Front],
             comment: 'front'
         }]);
 

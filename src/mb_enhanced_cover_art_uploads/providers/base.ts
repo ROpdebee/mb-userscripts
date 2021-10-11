@@ -40,7 +40,7 @@ export interface CoverArt {
     /**
      * Artwork types to set. May be empty or undefined.
      */
-    type?: ArtworkTypeIDs[]
+    types?: ArtworkTypeIDs[]
     /**
      * Comment to set. May be empty or undefined.
      */
@@ -76,7 +76,7 @@ export abstract class HeadMetaPropertyProvider implements CoverArtProvider {
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
         return [{
             url: new URL(coverElmt.content),
-            type: [ArtworkTypeIDs.Front],
+            types: [ArtworkTypeIDs.Front],
         }];
     }
 

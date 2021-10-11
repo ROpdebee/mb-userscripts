@@ -30,7 +30,7 @@ class ImageImporter {
         const params = SeedParameters.decode(location.search);
 
         await Promise.all(params.images.map(async (image) => {
-            const result = await this.#addImages(image.url, image.type, image.comment);
+            const result = await this.#addImages(image.url, image.types, image.comment);
             if (!result) return;
             this.#fillEditNote(result, params.origin);
             this.#updateBannerSuccess(result);

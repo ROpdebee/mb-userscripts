@@ -91,7 +91,7 @@ export class QobuzProvider implements CoverArtProvider {
         const isBooklet = goodie.name === 'Livret Numérique';
         return {
             url: new URL(goodie.original_url),
-            type: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
+            types: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
             comment: isBooklet ? 'Qobuz booklet' : goodie.name,
         };
     }
@@ -123,7 +123,7 @@ export class QobuzProvider implements CoverArtProvider {
         return [
             {
                 url: new URL(coverUrl),
-                type: [ArtworkTypeIDs.Front],
+                types: [ArtworkTypeIDs.Front],
             },
             ...goodies,
         ];

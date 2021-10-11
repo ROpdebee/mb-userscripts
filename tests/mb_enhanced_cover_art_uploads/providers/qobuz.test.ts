@@ -49,7 +49,7 @@ describe('qobuz provider', () => {
 
             expect(covers).toBeArrayOfSize(1);
             expect(covers[0].url.pathname).toBe('/images/covers/37/04/0060075330437_org.jpg');
-            expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
             expect(covers[0].comment).toBeUndefined();
         });
 
@@ -58,10 +58,10 @@ describe('qobuz provider', () => {
 
             expect(covers).toBeArrayOfSize(2);
             expect(covers[0].url.pathname).toBe('/images/covers/78/91/0825646089178_org.jpg');
-            expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
             expect(covers[0].comment).toBeUndefined();
             expect(covers[1].url.pathname).toEndWith('000078807.pdf');
-            expect(covers[1].type).toStrictEqual([ArtworkTypeIDs.Booklet]);
+            expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Booklet]);
             expect(covers[1].comment).toBe('Qobuz booklet');
         });
 
@@ -118,7 +118,7 @@ describe('qobuz provider', () => {
             });
 
             expect(cover.url.href).toBe('https://example.com/original_url');
-            expect(cover.type).toStrictEqual([ArtworkTypeIDs.Booklet]);
+            expect(cover.types).toStrictEqual([ArtworkTypeIDs.Booklet]);
             expect(cover.comment).toBe('Qobuz booklet');
         });
 
@@ -133,7 +133,7 @@ describe('qobuz provider', () => {
             });
 
             expect(cover.url.href).toBe('https://example.com/original_url');
-            expect(cover.type).toBeEmpty();
+            expect(cover.types).toBeEmpty();
             expect(cover.comment).toBe('not a booklet');
         });
     });

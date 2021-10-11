@@ -34,7 +34,7 @@ describe('discogs provider', () => {
             expect(covers[0].url.pathname).toBe('/cGX5KW1uJCaiPRzaRY8iE3btV3g=/fit-in/600x624/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg');
             expect(covers[1].url.pathname).toBe('/GjkwgdSXa6b6KAXHqtt1lrrSebQ=/fit-in/600x601/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-4048.jpeg.jpg');
             expect(covers[2].url.pathname).toBe('/hch5Dfg5ZsgGY7DCxWtNWEpRSs8=/fit-in/600x681/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1488067341-2872.jpeg.jpg');
-            expect(covers).toSatisfyAll((cover: CoverArt) => !cover.type?.length);
+            expect(covers).toSatisfyAll((cover: CoverArt) => typeof cover.types === 'undefined');
             expect(covers).toSatisfyAll((cover: CoverArt) => typeof cover.comment === 'undefined');
         });
 

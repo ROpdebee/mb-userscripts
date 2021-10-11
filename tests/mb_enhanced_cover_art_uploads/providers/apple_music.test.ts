@@ -53,7 +53,7 @@ describe('apple music provider', () => {
 
         expect(coverUrl).toBeArrayOfSize(1);
         expect(coverUrl[0].url.pathname).toContain('02596b89-0475-9b14-3b51-934d24770ec3/886449572236.jpg');
-        expect(coverUrl[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrl[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(coverUrl[0].comment).toBeUndefined();
     });
 
@@ -70,7 +70,7 @@ describe('apple music provider', () => {
 
         expect(coverUrl).toBeArrayOfSize(1);
         expect(coverUrl[0].url.pathname).toContain('73bdc8dc-9ab2-ce6e-e581-4bb3d9e559fc/190295474089.jpg');
-        expect(coverUrl[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrl[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(coverUrl[0].comment).toBeUndefined();
     });
 

@@ -74,12 +74,12 @@ const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) 
     contents: ArtworkTypeIDs.Raw,
 };
 
-function convertMappingReturnValue(ret: MappedArtwork): { type: ArtworkTypeIDs[]; comment: string } {
+function convertMappingReturnValue(ret: MappedArtwork): { types: ArtworkTypeIDs[]; comment: string } {
     if (Object.prototype.hasOwnProperty.call(ret, 'type')
             && Object.prototype.hasOwnProperty.call(ret, 'comment')) {
         const retObj = ret as { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
         return {
-            type: Array.isArray(retObj.type) ? retObj.type : [retObj.type],
+            types: Array.isArray(retObj.type) ? retObj.type : [retObj.type],
             comment: retObj.comment,
         };
     }
@@ -91,19 +91,19 @@ function convertMappingReturnValue(ret: MappedArtwork): { type: ArtworkTypeIDs[]
     }
 
     return {
-        type: types,
+        types,
         comment: '',
     };
 }
 
-const CAPTION_TYPE_MAPPING: Record<string, ((caption: string) => { type: ArtworkTypeIDs[]; comment: string }) | undefined> = {};
+const CAPTION_TYPE_MAPPING: Record<string, ((caption: string) => { types: ArtworkTypeIDs[]; comment: string }) | undefined> = {};
 // Convert all definitions to a single signature for easier processing later on
 for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
     // Since value is a block-scoped const, the lambda will close over that
     // exact value. It wouldn't if it was a var, as `value` would in the end
     // only refer to the last value. Babel transpiles this correctly, so this
     // is safe.
-    CAPTION_TYPE_MAPPING[key] = (caption: string): { type: ArtworkTypeIDs[]; comment: string } => {
+    CAPTION_TYPE_MAPPING[key] = (caption: string): { types: ArtworkTypeIDs[]; comment: string } => {
         if (typeof value === 'function') {
             // Assume the function sets everything correctly, including the
             // comment

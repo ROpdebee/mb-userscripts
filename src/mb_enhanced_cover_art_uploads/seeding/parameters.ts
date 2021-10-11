@@ -10,7 +10,7 @@ function encodeValue(value: unknown): string {
 function decodeSingleKeyValue(key: string, value: string, images: CoverArt[]): void {
     const keyName = key.split('.').at(-1);
     const imageIdxString = key.match(/x_seed\.image\.(\d+)\./)?.[1];
-    if (!imageIdxString || !['url', 'type', 'comment'].includes(keyName)) {
+    if (!imageIdxString || !['url', 'types', 'comment'].includes(keyName)) {
         throw new Error(`Unsupported seeded key: ${key}`);
     }
 
@@ -22,12 +22,12 @@ function decodeSingleKeyValue(key: string, value: string, images: CoverArt[]): v
 
     if (keyName === 'url') {
         images[imageIdx].url = new URL(value);
-    } else if (keyName === 'type') {
+    } else if (keyName === 'types') {
         const types = JSON.parse(value);
         if (!Array.isArray(types) || types.some((type) => typeof type !== 'number')) {
-            throw new Error(`Invalid 'type' parameter: ${value}`);
+            throw new Error(`Invalid 'types' parameter: ${value}`);
         }
-        images[imageIdx].type = JSON.parse(value);
+        images[imageIdx].types = JSON.parse(value);
     } else {
         images[imageIdx].comment = value;
     }

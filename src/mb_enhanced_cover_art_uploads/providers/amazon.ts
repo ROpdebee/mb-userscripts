@@ -38,7 +38,7 @@ export class AmazonProvider implements CoverArtProvider {
         // We don't know anything about the types of these images, but we can
         // probably assume the first image is the front cover.
         if (covers.length) {
-            covers[0].type = [ArtworkTypeIDs.Front];
+            covers[0].types = [ArtworkTypeIDs.Front];
         }
 
         return covers;
@@ -50,7 +50,7 @@ export class AmazonProvider implements CoverArtProvider {
         // Only returning the thumbnail, IMU will maximise
         return [{
             url: new URL(img.src),
-            type: [ArtworkTypeIDs.Front],
+            types: [ArtworkTypeIDs.Front],
         }];
     }
 }

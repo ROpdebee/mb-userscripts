@@ -30,7 +30,7 @@ describe('bandcamp provider', () => {
 
         expect(coverUrl).toBeArrayOfSize(1);
         expect(coverUrl[0].url.pathname).toContain('a3886966548_');
-        expect(coverUrl[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrl[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(coverUrl[0].comment).toBeUndefined();
     });
 

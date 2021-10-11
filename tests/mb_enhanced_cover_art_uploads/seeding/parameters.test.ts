@@ -8,7 +8,7 @@ describe('seed parameters', () => {
     const dummyImageWithTypeAndComment = {
         url: new URL('https://example.com/test.jpg'),
         comment: 'hello world',
-        type: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
+        types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
     };
 
     describe('encoding and decoding invariant', () => {
@@ -73,7 +73,7 @@ describe('seed parameters', () => {
     });
 
     it('should reject invalid properties', () => {
-        expect(SeedParameters.decode('x_seed.image.0.url=https://example.com/1&x_seed.image.0.type=["abc"]'))
+        expect(SeedParameters.decode('x_seed.image.0.url=https://example.com/1&x_seed.image.0.types=["abc"]'))
             .toHaveProperty('images', [{
                 url: new URL('https://example.com/1')
             }]);

@@ -31,7 +31,7 @@ describe('deezer provider', () => {
 
         expect(coverUrl).toBeArrayOfSize(1);
         expect(coverUrl[0].url.pathname).toContain('4097bb08bad497561ef60ec53162351e');
-        expect(coverUrl[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrl[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(coverUrl[0].comment).toBeUndefined();
     });
 

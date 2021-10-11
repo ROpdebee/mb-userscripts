@@ -50,7 +50,7 @@ async function addSeedLinkToCover(fig: Element, mbid: string): Promise<void> {
 
     const params = new SeedParameters([{
         url: new URL(url),
-        type: [ArtworkTypeIDs.Front],
+        types: [ArtworkTypeIDs.Front],
     }], 'atisket');
     const seedUrl = params.createSeedURL(mbid);
 

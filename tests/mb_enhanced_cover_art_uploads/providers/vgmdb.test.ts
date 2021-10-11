@@ -64,32 +64,32 @@ describe('vgmdb provider', () => {
         interface ItemType {
             caption: string
             expected: {
-                type: ArtworkTypeIDs[]
+                types: ArtworkTypeIDs[]
                 comment: string
             }
         }
 
         it.each`
             caption | expected
-            ${'Front'} | ${{type: [ArtworkTypeIDs.Front], comment: ''}}
-            ${'Back'} | ${{type: [ArtworkTypeIDs.Back], comment: ''}}
-            ${'Jacket Front'} | ${{type: [ArtworkTypeIDs.Front], comment: ''}}
-            ${'Jacket Front & Back'} | ${{type: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], comment: ''}}
-            ${'Disc 1'} | ${{type: [ArtworkTypeIDs.Medium], comment: '1'}}
-            ${'Cassette Front'} | ${{type: [ArtworkTypeIDs.Medium], comment: 'Front'}}
-            ${'Vinyl A-side'} | ${{type: [ArtworkTypeIDs.Medium], comment: 'A-side'}}
-            ${'Tray'} | ${{type: [ArtworkTypeIDs.Tray], comment: ''}}
-            ${'Back'} | ${{type: [ArtworkTypeIDs.Back], comment: ''}}
-            ${'Obi'} | ${{type: [ArtworkTypeIDs.Obi], comment: ''}}
-            ${'Box'} | ${{type: [ArtworkTypeIDs.Other], comment: 'Box'}}
-            ${'Box Front'} | ${{type: [ArtworkTypeIDs.Other], comment: 'Box Front'}}
-            ${'Card'} | ${{type: [ArtworkTypeIDs.Other], comment: 'Card'}}
-            ${'Sticker'} | ${{type: [ArtworkTypeIDs.Sticker], comment: ''}}
-            ${'Slipcase'} | ${{type: [ArtworkTypeIDs.Other], comment: 'Slipcase'}}
-            ${'Digipack Outer Left'} | ${{type: [ArtworkTypeIDs.Other], comment: 'Digipack Outer Left'}}
-            ${'Insert'} | ${{type: [ArtworkTypeIDs.Other], comment: 'Insert'}}
-            ${'Case'} | ${{type: [ArtworkTypeIDs.Other], comment: 'Case'}}
-            ${'Contents'} | ${{type: [ArtworkTypeIDs.Raw], comment: ''}}
+            ${'Front'} | ${{types: [ArtworkTypeIDs.Front], comment: ''}}
+            ${'Back'} | ${{types: [ArtworkTypeIDs.Back], comment: ''}}
+            ${'Jacket Front'} | ${{types: [ArtworkTypeIDs.Front], comment: ''}}
+            ${'Jacket Front & Back'} | ${{types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], comment: ''}}
+            ${'Disc 1'} | ${{types: [ArtworkTypeIDs.Medium], comment: '1'}}
+            ${'Cassette Front'} | ${{types: [ArtworkTypeIDs.Medium], comment: 'Front'}}
+            ${'Vinyl A-side'} | ${{types: [ArtworkTypeIDs.Medium], comment: 'A-side'}}
+            ${'Tray'} | ${{types: [ArtworkTypeIDs.Tray], comment: ''}}
+            ${'Back'} | ${{types: [ArtworkTypeIDs.Back], comment: ''}}
+            ${'Obi'} | ${{types: [ArtworkTypeIDs.Obi], comment: ''}}
+            ${'Box'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Box'}}
+            ${'Box Front'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Box Front'}}
+            ${'Card'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Card'}}
+            ${'Sticker'} | ${{types: [ArtworkTypeIDs.Sticker], comment: ''}}
+            ${'Slipcase'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Slipcase'}}
+            ${'Digipack Outer Left'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Digipack Outer Left'}}
+            ${'Insert'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Insert'}}
+            ${'Case'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Case'}}
+            ${'Contents'} | ${{types: [ArtworkTypeIDs.Raw], comment: ''}}
         `('should map $caption to the correct type', ({ caption, expected }: ItemType) => {
             const [key, ...rest] = caption.split(' ');
 
@@ -120,10 +120,10 @@ describe('vgmdb provider', () => {
 
             expect(covers).toBeArrayOfSize(2);
             expect(covers[0].url.pathname).toBe('/albums/81/96418/96418-1581893265.jpg');
-            expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
             expect(covers[0].comment).toBeEmpty();
             expect(covers[1].url.pathname).toBe('/albums/81/96418/96418-1581893266.jpg');
-            expect(covers[1].type).toStrictEqual([ArtworkTypeIDs.Back]);
+            expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
             expect(covers[1].comment).toBeEmpty();
         });
 
@@ -144,7 +144,7 @@ describe('vgmdb provider', () => {
 
             expect(covers).toBeArrayOfSize(1);
             expect(covers[0].url.pathname).toBe('/albums/17/90871/90871-1569448344.jpg');
-            expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
             expect(covers[0].comment).toBeEmpty();
         });
 
@@ -166,7 +166,7 @@ describe('vgmdb provider', () => {
 
             expect(covers).toBeArrayOfSize(1);
             expect(covers[0].url.pathname).toBe('/test');
-            expect(covers[0].type).toBeUndefined();
+            expect(covers[0].types).toBeUndefined();
             expect(covers[0].comment).toBeUndefined();
         });
 
@@ -188,7 +188,7 @@ describe('vgmdb provider', () => {
 
             expect(covers).toBeArrayOfSize(1);
             expect(covers[0].url.pathname).toBe('/test');
-            expect(covers[0].type).toBeUndefined();
+            expect(covers[0].types).toBeUndefined();
             expect(covers[0].comment).toBe('not a correct caption');
         });
 
@@ -210,10 +210,10 @@ describe('vgmdb provider', () => {
 
             expect(covers).toBeArrayOfSize(2);
             expect(covers[0].url.pathname).toBe('/othertest');
-            expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
             expect(covers[0].comment).toBeEmpty();
             expect(covers[1].url.pathname).toBe('/test');
-            expect(covers[1].type).toStrictEqual([ArtworkTypeIDs.Back]);
+            expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
             expect(covers[1].comment).toBeEmpty();
         });
 

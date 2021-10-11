@@ -26,6 +26,6 @@ describe('amazon music provider', () => {
 
         expect(covers).toBeArrayOfSize(1);
         expect(covers[0].url.pathname).toContain('91XTtzT7s9L');
-        expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
     });
 });

@@ -42,7 +42,7 @@ describe('tidal provider', () => {
 
         expect(coverUrl).toBeArrayOfSize(1);
         expect(coverUrl[0].url.pathname).toBe('/images/c61b75cd/0159/4b63/9f25/27b3d6cedd63/origin.jpg');
-        expect(coverUrl[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrl[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(coverUrl[0].comment).toBeUndefined();
     });
 

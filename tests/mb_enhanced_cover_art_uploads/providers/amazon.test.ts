@@ -32,7 +32,7 @@ describe('amazon provider', () => {
 
         expect(covers).toBeArrayOfSize(4);
         expect(covers[0].url.pathname).toContain('51nM1ikLWPL');
-        expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(covers[1].url.pathname).toContain('41RQivjYeeL');
         expect(covers[2].url.pathname).toContain('31-n8wloCcL');
         expect(covers[3].url.pathname).toContain('41MN%2BeLL%2BJL');
@@ -53,7 +53,7 @@ describe('amazon provider', () => {
 
         expect(covers).toBeArrayOfSize(1);
         expect(covers[0].url.pathname).toContain('819w7BrMFgL');
-        expect(covers[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(covers[0].comment).toBeUndefined();
     });
 

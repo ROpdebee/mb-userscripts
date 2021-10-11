@@ -123,7 +123,7 @@ export class ImageFetcher {
 
                 fetchResults.push({
                     ...result,
-                    types: img.type,
+                    types: img.types,
                     comment: img.comment,
                 });
             } catch (err) {

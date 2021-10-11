@@ -31,7 +31,7 @@ describe('spotify provider', () => {
 
         expect(coverUrl).toBeArrayOfSize(1);
         expect(coverUrl[0].url.pathname).toEndWith('image/ab67616d0000b273bebe715d1d624070951a795a');
-        expect(coverUrl[0].type).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrl[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(coverUrl[0].comment).toBeUndefined();
     });
 

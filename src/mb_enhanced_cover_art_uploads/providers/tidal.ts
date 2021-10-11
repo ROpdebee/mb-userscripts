@@ -63,7 +63,7 @@ export class TidalProvider implements CoverArtProvider {
         const coverUrl = await this.getCoverUrlFromMetadata(albumId);
         return [{
             url: new URL(coverUrl),
-            type: [ArtworkTypeIDs.Front],
+            types: [ArtworkTypeIDs.Front],
         }];
     }
 }
