@@ -9,16 +9,16 @@ interface ImageContents {
     file: File
 }
 
-interface PartialFetchedImage {
+export interface FetchedImage {
     content: File
     originalUrl: URL
     maximisedUrl: URL
     wasMaximised: boolean
-}
-
-interface FetchedImage extends PartialFetchedImage {
-    types: ArtworkTypeIDs[]
-    comment: string  // Can be empty string
+    // types and comment may be empty or undefined. If undefined, the value
+    // will be replaced by the default, if any. If defined but empty, the
+    // default will not be used.
+    types?: ArtworkTypeIDs[]
+    comment?: string  // Can be empty string
 }
 
 export interface FetchedImages {
@@ -59,15 +59,11 @@ export class ImageFetcher {
         }
 
         return {
-            images: [{
-                ...result,
-                types: [],
-                comment: '',
-            }],
+            images: [result],
         };
     }
 
-    async fetchImageFromURL(url: URL): Promise<PartialFetchedImage | undefined> {
+    async fetchImageFromURL(url: URL): Promise<FetchedImage | undefined> {
         // Attempt to maximise the image
         let fetchResult: ImageContents | null = null;
         for await (const maxCandidate of getMaximisedCandidates(url)) {
@@ -101,6 +97,8 @@ export class ImageFetcher {
             originalUrl: url,
             maximisedUrl: fetchResult.fetchedUrl,
             wasMaximised: url.href !== fetchResult.fetchedUrl.href,
+            // We have no idea what the type or comment will be, so leave them
+            // undefined so that a default, if any, can be inserted.
         };
     }
 
@@ -125,8 +123,8 @@ export class ImageFetcher {
 
                 fetchResults.push({
                     ...result,
-                    types: img.type ?? [],
-                    comment: img.comment ?? '',
+                    types: img.type,
+                    comment: img.comment,
                 });
             } catch (err) {
                 const errDesc = err instanceof Error ? err.message : /* istanbul ignore next: Not worth it */ err;

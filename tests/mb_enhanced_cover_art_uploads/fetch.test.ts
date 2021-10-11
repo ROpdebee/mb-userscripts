@@ -293,23 +293,6 @@ describe('fetching images from providers', () => {
             });
     });
 
-    it('inserts default type and comment if not set by provider', async () => {
-        mockFindImages.mockResolvedValueOnce([{
-            url: new URL('https://example.com/1'),
-        }]);
-
-        await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider))
-            .resolves.toMatchObject({
-                images: [{
-                    content: {
-                        name: '1.0.jpg',
-                    },
-                    types: [],
-                    comment: '',
-                }],
-            });
-    });
-
     it('skips image if image is already added', async () => {
         // Return the same image twice from the provider. Second image should
         // be skipped.
@@ -408,8 +391,6 @@ describe('fetching images', () => {
             content: {
                 name: '1.0.jpg',
             },
-            types: [],
-            comment: '',
         });
         expect(result).not.toHaveProperty('containerUrl');
     });
@@ -431,8 +412,6 @@ describe('fetching images', () => {
             content: {
                 name: '1.0.jpg',
             },
-            types: [],
-            comment: '',
         });
         expect(result.images[1]).toMatchObject({
             content: {

@@ -51,8 +51,8 @@ class ImageImporter {
             images: result.images.map((img) => {
                 return {
                     ...img,
-                    types: img.types.length ? img.types : artworkTypes,
-                    comment: img.comment || comment,
+                    types: img.types ?? artworkTypes,
+                    comment: img.comment ?? comment,
                 };
             }),
         };
