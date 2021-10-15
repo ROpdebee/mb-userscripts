@@ -14,7 +14,7 @@ export const AtisketSeeder: Seeder = {
         if (alreadyInMB === null) {
             return;
         }
-        const mbid = qs<HTMLAnchorElement>('a.mb', alreadyInMB).innerText.trim();
+        const mbid = qs<HTMLAnchorElement>('a.mb', alreadyInMB).textContent?.trim() ?? '';
         addSeedLinkToCovers(mbid);
     }
 };
