@@ -263,8 +263,8 @@ describe('filling edit notes', () => {
                 }],
             };
             const expectedLines = [
-                args.prefix + 'https://example.com/max',
-                ' '.repeat(args.prefix.length) + 'Maximised from ' + fakeUrl.href,
+                args.prefix + fakeUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max',
             ];
 
             fillEditNote(fetchedImages, '', editNote);
@@ -314,10 +314,10 @@ describe('filling edit notes', () => {
                 }],
             };
             const expectedLines = [
-                args.prefix + 'https://example.com/max',
-                ' '.repeat(args.prefix.length) + 'Maximised from ' + fakeUrl.href,
-                args.prefix + 'https://example.com/max2',
-                ' '.repeat(args.prefix.length) + 'Maximised from https://example.com/2',
+                args.prefix + fakeUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max',
+                args.prefix + 'https://example.com/2',
+                ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max2',
             ];
 
             fillEditNote(fetchedImages, '', editNote);
