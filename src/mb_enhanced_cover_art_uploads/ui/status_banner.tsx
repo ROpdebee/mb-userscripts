@@ -29,8 +29,8 @@ export class StatusBanner implements LoggingSink {
         this.#banner.style.color = 'orange';
     }
 
-    onError(message: string): void {
-        this.#setStatusBanner(message);
+    onError(message: string, exception?: unknown): void {
+        this.#setStatusBanner(message, exception);
         this.#banner.style.color = 'red';
     }
 
