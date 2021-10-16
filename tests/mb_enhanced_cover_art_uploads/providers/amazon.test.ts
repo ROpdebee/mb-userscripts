@@ -8,12 +8,13 @@ describe('amazon provider', () => {
     const pollyContext = setupPolly();
     const provider = new AmazonProvider();
 
-    it.each`
-        url | desc
-        ${'https://www.amazon.com/Pattern-Seeking-Animals/dp/B07RZ2T9F1/ref=tmm_acd_swatch_0?_encoding=UTF8&qid=&sr='} | ${'with dirty URL'}
-        ${'https://www.amazon.com/dp/B07RZ2T9F1'} | ${'with dp link'}
-        ${'https://www.amazon.com/gp/product/B07RZ2T9F1'} | ${'with gp link'}
-    `('matches product links $desc', ({ url }: { url: string }) => {
+    const urlCases = [
+        ['dirty URL', 'https://www.amazon.com/Pattern-Seeking-Animals/dp/B07RZ2T9F1/ref=tmm_acd_swatch_0?_encoding=UTF8&qid=&sr=', 'B07RZ2T9F1'],
+        ['dp URL', 'https://www.amazon.com/dp/B07RZ2T9F1', 'B07RZ2T9F1'],
+        ['gp URL', 'https://www.amazon.com/gp/product/B07RZ2T9F1', 'B07RZ2T9F1'],
+    ];
+
+    it.each(urlCases)('matches product links with %s', (_1, url) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeTrue();
     });
@@ -21,6 +22,11 @@ describe('amazon provider', () => {
     it('does not match other links', () => {
         expect(provider.supportsUrl(new URL('https://www.amazon.com/s/ref=dp_byline_sr_music_1?ie=UTF8&field-artist=Pattern-Seeking+Animals&search-alias=music')))
             .toBeFalse();
+    });
+
+    it.each(urlCases)('extracts IDs for product links with %s', (_1, url, expectedId) => {
+        expect(provider.extractId(new URL(url)))
+            .toBe(expectedId);
     });
 
     it.each`
