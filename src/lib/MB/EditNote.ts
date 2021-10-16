@@ -25,8 +25,7 @@ export class EditNote {
         if (this.#extraInfoLines.has(infoLine)) return;
         // eslint-disable-next-line prefer-const
         let [infoBlock, ...rest] = this.#editNoteTextArea.value.split(separator);
-        infoBlock = infoBlock.trim();
-        infoBlock += '\n' + infoLine;
+        infoBlock = (infoBlock + '\n' + infoLine).trim();
         this.#editNoteTextArea.value = [infoBlock, ...rest].join(separator);
         this.#extraInfoLines.add(infoLine);
     }
