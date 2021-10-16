@@ -84,6 +84,9 @@ export function fillEditNote({ images, containerUrl }: FetchedImages, origin: st
         if (queuedUrl.wasMaximised) {
             editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + queuedUrl.maximisedUrl.href);
         }
+        if (queuedUrl.wasRedirected) {
+            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + queuedUrl.fetchedUrl.href);
+        }
     }
 
     if (images.length > 3) {
