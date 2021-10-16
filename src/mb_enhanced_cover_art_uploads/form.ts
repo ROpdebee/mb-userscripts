@@ -80,9 +80,9 @@ export function fillEditNote({ images, containerUrl }: FetchedImages, origin: st
             editNote.addExtraInfo(prefix + 'Uploaded from data URL');
             continue;
         }
-        editNote.addExtraInfo(prefix + queuedUrl.maximisedUrl.href);
+        editNote.addExtraInfo(prefix + queuedUrl.originalUrl.href);
         if (queuedUrl.wasMaximised) {
-            editNote.addExtraInfo(' '.repeat(prefix.length) + 'Maximised from ' + queuedUrl.originalUrl.href);
+            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + queuedUrl.maximisedUrl.href);
         }
     }
 
