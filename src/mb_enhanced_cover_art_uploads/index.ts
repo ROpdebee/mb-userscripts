@@ -44,7 +44,13 @@ class App {
             return;
         }
 
-        enqueueImages(fetchResult, types, comment);
+        try {
+            await enqueueImages(fetchResult, types, comment);
+        } catch (err) {
+            LOGGER.error('Failed to enqueue images', err);
+            return;
+        }
+
         fillEditNote(fetchResult, origin, this.#note);
         this.#ui.clearOldInputValue(url.href);
         LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);

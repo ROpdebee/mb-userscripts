@@ -1,25 +1,24 @@
-import { assert } from '@lib/util/assert';
+import { assertDefined } from '@lib/util/assert';
+import { retryTimes } from '@lib/util/async';
 import { qs, qsa } from '@lib/util/dom';
 import type { EditNote } from '@lib/MB/EditNote';
 import type { FetchedImage, FetchedImages } from './fetch';
 import type { ArtworkTypeIDs } from './providers/base';
 
-export function enqueueImages({ images }: FetchedImages, defaultTypes: ArtworkTypeIDs[] = [], defaultComment = ''): void {
-    images.forEach((image) => {
-        enqueueImage(image, defaultTypes, defaultComment);
-    });
+export async function enqueueImages({ images }: FetchedImages, defaultTypes: ArtworkTypeIDs[] = [], defaultComment = ''): Promise<void> {
+    await Promise.all(images.map((image) => {
+        return enqueueImage(image, defaultTypes, defaultComment);
+    }));
 }
 
-function enqueueImage(image: FetchedImage, defaultTypes: ArtworkTypeIDs[], defaultComment: string): void {
+async function enqueueImage(image: FetchedImage, defaultTypes: ArtworkTypeIDs[], defaultComment: string): Promise<void> {
     dropImage(image.content);
-    // Calling this asynchronously to allow the event to be handled first. This
-    // will also retry if it hasn't been handled yet.
-    setTimeout(setImageParameters.bind(
+    await retryTimes(setImageParameters.bind(
         null,
         image.content.name,
         // Only use the defaults if the specific one is undefined
         image.types ?? defaultTypes,
-        (image.comment ?? defaultComment).trim()));
+        (image.comment ?? defaultComment).trim()), 5, 500);
 }
 
 function dropImage(imageData: File): void {
@@ -37,22 +36,16 @@ function dropImage(imageData: File): void {
     $('#drop-zone').trigger(dropEvent);
 }
 
-function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], imageComment: string, triesRemaining = 5): void {
+function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], imageComment: string): void {
     // Find the row for this added image. We can't be 100% sure it's the last
     // added image, since another image may have been added in the meantime
     // as we're called asynchronously. We find the correct image via the file
     // name, which is guaranteed to be unique since we embed a unique ID into it.
     const pendingUploadRows = qsa<HTMLTableRowElement>('tbody[data-bind="foreach: files_to_upload"] > tr');
     const fileRow = pendingUploadRows.find((row) =>
-        qs<HTMLSpanElement>('.file-info span[data-bind="text: name"]', row).innerText == imageName);
+        qs<HTMLSpanElement>('.file-info span[data-bind="text: name"]', row).textContent == imageName);
 
-    // Try again if the artwork hasn't been queued yet
-    if (!fileRow) {
-        // This is likely an error on our part, so just assert here.
-        assert(triesRemaining !== 0, `Could not find image ${imageName} in queued uploads`);
-        setTimeout(setImageParameters.bind(null, imageName, imageTypes, imageComment, triesRemaining - 1), 500);
-        return;
-    }
+    assertDefined(fileRow, `Could not find image ${imageName} in queued uploads`);
 
     // Set image types
     const checkboxesToCheck = qsa<HTMLInputElement>('ul.cover-art-type-checkboxes input[type="checkbox"]', fileRow)
