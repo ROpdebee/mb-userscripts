@@ -1,19 +1,19 @@
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
 
-export interface CoverArtProvider {
+export abstract class CoverArtProvider {
     /**
      * Domains supported by the provider, without www.
      */
-    supportedDomains: string[]
+    abstract supportedDomains: string[]
     /**
      * URL of the provider's favicon, for use in import buttons.
      */
-    favicon: string
+    abstract get favicon(): string
     /**
      * Provider name, used in import buttons.
      */
-    name: string
+    abstract name: string
 
     /**
      * Find the provider's images.
@@ -21,7 +21,7 @@ export interface CoverArtProvider {
      * @param      {string}     url     The URL to the release. Guaranteed to have passed validation.
      * @return     {Promise<CoverArt[]>  List of cover arts that should be imported.
      */
-    findImages(url: URL): Promise<CoverArt[]>
+    abstract findImages(url: URL): Promise<CoverArt[]>
 
     /**
      * Check whether the provider supports the given URL.
@@ -29,7 +29,30 @@ export interface CoverArtProvider {
      * @param      {URL}    url     The provider URL.
      * @return     {boolean}  Whether images can be extracted for this URL.
      */
-    supportsUrl(url: URL): boolean
+    abstract supportsUrl(url: URL): boolean
+
+    /**
+     * Extract ID from a release URL.
+     */
+    abstract extractId(url: URL): string | undefined
+
+    /**
+     * Check whether a redirect is safe, i.e. both URLs point towards the same
+     * release.
+     */
+    isSafeRedirect(originalUrl: URL, redirectedUrl: URL): boolean {
+        const id = this.extractId(originalUrl);
+        return !!id && id === this.extractId(redirectedUrl);
+    }
+
+    async fetchPageDOM(url: URL): Promise<Document> {
+        const resp = await gmxhr(url);
+        if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
+            throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${resp.finalUrl}, which may be a different release. If this redirected URL is correct, please retry with ${resp.finalUrl} directly.`);
+        }
+
+        return parseDOM(resp.responseText);
+    }
 }
 
 export interface CoverArt {
@@ -64,24 +87,18 @@ export enum ArtworkTypeIDs {
     Watermark = 13,
 }
 
-export abstract class HeadMetaPropertyProvider implements CoverArtProvider {
+export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
     // Providers for which the cover art can be retrieved from the head
     // og:image property and maximised using maxurl
 
     async findImages(url: URL): Promise<CoverArt[]> {
         // Find an image link from a HTML head meta property, maxurl will
         // maximize it for us. Don't want to use the API because of OAuth.
-        const resp = await gmxhr(url);
-        const respDocument = parseDOM(resp.responseText);
+        const respDocument = await this.fetchPageDOM(url);
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
         return [{
             url: new URL(coverElmt.content),
             types: [ArtworkTypeIDs.Front],
         }];
     }
-
-    abstract supportsUrl(url: URL): boolean
-    abstract supportedDomains: string[]
-    abstract favicon: string
-    abstract name: string
 }
