@@ -7,12 +7,13 @@ describe('deezer provider', () => {
     const pollyContext = setupPolly();
     const provider = new DeezerProvider();
 
-    it.each`
-        url | desc
-        ${'https://www.deezer.com/album/260364202'} | ${'with clean URL'}
-        ${'https://www.deezer.com/en/album/215928292?deferredFl=1'} | ${'with dirty URL'}
-        ${'https://www.deezer.com/en/album/215928292'} | ${'with language'}
-    `('matches album links $desc', ({ url }: { url: string }) => {
+    const urlCases = [
+        ['with clean URL', 'https://www.deezer.com/album/260364202', '260364202'],
+        ['with dirty URL', 'https://www.deezer.com/en/album/215928292?deferredFl=1', '215928292'],
+        ['with language', 'https://www.deezer.com/en/album/215928292', '215928292'],
+    ];
+
+    it.each(urlCases)('matches album links %s', (_1, url) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeTrue();
     });
@@ -24,6 +25,11 @@ describe('deezer provider', () => {
     `('does not match $type links', ({ url }: { url: string }) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeFalse();
+    });
+
+    it.each(urlCases)('extracts ID from URLs %s', (_1, url, expectedId) => {
+        expect(provider.extractId(new URL(url)))
+            .toBe(expectedId);
     });
 
     it('grabs the correct cover', async () => {
