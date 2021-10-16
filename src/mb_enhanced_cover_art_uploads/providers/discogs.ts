@@ -16,7 +16,7 @@ interface ImageInfo {
 
 interface DiscogsImages {
     data: {
-        release: {
+        release?: {
             __typename: 'Release'
             discogsId: number
             images: {
@@ -53,6 +53,8 @@ export class DiscogsProvider implements CoverArtProvider {
 
         const data = await DiscogsProvider.getReleaseImages(releaseId);
 
+        assertHasValue(data.data.release, 'Discogs release does not exist');
+
         return data.data.release.images.edges.map((edge) => {
             return { url: new URL(edge.node.fullsize.sourceUrl) };
         });
@@ -79,10 +81,14 @@ export class DiscogsProvider implements CoverArtProvider {
         // the right one, and extracting the "full size" (i.e., 600x600 JPEG) URL.
         const imageName = url.pathname.match(/discogs-images\/(R-.+)$/)?.[1];
         const releaseId = imageName?.match(/^R-(\d+)/)?.[1];
+
+        /* istanbul ignore if: Should never happen on valid image */
         if (!releaseId) return url;
         const releaseData = await this.getReleaseImages(releaseId);
-        const matchedImage = releaseData.data.release.images.edges
+        const matchedImage = releaseData.data.release?.images.edges
             .find((img) => img.node.fullsize.sourceUrl.split('/').at(-1) === imageName);
+
+        /* istanbul ignore if: Should never happen on valid image */
         if (!matchedImage) return url;
         return new URL(matchedImage.node.fullsize.sourceUrl);
     }

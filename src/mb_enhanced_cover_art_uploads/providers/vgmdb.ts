@@ -22,7 +22,13 @@ interface AlbumMetadata {
 type MappedArtwork = ArtworkTypeIDs | ArtworkTypeIDs[] | { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
 
 function mapJacketType(caption: string): MappedArtwork {
-    if (!caption) return [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine];
+    if (!caption) {
+        return {
+            type: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine],
+            comment: ''
+        };
+    }
+
     const types = [];
     const keywords = caption.split(/(?:,|\s|and|&)/i);
     const faceKeywords = ['front', 'back', 'spine'];
@@ -39,10 +45,11 @@ function mapJacketType(caption: string): MappedArtwork {
     // Copy anything other than 'front', 'back', or 'spine' to the comment
     const otherKeywords = keywords
         .filter((kw) => !faceKeywords.includes(kw.toLowerCase()));
-    if (otherKeywords.length) {
-        return { type: types, comment: otherKeywords.join(' ') };
-    }
-    return types;
+    const comment = otherKeywords.join(' ').trim();
+    return {
+        type: types,
+        comment
+    };
 }
 
 // Keys: First word of the VGMdb caption (mostly structured), lower-cased
@@ -67,28 +74,51 @@ const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) 
     contents: ArtworkTypeIDs.Raw,
 };
 
-const CAPTION_TYPE_MAPPING: Record<string, ((caption: string) => { type: ArtworkTypeIDs[]; comment: string }) | undefined> = {};
+function convertMappingReturnValue(ret: MappedArtwork): { types: ArtworkTypeIDs[]; comment: string } {
+    if (Object.prototype.hasOwnProperty.call(ret, 'type')
+            && Object.prototype.hasOwnProperty.call(ret, 'comment')) {
+        const retObj = ret as { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
+        return {
+            types: Array.isArray(retObj.type) ? retObj.type : [retObj.type],
+            comment: retObj.comment,
+        };
+    }
+
+    let types = ret as ArtworkTypeIDs | ArtworkTypeIDs[];
+    /* istanbul ignore next: No mapper generates this currently */
+    if (!Array.isArray(types)) {
+        types = [types];
+    }
+
+    return {
+        types,
+        comment: '',
+    };
+}
+
+const CAPTION_TYPE_MAPPING: Record<string, ((caption: string) => { types: ArtworkTypeIDs[]; comment: string }) | undefined> = {};
 // Convert all definitions to a single signature for easier processing later on
 for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
     // Since value is a block-scoped const, the lambda will close over that
     // exact value. It wouldn't if it was a var, as `value` would in the end
     // only refer to the last value. Babel transpiles this correctly, so this
     // is safe.
-    CAPTION_TYPE_MAPPING[key] = (caption: string): { type: ArtworkTypeIDs[]; comment: string } => {
-        const ret = typeof value === 'function' ? value(caption) : value;
-        if (Object.prototype.hasOwnProperty.call(ret, 'type')
-                && Object.prototype.hasOwnProperty.call(ret, 'comment')) {
-            const retObj = ret as { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
-            return {
-                type: Array.isArray(retObj.type) ? retObj.type : [retObj.type],
-                comment: retObj.comment,
-            };
+    CAPTION_TYPE_MAPPING[key] = (caption: string): { types: ArtworkTypeIDs[]; comment: string } => {
+        if (typeof value === 'function') {
+            // Assume the function sets everything correctly, including the
+            // comment
+            return convertMappingReturnValue(value(caption));
         }
-        const retObj = ret as ArtworkTypeIDs | ArtworkTypeIDs[];
-        return {
-            type: Array.isArray(retObj) ? retObj : [retObj],
-            comment: caption,
-        };
+
+        const retObj = convertMappingReturnValue(value);
+        // Add remainder of the caption to the comment returned by the mapping
+        if (retObj.comment && caption) retObj.comment += ' ' + caption;
+        // If there's a caption but no comment, set the comment to the caption
+        else if (caption) retObj.comment = caption;
+        // Otherwise there's a comment set by the mapper but no caption => keep,
+        // or neither a comment nor a caption => nothing needs to be done.
+
+        return retObj;
     };
 }
 

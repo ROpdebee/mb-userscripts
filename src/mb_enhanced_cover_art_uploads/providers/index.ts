@@ -1,14 +1,14 @@
-import type { CoverArt, CoverArtProvider } from './providers/base';
-import { AppleMusicProvider } from './providers/apple_music';
-import { DeezerProvider } from './providers/deezer';
-import { DiscogsProvider } from './providers/discogs';
-import { SpotifyProvider } from './providers/spotify';
-import { TidalProvider } from './providers/tidal';
-import { BandcampProvider } from './providers/bandcamp';
-import { AmazonProvider } from './providers/amazon';
-import { AmazonMusicProvider } from './providers/amazon_music';
-import { QobuzProvider } from './providers/qobuz';
-import { VGMdbProvider } from './providers/vgmdb';
+import type { CoverArtProvider } from './base';
+import { AppleMusicProvider } from './apple_music';
+import { DeezerProvider } from './deezer';
+import { DiscogsProvider } from './discogs';
+import { SpotifyProvider } from './spotify';
+import { TidalProvider } from './tidal';
+import { BandcampProvider } from './bandcamp';
+import { AmazonProvider } from './amazon';
+import { AmazonMusicProvider } from './amazon_music';
+import { QobuzProvider } from './qobuz';
+import { VGMdbProvider } from './vgmdb';
 
 const PROVIDER_DISPATCH: Map<string, CoverArtProvider> = new Map();
 
@@ -37,18 +37,10 @@ function extractDomain(url: URL): string {
 }
 
 export function getProvider(url: URL): CoverArtProvider | undefined {
-    return PROVIDER_DISPATCH.get(extractDomain(url));
+    const provider = PROVIDER_DISPATCH.get(extractDomain(url));
+    return provider?.supportsUrl(url) ? provider : undefined;
 }
 
 export function hasProvider(url: URL): boolean {
-    return PROVIDER_DISPATCH.has(extractDomain(url));
-}
-
-export async function findImages(url: URL): Promise<CoverArt[] | undefined> {
-    const provider = getProvider(url);
-    if (!provider || !provider.supportsUrl(url)) {
-        return;
-    }
-
-    return provider.findImages(url);
+    return !!getProvider(url);
 }

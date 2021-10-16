@@ -16,6 +16,7 @@ import del from 'rollup-plugin-delete';
 import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
+import consts from 'rollup-plugin-consts';
 
 import { nativejsx } from './plugin-nativejsx.js';
 import { userscript } from './plugin-userscript.js';
@@ -93,6 +94,10 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
                 entries: {
                     '@lib': path.resolve('./src/lib'),
                 },
+            }),
+            consts({
+                'userscript-name': userscriptDir,
+                'debug-mode': process.env.NODE_ENV !== 'production',
             }),
             // To resolve node_modules imports
             nodeResolve({
@@ -195,7 +200,11 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
 }
 
 function isExternalLibrary(modulePath: string): boolean {
-    return !path.relative('.', modulePath).startsWith('src');
+    const relPath = path.relative('.', modulePath);
+    // Don't mark `consts:...` modules are external libraries. They're fake
+    // modules whose default exports get replaced by constants by the `consts`
+    // plugin.
+    return !(relPath.startsWith('src') || relPath.startsWith('consts:'));
 }
 
 function isBuiltinLib(modulePath: string): boolean {

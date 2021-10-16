@@ -1,5 +1,5 @@
 import { assertHasValue } from '@lib/util/assert';
-import { gmxhr } from '@lib/util/xhr';
+import { gmxhr, HTTPResponseError } from '@lib/util/xhr';
 
 import type { CoverArt, CoverArtProvider } from './base';
 import { ArtworkTypeIDs } from './base';
@@ -91,7 +91,7 @@ export class QobuzProvider implements CoverArtProvider {
         const isBooklet = goodie.name === 'Livret Numérique';
         return {
             url: new URL(goodie.original_url),
-            type: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
+            types: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
             comment: isBooklet ? 'Qobuz booklet' : goodie.name,
         };
     }
@@ -107,8 +107,15 @@ export class QobuzProvider implements CoverArtProvider {
             // We could use the URL rewriting technique to still get the cover,
             // but if we do that, we'd have to swallow this error. It's better
             // to just throw here, IMO, so we could fix any error.
-            console.error(err);
-            throw new Error('Could not retrieve Qobuz metadata, app ID invalid?');
+            if (err instanceof HTTPResponseError && err.statusCode == 400) {
+                // Bad request, likely invalid app ID.
+                // Log the original error silently to the console, and throw
+                // a more user friendly one for displaying in the UI
+                console.error(err);
+                throw new Error('Bad request to Qobuz API, app ID invalid?');
+            }
+
+            throw err;
         }
 
         const goodies = (metadata.goodies ?? []).map(QobuzProvider.extractGoodies);
@@ -116,7 +123,7 @@ export class QobuzProvider implements CoverArtProvider {
         return [
             {
                 url: new URL(coverUrl),
-                type: [ArtworkTypeIDs.Front],
+                types: [ArtworkTypeIDs.Front],
             },
             ...goodies,
         ];

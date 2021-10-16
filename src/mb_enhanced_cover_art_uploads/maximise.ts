@@ -2,15 +2,24 @@
 
 import { DiscogsProvider } from './providers/discogs';
 
-const maxurl = $$IMU_EXPORT$$;
+// IMU does its initialisation synchronously, and it's loaded before the
+// userscript is executed, so $$IMU_EXPORT$$ should already exist now. However,
+// it does not exist in tests, and we can't straightforwardly inject this variable
+// without importing the module, thereby dereferencing it.
+/* istanbul ignore next: mocked out */
+function maxurl(url: string, options: maxurlOptions): void {
+    $$IMU_EXPORT$$(url, options);
+}
 
 const options: maxurlOptions = {
     fill_object: true,
     exclude_videos: true,
-    filter: (url) => (
-        !url.toLowerCase().endsWith('.webp')
-        // Blocking webp images in Discogs
-        && !/:format(webp)/.test(url.toLowerCase())),
+    /* istanbul ignore next: Cannot test in unit tests, IMU unavailable */
+    filter(url) {
+        return (!url.toLowerCase().endsWith('.webp')
+            // Blocking webp images in Discogs
+            && !/:format(webp)/.test(url.toLowerCase()));
+    },
 };
 
 export interface MaximisedImage {
@@ -19,10 +28,10 @@ export interface MaximisedImage {
     headers: Record<string, unknown>
 }
 
-export async function* getMaxUrlCandidates(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
+export async function* getMaximisedCandidates(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
     // Workaround maxurl discogs difficulties
     if (smallurl.hostname === 'img.discogs.com') {
-        yield getMaxUrlDiscogs(smallurl);
+        yield getMaximisedCandidatesDiscogs(smallurl);
         return;
     }
 
@@ -49,7 +58,7 @@ export async function* getMaxUrlCandidates(smallurl: URL): AsyncIterableIterator
     }
 }
 
-async function getMaxUrlDiscogs(smallurl: URL): Promise<MaximisedImage> {
+async function getMaximisedCandidatesDiscogs(smallurl: URL): Promise<MaximisedImage> {
     // Workaround for maxurl returning broken links and webp images
     const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
     return {

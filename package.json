@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc",
     "commit-release": "node --unhandled-rejections=strict --loader ts-node/esm build/commit_release.ts",
-    "test": "jest"
+    "test": "NODE_NO_WARNINGS=1 jest"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,11 @@
     "@babel/plugin-transform-runtime": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-typescript": "^7.13.0",
+    "@pollyjs/adapter-fetch": "^5.1.1",
+    "@pollyjs/adapter-node-http": "^5.1.1",
+    "@pollyjs/core": "^5.1.1",
+    "@pollyjs/persister-fs": "^5.1.1",
+    "@pollyjs/utils": "^5.1.1",
     "@rollup/plugin-alias": "^3.1.5",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^19.0.0",
@@ -38,9 +43,16 @@
     "@types/greasemonkey": "^3.0.1",
     "@types/jest": "^27.0.2",
     "@types/jquery": "^3.5.6",
+    "@types/pollyjs__adapter": "^4.3.1",
+    "@types/pollyjs__adapter-fetch": "^2.0.1",
+    "@types/pollyjs__adapter-node-http": "^2.0.1",
+    "@types/pollyjs__core": "^4.3.3",
+    "@types/pollyjs__persister-fs": "^2.0.1",
+    "@types/pollyjs__utils": "^2.6.1",
     "@types/postcss-preset-env": "^6.7.2",
     "@types/rollup__plugin-virtual": "^2.0.1",
     "@types/rollup-plugin-progress": "^1.1.0",
+    "@types/setup-polly-jest": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
     "babel-plugin-rewire-ts": "^1.4.0",
@@ -51,13 +63,16 @@
     "jest-extended": "^0.11.5",
     "license-checker": "^25.0.1",
     "nativejsx": "github:ROpdebee/nativejsx",
+    "node-fetch": "^3.0.0",
     "node-sass": "^6.0.0",
     "postcss": "^8.3.0",
     "postcss-preset-env": "^6.7.0",
     "rollup": "^2.50.5",
+    "rollup-plugin-consts": "^1.0.2",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-progress": "^1.1.2",
+    "setup-polly-jest": "^0.10.0",
     "simple-git": "^2.45.1",
     "terser": "^5.7.0",
     "ts-jest": "^27.0.5",
@@ -67,6 +82,7 @@
   },
   "dependencies": {
     "core-js": "^3.13.1",
+    "jquery": "^3.6.0",
     "ts-custom-error": "^3.2.0"
   }
 }
