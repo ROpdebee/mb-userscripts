@@ -7,11 +7,12 @@ describe('discogs provider', () => {
     const pollyContext = setupPolly();
     const provider = new DiscogsProvider();
 
-    it.each`
-        url | desc
-        ${'https://www.discogs.com/release/9892912/'} | ${'short URL'}
-        ${'https://www.discogs.com/release/9892912-Wayne-King-And-His-Orchestra-A-Million-Dreams-Ago-One-Look-At-You'} | ${'long URL'}
-    `('matches release links with $desc', ({ url }: { url: string }) => {
+    const urlCases = [
+        ['short URL', 'https://www.discogs.com/release/9892912/', '9892912'],
+        ['long URL', 'https://www.discogs.com/release/9892912-Wayne-King-And-His-Orchestra-A-Million-Dreams-Ago-One-Look-At-You', '9892912'],
+    ];
+
+    it.each(urlCases)('matches release links with %s', (_1, url) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeTrue();
     });
@@ -24,6 +25,11 @@ describe('discogs provider', () => {
     `('does not match $type links', ({ url }: { url: string }) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeFalse();
+    });
+
+    it.each(urlCases)('extracts IDs from %s', (_1, url, expectedId) => {
+        expect(provider.extractId(new URL(url)))
+            .toBe(expectedId);
     });
 
     describe('finding release images', () => {
