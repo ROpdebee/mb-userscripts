@@ -56,13 +56,20 @@ export default class GMXHRAdapter extends Adapter {
                 body: options.data,
                 requestArguments: options
             }).then(({ response }: { response: Response }) => {
+                // Extract the final URL from the headers. We stored these in
+                // the passthrough
+                const headers = {...response.headers};
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                const finalUrl = headers['x-pollyjs-finalurl'] ?? options.url;
+                delete headers['x-pollyjs-finalUrl'];
+
                 options.onload?.({
                     readyState: 4,
-                    responseHeaders: pollyHeadersToString(response.headers),
+                    responseHeaders: pollyHeadersToString(headers),
                     responseText: response.body as string,
                     status: response.statusCode,
                     statusText: response.statusText,
-                    finalUrl: options.url,  // FIXME: This won't be correct for redirects
+                    finalUrl: Array.isArray(finalUrl) ? finalUrl[0] : finalUrl,
                     context: options.context,
                 });
             });
@@ -104,9 +111,14 @@ export default class GMXHRAdapter extends Adapter {
                 headers: pollyRequest.headers,
                 data: pollyRequest.body,
                 onload: (resp) => {
+                    const pollyHeaders = stringToPollyHeaders(resp.responseHeaders);
+                    // PollyJS seems not to store the final URL after redirects,
+                    // and the headers seem to be the only way to store this in
+                    // the persisted response.
+                    pollyHeaders['x-pollyjs-finalurl'] = resp.finalUrl;
                     resolve({
                         statusCode: resp.status,
-                        headers: stringToPollyHeaders(resp.responseHeaders),
+                        headers: pollyHeaders,
                         body: resp.responseText,
                     });
                 },
@@ -125,9 +137,12 @@ export default class GMXHRAdapter extends Adapter {
             body: pollyRequest.body,
         });
 
+        const pollyHeaders = fetchHeadersToPollyHeaders(resp.headers);
+        // Storing the final URL after redirect, see `passthroughRealGMXHR`.
+        pollyHeaders['x-pollyjs-finalurl'] = resp.url;
         return {
             statusCode: resp.status,
-            headers: fetchHeadersToPollyHeaders(resp.headers),
+            headers: pollyHeaders,
             body: await resp.text()
         };
     }
