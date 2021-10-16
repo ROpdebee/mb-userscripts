@@ -1,12 +1,12 @@
-import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
-import { gmxhr } from '@lib/util/xhr';
+import { qs, qsa, qsMaybe } from '@lib/util/dom';
 
-import type { CoverArt, CoverArtProvider } from './base';
-import { ArtworkTypeIDs } from './base';
+import type { CoverArt } from './base';
+import { ArtworkTypeIDs, CoverArtProvider } from './base';
 
+const ID_REGEX = /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/;
 const PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/;
 
-export class AmazonProvider implements CoverArtProvider {
+export class AmazonProvider extends CoverArtProvider {
     supportedDomains = [
         'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.es', 'amazon.fr',
         'amazon.it', 'amazon.jp', 'amazon.nl', 'amazon.co.jp', 'amazon.co.uk',
@@ -19,12 +19,15 @@ export class AmazonProvider implements CoverArtProvider {
     name = 'Amazon'
 
     supportsUrl(url: URL): boolean {
-        return /\/(?:gp\/product|dp)\/[A-Za-z0-9]{10}(?:\/|$)/.test(url.pathname);
+        return ID_REGEX.test(url.pathname);
+    }
+
+    extractId(url: URL): string | undefined {
+        return url.pathname.match(ID_REGEX)?.[1];
     }
 
     async findImages(url: URL): Promise<CoverArt[]> {
-        const pageResp = await gmxhr(url);
-        const pageDom = parseDOM(pageResp.responseText);
+        const pageDom = await this.fetchPageDOM(url);
 
         if (qsMaybe('#digitalMusicProductImage_feature_div', pageDom) !== null) {
             // Streaming/MP3 product
