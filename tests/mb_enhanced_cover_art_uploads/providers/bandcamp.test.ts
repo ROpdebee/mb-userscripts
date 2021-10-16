@@ -7,11 +7,12 @@ describe('bandcamp provider', () => {
     const pollyContext = setupPolly();
     const provider = new BandcampProvider();
 
-    it.each`
-        url | type
-        ${'https://happysadportable.bandcamp.com/track/again-and-again'} | ${'track'}
-        ${'https://powergameheavy.bandcamp.com/album/the-lockdown-tapes'} | ${'album'}
-    `('matches Bandcamp $type links', ({ url }: { url: string }) => {
+    const urlCases = [
+        ['track', 'https://happysadportable.bandcamp.com/track/again-and-again', 'happysadportable/track/again-and-again'],
+        ['album', 'https://powergameheavy.bandcamp.com/album/the-lockdown-tapes', 'powergameheavy/album/the-lockdown-tapes'],
+    ];
+
+    it.each(urlCases)('matches Bandcamp %s links', (_1, url) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeTrue();
     });
@@ -22,6 +23,17 @@ describe('bandcamp provider', () => {
         ${'https://powergameheavy.bandcamp.com/music'} | ${'music'}
     `('does not match Bandcamp $type links', ({ url }: { url: string }) => {
         expect(provider.supportsUrl(new URL(url)))
+            .toBeFalse();
+    });
+
+    it.each(urlCases)('extracts Bandcamp %s link IDs', (_1, url, expectedId) => {
+        expect(provider.extractId(new URL(url)))
+            .toBe(expectedId);
+    });
+
+    it('considers redirect to different album to be unsafe', () => {
+        // See https://github.com/ROpdebee/mb-userscripts/issues/79
+        expect(provider.isSafeRedirect(new URL('https://tempelfanwolven.bandcamp.com/album/spell-of-the-driftless-forest'), new URL('https://tempelfanwolven.bandcamp.com/album/the-coming-war')))
             .toBeFalse();
     });
 
@@ -41,5 +53,12 @@ describe('bandcamp provider', () => {
 
         await expect(provider.findImages(new URL('https://powergameheavy.bandcamp.com/album/404')))
             .toReject();
+    });
+
+    it('throws if the release redirects', async () => {
+        await expect(provider.findImages(new URL('https://tempelfanwolven.bandcamp.com/album/spell-of-the-driftless-forest')))
+            .rejects.toMatchObject({
+                message: expect.stringContaining('different release'),
+            });
     });
 });
