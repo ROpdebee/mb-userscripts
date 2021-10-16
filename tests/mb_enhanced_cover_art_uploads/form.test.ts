@@ -272,6 +272,51 @@ describe('filling edit notes', () => {
             expect(textarea.value).toBe(createExpectedContent(expectedLines));
         });
 
+        it('fills information for redirected URL', () => {
+            const fetchedImages = {
+                containerUrl: args.containerUrl,
+                images: [{
+                    originalUrl: fakeUrl,
+                    maximisedUrl: fakeUrl,
+                    wasMaximised: false,
+                    fetchedUrl: new URL('https://example.com/redirected'),
+                    wasRedirected: true,
+                    content: createDummyImage('test.png'),
+                }],
+            };
+            const expectedLines = [
+                args.prefix + fakeUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Redirected to https://example.com/redirected',
+            ];
+
+            fillEditNote(fetchedImages, '', editNote);
+
+            expect(textarea.value).toBe(createExpectedContent(expectedLines));
+        });
+
+        it('fills information for maximised and redirected URL', () => {
+            const fetchedImages = {
+                containerUrl: args.containerUrl,
+                images: [{
+                    originalUrl: fakeUrl,
+                    maximisedUrl: new URL('https://example.com/max'),
+                    wasMaximised: true,
+                    fetchedUrl: new URL('https://example.com/redirected'),
+                    wasRedirected: true,
+                    content: createDummyImage('test.png'),
+                }],
+            };
+            const expectedLines = [
+                args.prefix + fakeUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max',
+                ' '.repeat(args.prefix.length) + '→ Redirected to https://example.com/redirected',
+            ];
+
+            fillEditNote(fetchedImages, '', editNote);
+
+            expect(textarea.value).toBe(createExpectedContent(expectedLines));
+        });
+
         it('skips data URLs', () => {
             const dataUrl = new URL('data:testtesttest');
             const fetchedImages = {
