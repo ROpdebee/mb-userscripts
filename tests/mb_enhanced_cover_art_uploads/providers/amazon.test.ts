@@ -35,7 +35,7 @@ describe('amazon provider', () => {
         expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(covers[1].url.pathname).toContain('41RQivjYeeL');
         expect(covers[2].url.pathname).toContain('31-n8wloCcL');
-        expect(covers[3].url.pathname).toContain('41MN%2BeLL%2BJL');
+        expect(covers[3].url.pathname).toMatch(/41MN(?:%2B|\+)eLL(?:%2B|\+)JL/);
     });
 
     it('returns no covers for product without images', async () => {
