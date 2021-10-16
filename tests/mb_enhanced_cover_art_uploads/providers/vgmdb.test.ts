@@ -112,6 +112,11 @@ describe('vgmdb provider', () => {
             expect(provider.supportsUrl(new URL(url)))
                 .toBeFalse();
         });
+
+        it('extracts album IDs', () => {
+            expect(provider.extractId(new URL('https://vgmdb.net/album/79')))
+                .toBe('79');
+        });
     });
 
     describe('finding images', () => {
@@ -159,6 +164,7 @@ describe('vgmdb provider', () => {
                             name: ''
                         }],
                         picture_full: 'https://example.com/test',
+                        link: 'album/123',
                     });
                 });
 
@@ -181,6 +187,7 @@ describe('vgmdb provider', () => {
                             name: 'not a correct caption'
                         }],
                         picture_full: 'https://example.com/test',
+                        link: 'album/123',
                     });
                 });
 
@@ -203,6 +210,7 @@ describe('vgmdb provider', () => {
                             name: 'Back'
                         }],
                         picture_full: 'https://example.com/othertest',
+                        link: 'album/123',
                     });
                 });
 

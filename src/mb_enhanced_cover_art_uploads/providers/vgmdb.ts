@@ -1,8 +1,8 @@
-import { assertHasValue } from '@lib/util/assert';
+import { assert, assertHasValue } from '@lib/util/assert';
 import { gmxhr } from '@lib/util/xhr';
 
-import type { CoverArt, CoverArtProvider } from './base';
-import { ArtworkTypeIDs } from './base';
+import type { CoverArt } from './base';
+import { ArtworkTypeIDs, CoverArtProvider } from './base';
 
 const ID_REGEX = /\/album\/(\d+)(?:\/|$)/;
 
@@ -16,6 +16,7 @@ interface AlbumMetadata {
     }>
 
     picture_full: string
+    link: string
 }
 
 // type, list of types, or type with additional information
@@ -122,7 +123,7 @@ for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
     };
 }
 
-export class VGMdbProvider implements CoverArtProvider {
+export class VGMdbProvider extends CoverArtProvider {
     supportedDomains = ['vgmdb.net']
     favicon = 'https://vgmdb.net/favicon.ico'
     name = 'VGMdb'
@@ -131,13 +132,19 @@ export class VGMdbProvider implements CoverArtProvider {
         return ID_REGEX.test(url.pathname);
     }
 
+    extractId(url: URL): string | undefined {
+        return url.pathname.match(ID_REGEX)?.[1];
+    }
+
     async findImages(url: URL): Promise<CoverArt[]> {
         // Using the unofficial API at vgmdb.info
-        const id = url.pathname.match(ID_REGEX)?.[1];
+        const id = this.extractId(url);
         assertHasValue(id);
         const apiUrl = `https://vgmdb.info/album/${id}?format=json`;
         const apiResp = await gmxhr(apiUrl);
         const metadata = JSON.parse(apiResp.responseText) as AlbumMetadata;
+
+        assert(metadata.link === 'album/' + id, `VGMdb.info returned wrong release: Requested album/${id}, got ${metadata.link}`);
 
         return this.#extractImages(metadata);
     }
