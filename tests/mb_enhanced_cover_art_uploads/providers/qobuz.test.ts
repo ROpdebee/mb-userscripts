@@ -9,12 +9,13 @@ describe('qobuz provider', () => {
     const pollyContext = setupPolly();
     const provider = new QobuzProvider();
 
-    it.each`
-        url | desc
-        ${'https://www.qobuz.com/gb-en/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770'} | ${'www URLs with language'}
-        ${'https://www.qobuz.com/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770'} | ${'www URLs without language'}
-        ${'https://open.qobuz.com/album/0074643811224'} | ${'open URLs'}
-    `('matches $desc links for release', ({ url }: { url: string }) => {
+    const urlCases = [
+        ['www URLs with language', 'https://www.qobuz.com/gb-en/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770', '0060075354770'],
+        ['www URLs without language', 'https://www.qobuz.com/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770', '0060075354770'],
+        ['open URLs', 'https://open.qobuz.com/album/0074643811224', '0074643811224'],
+    ];
+
+    it.each(urlCases)('matches %s links for release', (_1, url) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeTrue();
     });
@@ -30,16 +31,9 @@ describe('qobuz provider', () => {
             .toBeFalse();
     });
 
-    describe('extracting IDs', () => {
-        it.each`
-            url | desc | id
-            ${'https://www.qobuz.com/gb-en/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770'} | ${'www URLs with language'} | ${'0060075354770'}
-            ${'https://www.qobuz.com/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770'} | ${'www URLs without language'} | ${'0060075354770'}
-            ${'https://open.qobuz.com/album/0074643811224'} | ${'open URLs'} | ${'0074643811224'}
-        `('extracts the correct ID for $desc', ({ url, id }: { url: string; id: string }) => {
-            expect(QobuzProvider.extractId(new URL(url)))
-                .toBe(id);
-        });
+    it.each(urlCases)('extracts ID for %s', (_1, url, expectedId) => {
+        expect(provider.extractId(new URL(url)))
+            .toBe(expectedId);
     });
 
     describe('finding release images', () => {

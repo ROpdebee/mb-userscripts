@@ -1,8 +1,8 @@
-import { assertHasValue } from '@lib/util/assert';
+import { assert, assertHasValue } from '@lib/util/assert';
 import { gmxhr, HTTPResponseError } from '@lib/util/xhr';
 
-import type { CoverArt, CoverArtProvider } from './base';
-import { ArtworkTypeIDs } from './base';
+import type { CoverArt } from './base';
+import { ArtworkTypeIDs, CoverArtProvider } from './base';
 
 // Splitting these regexps up for each domain. www.qobuz.com includes the album
 // title in the URL, open.qobuz.com does not. Although we could make the album
@@ -29,6 +29,7 @@ interface Goodie {
 
 // Incomplete, only what we need
 interface AlbumMetadata {
+    id: number
     image: {
         large: string  // Note: Not the original
         small: string
@@ -42,7 +43,7 @@ interface AlbumMetadata {
     goodies?: Goodie[]
 }
 
-export class QobuzProvider implements CoverArtProvider {
+export class QobuzProvider extends CoverArtProvider {
     supportedDomains = ['qobuz.com', 'open.qobuz.com']
     favicon = 'https://www.qobuz.com/favicon.ico'
     name = 'Qobuz'
@@ -55,25 +56,20 @@ export class QobuzProvider implements CoverArtProvider {
         return WWW_ID_MATCH_REGEX.test(url.pathname);
     }
 
+    extractId(url: URL): string | undefined {
+        if (url.hostname === 'open.qobuz.com') {
+            return url.pathname.match(OPEN_ID_MATCH_REGEX)?.[1];
+        }
+
+        return url.pathname.match(WWW_ID_MATCH_REGEX)?.[1];
+    }
+
     static idToCoverUrl(id: string): URL {
         const d1 = id.slice(-2);
         const d2 = id.slice(-4, -2);
         // Is this always .jpg?
         const imgUrl = `https://static.qobuz.com/images/covers/${d1}/${d2}/${id}_org.jpg`;
         return new URL(imgUrl);
-    }
-
-    static extractId(url: URL): string {
-        // eslint-disable-next-line init-declarations
-        let id: string | undefined;
-        if (url.hostname === 'open.qobuz.com') {
-            id = url.pathname.match(OPEN_ID_MATCH_REGEX)?.[1];
-        } else {
-            id = url.pathname.match(WWW_ID_MATCH_REGEX)?.[1];
-        }
-
-        assertHasValue(id);
-        return id;
     }
 
     static async getMetadata(id: string): Promise<AlbumMetadata> {
@@ -83,7 +79,10 @@ export class QobuzProvider implements CoverArtProvider {
             },
         });
 
-        return JSON.parse(resp.responseText);
+        const metadata = JSON.parse(resp.responseText) as AlbumMetadata;
+        assert(metadata.id.toString() === id, `Qobuz returned wrong release: Requested ${id}, got ${metadata.id}`);
+
+        return metadata;
     }
 
     static extractGoodies(goodie: Goodie): CoverArt {
@@ -97,7 +96,8 @@ export class QobuzProvider implements CoverArtProvider {
     }
 
     async findImages(url: URL): Promise<CoverArt[]> {
-        const id = QobuzProvider.extractId(url);
+        const id = this.extractId(url);
+        assertHasValue(id);
 
         // eslint-disable-next-line init-declarations
         let metadata: AlbumMetadata;
