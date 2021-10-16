@@ -1,6 +1,7 @@
-import { assertHasValue } from '@lib/util/assert';
+import { assert, assertHasValue } from '@lib/util/assert';
 import { gmxhr } from '@lib/util/xhr';
-import type { CoverArt, CoverArtProvider } from './base';
+import type { CoverArt } from './base';
+import { CoverArtProvider } from './base';
 
 // Not sure if this changes often. If it does, we might have to parse it from the
 // JS sources somehow.
@@ -16,7 +17,7 @@ interface ImageInfo {
 
 interface DiscogsImages {
     data: {
-        release?: {
+        release: {
             __typename: 'Release'
             discogsId: number
             images: {
@@ -36,24 +37,28 @@ interface DiscogsImages {
     }
 }
 
-export class DiscogsProvider implements CoverArtProvider {
+const ID_REGEX = /\/release\/(\d+)/;
+
+export class DiscogsProvider extends CoverArtProvider {
     supportedDomains = ['discogs.com']
     favicon = 'https://catalog-assets.discogs.com/e95f0cd9.png'
     name = 'Discogs'
 
     supportsUrl(url: URL): boolean {
-        return /\/release\/\d+/.test(url.pathname);
+        return ID_REGEX.test(url.pathname);
+    }
+
+    extractId(url: URL): string | undefined {
+        return url.pathname.match(ID_REGEX)?.[1];
     }
 
     async findImages(url: URL): Promise<CoverArt[]> {
         // Loading the full HTML and parsing the metadata JSON embedded within
         // it.
-        const releaseId = url.pathname.match(/\/release\/(\d+)/)?.[1];
+        const releaseId = this.extractId(url);
         assertHasValue(releaseId);
 
         const data = await DiscogsProvider.getReleaseImages(releaseId);
-
-        assertHasValue(data.data.release, 'Discogs release does not exist');
 
         return data.data.release.images.edges.map((edge) => {
             return { url: new URL(edge.node.fullsize.sourceUrl) };
@@ -73,7 +78,12 @@ export class DiscogsProvider implements CoverArtProvider {
         }));
         const resp = await gmxhr(`https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=${variables}&extensions=${extensions}`);
 
-        return JSON.parse(resp.responseText);
+        const metadata = JSON.parse(resp.responseText) as DiscogsImages;
+        assertHasValue(metadata.data.release, 'Discogs release does not exist');
+        const responseId = metadata.data.release.discogsId.toString();
+        assert(typeof responseId === 'undefined' || responseId === releaseId, `Discogs returned wrong release: Requested ${releaseId}, got ${responseId}`);
+
+        return metadata;
     }
 
     static async maximiseImage(url: URL): Promise<URL> {
@@ -85,7 +95,7 @@ export class DiscogsProvider implements CoverArtProvider {
         /* istanbul ignore if: Should never happen on valid image */
         if (!releaseId) return url;
         const releaseData = await this.getReleaseImages(releaseId);
-        const matchedImage = releaseData.data.release?.images.edges
+        const matchedImage = releaseData.data.release.images.edges
             .find((img) => img.node.fullsize.sourceUrl.split('/').at(-1) === imageName);
 
         /* istanbul ignore if: Should never happen on valid image */
