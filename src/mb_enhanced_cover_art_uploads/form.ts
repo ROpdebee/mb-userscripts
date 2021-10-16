@@ -87,7 +87,7 @@ export function fillEditNote({ images, containerUrl }: FetchedImages, origin: st
     }
 
     if (images.length > 3) {
-        editNote.addExtraInfo(prefix + `…and ${images.length - 3} additional images`);
+        editNote.addExtraInfo(prefix + `…and ${images.length - 3} additional image(s)`);
     }
 
     if (origin) {
