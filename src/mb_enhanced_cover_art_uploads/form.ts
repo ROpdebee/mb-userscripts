@@ -64,6 +64,9 @@ function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], ima
 }
 
 export function fillEditNote({ images, containerUrl }: FetchedImages, origin: string, editNote: EditNote): void {
+    // Nothing enqueued => Skip edit note altogether
+    if (!images.length) return;
+
     let prefix = '';
     if (containerUrl) {
         prefix = ' * ';
