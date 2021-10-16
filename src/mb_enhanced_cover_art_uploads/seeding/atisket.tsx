@@ -15,7 +15,12 @@ export const AtisketSeeder: Seeder = {
             return;
         }
         const mbid = qs<HTMLAnchorElement>('a.mb', alreadyInMB).textContent?.trim() ?? '';
-        addSeedLinkToCovers(mbid);
+        // Try to use the cached link as the origin instead of the page URL itself,
+        // so that we link to the state at the time the image was submitted.
+        // If the cached link doesn't exist on the page, we're probably already
+        // on a cached page, so fall back on the page URL instead.
+        const cachedAnchor = qsMaybe<HTMLAnchorElement>('#submit-button + div > a');
+        addSeedLinkToCovers(mbid, cachedAnchor?.href ?? document.location.href);
     }
 };
 
@@ -30,17 +35,17 @@ export const AtasketSeeder: Seeder = {
             LOGGER.error('Cannot extract MBID! Seeding is disabled :(');
             return;
         }
-        addSeedLinkToCovers(mbid);
+        addSeedLinkToCovers(mbid, document.location.href);
     }
 };
 
-function addSeedLinkToCovers(mbid: string): void {
+function addSeedLinkToCovers(mbid: string, origin: string): void {
     qsa('figure.cover').forEach((fig) => {
-        addSeedLinkToCover(fig, mbid);
+        addSeedLinkToCover(fig, mbid, origin);
     });
 }
 
-async function addSeedLinkToCover(fig: Element, mbid: string): Promise<void> {
+async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): Promise<void> {
     const url = qs<HTMLAnchorElement>('a.icon', fig).href;
 
     // Not using .split('.').at(-1) here because I'm not sure whether .at is
@@ -51,7 +56,7 @@ async function addSeedLinkToCover(fig: Element, mbid: string): Promise<void> {
     const params = new SeedParameters([{
         url: new URL(url),
         types: [ArtworkTypeIDs.Front],
-    }], 'atisket');
+    }], origin);
     const seedUrl = params.createSeedURL(mbid);
 
     const dimSpan = <span style={{ display: 'block' }}>
