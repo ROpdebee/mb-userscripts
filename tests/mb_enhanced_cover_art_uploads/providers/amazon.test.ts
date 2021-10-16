@@ -25,8 +25,8 @@ describe('amazon provider', () => {
 
     it.each`
         url | desc
-        ${'https://www.amazon.com/dp/B07QWNQT8X'} | dp URLs
-        ${'https://www.amazon.com/gp/product/B07QWNQT8X'} | gp URLs
+        ${'https://www.amazon.com/dp/B07QWNQT8X'} | ${'dp URLs'}
+        ${'https://www.amazon.com/gp/product/B07QWNQT8X'} | ${'gp URLs'}
     `('grabs all images for physical products on $desc', async ({ url }: { url: string }) => {
         const covers = await provider.findImages(new URL(url));
 
