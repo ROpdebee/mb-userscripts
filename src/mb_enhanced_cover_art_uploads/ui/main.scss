@@ -29,4 +29,23 @@
     }
 }
 
+#ROpdebee_paste_url_status {
+    &.info {
+        color: black;
+    }
 
+    &.warning {
+        color: orange;
+    }
+
+    // Not defining custom CSS for success and error: MB already defines its
+    // own styles for span.success and span.error and their colours are nicer
+    // than the standard red and green. We'll customise in #81.
+    /*&.success {
+        color: green;
+    }
+
+    &.error {
+        color: red;
+    }*/
+}
