@@ -22,10 +22,10 @@ describe('amazon music provider', () => {
     });
 
     it('uses Amazon provider covers', async () => {
-        const covers = await provider.findImages(new URL('https://music.amazon.com/albums/B08Y99SFVJ'));
+        const covers = await provider.findImages(new URL('https://music.amazon.com/albums/B08MCFCQD8'));
 
         expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.pathname).toContain('91XTtzT7s9L');
+        expect(covers[0].url.pathname).toContain('81NnKXVjJvL');
         expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
     });
 });
