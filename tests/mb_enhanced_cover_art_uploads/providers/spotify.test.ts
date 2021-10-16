@@ -7,11 +7,12 @@ describe('spotify provider', () => {
     const pollyContext = setupPolly();
     const provider = new SpotifyProvider();
 
-    it.each`
-        url | desc
-        ${'https://open.spotify.com/album/3hVr04Z3d9HgUCYOjXQHQL'} | ${'with clean URL'}
-        ${'https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURl?si=oXJ7iNcXTqSkcIk8jYBqFQ&dl_branch=1'} | ${'with dirty URL'}
-    `('matches Spotify album links $desc', ({ url }: { url: string }) => {
+    const urlCases = [
+        ['with clean URL', 'https://open.spotify.com/album/3hVr04Z3d9HgUCYOjXQHQL', '3hVr04Z3d9HgUCYOjXQHQL'],
+        ['with dirty URL', 'https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURl?si=oXJ7iNcXTqSkcIk8jYBqFQ&dl_branch=1', '5Lj94YpHLkmjM7JZ8wuURl'],
+    ];
+
+    it.each(urlCases)('matches Spotify album links %s', (_1, url) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeTrue();
     });
@@ -24,6 +25,11 @@ describe('spotify provider', () => {
     `('does not match Spotify $type links', ({ url }: { url: string }) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeFalse();
+    });
+
+    it.each(urlCases)('extracts ID %s', (_1, url, expectedId) => {
+        expect(provider.extractId(new URL(url)))
+            .toBe(expectedId);
     });
 
     it('grabs the correct cover', async () => {
