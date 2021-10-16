@@ -5,7 +5,9 @@ import { getProvider } from './providers';
 import type { ArtworkTypeIDs, CoverArtProvider } from './providers/base';
 
 interface ImageContents {
+    requestedUrl: URL
     fetchedUrl: URL
+    wasRedirected: boolean
     file: File
 }
 
@@ -13,7 +15,9 @@ export interface FetchedImage {
     content: File
     originalUrl: URL
     maximisedUrl: URL
+    fetchedUrl: URL
     wasMaximised: boolean
+    wasRedirected: boolean
     // types and comment may be empty or undefined. If undefined, the value
     // will be replaced by the default, if any. If defined but empty, the
     // default will not be used.
@@ -90,13 +94,16 @@ export class ImageFetcher {
         }
 
         this.#doneImages.add(fetchResult.fetchedUrl.href);
+        this.#doneImages.add(fetchResult.requestedUrl.href);
         this.#doneImages.add(url.href);
 
         return {
             content: fetchResult.file,
             originalUrl: url,
-            maximisedUrl: fetchResult.fetchedUrl,
-            wasMaximised: url.href !== fetchResult.fetchedUrl.href,
+            maximisedUrl: fetchResult.requestedUrl,
+            fetchedUrl: fetchResult.fetchedUrl,
+            wasMaximised: url.href !== fetchResult.requestedUrl.href,
+            wasRedirected: fetchResult.wasRedirected,
             // We have no idea what the type or comment will be, so leave them
             // undefined so that a default, if any, can be inserted.
         };
@@ -145,6 +152,12 @@ export class ImageFetcher {
             responseType: 'blob',
             headers: headers,
         });
+        const fetchedUrl = new URL(resp.finalUrl);
+        const wasRedirected = resp.finalUrl !== url.href;
+
+        if (wasRedirected) {
+            LOGGER.warn(`Followed redirect of ${url.href} -> ${resp.finalUrl} while fetching image contents`);
+        }
 
         const rawFile = new File([resp.response], fileName);
 
@@ -155,7 +168,9 @@ export class ImageFetcher {
                 })
                 .done((mimeType) => {
                     resolve({
-                        fetchedUrl: url,
+                        requestedUrl: url,
+                        fetchedUrl,
+                        wasRedirected,
                         file: new File(
                             [resp.response],
                             `${fileName}.${this.#lastId++}.${mimeType.split('/')[1]}`,

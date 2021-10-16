@@ -46,6 +46,8 @@ function enableDummyFetch(mock: jest.SpiedFunction<ImageFetcher['fetchImageConte
     mock.mockImplementation((url: URL, filename: string) =>
         Promise.resolve({
             fetchedUrl: url,
+            requestedUrl: url,
+            wasRedirected: false,
             file: new File([new Blob(['test'])], filename + '.0.jpg', { type: 'image/jpeg' }),
         }));
 }
@@ -74,7 +76,13 @@ describe('fetching image contents', () => {
             }),
         },
     };
-    const mockResponse = { response: new Blob(['abcd']), ...{} as unknown as GMXMLHttpRequestResponse };
+    function createMockXhrResponse(finalUrl: string): GMXMLHttpRequestResponse & { response: Blob } {
+        return {
+            response: new Blob(['abcd']),
+            ...{} as unknown as GMXMLHttpRequestResponse,
+            finalUrl,
+        };
+    }
 
     beforeEach(() => {
         fetcher = new ImageFetcher();
@@ -88,7 +96,7 @@ describe('fetching image contents', () => {
     });
 
     it('rejects on invalid file', async () => {
-        mockXhr.mockResolvedValueOnce(mockResponse);
+        mockXhr.mockResolvedValueOnce(createMockXhrResponse('https://example.com/broken'));
         mockValidateFileFail.mockImplementationOnce((cb) => cb('unsupported file type'));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
@@ -96,7 +104,7 @@ describe('fetching image contents', () => {
     });
 
     it('resolves with fetched image', async () => {
-        mockXhr.mockResolvedValueOnce(mockResponse);
+        mockXhr.mockResolvedValueOnce(createMockXhrResponse('https://example.com/working'));
         mockValidateFileDone.mockImplementationOnce((cb) => cb('image/png'));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/working'), 'test.jpg', {}))
@@ -105,13 +113,36 @@ describe('fetching image contents', () => {
                     type: 'image/png',
                     name: 'test.jpg.0.png',
                 },
+                requestedUrl: {
+                    href: 'https://example.com/working',
+                },
+                fetchedUrl: {
+                    href: 'https://example.com/working',
+                },
+                wasRedirected: false,
+            });
+    });
+
+    it('retains redirection information', async () => {
+        mockXhr.mockResolvedValueOnce(createMockXhrResponse('https://example.com/redirected'));
+        mockValidateFileDone.mockImplementationOnce((cb) => cb('image/png'));
+
+        await expect(fetcher.fetchImageContents(new URL('https://example.com/working'), 'test.jpg', {}))
+            .resolves.toMatchObject({
+                requestedUrl: {
+                    href: 'https://example.com/working',
+                },
+                fetchedUrl: {
+                    href: 'https://example.com/redirected',
+                },
+                wasRedirected: true,
             });
     });
 
     it('assigns unique ID to each file name', async () => {
         mockXhr
-            .mockResolvedValueOnce(mockResponse)
-            .mockResolvedValueOnce(mockResponse);
+            .mockResolvedValueOnce(createMockXhrResponse('https://example.com/working'))
+            .mockResolvedValueOnce(createMockXhrResponse('https://example.com/working'));
         mockValidateFileDone
             .mockImplementationOnce((cb) => cb('image/png'))
             .mockImplementationOnce((cb) => cb('image/png'));
@@ -164,6 +195,26 @@ describe('fetching image from URL', () => {
         it('falls back to default filename if none present in URL', async () => {
             await expect(fetcher.fetchImageFromURL(new URL('https://example.com/test/')))
                 .resolves.toHaveProperty('content.name', 'image.0.jpg');
+        });
+
+        it('retains redirection information', async () => {
+            mockFetchImageContents.mockResolvedValueOnce({
+                fetchedUrl: new URL('https://example.com/test/redirect'),
+                requestedUrl: new URL('https://example.com/test/'),
+                wasRedirected: true,
+                file: new File([new Blob(['test'])],'test.0.jpg', { type: 'image/jpeg' }),
+            });
+
+            await expect(fetcher.fetchImageFromURL(new URL('https://example.com/test/')))
+                .resolves.toMatchObject({
+                    fetchedUrl: {
+                        href: 'https://example.com/test/redirect',
+                    },
+                    maximisedUrl: {
+                        href: 'https://example.com/test/',
+                    },
+                    wasRedirected: true,
+                });
         });
     });
 

@@ -54,6 +54,8 @@ describe('enqueuing images', () => {
                 content: image,
                 originalUrl: fakeUrl,
                 maximisedUrl: fakeUrl,
+                fetchedUrl: fakeUrl,
+                wasRedirected: false,
                 wasMaximised: false,
             }]
         });
@@ -76,6 +78,8 @@ describe('enqueuing images', () => {
                 originalUrl: fakeUrl,
                 maximisedUrl: fakeUrl,
                 wasMaximised: false,
+                fetchedUrl: fakeUrl,
+                wasRedirected: false,
                 types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
                 comment: 'test comment',
             }]
@@ -95,6 +99,8 @@ describe('enqueuing images', () => {
                 originalUrl: fakeUrl,
                 maximisedUrl: fakeUrl,
                 wasMaximised: false,
+                fetchedUrl: fakeUrl,
+                wasRedirected: false,
             }]
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
@@ -112,6 +118,8 @@ describe('enqueuing images', () => {
                 originalUrl: fakeUrl,
                 maximisedUrl: fakeUrl,
                 wasMaximised: false,
+                fetchedUrl: fakeUrl,
+                wasRedirected: false,
                 types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
                 comment: 'test comment',
             }]
@@ -131,6 +139,8 @@ describe('enqueuing images', () => {
                 originalUrl: fakeUrl,
                 maximisedUrl: fakeUrl,
                 wasMaximised: false,
+                fetchedUrl: fakeUrl,
+                wasRedirected: false,
                 types: [],
                 comment: '',
             }]
@@ -152,6 +162,8 @@ describe('enqueuing images', () => {
                 originalUrl: fakeUrl,
                 maximisedUrl: fakeUrl,
                 wasMaximised: false,
+                fetchedUrl: fakeUrl,
+                wasRedirected: false,
                 types: [ArtworkTypeIDs.Front],
                 comment: 'test comment',
             }, {
@@ -159,6 +171,8 @@ describe('enqueuing images', () => {
                 originalUrl: fakeUrl,
                 maximisedUrl: fakeUrl,
                 wasMaximised: false,
+                fetchedUrl: fakeUrl,
+                wasRedirected: false,
                 types: [ArtworkTypeIDs.Back],
                 comment: 'test comment 2',
             }]
@@ -224,6 +238,8 @@ describe('filling edit notes', () => {
                     originalUrl: fakeUrl,
                     maximisedUrl: fakeUrl,
                     wasMaximised: false,
+                    fetchedUrl: fakeUrl,
+                    wasRedirected: false,
                     content: createDummyImage('test.png'),
                 }],
             };
@@ -241,6 +257,8 @@ describe('filling edit notes', () => {
                     originalUrl: fakeUrl,
                     maximisedUrl: new URL('https://example.com/max'),
                     wasMaximised: true,
+                    fetchedUrl: new URL('https://example.com/max'),
+                    wasRedirected: false,
                     content: createDummyImage('test.png'),
                 }],
             };
@@ -261,7 +279,9 @@ describe('filling edit notes', () => {
                 images: [{
                     originalUrl: dataUrl,
                     maximisedUrl: dataUrl,
-                    wasMaximised: true,
+                    wasMaximised: false,
+                    fetchedUrl: dataUrl,
+                    wasRedirected: false,
                     content: createDummyImage('test.png'),
                 }],
             };
@@ -281,11 +301,15 @@ describe('filling edit notes', () => {
                     originalUrl: fakeUrl,
                     maximisedUrl: new URL('https://example.com/max'),
                     wasMaximised: true,
+                    fetchedUrl: new URL('https://example.com/max'),
+                    wasRedirected: false,
                     content: createDummyImage('test.png'),
                 }, {
                     originalUrl: new URL('https://example.com/2'),
                     maximisedUrl: new URL('https://example.com/max2'),
                     wasMaximised: true,
+                    fetchedUrl: new URL('https://example.com/max2'),
+                    wasRedirected: false,
                     content: createDummyImage('test.png'),
                 }],
             };
@@ -307,21 +331,29 @@ describe('filling edit notes', () => {
                 images: [{
                     originalUrl: new URL('https://example.com/1'),
                     maximisedUrl: new URL('https://example.com/1'),
+                    fetchedUrl: new URL('https://example.com/1'),
+                    wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
                 }, {
                     originalUrl: new URL('https://example.com/2'),
                     maximisedUrl: new URL('https://example.com/2'),
+                    fetchedUrl: new URL('https://example.com/2'),
+                    wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
                 }, {
                     originalUrl: new URL('https://example.com/3'),
                     maximisedUrl: new URL('https://example.com/3'),
+                    fetchedUrl: new URL('https://example.com/3'),
+                    wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
                 }, {
                     originalUrl: new URL('https://example.com/4'),
                     maximisedUrl: new URL('https://example.com/4'),
+                    fetchedUrl: new URL('https://example.com/4'),
+                    wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
                 }],
@@ -344,6 +376,8 @@ describe('filling edit notes', () => {
                 images: [{
                     originalUrl: fakeUrl,
                     maximisedUrl: fakeUrl,
+                    fetchedUrl: fakeUrl,
+                    wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
                 }],
