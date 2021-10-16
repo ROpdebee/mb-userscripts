@@ -4,6 +4,8 @@ import { gmxhr } from '@lib/util/xhr';
 import type { CoverArt, CoverArtProvider } from './base';
 import { ArtworkTypeIDs } from './base';
 
+const PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/;
+
 export class AmazonProvider implements CoverArtProvider {
     supportedDomains = [
         'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.es', 'amazon.fr',
@@ -31,9 +33,12 @@ export class AmazonProvider implements CoverArtProvider {
 
         // Thumbnails in the sidebar, IMU will maximise
         const imgs = qsa<HTMLImageElement>('#altImages img', pageDom);
-        const covers: CoverArt[] = imgs.map((img) => {
-            return { url: new URL(img.src) };
-        });
+        const covers: CoverArt[] = imgs
+            // Filter out placeholder images.
+            .filter((img) => !PLACEHOLDER_IMG_REGEX.test(img.src))
+            .map((img) => {
+                return { url: new URL(img.src) };
+            });
 
         // We don't know anything about the types of these images, but we can
         // probably assume the first image is the front cover.
