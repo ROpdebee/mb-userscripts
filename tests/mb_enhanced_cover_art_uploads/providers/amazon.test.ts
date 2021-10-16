@@ -46,8 +46,8 @@ describe('amazon provider', () => {
 
     it.each`
         url | desc
-        ${'https://www.amazon.com/dp/B07R92TVWN'} | dp URLs
-        ${'https://www.amazon.com/gp/product/B07R92TVWN'} | gp URLs
+        ${'https://www.amazon.com/dp/B07R92TVWN'} | ${'dp URLs'}
+        ${'https://www.amazon.com/gp/product/B07R92TVWN'} | ${'gp URLs'}
     `('grabs the only image for digital releases on $desc', async ({ url }: { url: string }) => {
         const covers = await provider.findImages(new URL(url));
 
