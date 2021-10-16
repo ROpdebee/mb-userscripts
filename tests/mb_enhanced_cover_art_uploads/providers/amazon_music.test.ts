@@ -21,6 +21,11 @@ describe('amazon music provider', () => {
             .toBeFalse();
     });
 
+    it('extracts album ID', () => {
+        expect(provider.extractId(new URL('https://music.amazon.com/albums/B08Y99SFVJ')))
+            .toBe('B08Y99SFVJ');
+    });
+
     it('uses Amazon provider covers', async () => {
         const covers = await provider.findImages(new URL('https://music.amazon.com/albums/B08MCFCQD8'));
 

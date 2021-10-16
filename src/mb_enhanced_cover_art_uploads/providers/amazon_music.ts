@@ -1,9 +1,12 @@
 import { assertHasValue } from '@lib/util/assert';
 import { AmazonProvider } from './amazon';
 
-import type { CoverArt, CoverArtProvider } from './base';
+import type { CoverArt } from './base';
+import { CoverArtProvider } from './base';
 
-export class AmazonMusicProvider implements CoverArtProvider {
+const ID_REGEX = /\/albums\/([A-Za-z0-9]{10})(?:\/|$)/;
+
+export class AmazonMusicProvider extends CoverArtProvider {
     supportedDomains = [
         'music.amazon.ca', 'music.amazon.cn', 'music.amazon.de',
         'music.amazon.es', 'music.amazon.fr', 'music.amazon.it',
@@ -13,7 +16,11 @@ export class AmazonMusicProvider implements CoverArtProvider {
     name = 'Amazon Music'
 
     supportsUrl(url: URL): boolean {
-        return /\/albums\/[A-Za-z0-9]{10}(?:\/|$)/.test(url.pathname);
+        return ID_REGEX.test(url.pathname);
+    }
+
+    extractId(url: URL): string | undefined {
+        return url.pathname.match(ID_REGEX)?.[1];
     }
 
     async findImages(url: URL): Promise<CoverArt[]> {
