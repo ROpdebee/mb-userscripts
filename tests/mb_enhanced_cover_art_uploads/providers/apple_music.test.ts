@@ -7,22 +7,16 @@ describe('apple music provider', () => {
     setupPolly();
     const provider = new AppleMusicProvider();
 
-    it.each`
-        url | desc
-        ${'https://itunes.apple.com/gb/album/id993998924'} | ${'without album name'}
-        ${'https://itunes.apple.com/us/album/dark-waves-ep/id919575861'} | ${'with album name'}
-        ${'https://itunes.apple.com/us/album/flavourite-c%C3%A2l%C3%A2/id1451216499'} | ${'with album name with special characters'}
-    `('matches iTunes album links $desc', ({ url }: { url: string }) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeTrue();
-    });
+    const urlCases = [
+        ['iTunes', 'without album name', 'https://itunes.apple.com/gb/album/id993998924', '993998924'],
+        ['iTunes', 'with album name', 'https://itunes.apple.com/us/album/dark-waves-ep/id919575861', '919575861'],
+        ['iTunes', 'with album name with special characters', 'https://itunes.apple.com/us/album/flavourite-c%C3%A2l%C3%A2/id1451216499', '1451216499'],
+        ['Apple Music', 'without album name', 'https://music.apple.com/gb/album/993998924', '993998924'],
+        ['Apple Music', 'with album name', 'https://music.apple.com/us/album/dark-waves-ep/919575861', '919575861'],
+        ['Apple Music', 'with album name with special characters', 'https://music.apple.com/us/album/flavourite-c%C3%A2l%C3%A2/1451216499', '1451216499'],
+    ];
 
-    it.each`
-        url | desc
-        ${'https://music.apple.com/gb/album/993998924'} | ${'without album name'}
-        ${'https://music.apple.com/us/album/dark-waves-ep/919575861'} | ${'with album name'}
-        ${'https://music.apple.com/us/album/flavourite-c%C3%A2l%C3%A2/1451216499'} | ${'with album name with special characters'}
-    `('matches Apple Music album links $desc', ({ url }: { url: string }) => {
+    it.each(urlCases)('matches %s album links %s', (_1, _2, url) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeTrue();
     });
@@ -46,6 +40,16 @@ describe('apple music provider', () => {
     `('does not match Apple Music $type links $desc', ({ url }: { url: string }) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeFalse();
+    });
+
+    it.each(urlCases)('extracts ID for %s album links %s', (_1, _2, url, expectedId) => {
+        expect(provider.extractId(new URL(url)))
+            .toBe(expectedId);
+    });
+
+    it('considers redirect from iTunes to Apple Music to be safe', () => {
+        expect(provider.isSafeRedirect(new URL('https://itunes.apple.com/gb/album/id993998924'), new URL('https://music.apple.com/gb/album/993998924')))
+            .toBeTrue();
     });
 
     it('grabs the correct cover for Apple Music links', async () => {
