@@ -1,8 +1,8 @@
-import { assertHasValue } from '@lib/util/assert';
+import { assert, assertHasValue } from '@lib/util/assert';
 import { gmxhr } from '@lib/util/xhr';
 
-import type { CoverArt, CoverArtProvider } from './base';
-import { ArtworkTypeIDs } from './base';
+import type { CoverArt } from './base';
+import { ArtworkTypeIDs, CoverArtProvider } from './base';
 
 // Extracted from listen.tidal.com JS. There seem to be at least 10 different
 // API keys, I guess they might depend on the user type and/or country?
@@ -12,8 +12,9 @@ import { ArtworkTypeIDs } from './base';
 // 3 years already, I doubt this will stop working any time soon.
 // https://web.archive.org/web/20181015184006/https://listen.tidal.com/app.9dbb572e8121f8755b73.js
 const APP_ID = 'CzET4vdadNUFQ5JU';
+const ID_REGEX = /\/album\/(\d+)/;
 
-export class TidalProvider implements CoverArtProvider {
+export class TidalProvider extends CoverArtProvider {
     supportedDomains = ['tidal.com', 'listen.tidal.com', 'store.tidal.com']
     favicon = 'https://listen.tidal.com/favicon.ico'
     name = 'Tidal'
@@ -21,7 +22,11 @@ export class TidalProvider implements CoverArtProvider {
     #countryCode: string | null = null;
 
     supportsUrl(url: URL): boolean {
-        return /\/album\/\d+/.test(url.pathname);
+        return ID_REGEX.test(url.pathname);
+    }
+
+    extractId(url: URL): string | undefined {
+        return url.pathname.match(ID_REGEX)?.[1];
     }
 
     async getCountryCode(): Promise<string> {
@@ -49,6 +54,10 @@ export class TidalProvider implements CoverArtProvider {
             },
         });
         const metadata = JSON.parse(resp.responseText);
+        const albumMetadata = metadata?.rows?.[0]?.modules?.[0]?.album;
+        assertHasValue(albumMetadata, 'Tidal API returned no album, 404?');
+        assert(albumMetadata.id?.toString() === albumId, `Tidal returned wrong release: Requested ${albumId}, got ${albumMetadata.id}`);
+
         const coverId = metadata?.rows?.[0]?.modules?.[0]?.album?.cover;
         assertHasValue(coverId, 'Could not find cover in Tidal metadata');
         return `https://resources.tidal.com/images/${coverId.replace(/-/g, '/')}/origin.jpg`;
@@ -58,7 +67,7 @@ export class TidalProvider implements CoverArtProvider {
         // Rewrite the URL to point to the main page
         // Both listen.tidal.com and store.tidal.com load metadata through an
         // API. Bare tidal.com returns the image in a <meta> property.
-        const albumId = url.pathname.match(/\/album\/(\d+)/)?.[1];
+        const albumId = this.extractId(url);
         assertHasValue(albumId);
         const coverUrl = await this.getCoverUrlFromMetadata(albumId);
         return [{
