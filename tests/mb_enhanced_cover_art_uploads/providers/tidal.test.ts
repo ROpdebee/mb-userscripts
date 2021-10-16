@@ -8,14 +8,15 @@ describe('tidal provider', () => {
     const pollyContext = setupPolly();
     const provider = new TidalProvider();
 
-    it.each`
-        url | domain | desc
-        ${'https://listen.tidal.com/album/151193605'} | ${'listen.tidal.com'} | ${''}
-        ${'https://store.tidal.com/us/album/175441105'} | ${'store.tidal.com'} | ${'with country'}
-        ${'https://store.tidal.com/album/175441105'} | ${'store.tidal.com'} | ${'without country'}
-        ${'https://tidal.com/browse/album/175441105'} | ${'tidal.com'} | ${'with browse'}
-        ${'https://tidal.com/album/175441105'} | ${'tidal.com'} | ${'without browse'}
-    `('matches $domain links $desc', ({ url }: { url: string }) => {
+    const urlCases = [
+        ['listen.tidal.com', '', 'https://listen.tidal.com/album/151193605', '151193605'],
+        ['store.tidal.com', 'with country', 'https://store.tidal.com/us/album/175441105', '175441105'],
+        ['store.tidal.com', 'without country', 'https://store.tidal.com/album/175441105', '175441105'],
+        ['tidal.com', 'with browse', 'https://tidal.com/browse/album/175441105', '175441105'],
+        ['tidal.com', 'without browse', 'https://tidal.com/album/175441105', '175441105'],
+    ];
+
+    it.each(urlCases)('matches %s links %s', (_1, _2, url) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeTrue();
     });
@@ -30,6 +31,11 @@ describe('tidal provider', () => {
     `('does not match $domain $type links', ({ url }: { url: string }) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeFalse();
+    });
+
+    it.each(urlCases)('extracts IDs for %s links %s', (_1, _2, url, expectedId) => {
+        expect(provider.extractId(new URL(url)))
+            .toBe(expectedId);
     });
 
     it.each`
