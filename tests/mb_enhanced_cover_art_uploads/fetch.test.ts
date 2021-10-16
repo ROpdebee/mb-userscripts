@@ -1,8 +1,7 @@
 import { gmxhr, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import type { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs, CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
 
 jest.mock('@lib/util/xhr');
@@ -23,13 +22,16 @@ const mockGetProvider = getProvider as jest.MockedFunction<typeof getProvider>;
 // Fake provider to enable us to control which images are extracted through
 // this mock function.
 const mockFindImages = jest.fn() as jest.MockedFunction<CoverArtProvider['findImages']>;
-const fakeProvider: CoverArtProvider = {
-    name: 'test',
-    findImages: mockFindImages,
-    supportedDomains: [],
-    favicon: '',
-    supportsUrl: () => true,
-};
+class FakeProvider extends CoverArtProvider {
+    name = 'test'
+    findImages = mockFindImages
+    supportedDomains = []
+    favicon = ''
+    supportsUrl = (): boolean => true
+    extractId = (): string | undefined => undefined
+}
+
+const fakeProvider = new FakeProvider();
 
 // Utility setup functions
 function disableMaximisation(): void {
