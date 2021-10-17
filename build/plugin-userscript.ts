@@ -9,7 +9,7 @@ import type { UserscriptMetadata, AllUserscriptMetadata } from 'userscriptMetada
 
 interface UserscriptOptions {
     userscriptName: string
-    outputDir: string
+    version: string
     include: Readonly<RegExp>
     branchName?: string
     metadataOrder?: readonly string[]
@@ -91,6 +91,7 @@ class MetadataGenerator {
         }
 
         const defaultMetadata = {
+            version: this.options.version,
             author: typeof npmPackage.author === 'string' ? npmPackage.author : npmPackage.author.name,
             license: npmPackage.license,
             supportURL: (typeof npmPackage.bugs === 'string' ? npmPackage.bugs : npmPackage.bugs?.url) ?? gitURLs.issuesURL,

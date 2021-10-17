@@ -1,7 +1,6 @@
 interface UserscriptCustomMetadata {
     name: string
     description: string
-    version: string
     match: readonly string[] | string
     exclude?: readonly string[] | string
     require?: readonly string[] | string
