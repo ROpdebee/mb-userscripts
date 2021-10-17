@@ -101,12 +101,16 @@ describe('discogs provider', () => {
             // This is quite difficult to test, since we can't control the
             // ordering in which promises will be resolved.
             requestSpy.mockRejectedValueOnce(new Error('404'));
+            const deleteSpy = jest.spyOn(DiscogsProvider.apiResponseCache, 'delete');
+            deleteSpy.mockClear();
 
             const p1 = provider.findImages(discogsUrl);
             const p2 = provider.findImages(discogsUrl);
 
             await expect(p1).toReject();
             await expect(p2).toReject();
+
+            expect(deleteSpy).toHaveBeenCalledTimes(1);
         });
     });
 });
