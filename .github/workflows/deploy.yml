@@ -1,0 +1,31 @@
+---
+on:
+  pull_request:
+    branches: [main]
+    types: [closed]
+  workflow_dispatch:
+
+jobs:
+  if: ${{github.event.pull_request.merged && github.repository == 'ROpdebee/mb-userscripts' && github.ref == 'refs/heads/main'}}
+  # Make sure we can build and that tests pass before deploying
+  buildAndTest:
+    name: Build and test
+    uses: ROpdebee/mb-userscripts/.github/workflows/main.yml
+
+  deploy:
+    needs: [buildAndTest]
+    runs-on: ubuntu-latest
+    name: Deploy userscripts
+    steps:
+      - name: Checkout second dist copy
+        uses: actions/checkout@v2
+        with:
+          path: repoDist
+          ref: dist
+      - name: Deploy new userscript versions
+        run: |
+          cd repoDist
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'GitHub Actions'
+          cd -
+          npm run deploy repoDist
