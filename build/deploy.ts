@@ -26,46 +26,52 @@ async function userscriptHasChanged(scriptName: string, previousVersion: string)
     return !!diffSummary.changed;
 }
 
-async function commitIfUpdated(scriptName: string): Promise<boolean> {
+async function commitIfUpdated(scriptName: string): Promise<string | undefined> {
     console.log(`Checking ${scriptName}…`);
     const previousVersion = await getPreviousReleaseVersion(scriptName, distRepo);
     const nextVersion = incrementVersion(previousVersion);
 
     if (!previousVersion) {
         console.log(`First release: ${nextVersion}`);
-        await commitUpdate(scriptName, nextVersion);
-        return true;
+        return commitUpdate(scriptName, nextVersion);
     } else if (await userscriptHasChanged(scriptName, previousVersion)) {
         console.log(`${previousVersion} -> ${nextVersion}`);
-        await commitUpdate(scriptName, nextVersion);
-        return true;
+        return commitUpdate(scriptName, nextVersion);
     }
 
     console.log('No release needed');
-    return false;
+    return undefined;
 }
 
-async function commitUpdate(scriptName: string, version: string): Promise<void> {
+async function commitUpdate(scriptName: string, version: string): Promise<string> {
     // Build the userscripts with the new version into the dist repository.
     await buildUserscript(scriptName, version, distRepo);
     // Create the commit.
-    await gitDist
+    const commitResult = await gitDist
         .add([`${scriptName}.*`])
         .commit(`🤖 ${scriptName} ${version}`);
+    return `${scriptName} ${version} in ${commitResult.commit}`;
 }
 
 async function scanAndPush(): Promise<void> {
     const userscriptDirs = (await fs.readdir('./src'))
         .filter((name) => name.startsWith('mb_'));
 
-    let anyUpdates = false;
+    const updates: string[] = [];
     for (const scriptName of userscriptDirs) {
-        anyUpdates ||= await commitIfUpdated(scriptName);
+        const update = await commitIfUpdated(scriptName);
+        if (update) updates.push(update);
     }
 
-    if (anyUpdates) {
+    if (updates.length) {
         console.log('Pushing…');
         await gitDist.push();
+        const statusMessage = [`Released ${updates.length} new userscript version(s):`]
+            .concat(updates.map((update) => '* ' + update))
+            .join('\n');
+        // Logging this message, it should get picked up by the Actions runner
+        // to set the step output.
+        console.log('::set-output name=deployMessage::' + encodeURIComponent(statusMessage));
     }
 }
 
