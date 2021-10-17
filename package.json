@@ -7,7 +7,7 @@
     "build-dev": "node --unhandled-rejections=strict --loader ts-node/esm build/build.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc",
-    "commit-release": "node --unhandled-rejections=strict --loader ts-node/esm build/commit_release.ts",
+    "deploy": "node --unhandled-rejections=strict --loader ts-node/esm build/deploy.ts",
     "test": "NODE_NO_WARNINGS=1 jest"
   },
   "repository": {
