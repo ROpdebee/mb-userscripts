@@ -1,5 +1,6 @@
 import simpleGit from 'simple-git';
 import fs from 'fs/promises';
+import path from 'path';
 import { getPreviousReleaseVersion, incrementVersion } from './versions.js';
 import { buildUserscript } from './rollup.js';
 
@@ -47,6 +48,10 @@ async function commitIfUpdated(scriptName: string): Promise<string | undefined> 
 async function commitUpdate(scriptName: string, version: string): Promise<string> {
     // Build the userscripts with the new version into the dist repository.
     await buildUserscript(scriptName, version, distRepo);
+    // Update the version.json file, which we'll use to dynamically create badges
+    await fs.writeFile(path.join(distRepo, scriptName + '.metadata.json'), JSON.stringify({
+        version
+    }));
     // Create the commit.
     const commitResult = await gitDist
         .add([`${scriptName}.*`])
