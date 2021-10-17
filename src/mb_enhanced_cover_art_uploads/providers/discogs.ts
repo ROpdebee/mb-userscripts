@@ -43,6 +43,12 @@ export class DiscogsProvider extends CoverArtProvider {
     name = 'Discogs'
     urlRegex = /\/release\/(\d+)/
 
+    // Map of Discogs IDs to promises which will resolve to API responses.
+    // We're using promises so we can make an entry as soon as we create a
+    // request to the API, to prevent multiple concurrent requests in async
+    // code.
+    static apiResponseCache: Map<string, Promise<DiscogsImages>> = new Map();
+
     async findImages(url: URL): Promise<CoverArt[]> {
         // Loading the full HTML and parsing the metadata JSON embedded within
         // it.
@@ -56,7 +62,27 @@ export class DiscogsProvider extends CoverArtProvider {
         });
     }
 
-    static async getReleaseImages(releaseId: string): Promise<DiscogsImages> {
+    static getReleaseImages(releaseId: string): Promise<DiscogsImages> {
+        let respProm = this.apiResponseCache.get(releaseId);
+        if (typeof respProm === 'undefined') {
+            respProm = this.actuallyGetReleaseImages(releaseId);
+            this.apiResponseCache.set(releaseId, respProm);
+        }
+
+        // Evict the promise from the cache if it rejects, so that we can retry
+        // later. If we don't evict it, later retries will reuse the failing
+        // promise. Only remove if it hasn't been replaced yet. It may have
+        // already been replaced by another call, since this is asynchronous code
+        respProm.catch(() => {
+            if (this.apiResponseCache.get(releaseId) === respProm) {
+                this.apiResponseCache.delete(releaseId);
+            }
+        });
+
+        return respProm;
+    }
+
+    static async actuallyGetReleaseImages(releaseId: string): Promise<DiscogsImages> {
         const variables = encodeURIComponent(JSON.stringify({
             discogsId: parseInt(releaseId),
             count: 500,

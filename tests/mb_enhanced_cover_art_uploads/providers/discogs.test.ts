@@ -6,6 +6,7 @@ import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/di
 describe('discogs provider', () => {
     const pollyContext = setupPolly();
     const provider = new DiscogsProvider();
+    const discogsUrl = new URL('https://www.discogs.com/release/9892912');
 
     const urlCases = [
         ['short URL', 'https://www.discogs.com/release/9892912/', '9892912'],
@@ -34,7 +35,7 @@ describe('discogs provider', () => {
 
     describe('finding release images', () => {
         it('finds all images in 600x600', async () => {
-            const covers = await provider.findImages(new URL('https://www.discogs.com/release/9892912'));
+            const covers = await provider.findImages(discogsUrl);
 
             expect(covers).toBeArrayOfSize(3);
             expect(covers[0].url.pathname).toBe('/cGX5KW1uJCaiPRzaRY8iE3btV3g=/fit-in/600x624/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg');
@@ -59,6 +60,53 @@ describe('discogs provider', () => {
             const maxUrl = await DiscogsProvider.maximiseImage(new URL('https://img.discogs.com/husmGPLvKp_kDmwLCXA_fc75LcM=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg'));
 
             expect(maxUrl.pathname).toBe('/cGX5KW1uJCaiPRzaRY8iE3btV3g=/fit-in/600x624/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg');
+        });
+    });
+
+    describe('caching API responses', () => {
+        const requestSpy = jest.spyOn(DiscogsProvider, 'actuallyGetReleaseImages');
+
+        beforeEach(() => {
+            // Make sure to clear the cache before each test, since it's static
+            // individual tests may otherwise influence each other.
+            DiscogsProvider.apiResponseCache.clear();
+            requestSpy.mockClear();
+        });
+
+        it('reuses the cache entry for subsequent requests', async () => {
+            await provider.findImages(discogsUrl);
+            await provider.findImages(discogsUrl);
+
+            expect(requestSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('reuses the cache entry while maximising images', async () => {
+            const images = await provider.findImages(discogsUrl);
+            await Promise.all(images.map((image) => DiscogsProvider.maximiseImage(image.url)));
+
+            expect(requestSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('clears the cache entry on failure', async () => {
+            requestSpy.mockRejectedValueOnce(new Error('404'));
+
+            await expect(provider.findImages(discogsUrl))
+                .toReject();
+            await expect(provider.findImages(discogsUrl))
+                .toResolve();
+            expect(requestSpy).toHaveBeenCalledTimes(2);
+        });
+
+        it('does not clear cache entry twice', async () => {
+            // This is quite difficult to test, since we can't control the
+            // ordering in which promises will be resolved.
+            requestSpy.mockRejectedValueOnce(new Error('404'));
+
+            const p1 = provider.findImages(discogsUrl);
+            const p2 = provider.findImages(discogsUrl);
+
+            await expect(p1).toReject();
+            await expect(p2).toReject();
         });
     });
 });
