@@ -12,7 +12,6 @@ import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import virtual from '@rollup/plugin-virtual';
-import del from 'rollup-plugin-delete';
 import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
@@ -54,7 +53,7 @@ export async function buildUserscripts(version: string, outputDir: string = OUTP
 
 export async function buildUserscript(userscriptName: string, version: string, outputDir: string): Promise<void> {
     console.log(`Building ${userscriptName}`);
-    const passOneOutput = await buildUserscriptPassOne(userscriptName, outputDir);
+    const passOneOutput = await buildUserscriptPassOne(userscriptName);
     await buildUserscriptPassTwo(passOneOutput, userscriptName, version, outputDir);
 }
 
@@ -70,7 +69,7 @@ export async function buildUserscript(userscriptName: string, version: string, o
  * @return     {Promise}  Promise that resolves to the output as described
  *                        above.
  */
-async function buildUserscriptPassOne(userscriptDir: string, outputDir: string): Promise<RollupOutput> {
+async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutput> {
     let inputPath;
     try {
         inputPath = await Promise.any(EXTENSIONS.map(async (ext) => {
@@ -85,9 +84,6 @@ async function buildUserscriptPassOne(userscriptDir: string, outputDir: string):
     const bundle = await rollup({
         input: inputPath,
         plugins: [
-            del({
-                targets: `${outputDir}/${userscriptDir}.*.js`,
-            }),
             progress() as Plugin,
             // To resolve some aliases, like @lib
             alias({
