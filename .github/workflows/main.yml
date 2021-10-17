@@ -86,3 +86,8 @@ jobs:
         run: npm ci
       - name: Run jest
         run: npm run test
+      - name: Upload coverage data
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
