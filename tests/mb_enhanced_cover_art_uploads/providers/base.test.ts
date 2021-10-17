@@ -32,7 +32,7 @@ describe('cover art providers', () => {
                 context: undefined,
             });
 
-            await expect(fakeProvider.fetchPageDOM(new URL('https://example.com/redirect_me')))
+            await expect(fakeProvider.fetchPage(new URL('https://example.com/redirect_me')))
                 .rejects.toMatchObject({
                     message: expect.stringMatching('different release'),
                 });

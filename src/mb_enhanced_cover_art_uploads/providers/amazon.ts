@@ -1,4 +1,4 @@
-import { qs, qsa, qsMaybe } from '@lib/util/dom';
+import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 
 import type { CoverArt } from './base';
 import { ArtworkTypeIDs, CoverArtProvider } from './base';
@@ -19,7 +19,8 @@ export class AmazonProvider extends CoverArtProvider {
     urlRegex = /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/;
 
     async findImages(url: URL): Promise<CoverArt[]> {
-        const pageDom = await this.fetchPageDOM(url);
+        const page = await this.fetchPage(url);
+        const pageDom = parseDOM(page);
 
         if (qsMaybe('#digitalMusicProductImage_feature_div', pageDom) !== null) {
             // Streaming/MP3 product
