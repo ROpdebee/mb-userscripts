@@ -16,6 +16,8 @@ jobs:
     needs: [buildAndTest]
     runs-on: ubuntu-latest
     name: Deploy userscripts
+    outputs:
+      deployMessage: ${{ steps.deployStep.outputs.deployMessage }}
     steps:
       - name: Checkout second dist copy
         uses: actions/checkout@v2
@@ -23,9 +25,49 @@ jobs:
           path: repoDist
           ref: dist
       - name: Deploy new userscript versions
+        id: deployStep
         run: |
           cd repoDist
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'GitHub Actions'
           cd -
           npm run deploy repoDist
+
+  report:
+    name: 'Report deployment status'
+    if: always()
+    needs: [buildAndTest, deploy]
+    steps:
+      - name: Warn if deployment is skipped due to test failures
+        if: needs.buildAndTest.result != 'success'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Heads up! Automatic deployment of the changes in this PR failed due to a build or test failure.'
+            })
+      - name: Warn if deployment is skipped due to deployment failures
+        if: needs.deploy.result != 'success'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Heads up! Automatic deployment of the changes in this PR failed for unknown reason!'
+            })
+      - name: Report which versions have been deployed.
+        if: needs.deploy.result == 'success'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "${{ needs.deploy.outputs.deployMessage || 'This PR made no changes to the built userscripts. No new userscript versions deployed.' }}"
+            })
