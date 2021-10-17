@@ -4,6 +4,7 @@ import { getPreviousReleaseVersion, incrementVersion } from './versions.js';
 import { buildUserscript } from './rollup.js';
 
 const distRepo = process.argv[2];
+const prTitle = process.argv[3];
 
 // We're using a separate clone of the same repo here. gitDist is checked out
 // to the `dist` branch of our repo. We're using the separate copy  so we can
@@ -49,7 +50,7 @@ async function commitUpdate(scriptName: string, version: string): Promise<string
     // Create the commit.
     const commitResult = await gitDist
         .add([`${scriptName}.*`])
-        .commit(`🤖 ${scriptName} ${version}`);
+        .commit(`🤖 ${scriptName} ${version}\n\n${prTitle}`);
     return `${scriptName} ${version} in ${commitResult.commit}`;
 }
 
