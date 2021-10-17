@@ -44,18 +44,18 @@ const TERSER_OPTIONS: MinifyOptions = {
     module: false,
 };
 
-async function buildUserscripts(): Promise<void> {
+export async function buildUserscripts(version: string, outputDir: string = OUTPUT_DIR): Promise<void> {
     const userscriptDirs = await fs.promises.readdir('./src');
 
     await Promise.all(userscriptDirs
         .filter((name) => name !== 'lib' && !name.startsWith('.'))
-        .map(buildUserscript));
+        .map((userscriptName) => buildUserscript(userscriptName, version, outputDir)));
 }
 
-async function buildUserscript(userscriptDir: string): Promise<void> {
-    console.log(`Building ${userscriptDir}`);
-    const passOneOutput = await buildUserscriptPassOne(userscriptDir);
-    await buildUserscriptPassTwo(passOneOutput, userscriptDir);
+export async function buildUserscript(userscriptName: string, version: string, outputDir: string): Promise<void> {
+    console.log(`Building ${userscriptName}`);
+    const passOneOutput = await buildUserscriptPassOne(userscriptName, outputDir);
+    await buildUserscriptPassTwo(passOneOutput, userscriptName, version, outputDir);
 }
 
 /**
@@ -70,7 +70,7 @@ async function buildUserscript(userscriptDir: string): Promise<void> {
  * @return     {Promise}  Promise that resolves to the output as described
  *                        above.
  */
-async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutput> {
+async function buildUserscriptPassOne(userscriptDir: string, outputDir: string): Promise<RollupOutput> {
     let inputPath;
     try {
         inputPath = await Promise.any(EXTENSIONS.map(async (ext) => {
@@ -86,7 +86,7 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
         input: inputPath,
         plugins: [
             del({
-                targets: OUTPUT_DIR,
+                targets: `${outputDir}/${userscriptDir}.*.js`,
             }),
             progress() as Plugin,
             // To resolve some aliases, like @lib
@@ -171,7 +171,7 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
  * @return     {Promise}  Promise that resolves once the files have been
  *                        written.
  */
-async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string): Promise<void> {
+async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string, version: string, outputDir: string): Promise<void> {
     const fileMapping = passOneResult.output.reduce<Record<string, string>>((acc, curr) => {
         if (curr.type === 'chunk') acc[curr.fileName] = curr.code;
         return acc;
@@ -184,8 +184,8 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
             virtual(fileMapping) as Plugin,
             userscript({
                 userscriptName: userscriptDir,
+                version: version,
                 branchName: 'dist',
-                outputDir: OUTPUT_DIR,
                 include: /index\.js/,
             }),
         ],
@@ -193,7 +193,7 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
 
     await bundle.write({
         format: 'iife',
-        file: path.resolve(OUTPUT_DIR, `${userscriptDir}.user.js`),
+        file: path.resolve(outputDir, `${userscriptDir}.user.js`),
     });
 
     await bundle.close();
@@ -249,5 +249,3 @@ const minifyPlugin: OutputPlugin = {
                 result.code ? { code: result.code } : null);
     },
 };
-
-buildUserscripts();
