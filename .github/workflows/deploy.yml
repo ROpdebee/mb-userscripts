@@ -14,7 +14,7 @@ jobs:
   # Make sure we can build and that tests pass before deploying
   buildAndTest:
     name: Build and test
-    uses: ROpdebee/mb-userscripts/.github/workflows/main.yml
+    uses: ROpdebee/mb-userscripts/.github/workflows/main.yml@main
 
   deploy:
     needs: [buildAndTest]
