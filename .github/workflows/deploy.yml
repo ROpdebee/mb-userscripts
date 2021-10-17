@@ -12,8 +12,7 @@ jobs:
     name: Build and test
     if: >
       github.event.pull_request.merged
-      && github.repository == 'ROpdebee/mb-userscripts'
-      && github.ref == 'refs/heads/main'
+      && github.repository == 'ROpdebee/mb-userscripts'g
       && !contains(github.event.pull_request.labels.*.name, 'skip cd')
     uses: ROpdebee/mb-userscripts/.github/workflows/main.yml@main
 
