@@ -64,13 +64,13 @@ export abstract class CoverArtProvider {
         return !!id && id === this.extractId(redirectedUrl);
     }
 
-    async fetchPageDOM(url: URL): Promise<Document> {
+    async fetchPage(url: URL): Promise<string> {
         const resp = await gmxhr(url);
         if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
             throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${resp.finalUrl}, which may be a different release. If this redirected URL is correct, please retry with ${resp.finalUrl} directly.`);
         }
 
-        return parseDOM(resp.responseText);
+        return resp.responseText;
     }
 }
 
@@ -113,7 +113,7 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
     async findImages(url: URL): Promise<CoverArt[]> {
         // Find an image link from a HTML head meta property, maxurl will
         // maximize it for us. Don't want to use the API because of OAuth.
-        const respDocument = await this.fetchPageDOM(url);
+        const respDocument = parseDOM(await this.fetchPage(url));
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
         return [{
             url: new URL(coverElmt.content),
