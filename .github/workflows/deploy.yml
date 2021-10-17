@@ -30,12 +30,14 @@ jobs:
           ref: dist
       - name: Deploy new userscript versions
         id: deployStep
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }} (#${{ github.event.pull_request.number }})
         run: |
           cd repoDist
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'GitHub Actions'
           cd -
-          npm run deploy repoDist
+          npm run deploy repoDist "$PR_TITLE"
 
   report:
     name: 'Report deployment status'
