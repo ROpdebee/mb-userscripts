@@ -12,12 +12,7 @@ describe('cover art providers', () => {
                 name = 'fake';
                 favicon = '';
                 supportedDomains = ['example.com'];
-                supportsUrl(): boolean {
-                    return true;
-                }
-                extractId(): string {
-                    return '';
-                }
+                urlRegex = /example\.com\/(.+)/;
                 async findImages(): Promise<CoverArt[]> {
                     return [];
                 }
