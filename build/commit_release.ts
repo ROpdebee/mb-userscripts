@@ -1,91 +1,54 @@
 import simpleGit from 'simple-git';
-import { pathToFileURL } from 'url';
-import path from 'path';
 import fs from 'fs/promises';
-import type { UserscriptMetadata } from 'userscriptMetadata';
+import { getPreviousReleaseVersion, incrementVersion } from './versions.js';
+import { buildUserscript } from './rollup.js';
 
-const beforeSha = process.argv[2];
-const afterSha = process.argv[3];
-const distRepo = process.argv[4];
+const distRepo = process.argv[2];
 
-// We're using two separate clones of the same repo here. gitSrc is checked out
-// to the branch we're building from. gitDist is checked out to the `dist` branch.
-// We're using two copies so we can simultaneously extract versions from the source,
-// while also committing to the dist, without constantly having to change branches.
-const gitSrc = simpleGit();
+// We're using a separate clone of the same repo here. gitDist is checked out
+// to the `dist` branch of our repo. We're using the separate copy  so we can
+// simultaneously build from the main branch into the dist branch, while also
+// committing to dist, without constantly having to change branches.
 const gitDist = simpleGit(distRepo);
 
 if (!process.env.GITHUB_ACTIONS) {
     throw new Error('Refusing to run outside of CI, sorry :(');
 }
 
-function loadMetaTsContents(ref: string, metaPath: string): Promise<string | null> {
-    try {
-        return gitSrc.show(`${ref}:${metaPath}`);
-    } catch {
-        // Above throws if the path doesn't exist in the ref. This could happen
-        // in two cases: 1) The ref doesn't contain the file, and 2) the ref
-        // itself doesn't exist.
-        // Case 1 can occur if the script is entirely new, in which case an
-        // update should be created.
-        // Case 2 shouldn't occur, but can occur after the very first commit
-        // of the repo (a problem we shouldn't run into), or when a branch was
-        // force-pushed, in which case the beforeSha will no longer exist. This
-        // again cannot occur, since force-pushes to main are disallowed.
-        //
-        // Nonetheless, we'll make sure this ref exists. The line below will
-        // throw if it doesn't, which should never occur in practice.
-        gitSrc.show(ref);
-        return Promise.resolve(null);
-    }
-}
-
-async function importMetaTs(ref: string, metaPath: string): Promise<UserscriptMetadata | null> {
-    const content = await loadMetaTsContents(ref, metaPath);
-    if (!content) return null;
-    // Need to place this in the same directory because of the imports,
-    // we'll remove it again later. I tried data: URLs but TS was very angry.
-    const tmpPath = path.resolve(path.parse(metaPath).dir, ref + '_meta.ts');
-    await fs.writeFile(tmpPath, content);
-
-    const metadataFile = pathToFileURL(tmpPath).href;
-    const metadata = (await import(metadataFile)).default;
-    await fs.unlink(tmpPath);
-    return metadata;
+async function userscriptHasChanged(scriptName: string, previousVersion: string): Promise<boolean> {
+    // We'll check whether the userscript has changed by building the latest
+    // code and diffing it against the previous released version. If there's a
+    // diff, we assume it needs a new release. To prevent diffs caused solely
+    // by version bumps, we're building the script with the same version as
+    // before.
+    await buildUserscript(scriptName, previousVersion, distRepo);
+    const diffSummary = await gitDist.diffSummary();
+    return !!diffSummary.changed;
 }
 
 async function commitIfUpdated(scriptName: string): Promise<boolean> {
     console.log(`Checking ${scriptName}…`);
-    const metaPath = `src/${scriptName}/meta.ts`;
-    const metaBefore = await importMetaTs(beforeSha, metaPath);
-    const metaAfter = await importMetaTs(afterSha, metaPath);
+    const previousVersion = await getPreviousReleaseVersion(scriptName, distRepo);
+    const nextVersion = incrementVersion(previousVersion);
 
-    if (metaAfter === null) {
-        throw new Error('Where is the metadata?');
+    if (!previousVersion) {
+        console.log(`First release: ${nextVersion}`);
+        await commitUpdate(scriptName, nextVersion);
+        return true;
+    } else if (await userscriptHasChanged(scriptName, previousVersion)) {
+        console.log(`${previousVersion} -> ${nextVersion}`);
+        await commitUpdate(scriptName, nextVersion);
+        return true;
     }
 
-    if (metaBefore === null) {
-        console.log(`First release: ${metaAfter.version}`);
-        await commitUpdate(scriptName, metaAfter.version);
-    } else if (metaBefore.version !== metaAfter.version) {
-        // Could be downgrade too, but if we deliberately downgrade the version,
-        // the built scripts should be updated anyway.
-        console.log(`${metaBefore.version} -> ${metaAfter.version}`);
-        await commitUpdate(scriptName, metaAfter.version);
-    }
-
-    return metaBefore === null || metaBefore.version !== metaAfter.version;
+    console.log('No release needed');
+    return false;
 }
 
 async function commitUpdate(scriptName: string, version: string): Promise<void> {
-    // Copy over the compiled files to the dist repo
-    await Promise.all(['.meta.js', '.user.js']
-        .map((suffix) => scriptName + suffix)
-        .map((distFileName) => {
-            const srcPath = path.resolve('dist', distFileName);
-            const destPath = path.resolve(distRepo, distFileName);
-            return fs.copyFile(srcPath, destPath);
-        }));
+    // Build the userscripts with the new version into the dist repository.
+    await buildUserscript(scriptName, version, distRepo);
+    // Create the commit.
     await gitDist
         .add([`${scriptName}.*`])
         .commit(`🤖 ${scriptName} ${version}`);
