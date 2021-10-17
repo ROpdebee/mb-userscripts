@@ -6,7 +6,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  if: ${{github.event.pull_request.merged && github.repository == 'ROpdebee/mb-userscripts' && github.ref == 'refs/heads/main'}}
+  if: >
+    github.event.pull_request.merged
+    && github.repository == 'ROpdebee/mb-userscripts'
+    && github.ref == 'refs/heads/main'
+    && !contains(github.event.pull_request.labels.*.name, 'skip cd')
   # Make sure we can build and that tests pass before deploying
   buildAndTest:
     name: Build and test
@@ -35,7 +39,7 @@ jobs:
 
   report:
     name: 'Report deployment status'
-    if: always()
+    if: always() && !needs.deploy.result == 'skipped' && !needs.deploy.result.cancelled
     needs: [buildAndTest, deploy]
     steps:
       - name: Warn if deployment is skipped due to test failures
