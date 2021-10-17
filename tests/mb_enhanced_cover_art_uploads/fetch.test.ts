@@ -27,8 +27,7 @@ class FakeProvider extends CoverArtProvider {
     findImages = mockFindImages
     supportedDomains = []
     favicon = ''
-    supportsUrl = (): boolean => true
-    extractId = (): string | undefined => undefined
+    urlRegex = /example\.com\/(.+)/
 }
 
 const fakeProvider = new FakeProvider();

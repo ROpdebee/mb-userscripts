@@ -12,22 +12,14 @@ import { ArtworkTypeIDs, CoverArtProvider } from './base';
 // 3 years already, I doubt this will stop working any time soon.
 // https://web.archive.org/web/20181015184006/https://listen.tidal.com/app.9dbb572e8121f8755b73.js
 const APP_ID = 'CzET4vdadNUFQ5JU';
-const ID_REGEX = /\/album\/(\d+)/;
 
 export class TidalProvider extends CoverArtProvider {
     supportedDomains = ['tidal.com', 'listen.tidal.com', 'store.tidal.com']
     favicon = 'https://listen.tidal.com/favicon.ico'
     name = 'Tidal'
+    urlRegex = /\/album\/(\d+)/
 
     #countryCode: string | null = null;
-
-    supportsUrl(url: URL): boolean {
-        return ID_REGEX.test(url.pathname);
-    }
-
-    extractId(url: URL): string | undefined {
-        return url.pathname.match(ID_REGEX)?.[1];
-    }
 
     async getCountryCode(): Promise<string> {
         if (!this.#countryCode) {

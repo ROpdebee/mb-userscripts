@@ -4,8 +4,6 @@ import { AmazonProvider } from './amazon';
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
 
-const ID_REGEX = /\/albums\/([A-Za-z0-9]{10})(?:\/|$)/;
-
 export class AmazonMusicProvider extends CoverArtProvider {
     supportedDomains = [
         'music.amazon.ca', 'music.amazon.cn', 'music.amazon.de',
@@ -14,14 +12,7 @@ export class AmazonMusicProvider extends CoverArtProvider {
         'music.amazon.co.uk', 'music.amazon.com']
     favicon = 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png'
     name = 'Amazon Music'
-
-    supportsUrl(url: URL): boolean {
-        return ID_REGEX.test(url.pathname);
-    }
-
-    extractId(url: URL): string | undefined {
-        return url.pathname.match(ID_REGEX)?.[1];
-    }
+    urlRegex = /\/albums\/([A-Za-z0-9]{10})(?:\/|$)/
 
     async findImages(url: URL): Promise<CoverArt[]> {
         // Translate Amazon Music to Amazon product links. The cover art should

@@ -3,7 +3,6 @@ import { qs, qsa, qsMaybe } from '@lib/util/dom';
 import type { CoverArt } from './base';
 import { ArtworkTypeIDs, CoverArtProvider } from './base';
 
-const ID_REGEX = /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/;
 const PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/;
 
 export class AmazonProvider extends CoverArtProvider {
@@ -17,14 +16,7 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     name = 'Amazon'
-
-    supportsUrl(url: URL): boolean {
-        return ID_REGEX.test(url.pathname);
-    }
-
-    extractId(url: URL): string | undefined {
-        return url.pathname.match(ID_REGEX)?.[1];
-    }
+    urlRegex = /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/
 
     async findImages(url: URL): Promise<CoverArt[]> {
         const pageDom = await this.fetchPageDOM(url);

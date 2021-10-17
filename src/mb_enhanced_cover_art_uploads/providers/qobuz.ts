@@ -4,15 +4,6 @@ import { gmxhr, HTTPResponseError } from '@lib/util/xhr';
 import type { CoverArt } from './base';
 import { ArtworkTypeIDs, CoverArtProvider } from './base';
 
-// Splitting these regexps up for each domain. www.qobuz.com includes the album
-// title in the URL, open.qobuz.com does not. Although we could make the album
-// title part optional and match both domains with the same regexp, this could
-// lead to issues with URLs like this:
-// https://open.qobuz.com/album/1234567890/related
-// Not sure if such URLs would ever occur, but using a single regexp could
-// lead to `related` being matched as the ID and the actual ID as the title.
-const WWW_ID_MATCH_REGEX = /\/album\/[^/]+\/([A-Za-z0-9]+)(?:\/|$)/;
-const OPEN_ID_MATCH_REGEX = /\/album\/([A-Za-z0-9]+)(?:\/|$)/;
 // Assuming this doesn't change often. If it does, we might have to extract it
 // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
 // just use a constant app ID first.
@@ -47,22 +38,17 @@ export class QobuzProvider extends CoverArtProvider {
     supportedDomains = ['qobuz.com', 'open.qobuz.com']
     favicon = 'https://www.qobuz.com/favicon.ico'
     name = 'Qobuz'
-
-    supportsUrl(url: URL): boolean {
-        if (url.hostname === 'open.qobuz.com') {
-            return OPEN_ID_MATCH_REGEX.test(url.pathname);
-        }
-
-        return WWW_ID_MATCH_REGEX.test(url.pathname);
-    }
-
-    extractId(url: URL): string | undefined {
-        if (url.hostname === 'open.qobuz.com') {
-            return url.pathname.match(OPEN_ID_MATCH_REGEX)?.[1];
-        }
-
-        return url.pathname.match(WWW_ID_MATCH_REGEX)?.[1];
-    }
+    // Splitting these regexps up for each domain. www.qobuz.com includes the album
+    // title in the URL, open.qobuz.com does not. Although we could make the album
+    // title part optional and match both domains with the same regexp, this could
+    // lead to issues with URLs like this:
+    // https://open.qobuz.com/album/1234567890/related
+    // Not sure if such URLs would ever occur, but using a single regexp could
+    // lead to `related` being matched as the ID and the actual ID as the title.
+    urlRegex = [
+        /open\.qobuz\.com\/(?:.+?\/)?album\/([A-Za-z0-9]+)(?:\/|$)/,
+        /album\/[^/]+\/([A-Za-z0-9]+)(?:\/|$)/,
+    ]
 
     static idToCoverUrl(id: string): URL {
         const d1 = id.slice(-2);

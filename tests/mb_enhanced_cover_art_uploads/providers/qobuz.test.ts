@@ -13,6 +13,7 @@ describe('qobuz provider', () => {
         ['www URLs with language', 'https://www.qobuz.com/gb-en/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770', '0060075354770'],
         ['www URLs without language', 'https://www.qobuz.com/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770', '0060075354770'],
         ['open URLs', 'https://open.qobuz.com/album/0074643811224', '0074643811224'],
+        ['open URLs with additional path component', 'https://open.qobuz.com/album/1234567890/related', '1234567890'],
     ];
 
     it.each(urlCases)('matches %s links for release', (_1, url) => {

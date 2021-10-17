@@ -37,20 +37,11 @@ interface DiscogsImages {
     }
 }
 
-const ID_REGEX = /\/release\/(\d+)/;
-
 export class DiscogsProvider extends CoverArtProvider {
     supportedDomains = ['discogs.com']
     favicon = 'https://catalog-assets.discogs.com/e95f0cd9.png'
     name = 'Discogs'
-
-    supportsUrl(url: URL): boolean {
-        return ID_REGEX.test(url.pathname);
-    }
-
-    extractId(url: URL): string | undefined {
-        return url.pathname.match(ID_REGEX)?.[1];
-    }
+    urlRegex = /\/release\/(\d+)/
 
     async findImages(url: URL): Promise<CoverArt[]> {
         // Loading the full HTML and parsing the metadata JSON embedded within

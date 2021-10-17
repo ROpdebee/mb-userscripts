@@ -4,8 +4,6 @@ import { gmxhr } from '@lib/util/xhr';
 import type { CoverArt } from './base';
 import { ArtworkTypeIDs, CoverArtProvider } from './base';
 
-const ID_REGEX = /\/album\/(\d+)(?:\/|$)/;
-
 // Not full, only what we need
 interface AlbumMetadata {
     covers: Array<{
@@ -127,14 +125,7 @@ export class VGMdbProvider extends CoverArtProvider {
     supportedDomains = ['vgmdb.net']
     favicon = 'https://vgmdb.net/favicon.ico'
     name = 'VGMdb'
-
-    supportsUrl(url: URL): boolean {
-        return ID_REGEX.test(url.pathname);
-    }
-
-    extractId(url: URL): string | undefined {
-        return url.pathname.match(ID_REGEX)?.[1];
-    }
+    urlRegex = /\/album\/(\d+)(?:\/|$)/
 
     async findImages(url: URL): Promise<CoverArt[]> {
         // Using the unofficial API at vgmdb.info

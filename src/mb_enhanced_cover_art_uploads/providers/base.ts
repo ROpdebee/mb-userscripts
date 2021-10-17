@@ -16,6 +16,12 @@ export abstract class CoverArtProvider {
     abstract name: string
 
     /**
+     * Regular expression used to both match supported URLs and extract ID
+     * from the URL. Matched against the full URL.
+     */
+    abstract readonly urlRegex: RegExp | RegExp[]
+
+    /**
      * Find the provider's images.
      *
      * @param      {string}     url     The URL to the release. Guaranteed to have passed validation.
@@ -29,12 +35,25 @@ export abstract class CoverArtProvider {
      * @param      {URL}    url     The provider URL.
      * @return     {boolean}  Whether images can be extracted for this URL.
      */
-    abstract supportsUrl(url: URL): boolean
+    supportsUrl(url: URL): boolean {
+        if (Array.isArray(this.urlRegex)) {
+            return this.urlRegex.some((regex) => regex.test(url.href));
+        }
+        return this.urlRegex.test(url.href);
+    }
 
     /**
      * Extract ID from a release URL.
      */
-    abstract extractId(url: URL): string | undefined
+    extractId(url: URL): string | undefined {
+        if (!Array.isArray(this.urlRegex)) {
+            return url.href.match(this.urlRegex)?.[1];
+        }
+
+        return this.urlRegex
+            .map((regex) => url.href.match(regex)?.[1])
+            .find((id) => typeof id !== 'undefined');
+    }
 
     /**
      * Check whether a redirect is safe, i.e. both URLs point towards the same
