@@ -1,5 +1,5 @@
 # MB Userscripts
-![GitHub Test Workflow Status](https://img.shields.io/github/workflow/status/ROpdebee/mb-userscripts/nightly_tests?label=tests)
+![GitHub Test Workflow Status](https://img.shields.io/github/workflow/status/ROpdebee/mb-userscripts/nightly%20tests?label=tests)
 ![GitHub Deployment Workflow Status](https://img.shields.io/github/workflow/status/ROpdebee/mb-userscripts/deploy?label=deployment)
 ![Codecov](https://img.shields.io/codecov/c/gh/ROpdebee/mb-userscripts)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
