@@ -1,4 +1,5 @@
 import { assert, assertHasValue } from '@lib/util/assert';
+import { safeParseJSON } from '@lib/util/json';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
@@ -133,7 +134,7 @@ export class VGMdbProvider extends CoverArtProvider {
         assertHasValue(id);
         const apiUrl = `https://vgmdb.info/album/${id}?format=json`;
         const apiResp = await gmxhr(apiUrl);
-        const metadata = JSON.parse(apiResp.responseText) as AlbumMetadata;
+        const metadata = safeParseJSON<AlbumMetadata>(apiResp.responseText, 'Invalid JSON response from vgmdb.info API');
 
         assert(metadata.link === 'album/' + id, `VGMdb.info returned wrong release: Requested album/${id}, got ${metadata.link}`);
 

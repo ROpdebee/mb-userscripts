@@ -1,4 +1,5 @@
 import { assert, assertHasValue } from '@lib/util/assert';
+import { safeParseJSON } from '@lib/util/json';
 import { gmxhr, HTTPResponseError } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
@@ -65,7 +66,7 @@ export class QobuzProvider extends CoverArtProvider {
             },
         });
 
-        const metadata = JSON.parse(resp.responseText) as AlbumMetadata;
+        const metadata = safeParseJSON<AlbumMetadata>(resp.responseText, 'Invalid response from Qobuz API');
         assert(metadata.id.toString() === id, `Qobuz returned wrong release: Requested ${id}, got ${metadata.id}`);
 
         return metadata;
