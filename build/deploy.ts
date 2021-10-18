@@ -59,6 +59,13 @@ async function commitUpdate(scriptName: string, version: string): Promise<string
     return `${scriptName} ${version} in ${commitResult.commit}`;
 }
 
+function escapeOutput(output: string): string {
+    return output
+        .replaceAll('%', '%25')
+        .replaceAll('\n', '%0A')
+        .replaceAll('\r', '%0D');
+}
+
 async function scanAndPush(): Promise<void> {
     const userscriptDirs = (await fs.readdir('./src'))
         .filter((name) => name.startsWith('mb_'));
@@ -72,12 +79,12 @@ async function scanAndPush(): Promise<void> {
     if (updates.length) {
         console.log('Pushing…');
         await gitDist.push();
-        const statusMessage = [`Released ${updates.length} new userscript version(s):`]
+        const statusMessage = [`🚀 Released ${updates.length} new userscript version(s):`]
             .concat(updates.map((update) => '* ' + update))
             .join('\n');
         // Logging this message, it should get picked up by the Actions runner
         // to set the step output.
-        console.log('::set-output name=deployMessage::' + encodeURIComponent(statusMessage));
+        console.log('::set-output name=deployMessage::' + escapeOutput(statusMessage));
     }
 }
 
