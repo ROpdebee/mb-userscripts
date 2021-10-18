@@ -47,7 +47,7 @@ export class AmazonProvider extends CoverArtProvider {
 
         // For physical products we have to extract the embedded JS from the
         // page source to get all images in their highest available resolution.
-        let covers = this.#extractFromEmbeddedJS(pageContent);
+        let covers = this.extractFromEmbeddedJS(pageContent);
         if (!covers) {
             // Use the (smaller) image thumbnails in the sidebar as a fallback,
             // although it might not contain all of them. IMU will maximise,
@@ -82,7 +82,7 @@ export class AmazonProvider extends CoverArtProvider {
         }];
     }
 
-    #extractFromEmbeddedJS(pageContent: string): CoverArt[] | undefined {
+    extractFromEmbeddedJS(pageContent: string): CoverArt[] | undefined {
         const embeddedImages = pageContent.match(/^'colorImages': { 'initial': (.+)},$/m)?.[1];
         if (embeddedImages) {
             try {
