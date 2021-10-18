@@ -88,11 +88,13 @@ jobs:
       - name: Report which versions have been deployed.
         if: needs.deploy.result == 'success'
         uses: actions/github-script@v3
+        env:
+          COMMENT_CONTENT: ${{ needs.deploy.outputs.deployMessage || 'This PR made no changes to the built userscripts. No new userscript versions deployed.' }}
         with:
           script: |
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "${{ needs.deploy.outputs.deployMessage || 'This PR made no changes to the built userscripts. No new userscript versions deployed.' }}"
+              body: process.env.COMMENT_CONTENT,
             })
