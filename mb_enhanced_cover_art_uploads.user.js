@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.18.2
+// @version      2021.10.18.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -335,8 +335,31 @@
       }()
     }], [{
       key: "getReleaseImages",
+      value: function getReleaseImages(releaseId) {
+        var _this2 = this;
+
+        var respProm = this.apiResponseCache.get(releaseId);
+
+        if (typeof respProm === 'undefined') {
+          respProm = this.actuallyGetReleaseImages(releaseId);
+          this.apiResponseCache.set(releaseId, respProm);
+        } // Evict the promise from the cache if it rejects, so that we can retry
+        // later. If we don't evict it, later retries will reuse the failing
+        // promise. Only remove if it hasn't been replaced yet. It may have
+        // already been replaced by another call, since this is asynchronous code
+
+
+        respProm.catch(function () {
+          if (_this2.apiResponseCache.get(releaseId) === respProm) {
+            _this2.apiResponseCache.delete(releaseId);
+          }
+        });
+        return respProm;
+      }
+    }, {
+      key: "actuallyGetReleaseImages",
       value: function () {
-        var _getReleaseImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(releaseId) {
+        var _actuallyGetReleaseImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(releaseId) {
           var variables, extensions, resp, metadata, responseId;
           return regenerator.wrap(function _callee2$(_context2) {
             while (1) {
@@ -371,11 +394,11 @@
           }, _callee2);
         }));
 
-        function getReleaseImages(_x2) {
-          return _getReleaseImages.apply(this, arguments);
+        function actuallyGetReleaseImages(_x2) {
+          return _actuallyGetReleaseImages.apply(this, arguments);
         }
 
-        return getReleaseImages;
+        return actuallyGetReleaseImages;
       }()
     }, {
       key: "maximiseImage",
@@ -440,6 +463,8 @@
 
     return DiscogsProvider;
   }(CoverArtProvider);
+
+  _defineProperty(DiscogsProvider, "apiResponseCache", new Map());
 
   var SpotifyProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
     _inherits(SpotifyProvider, _HeadMetaPropertyProv);
