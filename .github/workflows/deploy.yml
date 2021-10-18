@@ -15,6 +15,8 @@ jobs:
       && github.repository == 'ROpdebee/mb-userscripts'
       && !contains(github.event.pull_request.labels.*.name, 'skip cd')
     uses: ROpdebee/mb-userscripts/.github/workflows/main.yml@main
+    with:
+      codecov_override_branch: main
 
   deploy:
     # If buildAndTest is skipped, this will be too.

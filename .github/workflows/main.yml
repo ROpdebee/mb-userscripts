@@ -4,6 +4,10 @@ on:
   pull_request:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      codecov_override_branch:
+        required: false
+        type: string
 
 jobs:
   lint:
@@ -92,3 +96,4 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/lcov.info
+          override_branch: ${{ inputs.codecov_override_branch || null }}
