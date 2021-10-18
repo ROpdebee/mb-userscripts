@@ -58,8 +58,8 @@ jobs:
     name: 'Report deployment status'
     if: >
       always()
-      && !needs.deploy.result == 'skipped'
-      && !needs.deploy.result == 'cancelled'
+      && needs.deploy.result != 'skipped'
+      && needs.deploy.result != 'cancelled'
     runs-on: ubuntu-latest
     needs: [buildAndTest, deploy]
     steps:
