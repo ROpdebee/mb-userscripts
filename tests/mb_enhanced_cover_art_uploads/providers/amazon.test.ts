@@ -49,7 +49,7 @@ describe('amazon provider', () => {
 
     it.each(extractionCases)('falls back to thumbnail grabbing for physical products on %s', async (_1, url) => {
         // mock the failed attempt of extracting images from embedded JS to trigger the thumbnail fallback
-        const spy = jest.spyOn(provider, 'extractFromEmbeddedJS').mockImplementationOnce(() => undefined);
+        jest.spyOn(provider, 'extractFromEmbeddedJS').mockImplementationOnce(() => undefined);
         const covers = await provider.findImages(new URL(url));
 
         expect(covers).toBeArrayOfSize(4);
@@ -59,8 +59,6 @@ describe('amazon provider', () => {
         expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
         expect(covers[2].url.pathname).toContain('31-n8wloCcL');
         expect(covers[3].url.pathname).toMatch(/41MN(?:%2B|\+)eLL(?:%2B|\+)JL/);
-
-        spy.mockRestore();
     });
 
     it('returns no covers for product without images', async () => {
