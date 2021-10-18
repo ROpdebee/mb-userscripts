@@ -29,19 +29,38 @@ describe('amazon provider', () => {
             .toBe(expectedId);
     });
 
-    it.each`
-        url | desc
-        ${'https://www.amazon.com/dp/B07QWNQT8X'} | ${'dp URLs'}
-        ${'https://www.amazon.com/gp/product/B07QWNQT8X'} | ${'gp URLs'}
-    `('grabs all images for physical products on $desc', async ({ url }: { url: string }) => {
+    const extractionCases = [
+        ['dp URLs', 'https://www.amazon.com/dp/B07QWNQT8X'],
+        ['gp URLs', 'https://www.amazon.com/gp/product/B07QWNQT8X'],
+    ];
+
+    it.each(extractionCases)('grabs all images for physical products from the embedded JS on %s', async (_1, url) => {
+        const covers = await provider.findImages(new URL(url));
+
+        expect(covers).toBeArrayOfSize(5);
+        expect(covers[0].url.pathname).toContain('81bqssuW6LL');
+        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(covers[1].url.pathname).toContain('61jZYB6BJYL');
+        expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
+        expect(covers[2].url.pathname).toContain('71TLgC33KgL');
+        expect(covers[3].url.pathname).toContain('81JCfIAZ71L');
+        expect(covers[4].url.pathname).toContain('816dglIIJHL');
+    });
+
+    it.each(extractionCases)('falls back to thumbnail grabbing for physical products on %s', async (_1, url) => {
+        // mock the failed attempt of extracting images from embedded JS to trigger the thumbnail fallback
+        const spy = jest.spyOn(provider, 'extractFromEmbeddedJS').mockImplementationOnce(() => undefined);
         const covers = await provider.findImages(new URL(url));
 
         expect(covers).toBeArrayOfSize(4);
         expect(covers[0].url.pathname).toContain('51nM1ikLWPL');
         expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(covers[1].url.pathname).toContain('41RQivjYeeL');
+        expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
         expect(covers[2].url.pathname).toContain('31-n8wloCcL');
         expect(covers[3].url.pathname).toMatch(/41MN(?:%2B|\+)eLL(?:%2B|\+)JL/);
+
+        spy.mockRestore();
     });
 
     it('returns no covers for product without images', async () => {
