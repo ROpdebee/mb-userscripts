@@ -16,9 +16,11 @@ interface AmazonImage {
 
 const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
     MAIN: ArtworkTypeIDs.Front,
+    FRNT: ArtworkTypeIDs.Front, // not seen in use so far, usually MAIN is used for front covers
     BACK: ArtworkTypeIDs.Back,
+    SIDE: ArtworkTypeIDs.Spine, // not seen in use so far
     // PT01: ArtworkTypeIDs.Other,
-    // PT02... Are these additional images always photos or renderings of the packaging?
+    // See https://sellercentral.amazon.com/gp/help/external/JV4FNMT7563SF5F for further details
 };
 
 export class AmazonProvider extends CoverArtProvider {
@@ -51,20 +53,23 @@ export class AmazonProvider extends CoverArtProvider {
             // although it might not contain all of them. IMU will maximise,
             // but the results are still inferior to the embedded hires images.
             const imgs = qsa<HTMLImageElement>('#altImages img', pageDom);
-            covers = imgs.map((img) => ({ url: new URL(img.src) }));
+            covers = imgs.map((img) => {
+                let variant = '';
+                const dataThumbAction = img.closest('span[data-thumb-action]')?.getAttribute('data-thumb-action');
+                if (dataThumbAction) {
+                    try {
+                        const thumbAction = JSON.parse(dataThumbAction) as { variant: string };
+                        variant = thumbAction.variant;
+                    } catch (err) {
+                        LOGGER.warn('Failed to extract the Amazon image variant code from the JSON attribute');
+                    }
+                }
+                return this.#convertVariant({ url: img.src, variant });
+            });
         }
 
         // Filter out placeholder images.
-        covers = covers.filter((img) => !PLACEHOLDER_IMG_REGEX.test(img.url.href));
-
-        // We don't know anything about the types of these images if they are
-        // from the thumbnail sidebar, but we can probably assume the first
-        // image is the front cover if its type has not been set already.
-        if (covers.length && covers[0].types === undefined) {
-            covers[0].types = [ArtworkTypeIDs.Front];
-        }
-
-        return covers;
+        return covers.filter((img) => !PLACEHOLDER_IMG_REGEX.test(img.url.href));
     }
 
     #extractFromStreamingProduct(doc: Document): CoverArt[] {
@@ -82,14 +87,9 @@ export class AmazonProvider extends CoverArtProvider {
         if (embeddedImages) {
             try {
                 const imgs = JSON.parse(embeddedImages) as AmazonImage[];
-                return imgs.map((img): CoverArt => {
+                return imgs.map((img) => {
                     // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
-                    const url = new URL(img.hiRes ?? img.large);
-                    const type = VARIANT_TYPE_MAPPING[img.variant];
-                    if (type) {
-                        return { url, types: [type] };
-                    }
-                    return { url };
+                    return this.#convertVariant({ url: img.hiRes ?? img.large, variant: img.variant });
                 });
             } catch (err) {
                 LOGGER.error('Failed to parse Amazon\'s embedded JS', err);
@@ -97,5 +97,15 @@ export class AmazonProvider extends CoverArtProvider {
         }
         LOGGER.warn('Failed to extract Amazon images from the embedded JS, falling back to thumbnails');
         return;
+    }
+
+    #convertVariant(cover: { url: string; variant: string }): CoverArt {
+        const url = new URL(cover.url);
+        const type = VARIANT_TYPE_MAPPING[cover.variant];
+        LOGGER.debug(`${url.href} has the Amazon image variant code '${cover.variant}'`);
+        if (type) {
+            return { url, types: [type] };
+        }
+        return { url };
     }
 }
