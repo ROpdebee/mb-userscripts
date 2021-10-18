@@ -1,4 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
+import { safeParseJSON } from '@lib/util/json';
 import type { CoverArt } from '../providers/base';
 
 function encodeValue(value: unknown): string {
@@ -23,11 +24,11 @@ function decodeSingleKeyValue(key: string, value: string, images: CoverArt[]): v
     if (keyName === 'url') {
         images[imageIdx].url = new URL(value);
     } else if (keyName === 'types') {
-        const types = JSON.parse(value);
+        const types = safeParseJSON(value);
         if (!Array.isArray(types) || types.some((type) => typeof type !== 'number')) {
             throw new Error(`Invalid 'types' parameter: ${value}`);
         }
-        images[imageIdx].types = JSON.parse(value);
+        images[imageIdx].types = types;
     } else {
         images[imageIdx].comment = value;
     }

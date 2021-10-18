@@ -1,5 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
+import { safeParseJSON } from '@lib/util/json';
 
 import type { CoverArt } from './base';
 import { ArtworkTypeIDs, CoverArtProvider } from './base';
@@ -52,20 +53,7 @@ export class AmazonProvider extends CoverArtProvider {
             // Use the (smaller) image thumbnails in the sidebar as a fallback,
             // although it might not contain all of them. IMU will maximise,
             // but the results are still inferior to the embedded hires images.
-            const imgs = qsa<HTMLImageElement>('#altImages img', pageDom);
-            covers = imgs.map((img) => {
-                let variant = '';
-                const dataThumbAction = img.closest('span[data-thumb-action]')?.getAttribute('data-thumb-action');
-                if (dataThumbAction) {
-                    try {
-                        const thumbAction = JSON.parse(dataThumbAction) as { variant: string };
-                        variant = thumbAction.variant;
-                    } catch (err) {
-                        LOGGER.warn('Failed to extract the Amazon image variant code from the JSON attribute');
-                    }
-                }
-                return this.#convertVariant({ url: img.src, variant });
-            });
+            covers = this.extractFromThumbnailSidebar(pageDom);
         }
 
         // Filter out placeholder images.
@@ -84,25 +72,43 @@ export class AmazonProvider extends CoverArtProvider {
 
     extractFromEmbeddedJS(pageContent: string): CoverArt[] | undefined {
         const embeddedImages = pageContent.match(/^'colorImages': { 'initial': (.+)},$/m)?.[1];
-        if (embeddedImages) {
-            try {
-                const imgs = JSON.parse(embeddedImages) as AmazonImage[];
-                return imgs.map((img) => {
-                    // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
-                    return this.#convertVariant({ url: img.hiRes ?? img.large, variant: img.variant });
-                });
-            } catch (err) {
-                LOGGER.error('Failed to parse Amazon\'s embedded JS', err);
-            }
+        if (!embeddedImages) {
+            LOGGER.warn('Failed to extract Amazon images from the embedded JS, falling back to thumbnails');
+            return;
         }
-        LOGGER.warn('Failed to extract Amazon images from the embedded JS, falling back to thumbnails');
-        return;
+
+        const imgs = safeParseJSON<AmazonImage[]>(embeddedImages)
+            ?.map((img) => {
+                // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
+                return this.#convertVariant({ url: img.hiRes ?? img.large, variant: img.variant });
+            });
+        if (!imgs) {
+            LOGGER.error('Failed to parse Amazon\'s embedded JS, falling back to thumbnails');
+        }
+
+        return imgs;
     }
 
-    #convertVariant(cover: { url: string; variant: string }): CoverArt {
+    extractFromThumbnailSidebar(pageDom: Document): CoverArt[] {
+        const imgs = qsa<HTMLImageElement>('#altImages img', pageDom);
+        return imgs.map((img) => {
+            const dataThumbAction = img.closest('span[data-thumb-action]')?.getAttribute('data-thumb-action');
+            const variant = dataThumbAction && safeParseJSON<{variant: string}>(dataThumbAction)?.variant;
+
+            /* istanbul ignore if: Difficult to exercise */
+            if (!variant) {
+                LOGGER.warn('Failed to extract the Amazon image variant code from the JSON attribute');
+            }
+
+            return this.#convertVariant({ url: img.src, variant });
+        });
+    }
+
+    #convertVariant(cover: { url: string; variant?: string | null }): CoverArt {
         const url = new URL(cover.url);
-        const type = VARIANT_TYPE_MAPPING[cover.variant];
+        const type = cover.variant && VARIANT_TYPE_MAPPING[cover.variant];
         LOGGER.debug(`${url.href} has the Amazon image variant code '${cover.variant}'`);
+
         if (type) {
             return { url, types: [type] };
         }

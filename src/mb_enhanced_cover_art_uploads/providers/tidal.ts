@@ -1,4 +1,5 @@
 import { assert, assertHasValue } from '@lib/util/assert';
+import { safeParseJSON } from '@lib/util/json';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
@@ -12,6 +13,18 @@ import { ArtworkTypeIDs, CoverArtProvider } from './base';
 // 3 years already, I doubt this will stop working any time soon.
 // https://web.archive.org/web/20181015184006/https://listen.tidal.com/app.9dbb572e8121f8755b73.js
 const APP_ID = 'CzET4vdadNUFQ5JU';
+
+// Incomplete and not entirely correct, but good enough for our purposes.
+interface AlbumMetadata {
+    rows: Array<{
+        modules: Array<{
+            album: {
+                id: number
+                cover: string
+            }
+        }>
+    }>
+}
 
 export class TidalProvider extends CoverArtProvider {
     supportedDomains = ['tidal.com', 'listen.tidal.com', 'store.tidal.com'];
@@ -28,7 +41,8 @@ export class TidalProvider extends CoverArtProvider {
                     'x-tidal-token': APP_ID,
                 },
             });
-            this.#countryCode = JSON.parse(resp.responseText).countryCode;
+            const codeResponse = safeParseJSON<{ countryCode: string }>(resp.responseText, 'Invalid JSON response from Tidal API for country code');
+            this.#countryCode = codeResponse.countryCode;
         }
         assertHasValue(this.#countryCode, 'Cannot determine Tidal country');
         return this.#countryCode;
@@ -45,12 +59,12 @@ export class TidalProvider extends CoverArtProvider {
                 'x-tidal-token': APP_ID,
             },
         });
-        const metadata = JSON.parse(resp.responseText);
-        const albumMetadata = metadata?.rows?.[0]?.modules?.[0]?.album;
+        const metadata = safeParseJSON<AlbumMetadata>(resp.responseText, 'Invalid response from Tidal API');
+        const albumMetadata = metadata.rows[0]?.modules?.[0]?.album;
         assertHasValue(albumMetadata, 'Tidal API returned no album, 404?');
-        assert(albumMetadata.id?.toString() === albumId, `Tidal returned wrong release: Requested ${albumId}, got ${albumMetadata.id}`);
+        assert(albumMetadata.id.toString() === albumId, `Tidal returned wrong release: Requested ${albumId}, got ${albumMetadata.id}`);
 
-        const coverId = metadata?.rows?.[0]?.modules?.[0]?.album?.cover;
+        const coverId = albumMetadata.cover;
         assertHasValue(coverId, 'Could not find cover in Tidal metadata');
         return `https://resources.tidal.com/images/${coverId.replace(/-/g, '/')}/origin.jpg`;
     }

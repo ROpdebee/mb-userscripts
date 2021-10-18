@@ -1,4 +1,5 @@
 import { assert, assertHasValue } from '@lib/util/assert';
+import { safeParseJSON } from '@lib/util/json';
 import { gmxhr } from '@lib/util/xhr';
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
@@ -95,7 +96,7 @@ export class DiscogsProvider extends CoverArtProvider {
         }));
         const resp = await gmxhr(`https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=${variables}&extensions=${extensions}`);
 
-        const metadata = JSON.parse(resp.responseText) as DiscogsImages;
+        const metadata = safeParseJSON<DiscogsImages>(resp.responseText, 'Invalid response from Discogs API');
         assertHasValue(metadata.data.release, 'Discogs release does not exist');
         const responseId = metadata.data.release.discogsId.toString();
         assert(typeof responseId === 'undefined' || responseId === releaseId, `Discogs returned wrong release: Requested ${releaseId}, got ${responseId}`);
