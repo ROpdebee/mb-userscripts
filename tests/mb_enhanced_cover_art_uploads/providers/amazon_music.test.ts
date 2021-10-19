@@ -4,6 +4,7 @@ import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/bas
 import { AmazonMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon_music';
 
 describe('amazon music provider', () => {
+    // eslint-disable-next-line jest/require-hook
     setupPolly();
     const provider = new AmazonMusicProvider();
 

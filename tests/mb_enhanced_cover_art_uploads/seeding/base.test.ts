@@ -32,8 +32,11 @@ describe('seeder', () => {
 });
 
 describe('seeder factory', () => {
-    registerSeeder(FakeSeeder);
-    registerSeeder(SecondFakeSeeder);
+
+    beforeAll(() => {
+        registerSeeder(FakeSeeder);
+        registerSeeder(SecondFakeSeeder);
+    });
 
     it('returns the first matching seeder if URL is supported', () => {
         expect(seederFactory(new URL('https://example.com/example_path')))

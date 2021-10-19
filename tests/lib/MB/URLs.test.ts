@@ -6,12 +6,14 @@ import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 // the risk of the tests being flaky if the requests are being passed through
 // after an edit is made on MB, but on the other hand, if something changes in
 // the API, we'll know it too.
-
+// eslint-disable-next-line jest/require-hook
 setupPolly({
     adapters: [HttpAdapter],
 });
 
-mockFetch('https://musicbrainz.org');
+beforeAll(() => {
+    mockFetch('https://musicbrainz.org');
+});
 
 describe('getting URLs for release', () => {
     it('retrieves all URLs', async () => {

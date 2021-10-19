@@ -4,6 +4,7 @@ import { AppleMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
 describe('apple music provider', () => {
+    // eslint-disable-next-line jest/require-hook
     setupPolly();
     const provider = new AppleMusicProvider();
 
