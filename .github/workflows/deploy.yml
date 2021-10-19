@@ -26,25 +26,16 @@ jobs:
     outputs:
       deployMessage: ${{ steps.deployStep.outputs.deployMessage }}
     steps:
-      - name: Checkout main
+      - name: Check out repository
         uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
       - name: Checkout second dist copy
         uses: actions/checkout@v2
         with:
           path: repoDist
           ref: dist
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: '~/.npm'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install project dependencies
-        run: npm ci
       - name: Deploy new userscript versions
         id: deployStep
         env:

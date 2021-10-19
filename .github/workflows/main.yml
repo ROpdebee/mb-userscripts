@@ -14,19 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Run ESLint
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: '~/.npm'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install project dependencies
-        run: npm ci
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
       - name: Run ESLint
         run: npm run lint
 
@@ -34,19 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Run TypeScript typechecker
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: '~/.npm'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install project dependencies
-        run: npm ci
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
       - name: Run tsc
         run: npm run typecheck
 
@@ -55,19 +39,11 @@ jobs:
     name: Build userscripts
     needs: [typecheck, lint]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: '~/.npm'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install project dependencies
-        run: npm ci
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
       - name: Compile userscripts
         run: npm run build
 
@@ -76,19 +52,11 @@ jobs:
     needs: [build]
     name: Run tests
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: '~/.npm'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install project dependencies
-        run: npm ci
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
       - name: Run jest
         run: npm run test
       - name: Upload coverage data
