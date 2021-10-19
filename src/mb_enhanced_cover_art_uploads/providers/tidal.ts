@@ -19,11 +19,11 @@ interface AlbumMetadata {
     rows: Array<{
         modules: Array<{
             album: {
-                id: number
-                cover: string
-            }
-        }>
-    }>
+                id: number;
+                cover: string;
+            };
+        }>;
+    }>;
 }
 
 export class TidalProvider extends CoverArtProvider {

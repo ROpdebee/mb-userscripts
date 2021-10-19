@@ -9,10 +9,10 @@ const PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/;
 
 // Incomplete, only what we need
 interface AmazonImage {
-    hiRes: string | null // URL of the largest version, can still be maximised by IMU
-    thumb: string // this kind of URL can also be extracted from the sidebar (DOM)
-    large: string // maximised version of `thumb`, can not be further maximised by IMU
-    variant: string // see mapping below
+    hiRes: string | null; // URL of the largest version, can still be maximised by IMU
+    thumb: string; // this kind of URL can also be extracted from the sidebar (DOM)
+    large: string; // maximised version of `thumb`, can not be further maximised by IMU
+    variant: string; // see mapping below
 }
 
 const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
