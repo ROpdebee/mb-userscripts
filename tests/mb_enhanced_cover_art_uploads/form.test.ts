@@ -438,12 +438,12 @@ describe('filling edit notes', () => {
         });
     };
 
-    // eslint-disable-next-line jest/valid-describe
+    // eslint-disable-next-line jest/valid-describe-callback
     describe('without container URL', sharedSpec.bind(null, {
         prefix: '',
     }));
 
-    // eslint-disable-next-line jest/valid-describe
+    // eslint-disable-next-line jest/valid-describe-callback
     describe('with container URL', sharedSpec.bind(null, {
         containerUrl: new URL('https://example.com/container'),
         prefix: ' * ',
