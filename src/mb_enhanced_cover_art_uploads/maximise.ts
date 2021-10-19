@@ -23,9 +23,9 @@ const options: maxurlOptions = {
 };
 
 export interface MaximisedImage {
-    url: URL
-    filename: string
-    headers: Record<string, unknown>
+    url: URL;
+    filename: string;
+    headers: Record<string, unknown>;
 }
 
 export async function* getMaximisedCandidates(smallurl: URL): AsyncIterableIterator<MaximisedImage> {

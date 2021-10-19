@@ -62,11 +62,7 @@ module.exports = {
                     disallowTypeAnnotations: true,
                 }],
                 '@typescript-eslint/explicit-function-return-type': ['error'],
-                '@typescript-eslint/member-delimiter-style': ['error', {
-                    multiline: {
-                        delimiter: 'none',
-                    },
-                }],
+                '@typescript-eslint/member-delimiter-style': ['error'],
                 '@typescript-eslint/no-base-to-string': ['error'],
                 '@typescript-eslint/no-confusing-void-expression': ['error'],
                 '@typescript-eslint/no-invalid-void-type': ['error'],

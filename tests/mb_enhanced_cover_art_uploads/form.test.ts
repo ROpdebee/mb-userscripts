@@ -208,8 +208,8 @@ describe('filling edit notes', () => {
     });
 
     interface SharedSpecArgs {
-        containerUrl?: URL
-        prefix: string
+        containerUrl?: URL;
+        prefix: string;
     }
 
     const sharedSpec = (args: SharedSpecArgs): void => {

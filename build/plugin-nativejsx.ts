@@ -13,8 +13,8 @@ import setStyles from 'nativejsx/source/prototypal-helpers/setStyles';`;
 
 
 interface NativeJSXPluginOptions extends Partial<JSXOptions> {
-    include?: FilterPattern
-    exclude?: FilterPattern
+    include?: FilterPattern;
+    exclude?: FilterPattern;
 }
 
 /**

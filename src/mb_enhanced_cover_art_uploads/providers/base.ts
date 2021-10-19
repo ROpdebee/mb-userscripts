@@ -78,15 +78,15 @@ export interface CoverArt {
     /**
      * URL to fetch.
      */
-    url: URL
+    url: URL;
     /**
      * Artwork types to set. May be empty or undefined.
      */
-    types?: ArtworkTypeIDs[]
+    types?: ArtworkTypeIDs[];
     /**
      * Comment to set. May be empty or undefined.
      */
-    comment?: string
+    comment?: string;
 }
 
 export enum ArtworkTypeIDs {

@@ -7,14 +7,14 @@ import { ArtworkTypeIDs, CoverArtProvider } from './base';
 // Not full, only what we need
 interface AlbumMetadata {
     covers: Array<{
-        full: string
-        medium: string
-        name: string
-        thumb: string
-    }>
+        full: string;
+        medium: string;
+        name: string;
+        thumb: string;
+    }>;
 
-    picture_full: string
-    link: string
+    picture_full: string;
+    link: string;
 }
 
 // type, list of types, or type with additional information

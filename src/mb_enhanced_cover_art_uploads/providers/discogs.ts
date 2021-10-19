@@ -8,33 +8,33 @@ import { CoverArtProvider } from './base';
 const QUERY_SHA256 = '13e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d7c6ecd';
 
 interface ImageInfo {
-    sourceUrl: string
-    webpUrl: string
-    width: number
-    height: number
-    __typename: 'ImageInfo'
+    sourceUrl: string;
+    webpUrl: string;
+    width: number;
+    height: number;
+    __typename: 'ImageInfo';
 }
 
 interface DiscogsImages {
     data: {
         release: {
-            __typename: 'Release'
-            discogsId: number
+            __typename: 'Release';
+            discogsId: number;
             images: {
-                __typename: 'ImagesConnection'
-                totalCount: number
+                __typename: 'ImagesConnection';
+                totalCount: number;
                 edges: Array<{
-                    __typename: 'ImagesEdge'
+                    __typename: 'ImagesEdge';
                     node: {
-                        __typename: 'Image'
-                        id: string
-                        fullsize: ImageInfo
-                        thumbnail: ImageInfo
-                    }
-                }>
-            }
-        }
-    }
+                        __typename: 'Image';
+                        id: string;
+                        fullsize: ImageInfo;
+                        thumbnail: ImageInfo;
+                    };
+                }>;
+            };
+        };
+    };
 }
 
 export class DiscogsProvider extends CoverArtProvider {

@@ -7,12 +7,12 @@ import { CustomError } from 'ts-custom-error';
 type LimitedGMXHROptions = Omit<GMXMLHttpRequestOptions, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'|'method'|'url'>;
 
 interface GMXHROptions extends LimitedGMXHROptions {
-    responseType?: XMLHttpRequestResponseType
-    method?: GMXMLHttpRequestOptions['method']
+    responseType?: XMLHttpRequestResponseType;
+    method?: GMXMLHttpRequestOptions['method'];
 }
 
 interface GMXHRResponse extends GMXMLHttpRequestResponse {
-    response: Blob
+    response: Blob;
 }
 
 export abstract class ResponseError extends CustomError {

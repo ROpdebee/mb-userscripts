@@ -5,29 +5,29 @@ import { getProvider } from './providers';
 import type { ArtworkTypeIDs, CoverArtProvider } from './providers/base';
 
 interface ImageContents {
-    requestedUrl: URL
-    fetchedUrl: URL
-    wasRedirected: boolean
-    file: File
+    requestedUrl: URL;
+    fetchedUrl: URL;
+    wasRedirected: boolean;
+    file: File;
 }
 
 export interface FetchedImage {
-    content: File
-    originalUrl: URL
-    maximisedUrl: URL
-    fetchedUrl: URL
-    wasMaximised: boolean
-    wasRedirected: boolean
+    content: File;
+    originalUrl: URL;
+    maximisedUrl: URL;
+    fetchedUrl: URL;
+    wasMaximised: boolean;
+    wasRedirected: boolean;
     // types and comment may be empty or undefined. If undefined, the value
     // will be replaced by the default, if any. If defined but empty, the
     // default will not be used.
-    types?: ArtworkTypeIDs[]
-    comment?: string  // Can be empty string
+    types?: ArtworkTypeIDs[];
+    comment?: string;  // Can be empty string
 }
 
 export interface FetchedImages {
-    images: FetchedImage[]
-    containerUrl?: URL
+    images: FetchedImage[];
+    containerUrl?: URL;
 }
 
 function getFilename(url: URL): string {

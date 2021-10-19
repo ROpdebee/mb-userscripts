@@ -2,8 +2,8 @@ import { LogLevel } from './levels';
 import type { LoggingSink } from './sink';
 
 interface LoggerOptions {
-    logLevel: LogLevel
-    sinks: LoggingSink[]
+    logLevel: LogLevel;
+    sinks: LoggingSink[];
 }
 
 const HANDLER_NAMES: Record<LogLevel, keyof LoggingSink> = {
