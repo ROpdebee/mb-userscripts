@@ -25,9 +25,17 @@ export abstract class CoverArtProvider {
      * Find the provider's images.
      *
      * @param      {string}     url     The URL to the release. Guaranteed to have passed validation.
-     * @return     {Promise<CoverArt[]>  List of cover arts that should be imported.
+     * @return     {Promise<CoverArt[]>}  List of cover arts that should be imported.
      */
     abstract findImages(url: URL): Promise<CoverArt[]>
+
+    /**
+     * Returns a clean version of the given URL.
+     * This version should be used to match against `urlRegex`.
+     */
+    cleanUrl(url: URL): string {
+        return url.host + url.pathname;
+    }
 
     /**
      * Check whether the provider supports the given URL.
@@ -37,9 +45,9 @@ export abstract class CoverArtProvider {
      */
     supportsUrl(url: URL): boolean {
         if (Array.isArray(this.urlRegex)) {
-            return this.urlRegex.some((regex) => regex.test(url.href));
+            return this.urlRegex.some((regex) => regex.test(this.cleanUrl(url)));
         }
-        return this.urlRegex.test(url.href);
+        return this.urlRegex.test(this.cleanUrl(url));
     }
 
     /**
@@ -47,11 +55,11 @@ export abstract class CoverArtProvider {
      */
     extractId(url: URL): string | undefined {
         if (!Array.isArray(this.urlRegex)) {
-            return url.href.match(this.urlRegex)?.[1];
+            return this.cleanUrl(url).match(this.urlRegex)?.[1];
         }
 
         return this.urlRegex
-            .map((regex) => url.href.match(regex)?.[1])
+            .map((regex) => this.cleanUrl(url).match(regex)?.[1])
             .find((id) => typeof id !== 'undefined');
     }
 
