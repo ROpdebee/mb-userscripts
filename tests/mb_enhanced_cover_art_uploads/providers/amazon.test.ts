@@ -61,6 +61,24 @@ describe('amazon provider', () => {
         expect(covers[3].url.pathname).toMatch(/41MN(?:%2B|\+)eLL(?:%2B|\+)JL/);
     });
 
+    it('will fall back to thumbnail grabbing if JSON cannot be extracted', () => {
+        const covers = provider.extractFromEmbeddedJS('');
+
+        expect(covers).toBeUndefined();
+    });
+
+    it('will fall back to thumbnail grabbing if JSON cannot be parsed', () => {
+        const covers = provider.extractFromEmbeddedJS("'colorImages': { 'initial': invalid },");
+
+        expect(covers).toBeUndefined();
+    });
+
+    it('will fall back to thumbnail grabbing if JSON is invalid type', () => {
+        const covers = provider.extractFromEmbeddedJS("'colorImages': { 'initial': 123 },");
+
+        expect(covers).toBeUndefined();
+    });
+
     it('returns no covers for product without images', async () => {
         const covers = await provider.findImages(new URL('https://www.amazon.com/dp/B000Q3KSMQ'));
 
