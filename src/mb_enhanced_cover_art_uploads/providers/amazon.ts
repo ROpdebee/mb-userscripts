@@ -77,16 +77,16 @@ export class AmazonProvider extends CoverArtProvider {
             return;
         }
 
-        const imgs = safeParseJSON<AmazonImage[]>(embeddedImages)
-            ?.map((img) => {
-                // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
-                return this.#convertVariant({ url: img.hiRes ?? img.large, variant: img.variant });
-            });
-        if (!imgs) {
+        const imgs = safeParseJSON<AmazonImage[]>(embeddedImages);
+        if (!Array.isArray(imgs)) {
             LOGGER.error('Failed to parse Amazon\'s embedded JS, falling back to thumbnails');
+            return;
         }
 
-        return imgs;
+        return imgs.map((img) => {
+            // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
+            return this.#convertVariant({ url: img.hiRes ?? img.large, variant: img.variant });
+        });
     }
 
     extractFromThumbnailSidebar(pageDom: Document): CoverArt[] {
