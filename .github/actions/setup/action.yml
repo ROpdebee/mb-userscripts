@@ -1,6 +1,6 @@
 ---
 name: Set up environment
-description: Clone the repository, set up NodeJS, and install npm dependencies
+description: Set up NodeJS and install npm dependencies
 inputs:
   node-version:
     description: Node version to install, defaults to v16
