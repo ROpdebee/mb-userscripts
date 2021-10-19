@@ -10,28 +10,28 @@ import { ArtworkTypeIDs, CoverArtProvider } from './base';
 const QOBUZ_APP_ID = 712109809;
 
 interface Goodie {
-    id: number
-    file_format_id: number
-    name: string
-    description: string
-    url: string
-    original_url: string
+    id: number;
+    file_format_id: number;
+    name: string;
+    description: string;
+    url: string;
+    original_url: string;
 }
 
 // Incomplete, only what we need
 interface AlbumMetadata {
-    id: number
+    id: number;
     image: {
-        large: string  // Note: Not the original
-        small: string
-        thumbnail: string
+        large: string;  // Note: Not the original
+        small: string;
+        thumbnail: string;
         // TODO: What's the format of these? I tried a bunch of well-known
         // albums where you'd expect that back covers were offered (Michael
         // Jackson etc) and it's always null.
-        back: unknown
-    }
+        back: unknown;
+    };
 
-    goodies?: Goodie[]
+    goodies?: Goodie[];
 }
 
 export class QobuzProvider extends CoverArtProvider {

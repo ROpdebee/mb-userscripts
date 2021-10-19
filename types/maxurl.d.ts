@@ -4,98 +4,98 @@ interface maxurlOptions {
     //
     // The only reason this option exists is as a small hack for a helper userscript used to find new rules,
     //  to check if IMU already supports a rule.
-    fill_object?: boolean
+    fill_object?: boolean;
 
     // Maximum amount of times it should be run.
     // Recommended to be at least 5.
-    iterations?: number
+    iterations?: number;
 
     // Whether or not to store to, and use an internal cache for URLs.
     // Set this to "read" if you want to use the cache without storing results to it.
-    use_cache?: boolean
+    use_cache?: boolean;
 
     // Timeout (in seconds) for cache entries in the URL cache
-    urlcache_time?: number
+    urlcache_time?: number;
 
     // List of "problems" (such as watermarks or possibly broken image) to exclude.
     //
     // By default, all problems are excluded.
     // You can access the excluded problems through maximage.default_options.exclude_problems
     // By setting it to [], no problems will be excluded.
-    exclude_problems?: string[]
+    exclude_problems?: string[];
 
     // Whether or not to exclude videos
-    exclude_videos?: boolean
+    exclude_videos?: boolean;
 
     // This will include a "history" of objects found through iterations.
     // Disabling this will only keep the objects found through the last successful iteration.
-    include_pastobjs?: boolean
+    include_pastobjs?: boolean;
 
     // This will try to find the original page for an image, even if it requires extra requests.
-    force_page?: boolean
+    force_page?: boolean;
 
     // This allows rules that use 3rd-party websites to find larger images
-    allow_thirdparty?: boolean
+    allow_thirdparty?: boolean;
 
     // This is useful for implementing a blacklist or whitelist.
     //  If unspecified, it accepts all URLs.
-    filter?: (url: string) => boolean
+    filter?: (url: string) => boolean;
 
     // Helper function to perform HTTP requests, used for sites like Flickr
     //  The API is expected to be like GM_xmlHTTPRequest's API.
     // An implementation using node's request module can be found in reddit-bot/dourl.js
-    do_request?: (options: GMXMLHttpRequestOptions) => void
+    do_request?: (options: GMXMLHttpRequestOptions) => void;
     // Callback
-    cb?: (result: maxurlResult[]) => void
+    cb?: (result: maxurlResult[]) => void;
 }
 
 interface maxurlResult {
   // The URL of the image
-  url: string
+  url: string;
 
   // Whether or not this URL is a video
-  video: boolean
+  video: boolean;
 
   // Whether it's expected that it will always work or not.
   //  Don't rely on this value if you don't have to
-  always_ok: boolean
+  always_ok: boolean;
 
   // Whether or not the URL is likely to work.
-  likely_broken: boolean
+  likely_broken: boolean;
 
   // Whether or not the server supports a HEAD request.
-  can_head: boolean
+  can_head: boolean;
 
   // HEAD errors that can be ignored
-  head_ok_errors: number[]
+  head_ok_errors: number[];
 
   // Whether or not the server might return the wrong Content-Type header in the HEAD request
-  head_wrong_contenttype: boolean
+  head_wrong_contenttype: boolean;
 
   // Whether or not the server might return the wrong Content-Length header in the HEAD request
-  head_wrong_contentlength: boolean
+  head_wrong_contentlength: boolean;
 
   // This is used in the return value of the exported function.
   //  If you're using a callback (as shown in the code example above),
   //  this value will always be false
-  waiting: boolean
+  waiting: boolean;
 
   // Whether or not the returned URL is expected to redirect to another URL
-  redirects: boolean
+  redirects: boolean;
 
   // Whether or not the URL is temporary/only works on the current IP (such as a generated download link)
-  is_private: boolean
+  is_private: boolean;
 
   // Whether or not the URL is expected to be the original image stored on the website's servers.
-  is_original: boolean
+  is_original: boolean;
 
   // If this is true, you shouldn't input this URL again into IMU.
-  norecurse: boolean
+  norecurse: boolean;
 
   // Whether or not this URL should be used.
   // If true, treat this like a 404
   // If "mask", this image is an overlayed mask
-  bad: boolean | 'mask'
+  bad: boolean | 'mask';
 
   // Same as above, but contains a list of objects, e.g.:
   // [{
@@ -105,50 +105,50 @@ interface maxurlResult {
   // If one of the objects matches the response, it's a bad image.
   // You can use maximage.check_bad_if(bad_if, resp) to check.
   //  (resp is expected to be an XHR-like object)
-  bad_if: Array<Record<string, unknown>>
+  bad_if: Array<Record<string, unknown>>;
 
   // Whether or not this URL is a "fake" URL that was used internally (i.e. if true, don't use this)
-  fake: boolean
+  fake: boolean;
 
   // Headers required to view the returned URL
   //  If a header is null, don't include that header.
-  headers: Record<string, unknown>
+  headers: Record<string, unknown>;
 
   // Additional properties that could be useful
   extra: {
     // The original page where this image was hosted
-    page?: string
+    page?: string;
 
     // The title/caption attached to the image
-    caption?: string
-  }
+    caption?: string;
+  };
 
   // If set, this is a more descriptive filename for the image
-  filename: string
+  filename: string;
 
   // A list of problems with this image. Use exclude_problems to exclude images with specific problems
   problems: {
     // If true, the image is likely larger than the one inputted, but it also has a watermark (when the inputted one doesn't)
-    watermark: boolean
+    watermark: boolean;
 
     // If true, the image is likely smaller than the one inputted, but it has no watermark
-    smaller: boolean
+    smaller: boolean;
 
     // If true, the image might be entirely different from the one inputted
-    possibly_different: boolean
+    possibly_different: boolean;
 
     // If true, the image might be broken (such as GIFs on Tumblr)
-    possibly_broken: boolean
-  }
+    possibly_broken: boolean;
+  };
 }
 
 interface maxurl {
-    (url: string, options: maxurlOptions): void
+    (url: string, options: maxurlOptions): void;
 
-    check_bad_if(badif: Array<Record<string, unknown>>, resp: XMLHttpRequestResponseType): boolean
-    default_options: maxurlOptions
-    is_internet_url(url: string): boolean
-    clear_caches(): void
+    check_bad_if(badif: Array<Record<string, unknown>>, resp: XMLHttpRequestResponseType): boolean;
+    default_options: maxurlOptions;
+    is_internet_url(url: string): boolean;
+    clear_caches(): void;
     // loop: any
 }
 

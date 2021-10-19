@@ -62,11 +62,11 @@ describe('vgmdb provider', () => {
         const caption_type_mapping = __get__('CAPTION_TYPE_MAPPING');
 
         interface ItemType {
-            caption: string
+            caption: string;
             expected: {
-                types: ArtworkTypeIDs[]
-                comment: string
-            }
+                types: ArtworkTypeIDs[];
+                comment: string;
+            };
         }
 
         it.each`

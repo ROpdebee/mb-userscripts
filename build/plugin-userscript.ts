@@ -8,16 +8,16 @@ import type { PackageJson } from 'type-fest';
 import type { UserscriptMetadata, AllUserscriptMetadata } from 'userscriptMetadata';
 
 interface UserscriptOptions {
-    userscriptName: string
-    version: string
-    include: Readonly<RegExp>
-    branchName?: string
-    metadataOrder?: readonly string[]
+    userscriptName: string;
+    version: string;
+    include: Readonly<RegExp>;
+    branchName?: string;
+    metadataOrder?: readonly string[];
 }
 
 interface _UserscriptOptionsWithDefaults extends UserscriptOptions {
-    metadataOrder: readonly string[]
-    branchName: string
+    metadataOrder: readonly string[];
+    branchName: string;
 }
 
 const DEFAULT_OPTIONS = {
