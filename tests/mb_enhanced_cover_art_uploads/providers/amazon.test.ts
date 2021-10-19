@@ -10,6 +10,7 @@ describe('amazon provider', () => {
 
     const urlCases = [
         ['dirty URL', 'https://www.amazon.com/Pattern-Seeking-Animals/dp/B07RZ2T9F1/ref=tmm_acd_swatch_0?_encoding=UTF8&qid=&sr=', 'B07RZ2T9F1'],
+        ['dirty URL without trailing slash', 'https://www.amazon.com/Chronicles-Narnia-Collectors-Radio-Theatre/dp/1624053661?qsid=145-0543367-7486236', '1624053661'],
         ['dp URL', 'https://www.amazon.com/dp/B07RZ2T9F1', 'B07RZ2T9F1'],
         ['gp URL', 'https://www.amazon.com/gp/product/B07RZ2T9F1', 'B07RZ2T9F1'],
     ];
