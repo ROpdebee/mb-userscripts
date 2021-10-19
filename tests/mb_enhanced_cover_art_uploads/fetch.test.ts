@@ -23,11 +23,11 @@ const mockGetProvider = getProvider as jest.MockedFunction<typeof getProvider>;
 // this mock function.
 const mockFindImages = jest.fn() as jest.MockedFunction<CoverArtProvider['findImages']>;
 class FakeProvider extends CoverArtProvider {
-    name = 'test'
-    findImages = mockFindImages
-    supportedDomains = []
-    favicon = ''
-    urlRegex = /example\.com\/(.+)/
+    name = 'test';
+    findImages = mockFindImages;
+    supportedDomains = [];
+    favicon = '';
+    urlRegex = /example\.com\/(.+)/;
 }
 
 const fakeProvider = new FakeProvider();

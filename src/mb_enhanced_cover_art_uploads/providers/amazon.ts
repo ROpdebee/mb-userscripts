@@ -9,14 +9,14 @@ export class AmazonProvider extends CoverArtProvider {
     supportedDomains = [
         'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.es', 'amazon.fr',
         'amazon.it', 'amazon.jp', 'amazon.nl', 'amazon.co.jp', 'amazon.co.uk',
-        'amazon.com']
+        'amazon.com'];
     // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
     get favicon(): string {
         return GM_getResourceURL('amazonFavicon');
     }
 
-    name = 'Amazon'
-    urlRegex = /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/
+    name = 'Amazon';
+    urlRegex = /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/;
 
     async findImages(url: URL): Promise<CoverArt[]> {
         const pageDom = await this.fetchPageDOM(url);

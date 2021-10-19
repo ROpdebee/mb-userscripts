@@ -34,8 +34,8 @@ function decodeSingleKeyValue(key: string, value: string, images: CoverArt[]): v
 }
 
 export class SeedParameters {
-    readonly images: CoverArt[]
-    readonly origin?: string
+    readonly images: CoverArt[];
+    readonly origin?: string;
 
     constructor(images?: CoverArt[], origin?: string) {
         this.images = images ?? [];

@@ -14,10 +14,10 @@ import { ArtworkTypeIDs, CoverArtProvider } from './base';
 const APP_ID = 'CzET4vdadNUFQ5JU';
 
 export class TidalProvider extends CoverArtProvider {
-    supportedDomains = ['tidal.com', 'listen.tidal.com', 'store.tidal.com']
-    favicon = 'https://listen.tidal.com/favicon.ico'
-    name = 'Tidal'
-    urlRegex = /\/album\/(\d+)/
+    supportedDomains = ['tidal.com', 'listen.tidal.com', 'store.tidal.com'];
+    favicon = 'https://listen.tidal.com/favicon.ico';
+    name = 'Tidal';
+    urlRegex = /\/album\/(\d+)/;
 
     #countryCode: string | null = null;
 

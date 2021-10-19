@@ -38,10 +38,10 @@ interface DiscogsImages {
 }
 
 export class DiscogsProvider extends CoverArtProvider {
-    supportedDomains = ['discogs.com']
-    favicon = 'https://catalog-assets.discogs.com/e95f0cd9.png'
-    name = 'Discogs'
-    urlRegex = /\/release\/(\d+)/
+    supportedDomains = ['discogs.com'];
+    favicon = 'https://catalog-assets.discogs.com/e95f0cd9.png';
+    name = 'Discogs';
+    urlRegex = /\/release\/(\d+)/;
 
     // Map of Discogs IDs to promises which will resolve to API responses.
     // We're using promises so we can make an entry as soon as we create a

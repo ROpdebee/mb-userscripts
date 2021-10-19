@@ -6,8 +6,8 @@ import type { CoverArtProvider } from '../providers/base';
 import css from './main.scss';
 
 export class InputForm {
-    #urlInput: HTMLInputElement
-    #buttonContainer: HTMLDivElement
+    #urlInput: HTMLInputElement;
+    #buttonContainer: HTMLDivElement;
 
     constructor(banner: HTMLElement, onUrlFilled: (url: URL) => void) {
         // Inject our custom CSS
