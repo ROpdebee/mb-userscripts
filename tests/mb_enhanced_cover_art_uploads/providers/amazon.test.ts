@@ -86,6 +86,34 @@ describe('amazon provider', () => {
         expect(covers).toBeEmpty();
     });
 
+    it('grabs all images for physical audiobooks from the embedded JS', async () => {
+        const covers = await provider.findImages(new URL('https://www.amazon.com/dp/0563504196'));
+
+        expect(covers).toBeArrayOfSize(2);
+        expect(covers[0].url.pathname).toContain('91OEsuYoClL');
+        expect(covers[0].types).toBeUndefined();
+        expect(covers[1].url.pathname).toContain('91NVbKDHCWL');
+        expect(covers[1].types).toBeUndefined();
+    });
+
+    it('fails to grab audiobook images if JSON cannot be extracted', () => {
+        const covers = provider.extractFromEmbeddedJSGallery('');
+
+        expect(covers).toBeUndefined();
+    });
+
+    it('fails to grab audiobook images if JSON cannot be parsed', () => {
+        const covers = provider.extractFromEmbeddedJSGallery("'imageGalleryData' : invalid,");
+
+        expect(covers).toBeUndefined();
+    });
+
+    it('fails to grab audiobook images if JSON is invalid type', () => {
+        const covers = provider.extractFromEmbeddedJSGallery("'imageGalleryData' : 123,");
+
+        expect(covers).toBeUndefined();
+    });
+
     it.each`
         url | desc
         ${'https://www.amazon.com/dp/B07R92TVWN'} | ${'dp URLs'}
@@ -95,6 +123,15 @@ describe('amazon provider', () => {
 
         expect(covers).toBeArrayOfSize(1);
         expect(covers[0].url.pathname).toContain('819w7BrMFgL');
+        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(covers[0].comment).toBeUndefined();
+    });
+
+    it('grabs the only image for Audible audiobooks', async () => {
+        const covers = await provider.findImages(new URL('https://www.amazon.com/dp/B017WJ5PR4'));
+
+        expect(covers).toBeArrayOfSize(1);
+        expect(covers[0].url.pathname).toContain('51g7fkELjaL');
         expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(covers[0].comment).toBeUndefined();
     });

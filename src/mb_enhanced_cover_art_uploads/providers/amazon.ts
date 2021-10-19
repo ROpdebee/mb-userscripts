@@ -59,7 +59,7 @@ export class AmazonProvider extends CoverArtProvider {
         if (!covers.length) {
             // Handle physical audiobooks, the above extractors fail for those.
             LOGGER.warn('Found no release images, trying to find an Amazon (audio)book gallery…');
-            covers = this.extractFromEmbeddedJSGallery(pageContent) ?? [];
+            covers = this.extractFromEmbeddedJSGallery(pageContent) ?? /* istanbul ignore next: Should never happen */[];
         }
 
         // Filter out placeholder images.
