@@ -1,5 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
-import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
+import { parseDOM, qsa, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
 
 import type { CoverArt } from './base';
@@ -41,9 +41,10 @@ export class AmazonProvider extends CoverArtProvider {
         const pageContent = await this.fetchPage(url);
         const pageDom = parseDOM(pageContent);
 
-        if (qsMaybe('#digitalMusicProductImage_feature_div', pageDom) !== null) {
-            // Streaming/MP3 product
-            return this.#extractFromStreamingProduct(pageDom);
+        // Look for products which only have a single image, the front cover.
+        const frontCover = this.#extractFrontCover(pageDom);
+        if (frontCover) {
+            return [frontCover];
         }
 
         // For physical products we have to extract the embedded JS from the
@@ -55,19 +56,35 @@ export class AmazonProvider extends CoverArtProvider {
             // but the results are still inferior to the embedded hires images.
             covers = this.extractFromThumbnailSidebar(pageDom);
         }
+        if (!covers.length) {
+            // Handle physical audiobooks, the above extractors fail for those.
+            LOGGER.warn('Found no release images, trying to find an Amazon (audio)book gallery…');
+            covers = this.extractFromEmbeddedJSGallery(pageContent) ?? [];
+        }
 
         // Filter out placeholder images.
         return covers.filter((img) => !PLACEHOLDER_IMG_REGEX.test(img.url.href));
     }
 
-    #extractFromStreamingProduct(doc: Document): CoverArt[] {
-        const img = qs<HTMLImageElement>('#digitalMusicProductImage_feature_div > img', doc);
-        // For MP3/Streaming releases, we know the cover is the front one.
-        // Only returning the thumbnail, IMU will maximise
-        return [{
-            url: new URL(img.src),
-            types: [ArtworkTypeIDs.Front],
-        }];
+    #extractFrontCover(pageDom: Document): CoverArt | undefined {
+        const frontCoverSelectors = [
+            '#digitalMusicProductImage_feature_div > img', // Streaming/MP3 products
+            'img#main-image', // Audible products
+        ];
+
+        for (const selector of frontCoverSelectors) {
+            const productImage = qsMaybe<HTMLImageElement>(selector, pageDom);
+            if (productImage) {
+                // Only returning the thumbnail, IMU will maximise
+                return {
+                    url: new URL(productImage.src),
+                    types: [ArtworkTypeIDs.Front],
+                };
+            }
+        }
+
+        // Different product type (or no image found)
+        return;
     }
 
     extractFromEmbeddedJS(pageContent: string): CoverArt[] | undefined {
@@ -89,11 +106,28 @@ export class AmazonProvider extends CoverArtProvider {
         });
     }
 
+    extractFromEmbeddedJSGallery(pageContent: string): CoverArt[] | undefined {
+        const embeddedGallery = pageContent.match(/^'imageGalleryData' : (.+),$/m)?.[1];
+        if (!embeddedGallery) {
+            LOGGER.warn('Failed to extract Amazon images from the embedded JS (audio)book gallery');
+            return;
+        }
+
+        const imgs = safeParseJSON<Array<{ mainUrl: string }>>(embeddedGallery);
+        if (!Array.isArray(imgs)) {
+            LOGGER.error("Failed to parse Amazon's embedded JS (audio)book gallery");
+            return;
+        }
+
+        // Amazon embeds no image variants on these pages, so we don't know the types
+        return imgs.map((img) => ({ url: new URL(img.mainUrl) }));
+    }
+
     extractFromThumbnailSidebar(pageDom: Document): CoverArt[] {
         const imgs = qsa<HTMLImageElement>('#altImages img', pageDom);
         return imgs.map((img) => {
             const dataThumbAction = img.closest('span[data-thumb-action]')?.getAttribute('data-thumb-action');
-            const variant = dataThumbAction && safeParseJSON<{variant: string}>(dataThumbAction)?.variant;
+            const variant = dataThumbAction && safeParseJSON<{ variant: string }>(dataThumbAction)?.variant;
 
             /* istanbul ignore if: Difficult to exercise */
             if (!variant) {
