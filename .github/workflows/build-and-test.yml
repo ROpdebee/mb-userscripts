@@ -1,0 +1,58 @@
+---
+name: build and test
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Run ESLint
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
+      - name: Run ESLint
+        run: npm run lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    name: Run TypeScript typechecker
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
+      - name: Run tsc
+        run: npm run typecheck
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build userscripts
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
+      - name: Compile userscripts
+        run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+    name: Run tests
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
+      - name: Run jest
+        run: npm run test
+      - name: Upload coverage data
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage/lcov.info

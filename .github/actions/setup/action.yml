@@ -1,0 +1,25 @@
+---
+name: Set up environment
+description: Set up NodeJS and install npm dependencies
+inputs:
+  node-version:
+    description: Node version to install, defaults to v16
+    required: false
+    default: '16'
+runs:
+  using: composite
+  steps:
+    - name: Set up node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ inputs.node-version }}
+    - name: Cache npm dependencies
+      uses: actions/cache@v2
+      with:
+        path: '~/.npm'
+        key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-${{ inputs.node-version }}
+    - name: Install project dependencies
+      run: npm ci
+      shell: bash

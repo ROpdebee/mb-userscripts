@@ -14,9 +14,7 @@ jobs:
       github.event.pull_request.merged
       && github.repository == 'ROpdebee/mb-userscripts'
       && !contains(github.event.pull_request.labels.*.name, 'skip cd')
-    uses: ROpdebee/mb-userscripts/.github/workflows/main.yml@main
-    with:
-      codecov_override_branch: main
+    uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@main
 
   deploy:
     # If buildAndTest is skipped, this will be too.
@@ -26,25 +24,16 @@ jobs:
     outputs:
       deployMessage: ${{ steps.deployStep.outputs.deployMessage }}
     steps:
-      - name: Checkout main
+      - name: Check out repository
         uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
       - name: Checkout second dist copy
         uses: actions/checkout@v2
         with:
           path: repoDist
           ref: dist
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: '~/.npm'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install project dependencies
-        run: npm ci
       - name: Deploy new userscript versions
         id: deployStep
         env:
@@ -58,15 +47,14 @@ jobs:
 
   report:
     name: 'Report deployment status'
-    if: >
-      always()
-      && needs.deploy.result != 'skipped'
-      && needs.deploy.result != 'cancelled'
+    if: always() && needs.deploy.result != 'cancelled'
     runs-on: ubuntu-latest
     needs: [buildAndTest, deploy]
     steps:
-      - name: Warn if deployment is skipped due to test failures
-        if: needs.buildAndTest.result != 'success'
+      - name: Warn if deployment is skipped due to failures
+        if: >
+          needs.buildAndTest.result == 'failure'
+          || needs.deploy.result == 'failure'
         uses: actions/github-script@v5
         with:
           script: |
@@ -74,24 +62,24 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Heads up! Automatic deployment of the changes in this PR failed due to a build or test failure.'
+              body: [
+                ':boom: Heads up! Automatic deployment of the changes in this PR failed! :boom:',
+                'See [${{ github.workflow }}#${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+              ].join('\n'),
             })
-      - name: Warn if deployment is skipped due to deployment failures
-        if: needs.deploy.result != 'success'
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
+            github.rest.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Heads up! Automatic deployment of the changes in this PR failed for unknown reason!'
+              labels: ['deploy:failed'],
             })
       - name: Report which versions have been deployed.
-        if: needs.deploy.result == 'success'
+        if: >
+          needs.deploy.result == 'success'
+          && needs.deploy.outputs.deployMessage
         uses: actions/github-script@v5
         env:
-          COMMENT_CONTENT: ${{ needs.deploy.outputs.deployMessage || 'This PR made no changes to the built userscripts. No new userscript versions deployed.' }}
+          COMMENT_CONTENT: ${{ needs.deploy.outputs.deployMessage }}
         with:
           script: |
             github.rest.issues.createComment({
@@ -99,4 +87,25 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: process.env.COMMENT_CONTENT,
+            })
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['deploy:success'],
+            })
+      - name: Add a label to indicate that deployment was skipped
+        if: >
+          needs.deploy.result == 'success'
+          && !needs.deploy.outputs.deployMessage
+        uses: actions/github-script@v5
+        env:
+          COMMENT_CONTENT: ${{ needs.deploy.outputs.deployMessage }}
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['deploy:skipped'],
             })

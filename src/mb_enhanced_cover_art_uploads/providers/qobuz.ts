@@ -74,7 +74,7 @@ export class QobuzProvider extends CoverArtProvider {
 
     static extractGoodies(goodie: Goodie): CoverArt {
         // Livret Numérique = Digital Booklet
-        const isBooklet = goodie.name === 'Livret Numérique';
+        const isBooklet = goodie.name.toLowerCase() === 'livret numérique';
         return {
             url: new URL(goodie.original_url),
             types: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
