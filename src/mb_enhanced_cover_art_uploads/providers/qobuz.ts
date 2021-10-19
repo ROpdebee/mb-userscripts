@@ -35,9 +35,9 @@ interface AlbumMetadata {
 }
 
 export class QobuzProvider extends CoverArtProvider {
-    supportedDomains = ['qobuz.com', 'open.qobuz.com']
-    favicon = 'https://www.qobuz.com/favicon.ico'
-    name = 'Qobuz'
+    supportedDomains = ['qobuz.com', 'open.qobuz.com'];
+    favicon = 'https://www.qobuz.com/favicon.ico';
+    name = 'Qobuz';
     // Splitting these regexps up for each domain. www.qobuz.com includes the album
     // title in the URL, open.qobuz.com does not. Although we could make the album
     // title part optional and match both domains with the same regexp, this could
@@ -48,7 +48,7 @@ export class QobuzProvider extends CoverArtProvider {
     urlRegex = [
         /open\.qobuz\.com\/(?:.+?\/)?album\/([A-Za-z0-9]+)(?:\/|$)/,
         /album\/[^/]+\/([A-Za-z0-9]+)(?:\/|$)/,
-    ]
+    ];
 
     static idToCoverUrl(id: string): URL {
         const d1 = id.slice(-2);

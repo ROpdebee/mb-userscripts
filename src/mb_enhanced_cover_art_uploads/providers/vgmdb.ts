@@ -122,10 +122,10 @@ for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
 }
 
 export class VGMdbProvider extends CoverArtProvider {
-    supportedDomains = ['vgmdb.net']
-    favicon = 'https://vgmdb.net/favicon.ico'
-    name = 'VGMdb'
-    urlRegex = /\/album\/(\d+)(?:\/|$)/
+    supportedDomains = ['vgmdb.net'];
+    favicon = 'https://vgmdb.net/favicon.ico';
+    name = 'VGMdb';
+    urlRegex = /\/album\/(\d+)(?:\/|$)/;
 
     async findImages(url: URL): Promise<CoverArt[]> {
         // Using the unofficial API at vgmdb.info

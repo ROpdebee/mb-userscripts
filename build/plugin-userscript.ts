@@ -30,8 +30,8 @@ const DEFAULT_OPTIONS = {
 };
 
 class GitURLs {
-    readonly #owner: string
-    readonly #repoName: string
+    readonly #owner: string;
+    readonly #repoName: string;
 
     constructor(repoUrl: string) {
         const [owner, repoName] = new URL(repoUrl).pathname.match(/^\/([^/]+)\/([^/]+?)(?:\.git|$)/)?.slice(1) ?? [];
@@ -66,8 +66,8 @@ class GitURLs {
 }
 
 class MetadataGenerator {
-    readonly options: Readonly<_UserscriptOptionsWithDefaults>
-    readonly longestMetadataFieldLength: number
+    readonly options: Readonly<_UserscriptOptionsWithDefaults>;
+    readonly longestMetadataFieldLength: number;
 
     constructor(options: Readonly<_UserscriptOptionsWithDefaults>) {
         this.options = options;

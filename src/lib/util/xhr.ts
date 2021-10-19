@@ -16,7 +16,7 @@ interface GMXHRResponse extends GMXMLHttpRequestResponse {
 }
 
 export abstract class ResponseError extends CustomError {
-    url: string | URL
+    url: string | URL;
 
     constructor(url: string | URL, extraMessage: string) {
         super(extraMessage);
@@ -24,9 +24,9 @@ export abstract class ResponseError extends CustomError {
     }
 }
 export class HTTPResponseError extends ResponseError {
-    statusCode: number
-    statusText: string
-    response: GMXMLHttpRequestResponse
+    statusCode: number;
+    statusText: string;
+    response: GMXMLHttpRequestResponse;
 
     constructor(url: string | URL, response: GMXMLHttpRequestResponse) {
         super(url, `HTTP error ${response.status}: ${response.statusText}`);
