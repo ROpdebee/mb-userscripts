@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.19.3
+// @version      2021.10.19.4
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -42,22 +42,34 @@
     }
 
     _createClass(CoverArtProvider, [{
-      key: "supportsUrl",
+      key: "cleanUrl",
       value:
+      /**
+       * Returns a clean version of the given URL.
+       * This version should be used to match against `urlRegex`.
+       */
+      function cleanUrl(url) {
+        return url.host + url.pathname;
+      }
       /**
        * Check whether the provider supports the given URL.
        *
        * @param      {URL}    url     The provider URL.
        * @return     {boolean}  Whether images can be extracted for this URL.
        */
-      function supportsUrl(url) {
+
+    }, {
+      key: "supportsUrl",
+      value: function supportsUrl(url) {
+        var _this = this;
+
         if (Array.isArray(this.urlRegex)) {
           return this.urlRegex.some(function (regex) {
-            return regex.test(url.href);
+            return regex.test(_this.cleanUrl(url));
           });
         }
 
-        return this.urlRegex.test(url.href);
+        return this.urlRegex.test(this.cleanUrl(url));
       }
       /**
        * Extract ID from a release URL.
@@ -66,16 +78,18 @@
     }, {
       key: "extractId",
       value: function extractId(url) {
-        if (!Array.isArray(this.urlRegex)) {
-          var _url$href$match;
+        var _this2 = this;
 
-          return (_url$href$match = url.href.match(this.urlRegex)) === null || _url$href$match === void 0 ? void 0 : _url$href$match[1];
+        if (!Array.isArray(this.urlRegex)) {
+          var _this$cleanUrl$match;
+
+          return (_this$cleanUrl$match = this.cleanUrl(url).match(this.urlRegex)) === null || _this$cleanUrl$match === void 0 ? void 0 : _this$cleanUrl$match[1];
         }
 
         return this.urlRegex.map(function (regex) {
-          var _url$href$match2;
+          var _this2$cleanUrl$match;
 
-          return (_url$href$match2 = url.href.match(regex)) === null || _url$href$match2 === void 0 ? void 0 : _url$href$match2[1];
+          return (_this2$cleanUrl$match = _this2.cleanUrl(url).match(regex)) === null || _this2$cleanUrl$match === void 0 ? void 0 : _this2$cleanUrl$match[1];
         }).find(function (id) {
           return typeof id !== 'undefined';
         });
@@ -703,7 +717,7 @@
 
       _defineProperty(_assertThisInitialized(_this), "name", 'Bandcamp');
 
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", /:\/\/(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/);
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/);
 
       return _this;
     }
@@ -711,9 +725,9 @@
     _createClass(BandcampProvider, [{
       key: "extractId",
       value: function extractId(url) {
-        var _url$href$match, _url$href$match$slice;
+        var _this$cleanUrl$match, _this$cleanUrl$match$;
 
-        return (_url$href$match = url.href.match(this.urlRegex)) === null || _url$href$match === void 0 ? void 0 : (_url$href$match$slice = _url$href$match.slice(1)) === null || _url$href$match$slice === void 0 ? void 0 : _url$href$match$slice.join('/');
+        return (_this$cleanUrl$match = this.cleanUrl(url).match(this.urlRegex)) === null || _this$cleanUrl$match === void 0 ? void 0 : (_this$cleanUrl$match$ = _this$cleanUrl$match.slice(1)) === null || _this$cleanUrl$match$ === void 0 ? void 0 : _this$cleanUrl$match$.join('/');
       }
     }]);
 
@@ -761,7 +775,7 @@
 
       _defineProperty(_assertThisInitialized(_this), "name", 'Amazon');
 
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|\?|$)/);
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/);
 
       return _this;
     }
@@ -991,8 +1005,6 @@
       key: "findImages",
       value: function () {
         var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
-          var _url$pathname$match;
-
           var asin, productUrl;
           return regenerator.wrap(function _callee$(_context) {
             while (1) {
@@ -1004,7 +1016,7 @@
                   // easier. Besides, cover art on product pages tends to be larger.
                   // NOTE: I'm not 100% certain the images are always identical, or that
                   // the associated product always exists.
-                  asin = (_url$pathname$match = url.pathname.match(/\/albums\/([A-Za-z0-9]{10})(?:\/|$)/)) === null || _url$pathname$match === void 0 ? void 0 : _url$pathname$match[1];
+                  asin = this.extractId(url);
                   assertHasValue(asin);
                   productUrl = new URL(url.href);
                   productUrl.hostname = productUrl.hostname.replace(/^music\./, '');
@@ -1016,7 +1028,7 @@
                   return _context.stop();
               }
             }
-          }, _callee);
+          }, _callee, this);
         }));
 
         function findImages(_x) {
