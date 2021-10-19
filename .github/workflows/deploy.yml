@@ -70,7 +70,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -81,7 +81,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -94,7 +94,7 @@ jobs:
           COMMENT_CONTENT: ${{ needs.deploy.outputs.deployMessage || 'This PR made no changes to the built userscripts. No new userscript versions deployed.' }}
         with:
           script: |
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
