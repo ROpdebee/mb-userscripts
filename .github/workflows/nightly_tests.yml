@@ -9,7 +9,7 @@ on:
 jobs:
   buildAndTest:
     name: Build and test
-    uses: ROpdebee/mb-userscripts/.github/workflows/main.yml@main
+    uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@main
   report:
     runs-on: ubuntu-latest
     name: Report failures, if any
