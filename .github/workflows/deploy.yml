@@ -67,7 +67,7 @@ jobs:
     steps:
       - name: Warn if deployment is skipped due to test failures
         if: needs.buildAndTest.result != 'success'
-        uses: actions/github-script@v3
+        uses: actions/github-script@v5
         with:
           script: |
             github.issues.createComment({
@@ -78,7 +78,7 @@ jobs:
             })
       - name: Warn if deployment is skipped due to deployment failures
         if: needs.deploy.result != 'success'
-        uses: actions/github-script@v3
+        uses: actions/github-script@v5
         with:
           script: |
             github.issues.createComment({
@@ -89,7 +89,7 @@ jobs:
             })
       - name: Report which versions have been deployed.
         if: needs.deploy.result == 'success'
-        uses: actions/github-script@v3
+        uses: actions/github-script@v5
         env:
           COMMENT_CONTENT: ${{ needs.deploy.outputs.deployMessage || 'This PR made no changes to the built userscripts. No new userscript versions deployed.' }}
         with:
