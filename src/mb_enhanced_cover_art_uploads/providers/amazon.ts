@@ -79,7 +79,7 @@ export class AmazonProvider extends CoverArtProvider {
 
         const imgs = safeParseJSON<AmazonImage[]>(embeddedImages);
         if (!Array.isArray(imgs)) {
-            LOGGER.error('Failed to parse Amazon\'s embedded JS, falling back to thumbnails');
+            LOGGER.error("Failed to parse Amazon's embedded JS, falling back to thumbnails");
             return;
         }
 
