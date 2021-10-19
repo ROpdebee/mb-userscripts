@@ -55,7 +55,7 @@ describe('gmxhr', () => {
         mocked_GM_xhr.mockImplementation((options) => options.onload?.(stubResponse));
         await gmxhr('test');
 
-        expect(mocked_GM_xhr).toHaveBeenCalledTimes(1);
+        expect(mocked_GM_xhr).toHaveBeenCalledOnce();
         expect(mocked_GM_xhr).toHaveBeenCalledWith(expect.objectContaining({ method: 'GET' }));
     });
 
@@ -63,7 +63,7 @@ describe('gmxhr', () => {
         mocked_GM_xhr.mockImplementation((options) => options.onload?.(stubResponse));
         await gmxhr('test', { method: 'POST' });
 
-        expect(mocked_GM_xhr).toHaveBeenCalledTimes(1);
+        expect(mocked_GM_xhr).toHaveBeenCalledOnce();
         expect(mocked_GM_xhr).toHaveBeenCalledWith(expect.objectContaining({ method: 'POST' }));
     });
 
@@ -71,7 +71,7 @@ describe('gmxhr', () => {
         mocked_GM_xhr.mockImplementation((options) => options.onload?.(stubResponse));
         await gmxhr('https://example.com/test?x=1#y');
 
-        expect(mocked_GM_xhr).toHaveBeenCalledTimes(1);
+        expect(mocked_GM_xhr).toHaveBeenCalledOnce();
         expect(mocked_GM_xhr).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://example.com/test?x=1#y' }));
     });
 
@@ -79,7 +79,7 @@ describe('gmxhr', () => {
         mocked_GM_xhr.mockImplementation((options) => options.onload?.(stubResponse));
         await gmxhr(new URL('https://example.com/test?x=1#y'));
 
-        expect(mocked_GM_xhr).toHaveBeenCalledTimes(1);
+        expect(mocked_GM_xhr).toHaveBeenCalledOnce();
         expect(mocked_GM_xhr).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://example.com/test?x=1#y' }));
     });
 
