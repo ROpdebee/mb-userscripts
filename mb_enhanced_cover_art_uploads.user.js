@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.19
+// @version      2021.10.19.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1037,7 +1037,7 @@
       key: "extractGoodies",
       value: function extractGoodies(goodie) {
         // Livret Numérique = Digital Booklet
-        var isBooklet = goodie.name === 'Livret Numérique';
+        var isBooklet = goodie.name.toLowerCase() === 'livret numérique';
         return {
           url: new URL(goodie.original_url),
           types: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
