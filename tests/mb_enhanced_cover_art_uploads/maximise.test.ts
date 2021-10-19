@@ -5,7 +5,10 @@ import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/di
 // Mock IMU. We can't mock out $$IMU_EXPORT$$, so we'll mock out the wrapped
 // function instead.
 const fakeImu = jest.fn();
-__set__('maxurl', fakeImu);
+
+beforeAll(() => {
+    __set__('maxurl', fakeImu);
+});
 
 describe('maximising images', () => {
     it('yields the maximised image', async () => {

@@ -5,6 +5,7 @@ import FSPersister from '@pollyjs/persister-fs';
 import GMXHRAdapter from './gmxhr-adapter';
 
 describe('gmxhr adapter', () => {
+    // eslint-disable-next-line jest/require-hook
     setupPolly({
         adapters: [GMXHRAdapter],
         recordIfMissing: true,
