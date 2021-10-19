@@ -7,12 +7,9 @@ module.exports = {
         'eslint:recommended',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
-        'plugin:jest/all',
-        'plugin:jest-formatting/strict',
     ],
     plugins: [
         '@typescript-eslint',
-        'jest',
     ],
     parserOptions: {
         ecmaVersion: 12,
@@ -77,6 +74,10 @@ module.exports = {
         }, { // Override per eslint-plugin-jest documentation.
             files: ['tests/**'],
             plugins: ['jest'],
+            extends: [
+                'plugin:jest/all',
+                'plugin:jest-formatting/strict',
+            ],
             rules: {
                 '@typescript-eslint/unbound-method': 'off',
                 'jest/unbound-method': 'error',
