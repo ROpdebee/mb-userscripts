@@ -1,0 +1,11 @@
+---
+name: pull requests
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and test
+    uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@main
