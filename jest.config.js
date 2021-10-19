@@ -8,7 +8,7 @@ export default {
         '^@test-utils/(.*)$': '<rootDir>/tests/utils/$1',
         '^@src/(.*)$': '<rootDir>/src/$1',
     },
-    setupFilesAfterEnv: ['jest-extended'],
+    setupFilesAfterEnv: ['jest-extended/all'],
     collectCoverageFrom: [
         'src/**/*.{js,ts}',
         '!**/meta.ts',
