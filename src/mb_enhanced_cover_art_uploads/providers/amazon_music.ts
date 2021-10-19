@@ -21,7 +21,7 @@ export class AmazonMusicProvider extends CoverArtProvider {
         // easier. Besides, cover art on product pages tends to be larger.
         // NOTE: I'm not 100% certain the images are always identical, or that
         // the associated product always exists.
-        const asin = url.pathname.match(/\/albums\/([A-Za-z0-9]{10})(?:\/|$)/)?.[1];
+        const asin = this.extractId(url);
         assertHasValue(asin);
         const productUrl = new URL(url.href);
         productUrl.hostname = productUrl.hostname.replace(/^music\./, '');
