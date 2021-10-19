@@ -40,7 +40,7 @@
     "@rollup/plugin-virtual": "^2.0.3",
     "@rollup/pluginutils": "^3.1.0",
     "@types/babel__core": "^7.1.14",
-    "@types/greasemonkey": "^3.0.1",
+    "@types/greasemonkey": "^4.0.2",
     "@types/jest": "^27.0.2",
     "@types/jquery": "^3.5.7",
     "@types/pollyjs__adapter": "^4.3.1",
