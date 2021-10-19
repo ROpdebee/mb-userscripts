@@ -96,7 +96,7 @@ describe('callback on document loaded', () => {
         const cb = jest.fn();
         onDocumentLoaded(cb);
 
-        expect(cb).toHaveBeenCalledTimes(1);
+        expect(cb).toHaveBeenCalledOnce();
     });
 
     it('fires after the document was loaded', () => {
@@ -108,6 +108,6 @@ describe('callback on document loaded', () => {
 
         document.dispatchEvent(new Event('DOMContentLoaded'));
 
-        expect(cb).toHaveBeenCalledTimes(1);
+        expect(cb).toHaveBeenCalledOnce();
     });
 });

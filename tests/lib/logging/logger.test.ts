@@ -94,7 +94,7 @@ describe('logger', () => {
             const handlerName = loggerToHandlerNames[level];
             const notCalledNames = handlerNames.filter((name) => name !== handlerName);
 
-            expect(sink[handlerName]).toHaveBeenCalledTimes(1);
+            expect(sink[handlerName]).toHaveBeenCalledOnce();
             expect(sink[handlerName]).toHaveBeenCalledWith('test message');
 
             notCalledNames.forEach((name) => {
@@ -105,7 +105,7 @@ describe('logger', () => {
         it('calls the error handler with an exception if provided', () => {
             logger.error('test message', new Error('test error'));
 
-            expect(sink.onError).toHaveBeenCalledTimes(1);
+            expect(sink.onError).toHaveBeenCalledOnce();
             expect(sink.onError).toHaveBeenCalledWith('test message', new Error('test error'));
         });
 
@@ -155,7 +155,7 @@ describe('logger', () => {
             const notCalledNames = handlerNames.filter((name) => name !== handlerName);
 
             sinks.forEach((sink) => {
-                expect(sink[handlerName]).toHaveBeenCalledTimes(1);
+                expect(sink[handlerName]).toHaveBeenCalledOnce();
                 expect(sink[handlerName]).toHaveBeenCalledWith('test message');
 
                 notCalledNames.forEach((name) => {

@@ -19,7 +19,7 @@ describe('async timeout', () => {
         // called, because the spy may have been called asynchronously itself.
         await promise;
 
-        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledOnce();
     });
 
     it('resolves after the correct timeout', async () => {
@@ -37,7 +37,7 @@ describe('async timeout', () => {
         jest.advanceTimersByTime(1);
         await promise;
 
-        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledOnce();
     });
 });
 
@@ -48,7 +48,7 @@ describe('retryTimes', () => {
         const mock = jest.fn().mockImplementation(() => 42);
 
         await expect(retryTimes(mock, 5, 500)).resolves.toBe(42);
-        expect(mock).toHaveBeenCalledTimes(1);
+        expect(mock).toHaveBeenCalledOnce();
     });
 
     it('does not call the function twice', async () => {
@@ -59,7 +59,7 @@ describe('retryTimes', () => {
 
         jest.advanceTimersByTime(1000);
 
-        expect(mock).toHaveBeenCalledTimes(1);
+        expect(mock).toHaveBeenCalledOnce();
     });
 
     it('retries the function until it passes', async () => {

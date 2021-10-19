@@ -17,7 +17,7 @@ describe('console logging sink', () => {
         // @ts-expect-error too dynamic, too lazy to restrict types
         const consoleMethod = console[levelName];
 
-        expect(consoleMethod).toHaveBeenCalledTimes(1);
+        expect(consoleMethod).toHaveBeenCalledOnce();
         expect(consoleMethod).toHaveBeenCalledWith('[test script] test');
 
         consoleMethod.mockReset();
@@ -28,7 +28,7 @@ describe('console logging sink', () => {
         jest.spyOn(console, 'info').mockImplementationOnce(() => {});
         logger.success('test');
 
-        expect(console.info).toHaveBeenCalledTimes(1);
+        expect(console.info).toHaveBeenCalledOnce();
         expect(console.info).toHaveBeenCalledWith('[test script] test');
     });
 
@@ -37,7 +37,7 @@ describe('console logging sink', () => {
         jest.spyOn(console, 'error').mockImplementationOnce(() => {});
         logger.error('test', new Error('error'));
 
-        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error).toHaveBeenCalledOnce();
         expect(console.error).toHaveBeenCalledWith('[test script] test', new Error('error'));
     });
 });

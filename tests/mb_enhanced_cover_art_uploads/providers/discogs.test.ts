@@ -77,14 +77,14 @@ describe('discogs provider', () => {
             await provider.findImages(discogsUrl);
             await provider.findImages(discogsUrl);
 
-            expect(requestSpy).toHaveBeenCalledTimes(1);
+            expect(requestSpy).toHaveBeenCalledOnce();
         });
 
         it('reuses the cache entry while maximising images', async () => {
             const images = await provider.findImages(discogsUrl);
             await Promise.all(images.map((image) => DiscogsProvider.maximiseImage(image.url)));
 
-            expect(requestSpy).toHaveBeenCalledTimes(1);
+            expect(requestSpy).toHaveBeenCalledOnce();
         });
 
         it('clears the cache entry on failure', async () => {
@@ -110,7 +110,7 @@ describe('discogs provider', () => {
             await expect(p1).toReject();
             await expect(p2).toReject();
 
-            expect(deleteSpy).toHaveBeenCalledTimes(1);
+            expect(deleteSpy).toHaveBeenCalledOnce();
         });
     });
 });

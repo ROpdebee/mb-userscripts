@@ -60,7 +60,7 @@ describe('enqueuing images', () => {
             }]
         });
 
-        expect(onDropMock).toHaveBeenCalledTimes(1);
+        expect(onDropMock).toHaveBeenCalledOnce();
         expect(onDropMock).toHaveBeenCalledWith(expect.objectContaining({
             originalEvent: {
                 dataTransfer: {
