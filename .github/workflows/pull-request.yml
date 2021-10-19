@@ -9,3 +9,7 @@ jobs:
   build-and-test:
     name: Build and test
     uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@main
+
+  codeql:
+    name: CodeQL analysis
+    uses: ROpdebee/mb-userscripts/.github/workflows/codeql-analysis.yml@main
