@@ -7,7 +7,10 @@ on:
         description: Outcome of testing job
         required: true
         type: string
-
+      preview:
+        description: Whether this is a preview deployment for reporting in PR.
+        required: true
+        type: boolean
 
 jobs:
   deploy:
@@ -24,6 +27,17 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
+            // If this is a PR, we can easily find the number, title, and labels
+            // through the event payload
+            if (context.eventName === 'pull_request') {
+              const pr = context.payload.pull_request;
+              return {
+                number: pr.number,
+                title: pr.title,
+                labels: pr.labels.map((label) => label.name),
+              };
+            }
+
             // Find PR that introduced this commit by searching the commit SHA
             // This works even for squashes and rebased merges
             const { GITHUB_SHA, GITHUB_REPOSITORY } = process.env;
@@ -58,16 +72,37 @@ jobs:
         run: |
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'GitHub Actions'
+          git config push.default current
+      - name: Create preview branch
+        working-directory: repoDist
+        if: inputs.preview && github.event_name == 'pull_request'
+        env:
+          BRANCH_NAME: dist-preview-${{ github.event.pull_request.number }}
+        run: |
+          git checkout -b "$BRANCH_NAME"
+          # Force-push to overwrite any previous preview commits already
+          git push -f
+      - name: Delete preview branch
+        working-directory: repoDist
+        if: '!inputs.preview'
+        env:
+          BRANCH_NAME: dist-preview-${{ github.event.pull_request.number }}
+        run: |
+          git push origin --delete "$BRANCH_NAME";
+          # Don't fail if the branch did not exist
+          exit 0;
 
       - name: Deploy new userscript versions
         id: deploy-step
         if: inputs.test-result == 'success'
         env:
           PR_INFO: ${{ steps.active-pr.outputs.result }}
+        # If we're running a preview, this will push it onto the preview branch
+        # we just created in the previous step.
         run: npm run deploy repoDist
 
       - name: Report deployment status
-        if: always() && steps.deploy-step.result != 'cancelled'
+        if: always() && !inputs.preview && steps.deploy-step.result != 'cancelled'
         env:
           PR_INFO: ${{ steps.active-pr.outputs.result }}
           TEST_RESULT: ${{ inputs.test-result }}
@@ -77,4 +112,16 @@ jobs:
         with:
           script: |
             const script = require('./build/report-deploy.js');
-            await script({ github, context });
+            await script.reportDeploy({ github, context });
+
+      - name: Report preview
+        # Will be skipped if deployment failed
+        if: inputs.preview
+        env:
+          PR_INFO: ${{ steps.active-pr.outputs.result }}
+          DEPLOY_INFO: ${{ steps.deploy-step.outputs.deployment-info }}
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const script = require('./build/report-deploy.js');
+            await script.reportPreview({ github, context });
