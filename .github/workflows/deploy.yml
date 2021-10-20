@@ -1,111 +1,75 @@
 ---
 name: deploy
 on:
-  pull_request:
-    branches: [main]
-    types: [closed]
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      test-result:
+        description: Outcome of testing job
+        required: true
+        type: string
+
 
 jobs:
-  # Make sure we can build and that tests pass before deploying
-  buildAndTest:
-    name: Build and test
-    if: >
-      github.event.pull_request.merged
-      && github.repository == 'ROpdebee/mb-userscripts'
-      && !contains(github.event.pull_request.labels.*.name, 'skip cd')
-    uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@main
-
   deploy:
-    # If buildAndTest is skipped, this will be too.
-    needs: [buildAndTest]
     runs-on: ubuntu-latest
     name: Deploy userscripts
-    outputs:
-      deployMessage: ${{ steps.deployStep.outputs.deployMessage }}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-      - name: Set up environment
-        uses: ./.github/actions/setup
+      - name: Find out PR number and title
+        id: active-pr
+        uses: actions/github-script@v5
+        with:
+          script: |
+            // Find PR that introduced this commit by searching the commit SHA
+            // This works even for squashes and rebased merges
+            const { GITHUB_SHA, GITHUB_REPOSITORY } = process.env;
+            const resp = await github.rest.search.issuesAndPullRequests({
+              q: `is:pr is:closed repo:${GITHUB_REPOSITORY} ${GITHUB_SHA}`
+            });
+
+            try {
+              const prs = resp.data.items;
+              if (!prs || !prs.length) {
+                console.log('no PRs');
+                return;
+              }
+              return {
+                number: prs[0].number,
+                title: prs[0].title,
+                labels: prs[0].labels.map((label) => label.name),
+              };
+            } catch (err) {
+              console.error('Could not find PR number for commit!');
+              console.error(err);
+              return;
+            }
 
       - name: Checkout second dist copy
         uses: actions/checkout@v2
         with:
           path: repoDist
           ref: dist
-      - name: Deploy new userscript versions
-        id: deployStep
-        env:
-          PR_TITLE: ${{ github.event.pull_request.title }} (#${{ github.event.pull_request.number }})
+      - name: Setup second dist repo
+        working-directory: repoDist
         run: |
-          cd repoDist
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'GitHub Actions'
-          cd -
-          npm run deploy repoDist "$PR_TITLE"
 
-  report:
-    name: 'Report deployment status'
-    if: always() && needs.deploy.result != 'cancelled'
-    runs-on: ubuntu-latest
-    needs: [buildAndTest, deploy]
-    steps:
-      - name: Warn if deployment is skipped due to failures
-        if: >
-          needs.buildAndTest.result == 'failure'
-          || needs.deploy.result == 'failure'
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: [
-                ':boom: Heads up! Automatic deployment of the changes in this PR failed! :boom:',
-                'See [${{ github.workflow }}#${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-              ].join('\n'),
-            })
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['deploy:failed'],
-            })
-      - name: Report which versions have been deployed.
-        if: >
-          needs.deploy.result == 'success'
-          && needs.deploy.outputs.deployMessage
-        uses: actions/github-script@v5
+      - name: Deploy new userscript versions
+        id: deploy-step
+        if: inputs.test-result == 'success'
         env:
-          COMMENT_CONTENT: ${{ needs.deploy.outputs.deployMessage }}
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: process.env.COMMENT_CONTENT,
-            })
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['deploy:success'],
-            })
-      - name: Add a label to indicate that deployment was skipped
-        if: >
-          needs.deploy.result == 'success'
-          && !needs.deploy.outputs.deployMessage
-        uses: actions/github-script@v5
+          PR_INFO: ${{ steps.active-pr.outputs.result }}
+        run: npm run deploy repoDist
+
+      - name: Report deployment status
+        if: always() && steps.deploy-step.result != 'cancelled'
         env:
-          COMMENT_CONTENT: ${{ needs.deploy.outputs.deployMessage }}
+          PR_INFO: ${{ steps.active-pr.outputs.result }}
+          TEST_RESULT: ${{ inputs.test-result }}
+          DEPLOY_RESULT: ${{ steps.deploy-step.result }}
+          DEPLOY_INFO: ${{ steps.deploy-step.outputs.deployment-info }}
+        uses: actions/github-script@v5
         with:
           script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['deploy:skipped'],
-            })
+            const script = require('./build/report-deploy.js');
+            await script({ github, context });

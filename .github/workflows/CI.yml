@@ -16,3 +16,14 @@ jobs:
   codeql:
     name: CodeQL analysis
     uses: ROpdebee/mb-userscripts/.github/workflows/codeql-analysis.yml@main
+
+  deploy:
+    needs: build-and-test
+    if: >
+      always()
+      && github.event_name == 'push'
+      && github.event.ref == 'refs/heads/main'
+      && github.repository == 'ROpdebee/mb-userscripts'
+    uses: ROpdebee/mb-userscripts/.github/workflows/deploy.yml@main
+    with:
+      test-result: ${{ needs.build-and-test.result }}

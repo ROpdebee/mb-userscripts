@@ -4,18 +4,33 @@ import path from 'path';
 import { getPreviousReleaseVersion, incrementVersion } from './versions.js';
 import { buildUserscript } from './rollup.js';
 
+if (!process.env.GITHUB_ACTIONS) {
+    throw new Error('Refusing to run outside of CI, sorry :(');
+}
+
 const distRepo = process.argv[2];
-const prTitle = process.argv[3];
+
+if (!process.env.PR_INFO) {
+    throw new Error('Missing PR info');
+}
+
+const prInfo: { number: number; title: string; labels: string[] } = JSON.parse(process.env.PR_INFO);
+
+interface DeployedScript {
+    name: string;
+    version: string;
+    commit: string;
+}
+
+interface DeployInfo {
+    scripts: DeployedScript[];
+}
 
 // We're using a separate clone of the same repo here. gitDist is checked out
 // to the `dist` branch of our repo. We're using the separate copy  so we can
 // simultaneously build from the main branch into the dist branch, while also
 // committing to dist, without constantly having to change branches.
 const gitDist = simpleGit(distRepo);
-
-if (!process.env.GITHUB_ACTIONS) {
-    throw new Error('Refusing to run outside of CI, sorry :(');
-}
 
 async function userscriptHasChanged(scriptName: string, previousVersion: string): Promise<boolean> {
     // We'll check whether the userscript has changed by building the latest
@@ -28,7 +43,7 @@ async function userscriptHasChanged(scriptName: string, previousVersion: string)
     return !!diffSummary.changed;
 }
 
-async function commitIfUpdated(scriptName: string): Promise<string | undefined> {
+async function commitIfUpdated(scriptName: string): Promise<DeployedScript | undefined> {
     console.log(`Checking ${scriptName}…`);
     const previousVersion = await getPreviousReleaseVersion(scriptName, distRepo);
     const nextVersion = incrementVersion(previousVersion);
@@ -45,7 +60,7 @@ async function commitIfUpdated(scriptName: string): Promise<string | undefined> 
     return undefined;
 }
 
-async function commitUpdate(scriptName: string, version: string): Promise<string> {
+async function commitUpdate(scriptName: string, version: string): Promise<DeployedScript> {
     // Build the userscripts with the new version into the dist repository.
     await buildUserscript(scriptName, version, distRepo);
     // Update the version.json file, which we'll use to dynamically create badges
@@ -55,22 +70,31 @@ async function commitUpdate(scriptName: string, version: string): Promise<string
     // Create the commit.
     const commitResult = await gitDist
         .add([`${scriptName}.*`])
-        .commit(`🤖 ${scriptName} ${version}\n\n${prTitle}`);
-    return `${scriptName} ${version} in ${commitResult.commit}`;
+        .commit(`🤖 ${scriptName} ${version}\n\n${prInfo.title} (${prInfo.number})`);
+    return {
+        name: scriptName,
+        version,
+        commit: commitResult.commit,
+    };
 }
 
-function escapeOutput(output: string): string {
-    return output
+function encodeOutput(output: DeployInfo): string {
+    return JSON.stringify(output)
         .replaceAll('%', '%25')
         .replaceAll('\n', '%0A')
         .replaceAll('\r', '%0D');
 }
 
 async function scanAndPush(): Promise<void> {
+    if (prInfo.labels.includes('skip cd')) {
+        console.log('`skip cd` label set on PR, skipping...');
+        return;
+    }
+
     const userscriptDirs = (await fs.readdir('./src'))
         .filter((name) => name.startsWith('mb_'));
 
-    const updates: string[] = [];
+    const updates: DeployedScript[] = [];
     for (const scriptName of userscriptDirs) {
         const update = await commitIfUpdated(scriptName);
         if (update) updates.push(update);
@@ -79,12 +103,10 @@ async function scanAndPush(): Promise<void> {
     if (updates.length) {
         console.log('Pushing…');
         await gitDist.push();
-        const statusMessage = [`🚀 Released ${updates.length} new userscript version(s):`]
-            .concat(updates.map((update) => '* ' + update))
-            .join('\n');
+
         // Logging this message, it should get picked up by the Actions runner
         // to set the step output.
-        console.log('::set-output name=deployMessage::' + escapeOutput(statusMessage));
+        console.log('::set-output name=deployMessage::' + encodeOutput({ scripts: updates }));
     }
 }
 
