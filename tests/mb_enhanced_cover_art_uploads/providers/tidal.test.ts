@@ -52,6 +52,15 @@ describe('tidal provider', () => {
         expect(coverUrl[0].comment).toBeUndefined();
     });
 
+    it('extracts static cover if release has video cover', async () => {
+        const coverUrl = await provider.findImages(new URL('https://listen.tidal.com/album/171032759'));
+
+        expect(coverUrl).toBeArrayOfSize(1);
+        expect(coverUrl[0].url.pathname).toBe('/images/72c1e674/70ca/4442/a530/0f00b0ef354a/origin.jpg');
+        expect(coverUrl[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrl[0].comment).toBeUndefined();
+    });
+
     it('throws if release does not exist', async () => {
         pollyContext.polly.configure({
             recordFailedRequests: true,
