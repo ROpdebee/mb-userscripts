@@ -8,8 +8,10 @@ const metadata: UserscriptMetadata = {
     'run-at': 'document-load',
     match: [
         'release/*/add-cover-art',
-    ].map(transformMBMatchURL).concat(
-        ['*://atisket.pulsewidth.org.uk/*']),
+        'release/*/add-cover-art?*',
+    ].map(transformMBMatchURL).concat([
+        '*://atisket.pulsewidth.org.uk/*'
+    ]),
     exclude: ['*://atisket.pulsewidth.org.uk/'],
     grant: [
         'GM_xmlhttpRequest',
