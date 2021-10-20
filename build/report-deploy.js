@@ -8,7 +8,7 @@ module.exports = async ({ github, context }) => {
     let label;
     if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
         label = 'deploy:failed';
-    } else if (!deployInfo.scripts.length) {
+    } else if (!deployInfo.scripts || !deployInfo.scripts.length) {
         label = 'deploy:skipped';
     } else {
         label = 'deploy:success';
