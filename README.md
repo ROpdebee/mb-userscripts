@@ -20,7 +20,7 @@ Blinds editor and voter details before your votes are cast.
 
 Quickly copy-paste work identifiers (ISWC, agency work codes) from CISAC's ISWCNet into a MusicBrainz work.
 
-[![Install](https://img.shields.io/badge/install-2021.9.25-informational?style=for-the-badge&logo=github)](mb_bulk_copy_work_codes.user.js?raw=1)
+[![Install](https://img.shields.io/badge/install-2021.10.20-informational?style=for-the-badge&logo=github)](mb_bulk_copy_work_codes.user.js?raw=1)
 [![Source](https://img.shields.io/badge/source-main-lightgrey?style=for-the-badge&logo=github)](mb_bulk_copy_work_codes.user.js)
 
 ## MB: Display CAA image dimensions
