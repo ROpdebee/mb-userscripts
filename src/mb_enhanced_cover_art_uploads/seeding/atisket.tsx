@@ -1,5 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
-import { qs, qsa, qsMaybe } from '@lib/util/dom';
+import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import { ArtworkTypeIDs } from '../providers/base';
 import type { Seeder } from './base';
 import { SeedParameters } from './parameters';
@@ -20,7 +20,7 @@ export const AtisketSeeder: Seeder = {
         // If the cached link doesn't exist on the page, we're probably already
         // on a cached page, so fall back on the page URL instead.
         const cachedAnchor = qsMaybe<HTMLAnchorElement>('#submit-button + div > a');
-        addSeedLinkToCovers(mbid, cachedAnchor?.href ?? document.location.href);
+        addSeedLinkToCovers(mbid, cachedAnchor?.href ?? document.location.href, document);
     }
 };
 
@@ -31,30 +31,51 @@ export const AtasketSeeder: Seeder = {
 
     insertSeedLinks(): void {
         const mbid = document.location.search.match(/[?&]release_mbid=([a-f0-9-]+)/)?.[1];
-        if (!mbid) {
-            LOGGER.error('Cannot extract MBID! Seeding is disabled :(');
+        const selfId = document.location.search.match(/[?&]self_id=([a-zA-Z0-9-]+)/)?.[1];
+        if (!mbid || !selfId) {
+            LOGGER.error('Cannot extract IDs! Seeding is disabled :(');
             return;
         }
-        addSeedLinkToCovers(mbid, document.location.href);
+
+        const cachedUrl = document.location.origin + '/?cached=' + selfId;
+
+        // For atasket links, we'll also use the cached URL as origin for the
+        // same reasons as above. However, we'll also retrieve the cached page
+        // so that we can retrieve release URLs later on, as atasket pages
+        // don't contain them. Although we could extract the ID from the self-id,
+        // those don't contain the Apple Music country code.
+        fetch(cachedUrl).then(async (resp) => {
+            const cachedDoc = parseDOM(await resp.text());
+            addSeedLinkToCovers(mbid, cachedUrl, cachedDoc);
+        });
     }
 };
 
-function addSeedLinkToCovers(mbid: string, origin: string): void {
+function addSeedLinkToCovers(mbid: string, origin: string, infoDoc: Document): void {
     qsa('figure.cover').forEach((fig) => {
-        addSeedLinkToCover(fig, mbid, origin);
+        addSeedLinkToCover(fig, mbid, origin, infoDoc);
     });
 }
 
-async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): Promise<void> {
-    const url = qs<HTMLAnchorElement>('a.icon', fig).href;
+async function addSeedLinkToCover(fig: Element, mbid: string, origin: string, infoDoc: Document): Promise<void> {
+    const anchor = qs<HTMLAnchorElement>('a.icon', fig);
+    const imageUrl = anchor.href;
 
     // Not using .split('.').at(-1) here because I'm not sure whether .at is
     // polyfilled on atisket.
-    const ext = url.match(/\.(\w+)$/)?.[1];
-    const dimensionStr = await getImageDimensions(url);
+    const ext = imageUrl.match(/\.(\w+)$/)?.[1];
+    const dimensionStr = await getImageDimensions(imageUrl);
+
+    // We'll seed the release URLs, instead of the images directly. This will
+    // allow us to e.g. extract additional images for the release, or handle
+    // some maximisations exceptions (e.g. Apple Music).
+    // Retrieve the URL via the classes defined on the image, they're the same.
+    const classSelector = [...anchor.classList].join('.');
+    // First anchor contains the release URL.
+    const releaseUrl = qs<HTMLAnchorElement>(`.vendor-ids li.${classSelector} > a`, infoDoc).href;
 
     const params = new SeedParameters([{
-        url: new URL(url),
+        url: new URL(releaseUrl),
         types: [ArtworkTypeIDs.Front],
     }], origin);
     const seedUrl = params.createSeedURL(mbid);
