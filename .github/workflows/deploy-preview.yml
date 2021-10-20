@@ -36,6 +36,12 @@ jobs:
         with:
           path: repoDist
           ref: dist
+      - name: Setup second dist repo
+        working-directory: repoDist
+        run: |
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'GitHub Actions'
+          git config push.default current
       - name: Create preview branch
         working-directory: repoDist
         env:
