@@ -23,7 +23,7 @@ export function assert(condition: boolean, message?: string): asserts condition 
  * @param      {string}         message  The message
  */
 export function assertDefined<T>(value: T, message?: string): asserts value is Exclude<T, undefined> {
-    assert(typeof value !== 'undefined', message ?? 'Assertion failed: Expected value to be defined');
+    assert(typeof value !== 'undefined', message ?? 'Assertion failed: Expected value to be defined!!!!!');
 }
 
 /**
