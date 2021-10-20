@@ -71,7 +71,7 @@ jobs:
         env:
           PR_INFO: ${{ steps.active-pr.outputs.result }}
           TEST_RESULT: ${{ inputs.test-result }}
-          DEPLOY_RESULT: ${{ steps.deploy-step.result }}
+          DEPLOY_RESULT: ${{ steps.deploy-step.outcome }}
           DEPLOY_INFO: ${{ steps.deploy-step.outputs.deployment-info }}
         uses: actions/github-script@v5
         with:

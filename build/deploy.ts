@@ -106,7 +106,7 @@ async function scanAndPush(): Promise<void> {
 
         // Logging this message, it should get picked up by the Actions runner
         // to set the step output.
-        console.log('::set-output name=deployMessage::' + encodeOutput({ scripts: updates }));
+        console.log('::set-output name=deployment-info::' + encodeOutput({ scripts: updates }));
     }
 }
 
