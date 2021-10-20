@@ -29,12 +29,15 @@ export interface MaximisedImage {
 }
 
 export async function* getMaximisedCandidates(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
-    // Workaround maxurl discogs difficulties
-    if (smallurl.hostname === 'img.discogs.com') {
-        yield getMaximisedCandidatesDiscogs(smallurl);
-        return;
+    const exceptions = await maximiseExceptions(smallurl);
+    if (exceptions) {
+        yield* exceptions;
+    } else {
+        yield* maximiseGeneric(smallurl);
     }
+}
 
+async function* maximiseGeneric(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
     const p = new Promise<maxurlResult[]>((resolve) => {
         maxurl(smallurl.href, {
             ...options,
@@ -58,12 +61,21 @@ export async function* getMaximisedCandidates(smallurl: URL): AsyncIterableItera
     }
 }
 
-async function getMaximisedCandidatesDiscogs(smallurl: URL): Promise<MaximisedImage> {
+async function maximiseExceptions(smallurl: URL): Promise<MaximisedImage[] | undefined> {
+    // Various workarounds for certain image providers
+    if (smallurl.hostname === 'img.discogs.com') {
+        return maximiseDiscogs(smallurl);
+    }
+
+    return;
+}
+
+async function maximiseDiscogs(smallurl: URL): Promise<MaximisedImage[]> {
     // Workaround for maxurl returning broken links and webp images
     const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
-    return {
+    return [{
         url: fullSizeURL,
         filename: fullSizeURL.pathname.split('/').at(-1),
         headers: {},
-    };
+    }];
 }
