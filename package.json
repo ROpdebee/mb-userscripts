@@ -42,7 +42,7 @@
     "@types/babel__core": "^7.1.14",
     "@types/greasemonkey": "^3.0.1",
     "@types/jest": "^27.0.2",
-    "@types/jquery": "^3.5.7",
+    "@types/jquery": "^3.5.8",
     "@types/pollyjs__adapter": "^4.3.1",
     "@types/pollyjs__adapter-fetch": "^2.0.1",
     "@types/pollyjs__adapter-node-http": "^2.0.1",
