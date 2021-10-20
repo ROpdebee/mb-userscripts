@@ -1,0 +1,18 @@
+---
+name: Slash Command Dispatch
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  slashCommandDispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slash Command Dispatch
+        uses: peter-evans/slash-command-dispatch@v2
+        with:
+          token: ${{ secrets.SLASH_COMMAND_DISPATCH_PAT }}
+          commands: |
+            deploy-preview
+          issue-type: pull-request
+          permission: write
+

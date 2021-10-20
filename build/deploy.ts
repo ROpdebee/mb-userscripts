@@ -101,8 +101,10 @@ async function scanAndPush(): Promise<void> {
     }
 
     if (updates.length) {
-        console.log('Pushing…');
-        await gitDist.push();
+        if (!process.env.SKIP_PUSH) {
+            console.log('Pushing…');
+            await gitDist.push();
+        }
 
         // Logging this message, it should get picked up by the Actions runner
         // to set the step output.

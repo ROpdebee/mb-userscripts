@@ -1,0 +1,66 @@
+---
+# Can only be run on dispatch by authorised user. We automate this via a
+# slash comment dispatcher.
+name: deploy-preview-command
+on:
+  repository_dispatch:
+    types: [deploy-preview-command]
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    name: Generate deployment preview
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          ref: refs/pull/${{ github.event.client_payload.pull_request.number }}/merge
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
+      - name: Find out PR number and title
+        id: active-pr
+        uses: actions/github-script@v5
+        with:
+          script: |
+            // Information can be found in the payload
+            const pr = context.payload.client_payload.pull_request;
+            return {
+              number: pr.number,
+              title: pr.title,
+              labels: pr.labels.map((label) => label.name),
+            };
+
+      - name: Checkout second dist copy
+        uses: actions/checkout@v2
+        with:
+          path: repoDist
+          ref: dist
+      - name: Create preview branch
+        working-directory: repoDist
+        env:
+          BRANCH_NAME: dist-preview-${{ fromJSON(steps.active-pr.outputs.result).number }}
+        run: |
+          git checkout -b "$BRANCH_NAME"
+          # Force-push to overwrite any previous preview commits already
+          git push -f
+
+      - name: Dry-run deploying new userscript versions
+        id: deploy-step
+        env:
+          PR_INFO: ${{ steps.active-pr.outputs.result }}
+        # Allow pushes now. It'll push to the newly created branch. Since this
+        # job can only be run on repository_dispatch, which requires admin
+        # privileges, this is safe.
+        run: npm run deploy repoDist
+
+      - name: Report preview
+        # Will be skipped if deployment failed
+        env:
+          PR_INFO: ${{ steps.active-pr.outputs.result }}
+          DEPLOY_INFO: ${{ steps.deploy-step.outputs.deployment-info }}
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const script = require('./build/report-deploy.js');
+            await script.reportPreview({ github, context, full: true });
