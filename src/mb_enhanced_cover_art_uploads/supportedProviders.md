@@ -5,7 +5,7 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Provider | Maximised images | Types filled | Notes |
 |----------|------------------|--------------|-------|
 | Direct links to JPG/PNG/GIF/PDF | Partial (see [maxurl sites.txt](https://github.com/qsniyg/maxurl/blob/master/sites.txt)) | ❌ |
-| Amazon | ✔️ | Partial | For MP3/Streaming products, the image is set as the Front cover. For other products, the first image is assumed to be the Front cover, whereas the type of other images are not set. |
+| Amazon | ✔️ | Partial | Supports digital and physical music and audiobook products. Not all Amazon image types can be mapped to CAA cover art types. |
 | Amazon Music | ✔️ | ✔️ | Converted into main Amazon MP3/Streaming product links, these tend to give larger images. |
 | Apple Music/iTunes | ✔️ | ✔️ |
 | Bandcamp | ✔️ | ✔️ | No custom domains |
