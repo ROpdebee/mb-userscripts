@@ -14,6 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy userscripts
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
       - name: Find out PR number and title
         id: active-pr
         uses: actions/github-script@v5
