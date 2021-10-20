@@ -105,7 +105,7 @@ function runOnSeederPage(): void {
     }
 }
 
-if (document.location.hostname.endsWith('musicbrainz.org')) {
+if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
     runOnMB();
 } else {
     runOnSeederPage();
