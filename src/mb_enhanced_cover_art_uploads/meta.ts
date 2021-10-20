@@ -8,9 +8,14 @@ const metadata: UserscriptMetadata = {
     'run-at': 'document-load',
     match: [
         'release/*/add-cover-art',
-    ].map(transformMBMatchURL).concat(
-        ['*://atisket.pulsewidth.org.uk/*']),
-    exclude: ['*://atisket.pulsewidth.org.uk/'],
+    ].map(transformMBMatchURL).concat([
+        '*://atisket.pulsewidth.org.uk/*',
+        '*://etc.marlonob.info/atisket/*'
+    ]),
+    exclude: [
+        '*://atisket.pulsewidth.org.uk/',
+        '*://etc.marlonob.info/atisket/'
+    ],
     grant: [
         'GM_xmlhttpRequest',
         // We don't actually use GM_getValue, but it needs to be exposed so that
