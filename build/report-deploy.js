@@ -64,8 +64,9 @@ async function reportPreview({ github, context }) {
         // @ts-expect-error not typescript
         ].concat(deployInfo.scripts.map((script) => {
             const previewUrl = basePreviewUrl + '/' + script.name + '.user.js';
-            return `* ${script.name} ([install preview](${previewUrl}), changes: ${script.commit})`;
+            return `* \`${script.name}\` ([install preview](${previewUrl}), changes: ${script.commit})`;
         })).concat([
+            '',
             `[See all changes](${diffUrl})`,
         ]).join('\n');
     }
