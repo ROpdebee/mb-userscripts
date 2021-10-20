@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.9.25
+// @version      2021.10.20
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -675,7 +675,7 @@ const repertoireToHandler = {
     'iswcnet.cisac.org': handleISWCNet,
 };
 
-if (document.location.hostname.endsWith('musicbrainz.org')) {
+if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
     handleMB();
 } else {
     repertoireToHandler[document.location.hostname]();
