@@ -70,7 +70,7 @@ async function commitUpdate(scriptName: string, version: string): Promise<Deploy
     // Create the commit.
     const commitResult = await gitDist
         .add([`${scriptName}.*`])
-        .commit(`🤖 ${scriptName} ${version}\n\n${prInfo.title} (${prInfo.number})`);
+        .commit(`🤖 ${scriptName} ${version}\n\n${prInfo.title} (#${prInfo.number})`);
     return {
         name: scriptName,
         version,

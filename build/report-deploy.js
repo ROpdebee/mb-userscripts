@@ -1,5 +1,5 @@
 // @ts-expect-error Not typescript
-module.exports = async ({ github, context }) => {
+async function reportDeploy({ github, context }) {
     const { TEST_RESULT, DEPLOY_RESULT } = process.env;
     const prInfo = JSON.parse(process.env.PR_INFO || '{}');
     const deployInfo = JSON.parse(process.env.DEPLOY_INFO || '{}');
@@ -46,4 +46,63 @@ module.exports = async ({ github, context }) => {
             body: issueComment,
         });
     }
+}
+
+// @ts-expect-error Not typescript
+async function reportPreview({ github, context }) {
+    const prInfo = JSON.parse(process.env.PR_INFO || '{}');
+    const deployInfo = JSON.parse(process.env.DEPLOY_INFO || '{}');
+
+    let content;
+    if (!deployInfo.scripts || !deployInfo.scripts.length) {
+        content = 'This PR makes no changes to the built userscripts.';
+    } else {
+        const basePreviewUrl = `https://raw.github.com/${context.repo.owner}/${context.repo.repo}/dist-preview-${prInfo.number}`;
+        const diffUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/compare/dist...dist-preview-${prInfo.number}`;
+        content = [
+            `This PR changes ${deployInfo.scripts.length} built userscript(s):`
+        // @ts-expect-error not typescript
+        ].concat(deployInfo.scripts.map((script) => {
+            const previewUrl = basePreviewUrl + '/' + script.name + '.user.js';
+            return `* \`${script.name}\` ([install preview](${previewUrl}), changes: ${script.commit})`;
+        })).concat([
+            '',
+            `[See all changes](${diffUrl})`,
+        ]).join('\n');
+    }
+
+    const existingComments = await github.rest.issues.listComments({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        issue_number: prInfo.number,
+        per_page: 100, // Will we ever go over 100 comments on a PR? We'll have to paginate then.
+    });
+    const existingBotCommentIds = existingComments.data
+        // @ts-expect-error not typescript
+        .filter((comment) => comment.user.login === 'github-actions[bot]')
+        // @ts-expect-error not typescript
+        .map((comment) => comment.id);
+
+    if (existingBotCommentIds.length) {
+        const commentId = existingBotCommentIds[existingBotCommentIds.length - 1];
+        await github.rest.issues.updateComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            comment_id: commentId,
+            body: content,
+        });
+    } else {
+        await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: prInfo.number,
+            body: content,
+        });
+    }
+}
+
+
+module.exports = {
+    reportDeploy,
+    reportPreview,
 };
