@@ -49,14 +49,14 @@ async function reportDeploy({ github, context }) {
 }
 
 // @ts-expect-error Not typescript
-async function reportPreview({ github, context, full }) {
+async function reportPreview({ github, context }) {
     const prInfo = JSON.parse(process.env.PR_INFO || '{}');
     const deployInfo = JSON.parse(process.env.DEPLOY_INFO || '{}');
 
     let content;
     if (!deployInfo.scripts || !deployInfo.scripts.length) {
         content = 'This PR makes no changes to the built userscripts.';
-    } else if (full) {
+    } else {
         const basePreviewUrl = `https://raw.github.com/${context.repo.owner}/${context.repo.repo}/dist-preview-${prInfo.number}`;
         const diffUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/compare/dist...dist-preview-${prInfo.number}`;
         content = [
@@ -69,16 +69,6 @@ async function reportPreview({ github, context, full }) {
             '',
             `[See all changes](${diffUrl})`,
         ]).join('\n');
-    } else {
-        content = [
-            `This PR changes ${deployInfo.scripts.length} built userscript(s):`
-        // @ts-expect-error not typescript
-        ].concat(deployInfo.scripts.map((script) => {
-            return `* \`${script.name}\``;
-        }).concat([
-            '',
-            '_Comment /preview to generate a preview of the deployed changes. Available to collaborators only._',
-        ])).join('\n');
     }
 
     const existingComments = await github.rest.issues.listComments({
