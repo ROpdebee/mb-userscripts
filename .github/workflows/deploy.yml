@@ -85,12 +85,11 @@ jobs:
       - name: Delete preview branch
         working-directory: repoDist
         if: '!inputs.preview'
+        # Don't fail if the branch did not exist
+        continue-on-error: true
         env:
-          BRANCH_NAME: dist-preview-${{ github.event.pull_request.number }}
-        run: |
-          git push origin --delete "$BRANCH_NAME";
-          # Don't fail if the branch did not exist
-          exit 0;
+          BRANCH_NAME: dist-preview-${{ fromJSON(steps.active-pr.outputs.result).number }}
+        run: git push origin --delete "$BRANCH_NAME";
 
       - name: Deploy new userscript versions
         id: deploy-step
