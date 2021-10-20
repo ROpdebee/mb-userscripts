@@ -20,7 +20,7 @@ jobs:
   deploy:
     needs: build-and-test
     if: always() && github.repository == 'ROpdebee/mb-userscripts'
-    uses: ROpdebee/mb-userscripts/.github/workflows/deploy.yml@cd-preview-on-pr
+    uses: ROpdebee/mb-userscripts/.github/workflows/deploy.yml@main
     with:
       test-result: ${{ needs.build-and-test.result }}
       preview: ${{ github.event_name == 'pull_request' }}
