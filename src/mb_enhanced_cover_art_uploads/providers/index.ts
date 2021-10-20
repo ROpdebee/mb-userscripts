@@ -31,7 +31,7 @@ add_provider(new VGMdbProvider());
 function extractDomain(url: URL): string {
     let domain = url.hostname;
     // Deal with bandcamp subdomains
-    if (domain.endsWith('bandcamp.com')) domain = 'bandcamp.com';
+    if (domain.endsWith('.bandcamp.com')) domain = 'bandcamp.com';
     domain = domain.replace(/^www\./, '');
     return domain;
 }
