@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.19.4
+// @version      2021.10.20
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1475,7 +1475,7 @@
   function extractDomain(url) {
     var domain = url.hostname; // Deal with bandcamp subdomains
 
-    if (domain.endsWith('bandcamp.com')) domain = 'bandcamp.com';
+    if (domain.endsWith('.bandcamp.com')) domain = 'bandcamp.com';
     domain = domain.replace(/^www\./, '');
     return domain;
   }
@@ -2845,7 +2845,7 @@
     }
   }
 
-  if (document.location.hostname.endsWith('musicbrainz.org')) {
+  if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
     runOnMB();
   } else {
     runOnSeederPage();
