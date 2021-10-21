@@ -76,7 +76,19 @@ describe('qsa', () => {
 
 describe('parsing DOM', () => {
     it('returns a document on success', () => {
-        expect(parseDOM('<html><head/><body><h1>Hello world</h1></body></html>')).toBeInstanceOf(Document);
+        expect(parseDOM('<html><head/><body><h1>Hello world</h1></body></html>', 'https://example.com/')).toBeInstanceOf(Document);
+    });
+
+    it('sets the base URL correctly', () => {
+        const dom = parseDOM('<html><head/><body><a href="/test"/></body></html>', 'https://example.com/');
+
+        expect(dom.querySelector<HTMLAnchorElement>('a')?.href).toBe('https://example.com/test');
+    });
+
+    it('retains original base URL', () => {
+        const dom = parseDOM('<html><head><base href="https://musicbrainz.org/"></head><body><a href="/test"/></body></html>', 'https://example.com/');
+
+        expect(dom.querySelector<HTMLAnchorElement>('a')?.href).toBe('https://musicbrainz.org/test');
     });
 
     // Can't really test error cases because DOMParser never errors on text/html.

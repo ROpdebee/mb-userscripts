@@ -47,6 +47,17 @@ export function onDocumentLoaded(listener: () => void): void {
     }
 }
 
-export function parseDOM(html: string): Document {
-    return new DOMParser().parseFromString(html, 'text/html');
+export function parseDOM(html: string, baseUrl: string): Document {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+
+    // We need to set the base URL in the <head> element to properly resolve
+    // relative links. If we don't, it'll resolve the hrefs relative to the
+    // page on which the document is parsed, which is not always what we want.
+    if (!qsMaybe('base', doc.head)) {
+        const baseElem = doc.createElement('base');
+        baseElem.href = baseUrl;
+        doc.head.insertAdjacentElement('beforeend', baseElem);
+    }
+
+    return doc;
 }
