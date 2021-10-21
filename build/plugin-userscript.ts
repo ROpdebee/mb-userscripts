@@ -111,7 +111,6 @@ class MetadataGenerator {
      * @return     {Promise<UserscriptMetadata>}  The userscript's metadata.
      */
     private async loadMetadata(): Promise<AllUserscriptMetadata> {
-        // use file URLs for compatibility with Windows, otherwise drive letters are recognized as an invalid protocol
         const metadataFile = path.resolve('./src', this.options.userscriptName, 'meta.ts');
         const specificMetadata: UserscriptMetadata = (await import(metadataFile)).default;
         return this.insertDefaultMetadata(specificMetadata);
