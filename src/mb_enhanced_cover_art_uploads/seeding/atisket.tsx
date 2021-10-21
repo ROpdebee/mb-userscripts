@@ -1,6 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
 import { qs, qsa, qsMaybe } from '@lib/util/dom';
-import { ArtworkTypeIDs } from '../providers/base';
 import type { Seeder } from './base';
 import { SeedParameters } from './parameters';
 
@@ -74,7 +73,6 @@ async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): P
 
     const params = new SeedParameters([{
         url: new URL(releaseUrl),
-        types: [ArtworkTypeIDs.Front],
     }], origin);
     const seedUrl = params.createSeedURL(mbid);
 
