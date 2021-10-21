@@ -39,7 +39,7 @@ export class AmazonProvider extends CoverArtProvider {
 
     async findImages(url: URL): Promise<CoverArt[]> {
         const pageContent = await this.fetchPage(url);
-        const pageDom = parseDOM(pageContent);
+        const pageDom = parseDOM(pageContent, url.href);
 
         // Look for products which only have a single image, the front cover.
         const frontCover = this.#extractFrontCover(pageDom);
