@@ -1,5 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
-import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
+import { qs, qsa, qsMaybe } from '@lib/util/dom';
 import { ArtworkTypeIDs } from '../providers/base';
 import type { Seeder } from './base';
 import { SeedParameters } from './parameters';
@@ -20,7 +20,7 @@ export const AtisketSeeder: Seeder = {
         // If the cached link doesn't exist on the page, we're probably already
         // on a cached page, so fall back on the page URL instead.
         const cachedAnchor = qsMaybe<HTMLAnchorElement>('#submit-button + div > a');
-        addSeedLinkToCovers(mbid, cachedAnchor?.href ?? document.location.href, document);
+        addSeedLinkToCovers(mbid, cachedAnchor?.href ?? document.location.href);
     }
 };
 
@@ -37,29 +37,21 @@ export const AtasketSeeder: Seeder = {
             return;
         }
 
-        const cachedUrl = document.location.origin + '/?cached=' + selfId;
-
         // For atasket links, we'll also use the cached URL as origin for the
-        // same reasons as above. However, we'll also retrieve the cached page
-        // so that we can retrieve release URLs later on, as atasket pages
-        // don't contain them. Although we could extract the ID from the self-id,
-        // those don't contain the Apple Music country code.
-        fetch(cachedUrl).then(async (resp) => {
-            const cachedDoc = parseDOM(await resp.text());
-            addSeedLinkToCovers(mbid, cachedUrl, cachedDoc);
-        });
+        // same reasons as above.
+        const cachedUrl = document.location.origin + '/?cached=' + selfId;
+        addSeedLinkToCovers(mbid, cachedUrl);
     }
 };
 
-function addSeedLinkToCovers(mbid: string, origin: string, infoDoc: Document): void {
+function addSeedLinkToCovers(mbid: string, origin: string): void {
     qsa('figure.cover').forEach((fig) => {
-        addSeedLinkToCover(fig, mbid, origin, infoDoc);
+        addSeedLinkToCover(fig, mbid, origin);
     });
 }
 
-async function addSeedLinkToCover(fig: Element, mbid: string, origin: string, infoDoc: Document): Promise<void> {
-    const anchor = qs<HTMLAnchorElement>('a.icon', fig);
-    const imageUrl = anchor.href;
+async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): Promise<void> {
+    const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
 
     // Not using .split('.').at(-1) here because I'm not sure whether .at is
     // polyfilled on atisket.
@@ -69,10 +61,16 @@ async function addSeedLinkToCover(fig: Element, mbid: string, origin: string, in
     // We'll seed the release URLs, instead of the images directly. This will
     // allow us to e.g. extract additional images for the release, or handle
     // some maximisations exceptions (e.g. Apple Music).
-    // Retrieve the URL via the classes defined on the image, they're the same.
-    const classSelector = [...anchor.classList].join('.');
-    // First anchor contains the release URL.
-    const releaseUrl = qs<HTMLAnchorElement>(`.vendor-ids li.${classSelector} > a`, infoDoc).href;
+    const countryCode = fig.closest('div')?.getAttribute('data-matched-country');
+    const vendorId = fig.getAttribute('data-vendor-id');
+    const vendorCode = [...fig.classList]
+        .find((klass) => ['spf', 'deez', 'itu'].includes(klass));
+    if (!vendorCode || !vendorId || !countryCode) {
+        LOGGER.error('Could not extract required data for ' + fig.classList.value);
+        return;
+    }
+
+    const releaseUrl = RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
 
     const params = new SeedParameters([{
         url: new URL(releaseUrl),
@@ -128,3 +126,9 @@ function getImageDimensions(url: string): Promise<string> {
         }, 50);
     });
 }
+
+const RELEASE_URL_CONSTRUCTORS: Record<string, (id: string, country: string) => string> = {
+    itu: (id, country) => `https://music.apple.com/${country.toLowerCase()}/album/${id}`,
+    deez: (id) => 'https://www.deezer.com/album/' + id,
+    spf: (id) => 'https://open.spotify.com/album/' + id,
+};
