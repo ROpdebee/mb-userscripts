@@ -30,7 +30,7 @@ export const AtasketSeeder: Seeder = {
 
     insertSeedLinks(): void {
         const mbid = document.location.search.match(/[?&]release_mbid=([a-f0-9-]+)/)?.[1];
-        const selfId = document.location.search.match(/[?&]self_id=([a-zA-Z0-9-]+)/)?.[1];
+        const selfId = document.location.search.match(/[?&]self_id=([a-zA-Z0-9_-]+)/)?.[1];
         if (!mbid || !selfId) {
             LOGGER.error('Cannot extract IDs! Seeding is disabled :(');
             return;
