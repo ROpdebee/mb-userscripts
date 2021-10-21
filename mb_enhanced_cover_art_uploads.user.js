@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.21.2
+// @version      2021.10.21.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2548,7 +2548,7 @@
       insertSeedLinks: function insertSeedLinks() {
           var _document$location$se, _document$location$se2;
           var mbid = (_document$location$se = document.location.search.match(/[?&]release_mbid=([a-f0-9-]+)/)) === null || _document$location$se === void 0 ? void 0 : _document$location$se[1];
-          var selfId = (_document$location$se2 = document.location.search.match(/[?&]self_id=([a-zA-Z0-9-]+)/)) === null || _document$location$se2 === void 0 ? void 0 : _document$location$se2[1];
+          var selfId = (_document$location$se2 = document.location.search.match(/[?&]self_id=([a-zA-Z0-9_-]+)/)) === null || _document$location$se2 === void 0 ? void 0 : _document$location$se2[1];
           if (!mbid || !selfId) {
               LOGGER.error('Cannot extract IDs! Seeding is disabled :(');
               return;
