@@ -18,3 +18,16 @@ export function findRight<T>(array: T[], predicate: (elmt: T) => boolean): T | n
 
     return null;
 }
+
+export function groupBy<T, K, V>(array: T[], keyFn: (el: T) => K, valTransform: (el: T) => V): Map<K, V[]> {
+    const map = new Map<K, V[]>();
+    for (const el of array) {
+        const k = keyFn(el);
+        const v = valTransform(el);
+
+        if (map.has(k)) map.get(k)?.push(v);
+        else (map.set(k, [v]));
+    }
+
+    return map;
+}

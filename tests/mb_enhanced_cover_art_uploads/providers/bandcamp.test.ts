@@ -46,6 +46,22 @@ describe('bandcamp provider', () => {
         expect(coverUrl[0].comment).toBeUndefined();
     });
 
+    it('grabs track covers', async () => {
+        const coverUrls = await provider.findImages(new URL('https://nyokee.bandcamp.com/album/quarantine-pixel-party'));
+
+        expect(coverUrls).toBeArrayOfSize(9);
+        expect(coverUrls[0].url.pathname).toContain('a1225644503_');
+        expect(coverUrls[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrls[0].comment).toBeUndefined();
+
+        // Sampling one, not going to check all 8 track images.
+        // BTW, this is not an off-by-one indexing mistake, Track 3 has no
+        // custom cover :)
+        expect(coverUrls[4].url.pathname).toContain('a3441863429_');
+        expect(coverUrls[4].types).toStrictEqual([ArtworkTypeIDs.Track]);
+        expect(coverUrls[4].comment).toBe('Track 5');
+    });
+
     it('throws if release does not exist', async () => {
         pollyContext.polly.configure({
             recordFailedRequests: true

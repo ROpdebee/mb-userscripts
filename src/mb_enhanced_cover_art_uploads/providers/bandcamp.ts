@@ -1,6 +1,16 @@
-import { HeadMetaPropertyProvider } from './base';
+import { LOGGER } from '@lib/logging/logger';
+import { filterNonNull, groupBy } from '@lib/util/array';
+import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
+import pThrottle from 'p-throttle';
+import { ArtworkTypeIDs, CoverArtProvider } from './base';
+import type { CoverArt } from './base';
 
-export class BandcampProvider extends HeadMetaPropertyProvider {
+interface ParsedTrackImage {
+    url: string;
+    trackNumber?: string;
+}
+
+export class BandcampProvider extends CoverArtProvider {
     supportedDomains = ['bandcamp.com'];
     favicon = 'https://s4.bcbits.com/img/favicon/favicon-32x32.png';
     name = 'Bandcamp';
@@ -8,5 +18,105 @@ export class BandcampProvider extends HeadMetaPropertyProvider {
 
     override extractId(url: URL): string | undefined {
         return this.cleanUrl(url).match(this.urlRegex)?.slice(1)?.join('/');
+    }
+
+    async findImages(url: URL): Promise<CoverArt[]> {
+        const respDocument = parseDOM(await this.fetchPage(url), url.href);
+        const albumCoverUrl = qs<HTMLAnchorElement>('#tralbumArt > .popupImage', respDocument).href;
+
+        const covers: CoverArt[] = [{
+            url: new URL(albumCoverUrl),
+            types: [ArtworkTypeIDs.Front],
+        }];
+
+        const trackImages = await this.#findTrackImages(respDocument, albumCoverUrl);
+
+        return covers.concat(trackImages);
+    }
+
+    async #findTrackImages(doc: Document, mainUrl: string): Promise<CoverArt[]> {
+        // Unfortunately it doesn't seem like they can be extracted from the
+        // album page itself, so we have to load each of the tracks separately.
+        // Deliberately throttling these requests as to not flood Bandcamp and
+        // potentially get banned.
+        // It appears that they used to have an API which returned all track
+        // images in one request, but that API has been locked down :(
+        // https://michaelherger.github.io/Bandcamp-API/#/Albums/get_api_album_2_info
+        LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
+        const trackRows = qsa<HTMLTableRowElement>('#track_table .track_row_view', doc);
+
+        // Max 5 requests per second
+        const throttledFetchPage = pThrottle({
+            interval: 1000,
+            limit: 5,
+        })(this.fetchPage.bind(this));
+
+        // This isn't the most efficient, as it'll have to request all tracks
+        // before it even returns the main album cover. Although fixable by
+        // e.g. using an async generator, it might lead to issues with users
+        // submitting the upload form before all track images are fetched...
+        const trackImages = await Promise.all(trackRows
+            .map((trackRow) => this.#findTrackImage(trackRow, throttledFetchPage)));
+        const mergedTrackImages = this.#mergeTrackImages(trackImages, mainUrl);
+        if (mergedTrackImages.length) {
+            LOGGER.info(`Found ${mergedTrackImages.length} unique track images`);
+        } else {
+            LOGGER.info('Found no unique track images this time');
+        }
+
+        return mergedTrackImages;
+    }
+
+    async #findTrackImage(trackRow: HTMLTableRowElement, fetchPage: (url: URL) => Promise<string>): Promise<ParsedTrackImage | undefined> {
+        // Account for alphabetical track numbers too
+        const trackNum = trackRow.getAttribute('rel')?.match(/tracknum=(\w+)/)?.[1];
+        const trackUrl = qsMaybe<HTMLAnchorElement>('.title > a', trackRow)?.href;
+
+        /* istanbul ignore if: Cannot immediately find a release where a track is not linked */
+        if (!trackUrl) {
+            LOGGER.warn(`Could not check track ${trackNum} for track images`);
+            return;
+        }
+
+        try {
+            const trackPage = parseDOM(await fetchPage(new URL(trackUrl)), trackUrl);
+            const imageUrl = qs<HTMLAnchorElement>('#tralbumArt > .popupImage', trackPage).href;
+            return {
+                url: imageUrl,
+                trackNumber: trackNum,
+            };
+        } catch (err) /* istanbul ignore next: Difficult to test */ {
+            LOGGER.error(`Could not check track ${trackNum} for track images`, err);
+            return;
+        }
+    }
+
+    #mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string): CoverArt[] {
+        const newTrackImages = filterNonNull(trackImages)
+            // Filter out tracks that have the same image as the main release.
+            .filter((img) => img.url !== mainUrl);
+        const imgUrlToTrackNumber = groupBy(newTrackImages, (el) => el.url, (el) => el.trackNumber);
+
+        const results: CoverArt[] = [];
+        imgUrlToTrackNumber.forEach((trackNumbers, imgUrl) => {
+            results.push({
+                url: new URL(imgUrl),
+                types: [ArtworkTypeIDs.Track],
+                // Use comment to indicate which tracks this applies to.
+                comment: this.#createTrackImageComment(trackNumbers),
+            });
+        });
+
+        return results;
+    }
+
+    #createTrackImageComment(trackNumbers: Array<string | undefined>): string {
+        const definedTrackNumbers = filterNonNull(trackNumbers);
+        /* istanbul ignore if: Can't find case */
+        if (!definedTrackNumbers.length) return '';
+
+        /* istanbul ignore next: Can't find case with multiple */
+        const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
+        return `${prefix} ${definedTrackNumbers.join(', ')}`;
     }
 }
