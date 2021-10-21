@@ -1,7 +1,8 @@
+// ES modules which need to be transformed by babel for use in jest.
 const esModules = ['node-fetch', 'fetch-blob'].join('|');
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-export default {
+module.exports = {
     testEnvironment: 'setup-polly-jest/jest-environment-jsdom',
     moduleNameMapper: {
         '^@lib/(.*)$': '<rootDir>/src/lib/$1',
@@ -14,6 +15,8 @@ export default {
         '!**/meta.ts',
     ],
     transformIgnorePatterns: [
+        // Don't transform any module in `node_modules`, except for the ES
+        // modules. We need to transform ESM because jest expects CJS.
         `/node_modules/(?!${esModules})`,
     ],
 };
