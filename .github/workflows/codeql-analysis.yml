@@ -3,10 +3,6 @@ name: CodeQL
 
 on:
   workflow_call:
-  workflow_dispatch:
-  # Periodically run CodeQL for the security advisories etc.
-  schedule:
-    - cron: '39 12 * * 0'
 
 jobs:
   analyze:
