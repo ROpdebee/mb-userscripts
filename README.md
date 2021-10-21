@@ -50,7 +50,7 @@ Full list of supported artwork providers [here](src/mb_enhanced_cover_art_upload
 
 Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 
-[![Install](https://img.shields.io/badge/install-2021.4.29-informational?style=for-the-badge&logo=github)](mb_supercharged_caa_edits.user.js?raw=1)
+[![Install](https://img.shields.io/badge/install-2021.10.21-informational?style=for-the-badge&logo=github)](mb_supercharged_caa_edits.user.js?raw=1)
 [![Source](https://img.shields.io/badge/source-main-lightgrey?style=for-the-badge&logo=github)](mb_supercharged_caa_edits.user.js)
 
 ## MB: Validate Work Codes
