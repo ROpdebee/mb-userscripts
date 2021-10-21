@@ -64,7 +64,8 @@ async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): P
     const vendorId = fig.getAttribute('data-vendor-id');
     const vendorCode = [...fig.classList]
         .find((klass) => ['spf', 'deez', 'itu'].includes(klass));
-    if (!vendorCode || !vendorId || !countryCode) {
+    // Vendor code and ID are required, but we only need a non-empty country code for Apple Music/iTunes releases
+    if (!vendorCode || !vendorId || typeof countryCode !== 'string' || (vendorCode === 'itu' && countryCode === '')) {
         LOGGER.error('Could not extract required data for ' + fig.classList.value);
         return;
     }
