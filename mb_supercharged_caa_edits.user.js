@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.4.29
+// @version      2021.10.21
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -690,12 +690,23 @@ class CAAEdit {
         if (!typesRow) {
             this.insertRow('Types:', '<span data-name="artwork-type">(none)</span>');
         } else {
-            let $td = $(typesRow).find('td');
-            let existingTypes = $td.text();
-            let newHtml = existingTypes.split(', ')
-                .map(type => `<span data-name="artwork-type">${type}</span>`)
-                .join(', ');
-            $td.html(newHtml);
+            let td = typesRow.querySelector('td');
+            let existingTypes = td.textContent;
+            let newSpans = existingTypes.split(', ')
+                .map((type) => {
+                    const span = document.createElement('span');
+                    span.setAttribute('data-name', 'artwork-type');
+                    span.textContent = type;
+                    return span;
+                });
+            if (newSpans.length) {
+                td.innerHTML = '';
+                td.insertAdjacentElement('beforeend', newSpans[0]);
+                newSpans.slice(1).map((span) => {
+                    td.insertAdjacentText('beforeend', ', ');
+                    td.insertAdjacentElement('beforeend', span);
+                });
+            }
         }
     }
 
