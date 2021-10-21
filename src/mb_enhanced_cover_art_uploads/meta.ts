@@ -1,6 +1,6 @@
 import type { UserscriptMetadata } from 'userscriptMetadata';
 
-import { transformMBMatchURL } from '../lib/util/metadata.js';
+import { transformMBMatchURL } from '../lib/util/metadata';
 
 const metadata: UserscriptMetadata = {
     name: 'MB: Enhanced Cover Art Uploads',

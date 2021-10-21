@@ -17,8 +17,8 @@ import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 import consts from 'rollup-plugin-consts';
 
-import { nativejsx } from './plugin-nativejsx.js';
-import { userscript } from './plugin-userscript.js';
+import { nativejsx } from './plugin-nativejsx';
+import { userscript } from './plugin-userscript';
 
 const OUTPUT_DIR = 'dist';
 const VENDOR_CHUNK_NAME = 'vendor';
