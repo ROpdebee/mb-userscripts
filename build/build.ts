@@ -1,5 +1,7 @@
-// Need to use .js in module names because of ts-node
-import { buildUserscripts } from './rollup.js';
-import { getVersionForToday } from './versions.js';
+import { buildUserscripts } from './rollup';
+import { getVersionForToday } from './versions';
 
-await buildUserscripts(getVersionForToday());
+// Don't use await at the top level, this is incompatible with node and
+// CommonJS modules.
+buildUserscripts(getVersionForToday()).
+    catch(console.error);

@@ -27,6 +27,14 @@
         },
         "skipLibCheck": true,
     },
+    // Override compiler options for execution in ts-node. We need to convert
+    // to CommonJS modules for compatibility with node. Although node has ESM
+    // support, it is experimental and not always stable.
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS",
+        },
+    },
     "include": ["**/*"],
     "exclude": [
         "node_modules/**",

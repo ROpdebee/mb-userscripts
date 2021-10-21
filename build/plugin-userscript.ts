@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { pathToFileURL } from 'url';
 
 import type { Plugin } from 'rollup';
 import type { PackageJson } from 'type-fest';
@@ -113,7 +112,7 @@ class MetadataGenerator {
      */
     private async loadMetadata(): Promise<AllUserscriptMetadata> {
         // use file URLs for compatibility with Windows, otherwise drive letters are recognized as an invalid protocol
-        const metadataFile = pathToFileURL(path.resolve('./src', this.options.userscriptName, 'meta.ts')).href;
+        const metadataFile = path.resolve('./src', this.options.userscriptName, 'meta.ts');
         const specificMetadata: UserscriptMetadata = (await import(metadataFile)).default;
         return this.insertDefaultMetadata(specificMetadata);
     }
