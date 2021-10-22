@@ -269,6 +269,16 @@ describe('fetching image from URL', () => {
             await expect(fetcher.fetchImageFromURL(new URL('https://example.com/test')))
                 .resolves.toBeUndefined();
         });
+
+        it('skips maximisation if told to do so', async () => {
+            await expect(fetcher.fetchImageFromURL(new URL('https://example.com/test'), true))
+                .resolves.toMatchObject({
+                    wasMaximised: false,
+                    maximisedUrl: {
+                        href: 'https://example.com/test',
+                    },
+                });
+        });
     });
 });
 
@@ -413,6 +423,20 @@ describe('fetching images from providers', () => {
                 containerUrl: {
                     href: 'https://example.com/',
                 },
+            });
+    });
+
+    it('skips maximisation if provider requests it', async () => {
+        mockFindImages.mockResolvedValueOnce([{
+            url: new URL('https://example.com/1'),
+            skipMaximisation: true,
+        }]);
+
+        await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider))
+            .resolves.toMatchObject({
+                images: [{
+                    wasMaximised: false,
+                }],
             });
     });
 });

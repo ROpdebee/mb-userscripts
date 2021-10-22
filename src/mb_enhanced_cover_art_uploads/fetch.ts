@@ -67,23 +67,26 @@ export class ImageFetcher {
         };
     }
 
-    async fetchImageFromURL(url: URL): Promise<FetchedImage | undefined> {
+    async fetchImageFromURL(url: URL, skipMaximisation = false): Promise<FetchedImage | undefined> {
         // Attempt to maximise the image
         let fetchResult: ImageContents | null = null;
-        for await (const maxCandidate of getMaximisedCandidates(url)) {
-            const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
-            if (this.#urlAlreadyAdded(maxCandidate.url)) {
-                LOGGER.warn(`${candidateName} has already been added`);
-                return;
-            }
 
-            try {
-                fetchResult = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
-                LOGGER.debug(`Maximised ${url.href} to ${maxCandidate.url.href}`);
-                break;
-            } catch (err) {
-                const errDesc = err instanceof Error ? err.message : /* istanbul ignore next: Not worth it */ err;
-                LOGGER.warn(`Skipping maximised candidate ${candidateName}: ${errDesc}`);
+        if (!skipMaximisation) {
+            for await (const maxCandidate of getMaximisedCandidates(url)) {
+                const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
+                if (this.#urlAlreadyAdded(maxCandidate.url)) {
+                    LOGGER.warn(`${candidateName} has already been added`);
+                    return;
+                }
+
+                try {
+                    fetchResult = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
+                    LOGGER.debug(`Maximised ${url.href} to ${maxCandidate.url.href}`);
+                    break;
+                } catch (err) {
+                    const errDesc = err instanceof Error ? err.message : /* istanbul ignore next: Not worth it */ err;
+                    LOGGER.warn(`Skipping maximised candidate ${candidateName}: ${errDesc}`);
+                }
             }
         }
 
@@ -124,7 +127,7 @@ export class ImageFetcher {
             }
 
             try {
-                const result = await this.fetchImageFromURL(img.url);
+                const result = await this.fetchImageFromURL(img.url, img.skipMaximisation);
                 // Maximised image already added
                 if (!result) continue;
 

@@ -95,6 +95,11 @@ export interface CoverArt {
      * Comment to set. May be empty or undefined.
      */
     comment?: string;
+    /**
+     * Whether maximisation should be skipped for this image. If undefined,
+     * interpreted as false.
+     */
+    skipMaximisation?: boolean;
 }
 
 export enum ArtworkTypeIDs {
