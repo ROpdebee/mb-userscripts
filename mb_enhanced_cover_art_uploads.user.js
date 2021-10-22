@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.22.4
+// @version      2021.10.22.5
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -700,6 +700,59 @@
     return TidalProvider;
   }(CoverArtProvider);
 
+  // TODO: This originates from mb_caa_dimensions but is also used here. Not sure
+  // where to put it. It might make sense to put it in the mb_caa_dimensions source
+  // tree later on, and import it in this source tree where necessary.
+  function getImageDimensions(url) {
+    return new Promise(function (resolve, reject) {
+      var done = false;
+
+      function dimensionsLoaded(dimensions) {
+        // Make sure we don't poll again, it's not necessary.
+        clearInterval(interval);
+
+        if (!done) {
+          // Prevent resolving twice.
+          resolve(dimensions);
+          done = true;
+          img.src = ''; // Cancel loading the image
+        }
+      }
+
+      function dimensionsFailed() {
+        clearInterval(interval);
+
+        if (!done) {
+          done = true;
+          reject();
+        }
+      }
+
+      var img = document.createElement('img');
+      img.addEventListener('load', function () {
+        dimensionsLoaded({
+          height: img.naturalHeight,
+          width: img.naturalWidth
+        });
+      });
+      img.addEventListener('error', dimensionsFailed); // onload and onerror are asynchronous, so this interval should have
+      // already been set before they are called.
+
+      var interval = window.setInterval(function () {
+        if (img.naturalHeight) {
+          // naturalHeight will be non-zero as soon as enough of the image
+          // is loaded to determine its dimensions.
+          dimensionsLoaded({
+            height: img.naturalHeight,
+            width: img.naturalWidth
+          });
+        }
+      }, 50); // Start loading the image
+
+      img.src = url;
+    });
+  }
+
   var _findTrackImages = /*#__PURE__*/new WeakSet();
 
   var _findTrackImage = /*#__PURE__*/new WeakSet();
@@ -707,6 +760,8 @@
   var _mergeTrackImages = /*#__PURE__*/new WeakSet();
 
   var _createTrackImageComment = /*#__PURE__*/new WeakSet();
+
+  var _amendSquareThumbnails = /*#__PURE__*/new WeakSet();
 
   var BandcampProvider = /*#__PURE__*/function (_CoverArtProvider) {
     _inherits(BandcampProvider, _CoverArtProvider);
@@ -723,6 +778,8 @@
       }
 
       _this = _super.call.apply(_super, [this].concat(args));
+
+      _classPrivateMethodInitSpec(_assertThisInitialized(_this), _amendSquareThumbnails);
 
       _classPrivateMethodInitSpec(_assertThisInitialized(_this), _createTrackImageComment);
 
@@ -777,7 +834,7 @@
 
                 case 10:
                   trackImages = _context.sent;
-                  return _context.abrupt("return", covers.concat(trackImages));
+                  return _context.abrupt("return", _classPrivateMethodGet(this, _amendSquareThumbnails, _amendSquareThumbnails2).call(this, covers.concat(trackImages)));
 
                 case 12:
                 case "end":
@@ -947,6 +1004,82 @@
 
     var prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
     return "".concat(prefix, " ").concat(definedTrackNumbers.join(', '));
+  }
+
+  function _amendSquareThumbnails2(_x6) {
+    return _amendSquareThumbnails3.apply(this, arguments);
+  }
+
+  function _amendSquareThumbnails3() {
+    _amendSquareThumbnails3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(covers) {
+      return regenerator.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              return _context5.abrupt("return", Promise.all(covers.map( /*#__PURE__*/function () {
+                var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(cover) {
+                  var coverDims, ratio;
+                  return regenerator.wrap(function _callee4$(_context4) {
+                    while (1) {
+                      switch (_context4.prev = _context4.next) {
+                        case 0:
+                          _context4.next = 2;
+                          return getImageDimensions(cover.url.href.replace(/_\d+\.(\w+)$/, '_0.$1'));
+
+                        case 2:
+                          coverDims = _context4.sent;
+
+                          if (!(!coverDims.width || !coverDims.height)) {
+                            _context4.next = 5;
+                            break;
+                          }
+
+                          return _context4.abrupt("return", [cover]);
+
+                        case 5:
+                          ratio = coverDims.width / coverDims.height;
+
+                          if (!(0.95 <= ratio && ratio <= 1.05)) {
+                            _context4.next = 8;
+                            break;
+                          }
+
+                          return _context4.abrupt("return", [cover]);
+
+                        case 8:
+                          return _context4.abrupt("return", [_objectSpread2(_objectSpread2({}, cover), {}, {
+                            comment: filterNonNull([cover.comment, 'Bandcamp full-sized cover']).join(' - ')
+                          }), {
+                            types: cover.types,
+                            // *_16.jpg URLs are the largest square crop available, always 700x700
+                            url: new URL(cover.url.href.replace(/_\d+\.(\w+)$/, '_16.$1')),
+                            comment: filterNonNull([cover.comment, 'Bandcamp square crop']).join(' - '),
+                            skipMaximisation: true
+                          }]);
+
+                        case 9:
+                        case "end":
+                          return _context4.stop();
+                      }
+                    }
+                  }, _callee4);
+                }));
+
+                return function (_x7) {
+                  return _ref.apply(this, arguments);
+                };
+              }())).then(function (covers) {
+                return covers.flat();
+              }));
+
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+    return _amendSquareThumbnails3.apply(this, arguments);
   }
 
   var PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/; // Incomplete, only what we need
@@ -1868,7 +2001,7 @@
               $$d.setAttribute('class', 'ROpdebee_paste_url_cont');
               appendChildren($$d, _classPrivateFieldGet(this, _urlInput));
               var $$f = document.createElement('a');
-              $$f.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/supportedProviders.md');
+              $$f.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md');
               $$f.setAttribute('target', '_blank');
               $$d.appendChild($$f);
               var $$g = document.createTextNode('\n                Supported providers\n            ');
@@ -2330,26 +2463,43 @@
       key: "fetchImageFromURL",
       value: function () {
         var _fetchImageFromURL = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(url) {
-          var fetchResult, _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _iterator, _step, maxCandidate, candidateName, errDesc;
+          var skipMaximisation,
+              fetchResult,
+              _iteratorAbruptCompletion,
+              _didIteratorError,
+              _iteratorError,
+              _iterator,
+              _step,
+              maxCandidate,
+              candidateName,
+              errDesc,
+              _args2 = arguments;
 
           return regenerator.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
+                  skipMaximisation = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : false;
                   // Attempt to maximise the image
                   fetchResult = null;
+
+                  if (skipMaximisation) {
+                    _context2.next = 46;
+                    break;
+                  }
+
                   _iteratorAbruptCompletion = false;
                   _didIteratorError = false;
-                  _context2.prev = 3;
+                  _context2.prev = 5;
                   _iterator = _asyncIterator(getMaximisedCandidates(url));
 
-                case 5:
-                  _context2.next = 7;
+                case 7:
+                  _context2.next = 9;
                   return _iterator.next();
 
-                case 7:
+                case 9:
                   if (!(_iteratorAbruptCompletion = !(_step = _context2.sent).done)) {
-                    _context2.next = 28;
+                    _context2.next = 30;
                     break;
                   }
 
@@ -2357,87 +2507,87 @@
                   candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
 
                   if (!_classPrivateMethodGet(this, _urlAlreadyAdded, _urlAlreadyAdded2).call(this, maxCandidate.url)) {
-                    _context2.next = 13;
+                    _context2.next = 15;
                     break;
                   }
 
                   LOGGER.warn("".concat(candidateName, " has already been added"));
                   return _context2.abrupt("return");
 
-                case 13:
-                  _context2.prev = 13;
-                  _context2.next = 16;
+                case 15:
+                  _context2.prev = 15;
+                  _context2.next = 18;
                   return this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
 
-                case 16:
+                case 18:
                   fetchResult = _context2.sent;
                   LOGGER.debug("Maximised ".concat(url.href, " to ").concat(maxCandidate.url.href));
-                  return _context2.abrupt("break", 28);
+                  return _context2.abrupt("break", 30);
 
-                case 21:
-                  _context2.prev = 21;
-                  _context2.t0 = _context2["catch"](13);
+                case 23:
+                  _context2.prev = 23;
+                  _context2.t0 = _context2["catch"](15);
                   errDesc = _context2.t0 instanceof Error ? _context2.t0.message :
                   /* istanbul ignore next: Not worth it */
                   _context2.t0;
                   LOGGER.warn("Skipping maximised candidate ".concat(candidateName, ": ").concat(errDesc));
 
-                case 25:
+                case 27:
                   _iteratorAbruptCompletion = false;
-                  _context2.next = 5;
-                  break;
-
-                case 28:
-                  _context2.next = 34;
+                  _context2.next = 7;
                   break;
 
                 case 30:
-                  _context2.prev = 30;
-                  _context2.t1 = _context2["catch"](3);
+                  _context2.next = 36;
+                  break;
+
+                case 32:
+                  _context2.prev = 32;
+                  _context2.t1 = _context2["catch"](5);
                   _didIteratorError = true;
                   _iteratorError = _context2.t1;
 
-                case 34:
-                  _context2.prev = 34;
-                  _context2.prev = 35;
+                case 36:
+                  _context2.prev = 36;
+                  _context2.prev = 37;
 
                   if (!(_iteratorAbruptCompletion && _iterator.return != null)) {
-                    _context2.next = 39;
+                    _context2.next = 41;
                     break;
                   }
 
-                  _context2.next = 39;
+                  _context2.next = 41;
                   return _iterator.return();
 
-                case 39:
-                  _context2.prev = 39;
+                case 41:
+                  _context2.prev = 41;
 
                   if (!_didIteratorError) {
-                    _context2.next = 42;
+                    _context2.next = 44;
                     break;
                   }
 
                   throw _iteratorError;
 
-                case 42:
-                  return _context2.finish(39);
-
-                case 43:
-                  return _context2.finish(34);
-
                 case 44:
+                  return _context2.finish(41);
+
+                case 45:
+                  return _context2.finish(36);
+
+                case 46:
                   if (fetchResult) {
-                    _context2.next = 48;
+                    _context2.next = 50;
                     break;
                   }
 
-                  _context2.next = 47;
+                  _context2.next = 49;
                   return this.fetchImageContents(url, getFilename(url), {});
 
-                case 47:
+                case 49:
                   fetchResult = _context2.sent;
 
-                case 48:
+                case 50:
                   _classPrivateFieldGet(this, _doneImages).add(fetchResult.fetchedUrl.href);
 
                   _classPrivateFieldGet(this, _doneImages).add(fetchResult.requestedUrl.href);
@@ -2455,12 +2605,12 @@
 
                   });
 
-                case 52:
+                case 54:
                 case "end":
                   return _context2.stop();
               }
             }
-          }, _callee2, this, [[3, 30, 34, 44], [13, 21], [35,, 39, 43]]);
+          }, _callee2, this, [[5, 32, 36, 46], [15, 23], [37,, 41, 45]]);
         }));
 
         function fetchImageFromURL(_x2) {
@@ -2512,7 +2662,7 @@
                 case 14:
                   _context3.prev = 14;
                   _context3.next = 17;
-                  return this.fetchImageFromURL(img.url);
+                  return this.fetchImageFromURL(img.url, img.skipMaximisation);
 
                 case 17:
                   result = _context3.sent;
@@ -2807,7 +2957,7 @@
   function _addSeedLinkToCover() {
       _addSeedLinkToCover = _asyncToGenerator(regenerator.mark(function _callee(fig, mbid, origin) {
           var _imageUrl$match, _fig$closest, _qs$insertAdjacentEle;
-          var imageUrl, ext, dimensionStr, countryCode, vendorId, vendorCode, releaseUrl, params, seedUrl, dimSpan, seedLink;
+          var imageUrl, ext, imageDimensions, dimensionStr, countryCode, vendorId, vendorCode, releaseUrl, params, seedUrl, dimSpan, seedLink;
           return regenerator.wrap(function _callee$(_context) {
               while (1) {
                   switch (_context.prev = _context.next) {
@@ -2817,7 +2967,8 @@
                       _context.next = 4;
                       return getImageDimensions(imageUrl);
                   case 4:
-                      dimensionStr = _context.sent;
+                      imageDimensions = _context.sent;
+                      dimensionStr = ''.concat(imageDimensions.width, 'x').concat(imageDimensions.height);
                       countryCode = (_fig$closest = fig.closest('div')) === null || _fig$closest === void 0 ? void 0 : _fig$closest.getAttribute('data-matched-country');
                       vendorId = fig.getAttribute('data-vendor-id');
                       vendorCode = _toConsumableArray(fig.classList).find(function (klass) {
@@ -2828,12 +2979,12 @@
                           ].includes(klass);
                       });
                       if (!(!vendorCode || !vendorId || typeof countryCode !== 'string' || vendorCode === 'itu' && countryCode === '')) {
-                          _context.next = 11;
+                          _context.next = 12;
                           break;
                       }
                       LOGGER.error('Could not extract required data for ' + fig.classList.value);
                       return _context.abrupt('return');
-                  case 11:
+                  case 12:
                       releaseUrl = RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
                       params = new SeedParameters([{ url: new URL(releaseUrl) }], origin);
                       seedUrl = params.createSeedURL(mbid);
@@ -2852,7 +3003,7 @@
                           return $$c;
                       }.call(this);
                       (_qs$insertAdjacentEle = qs('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan)) === null || _qs$insertAdjacentEle === void 0 ? void 0 : _qs$insertAdjacentEle.insertAdjacentElement('afterend', seedLink);
-                  case 17:
+                  case 18:
                   case 'end':
                       return _context.stop();
                   }
@@ -2860,39 +3011,6 @@
           }, _callee);
       }));
       return _addSeedLinkToCover.apply(this, arguments);
-  }
-  function getImageDimensions(url) {
-      return new Promise(function (resolve, reject) {
-          var interval;
-          var done = false;
-          var img = function () {
-              var $$e = document.createElement('img');
-              $$e.setAttribute('src', url);
-              $$e.addEventListener('load', function () {
-                  clearInterval(interval);
-                  if (!done) {
-                      resolve(''.concat(img.naturalHeight, 'x').concat(img.naturalWidth));
-                      done = true;
-                  }
-              });
-              $$e.addEventListener('error', function () {
-                  clearInterval(interval);
-                  if (!done) {
-                      done = true;
-                      reject();
-                  }
-              });
-              return $$e;
-          }.call(this);
-          interval = window.setInterval(function () {
-              if (img.naturalHeight) {
-                  resolve(''.concat(img.naturalHeight, 'x').concat(img.naturalWidth));
-                  done = true;
-                  clearInterval(interval);
-                  img.src = '';
-              }
-          }, 50);
-      });
   }
   var RELEASE_URL_CONSTRUCTORS = {
       itu: function itu(id, country) {
