@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.22.5
+// @version      2021.10.22.6
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1979,20 +1979,30 @@
           _classPrivateFieldSet(this, _urlInput, function () {
               var $$c = document.createElement('input');
               $$c.setAttribute('type', 'url');
-              $$c.setAttribute('placeholder', 'or paste a URL here');
+              $$c.setAttribute('placeholder', 'or paste one or more URLs here');
               $$c.setAttribute('size', 47);
               $$c.setAttribute('id', 'ROpdebee_paste_url');
               $$c.addEventListener('input', function (evt) {
                   if (!evt.currentTarget.value)
                       return;
-                  var url;
+                  var _iterator = _createForOfIteratorHelper(evt.currentTarget.value.trim().split(/\s+/)), _step;
                   try {
-                      url = new URL(evt.currentTarget.value.trim());
+                      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                          var inputUrl = _step.value;
+                          var _url = void 0;
+                          try {
+                              _url = new URL(decodeURI(inputUrl));
+                          } catch (err) {
+                              LOGGER.error('Invalid URL: '.concat(inputUrl), err);
+                              continue;
+                          }
+                          onUrlFilled(_url);
+                      }
                   } catch (err) {
-                      LOGGER.error('Invalid URL', err);
-                      return;
+                      _iterator.e(err);
+                  } finally {
+                      _iterator.f();
                   }
-                  onUrlFilled(url);
               });
               return $$c;
           }.call(this));
