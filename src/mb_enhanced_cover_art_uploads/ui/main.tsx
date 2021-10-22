@@ -19,22 +19,27 @@ export class InputForm {
         // The input element into which URLs will be pasted.
         this.#urlInput = <input
             type='url'
-            placeholder='or paste a URL here'
+            placeholder='or paste one or more URLs here'
             size={47}
             id='ROpdebee_paste_url'
             onInput={(evt): void => {
                 // Early validation.
                 if (!evt.currentTarget.value) return;
-                // eslint-disable-next-line init-declarations
-                let url: URL;
-                try {
-                    url = new URL(evt.currentTarget.value.trim());
-                } catch (err) {
-                    LOGGER.error('Invalid URL', err);
-                    return;
-                }
 
-                onUrlFilled(url);
+                for (const inputUrl of evt.currentTarget.value.split(/\s+/)) {
+                    // eslint-disable-next-line init-declarations
+                    let url: URL;
+                    // Only use the try block to parse the URL, since we don't
+                    // want to suppress errors in the image fetching.
+                    try {
+                        url = new URL(decodeURI(inputUrl.trim()));
+                    } catch (err) {
+                        LOGGER.error(`Invalid URL: ${inputUrl}`, err);
+                        continue;
+                    }
+
+                    onUrlFilled(url);
+                }
             }}
         /> as HTMLInputElement;
 
