@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.22.3
+// @version      2021.10.22.4
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1668,6 +1668,40 @@
     }, mapper(captionRest));
   }
 
+  // https://github.com/ROpdebee/mb-userscripts/issues/158
+
+  var QubMusiqueProvider = /*#__PURE__*/function (_QobuzProvider) {
+    _inherits(QubMusiqueProvider, _QobuzProvider);
+
+    var _super = _createSuper(QubMusiqueProvider);
+
+    function QubMusiqueProvider() {
+      var _this;
+
+      _classCallCheck(this, QubMusiqueProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['qub.ca']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://www.qub.ca/assets/favicons/apple-touch-icon.png');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'QUB Musique');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", [/musique\/album\/[\w-]*-([A-Za-z0-9]+)(?:\/|$)/]);
+
+      return _this;
+    } // We can reuse the rest of the implementations of QobuzProvider, since it
+    // extracts the ID and uses the Qobuz API instead of loading the page.
+
+
+    return QubMusiqueProvider;
+  }(QobuzProvider);
+
   var PROVIDER_DISPATCH = new Map();
 
   function add_provider(provider) {
@@ -1683,6 +1717,7 @@
   add_provider(new DeezerProvider());
   add_provider(new DiscogsProvider());
   add_provider(new QobuzProvider());
+  add_provider(new QubMusiqueProvider());
   add_provider(new SpotifyProvider());
   add_provider(new TidalProvider());
   add_provider(new VGMdbProvider());
