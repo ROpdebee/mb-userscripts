@@ -47,7 +47,7 @@ export class SeedParameters {
         this.images.push(image);
     }
 
-    encode(): string {
+    encode(): URLSearchParams {
         const seedParams = new URLSearchParams(this.images.flatMap((image, index) =>
             Object.entries(image).map(([key, value]) => [`x_seed.image.${index}.${key}`, encodeValue(value)])
         ));
@@ -56,15 +56,14 @@ export class SeedParameters {
             seedParams.append('x_seed.origin', this.origin);
         }
 
-        return seedParams.toString();
+        return seedParams;
     }
 
     createSeedURL(releaseId: string): string {
         return `https://musicbrainz.org/release/${releaseId}/add-cover-art?${this.encode()}`;
     }
 
-    static decode(allParams: string): SeedParameters {
-        const seedParams = new URLSearchParams(allParams);
+    static decode(seedParams: URLSearchParams): SeedParameters {
         let images: CoverArt[] = [];
         seedParams.forEach((value, key) => {
             // only image parameters can be decoded to cover art images

@@ -28,9 +28,9 @@ describe('seed parameters', () => {
 
         it('should hold for URL encoding', () => {
             const params = new SeedParameters([dummyImageWithTypeAndComment]);
-            const seededUrl = params.createSeedURL('dummy-id');
+            const seededUrl = new URL(params.createSeedURL('dummy-id'));
 
-            expect(SeedParameters.decode(new URL(seededUrl).search).images)
+            expect(SeedParameters.decode(seededUrl.searchParams).images)
                 .toStrictEqual([dummyImageWithTypeAndComment]);
         });
 
@@ -58,34 +58,38 @@ describe('seed parameters', () => {
     });
 
     it('should parse empty image list for empty search params', () => {
-        expect(SeedParameters.decode(''))
+        expect(SeedParameters.decode(new URLSearchParams('')))
             .toHaveProperty('images', []);
     });
 
     it('should parse empty image list for search params without x-seed param', () => {
-        expect(SeedParameters.decode('?ref=123'))
+        expect(SeedParameters.decode(new URLSearchParams('?ref=123')))
             .toHaveProperty('images', []);
     });
 
     it('should filter out images without URL', () => {
-        expect(SeedParameters.decode('x_seed.image.0.comment=test'))
+        expect(SeedParameters.decode(new URLSearchParams('x_seed.image.0.comment=test')))
             .toHaveProperty('images', []);
     });
 
     it('should reject invalid properties', () => {
-        expect(SeedParameters.decode('x_seed.image.0.url=https://example.com/1&x_seed.image.0.types=["abc"]'))
+        const urlParams = new URLSearchParams('x_seed.image.0.url=https://example.com/1&x_seed.image.0.types=["abc"]');
+
+        expect(SeedParameters.decode(urlParams))
             .toHaveProperty('images', [{
                 url: new URL('https://example.com/1')
             }]);
     });
 
     it('should ignore unknown seeding keys', () => {
-        expect(SeedParameters.decode('x_seed.image.0.fake=123'))
+        expect(SeedParameters.decode(new URLSearchParams('x_seed.image.0.fake=123')))
             .toHaveProperty('images', []);
     });
 
     it('should condense sparse arrays', () => {
-        expect(SeedParameters.decode('x_seed.image.0.url=https://example.com/0&x_seed.image.123.url=https://example.com/123'))
+        const urlParams = new URLSearchParams('x_seed.image.0.url=https://example.com/0&x_seed.image.123.url=https://example.com/123');
+
+        expect(SeedParameters.decode(urlParams))
             .toHaveProperty('images', [{
                 url: new URL('https://example.com/0'),
             }, {
