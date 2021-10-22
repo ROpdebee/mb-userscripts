@@ -9,6 +9,7 @@ import { AmazonProvider } from './amazon';
 import { AmazonMusicProvider } from './amazon_music';
 import { QobuzProvider } from './qobuz';
 import { VGMdbProvider } from './vgmdb';
+import { QubMusiqueProvider } from './qub_musique';
 
 const PROVIDER_DISPATCH: Map<string, CoverArtProvider> = new Map();
 
@@ -24,6 +25,7 @@ add_provider(new BandcampProvider());
 add_provider(new DeezerProvider());
 add_provider(new DiscogsProvider());
 add_provider(new QobuzProvider());
+add_provider(new QubMusiqueProvider());
 add_provider(new SpotifyProvider());
 add_provider(new TidalProvider());
 add_provider(new VGMdbProvider());
