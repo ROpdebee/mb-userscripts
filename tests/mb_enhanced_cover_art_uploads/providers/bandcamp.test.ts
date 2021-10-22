@@ -2,6 +2,13 @@ import { setupPolly } from '@test-utils/pollyjs';
 
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { BandcampProvider } from '@src/mb_enhanced_cover_art_uploads/providers/bandcamp';
+import { getImageDimensions } from '@src/mb_enhanced_cover_art_uploads/image_dimensions';
+
+// We need to mock getImageDimensions since jsdom doesn't actually load images.
+// See also tests/mb_enhanced_cover_art_uploads/image_dimensions.test.ts
+jest.mock('@src/mb_enhanced_cover_art_uploads/image_dimensions');
+
+const mockGetImageDimensions = getImageDimensions as jest.MockedFunction<typeof getImageDimensions>;
 
 describe('bandcamp provider', () => {
     const pollyContext = setupPolly();
@@ -11,6 +18,13 @@ describe('bandcamp provider', () => {
         ['track', 'https://happysadportable.bandcamp.com/track/again-and-again', 'happysadportable/track/again-and-again'],
         ['album', 'https://powergameheavy.bandcamp.com/album/the-lockdown-tapes', 'powergameheavy/album/the-lockdown-tapes'],
     ];
+
+    beforeAll(() => {
+        mockGetImageDimensions.mockResolvedValue({
+            height: 1000,
+            width: 1000,
+        });
+    });
 
     it.each(urlCases)('matches Bandcamp %s links', (_1, url) => {
         expect(provider.supportsUrl(new URL(url)))
@@ -60,6 +74,23 @@ describe('bandcamp provider', () => {
         expect(coverUrls[4].url.pathname).toContain('a3441863429_');
         expect(coverUrls[4].types).toStrictEqual([ArtworkTypeIDs.Track]);
         expect(coverUrls[4].comment).toBe('Track 5');
+    });
+
+    it('grabs square thumbnails for non-square covers', async () => {
+        mockGetImageDimensions.mockResolvedValueOnce({
+            // Actual dimensions of that image.
+            height: 1714,
+            width: 4096,
+        });
+        const coverUrls = await provider.findImages(new URL('https://level2three.bandcamp.com/track/the-bridge'));
+
+        expect(coverUrls).toBeArrayOfSize(2);
+        expect(coverUrls[0].url.pathname).toEndWith('a4081865950_10.jpg');
+        expect(coverUrls[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrls[0].comment).toBe('Bandcamp full-sized cover');
+        expect(coverUrls[1].url.pathname).toEndWith('a4081865950_16.jpg');
+        expect(coverUrls[1].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrls[1].comment).toBe('Bandcamp square crop');
     });
 
     it('throws if release does not exist', async () => {
