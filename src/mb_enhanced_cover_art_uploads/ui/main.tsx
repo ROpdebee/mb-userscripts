@@ -42,7 +42,7 @@ export class InputForm {
         const container = <div className='ROpdebee_paste_url_cont'>
             {this.#urlInput}
             <a
-                href='https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/supportedProviders.md'
+                href='https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md'
                 target='_blank'
             >
                 Supported providers
