@@ -149,12 +149,12 @@ export class BandcampProvider extends CoverArtProvider {
             // Queue originals before the thumbnail
             return [{
                 ...cover,
-                comment: 'Bandcamp full-sized cover'
+                comment: filterNonNull([cover.comment, 'Bandcamp full-sized cover']).join(' - '),
             }, {
                 types: cover.types,
                 // *_16.jpg URLs are the largest square crop available, always 700x700
                 url: new URL(cover.url.href.replace(/_\d+\.(\w+)$/, '_16.$1')),
-                comment: 'Bandcamp square crop',
+                comment: filterNonNull([cover.comment, 'Bandcamp square crop']).join(' - '),
                 skipMaximisation: true,
             }];
         })).then((covers) => covers.flat());
