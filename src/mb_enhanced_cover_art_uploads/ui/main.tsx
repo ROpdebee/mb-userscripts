@@ -26,13 +26,13 @@ export class InputForm {
                 // Early validation.
                 if (!evt.currentTarget.value) return;
 
-                for (const inputUrl of evt.currentTarget.value.split(/\s+/)) {
+                for (const inputUrl of evt.currentTarget.value.trim().split(/\s+/)) {
                     // eslint-disable-next-line init-declarations
                     let url: URL;
                     // Only use the try block to parse the URL, since we don't
                     // want to suppress errors in the image fetching.
                     try {
-                        url = new URL(decodeURI(inputUrl.trim()));
+                        url = new URL(decodeURI(inputUrl));
                     } catch (err) {
                         LOGGER.error(`Invalid URL: ${inputUrl}`, err);
                         continue;
