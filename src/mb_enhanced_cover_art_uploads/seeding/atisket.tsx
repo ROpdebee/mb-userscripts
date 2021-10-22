@@ -29,8 +29,9 @@ export const AtasketSeeder: Seeder = {
     supportedRegexes: [/\.uk\/atasket\.php\?/],
 
     insertSeedLinks(): void {
-        const mbid = document.location.search.match(/[?&]release_mbid=([a-f0-9-]+)/)?.[1];
-        const selfId = document.location.search.match(/[?&]self_id=([a-zA-Z0-9_-]+)/)?.[1];
+        const urlParams = new URLSearchParams(document.location.search);
+        const mbid = urlParams.get('release_mbid');
+        const selfId = urlParams.get('self_id');
         if (!mbid || !selfId) {
             LOGGER.error('Cannot extract IDs! Seeding is disabled :(');
             return;

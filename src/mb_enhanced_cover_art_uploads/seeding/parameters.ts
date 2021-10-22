@@ -48,17 +48,15 @@ export class SeedParameters {
     }
 
     encode(): string {
-        const params = this.images.flatMap((image, index) =>
-            Object.entries(image).map(([key, value]) => {
-                return `x_seed.image.${index}.${key}=${encodeValue(value)}`;
-            }));
-        const imageParams = params.join('&');
+        const seedParams = new URLSearchParams(this.images.flatMap((image, index) =>
+            Object.entries(image).map(([key, value]) => [`x_seed.image.${index}.${key}`, encodeValue(value)])
+        ));
 
-        if (!this.origin) {
-            return imageParams;
+        if (this.origin) {
+            seedParams.append('x_seed.origin', this.origin);
         }
 
-        return imageParams + '&x_seed.origin=' + encodeURIComponent(this.origin);
+        return seedParams.toString();
     }
 
     createSeedURL(releaseId: string): string {
@@ -66,37 +64,35 @@ export class SeedParameters {
     }
 
     static decode(allParams: string): SeedParameters {
-        const params = allParams.replace(/^\?/, '').split('&')
-            .map((param) => param.split('='));
-        const imageParams = params
-            .filter(([k]) => k.startsWith('x_seed.image.'));
+        const seedParams = new URLSearchParams(allParams);
+        let images: CoverArt[] = [];
+        seedParams.forEach((value, key) => {
+            // only image parameters can be decoded to cover art images
+            if (!key.startsWith('x_seed.image.')) return;
 
-        const images: CoverArt[] = [];
-        imageParams.forEach(([k, v]) => {
             try {
-                decodeSingleKeyValue(k, decodeURIComponent(v), images);
+                decodeSingleKeyValue(key, value, images);
             } catch (err) {
-                LOGGER.error(`Invalid image seeding param ${k}=${v}`, err);
+                LOGGER.error(`Invalid image seeding param ${key}=${value}`, err);
             }
         });
 
         // Sanity checks: Make sure all images have at least a URL, and condense
-        // the array in case indices are missing. We'll condense by looping
-        // through the array and pushing any valid image to a new one.
-        const imagesCleaned: CoverArt[] = [];
-        images.forEach((image, index) => {
+        // the array in case indices are missing.
+        images = images.filter((image, index) => {
             // URL could be undefined if it either was never given as a param,
             // or if it was invalid.
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (image.url) {
-                imagesCleaned.push(image);
+                return true;
             } else {
                 LOGGER.warn(`Ignoring seeded image ${index}: No URL provided`);
+                return false;
             }
         });
 
-        const origin = params.find(([k]) => k === 'x_seed.origin')?.[1];
+        const origin = seedParams.get('x_seed.origin') ?? undefined;
 
-        return new SeedParameters(imagesCleaned, origin ? decodeURIComponent(origin) : undefined);
+        return new SeedParameters(images, origin);
     }
 }
