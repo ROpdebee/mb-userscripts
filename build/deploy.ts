@@ -112,4 +112,7 @@ async function scanAndPush(): Promise<void> {
     }
 }
 
-scanAndPush().catch(console.error);
+scanAndPush().catch((err) => {
+    console.error(err);
+    process.exit(1);
+});
