@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.22
+// @version      2021.10.22.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1782,6 +1782,7 @@
 
   var _urlInput = new WeakMap();
   var _buttonContainer = new WeakMap();
+  var _orSpan = new WeakMap();
   var InputForm = function () {
       function InputForm(banner, onUrlFilled) {
           var _qs$insertAdjacentEle, _qs$insertAdjacentEle2;
@@ -1791,6 +1792,10 @@
               value: void 0
           });
           _classPrivateFieldInitSpec(this, _buttonContainer, {
+              writable: true,
+              value: void 0
+          });
+          _classPrivateFieldInitSpec(this, _orSpan, {
               writable: true,
               value: void 0
           });
@@ -1838,13 +1843,14 @@
               $$i.setAttribute('class', 'ROpdebee_import_url_buttons buttons');
               return $$i;
           }.call(this));
-          var orSpan = function () {
+          _classPrivateFieldSet(this, _orSpan, function () {
               var $$j = document.createElement('span');
+              setStyles($$j, { display: 'none' });
               var $$k = document.createTextNode('or');
               $$j.appendChild($$k);
               return $$j;
-          }.call(this);
-          (_qs$insertAdjacentEle = qs('#drop-zone').insertAdjacentElement('afterend', container)) === null || _qs$insertAdjacentEle === void 0 ? void 0 : (_qs$insertAdjacentEle2 = _qs$insertAdjacentEle.insertAdjacentElement('afterend', orSpan)) === null || _qs$insertAdjacentEle2 === void 0 ? void 0 : _qs$insertAdjacentEle2.insertAdjacentElement('afterend', _classPrivateFieldGet(this, _buttonContainer));
+          }.call(this));
+          (_qs$insertAdjacentEle = qs('#drop-zone').insertAdjacentElement('afterend', container)) === null || _qs$insertAdjacentEle === void 0 ? void 0 : (_qs$insertAdjacentEle2 = _qs$insertAdjacentEle.insertAdjacentElement('afterend', _classPrivateFieldGet(this, _orSpan))) === null || _qs$insertAdjacentEle2 === void 0 ? void 0 : _qs$insertAdjacentEle2.insertAdjacentElement('afterend', _classPrivateFieldGet(this, _buttonContainer));
       }
       _createClass(InputForm, [
           {
@@ -1875,6 +1881,7 @@
                       appendChildren($$n, 'Import from ' + provider.name);
                       return $$l;
                   }.call(this);
+                  _classPrivateFieldGet(this, _orSpan).style.display = '';
                   _classPrivateFieldGet(this, _buttonContainer).insertAdjacentElement('beforeend', button);
               }
           }
