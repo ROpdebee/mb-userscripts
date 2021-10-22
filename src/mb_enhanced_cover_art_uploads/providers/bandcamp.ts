@@ -4,6 +4,7 @@ import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import pThrottle from 'p-throttle';
 import { ArtworkTypeIDs, CoverArtProvider } from './base';
 import type { CoverArt } from './base';
+import { getImageDimensions } from '../image_dimensions';
 
 interface ParsedTrackImage {
     url: string;
@@ -31,7 +32,7 @@ export class BandcampProvider extends CoverArtProvider {
 
         const trackImages = await this.#findTrackImages(respDocument, albumCoverUrl);
 
-        return covers.concat(trackImages);
+        return this.#amendSquareThumbnails(covers.concat(trackImages));
     }
 
     async #findTrackImages(doc: Document, mainUrl: string): Promise<CoverArt[]> {
@@ -118,5 +119,44 @@ export class BandcampProvider extends CoverArtProvider {
         /* istanbul ignore next: Can't find case with multiple */
         const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
         return `${prefix} ${definedTrackNumbers.join(', ')}`;
+    }
+
+    async #amendSquareThumbnails(covers: CoverArt[]): Promise<CoverArt[]> {
+        return Promise.all(covers.map(async (cover) => {
+            // To figure out the original image's dimensions, we need to fetch
+            // the cover itself, preferably the full-sized one. This means that
+            // we're actually fetching the cover twice: Here, and in the fetcher
+            // after we return our results. However, this isn't a big problem,
+            // since to compute dimensions, typically only a very small portion
+            // of the data is loaded, and besides, the second time the content
+            // is fetched, browsers can reuse the data they already loaded
+            // previously.
+            const coverDims = await getImageDimensions(cover.url.href.replace(/_\d+\.(\w+)$/, '_0.$1'));
+
+            // Prevent zero-division errors
+            /* istanbul ignore if: Should not happen */
+            if (!coverDims.width || !coverDims.height) {
+                return [cover];
+            }
+
+            const ratio = coverDims.width / coverDims.height;
+            if (0.95 <= ratio && ratio <= 1.05) {
+                // Consider anything between ratios of 95% and 105% to still be
+                // square.
+                return [cover];
+            }
+
+            // Queue originals before the thumbnail
+            return [{
+                ...cover,
+                comment: 'Bandcamp full-sized cover'
+            }, {
+                types: cover.types,
+                // *_16.jpg URLs are the largest square crop available, always 700x700
+                url: new URL(cover.url.href.replace(/_\d+\.(\w+)$/, '_16.$1')),
+                comment: 'Bandcamp square crop',
+                skipMaximisation: true,
+            }];
+        })).then((covers) => covers.flat());
     }
 }
