@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.22.2
+// @version      2021.10.22.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -378,25 +378,28 @@
       key: "actuallyGetReleaseImages",
       value: function () {
         var _actuallyGetReleaseImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(releaseId) {
-          var variables, extensions, resp, metadata, responseId;
+          var graphqlParams, resp, metadata, responseId;
           return regenerator.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  variables = encodeURIComponent(JSON.stringify({
-                    discogsId: parseInt(releaseId),
-                    count: 500
-                  }));
-                  extensions = encodeURIComponent(JSON.stringify({
-                    persistedQuery: {
-                      version: 1,
-                      sha256Hash: QUERY_SHA256
-                    }
-                  }));
-                  _context2.next = 4;
-                  return gmxhr("https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=".concat(variables, "&extensions=").concat(extensions));
+                  graphqlParams = new URLSearchParams({
+                    operationName: 'ReleaseAllImages',
+                    variables: JSON.stringify({
+                      discogsId: parseInt(releaseId),
+                      count: 500
+                    }),
+                    extensions: JSON.stringify({
+                      persistedQuery: {
+                        version: 1,
+                        sha256Hash: QUERY_SHA256
+                      }
+                    })
+                  });
+                  _context2.next = 3;
+                  return gmxhr("https://www.discogs.com/internal/release-page/api/graphql?".concat(graphqlParams));
 
-                case 4:
+                case 3:
                   resp = _context2.sent;
                   metadata = safeParseJSON(resp.responseText, 'Invalid response from Discogs API');
                   assertHasValue(metadata.data.release, 'Discogs release does not exist');
@@ -404,7 +407,7 @@
                   assert(typeof responseId === 'undefined' || responseId === releaseId, "Discogs returned wrong release: Requested ".concat(releaseId, ", got ").concat(responseId));
                   return _context2.abrupt("return", metadata);
 
-                case 10:
+                case 9:
                 case "end":
                   return _context2.stop();
               }
@@ -2671,22 +2674,21 @@
     }, {
       key: "encode",
       value: function encode() {
-        var params = this.images.flatMap(function (image, index) {
+        var seedParams = new URLSearchParams(this.images.flatMap(function (image, index) {
           return Object.entries(image).map(function (_ref) {
             var _ref2 = _slicedToArray(_ref, 2),
                 key = _ref2[0],
                 value = _ref2[1];
 
-            return "x_seed.image.".concat(index, ".").concat(key, "=").concat(encodeValue(value));
+            return ["x_seed.image.".concat(index, ".").concat(key), encodeValue(value)];
           });
-        });
-        var imageParams = params.join('&');
+        }));
 
-        if (!this.origin) {
-          return imageParams;
+        if (this.origin) {
+          seedParams.append('x_seed.origin', this.origin);
         }
 
-        return imageParams + '&x_seed.origin=' + encodeURIComponent(this.origin);
+        return seedParams;
       }
     }, {
       key: "createSeedURL",
@@ -2695,51 +2697,35 @@
       }
     }], [{
       key: "decode",
-      value: function decode(allParams) {
-        var _params$find;
+      value: function decode(seedParams) {
+        var _seedParams$get;
 
-        var params = allParams.replace(/^\?/, '').split('&').map(function (param) {
-          return param.split('=');
-        });
-        var imageParams = params.filter(function (_ref3) {
-          var _ref4 = _slicedToArray(_ref3, 1),
-              k = _ref4[0];
-
-          return k.startsWith('x_seed.image.');
-        });
         var images = [];
-        imageParams.forEach(function (_ref5) {
-          var _ref6 = _slicedToArray(_ref5, 2),
-              k = _ref6[0],
-              v = _ref6[1];
+        seedParams.forEach(function (value, key) {
+          // only image parameters can be decoded to cover art images
+          if (!key.startsWith('x_seed.image.')) return;
 
           try {
-            decodeSingleKeyValue(k, decodeURIComponent(v), images);
+            decodeSingleKeyValue(key, value, images);
           } catch (err) {
-            LOGGER.error("Invalid image seeding param ".concat(k, "=").concat(v), err);
+            LOGGER.error("Invalid image seeding param ".concat(key, "=").concat(value), err);
           }
         }); // Sanity checks: Make sure all images have at least a URL, and condense
-        // the array in case indices are missing. We'll condense by looping
-        // through the array and pushing any valid image to a new one.
+        // the array in case indices are missing.
 
-        var imagesCleaned = [];
-        images.forEach(function (image, index) {
+        images = images.filter(function (image, index) {
           // URL could be undefined if it either was never given as a param,
           // or if it was invalid.
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (image.url) {
-            imagesCleaned.push(image);
+            return true;
           } else {
             LOGGER.warn("Ignoring seeded image ".concat(index, ": No URL provided"));
+            return false;
           }
         });
-        var origin = (_params$find = params.find(function (_ref7) {
-          var _ref8 = _slicedToArray(_ref7, 1),
-              k = _ref8[0];
-
-          return k === 'x_seed.origin';
-        })) === null || _params$find === void 0 ? void 0 : _params$find[1];
-        return new SeedParameters(imagesCleaned, origin ? decodeURIComponent(origin) : undefined);
+        var origin = (_seedParams$get = seedParams.get('x_seed.origin')) !== null && _seedParams$get !== void 0 ? _seedParams$get : undefined;
+        return new SeedParameters(images, origin);
       }
     }]);
 
@@ -2764,9 +2750,9 @@
       supportedDomains: ['atisket.pulsewidth.org.uk'],
       supportedRegexes: [/\.uk\/atasket\.php\?/],
       insertSeedLinks: function insertSeedLinks() {
-          var _document$location$se, _document$location$se2;
-          var mbid = (_document$location$se = document.location.search.match(/[?&]release_mbid=([a-f0-9-]+)/)) === null || _document$location$se === void 0 ? void 0 : _document$location$se[1];
-          var selfId = (_document$location$se2 = document.location.search.match(/[?&]self_id=([a-zA-Z0-9_-]+)/)) === null || _document$location$se2 === void 0 ? void 0 : _document$location$se2[1];
+          var urlParams = new URLSearchParams(document.location.search);
+          var mbid = urlParams.get('release_mbid');
+          var selfId = urlParams.get('self_id');
           if (!mbid || !selfId) {
               LOGGER.error('Cannot extract IDs! Seeding is disabled :(');
               return;
@@ -3175,7 +3161,7 @@
       value: function processSeedingParameters() {
         var _this = this;
 
-        var params = SeedParameters.decode(document.location.search);
+        var params = SeedParameters.decode(new URLSearchParams(document.location.search));
         params.images.forEach(function (image) {
           return _this.processURL(image.url, image.types, image.comment, params.origin);
         });
