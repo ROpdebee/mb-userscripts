@@ -1,5 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 import { qs, qsa, qsMaybe } from '@lib/util/dom';
+import { getImageDimensions } from '../image_dimensions';
 import type { Seeder } from './base';
 import { SeedParameters } from './parameters';
 
@@ -56,7 +57,8 @@ async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): P
     // Not using .split('.').at(-1) here because I'm not sure whether .at is
     // polyfilled on atisket.
     const ext = imageUrl.match(/\.(\w+)$/)?.[1];
-    const dimensionStr = await getImageDimensions(imageUrl);
+    const imageDimensions = await getImageDimensions(imageUrl);
+    const dimensionStr = `${imageDimensions.width}x${imageDimensions.height}`;
 
     // We'll seed the release URLs, instead of the images directly. This will
     // allow us to e.g. extract additional images for the release, or handle
@@ -87,44 +89,6 @@ async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): P
     qs<HTMLElement>('figcaption > a', fig)
         .insertAdjacentElement('afterend', dimSpan)
         ?.insertAdjacentElement('afterend', seedLink);
-}
-
-// TODO: This should probably be extracted elsewhere, it'd be useful for CAA
-// dimensions. TBH CAA dimensions should operate on atisket as well.
-function getImageDimensions(url: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        // eslint-disable-next-line prefer-const, init-declarations
-        let interval: number;
-        let done = false;
-        const img = <img
-            src={url}
-            onLoad={(): void => {
-                clearInterval(interval);
-                if (!done) {
-                    resolve(`${img.naturalHeight}x${img.naturalWidth}`);
-                    done = true;
-                }
-            }}
-            onError={(): void => {
-                clearInterval(interval);
-                if (!done) {
-                    done = true;
-                    reject();
-                }
-            }}
-        /> as HTMLImageElement;
-
-        // onload and onerror are asynchronous, so this interval should have
-        // already been set before they are called.
-        interval = window.setInterval(() => {
-            if (img.naturalHeight) {
-                resolve(`${img.naturalHeight}x${img.naturalWidth}`);
-                done = true;
-                clearInterval(interval);
-                img.src = '';
-            }
-        }, 50);
-    });
 }
 
 const RELEASE_URL_CONSTRUCTORS: Record<string, (id: string, country: string) => string> = {
