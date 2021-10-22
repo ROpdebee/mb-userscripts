@@ -41,7 +41,7 @@ In a nutshell:
 * Automatically retrieve the largest version of an image through [ImageMaxURL](https://github.com/qsniyg/maxurl)
 * Seed the cover art upload form from a-tisket.
 
-Full list of supported artwork providers [here](src/mb_enhanced_cover_art_uploads/supportedProviders.md).
+Full list of supported artwork providers [here](src/mb_enhanced_cover_art_uploads/docs/supported_providers.md).
 
 [![Install](https://img.shields.io/badge/dynamic/json?label=install&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FROpdebee%2Fmb-userscripts%2Fdist%2Fmb_enhanced_cover_art_uploads.metadata.json&logo=github&style=for-the-badge&color=informational)](https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_enhanced_cover_art_uploads.user.js)
 [![Source](https://img.shields.io/badge/source-main-lightgrey?style=for-the-badge&logo=github)](src/mb_enhanced_cover_art_uploads)
