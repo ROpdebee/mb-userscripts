@@ -8,6 +8,7 @@ import css from './main.scss';
 export class InputForm {
     #urlInput: HTMLInputElement;
     #buttonContainer: HTMLDivElement;
+    #orSpan: HTMLSpanElement;
 
     constructor(banner: HTMLElement, onUrlFilled: (url: URL) => void) {
         // Inject our custom CSS
@@ -54,11 +55,11 @@ export class InputForm {
         // If we inline this into the function call below, nativejsx crashes.
         // It might have something to do with the optional chaining on the
         // function calls.
-        const orSpan = <span>or</span>;
+        this.#orSpan = <span style={{ display: 'none' }}>or</span>;
 
         qs('#drop-zone')
             .insertAdjacentElement('afterend', container)
-            ?.insertAdjacentElement('afterend', orSpan)
+            ?.insertAdjacentElement('afterend', this.#orSpan)
             ?.insertAdjacentElement('afterend', this.#buttonContainer);
     }
 
@@ -82,6 +83,7 @@ export class InputForm {
             <span>{'Import from ' + provider.name}</span>
         </button>;
 
+        this.#orSpan.style.display = '';
         this.#buttonContainer.insertAdjacentElement('beforeend', button);
     }
 }
