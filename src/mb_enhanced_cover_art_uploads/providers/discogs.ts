@@ -84,17 +84,20 @@ export class DiscogsProvider extends CoverArtProvider {
     }
 
     static async actuallyGetReleaseImages(releaseId: string): Promise<DiscogsImages> {
-        const variables = encodeURIComponent(JSON.stringify({
-            discogsId: parseInt(releaseId),
-            count: 500,
-        }));
-        const extensions = encodeURIComponent(JSON.stringify({
-            persistedQuery: {
-                version: 1,
-                sha256Hash: QUERY_SHA256,
-            },
-        }));
-        const resp = await gmxhr(`https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=${variables}&extensions=${extensions}`);
+        const graphqlParams = new URLSearchParams({
+            operationName: 'ReleaseAllImages',
+            variables: JSON.stringify({
+                discogsId: parseInt(releaseId),
+                count: 500,
+            }),
+            extensions: JSON.stringify({
+                persistedQuery: {
+                    version: 1,
+                    sha256Hash: QUERY_SHA256,
+                },
+            }),
+        });
+        const resp = await gmxhr(`https://www.discogs.com/internal/release-page/api/graphql?${graphqlParams}`);
 
         const metadata = safeParseJSON<DiscogsImages>(resp.responseText, 'Invalid response from Discogs API');
         assertHasValue(metadata.data.release, 'Discogs release does not exist');
