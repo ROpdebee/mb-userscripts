@@ -57,7 +57,7 @@ class App {
     }
 
     processSeedingParameters(): void {
-        const params = SeedParameters.decode(document.location.search);
+        const params = SeedParameters.decode(new URLSearchParams(document.location.search));
         params.images.forEach((image) => this.processURL(image.url, image.types, image.comment, params.origin));
     }
 
