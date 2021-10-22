@@ -41,7 +41,6 @@ describe('retrieving image dimensions', () => {
     });
 
     it('retrieves dimensions for image which does loads slowly', async () => {
-        jest.useFakeTimers();
         const dimsProm = getImageDimensions('https://example.com/img');
         const imgElem = createElementSpy.mock.results[0].value as HTMLImageElement;
         // Let the interval run a couple of times, shouldn't resolve yet.
@@ -57,7 +56,6 @@ describe('retrieving image dimensions', () => {
     });
 
     it('does not resolve the promise twice', async () => {
-        jest.useFakeTimers();
         const dimsProm = getImageDimensions('https://example.com/img');
         const imgElem = createElementSpy.mock.results[0].value as HTMLImageElement;
         mockImageDimensions(imgElem, 1200, 345);
@@ -79,7 +77,6 @@ describe('retrieving image dimensions', () => {
     });
 
     it('rejects if the image fails to load', async () => {
-        jest.useFakeTimers();
         const dimsProm = getImageDimensions('https://example.com/img');
         const imgElem = createElementSpy.mock.results[0].value as HTMLImageElement;
         imgElem.dispatchEvent(new Event('error'));
@@ -88,7 +85,6 @@ describe('retrieving image dimensions', () => {
     });
 
     it('does not reject if image dimensions are known before error', async () => {
-        jest.useFakeTimers();
         const dimsProm = getImageDimensions('https://example.com/img');
         const imgElem = createElementSpy.mock.results[0].value as HTMLImageElement;
         mockImageDimensions(imgElem, 1200, 345);
