@@ -1,5 +1,6 @@
 // Interface to maxurl
 
+import { DispatchMap } from '@lib/util/domain_dispatch';
 import { DiscogsProvider } from './providers/discogs';
 
 // IMU does its initialisation synchronously, and it's loaded before the
@@ -22,6 +23,9 @@ const options: maxurlOptions = {
     },
 };
 
+type ExceptionFn = (smallurl: URL) => Promise<MaximisedImage[]>;
+const IMU_EXCEPTIONS: DispatchMap<ExceptionFn> = new DispatchMap();
+
 export interface MaximisedImage {
     url: URL;
     filename: string;
@@ -29,9 +33,9 @@ export interface MaximisedImage {
 }
 
 export async function* getMaximisedCandidates(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
-    const exceptions = await maximiseExceptions(smallurl);
-    if (exceptions) {
-        yield* exceptions;
+    const exceptionFn = IMU_EXCEPTIONS.get(smallurl.hostname);
+    if (exceptionFn) {
+        yield* await exceptionFn(smallurl);
     } else {
         yield* maximiseGeneric(smallurl);
     }
@@ -61,20 +65,8 @@ async function* maximiseGeneric(smallurl: URL): AsyncIterableIterator<MaximisedI
     }
 }
 
-async function maximiseExceptions(smallurl: URL): Promise<MaximisedImage[] | undefined> {
-    // Various workarounds for certain image providers
-    if (smallurl.hostname === 'img.discogs.com') {
-        return maximiseDiscogs(smallurl);
-    }
-
-    if (smallurl.hostname.endsWith('.mzstatic.com')) {
-        return maximiseAppleMusic(smallurl);
-    }
-
-    return;
-}
-
-async function maximiseDiscogs(smallurl: URL): Promise<MaximisedImage[]> {
+// Discogs
+IMU_EXCEPTIONS.set('img.discogs.com', async (smallurl) => {
     // Workaround for maxurl returning broken links and webp images
     const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
     return [{
@@ -82,9 +74,10 @@ async function maximiseDiscogs(smallurl: URL): Promise<MaximisedImage[]> {
         filename: fullSizeURL.pathname.split('/').at(-1),
         headers: {},
     }];
-}
+});
 
-async function maximiseAppleMusic(smallurl: URL): Promise<MaximisedImage[]> {
+// Apple Music
+IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
     // For Apple Music, IMU always returns a PNG, regardless of whether the
     // original source image was PNG or JPEG. When the original image is a JPEG,
     // we want to fetch a JPEG version. Although the PNG is of slightly better
@@ -110,4 +103,4 @@ async function maximiseAppleMusic(smallurl: URL): Promise<MaximisedImage[]> {
     }
 
     return results;
-}
+});
