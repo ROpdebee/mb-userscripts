@@ -12,7 +12,7 @@ interface ParsedTrackImage {
 }
 
 export class BandcampProvider extends CoverArtProvider {
-    supportedDomains = ['bandcamp.com'];
+    supportedDomains = ['*.bandcamp.com'];
     favicon = 'https://s4.bcbits.com/img/favicon/favicon-32x32.png';
     name = 'Bandcamp';
     urlRegex = /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/;

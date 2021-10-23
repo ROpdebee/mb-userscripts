@@ -1,3 +1,5 @@
+import { DispatchMap } from '@lib/util/domain_dispatch';
+
 import type { CoverArtProvider } from './base';
 import { AppleMusicProvider } from './apple_music';
 import { DeezerProvider } from './deezer';
@@ -11,31 +13,27 @@ import { QobuzProvider } from './qobuz';
 import { VGMdbProvider } from './vgmdb';
 import { QubMusiqueProvider } from './qub_musique';
 
-const PROVIDER_DISPATCH: Map<string, CoverArtProvider> = new Map();
+const PROVIDER_DISPATCH = new DispatchMap<CoverArtProvider>();
 
-function add_provider(provider: CoverArtProvider): void {
+function addProvider(provider: CoverArtProvider): void {
     provider.supportedDomains
         .forEach((domain) => PROVIDER_DISPATCH.set(domain, provider));
 }
 
-add_provider(new AmazonProvider());
-add_provider(new AmazonMusicProvider());
-add_provider(new AppleMusicProvider());
-add_provider(new BandcampProvider());
-add_provider(new DeezerProvider());
-add_provider(new DiscogsProvider());
-add_provider(new QobuzProvider());
-add_provider(new QubMusiqueProvider());
-add_provider(new SpotifyProvider());
-add_provider(new TidalProvider());
-add_provider(new VGMdbProvider());
+addProvider(new AmazonProvider());
+addProvider(new AmazonMusicProvider());
+addProvider(new AppleMusicProvider());
+addProvider(new BandcampProvider());
+addProvider(new DeezerProvider());
+addProvider(new DiscogsProvider());
+addProvider(new QobuzProvider());
+addProvider(new QubMusiqueProvider());
+addProvider(new SpotifyProvider());
+addProvider(new TidalProvider());
+addProvider(new VGMdbProvider());
 
 function extractDomain(url: URL): string {
-    let domain = url.hostname;
-    // Deal with bandcamp subdomains
-    if (domain.endsWith('.bandcamp.com')) domain = 'bandcamp.com';
-    domain = domain.replace(/^www\./, '');
-    return domain;
+    return url.hostname.replace(/^www\./, '');
 }
 
 export function getProvider(url: URL): CoverArtProvider | undefined {
