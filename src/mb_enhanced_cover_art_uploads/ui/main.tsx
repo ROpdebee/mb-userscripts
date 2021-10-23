@@ -32,7 +32,7 @@ export class InputForm {
                     // Only use the try block to parse the URL, since we don't
                     // want to suppress errors in the image fetching.
                     try {
-                        url = new URL(decodeURI(inputUrl));
+                        url = new URL(inputUrl);
                     } catch (err) {
                         LOGGER.error(`Invalid URL: ${inputUrl}`, err);
                         continue;
