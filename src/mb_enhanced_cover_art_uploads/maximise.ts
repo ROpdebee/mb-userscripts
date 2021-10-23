@@ -104,3 +104,18 @@ IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
 
     return results;
 });
+
+// IMU has no definitions for 7digital yet, so adding an exception here as a workaround
+// Upstream issue: https://github.com/qsniyg/maxurl/issues/922
+IMU_EXCEPTIONS.set('artwork-cdn.7static.com', async (smallurl) => {
+    // According to https://docs.7digital.com/reference#image-sizes, 800x800
+    // and 500x500 aren't available on some images, so add 350 as well as a
+    // backup.
+    return ['800', '500', '350'].map((size) => {
+        return {
+            url: new URL(smallurl.href.replace(/_\d+\.jpg$/, `_${size}.jpg`)),
+            filename: '',
+            headers: {},
+        };
+    });
+});

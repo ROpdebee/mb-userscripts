@@ -12,6 +12,7 @@ import { AmazonMusicProvider } from './amazon_music';
 import { QobuzProvider } from './qobuz';
 import { VGMdbProvider } from './vgmdb';
 import { QubMusiqueProvider } from './qub_musique';
+import { SevenDigitalProvider } from './7digital';
 
 const PROVIDER_DISPATCH = new DispatchMap<CoverArtProvider>();
 
@@ -28,6 +29,7 @@ addProvider(new DeezerProvider());
 addProvider(new DiscogsProvider());
 addProvider(new QobuzProvider());
 addProvider(new QubMusiqueProvider());
+addProvider(new SevenDigitalProvider());
 addProvider(new SpotifyProvider());
 addProvider(new TidalProvider());
 addProvider(new VGMdbProvider());
