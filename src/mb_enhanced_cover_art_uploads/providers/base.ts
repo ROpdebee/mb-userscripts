@@ -3,7 +3,14 @@ import { gmxhr } from '@lib/util/xhr';
 
 export abstract class CoverArtProvider {
     /**
-     * Domains supported by the provider, without www.
+     * Domains supported by the provider, without www. Domains such as
+     * `*.domain.tld` mean "any subdomain of domain.tld, including domain.tld
+     * itself", whereas a bare `domain.tld` only matches `domain.tld`. Wildcard
+     * must be the first part of the pattern. In case of multiple providers with
+     * the same patterns, more specific takes precedence, e.g. for domain
+     * `abc.example.xyz`, a provider with domain pattern `abc.example.xyz` wins
+     * from one with `*.example.xyz`. Similarly, for domain `example.com`, a
+     * provider with the pattern `example.com` wins from one with `*.example.com`.
      */
     abstract supportedDomains: string[]
     /**
