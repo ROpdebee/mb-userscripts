@@ -2,30 +2,30 @@ import { setupPolly } from '@test-utils/pollyjs';
 
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { AmazonMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon_music';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('amazon music provider', () => {
     // eslint-disable-next-line jest/require-hook
     setupPolly();
     const provider = new AmazonMusicProvider();
 
-    it('matches album links', () => {
-        expect(provider.supportsUrl(new URL('https://music.amazon.com/albums/B08Y99SFVJ')))
-            .toBeTrue();
-    });
+    const supportedUrls = [{
+        desc: 'album URLs',
+        url: 'https://music.amazon.com/albums/B08Y99SFVJ',
+        id: 'B08Y99SFVJ',
+    }];
 
-    it.each`
-        url | type
-        ${'https://music.amazon.com/artists/B08YC6GFB7/hannapeles'} | ${'artist'}
-        ${'https://music.amazon.com/playlists/B07H8NWNNF'} | ${'playlist'}
-    `('does not match $type links', ({ url }: { url: string }) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeFalse();
-    });
+    const unsupportedUrls = [{
+        desc: 'artist URLs',
+        url: 'https://music.amazon.com/artists/B08YC6GFB7/hannapeles',
+    }, {
+        desc: 'playlist URLs',
+        url: 'https://music.amazon.com/playlists/B07H8NWNNF',
+    }];
 
-    it('extracts album ID', () => {
-        expect(provider.extractId(new URL('https://music.amazon.com/albums/B08Y99SFVJ')))
-            .toBe('B08Y99SFVJ');
-    });
+    // eslint-disable-next-line jest/require-hook
+    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
 
     it('uses Amazon provider covers', async () => {
         const covers = await provider.findImages(new URL('https://music.amazon.com/albums/B08MCFCQD8'));

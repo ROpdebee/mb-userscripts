@@ -2,36 +2,37 @@ import { setupPolly } from '@test-utils/pollyjs';
 
 import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/discogs';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('discogs provider', () => {
     const pollyContext = setupPolly();
     const provider = new DiscogsProvider();
     const discogsUrl = new URL('https://www.discogs.com/release/9892912');
 
-    const urlCases = [
-        ['short URL', 'https://www.discogs.com/release/9892912/', '9892912'],
-        ['long URL', 'https://www.discogs.com/release/9892912-Wayne-King-And-His-Orchestra-A-Million-Dreams-Ago-One-Look-At-You', '9892912'],
-    ];
+    const supportedUrls = [{
+        desc: 'short release URLs',
+        url: 'https://www.discogs.com/release/9892912/',
+        id: '9892912',
+    }, {
+        desc: 'long release URLs',
+        url: 'https://www.discogs.com/release/9892912-Wayne-King-And-His-Orchestra-A-Million-Dreams-Ago-One-Look-At-You',
+        id: '9892912',
+    }];
 
-    it.each(urlCases)('matches release links with %s', (_1, url) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeTrue();
-    });
+    const unsupportedUrls = [{
+        desc: 'artist URLs',
+        url: 'https://www.discogs.com/artist/881122-Wayne-King-And-His-Orchestra',
+    }, {
+        desc: 'release master URLs',
+        url: 'https://www.discogs.com/master/1746505',
+    }, {
+        desc: 'label URLs',
+        url: 'https://www.discogs.com/label/61808-Victor'
+    }];
 
-    it.each`
-        url | type
-        ${'https://www.discogs.com/artist/881122-Wayne-King-And-His-Orchestra'} | ${'artist'}
-        ${'hhttps://www.discogs.com/master/1746505'} | ${'master'}
-        ${'https://www.discogs.com/label/61808-Victor'} | ${'label'}
-    `('does not match $type links', ({ url }: { url: string }) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeFalse();
-    });
-
-    it.each(urlCases)('extracts IDs from %s', (_1, url, expectedId) => {
-        expect(provider.extractId(new URL(url)))
-            .toBe(expectedId);
-    });
+    // eslint-disable-next-line jest/require-hook
+    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
 
     describe('finding release images', () => {
         it('finds all images in 600x600', async () => {

@@ -4,38 +4,47 @@ import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/bas
 // @ts-expect-error rewired
 import { QobuzProvider, __set__ } from '@src/mb_enhanced_cover_art_uploads/providers/qobuz';
 import { HTTPResponseError } from '@lib/util/xhr';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('qobuz provider', () => {
     const pollyContext = setupPolly();
     const provider = new QobuzProvider();
 
-    const urlCases = [
-        ['www URLs with language', 'https://www.qobuz.com/gb-en/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770', '0060075354770'],
-        ['www URLs without language', 'https://www.qobuz.com/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770', '0060075354770'],
-        ['open URLs', 'https://open.qobuz.com/album/0074643811224', '0074643811224'],
-        ['open URLs with additional path component', 'https://open.qobuz.com/album/1234567890/related', '1234567890'],
-    ];
+    const supportedUrls = [{
+        desc: 'www URLs with language',
+        url: 'https://www.qobuz.com/gb-en/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770',
+        id: '0060075354770',
+    }, {
+        desc: 'www URLs without language',
+        url: 'https://www.qobuz.com/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770',
+        id: '0060075354770',
+    }, {
+        desc: 'open URLs',
+        url: 'https://open.qobuz.com/album/0074643811224',
+        id: '0074643811224',
+    }, {
+        desc: 'open URLs with additional path component',
+        url: 'https://open.qobuz.com/album/1234567890/related',
+        id: '1234567890',
+    }];
 
-    it.each(urlCases)('matches %s links for release', (_1, url) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeTrue();
-    });
+    const unsupportedUrls = [{
+        desc: 'label URLs',
+        url: 'https://www.qobuz.com/gb-en/label/universal-music-group-international/download-streaming-albums',
+    }, {
+        desc: 'label URLs with ID',
+        url: 'https://www.qobuz.com/nl-nl/label/universal-music-group-international/download-streaming-albums/92570',
+    }, {
+        desc: 'artist URLs',
+        url: 'https://www.qobuz.com/nl-nl/interpreter/supertramp/download-streaming-albums',
+    }, {
+        desc: 'open artist URLs',
+        url: 'https://open.qobuz.com/artist/50195',
+    }];
 
-    it.each`
-        url | type
-        ${'https://www.qobuz.com/gb-en/label/universal-music-group-international/download-streaming-albums'} | ${'label'}
-        ${'https://www.qobuz.com/nl-nl/label/universal-music-group-international/download-streaming-albums/92570'} | ${'label with ID'}
-        ${'https://www.qobuz.com/nl-nl/interpreter/supertramp/download-streaming-albums'} | ${'artist'}
-        ${'https://open.qobuz.com/artist/50195'} | ${'open artist'}
-    `('does not match $type links', ({ url }: { url: string }) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeFalse();
-    });
-
-    it.each(urlCases)('extracts ID for %s', (_1, url, expectedId) => {
-        expect(provider.extractId(new URL(url)))
-            .toBe(expectedId);
-    });
+    // eslint-disable-next-line jest/require-hook
+    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
 
     describe('finding release images', () => {
 

@@ -3,40 +3,51 @@ import { setupPolly } from '@test-utils/pollyjs';
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { TidalProvider } from '@src/mb_enhanced_cover_art_uploads/providers/tidal';
 import { HTTPResponseError } from '@lib/util/xhr';
+import { urlMatchingSpec } from './url_matching_spec';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 describe('tidal provider', () => {
     const pollyContext = setupPolly();
     const provider = new TidalProvider();
 
-    const urlCases = [
-        ['listen.tidal.com', '', 'https://listen.tidal.com/album/151193605', '151193605'],
-        ['store.tidal.com', 'with country', 'https://store.tidal.com/us/album/175441105', '175441105'],
-        ['store.tidal.com', 'without country', 'https://store.tidal.com/album/175441105', '175441105'],
-        ['tidal.com', 'with browse', 'https://tidal.com/browse/album/175441105', '175441105'],
-        ['tidal.com', 'without browse', 'https://tidal.com/album/175441105', '175441105'],
-    ];
+    const supportedUrls = [{
+        desc: 'listen.tidal.com album URLs',
+        url: 'https://listen.tidal.com/album/151193605',
+        id: '151193605',
+    }, {
+        desc: 'store.tidal.com album URLs with country',
+        url: 'https://store.tidal.com/us/album/175441105',
+        id: '175441105',
+    }, {
+        desc: 'store.tidal.com album URLs without country',
+        url: 'https://store.tidal.com/album/175441105',
+        id: '175441105',
+    }, {
+        desc: 'tidal.com browse album URLs',
+        url: 'https://tidal.com/browse/album/175441105',
+        id: '175441105',
+    }, {
+        desc: 'tidal.com album URLs',
+        url: 'https://tidal.com/album/175441105',
+        id: '175441105',
+    }];
 
-    it.each(urlCases)('matches %s links %s', (_1, _2, url) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeTrue();
-    });
+    const unsupportedUrls = [{
+        desc: 'tidal.com track URLs',
+        url: 'https://tidal.com/browse/track/175441106',
+    }, {
+        desc: 'tidal.com artist URLs',
+        url: 'https://tidal.com/browse/artist/23736224',
+    }, {
+        desc: 'listen.tidal.com artist URLs',
+        url: 'https://listen.tidal.com/artist/10789784',
+    }, {
+        desc: 'store.tidal.com artist URLs',
+        url: 'https://store.tidal.com/nl/artist/23736224',
+    }];
 
-    it.each`
-        url | domain | type
-        ${'https://tidal.com/browse/track/175441106'} | ${'tidal.com'} | ${'track'}
-        ${'https://tidal.com/browse/artist/23736224'} | ${'tidal.com'} | ${'music'}
-        ${'https://listen.tidal.com/artist/10789784'} | ${'listen.tidal.com'} | ${'artist'}
-        ${'https://listen.tidal.com/artist/10789784'} | ${'listen.tidal.com'} | ${'artist'}
-        ${'https://store.tidal.com/nl/artist/23736224'} | ${'store.tidal.com'} | ${'artist'}
-    `('does not match $domain $type links', ({ url }: { url: string }) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeFalse();
-    });
-
-    it.each(urlCases)('extracts IDs for %s links %s', (_1, _2, url, expectedId) => {
-        expect(provider.extractId(new URL(url)))
-            .toBe(expectedId);
-    });
+    // eslint-disable-next-line jest/require-hook
+    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
 
     it.each`
         url | domain
