@@ -4,10 +4,29 @@ import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/bas
 // @ts-expect-error rewired
 import { VGMdbProvider, __get__ } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
 import { HTTPResponseError } from '@lib/util/xhr';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('vgmdb provider', () => {
     const pollyContext = setupPolly();
     const provider = new VGMdbProvider();
+
+    const supportedUrls = [{
+        desc: 'album URLs',
+        url: 'https://vgmdb.net/album/79',
+        id: '79',
+    }];
+
+    const unsupportedUrls = [{
+        desc: 'artist URLs',
+        url: 'https://vgmdb.net/artist/77',
+    }, {
+        desc: 'organisation URLs',
+        url: 'https://vgmdb.net/org/186',
+    }];
+
+    // eslint-disable-next-line jest/require-hook
+    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
 
     describe('mapping jacket types', () => {
         const mapJacketType = __get__('mapJacketType');
@@ -95,27 +114,6 @@ describe('vgmdb provider', () => {
 
             expect(caption_type_mapping[key.toLowerCase()](rest.join(' ')))
                 .toStrictEqual(expected);
-        });
-    });
-
-    describe('checking URL support', () => {
-        it('matches album URLs', () => {
-            expect(provider.supportsUrl(new URL('https://vgmdb.net/album/79')))
-                .toBeTrue();
-        });
-
-        it.each`
-            url | type
-            ${'https://vgmdb.net/artist/77'} | ${'artist'}
-            ${'https://vgmdb.net/org/186'} | ${'organisation'}
-        `('does not match artist $type URLs', ({ url }: { url: string }) => {
-            expect(provider.supportsUrl(new URL(url)))
-                .toBeFalse();
-        });
-
-        it('extracts album IDs', () => {
-            expect(provider.extractId(new URL('https://vgmdb.net/album/79')))
-                .toBe('79');
         });
     });
 

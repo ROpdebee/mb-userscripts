@@ -3,32 +3,38 @@ import { setupPolly } from '@test-utils/pollyjs';
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { AmazonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon';
 import { HTTPResponseError } from '@lib/util/xhr';
+import { urlMatchingSpec } from './url_matching_spec';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 describe('amazon provider', () => {
     const pollyContext = setupPolly();
     const provider = new AmazonProvider();
 
-    const urlCases = [
-        ['dirty URL', 'https://www.amazon.com/Pattern-Seeking-Animals/dp/B07RZ2T9F1/ref=tmm_acd_swatch_0?_encoding=UTF8&qid=&sr=', 'B07RZ2T9F1'],
-        ['dirty URL without trailing slash', 'https://www.amazon.com/Chronicles-Narnia-Collectors-Radio-Theatre/dp/1624053661?qsid=145-0543367-7486236', '1624053661'],
-        ['dp URL', 'https://www.amazon.com/dp/B07RZ2T9F1', 'B07RZ2T9F1'],
-        ['gp URL', 'https://www.amazon.com/gp/product/B07RZ2T9F1', 'B07RZ2T9F1'],
-    ];
+    const supportedUrls = [{
+        desc: 'dirty product URLs',
+        url: 'https://www.amazon.com/Pattern-Seeking-Animals/dp/B07RZ2T9F1/ref=tmm_acd_swatch_0?_encoding=UTF8&qid=&sr=',
+        id: 'B07RZ2T9F1',
+    }, {
+        desc: 'dirty product URLs without trailing slash',
+        url: 'https://www.amazon.com/Chronicles-Narnia-Collectors-Radio-Theatre/dp/1624053661?qsid=145-0543367-7486236',
+        id: '1624053661',
+    }, {
+        desc: 'dp URLs',
+        url: 'https://www.amazon.com/dp/B07RZ2T9F1',
+        id: 'B07RZ2T9F1',
+    }, {
+        desc: 'gp URLs',
+        url: 'https://www.amazon.com/gp/product/B07RZ2T9F1',
+        id: 'B07RZ2T9F1',
+    }];
 
-    it.each(urlCases)('matches product links with %s', (_1, url) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeTrue();
-    });
+    const unsupportedUrls = [{
+        desc: 'search URLs',
+        url: 'https://www.amazon.com/s/ref=dp_byline_sr_music_1?ie=UTF8&field-artist=Pattern-Seeking+Animals&search-alias=music',
+    }];
 
-    it('does not match other links', () => {
-        expect(provider.supportsUrl(new URL('https://www.amazon.com/s/ref=dp_byline_sr_music_1?ie=UTF8&field-artist=Pattern-Seeking+Animals&search-alias=music')))
-            .toBeFalse();
-    });
-
-    it.each(urlCases)('extracts IDs for product links with %s', (_1, url, expectedId) => {
-        expect(provider.extractId(new URL(url)))
-            .toBe(expectedId);
-    });
+    // eslint-disable-next-line jest/require-hook
+    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
 
     const extractionCases = [
         ['dp URLs', 'https://www.amazon.com/dp/B07QWNQT8X'],

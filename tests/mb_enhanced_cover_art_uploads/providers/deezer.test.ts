@@ -2,35 +2,37 @@ import { setupPolly } from '@test-utils/pollyjs';
 
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { DeezerProvider } from '@src/mb_enhanced_cover_art_uploads/providers/deezer';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('deezer provider', () => {
     const pollyContext = setupPolly();
     const provider = new DeezerProvider();
 
-    const urlCases = [
-        ['with clean URL', 'https://www.deezer.com/album/260364202', '260364202'],
-        ['with dirty URL', 'https://www.deezer.com/en/album/215928292?deferredFl=1', '215928292'],
-        ['with language', 'https://www.deezer.com/en/album/215928292', '215928292'],
-    ];
+    const supportedUrls = [{
+        desc: 'clean album URLs',
+        url: 'https://www.deezer.com/album/260364202',
+        id: '260364202',
+    }, {
+        desc: 'dirty album URLs',
+        url: 'https://www.deezer.com/en/album/215928292?deferredFl=1',
+        id: '215928292',
+    }, {
+        desc: 'album URLs with language',
+        url: 'https://www.deezer.com/en/album/215928292',
+        id: '215928292',
+    }];
 
-    it.each(urlCases)('matches album links %s', (_1, url) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeTrue();
-    });
+    const unsupportedUrls = [{
+        desc: 'artist URLs',
+        url: 'https://www.deezer.com/en/artist/4023815',
+    }, {
+        desc: 'track URLs',
+        url: 'https://www.deezer.com/en/track/1500277672',
+    }];
 
-    it.each`
-        url | type
-        ${'https://www.deezer.com/en/artist/4023815'} | ${'artist'}
-        ${'https://www.deezer.com/en/track/1500277672'} | ${'track'}
-    `('does not match $type links', ({ url }: { url: string }) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeFalse();
-    });
-
-    it.each(urlCases)('extracts ID from URLs %s', (_1, url, expectedId) => {
-        expect(provider.extractId(new URL(url)))
-            .toBe(expectedId);
-    });
+    // eslint-disable-next-line jest/require-hook
+    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
 
     it('grabs the correct cover', async () => {
         const coverUrl = await provider.findImages(new URL('https://www.deezer.com/en/album/260364202'));

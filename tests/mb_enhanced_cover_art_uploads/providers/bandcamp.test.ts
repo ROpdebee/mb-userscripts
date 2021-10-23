@@ -3,6 +3,8 @@ import { setupPolly } from '@test-utils/pollyjs';
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { BandcampProvider } from '@src/mb_enhanced_cover_art_uploads/providers/bandcamp';
 import { getImageDimensions } from '@src/mb_enhanced_cover_art_uploads/image_dimensions';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { urlMatchingSpec } from './url_matching_spec';
 
 // We need to mock getImageDimensions since jsdom doesn't actually load images.
 // See also tests/mb_enhanced_cover_art_uploads/image_dimensions.test.ts
@@ -14,11 +16,6 @@ describe('bandcamp provider', () => {
     const pollyContext = setupPolly();
     const provider = new BandcampProvider();
 
-    const urlCases = [
-        ['track', 'https://happysadportable.bandcamp.com/track/again-and-again', 'happysadportable/track/again-and-again'],
-        ['album', 'https://powergameheavy.bandcamp.com/album/the-lockdown-tapes', 'powergameheavy/album/the-lockdown-tapes'],
-    ];
-
     beforeAll(() => {
         mockGetImageDimensions.mockResolvedValue({
             height: 1000,
@@ -26,24 +23,26 @@ describe('bandcamp provider', () => {
         });
     });
 
-    it.each(urlCases)('matches Bandcamp %s links', (_1, url) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeTrue();
-    });
+    const supportedUrls = [{
+        desc: 'track URLs',
+        url: 'https://happysadportable.bandcamp.com/track/again-and-again',
+        id: 'happysadportable/track/again-and-again',
+    }, {
+        desc: 'album URLs',
+        url: 'https://powergameheavy.bandcamp.com/album/the-lockdown-tapes',
+        id: 'powergameheavy/album/the-lockdown-tapes',
+    }];
 
-    it.each`
-        url | type
-        ${'https://powergameheavy.bandcamp.com/'} | ${'root'}
-        ${'https://powergameheavy.bandcamp.com/music'} | ${'music'}
-    `('does not match Bandcamp $type links', ({ url }: { url: string }) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeFalse();
-    });
+    const unsupportedUrls = [{
+        desc: 'root URLs',
+        url: 'https://powergameheavy.bandcamp.com/',
+    }, {
+        desc: 'discography URLs',
+        url: 'https://powergameheavy.bandcamp.com/music',
+    }];
 
-    it.each(urlCases)('extracts Bandcamp %s link IDs', (_1, url, expectedId) => {
-        expect(provider.extractId(new URL(url)))
-            .toBe(expectedId);
-    });
+    // eslint-disable-next-line jest/require-hook
+    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
 
     it('considers redirect to different album to be unsafe', () => {
         // See https://github.com/ROpdebee/mb-userscripts/issues/79

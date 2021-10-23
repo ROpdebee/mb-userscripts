@@ -3,36 +3,40 @@ import { setupPolly } from '@test-utils/pollyjs';
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { HTTPResponseError } from '@lib/util/xhr';
 import { QubMusiqueProvider } from '@src/mb_enhanced_cover_art_uploads/providers/qub_musique';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('qub musique provider', () => {
     const pollyContext = setupPolly();
     const provider = new QubMusiqueProvider();
 
-    const urlCases = [
-        ['album URLs', 'https://www.qub.ca/musique/album/normal-de-l-est-w2l52wh19l0ib', 'w2l52wh19l0ib'],
-        ['album URLs with numbers', 'https://www.qub.ca/musique/album/rapelles-saison-1-ysyh4e97276hc', 'ysyh4e97276hc'],
-        ['dirty album URLs', 'https://www.qub.ca/musique/album/rapelles-saison-1-ysyh4e97276hc?test=123', 'ysyh4e97276hc'],
-    ];
-    const urlIgnoreCases = [
-        ['artist URLs', 'https://www.qub.ca/musique/artiste/multi-artistes-3662940'],
-        ['radio URLs', 'https://www.qub.ca/radio/balado/benoit-dutrizac'],
-        ['article URLs', 'https://www.qub.ca/article/jean-charest-defend-le-regime-de-pekin-1058978600'],
-    ];
+    const supportedUrls = [{
+        desc: 'album URLs',
+        url: 'https://www.qub.ca/musique/album/normal-de-l-est-w2l52wh19l0ib',
+        id: 'w2l52wh19l0ib',
+    }, {
+        desc: 'album URLs with numbers',
+        url: 'https://www.qub.ca/musique/album/rapelles-saison-1-ysyh4e97276hc',
+        id: 'ysyh4e97276hc',
+    }, {
+        desc: 'dirty album URLs',
+        url: 'https://www.qub.ca/musique/album/rapelles-saison-1-ysyh4e97276hc?test=123',
+        id: 'ysyh4e97276hc',
+    }];
 
-    it.each(urlCases)('matches %s', (_1, url) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeTrue();
-    });
+    const unsupportedUrls = [{
+        desc: 'artist URLs',
+        url: 'https://www.qub.ca/musique/artiste/multi-artistes-3662940',
+    }, {
+        desc: 'radio URLs',
+        url: 'https://www.qub.ca/radio/balado/benoit-dutrizac',
+    }, {
+        desc: 'article URLs',
+        url: 'https://www.qub.ca/article/jean-charest-defend-le-regime-de-pekin-1058978600',
+    }];
 
-    it.each(urlIgnoreCases)('does not match %s', (_1, url) => {
-        expect(provider.supportsUrl(new URL(url)))
-            .toBeFalse();
-    });
-
-    it.each(urlCases)('extracts ID for %s', (_1, url, expectedId) => {
-        expect(provider.extractId(new URL(url)))
-            .toBe(expectedId);
-    });
+    // eslint-disable-next-line jest/require-hook
+    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
 
     it('finds cover image', async () => {
         const covers = await provider.findImages(new URL('https://www.qub.ca/musique/album/pour-le-plug-dbssxi6nl5fuc'));
