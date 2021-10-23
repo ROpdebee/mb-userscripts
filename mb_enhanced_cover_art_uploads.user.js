@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.22.6
+// @version      2021.10.23
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1991,7 +1991,7 @@
                           var inputUrl = _step.value;
                           var _url = void 0;
                           try {
-                              _url = new URL(decodeURI(inputUrl));
+                              _url = new URL(inputUrl);
                           } catch (err) {
                               LOGGER.error('Invalid URL: '.concat(inputUrl), err);
                               continue;
@@ -2375,7 +2375,7 @@
   }
 
   function getFilename(url) {
-    return url.pathname.split('/').at(-1) || 'image';
+    return decodeURIComponent(url.pathname.split('/').at(-1)) || 'image';
   }
 
   var _doneImages = /*#__PURE__*/new WeakMap();
@@ -3173,7 +3173,7 @@
 
     if (containerUrl) {
       prefix = ' * ';
-      editNote.addExtraInfo(containerUrl.href);
+      editNote.addExtraInfo(decodeURI(containerUrl.href));
     } // Limiting to 3 URLs to reduce noise
 
 
@@ -3190,14 +3190,14 @@
           continue;
         }
 
-        editNote.addExtraInfo(prefix + queuedUrl.originalUrl.href);
+        editNote.addExtraInfo(prefix + decodeURI(queuedUrl.originalUrl.href));
 
         if (queuedUrl.wasMaximised) {
-          editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + queuedUrl.maximisedUrl.href);
+          editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + decodeURI(queuedUrl.maximisedUrl.href));
         }
 
         if (queuedUrl.wasRedirected) {
-          editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + queuedUrl.fetchedUrl.href);
+          editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.fetchedUrl.href));
         }
       }
     } catch (err) {
