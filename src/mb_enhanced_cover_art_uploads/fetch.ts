@@ -31,7 +31,7 @@ export interface FetchedImages {
 }
 
 function getFilename(url: URL): string {
-    return url.pathname.split('/').at(-1) || 'image';
+    return decodeURIComponent(url.pathname.split('/').at(-1)) || 'image';
 }
 
 export class ImageFetcher {

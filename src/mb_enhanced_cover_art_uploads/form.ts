@@ -70,7 +70,7 @@ export function fillEditNote({ images, containerUrl }: FetchedImages, origin: st
     let prefix = '';
     if (containerUrl) {
         prefix = ' * ';
-        editNote.addExtraInfo(containerUrl.href);
+        editNote.addExtraInfo(decodeURI(containerUrl.href));
     }
 
     // Limiting to 3 URLs to reduce noise
@@ -80,12 +80,12 @@ export function fillEditNote({ images, containerUrl }: FetchedImages, origin: st
             editNote.addExtraInfo(prefix + 'Uploaded from data URL');
             continue;
         }
-        editNote.addExtraInfo(prefix + queuedUrl.originalUrl.href);
+        editNote.addExtraInfo(prefix + decodeURI(queuedUrl.originalUrl.href));
         if (queuedUrl.wasMaximised) {
-            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + queuedUrl.maximisedUrl.href);
+            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + decodeURI(queuedUrl.maximisedUrl.href));
         }
         if (queuedUrl.wasRedirected) {
-            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + queuedUrl.fetchedUrl.href);
+            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.fetchedUrl.href));
         }
     }
 
