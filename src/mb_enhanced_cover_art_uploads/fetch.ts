@@ -117,7 +117,7 @@ export class ImageFetcher {
         // This could throw, assuming caller will catch.
         const images = await provider.findImages(url);
 
-        LOGGER.info(`Found ${images.length} images in ${provider.name} release`);
+        LOGGER.info(`Found ${images.length || 'no'} images in ${provider.name} release`);
         const fetchResults: FetchedImage[] = [];
         for (const img of images) {
             if (this.#urlAlreadyAdded(img.url)) {

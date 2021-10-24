@@ -53,7 +53,9 @@ class App {
 
         fillEditNote(fetchResult, origin, this.#note);
         this.#ui.clearOldInputValue(url.href);
-        LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);
+        if (fetchResult.images.length) {
+            LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);
+        }
     }
 
     processSeedingParameters(): void {
