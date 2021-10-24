@@ -8,14 +8,14 @@ describe('console logging sink', () => {
         sinks: [new ConsoleSink('test script')],
     });
 
-    it.each(['debug', 'log', 'info', 'warn', 'error'])('uses console.%s', (levelName) => {
-        // @ts-expect-error too dynamic, too lazy to restrict types
+    type LogLevel = 'debug' | 'log' | 'info' | 'warn' | 'error';
+    const allLevels: LogLevel[] = ['debug', 'log', 'info', 'warn', 'error'];
+    const levelsWithExceptions: LogLevel[] = ['error', 'warn'];
+
+    it.each(allLevels)('uses console.%s', (levelName) => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        jest.spyOn(console, levelName).mockImplementationOnce(() => {});
-        // @ts-expect-error too dynamic, too lazy to restrict types
+        const consoleMethod = jest.spyOn(console, levelName).mockImplementationOnce(() => {});
         logger[levelName]('test');
-        // @ts-expect-error too dynamic, too lazy to restrict types
-        const consoleMethod = console[levelName];
 
         expect(consoleMethod).toHaveBeenCalledOnce();
         expect(consoleMethod).toHaveBeenCalledWith('[test script] test');
@@ -32,12 +32,12 @@ describe('console logging sink', () => {
         expect(console.info).toHaveBeenCalledWith('[test script] test');
     });
 
-    it('provides error to console.error', () => {
+    it.each(levelsWithExceptions)('provides error to console.%s', (levelName) => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        jest.spyOn(console, 'error').mockImplementationOnce(() => {});
-        logger.error('test', new Error('error'));
+        const consoleMethod = jest.spyOn(console, levelName).mockImplementationOnce(() => {});
+        logger[levelName]('test', new Error('error'));
 
-        expect(console.error).toHaveBeenCalledOnce();
-        expect(console.error).toHaveBeenCalledWith('[test script] test', new Error('error'));
+        expect(consoleMethod).toHaveBeenCalledOnce();
+        expect(consoleMethod).toHaveBeenCalledWith('[test script] test', new Error('error'));
     });
 });

@@ -39,8 +39,8 @@ export class StatusBanner implements LoggingSink {
         this.#setStatusBannerClass('info');
     }
 
-    onWarn(message: string): void {
-        this.#setStatusBanner(message);
+    onWarn(message: string, exception?: unknown): void {
+        this.#setStatusBanner(message, exception);
         this.#setStatusBannerClass('warning');
     }
 
