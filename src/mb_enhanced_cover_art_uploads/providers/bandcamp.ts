@@ -20,6 +20,12 @@ export class BandcampProvider extends CoverArtProvider {
 
     async findImages(url: URL): Promise<CoverArt[]> {
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
+        if (qsMaybe('#missing-tralbum-art', respDocument) !== null) {
+            // Release has no images.
+            LOGGER.warn('Bandcamp release has no cover');
+            return [];
+        }
+
         const albumCoverUrl = qs<HTMLAnchorElement>('#tralbumArt > .popupImage', respDocument).href;
 
         const covers: CoverArt[] = [{

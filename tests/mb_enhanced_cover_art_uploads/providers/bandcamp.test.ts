@@ -107,4 +107,9 @@ describe('bandcamp provider', () => {
                 message: expect.stringContaining('different release'),
             });
     });
+
+    it('returns no images if release has no cover', async () => {
+        await expect(provider.findImages(new URL('https://indigochill.bandcamp.com/track/eon-indigo-remix')))
+            .resolves.toBeEmpty();
+    });
 });
