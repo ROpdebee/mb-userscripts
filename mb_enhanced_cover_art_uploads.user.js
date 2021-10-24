@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.24.4
+// @version      2021.10.24.5
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -217,10 +217,22 @@
     }
 
     _createClass(HeadMetaPropertyProvider, [{
-      key: "findImages",
+      key: "is404Page",
       value: // Providers for which the cover art can be retrieved from the head
       // og:image property and maximised using maxurl
-      function () {
+
+      /**
+       * Template method to be used by subclasses to check whether the document
+       * indicates a missing release. This only needs to be implemented if the
+       * provider returns success codes for releases which are 404.
+       */
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      function is404Page(_document) {
+        return false;
+      }
+    }, {
+      key: "findImages",
+      value: function () {
         var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(url) {
           var respDocument, coverElmt;
           return regenerator.wrap(function _callee2$(_context2) {
@@ -235,13 +247,22 @@
                   _context2.t1 = _context2.sent;
                   _context2.t2 = url.href;
                   respDocument = (0, _context2.t0)(_context2.t1, _context2.t2);
+
+                  if (!this.is404Page(respDocument)) {
+                    _context2.next = 8;
+                    break;
+                  }
+
+                  throw new Error(this.name + ' release does not exist');
+
+                case 8:
                   coverElmt = qs('head > meta[property="og:image"]', respDocument);
                   return _context2.abrupt("return", [{
                     url: new URL(coverElmt.content),
                     types: [ArtworkTypeIDs.Front]
                   }]);
 
-                case 8:
+                case 10:
                 case "end":
                   return _context2.stop();
               }
@@ -627,6 +648,13 @@
 
       return _this;
     }
+
+    _createClass(AppleMusicProvider, [{
+      key: "is404Page",
+      value: function is404Page(doc) {
+        return qsMaybe('head > title', doc) === null;
+      }
+    }]);
 
     return AppleMusicProvider;
   }(HeadMetaPropertyProvider);
@@ -1316,6 +1344,11 @@
       value: function cleanUrl(url) {
         // Album ID is in the query params, base `cleanUrl` strips those away.
         return _get(_getPrototypeOf(MelonProvider.prototype), "cleanUrl", this).call(this, url) + url.search;
+      }
+    }, {
+      key: "is404Page",
+      value: function is404Page(doc) {
+        return qsMaybe('body > input#returnUrl', doc) !== null;
       }
     }]);
 
