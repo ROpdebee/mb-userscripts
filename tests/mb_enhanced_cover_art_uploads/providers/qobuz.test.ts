@@ -3,7 +3,6 @@ import { setupPolly } from '@test-utils/pollyjs';
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 // @ts-expect-error rewired
 import { QobuzProvider, __set__ } from '@src/mb_enhanced_cover_art_uploads/providers/qobuz';
-import { HTTPResponseError } from '@lib/util/xhr';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 import { urlMatchingSpec } from './url_matching_spec';
 
@@ -75,7 +74,7 @@ describe('qobuz provider', () => {
             });
 
             await expect(provider.findImages(new URL('https://open.qobuz.com/album/123')))
-                .rejects.toBeInstanceOf(HTTPResponseError);
+                .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
         });
 
         describe('with invalid app ID', () => {
@@ -103,9 +102,7 @@ describe('qobuz provider', () => {
                 });
 
                 await expect(provider.findImages(new URL('https://open.qobuz.com/album/0825646089178')))
-                    .rejects.toMatchObject({
-                        message: expect.toEndWith('app ID invalid?'),
-                    });
+                    .rejects.toThrowWithMessage(Error, /app ID invalid\?/);
             });
         });
     });

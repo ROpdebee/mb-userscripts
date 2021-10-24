@@ -1,7 +1,6 @@
 import { setupPolly } from '@test-utils/pollyjs';
 
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { HTTPResponseError } from '@lib/util/xhr';
 import { QubMusiqueProvider } from '@src/mb_enhanced_cover_art_uploads/providers/qub_musique';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 import { urlMatchingSpec } from './url_matching_spec';
@@ -53,6 +52,6 @@ describe('qub musique provider', () => {
         });
 
         await expect(provider.findImages(new URL('https://www.qub.ca/musique/album/pour-le-plug-dbssx')))
-            .rejects.toBeInstanceOf(HTTPResponseError);
+            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
 });

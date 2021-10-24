@@ -39,6 +39,6 @@ describe('melon provider', () => {
         });
 
         await expect(provider.findImages(new URL('https://www.melon.com/album/detail.htm?albumId=0')))
-            .toReject();
+            .rejects.toThrowWithMessage(Error, 'Melon release does not exist');
     });
 });

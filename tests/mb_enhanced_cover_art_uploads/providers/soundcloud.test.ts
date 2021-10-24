@@ -96,12 +96,12 @@ describe('soundcloud provider', () => {
         });
 
         await expect(provider.findImages(new URL('https://soundcloud.com/404/404')))
-            .toReject();
+            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
 
     it('throws if metadata cannot be extracted', async () => {
         // Not a correct release URL, so the required metadata isn't present.
         await expect(provider.findImages(new URL('https://soundcloud.com/upload')))
-            .toReject();
+            .rejects.toThrowWithMessage(Error, /Could not extract metadata/);
     });
 });

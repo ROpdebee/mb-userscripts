@@ -98,11 +98,11 @@ describe('apple music provider', () => {
         // unavailable. It instead returns a 200 and has an alert popup.
         // Regardless, the image property won't exist, so this will still throw.
         await expect(provider.findImages(new URL('https://music.apple.com/gb/album/993998924')))
-            .toReject();
+            .rejects.toThrowWithMessage(Error, 'Apple Music release does not exist');
     });
 
     it('throws if iTunes release is not available', async () => {
         await expect(provider.findImages(new URL('https://itunes.apple.com/gb/album/id993998924')))
-            .toReject();
+            .rejects.toThrowWithMessage(Error, 'Apple Music release does not exist');
     });
 });

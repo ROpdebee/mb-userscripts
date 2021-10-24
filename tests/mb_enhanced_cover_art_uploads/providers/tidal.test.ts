@@ -2,7 +2,6 @@ import { setupPolly } from '@test-utils/pollyjs';
 
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { TidalProvider } from '@src/mb_enhanced_cover_art_uploads/providers/tidal';
-import { HTTPResponseError } from '@lib/util/xhr';
 import { urlMatchingSpec } from './url_matching_spec';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
@@ -78,6 +77,6 @@ describe('tidal provider', () => {
         });
 
         await expect(provider.findImages(new URL('https://listen.tidal.com/album/1')))
-            .rejects.toBeInstanceOf(HTTPResponseError);
+            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
 });
