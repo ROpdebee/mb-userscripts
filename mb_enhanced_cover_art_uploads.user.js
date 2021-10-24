@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.24.3
+// @version      2021.10.24.4
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -747,19 +747,30 @@
                   _context.t1 = _context.sent;
                   _context.t2 = url.href;
                   respDocument = (0, _context.t0)(_context.t1, _context.t2);
+
+                  if (!(qsMaybe('#missing-tralbum-art', respDocument) !== null)) {
+                    _context.next = 9;
+                    break;
+                  }
+
+                  // Release has no images.
+                  LOGGER.warn('Bandcamp release has no cover');
+                  return _context.abrupt("return", []);
+
+                case 9:
                   albumCoverUrl = qs('#tralbumArt > .popupImage', respDocument).href;
                   covers = [{
                     url: new URL(albumCoverUrl),
                     types: [ArtworkTypeIDs.Front]
                   }];
-                  _context.next = 10;
+                  _context.next = 13;
                   return _classPrivateMethodGet(this, _findTrackImages, _findTrackImages2).call(this, respDocument, albumCoverUrl);
 
-                case 10:
+                case 13:
                   trackImages = _context.sent;
                   return _context.abrupt("return", _classPrivateMethodGet(this, _amendSquareThumbnails, _amendSquareThumbnails2).call(this, covers.concat(trackImages)));
 
-                case 12:
+                case 15:
                 case "end":
                   return _context.stop();
               }
