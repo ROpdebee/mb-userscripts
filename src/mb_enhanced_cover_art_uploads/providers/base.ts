@@ -1,3 +1,4 @@
+import { filterNonNull, groupBy } from '@lib/util/array';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
 
@@ -87,6 +88,35 @@ export abstract class CoverArtProvider {
 
         return resp.responseText;
     }
+
+    protected mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string): CoverArt[] {
+        const newTrackImages = filterNonNull(trackImages)
+            // Filter out tracks that have the same image as the main release.
+            .filter((img) => img.url !== mainUrl);
+        const imgUrlToTrackNumber = groupBy(newTrackImages, (el) => el.url, (el) => el.trackNumber);
+
+        const results: CoverArt[] = [];
+        imgUrlToTrackNumber.forEach((trackNumbers, imgUrl) => {
+            results.push({
+                url: new URL(imgUrl),
+                types: [ArtworkTypeIDs.Track],
+                // Use comment to indicate which tracks this applies to.
+                comment: this.#createTrackImageComment(trackNumbers),
+            });
+        });
+
+        return results;
+    }
+
+    #createTrackImageComment(trackNumbers: Array<string | undefined>): string {
+        const definedTrackNumbers = filterNonNull(trackNumbers);
+        /* istanbul ignore if: Can't find case */
+        if (!definedTrackNumbers.length) return '';
+
+        /* istanbul ignore next: Can't find case with multiple */
+        const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
+        return `${prefix} ${definedTrackNumbers.join(', ')}`;
+    }
 }
 
 export interface CoverArt {
@@ -107,6 +137,11 @@ export interface CoverArt {
      * interpreted as false.
      */
     skipMaximisation?: boolean;
+}
+
+export interface ParsedTrackImage {
+    url: string;
+    trackNumber?: string;
 }
 
 export enum ArtworkTypeIDs {
