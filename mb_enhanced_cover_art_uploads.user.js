@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.24.2
+// @version      2021.10.24.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -969,6 +969,75 @@
     }));
     return _amendSquareThumbnails3.apply(this, arguments);
   }
+
+  var BeatportProvider = /*#__PURE__*/function (_CoverArtProvider) {
+    _inherits(BeatportProvider, _CoverArtProvider);
+
+    var _super = _createSuper(BeatportProvider);
+
+    function BeatportProvider() {
+      var _this;
+
+      _classCallCheck(this, BeatportProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['beatport.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://geo-pro.beatport.com/static/ea225b5168059ba412818496089481eb.png');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'Beatport');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /release\/[^/]+\/(\d+)(?:\/|$)/);
+
+      return _this;
+    }
+
+    _createClass(BeatportProvider, [{
+      key: "findImages",
+      value: function () {
+        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
+          var respDocument, coverElmt;
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.t0 = parseDOM;
+                  _context.next = 3;
+                  return this.fetchPage(url);
+
+                case 3:
+                  _context.t1 = _context.sent;
+                  _context.t2 = url.href;
+                  respDocument = (0, _context.t0)(_context.t1, _context.t2);
+                  coverElmt = qs('head > meta[name="og:image"]', respDocument);
+                  return _context.abrupt("return", [{
+                    url: new URL(coverElmt.content),
+                    types: [ArtworkTypeIDs.Front]
+                  }]);
+
+                case 8:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function findImages(_x) {
+          return _findImages.apply(this, arguments);
+        }
+
+        return findImages;
+      }()
+    }]);
+
+    return BeatportProvider;
+  }(CoverArtProvider);
 
   var DeezerProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
     _inherits(DeezerProvider, _HeadMetaPropertyProv);
@@ -2228,6 +2297,7 @@
   addProvider(new AmazonMusicProvider());
   addProvider(new AppleMusicProvider());
   addProvider(new BandcampProvider());
+  addProvider(new BeatportProvider());
   addProvider(new DeezerProvider());
   addProvider(new DiscogsProvider());
   addProvider(new MelonProvider());
