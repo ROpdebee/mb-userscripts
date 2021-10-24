@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.23.2
+// @version      2021.10.24
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -26,7 +26,7 @@
   'use strict';
 
   /* minified: babel helpers, regenerator-runtime, @babel/runtime, ts-custom-error, p-throttle, nativejsx */
-  function ownKeys(t,r){var e=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);r&&(n=n.filter((function(r){return Object.getOwnPropertyDescriptor(t,r).enumerable}))),e.push.apply(e,n);}return e}function _objectSpread2(t){for(var r=1;r<arguments.length;r++){var e=null!=arguments[r]?arguments[r]:{};r%2?ownKeys(Object(e),!0).forEach((function(r){_defineProperty(t,r,e[r]);})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(e)):ownKeys(Object(e)).forEach((function(r){Object.defineProperty(t,r,Object.getOwnPropertyDescriptor(e,r));}));}return t}function _typeof(t){return _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},_typeof(t)}function _asyncIterator(t){var r;if("undefined"!=typeof Symbol&&(Symbol.asyncIterator&&(r=t[Symbol.asyncIterator]),null==r&&Symbol.iterator&&(r=t[Symbol.iterator])),null==r&&(r=t["@@asyncIterator"]),null==r&&(r=t["@@iterator"]),null==r)throw new TypeError("Object is not async iterable");return r.call(t)}function _AwaitValue(t){this.wrapped=t;}function _AsyncGenerator(t){var r,e;function n(r,e){try{var i=t[r](e),a=i.value,c=a instanceof _AwaitValue;Promise.resolve(c?a.wrapped:a).then((function(t){c?n("return"===r?"return":"next",t):o(i.done?"return":"normal",t);}),(function(t){n("throw",t);}));}catch(u){o("throw",u);}}function o(t,o){switch(t){case"return":r.resolve({value:o,done:!0});break;case"throw":r.reject(o);break;default:r.resolve({value:o,done:!1});}(r=r.next)?n(r.key,r.arg):e=null;}this._invoke=function(t,o){return new Promise((function(i,a){var c={key:t,arg:o,resolve:i,reject:a,next:null};e?e=e.next=c:(r=e=c,n(t,o));}))},"function"!=typeof t.return&&(this.return=void 0);}function _wrapAsyncGenerator(t){return function(){return new _AsyncGenerator(t.apply(this,arguments))}}function _awaitAsyncGenerator(t){return new _AwaitValue(t)}function _asyncGeneratorDelegate(t,r){var e={},n=!1;function o(e,o){return n=!0,o=new Promise((function(r){r(t[e](o));})),{done:!1,value:r(o)}}return e["undefined"!=typeof Symbol&&Symbol.iterator||"@@iterator"]=function(){return this},e.next=function(t){return n?(n=!1,t):o("next",t)},"function"==typeof t.throw&&(e.throw=function(t){if(n)throw n=!1,t;return o("throw",t)}),"function"==typeof t.return&&(e.return=function(t){return n?(n=!1,t):o("return",t)}),e}function asyncGeneratorStep(t,r,e,n,o,i,a){try{var c=t[i](a),u=c.value;}catch(s){return void e(s)}c.done?r(u):Promise.resolve(u).then(n,o);}function _asyncToGenerator(t){return function(){var r=this,e=arguments;return new Promise((function(n,o){var i=t.apply(r,e);function a(t){asyncGeneratorStep(i,n,o,a,c,"next",t);}function c(t){asyncGeneratorStep(i,n,o,a,c,"throw",t);}a(void 0);}))}}function _classCallCheck(t,r){if(!(t instanceof r))throw new TypeError("Cannot call a class as a function")}function _defineProperties(t,r){for(var e=0;e<r.length;e++){var n=r[e];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n);}}function _createClass(t,r,e){return r&&_defineProperties(t.prototype,r),e&&_defineProperties(t,e),t}function _defineProperty(t,r,e){return r in t?Object.defineProperty(t,r,{value:e,enumerable:!0,configurable:!0,writable:!0}):t[r]=e,t}function _inherits(t,r){if("function"!=typeof r&&null!==r)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(r&&r.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),r&&_setPrototypeOf(t,r);}function _getPrototypeOf(t){return _getPrototypeOf=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)},_getPrototypeOf(t)}function _setPrototypeOf(t,r){return _setPrototypeOf=Object.setPrototypeOf||function(t,r){return t.__proto__=r,t},_setPrototypeOf(t,r)}function _isNativeReflectConstruct(){if("undefined"==typeof Reflect||!Reflect.construct)return !1;if(Reflect.construct.sham)return !1;if("function"==typeof Proxy)return !0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return !1}}function _construct(t,r,e){return _construct=_isNativeReflectConstruct()?Reflect.construct:function(t,r,e){var n=[null];n.push.apply(n,r);var o=new(Function.bind.apply(t,n));return e&&_setPrototypeOf(o,e.prototype),o},_construct.apply(null,arguments)}function _isNativeFunction(t){return -1!==Function.toString.call(t).indexOf("[native code]")}function _wrapNativeSuper(t){var r="function"==typeof Map?new Map:void 0;return _wrapNativeSuper=function(t){if(null===t||!_isNativeFunction(t))return t;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==r){if(r.has(t))return r.get(t);r.set(t,e);}function e(){return _construct(t,arguments,_getPrototypeOf(this).constructor)}return e.prototype=Object.create(t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),_setPrototypeOf(e,t)},_wrapNativeSuper(t)}function _assertThisInitialized(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function _possibleConstructorReturn(t,r){if(r&&("object"==typeof r||"function"==typeof r))return r;if(void 0!==r)throw new TypeError("Derived constructors may only return object or undefined");return _assertThisInitialized(t)}function _createSuper(t){var r=_isNativeReflectConstruct();return function(){var e,n=_getPrototypeOf(t);if(r){var o=_getPrototypeOf(this).constructor;e=Reflect.construct(n,arguments,o);}else e=n.apply(this,arguments);return _possibleConstructorReturn(this,e)}}function _slicedToArray(t,r){return _arrayWithHoles(t)||_iterableToArrayLimit(t,r)||_unsupportedIterableToArray(t,r)||_nonIterableRest()}function _toArray(t){return _arrayWithHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableRest()}function _toConsumableArray(t){return _arrayWithoutHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableSpread()}function _arrayWithoutHoles(t){if(Array.isArray(t))return _arrayLikeToArray(t)}function _arrayWithHoles(t){if(Array.isArray(t))return t}function _iterableToArray(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}function _iterableToArrayLimit(t,r){var e=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=e){var n,o,i=[],a=!0,c=!1;try{for(e=e.call(t);!(a=(n=e.next()).done)&&(i.push(n.value),!r||i.length!==r);a=!0);}catch(u){c=!0,o=u;}finally{try{a||null==e.return||e.return();}finally{if(c)throw o}}return i}}function _unsupportedIterableToArray(t,r){if(t){if("string"==typeof t)return _arrayLikeToArray(t,r);var e=Object.prototype.toString.call(t).slice(8,-1);return "Object"===e&&t.constructor&&(e=t.constructor.name),"Map"===e||"Set"===e?Array.from(t):"Arguments"===e||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(e)?_arrayLikeToArray(t,r):void 0}}function _arrayLikeToArray(t,r){(null==r||r>t.length)&&(r=t.length);for(var e=0,n=new Array(r);e<r;e++)n[e]=t[e];return n}function _nonIterableSpread(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _createForOfIteratorHelper(t,r){var e="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!e){if(Array.isArray(t)||(e=_unsupportedIterableToArray(t))||r&&t&&"number"==typeof t.length){e&&(t=e);var n=0,o=function(){};return {s:o,n:function(){return n>=t.length?{done:!0}:{done:!1,value:t[n++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,a=!0,c=!1;return {s:function(){e=e.call(t);},n:function(){var t=e.next();return a=t.done,t},e:function(t){c=!0,i=t;},f:function(){try{a||null==e.return||e.return();}finally{if(c)throw i}}}}function _classPrivateFieldGet(t,r){return _classApplyDescriptorGet(t,_classExtractFieldDescriptor(t,r,"get"))}function _classPrivateFieldSet(t,r,e){return _classApplyDescriptorSet(t,_classExtractFieldDescriptor(t,r,"set"),e),e}function _classExtractFieldDescriptor(t,r,e){if(!r.has(t))throw new TypeError("attempted to "+e+" private field on non-instance");return r.get(t)}function _classApplyDescriptorGet(t,r){return r.get?r.get.call(t):r.value}function _classApplyDescriptorSet(t,r,e){if(r.set)r.set.call(t,e);else {if(!r.writable)throw new TypeError("attempted to set read only private field");r.value=e;}}function _classPrivateMethodGet(t,r,e){if(!r.has(t))throw new TypeError("attempted to get private field on non-instance");return e}function _checkPrivateRedeclaration(t,r){if(r.has(t))throw new TypeError("Cannot initialize the same private elements twice on an object")}function _classPrivateFieldInitSpec(t,r,e){_checkPrivateRedeclaration(t,r),r.set(t,e);}function _classPrivateMethodInitSpec(t,r){_checkPrivateRedeclaration(t,r),r.add(t);}_AsyncGenerator.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},_AsyncGenerator.prototype.next=function(t){return this._invoke("next",t)},_AsyncGenerator.prototype.throw=function(t){return this._invoke("throw",t)},_AsyncGenerator.prototype.return=function(t){return this._invoke("return",t)};var runtime={exports:{}};!function(t){var r=function(t){var r,e=Object.prototype,n=e.hasOwnProperty,o="function"==typeof Symbol?Symbol:{},i=o.iterator||"@@iterator",a=o.asyncIterator||"@@asyncIterator",c=o.toStringTag||"@@toStringTag";function u(t,r,e){return Object.defineProperty(t,r,{value:e,enumerable:!0,configurable:!0,writable:!0}),t[r]}try{u({},"");}catch(L){u=function(t,r,e){return t[r]=e};}function s(t,r,e,n){var o=r&&r.prototype instanceof d?r:d,i=Object.create(o.prototype),a=new T(n||[]);return i._invoke=function(t,r,e){var n=f;return function(o,i){if(n===y)throw new Error("Generator is already running");if(n===h){if("throw"===o)throw i;return I()}for(e.method=o,e.arg=i;;){var a=e.delegate;if(a){var c=x(a,e);if(c){if(c===v)continue;return c}}if("next"===e.method)e.sent=e._sent=e.arg;else if("throw"===e.method){if(n===f)throw n=h,e.arg;e.dispatchException(e.arg);}else "return"===e.method&&e.abrupt("return",e.arg);n=y;var u=l(t,r,e);if("normal"===u.type){if(n=e.done?h:p,u.arg===v)continue;return {value:u.arg,done:e.done}}"throw"===u.type&&(n=h,e.method="throw",e.arg=u.arg);}}}(t,e,a),i}function l(t,r,e){try{return {type:"normal",arg:t.call(r,e)}}catch(L){return {type:"throw",arg:L}}}t.wrap=s;var f="suspendedStart",p="suspendedYield",y="executing",h="completed",v={};function d(){}function _(){}function b(){}var m={};u(m,i,(function(){return this}));var w=Object.getPrototypeOf,g=w&&w(w(j([])));g&&g!==e&&n.call(g,i)&&(m=g);var O=b.prototype=d.prototype=Object.create(m);function S(t){["next","throw","return"].forEach((function(r){u(t,r,(function(t){return this._invoke(r,t)}));}));}function P(t,r){function e(o,i,a,c){var u=l(t[o],t,i);if("throw"!==u.type){var s=u.arg,f=s.value;return f&&"object"===_typeof(f)&&n.call(f,"__await")?r.resolve(f.__await).then((function(t){e("next",t,a,c);}),(function(t){e("throw",t,a,c);})):r.resolve(f).then((function(t){s.value=t,a(s);}),(function(t){return e("throw",t,a,c)}))}c(u.arg);}var o;this._invoke=function(t,n){function i(){return new r((function(r,o){e(t,n,r,o);}))}return o=o?o.then(i,i):i()};}function x(t,e){var n=t.iterator[e.method];if(n===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=r,x(t,e),"throw"===e.method))return v;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method");}return v}var o=l(n,t.iterator,e.arg);if("throw"===o.type)return e.method="throw",e.arg=o.arg,e.delegate=null,v;var i=o.arg;return i?i.done?(e[t.resultName]=i.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=r),e.delegate=null,v):i:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,v)}function A(t){var r={tryLoc:t[0]};1 in t&&(r.catchLoc=t[1]),2 in t&&(r.finallyLoc=t[2],r.afterLoc=t[3]),this.tryEntries.push(r);}function E(t){var r=t.completion||{};r.type="normal",delete r.arg,t.completion=r;}function T(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(A,this),this.reset(!0);}function j(t){if(t){var e=t[i];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var o=-1,a=function e(){for(;++o<t.length;)if(n.call(t,o))return e.value=t[o],e.done=!1,e;return e.value=r,e.done=!0,e};return a.next=a}}return {next:I}}function I(){return {value:r,done:!0}}return _.prototype=b,u(O,"constructor",b),u(b,"constructor",_),_.displayName=u(b,c,"GeneratorFunction"),t.isGeneratorFunction=function(t){var r="function"==typeof t&&t.constructor;return !!r&&(r===_||"GeneratorFunction"===(r.displayName||r.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,b):(t.__proto__=b,u(t,c,"GeneratorFunction")),t.prototype=Object.create(O),t},t.awrap=function(t){return {__await:t}},S(P.prototype),u(P.prototype,a,(function(){return this})),t.AsyncIterator=P,t.async=function(r,e,n,o,i){void 0===i&&(i=Promise);var a=new P(s(r,e,n,o),i);return t.isGeneratorFunction(e)?a:a.next().then((function(t){return t.done?t.value:a.next()}))},S(O),u(O,c,"Generator"),u(O,i,(function(){return this})),u(O,"toString",(function(){return "[object Generator]"})),t.keys=function(t){var r=[];for(var e in t)r.push(e);return r.reverse(),function e(){for(;r.length;){var n=r.pop();if(n in t)return e.value=n,e.done=!1,e}return e.done=!0,e}},t.values=j,T.prototype={constructor:T,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=r,this.done=!1,this.delegate=null,this.method="next",this.arg=r,this.tryEntries.forEach(E),!t)for(var e in this)"t"===e.charAt(0)&&n.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=r);},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function o(n,o){return c.type="throw",c.arg=t,e.next=n,o&&(e.method="next",e.arg=r),!!o}for(var i=this.tryEntries.length-1;i>=0;--i){var a=this.tryEntries[i],c=a.completion;if("root"===a.tryLoc)return o("end");if(a.tryLoc<=this.prev){var u=n.call(a,"catchLoc"),s=n.call(a,"finallyLoc");if(u&&s){if(this.prev<a.catchLoc)return o(a.catchLoc,!0);if(this.prev<a.finallyLoc)return o(a.finallyLoc)}else if(u){if(this.prev<a.catchLoc)return o(a.catchLoc,!0)}else {if(!s)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return o(a.finallyLoc)}}}},abrupt:function(t,r){for(var e=this.tryEntries.length-1;e>=0;--e){var o=this.tryEntries[e];if(o.tryLoc<=this.prev&&n.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var i=o;break}}i&&("break"===t||"continue"===t)&&i.tryLoc<=r&&r<=i.finallyLoc&&(i=null);var a=i?i.completion:{};return a.type=t,a.arg=r,i?(this.method="next",this.next=i.finallyLoc,v):this.complete(a)},complete:function(t,r){if("throw"===t.type)throw t.arg;return "break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&r&&(this.next=r),v},finish:function(t){for(var r=this.tryEntries.length-1;r>=0;--r){var e=this.tryEntries[r];if(e.finallyLoc===t)return this.complete(e.completion,e.afterLoc),E(e),v}},catch:function(t){for(var r=this.tryEntries.length-1;r>=0;--r){var e=this.tryEntries[r];if(e.tryLoc===t){var n=e.completion;if("throw"===n.type){var o=n.arg;E(e);}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,n){return this.delegate={iterator:j(t),resultName:e,nextLoc:n},"next"===this.method&&(this.arg=r),v}},t}(t.exports);try{regeneratorRuntime=r;}catch(e){"object"===("undefined"==typeof globalThis?"undefined":_typeof(globalThis))?globalThis.regeneratorRuntime=r:Function("r","regeneratorRuntime = r")(r);}}(runtime);var regenerator=runtime.exports;function fixProto(t,r){var e=Object.setPrototypeOf;e?e(t,r):t.__proto__=r;}function fixStack(t,r){void 0===r&&(r=t.constructor);var e=Error.captureStackTrace;e&&e(t,r);}var __extends=function(){var t=function(r,e){return t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,r){t.__proto__=r;}||function(t,r){for(var e in r)r.hasOwnProperty(e)&&(t[e]=r[e]);},t(r,e)};return function(r,e){function n(){this.constructor=r;}t(r,e),r.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n);}}(),CustomError=function(t){function r(r){var e=this.constructor,n=t.call(this,r)||this;return Object.defineProperty(n,"name",{value:e.name,enumerable:!1,configurable:!0}),fixProto(n,e.prototype),fixStack(n),n}return __extends(r,t),r}(Error),AbortError=function(t){_inherits(e,_wrapNativeSuper(Error));var r=_createSuper(e);function e(){var t;return _classCallCheck(this,e),(t=r.call(this,"Throttled function aborted")).name="AbortError",t}return e}();function pThrottle(t){var r=t.limit,e=t.interval,n=t.strict;if(!Number.isFinite(r))throw new TypeError("Expected `limit` to be a finite number");if(!Number.isFinite(e))throw new TypeError("Expected `interval` to be a finite number");var o=new Map,i=0,a=0,c=[],u=n?function(){var t=Date.now();if(c.length<r)return c.push(t),0;var n=c.shift()+e;return t>=n?(c.push(t),0):(c.push(n),n-t)}:function(){var t=Date.now();return t-i>e?(a=1,i=t,0):(a<r?a++:(i+=e,a=1),i-t)};return function(t){var r=function r(){for(var e,n=this,i=arguments.length,a=new Array(i),c=0;c<i;c++)a[c]=arguments[c];return r.isEnabled?new Promise((function(r,i){e=setTimeout((function(){r(t.apply(n,a)),o.delete(e);}),u()),o.set(e,i);})):_asyncToGenerator(regenerator.mark((function r(){return regenerator.wrap((function(r){for(;;)switch(r.prev=r.next){case 0:return r.abrupt("return",t.apply(n,a));case 1:case"end":return r.stop()}}),r)})))()};return r.abort=function(){var t,r=_createForOfIteratorHelper(o.keys());try{for(r.s();!(t=r.n()).done;){var e=t.value;clearTimeout(e),o.get(e)(new AbortError);}}catch(n){r.e(n);}finally{r.f();}o.clear(),c.splice(0,c.length);},r.isEnabled=!0,r}}var appendChildren=function(t,r){(r=Array.isArray(r)?r:[r]).forEach((function(r){r instanceof HTMLElement?t.appendChild(r):(r||"string"==typeof r)&&t.appendChild(document.createTextNode(r.toString()));}));},setStyles=function(t,r){for(var e in r)t.style[e]=r[e];};
+  function ownKeys(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n);}return r}function _objectSpread2(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?ownKeys(Object(r),!0).forEach((function(e){_defineProperty(t,e,r[e]);})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):ownKeys(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e));}));}return t}function _typeof(t){return _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},_typeof(t)}function _asyncIterator(t){var e;if("undefined"!=typeof Symbol&&(Symbol.asyncIterator&&(e=t[Symbol.asyncIterator]),null==e&&Symbol.iterator&&(e=t[Symbol.iterator])),null==e&&(e=t["@@asyncIterator"]),null==e&&(e=t["@@iterator"]),null==e)throw new TypeError("Object is not async iterable");return e.call(t)}function _AwaitValue(t){this.wrapped=t;}function _AsyncGenerator(t){var e,r;function n(e,r){try{var a=t[e](r),i=a.value,c=i instanceof _AwaitValue;Promise.resolve(c?i.wrapped:i).then((function(t){c?n("return"===e?"return":"next",t):o(a.done?"return":"normal",t);}),(function(t){n("throw",t);}));}catch(u){o("throw",u);}}function o(t,o){switch(t){case"return":e.resolve({value:o,done:!0});break;case"throw":e.reject(o);break;default:e.resolve({value:o,done:!1});}(e=e.next)?n(e.key,e.arg):r=null;}this._invoke=function(t,o){return new Promise((function(a,i){var c={key:t,arg:o,resolve:a,reject:i,next:null};r?r=r.next=c:(e=r=c,n(t,o));}))},"function"!=typeof t.return&&(this.return=void 0);}function _wrapAsyncGenerator(t){return function(){return new _AsyncGenerator(t.apply(this,arguments))}}function _awaitAsyncGenerator(t){return new _AwaitValue(t)}function _asyncGeneratorDelegate(t,e){var r={},n=!1;function o(r,o){return n=!0,o=new Promise((function(e){e(t[r](o));})),{done:!1,value:e(o)}}return r["undefined"!=typeof Symbol&&Symbol.iterator||"@@iterator"]=function(){return this},r.next=function(t){return n?(n=!1,t):o("next",t)},"function"==typeof t.throw&&(r.throw=function(t){if(n)throw n=!1,t;return o("throw",t)}),"function"==typeof t.return&&(r.return=function(t){return n?(n=!1,t):o("return",t)}),r}function asyncGeneratorStep(t,e,r,n,o,a,i){try{var c=t[a](i),u=c.value;}catch(s){return void r(s)}c.done?e(u):Promise.resolve(u).then(n,o);}function _asyncToGenerator(t){return function(){var e=this,r=arguments;return new Promise((function(n,o){var a=t.apply(e,r);function i(t){asyncGeneratorStep(a,n,o,i,c,"next",t);}function c(t){asyncGeneratorStep(a,n,o,i,c,"throw",t);}i(void 0);}))}}function _classCallCheck(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function _defineProperties(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n);}}function _createClass(t,e,r){return e&&_defineProperties(t.prototype,e),r&&_defineProperties(t,r),t}function _defineProperty(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function _inherits(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),e&&_setPrototypeOf(t,e);}function _getPrototypeOf(t){return _getPrototypeOf=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)},_getPrototypeOf(t)}function _setPrototypeOf(t,e){return _setPrototypeOf=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t},_setPrototypeOf(t,e)}function _isNativeReflectConstruct(){if("undefined"==typeof Reflect||!Reflect.construct)return !1;if(Reflect.construct.sham)return !1;if("function"==typeof Proxy)return !0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return !1}}function _construct(t,e,r){return _construct=_isNativeReflectConstruct()?Reflect.construct:function(t,e,r){var n=[null];n.push.apply(n,e);var o=new(Function.bind.apply(t,n));return r&&_setPrototypeOf(o,r.prototype),o},_construct.apply(null,arguments)}function _isNativeFunction(t){return -1!==Function.toString.call(t).indexOf("[native code]")}function _wrapNativeSuper(t){var e="function"==typeof Map?new Map:void 0;return _wrapNativeSuper=function(t){if(null===t||!_isNativeFunction(t))return t;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==e){if(e.has(t))return e.get(t);e.set(t,r);}function r(){return _construct(t,arguments,_getPrototypeOf(this).constructor)}return r.prototype=Object.create(t.prototype,{constructor:{value:r,enumerable:!1,writable:!0,configurable:!0}}),_setPrototypeOf(r,t)},_wrapNativeSuper(t)}function _assertThisInitialized(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function _possibleConstructorReturn(t,e){if(e&&("object"==typeof e||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return _assertThisInitialized(t)}function _createSuper(t){var e=_isNativeReflectConstruct();return function(){var r,n=_getPrototypeOf(t);if(e){var o=_getPrototypeOf(this).constructor;r=Reflect.construct(n,arguments,o);}else r=n.apply(this,arguments);return _possibleConstructorReturn(this,r)}}function _superPropBase(t,e){for(;!Object.prototype.hasOwnProperty.call(t,e)&&null!==(t=_getPrototypeOf(t)););return t}function _get(t,e,r){return _get="undefined"!=typeof Reflect&&Reflect.get?Reflect.get:function(t,e,r){var n=_superPropBase(t,e);if(n){var o=Object.getOwnPropertyDescriptor(n,e);return o.get?o.get.call(r):o.value}},_get(t,e,r||t)}function _slicedToArray(t,e){return _arrayWithHoles(t)||_iterableToArrayLimit(t,e)||_unsupportedIterableToArray(t,e)||_nonIterableRest()}function _toArray(t){return _arrayWithHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableRest()}function _toConsumableArray(t){return _arrayWithoutHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableSpread()}function _arrayWithoutHoles(t){if(Array.isArray(t))return _arrayLikeToArray(t)}function _arrayWithHoles(t){if(Array.isArray(t))return t}function _iterableToArray(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}function _iterableToArrayLimit(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(u){c=!0,o=u;}finally{try{i||null==r.return||r.return();}finally{if(c)throw o}}return a}}function _unsupportedIterableToArray(t,e){if(t){if("string"==typeof t)return _arrayLikeToArray(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return "Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?_arrayLikeToArray(t,e):void 0}}function _arrayLikeToArray(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}function _nonIterableSpread(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _createForOfIteratorHelper(t,e){var r="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!r){if(Array.isArray(t)||(r=_unsupportedIterableToArray(t))||e&&t&&"number"==typeof t.length){r&&(t=r);var n=0,o=function(){};return {s:o,n:function(){return n>=t.length?{done:!0}:{done:!1,value:t[n++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var a,i=!0,c=!1;return {s:function(){r=r.call(t);},n:function(){var t=r.next();return i=t.done,t},e:function(t){c=!0,a=t;},f:function(){try{i||null==r.return||r.return();}finally{if(c)throw a}}}}function _classPrivateFieldGet(t,e){return _classApplyDescriptorGet(t,_classExtractFieldDescriptor(t,e,"get"))}function _classPrivateFieldSet(t,e,r){return _classApplyDescriptorSet(t,_classExtractFieldDescriptor(t,e,"set"),r),r}function _classExtractFieldDescriptor(t,e,r){if(!e.has(t))throw new TypeError("attempted to "+r+" private field on non-instance");return e.get(t)}function _classApplyDescriptorGet(t,e){return e.get?e.get.call(t):e.value}function _classApplyDescriptorSet(t,e,r){if(e.set)e.set.call(t,r);else {if(!e.writable)throw new TypeError("attempted to set read only private field");e.value=r;}}function _classPrivateMethodGet(t,e,r){if(!e.has(t))throw new TypeError("attempted to get private field on non-instance");return r}function _checkPrivateRedeclaration(t,e){if(e.has(t))throw new TypeError("Cannot initialize the same private elements twice on an object")}function _classPrivateFieldInitSpec(t,e,r){_checkPrivateRedeclaration(t,e),e.set(t,r);}function _classPrivateMethodInitSpec(t,e){_checkPrivateRedeclaration(t,e),e.add(t);}_AsyncGenerator.prototype["function"==typeof Symbol&&Symbol.asyncIterator||"@@asyncIterator"]=function(){return this},_AsyncGenerator.prototype.next=function(t){return this._invoke("next",t)},_AsyncGenerator.prototype.throw=function(t){return this._invoke("throw",t)},_AsyncGenerator.prototype.return=function(t){return this._invoke("return",t)};var runtime={exports:{}};!function(t){var e=function(t){var e,r=Object.prototype,n=r.hasOwnProperty,o="function"==typeof Symbol?Symbol:{},a=o.iterator||"@@iterator",i=o.asyncIterator||"@@asyncIterator",c=o.toStringTag||"@@toStringTag";function u(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{u({},"");}catch(L){u=function(t,e,r){return t[e]=r};}function s(t,e,r,n){var o=e&&e.prototype instanceof d?e:d,a=Object.create(o.prototype),i=new T(n||[]);return a._invoke=function(t,e,r){var n=f;return function(o,a){if(n===y)throw new Error("Generator is already running");if(n===h){if("throw"===o)throw a;return I()}for(r.method=o,r.arg=a;;){var i=r.delegate;if(i){var c=x(i,r);if(c){if(c===v)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if(n===f)throw n=h,r.arg;r.dispatchException(r.arg);}else "return"===r.method&&r.abrupt("return",r.arg);n=y;var u=l(t,e,r);if("normal"===u.type){if(n=r.done?h:p,u.arg===v)continue;return {value:u.arg,done:r.done}}"throw"===u.type&&(n=h,r.method="throw",r.arg=u.arg);}}}(t,r,i),a}function l(t,e,r){try{return {type:"normal",arg:t.call(e,r)}}catch(L){return {type:"throw",arg:L}}}t.wrap=s;var f="suspendedStart",p="suspendedYield",y="executing",h="completed",v={};function d(){}function _(){}function b(){}var m={};u(m,a,(function(){return this}));var w=Object.getPrototypeOf,g=w&&w(w(j([])));g&&g!==r&&n.call(g,a)&&(m=g);var O=b.prototype=d.prototype=Object.create(m);function P(t){["next","throw","return"].forEach((function(e){u(t,e,(function(t){return this._invoke(e,t)}));}));}function S(t,e){function r(o,a,i,c){var u=l(t[o],t,a);if("throw"!==u.type){var s=u.arg,f=s.value;return f&&"object"===_typeof(f)&&n.call(f,"__await")?e.resolve(f.__await).then((function(t){r("next",t,i,c);}),(function(t){r("throw",t,i,c);})):e.resolve(f).then((function(t){s.value=t,i(s);}),(function(t){return r("throw",t,i,c)}))}c(u.arg);}var o;this._invoke=function(t,n){function a(){return new e((function(e,o){r(t,n,e,o);}))}return o=o?o.then(a,a):a()};}function x(t,r){var n=t.iterator[r.method];if(n===e){if(r.delegate=null,"throw"===r.method){if(t.iterator.return&&(r.method="return",r.arg=e,x(t,r),"throw"===r.method))return v;r.method="throw",r.arg=new TypeError("The iterator does not provide a 'throw' method");}return v}var o=l(n,t.iterator,r.arg);if("throw"===o.type)return r.method="throw",r.arg=o.arg,r.delegate=null,v;var a=o.arg;return a?a.done?(r[t.resultName]=a.value,r.next=t.nextLoc,"return"!==r.method&&(r.method="next",r.arg=e),r.delegate=null,v):a:(r.method="throw",r.arg=new TypeError("iterator result is not an object"),r.delegate=null,v)}function A(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e);}function E(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e;}function T(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(A,this),this.reset(!0);}function j(t){if(t){var r=t[a];if(r)return r.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var o=-1,i=function r(){for(;++o<t.length;)if(n.call(t,o))return r.value=t[o],r.done=!1,r;return r.value=e,r.done=!0,r};return i.next=i}}return {next:I}}function I(){return {value:e,done:!0}}return _.prototype=b,u(O,"constructor",b),u(b,"constructor",_),_.displayName=u(b,c,"GeneratorFunction"),t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return !!e&&(e===_||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,b):(t.__proto__=b,u(t,c,"GeneratorFunction")),t.prototype=Object.create(O),t},t.awrap=function(t){return {__await:t}},P(S.prototype),u(S.prototype,i,(function(){return this})),t.AsyncIterator=S,t.async=function(e,r,n,o,a){void 0===a&&(a=Promise);var i=new S(s(e,r,n,o),a);return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},P(O),u(O,c,"Generator"),u(O,a,(function(){return this})),u(O,"toString",(function(){return "[object Generator]"})),t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=j,T.prototype={constructor:T,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=e,this.done=!1,this.delegate=null,this.method="next",this.arg=e,this.tryEntries.forEach(E),!t)for(var r in this)"t"===r.charAt(0)&&n.call(this,r)&&!isNaN(+r.slice(1))&&(this[r]=e);},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var r=this;function o(n,o){return c.type="throw",c.arg=t,r.next=n,o&&(r.method="next",r.arg=e),!!o}for(var a=this.tryEntries.length-1;a>=0;--a){var i=this.tryEntries[a],c=i.completion;if("root"===i.tryLoc)return o("end");if(i.tryLoc<=this.prev){var u=n.call(i,"catchLoc"),s=n.call(i,"finallyLoc");if(u&&s){if(this.prev<i.catchLoc)return o(i.catchLoc,!0);if(this.prev<i.finallyLoc)return o(i.finallyLoc)}else if(u){if(this.prev<i.catchLoc)return o(i.catchLoc,!0)}else {if(!s)throw new Error("try statement without catch or finally");if(this.prev<i.finallyLoc)return o(i.finallyLoc)}}}},abrupt:function(t,e){for(var r=this.tryEntries.length-1;r>=0;--r){var o=this.tryEntries[r];if(o.tryLoc<=this.prev&&n.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var a=o;break}}a&&("break"===t||"continue"===t)&&a.tryLoc<=e&&e<=a.finallyLoc&&(a=null);var i=a?a.completion:{};return i.type=t,i.arg=e,a?(this.method="next",this.next=a.finallyLoc,v):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return "break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),v},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),E(r),v}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;E(r);}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,r,n){return this.delegate={iterator:j(t),resultName:r,nextLoc:n},"next"===this.method&&(this.arg=e),v}},t}(t.exports);try{regeneratorRuntime=e;}catch(r){"object"===("undefined"==typeof globalThis?"undefined":_typeof(globalThis))?globalThis.regeneratorRuntime=e:Function("r","regeneratorRuntime = r")(e);}}(runtime);var regenerator=runtime.exports;function fixProto(t,e){var r=Object.setPrototypeOf;r?r(t,e):t.__proto__=e;}function fixStack(t,e){void 0===e&&(e=t.constructor);var r=Error.captureStackTrace;r&&r(t,e);}var __extends=function(){var t=function(e,r){return t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e;}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r]);},t(e,r)};return function(e,r){function n(){this.constructor=e;}t(e,r),e.prototype=null===r?Object.create(r):(n.prototype=r.prototype,new n);}}(),CustomError=function(t){function e(e){var r=this.constructor,n=t.call(this,e)||this;return Object.defineProperty(n,"name",{value:r.name,enumerable:!1,configurable:!0}),fixProto(n,r.prototype),fixStack(n),n}return __extends(e,t),e}(Error),AbortError=function(t){_inherits(r,_wrapNativeSuper(Error));var e=_createSuper(r);function r(){var t;return _classCallCheck(this,r),(t=e.call(this,"Throttled function aborted")).name="AbortError",t}return r}();function pThrottle(t){var e=t.limit,r=t.interval,n=t.strict;if(!Number.isFinite(e))throw new TypeError("Expected `limit` to be a finite number");if(!Number.isFinite(r))throw new TypeError("Expected `interval` to be a finite number");var o=new Map,a=0,i=0,c=[],u=n?function(){var t=Date.now();if(c.length<e)return c.push(t),0;var n=c.shift()+r;return t>=n?(c.push(t),0):(c.push(n),n-t)}:function(){var t=Date.now();return t-a>r?(i=1,a=t,0):(i<e?i++:(a+=r,i=1),a-t)};return function(t){var e=function e(){for(var r,n=this,a=arguments.length,i=new Array(a),c=0;c<a;c++)i[c]=arguments[c];return e.isEnabled?new Promise((function(e,a){r=setTimeout((function(){e(t.apply(n,i)),o.delete(r);}),u()),o.set(r,a);})):_asyncToGenerator(regenerator.mark((function e(){return regenerator.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.abrupt("return",t.apply(n,i));case 1:case"end":return e.stop()}}),e)})))()};return e.abort=function(){var t,e=_createForOfIteratorHelper(o.keys());try{for(e.s();!(t=e.n()).done;){var r=t.value;clearTimeout(r),o.get(r)(new AbortError);}}catch(n){e.e(n);}finally{e.f();}o.clear(),c.splice(0,c.length);},e.isEnabled=!0,e}}var appendChildren=function(t,e){(e=Array.isArray(e)?e:[e]).forEach((function(e){e instanceof HTMLElement?t.appendChild(e):(e||"string"==typeof e)&&t.appendChild(document.createTextNode(e.toString()));}));},setStyles=function(t,e){for(var r in e)t.style[r]=e[r];};
 
   /* minified: lib */
   var AssertionError=function(e){_inherits(r,e);var t=_createSuper(r);function r(){return _classCallCheck(this,r),t.apply(this,arguments)}return r}(_wrapNativeSuper(Error));function assert(e,t){if(!e)throw new AssertionError(null!=t?t:"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,null!=t?t:"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,null!=t?t:"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,null!=t?t:"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){var r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (null!=t?t:document).querySelector(e)}function qsa(e,t){var r=null!=t?t:document;return _toConsumableArray(r.querySelectorAll(e))}function parseDOM(e,t){var r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){var a=r.createElement("base");a.href=t,r.head.insertAdjacentElement("beforeend",a);}return r}var LogLevel,_HANDLER_NAMES,separator="\n–\n",_footer=new WeakMap,_extraInfoLines=new WeakMap,_editNoteTextArea=new WeakMap,_removePreviousFooter=new WeakSet,EditNote=function(){function e(t){_classCallCheck(this,e),_classPrivateMethodInitSpec(this,_removePreviousFooter),_classPrivateFieldInitSpec(this,_footer,{writable:!0,value:void 0}),_classPrivateFieldInitSpec(this,_extraInfoLines,{writable:!0,value:void 0}),_classPrivateFieldInitSpec(this,_editNoteTextArea,{writable:!0,value:void 0}),_classPrivateFieldSet(this,_footer,t),_classPrivateFieldSet(this,_editNoteTextArea,qs("textarea.edit-note"));var r=_classPrivateFieldGet(this,_editNoteTextArea).value.split(separator)[0];_classPrivateFieldSet(this,_extraInfoLines,r?new Set(r.split("\n").map((function(e){return e.trimRight()}))):new Set);}return _createClass(e,[{key:"addExtraInfo",value:function(e){if(!_classPrivateFieldGet(this,_extraInfoLines).has(e)){var t=_classPrivateFieldGet(this,_editNoteTextArea).value.split(separator),r=_toArray(t),a=r[0],s=r.slice(1);a=(a+"\n"+e).trim(),_classPrivateFieldGet(this,_editNoteTextArea).value=[a].concat(_toConsumableArray(s)).join(separator),_classPrivateFieldGet(this,_extraInfoLines).add(e);}}},{key:"addFooter",value:function(){_classPrivateMethodGet(this,_removePreviousFooter,_removePreviousFooter2).call(this);var e=_classPrivateFieldGet(this,_editNoteTextArea).value;_classPrivateFieldGet(this,_editNoteTextArea).value=[e,separator,_classPrivateFieldGet(this,_footer)].join("");}}],[{key:"withFooterFromGMInfo",value:function(){var t=GM_info.script;return new e("".concat(t.name," ").concat(t.version,"\n").concat(t.namespace))}}]),e}();function _removePreviousFooter2(){var e=this,t=_classPrivateFieldGet(this,_editNoteTextArea).value.split(separator).filter((function(t){return t.trim()!==_classPrivateFieldGet(e,_footer)}));_classPrivateFieldGet(this,_editNoteTextArea).value=t.join(separator);}!function(e){e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR";}(LogLevel||(LogLevel={}));var HANDLER_NAMES=(_defineProperty(_HANDLER_NAMES={},LogLevel.DEBUG,"onDebug"),_defineProperty(_HANDLER_NAMES,LogLevel.LOG,"onLog"),_defineProperty(_HANDLER_NAMES,LogLevel.INFO,"onInfo"),_defineProperty(_HANDLER_NAMES,LogLevel.SUCCESS,"onSuccess"),_defineProperty(_HANDLER_NAMES,LogLevel.WARNING,"onWarn"),_defineProperty(_HANDLER_NAMES,LogLevel.ERROR,"onError"),_HANDLER_NAMES),DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]},_configuration=new WeakMap,_fireHandlers=new WeakSet,Logger=function(){function e(t){_classCallCheck(this,e),_classPrivateMethodInitSpec(this,_fireHandlers),_classPrivateFieldInitSpec(this,_configuration,{writable:!0,value:void 0}),_classPrivateFieldSet(this,_configuration,_objectSpread2(_objectSpread2({},DEFAULT_OPTIONS),t));}return _createClass(e,[{key:"debug",value:function(e){_classPrivateMethodGet(this,_fireHandlers,_fireHandlers2).call(this,LogLevel.DEBUG,e);}},{key:"log",value:function(e){_classPrivateMethodGet(this,_fireHandlers,_fireHandlers2).call(this,LogLevel.LOG,e);}},{key:"info",value:function(e){_classPrivateMethodGet(this,_fireHandlers,_fireHandlers2).call(this,LogLevel.INFO,e);}},{key:"success",value:function(e){_classPrivateMethodGet(this,_fireHandlers,_fireHandlers2).call(this,LogLevel.SUCCESS,e);}},{key:"warn",value:function(e){_classPrivateMethodGet(this,_fireHandlers,_fireHandlers2).call(this,LogLevel.WARNING,e);}},{key:"error",value:function(e,t){_classPrivateMethodGet(this,_fireHandlers,_fireHandlers2).call(this,LogLevel.ERROR,e,t);}},{key:"configure",value:function(e){Object.assign(_classPrivateFieldGet(this,_configuration),e);}},{key:"configuration",get:function(){return _classPrivateFieldGet(this,_configuration)}},{key:"addSink",value:function(e){_classPrivateFieldGet(this,_configuration).sinks.push(e);}}]),e}();function _fireHandlers2(e,t,r){e<_classPrivateFieldGet(this,_configuration).logLevel||_classPrivateFieldGet(this,_configuration).sinks.forEach((function(a){var s=a[HANDLER_NAMES[e]];s&&(r?s.call(a,t,r):s.call(a,t));}));}var LOGGER=new Logger,_scriptName=new WeakMap,_formatMessage=new WeakSet,ConsoleSink=function(){function e(t){_classCallCheck(this,e),_classPrivateMethodInitSpec(this,_formatMessage),_classPrivateFieldInitSpec(this,_scriptName,{writable:!0,value:void 0}),_defineProperty(this,"onSuccess",this.onInfo),_classPrivateFieldSet(this,_scriptName,t);}return _createClass(e,[{key:"onDebug",value:function(e){console.debug(_classPrivateMethodGet(this,_formatMessage,_formatMessage2).call(this,e));}},{key:"onLog",value:function(e){console.log(_classPrivateMethodGet(this,_formatMessage,_formatMessage2).call(this,e));}},{key:"onInfo",value:function(e){console.info(_classPrivateMethodGet(this,_formatMessage,_formatMessage2).call(this,e));}},{key:"onWarn",value:function(e){console.warn(_classPrivateMethodGet(this,_formatMessage,_formatMessage2).call(this,e));}},{key:"onError",value:function(e,t){e=_classPrivateMethodGet(this,_formatMessage,_formatMessage2).call(this,e),t?console.error(e,t):console.error(e);}}]),e}();function _formatMessage2(e){return "[".concat(_classPrivateFieldGet(this,_scriptName),"] ").concat(e)}function splitDomain(e){var t=e.split("."),r=-2;return ["org","co"].includes(t.at(-2))&&(r=-3),t.slice(0,r).concat([t.slice(r).join(".")])}var _map=new WeakMap,_insertLeaf=new WeakSet,_insertInternal=new WeakSet,_insert=new WeakSet,_retrieveLeaf=new WeakSet,_retrieveInternal=new WeakSet,_retrieve=new WeakSet,DispatchMap=function(){function e(){_classCallCheck(this,e),_classPrivateMethodInitSpec(this,_retrieve),_classPrivateMethodInitSpec(this,_retrieveInternal),_classPrivateMethodInitSpec(this,_retrieveLeaf),_classPrivateMethodInitSpec(this,_insert),_classPrivateMethodInitSpec(this,_insertInternal),_classPrivateMethodInitSpec(this,_insertLeaf),_classPrivateFieldInitSpec(this,_map,{writable:!0,value:new Map});}return _createClass(e,[{key:"set",value:function(e,t){var r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((function(e){return e.includes("*")})))throw new Error("Invalid pattern: "+e);return _classPrivateMethodGet(this,_insert,_insert2).call(this,r.slice().reverse(),t),this}},{key:"get",value:function(e){return _classPrivateMethodGet(this,_retrieve,_retrieve2).call(this,splitDomain(e).slice().reverse())}},{key:"_get",value:function(e){return _classPrivateFieldGet(this,_map).get(e)}},{key:"_set",value:function(e,t){return _classPrivateFieldGet(this,_map).set(e,t),this}}]),e}();function _insertLeaf2(e,t){var r=this._get(e);r?(assert(r instanceof DispatchMap&&!_classPrivateFieldGet(r,_map).has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}function _insertInternal2(e,t){var r,a,s=e[0],n=this._get(s);n instanceof DispatchMap?a=n:(a=new DispatchMap,this._set(s,a),void 0!==n&&a._set("",n)),_classPrivateMethodGet(r=a,_insert,_insert2).call(r,e.slice(1),t);}function _insert2(e,t){e.length>1?_classPrivateMethodGet(this,_insertInternal,_insertInternal2).call(this,e,t):(assert(1===e.length,"Empty domain parts?!"),_classPrivateMethodGet(this,_insertLeaf,_insertLeaf2).call(this,e[0],t));}function _retrieveLeaf2(e){var t=this._get(e);if(t instanceof DispatchMap){var r=t._get("");void 0===r&&(r=t._get("*")),t=r;}return t}function _retrieveInternal2(e){var t=this._get(e[0]);if(t instanceof DispatchMap)return _classPrivateMethodGet(t,_retrieve,_retrieve2).call(t,e.slice(1))}function _retrieve2(e){var t;return void 0===(t=1===e.length?_classPrivateMethodGet(this,_retrieveLeaf,_retrieveLeaf2).call(this,e[0]):_classPrivateMethodGet(this,_retrieveInternal,_retrieveInternal2).call(this,e))&&(t=this._get("*")),t}var ResponseError=function(e){_inherits(r,CustomError);var t=_createSuper(r);function r(e,a){var s;return _classCallCheck(this,r),s=t.call(this,a),_defineProperty(_assertThisInitialized(s),"url",void 0),s.url=e,s}return r}(),HTTPResponseError=function(e){_inherits(r,ResponseError);var t=_createSuper(r);function r(e,a){var s;return _classCallCheck(this,r),s=t.call(this,e,"HTTP error ".concat(a.status,": ").concat(a.statusText)),_defineProperty(_assertThisInitialized(s),"statusCode",void 0),_defineProperty(_assertThisInitialized(s),"statusText",void 0),_defineProperty(_assertThisInitialized(s),"response",void 0),s.response=a,s.statusCode=a.status,s.statusText=a.statusText,s}return r}(),TimeoutError=function(e){_inherits(r,ResponseError);var t=_createSuper(r);function r(e){return _classCallCheck(this,r),t.call(this,e,"Request timed out")}return r}(),AbortedError=function(e){_inherits(r,ResponseError);var t=_createSuper(r);function r(e){return _classCallCheck(this,r),t.call(this,e,"Request aborted")}return r}(),NetworkError=function(e){_inherits(r,ResponseError);var t=_createSuper(r);function r(e){return _classCallCheck(this,r),t.call(this,e,"Network error")}return r}();function gmxhr(e,t){return _gmxhr.apply(this,arguments)}function _gmxhr(){return (_gmxhr=_asyncToGenerator(regenerator.mark((function e(t,r){return regenerator.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.abrupt("return",new Promise((function(e,a){GM_xmlhttpRequest(_objectSpread2(_objectSpread2({method:"GET",url:t instanceof URL?t.href:t},null!=r?r:{}),{},{onload:function(r){r.status>=400?a(new HTTPResponseError(t,r)):e(r);},onerror:function(){a(new NetworkError(t));},onabort:function(){a(new AbortedError(t));},ontimeout:function(){a(new TimeoutError(t));}}));})));case 1:case"end":return e.stop()}}),e)})))).apply(this,arguments)}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error(t+": "+r);return}}function filterNonNull(e){return e.filter((function(e){return !(null==e)}))}function groupBy(e,t,r){var a,s=new Map,n=_createForOfIteratorHelper(e);try{for(n.s();!(a=n.n()).done;){var i,o=a.value,l=t(o),c=r(o);s.has(l)?null===(i=s.get(l))||void 0===i||i.push(c):s.set(l,[c]);}}catch(u){n.e(u);}finally{n.f();}return s}function retryTimes(e,t,r){return _retryTimes.apply(this,arguments)}function _retryTimes(){return (_retryTimes=_asyncToGenerator(regenerator.mark((function e(t,r,a){return regenerator.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(!(r<=0)){e.next=2;break}return e.abrupt("return",Promise.reject(new TypeError("Invalid number of retry times: "+r)));case 2:return e.abrupt("return",new Promise((function(e,s){function n(){try{e(t());}catch(a){if(--r>0)return;s(a);}clearInterval(i);}var i=setInterval(n,a);n();})));case 3:case"end":return e.stop()}}),e)})))).apply(this,arguments)}function getReleaseUrlARs(e){return _getReleaseUrlARs.apply(this,arguments)}function _getReleaseUrlARs(){return (_getReleaseUrlARs=_asyncToGenerator(regenerator.mark((function e(t){var r,a,s;return regenerator.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,fetch("/ws/2/release/".concat(t,"?inc=url-rels&fmt=json"));case 2:return a=e.sent,e.next=5,a.json();case 5:return s=e.sent,e.abrupt("return",null!==(r=s.relations)&&void 0!==r?r:[]);case 7:case"end":return e.stop()}}),e)})))).apply(this,arguments)}function getURLsForRelease(e,t){return _getURLsForRelease.apply(this,arguments)}function _getURLsForRelease(){return (_getURLsForRelease=_asyncToGenerator(regenerator.mark((function e(t,r){var a,s,n,i,o;return regenerator.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return s=(a=null!=r?r:{}).excludeEnded,n=a.excludeDuplicates,e.next=3,getReleaseUrlARs(t);case 3:return i=e.sent,s&&(i=i.filter((function(e){return !e.ended}))),o=i.map((function(e){return e.url.resource})),n&&(o=Array.from(new Set(_toConsumableArray(o)))),e.abrupt("return",o.flatMap((function(e){try{return [new URL(e)]}catch(t){return console.warn("Found malformed URL linked to release: ".concat(e)),[]}})));case 8:case"end":return e.stop()}}),e)})))).apply(this,arguments)}
@@ -223,6 +223,347 @@
     return HeadMetaPropertyProvider;
   }(CoverArtProvider);
 
+  // we can also grab it from the <head> element metadata, which is a lot less
+  // effort, and we get the added benefit of redirect safety.
+
+  var SevenDigitalProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
+    _inherits(SevenDigitalProvider, _HeadMetaPropertyProv);
+
+    var _super = _createSuper(SevenDigitalProvider);
+
+    function SevenDigitalProvider() {
+      var _this;
+
+      _classCallCheck(this, SevenDigitalProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['*.7digital.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://css-cdn.7digital.com/static/build/images/favicons/7digital/touch-ipad-retina.png');
+
+      _defineProperty(_assertThisInitialized(_this), "name", '7digital');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /release\/.*-(\d+)(?:\/|$)/);
+
+      return _this;
+    }
+
+    return SevenDigitalProvider;
+  }(HeadMetaPropertyProvider);
+
+  var PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/; // Incomplete, only what we need
+
+  var VARIANT_TYPE_MAPPING = {
+    MAIN: ArtworkTypeIDs.Front,
+    FRNT: ArtworkTypeIDs.Front,
+    // not seen in use so far, usually MAIN is used for front covers
+    BACK: ArtworkTypeIDs.Back,
+    SIDE: ArtworkTypeIDs.Spine // not seen in use so far
+    // PT01: ArtworkTypeIDs.Other,
+    // See https://sellercentral.amazon.com/gp/help/external/JV4FNMT7563SF5F for further details
+
+  };
+
+  var _extractFrontCover = /*#__PURE__*/new WeakSet();
+
+  var _convertVariant = /*#__PURE__*/new WeakSet();
+
+  var AmazonProvider = /*#__PURE__*/function (_CoverArtProvider) {
+    _inherits(AmazonProvider, _CoverArtProvider);
+
+    var _super = _createSuper(AmazonProvider);
+
+    function AmazonProvider() {
+      var _this;
+
+      _classCallCheck(this, AmazonProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _classPrivateMethodInitSpec(_assertThisInitialized(_this), _convertVariant);
+
+      _classPrivateMethodInitSpec(_assertThisInitialized(_this), _extractFrontCover);
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.es', 'amazon.fr', 'amazon.it', 'amazon.jp', 'amazon.nl', 'amazon.co.jp', 'amazon.co.uk', 'amazon.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'Amazon');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/);
+
+      return _this;
+    }
+
+    _createClass(AmazonProvider, [{
+      key: "favicon",
+      get: // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
+      function get() {
+        return GM_getResourceURL('amazonFavicon');
+      }
+    }, {
+      key: "findImages",
+      value: function () {
+        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
+          var pageContent, pageDom, frontCover, covers, _this$extractFromEmbe;
+
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return this.fetchPage(url);
+
+                case 2:
+                  pageContent = _context.sent;
+                  pageDom = parseDOM(pageContent, url.href); // Look for products which only have a single image, the front cover.
+
+                  frontCover = _classPrivateMethodGet(this, _extractFrontCover, _extractFrontCover2).call(this, pageDom);
+
+                  if (!frontCover) {
+                    _context.next = 7;
+                    break;
+                  }
+
+                  return _context.abrupt("return", [frontCover]);
+
+                case 7:
+                  // For physical products we have to extract the embedded JS from the
+                  // page source to get all images in their highest available resolution.
+                  covers = this.extractFromEmbeddedJS(pageContent);
+
+                  if (!covers) {
+                    // Use the (smaller) image thumbnails in the sidebar as a fallback,
+                    // although it might not contain all of them. IMU will maximise,
+                    // but the results are still inferior to the embedded hires images.
+                    covers = this.extractFromThumbnailSidebar(pageDom);
+                  }
+
+                  if (!covers.length) {
+                    // Handle physical audiobooks, the above extractors fail for those.
+                    LOGGER.warn('Found no release images, trying to find an Amazon (audio)book gallery…');
+                    covers = (_this$extractFromEmbe = this.extractFromEmbeddedJSGallery(pageContent)) !== null && _this$extractFromEmbe !== void 0 ? _this$extractFromEmbe :
+                    /* istanbul ignore next: Should never happen */
+                    [];
+                  } // Filter out placeholder images.
+
+
+                  return _context.abrupt("return", covers.filter(function (img) {
+                    return !PLACEHOLDER_IMG_REGEX.test(img.url.href);
+                  }));
+
+                case 11:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function findImages(_x) {
+          return _findImages.apply(this, arguments);
+        }
+
+        return findImages;
+      }()
+    }, {
+      key: "extractFromEmbeddedJS",
+      value: function extractFromEmbeddedJS(pageContent) {
+        var _pageContent$match,
+            _this2 = this;
+
+        var embeddedImages = (_pageContent$match = pageContent.match(/^'colorImages': { 'initial': (.+)},$/m)) === null || _pageContent$match === void 0 ? void 0 : _pageContent$match[1];
+
+        if (!embeddedImages) {
+          LOGGER.warn('Failed to extract Amazon images from the embedded JS, falling back to thumbnails');
+          return;
+        }
+
+        var imgs = safeParseJSON(embeddedImages);
+
+        if (!Array.isArray(imgs)) {
+          LOGGER.error("Failed to parse Amazon's embedded JS, falling back to thumbnails");
+          return;
+        }
+
+        return imgs.map(function (img) {
+          var _img$hiRes;
+
+          // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
+          return _classPrivateMethodGet(_this2, _convertVariant, _convertVariant2).call(_this2, {
+            url: (_img$hiRes = img.hiRes) !== null && _img$hiRes !== void 0 ? _img$hiRes : img.large,
+            variant: img.variant
+          });
+        });
+      }
+    }, {
+      key: "extractFromEmbeddedJSGallery",
+      value: function extractFromEmbeddedJSGallery(pageContent) {
+        var _pageContent$match2;
+
+        var embeddedGallery = (_pageContent$match2 = pageContent.match(/^'imageGalleryData' : (.+),$/m)) === null || _pageContent$match2 === void 0 ? void 0 : _pageContent$match2[1];
+
+        if (!embeddedGallery) {
+          LOGGER.warn('Failed to extract Amazon images from the embedded JS (audio)book gallery');
+          return;
+        }
+
+        var imgs = safeParseJSON(embeddedGallery);
+
+        if (!Array.isArray(imgs)) {
+          LOGGER.error("Failed to parse Amazon's embedded JS (audio)book gallery");
+          return;
+        } // Amazon embeds no image variants on these pages, so we don't know the types
+
+
+        return imgs.map(function (img) {
+          return {
+            url: new URL(img.mainUrl)
+          };
+        });
+      }
+    }, {
+      key: "extractFromThumbnailSidebar",
+      value: function extractFromThumbnailSidebar(pageDom) {
+        var _this3 = this;
+
+        var imgs = qsa('#altImages img', pageDom);
+        return imgs.map(function (img) {
+          var _img$closest, _safeParseJSON;
+
+          var dataThumbAction = (_img$closest = img.closest('span[data-thumb-action]')) === null || _img$closest === void 0 ? void 0 : _img$closest.getAttribute('data-thumb-action');
+          var variant = dataThumbAction && ((_safeParseJSON = safeParseJSON(dataThumbAction)) === null || _safeParseJSON === void 0 ? void 0 : _safeParseJSON.variant);
+          /* istanbul ignore if: Difficult to exercise */
+
+          if (!variant) {
+            LOGGER.warn('Failed to extract the Amazon image variant code from the JSON attribute');
+          }
+
+          return _classPrivateMethodGet(_this3, _convertVariant, _convertVariant2).call(_this3, {
+            url: img.src,
+            variant: variant
+          });
+        });
+      }
+    }]);
+
+    return AmazonProvider;
+  }(CoverArtProvider);
+
+  function _extractFrontCover2(pageDom) {
+    var frontCoverSelectors = ['#digitalMusicProductImage_feature_div > img', // Streaming/MP3 products
+    'img#main-image' // Audible products
+    ];
+
+    for (var _i = 0, _frontCoverSelectors = frontCoverSelectors; _i < _frontCoverSelectors.length; _i++) {
+      var selector = _frontCoverSelectors[_i];
+      var productImage = qsMaybe(selector, pageDom);
+
+      if (productImage) {
+        // Only returning the thumbnail, IMU will maximise
+        return {
+          url: new URL(productImage.src),
+          types: [ArtworkTypeIDs.Front]
+        };
+      }
+    } // Different product type (or no image found)
+
+
+    return;
+  }
+
+  function _convertVariant2(cover) {
+    var url = new URL(cover.url);
+    var type = cover.variant && VARIANT_TYPE_MAPPING[cover.variant];
+    LOGGER.debug("".concat(url.href, " has the Amazon image variant code '").concat(cover.variant, "'"));
+
+    if (type) {
+      return {
+        url: url,
+        types: [type]
+      };
+    }
+
+    return {
+      url: url
+    };
+  }
+
+  var AmazonMusicProvider = /*#__PURE__*/function (_CoverArtProvider) {
+    _inherits(AmazonMusicProvider, _CoverArtProvider);
+
+    var _super = _createSuper(AmazonMusicProvider);
+
+    function AmazonMusicProvider() {
+      var _this;
+
+      _classCallCheck(this, AmazonMusicProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['music.amazon.ca', 'music.amazon.cn', 'music.amazon.de', 'music.amazon.es', 'music.amazon.fr', 'music.amazon.it', 'music.amazon.jp', 'music.amazon.nl', 'music.amazon.co.jp', 'music.amazon.co.uk', 'music.amazon.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'Amazon Music');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/albums\/([A-Za-z0-9]{10})(?:\/|$)/);
+
+      return _this;
+    }
+
+    _createClass(AmazonMusicProvider, [{
+      key: "findImages",
+      value: function () {
+        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
+          var asin, productUrl;
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  // Translate Amazon Music to Amazon product links. The cover art should
+                  // be the same, but extracting the cover art from Amazon Music requires
+                  // complex API requests with CSRF tokens, whereas product pages are much
+                  // easier. Besides, cover art on product pages tends to be larger.
+                  // NOTE: I'm not 100% certain the images are always identical, or that
+                  // the associated product always exists.
+                  asin = this.extractId(url);
+                  assertHasValue(asin);
+                  productUrl = new URL(url.href);
+                  productUrl.hostname = productUrl.hostname.replace(/^music\./, '');
+                  productUrl.pathname = '/dp/' + asin;
+                  return _context.abrupt("return", new AmazonProvider().findImages(productUrl));
+
+                case 6:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function findImages(_x) {
+          return _findImages.apply(this, arguments);
+        }
+
+        return findImages;
+      }()
+    }]);
+
+    return AmazonMusicProvider;
+  }(CoverArtProvider);
+
   var AppleMusicProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
     _inherits(AppleMusicProvider, _HeadMetaPropertyProv);
 
@@ -252,453 +593,6 @@
 
     return AppleMusicProvider;
   }(HeadMetaPropertyProvider);
-
-  var DeezerProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
-    _inherits(DeezerProvider, _HeadMetaPropertyProv);
-
-    var _super = _createSuper(DeezerProvider);
-
-    function DeezerProvider() {
-      var _this;
-
-      _classCallCheck(this, DeezerProvider);
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      _this = _super.call.apply(_super, [this].concat(args));
-
-      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['deezer.com']);
-
-      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://e-cdns-files.dzcdn.net/cache/images/common/favicon/favicon-16x16.526cde4edf20647be4ee32cdf35c1c13.png');
-
-      _defineProperty(_assertThisInitialized(_this), "name", 'Deezer');
-
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", /(?:\w{2}\/)?album\/(\d+)/);
-
-      return _this;
-    }
-
-    return DeezerProvider;
-  }(HeadMetaPropertyProvider);
-
-  // JS sources somehow.
-
-  var QUERY_SHA256 = '13e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d7c6ecd';
-  var DiscogsProvider = /*#__PURE__*/function (_CoverArtProvider) {
-    _inherits(DiscogsProvider, _CoverArtProvider);
-
-    var _super = _createSuper(DiscogsProvider);
-
-    function DiscogsProvider() {
-      var _this;
-
-      _classCallCheck(this, DiscogsProvider);
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      _this = _super.call.apply(_super, [this].concat(args));
-
-      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['discogs.com']);
-
-      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://catalog-assets.discogs.com/e95f0cd9.png');
-
-      _defineProperty(_assertThisInitialized(_this), "name", 'Discogs');
-
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/release\/(\d+)/);
-
-      return _this;
-    }
-
-    _createClass(DiscogsProvider, [{
-      key: "findImages",
-      value: function () {
-        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
-          var releaseId, data;
-          return regenerator.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  // Loading the full HTML and parsing the metadata JSON embedded within
-                  // it.
-                  releaseId = this.extractId(url);
-                  assertHasValue(releaseId);
-                  _context.next = 4;
-                  return DiscogsProvider.getReleaseImages(releaseId);
-
-                case 4:
-                  data = _context.sent;
-                  return _context.abrupt("return", data.data.release.images.edges.map(function (edge) {
-                    return {
-                      url: new URL(edge.node.fullsize.sourceUrl)
-                    };
-                  }));
-
-                case 6:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee, this);
-        }));
-
-        function findImages(_x) {
-          return _findImages.apply(this, arguments);
-        }
-
-        return findImages;
-      }()
-    }], [{
-      key: "getReleaseImages",
-      value: function getReleaseImages(releaseId) {
-        var _this2 = this;
-
-        var respProm = this.apiResponseCache.get(releaseId);
-
-        if (typeof respProm === 'undefined') {
-          respProm = this.actuallyGetReleaseImages(releaseId);
-          this.apiResponseCache.set(releaseId, respProm);
-        } // Evict the promise from the cache if it rejects, so that we can retry
-        // later. If we don't evict it, later retries will reuse the failing
-        // promise. Only remove if it hasn't been replaced yet. It may have
-        // already been replaced by another call, since this is asynchronous code
-
-
-        respProm.catch(function () {
-          if (_this2.apiResponseCache.get(releaseId) === respProm) {
-            _this2.apiResponseCache.delete(releaseId);
-          }
-        });
-        return respProm;
-      }
-    }, {
-      key: "actuallyGetReleaseImages",
-      value: function () {
-        var _actuallyGetReleaseImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(releaseId) {
-          var graphqlParams, resp, metadata, responseId;
-          return regenerator.wrap(function _callee2$(_context2) {
-            while (1) {
-              switch (_context2.prev = _context2.next) {
-                case 0:
-                  graphqlParams = new URLSearchParams({
-                    operationName: 'ReleaseAllImages',
-                    variables: JSON.stringify({
-                      discogsId: parseInt(releaseId),
-                      count: 500
-                    }),
-                    extensions: JSON.stringify({
-                      persistedQuery: {
-                        version: 1,
-                        sha256Hash: QUERY_SHA256
-                      }
-                    })
-                  });
-                  _context2.next = 3;
-                  return gmxhr("https://www.discogs.com/internal/release-page/api/graphql?".concat(graphqlParams));
-
-                case 3:
-                  resp = _context2.sent;
-                  metadata = safeParseJSON(resp.responseText, 'Invalid response from Discogs API');
-                  assertHasValue(metadata.data.release, 'Discogs release does not exist');
-                  responseId = metadata.data.release.discogsId.toString();
-                  assert(typeof responseId === 'undefined' || responseId === releaseId, "Discogs returned wrong release: Requested ".concat(releaseId, ", got ").concat(responseId));
-                  return _context2.abrupt("return", metadata);
-
-                case 9:
-                case "end":
-                  return _context2.stop();
-              }
-            }
-          }, _callee2);
-        }));
-
-        function actuallyGetReleaseImages(_x2) {
-          return _actuallyGetReleaseImages.apply(this, arguments);
-        }
-
-        return actuallyGetReleaseImages;
-      }()
-    }, {
-      key: "maximiseImage",
-      value: function () {
-        var _maximiseImage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(url) {
-          var _url$pathname$match, _imageName$match;
-
-          var imageName, releaseId, releaseData, matchedImage;
-          return regenerator.wrap(function _callee3$(_context3) {
-            while (1) {
-              switch (_context3.prev = _context3.next) {
-                case 0:
-                  // Maximising by querying the API for all images of the release, finding
-                  // the right one, and extracting the "full size" (i.e., 600x600 JPEG) URL.
-                  imageName = (_url$pathname$match = url.pathname.match(/discogs-images\/(R-.+)$/)) === null || _url$pathname$match === void 0 ? void 0 : _url$pathname$match[1];
-                  releaseId = imageName === null || imageName === void 0 ? void 0 : (_imageName$match = imageName.match(/^R-(\d+)/)) === null || _imageName$match === void 0 ? void 0 : _imageName$match[1];
-                  /* istanbul ignore if: Should never happen on valid image */
-
-                  if (releaseId) {
-                    _context3.next = 4;
-                    break;
-                  }
-
-                  return _context3.abrupt("return", url);
-
-                case 4:
-                  _context3.next = 6;
-                  return this.getReleaseImages(releaseId);
-
-                case 6:
-                  releaseData = _context3.sent;
-                  matchedImage = releaseData.data.release.images.edges.find(function (img) {
-                    return img.node.fullsize.sourceUrl.split('/').at(-1) === imageName;
-                  });
-                  /* istanbul ignore if: Should never happen on valid image */
-
-                  if (matchedImage) {
-                    _context3.next = 10;
-                    break;
-                  }
-
-                  return _context3.abrupt("return", url);
-
-                case 10:
-                  return _context3.abrupt("return", new URL(matchedImage.node.fullsize.sourceUrl));
-
-                case 11:
-                case "end":
-                  return _context3.stop();
-              }
-            }
-          }, _callee3, this);
-        }));
-
-        function maximiseImage(_x3) {
-          return _maximiseImage.apply(this, arguments);
-        }
-
-        return maximiseImage;
-      }()
-    }]);
-
-    return DiscogsProvider;
-  }(CoverArtProvider);
-
-  _defineProperty(DiscogsProvider, "apiResponseCache", new Map());
-
-  var SpotifyProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
-    _inherits(SpotifyProvider, _HeadMetaPropertyProv);
-
-    var _super = _createSuper(SpotifyProvider);
-
-    function SpotifyProvider() {
-      var _this;
-
-      _classCallCheck(this, SpotifyProvider);
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      _this = _super.call.apply(_super, [this].concat(args));
-
-      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['open.spotify.com']);
-
-      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://open.scdn.co/cdn/images/favicon32.8e66b099.png');
-
-      _defineProperty(_assertThisInitialized(_this), "name", 'Spotify');
-
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/album\/(\w+)/);
-
-      return _this;
-    }
-
-    return SpotifyProvider;
-  }(HeadMetaPropertyProvider);
-
-  // API keys, I guess they might depend on the user type and/or country?
-  // Also not sure whether these may change often or not. If they do, we might
-  // need to switch to extracting them from the JS.
-  // However, seeing as this key has been present in their JS code for at least
-  // 3 years already, I doubt this will stop working any time soon.
-  // https://web.archive.org/web/20181015184006/https://listen.tidal.com/app.9dbb572e8121f8755b73.js
-
-  var APP_ID = 'CzET4vdadNUFQ5JU'; // Incomplete and not entirely correct, but good enough for our purposes.
-
-  var _countryCode = /*#__PURE__*/new WeakMap();
-
-  var TidalProvider = /*#__PURE__*/function (_CoverArtProvider) {
-    _inherits(TidalProvider, _CoverArtProvider);
-
-    var _super = _createSuper(TidalProvider);
-
-    function TidalProvider() {
-      var _this;
-
-      _classCallCheck(this, TidalProvider);
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      _this = _super.call.apply(_super, [this].concat(args));
-
-      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['tidal.com', 'listen.tidal.com', 'store.tidal.com']);
-
-      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://listen.tidal.com/favicon.ico');
-
-      _defineProperty(_assertThisInitialized(_this), "name", 'Tidal');
-
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/album\/(\d+)/);
-
-      _classPrivateFieldInitSpec(_assertThisInitialized(_this), _countryCode, {
-        writable: true,
-        value: null
-      });
-
-      return _this;
-    }
-
-    _createClass(TidalProvider, [{
-      key: "getCountryCode",
-      value: function () {
-        var _getCountryCode = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-          var resp, codeResponse;
-          return regenerator.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  if (_classPrivateFieldGet(this, _countryCode)) {
-                    _context.next = 6;
-                    break;
-                  }
-
-                  _context.next = 3;
-                  return gmxhr('https://listen.tidal.com/v1/country/context?countryCode=WW&locale=en_US&deviceType=BROWSER', {
-                    headers: {
-                      'x-tidal-token': APP_ID
-                    }
-                  });
-
-                case 3:
-                  resp = _context.sent;
-                  codeResponse = safeParseJSON(resp.responseText, 'Invalid JSON response from Tidal API for country code');
-
-                  _classPrivateFieldSet(this, _countryCode, codeResponse.countryCode);
-
-                case 6:
-                  assertHasValue(_classPrivateFieldGet(this, _countryCode), 'Cannot determine Tidal country');
-                  return _context.abrupt("return", _classPrivateFieldGet(this, _countryCode));
-
-                case 8:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee, this);
-        }));
-
-        function getCountryCode() {
-          return _getCountryCode.apply(this, arguments);
-        }
-
-        return getCountryCode;
-      }()
-    }, {
-      key: "getCoverUrlFromMetadata",
-      value: function () {
-        var _getCoverUrlFromMetadata = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(albumId) {
-          var _metadata$rows$, _metadata$rows$$modul, _metadata$rows$$modul2;
-
-          var countryCode, apiUrl, resp, metadata, albumMetadata, coverId;
-          return regenerator.wrap(function _callee2$(_context2) {
-            while (1) {
-              switch (_context2.prev = _context2.next) {
-                case 0:
-                  _context2.next = 2;
-                  return this.getCountryCode();
-
-                case 2:
-                  countryCode = _context2.sent;
-                  _context2.next = 5;
-                  return gmxhr('https://listen.tidal.com/v1/ping');
-
-                case 5:
-                  apiUrl = "https://listen.tidal.com/v1/pages/album?albumId=".concat(albumId, "&countryCode=").concat(countryCode, "&deviceType=BROWSER");
-                  _context2.next = 8;
-                  return gmxhr(apiUrl, {
-                    headers: {
-                      'x-tidal-token': APP_ID
-                    }
-                  });
-
-                case 8:
-                  resp = _context2.sent;
-                  metadata = safeParseJSON(resp.responseText, 'Invalid response from Tidal API');
-                  albumMetadata = (_metadata$rows$ = metadata.rows[0]) === null || _metadata$rows$ === void 0 ? void 0 : (_metadata$rows$$modul = _metadata$rows$.modules) === null || _metadata$rows$$modul === void 0 ? void 0 : (_metadata$rows$$modul2 = _metadata$rows$$modul[0]) === null || _metadata$rows$$modul2 === void 0 ? void 0 : _metadata$rows$$modul2.album;
-                  assertHasValue(albumMetadata, 'Tidal API returned no album, 404?');
-                  assert(albumMetadata.id.toString() === albumId, "Tidal returned wrong release: Requested ".concat(albumId, ", got ").concat(albumMetadata.id));
-                  coverId = albumMetadata.cover;
-                  assertHasValue(coverId, 'Could not find cover in Tidal metadata');
-                  return _context2.abrupt("return", "https://resources.tidal.com/images/".concat(coverId.replace(/-/g, '/'), "/origin.jpg"));
-
-                case 16:
-                case "end":
-                  return _context2.stop();
-              }
-            }
-          }, _callee2, this);
-        }));
-
-        function getCoverUrlFromMetadata(_x) {
-          return _getCoverUrlFromMetadata.apply(this, arguments);
-        }
-
-        return getCoverUrlFromMetadata;
-      }()
-    }, {
-      key: "findImages",
-      value: function () {
-        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(url) {
-          var albumId, coverUrl;
-          return regenerator.wrap(function _callee3$(_context3) {
-            while (1) {
-              switch (_context3.prev = _context3.next) {
-                case 0:
-                  // Rewrite the URL to point to the main page
-                  // Both listen.tidal.com and store.tidal.com load metadata through an
-                  // API. Bare tidal.com returns the image in a <meta> property.
-                  albumId = this.extractId(url);
-                  assertHasValue(albumId);
-                  _context3.next = 4;
-                  return this.getCoverUrlFromMetadata(albumId);
-
-                case 4:
-                  coverUrl = _context3.sent;
-                  return _context3.abrupt("return", [{
-                    url: new URL(coverUrl),
-                    types: [ArtworkTypeIDs.Front]
-                  }]);
-
-                case 6:
-                case "end":
-                  return _context3.stop();
-              }
-            }
-          }, _callee3, this);
-        }));
-
-        function findImages(_x2) {
-          return _findImages.apply(this, arguments);
-        }
-
-        return findImages;
-      }()
-    }]);
-
-    return TidalProvider;
-  }(CoverArtProvider);
 
   // TODO: This originates from mb_caa_dimensions but is also used here. Not sure
   // where to put it. It might make sense to put it in the mb_caa_dimensions source
@@ -1082,32 +976,15 @@
     return _amendSquareThumbnails3.apply(this, arguments);
   }
 
-  var PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/; // Incomplete, only what we need
+  var DeezerProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
+    _inherits(DeezerProvider, _HeadMetaPropertyProv);
 
-  var VARIANT_TYPE_MAPPING = {
-    MAIN: ArtworkTypeIDs.Front,
-    FRNT: ArtworkTypeIDs.Front,
-    // not seen in use so far, usually MAIN is used for front covers
-    BACK: ArtworkTypeIDs.Back,
-    SIDE: ArtworkTypeIDs.Spine // not seen in use so far
-    // PT01: ArtworkTypeIDs.Other,
-    // See https://sellercentral.amazon.com/gp/help/external/JV4FNMT7563SF5F for further details
+    var _super = _createSuper(DeezerProvider);
 
-  };
-
-  var _extractFrontCover = /*#__PURE__*/new WeakSet();
-
-  var _convertVariant = /*#__PURE__*/new WeakSet();
-
-  var AmazonProvider = /*#__PURE__*/function (_CoverArtProvider) {
-    _inherits(AmazonProvider, _CoverArtProvider);
-
-    var _super = _createSuper(AmazonProvider);
-
-    function AmazonProvider() {
+    function DeezerProvider() {
       var _this;
 
-      _classCallCheck(this, AmazonProvider);
+      _classCallCheck(this, DeezerProvider);
 
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
@@ -1115,261 +992,73 @@
 
       _this = _super.call.apply(_super, [this].concat(args));
 
-      _classPrivateMethodInitSpec(_assertThisInitialized(_this), _convertVariant);
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['deezer.com']);
 
-      _classPrivateMethodInitSpec(_assertThisInitialized(_this), _extractFrontCover);
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://e-cdns-files.dzcdn.net/cache/images/common/favicon/favicon-16x16.526cde4edf20647be4ee32cdf35c1c13.png');
 
-      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.es', 'amazon.fr', 'amazon.it', 'amazon.jp', 'amazon.nl', 'amazon.co.jp', 'amazon.co.uk', 'amazon.com']);
+      _defineProperty(_assertThisInitialized(_this), "name", 'Deezer');
 
-      _defineProperty(_assertThisInitialized(_this), "name", 'Amazon');
-
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/);
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /(?:\w{2}\/)?album\/(\d+)/);
 
       return _this;
     }
 
-    _createClass(AmazonProvider, [{
-      key: "favicon",
-      get: // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
-      function get() {
-        return GM_getResourceURL('amazonFavicon');
+    return DeezerProvider;
+  }(HeadMetaPropertyProvider);
+
+  // JS sources somehow.
+
+  var QUERY_SHA256 = '13e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d7c6ecd';
+  var DiscogsProvider = /*#__PURE__*/function (_CoverArtProvider) {
+    _inherits(DiscogsProvider, _CoverArtProvider);
+
+    var _super = _createSuper(DiscogsProvider);
+
+    function DiscogsProvider() {
+      var _this;
+
+      _classCallCheck(this, DiscogsProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
       }
-    }, {
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['discogs.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://catalog-assets.discogs.com/e95f0cd9.png');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'Discogs');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/release\/(\d+)/);
+
+      return _this;
+    }
+
+    _createClass(DiscogsProvider, [{
       key: "findImages",
       value: function () {
         var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
-          var pageContent, pageDom, frontCover, covers, _this$extractFromEmbe;
-
+          var releaseId, data;
           return regenerator.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  _context.next = 2;
-                  return this.fetchPage(url);
+                  // Loading the full HTML and parsing the metadata JSON embedded within
+                  // it.
+                  releaseId = this.extractId(url);
+                  assertHasValue(releaseId);
+                  _context.next = 4;
+                  return DiscogsProvider.getReleaseImages(releaseId);
 
-                case 2:
-                  pageContent = _context.sent;
-                  pageDom = parseDOM(pageContent, url.href); // Look for products which only have a single image, the front cover.
-
-                  frontCover = _classPrivateMethodGet(this, _extractFrontCover, _extractFrontCover2).call(this, pageDom);
-
-                  if (!frontCover) {
-                    _context.next = 7;
-                    break;
-                  }
-
-                  return _context.abrupt("return", [frontCover]);
-
-                case 7:
-                  // For physical products we have to extract the embedded JS from the
-                  // page source to get all images in their highest available resolution.
-                  covers = this.extractFromEmbeddedJS(pageContent);
-
-                  if (!covers) {
-                    // Use the (smaller) image thumbnails in the sidebar as a fallback,
-                    // although it might not contain all of them. IMU will maximise,
-                    // but the results are still inferior to the embedded hires images.
-                    covers = this.extractFromThumbnailSidebar(pageDom);
-                  }
-
-                  if (!covers.length) {
-                    // Handle physical audiobooks, the above extractors fail for those.
-                    LOGGER.warn('Found no release images, trying to find an Amazon (audio)book gallery…');
-                    covers = (_this$extractFromEmbe = this.extractFromEmbeddedJSGallery(pageContent)) !== null && _this$extractFromEmbe !== void 0 ? _this$extractFromEmbe :
-                    /* istanbul ignore next: Should never happen */
-                    [];
-                  } // Filter out placeholder images.
-
-
-                  return _context.abrupt("return", covers.filter(function (img) {
-                    return !PLACEHOLDER_IMG_REGEX.test(img.url.href);
+                case 4:
+                  data = _context.sent;
+                  return _context.abrupt("return", data.data.release.images.edges.map(function (edge) {
+                    return {
+                      url: new URL(edge.node.fullsize.sourceUrl)
+                    };
                   }));
-
-                case 11:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee, this);
-        }));
-
-        function findImages(_x) {
-          return _findImages.apply(this, arguments);
-        }
-
-        return findImages;
-      }()
-    }, {
-      key: "extractFromEmbeddedJS",
-      value: function extractFromEmbeddedJS(pageContent) {
-        var _pageContent$match,
-            _this2 = this;
-
-        var embeddedImages = (_pageContent$match = pageContent.match(/^'colorImages': { 'initial': (.+)},$/m)) === null || _pageContent$match === void 0 ? void 0 : _pageContent$match[1];
-
-        if (!embeddedImages) {
-          LOGGER.warn('Failed to extract Amazon images from the embedded JS, falling back to thumbnails');
-          return;
-        }
-
-        var imgs = safeParseJSON(embeddedImages);
-
-        if (!Array.isArray(imgs)) {
-          LOGGER.error("Failed to parse Amazon's embedded JS, falling back to thumbnails");
-          return;
-        }
-
-        return imgs.map(function (img) {
-          var _img$hiRes;
-
-          // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
-          return _classPrivateMethodGet(_this2, _convertVariant, _convertVariant2).call(_this2, {
-            url: (_img$hiRes = img.hiRes) !== null && _img$hiRes !== void 0 ? _img$hiRes : img.large,
-            variant: img.variant
-          });
-        });
-      }
-    }, {
-      key: "extractFromEmbeddedJSGallery",
-      value: function extractFromEmbeddedJSGallery(pageContent) {
-        var _pageContent$match2;
-
-        var embeddedGallery = (_pageContent$match2 = pageContent.match(/^'imageGalleryData' : (.+),$/m)) === null || _pageContent$match2 === void 0 ? void 0 : _pageContent$match2[1];
-
-        if (!embeddedGallery) {
-          LOGGER.warn('Failed to extract Amazon images from the embedded JS (audio)book gallery');
-          return;
-        }
-
-        var imgs = safeParseJSON(embeddedGallery);
-
-        if (!Array.isArray(imgs)) {
-          LOGGER.error("Failed to parse Amazon's embedded JS (audio)book gallery");
-          return;
-        } // Amazon embeds no image variants on these pages, so we don't know the types
-
-
-        return imgs.map(function (img) {
-          return {
-            url: new URL(img.mainUrl)
-          };
-        });
-      }
-    }, {
-      key: "extractFromThumbnailSidebar",
-      value: function extractFromThumbnailSidebar(pageDom) {
-        var _this3 = this;
-
-        var imgs = qsa('#altImages img', pageDom);
-        return imgs.map(function (img) {
-          var _img$closest, _safeParseJSON;
-
-          var dataThumbAction = (_img$closest = img.closest('span[data-thumb-action]')) === null || _img$closest === void 0 ? void 0 : _img$closest.getAttribute('data-thumb-action');
-          var variant = dataThumbAction && ((_safeParseJSON = safeParseJSON(dataThumbAction)) === null || _safeParseJSON === void 0 ? void 0 : _safeParseJSON.variant);
-          /* istanbul ignore if: Difficult to exercise */
-
-          if (!variant) {
-            LOGGER.warn('Failed to extract the Amazon image variant code from the JSON attribute');
-          }
-
-          return _classPrivateMethodGet(_this3, _convertVariant, _convertVariant2).call(_this3, {
-            url: img.src,
-            variant: variant
-          });
-        });
-      }
-    }]);
-
-    return AmazonProvider;
-  }(CoverArtProvider);
-
-  function _extractFrontCover2(pageDom) {
-    var frontCoverSelectors = ['#digitalMusicProductImage_feature_div > img', // Streaming/MP3 products
-    'img#main-image' // Audible products
-    ];
-
-    for (var _i = 0, _frontCoverSelectors = frontCoverSelectors; _i < _frontCoverSelectors.length; _i++) {
-      var selector = _frontCoverSelectors[_i];
-      var productImage = qsMaybe(selector, pageDom);
-
-      if (productImage) {
-        // Only returning the thumbnail, IMU will maximise
-        return {
-          url: new URL(productImage.src),
-          types: [ArtworkTypeIDs.Front]
-        };
-      }
-    } // Different product type (or no image found)
-
-
-    return;
-  }
-
-  function _convertVariant2(cover) {
-    var url = new URL(cover.url);
-    var type = cover.variant && VARIANT_TYPE_MAPPING[cover.variant];
-    LOGGER.debug("".concat(url.href, " has the Amazon image variant code '").concat(cover.variant, "'"));
-
-    if (type) {
-      return {
-        url: url,
-        types: [type]
-      };
-    }
-
-    return {
-      url: url
-    };
-  }
-
-  var AmazonMusicProvider = /*#__PURE__*/function (_CoverArtProvider) {
-    _inherits(AmazonMusicProvider, _CoverArtProvider);
-
-    var _super = _createSuper(AmazonMusicProvider);
-
-    function AmazonMusicProvider() {
-      var _this;
-
-      _classCallCheck(this, AmazonMusicProvider);
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      _this = _super.call.apply(_super, [this].concat(args));
-
-      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['music.amazon.ca', 'music.amazon.cn', 'music.amazon.de', 'music.amazon.es', 'music.amazon.fr', 'music.amazon.it', 'music.amazon.jp', 'music.amazon.nl', 'music.amazon.co.jp', 'music.amazon.co.uk', 'music.amazon.com']);
-
-      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png');
-
-      _defineProperty(_assertThisInitialized(_this), "name", 'Amazon Music');
-
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/albums\/([A-Za-z0-9]{10})(?:\/|$)/);
-
-      return _this;
-    }
-
-    _createClass(AmazonMusicProvider, [{
-      key: "findImages",
-      value: function () {
-        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
-          var asin, productUrl;
-          return regenerator.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  // Translate Amazon Music to Amazon product links. The cover art should
-                  // be the same, but extracting the cover art from Amazon Music requires
-                  // complex API requests with CSRF tokens, whereas product pages are much
-                  // easier. Besides, cover art on product pages tends to be larger.
-                  // NOTE: I'm not 100% certain the images are always identical, or that
-                  // the associated product always exists.
-                  asin = this.extractId(url);
-                  assertHasValue(asin);
-                  productUrl = new URL(url.href);
-                  productUrl.hostname = productUrl.hostname.replace(/^music\./, '');
-                  productUrl.pathname = '/dp/' + asin;
-                  return _context.abrupt("return", new AmazonProvider().findImages(productUrl));
 
                 case 6:
                 case "end":
@@ -1385,10 +1074,179 @@
 
         return findImages;
       }()
+    }], [{
+      key: "getReleaseImages",
+      value: function getReleaseImages(releaseId) {
+        var _this2 = this;
+
+        var respProm = this.apiResponseCache.get(releaseId);
+
+        if (typeof respProm === 'undefined') {
+          respProm = this.actuallyGetReleaseImages(releaseId);
+          this.apiResponseCache.set(releaseId, respProm);
+        } // Evict the promise from the cache if it rejects, so that we can retry
+        // later. If we don't evict it, later retries will reuse the failing
+        // promise. Only remove if it hasn't been replaced yet. It may have
+        // already been replaced by another call, since this is asynchronous code
+
+
+        respProm.catch(function () {
+          if (_this2.apiResponseCache.get(releaseId) === respProm) {
+            _this2.apiResponseCache.delete(releaseId);
+          }
+        });
+        return respProm;
+      }
+    }, {
+      key: "actuallyGetReleaseImages",
+      value: function () {
+        var _actuallyGetReleaseImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(releaseId) {
+          var graphqlParams, resp, metadata, responseId;
+          return regenerator.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  graphqlParams = new URLSearchParams({
+                    operationName: 'ReleaseAllImages',
+                    variables: JSON.stringify({
+                      discogsId: parseInt(releaseId),
+                      count: 500
+                    }),
+                    extensions: JSON.stringify({
+                      persistedQuery: {
+                        version: 1,
+                        sha256Hash: QUERY_SHA256
+                      }
+                    })
+                  });
+                  _context2.next = 3;
+                  return gmxhr("https://www.discogs.com/internal/release-page/api/graphql?".concat(graphqlParams));
+
+                case 3:
+                  resp = _context2.sent;
+                  metadata = safeParseJSON(resp.responseText, 'Invalid response from Discogs API');
+                  assertHasValue(metadata.data.release, 'Discogs release does not exist');
+                  responseId = metadata.data.release.discogsId.toString();
+                  assert(typeof responseId === 'undefined' || responseId === releaseId, "Discogs returned wrong release: Requested ".concat(releaseId, ", got ").concat(responseId));
+                  return _context2.abrupt("return", metadata);
+
+                case 9:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2);
+        }));
+
+        function actuallyGetReleaseImages(_x2) {
+          return _actuallyGetReleaseImages.apply(this, arguments);
+        }
+
+        return actuallyGetReleaseImages;
+      }()
+    }, {
+      key: "maximiseImage",
+      value: function () {
+        var _maximiseImage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(url) {
+          var _url$pathname$match, _imageName$match;
+
+          var imageName, releaseId, releaseData, matchedImage;
+          return regenerator.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  // Maximising by querying the API for all images of the release, finding
+                  // the right one, and extracting the "full size" (i.e., 600x600 JPEG) URL.
+                  imageName = (_url$pathname$match = url.pathname.match(/discogs-images\/(R-.+)$/)) === null || _url$pathname$match === void 0 ? void 0 : _url$pathname$match[1];
+                  releaseId = imageName === null || imageName === void 0 ? void 0 : (_imageName$match = imageName.match(/^R-(\d+)/)) === null || _imageName$match === void 0 ? void 0 : _imageName$match[1];
+                  /* istanbul ignore if: Should never happen on valid image */
+
+                  if (releaseId) {
+                    _context3.next = 4;
+                    break;
+                  }
+
+                  return _context3.abrupt("return", url);
+
+                case 4:
+                  _context3.next = 6;
+                  return this.getReleaseImages(releaseId);
+
+                case 6:
+                  releaseData = _context3.sent;
+                  matchedImage = releaseData.data.release.images.edges.find(function (img) {
+                    return img.node.fullsize.sourceUrl.split('/').at(-1) === imageName;
+                  });
+                  /* istanbul ignore if: Should never happen on valid image */
+
+                  if (matchedImage) {
+                    _context3.next = 10;
+                    break;
+                  }
+
+                  return _context3.abrupt("return", url);
+
+                case 10:
+                  return _context3.abrupt("return", new URL(matchedImage.node.fullsize.sourceUrl));
+
+                case 11:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, this);
+        }));
+
+        function maximiseImage(_x3) {
+          return _maximiseImage.apply(this, arguments);
+        }
+
+        return maximiseImage;
+      }()
     }]);
 
-    return AmazonMusicProvider;
+    return DiscogsProvider;
   }(CoverArtProvider);
+
+  _defineProperty(DiscogsProvider, "apiResponseCache", new Map());
+
+  var MelonProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
+    _inherits(MelonProvider, _HeadMetaPropertyProv);
+
+    var _super = _createSuper(MelonProvider);
+
+    function MelonProvider() {
+      var _this;
+
+      _classCallCheck(this, MelonProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['melon.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://www.melon.com/favicon.ico');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'Melon');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /album\/detail\.htm.*[?&]albumId=(\d+)/);
+
+      return _this;
+    }
+
+    _createClass(MelonProvider, [{
+      key: "cleanUrl",
+      value: function cleanUrl(url) {
+        // Album ID is in the query params, base `cleanUrl` strips those away.
+        return _get(_getPrototypeOf(MelonProvider.prototype), "cleanUrl", this).call(this, url) + url.search;
+      }
+    }]);
+
+    return MelonProvider;
+  }(HeadMetaPropertyProvider);
 
   // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
   // just use a constant app ID first.
@@ -1543,6 +1401,253 @@
     }]);
 
     return QobuzProvider;
+  }(CoverArtProvider);
+
+  // https://github.com/ROpdebee/mb-userscripts/issues/158
+
+  var QubMusiqueProvider = /*#__PURE__*/function (_QobuzProvider) {
+    _inherits(QubMusiqueProvider, _QobuzProvider);
+
+    var _super = _createSuper(QubMusiqueProvider);
+
+    function QubMusiqueProvider() {
+      var _this;
+
+      _classCallCheck(this, QubMusiqueProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['qub.ca']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://www.qub.ca/assets/favicons/apple-touch-icon.png');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'QUB Musique');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", [/musique\/album\/[\w-]*-([A-Za-z0-9]+)(?:\/|$)/]);
+
+      return _this;
+    } // We can reuse the rest of the implementations of QobuzProvider, since it
+    // extracts the ID and uses the Qobuz API instead of loading the page.
+
+
+    return QubMusiqueProvider;
+  }(QobuzProvider);
+
+  var SpotifyProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
+    _inherits(SpotifyProvider, _HeadMetaPropertyProv);
+
+    var _super = _createSuper(SpotifyProvider);
+
+    function SpotifyProvider() {
+      var _this;
+
+      _classCallCheck(this, SpotifyProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['open.spotify.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://open.scdn.co/cdn/images/favicon32.8e66b099.png');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'Spotify');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/album\/(\w+)/);
+
+      return _this;
+    }
+
+    return SpotifyProvider;
+  }(HeadMetaPropertyProvider);
+
+  // API keys, I guess they might depend on the user type and/or country?
+  // Also not sure whether these may change often or not. If they do, we might
+  // need to switch to extracting them from the JS.
+  // However, seeing as this key has been present in their JS code for at least
+  // 3 years already, I doubt this will stop working any time soon.
+  // https://web.archive.org/web/20181015184006/https://listen.tidal.com/app.9dbb572e8121f8755b73.js
+
+  var APP_ID = 'CzET4vdadNUFQ5JU'; // Incomplete and not entirely correct, but good enough for our purposes.
+
+  var _countryCode = /*#__PURE__*/new WeakMap();
+
+  var TidalProvider = /*#__PURE__*/function (_CoverArtProvider) {
+    _inherits(TidalProvider, _CoverArtProvider);
+
+    var _super = _createSuper(TidalProvider);
+
+    function TidalProvider() {
+      var _this;
+
+      _classCallCheck(this, TidalProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['tidal.com', 'listen.tidal.com', 'store.tidal.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://listen.tidal.com/favicon.ico');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'Tidal');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/album\/(\d+)/);
+
+      _classPrivateFieldInitSpec(_assertThisInitialized(_this), _countryCode, {
+        writable: true,
+        value: null
+      });
+
+      return _this;
+    }
+
+    _createClass(TidalProvider, [{
+      key: "getCountryCode",
+      value: function () {
+        var _getCountryCode = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+          var resp, codeResponse;
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  if (_classPrivateFieldGet(this, _countryCode)) {
+                    _context.next = 6;
+                    break;
+                  }
+
+                  _context.next = 3;
+                  return gmxhr('https://listen.tidal.com/v1/country/context?countryCode=WW&locale=en_US&deviceType=BROWSER', {
+                    headers: {
+                      'x-tidal-token': APP_ID
+                    }
+                  });
+
+                case 3:
+                  resp = _context.sent;
+                  codeResponse = safeParseJSON(resp.responseText, 'Invalid JSON response from Tidal API for country code');
+
+                  _classPrivateFieldSet(this, _countryCode, codeResponse.countryCode);
+
+                case 6:
+                  assertHasValue(_classPrivateFieldGet(this, _countryCode), 'Cannot determine Tidal country');
+                  return _context.abrupt("return", _classPrivateFieldGet(this, _countryCode));
+
+                case 8:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function getCountryCode() {
+          return _getCountryCode.apply(this, arguments);
+        }
+
+        return getCountryCode;
+      }()
+    }, {
+      key: "getCoverUrlFromMetadata",
+      value: function () {
+        var _getCoverUrlFromMetadata = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(albumId) {
+          var _metadata$rows$, _metadata$rows$$modul, _metadata$rows$$modul2;
+
+          var countryCode, apiUrl, resp, metadata, albumMetadata, coverId;
+          return regenerator.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  _context2.next = 2;
+                  return this.getCountryCode();
+
+                case 2:
+                  countryCode = _context2.sent;
+                  _context2.next = 5;
+                  return gmxhr('https://listen.tidal.com/v1/ping');
+
+                case 5:
+                  apiUrl = "https://listen.tidal.com/v1/pages/album?albumId=".concat(albumId, "&countryCode=").concat(countryCode, "&deviceType=BROWSER");
+                  _context2.next = 8;
+                  return gmxhr(apiUrl, {
+                    headers: {
+                      'x-tidal-token': APP_ID
+                    }
+                  });
+
+                case 8:
+                  resp = _context2.sent;
+                  metadata = safeParseJSON(resp.responseText, 'Invalid response from Tidal API');
+                  albumMetadata = (_metadata$rows$ = metadata.rows[0]) === null || _metadata$rows$ === void 0 ? void 0 : (_metadata$rows$$modul = _metadata$rows$.modules) === null || _metadata$rows$$modul === void 0 ? void 0 : (_metadata$rows$$modul2 = _metadata$rows$$modul[0]) === null || _metadata$rows$$modul2 === void 0 ? void 0 : _metadata$rows$$modul2.album;
+                  assertHasValue(albumMetadata, 'Tidal API returned no album, 404?');
+                  assert(albumMetadata.id.toString() === albumId, "Tidal returned wrong release: Requested ".concat(albumId, ", got ").concat(albumMetadata.id));
+                  coverId = albumMetadata.cover;
+                  assertHasValue(coverId, 'Could not find cover in Tidal metadata');
+                  return _context2.abrupt("return", "https://resources.tidal.com/images/".concat(coverId.replace(/-/g, '/'), "/origin.jpg"));
+
+                case 16:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2, this);
+        }));
+
+        function getCoverUrlFromMetadata(_x) {
+          return _getCoverUrlFromMetadata.apply(this, arguments);
+        }
+
+        return getCoverUrlFromMetadata;
+      }()
+    }, {
+      key: "findImages",
+      value: function () {
+        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(url) {
+          var albumId, coverUrl;
+          return regenerator.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  // Rewrite the URL to point to the main page
+                  // Both listen.tidal.com and store.tidal.com load metadata through an
+                  // API. Bare tidal.com returns the image in a <meta> property.
+                  albumId = this.extractId(url);
+                  assertHasValue(albumId);
+                  _context3.next = 4;
+                  return this.getCoverUrlFromMetadata(albumId);
+
+                case 4:
+                  coverUrl = _context3.sent;
+                  return _context3.abrupt("return", [{
+                    url: new URL(coverUrl),
+                    types: [ArtworkTypeIDs.Front]
+                  }]);
+
+                case 6:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, this);
+        }));
+
+        function findImages(_x2) {
+          return _findImages.apply(this, arguments);
+        }
+
+        return findImages;
+      }()
+    }]);
+
+    return TidalProvider;
   }(CoverArtProvider);
 
   function mapJacketType(caption) {
@@ -1801,73 +1906,6 @@
     }, mapper(captionRest));
   }
 
-  // https://github.com/ROpdebee/mb-userscripts/issues/158
-
-  var QubMusiqueProvider = /*#__PURE__*/function (_QobuzProvider) {
-    _inherits(QubMusiqueProvider, _QobuzProvider);
-
-    var _super = _createSuper(QubMusiqueProvider);
-
-    function QubMusiqueProvider() {
-      var _this;
-
-      _classCallCheck(this, QubMusiqueProvider);
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      _this = _super.call.apply(_super, [this].concat(args));
-
-      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['qub.ca']);
-
-      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://www.qub.ca/assets/favicons/apple-touch-icon.png');
-
-      _defineProperty(_assertThisInitialized(_this), "name", 'QUB Musique');
-
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", [/musique\/album\/[\w-]*-([A-Za-z0-9]+)(?:\/|$)/]);
-
-      return _this;
-    } // We can reuse the rest of the implementations of QobuzProvider, since it
-    // extracts the ID and uses the Qobuz API instead of loading the page.
-
-
-    return QubMusiqueProvider;
-  }(QobuzProvider);
-
-  // we can also grab it from the <head> element metadata, which is a lot less
-  // effort, and we get the added benefit of redirect safety.
-
-  var SevenDigitalProvider = /*#__PURE__*/function (_HeadMetaPropertyProv) {
-    _inherits(SevenDigitalProvider, _HeadMetaPropertyProv);
-
-    var _super = _createSuper(SevenDigitalProvider);
-
-    function SevenDigitalProvider() {
-      var _this;
-
-      _classCallCheck(this, SevenDigitalProvider);
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      _this = _super.call.apply(_super, [this].concat(args));
-
-      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['*.7digital.com']);
-
-      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://css-cdn.7digital.com/static/build/images/favicons/7digital/touch-ipad-retina.png');
-
-      _defineProperty(_assertThisInitialized(_this), "name", '7digital');
-
-      _defineProperty(_assertThisInitialized(_this), "urlRegex", /release\/.*-(\d+)(?:\/|$)/);
-
-      return _this;
-    }
-
-    return SevenDigitalProvider;
-  }(HeadMetaPropertyProvider);
-
   var PROVIDER_DISPATCH = new DispatchMap();
 
   function addProvider(provider) {
@@ -1882,6 +1920,7 @@
   addProvider(new BandcampProvider());
   addProvider(new DeezerProvider());
   addProvider(new DiscogsProvider());
+  addProvider(new MelonProvider());
   addProvider(new QobuzProvider());
   addProvider(new QubMusiqueProvider());
   addProvider(new SevenDigitalProvider());
