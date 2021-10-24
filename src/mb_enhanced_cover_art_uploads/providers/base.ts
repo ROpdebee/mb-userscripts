@@ -163,10 +163,24 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
     // Providers for which the cover art can be retrieved from the head
     // og:image property and maximised using maxurl
 
+    /**
+     * Template method to be used by subclasses to check whether the document
+     * indicates a missing release. This only needs to be implemented if the
+     * provider returns success codes for releases which are 404.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    protected is404Page(_document: Document): boolean {
+        return false;
+    }
+
     async findImages(url: URL): Promise<CoverArt[]> {
         // Find an image link from a HTML head meta property, maxurl will
         // maximize it for us. Don't want to use the API because of OAuth.
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
+        if (this.is404Page(respDocument)) {
+            throw new Error(this.name + ' release does not exist');
+        }
+
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
         return [{
             url: new URL(coverElmt.content),
