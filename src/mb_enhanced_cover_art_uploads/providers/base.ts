@@ -110,10 +110,8 @@ export abstract class CoverArtProvider {
 
     #createTrackImageComment(trackNumbers: Array<string | undefined>): string | undefined {
         const definedTrackNumbers = filterNonNull(trackNumbers);
-        /* istanbul ignore if: Can't find case */
         if (!definedTrackNumbers.length) return;
 
-        /* istanbul ignore next: Can't find case with multiple */
         const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
         return `${prefix} ${definedTrackNumbers.join(', ')}`;
     }
