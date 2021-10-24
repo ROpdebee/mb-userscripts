@@ -18,8 +18,8 @@ export class StatusBanner implements LoggingSink {
     }
 
     #setStatusBanner(message: string, exception?: unknown): void {
-        if (exception && Object.hasOwnProperty.call(exception, 'message')) {
-            this.#banner.textContent = message + ' ' + exception;
+        if (exception && exception instanceof Error) {
+            this.#banner.textContent = message + ': ' + exception.message;
         } else {
             this.#banner.textContent = message;
         }
