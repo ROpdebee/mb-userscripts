@@ -1,15 +1,12 @@
-import { LOGGER } from '@lib/logging/logger';
-import { filterNonNull, groupBy } from '@lib/util/array';
-import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import pThrottle from 'p-throttle';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
-import type { CoverArt } from './base';
-import { getImageDimensions } from '../image_dimensions';
 
-interface ParsedTrackImage {
-    url: string;
-    trackNumber?: string;
-}
+import { LOGGER } from '@lib/logging/logger';
+import { filterNonNull } from '@lib/util/array';
+import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
+
+import type { CoverArt, ParsedTrackImage } from './base';
+import { ArtworkTypeIDs, CoverArtProvider } from './base';
+import { getImageDimensions } from '../image_dimensions';
 
 export class BandcampProvider extends CoverArtProvider {
     supportedDomains = ['*.bandcamp.com'];
@@ -58,7 +55,7 @@ export class BandcampProvider extends CoverArtProvider {
         // submitting the upload form before all track images are fetched...
         const trackImages = await Promise.all(trackRows
             .map((trackRow) => this.#findTrackImage(trackRow, throttledFetchPage)));
-        const mergedTrackImages = this.#mergeTrackImages(trackImages, mainUrl);
+        const mergedTrackImages = this.mergeTrackImages(trackImages, mainUrl);
         if (mergedTrackImages.length) {
             LOGGER.info(`Found ${mergedTrackImages.length} unique track images`);
         } else {
@@ -90,35 +87,6 @@ export class BandcampProvider extends CoverArtProvider {
             LOGGER.error(`Could not check track ${trackNum} for track images`, err);
             return;
         }
-    }
-
-    #mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string): CoverArt[] {
-        const newTrackImages = filterNonNull(trackImages)
-            // Filter out tracks that have the same image as the main release.
-            .filter((img) => img.url !== mainUrl);
-        const imgUrlToTrackNumber = groupBy(newTrackImages, (el) => el.url, (el) => el.trackNumber);
-
-        const results: CoverArt[] = [];
-        imgUrlToTrackNumber.forEach((trackNumbers, imgUrl) => {
-            results.push({
-                url: new URL(imgUrl),
-                types: [ArtworkTypeIDs.Track],
-                // Use comment to indicate which tracks this applies to.
-                comment: this.#createTrackImageComment(trackNumbers),
-            });
-        });
-
-        return results;
-    }
-
-    #createTrackImageComment(trackNumbers: Array<string | undefined>): string {
-        const definedTrackNumbers = filterNonNull(trackNumbers);
-        /* istanbul ignore if: Can't find case */
-        if (!definedTrackNumbers.length) return '';
-
-        /* istanbul ignore next: Can't find case with multiple */
-        const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
-        return `${prefix} ${definedTrackNumbers.join(', ')}`;
     }
 
     async #amendSquareThumbnails(covers: CoverArt[]): Promise<CoverArt[]> {
