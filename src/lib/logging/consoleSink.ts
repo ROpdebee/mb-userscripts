@@ -25,8 +25,11 @@ export class ConsoleSink implements LoggingSink {
 
     onSuccess = this.onInfo;
 
-    onWarn(message: string): void {
-        console.warn(this.#formatMessage(message));
+    onWarn(message: string, exception?: unknown): void {
+        message = this.#formatMessage(message);
+
+        if (exception) console.warn(message, exception);
+        else console.warn(message);
     }
 
     onError(message: string, exception?: unknown): void {

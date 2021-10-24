@@ -64,8 +64,8 @@ export class Logger {
     success(message: string): void {
         this.#fireHandlers(LogLevel.SUCCESS, message);
     }
-    warn(message: string): void {
-        this.#fireHandlers(LogLevel.WARNING, message);
+    warn(message: string, exception?: unknown): void {
+        this.#fireHandlers(LogLevel.WARNING, message, exception);
     }
     error(message: string, exception?: unknown): void {
         this.#fireHandlers(LogLevel.ERROR, message, exception);

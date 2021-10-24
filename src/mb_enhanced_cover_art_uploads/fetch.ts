@@ -84,8 +84,7 @@ export class ImageFetcher {
                     LOGGER.debug(`Maximised ${url.href} to ${maxCandidate.url.href}`);
                     break;
                 } catch (err) {
-                    const errDesc = err instanceof Error ? err.message : /* istanbul ignore next: Not worth it */ err;
-                    LOGGER.warn(`Skipping maximised candidate ${candidateName}: ${errDesc}`);
+                    LOGGER.warn(`Skipping maximised candidate ${candidateName}`, err);
                 }
             }
         }
@@ -137,8 +136,7 @@ export class ImageFetcher {
                     comment: img.comment,
                 });
             } catch (err) {
-                const errDesc = err instanceof Error ? err.message : /* istanbul ignore next: Not worth it */ err;
-                LOGGER.warn(`Skipping ${getFilename(img.url)}: ${errDesc}`);
+                LOGGER.warn(`Skipping ${getFilename(img.url)}`, err);
             }
         }
 
