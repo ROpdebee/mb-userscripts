@@ -12,6 +12,7 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Bandcamp | ✔️ | ✔️ | Grabs custom track images. For non-square covers, a square thumbnail will be added too. Custom domains currently not supported. |
 | Deezer | ✔️ | ✔️ |
 | Discogs | Partial | ❌ | Images are limited to 600x600, see [qsniyg/maxurl#689](https://github.com/qsniyg/maxurl/issues/689) |
+| Melon | ✔️ | ✔️ |
 | Qobuz | ✔️ | ✔️ | Goodies are grabbed whenever possible. Back covers might not be supported at this time, if you have a release with a back cover, please let me know. |
 | QUB Musique | ✔️ | ✔️ | Dispatched to Qobuz provider. |
 | Spotify | ✔️ | ✔️ |
