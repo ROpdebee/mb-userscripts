@@ -1,18 +1,20 @@
 import { DispatchMap } from '@lib/util/domain_dispatch';
 
 import type { CoverArtProvider } from './base';
-import { AppleMusicProvider } from './apple_music';
-import { DeezerProvider } from './deezer';
-import { DiscogsProvider } from './discogs';
-import { SpotifyProvider } from './spotify';
-import { TidalProvider } from './tidal';
-import { BandcampProvider } from './bandcamp';
+
+import { SevenDigitalProvider } from './7digital';
 import { AmazonProvider } from './amazon';
 import { AmazonMusicProvider } from './amazon_music';
+import { AppleMusicProvider } from './apple_music';
+import { BandcampProvider } from './bandcamp';
+import { DeezerProvider } from './deezer';
+import { DiscogsProvider } from './discogs';
+import { MelonProvider } from './melon';
 import { QobuzProvider } from './qobuz';
-import { VGMdbProvider } from './vgmdb';
 import { QubMusiqueProvider } from './qub_musique';
-import { SevenDigitalProvider } from './7digital';
+import { SpotifyProvider } from './spotify';
+import { TidalProvider } from './tidal';
+import { VGMdbProvider } from './vgmdb';
 
 const PROVIDER_DISPATCH = new DispatchMap<CoverArtProvider>();
 
@@ -27,6 +29,7 @@ addProvider(new AppleMusicProvider());
 addProvider(new BandcampProvider());
 addProvider(new DeezerProvider());
 addProvider(new DiscogsProvider());
+addProvider(new MelonProvider());
 addProvider(new QobuzProvider());
 addProvider(new QubMusiqueProvider());
 addProvider(new SevenDigitalProvider());
