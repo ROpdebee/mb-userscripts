@@ -29,7 +29,12 @@ export class HTTPResponseError extends ResponseError {
     response: GMXMLHttpRequestResponse;
 
     constructor(url: string | URL, response: GMXMLHttpRequestResponse) {
-        super(url, `HTTP error ${response.status}: ${response.statusText}`);
+        /* istanbul ignore else: Should not happen */
+        if (response.statusText.trim()) {
+            super(url, `HTTP error ${response.status}: ${response.statusText}`);
+        } else {
+            super(url, `HTTP error ${response.status}`);
+        }
 
         this.response = response;
         this.statusCode = response.status;
