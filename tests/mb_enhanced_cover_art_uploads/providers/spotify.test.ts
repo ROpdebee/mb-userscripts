@@ -49,7 +49,7 @@ describe('spotify provider', () => {
             recordFailedRequests: true
         });
 
-        await expect(provider.findImages(new URL('https://open.spotify.com/album/IDoNotExist')))
-            .toReject();
+        await expect(provider.findImages(new URL('https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURi')))
+            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
 });

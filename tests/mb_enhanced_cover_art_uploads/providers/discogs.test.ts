@@ -52,7 +52,7 @@ describe('discogs provider', () => {
             });
 
             await expect(provider.findImages(new URL('https://www.discogs.com/release/32342343')))
-                .rejects.toMatchObject({ message: 'Discogs release does not exist' });
+                .rejects.toThrowWithMessage(Error, 'Discogs release does not exist');
         });
     });
 

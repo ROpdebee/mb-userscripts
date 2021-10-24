@@ -41,6 +41,6 @@ describe('beatport provider', () => {
         });
 
         await expect(provider.findImages(new URL('https://www.beatport.com/release/osa-ep/1778')))
-            .toReject();
+            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
 });

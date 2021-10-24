@@ -2,7 +2,6 @@ import { setupPolly } from '@test-utils/pollyjs';
 
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { AmazonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon';
-import { HTTPResponseError } from '@lib/util/xhr';
 import { urlMatchingSpec } from './url_matching_spec';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
@@ -148,7 +147,7 @@ describe('amazon provider', () => {
         });
 
         await expect(provider.findImages(new URL('http://amazon.com/gp/product/B01NCKFNXH')))
-            .rejects.toBeInstanceOf(HTTPResponseError);
+            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
 
     it('provides a favicon', () => {

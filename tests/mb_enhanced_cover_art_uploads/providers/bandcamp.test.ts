@@ -98,14 +98,12 @@ describe('bandcamp provider', () => {
         });
 
         await expect(provider.findImages(new URL('https://powergameheavy.bandcamp.com/album/404')))
-            .toReject();
+            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
 
     it('throws if the release redirects', async () => {
         await expect(provider.findImages(new URL('https://tempelfanwolven.bandcamp.com/album/spell-of-the-driftless-forest')))
-            .rejects.toMatchObject({
-                message: expect.stringContaining('different release'),
-            });
+            .rejects.toThrowWithMessage(Error, /different release/);
     });
 
     it('returns no images if release has no cover', async () => {

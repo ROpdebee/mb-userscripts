@@ -3,7 +3,6 @@ import { setupPolly } from '@test-utils/pollyjs';
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 // @ts-expect-error rewired
 import { VGMdbProvider, __get__ } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
-import { HTTPResponseError } from '@lib/util/xhr';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 import { urlMatchingSpec } from './url_matching_spec';
 
@@ -232,7 +231,7 @@ describe('vgmdb provider', () => {
                 });
 
             await expect(provider.findImages(new URL('https://vgmdb.net/album/404')))
-                .rejects.toBeInstanceOf(HTTPResponseError);
+                .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
         });
     });
 });
