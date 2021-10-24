@@ -1,3 +1,4 @@
+import { qsMaybe } from '@lib/util/dom';
 import { HeadMetaPropertyProvider } from './base';
 
 export class MelonProvider extends HeadMetaPropertyProvider {
@@ -9,5 +10,9 @@ export class MelonProvider extends HeadMetaPropertyProvider {
     override cleanUrl(url: URL): string {
         // Album ID is in the query params, base `cleanUrl` strips those away.
         return super.cleanUrl(url) + url.search;
+    }
+
+    override is404Page(doc: Document): boolean {
+        return qsMaybe('body > input#returnUrl', doc) !== null;
     }
 }
