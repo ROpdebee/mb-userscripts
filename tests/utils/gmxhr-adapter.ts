@@ -1,5 +1,6 @@
 // GM_xmlhttpRequest adapter for pollyjs
 import type { Headers as PollyHeaders, Request, Response } from '@pollyjs/core';
+import { Buffer } from 'buffer';
 import Adapter from '@pollyjs/adapter';
 import fetch from 'node-fetch';
 
@@ -54,24 +55,7 @@ export default class GMXHRAdapter extends Adapter {
                 method: options.method,
                 headers: options.headers,
                 body: options.data,
-                requestArguments: options
-            }).then(({ response }: { response: Response }) => {
-                // Extract the final URL from the headers. We stored these in
-                // the passthrough
-                const headers = {...response.headers};
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                const finalUrl = headers['x-pollyjs-finalurl'] ?? options.url;
-                delete headers['x-pollyjs-finalUrl'];
-
-                options.onload?.({
-                    readyState: 4,
-                    responseHeaders: pollyHeadersToString(headers),
-                    responseText: response.body as string,
-                    status: response.statusCode,
-                    statusText: response.statusText,
-                    finalUrl: Array.isArray(finalUrl) ? finalUrl[0] : finalUrl,
-                    context: options.context,
-                });
+                requestArguments: options,
             });
 
             // TODO: Do we need to implement this? We're also not supporting
@@ -104,11 +88,15 @@ export default class GMXHRAdapter extends Adapter {
         return new Promise((resolve, reject) => {
             // Shouldn't happen.
             if (!this.#realGMXHR) throw new Error('Where is GM_xmlhttpRequest?');
+            // @ts-expect-error bad type defs
+            const { responseType } = pollyRequest.requestArguments;
 
             this.#realGMXHR({
                 url: pollyRequest.url,
                 method: pollyRequest.method,
                 headers: pollyRequest.headers,
+                // @ts-expect-error bad type defs
+                responseType: responseType === 'text' ? 'text' : 'arraybuffer',
                 data: pollyRequest.body,
                 onload: (resp) => {
                     const pollyHeaders = stringToPollyHeaders(resp.responseHeaders);
@@ -116,11 +104,29 @@ export default class GMXHRAdapter extends Adapter {
                     // and the headers seem to be the only way to store this in
                     // the persisted response.
                     pollyHeaders['x-pollyjs-finalurl'] = resp.finalUrl;
-                    resolve({
+
+                    const result = {
                         statusCode: resp.status,
                         headers: pollyHeaders,
-                        body: resp.responseText,
-                    });
+                    };
+
+                    if (!responseType || responseType === 'text') {
+                        resolve({
+                            ...result,
+                            body: resp.responseText,
+                            // @ts-expect-error bad type defs
+                            isBinary: false,
+                        });
+                    } else {
+                        // @ts-expect-error bad type defs
+                        const buffer = Buffer.from(resp.response as ArrayBuffer);
+                        resolve({
+                            ...result,
+                            body: buffer.toString('hex'),
+                            // @ts-expect-error bad type defs
+                            isBinary: true,
+                        });
+                    }
                 },
                 onerror: reject,
                 onabort: reject,
@@ -130,6 +136,8 @@ export default class GMXHRAdapter extends Adapter {
     }
 
     async passthroughFetch(pollyRequest: Request): ReturnType<Adapter['passthroughRequest']> {
+        // @ts-expect-error bad type defs
+        const { responseType } = pollyRequest.requestArguments;
         const headers = pollyHeadersToFetchHeaders(pollyRequest.headers);
         const resp = await fetch(pollyRequest.url, {
             method: pollyRequest.method,
@@ -140,10 +148,79 @@ export default class GMXHRAdapter extends Adapter {
         const pollyHeaders = fetchHeadersToPollyHeaders(resp.headers);
         // Storing the final URL after redirect, see `passthroughRealGMXHR`.
         pollyHeaders['x-pollyjs-finalurl'] = resp.url;
-        return {
-            statusCode: resp.status,
-            headers: pollyHeaders,
-            body: await resp.text()
-        };
+
+        if (!responseType || responseType === 'text') {
+            return {
+                statusCode: resp.status,
+                headers: pollyHeaders,
+                body: await resp.text(),
+                // @ts-expect-error bad type defs
+                isBinary: false,
+            };
+        } else {
+            const arrayBuffer = await resp.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+            return {
+                statusCode: resp.status,
+                headers: pollyHeaders,
+                body: buffer.toString('hex'),
+                // @ts-expect-error bad type defs
+                isBinary: true,
+            };
+        }
+    }
+
+    respondToRequest(pollyRequest: Request, error?: GMXMLHttpRequestResponse): void {
+        // @ts-expect-error bad type defs
+        const response = pollyRequest.response as Response;
+        // @ts-expect-error bad type defs
+        const options = pollyRequest.requestArguments as GMXMLHttpRequestOptions;
+        // @ts-expect-error bad type defs
+        const responseType = options.responseType;
+
+        // Extract the final URL from the headers. We stored these in
+        // the passthrough
+        const headers = {...response.headers};
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        const finalUrl = headers['x-pollyjs-finalurl'] ?? options.url;
+        delete headers['x-pollyjs-finalUrl'];
+
+        if (error) {
+            options.onerror?.(error);
+        } else {
+            const resp = {
+                readyState: 4,
+                responseHeaders: pollyHeadersToString(headers),
+                status: response.statusCode,
+                statusText: response.statusText,
+                finalUrl: Array.isArray(finalUrl) ? finalUrl[0] : finalUrl,
+                context: options.context,
+            };
+
+            if (response.isBinary) {
+                const buffer = Buffer.from(response.body as string, 'hex');
+                const arrayBuffer = Uint8Array.from(buffer);
+                if (responseType === 'blob') {
+                    options.onload?.({
+                        ...resp,
+                        // @ts-expect-error bad type defs
+                        response: new Blob([arrayBuffer]),
+                    });
+                } else if (responseType === 'arraybuffer') {
+                    options.onload?.({
+                        ...resp,
+                        // @ts-expect-error bad type defs
+                        response: arrayBuffer,
+                    });
+                } else {
+                    throw new Error('Unknown response type: ' + responseType);
+                }
+            } else {
+                options.onload?.({
+                    ...resp,
+                    responseText: response.body as string,
+                });
+            }
+        }
     }
 }
