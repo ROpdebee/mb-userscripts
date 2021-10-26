@@ -26,9 +26,11 @@ const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
 
 export class AmazonProvider extends CoverArtProvider {
     supportedDomains = [
-        'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.es', 'amazon.fr',
-        'amazon.it', 'amazon.jp', 'amazon.nl', 'amazon.co.jp', 'amazon.co.uk',
-        'amazon.com'];
+        'amazon.ae', 'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.eg',
+        'amazon.es', 'amazon.fr', 'amazon.in', 'amazon.it', 'amazon.jp',
+        'amazon.nl', 'amazon.pl', 'amazon.sa', 'amazon.se', 'amazon.sg',
+        'amazon.co.jp', 'amazon.co.uk', 'amazon.com', 'amazon.com.au',
+        'amazon.com.br', 'amazon.com.mx', 'amazon.com.tr'];
     // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
     get favicon(): string {
         return GM_getResourceURL('amazonFavicon');
