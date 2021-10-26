@@ -6,9 +6,9 @@ function splitDomain(domain: string): string[] {
     // We keep base and TLD together to avoid unnecessary common lookups.
     const parts = domain.split('.');
     let splitIdx = -2;
-    // Watch out for e.g. amazon.co.uk or amazon.co.jp. Our handling of this is
+    // Watch out for e.g. amazon.co.uk or amazon.com.au. Our handling of this is
     // pretty naive (co.be is a valid site for example), but it works well enough.
-    if (['org', 'co'].includes(parts.at(-2))) {
+    if (['org', 'co', 'com'].includes(parts.at(-2))) {
         splitIdx = -3;
     }
     return parts.slice(0, splitIdx).concat([parts.slice(splitIdx).join('.')]);
