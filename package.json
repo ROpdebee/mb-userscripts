@@ -52,7 +52,7 @@
     "@types/rollup__plugin-virtual": "^2.0.1",
     "@types/rollup-plugin-progress": "^1.1.0",
     "@types/setup-polly-jest": "^0.5.1",
-    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.1.0",
     "babel-plugin-rewire-ts": "^1.4.0",
     "eslint": "^8.1.0",
