@@ -47,7 +47,7 @@ function enableDummyFetch(mock: jest.SpiedFunction<ImageFetcher['fetchImageConte
             fetchedUrl: url,
             requestedUrl: url,
             wasRedirected: false,
-            file: new File([new Blob(['test'])], filename + '.0.jpg', { type: 'image/jpeg' }),
+            file: new File([new Blob(['test'])], filename.replace(/\.\w+$/, '') + '.0.jpg', { type: 'image/jpeg' }),
         }));
 }
 
@@ -110,7 +110,7 @@ describe('fetching image contents', () => {
             .resolves.toMatchObject({
                 file: {
                     type: 'image/png',
-                    name: 'test.jpg.0.png',
+                    name: 'test.0.png',
                 },
                 requestedUrl: {
                     href: 'https://example.com/working',
@@ -149,13 +149,13 @@ describe('fetching image contents', () => {
         await expect(fetcher.fetchImageContents(new URL('https://example.com/working'), 'test.jpg', {}))
             .resolves.toMatchObject({
                 file: {
-                    name: 'test.jpg.0.png',
+                    name: 'test.0.png',
                 },
             });
         await expect(fetcher.fetchImageContents(new URL('https://example.com/working'), 'test.jpg', {}))
             .resolves.toMatchObject({
                 file: {
-                    name: 'test.jpg.1.png',
+                    name: 'test.1.png',
                 },
             });
     });
@@ -188,7 +188,7 @@ describe('fetching image from URL', () => {
 
         it('uses the URL filename if present', async () => {
             await expect(fetcher.fetchImageFromURL(new URL('https://example.com/test.jpg')))
-                .resolves.toHaveProperty('content.name', 'test.jpg.0.jpg');
+                .resolves.toHaveProperty('content.name', 'test.0.jpg');
         });
 
         it('falls back to default filename if none present in URL', async () => {
@@ -244,7 +244,7 @@ describe('fetching image from URL', () => {
 
         it('fetches the first maximised candidate', async () => {
             await expect(fetcher.fetchImageFromURL(new URL('https://example.com/test')))
-                .resolves.toHaveProperty('content.name', '1.png.0.jpg');
+                .resolves.toHaveProperty('content.name', '1.0.jpg');
         });
 
         it('fetches the second maximised candidate if first fails', async () => {
