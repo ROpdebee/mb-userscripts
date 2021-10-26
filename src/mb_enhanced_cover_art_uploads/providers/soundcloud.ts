@@ -1,10 +1,8 @@
 import { filterNonNull } from '@lib/util/array';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
-import type { CoverArt, ParsedTrackImage } from './base';
+import { ArtworkTypeIDs, ProviderWithTrackImages } from './base';
+import type { CoverArt } from './base';
 import { safeParseJSON } from '@lib/util/json';
 import { assert } from '@lib/util/assert';
-import { gmxhr } from '@lib/util/xhr';
-import { LOGGER } from '@lib/logging/logger';
 
 // Incomplete, only what we need.
 interface SCHydration {
@@ -28,24 +26,7 @@ interface SCHydrationPlaylist extends SCHydration {
     };
 }
 
-async function urlToDataUri(url: string): Promise<string> {
-    const resp = await gmxhr(url, {
-        responseType: 'blob',
-    });
-
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.addEventListener('load', () => {
-            resolve(reader.result as string);
-        });
-        reader.addEventListener('abort', reject);
-        reader.addEventListener('error', reject);
-        reader.readAsDataURL(resp.response);
-    });
-}
-
-
-export class SoundcloudProvider extends CoverArtProvider {
+export class SoundcloudProvider extends ProviderWithTrackImages {
     supportedDomains = ['soundcloud.com'];
     favicon = 'https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico';
     name = 'Soundcloud';
@@ -140,50 +121,8 @@ export class SoundcloudProvider extends CoverArtProvider {
                     trackNumber: (trackNumber + 1).toString(),
                 };
             }));
-        const mergedTrackCovers = await this.mergeTrackImagesByData(trackCovers, metadata.data.artwork_url);
+        const mergedTrackCovers = await this.mergeTrackImages(trackCovers, metadata.data.artwork_url, true);
 
         return covers.concat(mergedTrackCovers);
-    }
-
-    async mergeTrackImagesByData(trackCovers: ParsedTrackImage[], mainCover: string): Promise<CoverArt[]> {
-        // Soundcloud uses unique URLs for each track image, so deduplicating
-        // based on URL, as is done in the base class, won't work. Because
-        // Soundcloud is awful, they also don't return any headers that uniquely
-        // identify the image (like a Digest or an ETag). So... We have to load
-        // the image and compare its data ourselves. Thankfully, it seems like
-        // the thumbnails are identical if the originals are identical, so at
-        // least we don't have to load the full image... We'll still grab the
-        // "large" thumbnail instead of the small one, because the small one is
-        // so tiny that I fear that if there are minute differences, the track
-        // image will still have the same small thumbnail. The "large" thumbnail
-        // isn't large at all (100x100), so loading it should be fairly quick.
-
-        // We'll reuse the base class implementation by converting the images
-        // into data URLs of the thumbnails, then later transforming the data
-        // URLs back to the original URLs. Bit of a hack, but it works.
-        LOGGER.info('Finding track covers, this may take a while…');
-        const mainDataUri = await urlToDataUri(mainCover);
-        const dataToOriginal: Map<string, string> = new Map();
-        const trackDataUris = await Promise.all(trackCovers.map(async (trackCover) => {
-            const dataUri = await urlToDataUri(trackCover.url);
-            // This will overwrite any previous URL if the data URI is the same.
-            // However, that's not a problem, since we're intentionally deduping
-            // images with the same payload anyway. It doesn't matter which URL
-            // we use in the end, all of those URLs return the same data.
-            dataToOriginal.set(dataUri, trackCover.url);
-            return {
-                ...trackCover,
-                url: dataUri,
-            };
-        }));
-
-        const mergedDataUris = this.mergeTrackImages(trackDataUris, mainDataUri);
-        return mergedDataUris.map((mergedTrackCover) => {
-            return {
-                ...mergedTrackCover,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                url: new URL(dataToOriginal.get(mergedTrackCover.url.href)!)
-            };
-        });
     }
 }

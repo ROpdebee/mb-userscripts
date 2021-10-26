@@ -5,10 +5,10 @@ import { filterNonNull } from '@lib/util/array';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 
 import type { CoverArt, ParsedTrackImage } from './base';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
+import { ArtworkTypeIDs, ProviderWithTrackImages } from './base';
 import { getImageDimensions } from '../image_dimensions';
 
-export class BandcampProvider extends CoverArtProvider {
+export class BandcampProvider extends ProviderWithTrackImages {
     supportedDomains = ['*.bandcamp.com'];
     favicon = 'https://s4.bcbits.com/img/favicon/favicon-32x32.png';
     name = 'Bandcamp';
@@ -61,7 +61,7 @@ export class BandcampProvider extends CoverArtProvider {
         // submitting the upload form before all track images are fetched...
         const trackImages = await Promise.all(trackRows
             .map((trackRow) => this.#findTrackImage(trackRow, throttledFetchPage)));
-        const mergedTrackImages = this.mergeTrackImages(trackImages, mainUrl);
+        const mergedTrackImages = await this.mergeTrackImages(trackImages, mainUrl, true);
         if (mergedTrackImages.length) {
             LOGGER.info(`Found ${mergedTrackImages.length} unique track images`);
         } else {
@@ -132,5 +132,10 @@ export class BandcampProvider extends CoverArtProvider {
                 skipMaximisation: true,
             }];
         })).then((covers) => covers.flat());
+    }
+
+    override imageToThumbnailUrl(imageUrl: string): string {
+        // 150x150
+        return imageUrl.replace(/_\d\.(\w+)$/, '_7.$1');
     }
 }

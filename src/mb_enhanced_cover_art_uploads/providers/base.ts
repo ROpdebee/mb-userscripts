@@ -1,4 +1,6 @@
+import { LOGGER } from '@lib/logging/logger';
 import { filterNonNull, groupBy } from '@lib/util/array';
+import { assertDefined } from '@lib/util/assert';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
 
@@ -88,33 +90,6 @@ export abstract class CoverArtProvider {
 
         return resp.responseText;
     }
-
-    protected mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string): CoverArt[] {
-        const newTrackImages = filterNonNull(trackImages)
-            // Filter out tracks that have the same image as the main release.
-            .filter((img) => img.url !== mainUrl);
-        const imgUrlToTrackNumber = groupBy(newTrackImages, (el) => el.url, (el) => el.trackNumber);
-
-        const results: CoverArt[] = [];
-        imgUrlToTrackNumber.forEach((trackNumbers, imgUrl) => {
-            results.push({
-                url: new URL(imgUrl),
-                types: [ArtworkTypeIDs.Track],
-                // Use comment to indicate which tracks this applies to.
-                comment: this.#createTrackImageComment(trackNumbers),
-            });
-        });
-
-        return results;
-    }
-
-    #createTrackImageComment(trackNumbers: Array<string | undefined>): string | undefined {
-        const definedTrackNumbers = filterNonNull(trackNumbers);
-        if (!definedTrackNumbers.length) return;
-
-        const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
-        return `${prefix} ${definedTrackNumbers.join(', ')}`;
-    }
 }
 
 export interface CoverArt {
@@ -186,5 +161,103 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
             url: new URL(coverElmt.content),
             types: [ArtworkTypeIDs.Front],
         }];
+    }
+}
+
+export abstract class ProviderWithTrackImages extends CoverArtProvider {
+    // Providers that provide track images which need to be deduplicated. The
+    // base class supports deduping by URL and thumbnail content.
+    //
+    // Some providers, like Soundcloud and sometimes Bandcamp, use unique URLs
+    // for each track image, so deduplicating based on URL won't work. They may
+    // also not return any headers that uniquely identify the image (like a
+    // Digest or an ETag), so we need to load the image and compare its data
+    // ourselves. Thankfully, most of these providers generate thumbnails whose
+    // payload is identical if the source images are identical, so then we don't
+    // have to load the full image.
+
+    #groupIdenticalImages<T extends { url: string }>(images: T[], mainUrl: string): Map<string, T[]> {
+        const uniqueImages = images.filter((img) => img.url !== mainUrl);
+        return groupBy(uniqueImages, (img) => img.url, (img) => img);
+    }
+
+    async #urlToDataUri(imageUrl: string): Promise<string> {
+        const resp = await gmxhr(this.imageToThumbnailUrl(imageUrl), {
+            responseType: 'blob',
+        });
+
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                resolve(reader.result as string);
+            });
+            reader.addEventListener('abort', reject);
+            reader.addEventListener('error', reject);
+            reader.readAsDataURL(resp.response);
+        });
+    }
+
+
+    protected imageToThumbnailUrl(imageUrl: string): string {
+        // To be overridden by subclass if necessary.
+        return imageUrl;
+    }
+
+    protected async mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string, byContent: boolean): Promise<CoverArt[]> {
+        const allTrackImages = filterNonNull(trackImages);
+        // First pass: URL only
+        const groupedImages = this.#groupIdenticalImages(allTrackImages, mainUrl);
+
+        if (groupedImages.size > 1 && byContent) {
+            // Second pass: Thumbnail content
+            LOGGER.info('Deduplicating track images by content, this may take a while…');
+            const mainDataUri = await this.#urlToDataUri(mainUrl);
+            const dataToOriginal: Map<string, string> = new Map();
+            // Convert all track URLs to data URIs.
+            const trackDataUris = await Promise.all([...groupedImages.entries()]
+                .map(async ([coverUrl, trackCovers]) => {
+                    const dataUri = await this.#urlToDataUri(coverUrl);
+                    // This will overwrite any previous URL if the data URI is the same.
+                    // However, that's not a problem, since we're intentionally deduping
+                    // images with the same payload anyway. It doesn't matter which URL
+                    // we use in the end, all of those URLs return the same data.
+                    dataToOriginal.set(dataUri, coverUrl);
+                    return trackCovers.map((cover) => {
+                        return {
+                            ...cover,
+                            url: dataUri,
+                        };
+                    });
+                }));
+
+            const groupedThumbnails = this.#groupIdenticalImages(trackDataUris.flat(), mainDataUri);
+            // Transform data URIs back into original URLs
+            groupedImages.clear();
+            for (const [dataUri, trackImages] of groupedThumbnails.entries()) {
+                const origUrl = dataToOriginal.get(dataUri);
+                assertDefined(origUrl);
+                groupedImages.set(origUrl, trackImages);
+            }
+        }
+
+        const results: CoverArt[] = [];
+        groupedImages.forEach((trackImages, imgUrl) => {
+            results.push({
+                url: new URL(imgUrl),
+                types: [ArtworkTypeIDs.Track],
+                // Use comment to indicate which tracks this applies to.
+                comment: this.#createTrackImageComment(trackImages),
+            });
+        });
+
+        return results;
+    }
+
+    #createTrackImageComment(trackImages: ParsedTrackImage[]): string | undefined {
+        const definedTrackNumbers = filterNonNull(trackImages.map((trackImage) => trackImage.trackNumber));
+        if (!definedTrackNumbers.length) return;
+
+        const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
+        return `${prefix} ${definedTrackNumbers.join(', ')}`;
     }
 }
