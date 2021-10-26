@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.25
+// @version      2021.10.26
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2871,6 +2871,8 @@
 
   var _lastId = /*#__PURE__*/new WeakMap();
 
+  var _createUniqueFilename = /*#__PURE__*/new WeakSet();
+
   var _urlAlreadyAdded = /*#__PURE__*/new WeakSet();
 
   var ImageFetcher = /*#__PURE__*/function () {
@@ -2880,6 +2882,8 @@
       _classCallCheck(this, ImageFetcher);
 
       _classPrivateMethodInitSpec(this, _urlAlreadyAdded);
+
+      _classPrivateMethodInitSpec(this, _createUniqueFilename);
 
       _classPrivateFieldInitSpec(this, _doneImages, {
         writable: true,
@@ -3256,13 +3260,11 @@
                     MB.CoverArt.validate_file(rawFile).fail(function () {
                       reject(new Error("".concat(fileName, " has an unsupported file type")));
                     }).done(function (mimeType) {
-                      var _this$lastId;
-
                       resolve({
                         requestedUrl: url,
                         fetchedUrl: fetchedUrl,
                         wasRedirected: wasRedirected,
-                        file: new File([resp.response], "".concat(fileName, ".").concat((_classPrivateFieldSet(_this, _lastId, (_this$lastId = +_classPrivateFieldGet(_this, _lastId)) + 1), _this$lastId), ".").concat(mimeType.split('/')[1]), {
+                        file: new File([resp.response], _classPrivateMethodGet(_this, _createUniqueFilename, _createUniqueFilename2).call(_this, fileName, mimeType), {
                           type: mimeType
                         })
                       });
@@ -3287,6 +3289,13 @@
 
     return ImageFetcher;
   }();
+
+  function _createUniqueFilename2(filename, mimeType) {
+    var _this$lastId;
+
+    var filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif)$/i, '');
+    return "".concat(filenameWithoutExt, ".").concat((_classPrivateFieldSet(this, _lastId, (_this$lastId = +_classPrivateFieldGet(this, _lastId)) + 1), _this$lastId), ".").concat(mimeType.split('/')[1]);
+  }
 
   function _urlAlreadyAdded2(url) {
     return _classPrivateFieldGet(this, _doneImages).has(url.href);
