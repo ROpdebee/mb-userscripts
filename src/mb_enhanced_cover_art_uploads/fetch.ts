@@ -148,6 +148,11 @@ export class ImageFetcher {
         };
     }
 
+    #createUniqueFilename(filename: string, mimeType: string): string {
+        const filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif)$/i, '');
+        return `${filenameWithoutExt}.${this.#lastId++}.${mimeType.split('/')[1]}`;
+    }
+
     async fetchImageContents(url: URL, fileName: string, headers: Record<string, unknown>): Promise<ImageContents> {
         const resp = await gmxhr(url, {
             responseType: 'blob',
@@ -174,7 +179,7 @@ export class ImageFetcher {
                         wasRedirected,
                         file: new File(
                             [resp.response],
-                            `${fileName}.${this.#lastId++}.${mimeType.split('/')[1]}`,
+                            this.#createUniqueFilename(fileName, mimeType),
                             { type: mimeType }),
                     });
                 });
