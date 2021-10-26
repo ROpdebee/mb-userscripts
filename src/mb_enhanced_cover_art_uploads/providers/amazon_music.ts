@@ -6,10 +6,10 @@ import { CoverArtProvider } from './base';
 
 export class AmazonMusicProvider extends CoverArtProvider {
     supportedDomains = [
-        'music.amazon.ca', 'music.amazon.cn', 'music.amazon.de',
-        'music.amazon.es', 'music.amazon.fr', 'music.amazon.it',
-        'music.amazon.jp', 'music.amazon.nl', 'music.amazon.co.jp',
-        'music.amazon.co.uk', 'music.amazon.com'];
+        'music.amazon.ca', 'music.amazon.de', 'music.amazon.es',
+        'music.amazon.fr', 'music.amazon.in', 'music.amazon.it',
+        'music.amazon.co.jp', 'music.amazon.co.uk', 'music.amazon.com',
+        'music.amazon.com.au', 'music.amazon.com.br', 'music.amazon.com.mx'];
     favicon = 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png';
     name = 'Amazon Music';
     urlRegex = /\/albums\/([A-Za-z0-9]{10})(?:\/|$)/;
