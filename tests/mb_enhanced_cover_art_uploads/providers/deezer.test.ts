@@ -51,4 +51,26 @@ describe('deezer provider', () => {
         await expect(provider.findImages(new URL('https://www.deezer.com/en/album/1')))
             .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
+
+    it('filters out placeholder images', async () => {
+        // For https://www.deezer.com/de/album/673547
+        const fetchResults = [[{}, {
+            digest: '2a16c47b2769e6f8414c3f8e39333b46f9b61a766e1dfccc2b814767d3b662cb',
+        }]];
+        // @ts-expect-error: Lazy
+        const afterFetch = await provider.postprocessImages(fetchResults);
+
+        expect(afterFetch).toBeEmpty();
+    });
+
+    it('does not filter out legit images', async () => {
+        // For https://www.deezer.com/de/album/673547
+        const fetchResults = [[{}, {
+            digest: '98c6c1d20d9ec8e4b9950f08f58a1da0bc9c3dd9ec6998688b0b1f966799868b',
+        }]];
+        // @ts-expect-error: Lazy
+        const afterFetch = await provider.postprocessImages(fetchResults);
+
+        expect(afterFetch).not.toBeEmpty();
+    });
 });
