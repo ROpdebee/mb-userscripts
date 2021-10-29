@@ -1,6 +1,7 @@
 import { LOGGER } from '@lib/logging/logger';
 import { filterNonNull, groupBy } from '@lib/util/array';
 import { assertDefined } from '@lib/util/assert';
+import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
 import type { FetchedImage } from '../fetch';
@@ -191,22 +192,13 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         return groupBy(uniqueImages, (img) => img.url, (img) => img);
     }
 
-    async #urlToDataUri(imageUrl: string): Promise<string> {
+    async #urlToDigest(imageUrl: string): Promise<string> {
         const resp = await gmxhr(this.imageToThumbnailUrl(imageUrl), {
             responseType: 'blob',
         });
 
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.addEventListener('load', () => {
-                resolve(reader.result as string);
-            });
-            reader.addEventListener('abort', reject);
-            reader.addEventListener('error', reject);
-            reader.readAsDataURL(resp.response);
-        });
+        return blobToDigest(resp.response);
     }
-
 
     protected imageToThumbnailUrl(imageUrl: string): string {
         // To be overridden by subclass if necessary.
@@ -221,30 +213,30 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         if (groupedImages.size > 1 && byContent) {
             // Second pass: Thumbnail content
             LOGGER.info('Deduplicating track images by content, this may take a while…');
-            const mainDataUri = await this.#urlToDataUri(mainUrl);
+            const mainDigest = await this.#urlToDigest(mainUrl);
             const dataToOriginal: Map<string, string> = new Map();
-            // Convert all track URLs to data URIs.
-            const trackDataUris = await Promise.all([...groupedImages.entries()]
+            // Convert all track URLs to digests describing their content.
+            const trackDigests = await Promise.all([...groupedImages.entries()]
                 .map(async ([coverUrl, trackCovers]) => {
-                    const dataUri = await this.#urlToDataUri(coverUrl);
-                    // This will overwrite any previous URL if the data URI is the same.
+                    const digest = await this.#urlToDigest(coverUrl);
+                    // This will overwrite any previous entry if the digest is the same.
                     // However, that's not a problem, since we're intentionally deduping
-                    // images with the same payload anyway. It doesn't matter which URL
-                    // we use in the end, all of those URLs return the same data.
-                    dataToOriginal.set(dataUri, coverUrl);
+                    // images with the same payload anyway. It doesn't matter which digest
+                    // we use in the end, all of those digests return the same data.
+                    dataToOriginal.set(digest, coverUrl);
                     return trackCovers.map((cover) => {
                         return {
                             ...cover,
-                            url: dataUri,
+                            url: digest,
                         };
                     });
                 }));
 
-            const groupedThumbnails = this.#groupIdenticalImages(trackDataUris.flat(), mainDataUri);
-            // Transform data URIs back into original URLs
+            const groupedThumbnails = this.#groupIdenticalImages(trackDigests.flat(), mainDigest);
+            // Transform digests back into original URLs
             groupedImages.clear();
-            for (const [dataUri, trackImages] of groupedThumbnails.entries()) {
-                const origUrl = dataToOriginal.get(dataUri);
+            for (const [digest, trackImages] of groupedThumbnails.entries()) {
+                const origUrl = dataToOriginal.get(digest);
                 assertDefined(origUrl);
                 groupedImages.set(origUrl, trackImages);
             }
