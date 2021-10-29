@@ -2,7 +2,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { gmxhr } from '@lib/util/xhr';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider } from './providers';
-import type { ArtworkTypeIDs, CoverArtProvider } from './providers/base';
+import type { ArtworkTypeIDs, CoverArtProvider, CoverArt } from './providers/base';
 
 interface ImageContents {
     requestedUrl: URL;
@@ -118,7 +118,7 @@ export class ImageFetcher {
         const images = await provider.findImages(url);
 
         LOGGER.info(`Found ${images.length || 'no'} images in ${provider.name} release`);
-        const fetchResults: FetchedImage[] = [];
+        const fetchResults: Array<[CoverArt, FetchedImage]> = [];
         for (const img of images) {
             if (this.#urlAlreadyAdded(img.url)) {
                 LOGGER.warn(`${getFilename(img.url)} has already been added`);
@@ -130,21 +130,23 @@ export class ImageFetcher {
                 // Maximised image already added
                 if (!result) continue;
 
-                fetchResults.push({
+                fetchResults.push([img, {
                     ...result,
                     types: img.types,
                     comment: img.comment,
-                });
+                }]);
             } catch (err) {
                 LOGGER.warn(`Skipping ${getFilename(img.url)}`, err);
             }
         }
 
+        const fetchedImages = await provider.postprocessImages(fetchResults);
+
         this.#doneImages.add(url.href);
 
         return {
             containerUrl: url,
-            images: fetchResults,
+            images: fetchedImages,
         };
     }
 

@@ -3,6 +3,7 @@ import { filterNonNull, groupBy } from '@lib/util/array';
 import { assertDefined } from '@lib/util/assert';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
+import type { FetchedImage } from '../fetch';
 
 export abstract class CoverArtProvider {
     /**
@@ -38,6 +39,15 @@ export abstract class CoverArtProvider {
      * @return     {Promise<CoverArt[]>}  List of cover arts that should be imported.
      */
     abstract findImages(url: URL): Promise<CoverArt[]>
+
+    /**
+     * Postprocess the fetched images. By default, does nothing, however,
+     * subclasses can override this to e.g. filter out or merge images after
+     * they've been fetched.
+     */
+    postprocessImages(images: Array<[CoverArt, FetchedImage]>): Promise<FetchedImage[]> {
+        return Promise.resolve(images.map((res) => res[1]));
+    }
 
     /**
      * Returns a clean version of the given URL.
