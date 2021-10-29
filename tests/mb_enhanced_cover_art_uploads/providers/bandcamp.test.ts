@@ -115,4 +115,46 @@ describe('bandcamp provider', () => {
         await expect(provider.findImages(new URL('https://inhuman1.bandcamp.com/album/course-of-human-destruction')))
             .resolves.toBeArrayOfSize(1);
     });
+
+    it('deduplicates track images by full-res content', async () => {
+        const fetchResults = [
+            [{
+                types: [ArtworkTypeIDs.Front],
+                comment: 'Bandcamp full-sized cover',
+            }, {
+                digest: '66213129f8a0ea7796bd89e1115b7f389b0848ce0a48afae6d1cf7fb7e0fdfe8',
+                types: [ArtworkTypeIDs.Front],
+                comment: 'Bandcamp full-sized cover',
+            }], [{
+                types: [ArtworkTypeIDs.Front],
+                comment: 'Bandcamp square crop',
+            }, {
+                digest: 'b97d864663f144e14c744a6a056291dee91c64914fbd36793d695505adc293f4',
+                types: [ArtworkTypeIDs.Front],
+                comment: 'Bandcamp square crop',
+            }], [{
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 2 - Bandcamp full-sized cover',
+            }, {
+                digest: '66213129f8a0ea7796bd89e1115b7f389b0848ce0a48afae6d1cf7fb7e0fdfe8',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 2 - Bandcamp full-sized cover',
+            }], [{
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 2 - Bandcamp square crop',
+            }, {
+                digest: 'b97d864663f144e14c744a6a056291dee91c64914fbd36793d695505adc293f4',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 2 - Bandcamp square crop',
+            }],
+        ];
+        // @ts-expect-error I'm lazy
+        const results = await provider.postprocessImages(fetchResults);
+
+        expect(results).toBeArrayOfSize(2);
+        expect(results[0].comment).toBe('Bandcamp full-sized cover');
+        expect(results[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(results[1].comment).toBe('Bandcamp square crop');
+        expect(results[1].types).toStrictEqual([ArtworkTypeIDs.Front]);
+    });
 });

@@ -200,6 +200,43 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         return blobToDigest(resp.response);
     }
 
+    override postprocessImages(images: Array<[CoverArt, FetchedImage]>): Promise<FetchedImage[]> {
+        // Although some duplicate images may have already been filtered out
+        // via thumbnails, there may be some cases where the thumbnail differs
+        // even though the full-size image is the same. Merge those now.
+        const sameDigest = groupBy(images, (img) => img[1].digest, (img) => img);
+        const results: FetchedImage[] = [];
+
+        for (const sameImages of sameDigest.values()) {
+            if (sameImages.length <= 1) {
+                results.push(sameImages[0][1]);
+                continue;
+            }
+
+            // If one of them is the front cover, we can just skip all track images
+            const frontCover = sameImages.find((pair) => pair[0].types?.includes(ArtworkTypeIDs.Front));
+            if (frontCover) {
+                results.push(frontCover[1]);
+                continue;
+            }
+
+            // Need to merge the images. We still have access to all track
+            // numbers, so we can create a new comment.
+            const allTrackNumbers = sameImages
+                .map((pair) => pair[0].comment?.match(/Tracks? ([\d\s,]+)/)?.[1] ?? '')
+                .flatMap((commentedTrackNos) => commentedTrackNos.split(',').map((num) => num.trim()))
+                .filter((num) => !!num);
+            const newComment = (allTrackNumbers.length > 1 ? 'Tracks ' : 'Track ') + allTrackNumbers.sort().join(', ');
+            const mainImage = sameImages[0][1];
+            results.push({
+                ...mainImage,
+                comment: mainImage.comment?.replace(/Tracks? [\d\s,]*\d/, newComment) ?? newComment,
+            });
+        }
+
+        return Promise.resolve(results);
+    }
+
     protected imageToThumbnailUrl(imageUrl: string): string {
         // To be overridden by subclass if necessary.
         return imageUrl;
