@@ -217,6 +217,13 @@ describe('fetching image from URL', () => {
                     wasRedirected: true,
                 });
         });
+
+        it('calculates the image digest', async () => {
+            await expect(fetcher.fetchImageFromURL(new URL('https://example.com/test/')))
+                // in node, this will return the hex content of the response, not a SHA-256
+                // digest, since the SubtleCrypto API isn't available.
+                .resolves.toHaveProperty('digest', '74657374');
+        });
     });
 
     describe('with maximisation', () => {
