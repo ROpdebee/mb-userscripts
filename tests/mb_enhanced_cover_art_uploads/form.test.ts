@@ -57,7 +57,8 @@ describe('enqueuing images', () => {
                 fetchedUrl: fakeUrl,
                 wasRedirected: false,
                 wasMaximised: false,
-            }]
+                digest: '123',
+            }],
         });
 
         expect(onDropMock).toHaveBeenCalledOnce();
@@ -82,7 +83,8 @@ describe('enqueuing images', () => {
                 wasRedirected: false,
                 types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
                 comment: 'test comment',
-            }]
+                digest: '123',
+            }],
         });
         const row = document.querySelector('tr');
 
@@ -101,7 +103,8 @@ describe('enqueuing images', () => {
                 wasMaximised: false,
                 fetchedUrl: fakeUrl,
                 wasRedirected: false,
-            }]
+                digest: '123',
+            }],
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
@@ -122,7 +125,8 @@ describe('enqueuing images', () => {
                 wasRedirected: false,
                 types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
                 comment: 'test comment',
-            }]
+                digest: '123',
+            }],
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
@@ -143,7 +147,8 @@ describe('enqueuing images', () => {
                 wasRedirected: false,
                 types: [],
                 comment: '',
-            }]
+                digest: '123',
+            }],
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
@@ -166,6 +171,7 @@ describe('enqueuing images', () => {
                 wasRedirected: false,
                 types: [ArtworkTypeIDs.Front],
                 comment: 'test comment',
+                digest: '123',
             }, {
                 content: image2,
                 originalUrl: fakeUrl,
@@ -175,7 +181,8 @@ describe('enqueuing images', () => {
                 wasRedirected: false,
                 types: [ArtworkTypeIDs.Back],
                 comment: 'test comment 2',
-            }]
+                digest: '123',
+            }],
         });
         const rows = document.querySelectorAll('tr');
         let row1, row2;
@@ -241,6 +248,7 @@ describe('filling edit notes', () => {
                     fetchedUrl: fakeUrl,
                     wasRedirected: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }],
             };
             const expectedLines = [args.prefix + fakeUrl.href];
@@ -260,6 +268,7 @@ describe('filling edit notes', () => {
                     fetchedUrl: new URL('https://example.com/max'),
                     wasRedirected: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }],
             };
             const expectedLines = [
@@ -282,6 +291,7 @@ describe('filling edit notes', () => {
                     fetchedUrl: new URL('https://example.com/redirected'),
                     wasRedirected: true,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }],
             };
             const expectedLines = [
@@ -304,6 +314,7 @@ describe('filling edit notes', () => {
                     fetchedUrl: new URL('https://example.com/redirected'),
                     wasRedirected: true,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }],
             };
             const expectedLines = [
@@ -328,6 +339,7 @@ describe('filling edit notes', () => {
                     fetchedUrl: dataUrl,
                     wasRedirected: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }],
             };
             const expectedLines = [
@@ -349,6 +361,7 @@ describe('filling edit notes', () => {
                     fetchedUrl: new URL('https://example.com/max'),
                     wasRedirected: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }, {
                     originalUrl: new URL('https://example.com/2'),
                     maximisedUrl: new URL('https://example.com/max2'),
@@ -356,6 +369,7 @@ describe('filling edit notes', () => {
                     fetchedUrl: new URL('https://example.com/max2'),
                     wasRedirected: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }],
             };
             const expectedLines = [
@@ -380,6 +394,7 @@ describe('filling edit notes', () => {
                     wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }, {
                     originalUrl: new URL('https://example.com/2'),
                     maximisedUrl: new URL('https://example.com/2'),
@@ -387,6 +402,7 @@ describe('filling edit notes', () => {
                     wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }, {
                     originalUrl: new URL('https://example.com/3'),
                     maximisedUrl: new URL('https://example.com/3'),
@@ -394,6 +410,7 @@ describe('filling edit notes', () => {
                     wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }, {
                     originalUrl: new URL('https://example.com/4'),
                     maximisedUrl: new URL('https://example.com/4'),
@@ -401,6 +418,7 @@ describe('filling edit notes', () => {
                     wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }],
             };
             const expectedLines = [
@@ -425,6 +443,7 @@ describe('filling edit notes', () => {
                     wasRedirected: false,
                     wasMaximised: false,
                     content: createDummyImage('test.png'),
+                    digest: '123',
                 }],
             };
             const expectedLines = [
