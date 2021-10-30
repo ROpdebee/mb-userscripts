@@ -8,7 +8,7 @@ import type { Seeder } from './base';
 import { SeedParameters } from './parameters';
 
 interface VGMdbCovers {
-    publicCovers: CoverArt[];
+    allCovers: CoverArt[];
     privateCovers: CoverArt[];
 }
 
@@ -61,17 +61,9 @@ async function extractCovers(coverHeading: Element): Promise<VGMdbCovers> {
     const publicCoverURLs = new Set((await new VGMdbProvider().findImages(new URL(document.location.href)))
         .map((cover) => cover.url.href));
     const result: VGMdbCovers = {
-        publicCovers: [],
-        privateCovers: [],
+        allCovers: covers,
+        privateCovers: covers.filter((cover) => !publicCoverURLs.has(cover.url.href)),
     };
-
-    for (const cover of covers) {
-        if (publicCoverURLs.has(cover.url.href)) {
-            result.publicCovers.push(cover);
-        } else {
-            result.privateCovers.push(cover);
-        }
-    }
 
     return result;
 }
@@ -85,7 +77,7 @@ function extractCoverFromAnchor(anchor: HTMLAnchorElement): CoverArt {
 
 function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: VGMdbCovers): void {
     const seedParamsPrivate = new SeedParameters(covers.privateCovers, document.location.href);
-    const seedParamsAll = new SeedParameters(covers.publicCovers.concat(covers.privateCovers), document.location.href);
+    const seedParamsAll = new SeedParameters(covers.allCovers, document.location.href);
 
     const relIdToAnchors = new Map(releaseIds.map((relId) => {
         const a = <a
