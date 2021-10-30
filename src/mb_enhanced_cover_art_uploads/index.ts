@@ -7,7 +7,7 @@ import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 
 import { getProvider } from './providers';
-import type { ArtworkTypeIDs } from './providers/base';
+import type { CoverArt } from './providers/base';
 
 import { StatusBanner } from './ui/status_banner';
 import USERSCRIPT_NAME from 'consts:userscript-name';
@@ -36,7 +36,7 @@ class App {
         this.#ui = new InputForm(banner.htmlElement, this.processURL.bind(this));
     }
 
-    async processURL(url: URL, types: ArtworkTypeIDs[] = [], comment = '', origin = ''): Promise<void> {
+    async processURL(url: URL): Promise<void> {
         // Don't process a URL if we're already doing so
         if (this.#urlsInProgress.has(url.href)) {
             return;
@@ -44,13 +44,13 @@ class App {
 
         try {
             this.#urlsInProgress.add(url.href);
-            await this.#_processURL(url, types, comment, origin);
+            await this.#_processURL(url);
         } finally {
             this.#urlsInProgress.delete(url.href);
         }
     }
 
-    async #_processURL(url: URL, types: ArtworkTypeIDs[] = [], comment = '', origin = ''): Promise<void> {
+    async #_processURL(url: URL): Promise<void> {
         // eslint-disable-next-line init-declarations
         let fetchResult: FetchedImages;
         try {
@@ -61,22 +61,52 @@ class App {
         }
 
         try {
-            await enqueueImages(fetchResult, types, comment);
+            await enqueueImages(fetchResult);
         } catch (err) {
             LOGGER.error('Failed to enqueue images', err);
             return;
         }
 
-        fillEditNote(fetchResult, origin, this.#note);
         this.#ui.clearOldInputValue(url.href);
+
+        fillEditNote([fetchResult], origin, this.#note);
         if (fetchResult.images.length) {
             LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);
         }
     }
 
-    processSeedingParameters(): void {
+    async processSeedingParameters(): Promise<void> {
         const params = SeedParameters.decode(new URLSearchParams(document.location.search));
-        params.images.forEach((image) => this.processURL(image.url, image.types, image.comment, params.origin));
+        // Although this is very similar to `processURL`, we may have to fetch
+        // and enqueue multiple images. We want to fetch images in parallel, but
+        // enqueue them sequentially to ensure the order stays consistent.
+
+        // eslint-disable-next-line init-declarations
+        let fetchResults: Array<[FetchedImages, CoverArt]>;
+        try {
+            fetchResults = await Promise.all(params.images
+                .map(async (cover): Promise<[FetchedImages, CoverArt]> => {
+                    return [await this.#fetcher.fetchImages(cover.url), cover];
+                }));
+        } catch (err) {
+            LOGGER.error('Failed to grab images', err);
+            return;
+        }
+
+        // Not using Promise.all to ensure images get added in order.
+        for (const [fetchResult, cover] of fetchResults) {
+            try {
+                await enqueueImages(fetchResult, cover.types, cover.comment);
+            } catch (err) {
+                LOGGER.error('Failed to enqueue some images', err);
+            }
+        }
+
+        fillEditNote(fetchResults.map((pair) => pair[0]), params.origin ?? '', this.#note);
+        const totalNumImages = fetchResults.reduce((acc, pair) => acc + pair[0].images.length, 0);
+        if (totalNumImages) {
+            LOGGER.success(`Successfully added ${totalNumImages} image(s)`);
+        }
     }
 
     async addImportButtons(): Promise<void> {
