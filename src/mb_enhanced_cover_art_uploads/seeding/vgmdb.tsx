@@ -118,10 +118,17 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
         style={{ cursor: 'help' }}
     >Include publicly accessible covers</label>;
 
+    const containedElements = [inclPublicCheckbox, inclPublicLabel].concat(anchors);
+    if (!anchors.length) {
+        containedElements.push(<span style={{ display: 'block'}}>
+            This album is not linked to any MusicBrainz releases!
+        </span>);
+    }
+
     const container = <div
         style={{ padding: '8px 8px 0px 8px', fontSize: '8pt' }}
     >
-        {[inclPublicCheckbox, inclPublicLabel].concat(anchors)}
+        {containedElements}
     </div>;
 
     coverHeading.nextElementSibling?.insertAdjacentElement('afterbegin', container);
