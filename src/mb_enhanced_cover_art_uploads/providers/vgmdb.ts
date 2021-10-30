@@ -1,3 +1,4 @@
+import { LOGGER } from '@lib/logging/logger';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { gmxhr } from '@lib/util/xhr';
@@ -154,6 +155,7 @@ export class VGMdbProvider extends CoverArtProvider {
 
         assert(metadata.link === 'album/' + id, `VGMdb.info returned wrong release: Requested album/${id}, got ${metadata.link}`);
 
+        LOGGER.warn('Heads up! VGMdb requires you to be logged in to view all images, some images may have been missed. If you have an account, please go to the album on VGMdb and use the seeding functionality to add the missing images.');
         return this.#extractImages(metadata);
     }
 
