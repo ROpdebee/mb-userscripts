@@ -13,7 +13,7 @@ export abstract class CoverArtProvider {
      * from one with `*.example.xyz`. Similarly, for domain `example.com`, a
      * provider with the pattern `example.com` wins from one with `*.example.com`.
      */
-    abstract supportedDomains: string[]
+    abstract readonly supportedDomains: string[]
     /**
      * URL of the provider's favicon, for use in import buttons.
      */
@@ -21,13 +21,18 @@ export abstract class CoverArtProvider {
     /**
      * Provider name, used in import buttons.
      */
-    abstract name: string
+    abstract readonly name: string
 
     /**
      * Regular expression used to both match supported URLs and extract ID
      * from the URL. Matched against the full URL.
      */
     abstract readonly urlRegex: RegExp | RegExp[]
+
+    /**
+     * Set to false to disallow placing provider buttons on cover art pages.
+     */
+    readonly allowButtons: boolean = true;
 
     /**
      * Find the provider's images.
