@@ -1,4 +1,4 @@
-import { getURLsForRelease } from '@lib/MB/URLs';
+import { getReleaseIDsForURL, getURLsForRelease } from '@lib/MB/URLs';
 import HttpAdapter from '@pollyjs/adapter-node-http';
 import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 
@@ -7,7 +7,7 @@ import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 // after an edit is made on MB, but on the other hand, if something changes in
 // the API, we'll know it too.
 // eslint-disable-next-line jest/require-hook
-setupPolly({
+const pollyContext = setupPolly({
     adapters: [HttpAdapter],
 });
 
@@ -41,5 +41,26 @@ describe('getting URLs for release', () => {
         expect(urls).toBeArrayOfSize(1);
         expect(urls.map((url) => url.href))
             .toStrictEqual(['https://bulletproofmessenger.bandcamp.com/track/round-2']);
+    });
+});
+
+describe('getting releases for URLs', () => {
+    it('returns empty list when URL does not exist', async () => {
+        pollyContext.polly.configure({
+            recordFailedRequests: true,
+        });
+
+        await expect(getReleaseIDsForURL('https://example.com'))
+            .resolves.toBeEmpty();
+    });
+
+    it('returns empty list when no release is attached to URL', async () => {
+        await expect(getReleaseIDsForURL('https://www.discogs.com/artist/5788865'))
+            .resolves.toBeEmpty();
+    });
+
+    it('returns release ID for URL', async () => {
+        await expect(getReleaseIDsForURL('https://www.discogs.com/release/12620800'))
+            .resolves.toStrictEqual(['06ac3e39-54fb-46eb-b40b-9345b7d2a23d']);
     });
 });

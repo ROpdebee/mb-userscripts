@@ -122,6 +122,22 @@ for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
     };
 }
 
+export function convertCaptions(cover: { url: string; caption: string }): CoverArt {
+    const url = new URL(cover.url);
+    if (!cover.caption) {
+        return { url };
+    }
+    const [captionType, ...captionRestParts] = cover.caption.split(' ');
+    const captionRest = captionRestParts.join(' ');
+    const mapper = CAPTION_TYPE_MAPPING[captionType.toLowerCase()];
+
+    if (!mapper) return { url, comment: cover.caption };
+    return {
+        url,
+        ...mapper(captionRest),
+    };
+}
+
 export class VGMdbProvider extends CoverArtProvider {
     supportedDomains = ['vgmdb.net'];
     favicon = 'https://vgmdb.net/favicon.ico';
@@ -151,22 +167,6 @@ export class VGMdbProvider extends CoverArtProvider {
             covers.unshift({ url: metadata.picture_full, caption: 'Front' });
         }
 
-        return covers.map(this.#convertCaptions.bind(this));
-    }
-
-    #convertCaptions(cover: { url: string; caption: string }): CoverArt {
-        const url = new URL(cover.url);
-        if (!cover.caption) {
-            return { url };
-        }
-        const [captionType, ...captionRestParts] = cover.caption.split(' ');
-        const captionRest = captionRestParts.join(' ');
-        const mapper = CAPTION_TYPE_MAPPING[captionType.toLowerCase()];
-
-        if (!mapper) return { url, comment: cover.caption };
-        return {
-            url,
-            ...mapper(captionRest),
-        };
+        return covers.map(convertCaptions);
     }
 }

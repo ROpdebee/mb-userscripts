@@ -28,3 +28,9 @@ export async function getURLsForRelease(releaseId: string, options?: { excludeEn
         }
     });
 }
+
+export async function getReleaseIDsForURL(url: string): Promise<string[]> {
+    const resp = await fetch(`//musicbrainz.org/ws/2/url?resource=${encodeURIComponent(url)}&inc=release-rels&fmt=json`);
+    const metadata = await resp.json();
+    return metadata.relations?.map((rel: URLAdvRel & ReleaseAdvRel) => rel.release.id) ?? [];
+}
