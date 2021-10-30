@@ -9,5 +9,8 @@ export interface URLAdvRel extends AdvancedRelationship {
     };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ReleaseAdvRel extends AdvancedRelationship {}
+export interface ReleaseAdvRel extends AdvancedRelationship {
+    release: {
+        id: string;
+    };
+}
