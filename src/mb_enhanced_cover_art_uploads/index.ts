@@ -70,9 +70,7 @@ class App {
             excludeEnded: true,
             excludeDuplicates: true,
         });
-        const supportedURLs = attachedURLs.filter(hasProvider);
-
-        if (!supportedURLs.length) return;
+        const supportedURLs = attachedURLs.filter((url) => getProvider(url)?.allowButtons);
 
         supportedURLs.forEach((url) => {
             const provider = getProvider(url);
