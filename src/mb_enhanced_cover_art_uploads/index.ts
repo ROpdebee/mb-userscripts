@@ -24,10 +24,12 @@ class App {
     #note: EditNote;
     #fetcher: ImageFetcher;
     #ui: InputForm;
+    #urlsInProgress: Set<string>;
 
     constructor() {
         this.#note = EditNote.withFooterFromGMInfo();
         this.#fetcher = new ImageFetcher();
+        this.#urlsInProgress = new Set();
 
         const banner = new StatusBanner();
         LOGGER.addSink(banner);
@@ -35,6 +37,20 @@ class App {
     }
 
     async processURL(url: URL, types: ArtworkTypeIDs[] = [], comment = '', origin = ''): Promise<void> {
+        // Don't process a URL if we're already doing so
+        if (this.#urlsInProgress.has(url.href)) {
+            return;
+        }
+
+        try {
+            this.#urlsInProgress.add(url.href);
+            await this.#_processURL(url, types, comment, origin);
+        } finally {
+            this.#urlsInProgress.delete(url.href);
+        }
+    }
+
+    async #_processURL(url: URL, types: ArtworkTypeIDs[] = [], comment = '', origin = ''): Promise<void> {
         // eslint-disable-next-line init-declarations
         let fetchResult: FetchedImages;
         try {
