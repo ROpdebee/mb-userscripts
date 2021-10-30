@@ -51,7 +51,3 @@ export function getProvider(url: URL): CoverArtProvider | undefined {
     const provider = PROVIDER_DISPATCH.get(extractDomain(url));
     return provider?.supportsUrl(url) ? provider : undefined;
 }
-
-export function hasProvider(url: URL): boolean {
-    return !!getProvider(url);
-}

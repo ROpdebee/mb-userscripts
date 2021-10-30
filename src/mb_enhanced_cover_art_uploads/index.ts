@@ -6,7 +6,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 
-import { getProvider, hasProvider } from './providers';
+import { getProvider } from './providers';
 import type { ArtworkTypeIDs } from './providers/base';
 
 import { StatusBanner } from './ui/status_banner';
