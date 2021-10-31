@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.31.2
+// @version      2021.10.31.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -44,6 +44,8 @@
       _defineProperty(this, "name", void 0);
 
       _defineProperty(this, "urlRegex", void 0);
+
+      _defineProperty(this, "allowButtons", true);
     }
 
     _createClass(CoverArtProvider, [{
@@ -1384,6 +1386,102 @@
     return MelonProvider;
   }(HeadMetaPropertyProvider);
 
+  var MusicBrainzProvider = /*#__PURE__*/function (_CoverArtProvider) {
+    _inherits(MusicBrainzProvider, _CoverArtProvider);
+
+    var _super = _createSuper(MusicBrainzProvider);
+
+    function MusicBrainzProvider() {
+      var _this;
+
+      _classCallCheck(this, MusicBrainzProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['musicbrainz.org', 'beta.musicbrainz.org']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://musicbrainz.org/static/images/favicons/favicon-32x32.png');
+
+      _defineProperty(_assertThisInitialized(_this), "allowButtons", false);
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'MusicBrainz');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /release\/([a-z0-9-]+)/);
+
+      return _this;
+    }
+
+    _createClass(MusicBrainzProvider, [{
+      key: "findImages",
+      value: function () {
+        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
+          var mbid, caaIndexUrl, caaResp, caaIndex;
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  mbid = this.extractId(url);
+                  assertDefined(mbid); // Grabbing metadata through CAA isn't 100% reliable, since the info
+                  // in the index.json isn't always up-to-date (see CAA-129, only a few
+                  // cases though).
+
+                  caaIndexUrl = "https://archive.org/download/mbid-".concat(mbid, "/index.json");
+                  _context.next = 5;
+                  return fetch(caaIndexUrl);
+
+                case 5:
+                  caaResp = _context.sent;
+
+                  if (!(caaResp.status >= 400)) {
+                    _context.next = 8;
+                    break;
+                  }
+
+                  throw new Error("Cannot load index.json: HTTP error ".concat(caaResp.status));
+
+                case 8:
+                  _context.t0 = safeParseJSON;
+                  _context.next = 11;
+                  return caaResp.text();
+
+                case 11:
+                  _context.t1 = _context.sent;
+                  caaIndex = (0, _context.t0)(_context.t1, 'Could not parse index.json');
+                  return _context.abrupt("return", caaIndex.images.map(function (img) {
+                    var imageFileName = img.image.split('/').at(-1);
+                    return {
+                      // Skip one level of indirection
+                      url: new URL("https://archive.org/download/mbid-".concat(mbid, "/mbid-").concat(mbid, "-").concat(imageFileName)),
+                      comment: img.comment,
+                      types: img.types.map(function (type) {
+                        return ArtworkTypeIDs[type];
+                      })
+                    };
+                  }));
+
+                case 14:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function findImages(_x) {
+          return _findImages.apply(this, arguments);
+        }
+
+        return findImages;
+      }()
+    }]);
+
+    return MusicBrainzProvider;
+  }(CoverArtProvider);
+
   // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
   // just use a constant app ID first.
 
@@ -2374,6 +2472,7 @@
   addProvider(new DeezerProvider());
   addProvider(new DiscogsProvider());
   addProvider(new MelonProvider());
+  addProvider(new MusicBrainzProvider());
   addProvider(new QobuzProvider());
   addProvider(new QubMusiqueProvider());
   addProvider(new SevenDigitalProvider());
@@ -2389,9 +2488,6 @@
   function getProvider(url) {
     var provider = PROVIDER_DISPATCH.get(extractDomain(url));
     return provider !== null && provider !== void 0 && provider.supportsUrl(url) ? provider : undefined;
-  }
-  function hasProvider(url) {
-    return !!getProvider(url);
   }
 
   var _banner = new WeakMap();
@@ -3869,16 +3965,11 @@
 
                 case 4:
                   attachedURLs = _context2.sent;
-                  supportedURLs = attachedURLs.filter(hasProvider);
+                  supportedURLs = attachedURLs.filter(function (url) {
+                    var _getProvider;
 
-                  if (supportedURLs.length) {
-                    _context2.next = 8;
-                    break;
-                  }
-
-                  return _context2.abrupt("return");
-
-                case 8:
+                    return (_getProvider = getProvider(url)) === null || _getProvider === void 0 ? void 0 : _getProvider.allowButtons;
+                  });
                   supportedURLs.forEach(function (url) {
                     var provider = getProvider(url);
                     assertHasValue(provider);
@@ -3886,7 +3977,7 @@
                     _classPrivateFieldGet(_this2, _ui).addImportButton(_this2.processURL.bind(_this2, url), url.href, provider);
                   });
 
-                case 9:
+                case 7:
                 case "end":
                   return _context2.stop();
               }
