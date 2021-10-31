@@ -83,6 +83,7 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
         const a = <a
             href={ seedParamsPrivate.createSeedURL(relId) }
             target='_blank'
+            rel='noopener noreferrer'
             style={{ display: 'block' }}
         >
             { 'Seed covers to ' + relId.split('-')[0] }
