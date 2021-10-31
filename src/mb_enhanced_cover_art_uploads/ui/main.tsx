@@ -5,6 +5,7 @@ import type { CoverArtProvider } from '../providers/base';
 import type { App } from '../App';
 
 import css from './main.scss';
+import { createPersistentCheckbox } from '@lib/util/checkboxes';
 
 export class InputForm {
     #urlInput: HTMLInputElement;
@@ -49,6 +50,14 @@ export class InputForm {
             }}
         /> as HTMLInputElement;
 
+        const [onlyFrontCheckbox, onlyFrontLabel] = createPersistentCheckbox(
+            'ROpdebee_paste_front_only',
+            'Fetch front image only',
+            (evt) => {
+                app.onlyFront = (evt.currentTarget as HTMLInputElement | undefined)?.checked ?? false;
+            });
+        app.onlyFront = onlyFrontCheckbox.checked;
+
         // Container element for the URL input and additional information
         const container = <div className='ROpdebee_paste_url_cont'>
             {this.#urlInput}
@@ -58,6 +67,8 @@ export class InputForm {
             >
                 Supported providers
             </a>
+            {onlyFrontCheckbox}
+            {onlyFrontLabel}
             {banner}
         </div>;
 

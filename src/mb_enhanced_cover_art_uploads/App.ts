@@ -16,6 +16,7 @@ export class App {
     #fetcher: ImageFetcher;
     #ui: InputForm;
     #urlsInProgress: Set<string>;
+    onlyFront = false;
 
     constructor() {
         this.#note = EditNote.withFooterFromGMInfo();
@@ -45,7 +46,7 @@ export class App {
         // eslint-disable-next-line init-declarations
         let fetchResult: FetchedImages;
         try {
-            fetchResult = await this.#fetcher.fetchImages(url, /* TODO: Make configurable */ false);
+            fetchResult = await this.#fetcher.fetchImages(url, this.onlyFront);
         } catch (err) {
             LOGGER.error('Failed to grab images', err);
             return;
