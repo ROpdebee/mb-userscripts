@@ -69,7 +69,7 @@ class App {
 
         this.#ui.clearOldInputValue(url.href);
 
-        fillEditNote([fetchResult], origin, this.#note);
+        fillEditNote([fetchResult], '', this.#note);
         if (fetchResult.images.length) {
             LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);
         }
