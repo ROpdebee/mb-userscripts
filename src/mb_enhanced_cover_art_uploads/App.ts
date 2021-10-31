@@ -1,3 +1,5 @@
+/* istanbul ignore file: Covered by E2E */
+
 import { EditNote } from '@lib/MB/EditNote';
 import { assertHasValue } from '@lib/util/assert';
 import { LOGGER } from '@lib/logging/logger';
@@ -76,7 +78,7 @@ export class App {
         try {
             fetchResults = await Promise.all(params.images
                 .map(async (cover): Promise<[FetchedImages, CoverArt]> => {
-                    return [await this.#fetcher.fetchImages(cover.url, /* TODO: Make configurable */ false), cover];
+                    return [await this.#fetcher.fetchImages(cover.url, this.onlyFront), cover];
                 }));
         } catch (err) {
             LOGGER.error('Failed to grab images', err);
