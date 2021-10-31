@@ -89,7 +89,7 @@ export abstract class CoverArtProvider {
         return resp.responseText;
     }
 
-    protected mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string): CoverArt[] {
+    protected mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl?: string): CoverArt[] {
         const newTrackImages = filterNonNull(trackImages)
             // Filter out tracks that have the same image as the main release.
             .filter((img) => img.url !== mainUrl);
