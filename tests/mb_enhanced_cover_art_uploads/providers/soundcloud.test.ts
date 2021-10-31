@@ -77,6 +77,15 @@ describe('soundcloud provider', () => {
         expect(covers[2].comment).toBe('Track 2');
     });
 
+    it('grabs no track images if they will not be used', async () => {
+        const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/isolationep'), true);
+
+        expect(covers).toBeArrayOfSize(1);
+        expect(covers[0].url.href).toContain('000358407327-4e29ur');
+        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(covers[0].comment).toBeUndefined();
+    });
+
     it('grabs no images if track has no image', async () => {
         // Make sure it doesn't grab artist image instead.
         const covers = await provider.findImages(new URL('https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard'));
