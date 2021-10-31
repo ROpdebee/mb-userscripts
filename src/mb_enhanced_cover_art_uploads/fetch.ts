@@ -143,13 +143,11 @@ export class ImageFetcher {
             }
         }
 
-        if (!hasMoreImages && !onlyFront) {
+        if (!hasMoreImages) {
             // Don't mark the whole provider URL as done if we haven't grabbed
             // all images.
             this.#doneImages.add(url.href);
-        }
-
-        if (hasMoreImages) {
+        } else {
             LOGGER.warn(`Not all images were fetched: ${images.length - finalImages.length} covers were skipped.`);
         }
 
