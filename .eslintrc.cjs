@@ -1,3 +1,5 @@
+const restrictedGlobals = require('confusing-browser-globals');
+
 module.exports = {
     env: {
         node: true,
@@ -40,6 +42,7 @@ module.exports = {
             'always',
         ],
         'jest/unbound-method': ['off'],
+        'no-restricted-globals': ['error', 'origin'].concat(restrictedGlobals),
     },
     overrides: [
         {
