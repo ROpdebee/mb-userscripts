@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.27
+// @version      2021.10.31
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -712,6 +712,8 @@
     });
   }
 
+  var _extractCover = /*#__PURE__*/new WeakSet();
+
   var _findTrackImages = /*#__PURE__*/new WeakSet();
 
   var _findTrackImage = /*#__PURE__*/new WeakSet();
@@ -739,6 +741,8 @@
       _classPrivateMethodInitSpec(_assertThisInitialized(_this), _findTrackImage);
 
       _classPrivateMethodInitSpec(_assertThisInitialized(_this), _findTrackImages);
+
+      _classPrivateMethodInitSpec(_assertThisInitialized(_this), _extractCover);
 
       _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['*.bandcamp.com']);
 
@@ -775,30 +779,27 @@
                   _context.t1 = _context.sent;
                   _context.t2 = url.href;
                   respDocument = (0, _context.t0)(_context.t1, _context.t2);
+                  albumCoverUrl = _classPrivateMethodGet(this, _extractCover, _extractCover2).call(this, respDocument);
+                  covers = [];
 
-                  if (!(qsMaybe('#missing-tralbum-art', respDocument) !== null)) {
-                    _context.next = 9;
-                    break;
+                  if (albumCoverUrl) {
+                    covers.push({
+                      url: new URL(albumCoverUrl),
+                      types: [ArtworkTypeIDs.Front]
+                    });
+                  } else {
+                    // Release has no images. May still have track covers though.
+                    LOGGER.warn('Bandcamp release has no cover');
                   }
 
-                  // Release has no images.
-                  LOGGER.warn('Bandcamp release has no cover');
-                  return _context.abrupt("return", []);
-
-                case 9:
-                  albumCoverUrl = qs('#tralbumArt > .popupImage', respDocument).href;
-                  covers = [{
-                    url: new URL(albumCoverUrl),
-                    types: [ArtworkTypeIDs.Front]
-                  }];
-                  _context.next = 13;
+                  _context.next = 11;
                   return _classPrivateMethodGet(this, _findTrackImages, _findTrackImages2).call(this, respDocument, albumCoverUrl);
 
-                case 13:
+                case 11:
                   trackImages = _context.sent;
                   return _context.abrupt("return", _classPrivateMethodGet(this, _amendSquareThumbnails, _amendSquareThumbnails2).call(this, covers.concat(trackImages)));
 
-                case 15:
+                case 13:
                 case "end":
                   return _context.stop();
               }
@@ -816,6 +817,15 @@
 
     return BandcampProvider;
   }(CoverArtProvider);
+
+  function _extractCover2(doc) {
+    if (qsMaybe('#missing-tralbum-art', doc) !== null) {
+      // No images
+      return;
+    }
+
+    return qs('#tralbumArt > .popupImage', doc).href;
+  }
 
   function _findTrackImages2(_x2, _x3) {
     return _findTrackImages3.apply(this, arguments);
@@ -837,8 +847,17 @@
               // It appears that they used to have an API which returned all track
               // images in one request, but that API has been locked down :(
               // https://michaelherger.github.io/Bandcamp-API/#/Albums/get_api_album_2_info
-              LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
-              trackRows = qsa('#track_table .track_row_view', doc); // Max 5 requests per second
+              trackRows = qsa('#track_table .track_row_view', doc);
+
+              if (trackRows.length) {
+                _context2.next = 3;
+                break;
+              }
+
+              return _context2.abrupt("return", []);
+
+            case 3:
+              LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…'); // Max 5 requests per second
 
               throttledFetchPage = pThrottle({
                 interval: 1000,
@@ -848,12 +867,12 @@
               // e.g. using an async generator, it might lead to issues with users
               // submitting the upload form before all track images are fetched...
 
-              _context2.next = 5;
+              _context2.next = 7;
               return Promise.all(trackRows.map(function (trackRow) {
                 return _classPrivateMethodGet(_this2, _findTrackImage, _findTrackImage2).call(_this2, trackRow, throttledFetchPage);
               }));
 
-            case 5:
+            case 7:
               trackImages = _context2.sent;
               mergedTrackImages = this.mergeTrackImages(trackImages, mainUrl);
 
@@ -865,7 +884,7 @@
 
               return _context2.abrupt("return", mergedTrackImages);
 
-            case 9:
+            case 11:
             case "end":
               return _context2.stop();
           }
@@ -911,24 +930,34 @@
               _context3.t1 = _context3.sent;
               _context3.t2 = trackUrl;
               trackPage = (0, _context3.t0)(_context3.t1, _context3.t2);
-              imageUrl = qs('#tralbumArt > .popupImage', trackPage).href;
+              imageUrl = _classPrivateMethodGet(this, _extractCover, _extractCover2).call(this, trackPage);
+              /* istanbul ignore if: Cannot find example */
+
+              if (imageUrl) {
+                _context3.next = 15;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 15:
               return _context3.abrupt("return", {
                 url: imageUrl,
                 trackNumber: trackNum
               });
 
-            case 16:
-              _context3.prev = 16;
+            case 18:
+              _context3.prev = 18;
               _context3.t3 = _context3["catch"](5);
               LOGGER.error("Could not check track ".concat(trackNum, " for track images"), _context3.t3);
               return _context3.abrupt("return");
 
-            case 20:
+            case 22:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[5, 16]]);
+      }, _callee3, this, [[5, 18]]);
     }));
     return _findTrackImage3.apply(this, arguments);
   }
