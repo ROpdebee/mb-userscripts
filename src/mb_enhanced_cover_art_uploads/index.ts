@@ -54,7 +54,7 @@ class App {
         // eslint-disable-next-line init-declarations
         let fetchResult: FetchedImages;
         try {
-            fetchResult = await this.#fetcher.fetchImages(url);
+            fetchResult = await this.#fetcher.fetchImages(url, /* TODO: Make configurable */ false);
         } catch (err) {
             LOGGER.error('Failed to grab images', err);
             return;

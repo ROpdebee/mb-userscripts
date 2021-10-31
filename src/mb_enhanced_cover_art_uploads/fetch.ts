@@ -2,7 +2,8 @@ import { LOGGER } from '@lib/logging/logger';
 import { gmxhr } from '@lib/util/xhr';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider } from './providers';
-import type { ArtworkTypeIDs, CoverArtProvider } from './providers/base';
+import { ArtworkTypeIDs } from './providers/base';
+import type { CoverArt, CoverArtProvider } from './providers/base';
 
 interface ImageContents {
     requestedUrl: URL;
@@ -44,7 +45,7 @@ export class ImageFetcher {
         this.#doneImages = new Set();
     }
 
-    async fetchImages(url: URL): Promise<FetchedImages> {
+    async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImages> {
         if (this.#urlAlreadyAdded(url)) {
             LOGGER.warn(`${getFilename(url)} has already been added`);
             return {
@@ -54,7 +55,7 @@ export class ImageFetcher {
 
         const provider = getProvider(url);
         if (provider) {
-            return this.fetchImagesFromProvider(url, provider);
+            return this.fetchImagesFromProvider(url, provider, onlyFront);
         }
 
         const result = await this.fetchImageFromURL(url);
@@ -111,15 +112,17 @@ export class ImageFetcher {
         };
     }
 
-    async fetchImagesFromProvider(url: URL, provider: CoverArtProvider): Promise<FetchedImages> {
+    async fetchImagesFromProvider(url: URL, provider: CoverArtProvider, onlyFront: boolean): Promise<FetchedImages> {
         LOGGER.info(`Searching for images in ${provider.name} release…`);
 
         // This could throw, assuming caller will catch.
         const images = await provider.findImages(url);
+        const finalImages = onlyFront ? this.#retainOnlyFront(images) : images;
+        const hasMoreImages = onlyFront && images.length !== finalImages.length;
 
-        LOGGER.info(`Found ${images.length || 'no'} images in ${provider.name} release`);
+        LOGGER.info(`Found ${finalImages.length || 'no'} images in ${provider.name} release`);
         const fetchResults: FetchedImage[] = [];
-        for (const img of images) {
+        for (const img of finalImages) {
             if (this.#urlAlreadyAdded(img.url)) {
                 LOGGER.warn(`${getFilename(img.url)} has already been added`);
                 continue;
@@ -140,12 +143,29 @@ export class ImageFetcher {
             }
         }
 
-        this.#doneImages.add(url.href);
+        if (!hasMoreImages && !onlyFront) {
+            // Don't mark the whole provider URL as done if we haven't grabbed
+            // all images.
+            this.#doneImages.add(url.href);
+        }
+
+        if (hasMoreImages) {
+            LOGGER.warn(`Not all images were fetched: ${images.length - finalImages.length} covers were skipped.`);
+        }
 
         return {
             containerUrl: url,
             images: fetchResults,
         };
+    }
+
+    #retainOnlyFront(images: CoverArt[]): CoverArt[] {
+        // Return only the front images. If no image with Front type is found
+        // in the array, assume the first image is the front one. If there are
+        // multiple front images, return them all (e.g. Bandcamp original and
+        // square crop).
+        const filtered = images.filter((img) => img.types?.includes(ArtworkTypeIDs.Front));
+        return filtered.length ? filtered : images.slice(0, 1);
     }
 
     #createUniqueFilename(filename: string, mimeType: string): string {
