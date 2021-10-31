@@ -17,7 +17,7 @@ export abstract class CoverArtProvider {
      * from one with `*.example.xyz`. Similarly, for domain `example.com`, a
      * provider with the pattern `example.com` wins from one with `*.example.com`.
      */
-    abstract supportedDomains: string[]
+    abstract readonly supportedDomains: string[]
     /**
      * URL of the provider's favicon, for use in import buttons.
      */
@@ -25,13 +25,18 @@ export abstract class CoverArtProvider {
     /**
      * Provider name, used in import buttons.
      */
-    abstract name: string
+    abstract readonly name: string
 
     /**
      * Regular expression used to both match supported URLs and extract ID
      * from the URL. Matched against the full URL.
      */
     abstract readonly urlRegex: RegExp | RegExp[]
+
+    /**
+     * Set to false to disallow placing provider buttons on cover art pages.
+     */
+    readonly allowButtons: boolean = true;
 
     /**
      * Find the provider's images.
@@ -187,7 +192,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
     // payload is identical if the source images are identical, so then we don't
     // have to load the full image.
 
-    #groupIdenticalImages<T extends { url: string }>(images: T[], mainUrl: string): Map<string, T[]> {
+    #groupIdenticalImages<T extends { url: string }>(images: T[], mainUrl?: string): Map<string, T[]> {
         const uniqueImages = images.filter((img) => img.url !== mainUrl);
         return groupBy(uniqueImages, (img) => img.url, (img) => img);
     }
@@ -242,7 +247,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         return imageUrl;
     }
 
-    protected async mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string, byContent: boolean): Promise<CoverArt[]> {
+    protected async mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string | undefined, byContent: boolean): Promise<CoverArt[]> {
         const allTrackImages = filterNonNull(trackImages);
         // First pass: URL only
         const groupedImages = this.#groupIdenticalImages(allTrackImages, mainUrl);
@@ -250,7 +255,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         if (groupedImages.size > 1 && byContent) {
             // Second pass: Thumbnail content
             LOGGER.info('Deduplicating track images by content, this may take a while…');
-            const mainDigest = await this.#urlToDigest(mainUrl);
+            const mainDigest = mainUrl ? await this.#urlToDigest(mainUrl) : /* istanbul ignore next: Difficult to cover */ '';
             const dataToOriginal: Map<string, string> = new Map();
             // Convert all track URLs to digests describing their content.
             const trackDigests = await Promise.all([...groupedImages.entries()]

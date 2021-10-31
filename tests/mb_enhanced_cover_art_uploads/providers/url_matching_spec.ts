@@ -46,5 +46,10 @@ export const urlMatchingSpec = ({ provider, supportedUrls, unsupportedUrls }: Sp
             expect(getProvider(new URL(url))?.constructor)
                 .toBe(provider.constructor);
         });
+
+        it.each(unsupportedUrls)('does not return provider for unsupported URL', ({ url }) => {
+            expect(getProvider(new URL(url)))
+                .toBeUndefined();
+        });
     });
 };

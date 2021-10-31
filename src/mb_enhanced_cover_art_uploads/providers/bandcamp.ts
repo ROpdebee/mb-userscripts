@@ -20,25 +20,34 @@ export class BandcampProvider extends ProviderWithTrackImages {
 
     async findImages(url: URL): Promise<CoverArt[]> {
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
-        if (qsMaybe('#missing-tralbum-art', respDocument) !== null) {
-            // Release has no images.
+        const albumCoverUrl = this.#extractCover(respDocument);
+
+        const covers: CoverArt[] = [];
+        if (albumCoverUrl) {
+            covers.push({
+                url: new URL(albumCoverUrl),
+                types: [ArtworkTypeIDs.Front],
+            });
+        } else {
+            // Release has no images. May still have track covers though.
             LOGGER.warn('Bandcamp release has no cover');
-            return [];
         }
-
-        const albumCoverUrl = qs<HTMLAnchorElement>('#tralbumArt > .popupImage', respDocument).href;
-
-        const covers: CoverArt[] = [{
-            url: new URL(albumCoverUrl),
-            types: [ArtworkTypeIDs.Front],
-        }];
 
         const trackImages = await this.#findTrackImages(respDocument, albumCoverUrl);
 
         return this.#amendSquareThumbnails(covers.concat(trackImages));
     }
 
-    async #findTrackImages(doc: Document, mainUrl: string): Promise<CoverArt[]> {
+    #extractCover(doc: Document): string | undefined {
+        if (qsMaybe('#missing-tralbum-art', doc) !== null) {
+            // No images
+            return;
+        }
+
+        return qs<HTMLAnchorElement>('#tralbumArt > .popupImage', doc).href;
+    }
+
+    async #findTrackImages(doc: Document, mainUrl?: string): Promise<CoverArt[]> {
         // Unfortunately it doesn't seem like they can be extracted from the
         // album page itself, so we have to load each of the tracks separately.
         // Deliberately throttling these requests as to not flood Bandcamp and
@@ -46,8 +55,9 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // It appears that they used to have an API which returned all track
         // images in one request, but that API has been locked down :(
         // https://michaelherger.github.io/Bandcamp-API/#/Albums/get_api_album_2_info
-        LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
         const trackRows = qsa<HTMLTableRowElement>('#track_table .track_row_view', doc);
+        if (!trackRows.length) return [];
+        LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
 
         // Max 5 requests per second
         const throttledFetchPage = pThrottle({
@@ -84,7 +94,13 @@ export class BandcampProvider extends ProviderWithTrackImages {
 
         try {
             const trackPage = parseDOM(await fetchPage(new URL(trackUrl)), trackUrl);
-            const imageUrl = qs<HTMLAnchorElement>('#tralbumArt > .popupImage', trackPage).href;
+            const imageUrl = this.#extractCover(trackPage);
+            /* istanbul ignore if: Cannot find example */
+            if (!imageUrl) {
+                // Track has no cover
+                return;
+            }
+
             return {
                 url: imageUrl,
                 trackNumber: trackNum,
