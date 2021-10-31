@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.31
+// @version      2021.10.31.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -3743,9 +3743,15 @@
 
   var _ui = /*#__PURE__*/new WeakMap();
 
+  var _urlsInProgress = /*#__PURE__*/new WeakMap();
+
+  var _processURL = /*#__PURE__*/new WeakSet();
+
   var App = /*#__PURE__*/function () {
     function App() {
       _classCallCheck(this, App);
+
+      _classPrivateMethodInitSpec(this, _processURL);
 
       _classPrivateFieldInitSpec(this, _note, {
         writable: true,
@@ -3762,9 +3768,16 @@
         value: void 0
       });
 
+      _classPrivateFieldInitSpec(this, _urlsInProgress, {
+        writable: true,
+        value: void 0
+      });
+
       _classPrivateFieldSet(this, _note, EditNote.withFooterFromGMInfo());
 
       _classPrivateFieldSet(this, _fetcher, new ImageFetcher());
+
+      _classPrivateFieldSet(this, _urlsInProgress, new Set());
 
       var banner = new StatusBanner();
       LOGGER.addSink(banner);
@@ -3775,11 +3788,10 @@
     _createClass(App, [{
       key: "processURL",
       value: function () {
-        var _processURL = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
+        var _processURL3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
           var types,
               comment,
               origin,
-              fetchResult,
               _args = arguments;
           return regenerator.wrap(function _callee$(_context) {
             while (1) {
@@ -3788,55 +3800,39 @@
                   types = _args.length > 1 && _args[1] !== undefined ? _args[1] : [];
                   comment = _args.length > 2 && _args[2] !== undefined ? _args[2] : '';
                   origin = _args.length > 3 && _args[3] !== undefined ? _args[3] : '';
-                  _context.prev = 3;
-                  _context.next = 6;
-                  return _classPrivateFieldGet(this, _fetcher).fetchImages(url);
 
-                case 6:
-                  fetchResult = _context.sent;
-                  _context.next = 13;
-                  break;
+                  if (!_classPrivateFieldGet(this, _urlsInProgress).has(url.href)) {
+                    _context.next = 5;
+                    break;
+                  }
+
+                  return _context.abrupt("return");
+
+                case 5:
+                  _context.prev = 5;
+
+                  _classPrivateFieldGet(this, _urlsInProgress).add(url.href);
+
+                  _context.next = 9;
+                  return _classPrivateMethodGet(this, _processURL, _processURL2).call(this, url, types, comment, origin);
 
                 case 9:
                   _context.prev = 9;
-                  _context.t0 = _context["catch"](3);
-                  LOGGER.error('Failed to grab images', _context.t0);
-                  return _context.abrupt("return");
 
-                case 13:
-                  _context.prev = 13;
-                  _context.next = 16;
-                  return enqueueImages(fetchResult, types, comment);
+                  _classPrivateFieldGet(this, _urlsInProgress).delete(url.href);
 
-                case 16:
-                  _context.next = 22;
-                  break;
+                  return _context.finish(9);
 
-                case 18:
-                  _context.prev = 18;
-                  _context.t1 = _context["catch"](13);
-                  LOGGER.error('Failed to enqueue images', _context.t1);
-                  return _context.abrupt("return");
-
-                case 22:
-                  fillEditNote(fetchResult, origin, _classPrivateFieldGet(this, _note));
-
-                  _classPrivateFieldGet(this, _ui).clearOldInputValue(url.href);
-
-                  if (fetchResult.images.length) {
-                    LOGGER.success("Successfully added ".concat(fetchResult.images.length, " image(s)"));
-                  }
-
-                case 25:
+                case 12:
                 case "end":
                   return _context.stop();
               }
             }
-          }, _callee, this, [[3, 9], [13, 18]]);
+          }, _callee, this, [[5,, 9, 12]]);
         }));
 
         function processURL(_x) {
-          return _processURL.apply(this, arguments);
+          return _processURL3.apply(this, arguments);
         }
 
         return processURL;
@@ -3908,6 +3904,73 @@
 
     return App;
   }();
+
+  function _processURL2(_x2) {
+    return _processURL4.apply(this, arguments);
+  }
+
+  function _processURL4() {
+    _processURL4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(url) {
+      var types,
+          comment,
+          origin,
+          fetchResult,
+          _args3 = arguments;
+      return regenerator.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              types = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : [];
+              comment = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : '';
+              origin = _args3.length > 3 && _args3[3] !== undefined ? _args3[3] : '';
+              _context3.prev = 3;
+              _context3.next = 6;
+              return _classPrivateFieldGet(this, _fetcher).fetchImages(url);
+
+            case 6:
+              fetchResult = _context3.sent;
+              _context3.next = 13;
+              break;
+
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](3);
+              LOGGER.error('Failed to grab images', _context3.t0);
+              return _context3.abrupt("return");
+
+            case 13:
+              _context3.prev = 13;
+              _context3.next = 16;
+              return enqueueImages(fetchResult, types, comment);
+
+            case 16:
+              _context3.next = 22;
+              break;
+
+            case 18:
+              _context3.prev = 18;
+              _context3.t1 = _context3["catch"](13);
+              LOGGER.error('Failed to enqueue images', _context3.t1);
+              return _context3.abrupt("return");
+
+            case 22:
+              fillEditNote(fetchResult, origin, _classPrivateFieldGet(this, _note));
+
+              _classPrivateFieldGet(this, _ui).clearOldInputValue(url.href);
+
+              if (fetchResult.images.length) {
+                LOGGER.success("Successfully added ".concat(fetchResult.images.length, " image(s)"));
+              }
+
+            case 25:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this, [[3, 9], [13, 18]]);
+    }));
+    return _processURL4.apply(this, arguments);
+  }
 
   LOGGER.configure({
     logLevel: LogLevel.INFO
