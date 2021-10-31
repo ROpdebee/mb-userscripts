@@ -2,15 +2,17 @@ import USERSCRIPT_NAME from 'consts:userscript-name';
 import { LOGGER } from '@lib/logging/logger';
 import { qs } from '@lib/util/dom';
 import type { CoverArtProvider } from '../providers/base';
+import type { App } from '../App';
 
 import css from './main.scss';
+import { createPersistentCheckbox } from '@lib/util/checkboxes';
 
 export class InputForm {
     #urlInput: HTMLInputElement;
     #buttonContainer: HTMLDivElement;
     #orSpan: HTMLSpanElement;
 
-    constructor(banner: HTMLElement, onUrlFilled: (url: URL) => void) {
+    constructor(banner: HTMLElement, app: App) {
         // Inject our custom CSS
         document.head.append(<style id={'ROpdebee_' + USERSCRIPT_NAME}>
             {css}
@@ -22,11 +24,12 @@ export class InputForm {
             placeholder='or paste one or more URLs here'
             size={47}
             id='ROpdebee_paste_url'
-            onInput={(evt): void => {
+            onInput={async (evt): Promise<void> => {
                 // Early validation.
                 if (!evt.currentTarget.value) return;
+                const oldValue = evt.currentTarget.value;
 
-                for (const inputUrl of evt.currentTarget.value.trim().split(/\s+/)) {
+                for (const inputUrl of oldValue.trim().split(/\s+/)) {
                     // eslint-disable-next-line init-declarations
                     let url: URL;
                     // Only use the try block to parse the URL, since we don't
@@ -38,10 +41,22 @@ export class InputForm {
                         continue;
                     }
 
-                    onUrlFilled(url);
+                    await app.processURL(url);
+                }
+
+                if (evt.currentTarget.value === oldValue) {
+                    evt.currentTarget.value = '';
                 }
             }}
         /> as HTMLInputElement;
+
+        const [onlyFrontCheckbox, onlyFrontLabel] = createPersistentCheckbox(
+            'ROpdebee_paste_front_only',
+            'Fetch front image only',
+            (evt) => {
+                app.onlyFront = (evt.currentTarget as HTMLInputElement | undefined)?.checked ?? false;
+            });
+        app.onlyFront = onlyFrontCheckbox.checked;
 
         // Container element for the URL input and additional information
         const container = <div className='ROpdebee_paste_url_cont'>
@@ -52,6 +67,8 @@ export class InputForm {
             >
                 Supported providers
             </a>
+            {onlyFrontCheckbox}
+            {onlyFrontLabel}
             {banner}
         </div>;
 
@@ -66,16 +83,6 @@ export class InputForm {
             .insertAdjacentElement('afterend', container)
             ?.insertAdjacentElement('afterend', this.#orSpan)
             ?.insertAdjacentElement('afterend', this.#buttonContainer);
-    }
-
-    clearOldInputValue(oldValue: string): void {
-        // Clear the old input, but only if it hasn't changed since.
-        // Much of the implementation is asynchronous code, so it's entirely
-        // possible for another image to be loading at the same time. We don't
-        // want to clear that input yet.
-        if (this.#urlInput.value == oldValue) {
-            this.#urlInput.value = '';
-        }
     }
 
     addImportButton(onClickCallback: () => void, url: string, provider: CoverArtProvider): void {

@@ -233,7 +233,7 @@ describe('filling edit notes', () => {
                 images: [],
             };
 
-            fillEditNote(fetchedImages, '', editNote);
+            fillEditNote([fetchedImages], '', editNote);
 
             expect(textarea.value).toBe('');
         });
@@ -253,7 +253,7 @@ describe('filling edit notes', () => {
             };
             const expectedLines = [args.prefix + fakeUrl.href];
 
-            fillEditNote(fetchedImages, '', editNote);
+            fillEditNote([fetchedImages], '', editNote);
 
             expect(textarea.value).toBe(createExpectedContent(expectedLines));
         });
@@ -276,7 +276,7 @@ describe('filling edit notes', () => {
                 ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max',
             ];
 
-            fillEditNote(fetchedImages, '', editNote);
+            fillEditNote([fetchedImages], '', editNote);
 
             expect(textarea.value).toBe(createExpectedContent(expectedLines));
         });
@@ -299,7 +299,7 @@ describe('filling edit notes', () => {
                 ' '.repeat(args.prefix.length) + '→ Redirected to https://example.com/redirected',
             ];
 
-            fillEditNote(fetchedImages, '', editNote);
+            fillEditNote([fetchedImages], '', editNote);
 
             expect(textarea.value).toBe(createExpectedContent(expectedLines));
         });
@@ -323,7 +323,7 @@ describe('filling edit notes', () => {
                 ' '.repeat(args.prefix.length) + '→ Redirected to https://example.com/redirected',
             ];
 
-            fillEditNote(fetchedImages, '', editNote);
+            fillEditNote([fetchedImages], '', editNote);
 
             expect(textarea.value).toBe(createExpectedContent(expectedLines));
         });
@@ -346,7 +346,7 @@ describe('filling edit notes', () => {
                 args.prefix + 'Uploaded from data URL',
             ];
 
-            fillEditNote(fetchedImages, '', editNote);
+            fillEditNote([fetchedImages], '', editNote);
 
             expect(textarea.value).toBe(createExpectedContent(expectedLines));
         });
@@ -379,7 +379,7 @@ describe('filling edit notes', () => {
                 ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max2',
             ];
 
-            fillEditNote(fetchedImages, '', editNote);
+            fillEditNote([fetchedImages], '', editNote);
 
             expect(textarea.value).toBe(createExpectedContent(expectedLines));
         });
@@ -425,7 +425,60 @@ describe('filling edit notes', () => {
                 args.prefix + 'https://example.com/1',
                 args.prefix + 'https://example.com/2',
                 args.prefix + 'https://example.com/3',
-                args.prefix + '…and 1 additional image(s)',
+                '…and 1 additional image(s)',
+            ];
+
+            fillEditNote([fetchedImages], '', editNote);
+
+            expect(textarea.value).toBe(createExpectedContent(expectedLines));
+        });
+
+        it('fills at most 3 URLs with separate fetch results', () => {
+            const images = [{
+                originalUrl: new URL('https://example.com/1'),
+                maximisedUrl: new URL('https://example.com/1'),
+                fetchedUrl: new URL('https://example.com/1'),
+                wasRedirected: false,
+                wasMaximised: false,
+                content: createDummyImage('test.png'),
+                digest: '123',
+            }, {
+                originalUrl: new URL('https://example.com/2'),
+                maximisedUrl: new URL('https://example.com/2'),
+                fetchedUrl: new URL('https://example.com/2'),
+                wasRedirected: false,
+                wasMaximised: false,
+                content: createDummyImage('test.png'),
+                digest: '123',
+            }, {
+                originalUrl: new URL('https://example.com/3'),
+                maximisedUrl: new URL('https://example.com/3'),
+                fetchedUrl: new URL('https://example.com/3'),
+                wasRedirected: false,
+                wasMaximised: false,
+                content: createDummyImage('test.png'),
+                digest: '123',
+            }, {
+                originalUrl: new URL('https://example.com/4'),
+                maximisedUrl: new URL('https://example.com/4'),
+                fetchedUrl: new URL('https://example.com/4'),
+                wasRedirected: false,
+                wasMaximised: false,
+                content: createDummyImage('test.png'),
+                digest: '123',
+            }];
+            const fetchedImages = images.map((img) => {
+                return {
+                    containerUrl: args.containerUrl,
+                    images: [img],
+                };
+            });
+            // The edit note filler removes the duplicate container URL.
+            const expectedLines = [
+                args.prefix + 'https://example.com/1',
+                args.prefix + 'https://example.com/2',
+                args.prefix + 'https://example.com/3',
+                '…and 1 additional image(s)',
             ];
 
             fillEditNote(fetchedImages, '', editNote);
@@ -451,7 +504,7 @@ describe('filling edit notes', () => {
                 'Seeded from seeding-origin',
             ];
 
-            fillEditNote(fetchedImages, 'seeding-origin', editNote);
+            fillEditNote([fetchedImages], 'seeding-origin', editNote);
 
             expect(textarea.value).toBe(createExpectedContent(expectedLines));
         });

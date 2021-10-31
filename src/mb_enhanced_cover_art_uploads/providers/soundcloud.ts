@@ -69,7 +69,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         return url.pathname.slice(1);  // Remove leading slash
     }
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
         const pageContent = await this.fetchPage(url);
         const metadata = this.extractMetadataFromJS(pageContent)
             ?.find((data) => ['sound', 'playlist'].includes(data.hydratable));
@@ -81,7 +81,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             return this.#extractCoverFromTrackMetadata(metadata as SCHydrationSound);
         } else {
             assert(metadata.hydratable === 'playlist');
-            return this.#extractCoversFromSetMetadata(metadata as SCHydrationPlaylist);
+            return this.#extractCoversFromSetMetadata(metadata as SCHydrationPlaylist, onlyFront);
         }
     }
 
@@ -103,7 +103,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         }];
     }
 
-    async #extractCoversFromSetMetadata(metadata: SCHydrationPlaylist): Promise<CoverArt[]> {
+    async #extractCoversFromSetMetadata(metadata: SCHydrationPlaylist, onlyFront: boolean): Promise<CoverArt[]> {
         const covers: CoverArt[] = [];
         /* istanbul ignore else: Cannot find case */
         if (metadata.data.artwork_url) {
@@ -112,6 +112,9 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
                 types: [ArtworkTypeIDs.Front],
             });
         }
+
+        // Don't bother extracting track covers if they won't be used anyway
+        if (onlyFront) return covers;
 
         const trackCovers = filterNonNull(metadata.data.tracks
             .flatMap((track, trackNumber) => {

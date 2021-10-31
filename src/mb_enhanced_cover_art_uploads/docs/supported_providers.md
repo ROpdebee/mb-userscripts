@@ -20,4 +20,4 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Soundcloud | ✔️ | ✔️ | Grabs custom track images. |
 | Spotify | ✔️ | ✔️ |
 | Tidal | ✔️ | ✔️ | listen.tidal.com/store.tidal.com are converted to tidal.com prior to fetching |
-| VGMdb | ✔️ | ✔️ | Types are filled on a best-effort basis, make sure to double-check. Some images are not fetched, see issue [#62](https://github.com/ROpdebee/mb-userscripts/issues/62). |
+| VGMdb | ✔️ | ✔️ | Types are filled on a best-effort basis, make sure to double-check. Images which require logging in are not fetched, they can be added by navigating to the album on VGMdb, making sure you're logged in, and using the seeding options displayed in the cover art table in the sidebar. |
