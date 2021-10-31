@@ -55,8 +55,9 @@ export class BandcampProvider extends CoverArtProvider {
         // It appears that they used to have an API which returned all track
         // images in one request, but that API has been locked down :(
         // https://michaelherger.github.io/Bandcamp-API/#/Albums/get_api_album_2_info
-        LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
         const trackRows = qsa<HTMLTableRowElement>('#track_table .track_row_view', doc);
+        if (!trackRows.length) return [];
+        LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
 
         // Max 5 requests per second
         const throttledFetchPage = pThrottle({
