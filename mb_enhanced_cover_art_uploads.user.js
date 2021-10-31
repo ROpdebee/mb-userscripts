@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.31.4
+// @version      2021.10.31.5
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -4318,7 +4318,7 @@
             case 19:
               _classPrivateFieldGet(this, _ui).clearOldInputValue(url.href);
 
-              fillEditNote([fetchResult], origin, _classPrivateFieldGet(this, _note));
+              fillEditNote([fetchResult], '', _classPrivateFieldGet(this, _note));
 
               if (fetchResult.images.length) {
                 LOGGER.success("Successfully added ".concat(fetchResult.images.length, " image(s)"));
