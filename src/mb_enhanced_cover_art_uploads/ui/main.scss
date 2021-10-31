@@ -7,6 +7,15 @@
         display: block;
     }
 
+    > label {
+        display: inline;
+        float: none !important; // Need to set !important because MB's own CSS has more specific selectors.
+    }
+
+    > input#ROpdebee_paste_front_only {
+        display: inline;
+    }
+
     > a {
         text-align: right;
         font-size: smaller;
