@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.10.31.5
+// @version      2021.10.31.6
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -4225,7 +4225,7 @@
       key: "addImportButtons",
       value: function () {
         var _addImportButtons = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4() {
-          var _location$href$match,
+          var _window$location$href,
               _this2 = this;
 
           var mbid, attachedURLs, supportedURLs;
@@ -4233,7 +4233,7 @@
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  mbid = (_location$href$match = location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)) === null || _location$href$match === void 0 ? void 0 : _location$href$match[1];
+                  mbid = (_window$location$href = window.location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)) === null || _window$location$href === void 0 ? void 0 : _window$location$href[1];
                   assertHasValue(mbid);
                   _context4.next = 4;
                   return getURLsForRelease(mbid, {
