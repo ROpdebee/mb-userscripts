@@ -75,6 +75,15 @@ describe('bandcamp provider', () => {
         expect(coverUrls[4].comment).toBe('Track 5');
     });
 
+    it('grabs no track covers if they will not be used', async () => {
+        const coverUrls = await provider.findImages(new URL('https://nyokee.bandcamp.com/album/quarantine-pixel-party'), true);
+
+        expect(coverUrls).toBeArrayOfSize(1);
+        expect(coverUrls[0].url.pathname).toContain('a1225644503_');
+        expect(coverUrls[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        expect(coverUrls[0].comment).toBeUndefined();
+    });
+
     it('grabs square thumbnails for non-square covers', async () => {
         mockGetImageDimensions.mockResolvedValueOnce({
             // Actual dimensions of that image.

@@ -18,7 +18,7 @@ export class BandcampProvider extends CoverArtProvider {
         return this.cleanUrl(url).match(this.urlRegex)?.slice(1)?.join('/');
     }
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
         const albumCoverUrl = this.#extractCover(respDocument);
 
@@ -33,7 +33,8 @@ export class BandcampProvider extends CoverArtProvider {
             LOGGER.warn('Bandcamp release has no cover');
         }
 
-        const trackImages = await this.#findTrackImages(respDocument, albumCoverUrl);
+        // Don't bother extracting track images if we only need the front cover
+        const trackImages = onlyFront ? [] : await this.#findTrackImages(respDocument, albumCoverUrl);
 
         return this.#amendSquareThumbnails(covers.concat(trackImages));
     }

@@ -116,7 +116,7 @@ export class ImageFetcher {
         LOGGER.info(`Searching for images in ${provider.name} release…`);
 
         // This could throw, assuming caller will catch.
-        const images = await provider.findImages(url);
+        const images = await provider.findImages(url, onlyFront);
         const finalImages = onlyFront ? this.#retainOnlyFront(images) : images;
         const hasMoreImages = onlyFront && images.length !== finalImages.length;
 
