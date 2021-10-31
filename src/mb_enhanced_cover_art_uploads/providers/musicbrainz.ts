@@ -14,7 +14,7 @@ interface CAAIndex {
 }
 
 export class MusicBrainzProvider extends CoverArtProvider {
-    supportedDomains = ['*.musicbrainz.org'];
+    supportedDomains = ['musicbrainz.org', 'beta.musicbrainz.org'];
     favicon = 'https://musicbrainz.org/static/images/favicons/favicon-32x32.png';
     override allowButtons = false;
     name = 'MusicBrainz';
