@@ -3,6 +3,7 @@ import { SevenDigitalProvider } from '@src/mb_enhanced_cover_art_uploads/provide
 
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
+import { createCoverArt, createFetchedImageFromCoverArt } from '../test-utils/dummy-data';
 import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
 
@@ -56,21 +57,22 @@ describe('7digital provider', () => {
 
     describe('post-processing', () => {
         it('does not filter out legit images', async () => {
-            const fetchResults = [{
-                fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg'),
-            }];
-            // @ts-expect-error: Lazy
-            const afterFetch = provider.postprocessImages(fetchResults);
+            const cover = createCoverArt('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg');
+            const fetchedImage = createFetchedImageFromCoverArt(cover);
 
-            expect(afterFetch).not.toBeEmpty();
+            const afterFetch = provider.postprocessImages([fetchedImage]);
+
+            expect(afterFetch).toBeArrayOfSize(1);
+            expect(afterFetch[0]).toStrictEqual(fetchedImage);
         });
 
         it('filters out placeholder images', async () => {
-            const fetchResults = [{
+            const cover = createCoverArt('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg');
+            const fetchedImage = createFetchedImageFromCoverArt(cover, {
                 fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/000/000/0000000016_800.jpg'),
-            }];
-            // @ts-expect-error: Lazy
-            const afterFetch = provider.postprocessImages(fetchResults);
+            });
+
+            const afterFetch = provider.postprocessImages([fetchedImage]);
 
             expect(afterFetch).toBeEmpty();
         });
