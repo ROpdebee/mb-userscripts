@@ -9,31 +9,33 @@ describe('amazon provider', () => {
     const pollyContext = setupPolly();
     const provider = new AmazonProvider();
 
-    const supportedUrls = [{
-        desc: 'dirty product URLs',
-        url: 'https://www.amazon.com/Pattern-Seeking-Animals/dp/B07RZ2T9F1/ref=tmm_acd_swatch_0?_encoding=UTF8&qid=&sr=',
-        id: 'B07RZ2T9F1',
-    }, {
-        desc: 'dirty product URLs without trailing slash',
-        url: 'https://www.amazon.com/Chronicles-Narnia-Collectors-Radio-Theatre/dp/1624053661?qsid=145-0543367-7486236',
-        id: '1624053661',
-    }, {
-        desc: 'dp URLs',
-        url: 'https://www.amazon.com/dp/B07RZ2T9F1',
-        id: 'B07RZ2T9F1',
-    }, {
-        desc: 'gp URLs',
-        url: 'https://www.amazon.com/gp/product/B07RZ2T9F1',
-        id: 'B07RZ2T9F1',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'dirty product URLs',
+            url: 'https://www.amazon.com/Pattern-Seeking-Animals/dp/B07RZ2T9F1/ref=tmm_acd_swatch_0?_encoding=UTF8&qid=&sr=',
+            id: 'B07RZ2T9F1',
+        }, {
+            desc: 'dirty product URLs without trailing slash',
+            url: 'https://www.amazon.com/Chronicles-Narnia-Collectors-Radio-Theatre/dp/1624053661?qsid=145-0543367-7486236',
+            id: '1624053661',
+        }, {
+            desc: 'dp URLs',
+            url: 'https://www.amazon.com/dp/B07RZ2T9F1',
+            id: 'B07RZ2T9F1',
+        }, {
+            desc: 'gp URLs',
+            url: 'https://www.amazon.com/gp/product/B07RZ2T9F1',
+            id: 'B07RZ2T9F1',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'search URLs',
-        url: 'https://www.amazon.com/s/ref=dp_byline_sr_music_1?ie=UTF8&field-artist=Pattern-Seeking+Animals&search-alias=music',
-    }];
+        const unsupportedUrls = [{
+            desc: 'search URLs',
+            url: 'https://www.amazon.com/s/ref=dp_byline_sr_music_1?ie=UTF8&field-artist=Pattern-Seeking+Animals&search-alias=music',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     const extractionCases = [
         ['dp URLs', 'https://www.amazon.com/dp/B07QWNQT8X'],

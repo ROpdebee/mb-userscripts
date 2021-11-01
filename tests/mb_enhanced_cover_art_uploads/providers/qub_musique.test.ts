@@ -9,33 +9,35 @@ describe('qub musique provider', () => {
     const pollyContext = setupPolly();
     const provider = new QubMusiqueProvider();
 
-    const supportedUrls = [{
-        desc: 'album URLs',
-        url: 'https://www.qub.ca/musique/album/normal-de-l-est-w2l52wh19l0ib',
-        id: 'w2l52wh19l0ib',
-    }, {
-        desc: 'album URLs with numbers',
-        url: 'https://www.qub.ca/musique/album/rapelles-saison-1-ysyh4e97276hc',
-        id: 'ysyh4e97276hc',
-    }, {
-        desc: 'dirty album URLs',
-        url: 'https://www.qub.ca/musique/album/rapelles-saison-1-ysyh4e97276hc?test=123',
-        id: 'ysyh4e97276hc',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'album URLs',
+            url: 'https://www.qub.ca/musique/album/normal-de-l-est-w2l52wh19l0ib',
+            id: 'w2l52wh19l0ib',
+        }, {
+            desc: 'album URLs with numbers',
+            url: 'https://www.qub.ca/musique/album/rapelles-saison-1-ysyh4e97276hc',
+            id: 'ysyh4e97276hc',
+        }, {
+            desc: 'dirty album URLs',
+            url: 'https://www.qub.ca/musique/album/rapelles-saison-1-ysyh4e97276hc?test=123',
+            id: 'ysyh4e97276hc',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'artist URLs',
-        url: 'https://www.qub.ca/musique/artiste/multi-artistes-3662940',
-    }, {
-        desc: 'radio URLs',
-        url: 'https://www.qub.ca/radio/balado/benoit-dutrizac',
-    }, {
-        desc: 'article URLs',
-        url: 'https://www.qub.ca/article/jean-charest-defend-le-regime-de-pekin-1058978600',
-    }];
+        const unsupportedUrls = [{
+            desc: 'artist URLs',
+            url: 'https://www.qub.ca/musique/artiste/multi-artistes-3662940',
+        }, {
+            desc: 'radio URLs',
+            url: 'https://www.qub.ca/radio/balado/benoit-dutrizac',
+        }, {
+            desc: 'article URLs',
+            url: 'https://www.qub.ca/article/jean-charest-defend-le-regime-de-pekin-1058978600',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('finds cover image', async () => {
         const covers = await provider.findImages(new URL('https://www.qub.ca/musique/album/pour-le-plug-dbssxi6nl5fuc'));

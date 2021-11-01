@@ -10,57 +10,59 @@ describe('apple music provider', () => {
     setupPolly();
     const provider = new AppleMusicProvider();
 
-    const supportedUrls = [{
-        desc: 'iTunes album URLs without album name',
-        url: 'https://itunes.apple.com/gb/album/id993998924',
-        id: '993998924',
-    }, {
-        desc: 'iTunes album URLs with album name',
-        url: 'https://itunes.apple.com/us/album/dark-waves-ep/id919575861',
-        id: '919575861',
-    }, {
-        desc: 'iTunes album URLs with album name with special characters',
-        url: 'https://itunes.apple.com/us/album/flavourite-c%C3%A2l%C3%A2/id1451216499',
-        id: '1451216499',
-    }, {
-        desc: 'Apple Music album URLs without album name',
-        url: 'https://music.apple.com/gb/album/993998924',
-        id: '993998924',
-    }, {
-        desc: 'Apple Music album URLs with album name',
-        url: 'https://music.apple.com/us/album/dark-waves-ep/919575861',
-        id: '919575861',
-    }, {
-        desc: 'Apple Music album URLs with album name with special characters',
-        url: 'https://music.apple.com/us/album/flavourite-c%C3%A2l%C3%A2/1451216499',
-        id: '1451216499',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'iTunes album URLs without album name',
+            url: 'https://itunes.apple.com/gb/album/id993998924',
+            id: '993998924',
+        }, {
+            desc: 'iTunes album URLs with album name',
+            url: 'https://itunes.apple.com/us/album/dark-waves-ep/id919575861',
+            id: '919575861',
+        }, {
+            desc: 'iTunes album URLs with album name with special characters',
+            url: 'https://itunes.apple.com/us/album/flavourite-c%C3%A2l%C3%A2/id1451216499',
+            id: '1451216499',
+        }, {
+            desc: 'Apple Music album URLs without album name',
+            url: 'https://music.apple.com/gb/album/993998924',
+            id: '993998924',
+        }, {
+            desc: 'Apple Music album URLs with album name',
+            url: 'https://music.apple.com/us/album/dark-waves-ep/919575861',
+            id: '919575861',
+        }, {
+            desc: 'Apple Music album URLs with album name with special characters',
+            url: 'https://music.apple.com/us/album/flavourite-c%C3%A2l%C3%A2/1451216499',
+            id: '1451216499',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'iTunes artist URLs with name',
-        url: 'https://itunes.apple.com/us/artist/s%C3%B4nge/id1193354626',
-    }, {
-        desc: 'iTunes artist URLs without name',
-        url: 'https://itunes.apple.com/us/artist/id1193354626',
-    }, {
-        desc: 'Apple Music artist URLs with name',
-        url: 'https://music.apple.com/us/artist/s%C3%B4nge/1193354626',
-    }, {
-        desc: 'Apple Music artist URLs without name',
-        url: 'https://music.apple.com/us/artist/1193354626',
-    }, {
-        desc: 'Apple Music curator URLs',
-        url: 'https://music.apple.com/us/curator/the-matt-wilkinson-show/1184566442',
-    }, {
-        desc: 'Apple Music grouping URLs',
-        url: 'https://music.apple.com/us/grouping/34',
-    }, {
-        desc: 'Apple Music music video URLs',
-        url: 'https://music.apple.com/us/music-video/sejodioto/1586865687',
-    }];
+        const unsupportedUrls = [{
+            desc: 'iTunes artist URLs with name',
+            url: 'https://itunes.apple.com/us/artist/s%C3%B4nge/id1193354626',
+        }, {
+            desc: 'iTunes artist URLs without name',
+            url: 'https://itunes.apple.com/us/artist/id1193354626',
+        }, {
+            desc: 'Apple Music artist URLs with name',
+            url: 'https://music.apple.com/us/artist/s%C3%B4nge/1193354626',
+        }, {
+            desc: 'Apple Music artist URLs without name',
+            url: 'https://music.apple.com/us/artist/1193354626',
+        }, {
+            desc: 'Apple Music curator URLs',
+            url: 'https://music.apple.com/us/curator/the-matt-wilkinson-show/1184566442',
+        }, {
+            desc: 'Apple Music grouping URLs',
+            url: 'https://music.apple.com/us/grouping/34',
+        }, {
+            desc: 'Apple Music music video URLs',
+            url: 'https://music.apple.com/us/music-video/sejodioto/1586865687',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('considers redirect from iTunes to Apple Music to be safe', () => {
         expect(provider.isSafeRedirect(new URL('https://itunes.apple.com/gb/album/id993998924'), new URL('https://music.apple.com/gb/album/993998924')))

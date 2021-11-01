@@ -9,22 +9,24 @@ describe('beatport provider', () => {
     const pollyContext = setupPolly();
     const provider = new BeatportProvider();
 
-    const supportedUrls = [{
-        desc: 'album URLs',
-        url: 'https://www.beatport.com/release/osa-ep/1778814',
-        id: '1778814',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'album URLs',
+            url: 'https://www.beatport.com/release/osa-ep/1778814',
+            id: '1778814',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'artist URLs',
-        url: 'https://www.beatport.com/artist/mark-storie/27940',
-    }, {
-        desc: 'label URLs',
-        url: 'https://www.beatport.com/label/20-20-ldn-recordings/51248',
-    }];
+        const unsupportedUrls = [{
+            desc: 'artist URLs',
+            url: 'https://www.beatport.com/artist/mark-storie/27940',
+        }, {
+            desc: 'label URLs',
+            url: 'https://www.beatport.com/label/20-20-ldn-recordings/51248',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('grabs cover for release', async () => {
         const covers = await provider.findImages(new URL('https://www.beatport.com/release/osa-ep/1778814'));

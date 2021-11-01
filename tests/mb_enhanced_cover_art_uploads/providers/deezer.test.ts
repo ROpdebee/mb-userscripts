@@ -9,30 +9,32 @@ describe('deezer provider', () => {
     const pollyContext = setupPolly();
     const provider = new DeezerProvider();
 
-    const supportedUrls = [{
-        desc: 'clean album URLs',
-        url: 'https://www.deezer.com/album/260364202',
-        id: '260364202',
-    }, {
-        desc: 'dirty album URLs',
-        url: 'https://www.deezer.com/en/album/215928292?deferredFl=1',
-        id: '215928292',
-    }, {
-        desc: 'album URLs with language',
-        url: 'https://www.deezer.com/en/album/215928292',
-        id: '215928292',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'clean album URLs',
+            url: 'https://www.deezer.com/album/260364202',
+            id: '260364202',
+        }, {
+            desc: 'dirty album URLs',
+            url: 'https://www.deezer.com/en/album/215928292?deferredFl=1',
+            id: '215928292',
+        }, {
+            desc: 'album URLs with language',
+            url: 'https://www.deezer.com/en/album/215928292',
+            id: '215928292',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'artist URLs',
-        url: 'https://www.deezer.com/en/artist/4023815',
-    }, {
-        desc: 'track URLs',
-        url: 'https://www.deezer.com/en/track/1500277672',
-    }];
+        const unsupportedUrls = [{
+            desc: 'artist URLs',
+            url: 'https://www.deezer.com/en/artist/4023815',
+        }, {
+            desc: 'track URLs',
+            url: 'https://www.deezer.com/en/track/1500277672',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('grabs the correct cover', async () => {
         const coverUrl = await provider.findImages(new URL('https://www.deezer.com/en/album/260364202'));

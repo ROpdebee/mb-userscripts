@@ -9,42 +9,44 @@ describe('soundcloud provider', () => {
     const pollyContext = setupPolly();
     const provider = new SoundcloudProvider();
 
-    const supportedUrls = [{
-        desc: 'track URLs',
-        url: 'https://soundcloud.com/michalmenert/rust',
-        id: 'michalmenert/rust',
-    }, {
-        desc: 'set URLs',
-        url: 'https://soundcloud.com/imnotfromlondonrecords/sets/circle-of-light-the-album',
-        id: 'imnotfromlondonrecords/sets/circle-of-light-the-album',
-    }, {
-        desc: 'private set URLs',
-        url: 'https://soundcloud.com/jonnypalding/sets/talk-21/s-Oeb9wlaKWyl',
-        id: 'jonnypalding/sets/talk-21/s-Oeb9wlaKWyl',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'track URLs',
+            url: 'https://soundcloud.com/michalmenert/rust',
+            id: 'michalmenert/rust',
+        }, {
+            desc: 'set URLs',
+            url: 'https://soundcloud.com/imnotfromlondonrecords/sets/circle-of-light-the-album',
+            id: 'imnotfromlondonrecords/sets/circle-of-light-the-album',
+        }, {
+            desc: 'private set URLs',
+            url: 'https://soundcloud.com/jonnypalding/sets/talk-21/s-Oeb9wlaKWyl',
+            id: 'jonnypalding/sets/talk-21/s-Oeb9wlaKWyl',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'artist URLs',
-        url: 'https://soundcloud.com/imnotfromlondonrecords/',
-    }, {
-        desc: 'artist album URLs',
-        url: 'https://soundcloud.com/imnotfromlondonrecords/albums',
-    }, {
-        desc: 'artist sets URLs',
-        url: 'https://soundcloud.com/imnotfromlondonrecords/sets',
-    }, {
-        desc: 'set likes URLs',
-        url: 'https://soundcloud.com/imnotfromlondonrecords/sets/circle-of-light-the-album/likes',
-    }, {
-        desc: 'recommended track URLs',
-        url: 'https://soundcloud.com/imnotfromlondonrecords/cold-ft-zera-tonin-neo-hannan/recommended',
-    }, {
-        desc: 'stream URLs',
-        url: 'https://soundcloud.com/stream',
-    }];
+        const unsupportedUrls = [{
+            desc: 'artist URLs',
+            url: 'https://soundcloud.com/imnotfromlondonrecords/',
+        }, {
+            desc: 'artist album URLs',
+            url: 'https://soundcloud.com/imnotfromlondonrecords/albums',
+        }, {
+            desc: 'artist sets URLs',
+            url: 'https://soundcloud.com/imnotfromlondonrecords/sets',
+        }, {
+            desc: 'set likes URLs',
+            url: 'https://soundcloud.com/imnotfromlondonrecords/sets/circle-of-light-the-album/likes',
+        }, {
+            desc: 'recommended track URLs',
+            url: 'https://soundcloud.com/imnotfromlondonrecords/cold-ft-zera-tonin-neo-hannan/recommended',
+        }, {
+            desc: 'stream URLs',
+            url: 'https://soundcloud.com/stream',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('grabs images for single tracks', async () => {
         const covers = await provider.findImages(new URL('https://soundcloud.com/michalmenert/rust'));

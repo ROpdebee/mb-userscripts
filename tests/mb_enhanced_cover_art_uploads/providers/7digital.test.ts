@@ -10,26 +10,28 @@ describe('7digital provider', () => {
     const pollyContext = setupPolly();
     const provider = new SevenDigitalProvider();
 
-    const supportedUrls = [{
-        desc: 'release URLs',
-        url: 'https://ca.7digital.com/artist/green-day/release/oh-yeah-10901051',
-        id: '10901051',
-    }, {
-        desc: 'release URLs with special characters',
-        url: 'https://de.7digital.com/artist/tu-ves-ovnis/release/curva-al-final-del-t%C3%BAnel-14385941',
-        id: '14385941',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'release URLs',
+            url: 'https://ca.7digital.com/artist/green-day/release/oh-yeah-10901051',
+            id: '10901051',
+        }, {
+            desc: 'release URLs with special characters',
+            url: 'https://de.7digital.com/artist/tu-ves-ovnis/release/curva-al-final-del-t%C3%BAnel-14385941',
+            id: '14385941',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'artist URLs',
-        url: 'https://de.7digital.com/artist/tu-ves-ovnis',
-    }, {
-        desc: 'feature URLs',
-        url: 'https://de.7digital.com/features/VGoltyoAAKgA0eUV/highlights-der-woche',
-    }];
+        const unsupportedUrls = [{
+            desc: 'artist URLs',
+            url: 'https://de.7digital.com/artist/tu-ves-ovnis',
+        }, {
+            desc: 'feature URLs',
+            url: 'https://de.7digital.com/features/VGoltyoAAKgA0eUV/highlights-der-woche',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('grabs cover for release', async () => {
         const covers = await provider.findImages(new URL('https://de.7digital.com/artist/mnek/release/language-explicit-8354116'));

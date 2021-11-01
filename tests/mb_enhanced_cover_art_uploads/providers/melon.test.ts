@@ -10,19 +10,21 @@ describe('melon provider', () => {
     const pollyContext = setupPolly();
     const provider = new MelonProvider();
 
-    const supportedUrls = [{
-        desc: 'release URLs',
-        url: 'https://www.melon.com/album/detail.htm?albumId=10749882',
-        id: '10749882',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'release URLs',
+            url: 'https://www.melon.com/album/detail.htm?albumId=10749882',
+            id: '10749882',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'artist URLs',
-        url: 'https://www.melon.com/artist/timeline.htm?artistId=561051',
-    }];
+        const unsupportedUrls = [{
+            desc: 'artist URLs',
+            url: 'https://www.melon.com/artist/timeline.htm?artistId=561051',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('grabs cover for release', async () => {
         const covers = await provider.findImages(new URL('https://www.melon.com/album/detail.htm?albumId=10749882'));

@@ -10,40 +10,42 @@ describe('qobuz provider', () => {
     const pollyContext = setupPolly();
     const provider = new QobuzProvider();
 
-    const supportedUrls = [{
-        desc: 'www URLs with language',
-        url: 'https://www.qobuz.com/gb-en/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770',
-        id: '0060075354770',
-    }, {
-        desc: 'www URLs without language',
-        url: 'https://www.qobuz.com/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770',
-        id: '0060075354770',
-    }, {
-        desc: 'open URLs',
-        url: 'https://open.qobuz.com/album/0074643811224',
-        id: '0074643811224',
-    }, {
-        desc: 'open URLs with additional path component',
-        url: 'https://open.qobuz.com/album/1234567890/related',
-        id: '1234567890',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'www URLs with language',
+            url: 'https://www.qobuz.com/gb-en/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770',
+            id: '0060075354770',
+        }, {
+            desc: 'www URLs without language',
+            url: 'https://www.qobuz.com/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770',
+            id: '0060075354770',
+        }, {
+            desc: 'open URLs',
+            url: 'https://open.qobuz.com/album/0074643811224',
+            id: '0074643811224',
+        }, {
+            desc: 'open URLs with additional path component',
+            url: 'https://open.qobuz.com/album/1234567890/related',
+            id: '1234567890',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'label URLs',
-        url: 'https://www.qobuz.com/gb-en/label/universal-music-group-international/download-streaming-albums',
-    }, {
-        desc: 'label URLs with ID',
-        url: 'https://www.qobuz.com/nl-nl/label/universal-music-group-international/download-streaming-albums/92570',
-    }, {
-        desc: 'artist URLs',
-        url: 'https://www.qobuz.com/nl-nl/interpreter/supertramp/download-streaming-albums',
-    }, {
-        desc: 'open artist URLs',
-        url: 'https://open.qobuz.com/artist/50195',
-    }];
+        const unsupportedUrls = [{
+            desc: 'label URLs',
+            url: 'https://www.qobuz.com/gb-en/label/universal-music-group-international/download-streaming-albums',
+        }, {
+            desc: 'label URLs with ID',
+            url: 'https://www.qobuz.com/nl-nl/label/universal-music-group-international/download-streaming-albums/92570',
+        }, {
+            desc: 'artist URLs',
+            url: 'https://www.qobuz.com/nl-nl/interpreter/supertramp/download-streaming-albums',
+        }, {
+            desc: 'open artist URLs',
+            url: 'https://open.qobuz.com/artist/50195',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     describe('finding release images', () => {
 

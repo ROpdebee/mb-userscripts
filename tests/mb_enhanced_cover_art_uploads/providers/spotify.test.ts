@@ -9,29 +9,31 @@ describe('spotify provider', () => {
     const pollyContext = setupPolly();
     const provider = new SpotifyProvider();
 
-    const supportedUrls = [{
-        desc: 'clean album URLs',
-        url: 'https://open.spotify.com/album/3hVr04Z3d9HgUCYOjXQHQL',
-        id: '3hVr04Z3d9HgUCYOjXQHQL',
-    }, {
-        desc: 'dirty album URLs',
-        url: 'https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURl?si=oXJ7iNcXTqSkcIk8jYBqFQ&dl_branch=1',
-        id: '5Lj94YpHLkmjM7JZ8wuURl',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'clean album URLs',
+            url: 'https://open.spotify.com/album/3hVr04Z3d9HgUCYOjXQHQL',
+            id: '3hVr04Z3d9HgUCYOjXQHQL',
+        }, {
+            desc: 'dirty album URLs',
+            url: 'https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURl?si=oXJ7iNcXTqSkcIk8jYBqFQ&dl_branch=1',
+            id: '5Lj94YpHLkmjM7JZ8wuURl',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'track URLs',
-        url: 'https://open.spotify.com/track/49tMnLt1iXNT6QBOsepFyg?si=61de9abff5f94f51',
-    }, {
-        desc: 'artist URLs',
-        url: 'https://open.spotify.com/artist/5Igpc9iLZ3YGtKeYfSrrOE?si=a31abf58e12948fd',
-    }, {
-        desc: 'playlist URLs',
-        url: 'https://open.spotify.com/playlist/2yNg6AGxM4liENyBAE8Wyr'
-    }];
+        const unsupportedUrls = [{
+            desc: 'track URLs',
+            url: 'https://open.spotify.com/track/49tMnLt1iXNT6QBOsepFyg?si=61de9abff5f94f51',
+        }, {
+            desc: 'artist URLs',
+            url: 'https://open.spotify.com/artist/5Igpc9iLZ3YGtKeYfSrrOE?si=a31abf58e12948fd',
+        }, {
+            desc: 'playlist URLs',
+            url: 'https://open.spotify.com/playlist/2yNg6AGxM4liENyBAE8Wyr'
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('grabs the correct cover', async () => {
         const coverUrl = await provider.findImages(new URL('https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURl'));

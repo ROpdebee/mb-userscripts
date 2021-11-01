@@ -23,26 +23,28 @@ describe('bandcamp provider', () => {
         });
     });
 
-    const supportedUrls = [{
-        desc: 'track URLs',
-        url: 'https://happysadportable.bandcamp.com/track/again-and-again',
-        id: 'happysadportable/track/again-and-again',
-    }, {
-        desc: 'album URLs',
-        url: 'https://powergameheavy.bandcamp.com/album/the-lockdown-tapes',
-        id: 'powergameheavy/album/the-lockdown-tapes',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'track URLs',
+            url: 'https://happysadportable.bandcamp.com/track/again-and-again',
+            id: 'happysadportable/track/again-and-again',
+        }, {
+            desc: 'album URLs',
+            url: 'https://powergameheavy.bandcamp.com/album/the-lockdown-tapes',
+            id: 'powergameheavy/album/the-lockdown-tapes',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'root URLs',
-        url: 'https://powergameheavy.bandcamp.com/',
-    }, {
-        desc: 'discography URLs',
-        url: 'https://powergameheavy.bandcamp.com/music',
-    }];
+        const unsupportedUrls = [{
+            desc: 'root URLs',
+            url: 'https://powergameheavy.bandcamp.com/',
+        }, {
+            desc: 'discography URLs',
+            url: 'https://powergameheavy.bandcamp.com/music',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('considers redirect to different album to be unsafe', () => {
         // See https://github.com/ROpdebee/mb-userscripts/issues/79
