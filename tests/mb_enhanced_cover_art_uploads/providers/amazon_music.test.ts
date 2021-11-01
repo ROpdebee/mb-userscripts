@@ -10,22 +10,24 @@ describe('amazon music provider', () => {
     setupPolly();
     const provider = new AmazonMusicProvider();
 
-    const supportedUrls = [{
-        desc: 'album URLs',
-        url: 'https://music.amazon.com/albums/B08Y99SFVJ',
-        id: 'B08Y99SFVJ',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'album URLs',
+            url: 'https://music.amazon.com/albums/B08Y99SFVJ',
+            id: 'B08Y99SFVJ',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'artist URLs',
-        url: 'https://music.amazon.com/artists/B08YC6GFB7/hannapeles',
-    }, {
-        desc: 'playlist URLs',
-        url: 'https://music.amazon.com/playlists/B07H8NWNNF',
-    }];
+        const unsupportedUrls = [{
+            desc: 'artist URLs',
+            url: 'https://music.amazon.com/artists/B08YC6GFB7/hannapeles',
+        }, {
+            desc: 'playlist URLs',
+            url: 'https://music.amazon.com/playlists/B07H8NWNNF',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it('uses Amazon provider covers', async () => {
         const covers = await provider.findImages(new URL('https://music.amazon.com/albums/B08MCFCQD8'));

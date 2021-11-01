@@ -10,29 +10,31 @@ describe('discogs provider', () => {
     const provider = new DiscogsProvider();
     const discogsUrl = new URL('https://www.discogs.com/release/9892912');
 
-    const supportedUrls = [{
-        desc: 'short release URLs',
-        url: 'https://www.discogs.com/release/9892912/',
-        id: '9892912',
-    }, {
-        desc: 'long release URLs',
-        url: 'https://www.discogs.com/release/9892912-Wayne-King-And-His-Orchestra-A-Million-Dreams-Ago-One-Look-At-You',
-        id: '9892912',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'short release URLs',
+            url: 'https://www.discogs.com/release/9892912/',
+            id: '9892912',
+        }, {
+            desc: 'long release URLs',
+            url: 'https://www.discogs.com/release/9892912-Wayne-King-And-His-Orchestra-A-Million-Dreams-Ago-One-Look-At-You',
+            id: '9892912',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'artist URLs',
-        url: 'https://www.discogs.com/artist/881122-Wayne-King-And-His-Orchestra',
-    }, {
-        desc: 'release master URLs',
-        url: 'https://www.discogs.com/master/1746505',
-    }, {
-        desc: 'label URLs',
-        url: 'https://www.discogs.com/label/61808-Victor'
-    }];
+        const unsupportedUrls = [{
+            desc: 'artist URLs',
+            url: 'https://www.discogs.com/artist/881122-Wayne-King-And-His-Orchestra',
+        }, {
+            desc: 'release master URLs',
+            url: 'https://www.discogs.com/master/1746505',
+        }, {
+            desc: 'label URLs',
+            url: 'https://www.discogs.com/label/61808-Victor'
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     describe('finding release images', () => {
         it('finds all images in 600x600', async () => {

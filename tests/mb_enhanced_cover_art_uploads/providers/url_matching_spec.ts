@@ -1,3 +1,5 @@
+/* eslint-disable jest/no-export, jest/consistent-test-it */
+
 import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
 import type { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
@@ -18,38 +20,35 @@ interface SpecArgs {
     unsupportedUrls: UnsupportedURL[];
 }
 
-// eslint-disable-next-line jest/no-export
 export const urlMatchingSpec = ({ provider, supportedUrls, unsupportedUrls }: SpecArgs): void => {
-    describe('url matching', () => {
-        it.each(supportedUrls)('supports $desc', ({ url }) => {
-            expect(provider.supportsUrl(new URL(url)))
-                .toBeTrue();
-        });
+    it.each(supportedUrls)('supports $desc', ({ url }) => {
+        expect(provider.supportsUrl(new URL(url)))
+            .toBeTrue();
+    });
 
-        it.each(unsupportedUrls)('does not support $desc', ({ url }) => {
-            expect(provider.supportsUrl(new URL(url)))
-                .toBeFalse();
-        });
+    it.each(unsupportedUrls)('does not support $desc', ({ url }) => {
+        expect(provider.supportsUrl(new URL(url)))
+            .toBeFalse();
+    });
 
-        it.each(supportedUrls)('extracts ID for $desc', ({ url, id }) => {
-            expect(provider.extractId(new URL(url)))
-                .toBe(id);
-        });
+    it.each(supportedUrls)('extracts ID for $desc', ({ url, id }) => {
+        expect(provider.extractId(new URL(url)))
+            .toBe(id);
+    });
 
-        // This test has two purposes:
-        //   1. Additional testing of DispatchMap
-        //   2. Making sure we don't forget to register a provider.
-        it.each(supportedUrls)('can find the provider from the dispatch map', ({ url }) => {
-            // Expect them to be of the same class. We can't expect them to be
-            // the exact same instance because the test suite that uses this
-            // shared spec may create a whole other instance.
-            expect(getProvider(new URL(url))?.constructor)
-                .toBe(provider.constructor);
-        });
+    // This test has two purposes:
+    //   1. Additional testing of DispatchMap
+    //   2. Making sure we don't forget to register a provider.
+    it.each(supportedUrls)('can find the provider from the dispatch map', ({ url }) => {
+        // Expect them to be of the same class. We can't expect them to be
+        // the exact same instance because the test suite that uses this
+        // shared spec may create a whole other instance.
+        expect(getProvider(new URL(url))?.constructor)
+            .toBe(provider.constructor);
+    });
 
-        it.each(unsupportedUrls)('does not return provider for unsupported URL', ({ url }) => {
-            expect(getProvider(new URL(url)))
-                .toBeUndefined();
-        });
+    it.each(unsupportedUrls)('does not return provider for unsupported URL', ({ url }) => {
+        expect(getProvider(new URL(url)))
+            .toBeUndefined();
     });
 };

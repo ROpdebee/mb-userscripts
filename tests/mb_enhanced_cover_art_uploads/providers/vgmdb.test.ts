@@ -10,22 +10,24 @@ describe('vgmdb provider', () => {
     const pollyContext = setupPolly();
     const provider = new VGMdbProvider();
 
-    const supportedUrls = [{
-        desc: 'album URLs',
-        url: 'https://vgmdb.net/album/79',
-        id: '79',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'album URLs',
+            url: 'https://vgmdb.net/album/79',
+            id: '79',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'artist URLs',
-        url: 'https://vgmdb.net/artist/77',
-    }, {
-        desc: 'organisation URLs',
-        url: 'https://vgmdb.net/org/186',
-    }];
+        const unsupportedUrls = [{
+            desc: 'artist URLs',
+            url: 'https://vgmdb.net/artist/77',
+        }, {
+            desc: 'organisation URLs',
+            url: 'https://vgmdb.net/org/186',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     describe('mapping jacket types', () => {
         const mapJacketType = __get__('mapJacketType');

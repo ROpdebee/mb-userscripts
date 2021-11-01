@@ -9,44 +9,46 @@ describe('tidal provider', () => {
     const pollyContext = setupPolly();
     const provider = new TidalProvider();
 
-    const supportedUrls = [{
-        desc: 'listen.tidal.com album URLs',
-        url: 'https://listen.tidal.com/album/151193605',
-        id: '151193605',
-    }, {
-        desc: 'store.tidal.com album URLs with country',
-        url: 'https://store.tidal.com/us/album/175441105',
-        id: '175441105',
-    }, {
-        desc: 'store.tidal.com album URLs without country',
-        url: 'https://store.tidal.com/album/175441105',
-        id: '175441105',
-    }, {
-        desc: 'tidal.com browse album URLs',
-        url: 'https://tidal.com/browse/album/175441105',
-        id: '175441105',
-    }, {
-        desc: 'tidal.com album URLs',
-        url: 'https://tidal.com/album/175441105',
-        id: '175441105',
-    }];
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'listen.tidal.com album URLs',
+            url: 'https://listen.tidal.com/album/151193605',
+            id: '151193605',
+        }, {
+            desc: 'store.tidal.com album URLs with country',
+            url: 'https://store.tidal.com/us/album/175441105',
+            id: '175441105',
+        }, {
+            desc: 'store.tidal.com album URLs without country',
+            url: 'https://store.tidal.com/album/175441105',
+            id: '175441105',
+        }, {
+            desc: 'tidal.com browse album URLs',
+            url: 'https://tidal.com/browse/album/175441105',
+            id: '175441105',
+        }, {
+            desc: 'tidal.com album URLs',
+            url: 'https://tidal.com/album/175441105',
+            id: '175441105',
+        }];
 
-    const unsupportedUrls = [{
-        desc: 'tidal.com track URLs',
-        url: 'https://tidal.com/browse/track/175441106',
-    }, {
-        desc: 'tidal.com artist URLs',
-        url: 'https://tidal.com/browse/artist/23736224',
-    }, {
-        desc: 'listen.tidal.com artist URLs',
-        url: 'https://listen.tidal.com/artist/10789784',
-    }, {
-        desc: 'store.tidal.com artist URLs',
-        url: 'https://store.tidal.com/nl/artist/23736224',
-    }];
+        const unsupportedUrls = [{
+            desc: 'tidal.com track URLs',
+            url: 'https://tidal.com/browse/track/175441106',
+        }, {
+            desc: 'tidal.com artist URLs',
+            url: 'https://tidal.com/browse/artist/23736224',
+        }, {
+            desc: 'listen.tidal.com artist URLs',
+            url: 'https://listen.tidal.com/artist/10789784',
+        }, {
+            desc: 'store.tidal.com artist URLs',
+            url: 'https://store.tidal.com/nl/artist/23736224',
+        }];
 
-    // eslint-disable-next-line jest/require-hook
-    itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
+    });
 
     it.each`
         url | domain
