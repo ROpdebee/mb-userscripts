@@ -9,14 +9,12 @@ import { itBehavesLike } from '@test-utils/shared_behaviour';
 import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
 
-// eslint-disable-next-line jest/require-hook
-setupPolly({
-    adapters: [HttpAdapter],
-    recordFailedRequests: true,
-});
-
 describe('musicbrainz provider', () => {
     const provider = new MusicBrainzProvider();
+    const pollyContext = setupPolly({
+        adapters: [HttpAdapter],
+        recordFailedRequests: true,
+    });
 
     describe('url matching', () => {
         const supportedUrls = [{
@@ -70,6 +68,6 @@ describe('musicbrainz provider', () => {
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
     });
 });

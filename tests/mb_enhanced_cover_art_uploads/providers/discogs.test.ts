@@ -7,6 +7,7 @@ import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
 
 describe('discogs provider', () => {
+    const pollyContext = setupPolly();
     const provider = new DiscogsProvider();
 
     describe('url matching', () => {
@@ -62,7 +63,7 @@ describe('discogs provider', () => {
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
     });
 
     describe('maximising image', () => {
@@ -76,8 +77,6 @@ describe('discogs provider', () => {
     describe('caching API responses', () => {
         const requestSpy = jest.spyOn(DiscogsProvider, 'actuallyGetReleaseImages');
         const discogsUrl = new URL('https://www.discogs.com/release/9892912');
-        // eslint-disable-next-line jest/require-hook
-        setupPolly();
 
         beforeEach(() => {
             // Make sure to clear the cache before each test, since it's static
