@@ -34,14 +34,15 @@ describe('vgmdb provider', () => {
     describe('mapping jacket types', () => {
         const mapJacketType = __get__('mapJacketType');
 
-        it.each`
-            caption | exp
-            ${'Front'} | ${ArtworkTypeIDs.Front}
-            ${'Back'} | ${ArtworkTypeIDs.Back}
-            ${'Spine'} | ${ArtworkTypeIDs.Spine}
-        `('should map simple jacket type with $caption', ({ caption, exp }: { caption: string; exp: ArtworkTypeIDs }) => {
+        const simpleJacketCases = [
+            ['Front', ArtworkTypeIDs.Front],
+            ['Back', ArtworkTypeIDs.Back],
+            ['Spine', ArtworkTypeIDs.Spine],
+        ];
+
+        it.each(simpleJacketCases)('should map simple jacket type with %s', (caption, expected) => {
             expect(mapJacketType(caption)).toStrictEqual({
-                type: [exp],
+                type: [expected],
                 comment: ''
             });
         });
@@ -83,40 +84,37 @@ describe('vgmdb provider', () => {
     describe('caption type mapping', () => {
         const caption_type_mapping = __get__('CAPTION_TYPE_MAPPING');
 
-        interface ItemType {
-            caption: string;
-            expected: {
-                types: ArtworkTypeIDs[];
-                comment: string;
-            };
-        }
+        const mappingCases: Array<[string, ArtworkTypeIDs[], string]> = [
+            ['Front', [ArtworkTypeIDs.Front], ''],
+            ['Back', [ArtworkTypeIDs.Back], ''],
+            ['Jacket Front', [ArtworkTypeIDs.Front], ''],
+            ['Jacket Front & Back', [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], ''],
+            ['Jacket Front & Back', [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], ''],
+            ['Disc 1', [ArtworkTypeIDs.Medium], '1'],
+            ['Cassette Front', [ArtworkTypeIDs.Medium], 'Front'],
+            ['Vinyl A-side', [ArtworkTypeIDs.Medium], 'A-side'],
+            ['Tray', [ArtworkTypeIDs.Tray], ''],
+            ['Back', [ArtworkTypeIDs.Back], ''],
+            ['Obi', [ArtworkTypeIDs.Obi], ''],
+            ['Box', [ArtworkTypeIDs.Other], 'Box'],
+            ['Box Front', [ArtworkTypeIDs.Other], 'Box Front'],
+            ['Card', [ArtworkTypeIDs.Other], 'Card'],
+            ['Sticker', [ArtworkTypeIDs.Sticker], ''],
+            ['Slipcase', [ArtworkTypeIDs.Other], 'Slipcase'],
+            ['Digipack Outer Left', [ArtworkTypeIDs.Other], 'Digipack Outer Left'],
+            ['Insert', [ArtworkTypeIDs.Other], 'Insert'],
+            ['Case', [ArtworkTypeIDs.Other], 'Case'],
+            ['Contents', [ArtworkTypeIDs.Raw], ''],
+        ];
 
-        it.each`
-            caption | expected
-            ${'Front'} | ${{types: [ArtworkTypeIDs.Front], comment: ''}}
-            ${'Back'} | ${{types: [ArtworkTypeIDs.Back], comment: ''}}
-            ${'Jacket Front'} | ${{types: [ArtworkTypeIDs.Front], comment: ''}}
-            ${'Jacket Front & Back'} | ${{types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], comment: ''}}
-            ${'Disc 1'} | ${{types: [ArtworkTypeIDs.Medium], comment: '1'}}
-            ${'Cassette Front'} | ${{types: [ArtworkTypeIDs.Medium], comment: 'Front'}}
-            ${'Vinyl A-side'} | ${{types: [ArtworkTypeIDs.Medium], comment: 'A-side'}}
-            ${'Tray'} | ${{types: [ArtworkTypeIDs.Tray], comment: ''}}
-            ${'Back'} | ${{types: [ArtworkTypeIDs.Back], comment: ''}}
-            ${'Obi'} | ${{types: [ArtworkTypeIDs.Obi], comment: ''}}
-            ${'Box'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Box'}}
-            ${'Box Front'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Box Front'}}
-            ${'Card'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Card'}}
-            ${'Sticker'} | ${{types: [ArtworkTypeIDs.Sticker], comment: ''}}
-            ${'Slipcase'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Slipcase'}}
-            ${'Digipack Outer Left'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Digipack Outer Left'}}
-            ${'Insert'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Insert'}}
-            ${'Case'} | ${{types: [ArtworkTypeIDs.Other], comment: 'Case'}}
-            ${'Contents'} | ${{types: [ArtworkTypeIDs.Raw], comment: ''}}
-        `('should map $caption to the correct type', ({ caption, expected }: ItemType) => {
+        it.each(mappingCases)('should map %s to the correct type', (caption, expectedTypes, expectedComment) => {
             const [key, ...rest] = caption.split(' ');
 
             expect(caption_type_mapping[key.toLowerCase()](rest.join(' ')))
-                .toStrictEqual(expected);
+                .toStrictEqual({
+                    types: expectedTypes,
+                    comment: expectedComment,
+                });
         });
     });
 
@@ -186,9 +184,11 @@ describe('vgmdb provider', () => {
             const covers = await provider.findImages(new URL('https://vgmdb.net/album/123'));
 
             expect(covers).toBeArrayOfSize(1);
-            expect(covers[0].url.pathname).toBe('/test');
-            expect(covers[0].types).toBeUndefined();
-            expect(covers[0].comment).toBeUndefined();
+            expect(covers[0]).toMatchCoverArt({
+                urlPart: /\/test$/,
+                types: undefined,
+                comment: undefined,
+            });
         });
 
         it('does not map types if the caption type is unknown', async () => {
@@ -209,9 +209,11 @@ describe('vgmdb provider', () => {
             const covers = await provider.findImages(new URL('https://vgmdb.net/album/123'));
 
             expect(covers).toBeArrayOfSize(1);
-            expect(covers[0].url.pathname).toBe('/test');
-            expect(covers[0].types).toBeUndefined();
-            expect(covers[0].comment).toBe('not a correct caption');
+            expect(covers[0]).toMatchCoverArt({
+                urlPart: /\/test$/,
+                types: undefined,
+                comment: 'not a correct caption',
+            });
         });
 
         it('includes picture if it is absent from the covers', async () => {
@@ -232,12 +234,16 @@ describe('vgmdb provider', () => {
             const covers = await provider.findImages(new URL('https://vgmdb.net/album/123'));
 
             expect(covers).toBeArrayOfSize(2);
-            expect(covers[0].url.pathname).toBe('/othertest');
-            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-            expect(covers[0].comment).toBeEmpty();
-            expect(covers[1].url.pathname).toBe('/test');
-            expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
-            expect(covers[1].comment).toBeEmpty();
+            expect(covers[0]).toMatchCoverArt({
+                urlPart: /\/othertest$/,
+                types: [ArtworkTypeIDs.Front],
+                comment: '',
+            });
+            expect(covers[1]).toMatchCoverArt({
+                urlPart: /\/test$/,
+                types: [ArtworkTypeIDs.Back],
+                comment: '',
+            });
         });
     });
 });
