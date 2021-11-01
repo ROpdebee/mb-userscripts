@@ -232,7 +232,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
                 .map((pair) => pair[0].comment?.match(/Tracks? ([\d\s,]+)/)?.[1] ?? '')
                 .flatMap((commentedTrackNos) => commentedTrackNos.split(',').map((num) => num.trim()))
                 .filter((num) => !!num);
-            const newComment = (allTrackNumbers.length > 1 ? 'Tracks ' : 'Track ') + allTrackNumbers.sort().join(', ');
+            const newComment = this.#createTrackImageComment(allTrackNumbers);
             const mainImage = sameImages[0][1];
             results.push({
                 ...mainImage,
@@ -291,18 +291,18 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
                 url: new URL(imgUrl),
                 types: [ArtworkTypeIDs.Track],
                 // Use comment to indicate which tracks this applies to.
-                comment: this.#createTrackImageComment(trackImages),
+                comment: this.#createTrackImageComment(trackImages.map((trackImage) => trackImage.trackNumber)) || undefined,
             });
         });
 
         return results;
     }
 
-    #createTrackImageComment(trackImages: ParsedTrackImage[]): string | undefined {
-        const definedTrackNumbers = filterNonNull(trackImages.map((trackImage) => trackImage.trackNumber));
-        if (!definedTrackNumbers.length) return;
+    #createTrackImageComment(trackNumbers: Array<string | undefined>): string {
+        const definedTrackNumbers = filterNonNull(trackNumbers);
+        if (!definedTrackNumbers.length) return '';
 
         const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
-        return `${prefix} ${definedTrackNumbers.join(', ')}`;
+        return `${prefix} ${definedTrackNumbers.sort().join(', ')}`;
     }
 }
