@@ -100,9 +100,10 @@ describe('soundcloud provider', () => {
             const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/isolationep'), true);
 
             expect(covers).toBeArrayOfSize(1);
-            expect(covers[0].url.href).toContain('000358407327-4e29ur');
-            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-            expect(covers[0].comment).toBeUndefined();
+            expect(covers[0]).toMatchCoverArt({
+                urlPart: '000358407327-4e29ur',
+                types: [ArtworkTypeIDs.Front],
+            });
         });
 
         it('grabs no images if track has no image', async () => {
