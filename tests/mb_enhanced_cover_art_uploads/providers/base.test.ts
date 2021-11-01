@@ -1,54 +1,210 @@
-import type { CoverArt, ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { ArtworkTypeIDs, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { when } from 'jest-when';
+
 import { gmxhr } from '@lib/util/xhr';
+
+import type { CoverArt, ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs, CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+
+import { createBlob, createFetchedImage, createXhrResponse } from '../test-utils/dummy-data';
+import { registerMatchers } from '../test-utils/matchers';
 
 jest.mock('@lib/util/xhr');
 const mockXhr = gmxhr as jest.MockedFunction<typeof gmxhr>;
 
-class FakeProvider extends ProviderWithTrackImages {
-    name = 'fake';
-    favicon = '';
-    supportedDomains = ['example.com'];
-    urlRegex = /example\.com\/(.+)/;
-    async findImages(): Promise<CoverArt[]> {
-        return [];
-    }
-    override isSafeRedirect(): boolean {
-        return false;
-    }
-}
+const findImagesMock = jest.fn();
+
+beforeAll(() => {
+    registerMatchers();
+});
 
 describe('cover art providers', () => {
-    describe('fetching DOM', () => {
-        it('throws on unsafe redirects', async () => {
-            const fakeProvider = new FakeProvider();
-            mockXhr.mockResolvedValueOnce({
-                response: new Blob(['1234']),
-                finalUrl: 'https://example.com/redirected',
-                readyState: 4,
-                responseHeaders: '',
-                responseText: '1234',
-                status: 200,
-                statusText: 'OK',
-                context: undefined,
-            });
+    class FakeProvider extends CoverArtProvider {
+        name = 'fake';
+        favicon = '';
+        supportedDomains = ['example.com'];
+        get urlRegex(): RegExp | RegExp[] {
+            return /example\.com\/(.+)/;
+        }
+        findImages = findImagesMock;
+    }
+    const fakeProvider = new FakeProvider();
 
-            await expect(fakeProvider.fetchPage(new URL('https://example.com/redirect_me')))
-                .rejects.toMatchObject({
-                    message: expect.stringMatching('different release'),
-                });
+    describe('cleaning URL', () => {
+        it('removes query parameters', () => {
+            const result = fakeProvider.cleanUrl(new URL('https://example.com/test?x=1'));
+
+            expect(result).toBe('example.com/test');
+        });
+
+        it('removes hash', () => {
+            const result = fakeProvider.cleanUrl(new URL('https://example.com/test#hash'));
+
+            expect(result).toBe('example.com/test');
         });
     });
 
-    describe('merging track images', () => {
-        class ExposingProvider extends FakeProvider {
-            // Hoist the function to be public instead of protected, so we can
-            // call it directly in the tests.
-            override mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string, byContent = false): Promise<CoverArt[]> {
-                return super.mergeTrackImages(trackImages, mainUrl, byContent);
-            }
+    describe('url support', () => {
+        describe('with single regex', () => {
+            it('supports URL if regex matches', () => {
+                expect(fakeProvider.supportsUrl(new URL('https://example.com/123?x=123')))
+                    .toBeTrue();
+            });
+
+            it('does not support URL if regex does not match', () => {
+                expect(fakeProvider.supportsUrl(new URL('https://test.com/abc')))
+                    .toBeFalse();
+            });
+
+            it('extracts the ID', () => {
+                expect(fakeProvider.extractId(new URL('https://example.com/123?x=123')))
+                    .toBe('123');
+            });
+        });
+
+        describe('with multiple regexes', () => {
+            const regexMock = jest.spyOn(fakeProvider, 'urlRegex', 'get');
+
+            beforeAll(() => {
+                regexMock.mockReturnValue([
+                    /example\.com\/([abc]{3})/,
+                    /example\.com\/([123]{3})/,
+                ]);
+            });
+
+            afterAll(() => {
+                regexMock.mockRestore();
+            });
+
+            const matchCases = [
+                ['first', 'https://example.com/aba', 'aba'],
+                ['second', 'https://example.com/121', '121'],
+            ];
+
+            it.each(matchCases)('supports URL if %s regex matches', (_1, url) => {
+                expect(fakeProvider.supportsUrl(new URL(url)))
+                    .toBeTrue();
+            });
+
+            it('does not support URL if none of the regexes match', () => {
+                expect(fakeProvider.supportsUrl(new URL('https://example.com/ded')))
+                    .toBeFalse();
+            });
+
+            it.each(matchCases)('extracts ID for %s regex', (_1, url, id) => {
+                expect(fakeProvider.extractId(new URL(url)))
+                    .toBe(id);
+            });
+
+            it('extracts no ID if no regex matches', () => {
+                expect(fakeProvider.extractId(new URL('https://example.com/ded')))
+                    .toBeUndefined();
+            });
+        });
+    });
+
+    describe('checking redirects', () => {
+        it('considers redirects with the same ID to be safe', () => {
+            const originalUrl = 'https://example.com/1234';
+            const redirectedUrl = 'https://example.com/1234?x=1234';
+
+            expect(fakeProvider.isSafeRedirect(new URL(originalUrl), new URL(redirectedUrl)))
+                .toBeTrue();
+        });
+
+        it('considers redirects with a different ID to be unsafe', () => {
+            const originalUrl = 'https://example.com/1234';
+            const redirectedUrl = 'https://example.com/5678';
+
+            expect(fakeProvider.isSafeRedirect(new URL(originalUrl), new URL(redirectedUrl)))
+                .toBeFalse();
+        });
+    });
+
+    describe('fetching page', () => {
+        const dummyResponse = createXhrResponse({
+            responseText: '1234',
+        });
+
+        it('returns page content', async () => {
+            mockXhr.mockResolvedValueOnce({
+                ...dummyResponse,
+                finalUrl: 'https://example.com/test',
+            });
+
+            await expect(fakeProvider.fetchPage(new URL('https://example.com/test')))
+                .resolves.toBe('1234');
+        });
+
+        it('throws on unsafe redirects', async () => {
+            mockXhr.mockResolvedValueOnce({
+                ...dummyResponse,
+                finalUrl: 'https://example.com/redirected',
+            });
+
+            await expect(fakeProvider.fetchPage(new URL('https://example.com/redirect_me')))
+                .rejects.toThrowWithMessage(Error, /different release/);
+        });
+    });
+
+    describe('post-processing images', () => {
+        it('does no post-processing by default', async () => {
+            const fetchedImages = [createFetchedImage(), createFetchedImage()];
+
+            const results = fakeProvider.postprocessImages(fetchedImages);
+
+            expect(results).toStrictEqual(fetchedImages);
+        });
+    });
+});
+
+describe('providers using head meta element', () => {
+    class FakeProvider extends HeadMetaPropertyProvider {
+        name = 'fake';
+        favicon = '';
+        supportedDomains = ['example.com'];
+        urlRegex = /example\.com\/(.+)/;
+    }
+    const fakeProvider = new FakeProvider();
+    const mockFetchPage = jest.spyOn(fakeProvider, 'fetchPage');
+
+    it('extracts cover URL from og:image meta element', async () => {
+        mockFetchPage.mockResolvedValueOnce('<html><head><meta property="og:image" content="https://example.com/1234"/></head></html>');
+
+        const result = await fakeProvider.findImages(new URL('https://example.com/test'));
+
+        expect(result).toBeArrayOfSize(1);
+        expect(result[0]).toMatchCoverArt({
+            urlPart: 'https://example.com/1234',
+            types: [ArtworkTypeIDs.Front],
+        });
+    });
+
+    it('throws if release does not exist', async () => {
+        mockFetchPage.mockResolvedValueOnce('<html />');
+        // @ts-expect-error mocking
+        jest.spyOn(fakeProvider, 'is404Page').mockReturnValueOnce(true);
+
+        await expect(fakeProvider.findImages(new URL('https://example.com/test')))
+            .rejects.toThrowWithMessage(Error, 'fake release does not exist');
+    });
+});
+
+describe('providers with track images', () => {
+    class FakeProvider extends ProviderWithTrackImages {
+        name = 'fake';
+        favicon = '';
+        supportedDomains = ['example.com'];
+        urlRegex = /example\.com\/(.+)/;
+        findImages = findImagesMock;
+        // Hoist the function to be public instead of protected, so we can
+        // call it directly in the tests.
+        override mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string, byContent = false): Promise<CoverArt[]> {
+            return super.mergeTrackImages(trackImages, mainUrl, byContent);
         }
-        const provider = new ExposingProvider();
+    }
+    const fakeProvider = new FakeProvider();
+
+    describe('merging track images', () => {
         const trackImages = [{
             url: 'https://example.com/123',
             trackNumber: '1',
@@ -61,34 +217,37 @@ describe('cover art providers', () => {
         }];
 
         it('removes track images which duplicate the main image', async () => {
-            const results = await provider.mergeTrackImages(trackImages.slice(0, 1), 'https://example.com/123', false);
+            const results = await fakeProvider.mergeTrackImages(trackImages.slice(0, 1), 'https://example.com/123', false);
 
             expect(results).toBeEmpty();
         });
 
         it('retains track images which are new', async () => {
-            const results = await provider.mergeTrackImages(trackImages.slice(0, 1), 'https://example.com/456', false);
+            const results = await fakeProvider.mergeTrackImages(trackImages.slice(0, 1), 'https://example.com/456', false);
 
             expect(results).toBeArrayOfSize(1);
-            expect(results[0].url.href).toBe('https://example.com/123');
-            expect(results[0].types).toStrictEqual([ArtworkTypeIDs.Track]);
+            expect(results[0]).toMatchCoverArt({
+                urlPart: 'https://example.com/123',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 1',
+            });
         });
 
         it('sets track number in comment', async () => {
-            const results = await provider.mergeTrackImages(trackImages.slice(0, 1), 'https://example.com/456', false);
+            const results = await fakeProvider.mergeTrackImages(trackImages.slice(0, 1), 'https://example.com/456', false);
 
             expect(results).toBeArrayOfSize(1);
             expect(results[0].comment).toBe('Track 1');
         });
 
         it('deduplicates track images', async () => {
-            const results = await provider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+            const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
             expect(results).toBeArrayOfSize(2);
         });
 
         it('sets all track numbers in comment', async () => {
-            const results = await provider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+            const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
             expect(results.find((img) => img.url.pathname === '/123')?.comment)
                 .toBe('Tracks 1, 3');
@@ -98,9 +257,58 @@ describe('cover art providers', () => {
             const trackImages = [{
                 url: 'https://example.com/123',
             }];
-            const results = await provider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+            const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
             expect(results[0].comment).toBeUndefined();
+        });
+
+        describe('deduplicating by content', () => {
+            it('deduplicates images with identical thumbnail content', async () => {
+                when(mockXhr)
+                    // Always use the same blob by default.
+                    .mockResolvedValue(createXhrResponse({
+                        response: createBlob(),
+                    }))
+                    // Main image has different blob
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                    .calledWith('https://example.com/x', expect.anything()).mockResolvedValue(createXhrResponse({
+                        response: createBlob(),
+                    }));
+
+                const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', true);
+
+                expect(results).toBeArrayOfSize(1);
+                expect(results[0]).toMatchCoverArt({
+                    urlPart: /https:\/\/example\.com\/(?:123|456)/,
+                    types: [ArtworkTypeIDs.Track],
+                    comment: 'Tracks 1, 2, 3',
+                });
+            });
+
+            it('removes track images which are identical to main image', async () => {
+                mockXhr.mockResolvedValue(createXhrResponse({
+                    response: createBlob(),
+                }));
+
+                const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', true);
+
+                expect(results).toBeEmpty();
+            });
+
+            it('allows main image to be empty', async () => {
+                mockXhr.mockResolvedValue(createXhrResponse({
+                    response: createBlob(),
+                }));
+
+                const results = await fakeProvider.mergeTrackImages(trackImages, '', true);
+
+                expect(results).toBeArrayOfSize(1);
+                expect(results[0]).toMatchCoverArt({
+                    urlPart: /https:\/\/example\.com\/(?:123|456)/,
+                    types: [ArtworkTypeIDs.Track],
+                    comment: 'Tracks 1, 2, 3',
+                });
+            });
         });
     });
 });
