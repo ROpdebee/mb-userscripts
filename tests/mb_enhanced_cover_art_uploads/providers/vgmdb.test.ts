@@ -154,7 +154,7 @@ describe('vgmdb provider', () => {
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
 
         it('does not find all images if some are not public', async () => {
             // This may seem like a useless test case, but if it starts working

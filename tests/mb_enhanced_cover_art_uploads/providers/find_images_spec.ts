@@ -2,6 +2,7 @@
 
 import type { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
+import type { Context } from 'setup-polly-jest';
 import { setupPolly } from '@test-utils/pollyjs';
 
 import type { ExpectedCoverArt } from '../test-utils/matchers';
@@ -25,10 +26,13 @@ interface SpecArgs {
     provider: CoverArtProvider;
     extractionCases: ExtractionCase[];
     extractionFailedCases: ExtractionFailedCase[];
+    pollyContext?: Context;
 }
 
-export const findImagesSpec = ({ provider, extractionCases, extractionFailedCases }: SpecArgs): void => {
-    const pollyContext = setupPolly();
+export const findImagesSpec = ({ provider, extractionCases, extractionFailedCases, pollyContext }: SpecArgs): void => {
+    if (typeof pollyContext === 'undefined') {
+        pollyContext = setupPolly();
+    }
 
     beforeAll(() => {
         registerMatchers();
@@ -46,7 +50,8 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
 
     if (extractionFailedCases.length) {
         it.each(extractionFailedCases)('throws on $desc', async (extractionFailedCase) => {
-            pollyContext.polly.configure({
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            pollyContext!.polly.configure({
                 recordFailedRequests: true,
             });
 

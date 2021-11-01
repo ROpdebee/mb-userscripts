@@ -81,7 +81,7 @@ describe('qobuz provider', () => {
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
 
         describe('with invalid app ID', () => {
             // Separate describe block so we can patch out console.error before
