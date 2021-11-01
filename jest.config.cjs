@@ -19,4 +19,8 @@ module.exports = {
         // modules. We need to transform ESM because jest expects CJS.
         `/node_modules/(?!${esModules})`,
     ],
+    reporters: [
+        'default',
+        'jest-html-reporters',
+    ],
 };
