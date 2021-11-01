@@ -10,7 +10,6 @@ import { findImagesSpec } from './find_images_spec';
 // We need to mock getImageDimensions since jsdom doesn't actually load images.
 // See also tests/mb_enhanced_cover_art_uploads/image_dimensions.test.ts
 jest.mock('@src/mb_enhanced_cover_art_uploads/image_dimensions');
-
 const mockGetImageDimensions = getImageDimensions as jest.MockedFunction<typeof getImageDimensions>;
 
 describe('bandcamp provider', () => {
@@ -96,17 +95,24 @@ describe('bandcamp provider', () => {
             const coverUrls = await provider.findImages(new URL('https://level2three.bandcamp.com/track/the-bridge'));
 
             expect(coverUrls).toBeArrayOfSize(2);
-            expect(coverUrls[0].url.pathname).toEndWith('a4081865950_10.jpg');
-            expect(coverUrls[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-            expect(coverUrls[0].comment).toBe('Bandcamp full-sized cover');
-            expect(coverUrls[1].url.pathname).toEndWith('a4081865950_16.jpg');
-            expect(coverUrls[1].types).toStrictEqual([ArtworkTypeIDs.Front]);
-            expect(coverUrls[1].comment).toBe('Bandcamp square crop');
+            expect(coverUrls[0]).toMatchCoverArt({
+                urlPart: 'a4081865950_10.jpg',
+                types: [ArtworkTypeIDs.Front],
+                comment: 'Bandcamp full-sized cover',
+            });
+            expect(coverUrls[1]).toMatchCoverArt({
+                urlPart: 'a4081865950_16.jpg',
+                types: [ArtworkTypeIDs.Front],
+                comment: 'Bandcamp square crop',
+            });
         });
 
         it('considers redirect to different album to be unsafe', () => {
             // See https://github.com/ROpdebee/mb-userscripts/issues/79
-            expect(provider.isSafeRedirect(new URL('https://tempelfanwolven.bandcamp.com/album/spell-of-the-driftless-forest'), new URL('https://tempelfanwolven.bandcamp.com/album/the-coming-war')))
+            const originalUrl = new URL('https://tempelfanwolven.bandcamp.com/album/spell-of-the-driftless-forest');
+            const redirectedUrl = new URL('https://tempelfanwolven.bandcamp.com/album/the-coming-war');
+
+            expect(provider.isSafeRedirect(originalUrl, redirectedUrl))
                 .toBeFalse();
         });
 
