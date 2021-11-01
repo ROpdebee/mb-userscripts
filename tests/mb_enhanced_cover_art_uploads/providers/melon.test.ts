@@ -1,13 +1,12 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
-import { urlMatchingSpec } from './url_matching_spec';
 import { MelonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/melon';
 
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+
+import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
+
 describe('melon provider', () => {
-    // eslint-disable-next-line jest/require-hook
-    const pollyContext = setupPolly();
     const provider = new MelonProvider();
 
     describe('url matching', () => {
@@ -26,21 +25,25 @@ describe('melon provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    it('grabs cover for release', async () => {
-        const covers = await provider.findImages(new URL('https://www.melon.com/album/detail.htm?albumId=10749882'));
+    describe('extracting images', () => {
+        const extractionCases = [{
+            desc: 'release',
+            url: 'https://www.melon.com/album/detail.htm?albumId=10749882',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '10749882_20211022144758',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        }];
 
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.href).toInclude('10749882_20211022144758');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
-    });
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'https://www.melon.com/album/detail.htm?albumId=0',
+            errorMessage: 'Melon release does not exist',
+        }];
 
-    it('throws if release does not exist', async () => {
-        pollyContext.polly.configure({
-            recordFailedRequests: true,
-        });
-
-        await expect(provider.findImages(new URL('https://www.melon.com/album/detail.htm?albumId=0')))
-            .rejects.toThrowWithMessage(Error, 'Melon release does not exist');
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });

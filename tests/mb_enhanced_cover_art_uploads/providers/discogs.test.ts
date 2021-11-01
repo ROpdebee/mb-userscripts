@@ -1,14 +1,13 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
-import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/discogs';
+
+import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
+
 import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
 
 describe('discogs provider', () => {
-    const pollyContext = setupPolly();
     const provider = new DiscogsProvider();
-    const discogsUrl = new URL('https://www.discogs.com/release/9892912');
 
     describe('url matching', () => {
         const supportedUrls = [{
@@ -36,26 +35,34 @@ describe('discogs provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    describe('finding release images', () => {
-        it('finds all images in 600x600', async () => {
-            const covers = await provider.findImages(discogsUrl);
+    describe('extracting images', () => {
+        const extractionCases = [{
+            desc: 'release',
+            url: 'https://www.discogs.com/release/9892912',
+            numImages: 3,
+            expectedImages: [{
+                index: 0,
+                urlPart: '/cGX5KW1uJCaiPRzaRY8iE3btV3g=/fit-in/600x624/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg',
+                types: undefined,
+            }, {
+                index: 1,
+                urlPart: '/GjkwgdSXa6b6KAXHqtt1lrrSebQ=/fit-in/600x601/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-4048.jpeg.jpg',
+                types: undefined,
+            }, {
+                index: 2,
+                urlPart: '/hch5Dfg5ZsgGY7DCxWtNWEpRSs8=/fit-in/600x681/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1488067341-2872.jpeg.jpg',
+                types: undefined,
+            }],
+        }];
 
-            expect(covers).toBeArrayOfSize(3);
-            expect(covers[0].url.pathname).toBe('/cGX5KW1uJCaiPRzaRY8iE3btV3g=/fit-in/600x624/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg');
-            expect(covers[1].url.pathname).toBe('/GjkwgdSXa6b6KAXHqtt1lrrSebQ=/fit-in/600x601/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-4048.jpeg.jpg');
-            expect(covers[2].url.pathname).toBe('/hch5Dfg5ZsgGY7DCxWtNWEpRSs8=/fit-in/600x681/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1488067341-2872.jpeg.jpg');
-            expect(covers).toSatisfyAll((cover: CoverArt) => typeof cover.types === 'undefined');
-            expect(covers).toSatisfyAll((cover: CoverArt) => typeof cover.comment === 'undefined');
-        });
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'https://www.discogs.com/release/32342343',
+            errorMessage: 'Discogs release does not exist',
+        }];
 
-        it('throws on non-existent release', async () => {
-            pollyContext.polly.configure({
-                recordFailedRequests: true,
-            });
-
-            await expect(provider.findImages(new URL('https://www.discogs.com/release/32342343')))
-                .rejects.toThrowWithMessage(Error, 'Discogs release does not exist');
-        });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 
     describe('maximising image', () => {
@@ -68,6 +75,9 @@ describe('discogs provider', () => {
 
     describe('caching API responses', () => {
         const requestSpy = jest.spyOn(DiscogsProvider, 'actuallyGetReleaseImages');
+        const discogsUrl = new URL('https://www.discogs.com/release/9892912');
+        // eslint-disable-next-line jest/require-hook
+        setupPolly();
 
         beforeEach(() => {
             // Make sure to clear the cache before each test, since it's static

@@ -1,10 +1,12 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 // @ts-expect-error rewired
 import { QobuzProvider, __set__ } from '@src/mb_enhanced_cover_art_uploads/providers/qobuz';
+
+import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
+
 import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
 
 describe('qobuz provider', () => {
     const pollyContext = setupPolly();
@@ -47,54 +49,51 @@ describe('qobuz provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    describe('finding release images', () => {
+    describe('extracting images', () => {
+        const extractionCases = [{
+            desc: 'release without booklet',
+            url: 'https://open.qobuz.com/album/0060075330437',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '/images/covers/37/04/0060075330437_org.jpg',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        }, {
+            desc: 'release with booklet',
+            url: 'https://open.qobuz.com/album/0825646089178',
+            numImages: 2,
+            expectedImages: [{
+                index: 0,
+                urlPart: '/images/covers/78/91/0825646089178_org.jpg',
+                types: [ArtworkTypeIDs.Front],
+            }, {
+                index: 1,
+                urlPart: '000078807.pdf',
+                types: [ArtworkTypeIDs.Booklet],
+                comment: 'Qobuz booklet',
+            }],
+        }];
 
-        it('finds cover image without booklet if there is no booklet', async () => {
-            const covers = await provider.findImages(new URL('https://open.qobuz.com/album/0060075330437'));
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'https://open.qobuz.com/album/123',
+        }];
 
-            expect(covers).toBeArrayOfSize(1);
-            expect(covers[0].url.pathname).toBe('/images/covers/37/04/0060075330437_org.jpg');
-            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-            expect(covers[0].comment).toBeUndefined();
-        });
-
-        it('includes the booklet if there is one', async () => {
-            const covers = await provider.findImages(new URL('https://open.qobuz.com/album/0825646089178'));
-
-            expect(covers).toBeArrayOfSize(2);
-            expect(covers[0].url.pathname).toBe('/images/covers/78/91/0825646089178_org.jpg');
-            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-            expect(covers[0].comment).toBeUndefined();
-            expect(covers[1].url.pathname).toEndWith('000078807.pdf');
-            expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Booklet]);
-            expect(covers[1].comment).toBe('Qobuz booklet');
-        });
-
-        it('throws on non-existent release', async () => {
-            pollyContext.polly.configure({
-                recordFailedRequests: true,
-            });
-
-            await expect(provider.findImages(new URL('https://open.qobuz.com/album/123')))
-                .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
-        });
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
 
         describe('with invalid app ID', () => {
             // Separate describe block so we can patch out console.error before
             // this single test case, while leaving it in place for other tests.
 
-            beforeAll(() => {
+            beforeEach(() => {
                 // Need to patch out console.error, since it's expected to be
                 // called in this test case but jest prints the message even
                 // though the test passes. There seems to be no straightforward
                 // way of disabling this for a single test case only.
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 jest.spyOn(console, 'error').mockImplementationOnce(() => {});
-            });
-
-            afterAll(() => {
-                // @ts-expect-error mocked
-                console.error.mockRestore();
             });
 
             it('throws on invalid app ID', async () => {
