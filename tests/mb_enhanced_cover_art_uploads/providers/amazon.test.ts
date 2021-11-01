@@ -2,6 +2,7 @@ import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/bas
 import { AmazonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon';
 
 import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { mockGM_getResourceURL } from '@test-utils/gm_mocks';
 
 import type { ExtractionCase } from './find_images_spec';
 import { findImagesSpec } from './find_images_spec';
@@ -121,18 +122,17 @@ describe('amazon provider', () => {
             expect(covers).toBeEmpty();
         });
 
-        const extractionThumbnailFallbackCases = [{
-            desc: 'on dp URLs',
-            url: 'https://www.amazon.com/dp/B07QWNQT8X',
-        }, {
-            desc: 'on gp URLs',
-            url: 'https://www.amazon.com/gp/product/B07QWNQT8X',
-        }];
+        const extractionThumbnailFallbackCases = [
+            ['dp URLs', 'https://www.amazon.com/dp/B07QWNQT8X'],
+            ['gp URLs', 'https://www.amazon.com/gp/product/B07QWNQT8X'],
+        ];
 
-        it.each(extractionThumbnailFallbackCases)('falls back to thumbnail grabbing for physical products on $desc', async ({ url }) => {
-            // Mock the failed attempt of extracting images from embedded JS to trigger the thumbnail fallback
+        it.each(extractionThumbnailFallbackCases)('falls back to thumbnail grabbing for physical products on %s', async (_1, url) => {
+            // Mock the failed attempt of extracting images from embedded JS to
+            // trigger the thumbnail fallback
             jest.spyOn(provider, 'extractFromEmbeddedJS')
-                .mockImplementationOnce(() => undefined);
+                .mockReturnValueOnce(undefined);
+
             const covers = await provider.findImages(new URL(url));
 
             expect(covers).toBeArrayOfSize(4);
@@ -152,35 +152,25 @@ describe('amazon provider', () => {
             });
         });
 
-        const physicalJsonFailCases = [{
-            desc: 'cannot be extracted',
-            content: '',
-        }, {
-            desc: 'cannot be parsed',
-            content: "'colorImages': { 'initial': invalid },"
-        }, {
-            desc: 'is invalid type',
-            content: "'colorImages': { 'initial': 123 },",
-        }];
+        const physicalJsonFailCases = [
+            ['cannot be extracted', ''],
+            ['cannot be parsed', "'colorImages': { 'initial': invalid },"],
+            ['is invalid type', "'colorImages': { 'initial': 123 },"],
+        ];
 
-        it.each(physicalJsonFailCases)('will fall back to thumbnail grabbing if JSON $desc', ({ content }) => {
+        it.each(physicalJsonFailCases)('will fall back to thumbnail grabbing if JSON %s', (_1, content) => {
             const covers = provider.extractFromEmbeddedJS(content);
 
             expect(covers).toBeUndefined();
         });
 
-        const audiobookJsonFailCases = [{
-            desc: 'cannot be extracted',
-            content: '',
-        }, {
-            desc: 'cannot be parsed',
-            content: "'imageGalleryData' : invalid,"
-        }, {
-            desc: 'is invalid type',
-            content: "'imageGalleryData' : 123,"
-        }];
+        const audiobookJsonFailCases = [
+            ['cannot be extracted', ''],
+            ['cannot be parsed', "'imageGalleryData' : invalid,"],
+            ['is invalid type', "'imageGalleryData' : 123,"],
+        ];
 
-        it.each(audiobookJsonFailCases)('fails to grab audiobook images if JSON $desc', ({ content }) => {
+        it.each(audiobookJsonFailCases)('fails to grab audiobook images if JSON %s', (_1, content) => {
             const covers = provider.extractFromEmbeddedJSGallery(content);
 
             expect(covers).toBeUndefined();
@@ -188,10 +178,7 @@ describe('amazon provider', () => {
     });
 
     it('provides a favicon', () => {
-        // Not resetting this after the tests, since this will only have an
-        // effect on this suite anyway.
-        // eslint-disable-next-line jest/prefer-spy-on
-        global.GM_getResourceURL = jest.fn().mockReturnValueOnce('testFavicon');
+        mockGM_getResourceURL.mockReturnValueOnce('testFavicon');
 
         expect(provider.favicon).toBe('testFavicon');
     });
