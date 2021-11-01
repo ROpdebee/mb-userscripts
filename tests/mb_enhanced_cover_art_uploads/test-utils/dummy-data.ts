@@ -1,16 +1,21 @@
 // Abstractions to create dummy data
 
+import type { GMXHRResponse } from '@lib/util/xhr';
 import type { FetchedImage } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
 export interface DummyImageData {
-    blobContent?: string;
+    blob?: Blob;
     name?: string;
     mimeType?: string;
 }
+
+export function createBlob(): Blob {
+    return new Blob([Math.random().toString().substring(2, 8)]);
+}
 export function createImageFile(data?: DummyImageData): File {
     data = data ?? {};
-    return new File([new Blob([data.blobContent ?? '1234'])], data.name ?? 'image', {
+    return new File([data.blob ?? createBlob()], data.name ?? 'image', {
         type: data.mimeType ?? 'application/octet-stream',
     });
 }
@@ -60,7 +65,22 @@ export function createCoverArt(data?: Partial<CoverArt> | string | URL): CoverAr
 
 export function createFetchedImageFromCoverArt(cover: CoverArt, data?: Partial<FetchedImage>): FetchedImage {
     return createFetchedImage({
+        ...cover,
         ...data,
         originalUrl: cover.url,
     });
+}
+
+export function createXhrResponse(response?: Partial<GMXHRResponse>): GMXHRResponse {
+    response = response ?? {};
+    return {
+        context: response.context,
+        finalUrl: response.finalUrl ?? createRandomURL().href,
+        statusText: response.statusText ?? 'OK',
+        status: response.status ?? 200,
+        readyState: response.readyState ?? 4,
+        responseHeaders: response.responseHeaders ?? '',
+        response: response.response ?? createBlob(),
+        responseText: response.responseText ?? '',
+    };
 }

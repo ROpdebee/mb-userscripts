@@ -11,7 +11,7 @@ interface GMXHROptions extends LimitedGMXHROptions {
     method?: GMXMLHttpRequestOptions['method'];
 }
 
-interface GMXHRResponse extends GMXMLHttpRequestResponse {
+export interface GMXHRResponse extends GMXMLHttpRequestResponse {
     response: Blob;
 }
 
