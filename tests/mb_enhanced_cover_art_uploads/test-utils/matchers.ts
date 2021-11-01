@@ -13,8 +13,8 @@ export function registerMatchers(): void {
     expect.extend({
         toMatchCoverArt(received: CoverArt, expected: ExpectedCoverArt): jest.CustomMatcherResult {
             const passPathname = expected.urlPart instanceof RegExp
-                ? expected.urlPart.test(received.url.pathname)
-                : received.url.pathname.includes(expected.urlPart);
+                ? expected.urlPart.test(received.url.href)
+                : received.url.href.includes(expected.urlPart);
             const passTypes = this.equals(received.types, expected.types);
             const passComment = received.comment === expected.comment;
             const pass = passPathname && passTypes && passComment;
@@ -24,7 +24,7 @@ export function registerMatchers(): void {
             // Only set message if we expect it to pass and it doesn't, or when
             // we don't expect it to pass but it does.
             if (passPathname === this.isNot) {
-                messageLines.push('Expected URL path ' + notString + 'to ' + (expected.urlPart instanceof RegExp ? 'match' : 'include') + ':');
+                messageLines.push('Expected URL ' + notString + 'to ' + (expected.urlPart instanceof RegExp ? 'match' : 'include') + ':');
                 messageLines.push(this.utils.printExpected(expected.urlPart));
                 messageLines.push('Received:');
                 messageLines.push(this.utils.printReceived(received.url.href));

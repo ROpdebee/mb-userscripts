@@ -119,9 +119,11 @@ describe('qobuz provider', () => {
                 description: 'test',
             });
 
-            expect(cover.url.href).toBe('https://example.com/original_url');
-            expect(cover.types).toStrictEqual([ArtworkTypeIDs.Booklet]);
-            expect(cover.comment).toBe('Qobuz booklet');
+            expect(cover).toMatchCoverArt({
+                urlPart: /^https:\/\/example\.com\/original_url$/,
+                types: [ArtworkTypeIDs.Booklet],
+                comment: 'Qobuz booklet',
+            });
         });
 
         it('sets no type if goodie is not a booklet', () => {
@@ -134,9 +136,11 @@ describe('qobuz provider', () => {
                 description: 'test',
             });
 
-            expect(cover.url.href).toBe('https://example.com/original_url');
-            expect(cover.types).toBeEmpty();
-            expect(cover.comment).toBe('not a booklet');
+            expect(cover).toMatchCoverArt({
+                urlPart: /^https:\/\/example\.com\/original_url$/,
+                types: [],
+                comment: 'not a booklet',
+            });
         });
     });
 
