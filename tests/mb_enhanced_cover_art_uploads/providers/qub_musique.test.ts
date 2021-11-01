@@ -1,12 +1,12 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { QubMusiqueProvider } from '@src/mb_enhanced_cover_art_uploads/providers/qub_musique';
+
 import { itBehavesLike } from '@test-utils/shared_behaviour';
+
 import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
 
 describe('qub musique provider', () => {
-    const pollyContext = setupPolly();
     const provider = new QubMusiqueProvider();
 
     describe('url matching', () => {
@@ -39,21 +39,24 @@ describe('qub musique provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    it('finds cover image', async () => {
-        const covers = await provider.findImages(new URL('https://www.qub.ca/musique/album/pour-le-plug-dbssxi6nl5fuc'));
+    describe('extracting images', () => {
+        const extractionCases = [{
+            desc: 'release',
+            url: 'https://www.qub.ca/musique/album/pour-le-plug-dbssxi6nl5fuc',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '/images/covers/uc/5f/dbssxi6nl5fuc_org.jpg',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        }];
 
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.pathname).toBe('/images/covers/uc/5f/dbssxi6nl5fuc_org.jpg');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
-    });
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'https://www.qub.ca/musique/album/pour-le-plug-dbssx',
+        }];
 
-    it('throws on non-existent release', async () => {
-        pollyContext.polly.configure({
-            recordFailedRequests: true,
-        });
-
-        await expect(provider.findImages(new URL('https://www.qub.ca/musique/album/pour-le-plug-dbssx')))
-            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });

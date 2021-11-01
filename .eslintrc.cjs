@@ -69,6 +69,7 @@ module.exports = {
                 '@typescript-eslint/no-base-to-string': ['error'],
                 '@typescript-eslint/no-confusing-void-expression': ['error'],
                 '@typescript-eslint/no-invalid-void-type': ['error'],
+                '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }],
                 '@typescript-eslint/no-unnecessary-condition': ['error'],
                 '@typescript-eslint/no-unsafe-argument': ['error'],
                 '@typescript-eslint/prefer-nullish-coalescing': ['error'],

@@ -1,13 +1,12 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { AmazonMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon_music';
+
 import { itBehavesLike } from '@test-utils/shared_behaviour';
+
 import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
 
 describe('amazon music provider', () => {
-    // eslint-disable-next-line jest/require-hook
-    setupPolly();
     const provider = new AmazonMusicProvider();
 
     describe('url matching', () => {
@@ -29,11 +28,19 @@ describe('amazon music provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    it('uses Amazon provider covers', async () => {
-        const covers = await provider.findImages(new URL('https://music.amazon.com/albums/B08MCFCQD8'));
+    describe('extracting images', () => {
+        const extractionCases = [{
+            desc: 'release using Amazon provider',
+            url: 'https://music.amazon.com/albums/B08MCFCQD8',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '81NnKXVjJvL',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        }];
 
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.pathname).toContain('81NnKXVjJvL');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases: [] });
     });
 });

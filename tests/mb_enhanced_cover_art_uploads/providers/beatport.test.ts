@@ -1,12 +1,12 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
-import { urlMatchingSpec } from './url_matching_spec';
 import { BeatportProvider } from '@src/mb_enhanced_cover_art_uploads/providers/beatport';
 
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+
+import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
+
 describe('beatport provider', () => {
-    const pollyContext = setupPolly();
     const provider = new BeatportProvider();
 
     describe('url matching', () => {
@@ -28,21 +28,24 @@ describe('beatport provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    it('grabs cover for release', async () => {
-        const covers = await provider.findImages(new URL('https://www.beatport.com/release/osa-ep/1778814'));
+    describe('extracting images', () => {
+        const extractionCases = [{
+            desc: 'release',
+            url: 'https://www.beatport.com/release/osa-ep/1778814',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: 'e638a042-973b-4822-8478-7470d30064d5',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        }];
 
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.pathname).toContain('e638a042-973b-4822-8478-7470d30064d5');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
-    });
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'https://www.beatport.com/release/osa-ep/1778',
+        }];
 
-    it('throws on 404 releases', async () => {
-        pollyContext.polly.configure({
-            recordFailedRequests: true,
-        });
-
-        await expect(provider.findImages(new URL('https://www.beatport.com/release/osa-ep/1778')))
-            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });

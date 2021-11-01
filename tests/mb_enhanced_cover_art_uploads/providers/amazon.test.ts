@@ -1,12 +1,13 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { AmazonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon';
-import { urlMatchingSpec } from './url_matching_spec';
+
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
+import type { ExtractionCase } from './find_images_spec';
+import { findImagesSpec } from './find_images_spec';
+import { urlMatchingSpec } from './url_matching_spec';
+
 describe('amazon provider', () => {
-    const pollyContext = setupPolly();
     const provider = new AmazonProvider();
 
     describe('url matching', () => {
@@ -37,119 +38,153 @@ describe('amazon provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    const extractionCases = [
-        ['dp URLs', 'https://www.amazon.com/dp/B07QWNQT8X'],
-        ['gp URLs', 'https://www.amazon.com/gp/product/B07QWNQT8X'],
-    ];
+    describe('extracting images', () => {
+        const expectedPhysical = {
+            numImages: 5,
+            expectedImages: [{
+                index: 0,
+                urlPart: '81bqssuW6LL',
+                types: [ArtworkTypeIDs.Front],
+            }, {
+                index: 1,
+                urlPart: '61jZYB6BJYL',
+                types: [ArtworkTypeIDs.Back],
+            }, {
+                index: 2,
+                urlPart: '71TLgC33KgL',
+            }, {
+                index: 3,
+                urlPart: '81JCfIAZ71L',
+            }, {
+                index: 4,
+                urlPart: '816dglIIJHL',
+            }],
+        };
+        const expectedDigital = {
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '819w7BrMFgL',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        };
 
-    it.each(extractionCases)('grabs all images for physical products from the embedded JS on %s', async (_1, url) => {
-        const covers = await provider.findImages(new URL(url));
+        const extractionCases: ExtractionCase[] = [{
+            desc: 'physical products from the embedded JS on dp URLs',
+            url: 'https://www.amazon.com/dp/B07QWNQT8X',
+            ...expectedPhysical,
+        }, {
+            desc: 'physical products from the embedded JS on gp URLs',
+            url: 'https://www.amazon.com/gp/product/B07QWNQT8X',
+            ...expectedPhysical,
+        }, {
+            desc: 'physical audiobooks from the embedded JS',
+            url: 'https://www.amazon.com/dp/0563504196',
+            numImages: 2,
+            expectedImages: [{
+                index: 0,
+                urlPart: '91OEsuYoClL',
+            }, {
+                index: 1,
+                urlPart: '91NVbKDHCWL',
+            }],
+        }, {
+            desc: 'digital releases on dp URLs',
+            url: 'https://www.amazon.com/dp/B07R92TVWN',
+            ...expectedDigital,
+        }, {
+            desc: 'digital releases on gp URLs',
+            url: 'https://www.amazon.com/gp/product/B07R92TVWN',
+            ...expectedDigital,
+        }, {
+            desc: 'Audible audiobooks',
+            url: 'https://www.amazon.com/dp/B017WJ5PR4',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '51g7fkELjaL',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        }];
 
-        expect(covers).toBeArrayOfSize(5);
-        expect(covers[0].url.pathname).toContain('81bqssuW6LL');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[1].url.pathname).toContain('61jZYB6BJYL');
-        expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
-        expect(covers[2].url.pathname).toContain('71TLgC33KgL');
-        expect(covers[3].url.pathname).toContain('81JCfIAZ71L');
-        expect(covers[4].url.pathname).toContain('816dglIIJHL');
-    });
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'http://amazon.com/gp/product/B01NCKFNXH',
+        }];
 
-    it.each(extractionCases)('falls back to thumbnail grabbing for physical products on %s', async (_1, url) => {
-        // mock the failed attempt of extracting images from embedded JS to trigger the thumbnail fallback
-        jest.spyOn(provider, 'extractFromEmbeddedJS').mockImplementationOnce(() => undefined);
-        const covers = await provider.findImages(new URL(url));
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
 
-        expect(covers).toBeArrayOfSize(4);
-        expect(covers[0].url.pathname).toContain('51nM1ikLWPL');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[1].url.pathname).toContain('41RQivjYeeL');
-        expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
-        expect(covers[2].url.pathname).toContain('31-n8wloCcL');
-        expect(covers[3].url.pathname).toMatch(/41MN(?:%2B|\+)eLL(?:%2B|\+)JL/);
-    });
+        it('returns no covers for product without images', async () => {
+            const covers = await provider.findImages(new URL('https://www.amazon.com/dp/B000Q3KSMQ'));
 
-    it('will fall back to thumbnail grabbing if JSON cannot be extracted', () => {
-        const covers = provider.extractFromEmbeddedJS('');
-
-        expect(covers).toBeUndefined();
-    });
-
-    it('will fall back to thumbnail grabbing if JSON cannot be parsed', () => {
-        const covers = provider.extractFromEmbeddedJS("'colorImages': { 'initial': invalid },");
-
-        expect(covers).toBeUndefined();
-    });
-
-    it('will fall back to thumbnail grabbing if JSON is invalid type', () => {
-        const covers = provider.extractFromEmbeddedJS("'colorImages': { 'initial': 123 },");
-
-        expect(covers).toBeUndefined();
-    });
-
-    it('returns no covers for product without images', async () => {
-        const covers = await provider.findImages(new URL('https://www.amazon.com/dp/B000Q3KSMQ'));
-
-        expect(covers).toBeEmpty();
-    });
-
-    it('grabs all images for physical audiobooks from the embedded JS', async () => {
-        const covers = await provider.findImages(new URL('https://www.amazon.com/dp/0563504196'));
-
-        expect(covers).toBeArrayOfSize(2);
-        expect(covers[0].url.pathname).toContain('91OEsuYoClL');
-        expect(covers[0].types).toBeUndefined();
-        expect(covers[1].url.pathname).toContain('91NVbKDHCWL');
-        expect(covers[1].types).toBeUndefined();
-    });
-
-    it('fails to grab audiobook images if JSON cannot be extracted', () => {
-        const covers = provider.extractFromEmbeddedJSGallery('');
-
-        expect(covers).toBeUndefined();
-    });
-
-    it('fails to grab audiobook images if JSON cannot be parsed', () => {
-        const covers = provider.extractFromEmbeddedJSGallery("'imageGalleryData' : invalid,");
-
-        expect(covers).toBeUndefined();
-    });
-
-    it('fails to grab audiobook images if JSON is invalid type', () => {
-        const covers = provider.extractFromEmbeddedJSGallery("'imageGalleryData' : 123,");
-
-        expect(covers).toBeUndefined();
-    });
-
-    it.each`
-        url | desc
-        ${'https://www.amazon.com/dp/B07R92TVWN'} | ${'dp URLs'}
-        ${'https://www.amazon.com/gp/product/B07R92TVWN'} | ${'gp URLs'}
-    `('grabs the only image for digital releases on $desc', async ({ url }: { url: string }) => {
-        const covers = await provider.findImages(new URL(url));
-
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.pathname).toContain('819w7BrMFgL');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
-    });
-
-    it('grabs the only image for Audible audiobooks', async () => {
-        const covers = await provider.findImages(new URL('https://www.amazon.com/dp/B017WJ5PR4'));
-
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.pathname).toContain('51g7fkELjaL');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
-    });
-
-    it('throws on non-existent product', async () => {
-        pollyContext.polly.configure({
-            recordFailedRequests: true,
+            expect(covers).toBeEmpty();
         });
 
-        await expect(provider.findImages(new URL('http://amazon.com/gp/product/B01NCKFNXH')))
-            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
+        const extractionThumbnailFallbackCases = [{
+            desc: 'on dp URLs',
+            url: 'https://www.amazon.com/dp/B07QWNQT8X',
+        }, {
+            desc: 'on gp URLs',
+            url: 'https://www.amazon.com/gp/product/B07QWNQT8X',
+        }];
+
+        it.each(extractionThumbnailFallbackCases)('falls back to thumbnail grabbing for physical products on $desc', async ({ url }) => {
+            // Mock the failed attempt of extracting images from embedded JS to trigger the thumbnail fallback
+            jest.spyOn(provider, 'extractFromEmbeddedJS')
+                .mockImplementationOnce(() => undefined);
+            const covers = await provider.findImages(new URL(url));
+
+            expect(covers).toBeArrayOfSize(4);
+            expect(covers[0]).toMatchCoverArt({
+                urlPart: '51nM1ikLWPL',
+                types: [ArtworkTypeIDs.Front],
+            });
+            expect(covers[1]).toMatchCoverArt({
+                urlPart: '41RQivjYeeL',
+                types: [ArtworkTypeIDs.Back],
+            });
+            expect(covers[2]).toMatchCoverArt({
+                urlPart: '31-n8wloCcL',
+            });
+            expect(covers[3]).toMatchCoverArt({
+                urlPart: /41MN(?:%2B|\+)eLL(?:%2B|\+)JL/,
+            });
+        });
+
+        const physicalJsonFailCases = [{
+            desc: 'cannot be extracted',
+            content: '',
+        }, {
+            desc: 'cannot be parsed',
+            content: "'colorImages': { 'initial': invalid },"
+        }, {
+            desc: 'is invalid type',
+            content: "'colorImages': { 'initial': 123 },",
+        }];
+
+        it.each(physicalJsonFailCases)('will fall back to thumbnail grabbing if JSON $desc', ({ content }) => {
+            const covers = provider.extractFromEmbeddedJS(content);
+
+            expect(covers).toBeUndefined();
+        });
+
+        const audiobookJsonFailCases = [{
+            desc: 'cannot be extracted',
+            content: '',
+        }, {
+            desc: 'cannot be parsed',
+            content: "'imageGalleryData' : invalid,"
+        }, {
+            desc: 'is invalid type',
+            content: "'imageGalleryData' : 123,"
+        }];
+
+        it.each(audiobookJsonFailCases)('fails to grab audiobook images if JSON $desc', ({ content }) => {
+            const covers = provider.extractFromEmbeddedJSGallery(content);
+
+            expect(covers).toBeUndefined();
+        });
     });
 
     it('provides a favicon', () => {

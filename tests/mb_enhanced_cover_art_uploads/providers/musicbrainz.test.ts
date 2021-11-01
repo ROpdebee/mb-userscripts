@@ -1,19 +1,18 @@
-import { mockFetch, setupPolly } from '@test-utils/pollyjs';
+import HttpAdapter from '@pollyjs/adapter-node-http';
 
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
-import { urlMatchingSpec } from './url_matching_spec';
 import { MusicBrainzProvider } from '@src/mb_enhanced_cover_art_uploads/providers/musicbrainz';
-import HttpAdapter from '@pollyjs/adapter-node-http';
+
+import { mockFetch, setupPolly } from '@test-utils/pollyjs';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+
+import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
 
 // eslint-disable-next-line jest/require-hook
 setupPolly({
     adapters: [HttpAdapter],
     recordFailedRequests: true,
-});
-
-beforeAll(() => {
-    mockFetch('https://musicbrainz.org');
 });
 
 describe('musicbrainz provider', () => {
@@ -42,20 +41,35 @@ describe('musicbrainz provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    it('grabs covers for release', async () => {
-        const covers = await provider.findImages(new URL('https://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687'));
+    describe('extracting images', () => {
+        beforeAll(() => {
+            mockFetch('https://musicbrainz.org');
+        });
 
-        expect(covers).toBeArrayOfSize(9);
-        expect(covers[0].url.pathname).toContain('mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBe('');
-        expect(covers[8].url.pathname).toContain('mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534');
-        expect(covers[8].types).toStrictEqual([ArtworkTypeIDs.Obi]);
-        expect(covers[8].comment).toBe('');
-    });
+        const extractionCases = [{
+            desc: 'release',
+            url: 'https://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687',
+            numImages: 9,
+            expectedImages: [{
+                index: 0,
+                urlPart: 'mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162.jpg',
+                types: [ArtworkTypeIDs.Front],
+                comment: '',
+            }, {
+                index: 8,
+                urlPart: 'mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534.jpg',
+                types: [ArtworkTypeIDs.Obi],
+                comment: '',
+            }],
+        }];
 
-    it('throws on 404 releases', async () => {
-        await expect(provider.findImages(new URL('https://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa46687')))
-            .rejects.toThrowWithMessage(Error, /HTTP error 404/);
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'https://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa46687',
+            errorMessage: 'Cannot load index.json: HTTP error 404',
+        }];
+
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });

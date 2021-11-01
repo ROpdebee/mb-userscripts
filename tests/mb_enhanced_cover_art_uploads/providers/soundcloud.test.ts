@@ -1,12 +1,12 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
-import { urlMatchingSpec } from './url_matching_spec';
 import { SoundcloudProvider } from '@src/mb_enhanced_cover_art_uploads/providers/soundcloud';
 
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+
+import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
+
 describe('soundcloud provider', () => {
-    const pollyContext = setupPolly();
     const provider = new SoundcloudProvider();
 
     describe('url matching', () => {
@@ -48,71 +48,74 @@ describe('soundcloud provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    it('grabs images for single tracks', async () => {
-        const covers = await provider.findImages(new URL('https://soundcloud.com/michalmenert/rust'));
+    describe('extracting images', () => {
+        const extractionCases = [{
+            desc: 'single track release',
+            url: 'https://soundcloud.com/michalmenert/rust',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '000021595021-v5yamr',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        }, {
+            desc: 'set release',
+            url: 'https://soundcloud.com/imnotfromlondonrecords/sets/circle-of-light-the-album',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: 'jG8ffb1D9ES0WV2M-CdzgdA',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        }, {
+            desc: 'set release with track images',
+            url: 'https://soundcloud.com/officialpandaeyes/sets/isolationep',
+            numImages: 5,
+            expectedImages: [{
+                index: 0,
+                urlPart: '000358407327-4e29ur',
+                types: [ArtworkTypeIDs.Front],
+            }, {
+                index: 2,
+                urlPart: '000358401699-8a5h44',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 2',
+            }],
+        }];
 
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.href).toContain('000021595021-v5yamr');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
-    });
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'https://soundcloud.com/404/404',
+        }, {
+            desc: 'release for which metadata cannot be extracted',
+            // Not a correct release URL, so the required metadata isn't present.
+            url: 'https://soundcloud.com/upload',
+            errorMessage: /Could not extract metadata/,
+        }];
 
-    it('grabs images for sets', async () => {
-        const covers = await provider.findImages(new URL('https://soundcloud.com/imnotfromlondonrecords/sets/circle-of-light-the-album'));
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
 
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.href).toContain('jG8ffb1D9ES0WV2M-CdzgdA');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
-    });
+        it('grabs no track images if they will not be used', async () => {
+            const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/isolationep'), true);
 
-    it('grabs track images for sets', async () => {
-        const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/isolationep'));
-
-        expect(covers).toBeArrayOfSize(5);
-        expect(covers[0].url.href).toContain('000358407327-4e29ur');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
-        // Checking sample.
-        expect(covers[2].url.href).toContain('000358401699-8a5h44');
-        expect(covers[2].types).toStrictEqual([ArtworkTypeIDs.Track]);
-        expect(covers[2].comment).toBe('Track 2');
-    });
-
-    it('grabs no track images if they will not be used', async () => {
-        const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/isolationep'), true);
-
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.href).toContain('000358407327-4e29ur');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
-    });
-
-    it('grabs no images if track has no image', async () => {
-        // Make sure it doesn't grab artist image instead.
-        const covers = await provider.findImages(new URL('https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard'));
-
-        expect(covers).toBeEmpty();
-    });
-
-    it('deduplicates track images', async () => {
-        const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/keep-going-remix-contest-ep-winners'));
-
-        expect(covers).toBeArrayOfSize(1);
-    });
-
-    it('throws if release does not exist', async () => {
-        pollyContext.polly.configure({
-            recordFailedRequests: true,
+            expect(covers).toBeArrayOfSize(1);
+            expect(covers[0].url.href).toContain('000358407327-4e29ur');
+            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
+            expect(covers[0].comment).toBeUndefined();
         });
 
-        await expect(provider.findImages(new URL('https://soundcloud.com/404/404')))
-            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
-    });
+        it('grabs no images if track has no image', async () => {
+            // Make sure it doesn't grab artist image instead.
+            const covers = await provider.findImages(new URL('https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard'));
 
-    it('throws if metadata cannot be extracted', async () => {
-        // Not a correct release URL, so the required metadata isn't present.
-        await expect(provider.findImages(new URL('https://soundcloud.com/upload')))
-            .rejects.toThrowWithMessage(Error, /Could not extract metadata/);
+            expect(covers).toBeEmpty();
+        });
+
+        it('deduplicates track images', async () => {
+            const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/keep-going-remix-contest-ep-winners'));
+
+            expect(covers).toBeArrayOfSize(1);
+        });
     });
 });

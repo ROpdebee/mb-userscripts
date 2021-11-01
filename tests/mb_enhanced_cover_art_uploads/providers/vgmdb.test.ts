@@ -1,10 +1,12 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 // @ts-expect-error rewired
 import { VGMdbProvider, __get__ } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
+
+import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
+
 import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
 
 describe('vgmdb provider', () => {
     const pollyContext = setupPolly();
@@ -118,18 +120,41 @@ describe('vgmdb provider', () => {
         });
     });
 
-    describe('finding images', () => {
-        it('finds all images if they are all public', async () => {
-            const covers = await provider.findImages(new URL('https://vgmdb.net/album/96418'));
+    describe('extracting images', () => {
+        const extractionCases = [{
+            desc: 'release where all images are public',
+            url: 'https://vgmdb.net/album/96418',
+            numImages: 2,
+            expectedImages: [{
+                index: 0,
+                urlPart: '/albums/81/96418/96418-1581893265.jpg',
+                types: [ArtworkTypeIDs.Front],
+                comment: '',
+            }, {
+                index: 1,
+                urlPart: '/albums/81/96418/96418-1581893266.jpg',
+                types: [ArtworkTypeIDs.Back],
+                comment: '',
+            }],
+        }, {
+            desc: 'release without cover, but with picture',
+            url: 'https://vgmdb.net/album/90871',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '/albums/17/90871/90871-1569448344.jpg',
+                types: [ArtworkTypeIDs.Front],
+                comment: '',
+            }],
+        }];
 
-            expect(covers).toBeArrayOfSize(2);
-            expect(covers[0].url.pathname).toBe('/albums/81/96418/96418-1581893265.jpg');
-            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-            expect(covers[0].comment).toBeEmpty();
-            expect(covers[1].url.pathname).toBe('/albums/81/96418/96418-1581893266.jpg');
-            expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
-            expect(covers[1].comment).toBeEmpty();
-        });
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'https://vgmdb.net/album/44324252',
+        }];
+
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
 
         it('does not find all images if some are not public', async () => {
             // This may seem like a useless test case, but if it starts working
@@ -141,15 +166,6 @@ describe('vgmdb provider', () => {
 
             expect(covers).toBeArray();
             expect(covers).not.toBeArrayOfSize(18);
-        });
-
-        it('uses picture if no covers are available', async () => {
-            const covers = await provider.findImages(new URL('https://vgmdb.net/album/90871'));
-
-            expect(covers).toBeArrayOfSize(1);
-            expect(covers[0].url.pathname).toBe('/albums/17/90871/90871-1569448344.jpg');
-            expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-            expect(covers[0].comment).toBeEmpty();
         });
 
         it('does not map types if there is no caption', async () => {
@@ -222,18 +238,6 @@ describe('vgmdb provider', () => {
             expect(covers[1].url.pathname).toBe('/test');
             expect(covers[1].types).toStrictEqual([ArtworkTypeIDs.Back]);
             expect(covers[1].comment).toBeEmpty();
-        });
-
-        it('throws if release does not exist', async () => {
-            // Cannot find a real-life example of this, so let's mock a fake one
-            pollyContext.polly.server
-                .get('https://vgmdb.info/album/404?format=json')
-                .intercept((_req, res) => {
-                    res.status(404);
-                });
-
-            await expect(provider.findImages(new URL('https://vgmdb.net/album/404')))
-                .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
         });
     });
 });

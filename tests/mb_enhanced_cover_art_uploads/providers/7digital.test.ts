@@ -1,13 +1,12 @@
-import { setupPolly } from '@test-utils/pollyjs';
-
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
-import { urlMatchingSpec } from './url_matching_spec';
 import { SevenDigitalProvider } from '@src/mb_enhanced_cover_art_uploads/providers/7digital';
 
+import { itBehavesLike } from '@test-utils/shared_behaviour';
+
+import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find_images_spec';
+
 describe('7digital provider', () => {
-    // eslint-disable-next-line jest/require-hook
-    const pollyContext = setupPolly();
     const provider = new SevenDigitalProvider();
 
     describe('url matching', () => {
@@ -33,41 +32,47 @@ describe('7digital provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    it('grabs cover for release', async () => {
-        const covers = await provider.findImages(new URL('https://de.7digital.com/artist/mnek/release/language-explicit-8354116'));
+    describe('extracting images', () => {
+        const extractionCases = [{
+            desc: 'release',
+            url: 'https://de.7digital.com/artist/mnek/release/language-explicit-8354116',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '0008354116',
+                types: [ArtworkTypeIDs.Front],
+                comment: undefined,
+            }],
+        }];
 
-        expect(covers).toBeArrayOfSize(1);
-        expect(covers[0].url.href).toInclude('0008354116');
-        expect(covers[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(covers[0].comment).toBeUndefined();
+        const extractionFailedCases = [{
+            desc: 'non-existent release',
+            url: 'https://de.7digital.com/artist/mnek/release/language-elicit-83546',
+        }];
+
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 
-    it('throws if release does not exist', async () => {
-        pollyContext.polly.configure({
-            recordFailedRequests: true,
+    describe('post-processing', () => {
+        it('does not filter out legit images', async () => {
+            const fetchResults = [{
+                fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg'),
+            }];
+            // @ts-expect-error: Lazy
+            const afterFetch = provider.postprocessImages(fetchResults);
+
+            expect(afterFetch).not.toBeEmpty();
         });
 
-        await expect(provider.findImages(new URL('https://de.7digital.com/artist/mnek/release/language-elicit-8354116')))
-            .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
-    });
+        it('filters out placeholder images', async () => {
+            const fetchResults = [{
+                fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/000/000/0000000016_800.jpg'),
+            }];
+            // @ts-expect-error: Lazy
+            const afterFetch = provider.postprocessImages(fetchResults);
 
-    it('does not filter out legit images', async () => {
-        const fetchResults = [{
-            fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg'),
-        }];
-        // @ts-expect-error: Lazy
-        const afterFetch = provider.postprocessImages(fetchResults);
-
-        expect(afterFetch).not.toBeEmpty();
-    });
-
-    it('filters out placeholder images', async () => {
-        const fetchResults = [{
-            fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/000/000/0000000016_800.jpg'),
-        }];
-        // @ts-expect-error: Lazy
-        const afterFetch = provider.postprocessImages(fetchResults);
-
-        expect(afterFetch).toBeEmpty();
+            expect(afterFetch).toBeEmpty();
+        });
     });
 });
