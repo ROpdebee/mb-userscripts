@@ -49,7 +49,7 @@ describe('7digital provider', () => {
             .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
 
-    it('filters out placeholder images', async () => {
+    it('does not filter out legit images', async () => {
         const fetchResults = [[{}, {
             fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg'),
         }]];
@@ -59,7 +59,7 @@ describe('7digital provider', () => {
         expect(afterFetch).not.toBeEmpty();
     });
 
-    it('does not filter out legit images', async () => {
+    it('filters out placeholder images', async () => {
         const fetchResults = [[{}, {
             fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/000/000/0000000016_800.jpg'),
         }]];
