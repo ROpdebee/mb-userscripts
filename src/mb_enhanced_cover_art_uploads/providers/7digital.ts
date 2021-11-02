@@ -1,5 +1,4 @@
 import { HeadMetaPropertyProvider } from './base';
-import type { CoverArt } from './base';
 import type { FetchedImage } from '../fetch';
 import { LOGGER } from '@lib/logging/logger';
 
@@ -12,17 +11,16 @@ export class SevenDigitalProvider extends HeadMetaPropertyProvider {
     name = '7digital';
     urlRegex = /release\/.*-(\d+)(?:\/|$)/;
 
-    override postprocessImages(images: Array<[CoverArt, FetchedImage]>): Promise<FetchedImage[]> {
-        return Promise.resolve(images
+    override postprocessImages(images: FetchedImage[]): FetchedImage[] {
+        return images
             // Filter out images that either are, or were redirected to the cover
             // with ID 0000000016. This is a placeholder image.
-            .filter((pair) => {
-                if (/\/0000000016_\d+/.test(pair[1].fetchedUrl.pathname)) {
+            .filter((image) => {
+                if (/\/0000000016_\d+/.test(image.fetchedUrl.pathname)) {
                     LOGGER.warn('Ignoring placeholder cover in 7digital release');
                     return false;
                 }
                 return true;
-            })
-            .map((pair) => pair[1]));
+            });
     }
 }

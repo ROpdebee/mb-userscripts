@@ -2,7 +2,6 @@ import { gmxhr, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import type { FetchedImage } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
-import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { ArtworkTypeIDs, CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
 
@@ -444,8 +443,8 @@ describe('fetching images from providers', () => {
 
     it('allows provider to postprocess images', async () => {
         class PostprocessingProvider extends FakeProvider {
-            override postprocessImages(images: Array<[CoverArt, FetchedImage]>): Promise<FetchedImage[]> {
-                return Promise.resolve(images.slice(1).map((res) => res[1]));
+            override postprocessImages(images: FetchedImage[]): FetchedImage[] {
+                return images.slice(1);
             }
         }
         const provider = new PostprocessingProvider();

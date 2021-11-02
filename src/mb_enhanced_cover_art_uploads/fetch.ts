@@ -121,7 +121,7 @@ export class ImageFetcher {
         const hasMoreImages = onlyFront && images.length !== finalImages.length;
 
         LOGGER.info(`Found ${finalImages.length || 'no'} images in ${provider.name} release`);
-        const fetchResults: Array<[CoverArt, FetchedImage]> = [];
+        const fetchResults: FetchedImage[] = [];
         for (const img of finalImages) {
             if (this.#urlAlreadyAdded(img.url)) {
                 LOGGER.warn(`${getFilename(img.url)} has already been added`);
@@ -133,17 +133,17 @@ export class ImageFetcher {
                 // Maximised image already added
                 if (!result) continue;
 
-                fetchResults.push([img, {
+                fetchResults.push({
                     ...result,
                     types: img.types,
                     comment: img.comment,
-                }]);
+                });
             } catch (err) {
                 LOGGER.warn(`Skipping ${getFilename(img.url)}`, err);
             }
         }
 
-        const fetchedImages = await provider.postprocessImages(fetchResults);
+        const fetchedImages = provider.postprocessImages(fetchResults);
 
         if (!hasMoreImages) {
             // Don't mark the whole provider URL as done if we haven't grabbed
