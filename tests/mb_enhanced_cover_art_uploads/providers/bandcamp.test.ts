@@ -120,7 +120,7 @@ describe('bandcamp provider', () => {
             .resolves.toBeEmpty();
     });
 
-    it('deduplicates track images by content', async () => {
+    it('deduplicates track images by thumbnail content', async () => {
         await expect(provider.findImages(new URL('https://inhuman1.bandcamp.com/album/course-of-human-destruction')))
             .resolves.toBeArrayOfSize(1);
     });
