@@ -1,5 +1,4 @@
 import { LOGGER } from '@lib/logging/logger';
-import { blobToDigest } from '@lib/util/blob';
 import { gmxhr } from '@lib/util/xhr';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider } from './providers';
@@ -20,10 +19,6 @@ export interface FetchedImage {
     fetchedUrl: URL;
     wasMaximised: boolean;
     wasRedirected: boolean;
-    // Unique string identifying the image, useful to perform quick comparisons
-    // When the SubtleCrypto API is available, this will be a SHA-256 digest,
-    // otherwise it will be the hex-encoded image data.
-    digest: string;
     // types and comment may be empty or undefined. If undefined, the value
     // will be replaced by the default, if any. If defined but empty, the
     // default will not be used.
@@ -112,7 +107,6 @@ export class ImageFetcher {
             fetchedUrl: fetchResult.fetchedUrl,
             wasMaximised: url.href !== fetchResult.requestedUrl.href,
             wasRedirected: fetchResult.wasRedirected,
-            digest: await blobToDigest(fetchResult.file),
             // We have no idea what the type or comment will be, so leave them
             // undefined so that a default, if any, can be inserted.
         };
