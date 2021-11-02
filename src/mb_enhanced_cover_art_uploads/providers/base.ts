@@ -216,7 +216,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         // First pass: URL only
         const groupedImages = this.#groupIdenticalImages(allTrackImages, (img) => img.url, mainUrl);
 
-        if (groupedImages.size > 1 && byContent) {
+        if (groupedImages.size && byContent) {
             // Second pass: Thumbnail content
             LOGGER.info('Deduplicating track images by content, this may take a while…');
 
