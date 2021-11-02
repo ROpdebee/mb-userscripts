@@ -216,8 +216,10 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         // First pass: URL only
         const groupedImages = this.#groupIdenticalImages(allTrackImages, (img) => img.url, mainUrl);
 
-        if (groupedImages.size && byContent) {
-            // Second pass: Thumbnail content
+        // Second pass: Thumbnail content
+        // We do not need to deduplicate by content if there's only one track
+        // image and there's no main URL to compare to.
+        if (byContent && groupedImages.size && !(groupedImages.size === 1 && !mainUrl)) {
             LOGGER.info('Deduplicating track images by content, this may take a while…');
 
             // Compute unique digests of all thumbnail images. We'll use these
