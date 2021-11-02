@@ -1,6 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
 import { filterNonNull, groupBy } from '@lib/util/array';
-import { assertDefined } from '@lib/util/assert';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
@@ -193,9 +192,9 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
     // payload is identical if the source images are identical, so then we don't
     // have to load the full image.
 
-    #groupIdenticalImages<T extends { url: string }>(images: T[], mainUrl?: string): Map<string, T[]> {
-        const uniqueImages = images.filter((img) => img.url !== mainUrl);
-        return groupBy(uniqueImages, (img) => img.url, (img) => img);
+    #groupIdenticalImages<T>(images: T[], getImageUniqueId: (img: T) => string, mainUniqueId?: string): Map<string, T[]> {
+        const uniqueImages = images.filter((img) => getImageUniqueId(img) !== mainUniqueId);
+        return groupBy(uniqueImages, getImageUniqueId, (img) => img);
     }
 
     async #urlToDigest(imageUrl: string): Promise<string> {
@@ -213,47 +212,51 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
     protected async mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string | undefined, byContent: boolean): Promise<CoverArt[]> {
         const allTrackImages = filterNonNull(trackImages);
+
         // First pass: URL only
-        const groupedImages = this.#groupIdenticalImages(allTrackImages, mainUrl);
+        const groupedImages = this.#groupIdenticalImages(allTrackImages, (img) => img.url, mainUrl);
 
         if (groupedImages.size > 1 && byContent) {
             // Second pass: Thumbnail content
             LOGGER.info('Deduplicating track images by content, this may take a while…');
-            const mainDigest = mainUrl ? await this.#urlToDigest(mainUrl) : /* istanbul ignore next: Difficult to cover */ '';
-            const dataToOriginal: Map<string, string> = new Map();
-            // Convert all track URLs to digests describing their content.
-            const trackDigests = await Promise.all([...groupedImages.entries()]
-                .map(async ([coverUrl, trackCovers]) => {
+
+            // Compute unique digests of all thumbnail images. We'll use these
+            // digests in `#groupIdenticalImages` to group by thumbnail content.
+            const mainDigest = mainUrl ? await this.#urlToDigest(mainUrl) : '';
+
+            // Extend the track image with the track's unique digest. We compute
+            // this digest once for each unique URL.
+            const tracksWithDigest = await Promise.all([...groupedImages.entries()]
+                .map(async ([coverUrl, trackImages]) => {
                     const digest = await this.#urlToDigest(coverUrl);
-                    // This will overwrite any previous entry if the digest is the same.
-                    // However, that's not a problem, since we're intentionally deduping
-                    // images with the same payload anyway. It doesn't matter which digest
-                    // we use in the end, all of those digests return the same data.
-                    dataToOriginal.set(digest, coverUrl);
-                    return trackCovers.map((cover) => {
+                    return trackImages.map((trackImage) => {
                         return {
-                            ...cover,
-                            url: digest,
+                            ...trackImage,
+                            digest,
                         };
                     });
                 }));
 
-            const groupedThumbnails = this.#groupIdenticalImages(trackDigests.flat(), mainDigest);
-            // Transform digests back into original URLs
+            const groupedThumbnails = this.#groupIdenticalImages(tracksWithDigest.flat(), (trackWithDigest) => trackWithDigest.digest, mainDigest);
+            // The previous `groupedImages` map groups images by URL. Overwrite
+            // this to group images by thumbnail content. Keys will remain URLs,
+            // we'll use the URL of the first image in the group. It doesn't
+            // really matter which URL we use, as we've already asserted that
+            // the images behind all these URLs in the group are identical.
             groupedImages.clear();
-            for (const [digest, trackImages] of groupedThumbnails.entries()) {
-                const origUrl = dataToOriginal.get(digest);
-                assertDefined(origUrl);
-                groupedImages.set(origUrl, trackImages);
+            for (const trackImages of groupedThumbnails.values()) {
+                const representativeUrl = trackImages[0].url;
+                groupedImages.set(representativeUrl, trackImages);
             }
         }
 
+        // Queue one item for each group of track images. We'll create a comment
+        // to indicate which tracks this image belongs to.
         const results: CoverArt[] = [];
         groupedImages.forEach((trackImages, imgUrl) => {
             results.push({
                 url: new URL(imgUrl),
                 types: [ArtworkTypeIDs.Track],
-                // Use comment to indicate which tracks this applies to.
                 comment: this.#createTrackImageComment(trackImages.map((trackImage) => trackImage.trackNumber)) || undefined,
             });
         });
