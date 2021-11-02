@@ -1,6 +1,7 @@
-import { HeadMetaPropertyProvider } from './base';
+import { LOGGER } from '@lib/logging/logger';
+
 import type { CoverArt } from './base';
-import type { FetchedImage } from '../fetch';
+import { HeadMetaPropertyProvider } from './base';
 
 export class DeezerProvider extends HeadMetaPropertyProvider {
     supportedDomains = ['deezer.com'];
@@ -8,12 +9,18 @@ export class DeezerProvider extends HeadMetaPropertyProvider {
     name = 'Deezer';
     urlRegex = /(?:\w{2}\/)?album\/(\d+)/;
 
-    override postprocessImages(images: Array<[CoverArt, FetchedImage]>): Promise<FetchedImage[]> {
-        return Promise.resolve(images
-            // Filter out placeholder images by SHA-256 sum, since we're not sure
-            // whether it's always the same URL. This won't work on old browsers
-            // or on HTTP, since we can't calculate SHA-256 there.
-            .filter((pair) => pair[1].digest !== '2a16c47b2769e6f8414c3f8e39333b46f9b61a766e1dfccc2b814767d3b662cb')
-            .map((pair) => pair[1]));
+    override async findImages(url: URL): Promise<CoverArt[]> {
+        const covers = await super.findImages(url);
+
+        // Filter out placeholder images
+        return covers.filter((cover) => {
+            // Placeholder covers all use the same URLs, since the URL cover "ID"
+            // is actually its MD5 sum. See https://github.com/ROpdebee/mb-userscripts/issues/172
+            if (cover.url.pathname.includes('d41d8cd98f00b204e9800998ecf8427e')) {
+                LOGGER.warn('Ignoring placeholder cover in Deezer release');
+                return false;
+            }
+            return true;
+        });
     }
 }
