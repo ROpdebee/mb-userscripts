@@ -1,6 +1,7 @@
 import { HeadMetaPropertyProvider } from './base';
 import type { CoverArt } from './base';
 import type { FetchedImage } from '../fetch';
+import { LOGGER } from '@lib/logging/logger';
 
 // Technically, the cover URL is very predictable from the release ID. However,
 // we can also grab it from the <head> element metadata, which is a lot less
@@ -15,7 +16,13 @@ export class SevenDigitalProvider extends HeadMetaPropertyProvider {
         return Promise.resolve(images
             // Filter out images that either are, or were redirected to the cover
             // with ID 0000000016. This is a placeholder image.
-            .filter((pair) => !/\/0000000016_\d+/.test(pair[1].fetchedUrl.pathname))
+            .filter((pair) => {
+                if (/\/0000000016_\d+/.test(pair[1].fetchedUrl.pathname)) {
+                    LOGGER.warn('Ignoring placeholder cover in 7digital release');
+                    return false;
+                }
+                return true;
+            })
             .map((pair) => pair[1]));
     }
 }
