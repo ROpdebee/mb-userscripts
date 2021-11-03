@@ -44,8 +44,8 @@ export class InputForm {
                     await app.processURL(url);
                 }
 
-                if (evt.currentTarget.value === oldValue) {
-                    evt.currentTarget.value = '';
+                if (this.#urlInput.value === oldValue) {
+                    this.#urlInput.value = '';
                 }
             }}
         /> as HTMLInputElement;
