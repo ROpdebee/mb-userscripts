@@ -8,6 +8,8 @@ import USERSCRIPT_NAME from 'consts:userscript-name';
 import DEBUG_MODE from 'consts:debug-mode';
 import { seederFactory } from './seeding';
 
+import 'core-js/features/array/at';
+
 import { App } from './App';
 
 LOGGER.configure({
