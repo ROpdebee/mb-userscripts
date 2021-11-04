@@ -54,7 +54,9 @@ function addSeedLinkToCovers(mbid: string, origin: string): void {
 async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): Promise<void> {
     const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
 
-    const ext = imageUrl.split('.').at(-1);
+    // Not using .split('.').at(-1) here because I'm not sure whether .at is
+    // polyfilled on atisket.
+    const ext = imageUrl.match(/\.(\w+)$/)?.[1];
     const imageDimensions = await getImageDimensions(imageUrl);
     const dimensionStr = `${imageDimensions.width}x${imageDimensions.height}`;
 
