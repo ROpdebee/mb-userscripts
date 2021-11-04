@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.11.4
+// @version      2021.11.4.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -243,14 +243,14 @@
   }
   function _addSeedLinkToCover() {
       _addSeedLinkToCover = _asyncToGenerator(regenerator.mark(function _callee(fig, mbid, origin) {
-          var _fig$closest, _qs$insertAdjacentEle;
+          var _imageUrl$match, _fig$closest, _qs$insertAdjacentEle;
           var imageUrl, ext, imageDimensions, dimensionStr, countryCode, vendorId, vendorCode, releaseUrl, params, seedUrl, dimSpan, seedLink;
           return regenerator.wrap(function _callee$(_context) {
               while (1) {
                   switch (_context.prev = _context.next) {
                   case 0:
                       imageUrl = qs('a.icon', fig).href;
-                      ext = imageUrl.split('.').at(-1);
+                      ext = (_imageUrl$match = imageUrl.match(/\.(\w+)$/)) === null || _imageUrl$match === void 0 ? void 0 : _imageUrl$match[1];
                       _context.next = 4;
                       return getImageDimensions(imageUrl);
                   case 4:
