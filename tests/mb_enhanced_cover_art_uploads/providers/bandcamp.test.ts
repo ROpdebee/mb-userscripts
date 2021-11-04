@@ -62,7 +62,7 @@ describe('bandcamp provider', () => {
     it('grabs track covers', async () => {
         const coverUrls = await provider.findImages(new URL('https://nyokee.bandcamp.com/album/quarantine-pixel-party'));
 
-        expect(coverUrls).toBeArrayOfSize(9);
+        expect(coverUrls).toBeArrayOfSize(8); // Last track image is same as front cover
         expect(coverUrls[0].url.pathname).toContain('a1225644503_');
         expect(coverUrls[0].types).toStrictEqual([ArtworkTypeIDs.Front]);
         expect(coverUrls[0].comment).toBeUndefined();
@@ -118,5 +118,10 @@ describe('bandcamp provider', () => {
     it('returns no images if release has no cover', async () => {
         await expect(provider.findImages(new URL('https://indigochill.bandcamp.com/track/eon-indigo-remix')))
             .resolves.toBeEmpty();
+    });
+
+    it('deduplicates track images by thumbnail content', async () => {
+        await expect(provider.findImages(new URL('https://inhuman1.bandcamp.com/album/course-of-human-destruction')))
+            .resolves.toBeArrayOfSize(1);
     });
 });

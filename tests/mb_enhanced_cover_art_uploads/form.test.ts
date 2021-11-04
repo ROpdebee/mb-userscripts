@@ -57,7 +57,7 @@ describe('enqueuing images', () => {
                 fetchedUrl: fakeUrl,
                 wasRedirected: false,
                 wasMaximised: false,
-            }]
+            }],
         });
 
         expect(onDropMock).toHaveBeenCalledOnce();
@@ -82,7 +82,7 @@ describe('enqueuing images', () => {
                 wasRedirected: false,
                 types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
                 comment: 'test comment',
-            }]
+            }],
         });
         const row = document.querySelector('tr');
 
@@ -101,7 +101,7 @@ describe('enqueuing images', () => {
                 wasMaximised: false,
                 fetchedUrl: fakeUrl,
                 wasRedirected: false,
-            }]
+            }],
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
@@ -122,7 +122,7 @@ describe('enqueuing images', () => {
                 wasRedirected: false,
                 types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
                 comment: 'test comment',
-            }]
+            }],
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
@@ -143,7 +143,7 @@ describe('enqueuing images', () => {
                 wasRedirected: false,
                 types: [],
                 comment: '',
-            }]
+            }],
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
@@ -175,7 +175,7 @@ describe('enqueuing images', () => {
                 wasRedirected: false,
                 types: [ArtworkTypeIDs.Back],
                 comment: 'test comment 2',
-            }]
+            }],
         });
         const rows = document.querySelectorAll('tr');
         let row1, row2;

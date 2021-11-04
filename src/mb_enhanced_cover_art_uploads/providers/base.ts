@@ -1,6 +1,9 @@
+import { LOGGER } from '@lib/logging/logger';
 import { filterNonNull, groupBy } from '@lib/util/array';
+import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
+import type { FetchedImage } from '../fetch';
 
 export abstract class CoverArtProvider {
     /**
@@ -42,6 +45,15 @@ export abstract class CoverArtProvider {
      * @return     {Promise<CoverArt[]>}  List of cover arts that should be imported.
      */
     abstract findImages(url: URL, onlyFront: boolean): Promise<CoverArt[]>
+
+    /**
+     * Postprocess the fetched images. By default, does nothing, however,
+     * subclasses can override this to e.g. filter out or merge images after
+     * they've been fetched.
+     */
+    postprocessImages(images: FetchedImage[]): FetchedImage[] {
+        return images;
+    }
 
     /**
      * Returns a clean version of the given URL.
@@ -93,33 +105,6 @@ export abstract class CoverArtProvider {
         }
 
         return resp.responseText;
-    }
-
-    protected mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl?: string): CoverArt[] {
-        const newTrackImages = filterNonNull(trackImages)
-            // Filter out tracks that have the same image as the main release.
-            .filter((img) => img.url !== mainUrl);
-        const imgUrlToTrackNumber = groupBy(newTrackImages, (el) => el.url, (el) => el.trackNumber);
-
-        const results: CoverArt[] = [];
-        imgUrlToTrackNumber.forEach((trackNumbers, imgUrl) => {
-            results.push({
-                url: new URL(imgUrl),
-                types: [ArtworkTypeIDs.Track],
-                // Use comment to indicate which tracks this applies to.
-                comment: this.#createTrackImageComment(trackNumbers),
-            });
-        });
-
-        return results;
-    }
-
-    #createTrackImageComment(trackNumbers: Array<string | undefined>): string | undefined {
-        const definedTrackNumbers = filterNonNull(trackNumbers);
-        if (!definedTrackNumbers.length) return;
-
-        const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
-        return `${prefix} ${definedTrackNumbers.join(', ')}`;
     }
 }
 
@@ -192,5 +177,100 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
             url: new URL(coverElmt.content),
             types: [ArtworkTypeIDs.Front],
         }];
+    }
+}
+
+export abstract class ProviderWithTrackImages extends CoverArtProvider {
+    // Providers that provide track images which need to be deduplicated. The
+    // base class supports deduping by URL and thumbnail content.
+    //
+    // Some providers, like Soundcloud and sometimes Bandcamp, use unique URLs
+    // for each track image, so deduplicating based on URL won't work. They may
+    // also not return any headers that uniquely identify the image (like a
+    // Digest or an ETag), so we need to load the image and compare its data
+    // ourselves. Thankfully, most of these providers generate thumbnails whose
+    // payload is identical if the source images are identical, so then we don't
+    // have to load the full image.
+
+    #groupIdenticalImages<T>(images: T[], getImageUniqueId: (img: T) => string, mainUniqueId?: string): Map<string, T[]> {
+        const uniqueImages = images.filter((img) => getImageUniqueId(img) !== mainUniqueId);
+        return groupBy(uniqueImages, getImageUniqueId, (img) => img);
+    }
+
+    async #urlToDigest(imageUrl: string): Promise<string> {
+        const resp = await gmxhr(this.imageToThumbnailUrl(imageUrl), {
+            responseType: 'blob',
+        });
+
+        return blobToDigest(resp.response);
+    }
+
+    protected imageToThumbnailUrl(imageUrl: string): string {
+        // To be overridden by subclass if necessary.
+        return imageUrl;
+    }
+
+    protected async mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string | undefined, byContent: boolean): Promise<CoverArt[]> {
+        const allTrackImages = filterNonNull(trackImages);
+
+        // First pass: URL only
+        const groupedImages = this.#groupIdenticalImages(allTrackImages, (img) => img.url, mainUrl);
+
+        // Second pass: Thumbnail content
+        // We do not need to deduplicate by content if there's only one track
+        // image and there's no main URL to compare to.
+        if (byContent && groupedImages.size && !(groupedImages.size === 1 && !mainUrl)) {
+            LOGGER.info('Deduplicating track images by content, this may take a while…');
+
+            // Compute unique digests of all thumbnail images. We'll use these
+            // digests in `#groupIdenticalImages` to group by thumbnail content.
+            const mainDigest = mainUrl ? await this.#urlToDigest(mainUrl) : '';
+
+            // Extend the track image with the track's unique digest. We compute
+            // this digest once for each unique URL.
+            const tracksWithDigest = await Promise.all([...groupedImages.entries()]
+                .map(async ([coverUrl, trackImages]) => {
+                    const digest = await this.#urlToDigest(coverUrl);
+                    return trackImages.map((trackImage) => {
+                        return {
+                            ...trackImage,
+                            digest,
+                        };
+                    });
+                }));
+
+            const groupedThumbnails = this.#groupIdenticalImages(tracksWithDigest.flat(), (trackWithDigest) => trackWithDigest.digest, mainDigest);
+            // The previous `groupedImages` map groups images by URL. Overwrite
+            // this to group images by thumbnail content. Keys will remain URLs,
+            // we'll use the URL of the first image in the group. It doesn't
+            // really matter which URL we use, as we've already asserted that
+            // the images behind all these URLs in the group are identical.
+            groupedImages.clear();
+            for (const trackImages of groupedThumbnails.values()) {
+                const representativeUrl = trackImages[0].url;
+                groupedImages.set(representativeUrl, trackImages);
+            }
+        }
+
+        // Queue one item for each group of track images. We'll create a comment
+        // to indicate which tracks this image belongs to.
+        const results: CoverArt[] = [];
+        groupedImages.forEach((trackImages, imgUrl) => {
+            results.push({
+                url: new URL(imgUrl),
+                types: [ArtworkTypeIDs.Track],
+                comment: this.#createTrackImageComment(trackImages.map((trackImage) => trackImage.trackNumber)) || undefined,
+            });
+        });
+
+        return results;
+    }
+
+    #createTrackImageComment(trackNumbers: Array<string | undefined>): string {
+        const definedTrackNumbers = filterNonNull(trackNumbers);
+        if (!definedTrackNumbers.length) return '';
+
+        const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
+        return `${prefix} ${definedTrackNumbers.sort().join(', ')}`;
     }
 }

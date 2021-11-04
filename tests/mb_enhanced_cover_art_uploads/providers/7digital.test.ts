@@ -48,4 +48,24 @@ describe('7digital provider', () => {
         await expect(provider.findImages(new URL('https://de.7digital.com/artist/mnek/release/language-elicit-8354116')))
             .rejects.toThrowWithMessage(Error, 'HTTP error 404: Not Found');
     });
+
+    it('does not filter out legit images', async () => {
+        const fetchResults = [{
+            fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg'),
+        }];
+        // @ts-expect-error: Lazy
+        const afterFetch = provider.postprocessImages(fetchResults);
+
+        expect(afterFetch).not.toBeEmpty();
+    });
+
+    it('filters out placeholder images', async () => {
+        const fetchResults = [{
+            fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/000/000/0000000016_800.jpg'),
+        }];
+        // @ts-expect-error: Lazy
+        const afterFetch = provider.postprocessImages(fetchResults);
+
+        expect(afterFetch).toBeEmpty();
+    });
 });

@@ -143,6 +143,8 @@ export class ImageFetcher {
             }
         }
 
+        const fetchedImages = provider.postprocessImages(fetchResults);
+
         if (!hasMoreImages) {
             // Don't mark the whole provider URL as done if we haven't grabbed
             // all images.
@@ -153,7 +155,7 @@ export class ImageFetcher {
 
         return {
             containerUrl: url,
-            images: fetchResults,
+            images: fetchedImages,
         };
     }
 
