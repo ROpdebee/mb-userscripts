@@ -5,14 +5,10 @@ import $ from 'jquery';
 import { enqueueImages, fillEditNote } from '@src/mb_enhanced_cover_art_uploads/form';
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { EditNote } from '@lib/MB/EditNote';
+import { createFetchedImage, createImageFile } from './test-utils/dummy-data';
 
 // @ts-expect-error need to inject a jQuery
 global.$ = $;
-
-const fakeUrl = new URL('https://example.com');
-function createDummyImage(name: string): File {
-    return new File([new Blob(['1234'])], name);
-}
 
 describe('enqueuing images', () => {
     const mockHtml = '<div id="drop-zone"/><table><tbody data-bind="foreach: files_to_upload"/></table>';
@@ -48,41 +44,29 @@ describe('enqueuing images', () => {
     });
 
     it('triggers the correct drop event', async () => {
-        const image = createDummyImage('test.png');
+        const image = createImageFile();
         await enqueueImages({
-            images: [{
+            images: [createFetchedImage({
                 content: image,
-                originalUrl: fakeUrl,
-                maximisedUrl: fakeUrl,
-                fetchedUrl: fakeUrl,
-                wasRedirected: false,
-                wasMaximised: false,
-            }],
+            })],
         });
 
         expect(onDropMock).toHaveBeenCalledOnce();
         expect(onDropMock).toHaveBeenCalledWith(expect.objectContaining({
             originalEvent: {
                 dataTransfer: {
-                    files: expect.toIncludeAnyMembers([image]),
+                    files: [image],
                 },
             },
         }));
     });
 
     it('fills the correct parameters', async () => {
-        const image = createDummyImage('test.png');
         await enqueueImages({
-            images: [{
-                content: image,
-                originalUrl: fakeUrl,
-                maximisedUrl: fakeUrl,
-                wasMaximised: false,
-                fetchedUrl: fakeUrl,
-                wasRedirected: false,
+            images: [createFetchedImage({
                 types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
                 comment: 'test comment',
-            }],
+            })],
         });
         const row = document.querySelector('tr');
 
@@ -92,16 +76,8 @@ describe('enqueuing images', () => {
     });
 
     it('uses the default parameters when none are set', async () => {
-        const image = createDummyImage('test.png');
         await enqueueImages({
-            images: [{
-                content: image,
-                originalUrl: fakeUrl,
-                maximisedUrl: fakeUrl,
-                wasMaximised: false,
-                fetchedUrl: fakeUrl,
-                wasRedirected: false,
-            }],
+            images: [createFetchedImage()],
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
@@ -111,18 +87,11 @@ describe('enqueuing images', () => {
     });
 
     it('does not use default parameters when specific ones are set', async () => {
-        const image = createDummyImage('test.png');
         await enqueueImages({
-            images: [{
-                content: image,
-                originalUrl: fakeUrl,
-                maximisedUrl: fakeUrl,
-                wasMaximised: false,
-                fetchedUrl: fakeUrl,
-                wasRedirected: false,
+            images: [createFetchedImage({
                 types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
                 comment: 'test comment',
-            }],
+            })],
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
@@ -132,18 +101,11 @@ describe('enqueuing images', () => {
     });
 
     it('allows specific types and comment to be empty', async () => {
-        const image = createDummyImage('test.png');
         await enqueueImages({
-            images: [{
-                content: image,
-                originalUrl: fakeUrl,
-                maximisedUrl: fakeUrl,
-                wasMaximised: false,
-                fetchedUrl: fakeUrl,
-                wasRedirected: false,
+            images: [createFetchedImage({
                 types: [],
                 comment: '',
-            }],
+            })],
         }, [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
@@ -153,29 +115,23 @@ describe('enqueuing images', () => {
     });
 
     it('fills the correct parameters for multiple images', async () => {
-        const image1 = createDummyImage('test.1.png');
-        const image2 = createDummyImage('test.2.png');
-
         await enqueueImages({
-            images: [{
-                content: image1,
-                originalUrl: fakeUrl,
-                maximisedUrl: fakeUrl,
-                wasMaximised: false,
-                fetchedUrl: fakeUrl,
-                wasRedirected: false,
-                types: [ArtworkTypeIDs.Front],
-                comment: 'test comment',
-            }, {
-                content: image2,
-                originalUrl: fakeUrl,
-                maximisedUrl: fakeUrl,
-                wasMaximised: false,
-                fetchedUrl: fakeUrl,
-                wasRedirected: false,
-                types: [ArtworkTypeIDs.Back],
-                comment: 'test comment 2',
-            }],
+            images: [
+                createFetchedImage({
+                    content: createImageFile({
+                        name: 'test.1.png'
+                    }),
+                    types: [ArtworkTypeIDs.Front],
+                    comment: 'test comment',
+                }),
+                createFetchedImage({
+                    content: createImageFile({
+                        name: 'test.2.png'
+                    }),
+                    types: [ArtworkTypeIDs.Back],
+                    comment: 'test comment 2',
+                }),
+            ],
         });
         const rows = document.querySelectorAll('tr');
         let row1, row2;
@@ -232,18 +188,12 @@ describe('filling edit notes', () => {
         });
 
         it('fills information for non-maximised URL', () => {
+            const image = createFetchedImage();
             const fetchedImages = {
                 containerUrl: args.containerUrl,
-                images: [{
-                    originalUrl: fakeUrl,
-                    maximisedUrl: fakeUrl,
-                    wasMaximised: false,
-                    fetchedUrl: fakeUrl,
-                    wasRedirected: false,
-                    content: createDummyImage('test.png'),
-                }],
+                images: [image],
             };
-            const expectedLines = [args.prefix + fakeUrl.href];
+            const expectedLines = [args.prefix + image.originalUrl.href];
 
             fillEditNote([fetchedImages], '', editNote);
 
@@ -251,20 +201,16 @@ describe('filling edit notes', () => {
         });
 
         it('fills information for maximised URL', () => {
+            const image = createFetchedImage({
+                wasMaximised: true,
+            });
             const fetchedImages = {
                 containerUrl: args.containerUrl,
-                images: [{
-                    originalUrl: fakeUrl,
-                    maximisedUrl: new URL('https://example.com/max'),
-                    wasMaximised: true,
-                    fetchedUrl: new URL('https://example.com/max'),
-                    wasRedirected: false,
-                    content: createDummyImage('test.png'),
-                }],
+                images: [image],
             };
             const expectedLines = [
-                args.prefix + fakeUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max',
+                args.prefix + image.originalUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Maximised to ' + image.maximisedUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -273,20 +219,16 @@ describe('filling edit notes', () => {
         });
 
         it('fills information for redirected URL', () => {
+            const image = createFetchedImage({
+                wasRedirected: true,
+            });
             const fetchedImages = {
                 containerUrl: args.containerUrl,
-                images: [{
-                    originalUrl: fakeUrl,
-                    maximisedUrl: fakeUrl,
-                    wasMaximised: false,
-                    fetchedUrl: new URL('https://example.com/redirected'),
-                    wasRedirected: true,
-                    content: createDummyImage('test.png'),
-                }],
+                images: [image],
             };
             const expectedLines = [
-                args.prefix + fakeUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Redirected to https://example.com/redirected',
+                args.prefix + image.originalUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Redirected to ' + image.fetchedUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -295,21 +237,18 @@ describe('filling edit notes', () => {
         });
 
         it('fills information for maximised and redirected URL', () => {
+            const image = createFetchedImage({
+                wasMaximised: true,
+                wasRedirected: true,
+            });
             const fetchedImages = {
                 containerUrl: args.containerUrl,
-                images: [{
-                    originalUrl: fakeUrl,
-                    maximisedUrl: new URL('https://example.com/max'),
-                    wasMaximised: true,
-                    fetchedUrl: new URL('https://example.com/redirected'),
-                    wasRedirected: true,
-                    content: createDummyImage('test.png'),
-                }],
+                images: [image],
             };
             const expectedLines = [
-                args.prefix + fakeUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max',
-                ' '.repeat(args.prefix.length) + '→ Redirected to https://example.com/redirected',
+                args.prefix + image.originalUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Maximised to ' + image.maximisedUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Redirected to ' + image.fetchedUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -318,17 +257,12 @@ describe('filling edit notes', () => {
         });
 
         it('skips data URLs', () => {
-            const dataUrl = new URL('data:testtesttest');
+            const image = createFetchedImage({
+                originalUrl: new URL('data:testtesttest'),
+            });
             const fetchedImages = {
                 containerUrl: args.containerUrl,
-                images: [{
-                    originalUrl: dataUrl,
-                    maximisedUrl: dataUrl,
-                    wasMaximised: false,
-                    fetchedUrl: dataUrl,
-                    wasRedirected: false,
-                    content: createDummyImage('test.png'),
-                }],
+                images: [image],
             };
             const expectedLines = [
                 args.prefix + 'Uploaded from data URL',
@@ -340,29 +274,23 @@ describe('filling edit notes', () => {
         });
 
         it('fills for multiple URLs', () => {
+            const images = [
+                createFetchedImage({
+                    wasMaximised: true,
+                }),
+                createFetchedImage({
+                    wasMaximised: true,
+                }),
+            ];
             const fetchedImages = {
                 containerUrl: args.containerUrl,
-                images: [{
-                    originalUrl: fakeUrl,
-                    maximisedUrl: new URL('https://example.com/max'),
-                    wasMaximised: true,
-                    fetchedUrl: new URL('https://example.com/max'),
-                    wasRedirected: false,
-                    content: createDummyImage('test.png'),
-                }, {
-                    originalUrl: new URL('https://example.com/2'),
-                    maximisedUrl: new URL('https://example.com/max2'),
-                    wasMaximised: true,
-                    fetchedUrl: new URL('https://example.com/max2'),
-                    wasRedirected: false,
-                    content: createDummyImage('test.png'),
-                }],
+                images,
             };
             const expectedLines = [
-                args.prefix + fakeUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max',
-                args.prefix + 'https://example.com/2',
-                ' '.repeat(args.prefix.length) + '→ Maximised to https://example.com/max2',
+                args.prefix + images[0].originalUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Maximised to ' + images[0].maximisedUrl.href,
+                args.prefix + images[1].originalUrl.href,
+                ' '.repeat(args.prefix.length) + '→ Maximised to ' + images[1].maximisedUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -371,42 +299,20 @@ describe('filling edit notes', () => {
         });
 
         it('fills at most 3 URLs', () => {
+            const images = [
+                createFetchedImage(),
+                createFetchedImage(),
+                createFetchedImage(),
+                createFetchedImage(),
+            ];
             const fetchedImages = {
                 containerUrl: args.containerUrl,
-                images: [{
-                    originalUrl: new URL('https://example.com/1'),
-                    maximisedUrl: new URL('https://example.com/1'),
-                    fetchedUrl: new URL('https://example.com/1'),
-                    wasRedirected: false,
-                    wasMaximised: false,
-                    content: createDummyImage('test.png'),
-                }, {
-                    originalUrl: new URL('https://example.com/2'),
-                    maximisedUrl: new URL('https://example.com/2'),
-                    fetchedUrl: new URL('https://example.com/2'),
-                    wasRedirected: false,
-                    wasMaximised: false,
-                    content: createDummyImage('test.png'),
-                }, {
-                    originalUrl: new URL('https://example.com/3'),
-                    maximisedUrl: new URL('https://example.com/3'),
-                    fetchedUrl: new URL('https://example.com/3'),
-                    wasRedirected: false,
-                    wasMaximised: false,
-                    content: createDummyImage('test.png'),
-                }, {
-                    originalUrl: new URL('https://example.com/4'),
-                    maximisedUrl: new URL('https://example.com/4'),
-                    fetchedUrl: new URL('https://example.com/4'),
-                    wasRedirected: false,
-                    wasMaximised: false,
-                    content: createDummyImage('test.png'),
-                }],
+                images,
             };
             const expectedLines = [
-                args.prefix + 'https://example.com/1',
-                args.prefix + 'https://example.com/2',
-                args.prefix + 'https://example.com/3',
+                args.prefix + images[0].originalUrl.href,
+                args.prefix + images[1].originalUrl.href,
+                args.prefix + images[2].originalUrl.href,
                 '…and 1 additional image(s)',
             ];
 
@@ -416,35 +322,12 @@ describe('filling edit notes', () => {
         });
 
         it('fills at most 3 URLs with separate fetch results', () => {
-            const images = [{
-                originalUrl: new URL('https://example.com/1'),
-                maximisedUrl: new URL('https://example.com/1'),
-                fetchedUrl: new URL('https://example.com/1'),
-                wasRedirected: false,
-                wasMaximised: false,
-                content: createDummyImage('test.png'),
-            }, {
-                originalUrl: new URL('https://example.com/2'),
-                maximisedUrl: new URL('https://example.com/2'),
-                fetchedUrl: new URL('https://example.com/2'),
-                wasRedirected: false,
-                wasMaximised: false,
-                content: createDummyImage('test.png'),
-            }, {
-                originalUrl: new URL('https://example.com/3'),
-                maximisedUrl: new URL('https://example.com/3'),
-                fetchedUrl: new URL('https://example.com/3'),
-                wasRedirected: false,
-                wasMaximised: false,
-                content: createDummyImage('test.png'),
-            }, {
-                originalUrl: new URL('https://example.com/4'),
-                maximisedUrl: new URL('https://example.com/4'),
-                fetchedUrl: new URL('https://example.com/4'),
-                wasRedirected: false,
-                wasMaximised: false,
-                content: createDummyImage('test.png'),
-            }];
+            const images = [
+                createFetchedImage(),
+                createFetchedImage(),
+                createFetchedImage(),
+                createFetchedImage(),
+            ];
             const fetchedImages = images.map((img) => {
                 return {
                     containerUrl: args.containerUrl,
@@ -453,9 +336,9 @@ describe('filling edit notes', () => {
             });
             // The edit note filler removes the duplicate container URL.
             const expectedLines = [
-                args.prefix + 'https://example.com/1',
-                args.prefix + 'https://example.com/2',
-                args.prefix + 'https://example.com/3',
+                args.prefix + images[0].originalUrl.href,
+                args.prefix + images[1].originalUrl.href,
+                args.prefix + images[2].originalUrl.href,
                 '…and 1 additional image(s)',
             ];
 
@@ -465,19 +348,13 @@ describe('filling edit notes', () => {
         });
 
         it('includes seeding origin if provided', () => {
+            const image = createFetchedImage();
             const fetchedImages = {
                 containerUrl: args.containerUrl,
-                images: [{
-                    originalUrl: fakeUrl,
-                    maximisedUrl: fakeUrl,
-                    fetchedUrl: fakeUrl,
-                    wasRedirected: false,
-                    wasMaximised: false,
-                    content: createDummyImage('test.png'),
-                }],
+                images: [image],
             };
             const expectedLines = [
-                args.prefix + fakeUrl.href,
+                args.prefix + image.originalUrl.href,
                 'Seeded from seeding-origin',
             ];
 
