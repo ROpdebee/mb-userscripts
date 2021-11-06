@@ -4,6 +4,7 @@ import type { FetchedImage } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import { ArtworkTypeIDs, CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
+import { createCoverArt, createImageFile, createXhrResponse } from './test-utils/dummy-data';
 
 jest.mock('@lib/util/xhr');
 // We need to provide a mock factory, because for some reason, either jest or
@@ -48,7 +49,10 @@ function enableDummyFetch(mock: jest.SpiedFunction<ImageFetcher['fetchImageConte
             fetchedUrl: url,
             requestedUrl: url,
             wasRedirected: false,
-            file: new File([new Blob(['test'])], filename.replace(/\.\w+$/, '') + '.0.jpg', { type: 'image/jpeg' }),
+            file: createImageFile({
+                name: filename.replace(/\.\w+$/, '') + '.0.jpg',
+                mimeType: 'image/jpeg',
+            }),
         }));
 }
 
@@ -76,13 +80,6 @@ describe('fetching image contents', () => {
             }),
         },
     };
-    function createMockXhrResponse(finalUrl: string): GMXMLHttpRequestResponse & { response: Blob } {
-        return {
-            response: new Blob(['abcd']),
-            ...{} as unknown as GMXMLHttpRequestResponse,
-            finalUrl,
-        };
-    }
 
     beforeEach(() => {
         fetcher = new ImageFetcher();
@@ -96,7 +93,9 @@ describe('fetching image contents', () => {
     });
 
     it('rejects on invalid file', async () => {
-        mockXhr.mockResolvedValueOnce(createMockXhrResponse('https://example.com/broken'));
+        mockXhr.mockResolvedValueOnce(createXhrResponse({
+            finalUrl: 'https://example.com/broken',
+        }));
         mockValidateFileFail.mockImplementationOnce((cb) => cb('unsupported file type'));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
@@ -104,7 +103,9 @@ describe('fetching image contents', () => {
     });
 
     it('resolves with fetched image', async () => {
-        mockXhr.mockResolvedValueOnce(createMockXhrResponse('https://example.com/working'));
+        mockXhr.mockResolvedValueOnce(createXhrResponse({
+            finalUrl: 'https://example.com/working',
+        }));
         mockValidateFileDone.mockImplementationOnce((cb) => cb('image/png'));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/working'), 'test.jpg', {}))
@@ -124,7 +125,9 @@ describe('fetching image contents', () => {
     });
 
     it('retains redirection information', async () => {
-        mockXhr.mockResolvedValueOnce(createMockXhrResponse('https://example.com/redirected'));
+        mockXhr.mockResolvedValueOnce(createXhrResponse({
+            finalUrl: 'https://example.com/redirected',
+        }));
         mockValidateFileDone.mockImplementationOnce((cb) => cb('image/png'));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/working'), 'test.jpg', {}))
@@ -141,8 +144,12 @@ describe('fetching image contents', () => {
 
     it('assigns unique ID to each file name', async () => {
         mockXhr
-            .mockResolvedValueOnce(createMockXhrResponse('https://example.com/working'))
-            .mockResolvedValueOnce(createMockXhrResponse('https://example.com/working'));
+            .mockResolvedValueOnce(createXhrResponse({
+                finalUrl: 'https://example.com/working',
+            }))
+            .mockResolvedValueOnce(createXhrResponse({
+                finalUrl: 'https://example.com/working',
+            }));
         mockValidateFileDone
             .mockImplementationOnce((cb) => cb('image/png'))
             .mockImplementationOnce((cb) => cb('image/png'));
@@ -314,11 +321,10 @@ describe('fetching images from providers', () => {
     });
 
     it('returns all images provided by provider', async () => {
-        mockFindImages.mockResolvedValueOnce([{
-            url: new URL('https://example.com/1'),
-        }, {
-            url: new URL('https://example.com/2'),
-        }]);
+        mockFindImages.mockResolvedValueOnce([
+            createCoverArt('https://example.com/1'),
+            createCoverArt('https://example.com/2'),
+        ]);
 
         await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, false))
             .resolves.toMatchObject({
@@ -338,11 +344,13 @@ describe('fetching images from providers', () => {
     });
 
     it('retains type and comment if set by provider', async () => {
-        mockFindImages.mockResolvedValueOnce([{
-            url: new URL('https://example.com/1'),
-            types: [ArtworkTypeIDs.Front],
-            comment: 'comment'
-        }]);
+        mockFindImages.mockResolvedValueOnce([
+            createCoverArt({
+                url: new URL('https://example.com/1'),
+                types: [ArtworkTypeIDs.Front],
+                comment: 'comment'
+            }),
+        ]);
 
         await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, false))
             .resolves.toMatchObject({
@@ -359,11 +367,8 @@ describe('fetching images from providers', () => {
     it('skips image if image is already added', async () => {
         // Return the same image twice from the provider. Second image should
         // be skipped.
-        mockFindImages.mockResolvedValue([{
-            url: new URL('https://example.com/1'),
-        }, {
-            url: new URL('https://example.com/1'),
-        }]);
+        const cover = createCoverArt('https://example.com/1');
+        mockFindImages.mockResolvedValue([cover, cover]);
 
         await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, false))
             .resolves.toMatchObject({
@@ -376,11 +381,10 @@ describe('fetching images from providers', () => {
     });
 
     it('skips image if maximised image is already added', async () => {
-        mockFindImages.mockResolvedValueOnce([{
-            url: new URL('https://example.com/1'),
-        }, {
-            url: new URL('https://example.com/2'),
-        }]);
+        mockFindImages.mockResolvedValueOnce([
+            createCoverArt('https://example.com/1'),
+            createCoverArt('https://example.com/2'),
+        ]);
 
         // Mocking the maximisation to return the same maximised URL for both
         // images. This should lead to the first URL being added and the second
@@ -413,9 +417,9 @@ describe('fetching images from providers', () => {
     });
 
     it('skips image on failure', async () => {
-        mockFindImages.mockResolvedValueOnce([{
-            url: new URL('https://example.com/1'),
-        }]);
+        mockFindImages.mockResolvedValueOnce([
+            createCoverArt('https://example.com/1'),
+        ]);
         mockFetchImageContents.mockRejectedValueOnce(new Error('1 has an unsupported file type'));
 
         await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, false))
@@ -428,10 +432,12 @@ describe('fetching images from providers', () => {
     });
 
     it('skips maximisation if provider requests it', async () => {
-        mockFindImages.mockResolvedValueOnce([{
-            url: new URL('https://example.com/1'),
-            skipMaximisation: true,
-        }]);
+        mockFindImages.mockResolvedValueOnce([
+            createCoverArt({
+                url: new URL('https://example.com/1'),
+                skipMaximisation: true,
+            }),
+        ]);
 
         await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, false))
             .resolves.toMatchObject({
@@ -448,11 +454,10 @@ describe('fetching images from providers', () => {
             }
         }
         const provider = new PostprocessingProvider();
-        mockFindImages.mockResolvedValueOnce([{
-            url: new URL('https://example.com/1'),
-        }, {
-            url: new URL('https://example.com/2'),
-        }]);
+        mockFindImages.mockResolvedValueOnce([
+            createCoverArt('https://example.com/1'),
+            createCoverArt('https://example.com/2'),
+        ]);
 
         await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), provider, false))
             .resolves.toMatchObject({
@@ -466,13 +471,16 @@ describe('fetching images from providers', () => {
 
     describe('fetching only front images', () => {
         it('removes non-front images', async () => {
-            mockFindImages.mockResolvedValueOnce([{
-                url: new URL('https://example.com/1'),
-                types: [ArtworkTypeIDs.Front],
-            }, {
-                url: new URL('https://example.com/2'),
-                types: [ArtworkTypeIDs.Back],
-            }]);
+            mockFindImages.mockResolvedValueOnce([
+                createCoverArt({
+                    url: new URL('https://example.com/1'),
+                    types: [ArtworkTypeIDs.Front],
+                }),
+                createCoverArt({
+                    url: new URL('https://example.com/2'),
+                    types: [ArtworkTypeIDs.Back],
+                }),
+            ]);
 
             await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, true))
                 .resolves.toMatchObject({
@@ -487,13 +495,16 @@ describe('fetching images from providers', () => {
         });
 
         it('removes non-front images regardless of order', async () => {
-            mockFindImages.mockResolvedValueOnce([{
-                url: new URL('https://example.com/2'),
-                types: [ArtworkTypeIDs.Back],
-            }, {
-                url: new URL('https://example.com/1'),
-                types: [ArtworkTypeIDs.Front],
-            }]);
+            mockFindImages.mockResolvedValueOnce([
+                createCoverArt({
+                    url: new URL('https://example.com/2'),
+                    types: [ArtworkTypeIDs.Back],
+                }),
+                createCoverArt({
+                    url: new URL('https://example.com/1'),
+                    types: [ArtworkTypeIDs.Front],
+                }),
+            ]);
 
             await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, true))
                 .resolves.toMatchObject({
@@ -508,13 +519,16 @@ describe('fetching images from providers', () => {
         });
 
         it('retains multiple front images', async () => {
-            mockFindImages.mockResolvedValueOnce([{
-                url: new URL('https://example.com/1'),
-                types: [ArtworkTypeIDs.Front],
-            }, {
-                url: new URL('https://example.com/2'),
-                types: [ArtworkTypeIDs.Front],
-            }]);
+            mockFindImages.mockResolvedValueOnce([
+                createCoverArt({
+                    url: new URL('https://example.com/1'),
+                    types: [ArtworkTypeIDs.Front],
+                }),
+                createCoverArt({
+                    url: new URL('https://example.com/2'),
+                    types: [ArtworkTypeIDs.Front],
+                }),
+            ]);
 
             await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, true))
                 .resolves.toMatchObject({
@@ -524,13 +538,16 @@ describe('fetching images from providers', () => {
         });
 
         it('uses first image if no front image defined', async () => {
-            mockFindImages.mockResolvedValueOnce([{
-                url: new URL('https://example.com/1'),
-                types: [ArtworkTypeIDs.Medium],
-            }, {
-                url: new URL('https://example.com/2'),
-                types: [ArtworkTypeIDs.Back],
-            }]);
+            mockFindImages.mockResolvedValueOnce([
+                createCoverArt({
+                    url: new URL('https://example.com/1'),
+                    types: [ArtworkTypeIDs.Medium],
+                }),
+                createCoverArt({
+                    url: new URL('https://example.com/2'),
+                    types: [ArtworkTypeIDs.Back],
+                }),
+            ]);
 
             await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, true))
                 .resolves.toMatchObject({
@@ -545,13 +562,16 @@ describe('fetching images from providers', () => {
         });
 
         it('allows re-fetching a provider release', async () => {
-            const resolvedValue = [{
-                url: new URL('https://example.com/1'),
-                types: [ArtworkTypeIDs.Front],
-            }, {
-                url: new URL('https://example.com/2'),
-                types: [ArtworkTypeIDs.Back],
-            }];
+            const resolvedValue = [
+                createCoverArt({
+                    url: new URL('https://example.com/1'),
+                    types: [ArtworkTypeIDs.Front],
+                }),
+                createCoverArt({
+                    url: new URL('https://example.com/2'),
+                    types: [ArtworkTypeIDs.Back],
+                }),
+            ];
             mockFindImages
                 .mockResolvedValueOnce(resolvedValue)
                 .mockResolvedValueOnce(resolvedValue);
@@ -613,13 +633,14 @@ describe('fetching images', () => {
 
     it('fetches all images extracted from provider', async () => {
         mockGetProvider.mockImplementationOnce(() => fakeProvider);
-        mockFindImages.mockResolvedValueOnce([{
-            url: new URL('https://example.com/1'),
-        }, {
-            url: new URL('https://example.com/2'),
-            types: [ArtworkTypeIDs.Front],
-            comment: 'front'
-        }]);
+        mockFindImages.mockResolvedValueOnce([
+            createCoverArt('https://example.com/1'),
+            createCoverArt({
+                url: new URL('https://example.com/2'),
+                types: [ArtworkTypeIDs.Front],
+                comment: 'front'
+            }),
+        ]);
 
         const result = await fetcher.fetchImages(new URL('https://example.com/1'), false);
 
