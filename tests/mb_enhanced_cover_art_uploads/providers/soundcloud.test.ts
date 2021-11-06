@@ -84,8 +84,13 @@ describe('soundcloud provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            desc: 'non-existent track',
             url: 'https://soundcloud.com/404/404',
+            errorMessage: /release may have been removed/,
+        }, {
+            desc: 'non-existent set',
+            url: 'https://soundcloud.com/officialpandaeyes/sets/isolationep404',
+            errorMessage: /release may have been removed/,
         }, {
             desc: 'release for which metadata cannot be extracted',
             // Not a correct release URL, so the required metadata isn't present.
