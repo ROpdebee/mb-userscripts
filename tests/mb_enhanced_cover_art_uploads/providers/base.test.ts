@@ -17,6 +17,10 @@ beforeAll(() => {
     registerMatchers();
 });
 
+afterEach(() => {
+    mockXhr.mockReset();
+});
+
 describe('cover art providers', () => {
     class FakeProvider extends CoverArtProvider {
         name = 'fake';
@@ -308,6 +312,29 @@ describe('providers with track images', () => {
                     types: [ArtworkTypeIDs.Track],
                     comment: 'Tracks 1, 2, 3',
                 });
+            });
+
+            it('does not deduplicate if there are no track images', async () => {
+                await fakeProvider.mergeTrackImages([], 'https://example.com/x', true);
+
+                expect(mockXhr).not.toHaveBeenCalled();
+            });
+
+            it('does not deduplicate if there is one track image and no main image', async () => {
+                await fakeProvider.mergeTrackImages(trackImages.slice(0, 1), '', true);
+
+                expect(mockXhr).not.toHaveBeenCalled();
+            });
+
+            it('deduplicates if there is one track image and one main image', async () => {
+                mockXhr.mockResolvedValue(createXhrResponse({
+                    response: createBlob(),
+                }));
+
+                const results = await fakeProvider.mergeTrackImages(trackImages.slice(0, 1), 'https://example.com/x', true);
+
+                expect(results).toBeEmpty();
+                expect(mockXhr).toHaveBeenCalledTimes(2);
             });
         });
     });
