@@ -20,12 +20,13 @@ describe('seeder', () => {
             .toBeTrue();
     });
 
-    it.each`
-        url | desc
-        ${'https://example.com/other_path'} | ${'correct domain but wrong path'}
-        ${'https://otherexample.com/'} | ${'wrong domain'}
-        ${'https://otherexample.com/example_path'} | ${'wrong domain but correct path'}
-    `('does not support URLs with $desc', ({ url }: { url: string }) => {
+    const unsupportedCases = [
+        ['correct domain but wrong path', 'https://example.com/other_path'],
+        ['wrong domain', 'https://otherexample.com/'],
+        ['wrong domain but correct path', 'https://otherexample.com/example_path'],
+    ];
+
+    it.each(unsupportedCases)('does not support URLs with %s', (_1, url) => {
         expect(seederSupportsURL(FakeSeeder, new URL(url)))
             .toBeFalse();
     });
