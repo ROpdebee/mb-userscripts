@@ -33,13 +33,7 @@ describe('assertNonNull', () => {
         }).not.toThrow(AssertionError);
     });
 
-    it.each`
-        value
-        ${''}
-        ${true}
-        ${false}
-        ${'test'}
-    `('does not throw on truthy values ($value)', ({value}) => {
+    it.each(['', true, false, 'test'])('does not throw on truthy values (%s)', (value) => {
         expect(() => {
             assertNonNull(value);
         }).not.toThrow(AssertionError);
@@ -65,13 +59,7 @@ describe('assertDefined', () => {
         }).not.toThrow(AssertionError);
     });
 
-    it.each`
-        value
-        ${''}
-        ${true}
-        ${false}
-        ${'test'}
-    `('does not throw on truthy values ($value)', ({value}) => {
+    it.each(['', true, false, 'test'])('does not throw on truthy values (%s)', (value) => {
         expect(() => {
             assertDefined(value);
         }).not.toThrow(AssertionError);
@@ -97,13 +85,7 @@ describe('assertHasValue', () => {
         }).toThrow(AssertionError);
     });
 
-    it.each`
-        value
-        ${''}
-        ${true}
-        ${false}
-        ${'test'}
-    `('does not throw on truthy values ($value)', ({value}) => {
+    it.each(['', true, false, 'test'])('does not throw on truthy values (%s)', (value) => {
         expect(() => {
             assertHasValue(value);
         }).not.toThrow(AssertionError);
