@@ -3,6 +3,7 @@ import { DispatchMap } from '@lib/util/domain_dispatch';
 import type { CoverArtProvider } from './base';
 
 import { SevenDigitalProvider } from './7digital';
+import { AllMusicProvider } from './allmusic';
 import { AmazonProvider } from './amazon';
 import { AmazonMusicProvider } from './amazon_music';
 import { AppleMusicProvider } from './apple_music';
@@ -26,6 +27,7 @@ function addProvider(provider: CoverArtProvider): void {
         .forEach((domain) => PROVIDER_DISPATCH.set(domain, provider));
 }
 
+addProvider(new AllMusicProvider());
 addProvider(new AmazonProvider());
 addProvider(new AmazonMusicProvider());
 addProvider(new AppleMusicProvider());
