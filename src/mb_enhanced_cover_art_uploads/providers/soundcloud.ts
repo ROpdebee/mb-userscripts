@@ -74,7 +74,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         const metadata = this.extractMetadataFromJS(pageContent)
             ?.find((data) => ['sound', 'playlist'].includes(data.hydratable));
         if (!metadata) {
-            throw new Error('Could not extract metadata from Soundcloud page');
+            throw new Error('Could not extract metadata from Soundcloud page. The release may have been removed.');
         }
 
         if (metadata.hydratable === 'sound') {
