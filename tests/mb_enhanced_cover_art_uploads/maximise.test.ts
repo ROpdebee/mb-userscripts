@@ -99,7 +99,7 @@ describe('maximising Apple Music images', () => {
         const it = getMaximisedCandidates(new URL('https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png/999999999x0w-999.png'));
         let result = await it.next();
 
-        // expect(result.done).toBeFalse();
+        expect(result.done).toBeFalse();
         expect(result.value.url.href).toBe('https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png/999999999x0w-999.png');
 
         result = await it.next();
