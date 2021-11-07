@@ -173,7 +173,7 @@ export class ImageFetcher {
         return `${filenameWithoutExt}.${this.#lastId++}.${mimeType.split('/')[1]}`;
     }
 
-    async fetchImageContents(url: URL, fileName: string, headers: Record<string, unknown>): Promise<ImageContents> {
+    async fetchImageContents(url: URL, fileName: string, headers: Record<string, string>): Promise<ImageContents> {
         const resp = await gmxhr(url, {
             responseType: 'blob',
             headers: headers,
@@ -185,7 +185,7 @@ export class ImageFetcher {
             LOGGER.warn(`Followed redirect of ${url.href} -> ${resp.finalUrl} while fetching image contents`);
         }
 
-        const rawFile = new File([resp.response], fileName);
+        const rawFile = new File([resp.response as Blob], fileName);
 
         return new Promise((resolve, reject) => {
             MB.CoverArt.validate_file(rawFile)
@@ -198,7 +198,7 @@ export class ImageFetcher {
                         fetchedUrl,
                         wasRedirected,
                         file: new File(
-                            [resp.response],
+                            [resp.response as Blob],
                             this.#createUniqueFilename(fileName, mimeType),
                             { type: mimeType }),
                     });

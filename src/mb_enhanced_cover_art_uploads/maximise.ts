@@ -29,7 +29,7 @@ const IMU_EXCEPTIONS: DispatchMap<ExceptionFn> = new DispatchMap();
 export interface MaximisedImage {
     url: URL;
     filename: string;
-    headers: Record<string, unknown>;
+    headers: Record<string, string>;
 }
 
 export async function* getMaximisedCandidates(smallurl: URL): AsyncIterableIterator<MaximisedImage> {

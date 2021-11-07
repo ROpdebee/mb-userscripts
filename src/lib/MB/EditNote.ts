@@ -47,7 +47,7 @@ export class EditNote {
     }
 
     static withFooterFromGMInfo(): EditNote {
-        const scriptMetadata = GM_info.script;
+        const scriptMetadata = GM.info.script;
         // namespace should be the homepage URL (homepageURL and homepage are not available in all userscript managers)
         const footer = `${scriptMetadata.name} ${scriptMetadata.version}\n${scriptMetadata.namespace}`;
         return new EditNote(footer);

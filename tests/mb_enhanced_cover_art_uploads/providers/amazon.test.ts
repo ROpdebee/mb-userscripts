@@ -177,9 +177,9 @@ describe('amazon provider', () => {
         });
     });
 
-    it('provides a favicon', () => {
-        mockGM_getResourceURL.mockReturnValueOnce('testFavicon');
+    it('provides a favicon', async () => {
+        mockGM_getResourceURL.mockResolvedValueOnce('testFavicon');
 
-        expect(provider.favicon).toBe('testFavicon');
+        await expect(provider.favicon).resolves.toBe('testFavicon');
     });
 });

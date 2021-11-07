@@ -85,13 +85,14 @@ export class InputForm {
             ?.insertAdjacentElement('afterend', this.#buttonContainer);
     }
 
-    addImportButton(onClickCallback: () => void, url: string, provider: CoverArtProvider): void {
+    async addImportButton(onClickCallback: () => void, url: string, provider: CoverArtProvider): Promise<void> {
+        const favicon = await provider.favicon;
         const button = <button
             type='button'
             title={url}
             onClick={(evt): void => { evt.preventDefault(); onClickCallback(); }}
         >
-            <img src={provider.favicon} alt={provider.name} />
+            <img src={favicon} alt={provider.name} />
             <span>{'Import from ' + provider.name}</span>
         </button>;
 

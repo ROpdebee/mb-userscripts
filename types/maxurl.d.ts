@@ -112,7 +112,7 @@ interface maxurlResult {
 
   // Headers required to view the returned URL
   //  If a header is null, don't include that header.
-  headers: Record<string, unknown>;
+  headers: Record<string, string>;
 
   // Additional properties that could be useful
   extra: {

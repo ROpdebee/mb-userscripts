@@ -1,13 +1,15 @@
 import { AbortedError, gmxhr, HTTPResponseError, NetworkError, TimeoutError } from '@lib/util/xhr';
 
-const mocked_GM_xhr = jest.fn() as jest.MockedFunction<typeof GM_xmlhttpRequest>;
-global.GM_xmlhttpRequest = mocked_GM_xhr;
+const mocked_GM_xhr = jest.fn() as jest.MockedFunction<typeof GM.xmlHttpRequest>;
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+global.GM = global.GM ?? {};
+GM.xmlHttpRequest = mocked_GM_xhr;
 
 describe('gmxhr', () => {
-    const stubResponse = {} as unknown as GMXMLHttpRequestResponse;
+    const stubResponse = {} as unknown as GM.Response<never>;
 
     beforeEach(() => {
-        mocked_GM_xhr.mockImplementation(() => ({} as unknown as GMXMLHttpRequestResult));
+        mocked_GM_xhr.mockImplementation(() => ({} as unknown as GM.Response<never>));
     });
 
     afterEach(() => {
@@ -44,7 +46,7 @@ describe('gmxhr', () => {
         mocked_GM_xhr.mockImplementation((options) => options.onload?.({
             status: 400,
             statusText: 'Bad request',
-        } as unknown as GMXMLHttpRequestResponse));
+        } as unknown as GM.Response<never>));
         const res = gmxhr('test');
 
         await expect(res).rejects.toBeInstanceOf(HTTPResponseError);
