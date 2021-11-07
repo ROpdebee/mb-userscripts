@@ -1,5 +1,7 @@
 // Interface to maxurl
 
+import { LOGGER } from '@lib/logging/logger';
+import { retryTimes } from '@lib/util/async';
 import { DispatchMap } from '@lib/util/domain_dispatch';
 import { DiscogsProvider } from './providers/discogs';
 
@@ -8,8 +10,15 @@ import { DiscogsProvider } from './providers/discogs';
 // it does not exist in tests, and we can't straightforwardly inject this variable
 // without importing the module, thereby dereferencing it.
 /* istanbul ignore next: mocked out */
-function maxurl(url: string, options: maxurlOptions): void {
-    $$IMU_EXPORT$$(url, options);
+function maxurl(url: string, options: maxurlOptions): Promise<void> {
+    // In environments with GM.* APIs, the GM.getValue and GM.setValue functions
+    // are asynchronous, leading to IMU defining its exports asynchronously too.
+    // We can't await that, unfortunately. This is only really an issue when
+    // processing seeding parameters, when user interaction is required, it'll
+    // probably already be loaded.
+    return retryTimes(() => {
+        $$IMU_EXPORT$$(url, options);
+    }, 100, 500); // Pretty large number of retries, but eventually it should work.
 }
 
 const options: maxurlOptions = {
@@ -42,13 +51,16 @@ export async function* getMaximisedCandidates(smallurl: URL): AsyncIterableItera
 }
 
 async function* maximiseGeneric(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
-    const p = new Promise<maxurlResult[]>((resolve) => {
+    const results = await new Promise<maxurlResult[]>((resolve) => {
         maxurl(smallurl.href, {
             ...options,
-            cb: resolve
+            cb: resolve,
+        }).catch((err) => {
+            LOGGER.error('Could not maximise image, maxurl unavailable?', err);
+            // Just return no maximised candidates and proceed as usual.
+            resolve([]);
         });
     });
-    const results = await p;
 
     for (let i = 0; i < results.length; i++) {
         const current = results[i];
