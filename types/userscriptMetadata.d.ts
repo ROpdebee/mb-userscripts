@@ -4,7 +4,8 @@ interface UserscriptCustomMetadata {
     match: readonly string[] | string;
     exclude?: readonly string[] | string;
     require?: readonly string[] | string;
-    'run-at'?: string;
+    // https://wiki.greasespot.net/Metadata_Block#.40run-at
+    'run-at'?: 'document-start' | 'document-end' | 'document-idle';
     grant?: readonly string[] | string;
     connect?: readonly string[] | string;
     resource?: readonly string[] | string;
