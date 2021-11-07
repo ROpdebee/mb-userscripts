@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.11.7
+// @version      2021.11.7.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1235,6 +1235,97 @@
 
     return SevenDigitalProvider;
   }(HeadMetaPropertyProvider);
+
+  var AllMusicProvider = /*#__PURE__*/function (_CoverArtProvider) {
+    _inherits(AllMusicProvider, _CoverArtProvider);
+
+    var _super = _createSuper(AllMusicProvider);
+
+    function AllMusicProvider() {
+      var _this;
+
+      _classCallCheck(this, AllMusicProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['allmusic.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://cdn-gce.allmusic.com/images/favicon/favicon-32x32.png');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'AllMusic');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /album\/release\/.*(mr\d+)(?:\/|$)/);
+
+      return _this;
+    }
+
+    _createClass(AllMusicProvider, [{
+      key: "findImages",
+      value: function () {
+        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
+          var _page$match;
+
+          var page, galleryJson, gallery;
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return this.fetchPage(url);
+
+                case 2:
+                  page = _context.sent;
+                  // Extracting from embedded JS which contains a JSON array of all images
+                  galleryJson = (_page$match = page.match(/var imageGallery = (.+);$/m)) === null || _page$match === void 0 ? void 0 : _page$match[1]; // istanbul ignore if: Difficult to cover
+
+                  if (galleryJson) {
+                    _context.next = 6;
+                    break;
+                  }
+
+                  throw new Error('Failed to extract AllMusic images from embedded JS');
+
+                case 6:
+                  gallery = safeParseJSON(galleryJson); // istanbul ignore if: Difficult to cover
+
+                  if (gallery) {
+                    _context.next = 9;
+                    break;
+                  }
+
+                  throw new Error('Failed to parse AllMusic JSON gallery data');
+
+                case 9:
+                  return _context.abrupt("return", gallery.map(function (image) {
+                    return {
+                      // Maximise to original format here already, generates less
+                      // edit note spam.
+                      url: new URL(image.url.replace(/&f=\d+$/, '&f=0'))
+                    };
+                  }));
+
+                case 10:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function findImages(_x) {
+          return _findImages.apply(this, arguments);
+        }
+
+        return findImages;
+      }()
+    }]);
+
+    return AllMusicProvider;
+  }(CoverArtProvider);
 
   var PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/; // Incomplete, only what we need
 
@@ -3032,6 +3123,7 @@
     });
   }
 
+  addProvider(new AllMusicProvider());
   addProvider(new AmazonProvider());
   addProvider(new AmazonMusicProvider());
   addProvider(new AppleMusicProvider());
