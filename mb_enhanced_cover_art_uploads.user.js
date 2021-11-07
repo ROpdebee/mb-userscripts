@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.11.4.2
+// @version      2021.11.7
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2698,7 +2698,7 @@
                     break;
                   }
 
-                  throw new Error('Could not extract metadata from Soundcloud page');
+                  throw new Error('Could not extract metadata from Soundcloud page. The release may have been removed.');
 
                 case 7:
                   if (!(metadata.hydratable === 'sound')) {
