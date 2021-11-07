@@ -186,24 +186,40 @@ export class ImageFetcher {
         }
 
         const rawFile = new File([resp.response as Blob], fileName);
-
-        return new Promise((resolve, reject) => {
-            MB.CoverArt.validate_file(rawFile)
-                .fail(() => {
+        const mimeType = await new Promise<string>((resolve, reject) => {
+            // Adapted from https://github.com/metabrainz/musicbrainz-server/blob/2b00b844f3fe4293fc4ccb9de1c30e3c2ddc95c1/root/static/scripts/edit/MB/CoverArt.js#L139
+            // We can't use MB.CoverArt.validate_file since it's not available
+            // in Greasemonkey unless we use unsafeWindow. However, if we use
+            // unsafeWindow, we get permission errors (probably because we're
+            // sending our functions into another context).
+            const reader = new FileReader();
+            // istanbul ignore next: Copied from MB.
+            reader.addEventListener('load', () => {
+                const uint32view = new Uint32Array(reader.result as ArrayBuffer);
+                if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
+                    resolve('image/jpeg');
+                } else if (uint32view[0] === 0x38464947) {
+                    resolve('image/gif');
+                } else if (uint32view[0] === 0x474E5089) {
+                    resolve('image/png');
+                } else if (uint32view[0] === 0x46445025) {
+                    resolve('application/pdf');
+                } else {
                     reject(new Error(`${fileName} has an unsupported file type`));
-                })
-                .done((mimeType) => {
-                    resolve({
-                        requestedUrl: url,
-                        fetchedUrl,
-                        wasRedirected,
-                        file: new File(
-                            [resp.response as Blob],
-                            this.#createUniqueFilename(fileName, mimeType),
-                            { type: mimeType }),
-                    });
-                });
+                }
+            });
+            reader.readAsArrayBuffer(rawFile.slice(0, 4));
         });
+
+        return {
+            requestedUrl: url,
+            fetchedUrl,
+            wasRedirected,
+            file: new File(
+                [resp.response as Blob],
+                this.#createUniqueFilename(fileName, mimeType),
+                { type: mimeType }),
+        };
     }
 
     #urlAlreadyAdded(url: URL): boolean {

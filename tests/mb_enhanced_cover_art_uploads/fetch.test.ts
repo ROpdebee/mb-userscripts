@@ -63,23 +63,6 @@ function disableDummyFetch(mock: jest.SpiedFunction<ImageFetcher['fetchImageCont
 
 describe('fetching image contents', () => {
     let fetcher: ImageFetcher;
-    const mockValidateFileFail = jest.fn();
-    const mockValidateFileDone = jest.fn();
-    // @ts-expect-error Mocking
-    global.MB = {
-        CoverArt: {
-            validate_file: jest.fn().mockReturnValue({
-                done: function(cb: () => void) {
-                    mockValidateFileDone(cb);
-                    return this;
-                },
-                fail: function(cb: () => void) {
-                    mockValidateFileFail(cb);
-                    return this;
-                },
-            }),
-        },
-    };
 
     beforeEach(() => {
         fetcher = new ImageFetcher();
@@ -95,8 +78,8 @@ describe('fetching image contents', () => {
     it('rejects on invalid file', async () => {
         mockXhr.mockResolvedValueOnce(createXhrResponse({
             finalUrl: 'https://example.com/broken',
+            response: new Blob(['test']),
         }));
-        mockValidateFileFail.mockImplementationOnce((cb) => cb('unsupported file type'));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
             .rejects.toThrow('test.jpg has an unsupported file type');
@@ -105,8 +88,8 @@ describe('fetching image contents', () => {
     it('resolves with fetched image', async () => {
         mockXhr.mockResolvedValueOnce(createXhrResponse({
             finalUrl: 'https://example.com/working',
+            response: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
         }));
-        mockValidateFileDone.mockImplementationOnce((cb) => cb('image/png'));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/working'), 'test.jpg', {}))
             .resolves.toMatchObject({
@@ -127,8 +110,8 @@ describe('fetching image contents', () => {
     it('retains redirection information', async () => {
         mockXhr.mockResolvedValueOnce(createXhrResponse({
             finalUrl: 'https://example.com/redirected',
+            response: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
         }));
-        mockValidateFileDone.mockImplementationOnce((cb) => cb('image/png'));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/working'), 'test.jpg', {}))
             .resolves.toMatchObject({
@@ -146,13 +129,12 @@ describe('fetching image contents', () => {
         mockXhr
             .mockResolvedValueOnce(createXhrResponse({
                 finalUrl: 'https://example.com/working',
+                response: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
             }))
             .mockResolvedValueOnce(createXhrResponse({
                 finalUrl: 'https://example.com/working',
+                response: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
             }));
-        mockValidateFileDone
-            .mockImplementationOnce((cb) => cb('image/png'))
-            .mockImplementationOnce((cb) => cb('image/png'));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/working'), 'test.jpg', {}))
             .resolves.toMatchObject({
