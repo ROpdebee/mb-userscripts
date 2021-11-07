@@ -43,5 +43,6 @@
         "lib/**",
         "coverage/**",
         "node_modules/rollup-plugin-consts/consts.d.ts",
+        "vendor/**",
     ]
 }

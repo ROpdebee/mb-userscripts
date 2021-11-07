@@ -2,6 +2,7 @@ dist/**
 # Ignore top-level scripts for now
 mb_*.js
 lib/*
+vendor/**
 
 # Specifically allowlist the commit_release file in the GH directory
 !.github

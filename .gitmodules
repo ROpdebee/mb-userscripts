@@ -1,0 +1,3 @@
+[submodule "vendor/gm4-polyfill"]
+	path = vendor/gm4-polyfill
+	url = https://github.com/greasemonkey/gm4-polyfill
