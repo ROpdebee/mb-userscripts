@@ -1,5 +1,6 @@
 import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';
+import { cloneIntoPageContext, getFromPageContext } from '@lib/util/contexts';
 import { qs, qsa } from '@lib/util/dom';
 import type { EditNote } from '@lib/MB/EditNote';
 import type { FetchedImage, FetchedImages } from './fetch';
@@ -24,16 +25,21 @@ async function enqueueImage(image: FetchedImage, defaultTypes: ArtworkTypeIDs[],
 function dropImage(imageData: File): void {
     // Fake event to trigger the drop event on the drag'n'drop element
     // Using jQuery because native JS cannot manually trigger such events
-    // for security reasons
-    const dropEvent = $.Event('drop') as JQuery.TriggeredEvent;
-    dropEvent.originalEvent = {
+    // for security reasons.
+    const dropEvent = getFromPageContext('$').Event('drop') as JQuery.TriggeredEvent;
+    // We need to clone the underlying data since we might be running as a
+    // content script, meaning that even though we trigger the event through
+    // unsafeWindow, the page context may not be able to access the event's
+    // properties.
+    dropEvent.originalEvent = cloneIntoPageContext({
         dataTransfer: { files: [imageData] }
-    } as unknown as DragEvent;
+    } as unknown as DragEvent);
 
     // Note that we're using MB's own jQuery here, not a script-local one.
-    // We need to reuse MB's own jQuery to be able to trigger the event
-    // handler.
-    $('#drop-zone').trigger(dropEvent);
+    // We cannot manually dispatch the event due to security reasons, so we
+    // use MB's own jQuery to find the event handler and call it manually.
+    // @ts-expect-error: _data is not defined in declaration
+    getFromPageContext('$')._data(qs('#drop-zone'), 'events').drop[0].handler(dropEvent);
 }
 
 function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], imageComment: string): void {

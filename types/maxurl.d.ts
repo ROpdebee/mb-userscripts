@@ -44,7 +44,7 @@ interface maxurlOptions {
     // Helper function to perform HTTP requests, used for sites like Flickr
     //  The API is expected to be like GM_xmlHTTPRequest's API.
     // An implementation using node's request module can be found in reddit-bot/dourl.js
-    do_request?: (options: GMXMLHttpRequestOptions) => void;
+    do_request?: (options: GM.Request) => void;
     // Callback
     cb?: (result: maxurlResult[]) => void;
 }
