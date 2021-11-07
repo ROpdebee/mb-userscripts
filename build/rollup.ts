@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, RollupWarning, SourceMapInput } from 'rollup';
+import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, SourceMapInput } from 'rollup';
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import type { MinifyOptions, MinifyOutput } from 'terser';
 
@@ -19,6 +19,7 @@ import consts from 'rollup-plugin-consts';
 
 import { nativejsx } from './plugin-nativejsx';
 import { userscript } from './plugin-userscript';
+import { addImports } from './plugin-add-imports';
 
 const OUTPUT_DIR = 'dist';
 const VENDOR_CHUNK_NAME = 'vendor';
@@ -83,12 +84,22 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
 
     const bundle = await rollup({
         input: inputPath,
+        // Allow use of this at top-level. "this" is available at the top level
+        // of userscripts.
+        context: 'this',
         plugins: [
             progress() as Plugin,
+            // TODO: This adds the polyfills even in cases where we don't
+            // actually use it. They won't do anything useful though.
+            addImports({
+                include: inputPath,
+                imports: ["import '@vendor/gm4-polyfill/gm4-polyfill'"],
+            }),
             // To resolve some aliases, like @lib
             alias({
                 entries: {
                     '@lib': path.resolve('./src/lib'),
+                    '@vendor': path.resolve('./vendor'),
                 },
             }),
             consts({
@@ -127,18 +138,6 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
                 extensions: ['.css', '.scss', '.sass']
             }),
         ],
-        onwarn: (warning: RollupWarning) => {
-            // Silence "this" at top level is undefined warnings.
-            // They occur because JSX is transformed to an IIFE called with
-            // `this`, which is may be undefined at the top level.
-            if (warning.code === 'THIS_IS_UNDEFINED') return;
-
-            // If the above warning is produced, it'll likely also produce this
-            // one, since we don't generate sourcemaps (yet).
-            if (warning.code === 'SOURCEMAP_ERROR') return;
-
-            console.warn(warning.message);
-        }
     });
 
     const output = await bundle.generate({
@@ -175,6 +174,7 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
 
     const bundle = await rollup({
         input: 'index.js',
+        context: 'this',
         plugins: [
             // Feed the code of the previous pass as virtual files
             virtual(fileMapping) as Plugin,
@@ -184,6 +184,14 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
                 branchName: 'dist',
                 include: /index\.js/,
             }),
+            {
+                name: 'ProperIIFE',
+                // Need to bind `this` in the invocation of the IIFE since it's
+                // used by the GM4 polyfill.
+                renderChunk(code: string): string {
+                    return code.replace(/}\)\(\);(\s*)$/, '}).bind(this)();$1');
+                },
+            },
         ],
     });
 
@@ -207,13 +215,31 @@ function isBuiltinLib(modulePath: string): boolean {
     return path.relative('.', modulePath).startsWith(['src', 'lib'].join(path.sep));
 }
 
+function getModuleBaseName(module: string, basePath: string): string {
+    const relPath = path.relative(basePath, module);
+    return relPath.split(path.sep).slice(0, module.startsWith('@') ? 2 : 1).join('/');
+}
+
+function modulePathToShorthand(module: string): string {
+    let shorthand = getModuleBaseName(module, './node_modules');
+    if (shorthand !== '..') {
+        return shorthand;
+    }
+
+    shorthand = getModuleBaseName(module, './vendor');
+    if (shorthand !== '..') {
+        return shorthand;
+    }
+
+    throw new Error(`Cannot derive module shorthand for ${module}`);
+}
+
 function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
     if (chunk.name === BUILTIN_LIB_CHUNK_NAME) return '/* minified: lib */';
 
     const bundledModules = Object.keys(chunk.modules)
         .filter((module) => !module.startsWith('\x00'))
-        .map((module) => path.relative('./node_modules', module))
-        .map((module) => module.split(path.sep).slice(0, module.startsWith('@') ? 2 : 1).join('/'));
+        .map(modulePathToShorthand);
 
     const uniqueBundledModules = [...new Set(bundledModules)];
     if ('\x00rollupPluginBabelHelpers.js' in chunk.modules) {
