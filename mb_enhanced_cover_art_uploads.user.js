@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.11.7.2
+// @version      2021.11.7.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2511,6 +2511,78 @@
     return MusicBrainzProvider;
   }(CoverArtProvider);
 
+  var MusikSammlerProvider = /*#__PURE__*/function (_CoverArtProvider) {
+    _inherits(MusikSammlerProvider, _CoverArtProvider);
+
+    var _super = _createSuper(MusikSammlerProvider);
+
+    function MusikSammlerProvider() {
+      var _this;
+
+      _classCallCheck(this, MusikSammlerProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['musik-sammler.de']);
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'Musik-Sammler');
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://www.musik-sammler.de/favicon.ico');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /release\/(?:.*-)?(\d+)(?:\/|$)/);
+
+      return _this;
+    }
+
+    _createClass(MusikSammlerProvider, [{
+      key: "findImages",
+      value: function () {
+        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
+          var page, coverElements;
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.t0 = parseDOM;
+                  _context.next = 3;
+                  return this.fetchPage(url);
+
+                case 3:
+                  _context.t1 = _context.sent;
+                  _context.t2 = url.href;
+                  page = (0, _context.t0)(_context.t1, _context.t2);
+                  coverElements = qsa('#imageGallery > li', page);
+                  return _context.abrupt("return", coverElements.map(function (coverLi) {
+                    var coverSrc = coverLi.getAttribute('data-src');
+                    assertNonNull(coverSrc, 'Musik-Sammler image without source?');
+                    return {
+                      url: new URL(coverSrc, 'https://www.musik-sammler.de/')
+                    };
+                  }));
+
+                case 8:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function findImages(_x) {
+          return _findImages.apply(this, arguments);
+        }
+
+        return findImages;
+      }()
+    }]);
+
+    return MusikSammlerProvider;
+  }(CoverArtProvider);
+
   // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
   // just use a constant app ID first.
 
@@ -3133,6 +3205,7 @@
   addProvider(new DiscogsProvider());
   addProvider(new MelonProvider());
   addProvider(new MusicBrainzProvider());
+  addProvider(new MusikSammlerProvider());
   addProvider(new QobuzProvider());
   addProvider(new QubMusiqueProvider());
   addProvider(new SevenDigitalProvider());
