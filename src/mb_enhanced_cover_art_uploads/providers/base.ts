@@ -20,7 +20,7 @@ export abstract class CoverArtProvider {
     /**
      * URL of the provider's favicon, for use in import buttons.
      */
-    abstract get favicon(): string
+    abstract get favicon(): string | Promise<string>
     /**
      * Provider name, used in import buttons.
      */
@@ -202,7 +202,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
             responseType: 'blob',
         });
 
-        return blobToDigest(resp.response);
+        return blobToDigest(resp.response as Blob);
     }
 
     protected imageToThumbnailUrl(imageUrl: string): string {

@@ -1,18 +1,12 @@
 // Async XHR interfaces
 
-// TODO: Look into using GM.* instead of GM_*, they're async
-
 import { CustomError } from 'ts-custom-error';
 
-type LimitedGMXHROptions = Omit<GMXMLHttpRequestOptions, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'|'method'|'url'>;
+type LimitedGMXHROptions = Omit<GM.Request, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'|'method'|'url'>;
 
 interface GMXHROptions extends LimitedGMXHROptions {
     responseType?: XMLHttpRequestResponseType;
-    method?: GMXMLHttpRequestOptions['method'];
-}
-
-export interface GMXHRResponse extends GMXMLHttpRequestResponse {
-    response: Blob;
+    method?: GM.Request['method'];
 }
 
 export abstract class ResponseError extends CustomError {
@@ -26,9 +20,9 @@ export abstract class ResponseError extends CustomError {
 export class HTTPResponseError extends ResponseError {
     statusCode: number;
     statusText: string;
-    response: GMXMLHttpRequestResponse;
+    response: GM.Response<never>;
 
-    constructor(url: string | URL, response: GMXMLHttpRequestResponse) {
+    constructor(url: string | URL, response: GM.Response<never>) {
         /* istanbul ignore else: Should not happen */
         if (response.statusText.trim()) {
             super(url, `HTTP error ${response.status}: ${response.statusText}`);
@@ -57,20 +51,20 @@ export class NetworkError extends ResponseError {
     }
 }
 
-export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<GMXHRResponse> {
+export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<GM.Response<never>> {
     return new Promise((resolve, reject) => {
-        GM_xmlhttpRequest({
+        GM.xmlHttpRequest({
             method: 'GET',
             url: url instanceof URL ? url.href : url,
             ...options ?? {},
 
             onload: (resp) => {
                 if (resp.status >= 400) reject(new HTTPResponseError(url, resp));
-                else resolve(resp as GMXHRResponse);
+                else resolve(resp);
             },
             onerror: () => { reject(new NetworkError(url)); },
             onabort: () => { reject(new AbortedError(url)); },
             ontimeout: () => { reject(new TimeoutError(url)); },
-        });
+        } as GM.Request<never>);
     });
 }

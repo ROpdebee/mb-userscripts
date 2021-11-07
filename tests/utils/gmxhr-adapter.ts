@@ -37,18 +37,20 @@ function fetchHeadersToPollyHeaders(fetchHeaders: Headers): PollyHeaders {
 }
 
 export default class GMXHRAdapter extends Adapter {
-    #realGMXHR: typeof GM_xmlhttpRequest | undefined;
+    #realGMXHR: typeof GM.xmlHttpRequest | undefined;
 
     static override get id(): string {
         return 'GM_xmlhttpRequest';
     }
 
     onConnect(): void {
-        if (typeof GM_xmlhttpRequest !== 'undefined') {
-            this.#realGMXHR = GM_xmlhttpRequest;
+        if (typeof GM !== 'undefined' && typeof GM.xmlHttpRequest !== 'undefined') {
+            this.#realGMXHR = GM.xmlHttpRequest.bind(GM);
         }
 
-        window.GM_xmlhttpRequest = (options: GMXMLHttpRequestOptions): GMXMLHttpRequestResult => {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        window.GM = window.GM ?? {};
+        window.GM.xmlHttpRequest = (options: GM.Request<never>): void => {
             // @ts-expect-error bad type defs
             this.handleRequest({
                 url: options.url,
@@ -57,13 +59,6 @@ export default class GMXHRAdapter extends Adapter {
                 body: options.data,
                 requestArguments: options,
             });
-
-            // TODO: Do we need to implement this? We're also not supporting
-            // synchronous stuff here.
-            return {
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                abort: () => {}
-            } as unknown as GMXMLHttpRequestResult;
         };
     }
 
@@ -71,7 +66,9 @@ export default class GMXHRAdapter extends Adapter {
         // this.#realGMXHR could be undefined if it was not defined before we
         // connected to the adapter. In that case, we'll still restore it to
         // its original state but we must cast as TS doesn't like it.
-        window.GM_xmlhttpRequest = this.#realGMXHR as typeof GM_xmlhttpRequest;
+        if (typeof window.GM !== 'undefined') {
+            window.GM.xmlHttpRequest = this.#realGMXHR as typeof GM.xmlHttpRequest;
+        }
     }
 
     override async passthroughRequest(pollyRequest: Request): ReturnType<Adapter['passthroughRequest']> {
@@ -93,8 +90,8 @@ export default class GMXHRAdapter extends Adapter {
 
             this.#realGMXHR({
                 url: pollyRequest.url,
-                method: pollyRequest.method,
-                headers: pollyRequest.headers,
+                method: pollyRequest.method as GM.Request['method'],
+                headers: pollyRequest.headers as GM.Request['headers'],
                 // @ts-expect-error bad type defs
                 responseType: responseType === 'text' ? 'text' : 'arraybuffer',
                 data: pollyRequest.body,
@@ -118,7 +115,6 @@ export default class GMXHRAdapter extends Adapter {
                             isBinary: false,
                         });
                     } else {
-                        // @ts-expect-error bad type defs
                         const buffer = Buffer.from(resp.response as ArrayBuffer);
                         resolve({
                             ...result,
@@ -170,11 +166,11 @@ export default class GMXHRAdapter extends Adapter {
         }
     }
 
-    respondToRequest(pollyRequest: Request, error?: GMXMLHttpRequestResponse): void {
+    respondToRequest(pollyRequest: Request, error?: GM.Response<never>): void {
         // @ts-expect-error bad type defs
         const response = pollyRequest.response as Response;
         // @ts-expect-error bad type defs
-        const options = pollyRequest.requestArguments as GMXMLHttpRequestOptions;
+        const options = pollyRequest.requestArguments as GM.Request<never>;
         // @ts-expect-error bad type defs
         const responseType = options.responseType;
 
@@ -188,13 +184,16 @@ export default class GMXHRAdapter extends Adapter {
         if (error) {
             options.onerror?.(error);
         } else {
-            const resp = {
+            const resp: GM.Response<never> = {
                 readyState: 4,
                 responseHeaders: pollyHeadersToString(headers),
                 status: response.statusCode,
                 statusText: response.statusText,
                 finalUrl: Array.isArray(finalUrl) ? finalUrl[0] : finalUrl,
                 context: options.context,
+                responseXML: false,
+                responseText: '',
+                response: null,
             };
 
             if (response.isBinary) {
@@ -203,13 +202,11 @@ export default class GMXHRAdapter extends Adapter {
                 if (responseType === 'blob') {
                     options.onload?.({
                         ...resp,
-                        // @ts-expect-error bad type defs
                         response: new Blob([arrayBuffer]),
                     });
                 } else if (responseType === 'arraybuffer') {
                     options.onload?.({
                         ...resp,
-                        // @ts-expect-error bad type defs
                         response: arrayBuffer,
                     });
                 } else {

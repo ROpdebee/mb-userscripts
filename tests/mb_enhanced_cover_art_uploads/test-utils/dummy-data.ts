@@ -1,6 +1,5 @@
 // Abstractions to create dummy data
 
-import type { GMXHRResponse } from '@lib/util/xhr';
 import type { FetchedImage } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
@@ -71,7 +70,7 @@ export function createFetchedImageFromCoverArt(cover: CoverArt, data?: Partial<F
     });
 }
 
-export function createXhrResponse(response?: Partial<GMXHRResponse>): GMXHRResponse {
+export function createXhrResponse(response?: Partial<GM.Response<never>>): GM.Response<never> {
     response = response ?? {};
     return {
         context: response.context,
@@ -82,5 +81,6 @@ export function createXhrResponse(response?: Partial<GMXHRResponse>): GMXHRRespo
         responseHeaders: response.responseHeaders ?? '',
         response: response.response ?? createBlob(),
         responseText: response.responseText ?? '',
+        responseXML: response.responseXML ?? false,
     };
 }

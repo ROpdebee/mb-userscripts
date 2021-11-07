@@ -8,7 +8,7 @@ import { ArtworkTypeIDs, CoverArtProvider } from './base';
 // Assuming this doesn't change often. If it does, we might have to extract it
 // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
 // just use a constant app ID first.
-const QOBUZ_APP_ID = 712109809;
+const QOBUZ_APP_ID = '712109809';
 
 interface Goodie {
     id: number;

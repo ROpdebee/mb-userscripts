@@ -116,8 +116,10 @@ describe('creating with footer from GM_info', () => {
                 version: '1.0.0',
                 namespace: 'scriptnamespace',
             },
-        } as typeof GM_info;
-        global.GM_info = mockedGMInfo;
+        } as typeof GM.info;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        global.GM = global.GM ?? {};
+        global.GM.info = mockedGMInfo;
 
         const editNote = EditNote.withFooterFromGMInfo();
         editNote.addFooter();
