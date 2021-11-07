@@ -10,6 +10,7 @@ Collection of userscripts for MusicBrainz.
 [Dedicated support thread](https://community.metabrainz.org/t/ropdebees-userscripts-support-thread/551947)
 
 ## Installing
+
 To use these userscripts, you need a userscript add-on or extension such as [Tampermonkey](https://www.tampermonkey.net/), [Violentmonkey](https://violentmonkey.github.io/), or [Greasemonkey](https://addons.mozilla.org/en-GB/firefox/addon/greasemonkey/) installed in your browser. More information can be found [here](https://stackapps.com/tags/script/info), [here](https://openuserjs.org/about/Userscript-Beginners-HOWTO), or [here](https://userscripts-mirror.org/about/installing.html).
 
 _Note: Although we aim to support all browsers and userscript add-ons, we currently cannot guarantee universal compatibility. If you discover a compatibility problem, please [submit an issue](https://github.com/ROpdebee/mb-userscripts/issues/new) and state your browser and userscript engine versions._
