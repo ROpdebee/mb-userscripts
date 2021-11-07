@@ -1,3 +1,4 @@
+import { filterNonNull } from '../src/lib/util/array';
 import fs from 'fs';
 import path from 'path';
 
@@ -73,6 +74,13 @@ class MetadataGenerator {
         this.longestMetadataFieldLength = Math.max(...options.metadataOrder.map((field) => field.length));
     }
 
+    transformGMFunction(name: string): string[] {
+        const bareName = name.match(/GM[_.](.+)$/)?.[1];
+        if (!bareName) return [name];
+
+        return ['GM_', 'GM.'].map((prefix) => prefix + bareName);
+    }
+
     /**
      * Insert missing metadata from defaults.
      *
@@ -101,7 +109,19 @@ class MetadataGenerator {
             grant: ['none'],
         };
 
-        return {...defaultMetadata, ...specificMetadata};
+        const allMetadata = {...defaultMetadata, ...specificMetadata};
+        if (specificMetadata.grant?.length) {
+            // Need to polyfill GM APIs to ensure compatibility with both API
+            // versions.
+            const oldRequire: string[] = Array.isArray(allMetadata.require) ? allMetadata.require : filterNonNull([allMetadata.require]);
+            oldRequire.push('https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js');
+            allMetadata.require = oldRequire;
+
+            const oldGrant: string[] = Array.isArray(allMetadata.grant) ? allMetadata.grant : filterNonNull([allMetadata.grant as string]);
+            allMetadata.grant = oldGrant.flatMap(this.transformGMFunction.bind(this));
+        }
+
+        return allMetadata;
     }
 
     /* istanbul ignore next: Covered by build, testing leads to segfault because of TS import */
