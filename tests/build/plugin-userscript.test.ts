@@ -291,7 +291,7 @@ describe('metadata generator', () => {
             await expect(metaGen.insertDefaultMetadata({ grant: ['GM_xmlhttpRequest'] }))
                 .resolves
                 .toMatchObject({
-                    grant: ['GM_xmlhttpRequest', 'GM.xmlhttpRequest'],
+                    grant: ['GM_xmlhttpRequest', 'GM.xmlHttpRequest'],
                 });
         });
     });

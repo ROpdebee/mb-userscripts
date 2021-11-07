@@ -78,6 +78,15 @@ class MetadataGenerator {
         const bareName = name.match(/GM[_.](.+)$/)?.[1];
         if (!bareName) return [name];
 
+        // Some functions had capitalisation changes.
+        if (bareName.toLowerCase() === 'xmlhttprequest') {
+            return ['GM_xmlhttpRequest', 'GM.xmlHttpRequest'];
+        }
+
+        if (bareName.toLowerCase() === 'getresourceurl') {
+            return ['GM_getResourceURL', 'GM.getResourceUrl'];
+        }
+
         return ['GM_', 'GM.'].map((prefix) => prefix + bareName);
     }
 
