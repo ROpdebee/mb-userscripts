@@ -69,6 +69,16 @@ describe('maximising images', () => {
 
         expect(result.done).toBeTrue();
     });
+
+    it('returns no images on IMU error', async () => {
+        fakeImu.mockRejectedValueOnce(new Error('test'));
+        jest.useFakeTimers();
+
+        const it = getMaximisedCandidates(new URL('https://example.com'));
+        jest.advanceTimersByTime(55000);
+
+        await expect(it.next()).resolves.toHaveProperty('done', true);
+    });
 });
 
 describe('maximising Discogs images', () => {
