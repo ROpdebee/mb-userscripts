@@ -51,7 +51,9 @@ export function cloneIntoPageContext<T>(object: T): T {
  * running in the page context, returns the object from this context's window
  * instead.
  */
-export function getFromPageContext<M extends keyof Window>(name: M): Window[M] {
+export function getFromPageContext<M extends keyof Window>(name: M): Window[M];
+export function getFromPageContext<M extends keyof typeof globalThis>(name: M): (typeof globalThis)[M];
+export function getFromPageContext<M extends keyof (Window | typeof globalThis)>(name: M): (Window | typeof globalThis)[M] {
     if (typeof unsafeWindow !== 'undefined') {
         return unsafeWindow[name];
     } else {
