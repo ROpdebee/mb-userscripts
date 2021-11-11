@@ -9,7 +9,10 @@ module.exports = {
         '^@test-utils/(.*)$': '<rootDir>/tests/utils/$1',
         '^@src/(.*)$': '<rootDir>/src/$1',
     },
-    setupFilesAfterEnv: ['jest-extended/all'],
+    setupFilesAfterEnv: [
+        'jest-extended/all',
+        './tests/utils/setup-gm-mocks.ts',
+    ],
     collectCoverageFrom: [
         'src/**/*.{js,ts}',
         '!**/meta.ts',

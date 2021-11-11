@@ -2,7 +2,7 @@ import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/bas
 import { AmazonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon';
 
 import { itBehavesLike } from '@test-utils/shared_behaviour';
-import { mockGM_getResourceURL } from '@test-utils/gm_mocks';
+import { mockGMgetResourceURL } from '@test-utils/gm_mocks';
 
 import type { ExtractionCase } from './find_images_spec';
 import { findImagesSpec } from './find_images_spec';
@@ -178,7 +178,7 @@ describe('amazon provider', () => {
     });
 
     it('provides a favicon', async () => {
-        mockGM_getResourceURL.mockResolvedValueOnce('testFavicon');
+        mockGMgetResourceURL.mockResolvedValueOnce('testFavicon');
 
         await expect(provider.favicon).resolves.toBe('testFavicon');
     });

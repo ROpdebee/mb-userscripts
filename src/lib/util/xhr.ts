@@ -1,11 +1,14 @@
 // Async XHR interfaces
 
+import { GMxmlHttpRequest } from '@src/compat';
 import { CustomError } from 'ts-custom-error';
 
+// eslint-disable-next-line no-restricted-globals
 type LimitedGMXHROptions = Omit<GM.Request, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'|'method'|'url'>;
 
 interface GMXHROptions extends LimitedGMXHROptions {
     responseType?: XMLHttpRequestResponseType;
+    // eslint-disable-next-line no-restricted-globals
     method?: GM.Request['method'];
 }
 
@@ -20,8 +23,10 @@ export abstract class ResponseError extends CustomError {
 export class HTTPResponseError extends ResponseError {
     statusCode: number;
     statusText: string;
+    // eslint-disable-next-line no-restricted-globals
     response: GM.Response<never>;
 
+    // eslint-disable-next-line no-restricted-globals
     constructor(url: string | URL, response: GM.Response<never>) {
         /* istanbul ignore else: Should not happen */
         if (response.statusText.trim()) {
@@ -51,9 +56,10 @@ export class NetworkError extends ResponseError {
     }
 }
 
+// eslint-disable-next-line no-restricted-globals
 export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<GM.Response<never>> {
     return new Promise((resolve, reject) => {
-        GM.xmlHttpRequest({
+        GMxmlHttpRequest({
             method: 'GET',
             url: url instanceof URL ? url.href : url,
             ...options ?? {},
@@ -65,6 +71,7 @@ export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<
             onerror: () => { reject(new NetworkError(url)); },
             onabort: () => { reject(new AbortedError(url)); },
             ontimeout: () => { reject(new TimeoutError(url)); },
+        // eslint-disable-next-line no-restricted-globals
         } as GM.Request<never>);
     });
 }

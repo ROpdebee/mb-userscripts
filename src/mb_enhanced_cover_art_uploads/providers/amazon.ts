@@ -1,6 +1,7 @@
 import { LOGGER } from '@lib/logging/logger';
 import { parseDOM, qsa, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
+import { GMgetResourceUrl } from '@src/compat';
 
 import type { CoverArt } from './base';
 import { ArtworkTypeIDs, CoverArtProvider } from './base';
@@ -33,7 +34,7 @@ export class AmazonProvider extends CoverArtProvider {
         'amazon.com.br', 'amazon.com.mx', 'amazon.com.tr'];
     // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
     get favicon(): Promise<string> {
-        return GM.getResourceUrl('amazonFavicon');
+        return GMgetResourceUrl('amazonFavicon');
     }
 
     name = 'Amazon';

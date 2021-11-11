@@ -1,7 +1,5 @@
 // Utilities to mock GM functions
+import * as compat from '@src/compat';
 
-export const mockGM_getResourceURL = jest.fn() as jest.MockedFunction<typeof GM.getResourceUrl>;
-
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-global.GM = global.GM ?? {};
-global.GM.getResourceUrl = mockGM_getResourceURL;
+export const mockGMgetResourceURL = compat.GMgetResourceUrl as jest.MockedFunction<typeof compat.GMgetResourceUrl>;
+export const mockGMxmlHttpRequest = compat.GMxmlHttpRequest as jest.MockedFunction<typeof compat.GMxmlHttpRequest>;

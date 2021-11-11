@@ -3,6 +3,7 @@ import type { Headers as PollyHeaders, Request, Response } from '@pollyjs/core';
 import { Buffer } from 'buffer';
 import Adapter from '@pollyjs/adapter';
 import fetch from 'node-fetch';
+import { mockGMxmlHttpRequest } from './gm_mocks';
 
 function stringToPollyHeaders(headers: string): PollyHeaders {
     return Object.fromEntries(headers.split('\r\n').map((header) => {
@@ -48,9 +49,7 @@ export default class GMXHRAdapter extends Adapter {
             this.#realGMXHR = GM.xmlHttpRequest.bind(GM);
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        window.GM = window.GM ?? {};
-        window.GM.xmlHttpRequest = (options: GM.Request<never>): void => {
+        mockGMxmlHttpRequest.mockImplementation((options: GM.Request<unknown>): void => {
             // @ts-expect-error bad type defs
             this.handleRequest({
                 url: options.url,
@@ -59,7 +58,7 @@ export default class GMXHRAdapter extends Adapter {
                 body: options.data,
                 requestArguments: options,
             });
-        };
+        });
     }
 
     onDisconnect(): void {
