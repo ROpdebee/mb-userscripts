@@ -4,6 +4,7 @@ import { getMaximisedCandidates } from './maximise';
 import { getProvider } from './providers';
 import { ArtworkTypeIDs } from './providers/base';
 import type { CoverArt, CoverArtProvider } from './providers/base';
+import { getFromPageContext } from '@src/compat';
 
 interface ImageContents {
     requestedUrl: URL;
@@ -195,6 +196,7 @@ export class ImageFetcher {
             const reader = new FileReader();
             // istanbul ignore next: Copied from MB.
             reader.addEventListener('load', () => {
+                const Uint32Array = getFromPageContext('Uint32Array');
                 const uint32view = new Uint32Array(reader.result as ArrayBuffer);
                 if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
                     resolve('image/jpeg');
