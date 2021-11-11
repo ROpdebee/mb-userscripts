@@ -1,41 +1,37 @@
 import { AbortedError, gmxhr, HTTPResponseError, NetworkError, TimeoutError } from '@lib/util/xhr';
-
-const mocked_GM_xhr = jest.fn() as jest.MockedFunction<typeof GM.xmlHttpRequest>;
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-global.GM = global.GM ?? {};
-GM.xmlHttpRequest = mocked_GM_xhr;
+import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
 
 describe('gmxhr', () => {
     const stubResponse = {} as unknown as GM.Response<never>;
 
     beforeEach(() => {
-        mocked_GM_xhr.mockImplementation(() => ({} as unknown as GM.Response<never>));
+        mockGMxmlHttpRequest.mockImplementation(() => ({} as unknown as GM.Response<never>));
     });
 
     afterEach(() => {
-        mocked_GM_xhr.mockClear();
+        mockGMxmlHttpRequest.mockClear();
     });
 
     it('resolves on load', async () => {
-        mocked_GM_xhr.mockImplementation((options) => options.onload?.(stubResponse));
+        mockGMxmlHttpRequest.mockImplementation((options) => options.onload?.(stubResponse));
 
         await expect(gmxhr('test')).resolves.toBe(stubResponse);
     });
 
     it('rejects on error', async () => {
-        mocked_GM_xhr.mockImplementation((options) => options.onerror?.(stubResponse));
+        mockGMxmlHttpRequest.mockImplementation((options) => options.onerror?.(stubResponse));
 
         await expect(gmxhr('test')).rejects.toBeInstanceOf(NetworkError);
     });
 
     it('rejects on timeout', async () => {
-        mocked_GM_xhr.mockImplementation((options) => options.ontimeout?.(stubResponse));
+        mockGMxmlHttpRequest.mockImplementation((options) => options.ontimeout?.(stubResponse));
 
         await expect(gmxhr('test')).rejects.toBeInstanceOf(TimeoutError);
     });
 
     it('rejects on abort', async () => {
-        mocked_GM_xhr.mockImplementation((options) => options.onabort?.(stubResponse));
+        mockGMxmlHttpRequest.mockImplementation((options) => options.onabort?.(stubResponse));
 
         await expect(gmxhr('test')).rejects.toBeInstanceOf(AbortedError);
     });
@@ -43,7 +39,7 @@ describe('gmxhr', () => {
     it('rejects on HTTP error', async () => {
         expect.assertions(2);
 
-        mocked_GM_xhr.mockImplementation((options) => options.onload?.({
+        mockGMxmlHttpRequest.mockImplementation((options) => options.onload?.({
             status: 400,
             statusText: 'Bad request',
         } as unknown as GM.Response<never>));
@@ -54,35 +50,35 @@ describe('gmxhr', () => {
     });
 
     it('uses GET by default', async () => {
-        mocked_GM_xhr.mockImplementation((options) => options.onload?.(stubResponse));
+        mockGMxmlHttpRequest.mockImplementation((options) => options.onload?.(stubResponse));
         await gmxhr('test');
 
-        expect(mocked_GM_xhr).toHaveBeenCalledOnce();
-        expect(mocked_GM_xhr).toHaveBeenCalledWith(expect.objectContaining({ method: 'GET' }));
+        expect(mockGMxmlHttpRequest).toHaveBeenCalledOnce();
+        expect(mockGMxmlHttpRequest).toHaveBeenCalledWith(expect.objectContaining({ method: 'GET' }));
     });
 
     it('allows overriding HTTP method', async () => {
-        mocked_GM_xhr.mockImplementation((options) => options.onload?.(stubResponse));
+        mockGMxmlHttpRequest.mockImplementation((options) => options.onload?.(stubResponse));
         await gmxhr('test', { method: 'POST' });
 
-        expect(mocked_GM_xhr).toHaveBeenCalledOnce();
-        expect(mocked_GM_xhr).toHaveBeenCalledWith(expect.objectContaining({ method: 'POST' }));
+        expect(mockGMxmlHttpRequest).toHaveBeenCalledOnce();
+        expect(mockGMxmlHttpRequest).toHaveBeenCalledWith(expect.objectContaining({ method: 'POST' }));
     });
 
     it('accepts string URLs', async () => {
-        mocked_GM_xhr.mockImplementation((options) => options.onload?.(stubResponse));
+        mockGMxmlHttpRequest.mockImplementation((options) => options.onload?.(stubResponse));
         await gmxhr('https://example.com/test?x=1#y');
 
-        expect(mocked_GM_xhr).toHaveBeenCalledOnce();
-        expect(mocked_GM_xhr).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://example.com/test?x=1#y' }));
+        expect(mockGMxmlHttpRequest).toHaveBeenCalledOnce();
+        expect(mockGMxmlHttpRequest).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://example.com/test?x=1#y' }));
     });
 
     it('accepts URL URLs', async () => {
-        mocked_GM_xhr.mockImplementation((options) => options.onload?.(stubResponse));
+        mockGMxmlHttpRequest.mockImplementation((options) => options.onload?.(stubResponse));
         await gmxhr(new URL('https://example.com/test?x=1#y'));
 
-        expect(mocked_GM_xhr).toHaveBeenCalledOnce();
-        expect(mocked_GM_xhr).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://example.com/test?x=1#y' }));
+        expect(mockGMxmlHttpRequest).toHaveBeenCalledOnce();
+        expect(mockGMxmlHttpRequest).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://example.com/test?x=1#y' }));
     });
 
 });

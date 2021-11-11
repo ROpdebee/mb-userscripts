@@ -1,6 +1,7 @@
 // Edit note helpers
 
 import { qs } from '@lib/util/dom';
+import { GMinfo } from '@src/compat';
 
 const separator = '\n–\n';
 
@@ -47,7 +48,7 @@ export class EditNote {
     }
 
     static withFooterFromGMInfo(): EditNote {
-        const scriptMetadata = GM.info.script;
+        const scriptMetadata = GMinfo.script;
         // namespace should be the homepage URL (homepageURL and homepage are not available in all userscript managers)
         const footer = `${scriptMetadata.name} ${scriptMetadata.version}\n${scriptMetadata.namespace}`;
         return new EditNote(footer);
