@@ -26,7 +26,8 @@ function dropImage(imageData: File): void {
     // Fake event to trigger the drop event on the drag'n'drop element
     // Using jQuery because native JS cannot manually trigger such events
     // for security reasons.
-    const dropEvent = getFromPageContext('$').Event('drop') as JQuery.TriggeredEvent;
+    const $ = getFromPageContext('$');
+    const dropEvent = $.Event('drop') as JQuery.TriggeredEvent;
     // We need to clone the underlying data since we might be running as a
     // content script, meaning that even though we trigger the event through
     // unsafeWindow, the page context may not be able to access the event's
@@ -36,10 +37,9 @@ function dropImage(imageData: File): void {
     } as unknown as DragEvent);
 
     // Note that we're using MB's own jQuery here, not a script-local one.
-    // We cannot manually dispatch the event due to security reasons, so we
-    // use MB's own jQuery to find the event handler and call it manually.
-    // @ts-expect-error: _data is not defined in declaration
-    getFromPageContext('$')._data(qs('#drop-zone'), 'events').drop[0].handler(dropEvent);
+    // We need to reuse MB's own jQuery to be able to trigger the event
+    // handler.
+    $('#drop-zone').trigger(dropEvent);
 }
 
 function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], imageComment: string): void {
