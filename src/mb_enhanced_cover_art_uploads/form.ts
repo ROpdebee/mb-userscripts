@@ -1,6 +1,6 @@
 import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';
-import { cloneIntoPageContext, getFromPageContext } from '@lib/util/contexts';
+import { cloneIntoPageContext, getFromPageContext } from '@src/compat';
 import { qs, qsa } from '@lib/util/dom';
 import type { EditNote } from '@lib/MB/EditNote';
 import type { FetchedImage, FetchedImages } from './fetch';
