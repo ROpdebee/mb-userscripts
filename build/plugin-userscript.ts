@@ -84,7 +84,12 @@ class MetadataGenerator {
         }
 
         if (bareName.toLowerCase() === 'getresourceurl') {
-            return ['GM_getResourceURL', 'GM.getResourceUrl'];
+            return [
+                'GM_getResourceURL',
+                'GM.getResourceUrl',
+                // Violentmonkey alternative spelling
+                'GM.getResourceURL',
+            ];
         }
 
         return ['GM_', 'GM.'].map((prefix) => prefix + bareName);
