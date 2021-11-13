@@ -1,9 +1,8 @@
 import { LOGGER } from '@lib/logging/logger';
 import { getReleaseIDsForURL } from '@lib/MB/URLs';
-import { assertHasValue } from '@lib/util/assert';
-import { qs, qsa, qsMaybe } from '@lib/util/dom';
+import { qs, qsMaybe } from '@lib/util/dom';
 import type { CoverArt } from '../providers/base';
-import { convertCaptions, VGMdbProvider } from '../providers/vgmdb';
+import { VGMdbProvider } from '../providers/vgmdb';
 import type { Seeder } from './base';
 import { SeedParameters } from './parameters';
 
@@ -31,7 +30,7 @@ export const VGMdbSeeder: Seeder = {
         }
 
         const releaseIdsProm = getMBReleases();
-        const coversProm = extractCovers(coverHeading);
+        const coversProm = extractCovers();
 
         Promise.all([releaseIdsProm, coversProm]).then(([releaseIds, covers]) => {
             insertSeedButtons(coverHeading, releaseIds, covers);
@@ -44,21 +43,18 @@ function isLoggedIn(): boolean {
 }
 
 function getMBReleases(): Promise<string[]> {
-    // Account for possibility that we're on HTTPS, remove any query params
+    // Account for possibility that we're on HTTP, remove any query params
     // or hash.
     const releaseUrl = 'https://vgmdb.net' + document.location.pathname;
     return getReleaseIDsForURL(releaseUrl);
 }
 
-async function extractCovers(coverHeading: Element): Promise<VGMdbCovers> {
-    const coverDiv = coverHeading.parentElement;
-    assertHasValue(coverDiv);
-    const coverElements = qsa<HTMLAnchorElement>('#cover_gallery a[id*="thumb_"]', coverDiv);
-    const covers = coverElements.map(extractCoverFromAnchor);
+async function extractCovers(): Promise<VGMdbCovers> {
+    const covers = await VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery'));
 
     // Split the extracted covers into public and private, to provide the option
     // to seed only private covers.
-    const publicCoverURLs = new Set((await new VGMdbProvider().findImages(new URL(document.location.href)))
+    const publicCoverURLs = new Set((await new VGMdbProvider().findImagesWithApi(new URL(document.location.href)))
         .map((cover) => cover.url.href));
     const result: VGMdbCovers = {
         allCovers: covers,
@@ -66,13 +62,6 @@ async function extractCovers(coverHeading: Element): Promise<VGMdbCovers> {
     };
 
     return result;
-}
-
-function extractCoverFromAnchor(anchor: HTMLAnchorElement): CoverArt {
-    return convertCaptions({
-        url: anchor.href,
-        caption: qs('.label', anchor).textContent ?? '',
-    });
 }
 
 function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: VGMdbCovers): void {
