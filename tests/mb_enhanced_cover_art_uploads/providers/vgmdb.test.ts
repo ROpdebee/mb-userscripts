@@ -1,6 +1,6 @@
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 // @ts-expect-error rewired
-import { VGMdbProvider, __get__ } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
+import { convertCaptions, VGMdbProvider, __get__ } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
 
 import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
@@ -82,8 +82,6 @@ describe('vgmdb provider', () => {
     });
 
     describe('caption type mapping', () => {
-        const caption_type_mapping = __get__('CAPTION_TYPE_MAPPING');
-
         const mappingCases: Array<[string, ArtworkTypeIDs[], string]> = [
             ['Front', [ArtworkTypeIDs.Front], ''],
             ['Back', [ArtworkTypeIDs.Back], ''],
@@ -108,12 +106,33 @@ describe('vgmdb provider', () => {
         ];
 
         it.each(mappingCases)('should map %s to the correct type', (caption, expectedTypes, expectedComment) => {
-            const [key, ...rest] = caption.split(' ');
-
-            expect(caption_type_mapping[key.toLowerCase()](rest.join(' ')))
-                .toStrictEqual({
+            expect(convertCaptions({ url: 'https://example.com/', caption }))
+                .toMatchObject({
                     types: expectedTypes,
                     comment: expectedComment,
+                    url: {
+                        href: 'https://example.com/',
+                    },
+                });
+        });
+
+        it('does not map types if there is no caption', async () => {
+            expect(convertCaptions({ url: 'https://example.com/', caption: '' }))
+                .toMatchObject({
+                    url: {
+                        href: 'https://example.com/',
+                    },
+                });
+        });
+
+        it('does not map types if the caption type is unknown', async () => {
+            // Cannot find a real-life example of this, so let's mock a fake one
+            expect(convertCaptions({ url: 'https://example.com/', caption: 'not a correct caption' }))
+                .toMatchObject({
+                    comment: 'not a correct caption',
+                    url: {
+                        href: 'https://example.com/',
+                    },
                 });
         });
     });
@@ -149,6 +168,7 @@ describe('vgmdb provider', () => {
         const extractionFailedCases = [{
             desc: 'non-existent release',
             url: 'https://vgmdb.net/album/44324252',
+            errorMessage: 'VGMdb returned an error',
         }];
 
         // eslint-disable-next-line jest/require-hook
@@ -165,83 +185,32 @@ describe('vgmdb provider', () => {
             expect(covers).toBeArray();
             expect(covers).not.toBeArrayOfSize(18);
         });
+    });
 
-        it('does not map types if there is no caption', async () => {
-            // Cannot find a real-life example of this, so let's mock a fake one
-            pollyContext.polly.server
-                .get('https://vgmdb.info/album/123?format=json')
-                .intercept((_req, res) => {
-                    res.status(200).json({
-                        covers: [{
-                            full: 'https://example.com/test',
-                            name: ''
-                        }],
-                        picture_full: 'https://example.com/test',
-                        link: 'album/123',
-                    });
-                });
-
-            const covers = await provider.findImages(new URL('https://vgmdb.net/album/123'));
-
-            expect(covers).toBeArrayOfSize(1);
-            expect(covers[0]).toMatchCoverArt({
-                urlPart: /\/test$/,
-                types: undefined,
-                comment: undefined,
-            });
-        });
-
-        it('does not map types if the caption type is unknown', async () => {
-            // Cannot find a real-life example of this, so let's mock a fake one
-            pollyContext.polly.server
-                .get('https://vgmdb.info/album/123?format=json')
-                .intercept((_req, res) => {
-                    res.status(200).json({
-                        covers: [{
-                            full: 'https://example.com/test',
-                            name: 'not a correct caption'
-                        }],
-                        picture_full: 'https://example.com/test',
-                        link: 'album/123',
-                    });
-                });
-
-            const covers = await provider.findImages(new URL('https://vgmdb.net/album/123'));
-
-            expect(covers).toBeArrayOfSize(1);
-            expect(covers[0]).toMatchCoverArt({
-                urlPart: /\/test$/,
-                types: undefined,
-                comment: 'not a correct caption',
-            });
-        });
-
-        it('includes picture if it is absent from the covers', async () => {
-            // Cannot find a real-life example of this, so let's mock a fake one
-            pollyContext.polly.server
-                .get('https://vgmdb.info/album/123?format=json')
-                .intercept((_req, res) => {
-                    res.status(200).json({
-                        covers: [{
-                            full: 'https://example.com/test',
-                            name: 'Back'
-                        }],
-                        picture_full: 'https://example.com/othertest',
-                        link: 'album/123',
-                    });
-                });
-
-            const covers = await provider.findImages(new URL('https://vgmdb.net/album/123'));
+    describe('extracting images from API', () => {
+        it('extracts images for release where all images are public', async () => {
+            const covers = await provider.findImagesWithApi(new URL('https://vgmdb.net/album/96418'));
 
             expect(covers).toBeArrayOfSize(2);
             expect(covers[0]).toMatchCoverArt({
-                urlPart: /\/othertest$/,
+                urlPart: '/albums/81/96418/96418-1581893265.jpg',
                 types: [ArtworkTypeIDs.Front],
                 comment: '',
             });
             expect(covers[1]).toMatchCoverArt({
-                urlPart: /\/test$/,
+                urlPart: '/albums/81/96418/96418-1581893266.jpg',
                 types: [ArtworkTypeIDs.Back],
+                comment: '',
+            });
+        });
+
+        it('extracts images for release without cover, but with picture', async () => {
+            const covers = await provider.findImagesWithApi(new URL('https://vgmdb.net/album/90871'));
+
+            expect(covers).toBeArrayOfSize(1);
+            expect(covers[0]).toMatchCoverArt({
+                urlPart: '/albums/17/90871/90871-1569448344.jpg',
+                types: [ArtworkTypeIDs.Front],
                 comment: '',
             });
         });

@@ -1,5 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 import { assert, assertHasValue } from '@lib/util/assert';
+import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
 import { gmxhr } from '@lib/util/xhr';
 
@@ -146,6 +147,47 @@ export class VGMdbProvider extends CoverArtProvider {
     urlRegex = /\/album\/(\d+)(?:\/|$)/;
 
     async findImages(url: URL): Promise<CoverArt[]> {
+        const pageSrc = await this.fetchPage(url);
+        if (pageSrc.includes('/db/img/banner-error.gif')) {
+            throw new Error('VGMdb returned an error');
+        }
+
+        const pageDom = parseDOM(pageSrc, url.href);
+
+        // istanbul ignore else: Tests are not logged in
+        if (qsMaybe('#navmember', pageDom) === null) {
+            LOGGER.warn('Heads up! VGMdb requires you to be logged in to view all images. Some images may have been missed. If you have an account, please log in to VGMdb to fetch all images.');
+        }
+
+        const coverGallery = qsMaybe('#cover_gallery', pageDom);
+        const galleryCovers = coverGallery ? await VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [];
+
+        // Add the main cover if it's not in the gallery
+        const mainCoverUrl = qsMaybe<HTMLDivElement>('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']*(.+?)["']*\)/)?.[1];
+        if (mainCoverUrl && !galleryCovers.some((cover) => cover.url.pathname.endsWith(mainCoverUrl.split('/').at(-1)))) {
+            galleryCovers.unshift({
+                url: new URL(mainCoverUrl),
+                types: [ArtworkTypeIDs.Front],
+                comment: '',
+            });
+        }
+
+        return galleryCovers;
+    }
+
+    static async extractCoversFromDOMGallery(coverGallery: Element): Promise<CoverArt[]> {
+        const coverElements = qsa<HTMLAnchorElement>('a[id*="thumb_"]', coverGallery);
+        return coverElements.map(this.extractCoverFromAnchor.bind(this));
+    }
+
+    static extractCoverFromAnchor(anchor: HTMLAnchorElement): CoverArt {
+        return convertCaptions({
+            url: anchor.href,
+            caption: qs('.label', anchor).textContent ?? /* istanbul ignore next */ '',
+        });
+    }
+
+    async findImagesWithApi(url: URL): Promise<CoverArt[]> {
         // Using the unofficial API at vgmdb.info
         const id = this.extractId(url);
         assertHasValue(id);
@@ -155,11 +197,10 @@ export class VGMdbProvider extends CoverArtProvider {
 
         assert(metadata.link === 'album/' + id, `VGMdb.info returned wrong release: Requested album/${id}, got ${metadata.link}`);
 
-        LOGGER.warn('Heads up! VGMdb requires you to be logged in to view all images, some images may have been missed. If you have an account, please go to the album on VGMdb and use the seeding functionality to add the missing images.');
-        return this.#extractImages(metadata);
+        return VGMdbProvider.#extractImagesFromApiMetadata(metadata);
     }
 
-    #extractImages(metadata: AlbumMetadata): CoverArt[] {
+    static #extractImagesFromApiMetadata(metadata: AlbumMetadata): CoverArt[] {
         const covers = metadata.covers.map((cover) => {
             return { url: cover.full, caption: cover.name };
         });
