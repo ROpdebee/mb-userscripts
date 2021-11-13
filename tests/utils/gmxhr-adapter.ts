@@ -5,13 +5,6 @@ import Adapter from '@pollyjs/adapter';
 import fetch from 'node-fetch';
 import { mockGMxmlHttpRequest } from './gm_mocks';
 
-function stringToPollyHeaders(headers: string): PollyHeaders {
-    return Object.fromEntries(headers.split('\r\n').map((header) => {
-        const [k, v] = header.split(':');
-        return [k, v.replace(/\r|\n|^\s+/g, '')];
-    }));
-}
-
 function pollyHeadersToString(headers: PollyHeaders): string {
     return Object.entries(headers).flatMap(([k, v]) => {
         if (!Array.isArray(v)) return [`${k}: ${v}`];
@@ -38,17 +31,12 @@ function fetchHeadersToPollyHeaders(fetchHeaders: Headers): PollyHeaders {
 }
 
 export default class GMXHRAdapter extends Adapter {
-    #realGMXHR: typeof GM.xmlHttpRequest | undefined;
 
     static override get id(): string {
         return 'GM_xmlhttpRequest';
     }
 
     onConnect(): void {
-        if (typeof GM !== 'undefined' && typeof GM.xmlHttpRequest !== 'undefined') {
-            this.#realGMXHR = GM.xmlHttpRequest.bind(GM);
-        }
-
         mockGMxmlHttpRequest.mockImplementation((options: GM.Request<unknown>): void => {
             // @ts-expect-error bad type defs
             this.handleRequest({
@@ -62,75 +50,10 @@ export default class GMXHRAdapter extends Adapter {
     }
 
     onDisconnect(): void {
-        // this.#realGMXHR could be undefined if it was not defined before we
-        // connected to the adapter. In that case, we'll still restore it to
-        // its original state but we must cast as TS doesn't like it.
-        if (typeof window.GM !== 'undefined') {
-            window.GM.xmlHttpRequest = this.#realGMXHR as typeof GM.xmlHttpRequest;
-        }
+        mockGMxmlHttpRequest.mockRestore();
     }
 
     override async passthroughRequest(pollyRequest: Request): ReturnType<Adapter['passthroughRequest']> {
-        // If the real GM_xmlhttpRequest is defined, use it. Otherwise, use
-        // node-fetch.
-        if (this.#realGMXHR) {
-            return this.passthroughRealGMXHR(pollyRequest);
-        } else {
-            return this.passthroughFetch(pollyRequest);
-        }
-    }
-
-    async passthroughRealGMXHR(pollyRequest: Request): ReturnType<Adapter['passthroughRequest']> {
-        return new Promise((resolve, reject) => {
-            // Shouldn't happen.
-            if (!this.#realGMXHR) throw new Error('Where is GM_xmlhttpRequest?');
-            // @ts-expect-error bad type defs
-            const { responseType } = pollyRequest.requestArguments;
-
-            this.#realGMXHR({
-                url: pollyRequest.url,
-                method: pollyRequest.method as GM.Request['method'],
-                headers: pollyRequest.headers as GM.Request['headers'],
-                // @ts-expect-error bad type defs
-                responseType: responseType === 'text' ? 'text' : 'arraybuffer',
-                data: pollyRequest.body,
-                onload: (resp) => {
-                    const pollyHeaders = stringToPollyHeaders(resp.responseHeaders);
-                    // PollyJS seems not to store the final URL after redirects,
-                    // and the headers seem to be the only way to store this in
-                    // the persisted response.
-                    pollyHeaders['x-pollyjs-finalurl'] = resp.finalUrl;
-
-                    const result = {
-                        statusCode: resp.status,
-                        headers: pollyHeaders,
-                    };
-
-                    if (!responseType || responseType === 'text') {
-                        resolve({
-                            ...result,
-                            body: resp.responseText,
-                            // @ts-expect-error bad type defs
-                            isBinary: false,
-                        });
-                    } else {
-                        const buffer = Buffer.from(resp.response as ArrayBuffer);
-                        resolve({
-                            ...result,
-                            body: buffer.toString('hex'),
-                            // @ts-expect-error bad type defs
-                            isBinary: true,
-                        });
-                    }
-                },
-                onerror: reject,
-                onabort: reject,
-                ontimeout: reject,
-            });
-        });
-    }
-
-    async passthroughFetch(pollyRequest: Request): ReturnType<Adapter['passthroughRequest']> {
         // @ts-expect-error bad type defs
         const { responseType } = pollyRequest.requestArguments;
         const headers = pollyHeadersToFetchHeaders(pollyRequest.headers);
