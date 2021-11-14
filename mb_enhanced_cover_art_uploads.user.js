@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.11.13
+// @version      2021.11.14
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2778,6 +2778,91 @@
     return QubMusiqueProvider;
   }(QobuzProvider);
 
+  var RateYourMusicProvider = /*#__PURE__*/function (_CoverArtProvider) {
+    _inherits(RateYourMusicProvider, _CoverArtProvider);
+
+    var _super = _createSuper(RateYourMusicProvider);
+
+    function RateYourMusicProvider() {
+      var _this;
+
+      _classCallCheck(this, RateYourMusicProvider);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _super.call.apply(_super, [this].concat(args));
+
+      _defineProperty(_assertThisInitialized(_this), "supportedDomains", ['rateyourmusic.com']);
+
+      _defineProperty(_assertThisInitialized(_this), "favicon", 'https://e.snmc.io/2.5/img/sonemic.png');
+
+      _defineProperty(_assertThisInitialized(_this), "name", 'RateYourMusic');
+
+      _defineProperty(_assertThisInitialized(_this), "urlRegex", /\/release\/album\/([^/]+\/[^/]+)(?:\/|$)/);
+
+      return _this;
+    }
+
+    _createClass(RateYourMusicProvider, [{
+      key: "findImages",
+      value: function () {
+        var _findImages = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(url) {
+          var releaseId, buyUrl, buyDoc, fullResUrl;
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  releaseId = this.extractId(url);
+                  assertHasValue(releaseId); // Need to go through the Buy page to find full-res images. The user
+                  // must be logged in to get the full-res image. We can't use the
+                  // thumbnails in case the user is not logged in, since they're served
+                  // as WebP, which isn't supported by CAA (yet).
+
+                  buyUrl = "https://rateyourmusic.com/release/album/".concat(releaseId, "/buy");
+                  _context.t0 = parseDOM;
+                  _context.next = 6;
+                  return this.fetchPage(new URL(buyUrl));
+
+                case 6:
+                  _context.t1 = _context.sent;
+                  _context.t2 = buyUrl;
+                  buyDoc = (0, _context.t0)(_context.t1, _context.t2);
+
+                  if (!(qsMaybe('.header_profile_logged_in', buyDoc) === null)) {
+                    _context.next = 11;
+                    break;
+                  }
+
+                  throw new Error('Extracting covers from RYM requires being logged in to an RYM account.');
+
+                case 11:
+                  fullResUrl = qs('.qq a', buyDoc).href;
+                  return _context.abrupt("return", [{
+                    url: new URL(fullResUrl),
+                    types: [ArtworkTypeIDs.Front]
+                  }]);
+
+                case 13:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function findImages(_x) {
+          return _findImages.apply(this, arguments);
+        }
+
+        return findImages;
+      }()
+    }]);
+
+    return RateYourMusicProvider;
+  }(CoverArtProvider);
+
   var _extractCoverFromTrackMetadata = /*#__PURE__*/new WeakSet();
 
   var _extractCoversFromSetMetadata = /*#__PURE__*/new WeakSet();
@@ -3214,6 +3299,7 @@
   addProvider(new MusikSammlerProvider());
   addProvider(new QobuzProvider());
   addProvider(new QubMusiqueProvider());
+  addProvider(new RateYourMusicProvider());
   addProvider(new SevenDigitalProvider());
   addProvider(new SoundcloudProvider());
   addProvider(new SpotifyProvider());
