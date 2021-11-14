@@ -1,4 +1,4 @@
-import { asyncTimeout, retryTimes } from '@lib/util/async';
+import { asyncSleep, retryTimes } from '@lib/util/async';
 
 afterEach(() => {
     jest.useRealTimers();
@@ -8,7 +8,7 @@ describe('async timeout', () => {
 
     it('resolves after a timeout', async () => {
         jest.useFakeTimers();
-        const promise = asyncTimeout(500);
+        const promise = asyncSleep(500);
         const spy = jest.fn();
         promise.then(spy);
 
@@ -24,7 +24,7 @@ describe('async timeout', () => {
 
     it('resolves after the correct timeout', async () => {
         jest.useFakeTimers();
-        const promise = asyncTimeout(500);
+        const promise = asyncSleep(500);
         const spy = jest.fn();
         promise.then(spy);
 
@@ -95,6 +95,10 @@ describe('retryTimes', () => {
         // the first failure.
         for (let i = 0; i <= 5; i++) {
             jest.runAllTimers();
+            // Give the async code a chance to run
+            await new Promise<void>((resolve) => {
+                resolve();
+            });
         }
 
         await expect(prom).toReject();
