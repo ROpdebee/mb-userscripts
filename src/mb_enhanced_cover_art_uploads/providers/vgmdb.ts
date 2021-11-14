@@ -163,7 +163,7 @@ export class VGMdbProvider extends CoverArtProvider {
         const galleryCovers = coverGallery ? await VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [];
 
         // Add the main cover if it's not in the gallery
-        const mainCoverUrl = qsMaybe<HTMLDivElement>('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']*(.+?)["']*\)/)?.[1];
+        const mainCoverUrl = qsMaybe<HTMLDivElement>('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)?.[1];
         if (mainCoverUrl && !galleryCovers.some((cover) => cover.url.pathname.endsWith(mainCoverUrl.split('/').at(-1)))) {
             galleryCovers.unshift({
                 url: new URL(mainCoverUrl),
