@@ -1,35 +1,31 @@
 // Asynchronous utilities
 
-export function asyncTimeout(ms?: number): Promise<void> {
+export function asyncSleep(ms?: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function retryTimes<T>(fn: () => T, times: number, retryWait: number): Promise<T> {
+export function retryTimes<T>(fn: () => T | Promise<T>, times: number, retryWait: number): Promise<T> {
     if (times <= 0) {
         return Promise.reject(new TypeError('Invalid number of retry times: ' + times));
     }
 
-    // We could've used asyncTimeout to simplify this a lot, but that would
-    // require a lot of mixing of async code and timers, which makes testing
-    // anything which uses this function very difficult.
-    return new Promise((resolve, reject) => {
-        function tryOnce(): void {
-            try {
-                resolve(fn());
-            } catch (err) {
-                if (--times > 0) return;
-                reject(err);
-            }
-            // Stop looping if the function passed, or when it failed but tries
-            // are exhausted. The early return in the catch clause prevents
-            // this statement from executing if the tries aren't exhausted yet.
-            clearInterval(interval);
-        }
+    async function createTryPromise(triesLeft: number): Promise<T> {
+        try {
+            // Need to await if the provided function returns a promise, we
+            // want to catch if the promise fails. If it doesn't return a
+            // promise, await does nothing.
+            return await fn();
+        } catch (err) {
+            // If we failed the last attempt, the whole thing fails.
+            if (triesLeft <= 1) throw err;
 
-        const interval = setInterval(tryOnce, retryWait);
-        // Manually calling the first try, the one in the interval will be first
-        // called after the first wait period. If the call succeeds immediately,
-        // the interval will be cleared before the first execution happens.
-        tryOnce();
-    });
+            // Return a new promise after sleeping. Because of chaining, the
+            // state of our current promise will be the state of this new
+            // promise after it settles.
+            return asyncSleep(retryWait)
+                .then(() => createTryPromise(triesLeft - 1));
+        }
+    }
+
+    return createTryPromise(times);
 }
