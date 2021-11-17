@@ -75,14 +75,36 @@ describe('fetching image contents', () => {
             .rejects.toBeInstanceOf(NetworkError);
     });
 
-    it('rejects on invalid file', async () => {
+    it('rejects on text response', async () => {
+        mockXhr.mockResolvedValueOnce(createXhrResponse({
+            finalUrl: 'https://example.com/broken',
+            response: new Blob(['test']),
+            responseHeaders: 'Content-Type: text/html; charset=utf-8',
+        }));
+
+        await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
+            .rejects.toThrow('Expected test.jpg to be an image, but received text. Perhaps this provider is not supported yet?');
+    });
+
+    it('rejects on invalid image', async () => {
+        mockXhr.mockResolvedValueOnce(createXhrResponse({
+            finalUrl: 'https://example.com/broken',
+            response: new Blob(['test']),
+            responseHeaders: 'Content-Type: application/json',
+        }));
+
+        await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
+            .rejects.toThrow('Expected test.jpg to be an image, but received application/json.');
+    });
+
+    it('rejects on invalid image without content-type header', async () => {
         mockXhr.mockResolvedValueOnce(createXhrResponse({
             finalUrl: 'https://example.com/broken',
             response: new Blob(['test']),
         }));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
-            .rejects.toThrow('test.jpg has an unsupported file type');
+            .rejects.toThrow('Expected test.jpg to be an image, but received unknown file type.');
     });
 
     it('resolves with fetched image', async () => {
