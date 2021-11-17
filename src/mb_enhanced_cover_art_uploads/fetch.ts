@@ -207,7 +207,12 @@ export class ImageFetcher {
                 } else if (uint32view[0] === 0x46445025) {
                     resolve('application/pdf');
                 } else {
-                    reject(new Error(`${fileName} has an unsupported file type`));
+                    const actualMimeType = resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)?.[1];
+                    if (actualMimeType?.startsWith('text/')) {
+                        reject(new Error(`Expected ${fileName} to be an image, but received text. Perhaps this provider is not supported yet?`));
+                    } else {
+                        reject(new Error(`Expected ${fileName} to be an image, but received ${actualMimeType ?? 'unknown file type'}.`));
+                    }
                 }
             });
             reader.readAsArrayBuffer(rawFile.slice(0, 4));
