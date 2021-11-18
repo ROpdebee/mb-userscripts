@@ -39,9 +39,6 @@ export class Logger {
                 if (!handler) return;
 
                 if (exception) {
-                    // @ts-expect-error: Too dynamic. `exception` will only be
-                    // defined if level is error, in which case the handler
-                    // will accept it.
                     handler.call(sink, message, exception);
                 } else {
                     // Still using a conditional here, otherwise it will call
