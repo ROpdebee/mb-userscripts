@@ -6,12 +6,12 @@ module.exports = {
     testEnvironment: 'setup-polly-jest/jest-environment-jsdom',
     moduleNameMapper: {
         '^@lib/(.*)$': '<rootDir>/src/lib/$1',
-        '^@test-utils/(.*)$': '<rootDir>/tests/utils/$1',
+        '^@test-utils/(.*)$': '<rootDir>/tests/unit/utils/$1',
         '^@src/(.*)$': '<rootDir>/src/$1',
     },
     setupFilesAfterEnv: [
         'jest-extended/all',
-        './tests/utils/setup-gm-mocks.ts',
+        './tests/unit/utils/setup-gm-mocks.ts',
     ],
     collectCoverageFrom: [
         'src/**/*.{js,ts}',

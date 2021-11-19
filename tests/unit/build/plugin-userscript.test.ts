@@ -1,7 +1,7 @@
 import fs from 'fs';
 
 // @ts-expect-error rewired
-import { __get__ } from '../../build/plugin-userscript';
+import { __get__ } from '../../../build/plugin-userscript';
 
 
 describe('git URLs', () => {
