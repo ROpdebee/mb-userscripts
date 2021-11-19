@@ -56,3 +56,22 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           files: ./coverage/lcov.info
+
+  e2e-test:
+    runs-on: ubuntu-latest
+    name: Run E2E tests
+    strategy:
+      matrix:
+        browserProfile:
+          - chrome:latest
+          - chrome:49
+          - firefox:latest
+          - firefox:52
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+
+      - name: Run codeceptjs
+        run: npm run test:e2e -- --profile ${{ matrix.browserProfile }}
