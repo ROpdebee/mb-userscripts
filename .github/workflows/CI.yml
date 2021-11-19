@@ -15,7 +15,7 @@ on:
 jobs:
   build-and-test:
     name: Build and test
-    uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@main
+    uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@ecau-e2e
 
   codeql:
     name: CodeQL analysis
