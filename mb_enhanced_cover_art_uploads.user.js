@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.11.14.3
+// @version      2021.11.19
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -4427,7 +4427,15 @@
                       } else if (uint32view[0] === 0x46445025) {
                         resolve('application/pdf');
                       } else {
-                        reject(new Error("".concat(fileName, " has an unsupported file type")));
+                        var _resp$responseHeaders;
+
+                        var actualMimeType = (_resp$responseHeaders = resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)) === null || _resp$responseHeaders === void 0 ? void 0 : _resp$responseHeaders[1];
+
+                        if (actualMimeType !== null && actualMimeType !== void 0 && actualMimeType.startsWith('text/')) {
+                          reject(new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?'));
+                        } else {
+                          reject(new Error("Expected \"".concat(fileName, "\" to be an image, but received ").concat(actualMimeType !== null && actualMimeType !== void 0 ? actualMimeType : 'unknown file type', ".")));
+                        }
                       }
                     });
                     reader.readAsArrayBuffer(rawFile.slice(0, 4));
