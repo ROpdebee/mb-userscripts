@@ -26,4 +26,7 @@ module.exports = {
         'default',
         'jest-html-reporters',
     ],
+    testPathIgnorePatterns: [
+        '<rootDir>/tests/e2e',
+    ],
 };

@@ -80,6 +80,7 @@ module.exports = {
             }
         }, { // Override per eslint-plugin-jest documentation.
             files: ['tests/**'],
+            excludedFiles: 'tests/e2e/**',
             plugins: ['jest'],
             extends: [
                 'plugin:jest/all',

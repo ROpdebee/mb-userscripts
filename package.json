@@ -8,7 +8,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc",
     "deploy": "NODE_ENV=production ts-node build/deploy.ts",
-    "test": "NODE_NO_WARNINGS=1 jest --coverage"
+    "test": "NODE_NO_WARNINGS=1 jest --coverage",
+    "test:e2e": "codeceptjs run"
   },
   "repository": {
     "type": "git",
@@ -56,6 +57,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "babel-plugin-rewire-ts": "^1.4.0",
+    "codeceptjs": "^3.2.1",
     "confusing-browser-globals": "^1.0.10",
     "eslint": "^8.2.0",
     "eslint-plugin-jest": "^25.2.4",
@@ -80,7 +82,8 @@
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
     "type-fest": "^2.5.4",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "webdriverio": "^6.12.1"
   },
   "dependencies": {
     "core-js": "^3.19.1",
