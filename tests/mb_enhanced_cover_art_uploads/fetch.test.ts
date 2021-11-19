@@ -83,7 +83,7 @@ describe('fetching image contents', () => {
         }));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
-            .rejects.toThrow('Expected test.jpg to be an image, but received text. Perhaps this provider is not supported yet?');
+            .rejects.toThrow('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
     });
 
     it('rejects on invalid image', async () => {
@@ -94,7 +94,7 @@ describe('fetching image contents', () => {
         }));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
-            .rejects.toThrow('Expected test.jpg to be an image, but received application/json.');
+            .rejects.toThrow('Expected "test.jpg" to be an image, but received application/json.');
     });
 
     it('rejects on invalid image without content-type header', async () => {
@@ -104,7 +104,7 @@ describe('fetching image contents', () => {
         }));
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
-            .rejects.toThrow('Expected test.jpg to be an image, but received unknown file type.');
+            .rejects.toThrow('Expected "test.jpg" to be an image, but received unknown file type.');
     });
 
     it('resolves with fetched image', async () => {

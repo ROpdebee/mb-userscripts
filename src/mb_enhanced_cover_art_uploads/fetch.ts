@@ -209,9 +209,9 @@ export class ImageFetcher {
                 } else {
                     const actualMimeType = resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)?.[1];
                     if (actualMimeType?.startsWith('text/')) {
-                        reject(new Error(`Expected ${fileName} to be an image, but received text. Perhaps this provider is not supported yet?`));
+                        reject(new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?'));
                     } else {
-                        reject(new Error(`Expected ${fileName} to be an image, but received ${actualMimeType ?? 'unknown file type'}.`));
+                        reject(new Error(`Expected "${fileName}" to be an image, but received ${actualMimeType ?? 'unknown file type'}.`));
                     }
                 }
             });
