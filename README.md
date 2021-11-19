@@ -69,13 +69,6 @@ Validate work attributes on various MB pages. Highlights invalid (red) or ill-fo
 ## Smaller Quality of Life Scripts
 Smaller scripts that offer minor QoL improvements.
 
-### MB: Collapse Work Attributes
-
-Collapses work attributes when there are too many. Workaround for MBS-11535/MBS-11537.
-
-[![Install](https://img.shields.io/badge/install-2021.9.25-informational?style=for-the-badge&logo=github)](mb_collapse_work_attributes.user.js?raw=1)
-[![Source](https://img.shields.io/badge/source-main-lightgrey?style=for-the-badge&logo=github)](mb_collapse_work_attributes.user.js)
-
 ### MB: QoL: Select All Update Recordings
 Add buttons to release editor to select all "Update recordings" checkboxes. Differs from the built-in "Select All" checkboxes in that it doesn't lock the checkboxes to a given state, enabling you to deselect some checkboxes.
 

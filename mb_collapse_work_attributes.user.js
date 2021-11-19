@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Collapse Work Attributes
-// @version      2021.9.25
-// @description  Collapses work attributes when there are too many. Workaround for MBS-11535/MBS-11537.
+// @version      2021.11.19
+// @description  *DEPRECATED* Collapses work attributes when there are too many. Workaround for MBS-11535/MBS-11537.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -13,110 +13,9 @@
 // @match        *://*.musicbrainz.org/edit/*
 // @match        *://*.musicbrainz.org/*/edits*
 // @match        *://*.musicbrainz.org/collection/*
-// @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @run-at       document-end
 // ==/UserScript==
 
-let $ = this.$ = this.jQuery = jQuery.noConflict(true);
-
-const ATTR_TRANSLATIONS = [
-    'Attributes',
-    'Eigenschaften',
-    'Attributs',
-    'Attributi',
-    'Eigenschappen'];
-
-CUTOFF = 4; // Consistent with performers on artist page
-
-function setAnchorText($anchor, numHidden, currentlyHidden) {
-    if (currentlyHidden) {
-        $anchor
-            .attr('title', 'Show all attributes')
-            .text('(show ' + numHidden + ' more)');
-    } else {
-        $anchor
-            .attr('title', 'Show less attributes')
-            .text('(show less)');
-    }
-}
-
-function createAnchor() {
-    return $('<a>')
-            .attr('role', 'button')
-}
-
-function processTabulatedPage() {
-    document.querySelectorAll('table.tbl').forEach(processTable);
-}
-
-function processTable(table) {
-    let columnIdx = 1 + [...table.querySelectorAll('thead th')]
-        .findIndex(th => ATTR_TRANSLATIONS.includes(th.innerText));
-    let tooLongAttrColumns = $(table).find('td:nth-child(' + columnIdx + ')')
-        .filter((i, col) => col.querySelectorAll('li').length > 4);
-
-    tooLongAttrColumns.each((i, col) => {
-        let $col = $(col);
-        let hideLis = $col.find('li:nth-child(n+' + (CUTOFF + 1) + ')');
-        let $showAllAnchor = createAnchor();
-        let $newLi = $('<li>').addClass('show-all');
-        $newLi.append($showAllAnchor);
-        $col.find('ul').append($newLi);
-
-        let hidden = false;
-
-        $showAllAnchor.click(() => {
-            hideLis.toggle();
-            hidden = !hidden;
-            setAnchorText($showAllAnchor, hideLis.length, hidden);
-        }).trigger('click');
-    });
-}
-
-function processWorkPage() {
-    let tooLongAttrs = $('dl.properties > dd.work-attribute').slice(CUTOFF);
-    let $showAllAnchor = createAnchor();
-    tooLongAttrs.slice(-1).after($showAllAnchor);
-    let hidden = false;
-
-    $showAllAnchor.click(() => {
-        tooLongAttrs.toggle();
-        tooLongAttrs.prev('dt').toggle();
-        hidden = !hidden;
-        setAnchorText($showAllAnchor, tooLongAttrs.length, hidden);
-    }).trigger('click');
-}
-
-function processEditPage() {
-    $('table.details.edit-work, table.details.add-work').each((i, tbl) => {
-        let tooLongAttrs = $(tbl)
-            .find('tr')
-            .filter((i, tr) => {
-                let attrName = tr.querySelector('th').innerText;
-                return attrName.endsWith(' ID:') || attrName === 'PRS tune code:';
-            }).slice(CUTOFF);
-        let $showAllAnchor = createAnchor();
-        let $tr = $('<tr><th></th><td colspan="2"></td></tr>');
-        $tr.find('td').append($showAllAnchor);
-        tooLongAttrs.slice(-1).after($tr);
-        hidden = false;
-
-        $showAllAnchor.click(() => {
-            tooLongAttrs.toggle();
-            hidden = !hidden;
-            setAnchorText($showAllAnchor, tooLongAttrs.length, hidden);
-        }).trigger('click');
-    });
-
-    $('table.details.merge-works').each((i, tbl) => {
-        tbl.querySelectorAll('table.tbl').forEach(processTable);
-    });
-}
-
-if ((location.pathname.startsWith('/artist/') || location.pathname.startsWith('/collection/')) && location.pathname.split('/')[3] !== 'edits') {
-    processTabulatedPage();
-} else if (location.pathname.startsWith('/work/') && location.pathname.split('/')[3] !== 'edits') {
-    processWorkPage();
-} else {
-    processEditPage();
-}
+document.querySelector('#page').insertAdjacentHTML(
+    'beforebegin',
+    '<div class="banner warning-header"><p>"MB: Collapse Work Attributes" is now deprecated since its functionality has been added to MB, and will no longer receive updates. Please uninstall the userscript to remove this message.</p></div>');
