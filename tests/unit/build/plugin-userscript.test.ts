@@ -1,7 +1,6 @@
 import fs from 'fs';
 
-import { GitURLs, MetadataGenerator as RealMetadataGenerator } from '../../build/plugin-userscript';
-
+import { GitURLs, MetadataGenerator as RealMetadataGenerator } from '../../../build/plugin-userscript';
 
 describe('git URLs', () => {
     describe('constructor', () => {
