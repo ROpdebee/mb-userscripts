@@ -11,7 +11,7 @@ exports.config = {
             url: 'https://test.musicbrainz.org/',
             browser: browserName,
             desiredCapabilities: {
-                version: browserVersion,
+                version: browserVersion === 'latest' ? undefined : browserVersion,
             }
         }
     },
@@ -30,8 +30,8 @@ exports.config = {
         },
         selenoid: {
             enabled: true,
-            deletePassed: true,
-            autoCreate: true,
+            deletePassed: false,
+            autoCreate: false,
             autoStart: true,
             sessionTimeout: '30m',
             enableVideo: true,
