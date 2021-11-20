@@ -64,30 +64,24 @@ jobs:
       matrix:
         browserProfile:
           - chrome:latest
-          - chrome:49.0
+          # Although MB supports Chrome 49 and above (and we do too), the
+          # latest VM and TM versions only support Chrome 64 and up.
+          - chrome:64.0
           - firefox:latest
           - firefox:52.0
+        userscriptManager:
+          - violentmonkey
     steps:
       - name: Pull Selenoid images
         run: |
           docker pull selenoid/${{ matrix.browserProfile }}
           docker pull selenoid/video-recorder:latest-release
-          docker pull aerokube/selenoid:latest-release
-      - name: Start Selenoid server
-        run: >-
-          docker create
-          --name selenoid
-          -p 4444:4444
-          -v /var/run/docker.sock:/var/run/docker.sock
-          -v `pwd`/:/etc/selenoid/:ro
-          -v `pwd`/e2e_output/video/:/opt/selenoid/video/
-          -v `pwd`/e2e_output/logs/:/opt/selenoid/logs/
-          -e OVERRIDE_VIDEO_OUTPUT_DIR=`pwd`/e2e_output/video/
-          aerokube/selenoid:latest-release
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Start E2E services
+        run: docker-compose -f tests/e2e/docker/docker-compose.yml up -d
       - name: Set up environment
         uses: ./.github/actions/setup
 
       - name: Run codeceptjs
-        run: npm run test:e2e -- --profile ${{ matrix.browserProfile }}
+        run: npm run test:e2e -- --profile ${{ matrix.browserProfile }}/${{ matrix.userscriptManager }}

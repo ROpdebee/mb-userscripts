@@ -1,0 +1,45 @@
+---
+version: '3.9'
+services:
+    selenoid:
+        image: aerokube/selenoid:latest
+        container_name: selenoid
+        ports:
+            - 4444:4444
+            - 5900:5900
+        networks:
+            selenoid:
+        volumes:
+            - ../:/etc/selenoid
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ../output/video:/opt/selenoid/video
+            - ../output/logs:/opt/selenoid/logs
+        environment:
+            - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/tests/e2e/output/video
+        command: >-
+            -conf /etc/selenoid/browsers.json
+            -video-output-dir /opt/selenoid/video
+            -log-output-dir /opt/selenoid/logs
+            -container-network selenoid
+    selenoid-ui:
+        image: aerokube/selenoid-ui:latest
+        container_name: selenoid-ui
+        ports:
+            - 8080:8080
+        networks:
+            selenoid:
+        command: >-
+            --selenoid-uri http://selenoid:4444
+    userscript-server:
+        build: ./UserscriptServer
+        container_name: userscriptserver
+        ports:
+            - 80:80
+        networks:
+            selenoid:
+        volumes:
+            - ../../../dist:/etc/dist:ro
+
+networks:
+    selenoid:
+        name: selenoid

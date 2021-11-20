@@ -3,4 +3,4 @@ dist/
 .DS_Store
 coverage/
 jest_html_reporters.html
-e2e_output/
+tests/e2e/output/
