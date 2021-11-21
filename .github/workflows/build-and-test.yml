@@ -91,6 +91,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: built-userscripts
+          path: ./dist
       - name: Setup E2E docker environment
         # https://github.community/t/steps-in-parallel/16343/5
         # Launching browser image pulling and docker-compose in parallel to
