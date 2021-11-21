@@ -44,7 +44,7 @@ exports.config = {
             enabled: true
         },
         stepByStepReport: {
-            enabled: true,
+            enabled: !process.env.CI,
             deleteSuccessful: false,
         },
         autoLogin: {
