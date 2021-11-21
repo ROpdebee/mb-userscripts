@@ -117,7 +117,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run CodeceptJS
-        run: npm run test:e2e -- --profile ${{ matrix.browserProfile }}/${{ matrix.userscriptManager }}
+        run: npm run test:e2e -- --steps --profile ${{ matrix.browserProfile }}/${{ matrix.userscriptManager }}
 
       # Actions artifact names cannot contain :, so we need to replace
       # them. There is no built in expression for that.
