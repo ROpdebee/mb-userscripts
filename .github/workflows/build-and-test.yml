@@ -123,6 +123,7 @@ jobs:
       # them. There is no built in expression for that.
       - name: Generate artifact name
         id: artifact-name
+        if: always()
         env:
           artifact_name: e2e-${{ matrix.browserProfile }}-${{ matrix.userscriptManager }}
         run:
@@ -132,6 +133,7 @@ jobs:
       # won't generate screenshots.
       - name: Upload E2E artifacts
         uses: actions/upload-artifact@v2
+        if: always()
         with:
           name: ${{ steps.artifact-name.outputs.artifact-name }}
           path: ./tests/e2e/output/
