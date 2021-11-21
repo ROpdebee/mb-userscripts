@@ -41,6 +41,12 @@ jobs:
       - name: Compile userscripts
         run: npm run build
 
+      - name: Upload built userscripts as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: built-userscripts
+          path: ./dist/
+
   test:
     runs-on: ubuntu-latest
     name: Run tests
@@ -60,6 +66,13 @@ jobs:
   e2e-test:
     runs-on: ubuntu-latest
     name: Run E2E tests
+    needs:
+      # No use in running expensive E2E tests when any previous step fails.
+      - lint
+      - typecheck
+      # We need the build artifacts
+      - build
+      - test
     strategy:
       matrix:
         browserProfile:
@@ -78,6 +91,10 @@ jobs:
           docker pull selenoid/video-recorder:latest-release
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Fetch previously-built userscripts from artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: built-userscripts
       - name: Start E2E services
         run: docker-compose -f tests/e2e/docker/docker-compose.yml up -d
       - name: Set up environment
