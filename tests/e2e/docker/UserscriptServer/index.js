@@ -18,7 +18,7 @@ const SERVER = createServer(async (req, res) => {
     } catch (err) {
         console.error(err);
         res.writeHead(500);
-        res.write(`${err}`);
+        res.write('Oops');
         res.end();
     }
 });
