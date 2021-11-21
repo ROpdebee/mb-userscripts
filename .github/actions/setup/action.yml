@@ -13,13 +13,47 @@ runs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ inputs.node-version }}
-    - name: Cache npm dependencies
+
+    # Install npm dependencies and cache them.
+    # We cache the ~/.npm directory to avoid having to redownload dependencies.
+    # We also cache the node_modules directory in order to prevent reinstalling
+    # dependencies if they haven't changed at all, because we're running this
+    # step numerous times in different jobs for the same CI run. Caching can
+    # potentially save us a lot of time in these jobs. However, we should take
+    # care not to restore node_modules if package-lock.json has changed, which
+    # is why we'll only allow restoring if the cache key matches exactly. If
+    # we restored node_modules, we'll skip the npm install step.
+    # Inspired by https://www.voorhoede.nl/en/blog/super-fast-npm-install-on-github-actions/
+
+    - name: Cache npm package downloads
       uses: actions/cache@v2
       with:
         path: '~/.npm'
-        key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ hashFiles('package-lock.json') }}
+        # Allow restoring the download cache if package-lock.json has changed.
         restore-keys: |
           ${{ runner.os }}-node-${{ inputs.node-version }}
+
+    # Need the exact node version to prevent reusing an old node version's
+    # node_modules cache.
+    - name: Get node version
+      id: node-version
+      run:
+        echo ::set-output name=node-version::`node --version`
+      shell: bash
+    # Cache node_modules specifically for this OS, specific node version, and
+    # package-lock.json.
+    - name: Cache node_modules
+      id: cache-node-modules
+      uses: actions/cache@v2
+      with:
+        path: ./node_modules
+        key: modules-${{ runner.os }}-node-${{ steps.node-version.outputs.node-version }}-${{ hashFiles('package-lock.json') }}
+        # No restore_keys here to prevent reusing node_modules if lock file has
+        # changed.
+
+    # If we couldn't reuse a previous cache, do an npm install.
     - name: Install project dependencies
-      run: npm ci
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      run: npm ci --no-audit --ignore-scripts
       shell: bash
