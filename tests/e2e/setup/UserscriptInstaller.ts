@@ -1,3 +1,4 @@
+import fs from 'fs/promises';
 import Helper from '@codeceptjs/helper';
 import { retryTimes } from '../../../src/lib/util/async';
 import { recorder } from 'codeceptjs';
@@ -20,37 +21,42 @@ async function installViolentmonkeyScripts(vmBaseUrl: string, browser: Webdriver
     // "Install from URL".
 
     await browser.navigateTo(vmBaseUrl + '/options/index.html');
-    // Open the dropdown menu
-    const dropdownButton = await browser.$('.vl-dropdown-toggle');
-    await dropdownButton.click();
 
-    // Open the install from URL dialog
-    const importFromUrlAnchor = await browser.$('a=Install from URL');
-    await importFromUrlAnchor.click();
+    for (const userscriptName of await fs.readdir('./dist')) {
+        if (!userscriptName.endsWith('.user.js')) continue;
 
-    // Enter the URL and submit
-    const urlInput = await browser.$('.vl-modal input');
-    // On Chrome, we don't seem to be able to set the value immediately, possibly
-    // because of the animation of the dialog. We can't really wait for that to
-    // be done, so retry on failure.
-    await retryTimes(() => urlInput.setValue('http://userscriptserver/mb_enhanced_cover_art_uploads.user.js'), 5, 100);
-    const submitButton = await browser.$('button=OK');
-    await submitButton.click();
+        // Open the dropdown menu
+        const dropdownButton = await browser.$('.vl-dropdown-toggle');
+        await dropdownButton.click();
 
-    // Switch to the newly-opened window. We may need to wait until the window is opened.
-    await browser.waitUntil(async () => (await browser.getWindowHandles()).length > 1);
-    await browser.switchWindow(new RegExp(`^${vmBaseUrl}/confirm/index\\.html`));
+        // Open the install from URL dialog
+        const importFromUrlAnchor = await browser.$('a=Install from URL');
+        await importFromUrlAnchor.click();
 
-    // Need to wait until the button becomes clickable.
-    const installButton = await browser.$('button=Confirm installation');
-    await installButton.waitForEnabled({
-        timeout: 5000,
-    });
-    await installButton.click();
+        // Enter the URL and submit
+        const urlInput = await browser.$('.vl-modal input');
+        // On Chrome, we don't seem to be able to set the value immediately, possibly
+        // because of the animation of the dialog. We can't really wait for that to
+        // be done, so retry on failure.
+        await retryTimes(() => urlInput.setValue(`http://userscriptserver/${userscriptName}`), 5, 100);
+        const submitButton = await browser.$('button=OK');
+        await submitButton.click();
 
-    // Close the installation page and switch back to the original page.
-    await browser.closeWindow();
-    await browser.switchWindow(/./);
+        // Switch to the newly-opened window. We may need to wait until the window is opened.
+        await browser.waitUntil(async () => (await browser.getWindowHandles()).length > 1);
+        await browser.switchWindow(new RegExp(`^${vmBaseUrl}/confirm/index\\.html`));
+
+        // Need to wait until the button becomes clickable.
+        const installButton = await browser.$('button=Confirm installation');
+        await installButton.waitForEnabled({
+            timeout: 5000,
+        });
+        await installButton.click();
+
+        // Close the installation page and switch back to the original page.
+        await browser.closeWindow();
+        await browser.switchWindow(/./);
+    }
 }
 
 module.exports = class UserscriptInstaller extends Helper {

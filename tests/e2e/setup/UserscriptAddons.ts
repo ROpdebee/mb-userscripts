@@ -72,9 +72,6 @@ async function generateFirefoxProfile(userscriptManagerName: string): Promise<st
         });
     });
 
-    const b = Buffer.from(profileZipped, 'base64');
-    await writeFile('test.zip', b);
-
     return profileZipped;
 }
 
