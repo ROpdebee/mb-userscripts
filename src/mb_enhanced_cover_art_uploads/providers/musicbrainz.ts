@@ -1,5 +1,6 @@
 import { assertDefined } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
+import { urlBasename } from '@lib/util/urls';
 
 import type { CoverArt } from './base';
 import { ArtworkTypeIDs, CoverArtProvider } from './base';
@@ -36,7 +37,7 @@ export class MusicBrainzProvider extends CoverArtProvider {
         const caaIndex = safeParseJSON<CAAIndex>(await caaResp.text(), 'Could not parse index.json');
 
         return caaIndex.images.map((img) => {
-            const imageFileName = img.image.split('/').at(-1);
+            const imageFileName = urlBasename(img.image);
             return {
                 // Skip one level of indirection
                 url: new URL(`https://archive.org/download/mbid-${mbid}/mbid-${mbid}-${imageFileName}`),

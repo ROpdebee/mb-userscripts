@@ -2,6 +2,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
+import { urlBasename } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
@@ -164,7 +165,7 @@ export class VGMdbProvider extends CoverArtProvider {
 
         // Add the main cover if it's not in the gallery
         const mainCoverUrl = qsMaybe<HTMLDivElement>('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)?.[1];
-        if (mainCoverUrl && !galleryCovers.some((cover) => cover.url.pathname.endsWith(mainCoverUrl.split('/').at(-1)))) {
+        if (mainCoverUrl && !galleryCovers.some((cover) => urlBasename(cover.url) === urlBasename(mainCoverUrl))) {
             galleryCovers.unshift({
                 url: new URL(mainCoverUrl),
                 types: [ArtworkTypeIDs.Front],

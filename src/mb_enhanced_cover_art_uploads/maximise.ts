@@ -3,6 +3,7 @@
 import { LOGGER } from '@lib/logging/logger';
 import { retryTimes } from '@lib/util/async';
 import { DispatchMap } from '@lib/util/domain_dispatch';
+import { urlBasename } from '@lib/util/urls';
 import { DiscogsProvider } from './providers/discogs';
 
 // IMU does its initialisation synchronously, and it's loaded before the
@@ -82,7 +83,7 @@ IMU_EXCEPTIONS.set('img.discogs.com', async (smallurl) => {
     const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
     return [{
         url: fullSizeURL,
-        filename: fullSizeURL.pathname.split('/').at(-1),
+        filename: urlBasename(fullSizeURL),
         headers: {},
     }];
 });
@@ -102,7 +103,8 @@ IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
         // https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png/999999999x0w-999.png
         // We're still conservative though, if it's not a JPEG, we won't
         // return the JPEG version
-        if (/\.jpe?g$/i.test(imgGeneric.url.pathname.split('/').at(-2))) {
+        const pathParts = imgGeneric.url.pathname.split('/');
+        if (/\.jpe?g$/i.test(pathParts[pathParts.length - 2])) {
             results.push({
                 ...imgGeneric,
                 url: new URL(imgGeneric.url.href.replace(/\.png$/i, '.jpg'))

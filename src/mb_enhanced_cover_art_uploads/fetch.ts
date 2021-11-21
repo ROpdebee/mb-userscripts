@@ -5,6 +5,7 @@ import { getProvider } from './providers';
 import { ArtworkTypeIDs } from './providers/base';
 import type { CoverArt, CoverArtProvider } from './providers/base';
 import { getFromPageContext } from '@src/compat';
+import { urlBasename } from '@lib/util/urls';
 
 interface ImageContents {
     requestedUrl: URL;
@@ -33,7 +34,7 @@ export interface FetchedImages {
 }
 
 function getFilename(url: URL): string {
-    return decodeURIComponent(url.pathname.split('/').at(-1)) || 'image';
+    return decodeURIComponent(urlBasename(url, 'image'));
 }
 
 export class ImageFetcher {
