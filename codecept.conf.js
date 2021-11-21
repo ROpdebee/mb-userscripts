@@ -44,13 +44,13 @@ exports.config = {
         },
         selenoid: {
             enabled: true,
-            deletePassed: false,
             autoCreate: false,
             autoStart: false,
-            sessionTimeout: '30m',
-            enableVideo: true,
-            enableLog: true,
-            enableVnc: true,
+            sessionTimeout: '5m',
+            // Don't enable video or logging on CI, since it slows runs down.
+            enableVideo: !process.env.CI,
+            enableLog: !process.env.CI,
+            deletePassed: !!process.env.CI,
         },
     },
 };

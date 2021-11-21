@@ -85,10 +85,8 @@ jobs:
         userscriptManager:
           - violentmonkey
     steps:
-      - name: Pull Selenoid images
-        run: |
-          docker pull selenoid/${{ matrix.browserProfile }}
-          docker pull selenoid/video-recorder:latest-release
+      - name: Pull Selenoid browser image
+        run: docker pull selenoid/${{ matrix.browserProfile }}
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Fetch previously-built userscripts from artifacts
@@ -96,9 +94,27 @@ jobs:
         with:
           name: built-userscripts
       - name: Start E2E services
-        run: docker-compose -f tests/e2e/docker/docker-compose.yml up -d
+        run: docker-compose -f tests/e2e/docker/docker-compose.yml up --build -d
       - name: Set up environment
         uses: ./.github/actions/setup
 
-      - name: Run codeceptjs
+      - name: Run CodeceptJS
         run: npm run test:e2e -- --profile ${{ matrix.browserProfile }}/${{ matrix.userscriptManager }}
+
+      # Actions artifact names cannot contain :, so we need to replace
+      # them. There is no built in expression for that.
+      - name: Generate artifact name
+        id: artifact-name
+        env:
+          artifact_name: e2e-${{ matrix.browserProfile }}-${{ matrix.userscriptManager }}
+        run:
+          echo ::set-output name=artifact-name::${artifact_name/:/_}
+
+      # Artifacts will be empty/missing if there was no failure, since Codecept
+      # won't generate screenshots.
+      - name: Upload E2E artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.artifact-name.outputs.artifact-name }}
+          path: ./tests/e2e/output/
+          if-no-files-found: ignore
