@@ -22,12 +22,12 @@ exports.config = {
             },
             restart: false,
         },
+        BrowserCompatHelper: {
+            require: './tests/e2e/setup/BrowserCompat',
+        },
         UserscriptInstaller: {
             require: './tests/e2e/setup/UserscriptInstaller',
             userscriptManagerName: userscriptManagerName,
-        },
-        BrowserCompatHelper: {
-            require: './tests/e2e/setup/BrowserCompat',
         },
     },
     bootstrap: async () => installUserscriptEngine(browserName, browserVersion, userscriptManagerName),

@@ -48,7 +48,7 @@ async function installViolentmonkeyScripts(vmBaseUrl: string, browser: Webdriver
         // Need to wait until the button becomes clickable.
         const installButton = await browser.$('button=Confirm installation');
         await installButton.waitForEnabled({
-            timeout: 5000,
+            timeout: 30000,
         });
         await installButton.click();
 
