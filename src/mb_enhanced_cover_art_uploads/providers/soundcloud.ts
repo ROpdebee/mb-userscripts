@@ -3,6 +3,7 @@ import { ArtworkTypeIDs, ProviderWithTrackImages } from './base';
 import type { CoverArt } from './base';
 import { safeParseJSON } from '@lib/util/json';
 import { assert } from '@lib/util/assert';
+import { urlBasename } from '@lib/util/urls';
 
 // Incomplete, only what we need.
 interface SCHydration {
@@ -56,7 +57,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             && !SoundcloudProvider.badArtistIDs.has(artistId)
             // artist/likes, artist/track/recommended, artist/sets, ...
             // but not artist/sets/setname!
-            && !SoundcloudProvider.badSubpaths.has(pathParts.at(-1)));
+            && !SoundcloudProvider.badSubpaths.has(urlBasename(url)));
     }
 
     override extractId(url: URL): string | undefined {
