@@ -58,6 +58,10 @@ exports.config = {
                         I.fillField('Password', 'mb');  // We should be running on test.MB, where all passwords were reset
                         I.checkOption('Keep me logged in');
                         I.click('button=Log In');
+                        // Wait until the form is submitted. Not all browsers
+                        // do this, apparently.
+                        I.waitInUrl('ROpdebee', 5);
+                        I.see('ROpdebee', '.menu');
                     },
                     /** @param {CodeceptJS.I} I */
                     check: (I) => {
