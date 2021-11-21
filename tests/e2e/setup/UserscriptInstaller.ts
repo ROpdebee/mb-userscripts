@@ -59,8 +59,14 @@ async function installViolentmonkeyScripts(vmBaseUrl: string, browser: Webdriver
 }
 
 module.exports = class UserscriptInstaller extends Helper {
+    alreadyRan = false;
+
     override async _before(): Promise<void> {
         const { WebDriver } = this.helpers;
+        // If the browser doesn't get restarted between tests and we already
+        // installed the userscripts, then we don't need to do it again.
+        if (!WebDriver.options.restart && this.alreadyRan) return;
+
         const browser: WebdriverIO.BrowserObject = WebDriver.browser;
         // @ts-expect-error incomplete declarations
         const config = this.config;
@@ -74,5 +80,7 @@ module.exports = class UserscriptInstaller extends Helper {
         default:
             throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
         }
+
+        this.alreadyRan = true;
     }
 };

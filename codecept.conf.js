@@ -20,6 +20,7 @@ exports.config = {
             desiredCapabilities: {
                 version: browserVersion === 'latest' ? undefined : browserVersion,
             },
+            restart: false,
         },
         UserscriptInstaller: {
             require: './tests/e2e/setup/UserscriptInstaller',
