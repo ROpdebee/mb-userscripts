@@ -19,7 +19,7 @@ exports.config = {
             browser: browserName,
             desiredCapabilities: {
                 version: browserVersion === 'latest' ? undefined : browserVersion,
-            }
+            },
         },
         UserscriptInstaller: {
             require: './tests/e2e/setup/UserscriptInstaller',
@@ -41,6 +41,30 @@ exports.config = {
         },
         screenshotOnFail: {
             enabled: true
+        },
+        stepByStepReport: {
+            enabled: true,
+            deleteSuccessful: false,
+        },
+        autoLogin: {
+            enabled: true,
+            users: {
+                user: {
+                    /** @param {CodeceptJS.I} I */
+                    login: (I) => {
+                        I.amOnPage('/login');
+                        I.fillField('Username', 'ROpdebee');
+                        I.fillField('Password', 'mb');  // We should be running on test.MB, where all passwords were reset
+                        I.checkOption('Keep me logged in');
+                        I.click('button=Log In');
+                    },
+                    /** @param {CodeceptJS.I} I */
+                    check: (I) => {
+                        I.amOnPage('/');
+                        I.see('ROpdebee', '.menu');
+                    },
+                },
+            },
         },
         selenoid: {
             enabled: true,

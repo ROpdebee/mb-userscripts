@@ -1,7 +1,6 @@
 import fs from 'fs/promises';
 import Helper from '@codeceptjs/helper';
 import { retryTimes } from '../../../src/lib/util/async';
-import { recorder } from 'codeceptjs';
 
 async function installViolentmonkeyScripts(vmBaseUrl: string, browser: WebdriverIO.BrowserObject): Promise<void> {
     // To install scripts in VM, there are a number of different options.
@@ -60,22 +59,20 @@ async function installViolentmonkeyScripts(vmBaseUrl: string, browser: Webdriver
 }
 
 module.exports = class UserscriptInstaller extends Helper {
-    override _before(): void {
-        recorder.add('install userscripts', async () => {
-            const { WebDriver } = this.helpers;
-            const browser: WebdriverIO.BrowserObject = WebDriver.browser;
-            // @ts-expect-error incomplete declarations
-            const config = this.config;
-            const addonBaseUrl: string = config.userscriptManagerBaseUrl;
-            const userscriptManagerName: string = config.userscriptManagerName;
+    override async _before(): Promise<void> {
+        const { WebDriver } = this.helpers;
+        const browser: WebdriverIO.BrowserObject = WebDriver.browser;
+        // @ts-expect-error incomplete declarations
+        const config = this.config;
+        const addonBaseUrl: string = config.userscriptManagerBaseUrl;
+        const userscriptManagerName: string = config.userscriptManagerName;
 
-            switch(userscriptManagerName) {
-            case 'violentmonkey':
-                await installViolentmonkeyScripts(addonBaseUrl, browser);
-                break;
-            default:
-                throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
-            }
-        });
+        switch(userscriptManagerName) {
+        case 'violentmonkey':
+            await installViolentmonkeyScripts(addonBaseUrl, browser);
+            break;
+        default:
+            throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
+        }
     }
 };
