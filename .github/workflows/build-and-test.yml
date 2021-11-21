@@ -85,16 +85,33 @@ jobs:
         userscriptManager:
           - violentmonkey
     steps:
-      - name: Pull Selenoid browser image
-        run: docker pull selenoid/${{ matrix.browserProfile }}
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Fetch previously-built userscripts from artifacts
         uses: actions/download-artifact@v2
         with:
           name: built-userscripts
-      - name: Start E2E services
-        run: docker-compose -f tests/e2e/docker/docker-compose.yml up --build -d
+      - name: Setup E2E docker environment
+        # https://github.community/t/steps-in-parallel/16343/5
+        # Launching browser image pulling and docker-compose in parallel to
+        # save some time, as both of these steps can take >10s to complete.
+        run: |
+          launch_as() {
+            local cmd_name=$1
+            shift
+            (time $@ || echo $cmd_name >> /tmp/fail.txt) 2>&1 > /tmp/$cmd_name.txt
+          }
+
+          launch_as pull_browser_image docker pull selenoid/${{ matrix.browserProfile }} &
+          launch_as start_e2e_services docker-compose -f tests/e2e/docker/docker-compose.yml up --build -d &
+          wait
+
+          cat /tmp/pull_browser_image.txt
+          cat /tmp/start_e2e_services.txt
+          if [ -f /tmp/fail.txt ]; then
+            cat /tmp/fail.txt
+            exit 1
+          fi
       - name: Set up environment
         uses: ./.github/actions/setup
 
