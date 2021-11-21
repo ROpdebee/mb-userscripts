@@ -1,5 +1,6 @@
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
+import { urlBasename } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
@@ -117,7 +118,7 @@ export class DiscogsProvider extends CoverArtProvider {
         if (!releaseId) return url;
         const releaseData = await this.getReleaseImages(releaseId);
         const matchedImage = releaseData.data.release.images.edges
-            .find((img) => img.node.fullsize.sourceUrl.split('/').at(-1) === imageName);
+            .find((img) => urlBasename(img.node.fullsize.sourceUrl) === imageName);
 
         /* istanbul ignore if: Should never happen on valid image */
         if (!matchedImage) return url;
