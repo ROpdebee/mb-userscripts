@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import Helper from '@codeceptjs/helper';
 import { retryTimes } from '../../../src/lib/util/async';
 
-async function installViolentmonkeyScripts(vmBaseUrl: string, browser: WebdriverIO.BrowserObject): Promise<void> {
+async function installViolentmonkeyScripts(vmBaseUrl: string, browser: WebdriverIO.BrowserObject, userscriptFilenames: string[]): Promise<void> {
     // To install scripts in VM, there are a number of different options.
     // One is to navigate the browser to the userscript URL on the userscript
     // server, however, this breaks in Firefox, as this will hang the driver.
@@ -21,9 +21,7 @@ async function installViolentmonkeyScripts(vmBaseUrl: string, browser: Webdriver
 
     await browser.navigateTo(vmBaseUrl + '/options/index.html');
 
-    for (const userscriptName of await fs.readdir('./dist')) {
-        if (!userscriptName.endsWith('.user.js')) continue;
-
+    for (const userscriptName of userscriptFilenames) {
         // Open the dropdown menu
         const dropdownButton = await browser.$('.vl-dropdown-toggle');
         await dropdownButton.click();
@@ -42,7 +40,7 @@ async function installViolentmonkeyScripts(vmBaseUrl: string, browser: Webdriver
         await submitButton.click();
 
         // Switch to the newly-opened window. We may need to wait until the window is opened.
-        await browser.waitUntil(async () => (await browser.getWindowHandles()).length > 1);
+        await browser.waitUntilNumberOfWindows(2);
         await browser.switchWindow(new RegExp(`^${vmBaseUrl}/confirm/index\\.html`));
 
         // Need to wait until the button becomes clickable.
@@ -56,6 +54,60 @@ async function installViolentmonkeyScripts(vmBaseUrl: string, browser: Webdriver
         await browser.closeWindow();
         await browser.switchWindow(/./);
     }
+}
+
+async function installTampermonkeyScripts(tmBaseUrl: string, browser: WebdriverIO.BrowserObject, userscriptFilenames: string[]): Promise<void> {
+    // Tampermonkey's options page has a utils tab which allows installing
+    // userscripts from a URL. We use it here.
+    // Tampermonkey also offers a way to export and import .txt and ZIP files
+    // containing userscript data. Might be something to look into if this ever
+    // starts failing.
+
+    // Tampermonkey spams a changelog when first installed. Wait for it to pop
+    // up and close it.
+    await browser.waitUntilNumberOfWindows(2, {
+        timeout: 5000,
+    });
+    await browser.switchToWindow((await browser.getWindowHandles())[1]);
+    await browser.closeWindow();
+    await browser.switchToWindow((await browser.getWindowHandles())[0]);
+
+    await browser.navigateTo(tmBaseUrl + '/options.html#nav=utils');
+
+    for (const userscriptName of userscriptFilenames) {
+        // Enter script URL into the input box.
+        const urlInput = await browser.$('input.updateurl_input');
+        await urlInput.setValue(`http://userscriptserver/${userscriptName}`);
+        const submitButton = await browser.$('input.updateurl_input + .button');
+        await submitButton.click();
+
+        // This will open a new tab (although it may take a while), so wait for
+        // that to happen and switch the driver to operate on that tab.
+        await browser.waitUntilNumberOfWindows(2, {
+            timeout: 30000,
+        });
+        await browser.switchWindow(new RegExp(`^${tmBaseUrl}/ask\\.html`));
+
+        // Click the confirmation button
+        let installButton = await browser.$('input[value="Install"]');
+        try {
+            await installButton.waitForExist();
+        } catch {
+            // Old TM versions use a button element
+            installButton = await browser.$('button=Install');
+            await installButton.waitForExist();
+        }
+        await installButton.click();
+
+        // Tampermonkey closes the installation window itself, so switch back
+        // to the original page.
+        await browser.switchWindow(/./);
+    }
+
+    // Tampermonkey is fairly strict in its cross-origin requests, and asks the
+    // user for confirmation. We'll circumvent this by manually adding allow
+    // rules to each of the installed scripts. We can't do this in a global
+    // configuration, unfortunately.
 }
 
 module.exports = class UserscriptInstaller extends Helper {
@@ -73,9 +125,15 @@ module.exports = class UserscriptInstaller extends Helper {
         const addonBaseUrl: string = config.userscriptManagerBaseUrl;
         const userscriptManagerName: string = config.userscriptManagerName;
 
+        const userscriptFilenames = (await fs.readdir('./dist'))
+            .filter((fileName) => fileName.endsWith('.user.js'));
+
         switch(userscriptManagerName) {
         case 'violentmonkey':
-            await installViolentmonkeyScripts(addonBaseUrl, browser);
+            await installViolentmonkeyScripts(addonBaseUrl, browser, userscriptFilenames);
+            break;
+        case 'tampermonkey':
+            await installTampermonkeyScripts(addonBaseUrl, browser, userscriptFilenames);
             break;
         default:
             throw new Error('Unsupported userscript manager: ' + userscriptManagerName);

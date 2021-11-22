@@ -14,7 +14,7 @@ const fetch: Promise<typeof import('node-fetch')['default']> = eval('import("nod
 export default async function installUserscriptEngine(browserName: string, browserVersion: string, userscriptManagerName: string): Promise<void> {
     switch (browserName) {
     case 'firefox':
-        return installFirefoxUserscriptEngine(userscriptManagerName);
+        return installFirefoxUserscriptEngine(userscriptManagerName, browserVersion);
     case 'chrome':
         return installChromiumUserscriptEngine(userscriptManagerName, browserVersion);
     default:
@@ -27,7 +27,11 @@ async function download(url: string): Promise<Buffer> {
     return resp.buffer();
 }
 
-async function generateFirefoxProfile(userscriptManagerName: string): Promise<string> {
+function browserVersionAfter(version: string, targetVersion: number): boolean {
+    return version === 'latest' || parseInt(version.split('.')[0]) > targetVersion;
+}
+
+async function generateFirefoxProfile(userscriptManagerName: string, browserVersion: string): Promise<string> {
     // We install a Firefox userscript engine by downloading the addon and
     // adding it to the desired profile.
 
@@ -35,7 +39,17 @@ async function generateFirefoxProfile(userscriptManagerName: string): Promise<st
     // the addon.
     const downloadUrls: Record<string, string> = {
         'violentmonkey': 'https://addons.mozilla.org/firefox/downloads/latest/violentmonkey',
+        'tampermonkey': browserVersionAfter(browserVersion, 52)
+            ? 'https://addons.mozilla.org/firefox/downloads/latest/tampermonkey'
+            // TM 4.6 doesn't work on our FF52, even though addons.mozilla.org
+            // claims that it should.
+            // TM 4.3.5430 contains a bug which adds bad polyfills for EventTarget,
+            // making IMU in ECAU crash and therefore preventing the script from
+            // loading. The bug is fixed in 4.6.5703, but that version doesn't
+            // want to load at all (see above).
+            : 'https://addons.mozilla.org/firefox/downloads/file/584743/tampermonkey-4.3.5393-fx.xpi',
     };
+    if (!downloadUrls[userscriptManagerName]) throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
     const addonBuffer = await download(downloadUrls[userscriptManagerName]);
 
     // Write it to a temporary file.
@@ -75,9 +89,9 @@ async function generateFirefoxProfile(userscriptManagerName: string): Promise<st
     return profileZipped;
 }
 
-async function installFirefoxUserscriptEngine(userscriptManagerName: string): Promise<void> {
+async function installFirefoxUserscriptEngine(userscriptManagerName: string, browserVersion: string): Promise<void> {
     const caps = container.helpers('WebDriver').config.desiredCapabilities;
-    const profileZipped = await generateFirefoxProfile(userscriptManagerName);
+    const profileZipped = await generateFirefoxProfile(userscriptManagerName, browserVersion);
     caps.firefoxOptions = caps.firefoxOptions ?? {};
     caps.firefoxOptions.profile = profileZipped;
 }
@@ -87,7 +101,9 @@ async function installChromiumUserscriptEngine(userscriptManagerName: string, br
     // base64-encoding it, and adding it to the desired capabilities.
     const extensionIds: Record<string, string> = {
         'violentmonkey': 'jinjaccalgkegednnccohejagnlnfdag',
+        'tampermonkey': 'dhdgffkkebhmkfjojejmpbldmpobfkfo',
     };
+    if (!extensionIds[userscriptManagerName]) throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
 
     let extensionId = extensionIds[userscriptManagerName];
     // Direct download URL. prodversion must be a Chrome version, but it seems like
@@ -108,8 +124,13 @@ async function installChromiumUserscriptEngine(userscriptManagerName: string, br
     // is bound to be unstable across Chrome versions and browser.management.getAll()
     // returns an empty result on Chrome 64 (something with permissions, I guess).
     // So we'll just hardcode it.
-    if (userscriptManagerName === 'violentmonkey' && parseInt(browserVersion.split('.')[0]) <= 64) {
-        extensionId = 'egppagfjpllnlgfobgchglknakfbjagd';
+    if (!browserVersionAfter(browserVersion, 64)) {
+        const oldChromeExtensionIds: Record<string, string> = {
+            'violentmonkey': 'egppagfjpllnlgfobgchglknakfbjagd',
+            'tampermonkey': 'iedgjgmgnephlgfobabelminoikbdpjg',
+        };
+
+        extensionId = oldChromeExtensionIds[userscriptManagerName];
     }
 
     container.helpers('UserscriptInstaller').config.userscriptManagerBaseUrl = `chrome-extension://${extensionId}`;

@@ -84,6 +84,7 @@ jobs:
           - firefox:52.0
         userscriptManager:
           - violentmonkey
+          - tampermonkey
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
