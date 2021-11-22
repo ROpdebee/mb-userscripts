@@ -74,10 +74,10 @@ async function installTampermonkeyScripts(tmBaseUrl: string, browser: WebdriverI
 
     await browser.navigateTo(tmBaseUrl + '/options.html#nav=utils');
 
-    for (const userscriptName of userscriptFilenames) {
+    for (const userscriptFilename of userscriptFilenames) {
         // Enter script URL into the input box.
         const urlInput = await browser.$('input.updateurl_input');
-        await urlInput.setValue(`http://userscriptserver/${userscriptName}`);
+        await urlInput.setValue(`http://userscriptserver/${userscriptFilename}`);
         const submitButton = await browser.$('input.updateurl_input + .button');
         await submitButton.click();
 
@@ -87,6 +87,9 @@ async function installTampermonkeyScripts(tmBaseUrl: string, browser: WebdriverI
             timeout: 30000,
         });
         await browser.switchWindow(new RegExp(`^${tmBaseUrl}/ask\\.html`));
+
+        // Grab the userscript name, we'll need it later
+        const userscriptName = await (await browser.$('.viewer_info > h3 > span')).getText();
 
         // Click the confirmation button
         let installButton = await browser.$('input[value="Install"]');
@@ -99,15 +102,42 @@ async function installTampermonkeyScripts(tmBaseUrl: string, browser: WebdriverI
         }
         await installButton.click();
 
-        // Tampermonkey closes the installation window itself, so switch back
-        // to the original page.
+        // Switch back to the original page.
         await browser.switchWindow(/./);
-    }
 
-    // Tampermonkey is fairly strict in its cross-origin requests, and asks the
-    // user for confirmation. We'll circumvent this by manually adding allow
-    // rules to each of the installed scripts. We can't do this in a global
-    // configuration, unfortunately.
+        // Tampermonkey is fairly strict in its cross-origin requests, and asks the
+        // user for confirmation. We'll circumvent this by manually adding allow
+        // rules to each of the installed scripts. We can't do this in a global
+        // configuration, unfortunately, so we need to adjust each script's settings
+        // individually.
+        // NB: Although it looks like we can extract script IDs from the confirm
+        // page, they actually change after the script is installed.
+
+        // Refresh the page to allow TM to register the installation
+        await browser.refresh();
+        // Switch to the main dashboard. Need to use a character translation
+        // hack since old TM versions use  "Installed userscripts" whereas
+        // newer ones use "Installed Userscripts"
+        await browser.$('//*[translate(text(), "U", "u") = "Installed userscripts"]').then((tab) => tab.click());
+        // Find the row with the script we just installed and open its tab
+        const row = await browser.$(`span=${userscriptName}`);
+        await row.waitForClickable().then(() => row.click());
+        // Open the settings tab within this tab
+        await browser.$('.details [tvid="settings"]').then((tab) => tab.click());
+        // Find the container for "User domain whitelist" in the XHR security section
+        const container = await browser.$('span=User domain whitelist').then((span) => span.parentElement());
+        // Click the "Add..." button
+        await container.$('button=Add...').then((btn) => btn.click());
+        // Enter the '*' wildcard in the resulting prompt
+        await browser.sendAlertText('*');
+        // Confirm the prompt
+        await browser.acceptAlert();
+        // Close the editing tab
+        await browser.$('.tv_tab_close').then((btn) => btn.click());
+
+        // Navigate back to the utilities tab to install the next script
+        await browser.$('//*[text()="Utilities"]').then((tab) => tab.click());
+    }
 }
 
 module.exports = class UserscriptInstaller extends Helper {
