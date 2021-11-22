@@ -129,6 +129,21 @@ class MetadataGenerator {
             allMetadata.grant = oldGrant.flatMap(this.transformGMFunction.bind(this));
         }
 
+        // Use polyfill.io to add polyfills dynamically based on browser capabilities.
+        // It uses the user agent header. If it can't be recognised, it'll serve
+        // all requested polyfills by default. If the browser already supports
+        // all features, it'll return an empty JS file. Userscript managers
+        // probably cache this, so it's much more efficient to load these polyfills
+        // instead of including them directly in the script.
+        // TODO: It would be nice if we could specify exactly which polyfills we
+        // might need, instead of possibly needlessly loading all.
+        // TODO: This URL is versioned to allow updates later on without userscript
+        // engines reusing an older version. However, how will we handle updates?
+        const requires: string[] = Array.isArray(allMetadata.require) ? allMetadata.require : filterNonNull([allMetadata.require as string]);
+        const polyfillUrl = 'https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces2016%2Ces2017%2Ces2018%2Ces2019%2Ces5%2Ces6%2Ces7%2Ces2021&flags=gated&version=3.108.0';
+        requires.push(polyfillUrl);
+        allMetadata.require = requires;
+
         return allMetadata;
     }
 
