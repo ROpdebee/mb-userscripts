@@ -140,6 +140,40 @@ async function installTampermonkeyScripts(tmBaseUrl: string, browser: WebdriverI
     }
 }
 
+async function installGreasemonkeyScripts(gmBaseUrl: string, browser: WebdriverIO.BrowserObject, userscriptFilenames: string[]): Promise<void> {
+    // For Greasemonkey, we load the installation dialog with the URL to the
+    // script.
+
+    // To open this dialog, we can't just use browser.newWindow immediately.
+    // Access will be denied since we're switching between page and content
+    // contexts. We'll have to switch to the GM UI first.
+    await browser.navigateTo(`${gmBaseUrl}/src/browser/monkey-menu.html`);
+
+    for (const userscriptFilename of userscriptFilenames) {
+        // Need to open in a new tab since it'll close itself automatically.
+        // Using browser.newWindow will open a new window instead.
+        const userscriptUrl = `http://userscriptserver/${userscriptFilename}`;
+        const scriptInstallUrl = `${gmBaseUrl}/src/content/install-dialog.html?${encodeURI(userscriptUrl)}`;
+        await browser.executeScript('chrome.tabs.create({ url: arguments[0] });', [scriptInstallUrl]);
+        await browser.switchToWindow((await browser.getWindowHandles())[1]);
+
+        const installButton = await browser.$('button=Install');
+        // Wait for countdown to end
+        const countdown = await installButton.$('span');
+        await countdown.waitForExist({
+            reverse: true,
+        });
+        await installButton.click();
+
+        // Sometimes the tab will close itself, sometimes it will not.
+        if ((await browser.getWindowHandles()).length > 1) {
+            await browser.closeWindow();
+        }
+
+        await browser.switchWindow(/./);
+    }
+}
+
 module.exports = class UserscriptInstaller extends Helper {
     alreadyRan = false;
 
@@ -158,16 +192,16 @@ module.exports = class UserscriptInstaller extends Helper {
         const userscriptFilenames = (await fs.readdir('./dist'))
             .filter((fileName) => fileName.endsWith('.user.js'));
 
+        let installer: typeof installViolentmonkeyScripts;
         switch(userscriptManagerName) {
-        case 'violentmonkey':
-            await installViolentmonkeyScripts(addonBaseUrl, browser, userscriptFilenames);
-            break;
-        case 'tampermonkey':
-            await installTampermonkeyScripts(addonBaseUrl, browser, userscriptFilenames);
-            break;
+        case 'violentmonkey': installer = installViolentmonkeyScripts; break;
+        case 'tampermonkey': installer = installTampermonkeyScripts; break;
+        case 'greasemonkey': installer = installGreasemonkeyScripts; break;
         default:
             throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
         }
+
+        await installer(addonBaseUrl, browser, userscriptFilenames);
 
         this.alreadyRan = true;
     }

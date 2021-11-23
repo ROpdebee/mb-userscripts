@@ -48,6 +48,7 @@ async function generateFirefoxProfile(userscriptManagerName: string, browserVers
             // loading. The bug is fixed in 4.6.5703, but that version doesn't
             // want to load at all (see above).
             : 'https://addons.mozilla.org/firefox/downloads/file/584743/tampermonkey-4.3.5393-fx.xpi',
+        'greasemonkey': 'https://addons.mozilla.org/firefox/downloads/latest/greasemonkey',
     };
     if (!downloadUrls[userscriptManagerName]) throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
     const addonBuffer = await download(downloadUrls[userscriptManagerName]);
