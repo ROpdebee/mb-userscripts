@@ -71,7 +71,7 @@
     "postcss-preset-env": "^7.0.1",
     "rollup": "^2.60.0",
     "rollup-plugin-consts": "^1.0.2",
-    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-progress": "^1.1.2",
     "sass": "^1.43.4",
     "setup-polly-jest": "^0.10.0",
