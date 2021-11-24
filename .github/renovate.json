@@ -4,6 +4,7 @@
     "group:allNonMajor",
     "schedule:weekends",
     ":semanticCommitTypeAll(build)",
-    ":maintainLockFilesMonthly"
+    ":maintainLockFilesMonthly",
+    ":label(dependencies)"
   ]
 }
