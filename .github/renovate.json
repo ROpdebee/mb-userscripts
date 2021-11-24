@@ -1,5 +1,9 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    "group:allNonMajor",
+    "schedule:weekends",
+    ":semanticCommitTypeAll(build)",
+    ":maintainLockFilesMonthly"
   ]
 }
