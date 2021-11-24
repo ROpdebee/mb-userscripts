@@ -60,8 +60,7 @@ exports.config = {
                         I.click('button=Log In');
                         // Wait until the form is submitted. Not all browsers
                         // do this, apparently.
-                        I.waitInUrl('ROpdebee', 5);
-                        I.see('ROpdebee', '.menu');
+                        I.waitForText('ROpdebee', 10, '.menu');
                     },
                     /** @param {CodeceptJS.I} I */
                     check: (I) => {
