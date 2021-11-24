@@ -204,14 +204,20 @@ module.exports = class UserscriptInstaller extends Helper {
         // installed the userscripts, then we don't need to do it again.
         if (!WebDriver.options.restart && this.alreadyRan) return;
 
+        const userscriptFilenames = (await fs.readdir('./dist'))
+            .filter((fileName) => fileName.endsWith('.user.js'));
+        await this.installUserscripts(userscriptFilenames);
+
+        this.alreadyRan = true;
+    }
+
+    async installUserscripts(userscriptFilenames: string[]): Promise<void> {
+        const { WebDriver } = this.helpers;
         const browser: WebdriverIO.BrowserObject = WebDriver.browser;
         // @ts-expect-error incomplete declarations
         const config = this.config;
         const addonBaseUrl: string = config.userscriptManagerBaseUrl;
         const userscriptManagerName: string = config.userscriptManagerName;
-
-        const userscriptFilenames = (await fs.readdir('./dist'))
-            .filter((fileName) => fileName.endsWith('.user.js'));
 
         let installer: typeof installViolentmonkeyScripts;
         switch(userscriptManagerName) {
@@ -223,8 +229,6 @@ module.exports = class UserscriptInstaller extends Helper {
             throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
         }
 
-        await installer(addonBaseUrl, browser, userscriptFilenames);
-
-        this.alreadyRan = true;
+        return installer(addonBaseUrl, browser, userscriptFilenames);
     }
 };
