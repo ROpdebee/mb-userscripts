@@ -174,6 +174,27 @@ async function installGreasemonkeyScripts(gmBaseUrl: string, browser: WebdriverI
     }
 }
 
+async function installGreasemonkey3Scripts(_gmBaseUrl: string, browser: WebdriverIO.BrowserObject, userscriptFilenames: string[]): Promise<void> {
+    // GM3 uses a different type of extension which we can't interact with easily.
+    // Therefore, we'll use it's API directly.
+    // Need to navigate to a chrome:// page to have access to the right context.
+    await browser.navigateTo('chrome://greasemonkey/content/options.xul');
+
+    for (const userscriptFilename of userscriptFilenames) {
+        await browser.executeAsyncScript(`
+            var scriptUrl = arguments[0];
+            var done = arguments[1];
+            Components.utils.import('chrome://greasemonkey-modules/content/remoteScript.js');
+            var remoteScript = new RemoteScript(scriptUrl);
+            remoteScript.download(function() {
+                if (!remoteScript.done) return;
+                remoteScript.install();
+                done();
+            });
+        `, [`http://userscriptserver/${userscriptFilename}`]);
+    }
+}
+
 module.exports = class UserscriptInstaller extends Helper {
     alreadyRan = false;
 
@@ -197,6 +218,7 @@ module.exports = class UserscriptInstaller extends Helper {
         case 'violentmonkey': installer = installViolentmonkeyScripts; break;
         case 'tampermonkey': installer = installTampermonkeyScripts; break;
         case 'greasemonkey': installer = installGreasemonkeyScripts; break;
+        case 'greasemonkey3': installer = installGreasemonkey3Scripts; break;
         default:
             throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
         }

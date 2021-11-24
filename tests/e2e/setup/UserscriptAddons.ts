@@ -49,6 +49,8 @@ async function generateFirefoxProfile(userscriptManagerName: string, browserVers
             // want to load at all (see above).
             : 'https://addons.mozilla.org/firefox/downloads/file/584743/tampermonkey-4.3.5393-fx.xpi',
         'greasemonkey': 'https://addons.mozilla.org/firefox/downloads/latest/greasemonkey',
+        // GM3 is not available for download through normal means anymore, so grab it from the wayback machine.
+        'greasemonkey3': 'https://web.archive.org/web/20171018071603if_/https://addons.cdn.mozilla.net/user-media/addons/_attachments/748/greasemonkey-3.17-fx.xpi?filehash=sha256%3A6cd63f2982c55e2b7ebf3d22b516bed321f4b0265720d118be4d99b321571ed4',
     };
     if (!downloadUrls[userscriptManagerName]) throw new Error('Unsupported userscript manager: ' + userscriptManagerName);
     const addonBuffer = await download(downloadUrls[userscriptManagerName]);

@@ -90,6 +90,9 @@ jobs:
           # Greasemonkey only works on Firefox
           - browserProfile: firefox:latest
             userscriptManager: greasemonkey
+          # Greasemonkey 3 requires an old FF version
+          - browserProfile: firefox:52.0
+            userscriptManager: greasemonkey3
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
