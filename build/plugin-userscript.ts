@@ -13,20 +13,24 @@ interface UserscriptOptions {
     include: Readonly<RegExp>;
     branchName?: string;
     metadataOrder?: readonly string[];
+    // Metadata fields to exclude from output
+    ignoredFields?: readonly string[];
 }
 
 interface _UserscriptOptionsWithDefaults extends UserscriptOptions {
     metadataOrder: readonly string[];
+    ignoredFields: readonly string[];
     branchName: string;
 }
 
-const DEFAULT_OPTIONS = {
+export const DEFAULT_OPTIONS = {
     branchName: 'dist',
     metadataOrder: [
         'name', 'description', 'version', 'author', 'license', 'namespace',
         'homepageURL', 'supportURL', 'downloadURL', 'updateURL',
         'match', 'exclude', 'require', 'resource', 'run-at', 'grant', 'connect',
     ],
+    ignoredFields: ['matchedUrlExamples', 'unmatchedUrlExamples'],
 };
 
 class GitURLs {
@@ -65,7 +69,8 @@ class GitURLs {
     }
 }
 
-class MetadataGenerator {
+// Exported for URL matching tests
+export class MetadataGenerator {
     readonly options: Readonly<_UserscriptOptionsWithDefaults>;
     readonly longestMetadataFieldLength: number;
 
@@ -101,7 +106,7 @@ class MetadataGenerator {
      * @param      {UserscriptMetadata}              specificMetadata  The userscript-specific metadata.
      * @return     {Promise<AllUserscriptMetadata>}  The specific metadata amended with defaults.
      */
-    private async insertDefaultMetadata(specificMetadata: Readonly<UserscriptMetadata>): Promise<AllUserscriptMetadata> {
+    async insertDefaultMetadata(specificMetadata: Readonly<UserscriptMetadata>): Promise<AllUserscriptMetadata> {
         const npmPackage: PackageJson = await fs.promises.readFile('package.json', {
             encoding: 'utf-8',
         }).then((content) => JSON.parse(content));
@@ -180,6 +185,8 @@ class MetadataGenerator {
     private createMetadataLines(
         [metadataField, metadataValue]: readonly [string, string | readonly string[]]
     ): string[] {
+        if (this.options.ignoredFields.includes(metadataField)) return [];
+
         if (typeof metadataValue === 'string') {
             return [this.createMetadataLine(metadataField, metadataValue)];
         }
@@ -194,7 +201,7 @@ class MetadataGenerator {
      * @return     {string}                 The metadata block for the
      *                                      userscript.
      */
-    private createMetadataBlock(metadata: Readonly<AllUserscriptMetadata>): string {
+    createMetadataBlock(metadata: Readonly<AllUserscriptMetadata>): string {
         const metadataLines = Object.entries<string | readonly string[]>(metadata)
             .sort((a: readonly [string, unknown], b: readonly [string, unknown]) =>
                 this.options.metadataOrder.indexOf(a[0]) - this.options.metadataOrder.indexOf(b[0]))

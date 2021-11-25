@@ -9,6 +9,11 @@ interface UserscriptCustomMetadata {
     grant?: readonly string[] | string;
     connect?: readonly string[] | string;
     resource?: readonly string[] | string;
+
+    // Used to automatically generate E2E tests that verify that this userscript
+    // will run on the page.
+    matchedUrlExamples: string[];
+    unmatchedUrlExamples: string[];
 }
 
 export interface UserscriptDefaultMetadata {

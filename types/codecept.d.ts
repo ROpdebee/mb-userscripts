@@ -8,7 +8,9 @@ declare namespace CodeceptJS {
         login: (user: string) => void;
     }
     interface Methods extends WebDriver {}
-    interface I extends WithTranslation<Methods> {}
+    interface I extends WithTranslation<Methods> {
+        installUserscripts: (userscriptFilenames: string[]) => void;
+    }
     namespace Translation {
         interface Actions {}
     }

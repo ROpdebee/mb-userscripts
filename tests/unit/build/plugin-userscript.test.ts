@@ -97,6 +97,7 @@ describe('metadata generator', () => {
         include: /.+/,
         branchName: 'branch',
         metadataOrder: ['name', 'namespace', 'version'],
+        ignoredFields: ['ignored'],
     };
 
     describe('creating metadata line', () => {
@@ -128,6 +129,12 @@ describe('metadata generator', () => {
             const lines = metaGen.createMetadataLines(['name', ['test1', 'test2']]);
 
             expect(lines).toStrictEqual(['@name       test1', '@name       test2']);
+        });
+
+        it('ignores ignored fields', () => {
+            const lines = metaGen.createMetadataLines(['name', 'test1'], ['ignored', '123']);
+
+            expect(lines).toStrictEqual(['@name       test1']);
         });
     });
 
