@@ -95,14 +95,14 @@ for (const userscriptSrcName of fs.readdirSync('./src')) {
             // simple CSS ID selector.
             // Need to wait since element might not exist immediately. If it
             // doesn't exist after the waiting, this will throw.
-            I.waitForElement(`[id="${scriptId}"]`, 3);
+            I.waitForElement(`[id="${scriptId}"]`, 10);
         }
         // For each page we don't expect to match, check whether we don't
         for (const matchedUrl of scriptMeta.unmatchedUrlExamples) {
             I.amOnPage(matchedUrl);
             // Also need to wait here, but we can't wait for an element not to
             // exist if it should never exist at all, so we have to wait manually.
-            I.wait(0.5);
+            I.wait(5);
             I.dontSeeElementInDOM(`[id="${scriptId}"]`);
         }
     });
