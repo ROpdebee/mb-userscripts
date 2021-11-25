@@ -159,7 +159,10 @@ module.exports = class UserscriptInstaller extends Helper {
             // newer ones use "Installed Userscripts"
             await browser.$('//*[translate(text(), "U", "u") = "Installed userscripts"]').then((tab) => tab.click());
             // Find the row with the script we just installed and open its tab
-            const row = await browser.$(`span=${userscriptName}`);
+            // TM4.3 truncates the span content if the userscript name is too
+            // long, so we have to match by title. However, the span title also
+            // includes the userscript description, so we should match a prefix.
+            const row = await browser.$(`span[title*="${userscriptName}"]`);
             await row.waitForClickable().then(() => row.click());
             // Open the settings tab within this tab
             await browser.$('.details [tvid="settings"]').then((tab) => tab.click());
