@@ -37,10 +37,11 @@ async function generateUrlTestScript(metadata: UserscriptMetadata): Promise<{ sc
         name: adaptedName,
     };
     const metaGen = new MetadataGenerator({
+        ...DEFAULT_OPTIONS,
         userscriptName: metadata.name,
         version: '1.0.0',
         include: /./,
-        ...DEFAULT_OPTIONS,
+        ignoredFields: [...DEFAULT_OPTIONS.ignoredFields, 'resource', 'require', 'downloadURL', 'updateURL'],
     });
     const metaBlock = metaGen.createMetadataBlock(await metaGen.insertDefaultMetadata(adaptedMetadata));
 
