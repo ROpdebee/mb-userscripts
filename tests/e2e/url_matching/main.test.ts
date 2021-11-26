@@ -52,6 +52,7 @@ document.body.append(d);`;
     const { fd, path: scriptPath } = await tmp.file({
         postfix: '.user.js',
         tmpdir: './dist/',
+        mode: 0o644,
     });
     await new Promise<void>((resolve, reject) => {
         fs.write(fd, scriptContent, (err) => {

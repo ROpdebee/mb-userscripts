@@ -31,14 +31,22 @@ services:
         command: >-
             --selenoid-uri http://selenoid:4444
     userscript-server:
-        build: ./UserscriptServer
+        image: lipanski/docker-static-website:latest
         container_name: userscriptserver
-        ports:
-            - 80:80
         networks:
             selenoid:
         volumes:
-            - ../../../dist:/etc/dist:ro
+            - ../../../dist:/home/static:ro
+        # Base image listens on :3000 by default, change it to listen on :80
+        entrypoint: /thttpd
+        command: >-
+            -D
+            -h 0.0.0.0
+            -p 80
+            -d /home/static
+            -u static
+            -l -
+            -M 60
 
 networks:
     selenoid:
