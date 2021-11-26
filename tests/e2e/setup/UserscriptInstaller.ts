@@ -228,8 +228,13 @@ module.exports = class UserscriptInstaller extends Helper {
                 var done = arguments[1];
                 Components.utils.import('chrome://greasemonkey-modules/content/remoteScript.js');
                 var remoteScript = new RemoteScript(scriptUrl);
-                remoteScript.download(function() {
-                    if (!remoteScript.done) return;
+
+                remoteScript.download(function(status, type) {
+                    // We need to wait until we have loaded the dependencies,
+                    // otherwise the temporary dir doesn't exist and the script
+                    // doesn't actually get installed. Even if the script has
+                    // no dependencies, this CB will still be fired.
+                    if (!remoteScript.done || type !== 'dependencies') return;
                     remoteScript.install();
                     done();
                 });
