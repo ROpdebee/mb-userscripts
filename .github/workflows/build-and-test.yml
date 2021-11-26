@@ -73,7 +73,14 @@ jobs:
       # We need the build artifacts
       - build
       - test
+    services:
+      selenoid:
+        image: aerokube/selenoid:latest
+        ports:
+          - 4444:4444
+
     strategy:
+      fail-fast: false
       matrix:
         # Test on cartesian product of these browsers and userscript managers
         browserProfile:
