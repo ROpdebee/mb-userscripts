@@ -124,7 +124,7 @@ jobs:
             exit 1
           fi
       - name: Create MB database
-        run: docker compose --env-file tests/e2e/docker/.env-e2e run --rm musicbrainz admin/InitDb.pl --createdb
+        run: docker compose --env-file tests/e2e/docker/.env-e2e run --rm musicbrainz dockerize -wait tcp://db:5432 -timeout 60s admin/InitDb.pl --createdb
       - name: Generate temporary self-signed SSL certificate
         run: openssl req -subj '/CN=localhost' -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 1
         working-directory: tests/e2e/docker/proxy
