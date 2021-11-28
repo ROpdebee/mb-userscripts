@@ -4,3 +4,4 @@ dist/
 coverage/
 jest_html_reporters.html
 tests/e2e/output/
+tests/e2e/docker/proxy/*.pem

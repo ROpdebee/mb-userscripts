@@ -1,53 +1,21 @@
+# Needs to be linked with at least musicbrainz.yml and selenoid.yml for use in
+# E2E tests through and .env file.
 ---
 version: '3.9'
 services:
-    selenoid:
-        image: aerokube/selenoid:latest
-        container_name: selenoid
-        ports:
-            - 4444:4444
-            - 5900:5900
+    mbproxy:
         networks:
             selenoid:
+                # We use these aliases so that these domains map to this
+                # container in the browser containers.
+                aliases:
+                    - musicbrainz.org
+                    - beta.musicbrainz.org
+                    - test.musicbrainz.org
+                    - ${MUSICBRAINZ_WEB_SERVER_HOST}
+    musicbrainz:
         volumes:
-            - ../:/etc/selenoid
-            - /var/run/docker.sock:/var/run/docker.sock
-            - ../output/video:/opt/selenoid/video
-            - ../output/logs:/opt/selenoid/logs
-        environment:
-            - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/tests/e2e/output/video
-        command: >-
-            -conf /etc/selenoid/browsers.json
-            -video-output-dir /opt/selenoid/video
-            -log-output-dir /opt/selenoid/logs
-            -container-network selenoid
-    selenoid-ui:
-        image: aerokube/selenoid-ui:latest
-        container_name: selenoid-ui
-        ports:
-            - 8080:8080
-        networks:
-            selenoid:
-        command: >-
-            --selenoid-uri http://selenoid:4444
-    userscript-server:
-        image: lipanski/docker-static-website:latest
-        container_name: userscriptserver
-        networks:
-            selenoid:
-        volumes:
-            - ../../../dist:/home/static:ro
-        # Base image listens on :3000 by default, change it to listen on :80
-        entrypoint: /thttpd
-        command: >-
-            -D
-            -h 0.0.0.0
-            -p 80
-            -d /home/static
-            -u static
-            -l -
-            -M 60
+            # Need to map the E2E test directory to be able to insert the test
+            # data.
+            - $PWD/tests/e2e:/media/e2e
 
-networks:
-    selenoid:
-        name: selenoid

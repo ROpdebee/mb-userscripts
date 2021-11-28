@@ -2,7 +2,7 @@ Feature('MB: Enhanced Cover Art Uploads GUI');
 
 Scenario('it adds GUI elements', ({ I, login }) => {
     login('user');
-    I.amOnPage('/release/d925018e-b4e2-4553-99a4-47f35fcd9766/add-cover-art');
+    I.amOnPage('/release/dd245091-b21e-48a3-b59a-f9b8ed8a0469/add-cover-art');
     within('.add-files.row', () => {
         I.seeAttributesOnElements('input#ROpdebee_paste_url', {placeholder: 'or paste one or more URLs here'});
         I.see('Supported providers');
@@ -12,9 +12,8 @@ Scenario('it adds GUI elements', ({ I, login }) => {
 
 Scenario('it adds provider import buttons', ({ I, login }) => {
     login('user');
-    I.amOnPage('/release/d925018e-b4e2-4553-99a4-47f35fcd9766/add-cover-art');
+    I.amOnPage('/release/1bda2f85-0576-4077-b3fa-0fc939079b61/add-cover-art');
     within('.add-files.row', () => {
-        I.see('Import from Amazon');
-        I.see('Import from VGMdb');
+        I.see('Import from Bandcamp');
     });
 });

@@ -73,12 +73,6 @@ jobs:
       # We need the build artifacts
       - build
       - test
-    services:
-      selenoid:
-        image: aerokube/selenoid:latest
-        ports:
-          - 4444:4444
-
     strategy:
       fail-fast: false
       matrix:
@@ -120,15 +114,19 @@ jobs:
           }
 
           launch_as pull_browser_image docker pull selenoid/${{ matrix.browserProfile }} &
-          launch_as start_e2e_services docker-compose -f tests/e2e/docker/docker-compose.yml up --build -d &
+          launch_as pull_e2e_services docker compose --env-file tests/e2e/docker/.env-e2e pull &
           wait
 
           cat /tmp/pull_browser_image.txt
-          cat /tmp/start_e2e_services.txt
+          cat /tmp/pull_e2e_services.txt
           if [ -f /tmp/fail.txt ]; then
             cat /tmp/fail.txt
             exit 1
           fi
+      - name: Create MB database
+        run: docker compose --env-file tests/e2e/docker/.env-e2e run --rm musicbrainz admin/InitDb.pl --createdb
+      - name: Start docker services
+        run: docker compose --env-file tests/e2e/docker/.env-e2e up -d
       - name: Set up environment
         uses: ./.github/actions/setup
 

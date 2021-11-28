@@ -15,10 +15,11 @@ exports.config = {
     output: './tests/e2e/output',
     helpers: {
         WebDriver: {
-            url: 'https://test.musicbrainz.org/',
+            url: 'https://localtest.musicbrainz.org/',
             browser: browserName,
             desiredCapabilities: {
                 version: browserVersion === 'latest' ? undefined : browserVersion,
+                acceptInsecureCerts: true,
             },
             restart: false,
         },
@@ -47,6 +48,10 @@ exports.config = {
             enabled: !process.env.CI,
             deleteSuccessful: false,
         },
+        musicbrainzDatabase: {
+            require: './tests/e2e/setup/DBPlugin',
+            enabled: true,
+        },
         autoLogin: {
             enabled: true,
             users: {
@@ -54,18 +59,18 @@ exports.config = {
                     /** @param {CodeceptJS.I} I */
                     login: (I) => {
                         I.amOnPage('/login');
-                        I.fillField('Username', 'ROpdebee');
-                        I.fillField('Password', 'mb');  // We should be running on test.MB, where all passwords were reset
+                        I.fillField('Username', 'TestBot');
+                        I.fillField('Password', 'sekrit');
                         I.checkOption('Keep me logged in');
                         I.click('button=Log In');
                         // Wait until the form is submitted. Not all browsers
                         // do this, apparently.
-                        I.waitForText('ROpdebee', 10, '.menu');
+                        I.waitForText('TestBot', 10, '.menu');
                     },
                     /** @param {CodeceptJS.I} I */
                     check: (I) => {
                         I.amOnPage('/');
-                        I.see('ROpdebee', '.menu');
+                        I.see('TestBot', '.menu');
                     },
                 },
             },

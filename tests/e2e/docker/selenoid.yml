@@ -1,0 +1,45 @@
+---
+version: '3.9'
+services:
+    selenoid:
+        image: aerokube/selenoid:latest
+        container_name: selenoid
+        # Expose 4444 to the host so we can start sessions through selenium hub.
+        ports:
+            - 4444:4444
+        networks:
+            selenoid:
+        volumes:
+            - $PWD/tests/e2e/:/etc/selenoid
+            - /var/run/docker.sock:/var/run/docker.sock
+            - $PWD/tests/e2e/output/video:/opt/selenoid/video
+            - $PWD/tests/e2e/output/logs:/opt/selenoid/logs
+        environment:
+            - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/tests/e2e/output/video
+        command: >-
+            -conf /etc/selenoid/browsers.json
+            -video-output-dir /opt/selenoid/video
+            -log-output-dir /opt/selenoid/logs
+            -container-network selenoid
+    # Static web server to host built userscripts for installation in the browsers.
+    userscript-server:
+        image: lipanski/docker-static-website:latest
+        container_name: userscriptserver
+        networks:
+            selenoid:
+        volumes:
+            - $PWD/dist:/home/static:ro
+        # Base image listens on :3000 by default, change it to listen on :80
+        entrypoint: /thttpd
+        command: >-
+            -D
+            -h 0.0.0.0
+            -p 80
+            -d /home/static
+            -u static
+            -l -
+            -M 60
+
+networks:
+    selenoid:
+        name: selenoid

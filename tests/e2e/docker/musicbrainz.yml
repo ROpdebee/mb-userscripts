@@ -1,0 +1,91 @@
+---
+version: '3.9'
+services:
+    database:
+        image: ghcr.io/ropdebee/musicbrainz-docker_db:12
+        container_name: mb_database
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        expose:
+            - 5432
+        environment:
+            POSTGRES_USER: musicbrainz
+            POSTGRES_PASSWORD: musicbrainz
+        networks:
+            musicbrainz:
+                aliases:
+                    - db
+    redis:
+        image: redis:3-alpine
+        container_name: mb_redis
+        expose:
+            - 6379
+        networks:
+            musicbrainz:
+    mq:
+        image: ghcr.io/ropdebee/musicbrainz-docker_mq:latest
+        container_name: mb_mq
+        expose:
+            - 5672
+        volumes:
+            - mqdata:/var/lib/rabbitmq
+        networks:
+            musicbrainz:
+
+    musicbrainz:
+        image: 'ghcr.io/ropdebee/musicbrainz-docker_musicbrainz:${MUSICBRAINZ_SERVER_VERSION:-production}'
+        container_name: musicbrainz
+        hostname: ${MUSICBRAINZ_WEB_SERVER_HOST}
+        environment:
+            POSTGRES_USER: musicbrainz
+            POSTGRES_PASSWORD: musicbrainz
+            MUSICBRAINZ_SERVER_PROCESSES: 2
+            MUSICBRAINZ_USE_PROXY: 1
+            MUSICBRAINZ_WEB_SERVER_HOST: ${MUSICBRAINZ_WEB_SERVER_HOST}
+            MUSICBRAINZ_WEB_SERVER_PORT: 443
+            MUSICBRAINZ_STANDALONE_SERVER: 1
+        networks:
+            musicbrainz:
+        # Expose port 5000 to the mbproxy container
+        expose:
+            - 5000
+        depends_on:
+            - database
+            - mq
+            - redis
+        healthcheck:
+            test: curl --fail http://localhost:5000 || exit 1
+            timeout: 45s
+            interval: 10s
+            retries: 10
+
+    # Reverse proxy to host MB server on HTTP and HTTPS. We need a reverse
+    # proxy for HTTPS, but also to serve our self-hosted MB instance to other
+    # docker containers, as MB listens on :5000 in its own container. If we
+    # want other containers to be able to communicate on :80/:443, we need a
+    # reverse proxy.
+    mbproxy:
+        image: nginx
+        container_name: mbproxy
+        # Expose ports 80 and 443 to the host so that we can open the MB server
+        # in the browser through localhost. Can also be used in other containers.
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - $PWD/tests/e2e/docker/proxy/:/etc/nginx/
+        depends_on:
+            musicbrainz:
+                condition: service_healthy
+        networks:
+            musicbrainz:
+
+networks:
+    musicbrainz:
+        name: musicbrainz
+
+volumes:
+    pgdata:
+        driver: local
+    mqdata:
+        driver: local

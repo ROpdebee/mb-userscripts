@@ -2,6 +2,7 @@ import { writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { randomUUID } from 'crypto';
+import { promisify } from 'util';
 
 import { container } from 'codeceptjs';
 import FirefoxProfile from 'firefox-profile';
@@ -61,13 +62,9 @@ async function generateFirefoxProfile(userscriptManagerName: string, browserVers
 
     // Add the extension to a Firefox profile which we'll use in desired capabilities.
     const profile = new FirefoxProfile();
-    const addonId = await new Promise<string>((resolve, reject) => {
-        profile.addExtension(tmpFilePath, (err, addonDetails) => {
-            if (err) reject(err);
-            else if (!addonDetails) reject('Empty addon details');
-            else resolve(addonDetails.id);
-        });
-    });
+    const addonDetails = await promisify(profile.addExtension.bind(profile))(tmpFilePath);
+    if (!addonDetails) throw new Error('Empty addon details');
+    const addonId = addonDetails.id;
 
     // Firefox generates random UUIDs for each addon. This is bad, since we
     // need the UUID to access its pages, which we'll need to install the
@@ -82,14 +79,7 @@ async function generateFirefoxProfile(userscriptManagerName: string, browserVers
     // Also add it to the config of the userscript installer helper, it'll need it.
     container.helpers('UserscriptInstaller').config.userscriptManagerBaseUrl = `moz-extension://${installedId}`;
 
-    const profileZipped = await new Promise<string>((resolve, reject) => {
-        profile.encode((err, result) => {
-            if (err) reject(err);
-            else resolve(result);
-        });
-    });
-
-    return profileZipped;
+    return promisify(profile.encode.bind(profile))();
 }
 
 async function installFirefoxUserscriptEngine(userscriptManagerName: string, browserVersion: string): Promise<void> {
