@@ -1,7 +1,8 @@
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { parseDOM, qs } from '@lib/util/dom';
 
 import type { CoverArt } from './base';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
+import { CoverArtProvider } from './base';
 
 export class BeatportProvider extends CoverArtProvider {
     supportedDomains = ['beatport.com'];

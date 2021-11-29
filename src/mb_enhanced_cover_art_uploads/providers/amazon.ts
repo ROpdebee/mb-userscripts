@@ -1,10 +1,11 @@
 import { LOGGER } from '@lib/logging/logger';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { parseDOM, qsa, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
 import { GMgetResourceUrl } from '@src/compat';
 
 import type { CoverArt } from './base';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
+import { CoverArtProvider } from './base';
 
 const PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/;
 

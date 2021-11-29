@@ -1,9 +1,10 @@
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { gmxhr, HTTPResponseError } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
+import { CoverArtProvider } from './base';
 
 // Assuming this doesn't change often. If it does, we might have to extract it
 // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's

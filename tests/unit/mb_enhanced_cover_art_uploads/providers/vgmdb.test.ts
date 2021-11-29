@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 // @ts-expect-error rewired
 import { convertCaptions, VGMdbProvider, __get__ } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
 

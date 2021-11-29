@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { AmazonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon';
 
 import { itBehavesLike } from '@test-utils/shared_behaviour';

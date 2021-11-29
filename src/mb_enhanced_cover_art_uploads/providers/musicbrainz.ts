@@ -3,7 +3,8 @@ import { safeParseJSON } from '@lib/util/json';
 import { urlBasename } from '@lib/util/urls';
 
 import type { CoverArt } from './base';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
+import { CoverArtProvider } from './base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 
 interface CAAIndex {
     images: Array<{

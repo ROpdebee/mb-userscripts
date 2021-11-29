@@ -1,9 +1,10 @@
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
+import { CoverArtProvider } from './base';
 
 // Extracted from listen.tidal.com JS. There seem to be at least 10 different
 // API keys, I guess they might depend on the user type and/or country?

@@ -1,7 +1,7 @@
 // Custom matchers for provider testing
 
 import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 
 export interface ExpectedCoverArt {
     urlPart: string | RegExp;
