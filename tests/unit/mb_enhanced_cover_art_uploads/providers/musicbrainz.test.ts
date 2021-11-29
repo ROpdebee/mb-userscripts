@@ -1,6 +1,6 @@
 import HttpAdapter from '@pollyjs/adapter-node-http';
 
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { MusicBrainzProvider } from '@src/mb_enhanced_cover_art_uploads/providers/musicbrainz';
 
 import { mockFetch, setupPolly } from '@test-utils/pollyjs';

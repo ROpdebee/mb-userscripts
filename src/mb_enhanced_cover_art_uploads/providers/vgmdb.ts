@@ -1,4 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
@@ -6,7 +7,7 @@ import { urlBasename } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
+import { CoverArtProvider } from './base';
 
 // Not full, only what we need
 interface AlbumMetadata {

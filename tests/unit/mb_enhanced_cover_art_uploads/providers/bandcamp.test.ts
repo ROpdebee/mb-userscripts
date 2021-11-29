@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { BandcampProvider } from '@src/mb_enhanced_cover_art_uploads/providers/bandcamp';
 import { getImageDimensions } from '@src/mb_enhanced_cover_art_uploads/image_dimensions';
 

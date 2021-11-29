@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { QobuzProvider } from '@src/mb_enhanced_cover_art_uploads/providers/qobuz';
 
 import { setupPolly } from '@test-utils/pollyjs';

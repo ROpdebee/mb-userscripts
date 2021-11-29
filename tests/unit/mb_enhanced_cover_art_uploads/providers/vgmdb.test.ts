@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { convertCaptions, mapJacketType, VGMdbProvider } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
 
 import { setupPolly } from '@test-utils/pollyjs';

@@ -2,7 +2,8 @@ import { gmxhr, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import type { FetchedImage } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
-import { ArtworkTypeIDs, CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
 import { createCoverArt, createImageFile, createXhrResponse } from './test-utils/dummy-data';
 
