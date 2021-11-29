@@ -4,6 +4,8 @@ services:
     database:
         image: ghcr.io/ropdebee/musicbrainz-docker_db:12
         container_name: mb_database
+        command: postgres -c "shared_buffers=2048MB" -c "shared_preload_libraries=pg_amqp.so"
+        shm_size: 2GB
         volumes:
             - pgdata:/var/lib/postgresql/data
         expose:
@@ -56,7 +58,7 @@ services:
         healthcheck:
             test: curl --fail http://localhost:5000 || exit 1
             timeout: 45s
-            interval: 10s
+            interval: 5s
             retries: 10
 
     # Reverse proxy to host MB server on HTTP and HTTPS. We need a reverse
