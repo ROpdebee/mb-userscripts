@@ -1,5 +1,6 @@
 import { filterNonNull } from '@lib/util/array';
-import { ArtworkTypeIDs, ProviderWithTrackImages } from './base';
+import { ProviderWithTrackImages } from './base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import type { CoverArt } from './base';
 import { safeParseJSON } from '@lib/util/json';
 import { assert } from '@lib/util/assert';

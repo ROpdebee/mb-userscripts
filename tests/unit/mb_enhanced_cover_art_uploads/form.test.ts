@@ -2,8 +2,8 @@ import path from 'path';
 import fs from 'fs/promises';
 
 import $ from 'jquery';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { enqueueImages, fillEditNote } from '@src/mb_enhanced_cover_art_uploads/form';
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { EditNote } from '@lib/MB/EditNote';
 import { createFetchedImage, createImageFile } from './test-utils/dummy-data';
 

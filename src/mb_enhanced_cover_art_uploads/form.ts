@@ -1,10 +1,12 @@
+import type { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import type { EditNote } from '@lib/MB/EditNote';
 import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';
-import { cloneIntoPageContext, getFromPageContext } from '@src/compat';
 import { qs, qsa } from '@lib/util/dom';
-import type { EditNote } from '@lib/MB/EditNote';
+
+import { cloneIntoPageContext, getFromPageContext } from '@src/compat';
+
 import type { FetchedImage, FetchedImages } from './fetch';
-import type { ArtworkTypeIDs } from './providers/base';
 
 export async function enqueueImages({ images }: FetchedImages, defaultTypes: ArtworkTypeIDs[] = [], defaultComment = ''): Promise<void> {
     await Promise.all(images.map((image) => {

@@ -1,5 +1,5 @@
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { AppleMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/apple_music';
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 

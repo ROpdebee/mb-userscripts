@@ -1,8 +1,10 @@
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { assertHasValue } from '@lib/util/assert';
 import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 
 import type { CoverArt } from './base';
-import { ArtworkTypeIDs, CoverArtProvider } from './base';
-import { assertHasValue } from '@lib/util/assert';
+import { CoverArtProvider } from './base';
+
 
 export class RateYourMusicProvider extends CoverArtProvider {
     supportedDomains = ['rateyourmusic.com'];

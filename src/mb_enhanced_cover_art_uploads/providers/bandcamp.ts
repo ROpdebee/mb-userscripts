@@ -1,11 +1,12 @@
 import pThrottle from 'p-throttle';
 
 import { LOGGER } from '@lib/logging/logger';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { filterNonNull } from '@lib/util/array';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 
 import type { CoverArt, ParsedTrackImage } from './base';
-import { ArtworkTypeIDs, ProviderWithTrackImages } from './base';
+import { ProviderWithTrackImages } from './base';
 import { getImageDimensions } from '../image_dimensions';
 
 export class BandcampProvider extends ProviderWithTrackImages {

@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { DeezerProvider } from '@src/mb_enhanced_cover_art_uploads/providers/deezer';
 
 import { itBehavesLike } from '@test-utils/shared_behaviour';
