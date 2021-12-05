@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.11.24
+// @version      2021.12.5
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1561,7 +1561,7 @@
         var _pageContent$match,
             _this2 = this;
 
-        var embeddedImages = (_pageContent$match = pageContent.match(/^'colorImages': { 'initial': (.+)},$/m)) === null || _pageContent$match === void 0 ? void 0 : _pageContent$match[1];
+        var embeddedImages = (_pageContent$match = pageContent.match(/'colorImages': { 'initial': (.+)},$/m)) === null || _pageContent$match === void 0 ? void 0 : _pageContent$match[1];
 
         if (!embeddedImages) {
           LOGGER.warn('Failed to extract Amazon images from the embedded JS, falling back to thumbnails');
