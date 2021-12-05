@@ -91,7 +91,7 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     extractFromEmbeddedJS(pageContent: string): CoverArt[] | undefined {
-        const embeddedImages = pageContent.match(/^'colorImages': { 'initial': (.+)},$/m)?.[1];
+        const embeddedImages = pageContent.match(/'colorImages': { 'initial': (.+)},$/m)?.[1];
         if (!embeddedImages) {
             LOGGER.warn('Failed to extract Amazon images from the embedded JS, falling back to thumbnails');
             return;
