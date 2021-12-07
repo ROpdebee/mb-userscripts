@@ -60,7 +60,7 @@
     "eslint": "8.3.0",
     "eslint-plugin-jest": "25.3.0",
     "eslint-plugin-jest-formatting": "3.1.0",
-    "jest": "27.3.1",
+    "jest": "27.4.3",
     "jest-extended": "1.1.0",
     "jest-html-reporters": "2.1.6",
     "jest-when": "3.4.2",
