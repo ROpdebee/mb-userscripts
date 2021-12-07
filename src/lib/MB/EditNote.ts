@@ -16,7 +16,7 @@ export class EditNote {
         // Maybe kept from page reload
         const existingInfoBlock = this.#editNoteTextArea.value.split(separator)[0];
         if (existingInfoBlock) {
-            this.#extraInfoLines = new Set(existingInfoBlock.split('\n').map((l) => l.trimRight()));
+            this.#extraInfoLines = new Set(existingInfoBlock.split('\n').map((l) => l.trimEnd()));
         } else {
             this.#extraInfoLines = new Set();
         }
