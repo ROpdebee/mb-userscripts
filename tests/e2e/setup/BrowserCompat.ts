@@ -100,12 +100,14 @@ class BrowserCompat extends Helper {
         // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
         const fieldEls = await (this._webdriver._locate(selector) as unknown as Promise<WebdriverIO.ElementArray>);
 
-        // The Selenoid image for FF52 does not support setting clipboard values
+        // We can't use setValue because it types out every character
+        // individually, we want them all at once.
+
+        // Old Selenoid images do not support setting clipboard values, so set
+        // the value programmatically by running JS on the page.
         const browserInfo = getBrowserVersion(this._browser);
-        if (browserInfo.name === 'firefox' && browserInfo.major <= 52) {
-            // Unfortunately we can't just use setValue for FF52, like other browsers,
-            // it types each character individually. Need to circumvent this
-            // using JS running on the page.
+        if ((browserInfo.name === 'firefox' && browserInfo.major <= 52)
+            || (browserInfo.name === 'chrome' && browserInfo.major <= 64)) {
             await this._browser.executeScript(`
                 arguments[0].value = arguments[1];
                 arguments[0].dispatchEvent(new Event('input'));
