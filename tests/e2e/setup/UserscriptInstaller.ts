@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import Helper from '@codeceptjs/helper';
-import { retryTimes } from '../../../src/lib/util/async';
+import { retryTimes } from '@lib/util/async';
 
 module.exports = class UserscriptInstaller extends Helper {
     alreadyRan = false;

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 require('ts-node').register({
     transpileOnly: true,
+    require: ['tsconfig-paths/register'],
 });
 const installUserscriptEngine = require('./tests/e2e/setup/UserscriptAddons').default;
 
