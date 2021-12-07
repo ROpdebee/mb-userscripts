@@ -110,7 +110,7 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     extractFromEmbeddedJSGallery(pageContent: string): CoverArt[] | undefined {
-        const embeddedGallery = pageContent.match(/^'imageGalleryData' : (.+),$/m)?.[1];
+        const embeddedGallery = pageContent.match(/'imageGalleryData' : (.+),$/m)?.[1];
         if (!embeddedGallery) {
             LOGGER.warn('Failed to extract Amazon images from the embedded JS (audio)book gallery');
             return;
