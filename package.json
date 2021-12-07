@@ -82,6 +82,7 @@
     "simple-git": "2.47.0",
     "terser": "5.10.0",
     "tmp-promise": "^3.0.3",
+    "ts-enum-util": "^4.0.2",
     "ts-jest": "27.0.7",
     "ts-node": "10.4.0",
     "tsconfig-paths": "^3.12.0",

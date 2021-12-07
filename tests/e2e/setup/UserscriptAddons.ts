@@ -6,11 +6,11 @@ import { promisify } from 'util';
 
 import { container } from 'codeceptjs';
 import FirefoxProfile from 'firefox-profile';
+import { dynamicImport } from './superUglyNodeModulesESMImportWorkaround';
 
-// Ugly workaround for TS issue where it transpiles dynamic imports to require()
-// calls, leading to node errors.
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-const fetch: Promise<typeof import('node-fetch')['default']> = eval('import("node-fetch").then((mod) => mod.default);');
+type nodeFetchType = typeof import('node-fetch')['default'];
+const fetch = dynamicImport<nodeFetchType>('node-fetch', 'default');
 
 export default async function installUserscriptEngine(browserName: string, browserVersion: string, userscriptManagerName: string): Promise<void> {
     switch (browserName) {

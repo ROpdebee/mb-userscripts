@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import Helper from '@codeceptjs/helper';
 import { retryTimes } from '@lib/util/async';
 
-module.exports = class UserscriptInstaller extends Helper {
+class UserscriptInstaller extends Helper {
     alreadyRan = false;
 
     override async _before(): Promise<void> {
@@ -241,4 +241,8 @@ module.exports = class UserscriptInstaller extends Helper {
             `, [`http://userscriptserver/${userscriptFilename}`]);
         }
     }
-};
+}
+
+// Dual export to satisfy both Codecept and Typescript.
+module.exports = UserscriptInstaller;
+export default UserscriptInstaller;
