@@ -7,7 +7,6 @@ import { CustomError } from 'ts-custom-error';
 type LimitedGMXHROptions = Omit<GM.Request, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'|'method'|'url'>;
 
 interface GMXHROptions extends LimitedGMXHROptions {
-    responseType?: XMLHttpRequestResponseType;
     // eslint-disable-next-line no-restricted-globals
     method?: GM.Request['method'];
 }
