@@ -1,9 +1,5 @@
 dist/**
+coverage/*
 # Ignore top-level scripts for now
 mb_*.js
 lib/*
-
-# Specifically allowlist the commit_release file in the GH directory
-!.github
-.github/*
-!.github/commit_release.ts

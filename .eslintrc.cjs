@@ -12,10 +12,12 @@ module.exports = {
     ],
     plugins: [
         '@typescript-eslint',
+        '@delagen/deprecation',
     ],
     parserOptions: {
         ecmaVersion: 12,
         sourceType: 'module',
+        project: './tsconfig.json',
     },
     rules: {
         'indent': [
@@ -43,6 +45,7 @@ module.exports = {
         ],
         'jest/unbound-method': ['off'],
         'no-restricted-globals': ['error', 'origin'].concat(restrictedGlobals),
+        '@delagen/deprecation/deprecation': ['warn'],
     },
     overrides: [
         {
