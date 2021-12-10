@@ -152,7 +152,7 @@ Scenario('it recognises redirects', ({ I, login, AddCoverArtPage }) => {
         comment: '',
         contentDigest: '48820510391c6213ffba5f2ce988e3d2',
     });
-    AddCoverArtPage.hasEditNote('https://archive.org/download/mbid-9370fe78-42f6-4ec2-9843-da86c6269f39/mbid-9370fe78-42f6-4ec2-9843-da86c6269f39-28553861546_thumb.jpg\n→ Redirected to https://ia\\d+.us.archive.org/\\d+/items/mbid-9370fe78-42f6-4ec2-9843-da86c6269f39/mbid-9370fe78-42f6-4ec2-9843-da86c6269f39-28553861546_thumb.jpg');
+    AddCoverArtPage.hasEditNote(/https:\/\/archive\.org\/download\/mbid-9370fe78-42f6-4ec2-9843-da86c6269f39\/mbid-9370fe78-42f6-4ec2-9843-da86c6269f39-28553861546_thumb\.jpg\n→ Redirected to https:\/\/ia\d+\.us\.archive\.org\/\d+\/items\/mbid-9370fe78-42f6-4ec2-9843-da86c6269f39\/mbid-9370fe78-42f6-4ec2-9843-da86c6269f39-28553861546_thumb\.jpg/);
 }).inject({
     AddCoverArtPage: require('./AddCoverArtPage'),
 });

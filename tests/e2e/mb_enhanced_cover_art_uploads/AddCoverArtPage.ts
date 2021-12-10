@@ -2,6 +2,7 @@ import { createHash } from 'crypto';
 import expect from 'expect';
 import { $enum } from 'ts-enum-util';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { assertDefined } from '@lib/util/assert';
 
 const { I } = inject();
 
@@ -66,18 +67,29 @@ const pageObject = {
         });
     },
 
-    async hasEditNote(expectedEditNoteBody: string): Promise<void> {
-        const fullEditNoteRegexp = new RegExp(`${expectedEditNoteBody}
-–
+    async hasEditNote(expectedEditNoteBody: string | RegExp): Promise<void> {
+        const footerRegex = new RegExp(`–
 MB: Enhanced Cover Art Uploads [\\d\\.]+
-https://github.com/ROpdebee/mb-userscripts`);
+https://github\\.com/ROpdebee/mb-userscripts$`);
 
         // Don't use seeInField since we need to match a regex due to the
         // script version, as well as for the reasons stated in the comment
         // check above.
         I.useWebDriverTo('see that edit note is correct', async ({ browser }) => {
-            const actualEditNote = await browser.$(this.fields.editNote).then((el) => el.getValue());
-            expect(actualEditNote.trim()).toMatch(fullEditNoteRegexp);
+            const actualEditNote = await browser.$(this.fields.editNote)
+                .then((el) => el.getValue())
+                .then((val) => val.trim());
+            if (typeof expectedEditNoteBody === 'string') {
+                const endIdx = expectedEditNoteBody.length;
+                expect(actualEditNote.slice(0, endIdx)).toBe(expectedEditNoteBody);
+                expect(actualEditNote.slice(endIdx).trim()).toMatch(new RegExp(`^${footerRegex.source}`));
+            } else {
+                const match = actualEditNote.match(footerRegex);
+                expect(match).toBeTruthy();
+                const endIdx = match?.index;
+                assertDefined(endIdx);
+                expect(actualEditNote.slice(0, endIdx).trim()).toMatch(expectedEditNoteBody);
+            }
         });
     },
 
