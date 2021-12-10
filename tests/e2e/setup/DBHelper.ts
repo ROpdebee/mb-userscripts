@@ -38,19 +38,20 @@ const EXEC_SCRIPT_PATH = _pathToContainerPath(path.resolve(__dirname, './exec_ps
 
 class DBHelper extends Helper<Options> {
     _resetDbOnNextRun = false;
-    _revertScript?: string;
+    _revertScriptPath?: string;
 
     override async _init(): Promise<void> {
         event.dispatcher.on(event.all.before, () => {
             recorder.add(async () => {
-                await this._resetDb();
+                await execInMBContainer(`bash ${PREP_SCRIPT_PATH}`);
                 console.info('Done setting up Musicbrainz database');
             });
         });
     }
 
-    _validateOptions(): Options {
-        const opts = { ...this.config, ...(this.options ?? {}) };
+    _validateOptions(suite: Mocha.Suite): Options {
+        // @ts-expect-error Incomplete type definitions
+        const opts: Options = suite.config?.DB ?? {};
         if (opts.revertSql && !opts.extraSql) {
             throw new Error('Cannot have `revertSql` without `extraSql`');
         }
@@ -63,35 +64,43 @@ class DBHelper extends Helper<Options> {
         return _pathToContainerPath(fullPath);
     }
 
-    async _resetDb(): Promise<void> {
-        await execInMBContainer(`bash ${PREP_SCRIPT_PATH}`);
-    }
-
     override async _beforeSuite(suite: Mocha.Suite): Promise<void> {
-        const options = this._validateOptions();
+        // We may need to do the clean up in the before hook of the next suite
+        // as the after hook of the original suite might not get called under
+        // some circumstances. This might lead to failures in the next suite.
+        if (this._resetDbOnNextRun) {
+            await this._resetDb();
+        }
+
+        const options = this._validateOptions(suite);
         if (options.extraSql) {
             const sqlPath = this._getSqlScriptContainerPath(suite, options.extraSql);
             await execInMBContainer(`bash ${EXEC_SCRIPT_PATH} "${sqlPath}"`);
             this._resetDbOnNextRun = true;
             // Codecept doesn't seem to propagate suite-specific options to the
             // afterSuite hook, so we'll have to store it.
-            this._revertScript = options.revertSql;
+            if (options.revertSql) {
+                // Need to provide full path because next suite may be in different file
+                this._revertScriptPath = this._getSqlScriptContainerPath(suite, options.revertSql);
+            }
             console.info(`Inserted suite-specific DB data \`${options.extraSql}\``);
         }
     }
 
-    override async _afterSuite(suite: Mocha.Suite): Promise<void> {
+    override async _afterSuite(): Promise<void> {
         if (!this._resetDbOnNextRun) return;
+        await this._resetDb();
+    }
 
-        if (this._revertScript) {
+    async _resetDb(): Promise<void> {
+        if (this._revertScriptPath) {
             // Undo via revert script, which should be faster than truncating
             // the whole database.
-            const sqlPath = this._getSqlScriptContainerPath(suite, this._revertScript);
-            await execInMBContainer(`bash ${EXEC_SCRIPT_PATH} "${sqlPath}"`);
-            console.info('Removed suite-specific DB data');
+            await execInMBContainer(`bash ${EXEC_SCRIPT_PATH} "${this._revertScriptPath}"`);
+            console.info('Reverted specific DB data');
         } else {
-            await this._resetDb();
-            console.info('Reset DB after suite-specific DB data');
+            await execInMBContainer(`bash ${PREP_SCRIPT_PATH}`);
+            console.info('Reset DB to clean up specific DB data. Consider adding a revert script for additional performance.');
         }
 
         this._resetDbOnNextRun = false;

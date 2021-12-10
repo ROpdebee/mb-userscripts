@@ -19,3 +19,4 @@ OUTPUT=`echo "$CANCEL_QUERY" | ./admin/psql 2>&1` || ( echo "$OUTPUT" && exit 1 
 
 echo `date` : Inserting our custom test data
 OUTPUT=`./admin/psql < "$EXTRA_SQL" 2>&1` || ( echo "$OUTPUT" && exit 1 )
+echo "$OUTPUT"
