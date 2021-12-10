@@ -1,9 +1,10 @@
 // GM_xmlhttpRequest adapter for pollyjs
-import type { Headers as PollyHeaders, Request, Response } from '@pollyjs/core';
+import type { Headers as PollyHeaders, Request } from '@pollyjs/core';
 import { Buffer } from 'buffer';
 import Adapter from '@pollyjs/adapter';
 import fetch from 'node-fetch';
 import { mockGMxmlHttpRequest } from './gm_mocks';
+import { assertDefined } from '@lib/util/assert';
 
 function pollyHeadersToString(headers: PollyHeaders): string {
     return Object.entries(headers).flatMap(([k, v]) => {
@@ -30,31 +31,32 @@ function fetchHeadersToPollyHeaders(fetchHeaders: Headers): PollyHeaders {
     return pollyHeaders;
 }
 
-export default class GMXHRAdapter extends Adapter {
+type RequestType<Context> = Request<GM.Request<Context>>
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Context>> {
 
     static override get id(): string {
         return 'GM_xmlhttpRequest';
     }
 
-    onConnect(): void {
-        mockGMxmlHttpRequest.mockImplementation((options: GM.Request<unknown>): void => {
-            // @ts-expect-error bad type defs
+    override onConnect = (): void => {
+        mockGMxmlHttpRequest.mockImplementation((options: GM.Request<Context>): void => {
             this.handleRequest({
                 url: options.url,
                 method: options.method,
-                headers: options.headers,
+                headers: options.headers ?? {},
                 body: options.data,
                 requestArguments: options,
             });
         });
-    }
+    };
 
-    onDisconnect(): void {
+    override onDisconnect = (): void => {
         mockGMxmlHttpRequest.mockRestore();
-    }
+    };
 
-    override async passthroughRequest(pollyRequest: Request): ReturnType<Adapter['passthroughRequest']> {
-        // @ts-expect-error bad type defs
+    override async onFetchResponse(pollyRequest: RequestType<Context>): ReturnType<Adapter['onFetchResponse']> {
         const { responseType } = pollyRequest.requestArguments;
         const headers = pollyHeadersToFetchHeaders(pollyRequest.headers);
         const resp = await fetch(pollyRequest.url, {
@@ -67,34 +69,24 @@ export default class GMXHRAdapter extends Adapter {
         // Storing the final URL after redirect, see `passthroughRealGMXHR`.
         pollyHeaders['x-pollyjs-finalurl'] = resp.url;
 
-        if (!responseType || responseType === 'text') {
-            return {
-                statusCode: resp.status,
-                headers: pollyHeaders,
-                body: await resp.text(),
-                // @ts-expect-error bad type defs
-                isBinary: false,
-            };
-        } else {
-            const arrayBuffer = await resp.arrayBuffer();
-            const buffer = Buffer.from(arrayBuffer);
-            return {
-                statusCode: resp.status,
-                headers: pollyHeaders,
-                body: buffer.toString('hex'),
-                // @ts-expect-error bad type defs
-                isBinary: true,
-            };
-        }
+        const arrayBuffer = await resp.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const isBinary = responseType && responseType !== 'text';
+        return {
+            statusCode: resp.status,
+            headers: pollyHeaders,
+            body: buffer.toString(isBinary ? 'base64' : 'utf8'),
+            encoding: isBinary ? 'base64' : undefined,
+        };
     }
 
-    respondToRequest(pollyRequest: Request, error?: GM.Response<never>): void {
-        // @ts-expect-error bad type defs
-        const response = pollyRequest.response as Response;
-        // @ts-expect-error bad type defs
-        const options = pollyRequest.requestArguments as GM.Request<never>;
-        // @ts-expect-error bad type defs
+    override onRespond = async (pollyRequest: RequestType<Context>, error?: Error): Promise<void> => {
+        if (error) throw error;
+
+        const response = pollyRequest.response;
+        const options = pollyRequest.requestArguments;
         const responseType = options.responseType;
+        assertDefined(response);
 
         // Extract the final URL from the headers. We stored these in
         // the passthrough
@@ -103,43 +95,39 @@ export default class GMXHRAdapter extends Adapter {
         const finalUrl = headers['x-pollyjs-finalurl'] ?? options.url;
         delete headers['x-pollyjs-finalUrl'];
 
-        if (error) {
-            options.onerror?.(error);
-        } else {
-            const resp: GM.Response<never> = {
-                readyState: 4,
-                responseHeaders: pollyHeadersToString(headers),
-                status: response.statusCode,
-                statusText: response.statusText,
-                finalUrl: Array.isArray(finalUrl) ? finalUrl[0] : finalUrl,
-                context: options.context,
-                responseXML: false,
-                responseText: '',
-                response: null,
-            };
+        const resp: GM.Response<Context> = {
+            readyState: 4,
+            responseHeaders: pollyHeadersToString(headers),
+            status: response.statusCode,
+            statusText: response.statusText,
+            finalUrl: Array.isArray(finalUrl) ? finalUrl[0] : finalUrl,
+            context: options.context,
+            responseXML: false,
+            responseText: '',
+            response: null,
+        };
 
-            if (response.isBinary) {
-                const buffer = Buffer.from(response.body as string, 'hex');
-                const arrayBuffer = Uint8Array.from(buffer);
-                if (responseType === 'blob') {
-                    options.onload?.({
-                        ...resp,
-                        response: new Blob([arrayBuffer]),
-                    });
-                } else if (responseType === 'arraybuffer') {
-                    options.onload?.({
-                        ...resp,
-                        response: arrayBuffer,
-                    });
-                } else {
-                    throw new Error('Unknown response type: ' + responseType);
-                }
-            } else {
+        if (response.encoding === 'base64') {
+            const buffer = Buffer.from(response.body ?? '', 'base64');
+            const arrayBuffer = Uint8Array.from(buffer);
+            if (responseType === 'blob') {
                 options.onload?.({
                     ...resp,
-                    responseText: response.body as string,
+                    response: new Blob([arrayBuffer]),
                 });
+            } else if (responseType === 'arraybuffer') {
+                options.onload?.({
+                    ...resp,
+                    response: arrayBuffer,
+                });
+            } else {
+                throw new Error('Unknown response type: ' + responseType);
             }
+        } else {
+            options.onload?.({
+                ...resp,
+                responseText: response.body as string,
+            });
         }
-    }
+    };
 }

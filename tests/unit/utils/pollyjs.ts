@@ -10,8 +10,10 @@ import type { RequestInfo, RequestInit, Response } from 'node-fetch';
 
 export function setupPolly(overrideOptions?: PollyConfig): Context {
     return realSetupPolly({
+        // @ts-expect-error bad type declarations?
         adapters: [GMXHRAdapter],
         recordIfMissing: true,
+        // @ts-expect-error bad type declarations?
         persister: FSPersister,
         persisterOptions: {
             fs: {
