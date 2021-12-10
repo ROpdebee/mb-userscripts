@@ -69,6 +69,12 @@ function overrideFirefoxCommands(browser: WebdriverIO.BrowserObject): void {
     browser.overwriteCommand('sendAlertText', async (_originalCommand, text: string) => {
         return newSendAlertTextCommand.call(client, text.split(''));
     });
+
+    // WDIO uses getElementAttribute to get the value on FF52, but it needs to
+    // use getElementProperty.
+    browser.overwriteCommand('getValue', async function(this: WebdriverIO.Element) {
+        return this.getProperty('value');
+    }, true);
 }
 
 function addWaitUntilNumberOfWindows(browser: WebdriverIO.BrowserObject): void {

@@ -55,12 +55,13 @@ const pageObject = {
             });
 
             // Check that comment value matches the one we expect
-            // We can't use I.seeInField because it errors if the value is unset.
+            // We can't use I.seeInField because it can use the wrong method to
+            // retrieve values (`getElementAttribute`), which may not work on
+            // some browsers. Moreover, it does a partial match, we need a full
+            // comparison.
             I.useWebDriverTo('see that comment is correct', async ({ browser }) => {
                 const comment = await browser.$('input.comment').then((inp) => inp.getValue());
-                // Some browsers might return null in getValue
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                expect(comment ?? '').toBe(expectedArtwork.comment);
+                expect(comment).toBe(expectedArtwork.comment);
             });
         });
     },
@@ -72,11 +73,11 @@ MB: Enhanced Cover Art Uploads [\\d\\.]+
 https://github.com/ROpdebee/mb-userscripts`);
 
         // Don't use seeInField since we need to match a regex due to the
-        // script version.
+        // script version, as well as for the reasons stated in the comment
+        // check above.
         I.useWebDriverTo('see that edit note is correct', async ({ browser }) => {
             const actualEditNote = await browser.$(this.fields.editNote).then((el) => el.getValue());
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            expect(actualEditNote?.trim() ?? '').toMatch(fullEditNoteRegexp);
+            expect(actualEditNote.trim()).toMatch(fullEditNoteRegexp);
         });
     },
 
