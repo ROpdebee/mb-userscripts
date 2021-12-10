@@ -12,7 +12,6 @@ import { findImagesSpec } from './find_images_spec';
 describe('musicbrainz provider', () => {
     const provider = new MusicBrainzProvider();
     const pollyContext = setupPolly({
-        // @ts-expect-error bad type declarations
         adapters: [HttpAdapter],
         recordFailedRequests: true,
     });
