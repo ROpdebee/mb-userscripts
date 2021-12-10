@@ -171,7 +171,7 @@ export class ImageFetcher {
     }
 
     #createUniqueFilename(filename: string, mimeType: string): string {
-        const filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif)$/i, '');
+        const filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif|pdf)$/i, '');
         return `${filenameWithoutExt}.${this.#lastId++}.${mimeType.split('/')[1]}`;
     }
 
