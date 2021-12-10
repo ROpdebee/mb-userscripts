@@ -2,10 +2,15 @@ import fs from 'fs/promises';
 import Helper from '@codeceptjs/helper';
 import { retryTimes } from '@lib/util/async';
 
-class UserscriptInstaller extends Helper {
+interface Config {
+    userscriptManagerBaseUrl: string;
+    userscriptManagerName: string;
+}
+
+class UserscriptInstaller extends Helper<Config> {
     alreadyRan = false;
 
-    override async _before(): Promise<void> {
+    override async _beforeSuite(): Promise<void> {
         const { WebDriver } = this.helpers;
         // If the browser doesn't get restarted between tests and we already
         // installed the userscripts, then we don't need to do it again.
@@ -14,6 +19,7 @@ class UserscriptInstaller extends Helper {
         const userscriptFilenames = (await fs.readdir('./dist'))
             .filter((fileName) => fileName.endsWith('.user.js'));
         await this.installUserscripts(userscriptFilenames);
+        console.info('Done installing userscripts');
 
         this.alreadyRan = true;
     }
@@ -21,7 +27,6 @@ class UserscriptInstaller extends Helper {
     async installUserscripts(userscriptFilenames: string[]): Promise<void> {
         const { WebDriver } = this.helpers;
         const browser: WebdriverIO.BrowserObject = WebDriver.browser;
-        // @ts-expect-error incomplete declarations
         const config = this.config;
         const addonBaseUrl: string = config.userscriptManagerBaseUrl;
         const userscriptManagerName: string = config.userscriptManagerName;

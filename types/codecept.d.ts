@@ -17,4 +17,9 @@ declare namespace CodeceptJS {
     namespace Translation {
         interface Actions {}
     }
+
+    interface Helper<HelperOptions = never> {
+        options: HelperOptions | undefined;
+        config: HelperOptions;
+    }
 }

@@ -86,7 +86,7 @@ function addWaitUntilNumberOfWindows(browser: WebdriverIO.BrowserObject): void {
 }
 
 class BrowserCompat extends Helper {
-    override _before(): void {
+    override _beforeSuite(): void {
         overrideFirefoxCommands(this._browser);
         addWaitUntilNumberOfWindows(this._browser);
     }

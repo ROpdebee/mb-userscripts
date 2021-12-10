@@ -31,6 +31,9 @@ exports.config = {
             require: './tests/e2e/setup/UserscriptInstaller',
             userscriptManagerName: userscriptManagerName,
         },
+        DB: {
+            require: './tests/e2e/setup/DBHelper',
+        },
     },
     bootstrap: async () => installUserscriptEngine(browserName, browserVersion, userscriptManagerName),
     name: 'mb-userscripts',
@@ -48,10 +51,6 @@ exports.config = {
         stepByStepReport: {
             enabled: !process.env.CI,
             deleteSuccessful: false,
-        },
-        musicbrainzDatabase: {
-            require: './tests/e2e/setup/DBPlugin',
-            enabled: true,
         },
         autoLogin: {
             enabled: true,
