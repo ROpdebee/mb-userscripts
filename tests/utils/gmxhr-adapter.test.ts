@@ -7,10 +7,8 @@ import GMXHRAdapter from './gmxhr-adapter';
 describe('gmxhr adapter', () => {
     // eslint-disable-next-line jest/require-hook
     setupPolly({
-        // @ts-expect-error bad type declarations
         adapters: [GMXHRAdapter],
         recordIfMissing: true,
-        // @ts-expect-error bad type declarations?
         persister: FSPersister,
         persisterOptions: {
             fs: {

@@ -8,7 +8,6 @@ import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 // the API, we'll know it too.
 // eslint-disable-next-line jest/require-hook
 const pollyContext = setupPolly({
-    // @ts-expect-error bad type declarations
     adapters: [HttpAdapter],
 });
 
