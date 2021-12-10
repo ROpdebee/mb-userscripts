@@ -7,7 +7,8 @@ const { I } = inject();
 
 export interface ExpectedArtworkType {
     name: string;
-    contentDigest: string;
+    // Can be undefined for PDFs, as their payload is a static image.
+    contentDigest?: string;
     types: ArtworkTypeIDs[];
     comment: string;
 }
@@ -18,8 +19,13 @@ const pageObject = {
     fields: {
         pasteUrl: 'input#ROpdebee_paste_url',
         frontOnly: 'input#ROpdebee_paste_front_only',
+        editNote: '[id="id-add-cover-art.edit_note"]',
     },
     addFilesContainer: '.add-files.row',
+
+    hasNumberOfQueuedArtworks(expectedNumber: number): void {
+        I.seeNumberOfElements({ css: '.uploader-preview-column' }, expectedNumber);
+    },
 
     async hasQueuedArtwork(expectedArtwork: ExpectedArtworkType): Promise<void> {
         // Ambiguity should not arise as we inject unique names.
@@ -33,9 +39,11 @@ const pageObject = {
 
         await within(rowLocator, async () => {
             // We found the image, now check its payload
-            const imgSrc = await I.grabAttributeFrom({ css: '.uploader-preview-column > img' }, 'src');
-            const imgDigest = createHash('md5').update(imgSrc.split(',')[1], 'base64').digest('hex');
-            expect(imgDigest).toBe(expectedArtwork.contentDigest);
+            if (typeof expectedArtwork.contentDigest !== 'undefined') {
+                const imgSrc = await I.grabAttributeFrom({ css: '.uploader-preview-column > img' }, 'src');
+                const imgDigest = createHash('md5').update(imgSrc.split(',')[1], 'base64').digest('hex');
+                expect(imgDigest).toBe(expectedArtwork.contentDigest);
+            }
 
             // Check whether the checked types matches the ones we expect
             $enum(ArtworkTypeIDs).forEach((value) => {
@@ -55,7 +63,22 @@ const pageObject = {
                 expect(comment ?? '').toBe(expectedArtwork.comment);
             });
         });
-    }
+    },
+
+    async hasEditNote(expectedEditNoteBody: string): Promise<void> {
+        const fullEditNoteRegexp = new RegExp(`${expectedEditNoteBody}
+–
+MB: Enhanced Cover Art Uploads [\\d\\.]+
+https://github.com/ROpdebee/mb-userscripts`);
+
+        // Don't use seeInField since we need to match a regex due to the
+        // script version.
+        I.useWebDriverTo('see that edit note is correct', async ({ browser }) => {
+            const actualEditNote = await browser.$(this.fields.editNote).then((el) => el.getValue());
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            expect(actualEditNote?.trim() ?? '').toMatch(fullEditNoteRegexp);
+        });
+    },
 
 };
 
