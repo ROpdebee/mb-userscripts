@@ -1,6 +1,5 @@
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-// @ts-expect-error rewired
-import { QobuzProvider, __set__ } from '@src/mb_enhanced_cover_art_uploads/providers/qobuz';
+import { QobuzProvider } from '@src/mb_enhanced_cover_art_uploads/providers/qobuz';
 
 import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
@@ -97,7 +96,9 @@ describe('qobuz provider', () => {
             });
 
             it('throws on invalid app ID', async () => {
-                __set__('QOBUZ_APP_ID', '123');
+                const spyAppId = jest.spyOn(QobuzProvider, 'QOBUZ_APP_ID', 'get');
+                spyAppId.mockReturnValueOnce('123');
+
                 pollyContext.polly.configure({
                     recordFailedRequests: true,
                 });

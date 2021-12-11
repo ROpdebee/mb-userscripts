@@ -23,7 +23,7 @@ interface AlbumMetadata {
 // type, list of types, or type with additional information
 type MappedArtwork = ArtworkTypeIDs | ArtworkTypeIDs[] | { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
 
-function mapJacketType(caption: string): MappedArtwork {
+export /* for tests */ function mapJacketType(caption: string): MappedArtwork {
     if (!caption) {
         return {
             type: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine],
