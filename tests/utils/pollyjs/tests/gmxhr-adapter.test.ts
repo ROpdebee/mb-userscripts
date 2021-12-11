@@ -1,17 +1,17 @@
 import path from 'path';
 import { setupPolly } from 'setup-polly-jest';
-import FSPersister from '@pollyjs/persister-fs';
 
 import GMXHRAdapter from '@test-utils/pollyjs/gmxhr-adapter';
+import { WarcPersister } from '../warc-persister';
 
 describe('gmxhr adapter', () => {
     // eslint-disable-next-line jest/require-hook
     setupPolly({
         adapters: [GMXHRAdapter],
         recordIfMissing: true,
-        persister: FSPersister,
+        persister: WarcPersister,
         persisterOptions: {
-            fs: {
+            'fs-warc': {
                 recordingsDir: path.resolve('.', 'tests', 'test-data', '__recordings__'),
             },
         },
