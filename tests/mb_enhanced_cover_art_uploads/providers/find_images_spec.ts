@@ -38,15 +38,17 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
         registerMatchers();
     });
 
-    it.each(extractionCases)('extracts covers for $desc', async (extractionCase) => {
-        const covers = await provider.findImages(new URL(extractionCase.url), false);
+    if (extractionCases.length) {
+        it.each(extractionCases)('extracts covers for $desc', async (extractionCase) => {
+            const covers = await provider.findImages(new URL(extractionCase.url), false);
 
-        expect(covers).toBeArrayOfSize(extractionCase.numImages);
+            expect(covers).toBeArrayOfSize(extractionCase.numImages);
 
-        for (const expectedImage of extractionCase.expectedImages) {
-            expect(covers[expectedImage.index]).toMatchCoverArt(expectedImage);
-        }
-    });
+            for (const expectedImage of extractionCase.expectedImages) {
+                expect(covers[expectedImage.index]).toMatchCoverArt(expectedImage);
+            }
+        });
+    }
 
     if (extractionFailedCases.length) {
         it.each(extractionFailedCases)('throws on $desc', async (extractionFailedCase) => {

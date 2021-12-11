@@ -1,13 +1,16 @@
+import type { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { RateYourMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/rateyourmusic';
 
+import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
 
 describe('rateyourmusic provider', () => {
-    const provider = new RateYourMusicProvider();
+    const pollyContext = setupPolly();
+    const provider: CoverArtProvider = new RateYourMusicProvider();
 
     describe('url matching', () => {
         const supportedUrls = [{
@@ -30,20 +33,6 @@ describe('rateyourmusic provider', () => {
     });
 
     describe('extracting images', () => {
-        // Note that we're manually modifying the recording since the tests are
-        // not logged in.
-        const extractionCases = [{
-            desc: 'release when logged in',
-            url: 'https://rateyourmusic.com/release/album/fishmans/long-season.p/',
-            numImages: 1,
-            expectedImages: [{
-                index: 0,
-                urlPart: 'dd6dc758bde2ed6dfeb5db2b486d97c1/7461038',
-                types: [ArtworkTypeIDs.Front],
-                comment: undefined,
-            }],
-        }];
-
         const extractionFailedCases = [{
             desc: 'non-existent release',
             url: 'https://rateyourmusic.com/release/album/fishmans/long/',
@@ -54,6 +43,30 @@ describe('rateyourmusic provider', () => {
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+        itBehavesLike(findImagesSpec, { provider, extractionCases: [], extractionFailedCases, pollyContext });
+
+        it('extracts covers for release when logged in', async () => {
+            // Patch the actual response to mock being logged in.
+            pollyContext.polly.server
+                .get('https://rateyourmusic.com/release/album/fishmans/long-season.p/buy')
+                .on('beforeResponse', (req, res) => {
+                    res.body = res.body
+                        ?.replace(
+                            '<div class="qq">You must be logged in to view the full-size cover art.</div>',
+                            '<div class="qq"><b><a href="//e.snmc.io/i/fullres/w/dd6dc758bde2ed6dfeb5db2b486d97c1/7461038">View cover art</a></b></div><img id="amazon_img" alt="Fishmans - Long Season - album cover" src="//e.snmc.io/i/300/w/20903ab46ee429155c8aecb5d168f428/7461038" />')
+                        .replace(
+                            '<div class="header_profile_logged_out">',
+                            '<div class="header_profile_logged_in">');
+                });
+
+            const covers = await provider.findImages(new URL('https://rateyourmusic.com/release/album/fishmans/long-season.p/'), false);
+
+            expect(covers).toBeArrayOfSize(1);
+            expect(covers[0]).toMatchCoverArt({
+                urlPart: 'dd6dc758bde2ed6dfeb5db2b486d97c1/7461038',
+                types: [ArtworkTypeIDs.Front],
+                comment: undefined,
+            });
+        });
     });
 });
