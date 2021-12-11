@@ -29,7 +29,7 @@ const DEFAULT_OPTIONS = {
     ],
 };
 
-class GitURLs {
+export /* for tests */ class GitURLs {
     readonly #owner: string;
     readonly #repoName: string;
 
@@ -65,7 +65,7 @@ class GitURLs {
     }
 }
 
-class MetadataGenerator {
+export /* for tests */ class MetadataGenerator {
     readonly options: Readonly<_UserscriptOptionsWithDefaults>;
     readonly longestMetadataFieldLength: number;
 

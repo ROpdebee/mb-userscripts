@@ -1,6 +1,5 @@
 import { ArtworkTypeIDs } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-// @ts-expect-error rewired
-import { convertCaptions, VGMdbProvider, __get__ } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
+import { convertCaptions, mapJacketType, VGMdbProvider } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
 
 import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
@@ -32,9 +31,7 @@ describe('vgmdb provider', () => {
     });
 
     describe('mapping jacket types', () => {
-        const mapJacketType = __get__('mapJacketType');
-
-        const simpleJacketCases = [
+        const simpleJacketCases: Array<[string, ArtworkTypeIDs]> = [
             ['Front', ArtworkTypeIDs.Front],
             ['Back', ArtworkTypeIDs.Back],
             ['Spine', ArtworkTypeIDs.Spine],

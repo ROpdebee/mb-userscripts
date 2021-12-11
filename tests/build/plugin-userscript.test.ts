@@ -1,12 +1,9 @@
 import fs from 'fs';
 
-// @ts-expect-error rewired
-import { __get__ } from '../../build/plugin-userscript';
+import { GitURLs, MetadataGenerator as RealMetadataGenerator } from '../../build/plugin-userscript';
 
 
 describe('git URLs', () => {
-    const GitURLs = __get__('GitURLs');
-
     describe('constructor', () => {
         it('throw on invalid URL', () => {
             expect(() => new GitURLs('not a url'))
@@ -90,7 +87,8 @@ describe('git URLs', () => {
 });
 
 describe('metadata generator', () => {
-    const MetadataGenerator = __get__('MetadataGenerator');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const MetadataGenerator: any = RealMetadataGenerator;
     const options = {
         userscriptName: 'test',
         outputDir: 'dist',

@@ -1,13 +1,18 @@
-// @ts-expect-error rewired
-import { getMaximisedCandidates, __set__ } from '@src/mb_enhanced_cover_art_uploads/maximise';
+import * as libAsync from '@lib/util/async';
+import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/discogs';
 
-// Mock IMU. We can't mock out $$IMU_EXPORT$$, so we'll mock out the wrapped
-// function instead.
-const fakeImu = jest.fn();
+const fakeImu = jest.fn() as unknown as jest.MockedFunction<typeof $$IMU_EXPORT$$>;
+
+function setIMUResult(results: maxurlResult[]): void {
+    fakeImu.mockImplementation(async (_url, options) => {
+        options.cb?.(results);
+    });
+}
 
 beforeAll(() => {
-    __set__('maxurl', fakeImu);
+    // @ts-expect-error Mocking
+    global.$$IMU_EXPORT$$ = fakeImu;
 });
 
 beforeEach(() => {
@@ -16,7 +21,7 @@ beforeEach(() => {
 
 describe('maximising images', () => {
     it('yields the maximised image', async () => {
-        fakeImu.mockImplementation((_url, options) => options.cb?.([{ url: 'https://example.com/max' } as unknown as maxurlResult]));
+        setIMUResult([{ url: 'https://example.com/max' } as unknown as maxurlResult]);
 
         const result = await getMaximisedCandidates(new URL('https://example.com/')).next();
 
@@ -25,7 +30,7 @@ describe('maximising images', () => {
     });
 
     it('skips bad images', async () => {
-        fakeImu.mockImplementation((_url, options) => options.cb?.([{ bad: true } as unknown as maxurlResult]));
+        setIMUResult([{ bad: true } as unknown as maxurlResult]);
 
         const result = await getMaximisedCandidates(new URL('https://example.com/')).next();
 
@@ -34,7 +39,7 @@ describe('maximising images', () => {
     });
 
     it('skips broken images', async () => {
-        fakeImu.mockImplementation((_url, options) => options.cb?.([{ likely_broken: true } as unknown as maxurlResult]));
+        setIMUResult([{ likely_broken: true } as unknown as maxurlResult]);
 
         const result = await getMaximisedCandidates(new URL('https://example.com/')).next();
 
@@ -43,7 +48,7 @@ describe('maximising images', () => {
     });
 
     it('skips fake images', async () => {
-        fakeImu.mockImplementation((_url, options) => options.cb?.([{ fake: true } as unknown as maxurlResult]));
+        setIMUResult([{ fake: true } as unknown as maxurlResult]);
 
         const result = await getMaximisedCandidates(new URL('https://example.com/')).next();
 
@@ -52,7 +57,7 @@ describe('maximising images', () => {
     });
 
     it('eventually returns all images', async () => {
-        fakeImu.mockImplementation((_url, options) => options.cb?.([{ url: 'https://example.com/max' }, { url: 'https://example.com/max2' }] as unknown as maxurlResult[]));
+        setIMUResult([{ url: 'https://example.com/max' }, { url: 'https://example.com/max2' }] as unknown as maxurlResult[]);
 
         const it = getMaximisedCandidates(new URL('https://example.com/'));
         let result = await it.next();
@@ -71,11 +76,10 @@ describe('maximising images', () => {
     });
 
     it('returns no images on IMU error', async () => {
-        fakeImu.mockRejectedValueOnce(new Error('test'));
-        jest.useFakeTimers();
+        const spyRetryTimes = jest.spyOn(libAsync, 'retryTimes');
+        spyRetryTimes.mockRejectedValueOnce(new Error('test'));
 
         const it = getMaximisedCandidates(new URL('https://example.com'));
-        jest.advanceTimersByTime(55000);
 
         await expect(it.next()).resolves.toHaveProperty('done', true);
     });
@@ -100,7 +104,7 @@ describe('maximising Discogs images', () => {
 
 describe('maximising Apple Music images', () => {
     beforeAll(() => {
-        fakeImu.mockImplementation((url, options) => {
+        fakeImu.mockImplementation(async (url, options) => {
             options.cb?.([{ url } as unknown as maxurlResult]);
         });
     });
@@ -155,7 +159,7 @@ describe('maximising Apple Music images', () => {
     });
 
     it('maximises images', async () => {
-        fakeImu.mockImplementationOnce((_url, options) => {
+        fakeImu.mockImplementationOnce(async (_url, options) => {
             options.cb?.([{ url: 'https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/f1/e6/ad/f1e6adf1-fce1-a7fa-2f9c-e37e32738306/075679767103.jpg/999999999x0w-999.png' } as unknown as maxurlResult]);
         });
 

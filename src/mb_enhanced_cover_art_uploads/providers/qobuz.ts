@@ -5,11 +5,6 @@ import { gmxhr, HTTPResponseError } from '@lib/util/xhr';
 import type { CoverArt } from './base';
 import { ArtworkTypeIDs, CoverArtProvider } from './base';
 
-// Assuming this doesn't change often. If it does, we might have to extract it
-// from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
-// just use a constant app ID first.
-const QOBUZ_APP_ID = '712109809';
-
 interface Goodie {
     id: number;
     file_format_id: number;
@@ -51,6 +46,14 @@ export class QobuzProvider extends CoverArtProvider {
         /album\/[^/]+\/([A-Za-z0-9]+)(?:\/|$)/,
     ];
 
+    // Assuming this doesn't change often. If it does, we might have to extract it
+    // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
+    // just use a constant app ID first.
+    // Static getter instead of property so that we can spy on it in the tests.
+    static get QOBUZ_APP_ID(): string {
+        return '712109809';
+    }
+
     static idToCoverUrl(id: string): URL {
         const d1 = id.slice(-2);
         const d2 = id.slice(-4, -2);
@@ -62,7 +65,7 @@ export class QobuzProvider extends CoverArtProvider {
     static async getMetadata(id: string): Promise<AlbumMetadata> {
         const resp = await gmxhr(`https://www.qobuz.com/api.json/0.2/album/get?album_id=${id}&offset=0&limit=20`, {
             headers: {
-                'x-app-id': QOBUZ_APP_ID,
+                'x-app-id': QobuzProvider.QOBUZ_APP_ID,
             },
         });
 

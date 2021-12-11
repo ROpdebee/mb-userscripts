@@ -9,8 +9,7 @@ import { DiscogsProvider } from './providers/discogs';
 // userscript is executed, so $$IMU_EXPORT$$ should already exist now. However,
 // it does not exist in tests, and we can't straightforwardly inject this variable
 // without importing the module, thereby dereferencing it.
-/* istanbul ignore next: mocked out */
-function maxurl(url: string, options: maxurlOptions): Promise<void> {
+export /* for tests */ function maxurl(url: string, options: maxurlOptions): Promise<void> {
     // In environments with GM.* APIs, the GM.getValue and GM.setValue functions
     // are asynchronous, leading to IMU defining its exports asynchronously too.
     // We can't await that, unfortunately. This is only really an issue when

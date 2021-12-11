@@ -3,7 +3,6 @@
 const testConfig = {
     plugins: [
         '@babel/plugin-transform-typescript',
-        'rewire-ts',
         '@babel/plugin-transform-modules-commonjs',
     ]
 };

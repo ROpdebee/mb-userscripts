@@ -56,7 +56,6 @@
     "@types/setup-polly-jest": "0.5.1",
     "@typescript-eslint/eslint-plugin": "5.6.0",
     "@typescript-eslint/parser": "5.6.0",
-    "babel-plugin-rewire-ts": "1.4.0",
     "confusing-browser-globals": "1.0.10",
     "eslint": "8.4.1",
     "eslint-plugin-jest": "25.3.0",
