@@ -1,0 +1,1619 @@
+WARC/1.1
+WARC-Filename: allmusic provider/extracting images/throws on non-existent release redirecting to album
+WARC-Date: 2021-12-11T20:26:44.504Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:cba35049-4063-4ff4-9796-1a9d69b7e21f>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:0782ae4b-ba5c-44f9-9f9a-387795100585>
+WARC-Target-URI: https://www.allmusic.com/album/release/mr1234
+WARC-Date: 2021-12-11T20:26:44.504Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:f77c7ad5-66ca-48be-8417-eb2f08143669>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:f42ffaf51bc5cb106803f3dc8286c696a3aa75eacbee1f0d01be4741c9149e0f
+Content-Length: 38
+
+GET /album/release/mr1234 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:0782ae4b-ba5c-44f9-9f9a-387795100585>
+WARC-Target-URI: https://www.allmusic.com/album/release/mr1234
+WARC-Date: 2021-12-11T20:26:44.504Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:e3a759b0-b0a4-4c6c-ac2d-822be02e70e6>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:2ba626cfe88b350009b9d4e3b66630e711fb04615eb5ee688887184931eb6c17
+WARC-Block-Digest: sha256:2ba626cfe88b350009b9d4e3b66630e711fb04615eb5ee688887184931eb6c17
+Content-Length: 1176
+
+harEntryId: 9ca6ba9da68d65a5fa35420ec9114951
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:43.883Z
+time: 619
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":619,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 64
+warcRequestCookies: []
+warcResponseHeadersSize: 2269
+warcResponseCookies: [{"name":"allmusic_session","value":"SYkeI7ZpfhJslPD5IThAdKoxArc4Ru/VhayREQjNXYVOVLAkwJHV1XZxC7X7qf6W7hoLe3mKTrPO/OxiMUT/20plWgn2Sjlb1WWOIQzgpeF0pQ8RlN8nH47LVNAJv5kobejL0x7aKB/Zzn26fo3iZnW26ntOkqVYWXdT8/TDqWG0TpT6ElrW4oEeNA3wyUkIA4j7UmK19SQS1u/63HDSULfUQYPNv2Zqdose2M0MPovL60lfgpB1ajppx92ZVyGYcJa6SqSb7GzjhKmSC8S5m/DhamcPbi/ztTLQh0qShOTPhLyPkf/iFbrbzDzj2kBu1oCAUJyg1zFgiyj/0mN21w==","path":"/","secure":true,"httponly, allmusic_session":"KP2Zvzjx7hQblFjad8So6JTjbdRlBbaBC7RwQkIGXfgIllyXCULD%2FWA%2BYUzu2lTQGRY%2BHNamAcbpYLTyOXPZ%2FmXiX45cDj7Kt86J%2BNCmGtjYpxv8T2OKUdv2p6voBJdOJM2uSzM6Taq%2B7y7M3grxlcdySwOH8w3mi17Xf5OUKQyhDUWgR7C5v%2Bv%2FSUkIFnx1ixllY9zXfmcO8WioUoW0vpIZsI3LacEFDCyqq%2Byfs%2FvSa3PfWv%2Fmy4NmsJVypjip12u7pKwYtlIYhCGX75TXfxzxMj4yf25qqjzb6ecRtNL82KNYzGW4TWEWt8%2F8AiNn3UjgWRxeBsXvIVzIdkcrLA%3D%3D","httpOnly":true}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.allmusic.com/album/release/mr1234
+WARC-Date: 2021-12-11T20:26:44.504Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:0782ae4b-ba5c-44f9-9f9a-387795100585>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:5c28317d08e647cb15bb6436edd946a67f6b38f40ad351b69e56fb60dbd4a034
+WARC-Block-Digest: sha256:371f7cb2fd9e2e14ad879b948de55cff4684f673b2078cc2edd68cfbcd4bf556
+Content-Length: 76059
+
+HTTP/1.1 200 OK
+accept-ranges: bytes
+age: 0
+alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+cache-control: maxage=43200
+connection: close
+content-encoding: gzip
+content-security-policy: upgrade-insecure-requests
+content-type: text/html; charset=UTF-8
+date: Sat, 11 Dec 2021 20:26:44 GMT
+expires: Sun, 12 Dec 2021 08:26:44 GMT
+server: nginx/1.20.1
+set-cookie: allmusic_session=SYkeI7ZpfhJslPD5IThAdKoxArc4Ru%2FVhayREQjNXYVOVLAkwJHV1XZxC7X7qf6W7hoLe3mKTrPO%2FOxiMUT%2F20plWgn2Sjlb1WWOIQzgpeF0pQ8RlN8nH47LVNAJv5kobejL0x7aKB%2FZzn26fo3iZnW26ntOkqVYWXdT8%2FTDqWG0TpT6ElrW4oEeNA3wyUkIA4j7UmK19SQS1u%2F63HDSULfUQYPNv2Zqdose2M0MPovL60lfgpB1ajppx92ZVyGYcJa6SqSb7GzjhKmSC8S5m%2FDhamcPbi%2FztTLQh0qShOTPhLyPkf%2FiFbrbzDzj2kBu1oCAUJyg1zFgiyj%2F0mN21w%3D%3D; path=/; secure; HttpOnly, allmusic_session=KP2Zvzjx7hQblFjad8So6JTjbdRlBbaBC7RwQkIGXfgIllyXCULD%2FWA%2BYUzu2lTQGRY%2BHNamAcbpYLTyOXPZ%2FmXiX45cDj7Kt86J%2BNCmGtjYpxv8T2OKUdv2p6voBJdOJM2uSzM6Taq%2B7y7M3grxlcdySwOH8w3mi17Xf5OUKQyhDUWgR7C5v%2Bv%2FSUkIFnx1ixllY9zXfmcO8WioUoW0vpIZsI3LacEFDCyqq%2Byfs%2FvSa3PfWv%2Fmy4NmsJVypjip12u7pKwYtlIYhCGX75TXfxzxMj4yf25qqjzb6ecRtNL82KNYzGW4TWEWt8%2F8AiNn3UjgWRxeBsXvIVzIdkcrLA%3D%3D; path=/; secure; HttpOnly
+strict-transport-security: max-age=31536000; includeSubDomains
+tmp-set-cookie: allmusic_session=SYkeI7ZpfhJslPD5IThAdKoxArc4Ru%2FVhayREQjNXYVOVLAkwJHV1XZxC7X7qf6W7hoLe3mKTrPO%2FOxiMUT%2F20plWgn2Sjlb1WWOIQzgpeF0pQ8RlN8nH47LVNAJv5kobejL0x7aKB%2FZzn26fo3iZnW26ntOkqVYWXdT8%2FTDqWG0TpT6ElrW4oEeNA3wyUkIA4j7UmK19SQS1u%2F63HDSULfUQYPNv2Zqdose2M0MPovL60lfgpB1ajppx92ZVyGYcJa6SqSb7GzjhKmSC8S5m%2FDhamcPbi%2FztTLQh0qShOTPhLyPkf%2FiFbrbzDzj2kBu1oCAUJyg1zFgiyj%2F0mN21w%3D%3D; path=/; secure; HttpOnly
+transfer-encoding: chunked
+vary: Accept-Encoding
+via: 1.1 varnish (Varnish/6.1), 1.1 varnish (Varnish/6.1), 1.1 google
+worker: vdir_prod_music_precache
+x-amn-trace: d7ff13fe2a6a932835d4217173a1377f/1188535206900202007
+x-content-type-options: nosniff
+x-ecache: MISS
+x-evarnish-trace: gce-all-prod-evarnish-autogroup-b-5kbq
+x-frame-options: SAMEORIGIN
+x-icache: ivarnish
+x-ivarnish-trace: gce-all-prod-ivarnish-autogroup-zjbh
+x-ivxid: 6622119
+x-varnish: 8870383
+x-xss-protection: 1; mode=block
+x-pollyjs-finalurl: https://www.allmusic.com/album/bambi-slam-mw0000203198
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <script>
+        window.location.href.indexOf(".allmusic.com")==-1&&window.stop();
+    </script>
+
+    <title>Bambi Slam - The Bambi Slam | Songs, Reviews, Credits | AllMusic</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+    <!-- iOS metadata -->
+    <meta name="apple-mobile-web-app-capable" content="no">
+            <meta name="viewport" content="width=device-width">
+    
+    <!-- preload font -->
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_D_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_D_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_16_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_16_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_18_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_18_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_19_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_19_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1A_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1A_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1B_unhinted_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1B_unhinted_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+<!-- preload page css -->
+    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/album/album-012a06dff9.css" as="style" crossorigin="anonymous" >
+
+
+<!-- preload setup (header) js -->
+<link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/js/setup-7917bd1369.js" as="script" crossorigin="anonymous" >
+
+<!-- preload global (footer) js -->
+<link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/js/global-c185d56d8a.js" as="script" crossorigin="anonymous" >
+
+<!-- preload page js -->
+    
+    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/js/album-abc7d5e916.overview.js" as="script" crossorigin="anonymous" >
+
+<!-- prefetch global -->
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/header/gear_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/gear_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/flag_off.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/flag_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/hamburger.svg">
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/header/looking-glass.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/facebook_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/twitter_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/tumblr_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/rss_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/facebook_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/twitter_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/tumblr_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/rss_on.svg">
+
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue-half.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" as="image" crossorigin="anonymous" >
+
+<!-- preload page-level assets -->
+
+    
+    <!-- android homescreen specific favicon -->
+    <link rel="icon" type="image/png" href="https://cdn-gce.allmusic.com/images/favicon/favicon-196x196.png?v=47BXOjEqB"
+          sizes="196x196"/>
+
+    <!-- general favicon -->
+    <link rel="icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon-96x96.png?v=47BXOjEqB" type="image/png"
+          sizes="96x96"/>
+    <link rel="icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon-32x32.png?v=47BXOjEqB" type="image/png"
+          sizes="32x32"/>
+    <link rel="icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon-16x16.png?v=47BXOjEqB" type="image/png"
+          sizes="16x16"/>
+    <link rel="shortcut icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon.ico?v=47BXOjEqB" type="image/x-icon"/>
+
+    <!-- iOS specific favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="120x120"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-120x120.png?v=47BXOjEqB"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-76x76.png?v=47BXOjEqB"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-152x152.png?v=47BXOjEqB"/>
+    <link rel="apple-touch-icon-precomposed" sizes="180x180"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-180x180.png?v=47BXOjEqB"/>
+    <meta name="apple-mobile-web-app-title" content="AllMusic">
+
+    <meta name="application-name" content="AllMusic">
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss"/>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/kffpbhfpflaacppoegnbknokchggcoao">
+
+    
+    	<meta name="title" content="Bambi Slam - The Bambi Slam | Songs, Reviews, Credits | AllMusic">
+	<meta name="keywords" content="Pop/Rock,Alternative Pop/Rock,Alternative/Indie Rock,Ba Ba Ba Boom,Long Time Comin&#039;,Now,Outa My Head,The Awful Flute Song">
+	<meta name="description" content="Find album reviews, songs, credits and award information for Bambi Slam by The Bambi Slam on AllMusic - 1988 - Roy Feldon, now the sole member of The Bambi ...">
+
+    	<meta property="og:site_name" content="AllMusic">
+
+	<meta property="fb:app_id" content="415271808519760">
+
+	<meta property="og:title" content="Bambi Slam - The Bambi Slam | Songs, Reviews, Credits | AllMusic">
+	<meta name="twitter:title" content="Bambi Slam - The Bambi Slam | Songs, Reviews, Credits | AllMusic">
+
+	<meta property="og:description" content="Find album reviews, songs, credits and award information for Bambi Slam by The Bambi Slam on AllMusic - 1988 - Roy Feldon, now the sole member of The Bambi ...">
+	<meta name="twitter:description" content="Find album reviews, songs, credits and award information for Bambi Slam by The Bambi Slam on AllMusic - 1988 - Roy Feldon, now the sole member of The Bambi ...">
+
+    
+	<meta property="og:type" content="music.album">
+
+    <meta property="og:image" content="https://cdn-gce.allmusic.com/images/allmusic_facebook_share.png">
+    <meta property="og:url" content="https://www.allmusic.com/album/bambi-slam-mw0000203198">
+
+        <meta name="spotim-ads" content="disable-all"/>
+    
+    <link rel="canonical" href="https://www.allmusic.com/album/bambi-slam-mw0000203198">
+
+            <link type="text/css" rel="stylesheet" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/album/album-012a06dff9.css" crossorigin="anonymous">    
+    
+    
+    <!-- Alexa tag -->
+    <meta name="alexaVerifyID" content="SfgYrX5roRNK_iy-Mr_tFkRlY7M"/>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-7096127-1', 'auto');
+
+                        ga('send', 'pageview', 'album/bambi-slam-mw0000203198');
+                setTimeout("ga('send','event','adjusted bounce rate','page visit 15 seconds or more')", 15000);
+            </script>
+
+    <!-- Google Tag Manager QunatCast-->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M5C83T');</script>
+    <!-- End Google Tag Manager -->
+
+    
+    <script src="https://cdn-gce.allmusic.com/cache/dist/js/setup-7917bd1369.js" crossorigin="anonymous"></script>
+    <script>
+        (function (a, c, d, e) {
+            if (!a[c]) {
+                var b = a[c] = {};
+                b[d] = [];
+                b[e] = function (a) {
+                    b[d].push(a)
+                }
+            }
+        })(window, 'Scroll', '_q', 'do');
+        Scroll.config = {
+            detected: document.cookie.indexOf("scroll0=") > -1
+        };
+    </script>
+    <script async src="https://static.scroll.com/js/scroll.js"></script>
+
+    
+            <script type="text/javascript">
+let catalystConfig = {
+site: 'allmusic',
+silo: 's_mus',
+zone: 'album',
+tier: 'to,t2,internal',
+kw: 'blockadexfalse',
+isMobile: isMobile_AllMusic,
+exclude: '',
+toolbar: {
+theme: 'grey'
+}
+};
+if (document.cookie.indexOf('scroll0=') < 0 && scroll_v7 == 'no-scroll') {
+(function(window,document) {
+if(!window.catalyst) {
+var ns = document.createElement('script');
+ns.src = '//media.complex.com/common/catalyst.js';
+ns.type = 'text/javascript';
+ns.async = true;
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ns, s);
+window.catalyst = window.catalyst || {cmd: []};
+}
+})(window, document);
+}
+</script>    
+            <script>
+            if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+                document.write("\x3Cscript data-cfasync='false'>");
+                document.write("(function (a, c, s, u){'Insticator'in a || (a.Insticator={ad:{loadAd: function (b){Insticator.ad.q.push(b)}, q: []}, helper:{}, embed:{}, version: '4.0', q: [], load: function (t, o){Insticator.q.push({t: t, o: o})}}); ");
+                document.write("var b=c.createElement(s); b.src=u; b.async=!0; var d=c.getElementsByTagName(s)[0]; d.parentNode.insertBefore(b, d)})(window, document, 'script', '//d3lcz8vpax4lo2.cloudfront.net/ads-code/11e3c341-3d2a-4da2-b79b-6c11421637a3.js')");
+                document.write("\x3C/script>");
+            }
+        </script>
+    
+    
+        <script type="application/ld+json">
+            {
+    "@context": "http://schema.org",
+    "@type": "MusicAlbum",
+    "url": "https://www.allmusic.com/album/bambi-slam-mw0000203198",
+    "name": "Bambi Slam",
+    "numTracks": 10,
+    "datePublished": "1969-12-31",
+    "genre": [
+        "Pop/Rock"
+    ],
+    "byArtist": [
+        {
+            "@type": "MusicGroup",
+            "name": "The Bambi Slam",
+            "url": "https://www.allmusic.com/artist/the-bambi-slam-mn0000757063"
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingCount": 1,
+        "bestRating": "10.0",
+        "worstRating": "1.0",
+        "ratingValue": "3.0"
+    },
+    "tracks": [
+        {
+            "@type": "MusicRecording",
+            "name": "Ba Ba Ba Boom",
+            "url": "https://www.allmusic.com/song/ba-ba-ba-boom-mt0020087270"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Long Time Comin'",
+            "url": "https://www.allmusic.com/song/long-time-comin-mt0035080444"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Now",
+            "url": "https://www.allmusic.com/song/now-mt0020065469"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Outa My Head",
+            "url": "https://www.allmusic.com/song/outa-my-head-mt0020074916"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "The Awful Flute Song",
+            "url": "https://www.allmusic.com/song/the-awful-flute-song-mt0020068181"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Thinkin' Bout Chu",
+            "url": "https://www.allmusic.com/song/thinkin-bout-chu-mt0020076311"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Summer Smilin'",
+            "url": "https://www.allmusic.com/song/summer-smilin-mt0020076139"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Take Me with You",
+            "url": "https://www.allmusic.com/song/take-me-with-you-mt0020075959"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "I'm Left Wonderin'",
+            "url": "https://www.allmusic.com/song/im-left-wonderin-mt0020077697"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "So Long!",
+            "url": "https://www.allmusic.com/song/so-long%21-mt0026254459"
+        }
+    ],
+    "review": {
+        "itemReviewed": {
+            "@type": "CreativeWork",
+            "url": "https://www.allmusic.com/album/bambi-slam-mw0000203198"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "William Ruhlmann"
+        },
+        "inLanguage": "English",
+        "name": "AllMusic Review by William Ruhlmann",
+        "reviewBody": "Roy Feldon, now the sole member of The Bambi Slam, employs the chainsaw guitar sound of The Jesus And Mary Chain (his labelmates on the U.K.'s Blanco Y Negro Records) to give a noisy edge to his otherwise conventional rock songs. Which may mean that if you love The Chain, you'll like The Slam, but otherwise you may wonder what the buzz is about. (Personally, I think it's a delightful romp.)",
+        "reviewRating": {
+            "@type": "Rating",
+            "worstRating": "1",
+            "bestRating": "10",
+            "ratingValue": "4"
+        }
+    }
+}        </script>
+</head>
+<body>
+<noscript>
+    <div class="javascript-disabled" id="no-js">
+        AllMusic relies heavily on JavaScript.<br>
+        Please enable JavaScript in your browser to use the site fully.
+    </div>
+</noscript>
+
+<!-- Google Tag Manager (noscript) QunatCast-->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5C83T" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<div class="overflow-container album">
+
+    <div class="stripe-container header-main-nav clearfix">
+        <div class="max-header">
+            <div class="main-nav">
+
+    <div class="logo-container">
+        <a class="logo no-snap" href="/">
+            <p class="logo-img">AllMusic</p>
+        </a>
+    </div>
+
+    <nav class="mobile-menu" aria-label="Toggle menu"></nav>
+
+    <div class="search-container">
+        <form class="site-search" method="post" name="site-search" action="/search">
+            <input type="search" class="site-search-input" name="term" aria-label="Search" placeholder="Search" autocomplete="off">
+            <input type="submit" class="site-search-button" name="submit" value="" aria-label="Submit search">
+        </form>
+    </div>
+
+    <nav class="site-nav">
+        <div class="nav-contain">
+            <div class="new-releases top-nav-item">
+                <a href="/newreleases">New Releases</a>
+                <div class="sub-nav-outer-container">
+    <div class="sub-nav-container">
+        <div class="sub-nav-columns">
+            <div class="new-releases-subnav left">
+                <ul class="new-releases-nav">
+                    <li class="nr-featured">
+                        <a href="/newreleases">Featured New Releases</a>
+                    </li>
+                    <li class="nr-editorschoice">
+                        <a href="/newreleases/editorschoice">Editors' Choice</a>
+                    </li>
+                    <li class="nr-all">
+                        <a href="/newreleases/all">All New Releases</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="new-releases-subnav right">
+                <div class="sub-nav-content">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>            </div>
+            <div class="discover top-nav-item">
+                <a href="/discover">Discover</a>
+                <div class="sub-nav-outer-container">
+    <div class="sub-nav-container">
+        <div class="sub-nav-columns left">
+            <ul class="discover-nav">
+                <li id="discover-genres" class="discover-drop-trigger active">
+                    <a href="/genres">Genres<span class="genres-arrow" style="display:none">&nbsp;&nbsp;&rsaquo;</span></a>
+                </li>
+                <li id="discover-moods" class="discover-drop-trigger">
+                    <a href="/moods">Moods<span class="moods-arrow" style="display:none">&nbsp;&nbsp;&rsaquo;</span></a>
+                </li>
+                <li id="discover-themes" class="discover-drop-trigger">
+                    <a href="/themes">Themes<span class="themes-arrow" style="display:none">&nbsp;&nbsp;&rsaquo;</span></a>
+                </li>
+            </ul>
+       </div>
+        <div class="sub-nav-columns right">
+            <div class="discover-genre-secondary">
+    <div class="genre-column">
+        <!-- spacer to prevent hover weirdness -->
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/blues-ma0000002467">Blues</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/classical-ma0000002521">Classical</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/country-ma0000002532">Country</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/electronic-ma0000002572">Electronic</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/folk-ma0000002592">Folk</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/international-ma0000002660">International</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/jazz-ma0000002674">Jazz</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/latin-ma0000002692">Latin</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/new-age-ma0000002745">New Age</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/pop-rock-ma0000002613">Pop/Rock</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/rap-ma0000002816">Rap</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/r-b-ma0000002809">R&amp;B</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/reggae-ma0000002820">Reggae</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/stage-screen-ma0000004432">Stage &amp; Screen</a>
+            </li>
+            <li class="last">
+                <a href="/genres">All Genres</a>
+            </li>
+        </ul>
+    </div>
+</div>            <div class="discover-mood-secondary" style="display:none;">
+    <div class="mood-column">
+        <!-- spacer to prevent hover weirdness -->
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/aggressive-xa0000000694">Aggressive</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/bittersweet-xa0000000946">Bittersweet</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/druggy-xa0000000979">Druggy</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/energetic-xa0000000990">Energetic</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/happy-xa0000001016">Happy</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/hypnotic-xa0000000719">Hypnotic</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/laid-back-mellow-xa0000001032">Laid Back/Mellow</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/melancholy-xa0000000734">Melancholy</a>
+            </li>
+            <li>
+                <a href="/mood/passionate-xa0000001062">Passionate</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/romantic-xa0000000758">Romantic</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/sad-xa0000000761">Sad</a>
+            </li>
+            <li>
+                <a href="/mood/sentimental-xa0000000765">Sentimental</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li>
+                <a href="/mood/sexy-xa0000000770">Sexy</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/trippy-xa0000000749">Trippy</a>
+            </li>
+            <li class="last">
+                <a href="/moods">All Moods</a>
+            </li>
+        </ul>
+    </div>
+</div>            <div class="discover-theme-secondary" style="display:none;">
+    <div class="theme-column">
+        <!-- spacer to prevent hover weirdness -->
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/background-music-ma0000006329">Background Music</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/celebration-ma0000005042">Celebration</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/cool-cocky-ma0000006328">Cool & Cocky</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/drinking-ma0000004252">Drinking</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/hanging-out-ma0000006297">Hanging Out</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/in-love-ma0000005076">In Love</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/introspection-ma0000006318">Introspection</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/late-night-ma0000006321">Late Night</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/partying-ma0000004272">Partying</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/rainy-day-ma0000005096">Rainy Day</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/relaxation-ma0000006314">Relaxation</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/road-trip-ma0000006287">Road Trip</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/romantic-evening-ma0000006312">Romantic Evening</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/sex-ma0000005107">Sex</a>
+            </li>
+            <li class="last">
+                <a href="/themes">All Themes</a>
+            </li>
+        </ul>
+    </div>
+</div>        </div>
+    </div>
+</div>            </div>
+            <div class="blog top-nav-item">
+                <a href="/blog">Articles</a>
+                <div class="sub-nav-outer-container">
+    <div class="sub-nav-container clearfix">
+        <div class="sub-nav-columns">
+            <div class="blog-list">
+                <ul>
+                    <li class="blog-features">
+                        <a href="/blog/features">Features</a>
+                    </li>
+                    <li class="blog-interviews">
+                        <a href="/blog/interviews-14">Interviews</a>
+                    </li>
+                    <li class="blog-lists">
+                        <a href="/blog/lists">Lists</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blog-list">
+                <ul>
+                    <li class="blog-stream">
+                        <a href="/blog/stream-and-download">Streams</a>
+                    </li>
+                    <li class="blog-promotions">
+                        <a href="/videos">Videos</a>
+                    </li>
+                    <li class="blog-all">
+                        <a href="/blog">All Posts</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blog-subnav right">
+                <div class="sub-nav-blog-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+            <div class="recommendations top-nav-item">
+                <a href="/recommendations">Recommendations</a>
+            </div>
+            <div class="my-profile top-nav-item">
+                <span class="my-profile-link" aria-label="My Profile">My Profile</span>
+            </div>
+            <div class="advanced-search top-nav-item">
+                <a href="/advanced-search" class="advanced-search-link">Advanced Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="user-social-nav">
+        <nav class="social-nav">
+            <ul>
+                <li class="facebook">
+                    <a href="https://www.facebook.com/AllMusicDotCom" title="Like us on Facebook">Facebook</a>
+                </li>
+                <li class="twitter">
+                    <a href="https://twitter.com/allmusic" title="Follow us on Twitter">Twitter</a>
+                </li>
+                <li class="tumblr">
+                    <a href="https://allmusic.tumblr.com" title="Follow us on Tumblr">Tumblr</a>
+                </li>
+                <li class="rss">
+                    <a href="/rss" title="Subscribe to our RSS feed" target="_blank">RSS</a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="user-notifications">
+            <ul>
+                <li class="user-notification-icon">
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="user-nav"></nav>
+    </div>
+
+</div>
+        </div>
+    </div>
+
+<div id="cmn_wrap">
+
+    <div class="stripe-container header-leaderboard">
+        <div class="advertising leaderboard">
+                            <div id="AllMusic_LB_Top"></div>                    </div>
+    </div>
+
+<div class="content-container">
+
+    <div class="content">
+
+        <header>
+    
+    <hgroup>
+        <h2 class="album-artist">
+            <span>
+                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>            </span>
+        </h2>
+
+        <h1 class="album-title">
+            Bambi Slam        </h1>
+            </hgroup>
+    <button class="add-to-list-link customBtn" data-id="MW0000203198" data-addtolist="addtolist" aria-label="Add this album to a custom list"><p>Add to Custom List</p></button>
+    <button class="add-to-collection-link customBtn" data-id="MW0000203198"
+         data-artist="Bambi Slam"
+         data-album="Bambi Slam"
+         data-release-date="1988-??-??"
+         aria-label="Add this album to my collection">
+        <p>Add to My Collection</p>
+    </button>
+    <div class="tabletdummy"></div>
+
+        <ul class="ratings">
+        <li id="microdata-rating">
+            <span>AllMusic Rating</span>
+
+            <div class="allmusic-rating rating-allmusic-3">
+                                    4                             </div>
+        </li>
+
+        <li class="average">
+            <span>
+                User Ratings (<span class="average-user-rating-count" data-id="MW0000203198">0</span>)
+            </span>
+            <div class="average-user-rating" data-id="MW0000203198"></div>
+        </li>
+
+        <li>
+            <span>Your Rating</span>
+            <div class="album-page-user-rating user-rating" aria-label="Your user rating"
+                 data-id="MW0000203198"
+                 data-artist="The Bambi Slam"
+                 data-title="Bambi Slam">
+             </div>
+        </li>
+    </ul>
+</header>
+
+        <ul class="tabs overview">
+            <li class="tab overview" data-sections="review,tracks">
+            <a href="/album/bambi-slam-mw0000203198" title="Overview">
+                Overview
+                <span class="arrow">&darr;</span>
+            </a>
+        </li>
+    
+    <li class="tab user_reviews">
+        <a href="/album/bambi-slam-mw0000203198/user-reviews" title="User Reviews">
+            User Reviews
+            <span class="arrow">&darr;</span>
+        </a>
+    </li>
+
+            <li class="tab credits">
+            <a href="/album/bambi-slam-mw0000203198/credits" title="Credits">
+                Credits
+                <span class="arrow">&darr;</span>
+            </a>
+        </li>
+    
+    
+            <li class="tab releases">
+            <a href="/album/bambi-slam-mw0000203198/releases" title="Releases">
+                Releases
+                <span class="arrow">&darr;</span>
+            </a>
+        </li>
+    
+    <li class="tab similar">
+        <a href="/album/bambi-slam-mw0000203198/similar" title="Similar Albums">
+            Similar Albums
+            <span class="arrow">&darr;</span>
+        </a>
+    </li>
+</ul>
+
+                    
+<div class="allmusic-share" data-sharemessage="Listen to Bambi Slam by The Bambi Slam - Album Reviews, Credits, and Awards - AllMusic - ">
+    <p>
+        Share on
+    </p>
+    <ul class="share-menu">
+        <li>
+            <a title="Share on Facebook" class="share-button facebook" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.allmusic.com%2Falbum%2Fbambi-slam-mw0000203198">facebook</a>
+        </li>
+        <li>
+            <a title="Share on Twitter" class="share-button twitter" href="https://twitter.com/share?url=https%3A%2F%2Fwww.allmusic.com%2Falbum%2Fbambi-slam-mw0000203198&text=Listen+to+Bambi+Slam+by+The+Bambi+Slam+-+Album+Reviews%2C+Credits%2C+and+Awards+-+AllMusic+-+&counturl=https%3A%2F%2Fwww.allmusic.com%2Falbum%2Fbambi-slam-mw0000203198">twitter</a>
+        </li>
+        <li>
+            <a title="Share on Tumblr" class="share-button tumblr" href="https://www.tumblr.com/share?s=&v=3&t=AllMusic+%7C+Music+Search%2C+Recommendations%2C+Videos+and+Review&u=https%3A%2F%2Fwww.allmusic.com%2Falbum%2Fbambi-slam-mw0000203198">tumblr</a>
+        </li>
+    </ul>
+    <div class="share-modal">
+        <span class="close-button"></span>
+        <div class="share-frame"></div>
+    </div>
+</div>        
+            <section class="review read-more" id="review-read-more">
+        <div class="review-headline-container">
+            <h2 class="review-author">Bambi Slam Review</h2>
+                            <p>by <span>William Ruhlmann</span></p>
+                        <span class="headline"></span>
+        </div>
+
+        <div class="text">
+                            <p>
+                    <a href="https://www.allmusic.com/artist/roy-feldon-mn0001175796" class="name-link">Roy Feldon</a>, now the sole member of <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063" class="name-link">The Bambi Slam</a>, employs the chainsaw guitar sound of <a href="https://www.allmusic.com/artist/the-jesus-and-mary-chain-mn0000343930" class="name-link">The Jesus And Mary Chain</a> (his labelmates on the U.K.'s Blanco Y Negro Records) to give a noisy edge to his otherwise conventional rock songs. Which may mean that if you love <a href="https://www.allmusic.com/artist/the-chain-mn0000343930" class="name-link">The Chain</a>, you'll like <a href="https://www.allmusic.com/artist/the-slam-mn0000757063" class="name-link">The Slam</a>, but otherwise you may wonder what the buzz is about. (Personally, I think it's a delightful romp.)                 </p>
+
+                                    </div>
+    </section>
+<div class="user_review">
+    <div class="loading-bg"><div class="loading"></div></div>
+</div>
+    <section class="track-listing">
+
+                    <div class="disc">
+                <div class="headline">
+                    <h3>
+                        Track Listing
+                                            </h3>
+                </div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="pick-prefix"></th>
+                                                <th class="tracknum"><!-- Track #--></th>
+                        <th class="title-composer">Title/Composer</th>
+                        <th class="performer">Performer</th>
+                        <th class="time">Time</th>
+                        <th class="stream">Stream</th>
+                        <th class="pick-suffix"></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                1                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/ba-ba-ba-boom-mt0020087270" data-tooltip="{&quot;id&quot;:&quot;MT0020087270&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Ba Ba Ba Boom</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Ba%20Ba%20Ba%20Boom&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                2                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/long-time-comin-mt0035080444" data-tooltip="{&quot;id&quot;:&quot;MT0035080444&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Long Time Comin'</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Long%20Time%20Comin%27&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                3                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/now-mt0020065469" data-tooltip="{&quot;id&quot;:&quot;MT0020065469&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Now</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Now&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                4                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/outa-my-head-mt0020074916" data-tooltip="{&quot;id&quot;:&quot;MT0020074916&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Outa My Head</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Outa%20My%20Head&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                5                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/the-awful-flute-song-mt0020068181" data-tooltip="{&quot;id&quot;:&quot;MT0020068181&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">The Awful Flute Song</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;The%20Awful%20Flute%20Song&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                6                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/thinkin-bout-chu-mt0020076311" data-tooltip="{&quot;id&quot;:&quot;MT0020076311&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Thinkin' Bout Chu</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Thinkin%27%20Bout%20Chu&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                7                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/summer-smilin-mt0020076139" data-tooltip="{&quot;id&quot;:&quot;MT0020076139&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Summer Smilin'</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Summer%20Smilin%27&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                8                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/take-me-with-you-mt0020075959" data-tooltip="{&quot;id&quot;:&quot;MT0020075959&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Take Me with You</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Take%20Me%20with%20You&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                9                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/im-left-wonderin-mt0020077697" data-tooltip="{&quot;id&quot;:&quot;MT0020077697&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">I'm Left Wonderin'</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;I%27m%20Left%20Wonderin%27&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                10                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/so-long%21-mt0026254459" data-tooltip="{&quot;id&quot;:&quot;MT0026254459&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">So Long!</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/the-bambi-slam-mn0000757063">The Bambi Slam</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;So%20Long%21&#34; by &#34;The%20Bambi%20Slam&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                        </tbody>
+                </table>
+            </div>
+        
+        <span class="note">blue highlight denotes track pick</span>
+
+    </section>
+                    <div class="advertising anyclip">
+                <script>
+                    if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+                        document.write('\x3Cscript src="https://player.anyclip.com/anyclip-widget/lre-widget/prod/v1/src/lre.js" pubname="allmusiccom" widgetname="0011r00001kaHto_1549">\x3C/script>');
+                    }
+                </script>
+            </div>
+            </div>
+
+    <div class="sidebar">
+
+        <div class="album-cover no-discography-browser">
+    <div class="album-contain gallery-launch" aria-label="View larger album cover">
+        
+                    <script>
+                var imageGallery = false;
+            </script>
+            	<img src="https://cdn-gce.allmusic.com/images/no_image/album_300x300.png" alt="Bambi Slam" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image media-gallery-image" loading="lazy">        
+            </div>
+</div>
+
+        
+            <div class="streams" style="padding: 10px 0;">
+        <div>
+            <script>
+                /* TFP - allmusic.com - white bg */
+                (function() {
+                    var opts = {
+                        artist: "The Bambi Slam",
+                        song: "Bambi Slam",
+                        adunit_id: 100000769,
+                        div_id: "cf_async_" + Math.floor((Math.random() * 999999999))
+                    };
+                    if (isMobile_AllMusic) {
+                        opts.adunit_id = 100000766;
+                    }
+                    document.write('<div id="'+opts.div_id+'"></div>');var c=function(){cf.showAsyncAd(opts)};if(typeof window.cf !== 'undefined')c();else{cf_async=!0;var r=document.createElement("script"),s=document.getElementsByTagName("script")[0];r.async=!0;r.src="//srv.tunefindforfans.com/fruits/apricots.js";r.readyState?r.onreadystatechange=function(){if("loaded"==r.readyState||"complete"==r.readyState)r.onreadystatechange=null,c()}:r.onload=c;s.parentNode.insertBefore(r,s)};
+                })();
+            </script>
+        </div>
+    </div>
+
+                    <div class="advertising medium-rectangle medium-rectangle-atf">
+                <div id="AllMusic_R1"></div>            </div>
+        
+        <section class="basic-info">
+    
+    <h2>Bambi Slam Album Information</h2>
+
+            <div class="release-date">
+            <h4>Release Date</h4>
+            <span>1988</span>
+        </div>
+    
+            <div class="duration">
+            <h4>Duration</h4>
+            <span>39:16</span>
+        </div>
+    
+            <div class="genre">
+            <h4>Genre</h4>
+            <div>
+                                    <a href="https://www.allmusic.com/genre/pop-rock-ma0000002613">Pop/Rock</a>                            </div>
+        </div>
+    
+            <div class="styles">
+            <h4>Styles</h4>
+            <div>
+                                    <a href="https://www.allmusic.com/style/alternative-pop-rock-ma0000002422">Alternative Pop/Rock</a>                                    <a href="https://www.allmusic.com/style/alternative-indie-rock-ma0000012230">Alternative/Indie Rock</a>                            </div>
+        </div>
+    
+    
+    
+    <a href="https://www.allmusic.com/album/bambi-slam-mw0000203198/corrections" class="submit-corrections">Submit Corrections</a>
+</section>
+
+        
+
+                    <div style="margin-bottom: 20px;background-color: transparent;">
+                <div id="insticator-container" class="embedid-0f0bd285-31a9-4fd0-bf13-c4c92c3f12c5"><div id="div-insticator-ad-1" style="height: 280px"></div><div id="insticator-embed"></div><div id="div-insticator-ad-2" style="height: 280px"></div>
+                    <script>
+                        if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+                            document.write("\x3Cscript data-cfasync='false'>");
+                            document.write("Insticator.ad.loadAd('div-insticator-ad-1');Insticator.ad.loadAd('div-insticator-ad-2');Insticator.load('em',{id : '0f0bd285-31a9-4fd0-bf13-c4c92c3f12c5'});");
+                            document.write("\x3C/script>");
+                        }
+                   </script>
+                </div>
+          </div>
+
+            <div class="advertising medium-rectangle-btf">
+                <div id="AllMusic_R2"></div>            </div>
+            </div>
+
+</div>
+
+<div class="stripe-container footer-leaderboard">
+            <div class="advertising leaderboard">
+            <div id="AllMusic_LB_Foot"></div>        </div>
+    </div>
+<footer>
+    <div id="footer-wrapper">
+        <div id="footer-grid">
+            <img id="footer-logo" src="https://cdn-gce.allmusic.com/images/logo_tower_whiteonblack.svg">
+            <div id="column1" class="footer-column">
+                <div id="properties">
+                    <h3>Our Properties</h3>
+                    <ul>
+                        <li>
+                            <p><a href="https://www.allmusic.com" title="AllMusic">AllMusic</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.allmovie.com" title="AllMovie">AllMovie</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.sidereel.com" title="SideReel">SideReel</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="site-overview" class="footer-column">
+                    <h3>Site Overview</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/newreleases" title="New Releases">New Releases</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/discover" title="Discover">Discover</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/blog" title="Articles">Articles</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/recommendations" title="Recommendations">Recommendations</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="column2" class="footer-column">
+                <div id="about">
+                    <h3>About</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/about" title="What is AllMusic?">What is AllMusic?</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/copyright-policy" title="Copyright Policy">Copyright Policy</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/privacy-notice" title="Privacy Policy">Privacy Policy</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/terms-of-service" title="Terms of Service">Terms of Service</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="questions-contact">
+                    <h3>Questions and Contact</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/faq" title="FAQ">FAQ</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://allmedianetwork.helprace.com/s1-allmusic" title="Feedback" target="_blank">Feedback</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="column3" class="footer-column">
+                <div id="your-account">
+                    <h3>Your AllMusic Account</h3>
+                    <ul>
+                        <li>
+                            <p><a href="javascript:void(0);" class="my-profile-link" title="My Profile" aria-label="My profile">My Profile</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/user/profile" title="Account Settings">Account Settings</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="remove-ads">
+                    <h3>Remove Ads</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/subscribe" title="Subscribe to AllMusic">Subscribe to AllMusic</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://help.twitter.com/en/using-twitter/twitter-blue" title="Sign Up for Twitter Blue" target="_blank">Sign Up for Twitter Blue</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="column4" class="footer-column">
+                <div id="follow-us">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li>
+                            <p><a href="https://www.facebook.com/AllMusicDotCom" title="Like us on Facebook" target="_blank">Facebook</a>
+                        </li>
+                        <li>
+                            <p><a href="https://twitter.com/allmusic" title="Follow us on Twitter" target="_blank">Twitter</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://allmusic.tumblr.com" title="Follow us on Tumblr" target="_blank">Tumblr</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.pinterest.com/allmusicdotcom" title="Follow us on Pinterest" target="_blank">Pinterest</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="newsletter-signup" class="footer-column">
+                <h3>Sign Up For Our Weekly New Releases Newsletter</h3>
+                <form id="footerNewsletterSignupForm">
+                    <div id="signup">
+                        <input type="email" name="newsletterEmail" id="newsletterEmailSignup" aria-label="Email Signup" placeholder="name@domain.com" required>
+                        <input type="submit" name="newsletterSubmit" id="newsletterSubmitBtn" value="Sign Up" aria-label="Sign up">
+                    </div>
+                    <div id="failMsgEmail" style="display:none;"><h3>Please enter a valid email address.</h3></div>
+                    <div id="failMsgSg" style="display:none;"><h3>There was a problem subscribing you. Please try again.</h3></div>
+                    <div id="successMsg" style="display:none">
+                        <h3>Thank You for subscribing to the <a href="/newreleases" title="AllMusic New Releases">AllMusic New Releases Newsletter</a>.</h3>
+                    </div>
+                </form>
+            </div>
+            <div id="copyright">
+                <h3>&copy;2021 ALLMUSIC, NETAKTION LLC - ALL RIGHTS RESERVED</h3>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://cdn-gce.allmusic.com/cache/dist/js/global-c185d56d8a.js" crossorigin="anonymous"></script>
+        <script src="https://cdn-gce.allmusic.com/cache/dist/js/album-abc7d5e916.overview.js" crossorigin="anonymous"></script>
+
+    <script>
+        if(User.loggedIn) {
+            ga('set', 'dimension1', 'Yes');
+                            ga('set', 'dimension3', 'No');
+                    } else {
+            ga('set', 'dimension1', 'No');
+        }
+    </script>
+
+<!-- Begin comScore Tag -->
+<script>
+    var _comscore = _comscore || [];
+    _comscore.push({ c1: "2", c2: "6685975" });
+    (function() {
+        var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+        s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+        el.parentNode.insertBefore(s, el);
+    })();
+</script>
+<noscript>
+    <img src="//b.scorecardresearch.com/p?c1=2&c2=6685975&cv=2.0&cj=1" alt="scorecard pixel" />
+</noscript>
+<!-- End comScore Tag -->
+
+</div><!-- end cmn_wrap -->
+</div><!-- end .overflow-container -->
+
+    <script type="text/javascript">
+if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+if ( isMobile_AllMusic ) {
+window.catalyst.cmd.push('loadAds',[
+['top', 'AllMusic_LB_Top'],['rect', 'AllMusic_R1'],['footer', 'AllMusic_LB_Foot']
+]);
+} else {
+window.catalyst.cmd.push('loadAds',[
+['top', 'AllMusic_LB_Top'],['rect', 'AllMusic_R1'],['rect_sidebar', 'AllMusic_R2'],['footer', 'AllMusic_LB_Foot']
+]);
+}
+}
+</script>
+<!-- Double Verify -->
+<script>
+    if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+        document.write('<img src="https://tps30.doubleverify.com/visit.jpg?ctx=2908533&cmp=2736444&sid=24324&plc=DV-RTHM20170324001&advid=2908534&region=30&btadsrv=rhythmone&app=appid&sup=sspid&DVP_DV_TT=2&DVP_DV_CT=1&DVP_APPID=NotApplicable&DVP_SSPID=NotApplicable&DVP_PUBID=NotApplicable&DVP_PP_BUNDLE_ID=NotApplicable&DVP_RO_SSPID=NotApplicable&DVP_PP_ORTB_PUB_ID=NotApplicable&DVP_RO_SITEID=NotApplicable&DVP_RO_TRAFFIC=NotApplicable&DVP_PP_DEAL_ID=NotApplicable&DVPX_PP_IMP_ID=NotApplicable&DVPX_PP_UID=NotApplicable&DVP_RO_CDID=NotApplicable&DVPX_PP_AUCTION_UA=node-fetch&DVP_PP_AUCTION_IP=10.128.2.7&turl=AllMusic.com&dvtagver=6.1.img" alt="" width="0" height="0" alt="double verify pixel">');
+    }
+</script>
+<!-- End Double Verify -->
+
+
+    <script>
+        if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+            $.ajax({
+                url:'https://pagead2.googlesyndication.com/pcs/activeview',
+                type:'HEAD',
+                error: function(){
+                    ga('send', 'event', 'setCustomDimension', 1, {
+                        'dimension2': 'is_adblocking',
+                        'nonInteraction': true
+                    });
+
+                    // fire ad block detected GA event
+                    allmusic.gaTrackEvent({data: ["AdBlock", "Interaction", "User Has Adblock Enabled"]});
+                    if (!Cookie.read('adblock_dismiss')) {
+
+                        // fire ad block modal fires GA event
+                        allmusic.gaTrackEvent({data: ["AdBlock", "Interaction", "AdBlock Modal Fires"]});
+
+                        $.ajax({
+                            url: protocol + urlSubdomain + '.allmusic.com/blocker_check',
+                            type: 'GET',
+                            cache: false,
+                            success: function (data) {
+                                // append to body
+                                $(document).find('body').append(data);
+                                // lock body
+                                $(document).find('body').addClass('noscroll');
+                                document.getElementById('cmn-toolbar-wrap').style.zIndex = 20000;
+                            }
+                        });
+
+                    } else {
+                        allmusic.gaTrackEvent({data: ["AdBlock", "Interaction", "User Has AdBlock Dismiss Cookie"]});
+                    }
+                },
+                success: function(){
+                    // success block
+                    ga('send', 'event', 'setCustomDimension', 1, {
+                        'dimension2': 'not_adblocking',
+                        'nonInteraction': true
+                    });
+
+                }
+            });
+
+            // log Scroll as No
+            ga('set', 'dimension4', 'No');
+        } else if (document.cookie.indexOf("scroll0=") < 0) {
+            ga('set', 'dimension4', 'No');
+        } else {
+            // set scroll to yes
+            ga('set', 'dimension4', 'Yes');
+        }
+    </script>
+</body>
+</html>
+
+

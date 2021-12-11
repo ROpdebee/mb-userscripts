@@ -1,0 +1,81 @@
+WARC/1.1
+WARC-Filename: discogs provider/caching API responses/reuses the cache entry for subsequent requests
+WARC-Date: 2021-12-11T20:26:47.545Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:449d1f38-1541-4591-a126-c04d584dcb98>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e90d090b-d114-446a-8d61-aace99334082>
+WARC-Target-URI: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A9892912%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2213e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d7c6ecd%22%7D%7D
+WARC-Date: 2021-12-11T20:26:47.546Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:e6a5c16a-8ed8-4315-a296-63aed3d8941b>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:a1bdef6d1b0f06fe4263adc1f5721a58326bd984be25e93aebddbfc1c4f64504
+Content-Length: 300
+
+GET /internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A9892912%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2213e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d7c6ecd%22%7D%7D HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e90d090b-d114-446a-8d61-aace99334082>
+WARC-Target-URI: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A9892912%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2213e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d7c6ecd%22%7D%7D
+WARC-Date: 2021-12-11T20:26:47.546Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:85450709-7b0c-426b-975d-6ec80354c01c>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:bab7b3b785ead47fc6384a8422c6dbd6307e02ba8a6f8af89e717725377b7896
+WARC-Block-Digest: sha256:bab7b3b785ead47fc6384a8422c6dbd6307e02ba8a6f8af89e717725377b7896
+Content-Length: 646
+
+harEntryId: f14af08925617f9c2183cb046a50c703
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:46.003Z
+time: 1536
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1536,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 325
+warcRequestCookies: []
+warcResponseHeadersSize: 1066
+warcResponseCookies: [{"name":"__cf_bm","value":"C9vGTGLgqscPXduwScDM7ClRy7RjEqKvjlKIIGZZ4tE-1639254407-0-AfuCTHsJdAuAdXR80xqx8C4IorHxiESImQ0bVK2ohgGz6THWn3iwQuAQO0pGdBGZNNgBd5ZHloSd6WxRZmCnixc=","path":"/","expires":"2021-12-11T20:56:47.000Z","domain":".discogs.com","httpOnly":true,"secure":true,"sameSite":"None"}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A9892912%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2213e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d7c6ecd%22%7D%7D
+WARC-Date: 2021-12-11T20:26:47.545Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:e90d090b-d114-446a-8d61-aace99334082>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:d40b701e77ceb8dde8069af1f56e3edbcce4cb55f82fab17f2222f4494f400be
+WARC-Block-Digest: sha256:324dd25147a20ca463b46596826721ab42d5183a8cc179489ab4a0b6698bb990
+Content-Length: 4266
+
+HTTP/1.1 200 OK
+cf-cache-status: DYNAMIC
+cf-ray: 6bc17326dddf7a5a-DUS
+connection: close
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+date: Sat, 11 Dec 2021 20:26:47 GMT
+expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+server: cloudflare
+set-cookie: __cf_bm=C9vGTGLgqscPXduwScDM7ClRy7RjEqKvjlKIIGZZ4tE-1639254407-0-AfuCTHsJdAuAdXR80xqx8C4IorHxiESImQ0bVK2ohgGz6THWn3iwQuAQO0pGdBGZNNgBd5ZHloSd6WxRZmCnixc=; path=/; expires=Sat, 11-Dec-21 20:56:47 GMT; domain=.discogs.com; HttpOnly; Secure; SameSite=None
+strict-transport-security: max-age=15724800
+transfer-encoding: chunked
+vary: Origin
+x-discogs-flags: ssr_login=1, ssr_user=0, ssr_defer=0, disable_ads=0, sentry=0
+x-pollyjs-finalurl: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A9892912%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2213e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d7c6ecd%22%7D%7D
+
+{"data":{"release":{"discogsId":9892912,"images":{"totalCount":3,"edges":[{"node":{"id":"SW1hZ2U6NDQwNTM4MDM=","fullsize":{"sourceUrl":"https://img.discogs.com/cGX5KW1uJCaiPRzaRY8iE3btV3g=/fit-in/600x624/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg","webpUrl":"https://img.discogs.com/uzedxioazWqWsEVFI2w4tC3WtF4=/fit-in/600x624/filters:strip_icc():format(webp):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg","width":626,"height":652,"__typename":"ImageInfo"},"thumbnail":{"sourceUrl":"https://img.discogs.com/husmGPLvKp_kDmwLCXA_fc75LcM=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg","webpUrl":"https://img.discogs.com/IPnzkFn_NCIl1R62mlS6EzGuwcY=/fit-in/300x300/filters:strip_icc():format(webp):mode_rgb():quality(40)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg","width":150,"height":156,"__typename":"ImageInfo"},"__typename":"Image"},"__typename":"ImagesEdge"},{"node":{"id":"SW1hZ2U6NDQwNTM4MDQ=","fullsize":{"sourceUrl":"https://img.discogs.com/GjkwgdSXa6b6KAXHqtt1lrrSebQ=/fit-in/600x601/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-4048.jpeg.jpg","webpUrl":"https://img.discogs.com/DQyqoRqFynV6EL3Cx1DobKplkAk=/fit-in/600x601/filters:strip_icc():format(webp):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-4048.jpeg.jpg","width":641,"height":643,"__typename":"ImageInfo"},"thumbnail":{"sourceUrl":"https://img.discogs.com/-aLpw9YFcWdi5zhmevBqNWAJqog=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-9892912-1579456707-4048.jpeg.jpg","webpUrl":"https://img.discogs.com/5NshMTi1zutw9aiig5UTr0ChuLU=/fit-in/300x300/filters:strip_icc():format(webp):mode_rgb():quality(40)/discogs-images/R-9892912-1579456707-4048.jpeg.jpg","width":150,"height":150,"__typename":"ImageInfo"},"__typename":"Image"},"__typename":"ImagesEdge"},{"node":{"id":"SW1hZ2U6MjcyNjYxODA=","fullsize":{"sourceUrl":"https://img.discogs.com/hch5Dfg5ZsgGY7DCxWtNWEpRSs8=/fit-in/600x681/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1488067341-2872.jpeg.jpg","webpUrl":"https://img.discogs.com/FFEMgYSNmX5Y9tI1KiY50xfUots=/fit-in/600x681/filters:strip_icc():format(webp):mode_rgb():quality(90)/discogs-images/R-9892912-1488067341-2872.jpeg.jpg","width":1392,"height":1580,"__typename":"ImageInfo"},"thumbnail":{"sourceUrl":"https://img.discogs.com/yM8CF3S1SS8cj1C1VImNpbAPBEo=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-9892912-1488067341-2872.jpeg.jpg","webpUrl":"https://img.discogs.com/UwY5O5fcnJUGESXV93tSQyIzV5U=/fit-in/300x300/filters:strip_icc():format(webp):mode_rgb():quality(40)/discogs-images/R-9892912-1488067341-2872.jpeg.jpg","width":150,"height":170,"__typename":"ImageInfo"},"__typename":"Image"},"__typename":"ImagesEdge"}],"__typename":"ImagesConnection"},"__typename":"Release"}},"extensions":{"tracing":{"version":1,"startTime":"2021-12-11T20:26:47.364Z","endTime":"2021-12-11T20:26:47.402Z","duration":38279442,"execution":{"resolvers":[]}}}}
+
+

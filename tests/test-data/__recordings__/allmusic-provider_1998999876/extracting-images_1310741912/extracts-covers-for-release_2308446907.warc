@@ -1,0 +1,1699 @@
+WARC/1.1
+WARC-Filename: allmusic provider/extracting images/extracts covers for release
+WARC-Date: 2021-12-11T20:26:43.874Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:d732b4e6-98fa-421a-9db4-d234898d2ac5>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:fee513a8-f0a2-4648-8447-b0507bc45be0>
+WARC-Target-URI: https://www.allmusic.com/album/release/thank-you-mr0005436124
+WARC-Date: 2021-12-11T20:26:43.875Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:f842cb9d-0402-4342-a72f-09dc2d742efd>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:55dd1a4656e52aa53cb36aec6758158c02697dbe8e577985a0e154636c87da90
+Content-Length: 54
+
+GET /album/release/thank-you-mr0005436124 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:fee513a8-f0a2-4648-8447-b0507bc45be0>
+WARC-Target-URI: https://www.allmusic.com/album/release/thank-you-mr0005436124
+WARC-Date: 2021-12-11T20:26:43.875Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:9ef15618-c661-44e3-84e7-798822ab4e87>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:09cefa3cec9365d73fe8de67366121f4e112c0761f4797fbd679b58998d8f835
+WARC-Block-Digest: sha256:09cefa3cec9365d73fe8de67366121f4e112c0761f4797fbd679b58998d8f835
+Content-Length: 1166
+
+harEntryId: c1a6d5544ca0261be86062031e835f4f
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:43.476Z
+time: 393
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":393,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 80
+warcRequestCookies: []
+warcResponseHeadersSize: 2262
+warcResponseCookies: [{"name":"allmusic_session","value":"LehU1FSiMiN4FdhSIzopIUvLzKlGwNnF6lAvb8QdhxtMfAJTupCVzft8ciiNsV7WxJwtstQk0/Ctg8Gyhbpsdbcn5Hj0R5LuJWSvL/hSOcrC0AqdyqpASLznpOAfJ3/mQpughQty7mI5KxO8cUIF6MURD6rrzZY40cA1lVTpyaAnvIO5eGJLDB4stlOT7p5YwmYAJwuy5AYkYSfmrraWcRXb3Hnah2HAutV08bZA8whKmEVQwzTl/MqEYesjQsQSruVh+5KtZjP/z0mqkwPBbkjzV/NuNpi1jJfvkDtkhmLwH3vmdvk38yZCBY/A7/dgQick2iJ2P1lL3lfkvazAFg==","path":"/","secure":true,"httponly, allmusic_session":"kkGQ3TvBQ9cnlqNa4fHuvAgotvt4fVZURRv99o0mS4E87f5zagVM1pbKzvoWpkD3D8ruYb%2B8Ro%2B8e%2BWMXlyAjuobifZdzvXkXG8ncEVGWodcAuGK6Xghecg4CrLvWqNUFrjTJP6DmP5rt0XVbmwgKwNWBSdtq7i9dwFJbDNzr7mnljj65OfIBSIqRbtoI5Smr8x7z8%2FROGxti7J2x9vgR73%2FcTM66RhmZjwRaL6x4rEIRqbrvrgaB8YetXYqfro45rDke4WYybWMt13oBq9ezT3Ov9vGbJdrrelpL22Nt4K7%2FpbZZJ7SZQheks%2FQnymsEk1yPx0LCyBfjbUrAyMoCQ%3D%3D","httpOnly":true}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.allmusic.com/album/release/thank-you-mr0005436124
+WARC-Date: 2021-12-11T20:26:43.875Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:fee513a8-f0a2-4648-8447-b0507bc45be0>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:80cc31c2333690d2c43788f0e1f45dd697d87e0607473f01c5e865a62e4ab2cd
+WARC-Block-Digest: sha256:1540443f54d27b898a46443112cf44d93be2122a64734cbcbf77e53ee8febf28
+Content-Length: 91764
+
+HTTP/1.1 200 OK
+accept-ranges: bytes
+age: 0
+alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+cache-control: maxage=43200
+connection: close
+content-encoding: gzip
+content-security-policy: upgrade-insecure-requests
+content-type: text/html; charset=UTF-8
+date: Sat, 11 Dec 2021 20:26:43 GMT
+expires: Sun, 12 Dec 2021 08:26:43 GMT
+server: nginx/1.20.1
+set-cookie: allmusic_session=LehU1FSiMiN4FdhSIzopIUvLzKlGwNnF6lAvb8QdhxtMfAJTupCVzft8ciiNsV7WxJwtstQk0%2FCtg8Gyhbpsdbcn5Hj0R5LuJWSvL%2FhSOcrC0AqdyqpASLznpOAfJ3%2FmQpughQty7mI5KxO8cUIF6MURD6rrzZY40cA1lVTpyaAnvIO5eGJLDB4stlOT7p5YwmYAJwuy5AYkYSfmrraWcRXb3Hnah2HAutV08bZA8whKmEVQwzTl%2FMqEYesjQsQSruVh%2B5KtZjP%2Fz0mqkwPBbkjzV%2FNuNpi1jJfvkDtkhmLwH3vmdvk38yZCBY%2FA7%2FdgQick2iJ2P1lL3lfkvazAFg%3D%3D; path=/; secure; HttpOnly, allmusic_session=kkGQ3TvBQ9cnlqNa4fHuvAgotvt4fVZURRv99o0mS4E87f5zagVM1pbKzvoWpkD3D8ruYb%2B8Ro%2B8e%2BWMXlyAjuobifZdzvXkXG8ncEVGWodcAuGK6Xghecg4CrLvWqNUFrjTJP6DmP5rt0XVbmwgKwNWBSdtq7i9dwFJbDNzr7mnljj65OfIBSIqRbtoI5Smr8x7z8%2FROGxti7J2x9vgR73%2FcTM66RhmZjwRaL6x4rEIRqbrvrgaB8YetXYqfro45rDke4WYybWMt13oBq9ezT3Ov9vGbJdrrelpL22Nt4K7%2FpbZZJ7SZQheks%2FQnymsEk1yPx0LCyBfjbUrAyMoCQ%3D%3D; path=/; secure; HttpOnly
+strict-transport-security: max-age=31536000; includeSubDomains
+tmp-set-cookie: allmusic_session=LehU1FSiMiN4FdhSIzopIUvLzKlGwNnF6lAvb8QdhxtMfAJTupCVzft8ciiNsV7WxJwtstQk0%2FCtg8Gyhbpsdbcn5Hj0R5LuJWSvL%2FhSOcrC0AqdyqpASLznpOAfJ3%2FmQpughQty7mI5KxO8cUIF6MURD6rrzZY40cA1lVTpyaAnvIO5eGJLDB4stlOT7p5YwmYAJwuy5AYkYSfmrraWcRXb3Hnah2HAutV08bZA8whKmEVQwzTl%2FMqEYesjQsQSruVh%2B5KtZjP%2Fz0mqkwPBbkjzV%2FNuNpi1jJfvkDtkhmLwH3vmdvk38yZCBY%2FA7%2FdgQick2iJ2P1lL3lfkvazAFg%3D%3D; path=/; secure; HttpOnly
+transfer-encoding: chunked
+vary: Accept-Encoding
+via: 1.1 varnish (Varnish/6.1), 1.1 varnish (Varnish/6.1), 1.1 google
+worker: vdir_prod_music_precache
+x-amn-trace: 5f6ddaaf6f5c91919da17dfc4c74225e/8413264909140986615
+x-content-type-options: nosniff
+x-ecache: MISS
+x-evarnish-trace: gce-all-prod-evarnish-autogroup-b-5kbq
+x-frame-options: SAMEORIGIN
+x-icache: ivarnish
+x-ivarnish-trace: gce-all-prod-ivarnish-autogroup-zjbh
+x-ivxid: 6717599
+x-varnish: 8893021
+x-xss-protection: 1; mode=block
+x-pollyjs-finalurl: https://www.allmusic.com/album/release/thank-you-mr0005436124
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <script>
+        window.location.href.indexOf(".allmusic.com")==-1&&window.stop();
+    </script>
+
+    <title>Thank You - Diana Ross | Release Info | AllMusic</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+    <!-- iOS metadata -->
+    <meta name="apple-mobile-web-app-capable" content="no">
+            <meta name="viewport" content="width=device-width">
+    
+    <!-- preload font -->
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_D_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_D_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_16_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_16_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_18_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_18_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_19_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_19_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1A_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1A_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1B_unhinted_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1B_unhinted_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+<!-- preload page css -->
+    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/release/release-188c14538c.css" as="style" crossorigin="anonymous" >
+
+
+<!-- preload setup (header) js -->
+<link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/js/setup-7917bd1369.js" as="script" crossorigin="anonymous" >
+
+<!-- preload global (footer) js -->
+<link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/js/global-c185d56d8a.js" as="script" crossorigin="anonymous" >
+
+<!-- preload page js -->
+    
+    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/js/release-bd38f0d737.overview.js" as="script" crossorigin="anonymous" >
+
+<!-- prefetch global -->
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/header/gear_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/gear_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/flag_off.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/flag_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/hamburger.svg">
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/header/looking-glass.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/facebook_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/twitter_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/tumblr_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/rss_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/facebook_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/twitter_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/tumblr_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/rss_on.svg">
+
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue-half.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" as="image" crossorigin="anonymous" >
+
+<!-- preload page-level assets -->
+                    <link rel="preload" as="image" href="https://rovimusic.rovicorp.com/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&f=4">
+                            <link rel="preload" as="image" href="https://rovimusic.rovicorp.com/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&f=1">
+            
+    <!-- android homescreen specific favicon -->
+    <link rel="icon" type="image/png" href="https://cdn-gce.allmusic.com/images/favicon/favicon-196x196.png?v=47BXOjEqB"
+          sizes="196x196"/>
+
+    <!-- general favicon -->
+    <link rel="icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon-96x96.png?v=47BXOjEqB" type="image/png"
+          sizes="96x96"/>
+    <link rel="icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon-32x32.png?v=47BXOjEqB" type="image/png"
+          sizes="32x32"/>
+    <link rel="icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon-16x16.png?v=47BXOjEqB" type="image/png"
+          sizes="16x16"/>
+    <link rel="shortcut icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon.ico?v=47BXOjEqB" type="image/x-icon"/>
+
+    <!-- iOS specific favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="120x120"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-120x120.png?v=47BXOjEqB"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-76x76.png?v=47BXOjEqB"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-152x152.png?v=47BXOjEqB"/>
+    <link rel="apple-touch-icon-precomposed" sizes="180x180"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-180x180.png?v=47BXOjEqB"/>
+    <meta name="apple-mobile-web-app-title" content="AllMusic">
+
+    <meta name="application-name" content="AllMusic">
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss"/>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/kffpbhfpflaacppoegnbknokchggcoao">
+
+    
+    	<meta name="title" content="Thank You - Diana Ross | Release Info | AllMusic">
+	<meta name="keywords" content="Decca,3808075,CD">
+	<meta name="description" content="Find release reviews and credits for Thank You - Diana Ross on AllMusic - 2021 - Diana Ross&#039; first album of originals in over 20 ...">
+	<meta name="image" content="https://rovimusic.rovicorp.com/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&amp;f=3">
+
+    	<meta property="og:site_name" content="AllMusic">
+
+	<meta property="fb:app_id" content="415271808519760">
+
+	<meta property="og:title" content="Thank You - Diana Ross | Release Info | AllMusic">
+	<meta name="twitter:title" content="Thank You - Diana Ross | Release Info | AllMusic">
+
+	<meta property="og:description" content="Find release reviews and credits for Thank You - Diana Ross on AllMusic - 2021 - Diana Ross&#039; first album of originals in over 20 ...">
+	<meta name="twitter:description" content="Find release reviews and credits for Thank You - Diana Ross on AllMusic - 2021 - Diana Ross&#039; first album of originals in over 20 ...">
+
+	<meta property="og:image" content="https://rovimusic.rovicorp.com/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&amp;f=3">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:image" content="https://rovimusic.rovicorp.com/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&amp;f=3">
+    	<meta property="og:type" content="website">
+
+
+    <meta property="og:image" content="https://cdn-gce.allmusic.com/images/allmusic_facebook_share.png">
+    <meta property="og:url" content="https://www.allmusic.com/album/release/thank-you-mr0005436124">
+
+        <meta name="spotim-ads" content="disable-all"/>
+    
+    <link rel="canonical" href="https://www.allmusic.com/album/release/thank-you-mr0005436124">
+
+            <link type="text/css" rel="stylesheet" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/release/release-188c14538c.css" crossorigin="anonymous">    
+    
+    
+    <!-- Alexa tag -->
+    <meta name="alexaVerifyID" content="SfgYrX5roRNK_iy-Mr_tFkRlY7M"/>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-7096127-1', 'auto');
+
+                        ga('send', 'pageview', 'album/release/thank-you-mr0005436124');
+                setTimeout("ga('send','event','adjusted bounce rate','page visit 15 seconds or more')", 15000);
+            </script>
+
+    <!-- Google Tag Manager QunatCast-->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M5C83T');</script>
+    <!-- End Google Tag Manager -->
+
+    
+    <script src="https://cdn-gce.allmusic.com/cache/dist/js/setup-7917bd1369.js" crossorigin="anonymous"></script>
+    <script>
+        (function (a, c, d, e) {
+            if (!a[c]) {
+                var b = a[c] = {};
+                b[d] = [];
+                b[e] = function (a) {
+                    b[d].push(a)
+                }
+            }
+        })(window, 'Scroll', '_q', 'do');
+        Scroll.config = {
+            detected: document.cookie.indexOf("scroll0=") > -1
+        };
+    </script>
+    <script async src="https://static.scroll.com/js/scroll.js"></script>
+
+    
+            <script type="text/javascript">
+let catalystConfig = {
+site: 'allmusic',
+silo: 's_mus',
+zone: 'release',
+tier: 'to,t2,internal',
+kw: 'blockadexfalse',
+isMobile: isMobile_AllMusic,
+exclude: '',
+toolbar: {
+theme: 'grey'
+}
+};
+if (document.cookie.indexOf('scroll0=') < 0 && scroll_v7 == 'no-scroll') {
+(function(window,document) {
+if(!window.catalyst) {
+var ns = document.createElement('script');
+ns.src = '//media.complex.com/common/catalyst.js';
+ns.type = 'text/javascript';
+ns.async = true;
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ns, s);
+window.catalyst = window.catalyst || {cmd: []};
+}
+})(window, document);
+}
+</script>    
+    
+    
+        <script type="application/ld+json">
+            {
+    "@context": "http://schema.org",
+    "@type": "MusicRelease",
+    "url": "https://www.allmusic.com/album/release/thank-you-mr0005436124",
+    "name": "Thank You",
+    "musicReleaseFormat": "CD",
+    "image": "https://rovimusic.rovicorp.com/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&f=4",
+    "genre": [
+        "R&amp;B"
+    ],
+    "datePublished": "2021-11-05",
+    "catalogNumber": "3808075",
+    "recordLabel": [
+        {
+            "@type": "Organization",
+            "name": "Decca"
+        }
+    ],
+    "releaseOf": {
+        "@type": "MusicAlbum",
+        "url": "https://www.allmusic.com/album/thank-you-mw0003546124",
+        "name": "Thank You",
+        "datePublished": "2021-11-05",
+        "byArtist": [
+            {
+                "@type": "MusicGroup",
+                "url": "https://www.allmusic.com/artist/diana-ross-mn0000594665",
+                "name": "Diana Ross"
+            }
+        ]
+    },
+    "tracks": [
+        {
+            "@type": "MusicRecording",
+            "name": "Thank You",
+            "url": "https://www.allmusic.com/song/thank-you-mt0059753324",
+            "duration": "PT00H03M45S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "If the World Just Danced",
+            "url": "https://www.allmusic.com/song/if-the-world-just-danced-mt0059753325",
+            "duration": "PT00H03M44S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "All Is Well",
+            "url": "https://www.allmusic.com/song/all-is-well-mt0059753326",
+            "duration": "PT00H04M32S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "In Your Heart",
+            "url": "https://www.allmusic.com/song/in-your-heart-mt0059753327",
+            "duration": "PT00H04M16S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Just in Case",
+            "url": "https://www.allmusic.com/song/just-in-case-mt0059753328",
+            "duration": "PT00H03M09S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "The Answer's Always Love",
+            "url": "https://www.allmusic.com/song/the-answers-always-love-mt0059753329",
+            "duration": "PT00H04M33S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Let's Do It",
+            "url": "https://www.allmusic.com/song/lets-do-it-mt0059753330",
+            "duration": "PT00H03M40S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "I Still Believe",
+            "url": "https://www.allmusic.com/song/i-still-believe-mt0059753331",
+            "duration": "PT00H03M38S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Count on Me",
+            "url": "https://www.allmusic.com/song/count-on-me-mt0059753332",
+            "duration": "PT00H03M29S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Tomorrow",
+            "url": "https://www.allmusic.com/song/tomorrow-mt0059753333",
+            "duration": "PT00H03M23S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Beautiful Love",
+            "url": "https://www.allmusic.com/song/beautiful-love-mt0059753334",
+            "duration": "PT00H04M00S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Time to Call",
+            "url": "https://www.allmusic.com/song/time-to-call-mt0059753335",
+            "duration": "PT00H03M31S"
+        },
+        {
+            "@type": "MusicRecording",
+            "name": "Come Together",
+            "url": "https://www.allmusic.com/song/come-together-mt0059753336",
+            "duration": "PT00H03M43S"
+        }
+    ]
+}        </script>
+
+</head>
+<body>
+<noscript>
+    <div class="javascript-disabled" id="no-js">
+        AllMusic relies heavily on JavaScript.<br>
+        Please enable JavaScript in your browser to use the site fully.
+    </div>
+</noscript>
+
+<!-- Google Tag Manager (noscript) QunatCast-->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5C83T" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<div class="overflow-container release">
+
+    <div class="stripe-container header-main-nav clearfix">
+        <div class="max-header">
+            <div class="main-nav">
+
+    <div class="logo-container">
+        <a class="logo no-snap" href="/">
+            <p class="logo-img">AllMusic</p>
+        </a>
+    </div>
+
+    <nav class="mobile-menu" aria-label="Toggle menu"></nav>
+
+    <div class="search-container">
+        <form class="site-search" method="post" name="site-search" action="/search">
+            <input type="search" class="site-search-input" name="term" aria-label="Search" placeholder="Search" autocomplete="off">
+            <input type="submit" class="site-search-button" name="submit" value="" aria-label="Submit search">
+        </form>
+    </div>
+
+    <nav class="site-nav">
+        <div class="nav-contain">
+            <div class="new-releases top-nav-item">
+                <a href="/newreleases">New Releases</a>
+                <div class="sub-nav-outer-container">
+    <div class="sub-nav-container">
+        <div class="sub-nav-columns">
+            <div class="new-releases-subnav left">
+                <ul class="new-releases-nav">
+                    <li class="nr-featured">
+                        <a href="/newreleases">Featured New Releases</a>
+                    </li>
+                    <li class="nr-editorschoice">
+                        <a href="/newreleases/editorschoice">Editors' Choice</a>
+                    </li>
+                    <li class="nr-all">
+                        <a href="/newreleases/all">All New Releases</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="new-releases-subnav right">
+                <div class="sub-nav-content">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>            </div>
+            <div class="discover top-nav-item">
+                <a href="/discover">Discover</a>
+                <div class="sub-nav-outer-container">
+    <div class="sub-nav-container">
+        <div class="sub-nav-columns left">
+            <ul class="discover-nav">
+                <li id="discover-genres" class="discover-drop-trigger active">
+                    <a href="/genres">Genres<span class="genres-arrow" style="display:none">&nbsp;&nbsp;&rsaquo;</span></a>
+                </li>
+                <li id="discover-moods" class="discover-drop-trigger">
+                    <a href="/moods">Moods<span class="moods-arrow" style="display:none">&nbsp;&nbsp;&rsaquo;</span></a>
+                </li>
+                <li id="discover-themes" class="discover-drop-trigger">
+                    <a href="/themes">Themes<span class="themes-arrow" style="display:none">&nbsp;&nbsp;&rsaquo;</span></a>
+                </li>
+            </ul>
+       </div>
+        <div class="sub-nav-columns right">
+            <div class="discover-genre-secondary">
+    <div class="genre-column">
+        <!-- spacer to prevent hover weirdness -->
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/blues-ma0000002467">Blues</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/classical-ma0000002521">Classical</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/country-ma0000002532">Country</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/electronic-ma0000002572">Electronic</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/folk-ma0000002592">Folk</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/international-ma0000002660">International</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/jazz-ma0000002674">Jazz</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/latin-ma0000002692">Latin</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/new-age-ma0000002745">New Age</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/pop-rock-ma0000002613">Pop/Rock</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/rap-ma0000002816">Rap</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/r-b-ma0000002809">R&amp;B</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/reggae-ma0000002820">Reggae</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/stage-screen-ma0000004432">Stage &amp; Screen</a>
+            </li>
+            <li class="last">
+                <a href="/genres">All Genres</a>
+            </li>
+        </ul>
+    </div>
+</div>            <div class="discover-mood-secondary" style="display:none;">
+    <div class="mood-column">
+        <!-- spacer to prevent hover weirdness -->
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/aggressive-xa0000000694">Aggressive</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/bittersweet-xa0000000946">Bittersweet</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/druggy-xa0000000979">Druggy</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/energetic-xa0000000990">Energetic</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/happy-xa0000001016">Happy</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/hypnotic-xa0000000719">Hypnotic</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/laid-back-mellow-xa0000001032">Laid Back/Mellow</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/melancholy-xa0000000734">Melancholy</a>
+            </li>
+            <li>
+                <a href="/mood/passionate-xa0000001062">Passionate</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/romantic-xa0000000758">Romantic</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/sad-xa0000000761">Sad</a>
+            </li>
+            <li>
+                <a href="/mood/sentimental-xa0000000765">Sentimental</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li>
+                <a href="/mood/sexy-xa0000000770">Sexy</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/trippy-xa0000000749">Trippy</a>
+            </li>
+            <li class="last">
+                <a href="/moods">All Moods</a>
+            </li>
+        </ul>
+    </div>
+</div>            <div class="discover-theme-secondary" style="display:none;">
+    <div class="theme-column">
+        <!-- spacer to prevent hover weirdness -->
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/background-music-ma0000006329">Background Music</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/celebration-ma0000005042">Celebration</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/cool-cocky-ma0000006328">Cool & Cocky</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/drinking-ma0000004252">Drinking</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/hanging-out-ma0000006297">Hanging Out</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/in-love-ma0000005076">In Love</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/introspection-ma0000006318">Introspection</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/late-night-ma0000006321">Late Night</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/partying-ma0000004272">Partying</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/rainy-day-ma0000005096">Rainy Day</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/relaxation-ma0000006314">Relaxation</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/road-trip-ma0000006287">Road Trip</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/romantic-evening-ma0000006312">Romantic Evening</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/sex-ma0000005107">Sex</a>
+            </li>
+            <li class="last">
+                <a href="/themes">All Themes</a>
+            </li>
+        </ul>
+    </div>
+</div>        </div>
+    </div>
+</div>            </div>
+            <div class="blog top-nav-item">
+                <a href="/blog">Articles</a>
+                <div class="sub-nav-outer-container">
+    <div class="sub-nav-container clearfix">
+        <div class="sub-nav-columns">
+            <div class="blog-list">
+                <ul>
+                    <li class="blog-features">
+                        <a href="/blog/features">Features</a>
+                    </li>
+                    <li class="blog-interviews">
+                        <a href="/blog/interviews-14">Interviews</a>
+                    </li>
+                    <li class="blog-lists">
+                        <a href="/blog/lists">Lists</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blog-list">
+                <ul>
+                    <li class="blog-stream">
+                        <a href="/blog/stream-and-download">Streams</a>
+                    </li>
+                    <li class="blog-promotions">
+                        <a href="/videos">Videos</a>
+                    </li>
+                    <li class="blog-all">
+                        <a href="/blog">All Posts</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blog-subnav right">
+                <div class="sub-nav-blog-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+            <div class="recommendations top-nav-item">
+                <a href="/recommendations">Recommendations</a>
+            </div>
+            <div class="my-profile top-nav-item">
+                <span class="my-profile-link" aria-label="My Profile">My Profile</span>
+            </div>
+            <div class="advanced-search top-nav-item">
+                <a href="/advanced-search" class="advanced-search-link">Advanced Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="user-social-nav">
+        <nav class="social-nav">
+            <ul>
+                <li class="facebook">
+                    <a href="https://www.facebook.com/AllMusicDotCom" title="Like us on Facebook">Facebook</a>
+                </li>
+                <li class="twitter">
+                    <a href="https://twitter.com/allmusic" title="Follow us on Twitter">Twitter</a>
+                </li>
+                <li class="tumblr">
+                    <a href="https://allmusic.tumblr.com" title="Follow us on Tumblr">Tumblr</a>
+                </li>
+                <li class="rss">
+                    <a href="/rss" title="Subscribe to our RSS feed" target="_blank">RSS</a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="user-notifications">
+            <ul>
+                <li class="user-notification-icon">
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="user-nav"></nav>
+    </div>
+
+</div>
+        </div>
+    </div>
+
+<div id="cmn_wrap">
+
+    <div class="stripe-container header-leaderboard">
+        <div class="advertising leaderboard">
+                            <div id="AllMusic_LB_Top"></div>                    </div>
+    </div>
+
+<div class="content-container">
+
+    <div class="sidebar">
+
+        <div class="release-cover gallery-launch" aria-label="View larger release cover">
+    <div class="release-cover-contain">
+                            <script>
+                var imageGallery = [{"height":500,"width":500,"formatid":16,"author":"","copyrightOwner":"","imageTypeId":0,"zoomLevel":true,"url":"https:\/\/rovimusic.rovicorp.com\/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&f=5","album":true,"zoomURL":"https:\/\/rovimusic.rovicorp.com\/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&f=6","artist":"Diana Ross","albumTitle":"Thank You"},{"height":390,"width":500,"formatid":16,"author":"","copyrightOwner":"","imageTypeId":0,"zoomLevel":true,"url":"https:\/\/rovimusic.rovicorp.com\/image.jpg?c=vzF6ozntwFTLCP_8J89ceIAf7E_1E-2MlBBPmPAXRBU=&f=5","album":true,"zoomURL":"https:\/\/rovimusic.rovicorp.com\/image.jpg?c=vzF6ozntwFTLCP_8J89ceIAf7E_1E-2MlBBPmPAXRBU=&f=6"}];
+            </script>
+                        	<img src="https://rovimusic.rovicorp.com/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&f=4" alt="Thank You" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image media-gallery-image" data-largeurl="https://rovimusic.rovicorp.com/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&f=6" loading="lazy">                            <span class="has-back-cover" title="front/back cover"></span>
+                        </div>
+</div>
+
+            <section class="main-album">
+        <div class="main-album-inner">
+            <div class="cover">
+                                                    <a href="/album/thank-you-mw0003546124" title="Thank You" class="cropped-image-link album-image  crop-image-borders">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=4p3r7hpq0yPN_xNPFX06ICpQg_7iAU1wjqLgK_xGXts=&f=1" alt="Thank You" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                            </div>
+            <div class="meta">
+                <h4>Main Album</h4>
+                <a href="https://www.allmusic.com/album/thank-you-mw0003546124" class="album-title">Thank You</a>                                    <div class="year">
+                        2021                    </div>
+                            </div>
+        </div>
+    </section>
+
+            <div class="streams" style="padding: 10px 0;">
+        <div>
+            <script>
+                /* TFP - allmusic.com - white bg */
+                (function() {
+                    var opts = {
+                        artist: "Diana Ross",
+                        song: "Thank You",
+                        adunit_id: 100000769,
+                        div_id: "cf_async_" + Math.floor((Math.random() * 999999999))
+                    };
+                    document.write('<div id="'+opts.div_id+'"></div>');var c=function(){cf.showAsyncAd(opts)};if(typeof window.cf !== 'undefined')c();else{cf_async=!0;var r=document.createElement("script"),s=document.getElementsByTagName("script")[0];r.async=!0;r.src="//srv.tunefindforfans.com/fruits/apricots.js";r.readyState?r.onreadystatechange=function(){if("loaded"==r.readyState||"complete"==r.readyState)r.onreadystatechange=null,c()}:r.onload=c;s.parentNode.insertBefore(r,s)};
+                })();
+            </script>
+        </div>
+    </div>
+
+        <section class="basic-info">
+    
+            <div class="release-date">
+            <h3>Release Date</h3>
+            <span>November 5, 2021</span>
+        </div>
+    
+            <div class="recording-location">
+            <h3>Recording Location</h3>
+            <ul>
+                            <li>
+                    Abbey Road Studios, U.K.                </li>
+                            <li>
+                    Air Studios, London, U.K.                </li>
+                            <li>
+                    Auricle Studio, Los Angeles, U.S.                </li>
+                            <li>
+                    Conway Studios, Los Angeles, U.S.                </li>
+                            <li>
+                    Crossways Studio, London, U.K.                </li>
+                            <li>
+                    Electric Lady Studios, New York                </li>
+                            <li>
+                    Hook and Fade, Brooklyn, U.S.                </li>
+                            <li>
+                    Horn House, London, U.K.                </li>
+                            <li>
+                    Lucy's Meat Market, Los Angeles, U.S.                </li>
+                            <li>
+                    Motherbrain Studios, Los Angeles, U.S.                </li>
+                            <li>
+                    Pen to Platinum Studios, Miami, U.S.                </li>
+                            <li>
+                    Ross Records, Los Angeles, U.S.                </li>
+                            <li>
+                    Spark Studio, London, U.K.                </li>
+                            <li>
+                    The Park Studio, Studio City, U.S.                </li>
+                        </ul>
+        </div>
+    
+            <div class="label">
+            <h3>Label</h3>
+            <div>
+                <a href="//www.allmusic.com/search/labels/Decca" title="Decca">Decca</a>            </div>
+        </div>
+    
+            <div class="format">
+            <h3>Format</h3>
+            <span>CD</span>
+        </div>
+    
+            <div class="duration">
+            <h3>Duration</h3>
+            <span>49:23</span>
+        </div>
+    
+    
+            <div class="catalog-number">
+            <h3>Catalog #</h3>
+            <span>3808075</span>
+        </div>
+    
+    <a href="https://www.allmusic.com/album/release/thank-you-mr0005436124/corrections" class="submit-corrections">Submit Corrections</a>
+</section>
+                    <div class="advertising medium-rectangle-btf">
+                <div id="AllMusic_R2"></div>            </div>
+        
+    </div>
+
+    <div class="content">
+
+        <header>
+    
+    <hgroup>
+        <h2 class="release-artist">
+            <span>
+                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>            </span>
+        </h2>
+
+        <h1 class="release-title">
+            Thank You        </h1>
+
+        <h3 class="release-details">
+            (CD - Decca #3808075)
+        </h3>
+    </hgroup>
+</header>
+
+        <ul class="tabs overview">
+            <li class="tab overview" data-sections="review,tracks">
+            <a href="/album/release/thank-you-mr0005436124" title="Overview">
+                Overview
+                <span class="arrow">&darr;</span>
+            </a>
+        </li>
+    
+            <li class="tab credits">
+            <a href="/album/release/thank-you-mr0005436124/credits" title="Credits">
+                Credits
+                <span class="arrow">&darr;</span>
+            </a>
+        </li>
+    </ul>
+
+        
+<div class="allmusic-share" data-sharemessage="Listen to Thank You by Diana Ross - Album Reviews, Credits, and Awards - AllMusic - ">
+    <p>
+        Share on
+    </p>
+    <ul class="share-menu">
+        <li>
+            <a title="Share on Facebook" class="share-button facebook" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.allmusic.com%2Falbum%2Frelease%2Fthank-you-mr0005436124">facebook</a>
+        </li>
+        <li>
+            <a title="Share on Twitter" class="share-button twitter" href="https://twitter.com/share?url=https%3A%2F%2Fwww.allmusic.com%2Falbum%2Frelease%2Fthank-you-mr0005436124&text=Listen+to+Thank+You+by+Diana+Ross+-+Album+Reviews%2C+Credits%2C+and+Awards+-+AllMusic+-+&counturl=https%3A%2F%2Fwww.allmusic.com%2Falbum%2Frelease%2Fthank-you-mr0005436124">twitter</a>
+        </li>
+        <li>
+            <a title="Share on Tumblr" class="share-button tumblr" href="https://www.tumblr.com/share?s=&v=3&t=AllMusic+%7C+Music+Search%2C+Recommendations%2C+Videos+and+Review&u=https%3A%2F%2Fwww.allmusic.com%2Falbum%2Frelease%2Fthank-you-mr0005436124">tumblr</a>
+        </li>
+    </ul>
+    <div class="share-modal">
+        <span class="close-button"></span>
+        <div class="share-frame"></div>
+    </div>
+</div>
+            <section class="review read-more">
+        <h3 class="headline">
+            Review
+                            by <span>Andy Kellman</span>
+                    </h3>
+
+        <div class="text">
+                            <p>
+                    <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665" class="name-link">Diana Ross</a>' first album of originals in over 20 years and first studio LP since the covers-oriented <a href="https://www.allmusic.com/album/i-love-you-mw0000446351" class="album-link">I Love You</a> is neither the unqualified triumph nor the disgrace it could have been. <a href="https://www.allmusic.com/album/thank-you-mw0003546124" class="album-link">Thank You</a> is constructed as a major return. Although <a href="https://www.allmusic.com/artist/ross-mn0000594665" class="name-link">Ross</a> co-wrote eight of the songs and did some of the recording at her home studio, it involves multiple teams of writers and producers, was pieced together from other sessions in Los Angeles, New York, Miami, and London, and features <a href="https://www.allmusic.com/artist/the-royal-philharmonic-orchestra-mn0000350127" class="name-link">the Royal Philharmonic Orchestra</a> and <a href="https://www.allmusic.com/artist/london-symphony-orchestra-mn0000602907" class="name-link">London Symphony Orchestra</a> separately on over half the cuts. <a href="https://www.allmusic.com/artist/ross-mn0000594665" class="name-link">Ross</a> seems much more invested in these songs than she did on her 1999 and 2006 efforts. She puts her all into these positive messages of gratitude, support, and unity, no matter how much the lyrics resemble mixed-and-matched phrases from inspirational memes. Conviction is always evident in her soothing voice, even when it's modulated to a jarring extent or sounds somewhat garbled. The clearest bid for a smash is the one produced by hitmaker <a href="https://www.allmusic.com/artist/jack-antonoff-mn0000556918" class="name-link">Jack Antonoff</a>, "I Still Believe," whose fully tricked-out modern disco is so sweeping and grand that <a href="https://www.allmusic.com/artist/annie-clark-mn0001429950" class="name-link">Annie Clark</a>'s guitar is barely audible. That and other songs clearly attempt to recapture moments from <a href="https://www.allmusic.com/artist/ross-mn0000594665" class="name-link">Ross</a>' past -- the <a href="https://www.allmusic.com/artist/supremes-mn0000477875" class="name-link">Supremes</a> era and later solo ballads and dancefloor hits -- and then there's "Beautiful Love," a ballad that seems to have <a href="https://www.allmusic.com/artist/lionel-richie-mn0000243474" class="name-link">Lionel Richie</a>'s "Hello" in mind despite its maternal perspective. That song is among eight collaborations with <a href="https://www.allmusic.com/artist/troy-miller-mn0000018935" class="name-link">Troy Miller</a> (<a href="https://www.allmusic.com/artist/laura-mvula-mn0003052732" class="name-link">Laura Mvula</a>, <a href="https://www.allmusic.com/artist/gregory-porter-mn0001682702" class="name-link">Gregory Porter</a>). The four made with the hipper <a href="https://www.allmusic.com/artist/triangle-park-mn0003831671" class="name-link">Triangle Park</a> team are more adventurous, veering from the stiff dancefloor jumble "Tomorrow" to "Let's Do It," a motivational number that finely melds U.K. garage and synth funk (a world apart from the like-titled <a href="https://www.allmusic.com/artist/cole-porter-mn0000109607" class="name-link">Cole Porter</a> composition <a href="https://www.allmusic.com/artist/ross-mn0000594665" class="name-link">Ross</a> reinterpreted on <a href="https://www.allmusic.com/album/blue-mw0000527072" class="album-link">Blue</a>).                 </p>
+                    </div>
+    </section>
+    <section class="track-listing">
+
+                    <div class="disc">
+                <div class="headline">
+                    <h3>
+                        Track Listing
+                                            </h3>
+                </div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="pick-prefix"></th>
+                                                <th class="tracknum"><!-- Track #--></th>
+                        <th class="title-composer">Title/Composer</th>
+                        <th class="performer">Performer</th>
+                        <th class="time">Time</th>
+                        <th class="stream">Stream</th>
+                        <th class="pick-suffix"></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                                                                    <tr class="track pick">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                1                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/thank-you-mt0059753324" data-tooltip="{&quot;id&quot;:&quot;MT0059753324&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Thank You</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/nathaniel-ledwidge-mn0002918020">Nathaniel Ledwidge</a> / <a href="https://www.allmusic.com/artist/troy-miller-mn0000018935">Troy Miller</a> / <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a> / <a href="https://www.allmusic.com/artist/amy-wadge-mn0001854108">Amy Wadge</a> / <a href="https://www.allmusic.com/artist/christian-paul-wossilek-mn0004099813">Christian Paul Wossilek</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    03:45                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Thank%20You&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track pick">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                2                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/if-the-world-just-danced-mt0059753325" data-tooltip="{&quot;id&quot;:&quot;MT0059753325&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">If the World Just Danced</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/scott-m-carter-mn0003752995">Scott M. Carter</a> / <a href="https://www.allmusic.com/artist/andre-pinckney-mn0002919512">Andre' Pinckney</a> / <a href="https://www.allmusic.com/artist/ali-prawl-mn0003752946">Ali Prawl</a> / <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a> / <a href="https://www.allmusic.com/artist/jaquetta-singleton-mn0003860478">Jaquetta Singleton</a> / <a href="https://www.allmusic.com/artist/amy-wadge-mn0001854108">Amy Wadge</a> / <a href="https://www.allmusic.com/artist/vanessa-wood-mn0002023010">Vanessa Wood</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    03:44                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;If%20the%20World%20Just%20Danced&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                3                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/all-is-well-mt0059753326" data-tooltip="{&quot;id&quot;:&quot;MT0059753326&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">All Is Well</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a> / <a href="https://www.allmusic.com/artist/rhonda-ross-mn0000475560">Rhonda Ross</a> / <a href="https://www.allmusic.com/artist/fred-white-mn0000796974">Fred White</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    04:32                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;All%20Is%20Well&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                4                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/in-your-heart-mt0059753327" data-tooltip="{&quot;id&quot;:&quot;MT0059753327&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">In Your Heart</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/prince-charlez-mn0002584107">Prince Charlez</a> / <a href="https://www.allmusic.com/artist/charles-hinshaw-mn0002682328">Charles Hinshaw</a> / <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a> / <a href="https://www.allmusic.com/artist/amy-wadge-mn0001854108">Amy Wadge</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    04:16                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;In%20Your%20Heart&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                5                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/just-in-case-mt0059753328" data-tooltip="{&quot;id&quot;:&quot;MT0059753328&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Just in Case</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/jimmy-napes-mn0002534104">Jimmy Napes</a> / <a href="https://www.allmusic.com/artist/tayla-parx-mn0003462550">Tayla Parx</a> / <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a> / <a href="https://www.allmusic.com/artist/freddy-wexler-mn0002687899">Freddy Wexler</a> / <a href="https://www.allmusic.com/artist/fred-white-mn0000796974">Fred White</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    03:09                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Just%20in%20Case&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                6                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/the-answers-always-love-mt0059753329" data-tooltip="{&quot;id&quot;:&quot;MT0059753329&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">The Answer's Always Love</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/barry-eastman-mn0001193940">Barry Eastman</a> / <a href="https://www.allmusic.com/artist/siedah-garrett-mn0000033995">Siedah Garrett</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    04:33                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;The%20Answer%27s%20Always%20Love&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                7                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/lets-do-it-mt0059753330" data-tooltip="{&quot;id&quot;:&quot;MT0059753330&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Let's Do It</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/theron-feemster-mn0002602661">Theron Feemster</a> / <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a> / <a href="https://www.allmusic.com/artist/fred-white-mn0000796974">Fred White</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    03:40                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Let%27s%20Do%20It&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track pick">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                8                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/i-still-believe-mt0059753331" data-tooltip="{&quot;id&quot;:&quot;MT0059753331&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">I Still Believe</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/ruth-anne-cunningham-mn0002085581">Ruth-Anne Cunningham</a> / <a href="https://www.allmusic.com/artist/charlie-mclean-mn0000174804">Charlie McLean</a> / <a href="https://www.allmusic.com/artist/autumn-rowe-mn0001946207">Autumn Rowe</a> / <a href="https://www.allmusic.com/artist/violet-skies-mn0003228252">Violet Skies</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    03:38                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;I%20Still%20Believe&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                9                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/count-on-me-mt0059753332" data-tooltip="{&quot;id&quot;:&quot;MT0059753332&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Count on Me</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/rhonda-ross-mn0000475560">Rhonda Ross</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    03:29                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Count%20on%20Me&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                10                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/tomorrow-mt0059753333" data-tooltip="{&quot;id&quot;:&quot;MT0059753333&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Tomorrow</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/scott-m-carter-mn0003752995">Scott M. Carter</a> / <a href="https://www.allmusic.com/artist/kyla-moscovich-mn0003238224">Kyla Moscovich</a> / <a href="https://www.allmusic.com/artist/andre-pinckney-mn0002919512">Andre' Pinckney</a> / <a href="https://www.allmusic.com/artist/ali-prawl-mn0003752946">Ali Prawl</a> / <a href="https://www.allmusic.com/artist/alex-stacey-mn0003759024">Alex Stacey</a> / <a href="https://www.allmusic.com/artist/chris-stevens-mn0002432913">Chris Stevens</a> / <a href="https://www.allmusic.com/artist/amy-wadge-mn0001854108">Amy Wadge</a> / <a href="https://www.allmusic.com/artist/vanessa-wood-mn0002023010">Vanessa Wood</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    03:23                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Tomorrow&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                11                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/beautiful-love-mt0059753334" data-tooltip="{&quot;id&quot;:&quot;MT0059753334&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Beautiful Love</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a> / <a href="https://www.allmusic.com/artist/fred-white-mn0000796974">Fred White</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    04:00                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Beautiful%20Love&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                12                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/time-to-call-mt0059753335" data-tooltip="{&quot;id&quot;:&quot;MT0059753335&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Time to Call</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/teyana-miller-mn0003927234">Teyana Miller</a> / <a href="https://www.allmusic.com/artist/troy-miller-mn0000018935">Troy Miller</a> / <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    03:31                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Time%20to%20Call&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                                                    <tr class="track">
+
+                            <td class="pick-prefix"></td>
+
+                            
+                            <td class="tracknum">
+                                13                            </td>
+
+                            <td class="title-composer">
+                                <div class="title">
+                                                                            <a href="https://www.allmusic.com/song/come-together-mt0059753336" data-tooltip="{&quot;id&quot;:&quot;MT0059753336&quot;,&quot;position&quot;:{&quot;my&quot;:&quot;top center&quot;,&quot;at&quot;:&quot;bottom center&quot;,&quot;adjust&quot;:{&quot;x&quot;:0}}}">Come Together</a>                                    
+                                                                    </div>
+
+                                <div class="composer">
+                                                                            <a href="https://www.allmusic.com/artist/timothy-bloom-mn0001903919">Timothy Bloom</a> / <a href="https://www.allmusic.com/artist/prince-charlez-mn0002584107">Prince Charlez</a> / <a href="https://www.allmusic.com/artist/charles-hinshaw-mn0002682328">Charles Hinshaw</a> / <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a> / <a href="https://www.allmusic.com/artist/ayak-thiik-mn0002093792">Ayak Thiik</a> / <a href="https://www.allmusic.com/artist/marvee-woods-mn0004003064">Marvee Woods</a>                                                                    </div>
+                            </td>
+
+                            <td class="performer">
+                                    <span>
+                                                                                    <span class="primary">
+                                                <a href="https://www.allmusic.com/artist/diana-ross-mn0000594665">Diana Ross</a>                                            </span>
+                                        
+                                                                            </span>
+                            </td>
+
+                            <td class="time">
+                                                                    03:43                                                            </td>
+
+                                                        <td class="stream">
+                                                                    <a href="https://www.amazon.com/s/?field-keywords=song: &#34;Come%20Together&#34; by &#34;Diana%20Ross&#34;&tag=allmusicdotcom-20" class="amazon" title="Search on Amazon" aria-label="Search on Amazon">Amazon</a>                                                            </td>
+                            <td class="pick-suffix"></td>
+                        </tr>
+                                        </tbody>
+                </table>
+            </div>
+        
+        <span class="note">blue highlight denotes track pick</span>
+
+    </section>
+
+                    <div class="advertising anyclip">
+                <script>
+                    if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+                        document.write('\x3Cscript src="https://player.anyclip.com/anyclip-widget/lre-widget/prod/v1/src/lre.js" pubname="allmusiccom" widgetname="0011r00001kaHto_1549">\x3C/script>');
+                    }
+                </script>
+            </div>
+        
+    </div>
+
+</div>
+
+<div class="stripe-container footer-leaderboard">
+            <div class="advertising leaderboard">
+            <div id="AllMusic_LB_Foot"></div>        </div>
+    </div>
+<footer>
+    <div id="footer-wrapper">
+        <div id="footer-grid">
+            <img id="footer-logo" src="https://cdn-gce.allmusic.com/images/logo_tower_whiteonblack.svg">
+            <div id="column1" class="footer-column">
+                <div id="properties">
+                    <h3>Our Properties</h3>
+                    <ul>
+                        <li>
+                            <p><a href="https://www.allmusic.com" title="AllMusic">AllMusic</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.allmovie.com" title="AllMovie">AllMovie</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.sidereel.com" title="SideReel">SideReel</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="site-overview" class="footer-column">
+                    <h3>Site Overview</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/newreleases" title="New Releases">New Releases</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/discover" title="Discover">Discover</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/blog" title="Articles">Articles</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/recommendations" title="Recommendations">Recommendations</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="column2" class="footer-column">
+                <div id="about">
+                    <h3>About</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/about" title="What is AllMusic?">What is AllMusic?</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/copyright-policy" title="Copyright Policy">Copyright Policy</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/privacy-notice" title="Privacy Policy">Privacy Policy</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/terms-of-service" title="Terms of Service">Terms of Service</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="questions-contact">
+                    <h3>Questions and Contact</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/faq" title="FAQ">FAQ</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://allmedianetwork.helprace.com/s1-allmusic" title="Feedback" target="_blank">Feedback</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="column3" class="footer-column">
+                <div id="your-account">
+                    <h3>Your AllMusic Account</h3>
+                    <ul>
+                        <li>
+                            <p><a href="javascript:void(0);" class="my-profile-link" title="My Profile" aria-label="My profile">My Profile</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/user/profile" title="Account Settings">Account Settings</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="remove-ads">
+                    <h3>Remove Ads</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/subscribe" title="Subscribe to AllMusic">Subscribe to AllMusic</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://help.twitter.com/en/using-twitter/twitter-blue" title="Sign Up for Twitter Blue" target="_blank">Sign Up for Twitter Blue</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="column4" class="footer-column">
+                <div id="follow-us">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li>
+                            <p><a href="https://www.facebook.com/AllMusicDotCom" title="Like us on Facebook" target="_blank">Facebook</a>
+                        </li>
+                        <li>
+                            <p><a href="https://twitter.com/allmusic" title="Follow us on Twitter" target="_blank">Twitter</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://allmusic.tumblr.com" title="Follow us on Tumblr" target="_blank">Tumblr</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.pinterest.com/allmusicdotcom" title="Follow us on Pinterest" target="_blank">Pinterest</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="newsletter-signup" class="footer-column">
+                <h3>Sign Up For Our Weekly New Releases Newsletter</h3>
+                <form id="footerNewsletterSignupForm">
+                    <div id="signup">
+                        <input type="email" name="newsletterEmail" id="newsletterEmailSignup" aria-label="Email Signup" placeholder="name@domain.com" required>
+                        <input type="submit" name="newsletterSubmit" id="newsletterSubmitBtn" value="Sign Up" aria-label="Sign up">
+                    </div>
+                    <div id="failMsgEmail" style="display:none;"><h3>Please enter a valid email address.</h3></div>
+                    <div id="failMsgSg" style="display:none;"><h3>There was a problem subscribing you. Please try again.</h3></div>
+                    <div id="successMsg" style="display:none">
+                        <h3>Thank You for subscribing to the <a href="/newreleases" title="AllMusic New Releases">AllMusic New Releases Newsletter</a>.</h3>
+                    </div>
+                </form>
+            </div>
+            <div id="copyright">
+                <h3>&copy;2021 ALLMUSIC, NETAKTION LLC - ALL RIGHTS RESERVED</h3>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://cdn-gce.allmusic.com/cache/dist/js/global-c185d56d8a.js" crossorigin="anonymous"></script>
+        <script src="https://cdn-gce.allmusic.com/cache/dist/js/release-bd38f0d737.overview.js" crossorigin="anonymous"></script>
+
+    <script>
+        if(User.loggedIn) {
+            ga('set', 'dimension1', 'Yes');
+                            ga('set', 'dimension3', 'No');
+                    } else {
+            ga('set', 'dimension1', 'No');
+        }
+    </script>
+
+<!-- Begin comScore Tag -->
+<script>
+    var _comscore = _comscore || [];
+    _comscore.push({ c1: "2", c2: "6685975" });
+    (function() {
+        var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+        s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+        el.parentNode.insertBefore(s, el);
+    })();
+</script>
+<noscript>
+    <img src="//b.scorecardresearch.com/p?c1=2&c2=6685975&cv=2.0&cj=1" alt="scorecard pixel" />
+</noscript>
+<!-- End comScore Tag -->
+
+</div><!-- end cmn_wrap -->
+</div><!-- end .overflow-container -->
+
+    <script type="text/javascript">
+if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+if ( isMobile_AllMusic ) {
+window.catalyst.cmd.push('loadAds',[
+['top', 'AllMusic_LB_Top'],['rect', 'AllMusic_R2'],['footer', 'AllMusic_LB_Foot']
+]);
+} else {
+window.catalyst.cmd.push('loadAds',[
+['top', 'AllMusic_LB_Top'],['rect_sidebar', 'AllMusic_R2'],['footer', 'AllMusic_LB_Foot']
+]);
+}
+}
+</script>
+<!-- Double Verify -->
+<script>
+    if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+        document.write('<img src="https://tps30.doubleverify.com/visit.jpg?ctx=2908533&cmp=2736444&sid=24324&plc=DV-RTHM20170324001&advid=2908534&region=30&btadsrv=rhythmone&app=appid&sup=sspid&DVP_DV_TT=2&DVP_DV_CT=1&DVP_APPID=NotApplicable&DVP_SSPID=NotApplicable&DVP_PUBID=NotApplicable&DVP_PP_BUNDLE_ID=NotApplicable&DVP_RO_SSPID=NotApplicable&DVP_PP_ORTB_PUB_ID=NotApplicable&DVP_RO_SITEID=NotApplicable&DVP_RO_TRAFFIC=NotApplicable&DVP_PP_DEAL_ID=NotApplicable&DVPX_PP_IMP_ID=NotApplicable&DVPX_PP_UID=NotApplicable&DVP_RO_CDID=NotApplicable&DVPX_PP_AUCTION_UA=node-fetch&DVP_PP_AUCTION_IP=10.128.2.7&turl=AllMusic.com&dvtagver=6.1.img" alt="" width="0" height="0" alt="double verify pixel">');
+    }
+</script>
+<!-- End Double Verify -->
+
+
+    <script>
+        if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+            $.ajax({
+                url:'https://pagead2.googlesyndication.com/pcs/activeview',
+                type:'HEAD',
+                error: function(){
+                    ga('send', 'event', 'setCustomDimension', 1, {
+                        'dimension2': 'is_adblocking',
+                        'nonInteraction': true
+                    });
+
+                    // fire ad block detected GA event
+                    allmusic.gaTrackEvent({data: ["AdBlock", "Interaction", "User Has Adblock Enabled"]});
+                    if (!Cookie.read('adblock_dismiss')) {
+
+                        // fire ad block modal fires GA event
+                        allmusic.gaTrackEvent({data: ["AdBlock", "Interaction", "AdBlock Modal Fires"]});
+
+                        $.ajax({
+                            url: protocol + urlSubdomain + '.allmusic.com/blocker_check',
+                            type: 'GET',
+                            cache: false,
+                            success: function (data) {
+                                // append to body
+                                $(document).find('body').append(data);
+                                // lock body
+                                $(document).find('body').addClass('noscroll');
+                                document.getElementById('cmn-toolbar-wrap').style.zIndex = 20000;
+                            }
+                        });
+
+                    } else {
+                        allmusic.gaTrackEvent({data: ["AdBlock", "Interaction", "User Has AdBlock Dismiss Cookie"]});
+                    }
+                },
+                success: function(){
+                    // success block
+                    ga('send', 'event', 'setCustomDimension', 1, {
+                        'dimension2': 'not_adblocking',
+                        'nonInteraction': true
+                    });
+
+                }
+            });
+
+            // log Scroll as No
+            ga('set', 'dimension4', 'No');
+        } else if (document.cookie.indexOf("scroll0=") < 0) {
+            ga('set', 'dimension4', 'No');
+        } else {
+            // set scroll to yes
+            ga('set', 'dimension4', 'Yes');
+        }
+    </script>
+</body>
+</html>
+
+

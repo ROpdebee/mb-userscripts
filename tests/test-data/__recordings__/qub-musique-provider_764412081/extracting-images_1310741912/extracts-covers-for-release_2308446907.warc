@@ -1,0 +1,84 @@
+WARC/1.1
+WARC-Filename: qub musique provider/extracting images/extracts covers for release
+WARC-Date: 2021-12-11T20:26:42.786Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:228bc969-53df-4fb8-8c74-72c83024e73c>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:926b84be-319e-4ee1-a9b2-a156c75bd8fc>
+WARC-Target-URI: https://www.qobuz.com/api.json/0.2/album/get?album_id=dbssxi6nl5fuc&offset=0&limit=20
+WARC-Date: 2021-12-11T20:26:42.787Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:2709b2a3-f5d6-4dac-9f2a-9455469e102b>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:fadbe88fd888d8a0892abeb21c3caaac7ee57c1fcada43a1f4da494596e6e7f2
+Content-Length: 102
+
+GET /api.json/0.2/album/get?album_id=dbssxi6nl5fuc&offset=0&limit=20 HTTP/1.1
+x-app-id: 712109809
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:926b84be-319e-4ee1-a9b2-a156c75bd8fc>
+WARC-Target-URI: https://www.qobuz.com/api.json/0.2/album/get?album_id=dbssxi6nl5fuc&offset=0&limit=20
+WARC-Date: 2021-12-11T20:26:42.787Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:40035294-0b9e-4a8b-9cda-80b002dbcfa0>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:7e0c14124ad66bf79e00c1b9ad065a096415112e12c8952b0569c19279a3065e
+WARC-Block-Digest: sha256:7e0c14124ad66bf79e00c1b9ad065a096415112e12c8952b0569c19279a3065e
+Content-Length: 509
+
+harEntryId: bb2a5fb017a7ef455f5c12269b8c16e5
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:42.260Z
+time: 522
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":522,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 123
+warcRequestCookies: []
+warcResponseHeadersSize: 607
+warcResponseCookies: [{"name":"qobuz-session-aws","value":"737f46d8b882f09cf657623016f5242b:366a48a220db4980b6a81e7a3d4f431172413005","path":"/","domain":"qobuz.com","httpOnly":true}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.qobuz.com/api.json/0.2/album/get?album_id=dbssxi6nl5fuc&offset=0&limit=20
+WARC-Date: 2021-12-11T20:26:42.787Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:926b84be-319e-4ee1-a9b2-a156c75bd8fc>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:87f21794f7e2728fa06295a1d2333905c78d0048961d3f39ff1df25163abfa52
+WARC-Block-Digest: sha256:7a5047cfcb60c48ea60fbf9775611fb7433e57647c378abe298b8253a4b2f820
+Content-Length: 12761
+
+HTTP/1.1 200 OK
+accept-ranges: bytes
+access-control-allow-origin: *
+access-control-expose-headers: x-zone, x-language-code
+age: 0
+cache-control: private
+connection: Close
+content-length: 12137
+content-type: application/json
+date: Sat, 11 Dec 2021 20:26:42 GMT
+server: nginx
+set-cookie: qobuz-session-aws=737f46d8b882f09cf657623016f5242b:366a48a220db4980b6a81e7a3d4f431172413005; path=/; domain=qobuz.com; HttpOnly
+via: 1.1 varnish
+x-language-code: nl
+x-store: NL-nl
+x-varnish: 405828625
+x-zone: NL
+x-pollyjs-finalurl: https://www.qobuz.com/api.json/0.2/album/get?album_id=dbssxi6nl5fuc&offset=0&limit=20
+
+{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","product_url":"\/fr-fr\/album\/pour-le-plug-tizzo\/dbssxi6nl5fuc","media_count":1,"product_sales_factors_weekly":0,"artist":{"id":4165177,"name":"Tizzo","slug":"tizzo","albums_count":15,"picture":null,"image":null},"genres_list":["Rap"],"created_at":1627310302,"description":"","released_at":1634248800,"product_sales_factors_monthly":0,"release_tags":[],"title":"Pour le Plug","duration":2132,"parental_warning":true,"artists":[{"id":4165177,"name":"Tizzo","roles":["main-artist"]}],"popularity":0,"genre":{"id":133,"color":"#5eabc1","name":"Hip-Hop\/Rap","path":[133],"slug":"rap-hip-hop"},"catchline":"","id":"dbssxi6nl5fuc","slug":"pour-le-plug-tizzo","image":{"large":"https:\/\/static.qobuz.com\/images\/covers\/uc\/5f\/dbssxi6nl5fuc_600.jpg","small":"https:\/\/static.qobuz.com\/images\/covers\/uc\/5f\/dbssxi6nl5fuc_230.jpg","thumbnail":"https:\/\/static.qobuz.com\/images\/covers\/uc\/5f\/dbssxi6nl5fuc_50.jpg","back":null},"composer":{"id":573076,"name":"Various Composers","slug":"various-composers","albums_count":583621,"picture":null,"image":null},"upc":"3616558001818","release_type":"album","label":{"id":1065091,"name":"Canicule Records","slug":"canicule-records","supplier_id":3,"albums_count":28},"product_sales_factors_yearly":0,"qobuz_id":127435241,"version":null,"url":"https:\/\/www.qobuz.com\/nl-nl\/album\/pour-le-plug-tizzo\/dbssxi6nl5fuc","is_official":false,"relative_url":"\/album\/pour-le-plug-tizzo\/dbssxi6nl5fuc","product_type":"album","subtitle":"Tizzo","tracks_count":11,"maximum_channel_count":2,"maximum_sampling_rate":44.1,"articles":[{"id":490612289,"url":"\/order\/490612289","price":8.99,"currency":"EUR","type":"lls","label":"Cd-kwaliteit","description":"Lossless, 16-bits\/44,1 kHz (FLAC, ALAC, WMA, AIFF, WAV)"}],"release_date_original":"2021-10-15","release_date_download":"2021-10-15","release_date_stream":"2021-10-15","purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false,"tracks":{"offset":0,"limit":20,"total":11,"items":[{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"Tizzo, MainArtist - Teddy Laguerre, Lyricist - Birdzonthetrack, Producer - Lendcey Fineus, Composer","audio_info":{"replaygain_track_peak":0.966064,"replaygain_track_gain":-9.02},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Lendcey Fineus","id":7524070},"isrc":"FRX282176261","title":"#PLP","version":"Intro","duration":191,"parental_warning":true,"track_number":1,"maximum_channel_count":2,"id":127435242,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"P.C., Producer - Tizzo, MainArtist - Teddy Laguerre, Lyricist - Christopher Pierre, Composer","audio_info":{"replaygain_track_peak":0.999969,"replaygain_track_gain":-1},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Christopher Pierre","id":6145686},"isrc":"FRX282176262","title":"Robinet","version":null,"duration":198,"parental_warning":true,"track_number":2,"maximum_channel_count":2,"id":127435243,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"P.C., Producer - Tizzo, MainArtist - Alexdagr8, Producer - Teddy Laguerre, Lyricist - Michael Mastoropoulos, Composer - Christopher Pierre, Composer - Henry Mitcheal, Composer","audio_info":{"replaygain_track_peak":0.975006,"replaygain_track_gain":-2.53},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Michael Mastoropoulos","id":4778289},"isrc":"FRX202174828","title":"Shewing Gum","version":null,"duration":171,"parental_warning":true,"track_number":3,"maximum_channel_count":2,"id":127435244,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"Tizzo, MainArtist - Teddy Laguerre, Lyricist - shreez, FeaturedArtist - Kheir, Producer - Kheir Eldine Hori, Composer - JuicemanSF, FeaturedArtist","audio_info":{"replaygain_track_peak":0.996124,"replaygain_track_gain":-3.56},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Kheir Eldine Hori","id":8844867},"isrc":"FRX282176263","title":"Hennyyyyy","version":null,"duration":199,"parental_warning":true,"track_number":4,"maximum_channel_count":2,"id":127435245,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"Rach, FeaturedArtist - Tizzo, MainArtist - Rapha\u00ebl Simard, Composer - Teddy Laguerre, Lyricist - Raphlex, Producer","audio_info":{"replaygain_track_peak":0.904877,"replaygain_track_gain":-4.28},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Rapha\u00ebl Simard","id":4356299},"isrc":"FRX282176264","title":"Pinel","version":null,"duration":205,"parental_warning":true,"track_number":5,"maximum_channel_count":2,"id":127435246,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"Tizzo, MainArtist - Teddy Laguerre, Lyricist - White Migz, FeaturedArtist - William Herrera Gagnon, Composer - Plutonic Beats, Producer","audio_info":{"replaygain_track_peak":0.977203,"replaygain_track_gain":-8.17},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"William Herrera Gagnon","id":10123906},"isrc":"FRX282176265","title":"Viral","version":null,"duration":185,"parental_warning":true,"track_number":6,"maximum_channel_count":2,"id":127435247,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"P.C., Producer - Tizzo, MainArtist - Teddy Laguerre, Lyricist - Connaisseur Ticaso, FeaturedArtist - Christopher Pierre, Composer","audio_info":{"replaygain_track_peak":0.999969,"replaygain_track_gain":-3.01},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Christopher Pierre","id":6145686},"isrc":"FRX282176266","title":"GDR","version":null,"duration":202,"parental_warning":true,"track_number":7,"maximum_channel_count":2,"id":127435248,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"Tizzo, MainArtist - Teddy Laguerre, Lyricist - shreez, FeaturedArtist - Birdzonthetrack, Producer - Lendcey Fineus, Composer","audio_info":{"replaygain_track_peak":0.999969,"replaygain_track_gain":-6.68},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Lendcey Fineus","id":7524070},"isrc":"FRX282176267","title":"Cajun","version":null,"duration":199,"parental_warning":true,"track_number":8,"maximum_channel_count":2,"id":127435249,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"Tizzo, MainArtist - Teddy Laguerre, Lyricist - MikeZup, FeaturedArtist - RKT, Producer - Romeo Kouemeni Tongambou, Composer","audio_info":{"replaygain_track_peak":0.976044,"replaygain_track_gain":-1.79},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Romeo Kouemeni Tongambou","id":7917732},"isrc":"FRX282176268","title":"Cheminement particulier","version":null,"duration":243,"parental_warning":true,"track_number":9,"maximum_channel_count":2,"id":127435250,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"Tizzo, MainArtist - Alexdagr8, Producer - Teddy Laguerre, Lyricist - Michael Mastoropoulos, Composer - J.BO, FeaturedArtist","audio_info":{"replaygain_track_peak":0.999969,"replaygain_track_gain":-1.93},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Michael Mastoropoulos","id":4778289},"isrc":"FRX282176269","title":"Intercom","version":null,"duration":172,"parental_warning":true,"track_number":10,"maximum_channel_count":2,"id":127435251,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false},{"maximum_bit_depth":16,"copyright":"2021 Canicule Records 2021 Canicule Records","performers":"YB, FeaturedArtist - Tizzo, MainArtist - Teddy Laguerre, Lyricist - Felix Binette, Composer - Neutrontheplug, Producer","audio_info":{"replaygain_track_peak":1,"replaygain_track_gain":-8.19},"performer":{"name":"Tizzo","id":4165177},"work":null,"composer":{"name":"Felix Binette","id":10123909},"isrc":"FRX282176270","title":"Outro","version":null,"duration":167,"parental_warning":true,"track_number":11,"maximum_channel_count":2,"id":127435252,"media_number":1,"maximum_sampling_rate":44.1,"release_date_original":null,"release_date_download":null,"release_date_stream":null,"purchasable":true,"streamable":false,"previewable":true,"sampleable":true,"downloadable":true,"displayable":true,"purchasable_at":1634248800,"streamable_at":1634248800,"hires":false,"hires_streamable":false}]}}
+

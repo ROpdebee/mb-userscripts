@@ -1,0 +1,97 @@
+WARC/1.1
+WARC-Filename: gmxhr adapter/should work
+WARC-Date: 2021-12-11T20:26:45.316Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:ca0b65f3-9138-4c5f-ae6a-59baf276b2d0>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:b87d9574-a621-4037-a616-0a162f795bc6>
+WARC-Target-URI: https://jsonplaceholder.typicode.com/posts/1
+WARC-Date: 2021-12-11T20:26:45.317Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:97ad2352-6959-4375-88c1-2edf54081932>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:8575f0293a1347bd03404a77b7bb51467e7f3916afbcef3dc51de430b3933766
+Content-Length: 25
+
+GET /posts/1 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:b87d9574-a621-4037-a616-0a162f795bc6>
+WARC-Target-URI: https://jsonplaceholder.typicode.com/posts/1
+WARC-Date: 2021-12-11T20:26:45.317Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:f2fd68b6-79b5-4f91-b61a-3d955b6eeaa8>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:5900e90ed266a5f7cb6b3aae2b8dddc087b64036450f6638686d37a19e8c3058
+WARC-Block-Digest: sha256:5900e90ed266a5f7cb6b3aae2b8dddc087b64036450f6638686d37a19e8c3058
+Content-Length: 349
+
+harEntryId: ffbc4836d419fc265c3b85cbe1b7f22e
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:45.056Z
+time: 256
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":256,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 63
+warcRequestCookies: []
+warcResponseHeadersSize: 1183
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://jsonplaceholder.typicode.com/posts/1
+WARC-Date: 2021-12-11T20:26:45.316Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:b87d9574-a621-4037-a616-0a162f795bc6>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:965636bd900078aa86a714aea4de146af6d396205d5100636f1bdd2454f73420
+WARC-Block-Digest: sha256:e14aee0daea4dae05e960dff9726f51e33f1237fe77e7af17c979ac999123812
+Content-Length: 1492
+
+HTTP/1.1 200 OK
+access-control-allow-credentials: true
+age: 27608
+alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443"; ma=86400
+cache-control: max-age=43200
+cf-cache-status: HIT
+cf-ray: 6bc173212e106d6d-MUC
+connection: close
+content-encoding: br
+content-type: application/json; charset=utf-8
+date: Sat, 11 Dec 2021 20:26:45 GMT
+etag: W/"124-yiKdLzqO5gfBrJFrcdJ8Yq0LGnU"
+expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+expires: -1
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+pragma: no-cache
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=Y4vTyftjytD8PiVQtrmGs%2B9m8ZdLCA6c4Bnx0UwQbTqzWP6MdxYLjU6dof%2F6qWkjzOeNLiiP7bz9gnE9BYlFKa0Mw%2FXXy7m7yflhCalN7%2FX%2FQVI%2Bq7EIjbrp3IgkBaR6JuajuX0EZfEI57314oXv"}],"group":"cf-nel","max_age":604800}
+server: cloudflare
+transfer-encoding: chunked
+vary: Origin, Accept-Encoding
+via: 1.1 vegur
+x-content-type-options: nosniff
+x-powered-by: Express
+x-ratelimit-limit: 1000
+x-ratelimit-remaining: 999
+x-ratelimit-reset: 1635406173
+x-pollyjs-finalurl: https://jsonplaceholder.typicode.com/posts/1
+
+{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+}
+

@@ -1,0 +1,916 @@
+WARC/1.1
+WARC-Filename: vgmdb provider/extracting images/does not find all images if some are not public
+WARC-Date: 2021-12-11T20:26:42.276Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:054f0ba2-e7c1-4702-a80f-71846cf200ed>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:f5a54eec-cbcd-4526-b58f-002ae1d8ad4f>
+WARC-Target-URI: https://vgmdb.net/album/79
+WARC-Date: 2021-12-11T20:26:42.277Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:c30bf649-1147-4f19-b597-7c372e5784a7>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:220e8cf289519eb70e4938877ada2f6370359f9bd1262a2d68d2ef734c956d6d
+Content-Length: 26
+
+GET /album/79 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:f5a54eec-cbcd-4526-b58f-002ae1d8ad4f>
+WARC-Target-URI: https://vgmdb.net/album/79
+WARC-Date: 2021-12-11T20:26:42.277Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:0cba889d-6dad-4385-8df1-120afe4ca708>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:6c7c092695e1c1f48004a1709e543b64d747479026deda5556c6a6bfbb45bef0
+WARC-Block-Digest: sha256:6c7c092695e1c1f48004a1709e543b64d747479026deda5556c6a6bfbb45bef0
+Content-Length: 539
+
+harEntryId: dc581128200c88c01b83e72c9281a742
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:41.429Z
+time: 628
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":628,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 45
+warcRequestCookies: []
+warcResponseHeadersSize: 791
+warcResponseCookies: [{"name":"vgmlastvisit","value":"1639254401","expires":"2022-12-11T20:26:41.000Z","maxAge":31536000,"path":"/","domain":".vgmdb.net","secure, vgmlastactivity":"0","secure, vgm_filter_ver":"1"}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://vgmdb.net/album/79
+WARC-Date: 2021-12-11T20:26:42.276Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:f5a54eec-cbcd-4526-b58f-002ae1d8ad4f>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:0f92ff5b74904bad924000b3b78334a0f0f3c19f308618aca94ef62a2c79698f
+WARC-Block-Digest: sha256:a4db154c99cfd45e3cada1f1e7e0e85a302d76ce3c451a2b882e10d62f3fa81b
+Content-Length: 66693
+
+HTTP/1.1 200 OK
+cache-control: private
+connection: close
+content-encoding: gzip
+content-type: text/html; charset=UTF-8
+date: Sat, 11 Dec 2021 20:26:41 GMT
+pragma: private
+referrer-policy: no-referrer-when-downgrade
+server: nginx
+set-cookie: vgmlastvisit=1639254401; expires=Sun, 11-Dec-2022 20:26:41 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgmlastactivity=0; expires=Sun, 11-Dec-2022 20:26:41 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgm_filter_ver=1; path=/, vgm_filter_pubtype=7; path=/, vgm_filter_distype=511; path=/, vgm_filter_category_on=0; path=/, vgm_filter_category_off=0; path=/
+transfer-encoding: chunked
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+x-pollyjs-finalurl: https://vgmdb.net/album/79
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>FITHOS LUSEC WECOS VINOSEC: FINAL FANTASY VIII [Limited Edition] | SSCX-10037 - VGMdb</title>
+
+
+
+<link href="/album/79/feed" rel="alternate" type="application/rss+xml" title="Album RSS Feed" />
+
+
+
+
+
+<link href="https://vgmdb.net/album/79" rel="canonical" />
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="VGMdb" />
+
+
+<!-- CSS Stylesheet -->
+<style type="text/css" id="vbulletin_css">
+/**
+* vBulletin 3.8.11 CSS
+* Style: 'Default Style'; Style ID: 1
+*/
+@import url("/forums/clientscript/vbulletin_css/style-5593b98d-00001.css");
+</style>
+<link rel="stylesheet" type="text/css" href="/forums/clientscript/vbulletin_important.css?v=3811" />
+
+
+<link rel="stylesheet" type="text/css" href="/db/vgmdb.css?20210705" />
+<link rel="stylesheet" type="text/css" href="/db/css/vgmdb-colorcode-title.css?20190227" id="colorcode" />
+<link rel="stylesheet" type="text/css" href="/db/jquery.autocomplete.css?20091023" />
+<link rel="stylesheet" type="text/css" href="/db/jquery.jcarousel.css?20091124" />
+<link rel="stylesheet" type="text/css" href="/db/highslide.css?080623" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" type="text/css" href="/db/iepngfix.css" />
+<![endif]-->
+<!-- / CSS Stylesheet -->
+
+<script type="text/javascript" src="/db/clientscript/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/db/clientscript/connection-min.js"></script>
+<script type="text/javascript">
+<!--
+var SESSIONURL = "s=049795155c400e9a6cf06c3df55a88c9&";
+var SECURITYTOKEN = "guest";
+var IMGDIR_MISC = "/db/images/misc";
+var vb_disable_ajax = parseInt("1", 10);
+// -->
+</script>
+<script type="text/javascript" src="/forums/clientscript/vbulletin_global.js?v=3811"></script>
+<script type="text/javascript" src="/forums/clientscript/vbulletin_menu.js?v=3811"></script>
+<link rel="alternate" type="application/rss+xml" title="VGMdb Forums RSS Feed" href="/forums/external.php?type=RSS2" />
+
+<script type="text/javascript" src="/db/clientscript/jquery-1.4.min.js"></script>
+<script type="text/javascript" src="/db/clientscript/jquery.compressed.js"></script>
+<script type="text/javascript" src="/db/clientscript/jquery.tristate.js?20100420"></script>
+<script type="text/javascript" src="/db/clientscript/highslide.packed.js?080620"></script>
+<script type="text/javascript" src="/db/clientscript/vgmdb_global.js?0906"></script>
+<link rel="search" type="application/opensearchdescription+xml" title="Search VGMdb" href="/db/search.xml" />
+<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
+<script language="javascript" type="text/javascript">
+$(document).ready(function() {
+	var ItemType = new Array;
+	ItemType["0"] = "Album";
+	ItemType["1"] = "Artist";
+	ItemType["2"] = "Organization";
+	hs.showCredits = false;
+	hs.allowMultipleInstances = false;
+	hs.graphicsDir = '/db/highslide/graphics/';
+	function formatItem(row) {
+		return "<span style='float: right; margin-left: 10px' class='tinyfont label'>" + ItemType[row[3]] + " #" + row[1] + "</span>" + row[0];
+	}
+	$('#navoptions a').click(function() {
+		if (!$('#pref_content form').length) {
+			$.ajax({
+				url: '/db/user.php?do=preferences',
+				beforeSend: function() {
+					$('#navoptions').css('visibility', 'hidden').parent('li').css('background', 'transparent url(/db/img/ajax_loader_small.gif) center center no-repeat');
+				},
+				success: function(data) { 
+					$('#navoptions').css('visibility', 'visible').parent('li').css('background', 'transparent url(/db/img/vgmdbsubnav2010.gif) -593px 0 no-repeat');
+					$('#pref_content').html(data.html);
+					$('#pref_content form label.tristate').tristate();
+					$('#pref_content form').ajaxForm({
+						beforeSubmit: function() {
+							$('#pref_content form input[type=submit]').css('visibility', 'hidden').parent('div').css('background', 'transparent url(/db/img/ajax_loader_small.gif) center center no-repeat');
+						},
+						success: function() {
+							$('#pref').slideUp('fast');
+							$('#pref_content form input[type=submit]').css('visibility', 'visible').parent('div').css('background', 'none');
+							$('#navoptions a').blur();
+						}
+					});
+					$('#pref').slideDown('fast');
+				},
+				dataType: 'json'
+			});
+		}
+		else {
+			if ($('#pref').is(':visible')) {
+				$('#pref').slideUp('fast');
+				$('#navoptions a').blur();
+			}
+			else $('#pref').slideDown('fast');
+		}
+		return false;
+	});
+	$("#simplesearch").autocomplete('/db/ajax-autocomplete.php', {
+		minChars: 3,
+		delay: 1000,
+		max: 150,
+		width: 500,
+		scrollHeight: 600,
+		selectFirst: false,
+		formatItem: formatItem
+	}).result(function(event, item) {
+		location.href = item[2];
+	});
+	$('label.tristate').tristate(); // 'sup IRA
+	
+});</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4758350-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+
+</script>
+<style>
+.alt1_dark {
+    background: #151F30;
+    color: #FFFFFF;
+}
+
+.alt2_dark {
+    background: #252B3F;
+    color: #FFFFFF;
+}
+span.link_doc { display: block; background: transparent url('/db/icons/album-cover.gif') 0 2px no-repeat; padding-left: 14px; margin-bottom: 4px; }
+</style>
+
+<meta name="keywords" content="SSCX-10037, FINAL FANTASY VIII / ファイナルファンタジーVIII, Sony PlayStation, album, ost, soundtrack, tracklist, scans, covers, vgm, translation" />
+<meta name="description" content="Commercial, Limited Edition (CD) published by DigiCube on Nov 20, 1999 containing arrangement from FINAL FANTASY VIII" />
+<meta property="og:title" content="SSCX-10037 | FITHOS LUSEC WECOS VINOSEC: FINAL FANTASY VIII [Limited Edition] - VGMdb" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://medium-media.vgm.io/albums/97/79/79-1264618929.png" />
+<meta property="og:url" content="https://vgmdb.net/album/79" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@vgmdb" />
+<meta name="twitter:title" content="SSCX-10037 | FITHOS LUSEC WECOS VINOSEC: FINAL FANTASY VIII [Limited Edition] - VGMdb" />
+<meta name="twitter:description" content="Commercial, Limited Edition (CD) published by DigiCube on Nov 20, 1999 containing arrangement from FINAL FANTASY VIII" />
+<meta name="twitter:image" content="https://medium-media.vgm.io/albums/97/79/79-1264618929.png" />
+
+<!---->
+
+
+<style>tr.extracred { display: none; }</style>
+
+<script language="javascript" type="text/javascript">
+$(document).ready(function() {
+	$('textarea.resizable:not(.processed), select.resizable:not(.processed), div.resizable:not(.processed)').TextAreaResizer();
+	
+	
+	$('#tlnav li a').click(function() {
+		$('#tlnav li').removeClass('active');
+		$(this).parent('li').addClass('active');
+		$('span.tl').hide();
+		$('#' + $(this).attr('rel')).show();
+		return false;
+	});
+	
+	
+	
+	$('table.role tr.rolebit').mouseover(function() { $(this).addClass("over"); });
+	$('table.role tr.rolebit').mouseout(function() { $(this).removeClass("over"); });
+	
+	
+	
+	
+	$(document).ready(function() {
+		$('.collapsible_section').click(function() {
+			var src = $(this).find('img').attr('src');
+			if (src.indexOf('close') > 0) {
+				$(this).find('img').attr('src', src.replace('close', 'open'));
+				$('#' + $(this).attr('rel')).hide('fast');
+			} else {
+				$(this).find('img').attr('src', src.replace('open', 'close'));
+				$('#' + $(this).attr('rel')).show('fast');
+			}
+			return false;
+		});
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// shamelessly ripped from Digg
+	var cheatCode = '';
+	var maxCode = 40;
+	$(document).keydown(function(key) {
+		if (cheatCode.length < maxCode) {
+			var k = (key.keyCode == 0) ? key.charCode : key.keyCode;
+			cheatCode = cheatCode + String(k) + ' ';
+			switch (cheatCode) {
+				case '38 40 37 39 65 13 ':
+				window.location='/album/2072';
+				break;
+				case '38 38 40 40 37 39 37 39 66 65 13 ':
+				window.location='/album/3778';
+				break;
+				case '73 68 68 81 68 ':
+				window.location='/album/2950';
+				break;
+			}
+		}
+	});
+});
+</script>
+</head>
+<body style="padding: 0; margin: 0">
+<a name="top"></a>
+<div class="page" style="background-color: #1B273D; height: 100px; width: 100%;">
+<div style="float: right; margin-top: 10px; margin-right: 10px;">
+	<ul class="pipelist tinyfont">
+	
+	<li class="smallfont first-child"><span id="navlogin"><a href="#">Login</a><script type="text/javascript"> vBmenu.register('navlogin'); </script></span></li>
+	<li class="smallfont"><a title="Register a new account" href="/forums/register.php">Register</a></li>
+	
+	</ul>
+</div>
+<div style="white-space: nowrap;">
+<!-- logo -->
+<div style="height: 100px; float: left;"><a href="/"><img src="/db/img/vgmdblogo.png" alt="VGMdb" style="padding: 10px; width: 250px; height: 80px; border: 0" /></a></div>
+<!-- /logo -->
+<!-- top nav -->
+<div style="height: 100px; float: left; position: relative; margin-left: 1px;">
+<ul id="topnav">
+	<li id="nav_album"><a title="Official Albums, Enclosures, Doujins" href="/db/albums.php">Albums</a><a class="buttonSubmit" href="/album/new" title="Submit a new album"><img src="/db/img/button-add-big.png" alt="" /></a></li>
+	<li id="nav_artist"><a title="Composers, Arrangers, Lyricists, Performers" href="/db/artists.php">Artists</a><a class="buttonSubmit" href="/db/artists-submit.php" title="Submit a new artist"><img src="/db/img/button-add-big.png" alt="" /></a></li>
+	<!-- <li id="nav_track"><a title="Instrumentals, Vocals, Sound Effects, Voice Dramas" href="#">Tracks</a></li> -->
+	<li id="nav_label"><a title="Music Labels, Publishers, Organizations and Groups" href="/db/org.php">Organizations</a><a class="buttonSubmit" href="/db/org-submit.php" title="Submit a new publisher"><img src="/db/img/button-add-big.png" alt="" /></a></li>
+	<li id="nav_product"><a title="Games, Video, Radio/Drama Programs, Print Publications" href="/db/product.php">Products</a><a class="buttonSubmit" href="/db/product-submit.php" title="Submit a new product"><img src="/db/img/button-add-big.png" alt="" /></a></li>
+	<li id="nav_event"><a title="Conventions, Gatherings and Shows" href="/db/events.php">Events</a><a class="buttonSubmit" href="/db/event-submit.php" title="Submit a new event"><img src="/db/img/button-add-big.png" alt="" /></a></li>
+	<!--li id="nav_podcast"><a title="VGM Decibel, our bi-monthly podcast" href="/cast">Podcast</a></li-->
+</ul>
+</div>
+<!-- / top nav -->
+</div>
+</div>
+<div class="label" style="clear: both; width: 100%; background-color: #2F364F; font-family: Arial">
+<ul id="subnav">
+	<li id="nav_search" style="width: 250px">
+		<form name="navsearch" action="/search" method="get">
+			<div>
+                 <input type="text" class="bginput smallfont ac_input ac_default" name="q" id="simplesearch" maxlength="150" style="width: 160px;" />
+                 <select name="type" style="width: 70px;" >
+                    <option value="" >all</option>
+                    <option value="album" >albums</option>
+                    <option value="artist" >artists</option>
+                    <option value="org" >organizations</option>
+                    <option value="product" >products</option>
+                </select>
+            </div>
+		</form>
+	</li>
+	<li id="nav_advsearch"><a title="More search options" href="/search">Advanced Search</a></li>
+	<li id="nav_update"><a title="Latest submissions and edits" href="/db/recent.php">Updates</a></li>
+	<li id="nav_calendar"><a title="Release schedules" href="/db/calendar.php?year=2021&month=12">Calendar</a></li>
+	<li id="nav_forum"><a title="Community discussions" href="/forums/">Forums</a></li>
+	<li id="nav_market"><a title="Trade with other members" href="/db/marketplace.php?do=view">Marketplace</a></li>
+	<!--li id="nav_users"><a title="User collections" href="/db/collection.php">Users</a></li-->
+	<li id="nav_chat"><a title="Real-time chat" rel="nofollow" href="https://discord.gg/VXgKQUa" target="vgmdbchat">Chat</a></li>
+	
+	<li id="nav_submit"><a title="Submit an album" href="/album/new">Submit Album</a></li>
+	<li id="nav_customize"><span id="navoptions"><a title="Edit your preferences" href="#">Customize</a></span></li>
+</ul>
+</div>
+
+
+	<!-- login form -->
+	<div class="vbmenu_popup" id="navlogin_menu" style="display:none;">
+	<table cellpadding="4" cellspacing="1" border="0"><tr><td style="background: #BBC7CE;">
+	<form action="/forums/login.php?do=login" method="post" onsubmit="md5hash(vb_login_password, vb_login_md5password, vb_login_md5password_utf, 0)">
+	<script type="text/javascript" src="/forums/clientscript/vbulletin_md5.js?v=3811"></script>
+	<table cellpadding="0" cellspacing="3" border="0">
+	<tr>
+		<td class="smallfont"><label for="navbar_username">User Name</label></td>
+		<td><input type="text" class="bginput" style="font-size: 11px" name="vb_login_username" id="navbar_username" size="10" accesskey="u" tabindex="101" value="User Name" onfocus="if (this.value == 'User Name') this.value = '';" /></td>
+		<td class="smallfont" colspan="2" nowrap="nowrap"><label for="cb_cookieuser_navbar"><input type="checkbox" name="cookieuser" value="1" tabindex="103" id="cb_cookieuser_navbar" accesskey="c" />Remember</label></td>
+	</tr><tr>
+		<td class="smallfont"><label for="navbar_password">Password</label></td>
+		<td><input type="password" class="bginput" style="font-size: 11px" name="vb_login_password" id="navbar_password" size="10" tabindex="102" /></td>
+		<td><input type="submit" class="button" value="Log in" tabindex="104" title="Enter your username and password in the boxes provided to login, or click the 'register' button to create a profile for yourself." accesskey="s" /></td>
+	</tr>
+	</table>
+	<input type="hidden" name="s" value="049795155c400e9a6cf06c3df55a88c9" />
+	<input type="hidden" name="securitytoken" value="guest" />
+	<input type="hidden" name="do" value="login" />		
+	<input type="hidden" name="vb_login_md5password" />
+	<input type="hidden" name="vb_login_md5password_utf" />
+	</form>
+	</td></tr></table>
+	</div>
+	<!-- / login form -->
+
+
+<!-- content table -->
+<div class="page" style="padding:20px 20px 0 20px">
+
+<div id="pref" style="width: 100%; background-color:#1B273D; margin-bottom: 20px; display: none">
+	<b class="rtop"><b></b></b>
+	<div id="pref_content"></div>
+	<b class="rbot"><b></b></b>
+</div>
+
+
+
+<!-- main page contents -->
+
+
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="left"><tr><td width="100%" style="background-color: #1B273D;" valign="top">
+	<b class="rtop"><b></b></b>
+	<div id="innermain" style="padding: 6px 10px 0px 10px">
+		<span style="float:right;" class="label smallfont"><a href="/db/albums-discuss.php?id=79">Discuss</a> <span class="time">(2)</span> | <span id="albumtools"><a href="#">Edit</a><script type="text/javascript"> vBmenu.register('albumtools'); </script></span> | <a class="smallfont" href="/album/79/feed" title="Activity RSS Feed">Feed <img class="inlineimg" border="0" src="/db/img/rss.png" height="16" width="16" alt="" /></a></span>
+
+		<h1><span class="albumtitle" lang="en" style="display:inline">FITHOS LUSEC WECOS VINOSEC: FINAL FANTASY VIII [Limited Edition]</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>FITHOS LUSEC WECOS VINOSEC: FINAL FANTASY VIII [Limited Edition]</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>FITHOS LUSEC WECOS VINOSEC: FINAL FANTASY VIII [Limited Edition]</span> </h1>
+
+		<div style="padding-left: 10px; padding-right: 10px; padding-bottom: 6px; font-size: 9pt; color: #788990;"><span class="albumtitle" lang="en" style="display:inline"></span><span class="albumtitle" lang="ja" style="display:none">FITHOS LUSEC WECOS VINOSEC: FINAL FANTASY VIII<br /></span><span class="albumtitle" lang="ja-Latn" style="display:none">FITHOS LUSEC WECOS VINOSEC: FINAL FANTASY VIII<br /></span></div>
+		<div style="padding-left: 10px; padding-right: 10px; margin-top: 10px;"><div id="leftfloat" style="float: left; width: 250px; height: 250px; padding-top: 4px; padding-bottom: 4px;">
+<div style="width: 250px; height: 250px; overflow: hidden">
+<table cellpadding="0" cellspacing="0" border="0" align="left" width="250">
+<tr><td align="center" valign="middle" style="height: 250px; width:250px">
+<div id="coverart" style="background-image: url('https://medium-media.vgm.io/albums/97/79/79-1264618929.png')" title="SSCX-10037"></div>
+</td></tr></table></div></div>
+
+<div id="rightfloat" style="margin-left: 270px;">
+<div style="background-color: #2F364F;">
+<b class="rtop"><b></b></b>
+
+<div style="max-height:300px; overflow:auto;">
+<table id="album_infobit_large" cellpadding="1" cellspacing="1">
+<tr><td nowrap="nowrap"><span class="label"><b>Catalog Number</b></span></td>
+<td width="100%"><span id="childbrowse"><a href="#">SSCX-10037</a><script type="text/javascript"> vBmenu.register('childbrowse'); </script></span> 
+<!-- child menu -->
+<div class="vbmenu_popup" id="childbrowse_menu" style="display:none">
+<table cellpadding="4" cellspacing="1" border="0">
+<tr><td class="thead"><b>Other Printings</b></td></tr>
+<tr><td class="vbmenu_option"><a href="https://vgmdb.net/album/17577">GM-229 (Taiwanese, Bootleg printing, 1999)</a></td></tr>
+<tr><td class="vbmenu_option"><a href="https://vgmdb.net/album/99283">FF-28 (Taiwanese, Bootleg printing, 1999)</a></td></tr>
+<tr><td class="vbmenu_option"><a href="https://vgmdb.net/album/50232">SSCX-10037 (Nov 20, 1999)</a></td></tr>
+<tr><td class="vbmenu_option"><a href="https://vgmdb.net/album/15460">MICA-0277 (Taiwanese, Bootleg printing, 2004)</a></td></tr>
+<tr><td class="vbmenu_option"><a href="https://vgmdb.net/album/3417">SQEX-10025 (Jul 22, 2004)</a></td></tr>
+<tr><td class="vbmenu_option"><a href="https://vgmdb.net/album/70812">KO-99035 (Taiwanese, Bootleg printing, 2005)</a></td></tr>
+</table>
+</div>
+<!-- / child menu -->
+
+
+</td></tr>
+
+<tr><td nowrap="nowrap"><span class="label"><b>Barcode</b></span></td>
+<td>4517331100379</td></tr>
+
+<tr><td nowrap="nowrap"><span class="label"><b>Release Date</b></span></td>
+<td><a title="View albums released on Nov 20, 1999" href="/db/calendar.php?year=1999&month=11#19991120">Nov 20, 1999</a> </td></tr>
+
+<tr><td nowrap="nowrap"><span class="label"><b>Publish Format</b></span></td>
+<td>Commercial, Limited Edition  </td></tr>
+
+<tr><td nowrap="nowrap"><span class="label"><b>Release Price</b></span></td>
+<td>2854 <acronym title='JPY (Japan)'>JPY</acronym> </td></tr>
+
+<tr><td nowrap="nowrap"><span class="label"><b>Media Format</b></span></td>
+<td>CD</td></tr>
+
+<tr><td nowrap="nowrap"><span class="label"><b>Classification</b></span></td>
+<td>Arrangement </td></tr>
+
+
+    <tr class="maincred"><td nowrap="nowrap"><span class="label"><b>Publisher</b></span></td><td><a href="/org/54"><span class="productname" lang="en" style="display:inline">DigiCube</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja" style="display:none">株式会社デジキューブ</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja-Latn" style="display:none">DigiCube</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b>Distributor</b></span></td><td><a href="/org/186"><span class="productname" lang="en" style="display:inline">SME Intermedia Inc.</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja" style="display:none">株式会社SME・インターメディア</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja-Latn" style="display:none">SME Intermedia Inc.</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b>Phonographic Copyright</b></span></td><td><a href="/org/142"><span class="productname" lang="en" style="display:inline">SQUARE</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja" style="display:none">株式会社スクウェア</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja-Latn" style="display:none">SQUARE</span></a>, <a href="/org/2611"><span class="productname" lang="en" style="display:inline">Square Sounds</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja" style="display:none">Square Sounds</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja-Latn" style="display:none">Square Sounds</span></a></td></tr>
+
+
+
+
+
+</table>
+</div>
+
+<div style="clear: left; line-height: 0; height: 0; overflow: hidden; visibility: hidden"></div>
+<b class="rbot"><b></b></b>
+</div></div>
+
+
+
+
+
+
+
+</div>
+		<br style="clear: both" />
+
+
+
+<div style="padding-left: 10px; padding-right: 10px"><h3><span style="float:left">Credits <a href="#" class="collapsible_section" rel="collapse_credits"><img src="/db/img/collapse_close.png" /></a></span></h3><span style="clear:both;display:block;"></span>
+<div style="background-color: #2F364F;" id="collapse_credits">
+<b class="rtop"><b></b></b>
+<div style="max-height:1000px; padding: 6px 10px 10px 6px; overflow:auto;">
+<table id="album_infobit_large" style="height:auto" cellpadding="1" cellspacing="1">
+<tbody>
+<tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Composed by" class="artistname" lang="en" style="display:inline">Composed by</span><span style="display:none"><em> / </em></span><span title="Composed by" class="artistname" lang="ja" style="display:none">Composed by</span></b></span></td><td width="100%"><a href="/artist/77"><span title="植松伸夫" class="artistname" lang="en" style="display:inline">Nobuo Uematsu</span><span style="display:none"><em> / </em></span><span title="Nobuo Uematsu" class="artistname" lang="ja" style="display:none">植松伸夫</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Arranger" class="artistname" lang="en" style="display:inline">Arranger</span><span style="display:none"><em> / </em></span><span title="Arranger" class="artistname" lang="ja" style="display:none">Arranger</span></b></span></td><td width="100%"><a href="/artist/77"><span title="植松伸夫" class="artistname" lang="en" style="display:inline">Nobuo Uematsu</span><span style="display:none"><em> / </em></span><span title="Nobuo Uematsu" class="artistname" lang="ja" style="display:none">植松伸夫</span></a>, <a href="/artist/125"><span title="浜口史郎" class="artistname" lang="en" style="display:inline">Shiro Hamaguchi</span><span style="display:none"><em> / </em></span><span title="Shiro Hamaguchi" class="artistname" lang="ja" style="display:none">浜口史郎</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Produced by" class="artistname" lang="en" style="display:inline">Produced by</span><span style="display:none"><em> / </em></span><span title="Produced by" class="artistname" lang="ja" style="display:none">Produced by</span></b></span></td><td width="100%"><a href="/artist/77"><span title="植松伸夫" class="artistname" lang="en" style="display:inline">Nobuo Uematsu</span><span style="display:none"><em> / </em></span><span title="Nobuo Uematsu" class="artistname" lang="ja" style="display:none">植松伸夫</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Orchestrated by" class="artistname" lang="en" style="display:inline">Orchestrated by</span><span style="display:none"><em> / </em></span><span title="Orchestrated by" class="artistname" lang="ja" style="display:none">Orchestrated by</span></b></span></td><td width="100%"><a href="/artist/125"><span title="浜口史郎" class="artistname" lang="en" style="display:inline">Shiro Hamaguchi</span><span style="display:none"><em> / </em></span><span title="Shiro Hamaguchi" class="artistname" lang="ja" style="display:none">浜口史郎</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Lyrics" class="artistname" lang="en" style="display:inline">Lyrics</span><span style="display:none"><em> / </em></span><span title="Lyrics" class="artistname" lang="ja" style="display:none">Lyrics</span></b></span></td><td width="100%"><a href="/artist/11621"><span title="染谷和美" class="artistname" lang="en" style="display:inline">Kako Someya</span><span style="display:none"><em> / </em></span><span title="Kako Someya" class="artistname" lang="ja" style="display:none">染谷和美</span></a>, <a href="/artist/5083"><span title="野島一成" class="artistname" lang="en" style="display:inline">Kazushige Nojima</span><span style="display:none"><em> / </em></span><span title="Kazushige Nojima" class="artistname" lang="ja" style="display:none">野島一成</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Latin Translation" class="artistname" lang="en" style="display:inline">Latin Translation</span><span style="display:none"><em> / </em></span><span title="Latin Translation" class="artistname" lang="ja" style="display:none">Latin Translation</span></b></span></td><td width="100%"><a href="/artist/13005"><span title="山下太郎" class="artistname" lang="en" style="display:inline">Taro Yamashita</span><span style="display:none"><em> / </em></span><span title="Taro Yamashita" class="artistname" lang="ja" style="display:none">山下太郎</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Conductor" class="artistname" lang="en" style="display:inline">Conductor</span><span style="display:none"><em> / </em></span><span title="Conductor" class="artistname" lang="ja" style="display:none">Conductor</span></b></span></td><td width="100%"><a href="/artist/25991">Koji Haijima</a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Recording Engineer" class="artistname" lang="en" style="display:inline">Recording Engineer</span><span style="display:none"><em> / </em></span><span title="Recording Engineer" class="artistname" lang="ja" style="display:none">Recording Engineer</span></b></span></td><td width="100%"><a href="/artist/11309"><span title="長島賢史" class="artistname" lang="en" style="display:inline">Kenzi Nagashima</span><span style="display:none"><em> / </em></span><span title="Kenzi Nagashima" class="artistname" lang="ja" style="display:none">長島賢史</span></a>, <a href="/artist/11308"><span title="吉田俊之" class="artistname" lang="en" style="display:inline">Toshiyuki Yoshida</span><span style="display:none"><em> / </em></span><span title="Toshiyuki Yoshida" class="artistname" lang="ja" style="display:none">吉田俊之</span></a>, <a href="/artist/25393"><span title="内藤重利" class="artistname" lang="en" style="display:inline">Shigetoshi Naito</span><span style="display:none"><em> / </em></span><span title="Shigetoshi Naito" class="artistname" lang="ja" style="display:none">内藤重利</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Mixing Engineer" class="artistname" lang="en" style="display:inline">Mixing Engineer</span><span style="display:none"><em> / </em></span><span title="Mixing Engineer" class="artistname" lang="ja" style="display:none">Mixing Engineer</span></b></span></td><td width="100%"><a href="/artist/11309"><span title="長島賢史" class="artistname" lang="en" style="display:inline">Kenzi Nagashima</span><span style="display:none"><em> / </em></span><span title="Kenzi Nagashima" class="artistname" lang="ja" style="display:none">長島賢史</span></a>, <a href="/artist/11308"><span title="吉田俊之" class="artistname" lang="en" style="display:inline">Toshiyuki Yoshida</span><span style="display:none"><em> / </em></span><span title="Toshiyuki Yoshida" class="artistname" lang="ja" style="display:none">吉田俊之</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Recorded at" class="artistname" lang="en" style="display:inline">Recorded at</span><span style="display:none"><em> / </em></span><span title="Recorded at" class="artistname" lang="ja" style="display:none">Recorded at</span></b></span></td><td width="100%"><a href="/artist/33908">Sound City</a>, <a href="/artist/33900">Victor Studio</a>, Avon recording studios (Hong Kong), <a href="/artist/34068">Avaco Creative Studios</a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Vocal" class="artistname" lang="en" style="display:inline">Vocal</span><span style="display:none"><em> / </em></span><span title="Vocal" class="artistname" lang="ja" style="display:none">Vocal</span></b></span></td><td width="100%"><a href="/artist/137"><span title="王菲" class="artistname" lang="en" style="display:inline">Faye Wong</span><span style="display:none"><em> / </em></span><span title="Faye Wong" class="artistname" lang="ja" style="display:none">王菲</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Piano" class="artistname" lang="en" style="display:inline">Piano</span><span style="display:none"><em> / </em></span><span title="Piano" class="artistname" lang="ja" style="display:none">Piano</span></b></span></td><td width="100%"><a href="/artist/349"><span title="小形眞子" class="artistname" lang="en" style="display:inline">Shinko Ogata</span><span style="display:none"><em> / </em></span><span title="Shinko Ogata" class="artistname" lang="ja" style="display:none">小形眞子</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Mastering Engineer" class="artistname" lang="en" style="display:inline">Mastering Engineer</span><span style="display:none"><em> / </em></span><span title="Mastering Engineer" class="artistname" lang="ja" style="display:none">Mastering Engineer</span></b></span></td><td width="100%"><a href="/artist/11345"><span title="加藤正昭" class="artistname" lang="en" style="display:inline">Masaaki Kato</span><span style="display:none"><em> / </em></span><span title="Masaaki Kato" class="artistname" lang="ja" style="display:none">加藤正昭</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Mastering Studio" class="artistname" lang="en" style="display:inline">Mastering Studio</span><span style="display:none"><em> / </em></span><span title="Mastering Studio" class="artistname" lang="ja" style="display:none">Mastering Studio</span></b></span></td><td width="100%"><a href="/artist/38860">Sunrise Studio</a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Recording Coordinator" class="artistname" lang="en" style="display:inline">Recording Coordinator</span><span style="display:none"><em> / </em></span><span title="Recording Coordinator" class="artistname" lang="ja" style="display:none">Recording Coordinator</span></b></span></td><td width="100%"><a href="/artist/35359"><span title="齋藤裕二" class="artistname" lang="en" style="display:inline">Yuji Saito</span><span style="display:none"><em> / </em></span><span title="Yuji Saito" class="artistname" lang="ja" style="display:none">齋藤裕二</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="A&amp;R Direction" class="artistname" lang="en" style="display:inline">A&amp;R Direction</span><span style="display:none"><em> / </em></span><span title="A&amp;R Direction" class="artistname" lang="ja" style="display:none">A&amp;R Direction</span></b></span></td><td width="100%"><a href="/artist/37036"><span title="小澤貴司夫" class="artistname" lang="en" style="display:inline">Kishio Ozawa</span><span style="display:none"><em> / </em></span><span title="Kishio Ozawa" class="artistname" lang="ja" style="display:none">小澤貴司夫</span></a>, <a href="/artist/37037"><span title="竹村剛史" class="artistname" lang="en" style="display:inline">Tsuyoshi Takemura</span><span style="display:none"><em> / </em></span><span title="Tsuyoshi Takemura" class="artistname" lang="ja" style="display:none">竹村剛史</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Sales Promotion" class="artistname" lang="en" style="display:inline">Sales Promotion</span><span style="display:none"><em> / </em></span><span title="Sales Promotion" class="artistname" lang="ja" style="display:none">Sales Promotion</span></b></span></td><td width="100%"><a href="/artist/37030"><span title="福井彩子" class="artistname" lang="en" style="display:inline">Saiko Fukui</span><span style="display:none"><em> / </em></span><span title="Saiko Fukui" class="artistname" lang="ja" style="display:none">福井彩子</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Art Direction" class="artistname" lang="en" style="display:inline">Art Direction</span><span style="display:none"><em> / </em></span><span title="Art Direction" class="artistname" lang="ja" style="display:none">Art Direction</span></b></span></td><td width="100%">Tadashi Shimura (Banana Studio Inc.)</td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Design" class="artistname" lang="en" style="display:inline">Design</span><span style="display:none"><em> / </em></span><span title="Design" class="artistname" lang="ja" style="display:none">Design</span></b></span></td><td width="100%">Tadashi Shimura, <a href="/artist/35972"><span title="門倉徳映" class="artistname" lang="en" style="display:inline">Norie Kadokura</span><span style="display:none"><em> / </em></span><span title="Norie Kadokura" class="artistname" lang="ja" style="display:none">門倉徳映</span></a> (Banana Studio Inc.)</td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Photography" class="artistname" lang="en" style="display:inline">Photography</span><span style="display:none"><em> / </em></span><span title="Photography" class="artistname" lang="ja" style="display:none">Photography</span></b></span></td><td width="100%"><a href="/artist/35974"><span title="柴泉寛" class="artistname" lang="en" style="display:inline">Hiroshi Shibaizumi</span><span style="display:none"><em> / </em></span><span title="Hiroshi Shibaizumi" class="artistname" lang="ja" style="display:none">柴泉寛</span></a>, <a href="/artist/36338">Shouji Otake</a> (Hand Made)</td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Interview" class="artistname" lang="en" style="display:inline">Interview</span><span style="display:none"><em> / </em></span><span title="Interview" class="artistname" lang="ja" style="display:none">Interview</span></b></span></td><td width="100%">Ai Yamada (Inter-culture Research Institute)</td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Text" class="artistname" lang="en" style="display:inline">Text</span><span style="display:none"><em> / </em></span><span title="Text" class="artistname" lang="ja" style="display:none">Text</span></b></span></td><td width="100%">Ai Yamada (Inter-culture Research Institute)</td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Production Coordinator" class="artistname" lang="en" style="display:inline">Production Coordinator</span><span style="display:none"><em> / </em></span><span title="Production Coordinator" class="artistname" lang="ja" style="display:none">Production Coordinator</span></b></span></td><td width="100%"><a href="/artist/784"><span title="岡宮道生" class="artistname" lang="en" style="display:inline">Michio Okamiya</span><span style="display:none"><em> / </em></span><span title="Michio Okamiya" class="artistname" lang="ja" style="display:none">岡宮道生</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Production Assistant" class="artistname" lang="en" style="display:inline">Production Assistant</span><span style="display:none"><em> / </em></span><span title="Production Assistant" class="artistname" lang="ja" style="display:none">Production Assistant</span></b></span></td><td width="100%"><a href="/artist/37039"><span title="船橋恵美子" class="artistname" lang="en" style="display:inline">Emiko Funahashi</span><span style="display:none"><em> / </em></span><span title="Emiko Funahashi" class="artistname" lang="ja" style="display:none">船橋恵美子</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Production Manager" class="artistname" lang="en" style="display:inline">Production Manager</span><span style="display:none"><em> / </em></span><span title="Production Manager" class="artistname" lang="ja" style="display:none">Production Manager</span></b></span></td><td width="100%"><a href="/artist/37040"><span title="濱田啓路" class="artistname" lang="en" style="display:inline">Keiji Hamada</span><span style="display:none"><em> / </em></span><span title="Keiji Hamada" class="artistname" lang="ja" style="display:none">濱田啓路</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Supervisor" class="artistname" lang="en" style="display:inline">Supervisor</span><span style="display:none"><em> / </em></span><span title="Supervisor" class="artistname" lang="ja" style="display:none">Supervisor</span></b></span></td><td width="100%"><a href="/artist/37041"><span title="荒井進" class="artistname" lang="en" style="display:inline">Susumu Arai</span><span style="display:none"><em> / </em></span><span title="Susumu Arai" class="artistname" lang="ja" style="display:none">荒井進</span></a>, <a href="/artist/37033"><span title="横田洋文" class="artistname" lang="en" style="display:inline">Hirofumi Yokota</span><span style="display:none"><em> / </em></span><span title="Hirofumi Yokota" class="artistname" lang="ja" style="display:none">横田洋文</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Co-executive Producer" class="artistname" lang="en" style="display:inline">Co-executive Producer</span><span style="display:none"><em> / </em></span><span title="Co-executive Producer" class="artistname" lang="ja" style="display:none">Co-executive Producer</span></b></span></td><td width="100%"><a href="/artist/35973"><span title="松下謙介" class="artistname" lang="en" style="display:inline">Kensuke Matsushita</span><span style="display:none"><em> / </em></span><span title="Kensuke Matsushita" class="artistname" lang="ja" style="display:none">松下謙介</span></a></td></tr><tr class="maincred"><td nowrap="nowrap"><span class="label"><b><span title="Executive Producer" class="artistname" lang="en" style="display:inline">Executive Producer</span><span style="display:none"><em> / </em></span><span title="Executive Producer" class="artistname" lang="ja" style="display:none">Executive Producer</span></b></span></td><td width="100%"><a href="/artist/77"><span title="植松伸夫" class="artistname" lang="en" style="display:inline">Nobuo Uematsu</span><span style="display:none"><em> / </em></span><span title="Nobuo Uematsu" class="artistname" lang="ja" style="display:none">植松伸夫</span></a></td></tr>
+</tbody>
+</table>
+</div>
+<b class="rbot"><b></b></b>
+</div></div><br/>
+
+		<div style="padding-left: 10px; padding-right: 10px">
+		
+			<div><h3 style="float: left">Tracklist <a href="#" class="collapsible_section" rel="tracklist"><img src="/db/img/collapse_close.png" /></a></h3>
+			<ul id="tlnav" class="tabnav" style="margin-left: 10px"><li class="active"><a class='smallfont' rel='tl101' href='#'>English</a></li></ul>
+			</div>
+
+			<div style="background-color: #2F364F; clear: both">
+			<b class="rtop"><b></b></b>
+			<div style="padding: 6px 10px 10px 10px" id="tracklist"><span class="tl" id="tl101">
+	<!-- / tracklist tools menu -->
+<span style="font-size:8pt"><b>Disc 1</b></span>
+<br /><br />
+<table cellpadding="1" cellspacing="0" border="0" class="role">
+<tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">01</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Liberi Fatali</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">3:09</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">02</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Blue Fields</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">3:37</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">03</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Don't be Afraid</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">3:49</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">04</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Balamb GARDEN ~ Ami</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">5:16</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">05</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Fisherman's Horizon</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">4:02</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">06</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+FITHOS LUSEC WECOS VINOSEC</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">4:38</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">07</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Eyes On Me</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">5:40</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">08</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+The Man with the Machine Gun</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">3:36</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">09</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Dance with the Balamb-fish</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">3:17</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">10</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Love Grows</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">4:35</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">11</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+The Oath</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">5:10</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">12</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Ending Theme</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">13:21</span>
+
+</td>
+</tr><tr class="rolebit">
+<td style="border-bottom: 1px solid #3C405C" class="smallfont"><span class="label">13</span></td>
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" width="100%" colspan="2">
+
+Fragments of Memories</td>
+
+<td style="border-bottom: 1px solid #3C405C; padding-left: 6px" class="smallfont" align="right" nowrap="nowrap"><span class="time">4:06</span>
+
+</td>
+</tr>
+</table>
+<span style="float: right; margin: 1px;">
+  <span class="smallfont" style="color: #606978">Disc length</span>
+  <span class="time">64:16</span>
+</span>
+<br style="clear: both" />
+<h4 style="font-weight: normal; clear:both"><span class="label">
+
+&nbsp;</span>
+
+</h4></span>
+</div>
+			<b class="rbot"><b></b></b>
+			</div>
+
+		</div>
+
+<div style="padding: 20px 10px 10px 10px">
+<h3>Notes  <a href="#" class="collapsible_section" rel="collapse_notes"><img src="/db/img/collapse_close.png" /></a></h3>
+<div style="background-color: #2F364F;" id="collapse_notes">
+<b class="rtop"><b></b></b>
+<div style="padding: 6px 10px 10px 10px" class="smallfont" id="notes">Composed, Arranged &amp; Produced by Nobuo Uematsu<br />Orchestrated by Shiro Hamaguchi<br /><br />Mastering Engineer: Masaaki Kato / Mastering Studio: Sunrise Studio<br />Recording Coordinator: Yuji Saito<br /><br />A&amp;R Direction: Kishio Ozawa &amp; Tsuyoshi Takemura<br />Sales Promotion: Saiko Fukui<br /><br />Art Direction: Tadashi Shimura (Banana Studio Inc.)<br />Design: Tadashi Shimura &amp; Norie Kadokura (Banana Studio Inc.)<br />Photography: Hiroshi Shibaizumi, Shouji Otake (Hand Made)<br />Interview&amp;Text: Ai Yamada (Inter-culture Research Institute)<br /><br />Production Coordinator: Michio Okamiya<br />Production Assistant: Emiko Funahashi<br />Production Manager: Keiji Hamada<br />Supervisor: Susumu Arai, Hirofumi Yokota<br />Co-Executive Producer: Kensuke Matsushita<br />Executive Producer: Nobuo Uematsu<br /><br /><br />Eyes on Me<br />Nobuo Uematsu/Kako Someya/Shiro Hamaguchi<br /><br />Liberi Fatali<br />Nobuo Uematsu<br />Kazushige Nojima/Taro Yamashita<br />Shiro Hamaguchi<br /><br />Track 1<br />Conductor: Koji Haijima<br />Recording &amp; Mixing Engineer: Kenzi Nagashima<br />Recorded at Sound City<br /><br />Track 2,4,13<br />Conductor: Koji Haijima<br />Recording &amp; Mixing Engineer: Toshiyuki Yoshida<br />Recorded at Sound City, Victor Studio<br /><br />Track 3,8<br />Conductor: Koji Haijima<br />Recording &amp; Mixing Engineer: Toshiyuki Yoshida<br />Recorded at Victor Studio<br /><br />Track 5,6,11<br />Conductor: Koji Haijima<br />Recording Engineer: Shigetoshi Naito<br />Mixing Engineer: Toshiyuki Yoshida<br />Recorded at Sound City, Victor Studio<br /><br />Track 7,12<br />Vocal: Faye Wong<br />Conductor: Koji Haijima<br />Recording &amp; Mixing Engineer: Kenzi Nagashima<br />Recorded at Sound City, Avon recording studios (Hong Kong)<br /><br />Track 9<br />Conductor: Koji Haijima<br />Recording &amp; Mixing Engineer: Kenzi Nagashima<br />Recorded at Avaco Creative Studios<br /><br />Track 10<br />Conductor: Koji Haijima<br />Piano: Shinko Ogata<br />Recording &amp; Mixing Engineer: Toshiyuki Yoshida<br />Recorded at Sound City, Victor Studio</div>
+<b class="rbot"><b></b></b>
+</div>
+</div>
+
+	</div>
+
+</td>
+<td id="rightcolumn" rowspan="2" style="width: 270px; padding-left: 20px" valign="top">
+
+<div style="width: 250px; background-color: #1B273D">
+<b class="rtop"><b></b></b>
+<div style="padding: 6px 10px 0px 10px"><h3>Album Stats</h3></div>
+</div>
+<div style="width: 250px; background-color: #2F364F;">
+<div class="smallfont" style="padding: 10px 10px 6px 10px">
+
+
+
+<div style="margin-bottom: 10px;"><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Contained in</b> 132 collections<br />
+</div>
+
+<div style="margin-bottom: 10px;"><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Contained in</b> 11 wish lists<br />
+</div>
+
+<div style="margin-bottom: 10px;"><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Category</b><br />
+Game </div>
+
+<div style="margin-bottom: 10px;"><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Products represented</b><br />
+<a href="/product/189"><span class="productname" lang="en" style="display:inline">FINAL FANTASY VIII</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja" style="display:none">ファイナルファンタジーVIII</span><span style="display:none"><em> / </em></span><span class="productname" lang="ja-Latn" style="display:none">FINAL FANTASY VIII</span></a> </div>
+
+<div><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Platforms represented</b><br />
+Sony PlayStation </div>
+
+<div id="preview"></div>
+
+</div>
+<b class="rbot"><b></b></b>
+</div>
+
+<br style="clear: left" />
+
+<div style="width: 250px; background-color: #1B273D">
+<b class="rtop"><b></b></b>
+<div style="padding: 6px 10px 0px 10px"><h3>Available at</h3></div>
+</div>
+<div style="width: 250px; background-color: #2F364F;">
+<div class="smallfont" style="padding: 10px 10px 6px 10px">
+<img src="/db/img/arrowbit.gif" alt="" /><b class="label"> Marketplace: </b><a href="/db/collection.php?do=show&amp;albumid=79" class="smallfont">4 for sale </a>
+</div>
+<b class="rbot"><b></b></b>
+</div>
+
+<br style="clear: left" />
+
+
+<div style="width: 250px; background-color: #1B273D">
+<b class="rtop"><b></b></b>
+<div style="padding: 6px 10px 0px 10px"><h3>Websites</h3></div>
+</div>
+<div style="width: 250px; background-color: #2F364F;">
+<div class="smallfont" style="padding: 10px 10px 0px 10px">
+
+
+<div style="margin-bottom: 10px"><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Review</b><br />
+<span class='link_doc'><a rel='nofollow' href='/redirect/17901/www.rpgfan.com/soundtracks/ff8flwv/index.html'>RPGFan's Review</a></span>
+</div>
+
+
+</div>
+<b class="rbot"><b></b></b>
+</div>
+
+<br style="clear: left" />
+
+
+<div style="width: 250px; background-color: #1B273D">
+<b class="rtop"><b></b></b>
+<div style="padding: 6px 10px 0px 10px"><h3 style="float: left">Covers</h3>
+
+</div>
+<div style="width: 250px; background-color: #2F364F; clear:both"><div style="padding: 10px 10px 6px 10px">
+
+<div class="covertab" id="cover_gallery"><table border='0' width='100%'><tr>
+<td width='33%' align='center' valign='top'>
+
+<a id="thumb_70161" href="https://medium-media.vgm.io/albums/97/79/79-1264618929.png" class="highslide" rel="highslide"><div  style="background-color: #001122; background-image: url('https://thumb-media.vgm.io/albums/97/79/79-1264618929.png'); background-repeat: no-repeat; background-position: center center; border: solid 1px #40557E; height: 60px; width: 60px;">&nbsp;</div><h4 class="label" style="font-weight: normal">Booklet Front</h4></a>
+<div class='highslide-caption'><b>Booklet Front</b> <div class="smallfont">Submitted on Jan 27, 2010 <span class="time">11:02 AM</span></div><div class="smallfont">Image provided by AcidBeast</div></div>
+
+</td><td width='33%' align='center' valign='top'>
+
+<a id="thumb_70146" href="https://medium-media.vgm.io/albums/97/79/79-1264617804.png" class="highslide" rel="highslide"><div  style="background-color: #001122; background-image: url('https://thumb-media.vgm.io/albums/97/79/79-1264617804.png'); background-repeat: no-repeat; background-position: center center; border: solid 1px #40557E; height: 60px; width: 60px;">&nbsp;</div><h4 class="label" style="font-weight: normal">Back</h4></a>
+<div class='highslide-caption'><b>Back</b> <div class="smallfont">Submitted on Jan 27, 2010 <span class="time">10:43 AM</span></div><div class="smallfont">Image provided by AcidBeast</div></div>
+
+</td><td width='33%' align='center' valign='top'>
+
+<a id="thumb_70160" href="https://medium-media.vgm.io/albums/97/79/79-1264618890.png" class="highslide" rel="highslide"><div  style="background-color: #001122; background-image: url('https://thumb-media.vgm.io/albums/97/79/79-1264618890.png'); background-repeat: no-repeat; background-position: center center; border: solid 1px #40557E; height: 60px; width: 60px;">&nbsp;</div><h4 class="label" style="font-weight: normal">Booklet Back</h4></a>
+<div class='highslide-caption'><b>Booklet Back</b> <div class="smallfont">Submitted on Jan 27, 2010 <span class="time">11:01 AM</span></div><div class="smallfont">Image provided by AcidBeast</div></div>
+
+</td></tr>
+<table border='0' width='100%'><tr>
+<td width='33%' align='center' valign='top'>
+
+<a id="thumb_70162" href="https://medium-media.vgm.io/albums/97/79/79-1264618956.png" class="highslide" rel="highslide"><div  style="background-color: #001122; background-image: url('https://thumb-media.vgm.io/albums/97/79/79-1264618956.png'); background-repeat: no-repeat; background-position: center center; border: solid 1px #40557E; height: 60px; width: 60px;">&nbsp;</div><h4 class="label" style="font-weight: normal">Case Back</h4></a>
+<div class='highslide-caption'><b>Case Back</b> <div class="smallfont">Submitted on Jan 27, 2010 <span class="time">11:02 AM</span></div><div class="smallfont">Image provided by AcidBeast</div></div>
+
+</td><td width='33%' align='center' valign='top'>
+
+<a id="thumb_70163" href="https://medium-media.vgm.io/albums/97/79/79-1264618990.png" class="highslide" rel="highslide"><div  style="background-color: #001122; background-image: url('https://thumb-media.vgm.io/albums/97/79/79-1264618990.png'); background-repeat: no-repeat; background-position: center center; border: solid 1px #40557E; height: 60px; width: 60px;">&nbsp;</div><h4 class="label" style="font-weight: normal">Case Front</h4></a>
+<div class='highslide-caption'><b>Case Front</b> <div class="smallfont">Submitted on Jan 27, 2010 <span class="time">11:03 AM</span></div><div class="smallfont">Image provided by AcidBeast</div></div>
+
+</td><td width='33%' align='center' valign='top'>
+
+<a id="thumb_70164" href="https://medium-media.vgm.io/albums/97/79/79-1264619025.png" class="highslide" rel="highslide"><div  style="background-color: #001122; background-image: url('https://thumb-media.vgm.io/albums/97/79/79-1264619025.png'); background-repeat: no-repeat; background-position: center center; border: solid 1px #40557E; height: 60px; width: 60px;">&nbsp;</div><h4 class="label" style="font-weight: normal">Disc</h4></a>
+<div class='highslide-caption'><b>Disc</b> <div class="smallfont">Submitted on Jan 27, 2010 <span class="time">11:03 AM</span></div><div class="smallfont">Image provided by AcidBeast</div></div>
+
+</td></tr>
+</tr></table>
+</div>
+<div style="clear: left; line-height: 0; height: 0; overflow: hidden; visibility: hidden"></div>
+
+</div>
+<b class="rbot"><b></b></b>
+</div></div>
+
+<br style="clear: left" />
+
+<div style="width: 250px; background-color: #1B273D">
+<b class="rtop"><b></b></b>
+<div style="padding: 6px 10px 0px 10px"><h3>Related Albums</h3></div>
+</div>
+<div style="width: 250px; background-color: #2F364F;">
+
+
+<span class="smallfont"><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-bonus" href="https://vgmdb.net/album/18536" title='EYES ON ME: featured in FINAL FANTASY VIII'><span class="albumtitle" lang="en" style="display:inline">EYES ON ME: featured in FINAL FANTASY VIII</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>EYES ON ME: featured in FINAL FANTASY VIII</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>EYES ON ME: featured in FINAL FANTASY VIII</span></a> <span class="catalog smallfont album-bonus">PRT-8429</span></div><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-bonus" href="https://vgmdb.net/album/1521" title='FINAL FANTASY VIII Original Soundtrack - Special Sampler'><span class="albumtitle" lang="en" style="display:inline">FINAL FANTASY VIII Original Soundtrack - Specia...</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>FINAL FANTASY VIII Original Soundtrack - Specia...</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>FINAL FANTASY VIII Original Soundtrack - Specia...</span></a> <span class="catalog smallfont album-bonus">TGCS-624</span></div><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-game" href="https://vgmdb.net/album/64" title='Eyes On Me ~featured in FINAL FANTASY VIII / Faye Wong'><span class="albumtitle" lang="en" style="display:inline">Eyes On Me ~featured in FINAL FANTASY VIII / Fa...</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>Eyes On Me ~featured in FINAL FANTASY VIII / Fa...</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>Eyes On Me ~featured in FINAL FANTASY VIII / Fa...</span></a> <span class="catalog smallfont album-game">TODT-5271</span></div><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-game" href="https://vgmdb.net/album/6" title='FINAL FANTASY VIII Original Soundtrack'><span class="albumtitle" lang="en" style="display:inline">FINAL FANTASY VIII Original Soundtrack</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>ファイナルファンタジーVIII  オリジナル・サウン...</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>FINAL FANTASY VIII Original Soundtrack</span></a> <span class="catalog smallfont album-game">SSCX-10028</span></div><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-game" href="https://vgmdb.net/album/106187" title='NOW 10 - THAT&#039;S WHAT I CALL MUSIC!'><span class="albumtitle" lang="en" style="display:inline">NOW 10 - THAT'S WHAT I CALL MUSIC!</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>NOW 10 - THAT'S WHAT I CALL MUSIC!</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>NOW 10 - THAT'S WHAT I CALL MUSIC!</span></a> <span class="catalog smallfont album-game">TOCP-65350</span></div><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-game" href="https://vgmdb.net/album/66" title='Piano Collections FINAL FANTASY VIII'><span class="albumtitle" lang="en" style="display:inline">Piano Collections FINAL FANTASY VIII</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>ピアノ・コレクションズ ファイナルファンタジーVIII</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>Piano Collections FINAL FANTASY VIII</span></a> <span class="catalog smallfont album-game">SSCX-10041</span></div><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-bonus" href="https://vgmdb.net/album/13689" title='FINAL FANTASY VIII Music Collection'><span class="albumtitle" lang="en" style="display:inline">FINAL FANTASY VIII Music Collection</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>FINAL FANTASY VIII Music Collection</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>FINAL FANTASY VIII Music Collection</span></a> <span class="catalog smallfont album-bonus">SQMW-4001</span></div><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-game" href="https://vgmdb.net/album/16486" title='Separate Ways / Faye Wong'><span class="albumtitle" lang="en" style="display:inline">Separate Ways / Faye Wong</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>Separate Ways / Faye Wong</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>Separate Ways / Faye Wong</span></a> <span class="catalog smallfont album-game">TOCT-22151</span></div><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-game" href="https://vgmdb.net/album/106197" title='Dancemania BEST Yellow'><span class="albumtitle" lang="en" style="display:inline">Dancemania BEST Yellow</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>Dancemania BEST NONSTOP MEGAMIX Yellow</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>Dancemania BEST Yellow</span></a> <span class="catalog smallfont album-game">TOCP-64151</span></div><div class="smallfont" style="padding: 6px 10px 6px 10px"><a class="albumtitle smallfont album-game" href="https://vgmdb.net/album/109894" title='Now Best Returns'><span class="albumtitle" lang="en" style="display:inline">Now Best Returns</span><span class="albumtitle" lang="ja" style="display:none"><em> / </em>NOW BEST RETURNS</span><span class="albumtitle" lang="ja-Latn" style="display:none"><em> / </em>Now Best Returns</span></a> <span class="catalog smallfont album-game">TOCP-66091</span></div></span>
+<br />
+
+<b class="rbot"><b></b></b>
+</div>
+
+<br style="clear: left" />
+
+<div style="width: 250px; background-color: #2F364F;">
+<b class="rtop"><b></b></b>
+
+<div class="smallfont" style="padding: 6px 10px 6px 10px">
+<div style="margin-bottom: 10px;"><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Added</b><br />
+Aug 3, 2006 <span class="time">01:33 AM</span></div>
+
+<div style="margin-bottom: 10px;"><img src="/db/img/arrowbit.gif" alt="" border = "0" /> <b class="label">Edited</b><br />
+Feb 18, 2021 <span class="time">03:42 PM</span></div>
+
+<div style="margin-bottom: 10px;"><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Page traffic</b><br />
+<span class="time">19452</span> visitors<br />
+<span class="time" style="word-break:break-all">38</span> freedb<br />
+<!----></div>
+
+<div><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Page built in</b><br />
+<span class="time">0</span> seconds</div>
+</div>
+
+<b class="rbot"><b></b></b>
+</div>
+
+
+
+</td>
+
+</tr>
+<tr>
+<td valign="bottom" style="background-color: #1B273D;">
+<b class="rbot"><b></b></b>
+</td>
+</tr>
+</table>
+
+<!-- album tools menu -->
+<div class="vbmenu_popup" id="albumtools_menu" style="display:none">
+<table cellpadding="4" cellspacing="1" border="0">
+	
+	<tr><td class="vbmenu_option">You must be logged in to edit.</td></tr>
+	
+</table>
+</div>
+<!-- / album tools menu -->
+
+
+<!-- / main page contents -->
+
+</div>
+<!-- /content area table -->
+<div style="clear: both; height: 20px"></div>
+
+<div class="alt1" style="width: 100%">
+<div id="footer">
+<div style="padding: 20px 10px 0 200px">
+
+
+
+	<div style="float: right; text-align: right; font-family: Arial;" class="label">
+		<a href="/about">About Us</a> &bull;
+		<a href="/faq">F.A.Q.</a> &bull;
+		<a href="/forums/sendmessage.php?s=049795155c400e9a6cf06c3df55a88c9" rel="nofollow" accesskey="9">Contact Us</a> &bull;
+		<a href="/db/statistics.php" rel="nofollow">Statistics</a> &bull;
+		<a href="https://vgmdb.net">Home</a>
+
+		<div class="smallfont" style="font-family: Arial; margin-top: 10px">
+		
+		
+		
+		<a href="/forums/archive/index.php">Archive</a> &bull;
+		
+		<a href="/privacy">Privacy Statement</a> &bull;
+		
+		<a href="#top" onclick="self.scrollTo(0, 0); return false;">Top</a>
+		</div>
+
+	<div style="margin-top: 10px"><form action="index.php" method="get">
+	
+	
+	
+
+	</form></div>
+	</div>
+
+	<div class="label">
+		<h3>VGMdb 1.4</h3>
+		<div class="smallfont"><!-- Do not remove this copyright notice -->
+		
+		<!-- Do not remove this copyright notice --></div>
+		<div class="smallfont">Site code and design copyright VGMdb.net</div>
+		<div class="smallfont">Site material is property of their respective owners.</div>
+		<div class="smallfont">All times are GMT -8. The time now is <span class="time">12:26 PM</span>.</div>
+	</div>
+
+
+
+
+
+</div></div></div>
+
+
+<script type="text/javascript">
+<!--
+	// Main vBulletin Javascript Initialization
+	vBulletin_init();
+//-->
+</script>
+</body>
+</html>
+

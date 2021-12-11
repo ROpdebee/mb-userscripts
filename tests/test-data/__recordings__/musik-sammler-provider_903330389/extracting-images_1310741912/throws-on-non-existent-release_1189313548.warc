@@ -1,0 +1,408 @@
+WARC/1.1
+WARC-Filename: musik-sammler provider/extracting images/throws on non-existent release
+WARC-Date: 2021-12-11T20:26:43.571Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:014c0bc6-80e8-4fe7-83a2-dc84473634ed>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:f65360e9-d891-4ad7-ac24-82d3d67d3d84>
+WARC-Target-URI: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539/
+WARC-Date: 2021-12-11T20:26:43.571Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:21e64204-ef9a-4ff1-a310-4690f69f4746>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:f29a3abfdc930afa99924fa278a2af0c723e9286016190e3b2a7df0a727a15dd
+Content-Length: 62
+
+GET /release/vanilla-fudge-vanilla-fudge-cd-1539/ HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:f65360e9-d891-4ad7-ac24-82d3d67d3d84>
+WARC-Target-URI: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539/
+WARC-Date: 2021-12-11T20:26:43.571Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:405040b0-0c51-4500-b5cd-4022af0d959b>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:b9b7685342cfb4223ce39a628f63e3f0b85cb76caa001b5b25941d1b2262e9ac
+WARC-Block-Digest: sha256:b9b7685342cfb4223ce39a628f63e3f0b85cb76caa001b5b25941d1b2262e9ac
+Content-Length: 348
+
+harEntryId: 945a53c55f5d41b0b3bf39ba0b479877
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:43.211Z
+time: 359
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":359,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 92
+warcRequestCookies: []
+warcResponseHeadersSize: 295
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539/
+WARC-Date: 2021-12-11T20:26:43.571Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:f65360e9-d891-4ad7-ac24-82d3d67d3d84>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:694e6cd998a5f5122d7b8efce5bad6037f057a7092fa88ee4227f1a14dd9f42e
+WARC-Block-Digest: sha256:5d9e343ea84052ed8ddd1ef1b5e76d6c2c171734bd1591a717aa731ec15c1904
+Content-Length: 29612
+
+HTTP/1.1 404 Not Found
+cache-control: max-age=0, no-store
+connection: Upgrade, close
+content-type: text/html; charset=utf-8
+date: Sat, 11 Dec 2021 20:26:43 GMT
+server: Apache
+transfer-encoding: chunked
+upgrade: h2
+x-pollyjs-finalurl: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539/
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="de"> <![endif]-->
+<html class="no-js" lang="de">
+
+<head>
+    <link rel="preload" href="/webfonts/">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Die Musiksammlungs-Verwaltung im Internet.">
+        <meta name="keywords" content="Musik, Verwaltung, Sammlung, CD, LP">
+    <meta name="robots" content="index,follow">
+    
+                
+    
+    <title>Musik-Sammler.de - Die Musiksammlungs-Verwaltung im Internet!</title>
+        <link rel="author" title="Impressum" href="/impressum/">
+    <link rel="dns-prefetch" href="//musik-sammler.de">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/gfx/apple-touch-icon.png"/>
+
+    
+    
+	                    <script type="text/javascript">
+        // Set to the same value as the web property used on the site
+        var gaProperty = 'UA-5282825-1';
+        var disableStr = 'ga-disable-' + gaProperty;
+
+        // Disable tracking if the opt-out cookie exists.
+        if (document.cookie.indexOf(disableStr + '=true') > -1) {
+            window[disableStr] = true;
+        }
+
+        // Opt-out function
+        function gaOptout() {
+            document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+            window[disableStr] = true;
+        }
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5282825-1']);
+        _gaq.push(['_gat._anonymizeIp']);
+        _gaq.push(['_trackPageview']);
+                _gaq.push(['_setCustomVar',
+              1,                // This custom var is set to slot #1.  Required parameter.
+              'Member Type',    // The name of the custom variable.  Required parameter.
+              'Guest',        // The value of the custom variable.  Required parameter.
+              1                 // Sets the scope to visitor-level.  Optional parameter.
+         ]);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+            <script async src="https://cdns.yieldscale.com/musik-sammler.js"></script>
+
+    <link rel="stylesheet" href="/styles/ms-1639126428.css">
+                
+                
+        <script type="text/javascript" src="https://steadyhq.com/widget_loader/c4a44ca1-33bb-458e-94f5-75bd5a748e22"></script>
+    </head>
+
+<body>
+        <div class="off-canvas-wrapper">
+        <div class="off-canvas position-left" id="offCanvas" data-off-canvas>
+            <!-- Close button -->
+<button class="close-button" aria-label="Close menu" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+</button>
+
+<!-- Menu -->
+<ul class="vertical menu drilldown" data-drilldown data-back-button='<li class="js-drilldown-back"><a tabindex="0">Zurück</a></li>'>
+                        <li>
+                                    <a>MS.de</a>
+
+                    <ul class="menu vertical nested">
+                                                    <li><a href="/" title="Startseite">Startseite</a></li>
+                                                    <li><a href="/members/" title="Mitglieder">Mitglieder</a></li>
+                                                    <li><a href="http://wiki.musik-sammler.de/" title="FAQs/Dokumentation">FAQs/Dokumentation</a></li>
+                                            </ul>
+                            </li>
+                    <li>
+                                    <a>Shopping</a>
+
+                    <ul class="menu vertical nested">
+                                                    <li><a href="/market/" title="Flohmarkt">Flohmarkt</a></li>
+                                                    <li><a href="/?do=shops" title="Shopping-Guide">Shopping-Guide</a></li>
+                                            </ul>
+                            </li>
+                    <li>
+                                    <a href="">Künstler</a>
+                    <ul class="menu vertical nested" id="browseMenu">
+                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/0/">#</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/A/">A</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/B/">B</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/C/">C</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/D/">D</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/E/">E</a></div>
+                            </li>                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/F/">F</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/G/">G</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/H/">H</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/I/">I</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/J/">J</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/K/">K</a></div>
+                            </li>                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/L/">L</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/M/">M</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/N/">N</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/O/">O</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/P/">P</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Q/">Q</a></div>
+                            </li>                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/R/">R</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/S/">S</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/T/">T</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/U/">U</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/V/">V</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/W/">W</a></div>
+                            </li>                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/X/">X</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Y/">Y</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Z/">Z</a></div>
+                                                                        </ul>
+                            </li>
+            </ul>
+        </div>
+        <div class="off-canvas-content" data-off-canvas-content>
+            <div id="top-main-bar" data-sticky-container>
+    <div class="top-bar-section" data-sticky data-options="marginTop:0;" style="width:100%;">
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell">
+                    <div class="title-bar" data-responsive-toggle="ms-menu" data-hide-for="large">
+                        <button class="menu-icon" type="button" data-open="offCanvas"></button>
+                        <span class="title-bar-title">Menu</span>
+                        <ul class="menu horizontal hide-for-large text-right" style="position:absolute; right:2px; top:.5rem;">
+                                                                                        <li><a href="/login/" class="reveal-opener button" id="login" data-open="loginModal" title="Login" rel="nofollow">Login</a></li>
+                                                    </ul>
+                    </div>
+                    <div class="top-bar" id="ms-menu">
+                        <div class="top-bar-left">
+                            <ul class="vertical medium-horizontal menu" data-auto-height="true" data-responsive-menu="drilldown medium-dropdown">
+                                                                                                            <li>
+                                                                                            <a>MS.de</a>
+
+                                                <ul class="menu vertical">
+                                                                                                            <li><a href="/" title="Startseite">Startseite</a></li>
+                                                                                                            <li><a href="/members/" title="Mitglieder">Mitglieder</a></li>
+                                                                                                            <li><a href="http://wiki.musik-sammler.de/" title="FAQs/Dokumentation">FAQs/Dokumentation</a></li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                                                                            <a>Shopping</a>
+
+                                                <ul class="menu vertical">
+                                                                                                            <li><a href="/market/" title="Flohmarkt">Flohmarkt</a></li>
+                                                                                                            <li><a href="/?do=shops" title="Shopping-Guide">Shopping-Guide</a></li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                                                                            <a>Künstler</a>
+                                                <ul class="menu vertical" id="browseMenu">
+                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/0/">#</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/A/">A</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/B/">B</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/C/">C</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/D/">D</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/E/">E</a></div>
+                                                        </li>                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/F/">F</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/G/">G</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/H/">H</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/I/">I</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/J/">J</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/K/">K</a></div>
+                                                        </li>                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/L/">L</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/M/">M</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/N/">N</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/O/">O</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/P/">P</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Q/">Q</a></div>
+                                                        </li>                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/R/">R</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/S/">S</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/T/">T</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/U/">U</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/V/">V</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/W/">W</a></div>
+                                                        </li>                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/X/">X</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Y/">Y</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Z/">Z</a></div>
+                                                                                                                                                            </ul>
+                                                                                    </li>
+                                                                                                </ul>
+                        </div>
+                        <div class="top-bar-right show-for-large">
+                            <form method="get" action="/search/" accept-charset="utf-8">
+                                <ul class="menu align-right">
+                                    <li class="nohover show-for-large float-small">
+                                        <div class="input-group no-margin-bottom">
+                                            <input type="text" name="query" id="search-input" class="input-group-field" placeholder="Suche" value="">
+                                            <div class="input-group-button">
+                                                <button type="submit" class="button"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                                                                                                                                                        <li>
+                                                    <a href="/forum/" title="Forum" class="navigation-icon"><i class="fas fa-comments"></i></a>
+                                                </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="/login/" id="login" data-open="loginModal" title="Login" class="reveal-opener button" rel="nofollow">Login</a></li>
+                                                                    </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form method="get" action="/search/" accept-charset="utf-8">
+    <div class="hide-for-large">
+        <div class="input-group" style="margin:0;">
+            <input type="text" name="query" class="input-group-field" placeholder="Suche" value="">
+            <div class="input-group-button">
+                <button type="submit" class="small button"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+                                        
+            
+            
+            <section >
+                <div class="grid-container">
+                                    <h1>Oops!</h1>
+    <h2>This is awkward.</h2>
+    <p>We encountered a 404 Not Found error.</p>
+    <p>
+        You are looking for something that doesn't exist or may have moved. Check out one of the links on this page
+        or head back to <a href="/">Home</a>.
+    </p>
+                </div>
+            </section>
+
+            
+            <footer class="footer-base  ">
+                <div class="grid-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="small-12 medium-6 large-6 cell">
+                            <div class="footer-headline">Musik-Sammler.de</div>
+                            <div class="grid-x">
+                                <div class="small-12 medium-6 large-6 cell">
+                                    <ul class="no-bullet">
+                                        <li><a href="/blog/" title="Blog">Blog</a></li>
+                                        <li><a href="/forum/" title="Forum">Forum</a></li>
+                                        <li><a href="http://wiki.musik-sammler.de/" title="FAQs/Dokumentation">FAQs/Dokumentation</a></li>
+                                        <li><a href="/global-stats/" title="Globale Statistiken">Globale Statistiken</a></li>
+                                        <li><a href="/support/" title="Unterstützung von Musik-Sammler.de">Unterstützen von MS/Werbefreiheit</a></li>
+                                    </ul>
+                                </div>
+                                <div class="small-12 medium-6 large-6 cell">
+                                    <ul class="no-bullet">
+                                        <li><a href="/mediadata/" title="Mediadaten">Mediadaten</a></li>
+                                        <li><a href="/terms-of-use/" title="Nutzungsbedingungen">Nutzungsbedingungen</a></li>
+                                        <li><a href="/contact/" title="Kontakt">Kontakt</a></li>
+                                        <li><a href="/datenschutz/" title="Datenschutzerklärung">Datenschutzerklärung</a></li>
+                                        <li><a href="/impressum/" title="Impressum">Impressum</a></li>
+                                        <li><a href="#" onclick="window._sp_.loadPrivacyManagerModal(330577)" title="Cookie-Einstellungen">Cookie-Einstellungen</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-12 medium-6 large-6 cell">
+                            <div class="footer-headline">Social Media</div>
+                            <ul class="menu">
+                                <li><a href="https://twitter.com/Musiksammler" title="Musik-Sammler.de bei Twitter"><i class="fab fa-instagram-square large"></i></a></li>
+                                <li><a href="https://www.facebook.com/musiksammler.de" title="Musik-Sammler.de bei Facebook"><i class="fab fa-facebook-square large"></i></a></li>
+                                <li><a href="https://instagram.com/musiksammler.de" title="Musik-Sammler.de bei Instagram"><i class="fab fa-instagram large"></i></a></li>
+                            </ul>
+                                                    </div>
+                    </div>
+                </div>
+                <p id="copyNote">
+                    © 2005 - 2021 Musik-Sammler.de - Alle Einträge wurden von den Mitgliedern dieser Seite erstellt.
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    
+        <div id="loginModal" class="small reveal" data-reveal>
+        <form action="/login/" method="post" accept-charset="UTF-8">
+    <fieldset class="fieldset box-user" id="loginFormPage">
+                
+        <div class="grid-x grid-padding-x medium-collapse large-collapse">
+            <div class="small-12 medium-5 large-5 cell">
+                <label for="loginAgain">Login:</label>
+                <input type="text" name="login" id="loginAgain" value="" pattern=".{2,}" required title="Mindestens 3 Zeichen lang">
+            </div>
+            <div class="small-12 medium-5 large-5 cell">
+                <label for="passwortAgain">Passwort:</label>
+                <input type="password" name="password" id="passwortAgain" size="10" value="" required>
+            </div>
+            <div class="small-12 medium-2 large-2 cell">
+                <label><br></label>
+                                    <input type="hidden" name="requesturi" value="release/vanilla-fudge-vanilla-fudge-cd-1539" />
+                                <button type="submit" class="button small">Login</button>
+            </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+            <div class="cell">
+                <a href="/password-recovery/">Passwort vergessen?</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    
+    
+        <script type="application/javascript" src="/js/jquery/jquery-3.5.0.min.js"></script>
+
+        
+        <script src="/scripts/vendor-1638261343.js"></script>
+        <script>
+        $(document).foundation();
+    </script>
+
+    
+    
+    
+                    </body>
+</html>
+
+

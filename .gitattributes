@@ -1,0 +1,2 @@
+# CRLF should never be converted into LF for these files, as that will break them completely.
+*.warc -crlf

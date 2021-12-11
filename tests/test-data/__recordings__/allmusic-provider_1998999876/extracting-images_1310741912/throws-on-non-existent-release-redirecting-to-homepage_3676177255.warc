@@ -1,0 +1,1822 @@
+WARC/1.1
+WARC-Filename: allmusic provider/extracting images/throws on non-existent release redirecting to homepage
+WARC-Date: 2021-12-11T20:26:45.073Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:2599721f-8e5d-400b-890d-96852282dd91>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:bfc04430-1b98-4a9b-8dfb-fc5b2a37b41c>
+WARC-Target-URI: https://www.allmusic.com/album/release/mr12314
+WARC-Date: 2021-12-11T20:26:45.074Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:c38e3516-6933-4760-9128-51bdfc42c7ac>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:c89475861df50b9c86b88ec0b9657394604f3635d2d223da316a53998a777af0
+Content-Length: 39
+
+GET /album/release/mr12314 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:bfc04430-1b98-4a9b-8dfb-fc5b2a37b41c>
+WARC-Target-URI: https://www.allmusic.com/album/release/mr12314
+WARC-Date: 2021-12-11T20:26:45.074Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:bdde61e1-beb9-4ee4-ad84-0681aa197252>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:edb009a29895644bd7a40c7bc4c6bd0ebeacb28c26c2da9471fcde4910a0b3a2
+WARC-Block-Digest: sha256:edb009a29895644bd7a40c7bc4c6bd0ebeacb28c26c2da9471fcde4910a0b3a2
+Content-Length: 348
+
+harEntryId: be8101bdf134ac300ae3332fed94e28b
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:44.507Z
+time: 565
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":565,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 65
+warcRequestCookies: []
+warcResponseHeadersSize: 987
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.allmusic.com/album/release/mr12314
+WARC-Date: 2021-12-11T20:26:45.074Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:bfc04430-1b98-4a9b-8dfb-fc5b2a37b41c>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:369250a4886e1740f76a9c7f3a2e55b3510695b51fd2a0b2019f78a6bc70ea97
+WARC-Block-Digest: sha256:da9e48ba3628002e4ce608cff31787698c08a0542e7b398dda1cdfa5ba8bff04
+Content-Length: 119960
+
+HTTP/1.1 200 OK
+accept-ranges: bytes
+age: 703
+alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+cache-control: maxage=1800
+connection: close
+content-encoding: gzip
+content-security-policy: upgrade-insecure-requests
+content-type: text/html; charset=UTF-8
+date: Sat, 11 Dec 2021 20:15:00 GMT
+expires: Sat, 11 Dec 2021 20:45:00 GMT
+server: nginx/1.20.1
+strict-transport-security: max-age=31536000; includeSubDomains
+transfer-encoding: chunked
+vary: Accept-Encoding
+via: 1.1 varnish (Varnish/6.1), 1.1 varnish (Varnish/6.1), 1.1 google
+worker: vdir_prod_music_precache
+x-amn-trace: 031380c261e2b010c4c175e54947612c/15677578014531276095
+x-content-type-options: nosniff
+x-ecache: HIT
+x-evarnish-trace: gce-all-prod-evarnish-autogroup-b-5kbq
+x-frame-options: SAMEORIGIN
+x-icache: ivarnish
+x-ivarnish-trace: gce-all-prod-ivarnish-autogroup-zjbh
+x-ivxid: 5330993 6105922
+x-varnish: 10125931 8051532
+x-xss-protection: 1; mode=block
+x-pollyjs-finalurl: https://www.allmusic.com/
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <script>
+        window.location.href.indexOf(".allmusic.com")==-1&&window.stop();
+    </script>
+
+    <title>AllMusic | Record Reviews, Streaming Songs, Genres & Bands</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+    <!-- iOS metadata -->
+    <meta name="apple-mobile-web-app-capable" content="no">
+            <meta name="viewport" content="width=device-width">
+    
+    <!-- preload font -->
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_D_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_D_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_16_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_16_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_18_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_18_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_19_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_19_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1A_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1A_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1B_unhinted_0.woff" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1B_unhinted_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+<!-- preload page css -->
+    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/home/home-78097f3415.css" as="style" crossorigin="anonymous" >
+
+
+<!-- preload setup (header) js -->
+<link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/js/setup-7917bd1369.js" as="script" crossorigin="anonymous" >
+
+<!-- preload global (footer) js -->
+<link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/js/global-c185d56d8a.js" as="script" crossorigin="anonymous" >
+
+<!-- preload page js -->
+    
+    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/js/homepage-221a969d5d.js" as="script" crossorigin="anonymous" >
+
+<!-- prefetch global -->
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/header/gear_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/gear_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/flag_off.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/flag_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/header/hamburger.svg">
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/header/looking-glass.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/facebook_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/twitter_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/tumblr_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/social/rss_off.svg" as="image" crossorigin="anonymous" >
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/facebook_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/twitter_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/tumblr_on.svg">
+    <link rel="prefetch" href="https://cdn-gce.allmusic.com/images/social/rss_on.svg">
+
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue-half.svg" as="image" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" as="image" crossorigin="anonymous" >
+
+<!-- preload page-level assets -->
+                <link rel="preload" as="image" href="https://cdn-s3.allmusic.com/cms/20084/home_mikenesmith.jpg">
+                            <link rel="preload" as="image" href="https://rovimusic.rovicorp.com/image.jpg?c=GiIvsl8TJFqhF_6TlUPUuCpQg_7iAU1wjqLgK_xGXts=&f=4">
+                            <link rel="preload" as="image" href="https://rovimusic.rovicorp.com/image.jpg?c=GiIvsl8TJFqhF_6TlUPUuB_TZlp6n_cq-Emr2zx15tU=&f=4">
+                            <link rel="preload" as="image" href="https://rovimusic.rovicorp.com/image.jpg?c=03I5w7jfkSl0bLHin8F04h_TZlp6n_cq-Emr2zx15tU=&f=4">
+                            <link rel="preload" as="image" href="https://rovimusic.rovicorp.com/image.jpg?c=P7pmf4ymSrZ8ZOpNtIH8rT6KsMttLlyBmmVTZ6_CLs0=&f=5">
+                            <link rel="preload" as="image" href="https://rovimusic.rovicorp.com/image.jpg?c=QVXhChLHJRTPGY7djbTMeQSijaXJlYnq0St31qpAJWo=&f=4">
+            
+    <!-- android homescreen specific favicon -->
+    <link rel="icon" type="image/png" href="https://cdn-gce.allmusic.com/images/favicon/favicon-196x196.png?v=47BXOjEqB"
+          sizes="196x196"/>
+
+    <!-- general favicon -->
+    <link rel="icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon-96x96.png?v=47BXOjEqB" type="image/png"
+          sizes="96x96"/>
+    <link rel="icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon-32x32.png?v=47BXOjEqB" type="image/png"
+          sizes="32x32"/>
+    <link rel="icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon-16x16.png?v=47BXOjEqB" type="image/png"
+          sizes="16x16"/>
+    <link rel="shortcut icon" href="https://cdn-gce.allmusic.com/images/favicon/favicon.ico?v=47BXOjEqB" type="image/x-icon"/>
+
+    <!-- iOS specific favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="120x120"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-120x120.png?v=47BXOjEqB"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-76x76.png?v=47BXOjEqB"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-152x152.png?v=47BXOjEqB"/>
+    <link rel="apple-touch-icon-precomposed" sizes="180x180"
+          href="https://cdn-gce.allmusic.com/images/favicon/ios/apple-touch-icon-180x180.png?v=47BXOjEqB"/>
+    <meta name="apple-mobile-web-app-title" content="AllMusic">
+
+    <meta name="application-name" content="AllMusic">
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss"/>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/kffpbhfpflaacppoegnbknokchggcoao">
+
+    
+    	<meta name="title" content="AllMusic | Record Reviews, Streaming Songs, Genres &amp; Bands">
+	<meta name="keywords" content="AllMusic,music recommendations,music reviews,bands,musician bios,musician biography,now available,music new releases,streaming music,music search">
+	<meta name="description" content="AllMusic provides comprehensive music info including reviews and biographies. Get recommendations for new music to listen to, stream or own.">
+
+    	<meta property="og:site_name" content="AllMusic">
+
+	<meta property="fb:app_id" content="415271808519760">
+
+	<meta property="og:title" content="AllMusic | Record Reviews, Streaming Songs, Genres &amp; Bands">
+	<meta name="twitter:title" content="AllMusic | Record Reviews, Streaming Songs, Genres &amp; Bands">
+
+	<meta property="og:description" content="AllMusic provides comprehensive music info including reviews and biographies. Get recommendations for new music to listen to, stream or own.">
+	<meta name="twitter:description" content="AllMusic provides comprehensive music info including reviews and biographies. Get recommendations for new music to listen to, stream or own.">
+
+    	<meta property="og:type" content="website">
+
+
+    <meta property="og:image" content="https://cdn-gce.allmusic.com/images/allmusic_facebook_share.png">
+    <meta property="og:url" content="https://www.allmusic.com/">
+
+        <meta name="spotim-ads" content="disable-all"/>
+    
+    <link rel="canonical" href="https://www.allmusic.com">
+
+            <link type="text/css" rel="stylesheet" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/home/home-78097f3415.css" crossorigin="anonymous">    
+    
+    
+    <!-- Alexa tag -->
+    <meta name="alexaVerifyID" content="SfgYrX5roRNK_iy-Mr_tFkRlY7M"/>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-7096127-1', 'auto');
+
+                        ga('send', 'pageview', '');
+                setTimeout("ga('send','event','adjusted bounce rate','page visit 15 seconds or more')", 15000);
+            </script>
+
+    <!-- Google Tag Manager QunatCast-->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M5C83T');</script>
+    <!-- End Google Tag Manager -->
+
+            <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "url": "https://www.allmusic.com/",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://www.allmusic.com/search/all/{search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            }
+        </script>
+    
+    <script src="https://cdn-gce.allmusic.com/cache/dist/js/setup-7917bd1369.js" crossorigin="anonymous"></script>
+    <script>
+        (function (a, c, d, e) {
+            if (!a[c]) {
+                var b = a[c] = {};
+                b[d] = [];
+                b[e] = function (a) {
+                    b[d].push(a)
+                }
+            }
+        })(window, 'Scroll', '_q', 'do');
+        Scroll.config = {
+            detected: document.cookie.indexOf("scroll0=") > -1
+        };
+    </script>
+    <script async src="https://static.scroll.com/js/scroll.js"></script>
+
+    
+            <script type="text/javascript">
+let catalystConfig = {
+site: 'allmusic',
+silo: 's_mus',
+zone: 'home',
+tier: 'to,home',
+kw: 'blockadexfalse',
+isMobile: isMobile_AllMusic,
+exclude: '',
+toolbar: {
+theme: 'grey'
+}
+};
+if (document.cookie.indexOf('scroll0=') < 0 && scroll_v7 == 'no-scroll') {
+(function(window,document) {
+if(!window.catalyst) {
+var ns = document.createElement('script');
+ns.src = '//media.complex.com/common/catalyst.js';
+ns.type = 'text/javascript';
+ns.async = true;
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ns, s);
+window.catalyst = window.catalyst || {cmd: []};
+}
+})(window, document);
+}
+</script>    
+    
+    </head>
+<body>
+<noscript>
+    <div class="javascript-disabled" id="no-js">
+        AllMusic relies heavily on JavaScript.<br>
+        Please enable JavaScript in your browser to use the site fully.
+    </div>
+</noscript>
+
+<!-- Google Tag Manager (noscript) QunatCast-->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5C83T" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<div class="overflow-container homepage">
+
+    <div class="stripe-container header-main-nav clearfix">
+        <div class="max-header">
+            <div class="main-nav">
+
+    <div class="logo-container">
+        <a class="logo" href="/">
+            <p class="logo-img">AllMusic</p>
+        </a>
+    </div>
+
+    <nav class="mobile-menu" aria-label="Toggle menu"></nav>
+
+    <div class="search-container">
+        <form class="site-search" method="post" name="site-search" action="/search">
+            <input type="search" class="site-search-input" name="term" aria-label="Search" placeholder="Search" autocomplete="off">
+            <input type="submit" class="site-search-button" name="submit" value="" aria-label="Submit search">
+        </form>
+    </div>
+
+    <nav class="site-nav">
+        <div class="nav-contain">
+            <div class="new-releases top-nav-item">
+                <a href="/newreleases">New Releases</a>
+                <div class="sub-nav-outer-container">
+    <div class="sub-nav-container">
+        <div class="sub-nav-columns">
+            <div class="new-releases-subnav left">
+                <ul class="new-releases-nav">
+                    <li class="nr-featured">
+                        <a href="/newreleases">Featured New Releases</a>
+                    </li>
+                    <li class="nr-editorschoice">
+                        <a href="/newreleases/editorschoice">Editors' Choice</a>
+                    </li>
+                    <li class="nr-all">
+                        <a href="/newreleases/all">All New Releases</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="new-releases-subnav right">
+                <div class="sub-nav-content">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>            </div>
+            <div class="discover top-nav-item">
+                <a href="/discover">Discover</a>
+                <div class="sub-nav-outer-container">
+    <div class="sub-nav-container">
+        <div class="sub-nav-columns left">
+            <ul class="discover-nav">
+                <li id="discover-genres" class="discover-drop-trigger active">
+                    <a href="/genres">Genres<span class="genres-arrow" style="display:none">&nbsp;&nbsp;&rsaquo;</span></a>
+                </li>
+                <li id="discover-moods" class="discover-drop-trigger">
+                    <a href="/moods">Moods<span class="moods-arrow" style="display:none">&nbsp;&nbsp;&rsaquo;</span></a>
+                </li>
+                <li id="discover-themes" class="discover-drop-trigger">
+                    <a href="/themes">Themes<span class="themes-arrow" style="display:none">&nbsp;&nbsp;&rsaquo;</span></a>
+                </li>
+            </ul>
+       </div>
+        <div class="sub-nav-columns right">
+            <div class="discover-genre-secondary">
+    <div class="genre-column">
+        <!-- spacer to prevent hover weirdness -->
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/blues-ma0000002467">Blues</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/classical-ma0000002521">Classical</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/country-ma0000002532">Country</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/electronic-ma0000002572">Electronic</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/folk-ma0000002592">Folk</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/international-ma0000002660">International</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/jazz-ma0000002674">Jazz</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/latin-ma0000002692">Latin</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/new-age-ma0000002745">New Age</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/pop-rock-ma0000002613">Pop/Rock</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/rap-ma0000002816">Rap</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/r-b-ma0000002809">R&amp;B</a>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-column">
+        <ul>
+            <li class="individual">
+                <a href="/genre/reggae-ma0000002820">Reggae</a>
+            </li>
+            <li class="individual">
+                <a href="/genre/stage-screen-ma0000004432">Stage &amp; Screen</a>
+            </li>
+            <li class="last">
+                <a href="/genres">All Genres</a>
+            </li>
+        </ul>
+    </div>
+</div>            <div class="discover-mood-secondary" style="display:none;">
+    <div class="mood-column">
+        <!-- spacer to prevent hover weirdness -->
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/aggressive-xa0000000694">Aggressive</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/bittersweet-xa0000000946">Bittersweet</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/druggy-xa0000000979">Druggy</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/energetic-xa0000000990">Energetic</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/happy-xa0000001016">Happy</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/hypnotic-xa0000000719">Hypnotic</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/laid-back-mellow-xa0000001032">Laid Back/Mellow</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/melancholy-xa0000000734">Melancholy</a>
+            </li>
+            <li>
+                <a href="/mood/passionate-xa0000001062">Passionate</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li class="individual">
+                <a href="/mood/romantic-xa0000000758">Romantic</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/sad-xa0000000761">Sad</a>
+            </li>
+            <li>
+                <a href="/mood/sentimental-xa0000000765">Sentimental</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mood-column">
+        <ul>
+            <li>
+                <a href="/mood/sexy-xa0000000770">Sexy</a>
+            </li>
+            <li class="individual">
+                <a href="/mood/trippy-xa0000000749">Trippy</a>
+            </li>
+            <li class="last">
+                <a href="/moods">All Moods</a>
+            </li>
+        </ul>
+    </div>
+</div>            <div class="discover-theme-secondary" style="display:none;">
+    <div class="theme-column">
+        <!-- spacer to prevent hover weirdness -->
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/background-music-ma0000006329">Background Music</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/celebration-ma0000005042">Celebration</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/cool-cocky-ma0000006328">Cool & Cocky</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/drinking-ma0000004252">Drinking</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/hanging-out-ma0000006297">Hanging Out</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/in-love-ma0000005076">In Love</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/introspection-ma0000006318">Introspection</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/late-night-ma0000006321">Late Night</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/partying-ma0000004272">Partying</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/rainy-day-ma0000005096">Rainy Day</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/relaxation-ma0000006314">Relaxation</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/road-trip-ma0000006287">Road Trip</a>
+            </li>
+        </ul>
+    </div>
+    <div class="theme-column">
+        <ul>
+            <li class="individual">
+                <a href="/theme/romantic-evening-ma0000006312">Romantic Evening</a>
+            </li>
+            <li class="individual">
+                <a href="/theme/sex-ma0000005107">Sex</a>
+            </li>
+            <li class="last">
+                <a href="/themes">All Themes</a>
+            </li>
+        </ul>
+    </div>
+</div>        </div>
+    </div>
+</div>            </div>
+            <div class="blog top-nav-item">
+                <a href="/blog">Articles</a>
+                <div class="sub-nav-outer-container">
+    <div class="sub-nav-container clearfix">
+        <div class="sub-nav-columns">
+            <div class="blog-list">
+                <ul>
+                    <li class="blog-features">
+                        <a href="/blog/features">Features</a>
+                    </li>
+                    <li class="blog-interviews">
+                        <a href="/blog/interviews-14">Interviews</a>
+                    </li>
+                    <li class="blog-lists">
+                        <a href="/blog/lists">Lists</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blog-list">
+                <ul>
+                    <li class="blog-stream">
+                        <a href="/blog/stream-and-download">Streams</a>
+                    </li>
+                    <li class="blog-promotions">
+                        <a href="/videos">Videos</a>
+                    </li>
+                    <li class="blog-all">
+                        <a href="/blog">All Posts</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blog-subnav right">
+                <div class="sub-nav-blog-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+            <div class="recommendations top-nav-item">
+                <a href="/recommendations">Recommendations</a>
+            </div>
+            <div class="my-profile top-nav-item">
+                <span class="my-profile-link" aria-label="My Profile">My Profile</span>
+            </div>
+            <div class="advanced-search top-nav-item">
+                <a href="/advanced-search" class="advanced-search-link">Advanced Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="user-social-nav">
+        <nav class="social-nav">
+            <ul>
+                <li class="facebook">
+                    <a href="https://www.facebook.com/AllMusicDotCom" title="Like us on Facebook">Facebook</a>
+                </li>
+                <li class="twitter">
+                    <a href="https://twitter.com/allmusic" title="Follow us on Twitter">Twitter</a>
+                </li>
+                <li class="tumblr">
+                    <a href="https://allmusic.tumblr.com" title="Follow us on Tumblr">Tumblr</a>
+                </li>
+                <li class="rss">
+                    <a href="/rss" title="Subscribe to our RSS feed" target="_blank">RSS</a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="user-notifications">
+            <ul>
+                <li class="user-notification-icon">
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="user-nav"></nav>
+    </div>
+
+</div>
+        </div>
+    </div>
+
+<div id="cmn_wrap">
+
+    <div class="stripe-container header-leaderboard">
+        <div class="advertising leaderboard">
+                            <div id="AllMusic_LB_Top"></div>                    </div>
+    </div>
+
+    <div class="stripe-container rotating-banner">
+            <div class="rotating-container">
+                            <div class="rotating-content pos1" data-link="/artist/michael-nesmith-mn0000463435">
+                    <a href="/artist/michael-nesmith-mn0000463435" title="Michael Nesmith, 1942-2021" data-ga-label="Michael Nesmith, 1942-2021">
+                                            <img src="https://cdn-s3.allmusic.com/cms/20084/home_mikenesmith.jpg" alt="Michael Nesmith, 1942-2021" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                            <p class="pre-title">RIP</p>
+                                                        <h3 class="title">
+                                <a href="/artist/michael-nesmith-mn0000463435" title="Michael Nesmith, 1942-2021" data-ga-label="Michael Nesmith, 1942-2021"  >
+                                    Michael Nesmith, 1942-2021                                </a>
+                            </h3>
+                            <a href="/artist/michael-nesmith-mn0000463435" title="Michael Nesmith, 1942-2021" data-ga-label="Michael Nesmith, 1942-2021"  class="banner-desc-text">
+                                Singer, guitarist, and songwriter who found fame with the Monkees before becoming a multimedia mogul, Michael Nesmith's underrated solo catalog of wistful and rollicking sun-blasted country-rock stands among the strongest lesser-known material of the genre.                             </a>
+                        </div>
+                    </div>
+                </div>
+                            <div class="rotating-content pos2" data-link="/newreleases">
+                    <a href="/newreleases" title="New Releases" data-ga-label="New Releases">
+                                            <img src="https://cdn-s3.allmusic.com/cms/20064/home_newreleases.jpg" alt="New Releases" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                        <h3 class="title">
+                                <a href="/newreleases" title="New Releases" data-ga-label="New Releases"  >
+                                    New Releases                                </a>
+                            </h3>
+                            <a href="/newreleases" title="New Releases" data-ga-label="New Releases"  class="banner-desc-text">
+                                This week Neil Young & Crazy Horse find solace and comfort, Common collaborates with Brittany Howard and Raphael Saadiq, and Green Day collects four of their BBC sessions representing various points in their career.                             </a>
+                        </div>
+                    </div>
+                </div>
+                            <div class="rotating-content pos3" data-link="/year-in-review/2021/favorite-metal">
+                    <a href="/year-in-review/2021/favorite-metal" title="AllMusic's Favorite Metal Albums of 2021" data-ga-label="AllMusic's Favorite Metal Albums of 2021">
+                                            <img src="https://cdn-s3.allmusic.com/cms/20034/home_best2021_metal.jpg" alt="AllMusic's Favorite Metal Albums of 2021" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                            <p class="pre-title">Year In Review</p>
+                                                        <h3 class="title">
+                                <a href="/year-in-review/2021/favorite-metal" title="AllMusic's Favorite Metal Albums of 2021" data-ga-label="AllMusic's Favorite Metal Albums of 2021"  >
+                                    AllMusic's Favorite Metal Albums of 2021                                </a>
+                            </h3>
+                            <a href="/year-in-review/2021/favorite-metal" title="AllMusic's Favorite Metal Albums of 2021" data-ga-label="AllMusic's Favorite Metal Albums of 2021"  class="banner-desc-text">
+                                There was no shortage of angst and cathartic rage this year and these metal acts exorcised their demons in a multitude of ways, from more time-honored sounds of Helloween, Maiden and Cradle of Filth, to a nü breed of performances from Evanescence, Every Time I Die, and Mastodon (pictured).                            </a>
+                        </div>
+                    </div>
+                </div>
+                            <div class="rotating-content pos4" data-link="/blog/post/2021-allmusic-readers-poll">
+                    <a href="/blog/post/2021-allmusic-readers-poll" title="Cast Your Vote in the 2021 AllMusic Readers' Poll" data-ga-label="Cast Your Vote in the 2021 AllMusic Readers' Poll">
+                                            <img src="https://cdn-s3.allmusic.com/cms/20044/home_2021_readerspoll.jpg" alt="Cast Your Vote in the 2021 AllMusic Readers' Poll" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                            <p class="pre-title">Year in Review</p>
+                                                        <h3 class="title">
+                                <a href="/blog/post/2021-allmusic-readers-poll" title="Cast Your Vote in the 2021 AllMusic Readers' Poll" data-ga-label="Cast Your Vote in the 2021 AllMusic Readers' Poll"  >
+                                    Cast Your Vote in the 2021 AllMusic Readers' Poll                                </a>
+                            </h3>
+                            <a href="/blog/post/2021-allmusic-readers-poll" title="Cast Your Vote in the 2021 AllMusic Readers' Poll" data-ga-label="Cast Your Vote in the 2021 AllMusic Readers' Poll"  class="banner-desc-text">
+                                As we roll out our editors' selections for the best albums of the 2021, it's time to cast your votes for your favorite new music this year.                            </a>
+                        </div>
+                    </div>
+                </div>
+                            <div class="rotating-content pos5" data-link="/year-in-review/2021/favorite-latin-and-global">
+                    <a href="/year-in-review/2021/favorite-latin-and-global" title="AllMusic's Favorite Latin &amp; Global Albums of 2021" data-ga-label="AllMusic's Favorite Latin & Global Albums of 2021">
+                                            <img src="https://cdn-s3.allmusic.com/cms/20004/home_best2021_latinandglobal.jpg" alt="AllMusic's Favorite Latin &amp; Global Albums of 2021" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                            <p class="pre-title">Year In Review</p>
+                                                        <h3 class="title">
+                                <a href="/year-in-review/2021/favorite-latin-and-global" title="AllMusic's Favorite Latin &amp; Global Albums of 2021" data-ga-label="AllMusic's Favorite Latin & Global Albums of 2021"  >
+                                    AllMusic's Favorite Latin & Global Albums of 2021                                </a>
+                            </h3>
+                            <a href="/year-in-review/2021/favorite-latin-and-global" title="AllMusic's Favorite Latin &amp; Global Albums of 2021" data-ga-label="AllMusic's Favorite Latin & Global Albums of 2021"  class="banner-desc-text">
+                                Our editors celebrated sounds from Latin America and around the world in 2021, including jazz-funk fusion from Brazil's Alex Malheiros, African desert blues from Mdou Moctar, a Spanish-language EP from Selena Gomez (pictured) and a collection of unreleased dub from the late Lee "Scratch" Perry.                            </a>
+                        </div>
+                    </div>
+                </div>
+                            <div class="rotating-content pos6" data-link="/newreleases/editorschoice">
+                    <a href="/newreleases/editorschoice" title="Editors' Choice" data-ga-label="Editors' Choice">
+                                            <img src="https://cdn-s3.allmusic.com/cms/19994/home_ec_juliedoiron.jpg" alt="Editors' Choice" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                        <h3 class="title">
+                                <a href="/newreleases/editorschoice" title="Editors' Choice" data-ga-label="Editors' Choice"  >
+                                    Editors' Choice                                </a>
+                            </h3>
+                            <a href="/newreleases/editorschoice" title="Editors' Choice" data-ga-label="Editors' Choice"  class="banner-desc-text">
+                                Each month the AllMusic editors highlight the albums they found to be most worth listening to. This November we were listening to the expansive yet concentrated second solo album from Cleo Sol, the enduring intimacy of Julie Doiron (pictured), and the Afro-Latin grooves, mutant funk, and post-punk of Irreversible Entanglements.                            </a>
+                        </div>
+                    </div>
+                </div>
+                            <div class="rotating-content pos7" data-link="https://www.allmusic.com/year-in-review/2021/allmusic-best-of-2021">
+                    <a href="https://www.allmusic.com/year-in-review/2021/allmusic-best-of-2021" title="AllMusic's Best of 2021" data-ga-label="AllMusic's Best of 2021">
+                                            <img src="https://cdn-s3.allmusic.com/cms/19934/home_best2021_overview.jpg" alt="AllMusic's Best of 2021" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                            <p class="pre-title">Year In Review</p>
+                                                        <h3 class="title">
+                                <a href="https://www.allmusic.com/year-in-review/2021/allmusic-best-of-2021" title="AllMusic's Best of 2021" data-ga-label="AllMusic's Best of 2021"  >
+                                    AllMusic's Best of 2021                                </a>
+                            </h3>
+                            <a href="https://www.allmusic.com/year-in-review/2021/allmusic-best-of-2021" title="AllMusic's Best of 2021" data-ga-label="AllMusic's Best of 2021"  class="banner-desc-text">
+                                The end of 2021 is in sight, so it's time to devote ourselves to the daunting task of attempting to summarize the musical output of an entire year. Over the next four weeks we're going to present the best releases of a few dozen genres and formats.                            </a>
+                        </div>
+                    </div>
+                </div>
+                            <div class="rotating-content pos8" data-link="/blog/post/i-am-just-a-broken-heart-celebrating-the-music-of-dave-kusworth">
+                    <a href="/blog/post/i-am-just-a-broken-heart-celebrating-the-music-of-dave-kusworth" title="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth" data-ga-label="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth">
+                                            <img src="https://cdn-s3.allmusic.com/cms/19874/home_davekusworth.jpg" alt="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                        <h3 class="title">
+                                <a href="/blog/post/i-am-just-a-broken-heart-celebrating-the-music-of-dave-kusworth" title="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth" data-ga-label="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth"  >
+                                    I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth                                </a>
+                            </h3>
+                            <a href="/blog/post/i-am-just-a-broken-heart-celebrating-the-music-of-dave-kusworth" title="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth" data-ga-label="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth"  class="banner-desc-text">
+                                Following the recent release of The Hawks' previously unheard <em>Obviously Five Believers</em>, critic and fan Tim Sendra spoke with bandmates as well as devotees from the indie rock world to share their impressions of the late Dave Kusworth.                            </a>
+                        </div>
+                    </div>
+                </div>
+                            <div class="rotating-content pos9" data-link="/blog/post/the-2021-allmusic-gift-guide">
+                    <a href="/blog/post/the-2021-allmusic-gift-guide" title="The 2021 AllMusic Gift Guide" data-ga-label="The 2021 AllMusic Gift Guide">
+                                            <img src="https://cdn-s3.allmusic.com/cms/19814/home_giftguide21_v2.jpg" alt="The 2021 AllMusic Gift Guide" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                            <p class="pre-title">Lists</p>
+                                                        <h3 class="title">
+                                <a href="/blog/post/the-2021-allmusic-gift-guide" title="The 2021 AllMusic Gift Guide" data-ga-label="The 2021 AllMusic Gift Guide"  >
+                                    The 2021 AllMusic Gift Guide                                </a>
+                            </h3>
+                            <a href="/blog/post/the-2021-allmusic-gift-guide" title="The 2021 AllMusic Gift Guide" data-ga-label="The 2021 AllMusic Gift Guide"  class="banner-desc-text">
+                                Each year, the AllMusic staff shares their hand-picked recommendations of books, accessories, gadgets, recordings and more, sure to please even the most discerning audiophile.                            </a>
+                        </div>
+                    </div>
+                </div>
+                            <div class="rotating-content pos10" data-link="/blog/post/allmusic-trivia-deck-the-halls-with-our-christmas-music-quiz">
+                    <a href="/blog/post/allmusic-trivia-deck-the-halls-with-our-christmas-music-quiz" title="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz" data-ga-label="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz">
+                                            <img src="https://cdn-s3.allmusic.com/cms/19754/home_trivia_christmas.jpg" alt="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz" class="lazy" onerror="this.src='https://cdn-gce.allmusic.com/images/default_home_header.jpg'">
+                                        </a>
+                    <div class="homepage-banner-gradient">
+                        <div class="homepage-banner-text">
+                                                            <p class="pre-title">Trivia</p>
+                                                        <h3 class="title">
+                                <a href="/blog/post/allmusic-trivia-deck-the-halls-with-our-christmas-music-quiz" title="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz" data-ga-label="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz"  >
+                                    AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz                                </a>
+                            </h3>
+                            <a href="/blog/post/allmusic-trivia-deck-the-halls-with-our-christmas-music-quiz" title="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz" data-ga-label="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz"  class="banner-desc-text">
+                                'Tis the season for the malls to be filled with the sounds of Muzak versions of holiday tunes and overplayed carols, but there are still a ton of great classic Christmas songs that celebrate the season. Test your knowledge of the music in this holiday genre.                            </a>
+                        </div>
+                    </div>
+                </div>
+                        <img src="https://cdn-gce.allmusic.com/images/home_banner/home_arrow.svg" class="arrow banner-left" alt="Left navigation arrow" aria-label="Previous slide">
+            <img src="https://cdn-gce.allmusic.com/images/home_banner/home_arrow.svg" class="arrow banner-right" alt="Right navigation arrow" aria-label="Next slide">
+            <div class="dots-center"><span class="dots-container"></span></div>
+        </div>
+    </div>
+
+    <div class="stripe-container content-container">
+       <div id="content">
+
+            <div class="sidebar">
+                                    <div class="advertising medium-rectangle medium-rectangle-atf">
+                        <div id="AllMusic_R1"></div>                    </div>
+                
+                    <div class="sidebar-promo promo0">
+        <a href="/year-in-review/2021/allmusic-best-of-2021" title="Year In Review" data-ga-label="Year In Review">
+            <img src="https://cdn-s3.allmusic.com/cms/19944/promo_best2021__medium.jpg" alt=" loading="lazy">
+        </a>
+    </div>
+
+                    <div class="module editors-choice">
+        <div class="headline">
+            <div class="headline-left">
+                <h2><a href="/newreleases/editorschoice" class="main" title="Editors' Choice">Editors' Choice</a></h2>
+            </div>
+            <div class="headline-right">
+                <h3><a href="/newreleases/editorschoice" title="Editors' Choice">All Editors' Choice</a></h3>
+            </div>
+        </div>
+        <div class="editors-choice-container">
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/arthur-baker-presents-dance-masters-shep-pettibone-the-classic-12-master-mixes-mw0003573291">
+                    <a href="/album/arthur-baker-presents-dance-masters-shep-pettibone-the-classic-12-master-mixes-mw0003573291" title="Arthur Baker Presents Dance Masters: Shep Pettibone - The Classic 12&quot; Master-Mixes" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=P7pmf4ymSrZ8ZOpNtIH8rT6KsMttLlyBmmVTZ6_CLs0=&f=5" alt="Arthur Baker Presents Dance Masters: Shep Pettibone - The Classic 12&quot; Master-Mixes" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Shep Pettibone                        </div>
+                        <div class="title">
+                            Arthur Baker ...                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/words-and-endings-mw0003577731">
+                    <a href="/album/words-and-endings-mw0003577731" title="Words and Endings" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=QVXhChLHJRTPGY7djbTMeQSijaXJlYnq0St31qpAJWo=&f=4" alt="Words and Endings" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Uffe                        </div>
+                        <div class="title">
+                            Words and Endings                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/war-garden-mw0003565955">
+                    <a href="/album/war-garden-mw0003565955" title="War Garden" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=Ak0dmu6tLxJCSPDk_bq7fR_TZlp6n_cq-Emr2zx15tU=&f=4" alt="War Garden" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Cold Beat                        </div>
+                        <div class="title">
+                            War Garden                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/sympathy-for-life-mw0003577132">
+                    <a href="/album/sympathy-for-life-mw0003577132" title="Sympathy for Life" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=MFAAUKKx4WS9bqzvSZxhBh_TZlp6n_cq-Emr2zx15tU=&f=4" alt="Sympathy for Life" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Parquet Courts                        </div>
+                        <div class="title">
+                            Sympathy for Life                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/i-have-nothing-to-say-to-the-mayor-of-la-mw0003579020">
+                    <a href="/album/i-have-nothing-to-say-to-the-mayor-of-la-mw0003579020" title="I Have Nothing to Say to the Mayor of L.A." class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=q6HooJTStN7dPNMHyiF-qypQg_7iAU1wjqLgK_xGXts=&f=4" alt="I Have Nothing to Say to the Mayor of L.A." onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Dean Wareham                        </div>
+                        <div class="title">
+                            I Have Nothing ...                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/drones-mw0003609824">
+                    <a href="/album/drones-mw0003609824" title="Drones" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=Drug9-0G93NJ-_vbtntAPQ4Q1ghY8VaPylnm7PwcKNY=&f=4" alt="Drones" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Terrace Martin                        </div>
+                        <div class="title">
+                            Drones                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/far-in-mw0003546904">
+                    <a href="/album/far-in-mw0003546904" title="Far In" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=_sqXKeL-zjrEw8K-qKy9dIAf7E_1E-2MlBBPmPAXRBU=&f=4" alt="Far In" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Helado Negro                        </div>
+                        <div class="title">
+                            Far In                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/the-jimmie-vaughan-story-deluxe-edition-5cd-set-12-inch-vinyl-2x7-inch-singles-book--mw0003570088">
+                    <a href="/album/the-jimmie-vaughan-story-deluxe-edition-5cd-set-12-inch-vinyl-2x7-inch-singles-book--mw0003570088" title="The Jimmie Vaughan Story [Deluxe Edition 5CD Set, 12-Inch Vinyl, 2x7-Inch Singles &amp; Book]" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=_goDPr7NVCJFrx7daOFwbj6KsMttLlyBmmVTZ6_CLs0=&f=4" alt="The Jimmie Vaughan Story [Deluxe Edition 5CD Set, 12-Inch Vinyl, 2x7-Inch Singles &amp; Book]" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Jimmie Vaughan                        </div>
+                        <div class="title">
+                            The Jimmie ...                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/the-beautiful-liar-mw0003575282">
+                    <a href="/album/the-beautiful-liar-mw0003575282" title="The Beautiful Liar" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=n06YkW3p5PfQDSIBweMgoSpQg_7iAU1wjqLgK_xGXts=&f=4" alt="The Beautiful Liar" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            X Ambassadors                        </div>
+                        <div class="title">
+                            The Beautiful ...                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/deja-mw0003542609">
+                    <a href="/album/deja-mw0003542609" title="Deja" class="cropped-image-link album-cover-link">	<img src="https://cdn-s3.allmusic.com/release-covers/400/0005/431/0005431250.jpg" alt="Deja" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Bomba Estéreo                        </div>
+                        <div class="title">
+                            Deja                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/1940-carmen-mw0003601882">
+                    <a href="/album/1940-carmen-mw0003601882" title="1940 Carmen" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=Bd_XyqLUlzskVHHhO1QWGB_TZlp6n_cq-Emr2zx15tU=&f=4" alt="1940 Carmen" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            Mon Laferte                        </div>
+                        <div class="title">
+                            1940 Carmen                        </div>
+                    </div>
+                </div>
+                                            <div class="editors-choice-albums info-grid" data-linkurl="/album/i-dont-live-here-anymore-mw0003559160">
+                    <a href="/album/i-dont-live-here-anymore-mw0003559160" title="I Don't Live Here Anymore" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=7SReX1CP0l1-MrDrP8D71SpQg_7iAU1wjqLgK_xGXts=&f=4" alt="I Don't Live Here Anymore" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    <div class="info">
+                        <div class="artist">
+                            The War on Drugs                        </div>
+                        <div class="title">
+                            I Don't Live ...                        </div>
+                    </div>
+                </div>
+                    </div>
+        <div class="editors-choice-mobile-see-all-container"></div>
+    </div>
+
+                    <div class="sidebar-promo promo1">
+        <a href="/blog/post/the-2021-allmusic-gift-guide" title="The 2021 AllMusic Gift Guide" data-ga-label="The 2021 AllMusic Gift Guide">
+            <img src="https://cdn-s3.allmusic.com/cms/19824/promo_giftguide21__medium.jpg" alt=" loading="lazy">
+        </a>
+    </div>
+
+                <div class="module adv-search-sidebar">
+
+    <div class="headline">
+        <div class="headline-left">
+            <h2><a href="/advanced-search" class="main" title="Advacned Search">Advanced Album Search</a></h2>
+        </div><div class="headline-right">
+            <h3><a href="/advanced-search" title="Advacned Search">All Filters</a></h3>
+        </div>
+    </div>
+    <div class="adv-search-section genre-search">
+        <div class="full-width"><label for="sidebar-adv-search-genre">Genres &amp; Styles</label></div>
+        <div class="text-filter">
+            <input type="text" id="sidebar-adv-search-genre" name="sidebar-adv-search-genre"aria-label="Search for genres and styles" placeholder="Search for genres &amp; styles" data-filter-id="subgenreid:MA0000012327" value="Acid Rock">
+            <span class="clear genre" aria-label="Clear genres and styles">x</span>
+        </div>
+    </div>
+    <div class="adv-search-section no-pad">
+        <div class="middle-left">
+                        <label for="sidebar-adv-search-date">Release Date</label>
+            <select id="sidebar-adv-search-date" name="sidebar-adv-search-date">
+                <option value="" class="empty-select">- select one -</option>
+                                    <option value="2021" >2021</option>
+                                    <option value="2020" >2020</option>
+                                    <option value="2019" >2019</option>
+                                    <option value="2018" >2018</option>
+                                    <option value="2017" >2017</option>
+                                    <option value="2016" >2016</option>
+                                    <option value="2015" >2015</option>
+                                    <option value="2014" >2014</option>
+                                    <option value="2013" >2013</option>
+                                    <option value="2012" >2012</option>
+                                    <option value="2011" >2011</option>
+                                    <option value="2010" >2010</option>
+                                    <option value="2009" >2009</option>
+                                    <option value="2008" >2008</option>
+                                    <option value="2007" >2007</option>
+                                    <option value="2006" >2006</option>
+                                    <option value="2005" >2005</option>
+                                    <option value="2004" >2004</option>
+                                    <option value="2003" >2003</option>
+                                    <option value="2002" >2002</option>
+                                    <option value="2001" >2001</option>
+                                    <option value="2000" >2000</option>
+                                    <option value="1999" >1999</option>
+                                    <option value="1998" >1998</option>
+                                    <option value="1997" >1997</option>
+                                    <option value="1996" >1996</option>
+                                    <option value="1995" >1995</option>
+                                    <option value="1994" >1994</option>
+                                    <option value="1993" >1993</option>
+                                    <option value="1992" >1992</option>
+                                    <option value="1991" >1991</option>
+                                    <option value="1990" >1990</option>
+                                    <option value="1989" >1989</option>
+                                    <option value="1988" >1988</option>
+                                    <option value="1987" >1987</option>
+                                    <option value="1986" >1986</option>
+                                    <option value="1985" >1985</option>
+                                    <option value="1984" >1984</option>
+                                    <option value="1983" >1983</option>
+                                    <option value="1982" >1982</option>
+                                    <option value="1981" >1981</option>
+                                    <option value="1980" >1980</option>
+                                    <option value="1979" >1979</option>
+                                    <option value="1978" >1978</option>
+                                    <option value="1977" >1977</option>
+                                    <option value="1976" >1976</option>
+                                    <option value="1975" >1975</option>
+                                    <option value="1974" >1974</option>
+                                    <option value="1973" >1973</option>
+                                    <option value="1972" >1972</option>
+                                    <option value="1971" >1971</option>
+                                    <option value="1970" >1970</option>
+                                    <option value="1969" >1969</option>
+                                    <option value="1968" >1968</option>
+                                    <option value="1967" >1967</option>
+                                    <option value="1966" >1966</option>
+                                    <option value="1965" >1965</option>
+                                    <option value="1964" >1964</option>
+                                    <option value="1963" >1963</option>
+                                    <option value="1962" >1962</option>
+                                    <option value="1961" >1961</option>
+                                    <option value="1960" >1960</option>
+                                    <option value="1959" >1959</option>
+                                    <option value="1958" >1958</option>
+                                    <option value="1957" >1957</option>
+                                    <option value="1956" >1956</option>
+                                    <option value="1955" >1955</option>
+                                    <option value="1954" >1954</option>
+                                    <option value="1953" >1953</option>
+                                    <option value="1952" >1952</option>
+                                    <option value="1951" >1951</option>
+                                    <option value="1950" >1950</option>
+                                    <option value="1949" >1949</option>
+                                    <option value="1948" >1948</option>
+                                    <option value="1947" >1947</option>
+                                    <option value="1946" >1946</option>
+                                    <option value="1945" >1945</option>
+                                    <option value="1944" >1944</option>
+                                    <option value="1943" >1943</option>
+                                    <option value="1942" >1942</option>
+                                    <option value="1941" >1941</option>
+                                    <option value="1940" >1940</option>
+                                    <option value="1939" >1939</option>
+                                    <option value="1938" >1938</option>
+                                    <option value="1937" >1937</option>
+                                    <option value="1936" >1936</option>
+                                    <option value="1935" >1935</option>
+                                    <option value="1934" >1934</option>
+                                    <option value="1933" >1933</option>
+                                    <option value="1932" >1932</option>
+                                    <option value="1931" >1931</option>
+                                    <option value="1930" >1930</option>
+                                    <option value="1929" >1929</option>
+                                    <option value="1928" >1928</option>
+                                    <option value="1927" >1927</option>
+                                    <option value="1926" >1926</option>
+                                    <option value="1925" >1925</option>
+                                    <option value="1924" >1924</option>
+                                    <option value="1923" >1923</option>
+                                    <option value="1922" >1922</option>
+                                    <option value="1921" >1921</option>
+                                    <option value="1920" >1920</option>
+                            </select>
+        </div><div class="middle-right">
+                        <label for="sidebar-adv-search-rating">AllMusic Rating</label>
+            <select id="sidebar-adv-search-rating" name="sidebar-adv-search-rating">
+                <option value="" class="empty-select">- select one -</option>
+                                    <option value="9" >5 Stars</option>
+                                    <option value="8" selected="selected">4&frac12; Stars</option>
+                                    <option value="7" >4 Stars</option>
+                                    <option value="6" >3&frac12; Stars</option>
+                                    <option value="5" >3 Stars</option>
+                                    <option value="4" >2&frac12; Stars</option>
+                                    <option value="3" >2 Stars</option>
+                                    <option value="2" >1&frac12; Stars</option>
+                                    <option value="1" >1 Star</option>
+                            </select>
+        </div>
+    </div>
+    <div class="adv-search-section mood-search">
+        <label for="sidebar-adv-search-mood">Album Mood</label>
+        <div class="text-filter">
+            <input type="text" id="sidebar-adv-search-mood" name="sidebar-adv-search-mood" aria-label="Search for mood" placeholder="Search for mood" value="" data-filter-id="moodid:">
+            <span class="clear mood" aria-label="clear mood">x</span>
+        </div>
+    </div>
+    <div class="adv-search-section theme-search">
+        <label for="sidebar-adv-search-theme">Album Theme</label>
+        <div class="text-filter">
+            <input type="text" id="sidebar-adv-search-theme" name="sidebar-adv-search-theme" value="Cool & Cocky" aria-label="Search for theme" placeholder="Search for theme" data-filter-id="themeid:MA0000006328">
+            <span class="clear theme" aria-label="clear theme">x</span>
+        </div>
+    </div>
+    <div class="adv-search-section">
+        <input type="submit" class="button" name="submit" id="adv-search-submit" value="Submit" aria-label="Submit search">
+    </div>
+</div>
+
+                                    <div class="advertising medium-rectangle-btf">
+                        <div id="AllMusic_R2"></div>                    </div>
+                
+                    <div class="sidebar-promo promo2">
+        <a href="https://www.allmusic.com/subscribe" title="Become an AllMusic Subscriber" data-ga-label="Become an AllMusic Subscriber">
+            <img src="https://cdn-s3.allmusic.com/cms/3627/promo_adfree_subscription_2021_allmusic__medium.png" alt="Subscribe and remove ads loading="lazy">
+        </a>
+    </div>
+            </div>
+
+            <div class="content-left">
+
+                <section class="module featured-new-releases">
+    <div class="headline">
+        <div class="headline-left">
+            <h1><a href="https://www.allmusic.com/newreleases" class="main" title="Featured New Releases">Featured New Releases</a></h1>
+        </div><div class="headline-right">
+            <h3 class="see-all-link"><a href="https://www.allmusic.com/newreleases" class="see-all-link" title="Featured New Releases">All Featured New Releases</a></h3>
+        </div>
+    </div>
+    <div class="new-release-items-container">
+        
+            <div class="new-release" data-genres-filter="MA0000002613">
+                <div class="image-container">
+                    <a href="/album/barn-mw0003611319" title="Barn" class="cropped-image-link album-cover-link" data-tooltip="{&quot;id&quot;:&quot;MW0003611319&quot;}">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=GiIvsl8TJFqhF_6TlUPUuCpQg_7iAU1wjqLgK_xGXts=&f=4" alt="Barn" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                </div>
+                <div class="meta-container">
+                    <div class="artist">
+                        <a href="https://www.allmusic.com/artist/neil-young-mn0000379125">Neil Young</a> / <a href="https://www.allmusic.com/artist/neil-young-crazy-horse-mn0000860578">Neil Young &amp; Crazy Horse</a>                    </div>
+                    <div class="title">
+                        <a href="https://www.allmusic.com/album/barn-mw0003611319" data-tooltip="{&quot;id&quot;:&quot;MW0003611319&quot;}">Barn</a>                    </div>
+                                            <div class="genres">
+                            <a href="https://www.allmusic.com/genre/pop-rock-ma0000002613">Pop/Rock</a>                        </div>
+                                        <div class="allmusic-rating-new">
+                        <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star">                    </div>
+                    <div class="headline-review">
+                                                    A warm, rambling record that captures Crazy Horse finding solace and comfort in the noise they make.
+                                                            <br>
+                                <div class="author">
+                                    - Stephen Thomas Erlewine                                </div>
+                                                                        </div>
+                </div>
+            </div>
+        
+            <div class="new-release" data-genres-filter="MA0000002613">
+                <div class="image-container">
+                    <a href="/album/bbc-sessions-mw0003611310" title="BBC Sessions" class="cropped-image-link album-cover-link" data-tooltip="{&quot;id&quot;:&quot;MW0003611310&quot;}">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=GiIvsl8TJFqhF_6TlUPUuB_TZlp6n_cq-Emr2zx15tU=&f=4" alt="BBC Sessions" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                </div>
+                <div class="meta-container">
+                    <div class="artist">
+                        <a href="https://www.allmusic.com/artist/green-day-mn0000154544">Green Day</a>                    </div>
+                    <div class="title">
+                        <a href="https://www.allmusic.com/album/bbc-sessions-mw0003611310" data-tooltip="{&quot;id&quot;:&quot;MW0003611310&quot;}">BBC Sessions</a>                    </div>
+                                            <div class="genres">
+                            <a href="https://www.allmusic.com/genre/pop-rock-ma0000002613">Pop/Rock</a>                        </div>
+                                        <div class="allmusic-rating-new">
+                        <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star">                    </div>
+                    <div class="headline-review">
+                                                    A high-octane collection of the four BBC sessions Green Day gave between Dookie and Warning.
+                                                            <br>
+                                <div class="author">
+                                    - Stephen Thomas Erlewine                                </div>
+                                                                        </div>
+                </div>
+            </div>
+        
+            <div class="new-release" data-genres-filter="MA0000002816">
+                <div class="image-container">
+                    <a href="/album/a-beautiful-revolution-pt-2-mw0003577157" title="A Beautiful Revolution, Pt. 2" class="cropped-image-link album-cover-link" data-tooltip="{&quot;id&quot;:&quot;MW0003577157&quot;}">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=03I5w7jfkSl0bLHin8F04h_TZlp6n_cq-Emr2zx15tU=&f=4" alt="A Beautiful Revolution, Pt. 2" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                </div>
+                <div class="meta-container">
+                    <div class="artist">
+                        <a href="https://www.allmusic.com/artist/common-mn0000115253">Common</a>                    </div>
+                    <div class="title">
+                        <a href="https://www.allmusic.com/album/a-beautiful-revolution-pt-2-mw0003577157" data-tooltip="{&quot;id&quot;:&quot;MW0003577157&quot;}">A Beautiful Revolution, Pt. 2</a>                    </div>
+                                            <div class="genres">
+                            <a href="https://www.allmusic.com/genre/rap-ma0000002816">Rap</a>                        </div>
+                                        <div class="allmusic-rating-new">
+                        <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star">                    </div>
+                    <div class="headline-review">
+                                                    The likes of Brittany Howard and Raphael Saadiq join the rapper on a positive-minded set that is similar to part one.
+                                                            <br>
+                                <div class="author">
+                                    - Andy Kellman                                </div>
+                                                                        </div>
+                </div>
+            </div>
+        
+            <div class="new-release" data-genres-filter="MA0000002567, MA0000002613">
+                <div class="image-container">
+                    <a href="/album/at-my-piano-mw0003601364" title="At My Piano" class="cropped-image-link album-cover-link" data-tooltip="{&quot;id&quot;:&quot;MW0003601364&quot;}">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=f2ttGwa9aBKNZEUZ3ecrp5hUoDg0hsvx4F4sL4oO-nA=&f=4" alt="At My Piano" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                </div>
+                <div class="meta-container">
+                    <div class="artist">
+                        <a href="https://www.allmusic.com/artist/brian-wilson-mn0000625736">Brian Wilson</a>                    </div>
+                    <div class="title">
+                        <a href="https://www.allmusic.com/album/at-my-piano-mw0003601364" data-tooltip="{&quot;id&quot;:&quot;MW0003601364&quot;}">At My Piano</a>                    </div>
+                                            <div class="genres">
+                            <a href="https://www.allmusic.com/genre/easy-listening-ma0000002567">Easy Listening</a>, <a href="https://www.allmusic.com/genre/pop-rock-ma0000002613">Pop/Rock</a>                        </div>
+                                        <div class="allmusic-rating-new">
+                        <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue half" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue-half.svg" alt="blue half star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star">                    </div>
+                    <div class="headline-review">
+                                                    The Beach Boys founder reworks a set of songs from throughout his lengthy catalog as stripped-down piano instrumentals.
+                                                            <br>
+                                <div class="author">
+                                    - Fred Thomas                                </div>
+                                                                        </div>
+                </div>
+            </div>
+        
+            <div class="new-release" data-genres-filter="MA0000002613">
+                <div class="image-container">
+                    <a href="/album/an-orchestrated-songbook-mw0003549487" title="An Orchestrated Songbook" class="cropped-image-link album-cover-link" data-tooltip="{&quot;id&quot;:&quot;MW0003549487&quot;}">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=3IccVfrZf7z_J8yjRAYGuCpQg_7iAU1wjqLgK_xGXts=&f=4" alt="An Orchestrated Songbook" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                </div>
+                <div class="meta-container">
+                    <div class="artist">
+                        <a href="https://www.allmusic.com/artist/bbc-symphony-orchestra-mn0000231500">BBC Symphony Orchestra</a> / <a href="https://www.allmusic.com/artist/jules-buckley-mn0001005508">Jules Buckley</a> / <a href="https://www.allmusic.com/artist/paul-weller-mn0000029791">Paul Weller</a>                    </div>
+                    <div class="title">
+                        <a href="https://www.allmusic.com/album/an-orchestrated-songbook-mw0003549487" data-tooltip="{&quot;id&quot;:&quot;MW0003549487&quot;}">An Orchestrated Songbook</a>                    </div>
+                                            <div class="genres">
+                            <a href="https://www.allmusic.com/genre/pop-rock-ma0000002613">Pop/Rock</a>                        </div>
+                                        <div class="allmusic-rating-new">
+                        <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue half" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue-half.svg" alt="blue half star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star">                    </div>
+                    <div class="headline-review">
+                                                    A subtly emotional orchestrated stroll through Paul Weller's back pages.
+                                                            <br>
+                                <div class="author">
+                                    - Stephen Thomas Erlewine                                </div>
+                                                                        </div>
+                </div>
+            </div>
+        
+            <div class="new-release" data-genres-filter="MA0000002613">
+                <div class="image-container">
+                    <a href="/album/release/someone-to-drive-you-home-15th-anniversary-edition--mr0005542666" title="Someone to Drive You Home [15th Anniversary Edition]" class="cropped-image-link album-cover-link" data-tooltip="{&quot;id&quot;:&quot;MR0005542666&quot;}">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=Vtn_OCvd50PETW_DRR8skSpQg_7iAU1wjqLgK_xGXts=&f=4" alt="Someone to Drive You Home [15th Anniversary Edition]" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                </div>
+                <div class="meta-container">
+                    <div class="artist">
+                        <a href="https://www.allmusic.com/artist/the-long-blondes-mn0000537726">The Long Blondes</a>                    </div>
+                    <div class="title">
+                        <a href="https://www.allmusic.com/album/release/someone-to-drive-you-home-15th-anniversary-edition--mr0005542666" data-tooltip="{&quot;id&quot;:&quot;MR0005542666&quot;}">Someone to Drive You Home [15th Anniversary Edition]</a>                    </div>
+                                            <div class="genres">
+                            <a href="https://www.allmusic.com/genre/pop-rock-ma0000002613">Pop/Rock</a>                        </div>
+                                        <div class="allmusic-rating-new">
+                        <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star">                    </div>
+                    <div class="headline-review">
+                                                    Thrilling debut album from a band who combine vintage style with biting and sad guitar pop that's equal parts girl group drama and punk attitude.
+                                                            <br>
+                                <div class="author">
+                                    - Tim Sendra                                </div>
+                                                                        </div>
+                </div>
+            </div>
+        
+            <div class="new-release" data-genres-filter="MA0000002613">
+                <div class="image-container">
+                    <a href="/album/the-myth-of-the-happily-ever-after-mw0003586975" title="The Myth of the Happily Ever After" class="cropped-image-link album-cover-link" data-tooltip="{&quot;id&quot;:&quot;MW0003586975&quot;}">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=eWFv6VreYm2f5dlKODsEPxyhM-OFI8zG4l-qVpXXB1I=&f=4" alt="The Myth of the Happily Ever After" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                </div>
+                <div class="meta-container">
+                    <div class="artist">
+                        <a href="https://www.allmusic.com/artist/biffy-clyro-mn0000065040">Biffy Clyro</a>                    </div>
+                    <div class="title">
+                        <a href="https://www.allmusic.com/album/the-myth-of-the-happily-ever-after-mw0003586975" data-tooltip="{&quot;id&quot;:&quot;MW0003586975&quot;}">The Myth of the Happily Ever After</a>                    </div>
+                                            <div class="genres">
+                            <a href="https://www.allmusic.com/genre/pop-rock-ma0000002613">Pop/Rock</a>                        </div>
+                                        <div class="allmusic-rating-new">
+                        <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star">                    </div>
+                    <div class="headline-review">
+                                                    A sanguine, vibrantly creative companion album to 2020's A Celebration of Endings that also stands on its own.
+                                                            <br>
+                                <div class="author">
+                                    - Matt Collar                                </div>
+                                                                        </div>
+                </div>
+            </div>
+        
+            <div class="new-release" data-genres-filter="MA0000002613">
+                <div class="image-container">
+                    <a href="/album/release/one-year-25th-anniversary-edition--mr0005501226" title="One Year [25th Anniversary Edition]" class="cropped-image-link album-cover-link" data-tooltip="{&quot;id&quot;:&quot;MR0005501226&quot;}">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=L4dBSAoWQZTWL9qdsDyQcQSijaXJlYnq0St31qpAJWo=&f=4" alt="One Year [25th Anniversary Edition]" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                </div>
+                <div class="meta-container">
+                    <div class="artist">
+                        <a href="https://www.allmusic.com/artist/colin-blunstone-mn0000776562">Colin Blunstone</a>                    </div>
+                    <div class="title">
+                        <a href="https://www.allmusic.com/album/release/one-year-25th-anniversary-edition--mr0005501226" data-tooltip="{&quot;id&quot;:&quot;MR0005501226&quot;}">One Year [25th Anniversary Edition]</a>                    </div>
+                                            <div class="genres">
+                            <a href="https://www.allmusic.com/genre/pop-rock-ma0000002613">Pop/Rock</a>                        </div>
+                                        <div class="allmusic-rating-new">
+                        <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star">                    </div>
+                    <div class="headline-review">
+                                                    The 50th anniversary edition of the debut solo album from the Zombies lead singer includes 14 additional demos and studio tracks from the same time.
+                                                            <br>
+                                <div class="author">
+                                    - Fred Thomas                                </div>
+                                                                        </div>
+                </div>
+            </div>
+        
+            <div class="new-release" data-genres-filter="MA0000002613">
+                <div class="image-container">
+                    <a href="/album/you-heat-me-up-you-cool-me-down-mw0003580967" title="You Heat Me Up You Cool Me Down" class="cropped-image-link album-cover-link" data-tooltip="{&quot;id&quot;:&quot;MW0003580967&quot;}">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=B2s4cY2FPAFuDn4XQdAP2w4Q1ghY8VaPylnm7PwcKNY=&f=4" alt="You Heat Me Up You Cool Me Down" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                </div>
+                <div class="meta-container">
+                    <div class="artist">
+                        <a href="https://www.allmusic.com/artist/king-krule-mn0002814183">King Krule</a>                    </div>
+                    <div class="title">
+                        <a href="https://www.allmusic.com/album/you-heat-me-up-you-cool-me-down-mw0003580967" data-tooltip="{&quot;id&quot;:&quot;MW0003580967&quot;}">You Heat Me Up You Cool Me Down</a>                    </div>
+                                            <div class="genres">
+                            <a href="https://www.allmusic.com/genre/pop-rock-ma0000002613">Pop/Rock</a>                        </div>
+                                        <div class="allmusic-rating-new">
+                        <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star">                    </div>
+                    <div class="headline-review">
+                                                    An incendiary, go-for-broke live document drawn from three 2020 European shows before the COVID-19 pandemic shut down the tour.
+                                                            <br>
+                                <div class="author">
+                                    - Thom Jurek                                </div>
+                                                                        </div>
+                </div>
+            </div>
+            </div>
+    <div class="featured-new-releases-mobile-see-all-container"><h3 class="see-all-link"><a href="https://www.allmusic.com/newreleases" class="see-all-link" title="Featured New Releases">All Featured New Releases</a></h3></div>
+</section>
+
+                                    <div class="advertising anyclip" style="margin-bottom:40px;">
+                        <script>
+                            if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+                                document.write('\x3Cscript src="https://player.anyclip.com/anyclip-widget/lre-widget/prod/v1/src/lre.js" pubname="allmusiccom" widgetname="0011r00001kaHto_1549">\x3C/script>');
+                            }
+                        </script>
+                    </div>
+                
+                    <div class="featured-blog-container">
+                                <section class="module featured-blog-entries">
+                <div class="article-entry-left">
+                                        <p>Best of 2021</p>
+                    <h3><a href="/blog/post/2021-allmusic-readers-poll" title="Cast Your Vote in the 2021 AllMusic Readers' Poll">Cast Your Vote in the 2021 AllMusic Readers' Poll</a></h3>
+                </div>
+
+                <div class="article-entry-right">
+                    <a href="/blog/post/2021-allmusic-readers-poll" title="Cast Your Vote in the 2021 AllMusic Readers' Poll">
+                        <img src="https://cdn-s3.allmusic.com/cms/20024/blog_2021_readerspoll__large.jpg" alt="Cast Your Vote in the 2021 AllMusic Readers' Poll" loading="lazy">
+                    </a>
+                </div>
+            </section>
+                                <section class="module featured-blog-entries">
+                <div class="article-entry-left">
+                                        <p>Best of 2021</p>
+                    <h3><a href="/blog/post/allmusics-best-of-2021" title="AllMusic's Best of 2021">AllMusic's Best of 2021</a></h3>
+                </div>
+
+                <div class="article-entry-right">
+                    <a href="/blog/post/allmusics-best-of-2021" title="AllMusic's Best of 2021">
+                        <img src="https://cdn-s3.allmusic.com/cms/19924/blog_best2021_overview__large.jpg" alt="AllMusic's Best of 2021" loading="lazy">
+                    </a>
+                </div>
+            </section>
+                                <section class="module featured-blog-entries">
+                <div class="article-entry-left">
+                                        <p>R.I.P.</p>
+                    <h3><a href="/blog/post/i-am-just-a-broken-heart-celebrating-the-music-of-dave-kusworth" title="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth">I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth</a></h3>
+                </div>
+
+                <div class="article-entry-right">
+                    <a href="/blog/post/i-am-just-a-broken-heart-celebrating-the-music-of-dave-kusworth" title="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth">
+                        <img src="https://cdn-s3.allmusic.com/cms/19864/blog_davekusworth__large.jpg" alt="I Am Just a Broken Heart: Celebrating the Music of Dave Kusworth" loading="lazy">
+                    </a>
+                </div>
+            </section>
+            </div>
+
+
+                                    <div class="advertising suitcase">
+                        <div id="AllMusic_Incont1"></div>                    </div>
+                
+                    <section class="module staff-picks">
+        <div class="headline">
+            <div class="headline-left">
+                <h2><a href="https://allmusic.tumblr.com/tagged/allmusic-staff-picks" class="main" title="AllMusic Staff Picks">AllMusic Staff Picks</a></h2>
+            </div><div class="headline-right">
+                <h3 class="see-all-link"><a href="https://allmusic.tumblr.com/tagged/allmusic-staff-picks" title="More Staff Picks">More Staff Picks</a></h3>
+            </div>
+        </div>
+
+                <div class="staff-picks-container clearfix">
+                            <div class="staff-pick num-1">
+                    <div class="image-container">
+                        <a href="/album/expectations-mw0003150941" title="Expectations" class="cropped-image-link album-cover-link">	<img src="https://rovimusic.rovicorp.com/image.jpg?c=mUpjZywR_VWGNBiEz7l4PSpQg_7iAU1wjqLgK_xGXts=&f=4" alt="Expectations" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    </div>
+                    <div class="meta-container">
+                        <p class="artist">
+                            <a href="https://www.allmusic.com/artist/hayley-kiyoko-mn0002680808">Hayley Kiyoko</a>                        </p>
+
+                        <p class="title">
+                            <a href="https://www.allmusic.com/album/expectations-mw0003150941" data-tooltip="{&quot;id&quot;:&quot;MW0003150941&quot;}">Expectations</a>                        </p>
+
+                        <p class="release-date">
+                            March 30, 2018                        </p>
+
+                                                    <p class="style">
+                                <a href="https://www.allmusic.com/style/left-field-pop-ma0000013523">Left-Field Pop</a>                            </p>
+                        
+                        <div class="allmusic-rating-new">
+                            <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star">                        </div>
+
+                        <p class="blurb">
+                            <em>Expectations</em> is Hayley Kiyoko's first album, and it follows through on promises made by her popular singles: angsty, sapphic, pop-y ballads.                             <br><br><span class="author"> - Kylie Lynne</span>
+                        </p>
+                    </div>
+                </div>
+                            <div class="staff-pick num-2">
+                    <div class="image-container">
+                        <a href="/album/late-romantic-masterpieces-mw0002186753" title="Late Romantic Masterpieces" class="cropped-image-link album-cover-link">	<img src="https://cdn-s3.allmusic.com/release-covers/400/0003/413/0003413014.jpg" alt="Late Romantic Masterpieces" onerror="this.src='https://cdn-gce.allmusic.com/images/no_image/album_300x300.png'" class="cropped-image" loading="lazy"></a>                    </div>
+                    <div class="meta-container">
+                        <p class="artist">
+                            <a href="https://www.allmusic.com/artist/charles-munch-mn0000752879">Charles Munch</a>                        </p>
+
+                        <p class="title">
+                            <a href="https://www.allmusic.com/album/late-romantic-masterpieces-mw0002186753" data-tooltip="{&quot;id&quot;:&quot;MW0002186753&quot;}">Late Romantic Masterpieces</a>                        </p>
+
+                        <p class="release-date">
+                            August 1, 2011                        </p>
+
+                                                    <p class="style">
+                                <a href="https://www.allmusic.com/style/orchestral-ma0000004499">Orchestral</a>                            </p>
+                        
+                        <div class="allmusic-rating-new">
+                            <img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blue star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blue.svg" alt="blue star"><img class="blank star" src="https://cdn-gce.allmusic.com/images/ratings/vector-star-blank.svg" alt="empty star">                        </div>
+
+                        <p class="blurb">
+                            One of the great conductors at the beginning of the stereo age, Charles Münch left a legacy of masterful recordings on RCA that are still prized by musicians and collectors. This seven-CD box set brings together several performances of late-Romantic orchestral repertoire at which Münch and the Boston Symphony Orchestra excelled.                            <br><br><span class="author"> - Blair Sanderson</span>
+                        </p>
+                    </div>
+                </div>
+                    </div>
+        <div class="staff-picks-mobile-see-all-container"><h3 class="see-all-link"><a href="https://allmusic.tumblr.com/tagged/allmusic-staff-picks" title="More Staff Picks">More Staff Picks</a></h3></div>
+    </section>
+
+                    <section class="module blog-entries">
+        <div class="headline">
+            <div class="headline-left">
+                <h2><a href="/blog" class="main" title="AllMusic Blog">Articles</a></h2>
+            </div><div class="headline-right">
+                <h3 class="see-all-link"><a href="/blog" title="All blog articles">All Articles</a></h3>
+            </div>
+        </div>
+
+        <div class="blog-articles-grid-container">
+                                        <div class="article-entry">
+                    <div class="article-entry-left">
+                        <a href="/blog/post/the-2021-allmusic-gift-guide" title="The 2021 AllMusic Gift Guide">
+                            <img src="https://cdn-s3.allmusic.com/cms/19804/blog_giftguide21__medium.jpg" alt="The 2021 AllMusic Gift Guide" loading="lazy">
+                        </a>
+                    </div>
+
+                    <div class="article-entry-right">
+                        <h3><a href="/blog/post/the-2021-allmusic-gift-guide" title="The 2021 AllMusic Gift Guide">The 2021 AllMusic Gift Guide</a></h3>
+                    </div>
+                </div>
+                            <div class="article-entry">
+                    <div class="article-entry-left">
+                        <a href="/blog/post/allmusic-trivia-deck-the-halls-with-our-christmas-music-quiz" title="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz">
+                            <img src="https://cdn-s3.allmusic.com/cms/19744/blog_trivia_christmas__medium.jpg" alt="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz" loading="lazy">
+                        </a>
+                    </div>
+
+                    <div class="article-entry-right">
+                        <h3><a href="/blog/post/allmusic-trivia-deck-the-halls-with-our-christmas-music-quiz" title="AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz">AllMusic Trivia: Deck the Halls with Our Christmas Music Quiz</a></h3>
+                    </div>
+                </div>
+                            <div class="article-entry">
+                    <div class="article-entry-left">
+                        <a href="/blog/post/head-in-the-clouds-2021-is-a-new-milestone-for-asian-giants-88rising" title="Head In The Clouds 2021 is a New Milestone for Asian Giants 88rising">
+                            <img src="https://cdn-s3.allmusic.com/cms/19624/blog_headintheclouds__medium.jpg" alt="Head In The Clouds 2021 is a New Milestone for Asian Giants 88rising" loading="lazy">
+                        </a>
+                    </div>
+
+                    <div class="article-entry-right">
+                        <h3><a href="/blog/post/head-in-the-clouds-2021-is-a-new-milestone-for-asian-giants-88rising" title="Head In The Clouds 2021 is a New Milestone for Asian Giants 88rising">Head In The Clouds 2021 is a New Milestone for Asian Giants 88rising</a></h3>
+                    </div>
+                </div>
+                            <div class="article-entry">
+                    <div class="article-entry-left">
+                        <a href="/blog/post/listening-with-eyes-wide-open-the-rise-of-the-visual-album" title="Listening with Eyes Wide Open — The Rise of the Visual Album">
+                            <img src="https://cdn-s3.allmusic.com/cms/19574/blog_visualalbums__medium.jpg" alt="Listening with Eyes Wide Open — The Rise of the Visual Album" loading="lazy">
+                        </a>
+                    </div>
+
+                    <div class="article-entry-right">
+                        <h3><a href="/blog/post/listening-with-eyes-wide-open-the-rise-of-the-visual-album" title="Listening with Eyes Wide Open — The Rise of the Visual Album">Listening with Eyes Wide Open — The Rise of the Visual Album</a></h3>
+                    </div>
+                </div>
+                            <div class="article-entry">
+                    <div class="article-entry-left">
+                        <a href="/blog/post/recent-classical-highlights-october-2021" title="Recent Classical Highlights">
+                            <img src="https://cdn-s3.allmusic.com/cms/19494/blog_classical_october__medium.jpg" alt="Recent Classical Highlights" loading="lazy">
+                        </a>
+                    </div>
+
+                    <div class="article-entry-right">
+                        <h3><a href="/blog/post/recent-classical-highlights-october-2021" title="Recent Classical Highlights">Recent Classical Highlights</a></h3>
+                    </div>
+                </div>
+                            <div class="article-entry">
+                    <div class="article-entry-left">
+                        <a href="/blog/post/art-music-an-assault-on-the-senses-todd-haynes-brings-the-velvet-undergroun" title="Art, Music, &amp; an Assault on the Senses: Todd Haynes Brings The Velvet Underground to the Big Screen">
+                            <img src="https://cdn-s3.allmusic.com/cms/19454/blog_velvetundergrounddoc__medium.jpg" alt="Art, Music, &amp; an Assault on the Senses: Todd Haynes Brings The Velvet Underground to the Big Screen" loading="lazy">
+                        </a>
+                    </div>
+
+                    <div class="article-entry-right">
+                        <h3><a href="/blog/post/art-music-an-assault-on-the-senses-todd-haynes-brings-the-velvet-undergroun" title="Art, Music, &amp; an Assault on the Senses: Todd Haynes Brings The Velvet Underground to the Big Screen">Art, Music, & an Assault on the Senses: Todd Haynes Brings The Velvet Underground to the Big Screen</a></h3>
+                    </div>
+                </div>
+                    </div>
+        <div class="all-articles-mobile-see-all-container"><h3 class="see-all-link"><a href="/blog" title="See all articles">All Articles</a></h3></div>
+    </section>
+
+
+            </div>
+
+        </div>
+    </div>
+
+<div class="stripe-container footer-leaderboard">
+            <div class="advertising leaderboard">
+            <div id="AllMusic_LB_Foot"></div>        </div>
+    </div>
+<footer>
+    <div id="footer-wrapper">
+        <div id="footer-grid">
+            <img id="footer-logo" src="https://cdn-gce.allmusic.com/images/logo_tower_whiteonblack.svg">
+            <div id="column1" class="footer-column">
+                <div id="properties">
+                    <h3>Our Properties</h3>
+                    <ul>
+                        <li>
+                            <p><a href="https://www.allmusic.com" title="AllMusic">AllMusic</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.allmovie.com" title="AllMovie">AllMovie</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.sidereel.com" title="SideReel">SideReel</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="site-overview" class="footer-column">
+                    <h3>Site Overview</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/newreleases" title="New Releases">New Releases</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/discover" title="Discover">Discover</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/blog" title="Articles">Articles</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/recommendations" title="Recommendations">Recommendations</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="column2" class="footer-column">
+                <div id="about">
+                    <h3>About</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/about" title="What is AllMusic?">What is AllMusic?</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/copyright-policy" title="Copyright Policy">Copyright Policy</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/privacy-notice" title="Privacy Policy">Privacy Policy</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/terms-of-service" title="Terms of Service">Terms of Service</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="questions-contact">
+                    <h3>Questions and Contact</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/faq" title="FAQ">FAQ</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://allmedianetwork.helprace.com/s1-allmusic" title="Feedback" target="_blank">Feedback</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="column3" class="footer-column">
+                <div id="your-account">
+                    <h3>Your AllMusic Account</h3>
+                    <ul>
+                        <li>
+                            <p><a href="javascript:void(0);" class="my-profile-link" title="My Profile" aria-label="My profile">My Profile</a></p>
+                        </li>
+                        <li>
+                            <p><a href="/user/profile" title="Account Settings">Account Settings</a></p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="remove-ads">
+                    <h3>Remove Ads</h3>
+                    <ul>
+                        <li>
+                            <p><a href="/subscribe" title="Subscribe to AllMusic">Subscribe to AllMusic</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://help.twitter.com/en/using-twitter/twitter-blue" title="Sign Up for Twitter Blue" target="_blank">Sign Up for Twitter Blue</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="column4" class="footer-column">
+                <div id="follow-us">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li>
+                            <p><a href="https://www.facebook.com/AllMusicDotCom" title="Like us on Facebook" target="_blank">Facebook</a>
+                        </li>
+                        <li>
+                            <p><a href="https://twitter.com/allmusic" title="Follow us on Twitter" target="_blank">Twitter</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://allmusic.tumblr.com" title="Follow us on Tumblr" target="_blank">Tumblr</a></p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.pinterest.com/allmusicdotcom" title="Follow us on Pinterest" target="_blank">Pinterest</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="newsletter-signup" class="footer-column">
+                <h3>Sign Up For Our Weekly New Releases Newsletter</h3>
+                <form id="footerNewsletterSignupForm">
+                    <div id="signup">
+                        <input type="email" name="newsletterEmail" id="newsletterEmailSignup" aria-label="Email Signup" placeholder="name@domain.com" required>
+                        <input type="submit" name="newsletterSubmit" id="newsletterSubmitBtn" value="Sign Up" aria-label="Sign up">
+                    </div>
+                    <div id="failMsgEmail" style="display:none;"><h3>Please enter a valid email address.</h3></div>
+                    <div id="failMsgSg" style="display:none;"><h3>There was a problem subscribing you. Please try again.</h3></div>
+                    <div id="successMsg" style="display:none">
+                        <h3>Thank You for subscribing to the <a href="/newreleases" title="AllMusic New Releases">AllMusic New Releases Newsletter</a>.</h3>
+                    </div>
+                </form>
+            </div>
+            <div id="copyright">
+                <h3>&copy;2021 ALLMUSIC, NETAKTION LLC - ALL RIGHTS RESERVED</h3>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://cdn-gce.allmusic.com/cache/dist/js/global-c185d56d8a.js" crossorigin="anonymous"></script>
+        <script src="https://cdn-gce.allmusic.com/cache/dist/js/homepage-221a969d5d.js" crossorigin="anonymous"></script>
+
+    <script>
+        if(User.loggedIn) {
+            ga('set', 'dimension1', 'Yes');
+                            ga('set', 'dimension3', 'No');
+                    } else {
+            ga('set', 'dimension1', 'No');
+        }
+    </script>
+
+<!-- Begin comScore Tag -->
+<script>
+    var _comscore = _comscore || [];
+    _comscore.push({ c1: "2", c2: "6685975" });
+    (function() {
+        var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+        s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+        el.parentNode.insertBefore(s, el);
+    })();
+</script>
+<noscript>
+    <img src="//b.scorecardresearch.com/p?c1=2&c2=6685975&cv=2.0&cj=1" alt="scorecard pixel" />
+</noscript>
+<!-- End comScore Tag -->
+
+</div><!-- end cmn_wrap -->
+</div><!-- end .overflow-container -->
+
+    <script type="text/javascript">
+if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+if ( isMobile_AllMusic ) {
+window.catalyst.cmd.push('loadAds',[
+['top', 'AllMusic_LB_Top'],['rect', 'AllMusic_R1'],['footer', 'AllMusic_LB_Foot'],['incontent', 'AllMusic_Incont1']
+]);
+} else {
+window.catalyst.cmd.push('loadAds',[
+['top', 'AllMusic_LB_Top'],['rect_sidebar', 'AllMusic_R1'],['rect_sidebar', 'AllMusic_R2'],['footer', 'AllMusic_LB_Foot'],['incontent', 'AllMusic_Incont1']
+]);
+}
+}
+</script>
+<!-- Double Verify -->
+<script>
+    if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+        document.write('<img src="https://tps30.doubleverify.com/visit.jpg?ctx=2908533&cmp=2736444&sid=24324&plc=DV-RTHM20170324001&advid=2908534&region=30&btadsrv=rhythmone&app=appid&sup=sspid&DVP_DV_TT=2&DVP_DV_CT=1&DVP_APPID=NotApplicable&DVP_SSPID=NotApplicable&DVP_PUBID=NotApplicable&DVP_PP_BUNDLE_ID=NotApplicable&DVP_RO_SSPID=NotApplicable&DVP_PP_ORTB_PUB_ID=NotApplicable&DVP_RO_SITEID=NotApplicable&DVP_RO_TRAFFIC=NotApplicable&DVP_PP_DEAL_ID=NotApplicable&DVPX_PP_IMP_ID=NotApplicable&DVPX_PP_UID=NotApplicable&DVP_RO_CDID=NotApplicable&DVPX_PP_AUCTION_UA=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_15_7%29+AppleWebKit%2F605.1.15+%28KHTML%2C+like+Gecko%29+Version%2F15.1+Safari%2F605.1.15&DVP_PP_AUCTION_IP=10.128.2.7&turl=AllMusic.com&dvtagver=6.1.img" alt="" width="0" height="0" alt="double verify pixel">');
+    }
+</script>
+<!-- End Double Verify -->
+
+
+    <script>
+        if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
+            $.ajax({
+                url:'https://pagead2.googlesyndication.com/pcs/activeview',
+                type:'HEAD',
+                error: function(){
+                    ga('send', 'event', 'setCustomDimension', 1, {
+                        'dimension2': 'is_adblocking',
+                        'nonInteraction': true
+                    });
+
+                    // fire ad block detected GA event
+                    allmusic.gaTrackEvent({data: ["AdBlock", "Interaction", "User Has Adblock Enabled"]});
+                    if (!Cookie.read('adblock_dismiss')) {
+
+                        // fire ad block modal fires GA event
+                        allmusic.gaTrackEvent({data: ["AdBlock", "Interaction", "AdBlock Modal Fires"]});
+
+                        $.ajax({
+                            url: protocol + urlSubdomain + '.allmusic.com/blocker_check',
+                            type: 'GET',
+                            cache: false,
+                            success: function (data) {
+                                // append to body
+                                $(document).find('body').append(data);
+                                // lock body
+                                $(document).find('body').addClass('noscroll');
+                                document.getElementById('cmn-toolbar-wrap').style.zIndex = 20000;
+                            }
+                        });
+
+                    } else {
+                        allmusic.gaTrackEvent({data: ["AdBlock", "Interaction", "User Has AdBlock Dismiss Cookie"]});
+                    }
+                },
+                success: function(){
+                    // success block
+                    ga('send', 'event', 'setCustomDimension', 1, {
+                        'dimension2': 'not_adblocking',
+                        'nonInteraction': true
+                    });
+
+                }
+            });
+
+            // log Scroll as No
+            ga('set', 'dimension4', 'No');
+        } else if (document.cookie.indexOf("scroll0=") < 0) {
+            ga('set', 'dimension4', 'No');
+        } else {
+            // set scroll to yes
+            ga('set', 'dimension4', 'Yes');
+        }
+    </script>
+</body>
+</html>
+
+

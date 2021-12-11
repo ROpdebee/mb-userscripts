@@ -1,0 +1,787 @@
+WARC/1.1
+WARC-Filename: musik-sammler provider/extracting images/extracts covers for release
+WARC-Date: 2021-12-11T20:26:43.201Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:c9e00a83-0194-4a96-a51c-519cffae172c>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:8a13852f-cd2a-42df-aab1-be3155027cad>
+WARC-Target-URI: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/
+WARC-Date: 2021-12-11T20:26:43.202Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:180a0dde-68cc-40c9-a326-0a7227d82f64>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:55812fba4393265bc854410e3d20c98672e03cf837ee9b108f9b3fd5a83794b0
+Content-Length: 65
+
+GET /release/vanilla-fudge-vanilla-fudge-cd-1539691/ HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:8a13852f-cd2a-42df-aab1-be3155027cad>
+WARC-Target-URI: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/
+WARC-Date: 2021-12-11T20:26:43.202Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:cebcaabc-6525-477d-9632-65406776588b>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:a0a12f107b8c7aaabb7b98eabf1f0235ee1180af82295b1d7ee17c57162b8bf8
+WARC-Block-Digest: sha256:a0a12f107b8c7aaabb7b98eabf1f0235ee1180af82295b1d7ee17c57162b8bf8
+Content-Length: 348
+
+harEntryId: 5ec68c3ed0ef41d91c8a564a7c5a257e
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:42.605Z
+time: 456
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":456,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 95
+warcRequestCookies: []
+warcResponseHeadersSize: 379
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/
+WARC-Date: 2021-12-11T20:26:43.201Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:8a13852f-cd2a-42df-aab1-be3155027cad>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:825138af6abf13456efd59d8effa93a98367d71deb6ee4e3c7c79a04302cb4c2
+WARC-Block-Digest: sha256:a2cd71168e86993143b9dcf905ec52bd9945c85b4f4f35a9e6a19eb1aa86dbd2
+Content-Length: 52171
+
+HTTP/1.1 200 OK
+cache-control: max-age=0, no-store
+connection: Upgrade, close
+content-encoding: gzip
+content-length: 6590
+content-type: text/html; charset=utf-8
+date: Sat, 11 Dec 2021 20:26:42 GMT
+expires: Mon, 10 Jan 2022 20:26:42 GMT
+server: Apache
+upgrade: h2
+vary: Accept-Encoding
+x-pollyjs-finalurl: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="de"> <![endif]-->
+<html class="no-js" lang="de">
+
+<head>
+    <link rel="preload" href="/webfonts/">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vanilla Fudge von Vanilla Fudge als CD, mit Tracklist und weiteren Infos">
+        <meta name="keywords" content="Vanilla Fudge, Vanilla Fudge, CD, Rock, 714151310429">
+    <meta name="robots" content="index,follow">
+    
+        <meta property="og:title" content="Vanilla Fudge - CD (1997, Live) von Vanilla Fudge">
+    <meta property="og:type" content="album">
+    <meta property="og:url" content="https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/">
+                        <meta property="og:image" content="https://www.musik-sammler.de/cover/1540000/1539691_1635313476.jpg">
+            <meta property="og:image:width" content="1390">
+            <meta property="og:image:height" content="1405">
+                <meta property="og:site_name" content="Musik-Sammler.de">
+    <meta property="fb:admins" content="100000047095741">
+    <meta property="fb:app_id" content="151398674952257">
+    <meta property="og:description" content="Informationen zum Tonträger Vanilla Fudge, CD, 1997, Live">
+        <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@musiksammler">
+    <meta name="twitter:creator" content="@musiksammler">
+    <meta name="twitter:title" content="Vanilla Fudge - CD (1997, Live) von Vanilla Fudge">
+    <meta name="twitter:description" content="Informationen zum Tonträger Vanilla Fudge, CD, 1997, Live">
+    <meta name="twitter:image" content="https://www.musik-sammler.de/cover/1540000/1539691_1635313476.jpg">
+        
+    
+    <title>Vanilla Fudge | CD (1997, Live) von Vanilla Fudge</title>
+        <link rel="author" title="Impressum" href="/impressum/">
+    <link rel="dns-prefetch" href="//musik-sammler.de">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/gfx/apple-touch-icon.png"/>
+
+    
+    <link rel="canonical" href="https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/">
+	                    <script type="text/javascript">
+        // Set to the same value as the web property used on the site
+        var gaProperty = 'UA-5282825-1';
+        var disableStr = 'ga-disable-' + gaProperty;
+
+        // Disable tracking if the opt-out cookie exists.
+        if (document.cookie.indexOf(disableStr + '=true') > -1) {
+            window[disableStr] = true;
+        }
+
+        // Opt-out function
+        function gaOptout() {
+            document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+            window[disableStr] = true;
+        }
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5282825-1']);
+        _gaq.push(['_gat._anonymizeIp']);
+        _gaq.push(['_trackPageview']);
+                _gaq.push(['_setCustomVar',
+              1,                // This custom var is set to slot #1.  Required parameter.
+              'Member Type',    // The name of the custom variable.  Required parameter.
+              'Guest',        // The value of the custom variable.  Required parameter.
+              1                 // Sets the scope to visitor-level.  Optional parameter.
+         ]);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+            <script async src="https://cdns.yieldscale.com/musik-sammler.js"></script>
+
+    <link rel="stylesheet" href="/styles/ms-1639126428.css">
+                
+        <link type="text/css" rel="stylesheet" href="/js/jquery/plugins/lightslider-1.1.6/css/lightslider.min.css" />
+    <link type="text/css" rel="stylesheet" href="/js/jquery/plugins/lightgallery-1.6.12/css/lightgallery.min.css" />
+            
+        <script type="text/javascript" src="https://steadyhq.com/widget_loader/c4a44ca1-33bb-458e-94f5-75bd5a748e22"></script>
+    </head>
+
+<body>
+        <div class="off-canvas-wrapper">
+        <div class="off-canvas position-left" id="offCanvas" data-off-canvas>
+            <!-- Close button -->
+<button class="close-button" aria-label="Close menu" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+</button>
+
+<!-- Menu -->
+<ul class="vertical menu drilldown" data-drilldown data-back-button='<li class="js-drilldown-back"><a tabindex="0">Zurück</a></li>'>
+                        <li>
+                                    <a>MS.de</a>
+
+                    <ul class="menu vertical nested">
+                                                    <li><a href="/" title="Startseite">Startseite</a></li>
+                                                    <li><a href="/members/" title="Mitglieder">Mitglieder</a></li>
+                                                    <li><a href="http://wiki.musik-sammler.de/" title="FAQs/Dokumentation">FAQs/Dokumentation</a></li>
+                                            </ul>
+                            </li>
+                    <li>
+                                    <a>Shopping</a>
+
+                    <ul class="menu vertical nested">
+                                                    <li><a href="/market/" title="Flohmarkt">Flohmarkt</a></li>
+                                                    <li><a href="/?do=shops" title="Shopping-Guide">Shopping-Guide</a></li>
+                                            </ul>
+                            </li>
+                    <li>
+                                    <a href="">Künstler</a>
+                    <ul class="menu vertical nested" id="browseMenu">
+                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/0/">#</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/A/">A</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/B/">B</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/C/">C</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/D/">D</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/E/">E</a></div>
+                            </li>                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/F/">F</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/G/">G</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/H/">H</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/I/">I</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/J/">J</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/K/">K</a></div>
+                            </li>                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/L/">L</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/M/">M</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/N/">N</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/O/">O</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/P/">P</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Q/">Q</a></div>
+                            </li>                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/R/">R</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/S/">S</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/T/">T</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/U/">U</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/V/">V</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/W/">W</a></div>
+                            </li>                                                    <li class="grid-x">                            <div class="small-2 cell text-center"><a href="/artists/X/">X</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Y/">Y</a></div>
+                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Z/">Z</a></div>
+                                                                        </ul>
+                            </li>
+            </ul>
+        </div>
+        <div class="off-canvas-content" data-off-canvas-content>
+            <div id="top-main-bar" data-sticky-container>
+    <div class="top-bar-section" data-sticky data-options="marginTop:0;" style="width:100%;">
+        <div class="grid-container">
+            <div class="grid-x">
+                <div class="cell">
+                    <div class="title-bar" data-responsive-toggle="ms-menu" data-hide-for="large">
+                        <button class="menu-icon" type="button" data-open="offCanvas"></button>
+                        <span class="title-bar-title">Menu</span>
+                        <ul class="menu horizontal hide-for-large text-right" style="position:absolute; right:2px; top:.5rem;">
+                                                                                        <li><a href="/login/" class="reveal-opener button" id="login" data-open="loginModal" title="Login" rel="nofollow">Login</a></li>
+                                                    </ul>
+                    </div>
+                    <div class="top-bar" id="ms-menu">
+                        <div class="top-bar-left">
+                            <ul class="vertical medium-horizontal menu" data-auto-height="true" data-responsive-menu="drilldown medium-dropdown">
+                                                                                                            <li>
+                                                                                            <a>MS.de</a>
+
+                                                <ul class="menu vertical">
+                                                                                                            <li><a href="/" title="Startseite">Startseite</a></li>
+                                                                                                            <li><a href="/members/" title="Mitglieder">Mitglieder</a></li>
+                                                                                                            <li><a href="http://wiki.musik-sammler.de/" title="FAQs/Dokumentation">FAQs/Dokumentation</a></li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                                                                            <a>Shopping</a>
+
+                                                <ul class="menu vertical">
+                                                                                                            <li><a href="/market/" title="Flohmarkt">Flohmarkt</a></li>
+                                                                                                            <li><a href="/?do=shops" title="Shopping-Guide">Shopping-Guide</a></li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                                                                            <a>Künstler</a>
+                                                <ul class="menu vertical" id="browseMenu">
+                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/0/">#</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/A/">A</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/B/">B</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/C/">C</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/D/">D</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/E/">E</a></div>
+                                                        </li>                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/F/">F</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/G/">G</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/H/">H</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/I/">I</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/J/">J</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/K/">K</a></div>
+                                                        </li>                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/L/">L</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/M/">M</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/N/">N</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/O/">O</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/P/">P</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Q/">Q</a></div>
+                                                        </li>                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/R/">R</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/S/">S</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/T/">T</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/U/">U</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/V/">V</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/W/">W</a></div>
+                                                        </li>                                                                                                            <li class="grid-x">                                                        <div class="small-2 cell text-center"><a href="/artists/X/">X</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Y/">Y</a></div>
+                                                                                                                                                                                                                            <div class="small-2 cell text-center"><a href="/artists/Z/">Z</a></div>
+                                                                                                                                                            </ul>
+                                                                                    </li>
+                                                                                                </ul>
+                        </div>
+                        <div class="top-bar-right show-for-large">
+                            <form method="get" action="/search/" accept-charset="utf-8">
+                                <ul class="menu align-right">
+                                    <li class="nohover show-for-large float-small">
+                                        <div class="input-group no-margin-bottom">
+                                            <input type="text" name="query" id="search-input" class="input-group-field" placeholder="Suche" value="">
+                                            <div class="input-group-button">
+                                                <button type="submit" class="button"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                                                                                                                                                        <li>
+                                                    <a href="/forum/" title="Forum" class="navigation-icon"><i class="fas fa-comments"></i></a>
+                                                </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="/login/" id="login" data-open="loginModal" title="Login" class="reveal-opener button" rel="nofollow">Login</a></li>
+                                                                    </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form method="get" action="/search/" accept-charset="utf-8">
+    <div class="hide-for-large">
+        <div class="input-group" style="margin:0;">
+            <input type="text" name="query" class="input-group-field" placeholder="Suche" value="">
+            <div class="input-group-button">
+                <button type="submit" class="small button"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+                                        
+                            <div class="grid-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell">
+                            <nav aria-label="You are here:">
+                                <ul class="callout small lightgray breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+                                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a href="https://www.musik-sammler.de/" itemprop="item">
+            <span itemprop="name">Startseite</span>
+        </a>
+        <meta itemprop="position" content="1" />
+    </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <span itemprop="item">
+                <span itemprop="name">
+                                            <a href="https://www.musik-sammler.de/artist/vanilla-fudge/">
+                            Vanilla Fudge
+                        </a>
+                                                            </span>
+            </span>
+            <meta itemprop="position" content="1" />
+            </li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a href="https://www.musik-sammler.de/album/vanilla-fudge-vanilla-fudge-995842/" itemprop="item">
+            <span itemprop="name">Vanilla Fudge</span>
+        </a>
+        <meta itemprop="position" content="2" />
+    </li>
+            <li class="current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <span itemprop="item">
+            <span itemprop="name">
+                CD, 1997                (ID: 1539691)
+            </span>
+        </span>
+        <meta itemprop="position" content="3" />
+    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            <section >
+                <div class="grid-container">
+                    <div class="grid-x grid-padding-x">
+        <div class="cell" itemscope itemtype="http://schema.org/MusicAlbum">
+            
+            
+            <h1><span class="header-span" itemprop="byArtist">                    <a href="https://www.musik-sammler.de/artist/vanilla-fudge/">Vanilla Fudge</a>
+                                            </span><span itemprop="name">Vanilla Fudge</span><br>
+                <small>CD, 1997, Live</small>
+            </h1>
+        </div>
+    </div>
+                    <div itemscope itemtype="http://schema.org/MusicAlbum">
+        <input type="hidden" id="mid" value="1539691">
+
+        
+                <div class="grid-x grid-margin-x grid-padding-x" id="coverMain">
+            <div class="small-12 medium-4 cell text-center" id="swipe-container">
+                <div id="gallery-container">
+                                            <ul id="imageGallery">
+                                                            <li data-thumb="/cover/1540000/1539691_1635313476_75.jpg" data-src="/cover/1540000/1539691_1635313476.jpg">
+                                                                        <img src="/cover/1540000/1539691_1635313476_300.jpg" width="296" height="300" alt="Vanilla Fudge: Vanilla Fudge (CD) - Bild 1">
+                                </li>
+                                                            <li data-thumb="/cover/1540000/1539691_1_1635313476_75.jpg" data-src="/cover/1540000/1539691_1_1635313476.jpg">
+                                                                        <img src="/cover/1540000/1539691_1_1635313476_300.jpg" width="300" height="232" alt="Vanilla Fudge: Vanilla Fudge (CD) - Bild 2">
+                                </li>
+                                                            <li data-thumb="/cover/1540000/1539691_2_1635313476_75.jpg" data-src="/cover/1540000/1539691_2_1635313476.jpg">
+                                                                        <img src="/cover/1540000/1539691_2_1635313476_300.jpg" width="300" height="298" alt="Vanilla Fudge: Vanilla Fudge (CD) - Bild 3">
+                                </li>
+                                                    </ul>
+
+                        <div id="image-thumbs">
+                                                            <div class="thumb-box">
+                                    <div class="thumb-item">
+                                                                                                                                <a data-slide-index="0" href="" class="lightslider-thumb">
+                                                <img src="/cover/1540000/1539691_1635313476_75.jpg" width="74" height="75" alt="Vanilla Fudge: Vanilla Fudge (CD) - Thumbnail 1">
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="thumb-box">
+                                    <div class="thumb-item">
+                                                                                                                                <a data-slide-index="1" href="" class="lightslider-thumb">
+                                                <img src="/cover/1540000/1539691_1_1635313476_75.jpg" width="75" height="58" alt="Vanilla Fudge: Vanilla Fudge (CD) - Thumbnail 2">
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="thumb-box">
+                                    <div class="thumb-item">
+                                                                                                                                <a data-slide-index="2" href="" class="lightslider-thumb">
+                                                <img src="/cover/1540000/1539691_2_1635313476_75.jpg" width="75" height="74" alt="Vanilla Fudge: Vanilla Fudge (CD) - Thumbnail 3">
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="thumb-box">
+                                    <div class="thumb-item">
+                                                                            </div>
+                                </div>
+                                                            <div class="thumb-box">
+                                    <div class="thumb-item">
+                                                                            </div>
+                                </div>
+                                                    </div>
+                    
+                                    </div>
+            </div>
+
+
+            <div class="small-12 medium-8 cell">
+                                    <div class="grid-x">
+                        <div class="cell text-center">
+                                    <div class="promo-adbox">
+        <div id="ms_mso_leaderboard_1"></div>
+    </div>
+                        </div>
+                    </div>
+                
+                <table class="compact-table">
+                    <tr>
+                        <th class="text-left">Herstellungsland</th>
+                        <td>
+                            <span class="flag-icon flag-icon-de" title="Deutschland"></span>
+                            Deutschland
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Veröffentlichungs-Jahr</th>
+                        <td>1997</td>
+                    </tr>
+                                        <tr>
+                        <th class="text-left">Zeit</th>
+                        <td>45:58</td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">EAN-Nr.</th>
+                        <td>
+                            714151310429                        </td>
+                    </tr>
+
+                    <tr>
+                        <th class="text-left">Label/Labelcode</th>
+                        <td>
+                                                            nicht vorhanden
+                                                    </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Plattenfirma/Katalog-Nr.</th>
+                        <td>
+                                                            Master Tone Multimedia Ltd.
+                                /
+                                                        <strong>AB 3104</strong>                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Musikrichtung</th>
+                        <td>
+                                                            Rock: Hardrock, Progressive Rock, Psychedelic Rock                                                    </td>
+                    </tr>
+                                                                            </table>
+
+                
+                <table class="compact-table">
+                    <tr>
+                        <th class="text-center">Sammlungen</th>
+                        <th class="text-center">Gesucht</th>
+                        <th class="text-center">Flohmarkt</th>
+                                            </tr>
+                    <tr>
+                        <td class="text-center">
+                            1                                                    </td>
+                        <td class="text-center">
+                            0                        </td>
+                        <td class="text-center">
+                            0                        </td>
+                                            </tr>
+
+                                    </table>
+            </div>
+        </div>
+
+                <div id="affiliates-block" data-url="https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/affiliates/"></div>
+
+        <div class="grid-x grid-padding-x">
+    <div class="cell">
+                <div class="adsense text-center" id='div-gpt-ad-1395741785255-0'>
+                    <div class="promo-adbox">
+        <div id="ms_mso_mr_1"></div>
+    </div>
+        </div>
+        
+        <div class="grid-x grid-margin-x">
+            <h2 class="shrink cell">Tracklist</h2>
+
+            <div class="auto cell text-right">
+                <span class="badge primary">I</span> = Instrumental
+                <span class="badge warning">L</span> = Live
+                <span class="badge alert">B</span> = Bonustrack
+                <span class="badge success">H</span>  = Hidden Track
+                <span class="badge secondary">C</span> = Coversong
+            </div>
+        </div>
+
+        <span itemprop="track" itemscope itemtype="http://schema.org/ItemList">
+                                                                                    
+            <table class="compact-table">
+                <thead>
+                    <tr>
+                        <th colspan="4">
+                            CD
+                                                                                                            </th>
+                    </tr>
+                    <tr>
+                        <th class="w5">Track</th>
+                                                <th class="text-left">Titel</th>
+                        <th class="w10 text-center">Zeit</th>
+                        <th class="w20 text-center">Besonderheit</th>
+                    </tr>
+                </thead>
+                                    <tfoot>
+                        <tr>
+                            <td colspan="2">Gesamtzeit</td>
+                            <td>45:58</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tfoot>
+                                <tbody>
+                                    <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <td itemprop="position" class="text-right track-position">
+                                                        1.
+                        </td>
+
+                        
+                        <td class="text-left track-title" itemprop="item" itemscope itemtype="http://schema.org/MusicRecording"><span itemprop="name">You Keep Me Hanging&#039; On</span></td>
+
+                        <td class="text-center track-time">5:33</td>
+
+                        <td class="text-center track-attributes">
+                                                                                                                <span class="badge warning" title="Live">L</span>                            <span class="badge secondary" title="Coversong">C</span>                        </td>
+                    </tr>
+                                                        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <td itemprop="position" class="text-right track-position">
+                                                        2.
+                        </td>
+
+                        
+                        <td class="text-left track-title" itemprop="item" itemscope itemtype="http://schema.org/MusicRecording"><span itemprop="name">My World Is Empty(Without You)</span></td>
+
+                        <td class="text-center track-time">6:48</td>
+
+                        <td class="text-center track-attributes">
+                                                                                                                <span class="badge warning" title="Live">L</span>                            <span class="badge secondary" title="Coversong">C</span>                        </td>
+                    </tr>
+                                                        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <td itemprop="position" class="text-right track-position">
+                                                        3.
+                        </td>
+
+                        
+                        <td class="text-left track-title" itemprop="item" itemscope itemtype="http://schema.org/MusicRecording"><span itemprop="name">Take Me For A Little While</span></td>
+
+                        <td class="text-center track-time">3:46</td>
+
+                        <td class="text-center track-attributes">
+                                                                                                                <span class="badge warning" title="Live">L</span>                            <span class="badge secondary" title="Coversong">C</span>                        </td>
+                    </tr>
+                                                        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <td itemprop="position" class="text-right track-position">
+                                                        4.
+                        </td>
+
+                        
+                        <td class="text-left track-title" itemprop="item" itemscope itemtype="http://schema.org/MusicRecording"><span itemprop="name">Shot Gun</span></td>
+
+                        <td class="text-center track-time">5:11</td>
+
+                        <td class="text-center track-attributes">
+                                                                                                                <span class="badge warning" title="Live">L</span>                            <span class="badge secondary" title="Coversong">C</span>                        </td>
+                    </tr>
+                                                        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <td itemprop="position" class="text-right track-position">
+                                                        5.
+                        </td>
+
+                        
+                        <td class="text-left track-title" itemprop="item" itemscope itemtype="http://schema.org/MusicRecording"><span itemprop="name">Eleanor Rigby</span></td>
+
+                        <td class="text-center track-time">8:00</td>
+
+                        <td class="text-center track-attributes">
+                                                                                                                <span class="badge warning" title="Live">L</span>                            <span class="badge secondary" title="Coversong">C</span>                        </td>
+                    </tr>
+                                                        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <td itemprop="position" class="text-right track-position">
+                                                        6.
+                        </td>
+
+                        
+                        <td class="text-left track-title" itemprop="item" itemscope itemtype="http://schema.org/MusicRecording"><span itemprop="name">Ticket To Ride</span></td>
+
+                        <td class="text-center track-time">6:00</td>
+
+                        <td class="text-center track-attributes">
+                                                                                                                <span class="badge warning" title="Live">L</span>                            <span class="badge secondary" title="Coversong">C</span>                        </td>
+                    </tr>
+                                                        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <td itemprop="position" class="text-right track-position">
+                                                        7.
+                        </td>
+
+                        
+                        <td class="text-left track-title" itemprop="item" itemscope itemtype="http://schema.org/MusicRecording"><span itemprop="name">People Get Ready</span></td>
+
+                        <td class="text-center track-time">6:00</td>
+
+                        <td class="text-center track-attributes">
+                                                                                                                <span class="badge warning" title="Live">L</span>                            <span class="badge secondary" title="Coversong">C</span>                        </td>
+                    </tr>
+                                                        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <td itemprop="position" class="text-right track-position">
+                                                        8.
+                        </td>
+
+                        
+                        <td class="text-left track-title" itemprop="item" itemscope itemtype="http://schema.org/MusicRecording"><span itemprop="name">Golden Age Dreams</span></td>
+
+                        <td class="text-center track-time">4:40</td>
+
+                        <td class="text-center track-attributes">
+                                                                                                                <span class="badge warning" title="Live">L</span>                                                    </td>
+                    </tr>
+                                    
+                                </tbody>
+            </table>
+                </span>
+
+            </div>
+</div>
+
+                    <div class="grid-x grid-padding-x">
+                <div class="cell">
+                    <h3>Infos</h3>
+                    <div class="callout">
+                        Keine Angaben betreffend Aufnahmedatum.<br />
+<br />
+<br />
+[Herstellungsland: IFPI-Codes => Deutschland]<br />
+[SID-Code CD-Master: IFPI L621]<br />
+[SID-Code Presswerk: IFPI 1G**]
+                    </div>
+                </div>
+            </div>
+        
+                    <div class="grid-x show-for-medium text-center" id="ebay-bottom" data-query="Vanilla Fudge Vanilla Fudge CD">
+            </div>
+        
+        
+                            <div class="grid-x adsense" id='div-gpt-ad-1395741785255-3'>
+                <div class="cell text-center">
+                            <div class="promo-adbox">
+        <div id="ms_mso_leaderboard_2"></div>
+    </div>
+                </div>
+            </div>
+            </div>
+                </div>
+            </section>
+
+            
+            <footer class="footer-base  ">
+                <div class="grid-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="small-12 medium-6 large-6 cell">
+                            <div class="footer-headline">Musik-Sammler.de</div>
+                            <div class="grid-x">
+                                <div class="small-12 medium-6 large-6 cell">
+                                    <ul class="no-bullet">
+                                        <li><a href="/blog/" title="Blog">Blog</a></li>
+                                        <li><a href="/forum/" title="Forum">Forum</a></li>
+                                        <li><a href="http://wiki.musik-sammler.de/" title="FAQs/Dokumentation">FAQs/Dokumentation</a></li>
+                                        <li><a href="/global-stats/" title="Globale Statistiken">Globale Statistiken</a></li>
+                                        <li><a href="/support/" title="Unterstützung von Musik-Sammler.de">Unterstützen von MS/Werbefreiheit</a></li>
+                                    </ul>
+                                </div>
+                                <div class="small-12 medium-6 large-6 cell">
+                                    <ul class="no-bullet">
+                                        <li><a href="/mediadata/" title="Mediadaten">Mediadaten</a></li>
+                                        <li><a href="/terms-of-use/" title="Nutzungsbedingungen">Nutzungsbedingungen</a></li>
+                                        <li><a href="/contact/" title="Kontakt">Kontakt</a></li>
+                                        <li><a href="/datenschutz/" title="Datenschutzerklärung">Datenschutzerklärung</a></li>
+                                        <li><a href="/impressum/" title="Impressum">Impressum</a></li>
+                                        <li><a href="#" onclick="window._sp_.loadPrivacyManagerModal(330577)" title="Cookie-Einstellungen">Cookie-Einstellungen</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-12 medium-6 large-6 cell">
+                            <div class="footer-headline">Social Media</div>
+                            <ul class="menu">
+                                <li><a href="https://twitter.com/Musiksammler" title="Musik-Sammler.de bei Twitter"><i class="fab fa-instagram-square large"></i></a></li>
+                                <li><a href="https://www.facebook.com/musiksammler.de" title="Musik-Sammler.de bei Facebook"><i class="fab fa-facebook-square large"></i></a></li>
+                                <li><a href="https://instagram.com/musiksammler.de" title="Musik-Sammler.de bei Instagram"><i class="fab fa-instagram large"></i></a></li>
+                            </ul>
+                                                    </div>
+                    </div>
+                </div>
+                <p id="copyNote">
+                    © 2005 - 2021 Musik-Sammler.de - Alle Einträge wurden von den Mitgliedern dieser Seite erstellt.
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    
+        <div id="loginModal" class="small reveal" data-reveal>
+        <form action="/login/" method="post" accept-charset="UTF-8">
+    <fieldset class="fieldset box-user" id="loginFormPage">
+                
+        <div class="grid-x grid-padding-x medium-collapse large-collapse">
+            <div class="small-12 medium-5 large-5 cell">
+                <label for="loginAgain">Login:</label>
+                <input type="text" name="login" id="loginAgain" value="" pattern=".{2,}" required title="Mindestens 3 Zeichen lang">
+            </div>
+            <div class="small-12 medium-5 large-5 cell">
+                <label for="passwortAgain">Passwort:</label>
+                <input type="password" name="password" id="passwortAgain" size="10" value="" required>
+            </div>
+            <div class="small-12 medium-2 large-2 cell">
+                <label><br></label>
+                                    <input type="hidden" name="requesturi" value="release/vanilla-fudge-vanilla-fudge-cd-1539691" />
+                                <button type="submit" class="button small">Login</button>
+            </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+            <div class="cell">
+                <a href="/password-recovery/">Passwort vergessen?</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    
+    
+        <script type="application/javascript" src="/js/jquery/jquery-3.5.0.min.js"></script>
+
+        
+        <script src="/scripts/vendor-1638261343.js"></script>
+        <script>
+        $(document).foundation();
+    </script>
+
+        <script src="/js/jquery/plugins/lightslider-1.1.6/js/lightslider.min.js"></script>
+    <script src="/js/jquery/plugins/lightgallery-1.6.12/js/lightgallery.min.js"></script>
+    <script src="/js/jquery/plugins/lightgallery-1.6.12/js/lg-zoom.min.js"></script>
+
+    <script src="/scripts/plugins/release-1638261343.js"></script>
+
+    
+    
+                    </body>
+</html>
+
+
