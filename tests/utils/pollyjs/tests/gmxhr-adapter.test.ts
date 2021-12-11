@@ -2,7 +2,7 @@ import path from 'path';
 import { setupPolly } from 'setup-polly-jest';
 import FSPersister from '@pollyjs/persister-fs';
 
-import GMXHRAdapter from './gmxhr-adapter';
+import GMXHRAdapter from '@test-utils/pollyjs/gmxhr-adapter';
 
 describe('gmxhr adapter', () => {
     // eslint-disable-next-line jest/require-hook
