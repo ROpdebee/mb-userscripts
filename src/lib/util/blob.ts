@@ -21,7 +21,7 @@ export function blobToDigest(blob: Blob): Promise<string> {
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             const hasCrypto = typeof crypto !== 'undefined' && typeof crypto.subtle?.digest !== 'undefined';
 
-            // istanbul ignore if: Not available in node
+            // istanbul ignore else: Not available in node
             if (hasCrypto) {
                 resolve(hexEncode(await crypto.subtle.digest('SHA-256', buffer)));
             } else {
