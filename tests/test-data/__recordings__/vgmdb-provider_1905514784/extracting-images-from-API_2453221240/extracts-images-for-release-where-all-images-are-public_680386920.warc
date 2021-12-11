@@ -1,0 +1,296 @@
+WARC/1.1
+WARC-Filename: vgmdb provider/extracting images from API/extracts images for release where all images are public
+WARC-Date: 2021-12-11T21:50:03.402Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:6bbadb1f-1dd8-4471-a87c-97ce8c06b2de>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:f74cfbb3-e8d0-4aa6-a084-0115d04b5e9a>
+WARC-Target-URI: https://vgmdb.info/album/96418?format=json
+WARC-Date: 2021-12-11T21:50:03.403Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:c4c13ff1-fc49-4ce5-b8ac-8064f59097f8>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:1a7bedc1eb132e010e9198d64cef0a1733ba80ff81a91bd0981f4074d4c51a57
+Content-Length: 41
+
+GET /album/96418?format=json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:f74cfbb3-e8d0-4aa6-a084-0115d04b5e9a>
+WARC-Target-URI: https://vgmdb.info/album/96418?format=json
+WARC-Date: 2021-12-11T21:50:03.404Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:e1148980-f309-4d2f-8434-f29c5f496e3f>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:537e119dfb9cc4f2c139bcce8e6b59c082098c21f3afd294b86f396f0fc78e28
+WARC-Block-Digest: sha256:537e119dfb9cc4f2c139bcce8e6b59c082098c21f3afd294b86f396f0fc78e28
+Content-Length: 351
+
+harEntryId: efe29df72e39408824f0a65c1eef4dcf
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T21:50:01.442Z
+time: 1954
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1954,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 61
+warcRequestCookies: []
+warcResponseHeadersSize: 1077
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://vgmdb.info/album/96418?format=json
+WARC-Date: 2021-12-11T21:50:03.403Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:f74cfbb3-e8d0-4aa6-a084-0115d04b5e9a>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:ba36682715f9c5339cdc7cd4c692b05975cd0378b4823063b87f17d119f1d1ac
+WARC-Block-Digest: sha256:107e15eb6e8f8b9668c46d877950daeda0e3239411e3ea1621aa849a2286d2c4
+Content-Length: 7994
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Origin, User-Agent, If-Modified-Since, Cache-Control
+access-control-allow-methods: GET, HEAD, OPTIONS
+access-control-allow-origin: *
+alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443"; ma=86400
+cache-control: max-age:86400,public
+cf-cache-status: DYNAMIC
+cf-ray: 6bc1ed1e1d2d6d85-MUC
+connection: close
+content-encoding: br
+content-type: application/json; charset=utf-8
+date: Sat, 11 Dec 2021 21:50:03 GMT
+expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+last-modified: Sat, 04 Jul 2020 04:48:00 +0000
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=2vdGF63%2FVB56JIn%2FFTO7KeaM%2Fz2IS6mo22M%2Bga083eukO%2FLpMlChCnHfdSEEjWvjm%2FyCDYPaYAWpRhpkH%2FLGguOxbIQhbO486OQqWxgm6Jdw%2B%2FYdJuB40aRbvp%2Fg"}],"group":"cf-nel","max_age":604800}
+server: cloudflare
+transfer-encoding: chunked
+x-pollyjs-finalurl: https://vgmdb.info/album/96418?format=json
+
+{
+    "arrangers": [
+        {
+            "link": "artist/9506",
+            "names": {
+                "en": "Masaharu Fukuyama",
+                "ja": "福山雅治"
+            }
+        },
+        {
+            "link": "artist/10445",
+            "names": {
+                "en": "Akira Inoue",
+                "ja": "井上鑑"
+            }
+        }
+    ],
+    "barcode": "4988005702401",
+    "catalog": "UUBH-9023",
+    "categories": [
+        "Animation"
+    ],
+    "category": "Animation",
+    "classification": "Vocal",
+    "composers": [
+        {
+            "link": "artist/9506",
+            "names": {
+                "en": "Masaharu Fukuyama",
+                "ja": "福山雅治"
+            }
+        }
+    ],
+    "covers": [
+        {
+            "full": "https://media.vgm.io/albums/81/96418/96418-1581893265.jpg",
+            "medium": "https://medium-media.vgm.io/albums/81/96418/96418-1581893265.jpg",
+            "name": "Jacket Front",
+            "thumb": "https://thumb-media.vgm.io/albums/81/96418/96418-1581893265.jpg"
+        },
+        {
+            "full": "https://media.vgm.io/albums/81/96418/96418-1581893266.jpg",
+            "medium": "https://medium-media.vgm.io/albums/81/96418/96418-1581893266.jpg",
+            "name": "Jacket Back",
+            "thumb": "https://thumb-media.vgm.io/albums/81/96418/96418-1581893266.jpg"
+        }
+    ],
+    "discs": [
+        {
+            "disc_length": "Unknown",
+            "name": "Disc 1",
+            "tracks": [
+                {
+                    "names": {
+                        "Japanese": "生きてる生きてく (物語)"
+                    },
+                    "track_length": "Unknown"
+                },
+                {
+                    "names": {
+                        "Japanese": "生きてる生きてく (TV Ver.) with 雅秋 & フクラージョ"
+                    },
+                    "track_length": "Unknown"
+                },
+                {
+                    "names": {
+                        "Japanese": "映画ドラえもん のび太と奇跡の島 ~アニマルアドベンチャー~ (予告映像)"
+                    },
+                    "track_length": "Unknown"
+                },
+                {
+                    "names": {
+                        "Japanese": "生きてる生きてく (予告映像) (福山雅治出演)"
+                    },
+                    "track_length": "Unknown"
+                }
+            ]
+        }
+    ],
+    "distributor": {
+        "link": "org/532",
+        "names": {
+            "en": "UNIVERSAL MUSIC LLC",
+            "ja": "ユニバーサルミュージック合同会社",
+            "ja-latn": "UNIVERSAL MUSIC LLC"
+        },
+        "role": "distributor"
+    },
+    "link": "album/96418",
+    "lyricists": [
+        {
+            "link": "artist/9506",
+            "names": {
+                "en": "Masaharu Fukuyama",
+                "ja": "福山雅治"
+            }
+        }
+    ],
+    "media_format": "DVD",
+    "meta": {
+        "added_date": "2020-02-16T14:47",
+        "edited_date": "2020-07-04T04:48",
+        "fetched_date": "2021-12-11T19:28",
+        "ttl": 86400,
+        "visitors": 380
+    },
+    "name": "\"Ikiteru Ikiteku\" TV Ver. with Masaaki & Fukurajyo / Masaharu Fukuyama",
+    "names": {
+        "en": "\"Ikiteru Ikiteku\" TV Ver. with Masaaki & Fukurajyo / Masaharu Fukuyama",
+        "ja": "「生きてる生きてく」TV Ver. with 雅秋&フクラージョ / 福山雅治",
+        "ja-latn": "\"Ikiteru Ikiteku\" TV Ver. with Masaaki & Fukurajyo / Masaharu Fukuyama"
+    },
+    "notes": "Anime Film \"Doraemon: Nobita to Kiseki no Shima ~Animal Adventure~\" Theme Song",
+    "organizations": [
+        {
+            "link": "org/2380",
+            "names": {
+                "en": "Universal Music",
+                "ja": "Universal Music",
+                "ja-latn": "Universal Music"
+            },
+            "role": "label"
+        },
+        {
+            "link": "org/532",
+            "names": {
+                "en": "UNIVERSAL MUSIC LLC",
+                "ja": "ユニバーサルミュージック合同会社",
+                "ja-latn": "UNIVERSAL MUSIC LLC"
+            },
+            "role": "distributor"
+        }
+    ],
+    "performers": [
+        {
+            "link": "artist/9506",
+            "names": {
+                "en": "Masaharu Fukuyama",
+                "ja": "福山雅治"
+            }
+        }
+    ],
+    "picture_full": "https://media.vgm.io/albums/81/96418/96418-1581893265.jpg",
+    "picture_small": "https://medium-media.vgm.io/albums/81/96418/96418-1581893265.jpg",
+    "picture_thumb": "https://thumb-media.vgm.io/albums/81/96418/96418-1581893265.jpg",
+    "platforms": [
+        "Movie"
+    ],
+    "products": [
+        {
+            "link": "product/5472",
+            "names": {
+                "en": "Eiga Doraemon: Nobita to Kiseki no Shima ~Animal Adventure~",
+                "ja": "映画 ドラえもん のび太と奇跡の島 ~アニマル アドベンチャー~",
+                "ja-latn": "Eiga Doraemon: Nobita to Kiseki no Shima ~Animal Adventure~"
+            }
+        }
+    ],
+    "publish_format": "Commercial",
+    "publisher": {
+        "link": "org/2380",
+        "names": {
+            "en": "Universal Music",
+            "ja": "Universal Music",
+            "ja-latn": "Universal Music"
+        },
+        "role": "label"
+    },
+    "related": [
+        {
+            "catalog": "UUCH-5081",
+            "date": "2012-03-28",
+            "link": "album/96419",
+            "names": {
+                "en": "Ikiteru Ikiteku / Masaharu Fukuyama",
+                "ja": "生きてる生きてく / 福山雅治",
+                "ja-latn": "Ikiteru Ikiteku / Masaharu Fukuyama"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "UUCH-9043",
+            "date": "2012-03-28",
+            "link": "album/96420",
+            "names": {
+                "en": "Ikiteru Ikiteku / Masaharu Fukuyama [Limited Ed...",
+                "ja": "生きてる生きてく / 福山雅治",
+                "ja-latn": "Ikiteru Ikiteku / Masaharu Fukuyama [Limited Ed..."
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "UUCH-9044",
+            "date": "2012-03-28",
+            "link": "album/96421",
+            "names": {
+                "en": "Ikiteru Ikiteku / Masaharu Fukuyama [Limited Ed...",
+                "ja": "生きてる生きてく / 福山雅治",
+                "ja-latn": "Ikiteru Ikiteku / Masaharu Fukuyama [Limited Ed..."
+            },
+            "type": "anime"
+        }
+    ],
+    "release_date": "2012-02-22",
+    "release_events": [],
+    "release_price": {
+        "currency": "JPY",
+        "price": 525.0
+    },
+    "reprints": [],
+    "vgmdb_link": "https://vgmdb.net/album/96418?perpage=99999",
+    "votes": 0
+}
+

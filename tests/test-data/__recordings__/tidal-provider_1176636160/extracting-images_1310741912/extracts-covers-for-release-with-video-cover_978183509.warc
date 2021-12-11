@@ -1,0 +1,144 @@
+WARC/1.1
+WARC-Filename: tidal provider/extracting images/extracts covers for release with video cover
+WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:5ee09a05-eee2-479d-a41d-72dd41c402f1>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:aeb6d2cc-e0a5-41c3-9822-1683c5d459ad>
+WARC-Target-URI: https://listen.tidal.com/v1/ping
+WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:d31e7b9a-75b4-47a4-b466-ac67a61815a3>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:a4291b722c9f4e08c6aeac93fdb1c1506f4ab5f0e747a8ea7b6501609fe69d5f
+Content-Length: 25
+
+GET /v1/ping HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:aeb6d2cc-e0a5-41c3-9822-1683c5d459ad>
+WARC-Target-URI: https://listen.tidal.com/v1/ping
+WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:0fe4d775-537f-4930-b646-b9ae07ea2e62>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:f76a6cb95081bff28df1493598ec553cab02393dbaf6ac174e647e24fe2253be
+WARC-Block-Digest: sha256:f76a6cb95081bff28df1493598ec553cab02393dbaf6ac174e647e24fe2253be
+Content-Length: 348
+
+harEntryId: 47c39b1a5162a6c91ca5b413317109d4
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:46.769Z
+time: 306
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":306,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 51
+warcRequestCookies: []
+warcResponseHeadersSize: 393
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://listen.tidal.com/v1/ping
+WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:aeb6d2cc-e0a5-41c3-9822-1683c5d459ad>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3
+WARC-Block-Digest: sha256:c21feaff999aaf76fb487be55b34780b86d492189856baec8a6ea43a53c51796
+Content-Length: 412
+
+HTTP/1.1 200 OK
+cache-control: no-cache
+connection: close
+content-length: 2
+content-type: text/plain
+date: Sat, 11 Dec 2021 20:26:47 GMT
+server: noyb
+via: 1.1 ffe6c29ca0993b4638edf6dcc08181b4.cloudfront.net (CloudFront)
+x-amz-cf-id: Y_tCpISuvEBW2nwqjqKm4WMB22tZi0n4GBUWeNvdlhCvpOOQyDkJtw==
+x-amz-cf-pop: CDG52-P1
+x-cache: Miss from cloudfront
+x-pollyjs-finalurl: https://listen.tidal.com/v1/ping
+
+OK
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:8f70e278-2fc8-4b15-b2fd-13dde5de59ce>
+WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=171032759&countryCode=NL&deviceType=BROWSER
+WARC-Date: 2021-12-11T20:26:47.418Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:9260634c-9c09-4143-8fb1-b64539c92db0>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:c6cbf444eda4b7451acd2c90d10212761a67ec7b5a02f517096cb1450dc59664
+Content-Length: 117
+
+GET /v1/pages/album?albumId=171032759&countryCode=NL&deviceType=BROWSER HTTP/1.1
+x-tidal-token: CzET4vdadNUFQ5JU
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:8f70e278-2fc8-4b15-b2fd-13dde5de59ce>
+WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=171032759&countryCode=NL&deviceType=BROWSER
+WARC-Date: 2021-12-11T20:26:47.418Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:f1822dda-cd44-4d05-993c-3e3d66860cd7>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:8809ef87b3e1aa98baab8dd6b74a7ac82bcdd7a37eed98a4b25727652264d93b
+WARC-Block-Digest: sha256:8809ef87b3e1aa98baab8dd6b74a7ac82bcdd7a37eed98a4b25727652264d93b
+Content-Length: 349
+
+harEntryId: c77873e2c8d87b184c964c6c0445b419
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:47.077Z
+time: 337
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":337,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 141
+warcRequestCookies: []
+warcResponseHeadersSize: 574
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=171032759&countryCode=NL&deviceType=BROWSER
+WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:8f70e278-2fc8-4b15-b2fd-13dde5de59ce>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:9c73d4179ac9fdfc1b0eecd9af7c3f4dd3eeea1e16e9063f82d98c16445123ec
+WARC-Block-Digest: sha256:921c6bb1f6da92370d71cdf92b657b3e00c753b41f5a5969b96d697fdf6be962
+Content-Length: 4233
+
+HTTP/1.1 200 OK
+cache-control: private, max-age=60, s-max-age=60,
+connection: close
+content-length: 3642
+content-type: application/json;charset=UTF-8
+date: Sat, 11 Dec 2021 20:26:47 GMT
+etag: "1286202799"
+server: noyb
+vary: x-tidal-sessionid,x-tidal-token,authorization
+via: 1.1 7d935e83126b0b85ded112b940f9c85d.cloudfront.net (CloudFront)
+x-amz-cf-id: PlseWJUjqx2xNEus43rKNN05OErMGPax2pizq6YENdLodUDRPt4MIg==
+x-amz-cf-pop: CDG52-P1
+x-cache: Miss from cloudfront
+x-pollyjs-finalurl: https://listen.tidal.com/v1/pages/album?albumId=171032759&countryCode=NL&deviceType=BROWSER
+
+{"selfLink":null,"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzfQ==","title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","rows":[{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiOTg3YjJiZGUtMGE5MS00YzYxLWFkNGItNzllYzdkNGY5NmU0IiwibVYiOjEsIm1IIjoiYTRkNjQ0NWEifQ==","type":"ALBUM_HEADER","width":100,"title":"","description":"","preTitle":"","album":{"id":171032759,"title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","duration":193,"streamReady":true,"streamStartDate":"2021-02-12T00:00:00.000+0000","allowStreaming":true,"numberOfTracks":1,"numberOfVideos":0,"numberOfVolumes":1,"releaseDate":"2021-02-12","copyright":"(P) 2021 The Wild Children, LLC under exclusive license to Three Six Zero Recordings/Sony Music Entertainment","type":"SINGLE","version":null,"url":"http://www.tidal.com/album/171032759","cover":"72c1e674-70ca-4442-a530-0f00b0ef354a","videoCover":"9cc2842e-7430-4280-a7ba-4e06eec9ab3f","explicit":false,"popularity":0,"audioQuality":"HI_RES","audioModes":["STEREO"],"artists":[{"picture":"43d88a75-b76c-437f-8892-b8c7fe151fb3","name":"NEZ","id":20699717,"type":"MAIN"},{"picture":"4b9d0b7b-f972-435a-ac3e-639b407fe0bc","name":"ScHoolboy Q","id":3882537,"type":"FEATURED"}]},"review":{"text":null,"source":null},"credits":{"items":[]},"playbackControls":[{"shuffle":false,"playbackMode":"PLAY","title":"Play","icon":"play_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiZDk1N2I2ZjcifQ=="},{"shuffle":true,"playbackMode":"SHUFFLE","title":"Shuffle","icon":"shuffle_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiZDk1N2I2ZjcifQ=="}]}]},{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiZDk1N2I2ZjcifQ==","type":"ALBUM_ITEMS","width":100,"title":"","description":"","preTitle":null,"showMore":null,"supportsPaging":false,"quickPlay":false,"copyright":"(P) 2021 The Wild Children, LLC under exclusive license to Three Six Zero Recordings/Sony Music Entertainment","releaseDate":"2021-02-12","listFormat":"NUMBERS","pagedList":{"limit":9999,"offset":0,"totalNumberOfItems":1,"items":[{"item":{"duration":193,"version":null,"url":"https://tidal.com/browse/track/171032760","editable":false,"trackNumber":1,"volumeNumber":1,"title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","mixes":{"MASTER_TRACK_MIX":"0146c3e3ea420c3b8440c8d4845aa8","TRACK_MIX":"0011fb8ceb3f1ac3b3ad78d0b5e07e"},"audioModes":["STEREO"],"artists":[{"id":20699717,"name":"NEZ","type":"MAIN","picture":"43d88a75-b76c-437f-8892-b8c7fe151fb3"},{"id":3882537,"name":"ScHoolboy Q","type":"FEATURED","picture":"4b9d0b7b-f972-435a-ac3e-639b407fe0bc"}],"album":{"id":171032759,"title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","cover":"72c1e674-70ca-4442-a530-0f00b0ef354a","vibrantColor":"#FFFFFF","videoCover":"9cc2842e-7430-4280-a7ba-4e06eec9ab3f","url":"https://tidal.com/browse/album/171032759","releaseDate":"2021-02-12"},"audioQuality":"HI_RES","streamReady":true,"streamStartDate":"2021-02-12T00:00:00.000+0000","allowStreaming":true,"explicit":false,"popularity":1,"replayGain":-6.56,"id":171032760},"type":"track"}],"dataApiPath":"pages/data/2fbf68c2-dc58-49b1-b1be-6958e66383f3?albumId=171032759"},"playButton":true,"shuffleButton":true}]}]}
+

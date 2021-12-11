@@ -1,0 +1,126 @@
+WARC/1.1
+WARC-Filename: melon provider/extracting images/throws on non-existent release
+WARC-Date: 2021-12-11T20:26:41.880Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:e4427c0b-95a5-45a6-872a-dfbbd0c6d9e1>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:aaf82704-a1cb-4c9e-8475-9e032f1f5044>
+WARC-Target-URI: https://www.melon.com/album/detail.htm?albumId=0
+WARC-Date: 2021-12-11T20:26:41.881Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:7aa7df35-cc88-49c3-976d-bf7a5e941853>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:14c5da789e58486efa533734b8f3769505d9efa2c4dccad8b1a260df1b89533f
+Content-Length: 44
+
+GET /album/detail.htm?albumId=0 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:aaf82704-a1cb-4c9e-8475-9e032f1f5044>
+WARC-Target-URI: https://www.melon.com/album/detail.htm?albumId=0
+WARC-Date: 2021-12-11T20:26:41.881Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:30611691-3ca3-4629-8833-95f4b338af5b>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:009d662d935ceea54bd733e6f4787bde719041736d303c81a698ebfc9fcc0edc
+WARC-Block-Digest: sha256:009d662d935ceea54bd733e6f4787bde719041736d303c81a698ebfc9fcc0edc
+Content-Length: 348
+
+harEntryId: 09878efe059a0c4b8c0d4fe341f04f96
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:40.922Z
+time: 953
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":953,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 67
+warcRequestCookies: []
+warcResponseHeadersSize: 301
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.melon.com/album/detail.htm?albumId=0
+WARC-Date: 2021-12-11T20:26:41.880Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:aaf82704-a1cb-4c9e-8475-9e032f1f5044>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:d3d5aacad196bd461e6664561e9e1c33f05d3145a15db7fd80a0a8f200c50bfd
+WARC-Block-Digest: sha256:6c7bc93711b6b3140a12f70a0cfc3ae18d769427660bcd0bbd341507794734ee
+Content-Length: 2427
+
+HTTP/1.1 200 OK
+cache-control: no-cache
+connection: close
+content-encoding: gzip
+content-language: ko-KR
+content-length: 755
+content-type: text/html;charset=UTF-8
+date: Sat, 11 Dec 2021 20:26:41 GMT
+server: Apache
+vary: Accept-Encoding
+x-pollyjs-finalurl: https://www.melon.com/album/detail.htm?albumId=0
+
+
+<div id="conts" data-targetId="album">
+	<input type="hidden" id="targetId" value="album" />
+</div>
+<input type="hidden" id="returnUrl" value="" />
+<script type="text/javascript">
+	var targetId = document.getElementById("targetId").value;
+	if(targetId == "artist") {
+		alert('존재하지 않는 아티스트 정보입니다.');
+	} else if(targetId == "album") {
+		alert('존재하지 않는 앨범 정보입니다.');
+	} else if(targetId == "song") {
+		alert('존재하지 않는 곡 정보입니다.');
+	} else if(targetId == "video") {
+		alert('존재하지 않는 영상 정보입니다.');
+	} else if(targetId == "hidden_video") {
+		alert('비공개된 컨텐츠입니다.');
+	} else if(targetId == "playlist") {
+		alert('존재하지 않는 플레이리스트 정보입니다.');
+	} else if(targetId == "perf") {
+		alert('존재하지 않는 공연 정보입니다.');
+	} else if(targetId == "mstory") {
+		alert('삭제된 페이지입니다. \n뮤직스토리 목록으로 돌아갑니다.');
+    } else if(targetId == "entnews") {
+        alert('삭제된 기사입니다. \n확인을 누르시면 뮤직스토리 메인으로 이동합니다.');
+	} else if(targetId == "hidden_playlist") {
+		alert('비공개된 플레이리스트 정보입니다.');
+	} else if(targetId == "private") {
+		alert('맺은팬 전용 콘텐츠 입니다.');
+	} else if(targetId == "theme") {
+		alert('존재하지 않는 테마입니다.');
+	} else if(targetId == "story") {
+		alert('존재하지 않는 스토리입니다.');		
+	} else if(targetId == "nowplaying") {
+        alert('존재하지 않는 나우플레잉입니다.');
+    } else if(targetId == "fanMagaz"){
+        alert('이 콘텐츠는 모바일 환경에서 확인해 주세요.');
+	} else if(targetId == "tsSong") {
+		alert('권리침해 신고에 의해 임시조치 되었습니다.');
+	} else {
+		alert('잘못된 접근입니다.');
+	}
+
+	var returnUrl = document.getElementById("returnUrl").value;
+	if(returnUrl == "") {
+		window.history.back();
+	} else {
+		location.href = returnUrl;
+	}
+</script>
+
+

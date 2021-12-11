@@ -1,0 +1,130 @@
+WARC/1.1
+WARC-Filename: amazon provider/extracting images/throws on non-existent release
+WARC-Date: 2021-12-11T20:26:56.102Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:8c569c95-bdd0-486a-bc0e-77e487dc6083>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:77eddd0b-5147-461e-b975-36d6ba87b86a>
+WARC-Target-URI: http://amazon.com/gp/product/B01NCKFNXH
+WARC-Date: 2021-12-11T20:26:56.103Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:125a0ace-0fb8-4e54-b53c-9d38e0989a21>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:e949af39d7cdef7092b766c1e0ad5e829d3f519c7bbb15ac8704a129d86639e5
+Content-Length: 39
+
+GET /gp/product/B01NCKFNXH HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:77eddd0b-5147-461e-b975-36d6ba87b86a>
+WARC-Target-URI: http://amazon.com/gp/product/B01NCKFNXH
+WARC-Date: 2021-12-11T20:26:56.103Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:8c437fb7-6309-4170-a1fa-c830793ff367>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:7486dcc624cfb5359843be712af0a2b602b70a604e5cc0a4248d433cddc23e94
+WARC-Block-Digest: sha256:7486dcc624cfb5359843be712af0a2b602b70a604e5cc0a4248d433cddc23e94
+Content-Length: 602
+
+harEntryId: 21ab56b0267a51c83dc0404e7d1e2051
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T20:26:54.810Z
+time: 1291
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1291,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 58
+warcRequestCookies: []
+warcResponseHeadersSize: 1224
+warcResponseCookies: [{"name":"session-id","value":"144-2143485-0776117","domain":".amazon.com","expires":"2022-12-11T20:26:55.000Z","path":"/","secure, session-id-time":"2082787201l","secure, i18n-prefs":"USD","version":"1","maxAge":31536000,"secure":true,"httpOnly":true}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: http://amazon.com/gp/product/B01NCKFNXH
+WARC-Date: 2021-12-11T20:26:56.102Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:77eddd0b-5147-461e-b975-36d6ba87b86a>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:608ace39565e07773dd3de0b4b78cccb74933760e9f02d3811a6e0dc162a2ca4
+WARC-Block-Digest: sha256:27c584952471b7e08494d4d9af9523b6ff518897af5dc9eda768d5adbaec3c4d
+Content-Length: 3546
+
+HTTP/1.1 404 Not Found
+accept-ch: ect,rtt,downlink
+accept-ch-lifetime: 86400
+akamai-cache-status: Miss
+cache-control: no-cache, no-transform
+connection: close
+content-encoding: gzip
+content-length: 1149
+content-type: text/html;charset=UTF-8
+date: Sat, 11 Dec 2021 20:26:56 GMT
+p3p: policyref="https://www.amazon.com/w3c/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA HEA PRE LOC GOV OTC "
+permissions-policy: interest-cohort=()
+server: Server
+set-cookie: session-id=144-2143485-0776117; Domain=.amazon.com; Expires=Sun, 11-Dec-2022 20:26:55 GMT; Path=/; Secure, session-id-time=2082787201l; Domain=.amazon.com; Expires=Sun, 11-Dec-2022 20:26:55 GMT; Path=/; Secure, i18n-prefs=USD; Domain=.amazon.com; Expires=Sun, 11-Dec-2022 20:26:55 GMT; Path=/, sp-cdn="L5Z9:NL"; Version=1; Domain=.amazon.com; Max-Age=31536000; Expires=Sun, 11-Dec-2022 20:26:55 GMT; Path=/; Secure; HttpOnly
+strict-transport-security: max-age=47474747; includeSubDomains; preload
+vary: Accept-Encoding
+x-amz-rid: BFYE6HN34ZCA5RW9Y1YK
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1;
+x-pollyjs-finalurl: https://www.amazon.com/gp/product/B01NCKFNXH
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+      Page Not Found
+    </title>
+    <style>
+      html,body{padding:0;margin:0}img{border:0}#a{background:#232f3e;padding:11px 11px 11px 192px}#b{position:absolute;left:22px;top:12px}#c{position:relative;max-width:800px;padding:0 40px 0 0}#e,#f{height:35px;border:0;font-size:1em}#e{width:100%;margin:0;padding:0 10px;border-radius:4px 0 0 4px}#f{cursor:pointer;background:#febd69;font-weight:bold;border-radius:0 4px 4px 0;-webkit-appearance:none;position:absolute;top:0;right:0;padding:0 12px}@media(max-width:500px){#a{padding:55px 10px 10px}#b{left:6px}}#g{text-align:center;margin:30px 0}#g img{max-width:90%}#d{display:none}#d[src]{display:inline}
+    </style>
+  </head>
+  <body>
+    <!--
+    To discuss automated access to Amazon data please contact api-services-support@amazon.com.
+
+For information about migrating to our APIs refer to our Marketplace APIs at https://developer.amazonservices.com/ref=rm_5_sv, or our Product Advertising API at https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html/ref=rm_5_ac for advertising use cases.
+    -->
+  <a href="/">
+    <img id="b" src="https://images-na.ssl-images-amazon.com/images/G/01/error/logo._TTD_.png" alt="Amazon"/>
+  </a>
+  <form id="a" accept-charset="utf-8" action="/s" method="GET" role="search">
+    <div id="c">
+      <input id="e" name="field-keywords" placeholder="Search">
+      <input id="f" type="submit" value="Go">
+    </div>
+  </form>
+    <div id="g">
+      <div>
+        <a href="/">
+          <img src="https://images-na.ssl-images-amazon.com/images/G/01/error/en_US/title._TTD_.png"
+               alt="Sorry! We couldn't find that page. Try searching or go to Amazon's home page."/>
+        </a>
+      </div>
+      <a href="/dogsofamazon" target="_blank" rel="noopener noreferrer">
+        <img id="d" alt="Dogs of Amazon">
+      </a>
+      <script>
+        document.getElementById("d").src="https://images-na.ssl-images-amazon.com/images/G/01/error/en_US/" + (Math.floor(Math.random() *200) + 1) + "._TTD_.jpg";
+      </script>
+    </div>
+  </body>
+</html>
+<!-- 806ac919 -->
+

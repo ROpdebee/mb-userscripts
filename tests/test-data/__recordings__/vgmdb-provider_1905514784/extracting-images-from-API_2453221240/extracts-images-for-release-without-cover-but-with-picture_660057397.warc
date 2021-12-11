@@ -1,0 +1,361 @@
+WARC/1.1
+WARC-Filename: vgmdb provider/extracting images from API/extracts images for release without cover, but with picture
+WARC-Date: 2021-12-11T21:50:03.954Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:2d570c4a-8bd4-4fe6-b510-9f7eb6b678de>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:36c44f20-dfd4-41eb-99bf-46b1260909fb>
+WARC-Target-URI: https://vgmdb.info/album/90871?format=json
+WARC-Date: 2021-12-11T21:50:03.954Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:aa650a91-fbdd-447d-b625-5d8511496bb7>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:17122d259b75715264cc525cb38d257b9355eee375dfb9d860236655f946a538
+Content-Length: 41
+
+GET /album/90871?format=json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:36c44f20-dfd4-41eb-99bf-46b1260909fb>
+WARC-Target-URI: https://vgmdb.info/album/90871?format=json
+WARC-Date: 2021-12-11T21:50:03.954Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:39b1f75c-9b31-49d2-af50-6023cda61687>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:758ecc8deeec685e57137f0a8d5b096f93fb031c51499b2bbad9ebc1655586c2
+WARC-Block-Digest: sha256:758ecc8deeec685e57137f0a8d5b096f93fb031c51499b2bbad9ebc1655586c2
+Content-Length: 349
+
+harEntryId: 1450ae0fc86b63bce3149e661869d9a2
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-11T21:50:03.408Z
+time: 544
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":544,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 61
+warcRequestCookies: []
+warcResponseHeadersSize: 1061
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://vgmdb.info/album/90871?format=json
+WARC-Date: 2021-12-11T21:50:03.954Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:36c44f20-dfd4-41eb-99bf-46b1260909fb>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:6d936fcbf8dcee3818f0add8e70b5f60a9a02ab67a01909de13a647762f54f20
+WARC-Block-Digest: sha256:4ad740cf601a0db2027270fb6bed792df604196853197d1475a7f738920defbd
+Content-Length: 9166
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Origin, User-Agent, If-Modified-Since, Cache-Control
+access-control-allow-methods: GET, HEAD, OPTIONS
+access-control-allow-origin: *
+alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443"; ma=86400
+cache-control: max-age:86400,public
+cf-cache-status: DYNAMIC
+cf-ray: 6bc1ed28fedd6d6e-MUC
+connection: close
+content-encoding: br
+content-type: application/json; charset=utf-8
+date: Sat, 11 Dec 2021 21:50:04 GMT
+expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+last-modified: Wed, 25 Sep 2019 13:54:00 +0000
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=ISlawFVZiH6xRtRgEfJULwEHzoeK3unNJza2vro33P0OVY1fHqXc%2BixhAp62MqX7qDbIHkP0IcqtUe4PJjxp5mPX5FW4KYTigSzxP4%2BS9Gvr9K18w036t29P0DUr"}],"group":"cf-nel","max_age":604800}
+server: cloudflare
+transfer-encoding: chunked
+x-pollyjs-finalurl: https://vgmdb.info/album/90871?format=json
+
+{
+    "arrangers": [
+        {
+            "link": "artist/32355",
+            "names": {
+                "en": "vistlip"
+            }
+        }
+    ],
+    "barcode": "4535506090416",
+    "catalog": "MJSS-09041~2",
+    "categories": [
+        "Animation"
+    ],
+    "category": "Animation",
+    "classification": "Vocal",
+    "composers": [
+        {
+            "link": "artist/32356",
+            "names": {
+                "en": "Tohya"
+            }
+        }
+    ],
+    "covers": [],
+    "discs": [
+        {
+            "disc_length": "12:04",
+            "name": "Disc 1 (CD) [MJSS-09041]",
+            "tracks": [
+                {
+                    "names": {
+                        "English": "-OZONE-"
+                    },
+                    "track_length": "4:39"
+                },
+                {
+                    "names": {
+                        "English": "TWISTER"
+                    },
+                    "track_length": "3:12"
+                },
+                {
+                    "names": {
+                        "English": "Mr.Grim"
+                    },
+                    "track_length": "4:13"
+                }
+            ]
+        },
+        {
+            "disc_length": "Unknown",
+            "name": "Disc 2 (DVD) [MJSS-09042]",
+            "tracks": [
+                {
+                    "names": {
+                        "English": "-OZONE- (VIDEO CLIP)"
+                    },
+                    "track_length": "Unknown"
+                }
+            ]
+        }
+    ],
+    "distributor": {
+        "link": "org/136",
+        "names": {
+            "en": "Sony Music Distribution (Japan) Inc.",
+            "ja": "株式会社ソニー・ミュージックディストリビューション",
+            "ja-latn": "Sony Music Distribution (Japan) Inc."
+        },
+        "role": "distributor"
+    },
+    "link": "album/90871",
+    "lyricists": [
+        {
+            "link": "artist/32357",
+            "names": {
+                "en": "tomo",
+                "ja": "智"
+            }
+        }
+    ],
+    "media_format": "CD + DVD",
+    "meta": {
+        "added_date": "2019-09-25T13:52",
+        "edited_date": "2019-09-25T13:54",
+        "fetched_date": "2021-12-11T19:29",
+        "ttl": 86400,
+        "visitors": 490
+    },
+    "name": "-OZONE- / vistlip [vister]",
+    "names": {
+        "en": "-OZONE- / vistlip [vister]",
+        "ja": "-OZONE- / vistlip [vister]",
+        "ja-latn": "-OZONE- / vistlip [vister]"
+    },
+    "notes": "M-01 - TV Anime \"YU-GI-OH! 5D's\" 3rd Ending Theme",
+    "organizations": [
+        {
+            "link": "org/2818",
+            "names": {
+                "en": "MMV",
+                "ja": "MMV",
+                "ja-latn": "MMV"
+            },
+            "role": "label"
+        },
+        {
+            "link": "org/60",
+            "names": {
+                "en": "Marvelous Entertainment Inc.",
+                "ja": "株式会社 マーベラスエンターテイメント",
+                "ja-latn": "Marvelous Entertainment Inc."
+            },
+            "role": "manufacturer"
+        },
+        {
+            "link": "org/136",
+            "names": {
+                "en": "Sony Music Distribution (Japan) Inc.",
+                "ja": "株式会社ソニー・ミュージックディストリビューション",
+                "ja-latn": "Sony Music Distribution (Japan) Inc."
+            },
+            "role": "distributor"
+        }
+    ],
+    "performers": [
+        {
+            "link": "artist/32355",
+            "names": {
+                "en": "vistlip"
+            }
+        }
+    ],
+    "picture_full": "https://media.vgm.io/albums/17/90871/90871-1569448344.jpg",
+    "picture_small": "https://medium-media.vgm.io/albums/17/90871/90871-1569448344.jpg",
+    "picture_thumb": "https://thumb-media.vgm.io/albums/17/90871/90871-1569448344.jpg",
+    "platforms": [
+        "Series"
+    ],
+    "products": [
+        {
+            "link": "product/2247",
+            "names": {
+                "en": "YU-GI-OH! 5D's",
+                "ja": "遊☆戯☆王5D's",
+                "ja-latn": "YU-GI-OH! 5D's"
+            }
+        }
+    ],
+    "publish_format": "Commercial",
+    "publisher": {
+        "link": "org/2818",
+        "names": {
+            "en": "MMV",
+            "ja": "MMV",
+            "ja-latn": "MMV"
+        },
+        "role": "label"
+    },
+    "related": [
+        {
+            "catalog": "KICM-91234",
+            "link": "album/105474",
+            "names": {
+                "en": "Kizuna / Kra",
+                "ja": "絆-キズナ- / Kra",
+                "ja-latn": "Kizuna / Kra"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "KICM-1234",
+            "link": "album/105191",
+            "names": {
+                "en": "Kizuna / Kra",
+                "ja": "絆-キズナ- / Kra",
+                "ja-latn": "Kizuna / Kra"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "MJCD-23042",
+            "link": "album/105475",
+            "names": {
+                "en": "START/Sun will shine away / Masataka Nakagauchi",
+                "ja": "START/Sun will shine away / 中河内雅貴",
+                "ja-latn": "START/Sun will shine away / Masataka Nakagauchi"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "MJCD-23043",
+            "link": "album/105193",
+            "names": {
+                "en": "START/Sun will shine away / Masataka Nakagauchi",
+                "ja": "START/Sun will shine away / 中河内雅貴",
+                "ja-latn": "START/Sun will shine away / Masataka Nakagauchi"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "MJCD-23055",
+            "link": "album/105156",
+            "names": {
+                "en": "LAST TRAIN -Atarashii Asa- / knotlamp",
+                "ja": "LAST TRAIN -新しい朝- / knotlamp",
+                "ja-latn": "LAST TRAIN -Atarashii Asa- / knotlamp"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "MJCD-20136",
+            "link": "album/26434",
+            "names": {
+                "en": "YU-GI-OH! 5D's SOUND DUEL 01",
+                "ja": "遊戯王5D's SOUND DUEL 01",
+                "ja-latn": "YU-GI-OH! 5D's SOUND DUEL 01"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "KICM-91260",
+            "link": "album/105477",
+            "names": {
+                "en": "CROSS GAME / Alice Nine",
+                "ja": "CROSS GAME / アリス九號.",
+                "ja-latn": "CROSS GAME / Alice Nine"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "KICM-1260",
+            "link": "album/105195",
+            "names": {
+                "en": "CROSS GAME / Alice Nine",
+                "ja": "CROSS GAME / アリス九號.",
+                "ja-latn": "CROSS GAME / Alice Nine"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "MJCD-23064",
+            "link": "album/90870",
+            "names": {
+                "en": "-OZONE- / vistlip [vister]",
+                "ja": "-OZONE- / vistlip [vister]",
+                "ja-latn": "-OZONE- / vistlip [vister]"
+            },
+            "type": "anime"
+        },
+        {
+            "catalog": "MJCD-23067",
+            "link": "album/92511",
+            "names": {
+                "en": "FREEDOM/You say... Ashita e / La-Vie.",
+                "ja": "FREEDOM/You say...明日へ / La-Vie.",
+                "ja-latn": "FREEDOM/You say... Ashita e / La-Vie."
+            },
+            "type": "anime"
+        }
+    ],
+    "release_date": "2011-07-06",
+    "release_events": [],
+    "release_price": {
+        "currency": "JPY",
+        "price": 1890.0
+    },
+    "reprints": [
+        {
+            "catalog": "MJCD-23064",
+            "link": "album/90870",
+            "note": ""
+        }
+    ],
+    "vgmdb_link": "https://vgmdb.net/album/90871?perpage=99999",
+    "votes": 0
+}
+
