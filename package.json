@@ -43,7 +43,7 @@
     "@types/greasemonkey": "4.0.2",
     "@types/jest": "27.0.3",
     "@types/jest-when": "2.7.3",
-    "@types/jquery": "3.5.9",
+    "@types/jquery": "3.5.10",
     "@types/pollyjs__adapter": "4.3.1",
     "@types/pollyjs__adapter-fetch": "2.0.1",
     "@types/pollyjs__adapter-node-http": "2.0.1",
