@@ -1,35 +1,12 @@
 // GM_xmlhttpRequest adapter for pollyjs
-import type { Headers as PollyHeaders, Request } from '@pollyjs/core';
 import { Buffer } from 'buffer';
-import Adapter from '@pollyjs/adapter';
 import fetch from 'node-fetch';
-import { mockGMxmlHttpRequest } from './gm_mocks';
+import type { Request } from '@pollyjs/core';
+import Adapter from '@pollyjs/adapter';
+
 import { assertDefined } from '@lib/util/assert';
-
-function pollyHeadersToString(headers: PollyHeaders): string {
-    return Object.entries(headers).flatMap(([k, v]) => {
-        if (!Array.isArray(v)) return [`${k}: ${v}`];
-        else {
-            return v.map((vi) => `${k}: ${vi}`);
-        }
-    }).join('\r\n');
-}
-
-function pollyHeadersToFetchHeaders(pollyHeaders: PollyHeaders): Headers {
-    const headersInit: Record<string, string> = {};
-    Object.entries(pollyHeaders).forEach(([k, v]) => {
-        headersInit[k] = Array.isArray(v) ? v[0] : v;
-    });
-    return new Headers(headersInit);
-}
-
-function fetchHeadersToPollyHeaders(fetchHeaders: Headers): PollyHeaders {
-    const pollyHeaders: Record<string, string> = {};
-    fetchHeaders.forEach((v, k) => {
-        pollyHeaders[k] = v;
-    });
-    return pollyHeaders;
-}
+import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
+import { CRLFHeaders, FetchHeaders, PollyHeaders } from '../headers';
 
 type RequestType<Context> = Request<GM.Request<Context>>
 
@@ -58,14 +35,14 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
 
     override async onFetchResponse(pollyRequest: RequestType<Context>): ReturnType<Adapter['onFetchResponse']> {
         const { responseType } = pollyRequest.requestArguments;
-        const headers = pollyHeadersToFetchHeaders(pollyRequest.headers);
+        const headers = FetchHeaders.fromPollyHeaders(pollyRequest.headers);
         const resp = await fetch(pollyRequest.url, {
             method: pollyRequest.method,
             headers: headers,
             body: pollyRequest.body,
         });
 
-        const pollyHeaders = fetchHeadersToPollyHeaders(resp.headers);
+        const pollyHeaders = PollyHeaders.fromFetchHeaders(resp.headers);
         // Storing the final URL after redirect, see `passthroughRealGMXHR`.
         pollyHeaders['x-pollyjs-finalurl'] = resp.url;
 
@@ -97,7 +74,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
 
         const resp: GM.Response<Context> = {
             readyState: 4,
-            responseHeaders: pollyHeadersToString(headers),
+            responseHeaders: CRLFHeaders.fromPollyHeaders(headers),
             status: response.statusCode,
             statusText: response.statusText,
             finalUrl: Array.isArray(finalUrl) ? finalUrl[0] : finalUrl,
@@ -107,16 +84,18 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
             response: null,
         };
 
+        if (!options.onload) return;
+
         if (response.encoding === 'base64') {
             const buffer = Buffer.from(response.body ?? '', 'base64');
             const arrayBuffer = Uint8Array.from(buffer);
             if (responseType === 'blob') {
-                options.onload?.({
+                options.onload({
                     ...resp,
                     response: new Blob([arrayBuffer]),
                 });
             } else if (responseType === 'arraybuffer') {
-                options.onload?.({
+                options.onload({
                     ...resp,
                     response: arrayBuffer,
                 });
@@ -124,7 +103,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
                 throw new Error('Unknown response type: ' + responseType);
             }
         } else {
-            options.onload?.({
+            options.onload({
                 ...resp,
                 responseText: response.body as string,
             });
