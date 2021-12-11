@@ -1,20 +1,21 @@
 import path from 'path';
 import type { PollyConfig } from '@pollyjs/core';
-import FSPersister from '@pollyjs/persister-fs';
 import type { Context } from 'setup-polly-jest';
 import { setupPolly as realSetupPolly } from 'setup-polly-jest';
 
-import GMXHRAdapter from './gmxhr-adapter';
 import fetch from 'node-fetch';
 import type { RequestInfo, RequestInit, Response } from 'node-fetch';
+
+import GMXHRAdapter from './gmxhr-adapter';
+import { WarcPersister } from './warc-persister';
 
 export function setupPolly(overrideOptions?: PollyConfig): Context {
     return realSetupPolly({
         adapters: [GMXHRAdapter],
         recordIfMissing: true,
-        persister: FSPersister,
+        persister: WarcPersister,
         persisterOptions: {
-            fs: {
+            'fs-warc': {
                 recordingsDir: path.resolve('.', 'tests', 'test-data', '__recordings__'),
             },
         },
