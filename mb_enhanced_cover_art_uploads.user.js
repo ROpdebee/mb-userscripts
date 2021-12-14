@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.12.7.3
+// @version      2021.12.14
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -828,7 +828,6 @@
     };
   } // Keys: First word of the VGMdb caption (mostly structured), lower-cased
   // Values: Either MappedArtwork or a callable taking the remainder of the caption and returning MappedArtwork
-
 
   var __CAPTION_TYPE_MAPPING = {
     front: ArtworkTypeIDs.Front,
@@ -2694,10 +2693,6 @@
     return MusikSammlerProvider;
   }(CoverArtProvider);
 
-  // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
-  // just use a constant app ID first.
-
-  var QOBUZ_APP_ID = '712109809';
   var QobuzProvider = /*#__PURE__*/function (_CoverArtProvider) {
     _inherits(QobuzProvider, _CoverArtProvider);
 
@@ -2789,6 +2784,15 @@
         return findImages;
       }()
     }], [{
+      key: "QOBUZ_APP_ID",
+      get: // Assuming this doesn't change often. If it does, we might have to extract it
+      // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
+      // just use a constant app ID first.
+      // Static getter instead of property so that we can spy on it in the tests.
+      function get() {
+        return '712109809';
+      }
+    }, {
       key: "idToCoverUrl",
       value: function idToCoverUrl(id) {
         var d1 = id.slice(-2);
@@ -2809,7 +2813,7 @@
                   _context2.next = 2;
                   return gmxhr("https://www.qobuz.com/api.json/0.2/album/get?album_id=".concat(id, "&offset=0&limit=20"), {
                     headers: {
-                      'x-app-id': QOBUZ_APP_ID
+                      'x-app-id': QobuzProvider.QOBUZ_APP_ID
                     }
                   });
 
@@ -3693,8 +3697,6 @@
   // it does not exist in tests, and we can't straightforwardly inject this variable
   // without importing the module, thereby dereferencing it.
 
-  /* istanbul ignore next: mocked out */
-
   function maxurl(url, options) {
     // In environments with GM.* APIs, the GM.getValue and GM.setValue functions
     // are asynchronous, leading to IMU defining its exports asynchronously too.
@@ -3705,7 +3707,6 @@
       $$IMU_EXPORT$$(url, options);
     }, 100, 500); // Pretty large number of retries, but eventually it should work.
   }
-
   var options = {
     fill_object: true,
     exclude_videos: true,
