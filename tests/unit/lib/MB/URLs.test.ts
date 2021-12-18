@@ -6,7 +6,6 @@ import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 // the risk of the tests being flaky if the requests are being passed through
 // after an edit is made on MB, but on the other hand, if something changes in
 // the API, we'll know it too.
-// eslint-disable-next-line jest/require-hook
 const pollyContext = setupPolly({
     adapters: [HttpAdapter],
 });

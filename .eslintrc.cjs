@@ -9,6 +9,7 @@ module.exports = {
         'eslint:recommended',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:eslint-comments/recommended',
     ],
     plugins: [
         '@typescript-eslint',
@@ -46,6 +47,8 @@ module.exports = {
         'jest/unbound-method': ['off'],
         'no-restricted-globals': ['error', 'origin'].concat(restrictedGlobals),
         '@delagen/deprecation/deprecation': ['warn'],
+        'eslint-comments/no-unused-disable': 'warn',
+        'eslint-comments/disable-enable-pair': ['warn', { allowWholeFile: true }],
     },
     overrides: [
         {

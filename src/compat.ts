@@ -1,7 +1,7 @@
 // Compatibility wrappers
-/* eslint-disable no-restricted-globals */
 // istanbul ignore file: Covered by E2E
 
+/* eslint-disable no-restricted-globals */
 function existsInGM(name: string): boolean {
     return typeof GM !== 'undefined' && typeof (GM as Record<string, unknown>)[name] !== 'undefined';
 }
@@ -33,6 +33,7 @@ export const GMinfo: typeof GM.info = existsInGM('info')
     // @ts-expect-error Old API.
     : GM_info;
 
+/* eslint-enable no-restricted-globals */
 
 /**
  * Clone an object to be usable in the page context (unsafeWindow).
