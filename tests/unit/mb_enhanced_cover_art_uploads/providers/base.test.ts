@@ -270,13 +270,15 @@ describe('providers with track images', () => {
         describe('deduplicating by content', () => {
             it('deduplicates images with identical thumbnail content', async () => {
                 when(mockXhr)
-                    // Always use the same blob by default.
-                    .mockResolvedValue(createXhrResponse({
-                        response: createBlob(),
-                    }))
-                    // Main image has different blob
+                    // Use specific blob for the main image
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                     .calledWith('https://example.com/x', expect.anything()).mockResolvedValue(createXhrResponse({
+                        response: createBlob(),
+                    }))
+                    // Always use the same image for any other request, but this
+                    // image is different from the previous one.
+                    // @ts-expect-error: Outdated typings, PR open
+                    .defaultResolvedValue(createXhrResponse({
                         response: createBlob(),
                     }));
 
