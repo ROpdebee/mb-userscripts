@@ -1,15 +1,15 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2021.5.23
+// @version      2021.12.18
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
 // @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_inline_recording_tracks.user.js
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_inline_recording_tracks.user.js
-// @match        *://*musicbrainz.org/release/*
-// @exclude      *://*musicbrainz.org/release/add
-// @exclude      *://*musicbrainz.org/release/*/*
+// @match        *://*.musicbrainz.org/release/*
+// @exclude      *://*.musicbrainz.org/release/add
+// @exclude      *://*.musicbrainz.org/release/*/edit*
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @run-at       document-end
 // @grant        none

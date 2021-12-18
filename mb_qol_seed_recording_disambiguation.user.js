@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Seed the batch recording comments script
-// @version      2021.6.7
+// @version      2021.12.18
 // @description  Seed the recording comments for the batch recording comments userscripts with live and DJ-mix data.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_seed_recording_disambiguation.user.js
 // @match        *://*.musicbrainz.org/release/*
 // @exclude      *://*.musicbrainz.org/release/add
-// @exclude      *://*.musicbrainz.org/release/*/*
+// @exclude      *://*.musicbrainz.org/release/*/edit*
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
