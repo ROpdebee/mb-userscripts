@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "5.6.0",
     "babel-plugin-transform-async-to-promises": "0.8.16",
     "confusing-browser-globals": "1.0.11",
-    "eslint": "8.4.1",
+    "eslint": "8.5.0",
     "eslint-plugin-jest": "25.3.0",
     "eslint-plugin-jest-formatting": "3.1.0",
     "jest": "27.4.5",
