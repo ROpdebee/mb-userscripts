@@ -45,6 +45,14 @@ export class AmazonProvider extends CoverArtProvider {
         const pageContent = await this.fetchPage(url);
         const pageDom = parseDOM(pageContent, url.href);
 
+        // Look for Audible buttons on standard product pages, as we can only
+        // extract 500px images from these pages. Prefer /hz/audible/mlp/mfpdp
+        // pages which should have the same image in its full resolution.
+        if (qsMaybe('.audible_mm_title', pageDom)) {
+            const audibleUrl = new URL(url.pathname.replace(/gp\/product|dp/, 'hz/audible/mlp/mfpdp'), url);
+            return this.findImages(audibleUrl);
+        }
+
         // Look for products which only have a single image, the front cover.
         const frontCover = this.#extractFrontCover(pageDom);
         if (frontCover) {
