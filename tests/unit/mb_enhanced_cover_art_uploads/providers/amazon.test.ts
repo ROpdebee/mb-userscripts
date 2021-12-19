@@ -103,7 +103,7 @@ describe('amazon provider', () => {
             numImages: 1,
             expectedImages: [{
                 index: 0,
-                urlPart: '51g7fkELjaL',
+                urlPart: '917XxoD2LaL',
                 types: [ArtworkTypeIDs.Front],
             }],
         }];
