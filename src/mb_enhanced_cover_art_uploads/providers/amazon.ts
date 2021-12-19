@@ -39,7 +39,7 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     name = 'Amazon';
-    urlRegex = /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/;
+    urlRegex = /\/(?:gp\/product|dp|hz\/audible\/mlp\/mfpdp)\/([A-Za-z0-9]{10})(?:\/|$)/;
 
     async findImages(url: URL): Promise<CoverArt[]> {
         const pageContent = await this.fetchPage(url);
@@ -73,7 +73,8 @@ export class AmazonProvider extends CoverArtProvider {
     #extractFrontCover(pageDom: Document): CoverArt | undefined {
         const frontCoverSelectors = [
             '#digitalMusicProductImage_feature_div > img', // Streaming/MP3 products
-            'img#main-image', // Audible products
+            'img#main-image', // Audible products, /dp URLs
+            '#mf_pdp_hero_widget_book_img img', // Audible products, /hz/audible/mlp/mfpdp URLs
         ];
 
         for (const selector of frontCoverSelectors) {
