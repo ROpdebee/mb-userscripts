@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: amazon provider/extracting images/extracts covers for Audible audiobooks
-WARC-Date: 2021-12-11T20:26:54.796Z
+WARC-Date: 2021-12-20T12:48:59.574Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:f1b727df-6293-4fe0-aa98-6f265cb9f370>
+WARC-Record-ID: <urn:uuid:c1e20416-eaa2-4fc4-a492-c15153e60ad7>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:37782bfa-0987-413f-91cf-95016dd4d26f>
+WARC-Concurrent-To: <urn:uuid:addd6497-7829-46bc-8067-2e8c63636880>
 WARC-Target-URI: https://www.amazon.com/dp/B017WJ5PR4
-WARC-Date: 2021-12-11T20:26:54.800Z
+WARC-Date: 2021-12-20T12:48:59.579Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:d7d563d1-3154-4b91-bd64-8d18eede5560>
+WARC-Record-ID: <urn:uuid:de6a2636-1e09-4e76-8870-c54b586d81bd>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:c3bc717f9b441247a99e9631d9c57650649707f8c3d5723e0f64afe22d7f751f
@@ -27,11 +27,11 @@ GET /dp/B017WJ5PR4 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:37782bfa-0987-413f-91cf-95016dd4d26f>
+WARC-Concurrent-To: <urn:uuid:addd6497-7829-46bc-8067-2e8c63636880>
 WARC-Target-URI: https://www.amazon.com/dp/B017WJ5PR4
-WARC-Date: 2021-12-11T20:26:54.800Z
+WARC-Date: 2021-12-20T12:48:59.580Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:3997e09e-c97f-4f10-81a4-a8ec54d9aeb0>
+WARC-Record-ID: <urn:uuid:06b3d2f7-f47a-4a31-9557-05dad7c01234>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:670b9d0bc212cfceb8d353ed94c97639284975f6941881a4b991ea2a00555f1b
 WARC-Block-Digest: sha256:670b9d0bc212cfceb8d353ed94c97639284975f6941881a4b991ea2a00555f1b
@@ -52,12 +52,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://www.amazon.com/dp/B017WJ5PR4
-WARC-Date: 2021-12-11T20:26:54.800Z
+WARC-Date: 2021-12-20T12:48:59.579Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:37782bfa-0987-413f-91cf-95016dd4d26f>
+WARC-Record-ID: <urn:uuid:addd6497-7829-46bc-8067-2e8c63636880>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:25da3807254080ff7cd03368cde5170e5f54c82ce93085864bc3b82a2561128c
-WARC-Block-Digest: sha256:6bc256c74c5224ffa406367292a40fc6dc0a1596ff06d8e2fc3dc5c7bb0e4e76
+WARC-Block-Digest: sha256:2562a6d06d6275a1fc3ca38d85566933ce8c65fcb1f14afe88868a4ea9bd61b2
 Content-Length: 928380
 
 HTTP/1.1 200 OK
@@ -79,8 +79,8 @@ vary: Accept-Encoding
 x-amz-rid: FZ0J3R8HKTA9YCKG6BY8
 x-content-type-options: nosniff
 x-frame-options: SAMEORIGIN
-x-xss-protection: 1;
 x-pollyjs-finalurl: https://www.amazon.com/dp/B017WJ5PR4
+x-xss-protection: 1;
 
 <!doctype html><html lang="en-us" class="a-no-js" data-19ax5a9jf="dingo"><!-- sp:feature:head-start -->
 <head><script>var aPageStart = (new Date()).getTime();</script><meta charset="utf-8"/>
@@ -7175,4 +7175,2618 @@ if (window.ue && window.ue.uels) {
  ~~~~~~~~~~~~~~~~~~-->
 <!-- sp:eh:3G/OQlXJqwMbZ2cdFWIPoxv00LWWkVIcrl1q2r0gu6LP8Z2Ud5iIQAnzmLaaFbKEHlj/LIU/qjRfnF+SpAqvLXpesFIIqYaqGSRZ/M+OOnCYjrQ5XEc39g== -->
 
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:71fbf008-18d4-4cb5-ae32-3a5a8397be58>
+WARC-Target-URI: https://www.amazon.com/hz/audible/mlp/mfpdp/B017WJ5PR4
+WARC-Date: 2021-12-20T12:48:59.581Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:1b7b43ad-ff35-4654-8958-b195bdb67ab4>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:b035fa8cc523e04b6b0ba931c49790d61c379ccc0173e6f27ad15b37774b0201
+Content-Length: 49
+
+GET /hz/audible/mlp/mfpdp/B017WJ5PR4 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:71fbf008-18d4-4cb5-ae32-3a5a8397be58>
+WARC-Target-URI: https://www.amazon.com/hz/audible/mlp/mfpdp/B017WJ5PR4
+WARC-Date: 2021-12-20T12:48:59.581Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:52298d3b-e153-45da-bc0b-0de757f3992d>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:1be5d999c161aa5e8ebc49fa4d4aa2b8da79e2e2f35b7467ad8febcc9ee0b142
+WARC-Block-Digest: sha256:1be5d999c161aa5e8ebc49fa4d4aa2b8da79e2e2f35b7467ad8febcc9ee0b142
+Content-Length: 602
+
+harEntryId: 4e24a25f2787c80994b019756ba522b8
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2021-12-20T12:48:58.346Z
+time: 1143
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1143,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 73
+warcRequestCookies: []
+warcResponseHeadersSize: 1271
+warcResponseCookies: [{"name":"session-id","value":"135-8255461-6674646","domain":".amazon.com","expires":"2022-12-20T12:48:59.000Z","path":"/","secure, session-id-time":"2082787201l","secure, i18n-prefs":"USD","version":"1","maxAge":31536000,"secure":true,"httpOnly":true}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.amazon.com/hz/audible/mlp/mfpdp/B017WJ5PR4
+WARC-Date: 2021-12-20T12:48:59.580Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:71fbf008-18d4-4cb5-ae32-3a5a8397be58>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:d036eda58529c600b49a9f19208786fecea1f137a91462b44ab365251582ac68
+WARC-Block-Digest: sha256:b910149800bb526194e032ed13c231646592d3d4f9caca017f02923827f6e9f5
+Content-Length: 153468
+
+HTTP/1.1 200 OK
+accept-ch: ect,rtt,downlink
+accept-ch-lifetime: 86400
+connection: close
+content-encoding: gzip
+content-language: en-US
+content-type: text/html;charset=UTF-8
+date: Mon, 20 Dec 2021 12:48:59 GMT
+permissions-policy: interest-cohort=()
+server: Server
+set-cookie: session-id=135-8255461-6674646; Domain=.amazon.com; Expires=Tue, 20-Dec-2022 12:48:59 GMT; Path=/; Secure, session-id-time=2082787201l; Domain=.amazon.com; Expires=Tue, 20-Dec-2022 12:48:59 GMT; Path=/; Secure, i18n-prefs=USD; Domain=.amazon.com; Expires=Tue, 20-Dec-2022 12:48:59 GMT; Path=/, sp-cdn="L5Z9:NL"; Version=1; Domain=.amazon.com; Max-Age=31536000; Expires=Tue, 20-Dec-2022 12:48:59 GMT; Path=/; Secure; HttpOnly
+strict-transport-security: max-age=47474747; includeSubDomains; preload
+transfer-encoding: chunked
+vary: Content-Type,Accept-Encoding,X-Amzn-CDN-Cache,X-Amzn-AX-Treatment,User-Agent
+via: 1.1 f6486ebc6b1047af524348c38ba450e5.cloudfront.net (CloudFront)
+x-amz-cf-id: ucvWXjII4toW8YIJbiZlZN2dAjjDlfXCiS6IQW-kicsG1_dVBTYIpQ==
+x-amz-cf-pop: LHR61-C1
+x-amz-rid: GBQV5ZSQKZTXDPJ5PABC
+x-cache: Miss from cloudfront
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1;
+x-pollyjs-finalurl: https://www.amazon.com/hz/audible/mlp/mfpdp/B017WJ5PR4
+
+<!doctype html><html class="a-no-js" data-19ax5a9jf="dingo"><head><script>var aPageStart = (new Date()).getTime();</script><meta charset="utf-8"/>
+
+
+<title dir="ltr">Audible Membership - Sign Up | Amazon.com</title>
+
+<meta name="title" content="Audible Membership - Sign Up | Amazon.com">
+
+
+
+<link rel="canonical" href="https://www.amazon.com/Harry-Potter-Deathly-Hallows-Book/dp/B017WJ5PR4"/><!-- M-Include AUIAsssetsbootstrap -->
+    <link rel="stylesheet" href="https://images-na.ssl-images-amazon.com/images/I/41S24rN5PfL._RC|21qPwhPKAAL.css,11EIQ5IGqaL.css,012LjolmrML.css,01Vctty9pOL.css,017DsKjNQJL.css,0131vqwP5UL.css,41EWOOlBJ9L.css,11UoGyLuXoL.css,01ElnPiDxWL.css,11bGSgD5pDL.css,01Dm5eKVxwL.css,01IdKcBuAdL.css,01y-XAlI+2L.css,01ZfXnjPmmL.css,01oDR3IULNL.css,31q1y1irc5L.css,01XPHJk60-L.css,01R0k0yxPXL.css,21xVR0NtxzL.css,11gneA3MtJL.css,21fecG8pUzL.css,01RddH8vm-L.css,01CFUgsA-YL.css,21AmhU6t0sL.css,11zGrJZ9D2L.css,11tRp6+0HHL.css,21Pw0V+BV8L.css,11WgRxUdJRL.css,01-fWz3sOQL.css,11ocrgKoE-L.css,11RKoGSb-gL.css,11g1xm90ZvL.css,01QrWuRrZ-L.css,31IuMz02dHL.css,01piEq-AdwL.css,11Y05DTEL6L.css,01cbS3UK11L.css,21F85am0yFL.css,01giMEP+djL.css_.css?AUIClients/AmazonUI#us.not-trident" />
+<script>
+(function(f,h,Q,E){function F(a){v&&v.tag&&v.tag(q(":","aui",a))}function w(a,b){v&&v.count&&v.count("aui:"+a,0===b?0:b||(v.count("aui:"+a)||0)+1)}function m(a){try{return a.test(navigator.userAgent)}catch(b){return!1}}function x(a,b,c){a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,c)}function q(a,b,c,e){b=b&&c?b+a+c:b||c;return e?q(a,b,e):b}function G(a,b,c){try{Object.defineProperty(a,b,{value:c,writable:!1})}catch(e){a[b]=c}return c}function va(a,b){var c=a.length,
+e=c,g=function(){e--||(R.push(b),S||(setTimeout(ca,0),S=!0))};for(g();c--;)da[a[c]]?g():(A[a[c]]=A[a[c]]||[]).push(g)}function wa(a,b,c,e,g){var d=h.createElement(a?"script":"link");x(d,"error",e);g&&x(d,"load",g);a?(d.type="text/javascript",d.async=!0,c&&/AUIClients|images[/]I/.test(b)&&d.setAttribute("crossorigin","anonymous"),d.src=b):(d.rel="stylesheet",d.href=b);h.getElementsByTagName("head")[0].appendChild(d)}function ea(a,b){return function(c,e){function g(){wa(b,c,d,function(b){T?w("resource_unload"):
+d?(d=!1,w("resource_retry"),g()):(w("resource_error"),a.log("Asset failed to load: "+c));b&&b.stopPropagation?b.stopPropagation():f.event&&(f.event.cancelBubble=!0)},e)}if(fa[c])return!1;fa[c]=!0;w("resource_count");var d=!0;return!g()}}function xa(a,b,c){for(var e={name:a,guard:function(c){return b.guardFatal(a,c)},logError:function(c,d,e){b.logError(c,d,e,a)}},g=[],d=0;d<c.length;d++)H.hasOwnProperty(c[d])&&(g[d]=U.hasOwnProperty(c[d])?U[c[d]](H[c[d]],e):H[c[d]]);return g}function B(a,b,c,e,g){return function(d,
+h){function n(){var a=null;e?a=h:"function"===typeof h&&(p.start=C(),a=h.apply(f,xa(d,k,l)),p.end=C());if(b){H[d]=a;a=d;for(da[a]=!0;(A[a]||[]).length;)A[a].shift()();delete A[a]}p.done=!0}var k=g||this;"function"===typeof d&&(h=d,d=E);b&&(d=d?d.replace(ha,""):"__NONAME__",V.hasOwnProperty(d)&&k.error(q(", reregistered by ",q(" by ",d+" already registered",V[d]),k.attribution),d),V[d]=k.attribution);for(var l=[],m=0;m<a.length;m++)l[m]=a[m].replace(ha,"");var p=ia[d||"anon"+ ++ya]={depend:l,registered:C(),
+namespace:k.namespace};c?n():va(l,k.guardFatal(d,n));return{decorate:function(a){U[d]=k.guardFatal(d,a)}}}}function ja(a){return function(){var b=Array.prototype.slice.call(arguments);return{execute:B(b,!1,a,!1,this),register:B(b,!0,a,!1,this)}}}function W(a,b){return function(c,e){e||(e=c,c=E);var g=this.attribution;return function(){y.push(b||{attribution:g,name:c,logLevel:a});var d=e.apply(this,arguments);y.pop();return d}}}function I(a,b){this.load={js:ea(this,!0),css:ea(this)};G(this,"namespace",
+b);G(this,"attribution",a)}function ka(){h.body?t.trigger("a-bodyBegin"):setTimeout(ka,20)}function D(a,b){a.className=X(a,b)+" "+b}function X(a,b){return(" "+a.className+" ").split(" "+b+" ").join(" ").replace(/^ | $/g,"")}function la(a){try{return a()}catch(b){return!1}}function J(){if(K){var a={w:f.innerWidth||n.clientWidth,h:f.innerHeight||n.clientHeight};5<Math.abs(a.w-Y.w)||50<a.h-Y.h?(Y=a,L=4,(a=k.mobile||k.tablet?450<a.w&&a.w>a.h:1250<=a.w)?D(n,"a-ws"):n.className=X(n,"a-ws")):0<L&&(L--,ma=
+setTimeout(J,16))}}function za(a){(K=a===E?!K:!!a)&&J()}function Aa(){return K}function u(a,b){return"sw:"+(b||"")+":"+a+":"}function na(){oa.forEach(function(a){F(a)})}function p(a){oa.push(a)}function pa(a,b,c,e){if(c){b=m(/Chrome/i)&&!m(/Edge/i)&&!m(/OPR/i)&&!a.capabilities.isAmazonApp&&!m(new RegExp(Z+"bwv"+Z+"b"));var g=u(e,"browser"),d=u(e,"prod_mshop"),f=u(e,"beta_mshop");!a.capabilities.isAmazonApp&&c.browser&&b&&(p(g+"supported"),c.browser.action(g,e));!b&&c.browser&&p(g+"unsupported");c.prodMshop&&
+p(d+"unsupported");c.betaMshop&&p(f+"unsupported")}}"use strict";var M=Q.now=Q.now||function(){return+new Q},C=function(a){return a&&a.now?a.now.bind(a):M}(f.performance),N=C(),r=f.AmazonUIPageJS||f.P;if(r&&r.when&&r.register){N=[];for(var l=h.currentScript;l;l=l.parentElement)l.id&&N.push(l.id);return r.log("A copy of P has already been loaded on this page.","FATAL",N.join(" "))}var v=f.ue;F();F("aui_build_date:3.21.2-2021-12-10");var R=[],S=!1;var ca=function(){for(var a=setTimeout(ca,0),b=M();R.length;)if(R.shift()(),
+50<M()-b)return;clearTimeout(a);S=!1};var da={},A={},fa={},T=!1;x(f,"beforeunload",function(){T=!0;setTimeout(function(){T=!1},1E4)});var ha=/^prv:/,V={},H={},U={},ia={},ya=0,Z=String.fromCharCode(92),y=[],qa=f.onerror;f.onerror=function(a,b,c,e,g){g&&"object"===typeof g||(g=Error(a,b,c),g.columnNumber=e,g.stack=b||c||e?q(Z,g.message,"at "+q(":",b,c,e)):E);var d=y.pop()||{};g.attribution=q(":",g.attribution||d.attribution,d.name);g.logLevel=d.logLevel;g.attribution&&console&&console.log&&console.log([g.logLevel||
+"ERROR",a,"thrown by",g.attribution].join(" "));y=[];qa&&(d=[].slice.call(arguments),d[4]=g,qa.apply(f,d))};I.prototype={logError:function(a,b,c,e){b={message:b,logLevel:c||"ERROR",attribution:q(":",this.attribution,e)};if(f.ueLogError)return f.ueLogError(a||b,a?b:null),!0;console&&console.error&&(console.log(b),console.error(a));return!1},error:function(a,b,c,e){a=Error(q(":",e,a,c));a.attribution=q(":",this.attribution,b);throw a;},guardError:W(),guardFatal:W("FATAL"),guardCurrent:function(a){var b=
+y[y.length-1];return b?W(b.logLevel,b).call(this,a):a},log:function(a,b,c){return this.logError(null,a,b,c)},declare:B([],!0,!0,!0),register:B([],!0),execute:B([]),AUI_BUILD_DATE:"3.21.2-2021-12-10",when:ja(),now:ja(!0),trigger:function(a,b,c){var e=M();this.declare(a,{data:b,pageElapsedTime:e-(f.aPageStart||NaN),triggerTime:e});c&&c.instrument&&O.when("prv:a-logTrigger").execute(function(b){b(a)})},handleTriggers:function(){this.log("handleTriggers deprecated")},attributeErrors:function(a){return new I(a)},
+_namespace:function(a,b){return new I(a,b)}};var t=G(f,"AmazonUIPageJS",new I);var O=t._namespace("PageJS","AmazonUI");O.declare("prv:p-debug",ia);t.declare("p-recorder-events",[]);t.declare("p-recorder-stop",function(){});G(f,"P",t);ka();if(h.addEventListener){var ra;h.addEventListener("DOMContentLoaded",ra=function(){t.trigger("a-domready");h.removeEventListener("DOMContentLoaded",ra,!1)},!1)}var n=h.documentElement,aa=function(){var a=["O","ms","Moz","Webkit"],b=h.createElement("div");return{testGradients:function(){return!0},
+test:function(c){var e=c.charAt(0).toUpperCase()+c.substr(1);c=(a.join(e+" ")+e+" "+c).split(" ");for(e=c.length;e--;)if(""===b.style[c[e]])return!0;return!1},testTransform3d:function(){return!0}}}();r=n.className;var sa=/(^| )a-mobile( |$)/.test(r),ta=/(^| )a-tablet( |$)/.test(r),k={audio:function(){return!!h.createElement("audio").canPlayType},video:function(){return!!h.createElement("video").canPlayType},canvas:function(){return!!h.createElement("canvas").getContext},svg:function(){return!!h.createElementNS&&
+!!h.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect},offline:function(){return navigator.hasOwnProperty&&navigator.hasOwnProperty("onLine")&&navigator.onLine},dragDrop:function(){return"draggable"in h.createElement("span")},geolocation:function(){return!!navigator.geolocation},history:function(){return!(!f.history||!f.history.pushState)},webworker:function(){return!!f.Worker},autofocus:function(){return"autofocus"in h.createElement("input")},inputPlaceholder:function(){return"placeholder"in
+h.createElement("input")},textareaPlaceholder:function(){return"placeholder"in h.createElement("textarea")},localStorage:function(){return"localStorage"in f&&null!==f.localStorage},orientation:function(){return"orientation"in f},touch:function(){return"ontouchend"in h},gradients:function(){return aa.testGradients()},hires:function(){var a=f.devicePixelRatio&&1.5<=f.devicePixelRatio||f.matchMedia&&f.matchMedia("(min-resolution:144dpi)").matches;w("hiRes"+(sa?"Mobile":ta?"Tablet":"Desktop"),a?1:0);
+return a},transform3d:function(){return aa.testTransform3d()},touchScrolling:function(){return m(/Windowshop|android|OS ([5-9]|[1-9][0-9]+)(_[0-9]{1,2})+ like Mac OS X|Chrome|Silk|Firefox|Trident.+?; Touch/i)},ios:function(){return m(/OS [1-9][0-9]*(_[0-9]*)+ like Mac OS X/i)&&!m(/trident|Edge/i)},android:function(){return m(/android.([1-9]|[L-Z])/i)&&!m(/trident|Edge/i)},mobile:function(){return sa},tablet:function(){return ta},rtl:function(){return"rtl"===n.dir}};for(l in k)k.hasOwnProperty(l)&&
+(k[l]=la(k[l]));for(var ba="textShadow textStroke boxShadow borderRadius borderImage opacity transform transition".split(" "),P=0;P<ba.length;P++)k[ba[P]]=la(function(){return aa.test(ba[P])});var K=!0,ma=0,Y={w:0,h:0},L=4;J();x(f,"resize",function(){clearTimeout(ma);L=4;J()});var ua={getItem:function(a){try{return f.localStorage.getItem(a)}catch(b){}},setItem:function(a,b){try{return f.localStorage.setItem(a,b)}catch(c){}}};n.className=X(n,"a-no-js");D(n,"a-js");!m(/OS [1-8](_[0-9]*)+ like Mac OS X/i)||
+f.navigator.standalone||m(/safari/i)||D(n,"a-ember");r=[];for(l in k)k.hasOwnProperty(l)&&k[l]&&r.push("a-"+l.replace(/([A-Z])/g,function(a){return"-"+a.toLowerCase()}));D(n,r.join(" "));n.setAttribute("data-aui-build-date","3.21.2-2021-12-10");t.register("p-detect",function(){return{capabilities:k,localStorage:k.localStorage&&ua,toggleResponsiveGrid:za,responsiveGridEnabled:Aa}});m(/UCBrowser/i)||k.localStorage&&D(n,ua.getItem("a-font-class"));t.declare("a-event-revised-handling",!1);try{var z=navigator.serviceWorker}catch(a){F("sw:nav_err")}z&&
+(x(z,"message",function(a){a&&a.data&&w(a.data.k,a.data.v)}),z.controller&&z.controller.postMessage("MSG-RDY"));var oa=[];(function(a){var b=a.reg,c=a.unreg;z&&z.getRegistrations?(O.when("A","a-util").execute(function(a,b){pa(a,b,c,"unregister")}),x(f,"load",function(){O.when("A","a-util").execute(function(a,c){pa(a,c,b,"register");na()})})):(b&&(b.browser&&p(u("register","browser")+"unsupported"),b.prodMshop&&p(u("register","prod_mshop")+"unsupported"),b.betaMshop&&p(u("register","beta_mshop")+"unsupported")),
+c&&(c.browser&&p(u("unregister","browser")+"unsupported"),c.prodMshop&&p(u("unregister","prod_mshop")+"unsupported"),c.betaMshop&&p(u("unregister","beta_mshop")+"unsupported")),na())})({reg:{},unreg:{}});t.declare("a-fix-event-off",!1);w("pagejs:pkgExecTime",C()-N)})(window,document,Date);
+  (window.AmazonUIPageJS ? AmazonUIPageJS : P).load.js('https://images-na.ssl-images-amazon.com/images/I/61-6nKPKyWL._RC|11Y+5x+kkTL.js,51IWYO5M+zL.js,112nmCqUymL.js,11giXtZCwVL.js,01+z+uIeJ-L.js,014NohEdE7L.js,21NNXfMitSL.js,11GXfd3+z+L.js,51LHWteAPJL.js,11AHlQhPRjL.js,01Gpt4sPPhL.js,11OREnu1epL.js,11KbZymw5ZL.js,21r53SJg7LL.js,0190vxtlzcL.js,61JTeobmzgL.js,01ezj5Rkz1L.js,11VS-C+YWGL.js,31pOTH2ZMRL.js,01rpauTep4L.js,01Y31HYjXaL.js_.js?AUIClients/AmazonUI');
+  (window.AmazonUIPageJS ? AmazonUIPageJS : P).load.js('https://images-na.ssl-images-amazon.com/images/I/01s8YZ2-BHL.js?AUIClients/AudibleRetailCommonAssets');
+</script>
+<style><!-- Remote config blank inline CSS --></style><!--  -->
+
+<!-- Remote config empty preload CSS --><!--  -->
+
+
+
+
+
+
+<!-- NOTE: Make sure to include AudibleRetailCommonAssets on the controller -->
+<!-- TODO: In the future, put this in a new navbar mini controller instead of including on each page -->
+
+<script>
+   
+   P.when('AudibleSearchBarOverride').execute(function(SearchBarOverride){
+       SearchBarOverride.init("Audible Books & Originals");
+   });
+</script></head><body class="a-m-us a-aui_72554-c a-aui_mm_desktop_exp_291916-c a-aui_mm_desktop_launch_291918-c a-aui_mm_desktop_targeted_exp_291928-c a-aui_mm_desktop_targeted_launch_291922-c a-aui_pci_risk_banner_210084-c a-aui_preload_261698-c a-aui_rel_noreferrer_noopener_309527-c a-aui_tnr_v2_180836-c"><div id="a-page"><script type="a-state" data-a-state="{&quot;key&quot;:&quot;a-wlab-states&quot;}">{}</script><!-- Nav Top Start -->
+    
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+        
+
+
+
+
+
+
+
+
+<!--Pilu -->
+
+
+  <!-- NAVYAAN -->
+
+
+
+<!-- NAVYAAN CSS -->
+
+<style type="text/css">
+.nav-sprite-v1 .nav-sprite, .nav-sprite-v1 .nav-icon {
+  background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/gno/sprites/nav-sprite-global-1x-hm-dsk-reorg._CB405937547_.png);
+  background-position: 0 1000px;
+  background-repeat: repeat-x;
+}
+.nav-spinner {
+  background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/javascripts/lib/popover/images/snake._CB485935611_.gif);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.nav-timeline-icon, .nav-access-image, .nav-timeline-prime-icon {
+  background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/gno/sprites/timeline_sprite_1x._CB485945973_.png);
+  background-repeat: no-repeat;
+}
+</style>
+<link rel="stylesheet" href="https://images-na.ssl-images-amazon.com/images/I/41KBYOkTjIL._RC|71EnDOWPGjL.css,41ovlIZ2zDL.css,31CdpXAsWCL.css,31YZpDCYJPL.css,21MKjoYL8wL.css,41OiMQkB+EL.css,01yCq3WXEcL.css,11kO7yAgiQL.css,31OvHRW+XiL.css,01XHMOHpK1L.css,01ucgi+I44L.css,31jJwAF+yLL.css_.css?AUIClients/NavDesktopUberAsset&FkCaa2vN#desktop.362576-T1.310484-T1" />
+
+<!-- NAVYAAN JS -->
+<script type="text/javascript">!function(n){function e(n,e){return{m:n,a:function(n){return[].slice.call(n)}(e)}}document.createElement("header");var r=function(n){function u(n,r,u){n[u]=function(){a._replay.push(r.concat(e(u,arguments)))}}var a={};return a._sourceName=n,a._replay=[],a.getNow=function(n,e){return e},a.when=function(){var n=[e("when",arguments)],r={};return u(r,n,"run"),u(r,n,"declare"),u(r,n,"publish"),u(r,n,"build"),r},u(a,[],"declare"),u(a,[],"build"),u(a,[],"publish"),u(a,[],"importEvent"),r._shims.push(a),a};r._shims=[],n.$Nav||(n.$Nav=r("rcx-nav")),n.$Nav.make||(n.$Nav.make=r)}(window)</script><script type="text/javascript">
+$Nav.importEvent('navbarJS-beaconbelt');
+$Nav.declare('img.sprite', {
+  'png32': 'https://images-na.ssl-images-amazon.com/images/G/01/gno/sprites/nav-sprite-global-1x-hm-dsk-reorg._CB405937547_.png',
+  'png32-2x': 'https://images-na.ssl-images-amazon.com/images/G/01/gno/sprites/nav-sprite-global-2x-hm-dsk-reorg._CB405937547_.png'
+});
+$Nav.declare('img.timeline', {
+  'timeline-icon-2x': 'https://images-na.ssl-images-amazon.com/images/G/01/gno/sprites/timeline_sprite_2x._CB443581191_.png'
+});
+window._navbarSpriteUrl = 'https://images-na.ssl-images-amazon.com/images/G/01/gno/sprites/nav-sprite-global-1x-hm-dsk-reorg._CB405937547_.png';
+$Nav.declare('img.pixel', 'https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/transparent-pixel._CB485935036_.gif');
+</script>
+<img src="https://images-na.ssl-images-amazon.com/images/G/01/gno/sprites/nav-sprite-global-1x-hm-dsk-reorg._CB405937547_.png" style="display:none" alt=""/>
+<script type="text/javascript">var nav_t_after_preload_sprite = + new Date();</script>
+<script>
+(window.AmazonUIPageJS ? AmazonUIPageJS : P).when('navCF').execute(function() {
+  (window.AmazonUIPageJS ? AmazonUIPageJS : P).load.js('https://images-na.ssl-images-amazon.com/images/I/41cyy9szMwL._RC|714A3LKNSOL.js,01QvReFeJyL.js,016tgkOMMNL.js,71CMKUCXALL.js,41gNKoK0s7L.js,11xzSqjDFVL.js,21xWa1nxwRL.js,11k47yUMOjL.js,41SZNgvX4oL.js,51-xVUkFLqL.js,31sq3pfde4L.js,01KW1GJCT1L.js,31ICdOFDXfL.js_.js?AUIClients/NavDesktopUberAsset&pqT1Y4bI#desktop.language-en.us.365419-T1.366740-T1.310484-T1.377261-T1.341648-T1');
+});
+</script>
+
+
+
+
+
+
+
+
+<!-- navmet initial definition -->
+
+
+
+<script type='text/javascript'>
+    if(window.navmet===undefined) {
+      window.navmet=[];
+      if (window.performance && window.performance.timing && window.ue_t0) {
+        var t = window.performance.timing;
+        var now = + new Date();
+        window.navmet.basic = {
+          'networkLatency': (t.responseStart - t.fetchStart),
+          'navFirstPaint': (now - t.responseStart),
+          'NavStart': (now - window.ue_t0)
+        };
+        window.navmet.push({key:"NavFirstPaintStart",end:+new Date(),begin:window.ue_t0});
+      }
+    }
+    if (window.ue_t0) {
+      window.navmet.push({key:"NavMainStart",end:+new Date(),begin:window.ue_t0});
+    }
+</script>
+
+
+
+
+<script type='text/javascript'>window.navmet.tmp=+new Date();</script>
+  <script type='text/javascript'>
+    // Nav start should be logged at this place only if request is NOT progressively loaded.
+    // For progressive loading case this metric is logged as part of skeleton.
+    // Presence of skeleton signals that request is progressively loaded.
+    if(!document.getElementById("navbar-skeleton")) {
+      window.uet && uet('ns');
+    }
+    window._navbar = (function (o) {
+      o.componentLoaded = o.loading = function(){};
+      o.browsepromos = {};
+      o.issPromos = [];
+      return o;
+    }(window._navbar || {}));
+    window._navbar.declareOnLoad = function () { window.$Nav && $Nav.declare('page.load'); };
+    if (window.addEventListener) {
+      window.addEventListener("load", window._navbar.declareOnLoad, false);
+    } else if (window.attachEvent) {
+      window.attachEvent("onload", window._navbar.declareOnLoad);
+    } else if (window.$Nav) {
+      $Nav.when('page.domReady').run("OnloadFallbackSetup", function () {
+        window._navbar.declareOnLoad();
+      });
+    }
+    window.$Nav && $Nav.declare('logEvent.enabled',
+      'false');
+
+    window.$Nav && $Nav.declare('config.lightningDeals', {});
+  </script>
+
+    <style mark="aboveNavInjectionCSS" type="text/css">
+      div#navSwmHoliday.nav-focus {border: none;margin: 0;}
+    </style>
+    <script mark="aboveNavInjectionJS" type="text/javascript">
+      try {
+        if(window.navmet===undefined)window.navmet=[]; if(window.$Nav) { $Nav.when('$', 'config', 'flyout.accountList', 'SignInRedirect', 'dataPanel').run('accountListRedirectFix', function ($, config, flyout, SignInRedirect, dataPanel) { if (!config.accountList) { return; } flyout.getPanel().onData(function (data) { if (SignInRedirect) { var $anchors = $('[data-nav-role=signin]', flyout.elem()); $.each($anchors, function(i, anchorEl) {SignInRedirect.setRedirectUrl($(anchorEl), null, null);});}});}); $Nav.when('$').run('defineIsArray', function(jQuery) { if(jQuery.isArray===undefined) { jQuery.isArray=function(param) { if(param.length===undefined) { return false; } return true; }; } }); $Nav.declare('config.cartFlyoutDisabled', 'true'); $Nav.when('$','$F','config','logEvent','panels','phoneHome','dataPanel','flyouts.renderPromo','flyouts.sloppyTrigger','flyouts.accessibility','util.mouseOut','util.onKey','debug.param').build('flyouts.buildSubPanels',function($,$F,config,logEvent,panels,phoneHome,dataPanel,renderPromo,createSloppyTrigger,a11yHandler,mouseOutUtility,onKey,debugParam){var flyoutDebug=debugParam('navFlyoutClick');return function(flyout,event){var linkKeys=[];$('.nav-item',flyout.elem()).each(function(){var $item=$(this);linkKeys.push({link:$item,panelKey:$item.attr('data-nav-panelkey')});});if(linkKeys.length===0){return;} var visible=false;var $parent=$('<div class=\'nav-subcats\'></div>').appendTo(flyout.elem());var panelGroup=flyout.getName()+'SubCats';var hideTimeout=null;var sloppyTrigger=createSloppyTrigger($parent);var showParent=function(){if(hideTimeout){clearTimeout(hideTimeout);hideTimeout=null;} if(visible){return;} var height=$('#nav-flyout-shopAll').height(); $parent.css({'height': height});$parent.animate({width:'show'},{duration:200,complete:function(){$parent.css({overflow:'visible'});}});visible=true;};var hideParentNow=function(){$parent.stop().css({overflow:'hidden',display:'none',width:'auto',height:'auto'});panels.hideAll({group:panelGroup});visible=false;if(hideTimeout){clearTimeout(hideTimeout);hideTimeout=null;}};var hideParent=function(){if(!visible){return;} if(hideTimeout){clearTimeout(hideTimeout);hideTimeout=null;} hideTimeout=setTimeout(hideParentNow,10);};flyout.onHide(function(){sloppyTrigger.disable();hideParentNow();this.elem().hide();});var addPanel=function($link,panelKey){var panel=dataPanel({className:'nav-subcat',dataKey:panelKey,groups:[panelGroup],spinner:false,visible:false});if(!flyoutDebug){var mouseout=mouseOutUtility();mouseout.add(flyout.elem());mouseout.action(function(){panel.hide();});mouseout.enable();} var a11y=a11yHandler({link:$link,onEscape:function(){panel.hide();$link.focus();}});var logPanelInteraction=function(promoID,wlTriggers){var logNow=$F.once().on(function(){var panelEvent=$.extend({},event,{id:promoID});if(config.browsePromos&&!!config.browsePromos[promoID]){panelEvent.bp=1;} logEvent(panelEvent);phoneHome.trigger(wlTriggers);});if(panel.isVisible()&&panel.hasInteracted()){logNow();}else{panel.onInteract(logNow);}};panel.onData(function(data){renderPromo(data.promoID,panel.elem());logPanelInteraction(data.promoID,data.wlTriggers);});panel.onShow(function(){var columnCount=$('.nav-column',panel.elem()).length;panel.elem().addClass('nav-colcount-'+columnCount);showParent();var $subCatLinks=$('.nav-subcat-links > a',panel.elem());var length=$subCatLinks.length;if(length>0){var firstElementLeftPos=$subCatLinks.eq(0).offset().left;for(var i=1;i<length;i++){if(firstElementLeftPos===$subCatLinks.eq(i).offset().left){$subCatLinks.eq(i).addClass('nav_linestart');}} if($('span.nav-title.nav-item',panel.elem()).length===0){var catTitle=$.trim($link.html());catTitle=catTitle.replace(/ref=sa_menu_top/g,'ref=sa_menu');var $subPanelTitle=$('<span class=\'nav-title nav-item\'>'+ catTitle+'</span>');panel.elem().prepend($subPanelTitle);}} $link.addClass('nav-active');});panel.onHide(function(){$link.removeClass('nav-active');hideParent();a11y.disable();sloppyTrigger.disable();});panel.onShow(function(){a11y.elems($('a, area',panel.elem()));});sloppyTrigger.register($link,panel);if(flyoutDebug){$link.click(function(){if(panel.isVisible()){panel.hide();}else{panel.show();}});} var panelKeyHandler=onKey($link,function(){if(this.isEnter()||this.isSpace()){panel.show();}},'keydown',false);$link.focus(function(){panelKeyHandler.bind();}).blur(function(){panelKeyHandler.unbind();});panel.elem().appendTo($parent);};var hideParentAndResetTrigger=function(){hideParent();sloppyTrigger.disable();};for(var i=0;i<linkKeys.length;i++){var item=linkKeys[i];if(item.panelKey){addPanel(item.link,item.panelKey);}else{item.link.mouseover(hideParentAndResetTrigger);}}};});};
+      } catch ( err ) {
+        if ( window.$Nav ) {
+          window.$Nav.when('metrics', 'logUeError').run(function(metrics, log) {
+            metrics.increment('NavJS:AboveNavInjection:error');
+            log(err.toString(), {
+              'attribution': 'rcx-nav',
+              'logLevel': 'FATAL'
+            });
+          });
+        }
+      }
+    </script>
+
+  <noscript>
+    <style type="text/css"><!--
+      #navbar #nav-shop .nav-a:hover {
+        color: #ff9900;
+        text-decoration: underline;
+      }
+      #navbar #nav-search .nav-search-facade,
+      #navbar #nav-tools .nav-icon,
+      #navbar #nav-shop .nav-icon,
+      #navbar #nav-subnav .nav-hasArrow .nav-arrow {
+        display: none;
+      }
+      #navbar #nav-search .nav-search-submit,
+      #navbar #nav-search .nav-search-scope {
+        display: block;
+      }
+      #nav-search .nav-search-scope {
+        padding: 0 5px;
+      }
+      #navbar #nav-search .nav-search-dropdown {
+        position: relative;
+        top: 5px;
+        height: 23px;
+        font-size: 14px;
+        opacity: 1;
+        filter: alpha(opacity = 100);
+      }
+    --></style>
+ </noscript>
+<script type='text/javascript'>window.navmet.push({key:'PreNav',end:+new Date(),begin:window.navmet.tmp});</script>
+
+<a id='nav-top'></a>
+
+
+
+
+
+
+
+<a id="skiplink" tabindex="0" class="skip-link">Skip to main content</a>
+
+<script type='text/javascript'>window.navmet.tmp=+new Date();</script>
+<!-- Navyaan Upnav -->
+    <div id="nav-upnav" aria-hidden="true" >
+      <!-- unw1 failed -->
+      
+    </div>
+<script type='text/javascript'>window.navmet.push({key:'UpNav',end:+new Date(),begin:window.navmet.tmp});</script>
+
+
+<script type='text/javascript'>window.navmet.main=+new Date();</script>
+
+
+
+<header id="navbar-main" class = "nav-opt-sprite nav-flex nav-locale-us nav-lang-en nav-ssl nav-unrec nav-progressive-attribute">
+
+   
+  <div id='navbar' cel_widget_id='Navigation-desktop-navbar'
+  role='navigation' class="nav-sprite-v1 celwidget nav-bluebeacon nav-a11y-t1 bold-focus-hover layout2 nav-flex layout3 layout3-alt nav-packard-glow nav-packard-glow-blacklist hamburger nav-progressive-attribute">
+    
+    <div id='nav-belt'>
+      <div class='nav-left'>
+        <script type='text/javascript'>window.navmet.tmp=+new Date();</script>
+  <div id="nav-logo" >
+    <a href="/ref=nav_logo" id="nav-logo-sprites" class="nav-logo-link nav-progressive-attribute" aria-label="Amazon">
+      <span class="nav-sprite nav-logo-base"></span>
+      <span id="logo-ext" class="nav-sprite nav-logo-ext nav-progressive-content"></span>
+      <span class="nav-logo-locale">.us</span>
+    </a>
+  </div>
+<script type='text/javascript'>window.navmet.push({key:'Logo',end:+new Date(),begin:window.navmet.tmp});</script>
+        <div id="nav-global-location-slot"></div>
+      </div>
+          <div class='nav-fill'>
+            <script type='text/javascript'>window.navmet.tmp=+new Date();</script>
+<div id="nav-search">
+  <div id="nav-bar-left"></div>
+  <form
+    id="nav-search-bar-form"
+    accept-charset="utf-8"
+    action="/s/ref=nb_sb_noss"
+    class="nav-searchbar nav-progressive-attribute"
+    method="GET"
+    name="site-search"
+    role="search"
+  >
+
+    <div class="nav-left">
+      <div id="nav-search-dropdown-card">
+        
+  <div class="nav-search-scope nav-sprite">
+    <div class="nav-search-facade" data-value="search-alias=aps">
+      <span id="nav-search-label-id" class="nav-search-label nav-progressive-content">All</span>
+      <i class="nav-icon"></i>
+    </div>
+    <span id="searchDropdownDescription" class="nav-progressive-attribute" style="display:none">Select the department you want to search in</span>
+    <select
+      aria-describedby="searchDropdownDescription"
+      class="nav-search-dropdown searchSelect nav-progressive-attrubute nav-progressive-search-dropdown"
+      data-nav-digest="Xa0GQ+pPQ/tdsV+GmRWeXB8PUD0="
+      data-nav-selected="0"
+      id="searchDropdownBox"
+      name="url"
+      style="display: block;"
+      tabindex="0"
+      title="Search in"
+    >
+        <option selected="selected" value="search-alias=aps">All Departments</option>
+        <option value="search-alias=arts-crafts-intl-ship">Arts & Crafts</option>
+        <option value="search-alias=automotive-intl-ship">Automotive</option>
+        <option value="search-alias=baby-products-intl-ship">Baby</option>
+        <option value="search-alias=beauty-intl-ship">Beauty & Personal Care</option>
+        <option value="search-alias=stripbooks-intl-ship">Books</option>
+        <option value="search-alias=computers-intl-ship">Computers</option>
+        <option value="search-alias=digital-music">Digital Music</option>
+        <option value="search-alias=electronics-intl-ship">Electronics</option>
+        <option value="search-alias=digital-text">Kindle Store</option>
+        <option value="search-alias=instant-video">Prime Video</option>
+        <option value="search-alias=fashion-womens-intl-ship">Women's Fashion</option>
+        <option value="search-alias=fashion-mens-intl-ship">Men's Fashion</option>
+        <option value="search-alias=fashion-girls-intl-ship">Girls' Fashion</option>
+        <option value="search-alias=fashion-boys-intl-ship">Boys' Fashion</option>
+        <option value="search-alias=deals-intl-ship">Deals</option>
+        <option value="search-alias=hpc-intl-ship">Health & Household</option>
+        <option value="search-alias=kitchen-intl-ship">Home & Kitchen</option>
+        <option value="search-alias=industrial-intl-ship">Industrial & Scientific</option>
+        <option value="search-alias=luggage-intl-ship">Luggage</option>
+        <option value="search-alias=movies-tv-intl-ship">Movies & TV</option>
+        <option value="search-alias=music-intl-ship">Music, CDs & Vinyl</option>
+        <option value="search-alias=pets-intl-ship">Pet Supplies</option>
+        <option value="search-alias=software-intl-ship">Software</option>
+        <option value="search-alias=sporting-intl-ship">Sports & Outdoors</option>
+        <option value="search-alias=tools-intl-ship">Tools & Home Improvement</option>
+        <option value="search-alias=toys-and-games-intl-ship">Toys & Games</option>
+        <option value="search-alias=videogames-intl-ship">Video Games</option>
+    </select>
+  </div>
+
+      </div>
+    </div>
+    <div class="nav-fill">
+      <div class="nav-search-field ">
+        <input
+          type="text"
+          id="twotabsearchtextbox"
+          value=""
+          name="field-keywords"
+          autocomplete="off"
+          placeholder=""
+          class="nav-input nav-progressive-attribute"
+          dir="auto"
+          tabindex="0"
+          aria-label="Search"
+        >
+      </div>
+      <div id="nav-iss-attach"></div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-search-submit nav-sprite">
+        <span id="nav-search-submit-text" class="nav-search-submit-text nav-sprite nav-progressive-attribute" aria-label="Go">
+          <input id="nav-search-submit-button" type="submit" class="nav-input nav-progressive-attribute" value="Go" tabindex="0">
+        </span>
+      </div>
+    </div>
+  </form>
+</div>
+<script type='text/javascript'>window.navmet.push({key:'Search',end:+new Date(),begin:window.navmet.tmp});</script>
+          </div>
+      <div class='nav-right'>
+          <script type='text/javascript'>window.navmet.tmp=+new Date();</script>
+          <div id='nav-tools' class="layoutToolbarPadding">
+              
+              
+              
+              
+  <a href="/gp/customer-preferences/select-language/ref=topnav_lang_ais?ie=UTF8&preferencesReturnUrl=%2F" id="icp-nav-flyout" class="nav-a nav-a-2 icp-link-style-2" aria-label="Choose a language for shopping.">
+    <span class="icp-nav-link-inner">
+      <span class="nav-line-1">
+      </span>
+      <span class="nav-line-2">
+        <span class="icp-nav-flag icp-nav-flag-us"></span>
+        <span class="nav-icon nav-arrow"></span>
+      </span>
+    </span>
+  </a>
+
+              
+  <a href="https://www.amazon.com/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fhz%2Faudible%2Fmlp%2Fmfpdp%2FB017WJ5PR4%2F%3F_encoding%3DUTF8%26ref_%3Dnav_ya_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&" class="nav-a nav-a-2   nav-progressive-attribute" data-nav-ref="nav_ya_signin"  data-nav-role="signin" data-ux-jq-mouseenter="true" id="nav-link-accountList" tabindex="0" data-csa-c-type="link" data-csa-c-slot-id="nav-link-accountList" data-csa-c-content-id="nav_ya_signin">
+  <div class="nav-line-1-container"><span id="nav-link-accountList-nav-line-1" class="nav-line-1 nav-progressive-content">Hello, Sign in</span></div>
+  <span class="nav-line-2 ">Account & Lists<span class="nav-icon nav-arrow"></span>
+  </span>
+</a>
+
+              
+<a href="/gp/css/order-history?ref_=nav_orders_first" class="nav-a nav-a-2   nav-progressive-attribute" id="nav-orders" tabindex="0">
+  <span class="nav-line-1">Returns</span>
+  <span class="nav-line-2">& Orders</span>
+</a>
+
+              
+              
+  <a href="/gp/cart/view.html?ref_=nav_cart" aria-label="0 items in cart" class="nav-a nav-a-2 nav-progressive-attribute" id="nav-cart">
+    <div id="nav-cart-count-container">
+      <span id="nav-cart-count" aria-hidden="true" class="nav-cart-count nav-cart-0 nav-progressive-attribute nav-progressive-content">0</span>
+      <span class="nav-cart-icon nav-sprite"></span>
+    </div>
+    <div id="nav-cart-text-container" class=" nav-progressive-attribute">
+      <span aria-hidden="true" class="nav-line-1">
+        
+      </span>
+      <span aria-hidden="true" class="nav-line-2">
+        Cart
+        <span class="nav-icon nav-arrow"></span>
+      </span>
+    </div>
+  </a>
+
+          </div>
+          <script type='text/javascript'>window.navmet.push({key:'Tools',end:+new Date(),begin:window.navmet.tmp});</script>
+
+      </div>
+    </div>
+    <div id='nav-main' class='nav-sprite'>
+      <div class='nav-left'>
+        <script type='text/javascript'>window.navmet.tmp=+new Date();</script>
+  <a href="/gp/site-directory?ref_=nav_em_js_disabled" id="nav-hamburger-menu" role="button" aria-label="Open Menu" data-csa-c-type="widget" data-csa-c-slot-id="HamburgerMenuDesktop"
+  data-csa-c-interaction-events="click" >
+    <i class="hm-icon nav-sprite"></i>
+    <span class="hm-icon-label">All</span>
+  </a>
+  
+<script type="text/javascript">
+  var hmenu = document.getElementById("nav-hamburger-menu");
+  hmenu.setAttribute("href", "javascript: void(0)");
+  window.navHamburgerMetricLogger = function() {
+    if (window.ue && window.ue.count) {
+      var metricName = "Nav:Hmenu:IconClickActionPending";
+      window.ue.count(metricName, (ue.count(metricName) || 0) + 1);
+    }
+    window.$Nav && $Nav.declare("navHMenuIconClicked",!0);
+    window.$Nav && $Nav.declare("navHMenuIconClickedNotReadyTimeStamp", Date.now());
+  };
+  hmenu.addEventListener("click", window.navHamburgerMetricLogger);
+  window.$Nav && $Nav.declare('hamburgerMenuIconAvailableOnLoad', false);
+</script>  
+<script type='text/javascript'>window.navmet.push({key:'HamburgerMenuIcon',end:+new Date(),begin:window.navmet.tmp});</script>
+        
+        
+        
+        
+      </div>
+      <div class='nav-fill'>
+        
+          
+ <div id="nav-shop">
+ </div>
+          <div id='nav-xshop-container'>
+            <div id='nav-xshop' class="nav-progressive-content">
+              <script type='text/javascript'>window.navmet.tmp=+new Date();</script>
+<a href="/gp/goldbox?ref_=nav_cs_gb" class="nav-a  " tabindex="0" data-csa-c-type="link" data-csa-c-slot-id="nav_cs_0" data-csa-c-content-id="nav_cs_gb">Today's Deals</a>
+
+<a href="/gp/help/customer/display.html?nodeId=508510&ref_=nav_cs_customerservice" class="nav-a  " tabindex="0" data-csa-c-type="link" data-csa-c-slot-id="nav_cs_1" data-csa-c-content-id="nav_cs_customerservice">Customer Service</a>
+
+<a href="/gp/browse.html?node=16115931011&ref_=nav_cs_registry" class="nav-a  " tabindex="0" data-csa-c-type="link" data-csa-c-slot-id="nav_cs_2" data-csa-c-content-id="nav_cs_registry">Registry</a>
+
+<a href="/gift-cards/b/?ie=UTF8&node=2238192011&ref_=nav_cs_gc" class="nav-a  " tabindex="0" data-csa-c-type="link" data-csa-c-slot-id="nav_cs_3" data-csa-c-content-id="nav_cs_gc">Gift Cards</a>
+
+<a href="/b/?_encoding=UTF8&ld=AZUSSOA-sell&node=12766669011&ref_=nav_cs_sell" class="nav-a  " tabindex="0" data-csa-c-type="link" data-csa-c-slot-id="nav_cs_4" data-csa-c-content-id="nav_cs_sell">Sell</a>
+
+<a href="/gp/help/customer/accessibility" aria-label="Click to call our Disability Customer Support line, or reach us directly at 1-888-283-1678" class="nav-hidden-aria  " tabindex="0"  data-csa-c-type="link" data-csa-c-slot-id="nav_cs_5" >Disability Customer Support</a>
+<script type='text/javascript'>window.navmet.push({key:'CrossShop',end:+new Date(),begin:window.navmet.tmp});</script>
+            </div>
+          </div>
+        
+      </div>
+      <div class='nav-right'>
+          <script type='text/javascript'>window.navmet.tmp=+new Date();</script><!-- Navyaan SWM -->
+<div id="nav-swmslot" class="nav-swm-text-widget">
+  <a href="/events/epicdeals/?_encoding=UTF8&ref_=nav_swm_undefined&pf_rd_p=dd61ce0e-f9c8-4037-a41d-3a34ecbafaa3&pf_rd_s=nav-sitewide-msg-text-export&pf_rd_t=4201&pf_rd_i=navbar-4201&pf_rd_m=ATVPDKIKX0DER&pf_rd_r=GBQV5ZSQKZTXDPJ5PABC" id="swm-link" class="nav_a nav-swm-text nav-progressive-attribute nav-progressive-content">Epic Daily Deals</a>
+</div><script type='text/javascript'>window.navmet.push({key:'SWM',end:+new Date(),begin:window.navmet.tmp});</script>
+      </div>
+    </div>
+
+    <div id='nav-subnav-toaster'></div>
+
+    
+    <div id="nav-progressive-subnav">
+      <script type='text/javascript'>window.navmet.tmp=+new Date();</script>
+<div id='nav-subnav' class="spacious" data-category="audible">
+  <a href="/Audible-Books-and-Originals/b/?ie=UTF8&node=18145289011&ref_=topnav_storetab_adbl_subnav_ref1" class="nav-a nav-hasImage" >
+    <span class="nav-a-content">
+      <img src="https://images-na.ssl-images-amazon.com/images/G/01/Audible/en_US/images/creative/test/audible_logo_subnav_427x100._CB451112634_.jpg" class="nav-categ-image" alt="Audible Audiobooks"/>
+    </span>
+  </a>
+  <a href="/hz/audible/mlp/?_encoding=UTF8&ref_=sv_adbl_subnav_ref1_1" class="nav-a" >
+    <span class="nav-a-content">
+      Audible Membership
+      
+    </span>
+  </a>
+  <a href="/Best-Sellers-Audible-Audiobooks/zgbs/audible/?_encoding=UTF8&ref_=sv_adbl_subnav_ref1_2" class="nav-a nav-hasArrow" data-nav-flyout-full-width="1" data-nav-key="aj:https://images-na.ssl-images-amazon.com/images/G/01/Audible/en_US/images/creative/amazon/subav/adbl_subnav_flyout_v1_en_US.json:subnav-sl-megamenu-1:0" >
+    <span class="nav-a-content">
+      Now Trending
+      
+    </span>
+    <span class="nav-arrow"></span>
+  </a>
+  <a href="/Audible-Books-and-Originals/b/?ie=UTF8&node=18145289011&ref_=sv_adbl_subnav_ref1_3" class="nav-a nav-hasArrow" data-nav-flyout-full-width="1" data-nav-key="aj:https://images-na.ssl-images-amazon.com/images/G/01/Audible/en_US/images/creative/amazon/subav/adbl_subnav_flyout_v1_en_US.json:subnav-sl-megamenu-2:0" >
+    <span class="nav-a-content">
+      Categories
+      
+    </span>
+    <span class="nav-arrow"></span>
+  </a>
+  <a href="/Audible-Books-and-Originals/b/?ie=UTF8&node=18145289011&ref_=sv_adbl_subnav_ref1_4" class="nav-a nav-hasArrow" data-nav-flyout-full-width="1" data-nav-key="aj:https://images-na.ssl-images-amazon.com/images/G/01/Audible/en_US/images/creative/amazon/subav/adbl_subnav_flyout_v1_en_US.json:subnav-sl-megamenu-3:0" >
+    <span class="nav-a-content">
+      More to Explore
+      
+    </span>
+    <span class="nav-arrow"></span>
+  </a>
+  <a href="/?_encoding=UTF8&ref_=sv_adbl_subnav_ref1_5" class="nav-a" >
+    <span class="nav-a-content">
+       
+      
+    </span>
+  </a>
+  <a href="/?_encoding=UTF8&ref_=sv_adbl_subnav_ref1_6" class="nav-a" >
+    <span class="nav-a-content">
+       
+      
+    </span>
+  </a>
+  <a href="/?_encoding=UTF8&ref_=sv_adbl_subnav_ref1_7" class="nav-a" >
+    <span class="nav-a-content">
+       
+      
+    </span>
+  </a>
+  <a href="/?_encoding=UTF8&ref_=sv_adbl_subnav_ref1_8" class="nav-a" >
+    <span class="nav-a-content">
+       
+      
+    </span>
+  </a>
+  <a href="/?_encoding=UTF8&ref_=sv_adbl_subnav_ref1_9" class="nav-a" >
+    <span class="nav-a-content">
+       
+      
+    </span>
+  </a>
+  <a href="/?_encoding=UTF8&ref_=sv_adbl_subnav_ref1_10" class="nav-a" >
+    <span class="nav-a-content">
+       
+      
+    </span>
+  </a>
+  <a href="/hz/audible/settings/?_encoding=UTF8&ref_=sv_adbl_subnav_ref1_11" class="nav-a" >
+    <span class="nav-a-content">
+      Settings
+      
+    </span>
+  </a>
+  <a href="/gp/help/customer/display.html/?ie=UTF8&nodeId=202163310&ref_=sv_adbl_subnav_ref1_12" class="nav-a" >
+    <span class="nav-a-content">
+      Help
+      
+    </span>
+  </a>
+<!-- nav-linktree-subnav - 'audible' -->
+</div>
+
+<script type='text/javascript'>window.navmet.push({key:'Subnav',end:+new Date(),begin:window.navmet.tmp});</script>
+    </div>
+
+    <div id='nav-flyout-ewc' aria-hidden='true' tabindex='-1' class='nav-ewc-lazy-align nav-ewc-hide-head'><div class='nav-flyout-body ewc-beacon'><div class='nav-ewc-arrow'></div><div class='nav-ewc-content'></div></div></div><script type='text/javascript'>
+(function() {
+  var viewportWidth = function() {
+    return window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth;
+  };
+
+  if (typeof uet === 'function') {  uet('x1', 'ewc', {wb: 1}); }
+
+  window.$Nav && $Nav.declare('config.ewc', (function() {
+    var config = {"enablePersistent":true,"viewportWidthForPersistent":1400,"isEWCLogging":1,"isEWCStateExpanded":true,"EWCStateReason":"fixed","isSmallScreenEnabled":true,"isFreshCustomer":false,"errorContent":{"html":"<div class='nav-ewc-error'><span class='nav-title'>Oops!</span><p class='nav-paragraph'>There's a problem loading your cart right now.</p><a href='/gp/cart/view.html?ref_=nav_err_ewc_timeout' class='nav-action-button'><span class='nav-action-inner'>Your Cart</span></a></div>"},"url":"/cart/ewc/compact?hostPageType=CheckoutAudible&hostSubPageType=null&hostPageRID=GBQV5ZSQKZTXDPJ5PABC&prerender=0&storeName=audible","cartCount":0,"freshCartCount":0,"almCartCount":0,"isCompactViewEnabled":true,"isCompactEWCRendered":true};
+    var hasAui = window.P && window.P.AUI_BUILD_DATE;
+    var isRTLEnabled = (document.dir === 'rtl');
+    config.pinnable = config.pinnable && hasAui;
+    config.isMigrationTreatment = true;
+
+    config.flyout = (function() {
+      var navbelt = document.getElementById('nav-belt');
+      var navCart = document.getElementById('nav-cart');
+      var ewcFlyout = document.getElementById('nav-flyout-ewc');
+      var persistentClassOnBody = 'nav-ewc-persistent-hover nav-ewc-full-height-persistent-hover';
+      var flyout = {};
+
+      var getDocumentScrollTop = function() {
+        return (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+      };
+
+      var isWindow = function(obj) {
+        return obj != null && obj === obj.window;
+      };
+
+      var getWindow = function(elem) {
+        return isWindow(elem) ? elem : elem.nodeType === 9 && elem.defaultView;
+      };
+
+      var getOffset = function(elem) {
+        if (elem.getClientRects && !elem.getClientRects().length) {
+          return {top: 0};
+        }
+
+        var rect = elem.getBoundingClientRect
+          ? elem.getBoundingClientRect()
+          : {top: 0};
+
+        if (rect.width || rect.height) {
+          var doc = elem.ownerDocument;
+          var win = getWindow(doc);
+          return {
+            top: rect.top + win.pageYOffset - doc.documentElement.clientTop
+          };
+        }
+        return rect;
+      };
+
+      flyout.align = function() {
+        var newTop = getOffset(navbelt).top - getDocumentScrollTop();
+        ewcFlyout.style.top = (newTop > 0 ? newTop + 'px' : 0);
+      };
+
+      flyout.hide = function() {
+        isRTLEnabled
+          ? (ewcFlyout.style.left = '')
+          : (ewcFlyout.style.right = '');
+      };
+
+      if(typeof config.isCompactEWCRendered === 'undefined') {
+        if (
+          (config.isSmallScreenEnabled && viewportWidth() < 1400) ||
+          (config.isCompactViewEnabled && viewportWidth() >= 1400)
+        ) {
+          config.isCompactEWCRendered = true;
+          config.isEWCStateExpanded = true;
+          config.url = config.url.replace("/gp/navcart/sidebar", "/cart/ewc/compact");
+        } else {
+          config.isCompactEWCRendered = false;
+        }
+      }
+
+      var viewportQualifyForPersistent = function () {
+        return (config.isCompactEWCRendered)
+          ? true
+          : viewportWidth() >= 1400;
+      }
+
+      flyout.hasQualifiedViewportForPersistent = viewportQualifyForPersistent;
+
+      var getEWCRightOffset = function() {
+        if (!config.isCompactEWCRendered) {
+          return 0;
+        }
+
+        var $navbelt = document.getElementById('nav-belt');
+        if ($navbelt === undefined || $navbelt === null) {
+          return 0;
+        }
+
+        var EWCCompactViewWidth = (config.isWiderCompactEWCRendered  && viewportWidth() >= 1280) ? 130 : 100;
+        var scrollLeft = (window.pageXOffset !== undefined)
+          ? window.pageXOffset
+          : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+        var scrollXAxis = Math.abs(scrollLeft);
+        var windowWidth = document.documentElement.clientWidth;
+        var navbeltWidth = $navbelt.offsetWidth;
+        var isPartOfNavbarNotVisible = (navbeltWidth + EWCCompactViewWidth) > windowWidth;
+
+        if (isPartOfNavbarNotVisible) {
+          return 0 - (navbeltWidth - scrollXAxis - windowWidth + EWCCompactViewWidth);
+        } else {
+          return 0;
+        }
+      }
+
+      flyout.getEWCRightOffsetCssProperty = function () {
+        return getEWCRightOffset() + 'px';
+      }
+
+      if (config.isCompactEWCRendered) {
+        persistentClassOnBody = 'nav-ewc-persistent-hover nav-ewc-compact-view';
+        if (config.isWiderCompactEWCRendered) { persistentClassOnBody += ' nav-ewc-wider-compact-view'; }
+      }
+
+      flyout.show = function() {
+        isRTLEnabled
+          ? (ewcFlyout.style.left = flyout.getEWCRightOffsetCssProperty())
+          : (ewcFlyout.style.right = flyout.getEWCRightOffsetCssProperty());
+      };
+
+      var isIOSDevice = function() {
+        return (/iPad|iPhone|iPod/.test(navigator.platform) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
+                !window.MSStream;
+      }
+
+      var checkForPersistent = function() {
+        if (!hasAui) {
+          return { result: false, reason: 'noAui' };
+        }
+        if (!config.enablePersistent) {
+          return { result: false, reason: 'config' };
+        }
+        if (!viewportQualifyForPersistent()) {
+          return { result: false, reason: 'viewport' };
+        }
+        if (isIOSDevice()) {
+          return { result: false, reason: 'iOS' };
+        }
+        if (!config.cartCount > 0) {
+          return { result: false, reason: 'emptycart' };
+        }
+
+        return { result: true };
+      };
+
+      flyout.ableToPersist = function() {
+        return checkForPersistent().result;
+      };
+
+      var persistentClassRegExp = '(?:^|\\s)' + persistentClassOnBody + '(?!\\S)';
+      flyout.applyPageLayoutForPersistent = function() {
+        if (!document.documentElement.className.match( new RegExp(persistentClassRegExp) )) {
+          document.documentElement.className += ' ' + persistentClassOnBody;
+        }
+      };
+
+      flyout.unapplyPageLayoutForPersistent = function() {
+        document.documentElement.className = document.documentElement.className.replace( new RegExp(persistentClassRegExp, 'g'), '');
+      };
+
+      flyout.persist = function() {
+        flyout.applyPageLayoutForPersistent();
+        flyout.show();
+        if (config.isCompactEWCRendered) {
+          flyout.align();
+        }
+      };
+
+      flyout.unpersist = function() {
+        flyout.unapplyPageLayoutForPersistent();
+        flyout.hide();
+      };
+
+      var resizeCallback = function() {
+        if (flyout.ableToPersist()) {
+          flyout.persist();
+        }
+        else {
+          flyout.unpersist();
+        }
+      };
+
+      flyout.bindEvents = function() {
+        if (window.addEventListener) {
+          window.addEventListener('resize', resizeCallback, false);
+          if (config.isCompactEWCRendered) {
+            window.addEventListener('scroll', flyout.align, false);
+          }
+        }
+      };
+
+      flyout.unbindEvents = function() {
+        if (window.removeEventListener) {
+          window.removeEventListener('resize', resizeCallback, false);
+          if (config.isCompactEWCRendered) {
+            window.removeEventListener('scroll', flyout.align, false);
+          }
+        }
+      };
+
+      var persistentCheck = checkForPersistent();
+
+      if (persistentCheck.result) {
+        flyout.persist();
+        if (window.ue && ue.tag) {
+          ue.tag('ewc:persist');
+        }
+      } else {
+        if (window.ue && ue.tag) {
+          ue.tag('ewc:unpersist');
+          if (persistentCheck.reason === 'noAui') {
+            ue.tag('ewc:unpersist:noAui');
+          }
+          if (persistentCheck.reason === 'viewport') {
+            ue.tag('ewc:unpersist:viewport');
+          }
+          if (persistentCheck.reason === 'emptycart') {
+            ue.tag('ewc:unpersist:emptycart');
+          }
+          if (persistentCheck.reason === 'iOS') {
+            ue.tag('ewc:unpersist:iOS');
+          }
+        }
+      }
+
+      if (window.ue && ue.tag)  {
+        if (flyout.hasQualifiedViewportForPersistent()) {
+          ue.tag('ewc:bview');
+        }
+        else {
+          ue.tag('ewc:sview');
+        }
+      }
+      flyout.bindEvents();
+
+      return flyout;
+    }());
+
+    return config;
+  }()));
+
+  if (typeof uet === 'function') {
+    uet('x2', 'ewc', {wb: 1});
+    (window.AmazonUIPageJS ? AmazonUIPageJS : P).when('navCF').execute(function() {
+      uet('bb', 'ewc', {wb: 1});
+    });
+  }
+
+  if (window.ue && ue.tag) {
+    ue.tag('ewc');
+    ue.tag('ewc:unrec');
+    ue.tag('ewc:cartsize:0');
+
+    if ( window.P && window.P.AUI_BUILD_DATE ) {
+      ue.tag('ewc:aui');
+    } else {
+      ue.tag('ewc:noAui');
+    }
+  }
+}());
+</script>
+  </div>
+
+  
+  
+
+</header>
+
+
+<script type='text/javascript'>window.navmet.push({key:'NavBar',end:+new Date(),begin:window.navmet.main});</script>
+
+
+<script type="text/javascript">
+  if (window.ue_t0) {
+    window.navmet.push({key:"NavMainPaintEnd",end:+new Date(),begin:window.ue_t0});
+    window.navmet.push({key:"NavFirstPaintEnd",end:+new Date(),begin:window.ue_t0});
+  }
+</script>
+
+
+<script type='text/javascript'>
+    <!--
+    
+    window.$Nav && $Nav.when("data").run(function(data) { data({"freshTimeout":{"template":{"name":"flyoutError","data":{"error":{"title":"<style>#nav-flyout-fresh{width:269px;padding:0;}#nav-flyout-fresh .nav-flyout-content{padding:0;}</style><a href='/amazonfresh'><img src='https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/yoda/flyout_72dpi._V270255989_.png' /></a>"}}}},"cartTimeout":{"template":{"name":"flyoutError","data":{"error":{"button":{"text":"Your Cart","url":"/gp/cart/view.html?ref_=nav_err_cart_timeout"},"title":"Oops!","paragraph":"Unable to retrieve your cart."}}}},"primeTimeout":{"template":{"name":"flyoutError","data":{"error":{"title":"<a href='/gp/prime'><img src='https://images-na.ssl-images-amazon.com/images/G/01/prime/piv/YourPrimePIV_fallback_CTA._V327346943_.jpg' /></a>"}}}},"ewcTimeout":{"template":{"name":"flyoutError","data":{"error":{"button":{"text":"Your Cart","url":"/gp/cart/view.html?ref_=nav_err_ewc_timeout"},"title":"Oops!","paragraph":"There's a problem loading your cart right now."}}}},"errorWishlist":{"template":{"name":"flyoutError","data":{"error":{"button":{"text":"Your Wishlist","url":"/gp/registry/wishlist/?ref_=nav_err_wishlist"},"title":"Oops!","paragraph":"Unable to retrieve your wishlist"}}}},"emptyWishlist":{"template":{"name":"flyoutError","data":{"error":{"button":{"text":"Your Wishlist","url":"/gp/registry/wishlist/?ref_=nav_err_empty_wishlist"},"title":"Oops!","paragraph":"Your list is empty"}}}},"yourAccountContent":{"template":{"name":"flyoutError","data":{"error":{"button":{"text":"Your Account","url":"/gp/css/homepage.html?ref_=nav_err_youraccount"},"title":"Oops!","paragraph":"Unable to retrieve your account"}}}},"shopAllTimeout":{"template":{"name":"flyoutError","data":{"error":{"paragraph":"Unable to retrieve departments, please try again later"}}}},"kindleTimeout":{"template":{"name":"flyoutError","data":{"error":{"paragraph":"Unable to retrieve list, please try again later"}}}}}); });
+window.$Nav && $Nav.when("util.templates").run("FlyoutErrorTemplate", function(templates) {
+      templates.add("flyoutError", "<# if(error.title) { #><span class='nav-title'><#=error.title #></span><# } #><# if(error.paragraph) { #><p class='nav-paragraph'><#=error.paragraph #></p><# } #><# if(error.button) { #><a href='<#=error.button.url #>' class='nav-action-button' ><span class='nav-action-inner'><#=error.button.text #></span></a><# } #>");
+    });
+
+    if (typeof uet == 'function') {
+    uet('bb', 'iss-init-pc', {wb: 1});
+  }
+  if (!window.$SearchJS && window.$Nav) {
+    window.$SearchJS = $Nav.make('sx');
+  }
+
+  var opts = {
+    host: "completion.amazon.com/search/complete"
+  , marketId: "1"
+  , obfuscatedMarketId: "ATVPDKIKX0DER"
+  , searchAliases: ["aps","amazon-custom-products","amazon-devices","amazonbasics","amazonfresh","amazon-pharmacy","wholefoods","allthebestpets","bartelldrugs","bristolfarms","freshthyme","kegnbottle","missionwinespirits","petfoodexpress","sousaswineliquors","surdyksliquorcheeseshop","unionsquarewine","vintagegrape","westsidemarket","stripbooks","popular","apparel","electronics","sporting","sports-and-fitness","outdoor-recreation","fan-shop","garden","videogames","toys-and-games","jewelry","digital-text","digital-music","prime-digital-music","watches","grocery","hpc","instant-video","handmade","handmade-jewelry","handmade-home-and-kitchen","prime-instant-video","shop-instant-video","baby-products","office-products","software","smart-home","magazines","tools","automotive","misc","industrial","mi","pet-supplies","digital-music-track","digital-music-album","mobile","mobile-apps","movies-tv","music-artist","music-album","music-song","stripbooks-spanish","electronics-accessories","photo","audio-video","computers","furniture","kitchen","audible","audiobooks","beauty","shoes","arts-crafts","appliances","gift-cards","pets","outdoor","lawngarden","collectibles","replacement-parts","financial","fine-art","fashion","fashion-womens","fashion-womens-clothing","fashion-womens-jewelry","fashion-womens-shoes","fashion-womens-watches","fashion-womens-handbags","fashion-mens","fashion-mens-clothing","fashion-mens-jewelry","fashion-mens-shoes","fashion-mens-watches","fashion-girls","fashion-girls-clothing","fashion-girls-jewelry","fashion-girls-shoes","fashion-girls-watches","fashion-boys","fashion-boys-clothing","fashion-boys-jewelry","fashion-boys-shoes","fashion-boys-watches","fashion-baby","fashion-baby-boys","fashion-baby-girls","fashion-luggage","3d-printing","tradein-aps","todays-deals","live-explorations","local-services","vehicles","video-shorts","warehouse-deals","luxury-beauty","banjo-apps","black-friday","cyber-monday","alexa-skills","subscribe-with-amazon","courses","edu-alt-content","amazon-global-store","prime-wardrobe","under-ten-dollars","tempo","specialty-aps-sns","luxury"]
+  , filterAliases: []
+  , pageType: "CheckoutAudible"
+  , requestId: "GBQV5ZSQKZTXDPJ5PABC"
+  , sessionId: "135-8255461-6674646"
+  , language: "en_US"
+  , customerId: ""
+  , b2b: 0
+  , fresh: 0
+  , isJpOrCn: 0
+  , isUseAuiIss: 1
+};
+
+var issOpts = {
+    fallbackFlag: 1
+  , isDigitalFeaturesEnabled: 0
+  , isWayfindingEnabled: 1
+  , dropdown: "select.searchSelect"
+  , departmentText: "in {department}"
+  , suggestionText: "Search suggestions"
+  , recentSearchesTreatment: "C"
+  , authorSuggestionText: "Explore books by XXAUTHXX"
+  , translatedStringsMap: {"sx-recent-searches":"Recent searches","sx-your-recent-search":"Inspired by your recent search"}
+  , biaTitleText: ""
+  , biaPurchasedText: ""
+  , biaViewAllText: ""
+  , biaViewAllManageText: ""
+  , biaAndText: ""
+  , biaManageText: ""
+  , biaWeblabTreatment: ""
+  , issNavConfig: {}
+  , np: 0
+  , issCorpus: []
+  , cf: 1
+  , removeDeepNodeISS: ""
+  , trendingTreatment: "C"
+  , useAPIV2: ""
+  , opfSwitch: ""
+  , isISSDesktopRefactorEnabled: "1"
+  , useServiceHighlighting: "true"
+  , isInternal: 0
+  , isAPICachingDisabled: true
+  , isBrowseNodeScopingEnabled: false
+  , isStorefrontTemplateEnabled: false
+  , disableAutocompleteOnFocus: ""
+};
+
+  if (opts.isUseAuiIss === 1 && window.$Nav) {
+  window.$Nav.when('sx.iss').run('iss-mason-init', function(iss){
+    var issInitObj = buildIssInitObject(opts, issOpts, true);
+
+    new iss.IssParentCoordinator(issInitObj);
+
+    $SearchJS.declare('canCreateAutocomplete', issInitObj);
+  });
+} else if (window.$SearchJS) {
+  var iss;
+
+  // BEGIN Deprecated globals
+  var issHost = opts.host
+    , issMktid = opts.marketId
+    , issSearchAliases = opts.searchAliases
+    , updateISSCompletion = function() { iss.updateAutoCompletion(); };
+  // END deprecated globals
+
+
+  $SearchJS.when('jQuery', 'search-js-autocomplete-lib').run('autocomplete-init', initializeAutocomplete);
+  $SearchJS.when('canCreateAutocomplete').run('createAutocomplete', createAutocomplete);
+
+} // END conditional for window.$SearchJS
+  function initializeAutocomplete(jQuery) {
+  var issInitObj = buildIssInitObject(opts, issOpts);
+  $SearchJS.declare("canCreateAutocomplete", issInitObj);
+} // END initializeAutocomplete
+  function initSearchCsl(searchCSL, issInitObject) {
+  searchCSL.init(
+    opts.pageType,
+    (window.ue && window.ue.rid) || opts.requestId
+  );
+  $SearchJS.declare("canCreateAutocomplete", issInitObject);
+} // END initSearchCsl
+  function createAutocomplete(issObject) {
+  iss = new AutoComplete(issObject);
+
+  $SearchJS.publish("search-js-autocomplete", iss);
+
+  logMetrics();
+} // END createAutocomplete
+  function buildIssInitObject(opts, issOpts, isNewIss) {
+    var issInitObj = {
+        src: opts.host
+      , sessionId: opts.sessionId
+      , requestId: opts.requestId
+      , mkt: opts.marketId
+      , obfMkt: opts.obfuscatedMarketId
+      , pageType: opts.pageType
+      , language: opts.language
+      , customerId: opts.customerId
+      , fresh: opts.fresh
+      , b2b: opts.b2b
+      , aliases: opts.searchAliases
+      , fb: issOpts.fallbackFlag
+      , isDigitalFeaturesEnabled: issOpts.isDigitalFeaturesEnabled
+      , isWayfindingEnabled: issOpts.isWayfindingEnabled
+      , issPrimeEligible: issOpts.issPrimeEligible
+      , deptText: issOpts.departmentText
+      , sugText: issOpts.suggestionText
+      , filterAliases: opts.filterAliases
+      , biaWidgetUrl: opts.biaWidgetUrl
+      , recentSearchesTreatment: issOpts.recentSearchesTreatment
+      , authorSuggestionText: issOpts.authorSuggestionText
+      , translatedStringsMap: issOpts.translatedStringsMap
+      , biaTitleText: ""
+      , biaPurchasedText: ""
+      , biaViewAllText: ""
+      , biaViewAllManageText: ""
+      , biaAndText: ""
+      , biaManageText: ""
+      , biaWeblabTreatment: ""
+      , issNavConfig: issOpts.issNavConfig
+      , cf: issOpts.cf
+      , ime: opts.isJpOrCn
+      , mktid: opts.marketId
+      , qs: opts.isJpOrCn
+      , issCorpus: issOpts.issCorpus
+      , deepNodeISS: {
+          searchAliasAccessor: function($) {
+            return (window.SearchPageAccess && window.SearchPageAccess.searchAlias()) ||
+                   $('select.searchSelect').children().attr('data-root-alias');
+          },
+          searchAliasDisplayNameAccessor: function() {
+            return (window.SearchPageAccess && window.SearchPageAccess.searchAliasDisplayName());
+          }
+        }
+      , removeDeepNodeISS: issOpts.removeDeepNodeISS
+      , trendingTreatment: issOpts.trendingTreatment
+      , useAPIV2: issOpts.useAPIV2
+      , opfSwitch: issOpts.opfSwitch
+      , isISSDesktopRefactorEnabled: issOpts.isISSDesktopRefactorEnabled
+      , useServiceHighlighting: issOpts.useServiceHighlighting
+      , isInternal: issOpts.isInternal
+      , isAPICachingDisabled: issOpts.isAPICachingDisabled
+      , isBrowseNodeScopingEnabled: issOpts.isBrowseNodeScopingEnabled
+      , isStorefrontTemplateEnabled: issOpts.isStorefrontTemplateEnabled
+      , disableAutocompleteOnFocus: issOpts.disableAutocompleteOnFocus
+    };
+  
+    // If we aren't using the new ISS then we need to add these properties
+    
+    if (!isNewIss) {
+      issInitObj.dd = issOpts.dropdown; // The element with id searchDropdownBox doesn't exist in C.
+      issInitObj.imeSpacing = issOpts.imeSpacing;
+      issInitObj.isNavInline = 1;
+      issInitObj.triggerISSOnClick = 0;
+      issInitObj.sc = 1;
+      issInitObj.np = issOpts.np;
+    }
+  
+    return issInitObj;
+  } // END buildIssInitObject
+  function logMetrics() {
+  if (typeof uet == 'function' && typeof uex == 'function') {
+      uet('be', 'iss-init-pc',
+          {
+              wb: 1
+          });
+      uex('ld', 'iss-init-pc',
+          {
+              wb: 1
+          });
+  }
+} // END logMetrics
+  
+    
+window.$Nav && $Nav.declare('config.navDeviceType','desktop');
+
+window.$Nav && $Nav.declare('config.navDebugHighres',false);
+
+window.$Nav && $Nav.declare('config.pageType','CheckoutAudible');
+window.$Nav && $Nav.declare('config.subPageType','null');
+
+window.$Nav && $Nav.declare('config.dynamicMenuUrl','\x2Fgp\x2Fnavigation\x2Fajax\x2Fdynamic\x2Dmenu.html');
+
+window.$Nav && $Nav.declare('config.dismissNotificationUrl','\x2Fgp\x2Fnavigation\x2Fajax\x2Fdismissnotification.html');
+
+window.$Nav && $Nav.declare('config.enableDynamicMenus',true);
+
+window.$Nav && $Nav.declare('config.isInternal',false);
+
+window.$Nav && $Nav.declare('config.isBackup',false);
+
+window.$Nav && $Nav.declare('config.isRecognized',false);
+
+window.$Nav && $Nav.declare('config.transientFlyoutTrigger','\x23nav\x2Dtransient\x2Dflyout\x2Dtrigger');
+
+window.$Nav && $Nav.declare('config.subnavFlyoutUrl','\x2Fgp\x2Fnavigation\x2Fajax\x2Fgeneric.html');
+window.$Nav && $Nav.declare('config.isSubnavFlyoutMigrationEnabled',true);
+
+window.$Nav && $Nav.declare('config.recordEvUrl','\x2Fgp\x2Fnavigation\x2Fajax\x2Frecordevent.html');
+window.$Nav && $Nav.declare('config.recordEvInterval',15000);
+window.$Nav && $Nav.declare('config.sessionId','135\x2D8255461\x2D6674646');
+window.$Nav && $Nav.declare('config.requestId','GBQV5ZSQKZTXDPJ5PABC');
+
+window.$Nav && $Nav.declare('config.alexaListEnabled',true);
+
+window.$Nav && $Nav.declare('config.readyOnATF',false);
+
+window.$Nav && $Nav.declare('config.dynamicMenuArgs',{"rid":"GBQV5ZSQKZTXDPJ5PABC","isFullWidthPrime":0,"isPrime":0,"dynamicRequest":1,"weblabs":"","isFreshRegionAndCustomer":"","primeMenuWidth":310});
+
+window.$Nav && $Nav.declare('config.customerName',false);
+
+window.$Nav && $Nav.declare('config.yourAccountPrimeURL',null);
+
+window.$Nav && $Nav.declare('config.yourAccountPrimeHover',true);
+
+window.$Nav && $Nav.declare('config.searchBackState',{});
+
+window.$Nav && $Nav.declare('nav.inline');
+
+(function (i) {
+  if(window._navbarSpriteUrl) {
+    i.onload = function() {window.uet && uet('ne')};
+    i.src = window._navbarSpriteUrl;
+  }
+}(new Image()));
+
+window.$Nav && $Nav.declare('config.autoFocus',false);
+
+window.$Nav && $Nav.declare('config.responsiveTouchAgents',["ieTouch"]);
+
+window.$Nav && $Nav.declare('config.responsiveGW',false);
+
+window.$Nav && $Nav.declare('config.pageHideEnabled',false);
+
+window.$Nav && $Nav.declare('config.sslTriggerType','flyoutProximityLarge');
+window.$Nav && $Nav.declare('config.sslTriggerRetry',0);
+
+window.$Nav && $Nav.declare('config.doubleCart',false);
+
+window.$Nav && $Nav.declare('config.signInOverride',true);
+
+window.$Nav && $Nav.declare('config.signInTooltip',true);
+
+window.$Nav && $Nav.declare('config.isPrimeMember',false);
+
+window.$Nav && $Nav.declare('config.packardGlowTooltip',false);
+
+window.$Nav && $Nav.declare('config.packardGlowFlyout',false);
+
+window.$Nav && $Nav.declare('config.rightMarginAlignEnabled',true);
+
+window.$Nav && $Nav.declare('config.flyoutAnimation',false);
+
+window.$Nav && $Nav.declare('config.campusActivation','null');
+
+window.$Nav && $Nav.declare('config.primeTooltip',false);
+
+window.$Nav && $Nav.declare('config.primeDay',false);
+
+window.$Nav && $Nav.declare('config.disableBuyItAgain',false);
+
+window.$Nav && $Nav.declare('config.enableCrossShopBiaFlyout',false);
+
+window.$Nav && $Nav.declare('config.pseudoPrimeFirstBrowse',null);
+
+window.$Nav && $Nav.declare('config.sdaYourAccount',false);
+
+window.$Nav && $Nav.declare('config.csYourAccount',{"url":"/gp/youraccount/navigation/sidepanel"});
+
+window.$Nav && $Nav.declare('config.cartFlyoutDisabled',true);
+
+window.$Nav && $Nav.declare('config.isTabletBrowser',false);
+
+window.$Nav && $Nav.declare('config.HmenuProximityArea',[200,200,200,200]);
+
+window.$Nav && $Nav.declare('config.HMenuIsProximity',true);
+
+window.$Nav && $Nav.declare('config.isPureAjaxALF',false);
+
+window.$Nav && $Nav.declare('config.accountListFlyoutRedesign',false);
+
+window.$Nav && $Nav.declare('config.navfresh',false);
+
+window.$Nav && $Nav.declare('config.isFreshRegion',false);
+
+if (window.ue && ue.tag) { ue.tag('navbar'); };
+
+window.$Nav && $Nav.declare('config.blackbelt',true);
+
+window.$Nav && $Nav.declare('config.beaconbelt',true);
+
+window.$Nav && $Nav.declare('config.accountList',true);
+
+window.$Nav && $Nav.declare('config.iPadTablet',false);
+
+window.$Nav && $Nav.declare('config.searchapiEndpoint',false);
+
+window.$Nav && $Nav.declare('config.timeline',false);
+
+window.$Nav && $Nav.declare('config.timelineAsinPriceEnabled',false);
+
+window.$Nav && $Nav.declare('config.timelineDeleteEnabled',false);
+
+
+
+window.$Nav && $Nav.declare('config.extendedFlyout',false);
+
+window.$Nav && $Nav.declare('config.flyoutCloseDelay',600);
+
+window.$Nav && $Nav.declare('config.pssFlag',0);
+
+window.$Nav && $Nav.declare('config.isPrimeTooltipMigrated',false);
+
+window.$Nav && $Nav.declare('config.isDynamicWishListMigrationEnabled',false);
+
+window.$Nav && $Nav.declare('config.hashCustomerAndSessionId','42fadb611750b6f7b05cb40f72a3bda1da530465');
+
+window.$Nav && $Nav.declare('config.isExportMode',true);
+
+window.$Nav && $Nav.declare('config.languageCode','en_US');
+
+window.$Nav && $Nav.declare('config.environmentVFI','AmazonNavigationCards\x2Fdevelopment\x40B6067030426\x2DAL2_x86_64');
+
+
+
+window.$Nav && $Nav.declare('config.isHMenuBrowserCacheDisable',false);
+
+window.$Nav && $Nav.declare('config.signInUrlWithRefTag','https\x3A\x2F\x2Fwww.amazon.com\x2Fap\x2Fsignin\x3Fopenid.pape.max_auth_age\x3D0\x26openid.return_to\x3Dhttps\x253A\x252F\x252Fwww.amazon.com\x252Fhz\x252Faudible\x252Fmlp\x252Fmfpdp\x252FB017WJ5PR4\x252F\x253F_encoding\x253DUTF8\x2526ref_\x253DnavSignInUrlRefTagPlaceHolder\x26openid.identity\x3Dhttp\x253A\x252F\x252Fspecs.openid.net\x252Fauth\x252F2.0\x252Fidentifier_select\x26openid.assoc_handle\x3Dusflex\x26openid.mode\x3Dcheckid_setup\x26openid.claimed_id\x3Dhttp\x253A\x252F\x252Fspecs.openid.net\x252Fauth\x252F2.0\x252Fidentifier_select\x26openid.ns\x3Dhttp\x253A\x252F\x252Fspecs.openid.net\x252Fauth\x252F2.0\x26');
+
+window.$Nav && $Nav.declare('config.isSmile',false);
+
+window.$Nav && $Nav.declare('config.regionalStores',[]);
+
+window.$Nav && $Nav.declare('config.isALFRedesignPT2',true);
+
+window.$Nav && $Nav.declare('config.isNavALFRegistryGiftList',false);
+
+window.$Nav && $Nav.declare('config.marketplaceId','ATVPDKIKX0DER');
+
+window.$Nav && $Nav.declare('config.exportTransitionState',null);
+
+window.$Nav && $Nav.declare('config.enableAeeXopFlyout',true);
+
+window.$Nav && $Nav.declare('config.isPrimeFlyoutMigrationEnabled',false);
+
+if (window.P && typeof window.P.declare === "function" && typeof window.P.now === "function") {
+  window.P.now('packardGlowIngressJsEnabled').execute(function(glowEnabled) {
+    if (!glowEnabled) {
+      window.P.declare('packardGlowIngressJsEnabled', true);
+    }
+  });
+  window.P.now('packardGlowStoreName').execute(function(storeName) {
+    if (!storeName) {
+      window.P.declare('packardGlowStoreName','audible');
+    }
+  });
+}
+
+window.$Nav && $Nav.declare('configComplete');
+
+    -->
+</script>
+
+
+<a id="skippedLink" tabindex="-1"></a>
+
+<script type='text/javascript'>window.navmet.MainEnd = new Date();</script>
+<script type="text/javascript">
+    if (window.ue_t0) {
+      window.navmet.push({key:"NavMainEnd",end:+new Date(),begin:window.ue_t0});
+    }
+</script>
+
+
+
+<style type="text/css" >
+        .mdp_desktop_page_formatting {
+            min-width: 1000px;
+            max-width: 1260px;
+            margin: 0 auto;
+        }
+        .mfpdp_desktop_page_formatting {
+            min-width: 1000px;
+        }
+
+        .helpSection {
+            padding-left: 17px;
+            padding-right: 17px;
+        }
+
+        .adbl-typ-page-mobile-btf {
+            padding-left: 17px;
+            padding-right: 17px;
+        }
+        .mobile-image-heading{
+            margin-right: 0 !important;
+        }
+    </style>
+
+    <!-- Cart Error Section -->
+    <!-- Amabot slots section -->
+    <div class="a-section a-spacing-none mfpdp_desktop_page_formatting">                                                                                                                    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://d3216uwaav9lg7.cloudfront.net/assets-A20m.css" rel="stylesheet">
+<script src="https://d3216uwaav9lg7.cloudfront.net/assets-A20m.js" type="text/javascript"></script>
+
+
+<div class="a20m-body desktop" data-devicetype="desktop">
+  <div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container bg-no-repeat     a20m border-type-none background-color-transparent desktop" id="" style="width:100%;background-image:url(&#x27;https://m.media-amazon.com/images/G/01/Audible/en_US/images/creative/amazon/21-1624-ACQ-Holiday2021-Campaing-Pine_1500x100_V02.jpg&#x27;);background-size:cover;background-position:center center"><div title="https://www.amazon.com/hz/audible/mlp/membership/premiumplus/monthly?actionCode=AMZOR03609162193ND&amp;ref=adbl_mdp_banner_hol21" class="align-center"><a class="link-container  align-center" href="https://www.amazon.com/hz/audible/mlp/membership/premiumplus/monthly?actionCode=AMZOR03609162193ND&amp;ref=adbl_mdp_banner_hol21"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:50%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:33.333333333333336%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:66.66666666666667%"><h3 class="heading align-start color-white heading-size--small"><strong>Only $5.95 a month</strong></h3></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:33.333333333333336%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:66.66666666666667%"><p class="text align-start color-white text--word-break--normal text-size--normal"><strong>on your first 3 months with Audible Premium Plus</strong></p></div></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:8.333333333333334%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:41.666666666666664%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:50%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><h3 class="heading align-start color-white heading-size--xtra-small"><strong>Get this deal &gt;</strong></h3></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><p class="text align-start color-white text--word-break--normal text-size--small">$14.95/mo after 3 months. <br/>Cancel anytime.</p></div></div></div></div></a></div></div><div></div></div> 
+</div>
+
+
+
+
+
+
+<!doctype html><html class="a-no-js" data-19ax5a9jf="dingo">
+    <head><script>var aPageStart = (new Date()).getTime();</script><meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://images-na.ssl-images-amazon.com/images/I/21aTvN9OYZL.css?AUIClients/AudibleSamplePlayerAssets" />
+<script>
+  (window.AmazonUIPageJS ? AmazonUIPageJS : P).load.js('https://images-na.ssl-images-amazon.com/images/I/21HXlBWiFKL.js?AUIClients/AudibleSamplePlayerAssets');
+  (window.AmazonUIPageJS ? AmazonUIPageJS : P).load.js('https://images-na.ssl-images-amazon.com/images/I/3188i9rc8WL.js?AUIClients/SWFObject_BuzzBuild');
+</script>
+
+        
+    </head>
+
+    <body class="a-m-us a-aui_72554-c a-aui_mm_desktop_exp_291916-c a-aui_mm_desktop_launch_291918-c a-aui_mm_desktop_targeted_exp_291928-c a-aui_mm_desktop_targeted_launch_291922-c a-aui_pci_risk_banner_210084-c a-aui_preload_261698-c a-aui_rel_noreferrer_noopener_309527-c a-aui_tnr_v2_180836-c"><div id="a-page"><script type="a-state" data-a-state="{&quot;key&quot;:&quot;a-wlab-states&quot;}">{}</script>
+        
+
+            
+            <style type="text/css">
+
+                .hero-blur:before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    z-index: -1;
+                    display: block;
+                    background-image: url(
+            https://m.media-amazon.com/images/I/917XxoD2LaL._SS20_.jpg
+            );
+                    background-color:#2D2D2D;
+                    background-size: 100% auto;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    height: 100%;
+                    width 100%;
+                    -webkit-filter: blur(60px);
+                    -moz-filter: blur(60px);
+                    -o-filter: blur(60px);
+                    -ms-filter: blur(60px);
+                    filter: blur(60px);
+                }
+
+                .hero-mask {
+                    background: rgba(0,0,0,.7);
+                    padding-top: 50px;
+                    height: 100%;
+                }
+
+                .hero-blur-mobile:before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    z-index: -1;
+                    display: block;
+                    background-image: url(
+            https://m.media-amazon.com/images/I/917XxoD2LaL._SS20_.jpg
+            );
+                    background-color:#2D2D2D;
+                    background-size: 100%;
+                    background-repeat: no-repeat;
+                    background-position: top;
+                    height: 100%;
+                    width 100%;
+                    -webkit-filter: blur(60px);
+                    -moz-filter: blur(60px);
+                    -o-filter: blur(60px);
+                    -ms-filter: blur(60px);
+                    filter: blur(60px);
+                }
+
+                .hero-mask-mobile {
+                    position:relative;
+                    background: rgba(0,0,0,.7);
+                    height: 100%;
+                }
+
+                .mf-pdp-hero-widget-desktop-main-section {
+                    position:relative;
+                    color: white;
+                    overflow:hidden;
+                    height: auto;
+                    min-height: 480px;
+                    width 100%;
+                }
+
+                .mf-pdp-hero-widget-mobile-main-section {
+                    position:relative;
+                    overflow:hidden;
+                    color: white;
+                }
+
+                #mf-pdp-popover-desktop {
+                    color: white;
+                    text-decoration: underline;
+                }
+
+                #mf_pdp_hero_widget .num-reviews {
+                    color: #7dd7e1;
+                }
+
+                #mf_pdp_hero_widget .hero-right-section {
+                    max-width: 500px;
+                }
+
+                #mf_pdp_hero_widget .mf_pdp_buy_button {
+                    min-width: 275px;
+                }
+
+                .whiteLink, .whiteLink.a:link, .whiteLink.a:hover, .whiteLink.a:visited, .whiteLink.a:active {
+                    color: white !important;
+                }
+
+                #mf_pdp_hero_widget #mf_pdp_hero_widget_checkout_form {
+                    margin-bottom: 5px !important;
+                }
+
+                .hero_widget_content {
+                    max-width: 1260px;
+                    margin: 0 auto;
+                }
+
+                .upgrade-price {
+                    color: #FFFFFF !important;
+                }
+
+                .mf-pdp-desktop-buy-button {
+                    width: 40%;
+                    min-width: 278px;
+                }
+
+                #mf_pdp_hero_widget_below_buybox a {
+                    text-decoration: underline !important;
+                    color: white !important;
+                }
+
+            </style>
+            
+            
+
+            <style type="text/css">
+
+    .audible-mfpdp-sample-container {
+        background: url("https://m.media-amazon.com/images/G/01/x-locale/personalization/yourstore/hud/Audible_HUD_SamplePlayer_Circle.png") no-repeat;
+        width: 180px;
+        height: 45px;
+        vertical-align: middle;
+        display: inline-block;
+        background-size: 45px 45px;
+        z-index:10;
+        visibility: inherit;
+        overflow: hidden;
+    }
+
+    .audible-mfpdp-sample-player-circle .samplePlayerSprite {
+        background: url("https://m.media-amazon.com/images/G/01/x-locale/personalization/yourstore/hud/Audible_HUD_SamplePlayer_Contols._V275524871_.gif") no-repeat;
+        width: 180px;
+        height: 45px;
+        vertical-align: middle;
+        display: inline-block;
+        background-size: 45px 135px;
+        z-index:11;
+    }
+
+    .audible-mfpdp-sample-player-circle .sampleAudioListen,
+    .audible-mfpdp-sample-player-circle .sampleAudioPaused {
+           background-position: 0px 0px !important;
+    }
+
+    .audible-mfpdp-sample-player-circle .sampleAudioPlaying {
+        background-position: 0px -90px !important;
+    }
+
+    .audible-mfpdp-sample-player-circle .sampleAudioLoading {
+        background-position: 0px -45px !important;
+    }
+
+    .audible-mfpdp-sample-container .audible-mfpdp-sample-player-circle .audioPlayer {
+        cursor: pointer;
+        display: inline-block;
+        width: 180px;
+    }
+
+
+</style>
+
+            
+
+
+
+
+
+<script type="text/javascript">
+    P.when('jQuery','AudibleSamplePlayer').execute(function($,SamplePlayer) {
+        var options = {};
+        options.flashPlayerUrl = 'https://m.media-amazon.com/images/G/01/zeitgeist/mp3player/swf/zgMp3Player-1.0._V212274098_.swf';
+        options.container = '.audible-mfpdp-sample-container';
+        SamplePlayer.init(options);
+        $('#a-page').click(function(event) {
+            if ($(event.target).closest('a').length || $(event.target).closest('input').length) {
+                SamplePlayer.pause();
+            }
+        });
+    });
+</script>
+
+            
+                
+
+
+
+
+
+
+
+    <div id="mf_pdp_hero_widget" class="a-section a-spacing-none mf-pdp-hero-widget-desktop-main-section hero-blur hero-mask">
+        <div class="a-section a-spacing-large">
+            <div class="a-row a-spacing-mini a-size-base a-grid-vertical-align a-grid-center hero_widget_content">
+                <div class="a-column a-span6 a-text-center">
+                    <div class="a-section a-padding-extra-large">
+                        <div id="mf_pdp_hero_widget_logo" class="a-section">
+                            <img alt="Audible Logo" src="https://m.media-amazon.com/images/G/01/audible/mfpdp/audible-logo-mf-pdp.png"/>
+                        </div>
+                        <div id="mf_pdp_hero_widget_book_img" class="a-section">
+                            <a class="a-link-normal" href="/dp/B017WJ5PR4?ref=adbl_mfpdp_dt_tr_img">
+                                <img alt="Book Logo" src="https://m.media-amazon.com/images/I/917XxoD2LaL._SS250_.jpg"/>
+                            </a>
+                        </div>
+                        
+                            <div id="mf_pdp_hero_widget_sample_plr" class="a-section">
+                                
+
+
+
+
+
+
+
+
+
+
+<div class="a-hidden" data-audiosource="https://d3dqntzfhcgpyw.cloudfront.net/bk/potr/000007/bk_potr_000007_sample.mp3" data-audioid="sample_B017WJ5PR4" data-asin="B017WJ5PR4"></div>
+<div class="a-section audible-mfpdp-sample-container">
+
+    <div class="a-section audible-mfpdp-sample-player-circle">
+
+        <div class="a-section audioPlaySample audioPlayer">
+            <div class="a-fixed-left-grid"><div class="a-fixed-left-grid-inner a-grid-vertical-align a-grid-center">
+                <div class="a-text-center a-fixed-left-grid-col a-col-left" style="width:66px;margin-left:-66px;float:left;">
+                    <a class="a-link-normal sampleAudioListen samplePlayerSprite" title="Listen to a sample of Harry Potter and the Deathly Hallows, Book 7" href="javascript:void(0)"></a>
+                </div>
+
+                <div class="a-text-left a-fixed-left-grid-col a-col-right" style="padding-left:0%;float:left;">
+                    <div class="a-section a-spacing-none a-padding-none">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+    
+    
+
+
+
+
+
+    
+    
+        Audible Sample
+    
+
+</div>
+                </div>
+            </div></div>
+        </div>
+
+        <div class="a-section audioPlaying audioPlayer">
+            <div class="a-fixed-left-grid"><div class="a-fixed-left-grid-inner a-grid-vertical-align a-grid-center">
+                <div class="a-text-center a-fixed-left-grid-col a-col-left" style="width:66px;margin-left:-66px;float:left;">
+                    <a class="a-link-normal sampleAudioPlaying samplePlayerSprite" title="The sample is being played" href="javascript:void(0)"></a>
+                </div>
+
+                <div class="a-text-left a-fixed-left-grid-col a-col-right" style="padding-left:0%;float:left;">
+                    <div class="a-section a-spacing-none a-padding-none">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+    
+    
+
+
+
+
+
+    
+    
+        Playing...
+    
+
+</div>
+                </div>
+            </div></div>
+        </div>
+
+        <div class="a-section audioLoading audioPlayer">
+            <div class="a-fixed-left-grid"><div class="a-fixed-left-grid-inner a-grid-vertical-align a-grid-center">
+                <div class="a-text-center a-fixed-left-grid-col a-col-left" style="width:66px;margin-left:-66px;float:left;">
+                    <a class="a-link-normal sampleAudioLoading samplePlayerSprite" title="The sample is loading" href="javascript:void(0)"></a>
+                </div>
+
+                <div class="a-text-left a-fixed-left-grid-col a-col-right" style="padding-left:0%;float:left;">
+                    <div class="a-section a-spacing-none a-padding-none"></div>
+                </div>
+            </div></div>
+        </div>
+
+        <div class="a-section audioPaused audioPlayer">
+            <div class="a-fixed-left-grid"><div class="a-fixed-left-grid-inner a-grid-vertical-align a-grid-center">
+                <div class="a-text-center a-fixed-left-grid-col a-col-left" style="width:66px;margin-left:-66px;float:left;">
+                    <a class="a-link-normal sampleAudioPaused samplePlayerSprite" title="The sample is paused" href="javascript:void(0)"></a>
+                </div>
+
+                <div class="a-text-left a-fixed-left-grid-col a-col-right" style="padding-left:0%;float:left;">
+                    <div class="a-section a-spacing-none a-padding-none">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+    
+    
+
+
+
+
+
+    
+    
+        Paused
+    
+
+</div>
+                </div>
+            </div></div>
+        </div>
+
+    </div>
+
+</div>
+
+                            </div>
+                        
+                    </div>
+                </div>
+
+                <div class="a-column a-span6 a-span-last">
+                    <div class="a-section a-padding-extra-large hero-right-section">
+
+                        <!-- Template A -->
+                        <!-- Text -->
+                        <!-- Book Title -->
+                        
+                            <div id="mf_pdp_hero_widget_header" class="a-section">
+                                <span class="a-size-extra-large">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        
+    
+
+
+
+
+
+    
+    
+        You're eligible to claim this title for free with your 30-day Audible Premium Plus trial
+    
+
+</span>
+                            </div>
+                            <div id="mf_pdp_hero_widget_book_title" class="a-section a-spacing-base">
+                                <a class="a-link-normal whiteLink" href="/dp/B017WJ5PR4?ref=adbl_mfpdp_dt_tr_til">
+                                    <span class="a-size-large">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        
+    
+
+
+
+
+
+    
+    
+        Harry Potter and the Deathly Hallows, Book 7
+    
+
+</span>
+                                </a>
+                            </div>
+                        
+
+                        <!-- Template B -->
+                        <!-- Book Title -->
+                        
+
+                        <!-- Star Ratings -->
+                        
+
+
+
+
+
+
+<div id="mf_pdp_hero_widget_rating" class="a-section a-spacing-base">
+    
+        <div class="a-section a-text-left">
+            <a class="a-link-normal" href="/dp/B017WJ5PR4?ref=adbl_mfpdp_dt_tr_rat">
+                <i class="a-icon a-icon-star a-star-5"></i>
+                <span class="num-reviews">
+                    
+                        29,997 customer reviews
+                    
+                    
+                </span>
+            </a>
+        </div>
+    
+</div>
+
+                        
+                            <div id="mf_pdp_hero_widget_authors" class="a-section a-spacing-none">
+                                <span class="a-text-bold">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+    
+    
+
+
+
+
+
+    
+    
+        Author:
+    
+
+</span> J.K. Rowling
+                            </div>
+                        
+                        
+                            <div id="mf_pdp_hero_widget_narrators" class="a-section">
+                                <span class="a-text-bold">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+    
+    
+
+
+
+
+
+    
+    
+        Narrator:
+    
+
+</span> Jim Dale
+                            </div>
+                        
+
+                        <!-- Template B -->
+                        <!-- Text -->
+                        
+
+                        
+
+                        <!-- Buy Button -->
+                        
+
+
+
+
+
+
+
+
+
+
+
+<div class="a-section a-spacing-small a-spacing-top-small">
+    
+
+
+
+
+
+<div id="so_mdp_hero_widget_section" class="a-section">
+    <form id="so_mdp_hero_widget_form" method="post" action="/hz/audible/checkout?ref=adbl_mdp_dt_tr_bb" class="a-spacing-small">
+        <input type="hidden" name="purchaseType" value="trial">
+        <input type="hidden" name="actionCode" value="AMZGB03608231991ZV">
+        <input type="hidden" name="ASIN" value="B017WJ5PR4">
+        <input type="hidden" name="HMAC" value="gkcUvdwGPcVH4D8Ao/9hg1T6n+n+b/2ci2ylfVQAAAABAAAAAGHAe7tyYXcAAAAAPVZHwIAfyME6jYIqz6iU">
+        <input type="hidden" name="HMAC2" value="ggZMvfGpVhkphde+OnIDJPeFwwBPSn2miB5vyy8AAAABAAAAAGHAe7tyYXcAAAAAPVZHwIAfyME6jYIqz6iU">
+        <input type="hidden" name="apCheck" value="0">
+        <input type="hidden" name="membershipAsin" value="B07PCV9DSZ">
+        <input type="hidden" name="oneClickCheckout" value="false">
+
+        
+
+
+
+
+
+
+
+
+
+
+<div class="a-row mf-pdp-desktop-buy-button">
+    
+        
+        
+            <span id="so_mdp_hero_widget_buy_button" class="a-button a-button-normal a-spacing-none a-button-primary mf-pdp-desktop-buy-button"><span class="a-button-inner"><input class="a-button-input" type="submit" aria-labelledby="so_mdp_hero_widget_buy_button-announce"/><span id="so_mdp_hero_widget_buy_button-announce" class="a-button-text" aria-hidden="true">
+                <span>
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        
+    
+
+
+
+
+
+    
+    
+        Get Audible free
+    
+
+
+                </span>
+            </span></span></span>
+        
+    
+</div>
+    </form>
+    
+        <div class="a-section">
+            <span id="so_mdp_hero_widget_below_buy_button_text" data-test="so_mdp_hero_widget_below_buy_button_text">
+
+                
+                
+                
+                    
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        
+    
+
+
+
+
+
+    
+    
+        
+    
+
+
+                    
+                
+            </span>
+            
+        </div>
+    
+
+</div>
+
+
+<style type="text/css">
+    #so_mdp_hero_widget_below_buy_button_text {
+        text-align: ;
+    }
+</style>
+</div>
+
+
+                        <!-- Below Button Text -->
+                        <div id="mf_pdp_hero_widget_below_buybox" class="a-section">
+                            <span class="a-size-mini">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        
+    
+
+
+
+
+
+    
+    
+        $14.95/mo. after 30 days.<br>Cancel online anytime.
+    
+
+</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+            
+            
+        
+    </div></body>
+</html>
+
+
+
+<link href="https://d3216uwaav9lg7.cloudfront.net/assets-A20m.css" rel="stylesheet">
+<script src="https://d3216uwaav9lg7.cloudfront.net/assets-A20m.js" type="text/javascript"></script>
+
+
+<div class="a20m-body desktop" data-devicetype="desktop">
+  <div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container     padding-left-minibase padding-right-minibase a20m border-type-none background-color-transparent desktop" id="" style="width:16.666666666666668%"><div class="spacer"></div></div><div class="container     a20m has-max-width border-type-none background-color-transparent desktop" id="" style="width:66.66666666666667%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="image align-center lazy"><img src="https://m.media-amazon.com/images/G/01/2020/Audible/Anon-Revamp-072221_SingleTitlePage_Plus_Desktop_Echo._BL10_._TTW_.jpg" data-src="https://m.media-amazon.com/images/G/01/2020/Audible/Anon-Revamp-072221_SingleTitlePage_Plus_Desktop_Echo._TTW_.jpg" alt="" title="" height="auto" style="height:auto"/></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><h1 class="heading align-center color-normal heading-size--large"><strong>What you get</strong></h1></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><p class="text align-center color-dark text--word-break--normal text-size--large"><strong>Your free, 30 day trial comes with:</strong></p></div><div class="container     padding-bottom-xxxlarge a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><ul class="list list-style--default color-dark text-size--large" start="1"><li class=""><span><span class="text-color-picker color-dark"><strong>1 credit, good for any premium selection titles you like—yours to keep.</strong></span></span></li><li class=""><span><span class="text-color-picker color-dark"><strong>The Audible Plus Catalog of podcasts, audiobooks, guided wellness, and Audible Originals. Listen all you want, no credits needed.</strong></span></span></li><li class=""><span><span class="text-color-picker color-dark"><strong>A friendly email reminder before your trial ends.</strong></span></span></li></ul></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:16.666666666666668%"><div class="spacer"></div></div></div></div> 
+</div>
+
+<div aria-live="polite" class="a-row a-expander-container a-expander-section-container a-section-expander-container"><a href="javascript:void(0)" data-action="a-expander-toggle" class="a-expander-header a-declarative a-expander-section-header a-link-section-expander a-size-medium" data-a-expander-toggle="{&quot;allowLinkDefault&quot;:true, &quot;expand_prompt&quot;:&quot;&quot;, &quot;collapse_prompt&quot;:&quot;&quot;}"><i class="a-icon a-icon-section-expand"></i><span class="a-expander-prompt"><span class="a-size-base">
+              Carousel Debug Section
+            </span></span></a><div id="CarouselDebugSection" aria-expanded="false" class="a-expander-content a-expander-section-content a-section-expander-inner" style="display:none"><div class="a-section"><pre></pre>
+            </div></div></div><div id="audible-carousel-container" data-a-carousel-options="{&quot;id_list&quot;:[&quot;B09392HMGN&quot;,&quot;B017V4NLJ4&quot;,&quot;B096MWJLNW&quot;,&quot;B00026WUO6&quot;,&quot;B09FRQS981&quot;,&quot;B000R34YKC&quot;,&quot;B08GB58KD5&quot;,&quot;B08V8939WY&quot;,&quot;B07RFSSYBH&quot;,&quot;B0971RBRV8&quot;,&quot;B08HLW2JXD&quot;,&quot;B093N8JP2B&quot;,&quot;B08WVLSDDR&quot;,&quot;B0929BS6CZ&quot;,&quot;B07KKP62FW&quot;,&quot;B0797Y87JC&quot;,&quot;B09BRTRLVQ&quot;,&quot;B0099SNQYG&quot;,&quot;B0041JKFJW&quot;,&quot;B091WVM1JD&quot;],&quot;auto_adjust_height&quot;:&quot;true&quot;,&quot;ajax&quot;:{&quot;id_list&quot;:[&quot;B09392HMGN&quot;,&quot;B017V4NLJ4&quot;,&quot;B096MWJLNW&quot;,&quot;B00026WUO6&quot;,&quot;B09FRQS981&quot;,&quot;B000R34YKC&quot;,&quot;B08GB58KD5&quot;,&quot;B08V8939WY&quot;,&quot;B07RFSSYBH&quot;,&quot;B0971RBRV8&quot;,&quot;B08HLW2JXD&quot;,&quot;B093N8JP2B&quot;,&quot;B08WVLSDDR&quot;,&quot;B0929BS6CZ&quot;,&quot;B07KKP62FW&quot;,&quot;B0797Y87JC&quot;,&quot;B09BRTRLVQ&quot;,&quot;B0099SNQYG&quot;,&quot;B0041JKFJW&quot;,&quot;B091WVM1JD&quot;],&quot;url&quot;:&quot;/hz/audible/reccarousel/more?recIndex=0&amp;marketplaceId=ATVPDKIKX0DER&amp;customerId=0&amp;sessionId=135-8255461-6674646&amp;languageOfPreference=en_US&amp;mobileView=true&amp;googlePlayStoreApp=false&amp;iosApp=false&amp;plink=plink%3Auw9X8YxFuwYYyYfB&amp;reftag=adblp13nplpl&amp;cashFirst=false&quot;}}" data-a-transition-strategy="slideHorizontal" class="a-begin a-carousel-container a-carousel-static a-carousel-display-stretchyGoodness a-carousel-transition-slide audible-carousel-mobile-style"><input autocomplete="on" type="hidden" class="a-carousel-firstvisibleitem"/><div id="audible-carousel-mobile-heading" class="a-section a-spacing-small"><h2>Most Popular in Premium Plus</h2></div><div class="a-row a-carousel-controls a-carousel-row a-carousel-has-buttons"><div class="a-carousel-row-inner"><div class="a-carousel-col a-carousel-left"><a class="a-button a-button-image a-carousel-button a-carousel-goto-prevpage" tabindex="0" href="?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_prev"><span class="a-button-inner"><i class="a-icon a-icon-previous"><span class="a-icon-alt">Previous page</span></i></span></a></div><div class="a-carousel-col a-carousel-center"><div class="a-carousel-viewport"><ol class="a-carousel" role="list"><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="Go Tell the Bees That I Am Gone: Outlander, Book 9" class="a-size-base a-link-normal" href="/dp/B09392HMGN?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_0_im"><div class="a-section a-spacing-mini"><img alt="Go Tell the Bees That I Am Gone: Outlander, Book 9" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/51y0CKfukJL.jpg" data-src="https://m.media-amazon.com/images/I/51y0CKfukJL.jpg"/><noscript><img alt="Go Tell the Bees That I Am Gone: Outlander, Book 9" src="https://m.media-amazon.com/images/I/51y0CKfukJL.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="Go Tell the Bees That I Am Gone: Outlander, Book 9" class="a-size-base a-link-normal" href="/dp/B09392HMGN?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_0_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">Go Tell the Bees That I Am Gone: Outlander, Book 9</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="4 and a half stars, product reviewed by 8023" class="a-link-normal" href="/product-reviews/B09392HMGN"><i class="a-icon a-icon-star a-star-4-5"></i><span class="a-size-small">8023</span></a></div></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B09392HMGN?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_0_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="Harry Potter and the Order of the Phoenix, Book 5" class="a-size-base a-link-normal" href="/dp/B017V4NLJ4?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_1_im"><div class="a-section a-spacing-mini"><img alt="Harry Potter and the Order of the Phoenix, Book 5" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/51ok3DFBrRL.jpg" data-src="https://m.media-amazon.com/images/I/51ok3DFBrRL.jpg"/><noscript><img alt="Harry Potter and the Order of the Phoenix, Book 5" src="https://m.media-amazon.com/images/I/51ok3DFBrRL.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="Harry Potter and the Order of the Phoenix, Book 5" class="a-size-base a-link-normal" href="/dp/B017V4NLJ4?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_1_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">Harry Potter and the Order of the Phoenix, Book 5</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="5  stars, product reviewed by 31272" class="a-link-normal" href="/product-reviews/B017V4NLJ4"><i class="a-icon a-icon-star a-star-5"></i><span class="a-size-small">31272</span></a></div></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B017V4NLJ4?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_1_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="Will" class="a-size-base a-link-normal" href="/dp/B096MWJLNW?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_2_im"><div class="a-section a-spacing-mini"><img alt="Will" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/61gS6EWmWwL.jpg" data-src="https://m.media-amazon.com/images/I/61gS6EWmWwL.jpg"/><noscript><img alt="Will" src="https://m.media-amazon.com/images/I/61gS6EWmWwL.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="Will" class="a-size-base a-link-normal" href="/dp/B096MWJLNW?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_2_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">Will</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="5  stars, product reviewed by 2838" class="a-link-normal" href="/product-reviews/B096MWJLNW"><i class="a-icon a-icon-star a-star-5"></i><span class="a-size-small">2838</span></a></div></div><div class="a-row a-spacing-none a-spacing-top-micro"><a aria-label="#1 Best Seller" class="a-size-small a-spacing-none a-link-normal" href="/gp/bestsellers/books/886494/ref=zg_b_bs_886494_1"><div class="carousel-badge-badge-wrapper">
+                <i class="a-icon a-icon-addon carousel-badge">#1 Best Seller</i><span class="a-size-small a-color-secondary"> in </span><span class="a-size-small">Rich & Famous Biographies</span></div>
+        </a></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B096MWJLNW?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_2_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="The Eye of the World: Book One of The Wheel of Time" class="a-size-base a-link-normal" href="/dp/B00026WUO6?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_3_im"><div class="a-section a-spacing-mini"><img alt="The Eye of the World: Book One of The Wheel of Time" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/51Q5xbmQh1L.jpg" data-src="https://m.media-amazon.com/images/I/51Q5xbmQh1L.jpg"/><noscript><img alt="The Eye of the World: Book One of The Wheel of Time" src="https://m.media-amazon.com/images/I/51Q5xbmQh1L.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="The Eye of the World: Book One of The Wheel of Time" class="a-size-base a-link-normal" href="/dp/B00026WUO6?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_3_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">The Eye of the World: Book One of The Wheel of Time</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="4 and a half stars, product reviewed by 13260" class="a-link-normal" href="/product-reviews/B00026WUO6"><i class="a-icon a-icon-star a-star-4-5"></i><span class="a-size-small">13260</span></a></div></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B00026WUO6?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_3_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="Fallout: Expeditionary Force, Book 13" class="a-size-base a-link-normal" href="/dp/B09FRQS981?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_4_im"><div class="a-section a-spacing-mini"><img alt="Fallout: Expeditionary Force, Book 13" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/51wZbV1QeAL.jpg" data-src="https://m.media-amazon.com/images/I/51wZbV1QeAL.jpg"/><noscript><img alt="Fallout: Expeditionary Force, Book 13" src="https://m.media-amazon.com/images/I/51wZbV1QeAL.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="Fallout: Expeditionary Force, Book 13" class="a-size-base a-link-normal" href="/dp/B09FRQS981?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_4_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">Fallout: Expeditionary Force, Book 13</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="4 and a half stars, product reviewed by 353" class="a-link-normal" href="/product-reviews/B09FRQS981"><i class="a-icon a-icon-star a-star-4-5"></i><span class="a-size-small">353</span></a></div></div><div class="a-row a-spacing-none a-spacing-top-micro"><a aria-label="#1 Best Seller" class="a-size-small a-spacing-none a-link-normal" href="/gp/bestsellers/books/7538385011/ref=zg_b_bs_7538385011_1"><div class="carousel-badge-badge-wrapper">
+                <i class="a-icon a-icon-addon carousel-badge">#1 Best Seller</i><span class="a-size-small a-color-secondary"> in </span><span class="a-size-small">Military Science Fiction</span></div>
+        </a></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B09FRQS981?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_0_4_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li></ol></div></div><div class="a-carousel-col a-carousel-right"><a class="a-button a-button-image a-carousel-button a-carousel-goto-nextpage" tabindex="0" href="?plink=uw9X8YxFuwYYyYfB&amp;ref_=adblp13nplpl_next"><span class="a-button-inner"><i class="a-icon a-icon-next"><span class="a-icon-alt">Next page</span></i></span></a></div></div></div><span class="a-end aok-hidden"></span></div><style type="text/css">
+    #audible-carousel-mobile-heading {
+        margin-left: 1.4rem;
+    }
+
+    .audible-carousel-desktop-style {
+        min-width:700px;
+    }
+
+    .audible-carousel-mobile-style {
+        width:100%;
+        margin-bottom: 1.4rem!important;
+    }
+
+    .audible-carousel-max-width {
+        max-width: px!important;
+        margin: auto;
+    }
+
+    .carousel-badge-badge-wrapper {
+    margin-bottom:1px;
+    }
+    .carousel-badge-badge-wrapper .carousel-badge {
+        margin-right: 4px;
+        background-color: #C45500 !important;
+        font-size: 12px;
+        line-height:9px;
+        font-weight:400 !important;
+    }
+    .carousel-badge-badge-wrapper .carousel-badge:before {
+        border-bottom-color: #C45500 !important;
+    }
+    .carousel-badge-badge-wrapper .carousel-badge:after {
+        border-top-color: #C45500 !important;
+    }
+    .carousel-title {
+        display: block;
+    }
+    .audible-badge-css {
+        max-width: 182px;
+    }
+
+</style>
+<div aria-live="polite" class="a-row a-expander-container a-expander-section-container a-section-expander-container"><a href="javascript:void(0)" data-action="a-expander-toggle" class="a-expander-header a-declarative a-expander-section-header a-link-section-expander a-size-medium" data-a-expander-toggle="{&quot;allowLinkDefault&quot;:true, &quot;expand_prompt&quot;:&quot;&quot;, &quot;collapse_prompt&quot;:&quot;&quot;}"><i class="a-icon a-icon-section-expand"></i><span class="a-expander-prompt"><span class="a-size-base">
+              Carousel Debug Section
+            </span></span></a><div id="CarouselDebugSection" aria-expanded="false" class="a-expander-content a-expander-section-content a-section-expander-inner" style="display:none"><div class="a-section"><pre></pre>
+            </div></div></div><div id="audible-carousel-container" data-a-carousel-options="{&quot;id_list&quot;:[&quot;B09KW5QVVR&quot;,&quot;B09M7M6QLH&quot;,&quot;B06VWQTBZ9&quot;,&quot;B005GG1APM&quot;,&quot;B006B9Y3ES&quot;,&quot;B09J68ZK67&quot;,&quot;B09MR324FX&quot;,&quot;B09LJ3DC88&quot;,&quot;B016LN4BYA&quot;,&quot;B07XPH6LZD&quot;,&quot;B000Q6ZLOI&quot;,&quot;B09HL8K5XQ&quot;,&quot;B09D3Y67ZD&quot;,&quot;B00IZMQPA4&quot;,&quot;B08QSP8DXP&quot;,&quot;B07RV4VPST&quot;,&quot;B09JSZNCM3&quot;,&quot;B09KZC9DYN&quot;,&quot;B092MYHMM4&quot;,&quot;B0006IU470&quot;],&quot;auto_adjust_height&quot;:&quot;true&quot;,&quot;ajax&quot;:{&quot;id_list&quot;:[&quot;B09KW5QVVR&quot;,&quot;B09M7M6QLH&quot;,&quot;B06VWQTBZ9&quot;,&quot;B005GG1APM&quot;,&quot;B006B9Y3ES&quot;,&quot;B09J68ZK67&quot;,&quot;B09MR324FX&quot;,&quot;B09LJ3DC88&quot;,&quot;B016LN4BYA&quot;,&quot;B07XPH6LZD&quot;,&quot;B000Q6ZLOI&quot;,&quot;B09HL8K5XQ&quot;,&quot;B09D3Y67ZD&quot;,&quot;B00IZMQPA4&quot;,&quot;B08QSP8DXP&quot;,&quot;B07RV4VPST&quot;,&quot;B09JSZNCM3&quot;,&quot;B09KZC9DYN&quot;,&quot;B092MYHMM4&quot;,&quot;B0006IU470&quot;],&quot;url&quot;:&quot;/hz/audible/reccarousel/more?recIndex=0&amp;marketplaceId=ATVPDKIKX0DER&amp;customerId=0&amp;sessionId=135-8255461-6674646&amp;languageOfPreference=en_US&amp;mobileView=true&amp;googlePlayStoreApp=false&amp;iosApp=false&amp;plink=plink%3At0YAVugPvemBunFT&amp;reftag=adblp13nABCD&amp;cashFirst=false&quot;}}" data-a-transition-strategy="slideHorizontal" class="a-begin a-carousel-container a-carousel-static a-carousel-display-stretchyGoodness a-carousel-transition-slide audible-carousel-mobile-style"><input autocomplete="on" type="hidden" class="a-carousel-firstvisibleitem"/><div id="audible-carousel-mobile-heading" class="a-section a-spacing-small"><h2>Most Popular in Plus Catalog</h2></div><div class="a-row a-carousel-controls a-carousel-row a-carousel-has-buttons"><div class="a-carousel-row-inner"><div class="a-carousel-col a-carousel-left"><a class="a-button a-button-image a-carousel-button a-carousel-goto-prevpage" tabindex="0" href="?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_prev"><span class="a-button-inner"><i class="a-icon a-icon-previous"><span class="a-icon-alt">Previous page</span></i></span></a></div><div class="a-carousel-col a-carousel-center"><div class="a-carousel-viewport"><ol class="a-carousel" role="list"><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="There's Something About Merry" class="a-size-base a-link-normal" href="/dp/B09KW5QVVR?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_0_im"><div class="a-section a-spacing-mini"><img alt="There's Something About Merry" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/51AjPm9nM0L.jpg" data-src="https://m.media-amazon.com/images/I/51AjPm9nM0L.jpg"/><noscript><img alt="There's Something About Merry" src="https://m.media-amazon.com/images/I/51AjPm9nM0L.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="There's Something About Merry" class="a-size-base a-link-normal" href="/dp/B09KW5QVVR?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_0_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">There's Something About Merry</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="3 and a half stars, product reviewed by 4" class="a-link-normal" href="/product-reviews/B09KW5QVVR"><i class="a-icon a-icon-star a-star-3-5"></i><span class="a-size-small">4</span></a></div></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B09KW5QVVR?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_0_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="The Best Worst Christmas: An Audible Original Novella" class="a-size-base a-link-normal" href="/dp/B09M7M6QLH?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_1_im"><div class="a-section a-spacing-mini"><img alt="The Best Worst Christmas: An Audible Original Novella" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/51CipJTY7QL.jpg" data-src="https://m.media-amazon.com/images/I/51CipJTY7QL.jpg"/><noscript><img alt="The Best Worst Christmas: An Audible Original Novella" src="https://m.media-amazon.com/images/I/51CipJTY7QL.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="The Best Worst Christmas: An Audible Original Novella" class="a-size-base a-link-normal" href="/dp/B09M7M6QLH?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_1_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">The Best Worst Christmas: An Audible Original Novella</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="4  stars, product reviewed by 5" class="a-link-normal" href="/product-reviews/B09M7M6QLH"><i class="a-icon a-icon-star a-star-4"></i><span class="a-size-small">5</span></a></div></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B09M7M6QLH?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_1_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="Sherlock Holmes" class="a-size-base a-link-normal" href="/dp/B06VWQTBZ9?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_2_im"><div class="a-section a-spacing-mini"><img alt="Sherlock Holmes" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/51T1NWIkR4L.jpg" data-src="https://m.media-amazon.com/images/I/51T1NWIkR4L.jpg"/><noscript><img alt="Sherlock Holmes" src="https://m.media-amazon.com/images/I/51T1NWIkR4L.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="Sherlock Holmes" class="a-size-base a-link-normal" href="/dp/B06VWQTBZ9?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_2_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">Sherlock Holmes</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="4 and a half stars, product reviewed by 79" class="a-link-normal" href="/product-reviews/B06VWQTBZ9"><i class="a-icon a-icon-star a-star-4-5"></i><span class="a-size-small">79</span></a></div></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B06VWQTBZ9?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_2_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="The Count of Monte Cristo" class="a-size-base a-link-normal" href="/dp/B005GG1APM?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_3_im"><div class="a-section a-spacing-mini"><img alt="The Count of Monte Cristo" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/611Eot7+zJL.jpg" data-src="https://m.media-amazon.com/images/I/611Eot7+zJL.jpg"/><noscript><img alt="The Count of Monte Cristo" src="https://m.media-amazon.com/images/I/611Eot7+zJL.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="The Count of Monte Cristo" class="a-size-base a-link-normal" href="/dp/B005GG1APM?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_3_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">The Count of Monte Cristo</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="4 and a half stars, product reviewed by 5604" class="a-link-normal" href="/product-reviews/B005GG1APM"><i class="a-icon a-icon-star a-star-4-5"></i><span class="a-size-small">5604</span></a></div></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B005GG1APM?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_3_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li><li class="a-carousel-card audible-p13n-carousel-element" style=" width:200px; " role="listitem"><div class="a-row a-spacing-none"><a aria-label="A Christmas Carol: A Signature Performance by Tim Curry" class="a-size-base a-link-normal" href="/dp/B006B9Y3ES?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_4_im"><div class="a-section a-spacing-mini"><img alt="A Christmas Carol: A Signature Performance by Tim Curry" src="https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif" class="a-lazy-loaded" height="200px" width="200px" data-a-hires="https://m.media-amazon.com/images/I/51tVYzkGA4L.jpg" data-src="https://m.media-amazon.com/images/I/51tVYzkGA4L.jpg"/><noscript><img alt="A Christmas Carol: A Signature Performance by Tim Curry" src="https://m.media-amazon.com/images/I/51tVYzkGA4L.jpg" height="200px" width="200px"/></noscript></div></a><a aria-label="A Christmas Carol: A Signature Performance by Tim Curry" class="a-size-base a-link-normal" href="/dp/B006B9Y3ES?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_4_ti"><span class="a-truncate carousel-title" data-a-word-break="normal" data-a-max-rows="3" data-a-overflow-marker="&amp;hellip;" style="line-height: 1.3em !important; max-height: 3.9em;"><span class="a-truncate-full">A Christmas Carol: A Signature Performance by Tim Curry</span><span class="a-truncate-cut a-hidden" aria-hidden="true"></span></span></a></div><div class="a-icon-row a-spacing-none"><div class="a-section a-text-left"><a aria-label="4 and a half stars, product reviewed by 12847" class="a-link-normal" href="/product-reviews/B006B9Y3ES"><i class="a-icon a-icon-star a-star-4-5"></i><span class="a-size-small">12847</span></a></div></div><div class="a-row a-spacing-none"><a id="audioBookPriceMessage" aria-label="$0.00 Free with Audible trial" class="a-size-base a-link-normal a-text-normal" href="/dp/B006B9Y3ES?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_0_4_pr"><span class="a-color-price">$0.00 Free with Audible trial</span></a></div></li></ol></div></div><div class="a-carousel-col a-carousel-right"><a class="a-button a-button-image a-carousel-button a-carousel-goto-nextpage" tabindex="0" href="?plink=t0YAVugPvemBunFT&amp;ref_=adblp13nABCD_next"><span class="a-button-inner"><i class="a-icon a-icon-next"><span class="a-icon-alt">Next page</span></i></span></a></div></div></div><span class="a-end aok-hidden"></span></div><style type="text/css">
+    #audible-carousel-mobile-heading {
+        margin-left: 1.4rem;
+    }
+
+    .audible-carousel-desktop-style {
+        min-width:700px;
+    }
+
+    .audible-carousel-mobile-style {
+        width:100%;
+        margin-bottom: 1.4rem!important;
+    }
+
+    .audible-carousel-max-width {
+        max-width: px!important;
+        margin: auto;
+    }
+
+    .carousel-badge-badge-wrapper {
+    margin-bottom:1px;
+    }
+    .carousel-badge-badge-wrapper .carousel-badge {
+        margin-right: 4px;
+        background-color: #C45500 !important;
+        font-size: 12px;
+        line-height:9px;
+        font-weight:400 !important;
+    }
+    .carousel-badge-badge-wrapper .carousel-badge:before {
+        border-bottom-color: #C45500 !important;
+    }
+    .carousel-badge-badge-wrapper .carousel-badge:after {
+        border-top-color: #C45500 !important;
+    }
+    .carousel-title {
+        display: block;
+    }
+    .audible-badge-css {
+        max-width: 182px;
+    }
+
+</style>
+
+
+
+<link href="https://d3216uwaav9lg7.cloudfront.net/assets-A20m.css" rel="stylesheet">
+<script src="https://d3216uwaav9lg7.cloudfront.net/assets-A20m.js" type="text/javascript"></script>
+
+
+<div class="a20m-body desktop" data-devicetype="desktop">
+  <div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="line align-undefined color-gray line-width--medium"></div></div><div class="container     padding-left-xxxlarge padding-right-xxxlarge padding-top-xlarge a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><h1 class="heading align-center color-normal heading-size--medium"><strong>Listen anytime, anywhere <br/>across all your devices.</strong></h1></div><div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="image align-center lazy"><img src="https://m.media-amazon.com/images/G/01/2020/Audible/MLP_Audible_Premium_Plus_paid_Slice4_nocopy._BL10_._TTW_.jpg" data-src="https://m.media-amazon.com/images/G/01/2020/Audible/MLP_Audible_Premium_Plus_paid_Slice4_nocopy._TTW_.jpg" alt="" title="" height="auto" style="height:auto"/></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="line align-undefined color-gray line-width--medium"></div></div><div class="container     padding-bottom-mini a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><h1 class="heading align-center color-normal heading-size--medium"><strong>Our promise.</strong></h1></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:25%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:50%"><p class="text align-center color-dark text--word-break--normal text-size--medium"><span><span class="text-color-picker color-dark"><strong>Your 30-day trial of Audible is totally free. We will even send you a friendly email reminder before your trial ends. Any titles purchased with a credit are yours to keep forever. You can cancel anytime.  </strong></span></span></p></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:25%"><div class="spacer"></div></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="spacer"></div></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="line align-undefined color-gray line-width--medium"></div></div></div> 
+</div>
+
+
+
+
+<link href="https://d3216uwaav9lg7.cloudfront.net/assets-A20m.css" rel="stylesheet">
+<script src="https://d3216uwaav9lg7.cloudfront.net/assets-A20m.js" type="text/javascript"></script>
+
+
+<div class="a20m-body desktop" data-devicetype="desktop">
+  <div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="line align-undefined color-gray line-width--medium"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="columns-wrapper"><div class="columns-container columns-container--single columns-container--full-width columns-container--desktop "><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%" data-data-test="FAQ-trial"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:16.666666666666668%"><div class="spacer"></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:66.66666666666667%"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><h1 class="heading align-center color-normal heading-size--small"><strong>Frequently Asked Questions</strong></h1></div><div class="container     padding-top-small a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="spacer"></div></div><div class="container border-color-black border-radius-pill    a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div itemscope="" itemProp="mainEntity" itemType="https://schema.org/Question" class="accordion " data-is-faq="true" data-event-component-tag="accordion-591a9f9f-9e68-40d7-84d7-bd0956376ebc"><div itemProp="name" class="title"><strong>How does the free trial work?</strong></div><div itemscope="" itemProp="acceptedAnswer" itemType="https://schema.org/Answer" class="content"><div itemProp="text"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><p class="text align-start color-normal text--word-break--normal text-size--normal">Audible is a membership service that provides customers with the world&#x27;s largest selection of audiobooks as well as podcasts, exclusive originals and more. Your Audible membership is free for 30 days. If you enjoy your Audible trial, do nothing and your membership will automatically continue. We&#x27;ll send you an email reminder before your trial ends. Download the free Audible app to start listening on your iOS or Android device. You can also listen on any Alexa-enabled device, compatible Fire tablets, Kindles, Sonos devices and more. You can cancel anytime before your trial ends and you won’t be charged. There are no commitments and no cancellation fees.</p></div></div></div></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="accordion " data-event-component-tag="accordion-2d1e8e8e-e1f7-4665-ad30-708ce1620090"><div class="title"><strong>How much does Audible cost?</strong></div><div class="content"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><p class="text align-start color-normal text--word-break--normal text-size--normal">Plans start at $7.95 per month after free trial. No commitments, cancel anytime.<br/><strong>Audible Plus</strong> $7.95/month: listen all you want to thousands of included titles in the Plus Catalog.<br/><strong>Audible Premium Plus</strong> $14.95/month: includes the Plus Catalog + 1 credit per month for any premium selection title.<br/><strong>Audible Premium Plus Annual</strong> $149.50/year: includes the Plus Catalog + 12 credits a year for any premium selection titles.</p></div></div></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="accordion " data-event-component-tag="accordion-8ed2bf20-d82d-457c-89ee-e8f149fffe92"><div class="title"><strong>What is included with my Audible membership ?</strong></div><div class="content"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><p class="text align-start color-normal text--word-break--normal text-size--normal">Premium Plus members get credit(s) good for any titles in our premium selection (1 credit = 1 title.)<br/>Premium Plus members get access to exclusive sales as well as 30% off all additional premium selection purchases.<br/>All members can listen all they want to thousands of included audiobooks, podcasts, originals, and more in the Plus Catalog.<br/>*Number of credits vary based on your membership plan. Credits expire after one year.</p></div></div></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="accordion " data-event-component-tag="accordion-518a903d-b648-4b21-b404-8a7092b4e392"><div class="title"><strong>Are there additional benefits for Amazon Prime members?</strong></div><div class="content"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><p class="text align-start color-normal text--word-break--normal text-size--normal">Amazon Prime members are invited to start an Audible trial with 2 credits (1 credit = 1 title) that can be used on any titles from our premium selection . A standard trial includes 1 credit. After trial, all members receive 1 credit per month.</p></div></div></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><div class="accordion " data-event-component-tag="accordion-9e89688a-b94e-49bb-bbc8-def26d2cb7bc"><div class="title"><strong>Do I have to commit for any period of time?</strong></div><div class="content"><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:100%"><p class="text align-start color-normal text--word-break--normal text-size--normal">There are no commitments. You can easily cancel your membership at anytime. All titles taken during trial and purchased with a credit are yours to keep forever. You will get an email reminder at least 7 days before your trial ends.</p></div></div></div></div></div><div class="container     a20m border-type-none background-color-transparent desktop" id="" style="width:16.666666666666668%"><div class="spacer"></div></div></div></div></div></div></div> 
+</div>
+
+</div><!-- Registering CriticalFeatures to make sure our Nav JS is loaded. -->
+    <script>
+        window.P.register('cf');
+    </script>
+    <!-- Nav BTF Start -->
+    <!-- btf pilu -->
+
+        
+        
+        
+
+
+
+
+
+<!-- NAVYAAN BTF START -->
+
+
+
+
+  
+
+
+
+  <script type='text/javascript'>(function ($Nav) {
+"use strict";
+
+if (typeof $Nav === 'undefined' || $Nav === null || typeof $Nav.when !== 'function') {
+    return;
+}
+
+$Nav.when('$', 'data', 'flyout.yourAccount', 'sidepanel.csYourAccount',
+          'config')
+    .run("BuyitAgain-YourAccount-SidePanel",
+    function ($, data, yaFlyout, csYourAccount, config) {
+        if (config.disableBuyItAgain) {
+            return;
+        }
+        var render = function (data) {
+            if (data.dramResult) {
+                var widgetHtml = data.dramResult;
+                navbar.sidePanel({
+                    flyoutName: 'yourAccount',
+                    data: {html: widgetHtml}
+                });
+            }
+        };
+
+        var renderBuyItAgain = function (biaData) {
+            if (csYourAccount) {
+                csYourAccount.register(render, biaData);
+            } else {
+                render(biaData);
+            }
+        };
+
+        yaFlyout.sidePanel.onData(function() {
+            if (window.P) {
+                P.when('A', 'a-truncate').execute(function(A, truncate) {
+                    var truncateElements = A.$('.a-truncate');
+                    A.each(truncateElements, function(element) {
+                        truncate.get(element).update();
+                    });
+                });
+            }
+
+        });
+
+    yaFlyout.onRender(function() {
+            $.ajax({
+                url: '/gp/bia/external/bia-hcb-ajax-handler.html',
+                data: { biaHcbRid: 'GBQV5ZSQKZTXDPJ5PABC' },
+                dataType: 'json',
+                timeout: 4*1000,
+                success: renderBuyItAgain,
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            });
+        });
+    });
+})(window.$Nav);</script>
+
+
+<script type="text/javascript">
+  window.$Nav && $Nav.when("data").run(function (data) {
+    data({
+      "accountListContent": { "html": "<div id='nav-al-container'><div id='nav-al-signin'><div id='nav-flyout-ya-signin' class='nav-flyout-content nav-flyout-accessibility'><a href='https://www.amazon.com/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fhz%2Faudible%2Fmlp%2Fmfpdp%2FB017WJ5PR4%2F%3F_encoding%3DUTF8%26ref_%3Dnav_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&' rel='nofollow' class='nav-action-button' data-nav-role='signin' data-nav-ref='nav_signin'><span class='nav-action-inner'>Sign in</span></a><div id='nav-flyout-ya-newCust' class='nav_pop_new_cust nav-flyout-content nav-flyout-accessibility'>New customer? <a href='https://www.amazon.com/ap/register?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fhz%2Faudible%2Fmlp%2Fmfpdp%2FB017WJ5PR4%2F%3F_encoding%3DUTF8%26ref_%3Dnav_newcust&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&' rel='nofollow' class='nav-a'>Start here.</a></div></div></div><div id='nav-al-wishlist' class='nav-al-column nav-tpl-itemList nav-flyout-content nav-flyout-accessibility'><div class='nav-title' id='nav-al-title'>Your Lists</div><a href='/hz/wishlist/ls?triggerElementID=createList&ref_=nav_ListFlyout_navFlyout_createList_lv_redirect' class='nav-link nav-item'><span class='nav-text'>Create a List</span></a> <a href='/registries?ref_=nav_ListFlyout_find' class='nav-link nav-item'><span class='nav-text'>Find a List or Registry</span></a> <a href='/gp/clpf?ref_=nav_ListFlyout_smi_se_ya_lll_ll' class='nav-link nav-item'><span class='nav-text'>AmazonSmile Charity Lists</span></a></div><div id='nav-al-your-account' class='nav-al-column nav-template nav-flyout-content nav-tpl-itemList nav-flyout-accessibility'><div class='nav-title'>Your Account</div><a href='/gp/css/homepage.html?ref_=nav_AccountFlyout_ya' class='nav-link nav-item'><span class='nav-text'>Account</span></a> <a id='nav_prefetch_yourorders' href='/gp/css/order-history?ref_=nav_AccountFlyout_orders' class='nav-link nav-item'><span class='nav-text'>Orders</span></a> <a href='/gp/yourstore?ref_=nav_AccountFlyout_recs' class='nav-link nav-item'><span class='nav-text'>Recommendations</span></a> <a href='/gp/history?ref_=nav_AccountFlyout_browsinghistory' class='nav-link nav-item'><span class='nav-text'>Browsing History</span></a> <a href='/gp/video/watchlist?ref_=nav_AccountFlyout_ywl' class='nav-link nav-item'><span class='nav-text'>Watchlist</span></a> <a href='/gp/video/library?ref_=nav_AccountFlyout_yvl' class='nav-link nav-item'><span class='nav-text'>Video Purchases & Rentals</span></a> <a href='/gp/kindle/ku/ku_central?ref_=nav_AccountFlyout_ku' class='nav-link nav-item'><span class='nav-text'>Kindle Unlimited</span></a> <a href='/hz/mycd/myx?pageType=content&ref_=nav_AccountFlyout_myk' class='nav-link nav-item'><span class='nav-text'>Content & Devices</span></a> <a href='/gp/subscribe-and-save/manager/viewsubscriptions?ref_=nav_AccountFlyout_sns' class='nav-link nav-item'><span class='nav-text'>Subscribe & Save Items</span></a> <a href='/hz5/yourmembershipsandsubscriptions?ref_=nav_AccountFlyout_digital_subscriptions' class='nav-link nav-item'><span class='nav-text'>Memberships & Subscriptions</span></a> <a href='https://music.amazon.com?ref=nav_youraccount_cldplyr' class='nav-link nav-item'><span class='nav-text'>Music Library</span></a></div></div>" },
+      "signinContent": { "html": "<div id='nav-signin-tooltip'><a href='https://www.amazon.com/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fhz%2Faudible%2Fmlp%2Fmfpdp%2FB017WJ5PR4%2F%3F_encoding%3DUTF8%26ref_%3Dnav_custrec_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&' class='nav-action-button' data-nav-role='signin' data-nav-ref='nav_custrec_signin'><span class='nav-action-inner'>Sign in</span></a><div class='nav-signin-tooltip-footer'>New customer? <a href='https://www.amazon.com/ap/register?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fhz%2Faudible%2Fmlp%2Fmfpdp%2FB017WJ5PR4%2F%3F_encoding%3DUTF8%26ref_%3Dnav_custrec_newcust&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&' class='nav-a'>Start here.</a></div></div>" },
+      "templates": {"itemList":"<# var hasColumns = (function () {  var checkColumns = function (_items) {    if (!_items) {      return false;    }    for (var i=0; i<_items.length; i++) {      if (_items[i].columnBreak || (_items[i].items && checkColumns(_items[i].items))) {        return true;      }    }    return false;  };  return checkColumns(items);}()); #><# if(hasColumns) { #>  <# if(items[0].image && items[0].image.src) { #>    <div class='nav-column nav-column-first nav-column-image'>  <# } else if (items[0].greeting) { #>    <div class='nav-column nav-column-first nav-column-greeting'>  <# } else { #>    <div class='nav-column nav-column-first'>  <# } #><# } #><# var renderItems = function(items) { #>  <# jQuery.each(items, function (i, item) { #>    <# if(hasColumns && item.columnBreak) { #>      <# if(item.image && item.image.src) { #>        </div><div class='nav-column nav-column-notfirst nav-column-break nav-column-image'>      <# } else if (item.greeting) { #>        </div><div class='nav-column nav-column-notfirst nav-column-break nav-column-greeting'>      <# } else { #>        </div><div class='nav-column nav-column-notfirst nav-column-break'>      <# } #>    <# } #>    <# if(item.dividerBefore) { #>      <div class='nav-divider'></div>    <# } #>    <# if(item.text || item.content) { #>      <# if(item.url) { #>        <a href='<#=item.url #>' class='nav-link      <# } else {#>        <span class='      <# } #>      <# if(item.panelKey) { #>        nav-hasPanel      <# } #>      <# if(item.items) { #>        nav-title      <# } #>      <# if(item.decorate == 'carat') { #>        nav-carat      <# } #>      <# if(item.decorate == 'nav-action-button') { #>        nav-action-button      <# } #>      nav-item'      <# if(item.extra) { #>        <#=item.extra #>      <# } #>      <# if(item.id) { #>        id='<#=item.id #>'      <# } #>      <# if(item.dataNavRole) { #>        data-nav-role='<#=item.dataNavRole #>'      <# } #>      <# if(item.dataNavRef) { #>        data-nav-ref='<#=item.dataNavRef #>'      <# } #>      <# if(item.panelKey) { #>        data-nav-panelkey='<#=item.panelKey #>'        role='navigation'        aria-label='<#=item.text#>'      <# } #>      <# if(item.subtextKey) { #>        data-nav-subtextkey='<#=item.subtextKey #>'      <# } #>      <# if(item.image && item.image.height > 16) { #>        style='line-height:<#=item.image.height #>px;'      <# } #>      >      <# if(item.decorate == 'carat') { #>        <i class='nav-icon'></i>      <# } #>      <# if(item.image && item.image.src) { #>        <img class='nav-image' src='<#=item.image.src #>' style='height:<#=item.image.height #>px; width:<#=item.image.width #>px;' />      <# } #>      <# if(item.text) { #>        <span class='nav-text<# if(item.classname) { #> <#=item.classname #><# } #>'><#=item.text#><# if(item.badgeText) { #>          <span class='nav-badge'><#=item.badgeText#></span>        <# } #></span>      <# } else if (item.content) { #>        <span class='nav-content'><# jQuery.each(item.content, function (j, cItem) { #><# if(cItem.url && cItem.text) { #><a href='<#=cItem.url #>' class='nav-a'><#=cItem.text #></a><# } else if (cItem.text) { #><#=cItem.text#><# } #><# }); #></span>      <# } #>      <# if(item.subtext) { #>        <span class='nav-subtext'><#=item.subtext #></span>      <# } #>      <# if(item.url) { #>        </a>      <# } else {#>        </span>      <# } #>    <# } #>    <# if(item.image && item.image.src) { #>      <# if(item.url) { #>        <a href='<#=item.url #>'>       <# } #>      <img class='nav-image'      <# if(item.id) { #>        id='<#=item.id #>'      <# } #>      src='<#=item.image.src #>' <# if (item.alt) { #> alt='<#= item.alt #>'<# } #>/>      <# if(item.url) { #>        </a>       <# } #>    <# } #>    <# if(item.items) { #>      <div class='nav-panel'> <# renderItems(item.items); #> </div>    <# } #>  <# }); #><# }; #><# renderItems(items); #><# if(hasColumns) { #>  </div><# } #>","subnav":"<# if (obj && obj.type === 'vertical') { #>  <# jQuery.each(obj.rows, function (i, row) { #>    <# if (row.flyoutElement === 'button') { #>      <div class='nav_sv_fo_v_button'        <# if (row.elementStyle) { #>          style='<#= row.elementStyle #>'        <# } #>      >        <a href='<#=row.url #>' class='nav-action-button nav-sprite'>          <#=row.text #>        </a>      </div>    <# } else if (row.flyoutElement === 'list' && row.list) { #>      <# jQuery.each(row.list, function (j, list) { #>        <div class='nav_sv_fo_v_column <#=(j === 0) ? 'nav_sv_fo_v_first' : '' #>'>          <ul class='<#=list.elementClass #>'>          <# jQuery.each(list.linkList, function (k, link) { #>            <# if (k === 0) { link.elementClass += ' nav_sv_fo_v_first'; } #>            <li class='<#=link.elementClass #>'>              <# if (link.url) { #>                <a href='<#=link.url #>' class='nav_a'><#=link.text #></a>              <# } else { #>                <span class='nav_sv_fo_v_span'><#=link.text #></span>              <# } #>            </li>          <# }); #>          </ul>        </div>      <# }); #>    <# } else if (row.flyoutElement === 'link') { #>      <# if (row.topSpacer) { #>        <div class='nav_sv_fo_v_clear'></div>      <# } #>      <div class='<#=row.elementClass #>'>        <a href='<#=row.url #>' class='nav_sv_fo_v_lmargin nav_a'>          <#=row.text #>        </a>      </div>    <# } #>  <# }); #><# } else if (obj) { #>  <div class='nav_sv_fo_scheduled'>    <#= obj #>  </div><# } #>","htmlList":"<# jQuery.each(items, function (i, item) { #>  <div class='nav-item'>    <#=item #>  </div><# }); #>"}
+    })
+  })
+</script>
+
+<script type="text/javascript">
+  window.$Nav && $Nav.declare('config.flyoutURL', null);
+  window.$Nav && $Nav.declare('btf.lite');
+  window.$Nav && $Nav.declare('btf.full');
+  window.$Nav && $Nav.declare('btf.exists');
+  (window.AmazonUIPageJS ? AmazonUIPageJS : P).register('navCF');
+</script>
+
+  <script type="text/javascript">
+      window.$Nav && $Nav.when('$').run('CBIMarketplaceRedirectOverlayNavyaan', function($) {
+              $.ajax({
+                  type: 'POST',
+                  url: '/cross_border_interstitial/render',
+                  data: JSON.stringify({
+                      marketplaceId: 'ATVPDKIKX0DER',
+                      localCountryCode: 'US',
+                         customerId: null,
+                      sessionId: '135\x2D8255461\x2D6674646',
+                      deviceType: 'DESKTOP',
+                      referrer: '',
+                      url: '\x2Fhz\x2Faudible\x2Fmlp\x2Fmfpdp\x2FB017WJ5PR4',
+                      pageType: 'unknown',
+                      languageOfPreference: 'en_US',
+                      queryParams: {},
+                      weblabTreatmentMap: {"CROSS_BORDER_INTERSTITIAL_ES_US_340017":"C","NARX_INTERSTITIAL_MOBILE_DP_REDIRECTION_336249":"T1","CROSS_BORDER_INTERSTITIAL_EG_302080":"C","NARX_GOLDBOX_REDIRECTION_319969":"T1","CROSS_BORDER_INTERSTITIAL_SEARCH_REDIRECTION_355157":"T1","CROSS_BORDER_INTERSTITIAL_MX_US_341718":"C","CBI_355055":"C","NARX_INTERSTITIAL_NEW_CX_372291":"T1","NARX_INTERSTITIAL_MIGRATION_315518":"T2","MWEB_CROSS_BORDER_INTERSTITIAL_SG_366762":"C","MWEB_CROSS_BORDER_INTERSTITIAL_SE_366766":"C","MWEB_CROSS_BORDER_INTERSTITIAL_SA_366767":"C","MWEB_CROSS_BORDER_INTERSTITIAL_PL_366768":"C","MWEB_CROSS_BORDER_INTERSTITIAL_NL_366769":"C","MWEB_CROSS_BORDER_INTERSTITIAL_AU_366773":"C","MWEB_CROSS_BORDER_INTERSTITIAL_AE_366771":"C","MWEB_CROSS_BORDER_INTERSTITIAL_EG_387234":"C"}
+                  }),
+                  contentType: "application/json",
+                  dataType: "html",
+                  success: function(data) {
+                      if (data) {
+                          $('body').append(data);
+                      }
+                  }
+              });
+      });
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  window.$Nav && window.$Nav.build('PldnLocalStorage', function() {
+    var PldnLocalStorage = function() {};
+
+    PldnLocalStorage.prototype.setItem = function(key, obj) {
+      if (typeof obj !== 'string') {
+        obj = window.JSON && window.JSON.stringify(obj);
+      }
+
+      try {
+        window.localStorage && window.localStorage.setItem(key, obj);
+        return true;
+      } catch (exception) {
+        return false;
+      };
+    };
+
+    PldnLocalStorage.prototype.getItem = function(key) {
+      try {
+        return window.localStorage && window.localStorage.getItem(key);
+      } catch(exception) {};
+    };
+
+    return new PldnLocalStorage();
+  });
+
+  window.$Nav && window.$Nav.when('PldnLocalStorage').run('PldnUcolCheck', function(storage) {
+    if (!storage.getItem('amazonSmileCampaigns')) {
+      storage.setItem('amazonSmileCampaigns', {
+        "ucol": {
+          "optOut": false,
+          "hits": [
+            {
+              "date": new Date(),
+              "redirect": false,
+              "optOut": false
+            }
+          ]
+        }
+      });
+    }
+  });
+</script>
+
+<!-- NAVYAAN BTF END -->
+<!-- btf tilu -->
+
+
+<!-- Nav BTF End -->
+    <!-- Nav Footer Start -->
+    <!-- footer pilu -->
+
+
+
+
+
+  <!-- NAVYAAN FOOTER START -->
+  <!-- WITH MOZART -->
+
+
+<div class="navLeftFooter nav-sprite-v1" id="navFooter">
+  
+<a href="#nav-top" id="navBackToTop" aria-label="Back to top">
+  <div class="navFooterBackToTop">
+  <span class="navFooterBackToTopText">
+    Back to top
+  </span>
+  </div>
+</a>
+
+  
+  <div class="navFooterLine navFooterLinkLine navFooterPadItemLine">
+    <span>
+      <div class="navFooterLine navFooterLogoLine">
+        <a  href="/?ref_=footer_logo">
+        <div class="nav-logo-base nav-sprite"></div>
+        </a>
+      </div>
+</span>
+    
+        <span class="icp-container-desktop navFooterRegionalPreferences-footer-copyrightOnly"><div
+            class="navFooterLine">
+<style type="text/css">
+  #icp-touch-link-language { display: none; }
+</style>
+
+
+<a href="/gp/customer-preferences/select-language/ref=footer_lang?ie=UTF8&preferencesReturnUrl=%2F" class="icp-button" id="icp-touch-link-language">
+  <div class="icp-nav-globe-img-2 icp-button-globe-2"></div><span class="icp-color-base">English</span><span class="nav-arrow icp-up-down-arrow"></span><span class="aok-hidden" style="display:none">Choose a language for shopping.</span>
+</a>
+
+
+
+<style type="text/css">
+  #icp-touch-link-cop { display: none; }
+</style>
+
+<a href="/gp/customer-preferences/select-currency?ie=UTF8&ref_=footer_cop&preferencesReturnUrl=%2Fhz%2Faudible%2Fmlp%2Fmfpdp%2FB017WJ5PR4" class="icp-button" id="icp-touch-link-cop">
+  <span class="icp-currency-symbol">$</span><span class="icp-color-base">USD - U.S. Dollar</span>
+</a>
+
+<style type="text/css">
+#icp-touch-link-country { display: none; }
+</style>
+<a href="/gp/navigation-country/select-country/ref=footer_icp_cp?ie=UTF8&preferencesReturnUrl=%2F" class="icp-button" id="icp-touch-link-country">
+  <span class="icp-flag-3 icp-flag-3-us"></span><span class="icp-color-base">United States</span><span class="aok-hidden" style="display:none">Choose a country/region for shopping.</span>
+</a>
+</div></span>
+        <span class="navFooterLogoLineLinksWithHorizontalAlignment">
+  <div class="navFooterLinkLine">
+    <ul>
+        <li><a href="/gp/help/customer/display.html?nodeId=508510&ref_=nav_cs_help" class="nav_a">Help</a></li>
+    </ul>
+  </div>
+</span>
+    
+  </div>
+  
+  
+  
+<div class="navFooterLine navFooterLinkLine navFooterPadItemLine navFooterCopyright">
+  <ul><li class="nav_first"><a href="/gp/help/customer/display.html?nodeId=508088&ref_=footer_cou" class="nav_a">Conditions of Use</a></li><li ><a href="/gp/help/customer/display.html?nodeId=468496&ref_=footer_privacy" class="nav_a">Privacy Notice</a></li><li class="nav_last"><a href="/interestbasedads/ref=footer_iba" class="nav_a">Interest-Based Ads</a></li></ul><span>© 1996-2021, Amazon.com, Inc. or its affiliates</span>
+</div>
+
+  
+</div>
+
+<div id="sis_pixel_r2" aria-hidden="true" style="height:1px; position: absolute; left: -1000000px; top: -1000000px;"></div><script>(function(a,b){a.attachEvent?a.attachEvent("onload",b):a.addEventListener&&a.addEventListener("load",b,!1)})(window,function(){setTimeout(function(){var el=document.getElementById("sis_pixel_r2");el&&(el.innerHTML='<iframe id="DAsis" src="//s.amazon-adsystem.com/iu3?d=amazon.com&slot=navFooter&a2=0101983ddf9973329f4cbffb2b44b9c6f05d729363c0dd51cca0985ee6b03e80d47a&old_oo=0&ts=1640004539412&s=Ab9R-arScNENdkrPGryjHYU0wR7cmc4n43KnG4-MQDwz&gdpr_consent=&gdpr_consent_avl=&cb=1640004539412" width="1" height="1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>')},300)});</script>
+
+  <!-- NAVYAAN FOOTER END -->
+
+
+<!-- footer tilu -->
+
+
+<!-- Nav Footer End -->
+  </div></body></html><style type="text/css" >
+
+    #navFooter {
+        margin : 0px;
+    }
+
+</style>
 
