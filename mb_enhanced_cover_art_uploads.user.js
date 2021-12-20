@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.12.20
+// @version      2021.12.20.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -29,6 +29,7 @@
 // @connect      *
 // ==/UserScript==
 
+// For original source code, see https://github.com/ROpdebee/mb-userscripts/tree/main/src/mb_enhanced_cover_art_uploads
 (function () {
   'use strict';
 
@@ -40,22 +41,17 @@
 
   var USERSCRIPT_NAME = "mb_enhanced_cover_art_uploads";
 
-  // TODO: This originates from mb_caa_dimensions but is also used here. Not sure
-  // where to put it. It might make sense to put it in the mb_caa_dimensions source
-  // tree later on, and import it in this source tree where necessary.
   function getImageDimensions(url) {
     return new Promise((resolve, reject) => {
       let done = false;
 
       function dimensionsLoaded(dimensions) {
-        // Make sure we don't poll again, it's not necessary.
         clearInterval(interval);
 
         if (!done) {
-          // Prevent resolving twice.
           resolve(dimensions);
           done = true;
-          img.src = ''; // Cancel loading the image
+          img.src = '';
         }
       }
 
@@ -75,20 +71,15 @@
           width: img.naturalWidth
         });
       });
-      img.addEventListener('error', dimensionsFailed); // onload and onerror are asynchronous, so this interval should have
-      // already been set before they are called.
-
+      img.addEventListener('error', dimensionsFailed);
       const interval = window.setInterval(() => {
         if (img.naturalHeight) {
-          // naturalHeight will be non-zero as soon as enough of the image
-          // is loaded to determine its dimensions.
           dimensionsLoaded({
             height: img.naturalHeight,
             width: img.naturalWidth
           });
         }
-      }, 50); // Start loading the image
-
+      }, 50);
       img.src = url;
     });
   }
@@ -102,7 +93,6 @@
   function decodeSingleKeyValue(key, value, images) {
     var _key$match;
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const keyName = key.split('.').pop();
     const imageIdxString = (_key$match = key.match(/x_seed\.image\.(\d+)\./)) === null || _key$match === void 0 ? void 0 : _key$match[1];
 
@@ -170,7 +160,6 @@
 
       let images = [];
       seedParams.forEach((value, key) => {
-        // only image parameters can be decoded to cover art images
         if (!key.startsWith('x_seed.image.')) return;
 
         try {
@@ -178,13 +167,8 @@
         } catch (err) {
           LOGGER.error("Invalid image seeding param ".concat(key, "=").concat(value), err);
         }
-      }); // Sanity checks: Make sure all images have at least a URL, and condense
-      // the array in case indices are missing.
-
+      });
       images = images.filter((image, index) => {
-        // URL could be undefined if it either was never given as a param,
-        // or if it was invalid.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (image.url) {
           return true;
         } else {
@@ -284,9 +268,7 @@
     seeder.supportedDomains.forEach(domain => {
       if (!SEEDER_DISPATCH_MAP.has(domain)) {
         SEEDER_DISPATCH_MAP.set(domain, []);
-      } // Optional chaining is unnecessary overhead, we just created the entry above
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-
+      }
 
       SEEDER_DISPATCH_MAP.get(domain).push(seeder);
     });
@@ -318,30 +300,13 @@
       _defineProperty(this, "allowButtons", true);
     }
 
-    /**
-     * Postprocess the fetched images. By default, does nothing, however,
-     * subclasses can override this to e.g. filter out or merge images after
-     * they've been fetched.
-     */
     postprocessImages(images) {
       return images;
     }
-    /**
-     * Returns a clean version of the given URL.
-     * This version should be used to match against `urlRegex`.
-     */
-
 
     cleanUrl(url) {
       return url.host + url.pathname;
     }
-    /**
-     * Check whether the provider supports the given URL.
-     *
-     * @param      {URL}    url     The provider URL.
-     * @return     {boolean}  Whether images can be extracted for this URL.
-     */
-
 
     supportsUrl(url) {
       if (Array.isArray(this.urlRegex)) {
@@ -350,10 +315,6 @@
 
       return this.urlRegex.test(this.cleanUrl(url));
     }
-    /**
-     * Extract ID from a release URL.
-     */
-
 
     extractId(url) {
       if (!Array.isArray(this.urlRegex)) {
@@ -368,11 +329,6 @@
         return (_this$cleanUrl$match2 = this.cleanUrl(url).match(regex)) === null || _this$cleanUrl$match2 === void 0 ? void 0 : _this$cleanUrl$match2[1];
       }).find(id => typeof id !== 'undefined');
     }
-    /**
-     * Check whether a redirect is safe, i.e. both URLs point towards the same
-     * release.
-     */
-
 
     isSafeRedirect(originalUrl, redirectedUrl) {
       const id = this.extractId(originalUrl);
@@ -395,15 +351,6 @@
 
   }
   class HeadMetaPropertyProvider extends CoverArtProvider {
-    // Providers for which the cover art can be retrieved from the head
-    // og:image property and maximised using maxurl
-
-    /**
-     * Template method to be used by subclasses to check whether the document
-     * indicates a missing release. This only needs to be implemented if the
-     * provider returns success codes for releases which are 404.
-     */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     is404Page(_document) {
       return false;
     }
@@ -412,8 +359,6 @@
       const _this2 = this;
 
       return _call(function () {
-        // Find an image link from a HTML head meta property, maxurl will
-        // maximize it for us. Don't want to use the API because of OAuth.
         return _await(_this2.fetchPage(url), function (_this2$fetchPage) {
           const respDocument = parseDOM(_this2$fetchPage, url.href);
 
@@ -432,11 +377,11 @@
 
   }
 
-  var _groupIdenticalImages = /*#__PURE__*/new WeakSet();
+  var _groupIdenticalImages = new WeakSet();
 
-  var _urlToDigest = /*#__PURE__*/new WeakSet();
+  var _urlToDigest = new WeakSet();
 
-  var _createTrackImageComment = /*#__PURE__*/new WeakSet();
+  var _createTrackImageComment = new WeakSet();
 
   class ProviderWithTrackImages extends CoverArtProvider {
     constructor() {
@@ -450,7 +395,6 @@
     }
 
     imageToThumbnailUrl(imageUrl) {
-      // To be overridden by subclass if necessary.
       return imageUrl;
     }
 
@@ -458,21 +402,14 @@
       const _this3 = this;
 
       return _call(function () {
-        const allTrackImages = filterNonNull(trackImages); // First pass: URL only
+        const allTrackImages = filterNonNull(trackImages);
 
-        const groupedImages = _classPrivateMethodGet(_this3, _groupIdenticalImages, _groupIdenticalImages2).call(_this3, allTrackImages, img => img.url, mainUrl); // Second pass: Thumbnail content
-        // We do not need to deduplicate by content if there's only one track
-        // image and there's no main URL to compare to.
-
+        const groupedImages = _classPrivateMethodGet(_this3, _groupIdenticalImages, _groupIdenticalImages2).call(_this3, allTrackImages, img => img.url, mainUrl);
 
         return _await(_invoke(function () {
           if (byContent && groupedImages.size && !(groupedImages.size === 1 && !mainUrl)) {
-            LOGGER.info('Deduplicating track images by content, this may take a while…'); // Compute unique digests of all thumbnail images. We'll use these
-            // digests in `#groupIdenticalImages` to group by thumbnail content.
-
+            LOGGER.info('Deduplicating track images by content, this may take a while…');
             return _await(mainUrl ? _classPrivateMethodGet(_this3, _urlToDigest, _urlToDigest2).call(_this3, mainUrl) : '', function (mainDigest) {
-              // Extend the track image with the track's unique digest. We compute
-              // this digest once for each unique URL.
               return _await(Promise.all([...groupedImages.entries()].map(_async(function (_ref) {
                 let _ref2 = _slicedToArray(_ref, 2),
                     coverUrl = _ref2[0],
@@ -486,12 +423,7 @@
                   });
                 });
               }))), function (tracksWithDigest) {
-                const groupedThumbnails = _classPrivateMethodGet(_this3, _groupIdenticalImages, _groupIdenticalImages2).call(_this3, tracksWithDigest.flat(), trackWithDigest => trackWithDigest.digest, mainDigest); // The previous `groupedImages` map groups images by URL. Overwrite
-                // this to group images by thumbnail content. Keys will remain URLs,
-                // we'll use the URL of the first image in the group. It doesn't
-                // really matter which URL we use, as we've already asserted that
-                // the images behind all these URLs in the group are identical.
-
+                const groupedThumbnails = _classPrivateMethodGet(_this3, _groupIdenticalImages, _groupIdenticalImages2).call(_this3, tracksWithDigest.flat(), trackWithDigest => trackWithDigest.digest, mainDigest);
 
                 groupedImages.clear();
 
@@ -513,8 +445,6 @@
             }, !mainUrl);
           }
         }, function () {
-          // Queue one item for each group of track images. We'll create a comment
-          // to indicate which tracks this image belongs to.
           const results = [];
           groupedImages.forEach((trackImages, imgUrl) => {
             results.push({
@@ -554,32 +484,26 @@
     const keywords = caption.split(/(?:,|\s|and|&)/i);
     const faceKeywords = ['front', 'back', 'spine'];
 
-    const _faceKeywords$map = faceKeywords.map(faceKw => !!keywords // Case-insensitive .includes()
-    .find(kw => kw.toLowerCase() === faceKw.toLowerCase())),
+    const _faceKeywords$map = faceKeywords.map(faceKw => !!keywords.find(kw => kw.toLowerCase() === faceKw.toLowerCase())),
           _faceKeywords$map2 = _slicedToArray(_faceKeywords$map, 3),
           hasFront = _faceKeywords$map2[0],
           hasBack = _faceKeywords$map2[1],
           hasSpine = _faceKeywords$map2[2];
 
     if (hasFront) types.push(ArtworkTypeIDs.Front);
-    if (hasBack) types.push(ArtworkTypeIDs.Back); // Assuming if the front and back are included, the spine is as well.
-
-    if (hasSpine || hasFront && hasBack) types.push(ArtworkTypeIDs.Spine); // Copy anything other than 'front', 'back', or 'spine' to the comment
-
+    if (hasBack) types.push(ArtworkTypeIDs.Back);
+    if (hasSpine || hasFront && hasBack) types.push(ArtworkTypeIDs.Spine);
     const otherKeywords = keywords.filter(kw => !faceKeywords.includes(kw.toLowerCase()));
     const comment = otherKeywords.join(' ').trim();
     return {
       type: types,
       comment
     };
-  } // Keys: First word of the VGMdb caption (mostly structured), lower-cased
-  // Values: Either MappedArtwork or a callable taking the remainder of the caption and returning MappedArtwork
-
+  }
   const __CAPTION_TYPE_MAPPING = {
     front: ArtworkTypeIDs.Front,
     booklet: ArtworkTypeIDs.Booklet,
     jacket: mapJacketType,
-    // DVD jacket
     disc: ArtworkTypeIDs.Medium,
     cassette: ArtworkTypeIDs.Medium,
     vinyl: ArtworkTypeIDs.Medium,
@@ -607,7 +531,6 @@
       type: ArtworkTypeIDs.Other,
       comment: 'Insert'
     },
-    // Or poster?
     case: {
       type: ArtworkTypeIDs.Other,
       comment: 'Case'
@@ -625,7 +548,6 @@
     }
 
     let types = ret;
-    /* istanbul ignore next: No mapper generates this currently */
 
     if (!Array.isArray(types)) {
       types = [types];
@@ -637,30 +559,20 @@
     };
   }
 
-  const CAPTION_TYPE_MAPPING = {}; // Convert all definitions to a single signature for easier processing later on
+  const CAPTION_TYPE_MAPPING = {};
 
   for (var _i = 0, _Object$entries = Object.entries(__CAPTION_TYPE_MAPPING); _i < _Object$entries.length; _i++) {
     const _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
           key = _Object$entries$_i[0],
           value = _Object$entries$_i[1];
 
-    // Since value is a block-scoped const, the lambda will close over that
-    // exact value. It wouldn't if it was a var, as `value` would in the end
-    // only refer to the last value. Babel transpiles this correctly, so this
-    // is safe.
     CAPTION_TYPE_MAPPING[key] = caption => {
       if (typeof value === 'function') {
-        // Assume the function sets everything correctly, including the
-        // comment
         return convertMappingReturnValue(value(caption));
       }
 
-      const retObj = convertMappingReturnValue(value); // Add remainder of the caption to the comment returned by the mapping
-
-      if (retObj.comment && caption) retObj.comment += ' ' + caption; // If there's a caption but no comment, set the comment to the caption
-      else if (caption) retObj.comment = caption; // Otherwise there's a comment set by the mapper but no caption => keep,
-      // or neither a comment nor a caption => nothing needs to be done.
-
+      const retObj = convertMappingReturnValue(value);
+      if (retObj.comment && caption) retObj.comment += ' ' + caption;else if (caption) retObj.comment = caption;
       return retObj;
     };
   }
@@ -711,7 +623,7 @@
             throw new Error('VGMdb returned an error');
           }
 
-          const pageDom = parseDOM(pageSrc, url.href); // istanbul ignore else: Tests are not logged in
+          const pageDom = parseDOM(pageSrc, url.href);
 
           if (qsMaybe('#navmember', pageDom) === null) {
             LOGGER.warn('Heads up! VGMdb requires you to be logged in to view all images. Some images may have been missed. If you have an account, please log in to VGMdb to fetch all images.');
@@ -721,7 +633,6 @@
           return _await(coverGallery ? VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [], function (galleryCovers) {
             var _qsMaybe, _qsMaybe$style$backgr;
 
-            // Add the main cover if it's not in the gallery
             const mainCoverUrl = (_qsMaybe = qsMaybe('#coverart', pageDom)) === null || _qsMaybe === void 0 ? void 0 : (_qsMaybe$style$backgr = _qsMaybe.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)) === null || _qsMaybe$style$backgr === void 0 ? void 0 : _qsMaybe$style$backgr[1];
 
             if (mainCoverUrl && !galleryCovers.some(cover => urlBasename(cover.url) === urlBasename(mainCoverUrl))) {
@@ -752,9 +663,7 @@
 
       return convertCaptions({
         url: anchor.href,
-        caption: (_qs$textContent = qs('.label', anchor).textContent) !== null && _qs$textContent !== void 0 ? _qs$textContent :
-        /* istanbul ignore next */
-        ''
+        caption: (_qs$textContent = qs('.label', anchor).textContent) !== null && _qs$textContent !== void 0 ? _qs$textContent : ''
       });
     }
 
@@ -762,7 +671,6 @@
       const _this3 = this;
 
       return _call(function () {
-        // Using the unofficial API at vgmdb.info
         const id = _this3.extractId(url);
 
         assertHasValue(id);
@@ -786,7 +694,6 @@
     });
 
     if (metadata.picture_full && !covers.find(cover => cover.url === metadata.picture_full)) {
-      // Assuming the main picture is the front cover
       covers.unshift({
         url: metadata.picture_full,
         caption: 'Front'
@@ -908,13 +815,9 @@
       (_coverHeading$nextEle = coverHeading.nextElementSibling) === null || _coverHeading$nextEle === void 0 ? void 0 : _coverHeading$nextEle.insertAdjacentElement('afterbegin', container);
   }
 
-  /* istanbul ignore file: Imports TSX, covered by E2E */
   registerSeeder(AtisketSeeder);
   registerSeeder(AtasketSeeder);
   registerSeeder(VGMdbSeeder);
-
-  // we can also grab it from the <head> element metadata, which is a lot less
-  // effort, and we get the added benefit of redirect safety.
 
   class SevenDigitalProvider extends HeadMetaPropertyProvider {
     constructor() {
@@ -930,9 +833,7 @@
     }
 
     postprocessImages(images) {
-      return images // Filter out images that either are, or were redirected to the cover
-      // with ID 0000000016. This is a placeholder image.
-      .filter(image => {
+      return images.filter(image => {
         if (/\/0000000016_\d+/.test(image.fetchedUrl.pathname)) {
           LOGGER.warn('Ignoring placeholder cover in 7digital release');
           return false;
@@ -961,20 +862,16 @@
       const _this = this;
 
       return _call(function () {
-        // If the release does not exist, AllMusic redirects to the front page
-        // (and sometimes to an album). The redirection check should figure that
-        // out and raise an error.
         return _await(_this.fetchPage(url), function (page) {
           var _page$match;
 
-          // Extracting from embedded JS which contains a JSON array of all images
-          const galleryJson = (_page$match = page.match(/var imageGallery = (.+);$/m)) === null || _page$match === void 0 ? void 0 : _page$match[1]; // istanbul ignore if: Difficult to cover
+          const galleryJson = (_page$match = page.match(/var imageGallery = (.+);$/m)) === null || _page$match === void 0 ? void 0 : _page$match[1];
 
           if (!galleryJson) {
             throw new Error('Failed to extract AllMusic images from embedded JS');
           }
 
-          const gallery = safeParseJSON(galleryJson); // istanbul ignore if: Difficult to cover
+          const gallery = safeParseJSON(galleryJson);
 
           if (!gallery) {
             throw new Error('Failed to parse AllMusic JSON gallery data');
@@ -982,8 +879,6 @@
 
           return gallery.map(image => {
             return {
-              // Maximise to original format here already, generates less
-              // edit note spam.
               url: new URL(image.url.replace(/&f=\d+$/, '&f=0'))
             };
           });
@@ -993,33 +888,24 @@
 
   }
 
-  const PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/; // Incomplete, only what we need
-
+  const PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/;
   const VARIANT_TYPE_MAPPING = {
     MAIN: ArtworkTypeIDs.Front,
     FRNT: ArtworkTypeIDs.Front,
-    // not seen in use so far, usually MAIN is used for front covers
     BACK: ArtworkTypeIDs.Back,
-    SIDE: ArtworkTypeIDs.Spine // not seen in use so far
-    // PT01: ArtworkTypeIDs.Other,
-    // See https://sellercentral.amazon.com/gp/help/external/JV4FNMT7563SF5F for further details
-
-  }; // CSS queries to figure out which type of page we're on
-
-  const AUDIBLE_PAGE_QUERY = '.audible_mm_title'; // Audible buttons on standard product pages
-
+    SIDE: ArtworkTypeIDs.Spine
+  };
+  const AUDIBLE_PAGE_QUERY = '.audible_mm_title';
   const DIGITAL_PAGE_QUERY = '.DigitalMusicDetailPage';
-  const PHYSICAL_AUDIOBOOK_PAGE_QUERY = '#booksImageBlock_feature_div'; // CSS queries to extract a front cover from a page
-
-  const AUDIBLE_FRONT_IMAGE_QUERY = '#mf_pdp_hero_widget_book_img img'; // Only for /hz/audible/mlp/mfpdp pages.
-
+  const PHYSICAL_AUDIOBOOK_PAGE_QUERY = '#booksImageBlock_feature_div';
+  const AUDIBLE_FRONT_IMAGE_QUERY = '#mf_pdp_hero_widget_book_img img';
   const DIGITAL_FRONT_IMAGE_QUERY = '#digitalMusicProductImage_feature_div > img';
 
-  var _extractFrontCover = /*#__PURE__*/new WeakSet();
+  var _extractFrontCover = new WeakSet();
 
-  var _extractEmbeddedJSImages = /*#__PURE__*/new WeakSet();
+  var _extractEmbeddedJSImages = new WeakSet();
 
-  var _convertVariant = /*#__PURE__*/new WeakSet();
+  var _convertVariant = new WeakSet();
 
   class AmazonProvider extends CoverArtProvider {
     constructor() {
@@ -1038,7 +924,6 @@
       _defineProperty(this, "urlRegex", /\/(?:gp\/product|dp|hz\/audible\/mlp\/mfpdp)\/([A-Za-z0-9]{10})(?:\/|$)/);
     }
 
-    // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
     get favicon() {
       return GMgetResourceUrl('amazonFavicon');
     }
@@ -1048,8 +933,7 @@
 
       return _call(function () {
         return _await(_this.fetchPage(url), function (pageContent) {
-          const pageDom = parseDOM(pageContent, url.href); // eslint-disable-next-line init-declarations
-
+          const pageDom = parseDOM(pageContent, url.href);
           let finder;
 
           if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
@@ -1083,7 +967,6 @@
         return _await(imgs.map(img => {
           var _img$hiRes;
 
-          // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
           return _classPrivateMethodGet(_this2, _convertVariant, _convertVariant2).call(_this2, {
             url: (_img$hiRes = img.hiRes) !== null && _img$hiRes !== void 0 ? _img$hiRes : img.large,
             variant: img.variant
@@ -1098,8 +981,7 @@
       return _call(function () {
         const imgs = _classPrivateMethodGet(_this3, _extractEmbeddedJSImages, _extractEmbeddedJSImages2).call(_this3, pageContent, /\s*'imageGalleryData' : (.+),$/m);
 
-        assertNonNull(imgs, 'Failed to extract images from embedded JS on physical audiobook page'); // Amazon embeds no image variants on these pages, so we don't know the types
-
+        assertNonNull(imgs, 'Failed to extract images from embedded JS on physical audiobook page');
         return _await(imgs.map(img => ({
           url: new URL(img.mainUrl)
         })));
@@ -1119,9 +1001,6 @@
 
       return _call(function () {
         let _exit = false;
-        // We can only extract 500px images from standard product pages. Prefer
-        // /hz/audible/mlp/mfpdp pages which should have the same image in its
-        // full resolution.
         return _await(_invoke(function () {
           if (/\/(?:gp\/product|dp)\//.test(url.pathname)) {
             const audibleUrl = new URL(url.pathname.replace(/\/(?:gp\/product|dp)\//, '/hz/audible/mlp/mfpdp/'), url);
@@ -1146,7 +1025,6 @@
     const productImage = qsMaybe(selector, pageDom);
     assertNonNull(productImage, 'Could not find front image on Amazon page');
     return [{
-      // Only returning the thumbnail, IMU will maximise
       url: new URL(productImage.src),
       types: [ArtworkTypeIDs.Front]
     }];
@@ -1206,12 +1084,6 @@
       const _this = this;
 
       return _call(function () {
-        // Translate Amazon Music to Amazon product links. The cover art should
-        // be the same, but extracting the cover art from Amazon Music requires
-        // complex API requests with CSRF tokens, whereas product pages are much
-        // easier. Besides, cover art on product pages tends to be larger.
-        // NOTE: I'm not 100% certain the images are always identical, or that
-        // the associated product always exists.
         const asin = _this.extractId(url);
 
         assertHasValue(asin);
@@ -1245,18 +1117,7 @@
 
   const _amendSquareThumbnails2 = _async(function (covers) {
     return Promise.all(covers.map(_async(function (cover) {
-      // To figure out the original image's dimensions, we need to fetch
-      // the cover itself, preferably the full-sized one. This means that
-      // we're actually fetching the cover twice: Here, and in the fetcher
-      // after we return our results. However, this isn't a big problem,
-      // since to compute dimensions, typically only a very small portion
-      // of the data is loaded, and besides, the second time the content
-      // is fetched, browsers can reuse the data they already loaded
-      // previously.
       return _await(getImageDimensions(cover.url.href.replace(/_\d+\.(\w+)$/, '_0.$1')), function (coverDims) {
-        // Prevent zero-division errors
-
-        /* istanbul ignore if: Should not happen */
         if (!coverDims.width || !coverDims.height) {
           return [cover];
         }
@@ -1266,7 +1127,6 @@
           comment: filterNonNull([cover.comment, 'Bandcamp full-sized cover']).join(' - ')
         }), {
           types: cover.types,
-          // *_16.jpg URLs are the largest square crop available, always 700x700
           url: new URL(cover.url.href.replace(/_\d+\.(\w+)$/, '_16.$1')),
           comment: filterNonNull([cover.comment, 'Bandcamp square crop']).join(' - '),
           skipMaximisation: true
@@ -1280,10 +1140,8 @@
 
     const _this3 = this;
 
-    // Account for alphabetical track numbers too
     const trackNum = (_trackRow$getAttribut = trackRow.getAttribute('rel')) === null || _trackRow$getAttribut === void 0 ? void 0 : (_trackRow$getAttribut2 = _trackRow$getAttribut.match(/tracknum=(\w+)/)) === null || _trackRow$getAttribut2 === void 0 ? void 0 : _trackRow$getAttribut2[1];
     const trackUrl = (_qsMaybe = qsMaybe('.title > a', trackRow)) === null || _qsMaybe === void 0 ? void 0 : _qsMaybe.href;
-    /* istanbul ignore if: Cannot immediately find a release where a track is not linked */
 
     if (!trackUrl) {
       LOGGER.warn("Could not check track ".concat(trackNum, " for track images"));
@@ -1295,11 +1153,8 @@
         const trackPage = parseDOM(_fetchPage, trackUrl);
 
         const imageUrl = _classPrivateMethodGet(_this3, _extractCover, _extractCover2).call(_this3, trackPage);
-        /* istanbul ignore if: Cannot find example */
-
 
         if (!imageUrl) {
-          // Track has no cover
           return;
         }
 
@@ -1308,9 +1163,7 @@
           trackNumber: trackNum
         };
       });
-    }, function (err)
-    /* istanbul ignore next: Difficult to test */
-    {
+    }, function (err) {
       LOGGER.error("Could not check track ".concat(trackNum, " for track images"), err);
     });
   });
@@ -1318,25 +1171,13 @@
   const _findTrackImages2 = _async(function (doc, mainUrl) {
     const _this2 = this;
 
-    // Unfortunately it doesn't seem like they can be extracted from the
-    // album page itself, so we have to load each of the tracks separately.
-    // Deliberately throttling these requests as to not flood Bandcamp and
-    // potentially get banned.
-    // It appears that they used to have an API which returned all track
-    // images in one request, but that API has been locked down :(
-    // https://michaelherger.github.io/Bandcamp-API/#/Albums/get_api_album_2_info
     const trackRows = qsa('#track_table .track_row_view', doc);
     if (!trackRows.length) return [];
-    LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…'); // Max 5 requests per second
-
+    LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
     const throttledFetchPage = pThrottle({
       interval: 1000,
       limit: 5
-    })(_this2.fetchPage.bind(_this2)); // This isn't the most efficient, as it'll have to request all tracks
-    // before it even returns the main album cover. Although fixable by
-    // e.g. using an async generator, it might lead to issues with users
-    // submitting the upload form before all track images are fetched...
-
+    })(_this2.fetchPage.bind(_this2));
     return _await(Promise.all(trackRows.map(trackRow => _classPrivateMethodGet(_this2, _findTrackImage, _findTrackImage2).call(_this2, trackRow, throttledFetchPage))), function (trackImages) {
       return _await(_this2.mergeTrackImages(trackImages, mainUrl, true), function (mergedTrackImages) {
         if (mergedTrackImages.length) {
@@ -1350,13 +1191,13 @@
     });
   });
 
-  var _extractCover = /*#__PURE__*/new WeakSet();
+  var _extractCover = new WeakSet();
 
-  var _findTrackImages = /*#__PURE__*/new WeakSet();
+  var _findTrackImages = new WeakSet();
 
-  var _findTrackImage = /*#__PURE__*/new WeakSet();
+  var _findTrackImage = new WeakSet();
 
-  var _amendSquareThumbnails = /*#__PURE__*/new WeakSet();
+  var _amendSquareThumbnails = new WeakSet();
 
   class BandcampProvider extends ProviderWithTrackImages {
     constructor() {
@@ -1403,10 +1244,8 @@
               types: [ArtworkTypeIDs.Front]
             });
           } else {
-            // Release has no images. May still have track covers though.
             LOGGER.warn('Bandcamp release has no cover');
-          } // Don't bother extracting track images if we only need the front cover
-
+          }
 
           return _await(onlyFront ? [] : _classPrivateMethodGet(_this, _findTrackImages, _findTrackImages2).call(_this, respDocument, albumCoverUrl), function (trackImages) {
             return _classPrivateMethodGet(_this, _amendSquareThumbnails, _amendSquareThumbnails2).call(_this, covers.concat(trackImages));
@@ -1416,7 +1255,6 @@
     }
 
     imageToThumbnailUrl(imageUrl) {
-      // 150x150
       return imageUrl.replace(/_\d+\.(\w+)$/, '_7.$1');
     }
 
@@ -1424,7 +1262,6 @@
 
   function _extractCover2(doc) {
     if (qsMaybe('#missing-tralbum-art', doc) !== null) {
-      // No images
       return;
     }
 
@@ -1448,8 +1285,6 @@
       const _this = this;
 
       return _call(function () {
-        // Like the implementation of HeadMetaPropertyProvider, but Beatport
-        // uses <meta name="og:image" ...> instead of <meta property="og:image" ...>
         return _await(_this.fetchPage(url), function (_this$fetchPage) {
           const respDocument = parseDOM(_this$fetchPage, url.href);
           const coverElmt = qs('head > meta[name="og:image"]', respDocument);
@@ -1482,10 +1317,7 @@
 
       return _call(function () {
         return _await(_super$findImages.call(_this, url), function (covers) {
-          // Filter out placeholder images
           return covers.filter(cover => {
-            // Placeholder covers all use the same URLs, since the URL cover "ID"
-            // is actually its MD5 sum. See https://github.com/ROpdebee/mb-userscripts/issues/172
             if (cover.url.pathname.includes('d41d8cd98f00b204e9800998ecf8427e')) {
               LOGGER.warn('Ignoring placeholder cover in Deezer release');
               return false;
@@ -1498,8 +1330,6 @@
     }
 
   }
-
-  // JS sources somehow.
 
   const QUERY_SHA256 = '13e41f41a02b02d0a7e855a71e1a02478fd2fb0a2d104b54931d649e1d7c6ecd';
   class DiscogsProvider extends CoverArtProvider {
@@ -1519,8 +1349,6 @@
       const _this = this;
 
       return _call(function () {
-        // Loading the full HTML and parsing the metadata JSON embedded within
-        // it.
         const releaseId = _this.extractId(url);
 
         assertHasValue(releaseId);
@@ -1540,11 +1368,7 @@
       if (typeof respProm === 'undefined') {
         respProm = this.actuallyGetReleaseImages(releaseId);
         this.apiResponseCache.set(releaseId, respProm);
-      } // Evict the promise from the cache if it rejects, so that we can retry
-      // later. If we don't evict it, later retries will reuse the failing
-      // promise. Only remove if it hasn't been replaced yet. It may have
-      // already been replaced by another call, since this is asynchronous code
-
+      }
 
       respProm.catch(() => {
         if (this.apiResponseCache.get(releaseId) === respProm) {
@@ -1585,16 +1409,10 @@
       return _call(function () {
         var _url$pathname$match, _imageName$match;
 
-        // Maximising by querying the API for all images of the release, finding
-        // the right one, and extracting the "full size" (i.e., 600x600 JPEG) URL.
         const imageName = (_url$pathname$match = url.pathname.match(/discogs-images\/(R-.+)$/)) === null || _url$pathname$match === void 0 ? void 0 : _url$pathname$match[1];
         const releaseId = imageName === null || imageName === void 0 ? void 0 : (_imageName$match = imageName.match(/^R-(\d+)/)) === null || _imageName$match === void 0 ? void 0 : _imageName$match[1];
-        /* istanbul ignore if: Should never happen on valid image */
-
         return releaseId ? _await(_this2.getReleaseImages(releaseId), function (releaseData) {
           const matchedImage = releaseData.data.release.images.edges.find(img => urlBasename(img.node.fullsize.sourceUrl) === imageName);
-          /* istanbul ignore if: Should never happen on valid image */
-
           return matchedImage ? new URL(matchedImage.node.fullsize.sourceUrl) : url;
         }) : _await(url);
       });
@@ -1618,7 +1436,6 @@
     }
 
     cleanUrl(url) {
-      // Album ID is in the query params, base `cleanUrl` strips those away.
       return super.cleanUrl(url) + url.search;
     }
 
@@ -1649,24 +1466,18 @@
       return _call(function () {
         const mbid = _this.extractId(url);
 
-        assertDefined(mbid); // Grabbing metadata through CAA isn't 100% reliable, since the info
-        // in the index.json isn't always up-to-date (see CAA-129, only a few
-        // cases though).
-
+        assertDefined(mbid);
         const caaIndexUrl = "https://archive.org/download/mbid-".concat(mbid, "/index.json");
         return _await(fetch(caaIndexUrl), function (caaResp) {
           if (caaResp.status >= 400) {
             throw new Error("Cannot load index.json: HTTP error ".concat(caaResp.status));
-          } // Could just use resp.json() here, but let's be safe in case IA returns
-          // something other than JSON.
-
+          }
 
           return _await(caaResp.text(), function (_caaResp$text) {
             const caaIndex = safeParseJSON(_caaResp$text, 'Could not parse index.json');
             return caaIndex.images.map(img => {
               const imageFileName = urlBasename(img.image);
               return {
-                // Skip one level of indirection
                 url: new URL("https://archive.org/download/mbid-".concat(mbid, "/mbid-").concat(mbid, "-").concat(imageFileName)),
                 comment: img.comment,
                 types: img.types.map(type => ArtworkTypeIDs[type])
@@ -1725,18 +1536,13 @@
       _defineProperty(this, "urlRegex", [/open\.qobuz\.com\/(?:.+?\/)?album\/([A-Za-z0-9]+)(?:\/|$)/, /album\/[^/]+\/([A-Za-z0-9]+)(?:\/|$)/]);
     }
 
-    // Assuming this doesn't change often. If it does, we might have to extract it
-    // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
-    // just use a constant app ID first.
-    // Static getter instead of property so that we can spy on it in the tests.
     static get QOBUZ_APP_ID() {
       return '712109809';
     }
 
     static idToCoverUrl(id) {
       const d1 = id.slice(-2);
-      const d2 = id.slice(-4, -2); // Is this always .jpg?
-
+      const d2 = id.slice(-4, -2);
       const imgUrl = "https://static.qobuz.com/images/covers/".concat(d1, "/").concat(d2, "/").concat(id, "_org.jpg");
       return new URL(imgUrl);
     }
@@ -1756,7 +1562,6 @@
     }
 
     static extractGoodies(goodie) {
-      // Livret Numérique = Digital Booklet
       const isBooklet = goodie.name.toLowerCase() === 'livret numérique';
       return {
         url: new URL(goodie.original_url),
@@ -1773,21 +1578,14 @@
 
         const id = _this.extractId(url);
 
-        assertHasValue(id); // eslint-disable-next-line init-declarations
-
+        assertHasValue(id);
         let metadata;
         return _await(_continue(_catch(function () {
           return _await(QobuzProvider.getMetadata(id), function (_QobuzProvider$getMet) {
             metadata = _QobuzProvider$getMet;
           });
         }, function (err) {
-          // We could use the URL rewriting technique to still get the cover,
-          // but if we do that, we'd have to swallow this error. It's better
-          // to just throw here, IMO, so we could fix any error.
           if (err instanceof HTTPResponseError && err.statusCode == 400) {
-            // Bad request, likely invalid app ID.
-            // Log the original error silently to the console, and throw
-            // a more user friendly one for displaying in the UI
             console.error(err);
             throw new Error('Bad request to Qobuz API, app ID invalid?');
           }
@@ -1809,8 +1607,6 @@
 
   }
 
-  // https://github.com/ROpdebee/mb-userscripts/issues/158
-
   class QubMusiqueProvider extends QobuzProvider {
     constructor() {
       super(...arguments);
@@ -1822,9 +1618,7 @@
       _defineProperty(this, "name", 'QUB Musique');
 
       _defineProperty(this, "urlRegex", [/musique\/album\/[\w-]*-([A-Za-z0-9]+)(?:\/|$)/]);
-    } // We can reuse the rest of the implementations of QobuzProvider, since it
-    // extracts the ID and uses the Qobuz API instead of loading the page.
-
+    }
 
   }
 
@@ -1847,11 +1641,7 @@
       return _call(function () {
         const releaseId = _this.extractId(url);
 
-        assertHasValue(releaseId); // Need to go through the Buy page to find full-res images. The user
-        // must be logged in to get the full-res image. We can't use the
-        // thumbnails in case the user is not logged in, since they're served
-        // as WebP, which isn't supported by CAA (yet).
-
+        assertHasValue(releaseId);
         const buyUrl = "https://rateyourmusic.com/release/album/".concat(releaseId, "/buy");
         return _await(_this.fetchPage(new URL(buyUrl)), function (_this$fetchPage) {
           const buyDoc = parseDOM(_this$fetchPage, buyUrl);
@@ -1875,15 +1665,13 @@
     const _this2 = this;
 
     const covers = [];
-    /* istanbul ignore else: Cannot find case */
 
     if (metadata.data.artwork_url) {
       covers.push({
         url: new URL(metadata.data.artwork_url),
         types: [ArtworkTypeIDs.Front]
       });
-    } // Don't bother extracting track covers if they won't be used anyway
-
+    }
 
     if (onlyFront) return covers;
     const trackCovers = filterNonNull(metadata.data.tracks.flatMap((track, trackNumber) => {
@@ -1898,9 +1686,9 @@
     });
   });
 
-  var _extractCoverFromTrackMetadata = /*#__PURE__*/new WeakSet();
+  var _extractCoverFromTrackMetadata = new WeakSet();
 
-  var _extractCoversFromSetMetadata = /*#__PURE__*/new WeakSet();
+  var _extractCoversFromSetMetadata = new WeakSet();
 
   class SoundcloudProvider extends ProviderWithTrackImages {
     constructor() {
@@ -1920,26 +1708,16 @@
     }
 
     supportsUrl(url) {
-      const _url$pathname$trim$sl = url.pathname.trim() // Remove leading slash
-      .slice(1) // Remove trailing slash, if any
-      .replace(/\/$/, '').split('/'),
+      const _url$pathname$trim$sl = url.pathname.trim().slice(1).replace(/\/$/, '').split('/'),
             _url$pathname$trim$sl2 = _toArray(_url$pathname$trim$sl),
             artistId = _url$pathname$trim$sl2[0],
             pathParts = _url$pathname$trim$sl2.slice(1);
 
-      return !!pathParts.length && !SoundcloudProvider.badArtistIDs.has(artistId) // artist/likes, artist/track/recommended, artist/sets, ...
-      // but not artist/sets/setname!
-      && !SoundcloudProvider.badSubpaths.has(urlBasename(url));
+      return !!pathParts.length && !SoundcloudProvider.badArtistIDs.has(artistId) && !SoundcloudProvider.badSubpaths.has(urlBasename(url));
     }
 
     extractId(url) {
-      // We'll use the full path as the ID. This will allow us to distinguish
-      // between sets and single tracks, artists, etc.
-      // We should've filtered out all bad URLs already.
-      // https://soundcloud.com/jonnypalding/sets/talk-21/s-Oeb9wlaKWyl
-      // Not sure what the last path component means, but it's required to
-      // open that set. Perhaps because it's private?
-      return url.pathname.slice(1); // Remove leading slash
+      return url.pathname.slice(1);
     }
 
     findImages(url) {
@@ -1970,8 +1748,6 @@
       var _pageContent$match;
 
       const jsonData = (_pageContent$match = pageContent.match(/>window\.__sc_hydration = (.+);<\/script>/)) === null || _pageContent$match === void 0 ? void 0 : _pageContent$match[1];
-      /* istanbul ignore if: Shouldn't happen */
-
       if (!jsonData) return;
       return safeParseJSON(jsonData);
     }
@@ -2008,16 +1784,9 @@
 
   }
 
-  // API keys, I guess they might depend on the user type and/or country?
-  // Also not sure whether these may change often or not. If they do, we might
-  // need to switch to extracting them from the JS.
-  // However, seeing as this key has been present in their JS code for at least
-  // 3 years already, I doubt this will stop working any time soon.
-  // https://web.archive.org/web/20181015184006/https://listen.tidal.com/app.9dbb572e8121f8755b73.js
+  const APP_ID = 'CzET4vdadNUFQ5JU';
 
-  const APP_ID = 'CzET4vdadNUFQ5JU'; // Incomplete and not entirely correct, but good enough for our purposes.
-
-  var _countryCode = /*#__PURE__*/new WeakMap();
+  var _countryCode = new WeakMap();
 
   class TidalProvider extends CoverArtProvider {
     constructor() {
@@ -2065,8 +1834,6 @@
 
       return _call(function () {
         return _await(_this2.getCountryCode(), function (countryCode) {
-          // Not sure whether it's strictly necessary to ping, but let's impersonate
-          // the browser as much as we can to avoid getting accidentally blocked.
           return _await(gmxhr('https://listen.tidal.com/v1/ping'), function () {
             const apiUrl = "https://listen.tidal.com/v1/pages/album?albumId=".concat(albumId, "&countryCode=").concat(countryCode, "&deviceType=BROWSER");
             return _await(gmxhr(apiUrl, {
@@ -2093,9 +1860,6 @@
       const _this3 = this;
 
       return _call(function () {
-        // Rewrite the URL to point to the main page
-        // Both listen.tidal.com and store.tidal.com load metadata through an
-        // API. Bare tidal.com returns the image in a <meta> property.
         const albumId = _this3.extractId(url);
 
         assertHasValue(albumId);
@@ -2318,28 +2082,17 @@
       }
   }
 
-  // userscript is executed, so $$IMU_EXPORT$$ should already exist now. However,
-  // it does not exist in tests, and we can't straightforwardly inject this variable
-  // without importing the module, thereby dereferencing it.
-
   function maxurl(url, options) {
-    // In environments with GM.* APIs, the GM.getValue and GM.setValue functions
-    // are asynchronous, leading to IMU defining its exports asynchronously too.
-    // We can't await that, unfortunately. This is only really an issue when
-    // processing seeding parameters, when user interaction is required, it'll
-    // probably already be loaded.
     return retryTimes(() => {
       $$IMU_EXPORT$$(url, options);
-    }, 100, 500); // Pretty large number of retries, but eventually it should work.
+    }, 100, 500);
   }
   const options = {
     fill_object: true,
     exclude_videos: true,
 
-    /* istanbul ignore next: Cannot test in unit tests, IMU unavailable */
     filter(url) {
-      return !url.toLowerCase().endsWith('.webp') // Blocking webp images in Discogs
-      && !/:format(webp)/.test(url.toLowerCase());
+      return !url.toLowerCase().endsWith('.webp') && !/:format(webp)/.test(url.toLowerCase());
     }
 
   };
@@ -2349,7 +2102,7 @@
   }
 
   function _getMaximisedCandidates() {
-    _getMaximisedCandidates = _wrapAsyncGenerator( /*#__PURE__*/regenerator.mark(function _callee(smallurl) {
+    _getMaximisedCandidates = _wrapAsyncGenerator(regenerator.mark(function _callee(smallurl) {
       var exceptionFn;
       return regenerator.wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
@@ -2390,11 +2143,10 @@
 
   function maximiseGeneric(_x2) {
     return _maximiseGeneric.apply(this, arguments);
-  } // Discogs
-
+  }
 
   function _maximiseGeneric() {
-    _maximiseGeneric = _wrapAsyncGenerator( /*#__PURE__*/regenerator.mark(function _callee2(smallurl) {
+    _maximiseGeneric = _wrapAsyncGenerator(regenerator.mark(function _callee2(smallurl) {
       var results, i, current;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
@@ -2404,9 +2156,7 @@
               maxurl(smallurl.href, _objectSpread2(_objectSpread2({}, options), {}, {
                 cb: resolve
               })).catch(err => {
-                LOGGER.error('Could not maximise image, maxurl unavailable?', err); // Just return no maximised candidates and proceed as usual.
-
-                // Just return no maximised candidates and proceed as usual.
+                LOGGER.error('Could not maximise image, maxurl unavailable?', err);
                 resolve([]);
               });
             }));
@@ -2421,7 +2171,7 @@
               break;
             }
 
-            current = results[i]; // Filter out results that will definitely not work
+            current = results[i];
 
             if (!(current.fake || current.bad || current.likely_broken)) {
               _context2.next = 8;
@@ -2460,7 +2210,6 @@
   }
 
   IMU_EXCEPTIONS.set('img.discogs.com', _async(function (smallurl) {
-    // Workaround for maxurl returning broken links and webp images
     return _await(DiscogsProvider.maximiseImage(smallurl), function (fullSizeURL) {
       return [{
         url: fullSizeURL,
@@ -2468,15 +2217,8 @@
         headers: {}
       }];
     });
-  })); // Apple Music
-
+  }));
   IMU_EXCEPTIONS.set('*.mzstatic.com', _async(function (smallurl) {
-    // For Apple Music, IMU always returns a PNG, regardless of whether the
-    // original source image was PNG or JPEG. When the original image is a JPEG,
-    // we want to fetch a JPEG version. Although the PNG is of slightly better
-    // quality due to generational loss when a JPEG is re-encoded, the quality
-    // loss is so minor that the additional costs of downloading, uploading,
-    // and storing the PNG are unjustifiable. See #80.
     const results = [];
     var _iteratorAbruptCompletion = false;
     var _didIteratorError = false;
@@ -2496,18 +2238,13 @@
           return !!(_iteratorAbruptCompletion = false);
         }, function () {
           const imgGeneric = _step.value;
-          // Assume original file name is penultimate component of pathname, e.g.
-          // https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png/999999999x0w-999.png
-          // We're still conservative though, if it's not a JPEG, we won't
-          // return the JPEG version
           const pathParts = imgGeneric.url.pathname.split('/');
 
           if (/\.jpe?g$/i.test(pathParts[pathParts.length - 2])) {
             results.push(_objectSpread2(_objectSpread2({}, imgGeneric), {}, {
               url: new URL(imgGeneric.url.href.replace(/\.png$/i, '.jpg'))
             }));
-          } // Always return the original maximised URL as a backup
-
+          }
 
           results.push(imgGeneric);
         }));
@@ -2534,13 +2271,8 @@
     }), function (_result) {
       return results;
     });
-  })); // IMU has no definitions for 7digital yet, so adding an exception here as a workaround
-  // Upstream issue: https://github.com/qsniyg/maxurl/issues/922
-
+  }));
   IMU_EXCEPTIONS.set('artwork-cdn.7static.com', _async(function (smallurl) {
-    // According to https://docs.7digital.com/reference#image-sizes, 800x800
-    // and 500x500 aren't available on some images, so add 350 as well as a
-    // backup.
     return ['800', '500', '350'].map(size => {
       return {
         url: new URL(smallurl.href.replace(/_\d+\.jpg$/, "_".concat(size, ".jpg"))),
@@ -2554,19 +2286,17 @@
     return decodeURIComponent(urlBasename(url, 'image'));
   }
 
-  var _doneImages = /*#__PURE__*/new WeakMap();
+  var _doneImages = new WeakMap();
 
-  var _lastId = /*#__PURE__*/new WeakMap();
+  var _lastId = new WeakMap();
 
-  var _retainOnlyFront = /*#__PURE__*/new WeakSet();
+  var _retainOnlyFront = new WeakSet();
 
-  var _createUniqueFilename = /*#__PURE__*/new WeakSet();
+  var _createUniqueFilename = new WeakSet();
 
-  var _urlAlreadyAdded = /*#__PURE__*/new WeakSet();
+  var _urlAlreadyAdded = new WeakSet();
 
   class ImageFetcher {
-    // Monotonically increasing ID to uniquely identify the image. We use this
-    // so we can later set the image type.
     constructor() {
       _classPrivateMethodInitSpec(this, _urlAlreadyAdded);
 
@@ -2617,7 +2347,6 @@
       let skipMaximisation = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       return _call(function () {
         let _exit = false;
-        // Attempt to maximise the image
         let fetchResult = null;
         return _await(_invoke(function () {
           if (!skipMaximisation) {
@@ -2682,7 +2411,6 @@
         }, function (_result4) {
           return _exit ? _result4 : _invoke(function () {
             if (!fetchResult) {
-              // Might throw, caller needs to catch
               return _await(_this2.fetchImageContents(url, getFilename(url), {}), function (_this2$fetchImageCont2) {
                 fetchResult = _this2$fetchImageCont2;
               });
@@ -2700,12 +2428,10 @@
               maximisedUrl: fetchResult.requestedUrl,
               fetchedUrl: fetchResult.fetchedUrl,
               wasMaximised: url.href !== fetchResult.requestedUrl.href,
-              wasRedirected: fetchResult.wasRedirected // We have no idea what the type or comment will be, so leave them
-              // undefined so that a default, if any, can be inserted.
-
+              wasRedirected: fetchResult.wasRedirected
             };
           });
-        })); // If we couldn't fetch any maximised images, try the original URL
+        }));
       });
     }
 
@@ -2713,8 +2439,7 @@
       const _this3 = this;
 
       return _call(function () {
-        LOGGER.info("Searching for images in ".concat(provider.name, " release\u2026")); // This could throw, assuming caller will catch.
-
+        LOGGER.info("Searching for images in ".concat(provider.name, " release\u2026"));
         return _await(provider.findImages(url, onlyFront), function (images) {
           const finalImages = onlyFront ? _classPrivateMethodGet(_this3, _retainOnlyFront, _retainOnlyFront2).call(_this3, images) : images;
           const hasMoreImages = onlyFront && images.length !== finalImages.length;
@@ -2728,7 +2453,6 @@
 
             return _continueIgnored(_catch(function () {
               return _await(_this3.fetchImageFromURL(img.url, img.skipMaximisation), function (result) {
-                // Maximised image already added
                 if (!result) return;
                 fetchResults.push(_objectSpread2(_objectSpread2({}, result), {}, {
                   types: img.types,
@@ -2742,8 +2466,6 @@
             const fetchedImages = provider.postprocessImages(fetchResults);
 
             if (!hasMoreImages) {
-              // Don't mark the whole provider URL as done if we haven't grabbed
-              // all images.
               _classPrivateFieldGet(_this3, _doneImages).add(url.href);
             } else {
               LOGGER.warn("Not all images were fetched: ".concat(images.length - finalImages.length, " covers were skipped."));
@@ -2775,13 +2497,7 @@
 
           const rawFile = new File([resp.response], fileName);
           return _await(new Promise((resolve, reject) => {
-            // Adapted from https://github.com/metabrainz/musicbrainz-server/blob/2b00b844f3fe4293fc4ccb9de1c30e3c2ddc95c1/root/static/scripts/edit/MB/CoverArt.js#L139
-            // We can't use MB.CoverArt.validate_file since it's not available
-            // in Greasemonkey unless we use unsafeWindow. However, if we use
-            // unsafeWindow, we get permission errors (probably because we're
-            // sending our functions into another context).
-            const reader = new FileReader(); // istanbul ignore next: Copied from MB.
-
+            const reader = new FileReader();
             reader.addEventListener('load', () => {
               const Uint32Array = getFromPageContext('Uint32Array');
               const uint32view = new Uint32Array(reader.result);
@@ -2824,10 +2540,6 @@
   }
 
   function _retainOnlyFront2(images) {
-    // Return only the front images. If no image with Front type is found
-    // in the array, assume the first image is the front one. If there are
-    // multiple front images, return them all (e.g. Bandcamp original and
-    // square crop).
     const filtered = images.filter(img => {
       var _img$types;
 
@@ -2851,8 +2563,7 @@
     var _image$types, _image$comment;
 
     dropImage(image.content);
-    return _awaitIgnored(retryTimes(setImageParameters.bind(null, image.content.name, // Only use the defaults if the specific one is undefined
-    (_image$types = image.types) !== null && _image$types !== void 0 ? _image$types : defaultTypes, ((_image$comment = image.comment) !== null && _image$comment !== void 0 ? _image$comment : defaultComment).trim()), 5, 500));
+    return _awaitIgnored(retryTimes(setImageParameters.bind(null, image.content.name, (_image$types = image.types) !== null && _image$types !== void 0 ? _image$types : defaultTypes, ((_image$comment = image.comment) !== null && _image$comment !== void 0 ? _image$comment : defaultComment).trim()), 5, 500));
   });
 
   const enqueueImages = _async(function (_ref) {
@@ -2865,40 +2576,25 @@
   });
 
   function dropImage(imageData) {
-    // Fake event to trigger the drop event on the drag'n'drop element
-    // Using jQuery because native JS cannot manually trigger such events
-    // for security reasons.
     const $ = getFromPageContext('$');
-    const dropEvent = $.Event('drop'); // We need to clone the underlying data since we might be running as a
-    // content script, meaning that even though we trigger the event through
-    // unsafeWindow, the page context may not be able to access the event's
-    // properties.
-
+    const dropEvent = $.Event('drop');
     dropEvent.originalEvent = cloneIntoPageContext({
       dataTransfer: {
         files: [imageData]
       }
-    }); // Note that we're using MB's own jQuery here, not a script-local one.
-    // We need to reuse MB's own jQuery to be able to trigger the event
-    // handler.
-
+    });
     $('#drop-zone').trigger(dropEvent);
   }
 
   function setImageParameters(imageName, imageTypes, imageComment) {
-    // Find the row for this added image. We can't be 100% sure it's the last
-    // added image, since another image may have been added in the meantime
-    // as we're called asynchronously. We find the correct image via the file
-    // name, which is guaranteed to be unique since we embed a unique ID into it.
     const pendingUploadRows = qsa('tbody[data-bind="foreach: files_to_upload"] > tr');
     const fileRow = pendingUploadRows.find(row => qs('.file-info span[data-bind="text: name"]', row).textContent == imageName);
-    assertDefined(fileRow, "Could not find image ".concat(imageName, " in queued uploads")); // Set image types
-
+    assertDefined(fileRow, "Could not find image ".concat(imageName, " in queued uploads"));
     const checkboxesToCheck = qsa('ul.cover-art-type-checkboxes input[type="checkbox"]', fileRow).filter(cbox => imageTypes.includes(parseInt(cbox.value)));
     checkboxesToCheck.forEach(cbox => {
       cbox.checked = true;
       cbox.dispatchEvent(new Event('click'));
-    }); // Set comment if we should
+    });
 
     if (imageComment) {
       const commentInput = qs('div.comment > input.comment', fileRow);
@@ -2908,10 +2604,8 @@
   }
 
   function fillEditNote(allFetchedImages, origin, editNote) {
-    const totalNumImages = allFetchedImages.reduce((acc, fetched) => acc + fetched.images.length, 0); // Nothing enqueued => Skip edit note altogether
-
-    if (!totalNumImages) return; // Limiting to 3 URLs to reduce noise
-
+    const totalNumImages = allFetchedImages.reduce((acc, fetched) => acc + fetched.images.length, 0);
+    if (!totalNumImages) return;
     let numFilled = 0;
 
     var _iterator = _createForOfIteratorHelper(allFetchedImages),
@@ -2936,7 +2630,7 @@
           for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
             const queuedUrl = _step2.value;
             numFilled += 1;
-            if (numFilled > 3) break; // Prevent noise from data: URLs
+            if (numFilled > 3) break;
 
             if (queuedUrl.maximisedUrl.protocol === 'data:') {
               editNote.addExtraInfo(prefix + 'Uploaded from data URL');
@@ -2983,7 +2677,6 @@
 
     const _this4 = this;
 
-    // eslint-disable-next-line init-declarations
     let fetchResult;
     return _continue(_catch(function () {
       return _await(_classPrivateFieldGet(_this4, _fetcher).fetchImages(url, _this4.onlyFront), function (_classPrivateFieldGet3) {
@@ -3011,15 +2704,15 @@
     });
   });
 
-  var _note = /*#__PURE__*/new WeakMap();
+  var _note = new WeakMap();
 
-  var _fetcher = /*#__PURE__*/new WeakMap();
+  var _fetcher = new WeakMap();
 
-  var _ui = /*#__PURE__*/new WeakMap();
+  var _ui = new WeakMap();
 
-  var _urlsInProgress = /*#__PURE__*/new WeakMap();
+  var _urlsInProgress = new WeakMap();
 
-  var _processURL = /*#__PURE__*/new WeakSet();
+  var _processURL = new WeakSet();
 
   class App {
     constructor() {
@@ -3080,11 +2773,7 @@
 
       return _call(function () {
         let _exit = false;
-        const params = SeedParameters.decode(new URLSearchParams(document.location.search)); // Although this is very similar to `processURL`, we may have to fetch
-        // and enqueue multiple images. We want to fetch images in parallel, but
-        // enqueue them sequentially to ensure the order stays consistent.
-        // eslint-disable-next-line init-declarations
-
+        const params = SeedParameters.decode(new URLSearchParams(document.location.search));
         let fetchResults;
         return _await(_continue(_catch(function () {
           return _await(Promise.all(params.images.map(_async(function (cover) {
@@ -3118,7 +2807,7 @@
               LOGGER.success("Successfully added ".concat(totalNumImages, " image(s)"));
             }
           });
-        })); // Not using Promise.all to ensure images get added in order.
+        }));
       });
     }
 
@@ -3152,17 +2841,12 @@
 
   }
 
-  /* istanbul ignore file: Covered by E2E */
   LOGGER.configure({
     logLevel: LogLevel.INFO
   });
   LOGGER.addSink(new ConsoleSink(USERSCRIPT_NAME));
 
   function runOnMB() {
-    // Initialise the app, which will start listening for pasted URLs.
-    // The only reason we're using an app here is so we can easily access the
-    // UI and fetcher instances without having to pass them around as
-    // parameters.
     const app = new App();
     app.processSeedingParameters();
     app.addImportButtons();
