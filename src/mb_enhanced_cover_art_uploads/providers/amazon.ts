@@ -1,6 +1,7 @@
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { parseDOM, qsa, qsMaybe } from '@lib/util/dom';
+import { assertNonNull } from '@lib/util/assert';
+import { parseDOM, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
 import { GMgetResourceUrl } from '@src/compat';
 
@@ -26,6 +27,15 @@ const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
     // See https://sellercentral.amazon.com/gp/help/external/JV4FNMT7563SF5F for further details
 };
 
+// CSS queries to figure out which type of page we're on
+const AUDIBLE_PAGE_QUERY = '.audible_mm_title';
+const DIGITAL_PAGE_QUERY = '.DigitalMusicDetailPage';
+const PHYSICAL_AUDIOBOOK_PAGE_QUERY = '#booksImageBlock_feature_div';
+
+// CSS queries to extract a front cover from a page
+const AUDIBLE_FRONT_IMAGE_QUERY = '#mf_pdp_hero_widget_book_img img';  // Only for /hz/audible/mlp/mfpdp pages.
+const DIGITAL_FRONT_IMAGE_QUERY = '#digitalMusicProductImage_feature_div > img';
+
 export class AmazonProvider extends CoverArtProvider {
     supportedDomains = [
         'amazon.ae', 'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.eg',
@@ -45,72 +55,31 @@ export class AmazonProvider extends CoverArtProvider {
         const pageContent = await this.fetchPage(url);
         const pageDom = parseDOM(pageContent, url.href);
 
-        // Look for Audible buttons on standard product pages, as we can only
-        // extract 500px images from these pages. Prefer /hz/audible/mlp/mfpdp
-        // pages which should have the same image in its full resolution.
-        if (qsMaybe('.audible_mm_title', pageDom)) {
-            const audibleUrl = new URL(url.pathname.replace(/gp\/product|dp/, 'hz/audible/mlp/mfpdp'), url);
-            return this.findImages(audibleUrl);
+        // eslint-disable-next-line init-declarations
+        let finder: typeof this.findDigitalImages;
+        if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
+            LOGGER.debug('Searching for images in Audible page');
+            finder = this.findAudibleImages;
+        } else if (qsMaybe(DIGITAL_PAGE_QUERY, pageDom)) {
+            LOGGER.debug('Searching for images in digital release page');
+            finder = this.findDigitalImages;
+        } else if (qsMaybe(PHYSICAL_AUDIOBOOK_PAGE_QUERY, pageDom)) {
+            LOGGER.debug('Searching for images in physical audiobook page');
+            finder = this.findPhysicalAudiobookImages;
+        } else {
+            LOGGER.debug('Searching for images in generic physical page');
+            finder = this.findGenericPhysicalImages;
         }
 
-        // Look for products which only have a single image, the front cover.
-        const frontCover = this.#extractFrontCover(pageDom);
-        if (frontCover) {
-            return [frontCover];
-        }
-
-        // For physical products we have to extract the embedded JS from the
-        // page source to get all images in their highest available resolution.
-        let covers = this.extractFromEmbeddedJS(pageContent);
-        if (!covers) {
-            // Use the (smaller) image thumbnails in the sidebar as a fallback,
-            // although it might not contain all of them. IMU will maximise,
-            // but the results are still inferior to the embedded hires images.
-            covers = this.extractFromThumbnailSidebar(pageDom);
-        }
-        if (!covers.length) {
-            // Handle physical audiobooks, the above extractors fail for those.
-            LOGGER.warn('Found no release images, trying to find an Amazon (audio)book gallery…');
-            covers = this.extractFromEmbeddedJSGallery(pageContent) ?? /* istanbul ignore next: Should never happen */[];
-        }
-
-        // Filter out placeholder images.
+        const covers = await finder.bind(this)(url, pageContent, pageDom);
         return covers.filter((img) => !PLACEHOLDER_IMG_REGEX.test(img.url.href));
     }
 
-    #extractFrontCover(pageDom: Document): CoverArt | undefined {
-        const frontCoverSelectors = [
-            '#digitalMusicProductImage_feature_div > img', // Streaming/MP3 products
-            'img#main-image', // Audible products, /dp URLs
-            '#mf_pdp_hero_widget_book_img img', // Audible products, /hz/audible/mlp/mfpdp URLs
-        ];
-
-        for (const selector of frontCoverSelectors) {
-            const productImage = qsMaybe<HTMLImageElement>(selector, pageDom);
-            if (productImage) {
-                // Only returning the thumbnail, IMU will maximise
-                return {
-                    url: new URL(productImage.src),
-                    types: [ArtworkTypeIDs.Front],
-                };
-            }
-        }
-
-        // Different product type (or no image found)
-        return;
-    }
-
-    extractFromEmbeddedJS(pageContent: string): CoverArt[] | undefined {
-        const embeddedImages = pageContent.match(/'colorImages': { 'initial': (.+)},$/m)?.[1];
-        if (!embeddedImages) {
-            LOGGER.warn('Failed to extract Amazon images from the embedded JS, falling back to thumbnails');
-            return;
-        }
-
-        const imgs = safeParseJSON<AmazonImage[]>(embeddedImages);
-        if (!Array.isArray(imgs)) {
-            LOGGER.error("Failed to parse Amazon's embedded JS, falling back to thumbnails");
-            return;
+    async findGenericPhysicalImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
+        const imgs = this.#extractEmbeddedJSImages(pageContent, /\s*'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
+        if (imgs === null) {
+            LOGGER.error('Failed to extract images from generic physical page.');
+            return [];
         }
 
         return imgs.map((img) => {
@@ -119,36 +88,59 @@ export class AmazonProvider extends CoverArtProvider {
         });
     }
 
-    extractFromEmbeddedJSGallery(pageContent: string): CoverArt[] | undefined {
-        const embeddedGallery = pageContent.match(/'imageGalleryData' : (.+),$/m)?.[1];
-        if (!embeddedGallery) {
-            LOGGER.warn('Failed to extract Amazon images from the embedded JS (audio)book gallery');
-            return;
-        }
-
-        const imgs = safeParseJSON<Array<{ mainUrl: string }>>(embeddedGallery);
-        if (!Array.isArray(imgs)) {
-            LOGGER.error("Failed to parse Amazon's embedded JS (audio)book gallery");
-            return;
+    async findPhysicalAudiobookImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
+        const imgs = this.#extractEmbeddedJSImages(pageContent, /\s*'imageGalleryData' : (.+),$/m) as Array<{ mainUrl: string }> | null;
+        if (imgs === null) {
+            LOGGER.error('Failed to extract images from physical audiobook page.');
+            return [];
         }
 
         // Amazon embeds no image variants on these pages, so we don't know the types
         return imgs.map((img) => ({ url: new URL(img.mainUrl) }));
     }
 
-    extractFromThumbnailSidebar(pageDom: Document): CoverArt[] {
-        const imgs = qsa<HTMLImageElement>('#altImages img', pageDom);
-        return imgs.map((img) => {
-            const dataThumbAction = img.closest('span[data-thumb-action]')?.getAttribute('data-thumb-action');
-            const variant = dataThumbAction && safeParseJSON<{ variant: string }>(dataThumbAction)?.variant;
+    async findDigitalImages(_url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
+        return this.#extractFrontCover(pageDom, DIGITAL_FRONT_IMAGE_QUERY);
+    }
 
-            /* istanbul ignore if: Difficult to exercise */
-            if (!variant) {
-                LOGGER.warn('Failed to extract the Amazon image variant code from the JSON attribute');
-            }
+    async findAudibleImages(url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
+        // We can only extract 500px images from standard product pages. Prefer
+        // /hz/audible/mlp/mfpdp pages which should have the same image in its
+        // full resolution.
+        if (/\/(?:gp\/product|dp)\//.test(url.pathname)) {
+            const audibleUrl = new URL(url.pathname.replace(/\/(?:gp\/product|dp)\//, '/hz/audible/mlp/mfpdp/'), url);
+            const audibleContent = await this.fetchPage(audibleUrl);
+            const audibleDom = parseDOM(audibleContent, audibleUrl.href);
+            return this.findAudibleImages(audibleUrl, audibleContent, audibleDom);
+        }
 
-            return this.#convertVariant({ url: img.src, variant });
-        });
+        return this.#extractFrontCover(pageDom, AUDIBLE_FRONT_IMAGE_QUERY);
+    }
+
+    #extractFrontCover(pageDom: Document, selector: string): CoverArt[] {
+        const productImage = qsMaybe<HTMLImageElement>(selector, pageDom);
+        assertNonNull(productImage, 'Could not find front image on Amazon page');
+        return [{
+            // Only returning the thumbnail, IMU will maximise
+            url: new URL(productImage.src),
+            types: [ArtworkTypeIDs.Front],
+        }];
+    }
+
+    #extractEmbeddedJSImages(pageContent: string, jsonRegex: RegExp): object[] | null {
+        const embeddedImages = pageContent.match(jsonRegex)?.[1];
+        if (!embeddedImages) {
+            LOGGER.debug('Could not extract embedded JS images, regex did not match');
+            return null;
+        }
+
+        const imgs = safeParseJSON<object[]>(embeddedImages);
+        if (!Array.isArray(imgs)) {
+            LOGGER.debug(`Could not parse embedded JS images, not array, got ${imgs}`);
+            return null;
+        }
+
+        return imgs;
     }
 
     #convertVariant(cover: { url: string; variant?: string | null }): CoverArt {
