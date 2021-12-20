@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.12.14.4
+// @version      2021.12.20
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1004,9 +1004,20 @@
     // PT01: ArtworkTypeIDs.Other,
     // See https://sellercentral.amazon.com/gp/help/external/JV4FNMT7563SF5F for further details
 
-  };
+  }; // CSS queries to figure out which type of page we're on
+
+  const AUDIBLE_PAGE_QUERY = '.audible_mm_title'; // Audible buttons on standard product pages
+
+  const DIGITAL_PAGE_QUERY = '.DigitalMusicDetailPage';
+  const PHYSICAL_AUDIOBOOK_PAGE_QUERY = '#booksImageBlock_feature_div'; // CSS queries to extract a front cover from a page
+
+  const AUDIBLE_FRONT_IMAGE_QUERY = '#mf_pdp_hero_widget_book_img img'; // Only for /hz/audible/mlp/mfpdp pages.
+
+  const DIGITAL_FRONT_IMAGE_QUERY = '#digitalMusicProductImage_feature_div > img';
 
   var _extractFrontCover = /*#__PURE__*/new WeakSet();
+
+  var _extractEmbeddedJSImages = /*#__PURE__*/new WeakSet();
 
   var _convertVariant = /*#__PURE__*/new WeakSet();
 
@@ -1016,13 +1027,15 @@
 
       _classPrivateMethodInitSpec(this, _convertVariant);
 
+      _classPrivateMethodInitSpec(this, _extractEmbeddedJSImages);
+
       _classPrivateMethodInitSpec(this, _extractFrontCover);
 
       _defineProperty(this, "supportedDomains", ['amazon.ae', 'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.eg', 'amazon.es', 'amazon.fr', 'amazon.in', 'amazon.it', 'amazon.jp', 'amazon.nl', 'amazon.pl', 'amazon.sa', 'amazon.se', 'amazon.sg', 'amazon.co.jp', 'amazon.co.uk', 'amazon.com', 'amazon.com.au', 'amazon.com.br', 'amazon.com.mx', 'amazon.com.tr']);
 
       _defineProperty(this, "name", 'Amazon');
 
-      _defineProperty(this, "urlRegex", /\/(?:gp\/product|dp)\/([A-Za-z0-9]{10})(?:\/|$)/);
+      _defineProperty(this, "urlRegex", /\/(?:gp\/product|dp|hz\/audible\/mlp\/mfpdp)\/([A-Za-z0-9]{10})(?:\/|$)/);
     }
 
     // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
@@ -1035,134 +1048,128 @@
 
       return _call(function () {
         return _await(_this.fetchPage(url), function (pageContent) {
-          const pageDom = parseDOM(pageContent, url.href); // Look for products which only have a single image, the front cover.
+          const pageDom = parseDOM(pageContent, url.href); // eslint-disable-next-line init-declarations
 
-          const frontCover = _classPrivateMethodGet(_this, _extractFrontCover, _extractFrontCover2).call(_this, pageDom);
+          let finder;
 
-          if (frontCover) {
-            return [frontCover];
-          } // For physical products we have to extract the embedded JS from the
-          // page source to get all images in their highest available resolution.
-
-
-          let covers = _this.extractFromEmbeddedJS(pageContent);
-
-          if (!covers) {
-            // Use the (smaller) image thumbnails in the sidebar as a fallback,
-            // although it might not contain all of them. IMU will maximise,
-            // but the results are still inferior to the embedded hires images.
-            covers = _this.extractFromThumbnailSidebar(pageDom);
+          if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
+            LOGGER.debug('Searching for images in Audible page');
+            finder = _this.findAudibleImages;
+          } else if (qsMaybe(DIGITAL_PAGE_QUERY, pageDom)) {
+            LOGGER.debug('Searching for images in digital release page');
+            finder = _this.findDigitalImages;
+          } else if (qsMaybe(PHYSICAL_AUDIOBOOK_PAGE_QUERY, pageDom)) {
+            LOGGER.debug('Searching for images in physical audiobook page');
+            finder = _this.findPhysicalAudiobookImages;
+          } else {
+            LOGGER.debug('Searching for images in generic physical page');
+            finder = _this.findGenericPhysicalImages;
           }
 
-          if (!covers.length) {
-            var _this$extractFromEmbe;
-
-            // Handle physical audiobooks, the above extractors fail for those.
-            LOGGER.warn('Found no release images, trying to find an Amazon (audio)book gallery…');
-            covers = (_this$extractFromEmbe = _this.extractFromEmbeddedJSGallery(pageContent)) !== null && _this$extractFromEmbe !== void 0 ? _this$extractFromEmbe :
-            /* istanbul ignore next: Should never happen */
-            [];
-          } // Filter out placeholder images.
-
-
-          return covers.filter(img => !PLACEHOLDER_IMG_REGEX.test(img.url.href));
+          return _await(finder.bind(_this)(url, pageContent, pageDom), function (covers) {
+            return covers.filter(img => !PLACEHOLDER_IMG_REGEX.test(img.url.href));
+          });
         });
       });
     }
 
-    extractFromEmbeddedJS(pageContent) {
-      var _pageContent$match;
+    findGenericPhysicalImages(_url, pageContent) {
+      const _this2 = this;
 
-      const embeddedImages = (_pageContent$match = pageContent.match(/'colorImages': { 'initial': (.+)},$/m)) === null || _pageContent$match === void 0 ? void 0 : _pageContent$match[1];
+      return _call(function () {
+        const imgs = _classPrivateMethodGet(_this2, _extractEmbeddedJSImages, _extractEmbeddedJSImages2).call(_this2, pageContent, /\s*'colorImages': { 'initial': (.+)},$/m);
 
-      if (!embeddedImages) {
-        LOGGER.warn('Failed to extract Amazon images from the embedded JS, falling back to thumbnails');
-        return;
-      }
+        assertNonNull(imgs, 'Failed to extract images from embedded JS on generic physical page');
+        return _await(imgs.map(img => {
+          var _img$hiRes;
 
-      const imgs = safeParseJSON(embeddedImages);
-
-      if (!Array.isArray(imgs)) {
-        LOGGER.error("Failed to parse Amazon's embedded JS, falling back to thumbnails");
-        return;
-      }
-
-      return imgs.map(img => {
-        var _img$hiRes;
-
-        // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
-        return _classPrivateMethodGet(this, _convertVariant, _convertVariant2).call(this, {
-          url: (_img$hiRes = img.hiRes) !== null && _img$hiRes !== void 0 ? _img$hiRes : img.large,
-          variant: img.variant
-        });
+          // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
+          return _classPrivateMethodGet(_this2, _convertVariant, _convertVariant2).call(_this2, {
+            url: (_img$hiRes = img.hiRes) !== null && _img$hiRes !== void 0 ? _img$hiRes : img.large,
+            variant: img.variant
+          });
+        }));
       });
     }
 
-    extractFromEmbeddedJSGallery(pageContent) {
-      var _pageContent$match2;
+    findPhysicalAudiobookImages(_url, pageContent) {
+      const _this3 = this;
 
-      const embeddedGallery = (_pageContent$match2 = pageContent.match(/'imageGalleryData' : (.+),$/m)) === null || _pageContent$match2 === void 0 ? void 0 : _pageContent$match2[1];
+      return _call(function () {
+        const imgs = _classPrivateMethodGet(_this3, _extractEmbeddedJSImages, _extractEmbeddedJSImages2).call(_this3, pageContent, /\s*'imageGalleryData' : (.+),$/m);
 
-      if (!embeddedGallery) {
-        LOGGER.warn('Failed to extract Amazon images from the embedded JS (audio)book gallery');
-        return;
-      }
+        assertNonNull(imgs, 'Failed to extract images from embedded JS on physical audiobook page'); // Amazon embeds no image variants on these pages, so we don't know the types
 
-      const imgs = safeParseJSON(embeddedGallery);
-
-      if (!Array.isArray(imgs)) {
-        LOGGER.error("Failed to parse Amazon's embedded JS (audio)book gallery");
-        return;
-      } // Amazon embeds no image variants on these pages, so we don't know the types
-
-
-      return imgs.map(img => ({
-        url: new URL(img.mainUrl)
-      }));
+        return _await(imgs.map(img => ({
+          url: new URL(img.mainUrl)
+        })));
+      });
     }
 
-    extractFromThumbnailSidebar(pageDom) {
-      const imgs = qsa('#altImages img', pageDom);
-      return imgs.map(img => {
-        var _img$closest, _safeParseJSON;
+    findDigitalImages(_url, _pageContent, pageDom) {
+      const _this4 = this;
 
-        const dataThumbAction = (_img$closest = img.closest('span[data-thumb-action]')) === null || _img$closest === void 0 ? void 0 : _img$closest.getAttribute('data-thumb-action');
-        const variant = dataThumbAction && ((_safeParseJSON = safeParseJSON(dataThumbAction)) === null || _safeParseJSON === void 0 ? void 0 : _safeParseJSON.variant);
-        /* istanbul ignore if: Difficult to exercise */
+      return _call(function () {
+        return _await(_classPrivateMethodGet(_this4, _extractFrontCover, _extractFrontCover2).call(_this4, pageDom, DIGITAL_FRONT_IMAGE_QUERY));
+      });
+    }
 
-        if (!variant) {
-          LOGGER.warn('Failed to extract the Amazon image variant code from the JSON attribute');
-        }
+    findAudibleImages(url, _pageContent, pageDom) {
+      const _this5 = this;
 
-        return _classPrivateMethodGet(this, _convertVariant, _convertVariant2).call(this, {
-          url: img.src,
-          variant
-        });
+      return _call(function () {
+        let _exit = false;
+        // We can only extract 500px images from standard product pages. Prefer
+        // /hz/audible/mlp/mfpdp pages which should have the same image in its
+        // full resolution.
+        return _await(_invoke(function () {
+          if (/\/(?:gp\/product|dp)\//.test(url.pathname)) {
+            const audibleUrl = new URL(url.pathname.replace(/\/(?:gp\/product|dp)\//, '/hz/audible/mlp/mfpdp/'), url);
+            return _await(_this5.fetchPage(audibleUrl), function (audibleContent) {
+              const audibleDom = parseDOM(audibleContent, audibleUrl.href);
+
+              const _this5$findAudibleIma = _this5.findAudibleImages(audibleUrl, audibleContent, audibleDom);
+
+              _exit = true;
+              return _this5$findAudibleIma;
+            });
+          }
+        }, function (_result) {
+          return _exit ? _result : _classPrivateMethodGet(_this5, _extractFrontCover, _extractFrontCover2).call(_this5, pageDom, AUDIBLE_FRONT_IMAGE_QUERY);
+        }));
       });
     }
 
   }
 
-  function _extractFrontCover2(pageDom) {
-    const frontCoverSelectors = ['#digitalMusicProductImage_feature_div > img', // Streaming/MP3 products
-    'img#main-image' // Audible products
-    ];
+  function _extractFrontCover2(pageDom, selector) {
+    const productImage = qsMaybe(selector, pageDom);
+    assertNonNull(productImage, 'Could not find front image on Amazon page');
+    return [{
+      // Only returning the thumbnail, IMU will maximise
+      url: new URL(productImage.src),
+      types: [ArtworkTypeIDs.Front]
+    }];
+  }
 
-    for (var _i = 0, _frontCoverSelectors = frontCoverSelectors; _i < _frontCoverSelectors.length; _i++) {
-      const selector = _frontCoverSelectors[_i];
-      const productImage = qsMaybe(selector, pageDom);
+  function _extractEmbeddedJSImages2(pageContent, jsonRegex) {
+    var _pageContent$match;
 
-      if (productImage) {
-        // Only returning the thumbnail, IMU will maximise
-        return {
-          url: new URL(productImage.src),
-          types: [ArtworkTypeIDs.Front]
-        };
-      }
-    } // Different product type (or no image found)
+    const embeddedImages = (_pageContent$match = pageContent.match(jsonRegex)) === null || _pageContent$match === void 0 ? void 0 : _pageContent$match[1];
 
+    if (!embeddedImages) {
+      LOGGER.debug('Could not extract embedded JS images, regex did not match');
+      return null;
+    }
 
-    return;
+    const imgs = safeParseJSON(embeddedImages);
+
+    if (!Array.isArray(imgs)) {
+      LOGGER.debug("Could not parse embedded JS images, not array, got ".concat(imgs));
+      return null;
+    }
+
+    return imgs;
   }
 
   function _convertVariant2(cover) {
