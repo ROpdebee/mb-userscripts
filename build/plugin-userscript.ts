@@ -53,6 +53,10 @@ export /* for tests */ class GitURLs {
         return 'https://raw.github.com/' + [this.#owner, this.#repoName, branchName, filePath].join('/');
     }
 
+    constructSourceURL(userscriptName: string): string {
+        return 'https://github.com/' + [this.#owner, this.#repoName, 'tree/main/src', userscriptName].join('/');
+    }
+
     static fromPackageJson(npmPackage: PackageJson): GitURLs {
         if (!npmPackage.repository) {
             throw new Error('No repository defined in package.json');
@@ -63,6 +67,14 @@ export /* for tests */ class GitURLs {
             return new GitURLs(npmPackage.repository.url);
         }
     }
+}
+
+async function loadPackageJson(): Promise<PackageJson> {
+    const content = await fs.promises.readFile('package.json', {
+        encoding: 'utf-8',
+    });
+
+    return JSON.parse(content);
 }
 
 export /* for tests */ class MetadataGenerator {
@@ -102,9 +114,7 @@ export /* for tests */ class MetadataGenerator {
      * @return     {Promise<AllUserscriptMetadata>}  The specific metadata amended with defaults.
      */
     private async insertDefaultMetadata(specificMetadata: Readonly<UserscriptMetadata>): Promise<AllUserscriptMetadata> {
-        const npmPackage: PackageJson = await fs.promises.readFile('package.json', {
-            encoding: 'utf-8',
-        }).then((content) => JSON.parse(content));
+        const npmPackage = await loadPackageJson();
         const gitURLs = GitURLs.fromPackageJson(npmPackage);
 
         if (!npmPackage.author) {
@@ -244,8 +254,12 @@ export function userscript(options: Readonly<UserscriptOptions>): Plugin {
          * @param      {String}  code    The code
          * @return     {String}  The code with the metadata block prepended.
          */
-        renderChunk(code: string): string {
-            return `${metadataBlock}\n\n${code}`;
+        async renderChunk(code: string): Promise<{ code: string }> {
+            const sourceUrl = GitURLs.fromPackageJson(await loadPackageJson()).constructSourceURL(options.userscriptName);
+            const sourceReferenceComment = `// For original source code, see ${sourceUrl}`;
+            return {
+                code: `${metadataBlock}\n\n${sourceReferenceComment}\n${code}`,
+            };
         }
     };
 }
