@@ -122,46 +122,16 @@ describe('amazon provider', () => {
             expect(covers).toBeEmpty();
         });
 
-        const extractionThumbnailFallbackCases = [
-            ['dp URLs', 'https://www.amazon.com/dp/B07QWNQT8X'],
-            ['gp URLs', 'https://www.amazon.com/gp/product/B07QWNQT8X'],
-        ];
-
-        it.each(extractionThumbnailFallbackCases)('falls back to thumbnail grabbing for physical products on %s', async (_1, url) => {
-            // Mock the failed attempt of extracting images from embedded JS to
-            // trigger the thumbnail fallback
-            jest.spyOn(provider, 'extractFromEmbeddedJS')
-                .mockReturnValueOnce(undefined);
-
-            const covers = await provider.findImages(new URL(url));
-
-            expect(covers).toBeArrayOfSize(4);
-            expect(covers[0]).toMatchCoverArt({
-                urlPart: '51nM1ikLWPL',
-                types: [ArtworkTypeIDs.Front],
-            });
-            expect(covers[1]).toMatchCoverArt({
-                urlPart: '41RQivjYeeL',
-                types: [ArtworkTypeIDs.Back],
-            });
-            expect(covers[2]).toMatchCoverArt({
-                urlPart: '31-n8wloCcL',
-            });
-            expect(covers[3]).toMatchCoverArt({
-                urlPart: /41MN(?:%2B|\+)eLL(?:%2B|\+)JL/,
-            });
-        });
-
         const physicalJsonFailCases = [
             ['cannot be extracted', ''],
             ['cannot be parsed', "'colorImages': { 'initial': invalid },"],
             ['is invalid type', "'colorImages': { 'initial': 123 },"],
         ];
 
-        it.each(physicalJsonFailCases)('will fall back to thumbnail grabbing if JSON %s', (_1, content) => {
-            const covers = provider.extractFromEmbeddedJS(content);
+        it.each(physicalJsonFailCases)('fails to grab generic images if JSON %s', async (_1, content) => {
+            const covers = provider.findGenericPhysicalImages(new URL('https://www.amazon.com/dp/fake'), content);
 
-            expect(covers).toBeUndefined();
+            await expect(covers).resolves.toBeArrayOfSize(0);
         });
 
         const audiobookJsonFailCases = [
@@ -170,10 +140,10 @@ describe('amazon provider', () => {
             ['is invalid type', "'imageGalleryData' : 123,"],
         ];
 
-        it.each(audiobookJsonFailCases)('fails to grab audiobook images if JSON %s', (_1, content) => {
-            const covers = provider.extractFromEmbeddedJSGallery(content);
+        it.each(audiobookJsonFailCases)('fails to grab audiobook images if JSON %s', async (_1, content) => {
+            const covers = provider.findPhysicalAudiobookImages(new URL('https://www.amazon.com/dp/fake'), content);
 
-            expect(covers).toBeUndefined();
+            await expect(covers).resolves.toBeArrayOfSize(0);
         });
     });
 
