@@ -34,6 +34,7 @@ const prodConfig = {
         }]
     ],
     sourceType: 'unambiguous',
+    comments: false,
 };
 
 module.exports = (process.env.NODE_ENV === 'test' ? testConfig : prodConfig);
