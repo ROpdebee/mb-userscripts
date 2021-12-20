@@ -28,7 +28,7 @@ const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
 };
 
 // CSS queries to figure out which type of page we're on
-const AUDIBLE_PAGE_QUERY = '.audible_mm_title';
+const AUDIBLE_PAGE_QUERY = '.audible_mm_title';  // Audible buttons on standard product pages
 const DIGITAL_PAGE_QUERY = '.DigitalMusicDetailPage';
 const PHYSICAL_AUDIOBOOK_PAGE_QUERY = '#booksImageBlock_feature_div';
 
