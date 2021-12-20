@@ -131,7 +131,7 @@ describe('amazon provider', () => {
         it.each(physicalJsonFailCases)('fails to grab generic images if JSON %s', async (_1, content) => {
             const covers = provider.findGenericPhysicalImages(new URL('https://www.amazon.com/dp/fake'), content);
 
-            await expect(covers).resolves.toBeArrayOfSize(0);
+            await expect(covers).rejects.toThrowWithMessage(Error, 'Failed to extract images from embedded JS on generic physical page');
         });
 
         const audiobookJsonFailCases = [
@@ -143,7 +143,7 @@ describe('amazon provider', () => {
         it.each(audiobookJsonFailCases)('fails to grab audiobook images if JSON %s', async (_1, content) => {
             const covers = provider.findPhysicalAudiobookImages(new URL('https://www.amazon.com/dp/fake'), content);
 
-            await expect(covers).resolves.toBeArrayOfSize(0);
+            await expect(covers).rejects.toThrowWithMessage(Error, 'Failed to extract images from embedded JS on physical audiobook page');
         });
     });
 

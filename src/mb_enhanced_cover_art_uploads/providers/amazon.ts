@@ -77,10 +77,7 @@ export class AmazonProvider extends CoverArtProvider {
 
     async findGenericPhysicalImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
         const imgs = this.#extractEmbeddedJSImages(pageContent, /\s*'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
-        if (imgs === null) {
-            LOGGER.error('Failed to extract images from generic physical page.');
-            return [];
-        }
+        assertNonNull(imgs, 'Failed to extract images from embedded JS on generic physical page');
 
         return imgs.map((img) => {
             // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
@@ -90,10 +87,7 @@ export class AmazonProvider extends CoverArtProvider {
 
     async findPhysicalAudiobookImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
         const imgs = this.#extractEmbeddedJSImages(pageContent, /\s*'imageGalleryData' : (.+),$/m) as Array<{ mainUrl: string }> | null;
-        if (imgs === null) {
-            LOGGER.error('Failed to extract images from physical audiobook page.');
-            return [];
-        }
+        assertNonNull(imgs, 'Failed to extract images from embedded JS on physical audiobook page');
 
         // Amazon embeds no image variants on these pages, so we don't know the types
         return imgs.map((img) => ({ url: new URL(img.mainUrl) }));
