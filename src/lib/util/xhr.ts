@@ -1,6 +1,6 @@
 // Async XHR interfaces
 
-import { GMxmlHttpRequest } from '@src/compat';
+import { GMxmlHttpRequest } from '@lib/compat';
 import { CustomError } from 'ts-custom-error';
 
 // eslint-disable-next-line no-restricted-globals
