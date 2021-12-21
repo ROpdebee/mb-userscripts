@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Build package for MB userscripts",
   "scripts": {
-    "build": "NODE_ENV=production ts-node build/build.ts",
-    "build-dev": "ts-node build/build.ts",
+    "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build/build.ts",
+    "build-dev": "ts-node -r tsconfig-paths/register build/build.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc",
-    "deploy": "NODE_ENV=production ts-node build/deploy.ts",
+    "deploy": "NODE_ENV=production ts-node -r tsconfig-paths/register build/deploy.ts",
     "test": "NODE_NO_WARNINGS=1 jest --coverage"
   },
   "repository": {
@@ -75,6 +75,7 @@
     "terser": "5.10.0",
     "ts-jest": "27.1.2",
     "ts-node": "10.4.0",
+    "tsconfig-paths": "3.12.0",
     "type-fest": "2.8.0",
     "typescript": "4.5.4",
     "warcio": "1.5.0"
