@@ -14,6 +14,12 @@ export async function enqueueImages({ images }: FetchedImages, defaultTypes: Art
     }));
 }
 
+declare global {
+    interface Window {
+        $: typeof jQuery;
+    }
+}
+
 async function enqueueImage(image: FetchedImage, defaultTypes: ArtworkTypeIDs[], defaultComment: string): Promise<void> {
     dropImage(image.content);
     await retryTimes(setImageParameters.bind(
