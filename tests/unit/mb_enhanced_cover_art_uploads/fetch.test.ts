@@ -240,12 +240,12 @@ describe('fetching image from URL', () => {
                 yield {
                     url: new URL('https://example.com/1'),
                     filename: '1.png',
-                    headers: {}
+                    headers: {},
                 };
                 yield {
                     url: new URL('https://example.com/2'),
                     filename: '',
-                    headers: {}
+                    headers: {},
                 };
             });
         });
@@ -353,7 +353,7 @@ describe('fetching images from providers', () => {
             createCoverArt({
                 url: new URL('https://example.com/1'),
                 types: [ArtworkTypeIDs.Front],
-                comment: 'comment'
+                comment: 'comment',
             }),
         ]);
 
@@ -398,7 +398,7 @@ describe('fetching images from providers', () => {
             yield {
                 url: new URL('https://example.com/3'),
                 filename: '3',
-                headers: {}
+                headers: {},
             };
         }
         mockGetMaximisedCandidates
@@ -468,7 +468,7 @@ describe('fetching images from providers', () => {
             .resolves.toMatchObject({
                 images: [{
                     originalUrl: {
-                        href: 'https://example.com/2'
+                        href: 'https://example.com/2',
                     },
                 }],
             });
@@ -643,7 +643,7 @@ describe('fetching images', () => {
             createCoverArt({
                 url: new URL('https://example.com/2'),
                 types: [ArtworkTypeIDs.Front],
-                comment: 'front'
+                comment: 'front',
             }),
         ]);
 
@@ -680,7 +680,7 @@ describe('fetching images', () => {
             yield {
                 url: new URL('https://example.com/1'),
                 filename: '1.png',
-                headers: {}
+                headers: {},
             };
         });
 

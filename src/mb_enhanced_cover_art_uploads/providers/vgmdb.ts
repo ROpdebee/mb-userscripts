@@ -29,7 +29,7 @@ export /* for tests */ function mapJacketType(caption: string): MappedArtwork {
     if (!caption) {
         return {
             type: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine],
-            comment: ''
+            comment: '',
         };
     }
 
@@ -52,7 +52,7 @@ export /* for tests */ function mapJacketType(caption: string): MappedArtwork {
     const comment = otherKeywords.join(' ').trim();
     return {
         type: types,
-        comment
+        comment,
     };
 }
 

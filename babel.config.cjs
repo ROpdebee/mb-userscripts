@@ -4,7 +4,7 @@ const testConfig = {
     plugins: [
         '@babel/plugin-transform-typescript',
         '@babel/plugin-transform-modules-commonjs',
-    ]
+    ],
 };
 
 const prodConfig = {
@@ -31,7 +31,7 @@ const prodConfig = {
         ['@babel/plugin-transform-runtime', {
             regenerator: true,
             helpers: false,
-        }]
+        }],
     ],
     sourceType: 'unambiguous',
     comments: false,

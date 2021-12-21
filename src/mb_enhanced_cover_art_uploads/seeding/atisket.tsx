@@ -21,7 +21,7 @@ export const AtisketSeeder: Seeder = {
         // on a cached page, so fall back on the page URL instead.
         const cachedAnchor = qsMaybe<HTMLAnchorElement>('#submit-button + div > a');
         addSeedLinkToCovers(mbid, cachedAnchor?.href ?? document.location.href);
-    }
+    },
 };
 
 // For post-add page with complementary links
@@ -42,7 +42,7 @@ export const AtasketSeeder: Seeder = {
         // same reasons as above.
         const cachedUrl = document.location.origin + '/?cached=' + selfId;
         addSeedLinkToCovers(mbid, cachedUrl);
-    }
+    },
 };
 
 function addSeedLinkToCovers(mbid: string, origin: string): void {

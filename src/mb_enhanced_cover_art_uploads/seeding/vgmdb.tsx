@@ -35,7 +35,7 @@ export const VGMdbSeeder: Seeder = {
         Promise.all([releaseIdsProm, coversProm]).then(([releaseIds, covers]) => {
             insertSeedButtons(coverHeading, releaseIds, covers);
         });
-    }
+    },
 };
 
 function isLoggedIn(): boolean {

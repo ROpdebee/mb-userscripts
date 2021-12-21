@@ -175,7 +175,7 @@ export /* for tests */ class MetadataGenerator {
      * @return     {Array}   Metadata lines.
      */
     private createMetadataLines(
-        [metadataField, metadataValue]: readonly [string, string | readonly string[]]
+        [metadataField, metadataValue]: readonly [string, string | readonly string[]],
     ): string[] {
         if (typeof metadataValue === 'string') {
             return [this.createMetadataLine(metadataField, metadataValue)];
@@ -262,6 +262,6 @@ export function userscript(options: Readonly<UserscriptOptions>): Plugin {
             return {
                 code: `${metadataBlock}\n\n${sourceReferenceComment}\n${code}`,
             };
-        }
+        },
     };
 }

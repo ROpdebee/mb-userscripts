@@ -40,7 +40,7 @@ describe('vgmdb provider', () => {
         it.each(simpleJacketCases)('should map simple jacket type with %s', (caption, expected) => {
             expect(mapJacketType(caption)).toStrictEqual({
                 type: [expected],
-                comment: ''
+                comment: '',
             });
         });
 
@@ -49,9 +49,9 @@ describe('vgmdb provider', () => {
                 type: [
                     ArtworkTypeIDs.Front,
                     ArtworkTypeIDs.Back,
-                    ArtworkTypeIDs.Spine
+                    ArtworkTypeIDs.Spine,
                 ],
-                comment: ''
+                comment: '',
             });
         });
 
@@ -60,9 +60,9 @@ describe('vgmdb provider', () => {
                 type: [
                     ArtworkTypeIDs.Front,
                     ArtworkTypeIDs.Back,
-                    ArtworkTypeIDs.Spine
+                    ArtworkTypeIDs.Spine,
                 ],
-                comment: ''
+                comment: '',
             });
         });
 
@@ -71,9 +71,9 @@ describe('vgmdb provider', () => {
                 type: [
                     ArtworkTypeIDs.Front,
                     ArtworkTypeIDs.Back,
-                    ArtworkTypeIDs.Spine
+                    ArtworkTypeIDs.Spine,
                 ],
-                comment: 'colorised'
+                comment: 'colorised',
             });
         });
     });

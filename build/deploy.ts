@@ -65,7 +65,7 @@ async function commitUpdate(scriptName: string, version: string): Promise<Deploy
     await buildUserscript(scriptName, version, distRepo);
     // Update the version.json file, which we'll use to dynamically create badges
     await fs.writeFile(path.join(distRepo, scriptName + '.metadata.json'), JSON.stringify({
-        version
+        version,
     }));
     // Create the commit.
     const commitResult = await gitDist

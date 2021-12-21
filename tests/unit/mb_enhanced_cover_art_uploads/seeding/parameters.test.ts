@@ -77,7 +77,7 @@ describe('seed parameters', () => {
 
         expect(SeedParameters.decode(urlParams))
             .toHaveProperty('images', [{
-                url: new URL('https://example.com/1')
+                url: new URL('https://example.com/1'),
             }]);
     });
 

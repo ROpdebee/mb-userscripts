@@ -38,11 +38,11 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
     urlRegex = [];
 
     static badArtistIDs = new Set([
-        'you', 'discover', 'stream', 'upload', 'search'
+        'you', 'discover', 'stream', 'upload', 'search',
     ]);
     static badSubpaths = new Set([
         'likes', 'followers', 'following', 'reposts', 'albums', 'tracks',
-        'popular-tracks', 'comments', 'sets', 'recommended'
+        'popular-tracks', 'comments', 'sets', 'recommended',
     ]);
 
     override supportsUrl(url: URL): boolean {

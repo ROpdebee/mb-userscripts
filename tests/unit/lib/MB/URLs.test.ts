@@ -22,7 +22,7 @@ describe('getting URLs for release', () => {
         expect(urls.map((url) => url.href)).toIncludeSameMembers([
             'https://open.spotify.com/album/1eyWP34kB2qZ1CrH5LGTmp',
             'https://www.deezer.com/album/6097061',
-            'https://music.apple.com/us/album/578168980'
+            'https://music.apple.com/us/album/578168980',
         ]);
     });
 
