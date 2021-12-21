@@ -1,0 +1,28 @@
+// Base compiler options for use in composite subproject.
+// Subprojects will likely need to define the following properties:
+// * "types" in case ambient declarations of certain libraries need to be
+//   loaded by default for the subproject. The base configuration defines this
+//   as `[]`, i.e. no default ambient declarations. Note: Values defined in
+//   extension projects will NOT merge with those of the base configuration!
+{
+    "extends": "./tsconfig.base",
+    "compilerOptions": {
+        // By default, include no ambient declarations. Each subproject needs
+        // to explicitly define them, but we're providing an empty default to
+        // ensure there are no implicitly available declarations.
+        "types": [],
+
+        "composite": true,
+        // We're not compiling with `tsc`, but since we use multiple projects
+        // with project references, `tsc` needs declarations of referenced
+        // projects, which it needs to emit somewhere. Consolidate all of these
+        // in a separate directory which we'll add to `.gitignore`.
+        "emitDeclarationOnly": true,
+        "noEmit": false,
+        "outDir": "../.tsc-build",
+        // Set the root dir here so the compiled output keeps its original
+        // directory structure. This prevents `tsc` complaining that it will
+        // overwrite files.
+        "rootDir": "../",
+    }
+}

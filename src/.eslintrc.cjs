@@ -13,4 +13,10 @@ module.exports = {
         // compat layer.
         'no-restricted-globals': ['error', 'origin', 'GM'].concat(restrictedGlobals),
     },
+    overrides: [{
+        files: ['*.d.ts'],
+        rules: {
+            'init-declarations': 'off',
+        },
+    }],
 };

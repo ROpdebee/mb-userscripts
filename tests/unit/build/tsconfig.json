@@ -1,0 +1,7 @@
+{
+    "extends": "../../../configs/tsconfig.base-unit",
+    "include": ["**/*"],
+    "references": [
+        { "path": "../../../build" }
+    ]
+}

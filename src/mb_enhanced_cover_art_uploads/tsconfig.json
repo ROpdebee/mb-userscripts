@@ -1,0 +1,10 @@
+{
+    "extends": "../../configs/tsconfig.base-web.json",
+    "include": ["**/*"],
+    "references": [
+        { "path": "../lib/" }
+    ],
+    "compilerOptions": {
+        "types": ["jquery", "nativejsx/types/jsx", "greasemonkey"]
+    }
+}

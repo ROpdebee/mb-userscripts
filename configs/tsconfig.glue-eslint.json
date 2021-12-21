@@ -1,0 +1,35 @@
+// Aggregate project for tools which don't properly support project references,
+// like `@typescript-eslint`. Although `@typescript-eslint` does sort of
+// support project references if we manually list all `tsconfig.json` files to
+// be included in the linting output, it's very slow and has numerous other
+// issues.
+{
+    "extends": "./tsconfig.base",
+    // Explicitly include all files in the whole project so the tool using this
+    // configuration can use all of them.
+    "include": ["../**/*"],
+    // Exclude files we don't want to consider.
+    "exclude": [
+        "../node_modules/**",
+        "../mb_*.user.js",
+        "../dist/**",
+        "../lib/**",
+        "../coverage/**",
+    ],
+    "compilerOptions": {
+        // All path aliases set up in the composite projects need to be merged
+        // here so they can be used by the tools.
+        "paths": {
+            "@lib/*": ["src/lib/*"],
+            "@src/*": ["src/*"],
+            "@test-utils/*": ["tests/unit/utils/*"]
+        },
+        // Same for type roots to ensure all of our custom ambient declarations
+        // are loaded.
+        "typeRoots": [
+            "../node_modules/@types",
+            "../src/types",
+            "../tests/types",
+        ]
+    }
+}

@@ -43,11 +43,13 @@ const TERSER_OPTIONS: MinifyOptions = {
     module: false,
 };
 
+const SKIP_PACKAGES = new Set(['lib', 'types']);
+
 export async function buildUserscripts(version: string, outputDir: string = OUTPUT_DIR): Promise<void> {
     const userscriptDirs = await fs.promises.readdir('./src');
 
     await Promise.all(userscriptDirs
-        .filter((name) => name !== 'lib' && !name.startsWith('.') && fs.statSync(path.resolve('./src', name)).isDirectory())
+        .filter((name) => !SKIP_PACKAGES.has(name) && !name.startsWith('.') && fs.statSync(path.resolve('./src', name)).isDirectory())
         .map((userscriptName) => buildUserscript(userscriptName, version, outputDir)));
 }
 

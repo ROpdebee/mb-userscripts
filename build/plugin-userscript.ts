@@ -1,6 +1,8 @@
-import { filterNonNull } from '../src/lib/util/array';
+import { filterNonNull } from '@lib/util/array';
 import fs from 'fs';
 import path from 'path';
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34960
+import { URL } from 'url';
 
 import type { Plugin } from 'rollup';
 import type { PackageJson } from 'type-fest';

@@ -4,6 +4,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { retryTimes } from '@lib/util/async';
 import { DispatchMap } from '@lib/util/domain_dispatch';
 import { urlBasename } from '@lib/util/urls';
+import type { GMxmlHttpRequest } from '@lib/compat';
 import { DiscogsProvider } from './providers/discogs';
 
 interface maxurlOptions {
@@ -73,8 +74,7 @@ interface maxurlOptions {
      * The API is expected to be like `GM_xmlHTTPRequest`'s API.
      * An implementation using node's request module can be found in `reddit-bot/dourl.js`.
      */
-    // eslint-disable-next-line no-restricted-globals
-    do_request?: typeof GM.xmlHttpRequest;
+    do_request?: typeof GMxmlHttpRequest;
     /** Callback. */
     cb?: (result: maxurlResult[]) => void;
 }

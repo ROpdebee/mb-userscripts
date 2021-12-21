@@ -18,7 +18,8 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 12,
         sourceType: 'module',
-        project: './tsconfig.json',
+        project: 'configs/tsconfig.glue-eslint.json',
+        extraFileExtensions: ['.cjs'],
     },
     rules: {
         'indent': [
@@ -55,7 +56,7 @@ module.exports = {
             files: ['*.ts', '*.tsx'],
             parserOptions: {
                 parser: '@typescript-eslint/parser',
-                project: './tsconfig.json',
+                project: 'configs/tsconfig.glue-eslint.json',
             },
             rules: {
                 '@typescript-eslint/array-type': ['error', {
