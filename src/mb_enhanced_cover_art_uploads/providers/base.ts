@@ -1,6 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { filterNonNull, groupBy } from '@lib/util/array';
+import { collatedSort, filterNonNull, groupBy } from '@lib/util/array';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
@@ -255,6 +255,9 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         if (!definedTrackNumbers.length) return '';
 
         const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
-        return `${prefix} ${definedTrackNumbers.sort().join(', ')}`;
+        // Use a collated sort here to make sure we keep numeric ordering.
+        // We can't just parse track numbers to actual numbers here, as the
+        // tracks may reasonably be numbered as strings (e.g. Vinyl sides)
+        return `${prefix} ${collatedSort(definedTrackNumbers).join(', ')}`;
     }
 }

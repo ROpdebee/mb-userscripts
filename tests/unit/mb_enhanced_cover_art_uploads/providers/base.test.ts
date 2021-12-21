@@ -258,6 +258,26 @@ describe('providers with track images', () => {
                 .toBe('Tracks 1, 3');
         });
 
+        it('properly sorts track numbers in comment', async () => {
+            const trackImages = [{
+                url: 'https://example.com/123',
+                trackNumber: '3',
+            }, {
+                url: 'https://example.com/123',
+                trackNumber: '10',
+            }, {
+                url: 'https://example.com/123',
+                trackNumber: '2',
+            }, {
+                url: 'https://example.com/123',
+                trackNumber: '1',
+            }];
+            const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+
+            expect(results.find((img) => img.url.pathname === '/123')?.comment)
+                .toBe('Tracks 1, 2, 3, 10');
+        });
+
         it('sets no comment if track image cannot be determined', async () => {
             const trackImages = [{
                 url: 'https://example.com/123',
