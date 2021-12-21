@@ -3,8 +3,7 @@ import type { EditNote } from '@lib/MB/EditNote';
 import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';
 import { qs, qsa } from '@lib/util/dom';
-
-import { cloneIntoPageContext, getFromPageContext } from '@src/compat';
+import { cloneIntoPageContext, getFromPageContext } from '@lib/compat';
 
 import type { FetchedImage, FetchedImages } from './fetch';
 

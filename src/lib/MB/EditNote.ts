@@ -1,7 +1,7 @@
 // Edit note helpers
 
 import { qs } from '@lib/util/dom';
-import { GMinfo } from '@src/compat';
+import { GMinfo } from '@lib/compat';
 
 const separator = '\n–\n';
 

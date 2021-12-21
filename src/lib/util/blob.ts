@@ -1,4 +1,4 @@
-import { getFromPageContext } from '@src/compat';
+import { getFromPageContext } from '@lib/compat';
 
 function hexEncode(buffer: ArrayBuffer): string {
     // https://stackoverflow.com/a/40031979

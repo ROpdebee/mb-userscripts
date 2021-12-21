@@ -3,7 +3,7 @@ import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertNonNull } from '@lib/util/assert';
 import { parseDOM, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
-import { GMgetResourceUrl } from '@src/compat';
+import { GMgetResourceUrl } from '@lib/compat';
 
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
