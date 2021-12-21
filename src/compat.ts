@@ -1,7 +1,18 @@
 // Compatibility wrappers
 // istanbul ignore file: Covered by E2E
 
+
+// Fix GM.Request interface through declaration merging.
+declare global {
+    namespace GM {
+        interface Request {
+            responseType?: string;
+        }
+    }
+}
+
 /* eslint-disable no-restricted-globals */
+
 function existsInGM(name: string): boolean {
     return typeof GM !== 'undefined' && typeof (GM as Record<string, unknown>)[name] !== 'undefined';
 }
