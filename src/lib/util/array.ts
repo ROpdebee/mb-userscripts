@@ -31,3 +31,12 @@ export function groupBy<T, K, V>(array: T[], keyFn: (el: T) => K, valTransform: 
 
     return map;
 }
+
+/**
+ * Sort an array of strings using `Intl.Collator`. Array is modified in-place,
+ * and returned.
+ */
+export function collatedSort(array: string[]): string[] {
+    const coll = new Intl.Collator('en', { numeric: true });
+    return array.sort(coll.compare.bind(coll));
+}

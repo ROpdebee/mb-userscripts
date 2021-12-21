@@ -82,6 +82,7 @@ module.exports = {
                 '@typescript-eslint/prefer-optional-chain': ['error'],
                 '@typescript-eslint/prefer-reduce-type-parameter': ['error'],
                 '@typescript-eslint/prefer-ts-expect-error': ['error'],
+                '@typescript-eslint/require-array-sort-compare': ['error'],
                 '@typescript-eslint/type-annotation-spacing': ['error'],
             }
         }, { // Override per eslint-plugin-jest documentation.
