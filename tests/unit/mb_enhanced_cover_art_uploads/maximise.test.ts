@@ -1,8 +1,9 @@
 import * as libAsync from '@lib/util/async';
+import type { maxurlResult, maxurlInterface } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/discogs';
 
-const fakeImu = jest.fn() as unknown as jest.MockedFunction<typeof $$IMU_EXPORT$$>;
+const fakeImu = jest.fn<ReturnType<maxurlInterface>, Parameters<maxurlInterface>>();
 
 function setIMUResult(results: maxurlResult[]): void {
     fakeImu.mockImplementation(async (_url, options) => {
