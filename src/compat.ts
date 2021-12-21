@@ -46,9 +46,46 @@ export const GMinfo: typeof GM.info = existsInGM('info')
 
 /* eslint-enable no-restricted-globals */
 
+interface CloneIntoOptions {
+    /**
+     * A Boolean value that determines if functions should be cloned. If
+     * omitted the default value is false. Cloned functions have the same
+     * semantics as functions exported using `Components.utils.exportFunction`.
+     */
+    cloneFunctions: boolean;
+    /**
+     * A Boolean value that determines if objects reflected from C++, such as
+     * DOM objects, should be cloned. If omitted the default value is false.
+     */
+    wrapReflectors: boolean;
+}
+
+// Declare the missing `cloneInto` function.
 /**
- * Clone an object to be usable in the page context (unsafeWindow).
- * If we cannot clone the object, or unsafeWindow doesn't exist, returns the
+ * This function provides a safe way to take an object defined in a privileged
+ * scope and create a structured clone of it in a less-privileged scope. It
+ * returns a reference to the clone:
+ * ```javascript
+ * var clonedObject = cloneInto(myObject, targetWindow);
+ * ```
+ *
+ * You can then assign the clone to an object in the target scope as an expando
+ * property, and scripts running in that scope can access it:
+ * ```javascript
+ * targetWindow.foo = clonedObject;
+ * ```
+ * In this way privileged code, such as an add-on, can share an object with
+ * less-privileged code like a normal web page script.
+ * @param {T} obj   The object to clone.
+ * @param {object} targetScope   The object to attach the object to.
+ * @param {CloneIntoOptions | undefined } options   Options
+ * @returns {T} A reference to the cloned object.
+ */
+declare function cloneInto<T>(obj: T, targetScope: Window, options?: CloneIntoOptions): T;
+
+/**
+ * Clone an object to be usable in the page context (`unsafeWindow`).
+ * If we cannot clone the object, or `unsafeWindow` doesn't exist, returns the
  * object itself.
  */
 export function cloneIntoPageContext<T>(object: T): T {
