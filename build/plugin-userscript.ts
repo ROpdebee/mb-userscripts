@@ -5,7 +5,7 @@ import path from 'path';
 import type { Plugin } from 'rollup';
 import type { PackageJson } from 'type-fest';
 
-import type { UserscriptMetadata, AllUserscriptMetadata } from 'userscriptMetadata';
+import type { UserscriptMetadata, AllUserscriptMetadata } from '@lib/util/metadata';
 
 interface UserscriptOptions {
     userscriptName: string;
