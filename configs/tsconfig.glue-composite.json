@@ -1,0 +1,28 @@
+// Aggregate project referencing all composite sub-projects, for use with `tsc`
+// type checker and `ts-node`.
+{
+    "files": [],
+    "include": [],
+    // Specific compiler options necessary for `tsconfig-paths`. It expects the
+    // path mapping in the root `tsconfig.json`, it cannot extract it from
+    // referenced projects. These mappings do not have an impact on the
+    // referenced projects though.
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@lib/*": ["src/lib/*"],
+            "@src/*": ["src/*"],
+            "@test-utils/*": ["tests/unit/utils/*"],
+        }
+    },
+    // Reference all sub-projects
+    "references": [
+        { "path": "./build" },
+        { "path": "./src/lib" },
+        { "path": "./src/mb_enhanced_cover_art_uploads" },
+        { "path": "./tests/unit/build" },
+        { "path": "./tests/unit/lib" },
+        { "path": "./tests/unit/mb_enhanced_cover_art_uploads" },
+        { "path": "./tests/unit/utils" },
+    ]
+}

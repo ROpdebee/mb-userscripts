@@ -5,8 +5,8 @@
   "scripts": {
     "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build/build.ts",
     "build-dev": "ts-node -r tsconfig-paths/register build/build.ts",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
-    "typecheck": "tsc",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.cjs --max-warnings=0",
+    "typecheck": "tsc -b",
     "deploy": "NODE_ENV=production ts-node -r tsconfig-paths/register build/deploy.ts",
     "test": "NODE_NO_WARNINGS=1 jest --coverage"
   },

@@ -1,0 +1,60 @@
+// Base compiler options for use in all projects.
+// Subprojects will likely need to define the following properties:
+// * "extends": "./tsconfig-base.json" to extend this configuration
+// * "files", "include", and "exclude" to include/exclude files from the
+//   configuration
+// * For subprojects depending on other projects: "references" (this cannot be
+//   inherited through "extends"!)
+// * For extensions which are not meant to be composite projects: "composite"
+//   should be overridden to `false` and `outDir`, `emitDeclarationsOnly`, etc.
+//   may need to be overridden too, depending on the purpose of the extension.
+{
+    "compilerOptions": {
+        // Compilation target
+        "target": "ESNext",
+        "module": "ESNext",
+
+        // Enable strict type checks
+        "strict": true,
+        "noImplicitReturns": true,
+        "noImplicitOverride": true,
+
+        // Also check JS code, although there's very little of it actually
+        // included.
+        "checkJs": true,
+
+        // JSX will be transpiled with nativejsx.
+        "jsx": "preserve",
+
+        // We use ES modules, but run certain scripts in node.
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+
+        // Make errors and warnings prettier
+        "pretty": true,
+
+        // Base URL is used to resolve non-absolute module names if they don't
+        // start with ./ or ../
+        "baseUrl": "../",
+
+        // Path mapping as shorthands to access certain imports. Not all of
+        // these will make sense for each subproject, but we set most of them
+        // here to centralise more configurations. If a mapping doesn't make
+        // sense for a subproject, TS will complain anyway.
+        "paths": {
+            "@lib/*": ["src/lib/*"],
+            "@src/*": ["src/*"],
+        }
+    },
+    "ts-node": {
+        // For ts-node, we need to set the compiled output to CommonJS because
+        // we're running the code in node. Although node has ESM support, it's
+        // unstable and prone to internal changes.
+        "compilerOptions": {
+            "module": "CommonJS",
+        },
+    },
+
+    // We don't set any "include", "files", or "exclude" options here, as each
+    // subproject will define these separately.
+}

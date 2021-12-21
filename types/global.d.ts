@@ -1,5 +1,0 @@
-import 'jest-extended';
-
-
-
-export {};

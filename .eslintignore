@@ -3,3 +3,4 @@ coverage/*
 # Ignore top-level scripts for now
 mb_*.js
 lib/*
+node_modules/**

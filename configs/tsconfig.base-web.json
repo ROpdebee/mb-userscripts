@@ -1,0 +1,17 @@
+// Basic configuration of code for the web, i.e. lib and scripts.
+{
+    "extends": "./tsconfig.base-composite",
+    // Explicitly include the declarations for injected constants and CSS
+    // imports so they are available in all scripts. We do this via "files" as
+    // "types" is only meant for declarations in a strict directory structure,
+    // which these do not adhere to. Note that if an extending project supplies
+    // its own "files" key and needs these declarations, it should specify them
+    // explicitly, as its configuration will overwrite these values.
+    "files": ["../src/types/rollup-consts.d.ts", "../src/types/css.d.ts"],
+    "compilerOptions": {
+        // Include ambient declarations by default for stuff that is available
+        // by default in userscripts, like the GM API and JSX types provided by
+        // nativejsx, which we use during transpilation.
+        "types": ["greasemonkey", "nativejsx/types/jsx"],
+    }
+}

@@ -1,0 +1,24 @@
+// Basic configuration for unit tests
+{
+    "extends": "./tsconfig.base-node",
+    "compilerOptions": {
+        // Include `jest`, `jest-extended` (for more `expect` methods), and
+        // `node` ambient declarations by default for all unit test projects.
+        // We're also mocking the GM functions automatically, so include the
+        // Greasemonkey ambient declarations automatically so they can be used.
+        // We need to explicitly set `node` even though it's specified in the
+        // `tsconfig-node-base` configuration, as this definition will fully
+        // overwrite it.
+        "types": ["jest", "jest-extended", "greasemonkey", "node"],
+        // Also include the DOM lib again, as we use `jest-environment-jsdom`,
+        // so browser APIs will be available in unit tests. Although we could
+        // use `@types/jsdom`, it leads to conflicts with `node-fetch`'s
+        // `Headers` type.
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "paths": {
+            "@lib/*": ["src/lib/*"],
+            "@src/*": ["src/*"],
+            "@test-utils/*": ["tests/unit/utils/*"]
+        }
+    }
+}
