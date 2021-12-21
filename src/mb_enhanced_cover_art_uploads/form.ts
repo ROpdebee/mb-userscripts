@@ -40,7 +40,7 @@ function dropImage(imageData: File): void {
     // unsafeWindow, the page context may not be able to access the event's
     // properties.
     dropEvent.originalEvent = cloneIntoPageContext({
-        dataTransfer: { files: [imageData] }
+        dataTransfer: { files: [imageData] },
     } as unknown as DragEvent);
 
     // Note that we're using MB's own jQuery here, not a script-local one.

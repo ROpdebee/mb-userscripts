@@ -111,7 +111,7 @@ describe('logger', () => {
 
         it('calls no handler if no sink is attached', () => {
             logger.configure({
-                sinks: []
+                sinks: [],
             });
             logger.debug('test message');
 
@@ -166,7 +166,7 @@ describe('logger', () => {
     });
 
     describe.each(
-        [LogLevel.DEBUG, LogLevel.LOG, LogLevel.INFO, LogLevel.SUCCESS, LogLevel.WARNING, LogLevel.ERROR]
+        [LogLevel.DEBUG, LogLevel.LOG, LogLevel.INFO, LogLevel.SUCCESS, LogLevel.WARNING, LogLevel.ERROR],
     )('logging with minimum level %i', (minLogLevel) => {
         const sink = new FakeSink();
         const logger = new Logger({

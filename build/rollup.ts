@@ -127,7 +127,7 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
                     // Transpile CSS for older browsers
                     postcssPresetEnv,
                 ],
-                extensions: ['.css', '.scss', '.sass']
+                extensions: ['.css', '.scss', '.sass'],
             }),
         ],
     });

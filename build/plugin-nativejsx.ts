@@ -57,6 +57,6 @@ export function nativejsx(options?: Readonly<NativeJSXPluginOptions>): Plugin {
 
             const result = [HELPER_IMPORTS, transpiled].join('\n\n');
             return result;
-        }
+        },
     };
 }

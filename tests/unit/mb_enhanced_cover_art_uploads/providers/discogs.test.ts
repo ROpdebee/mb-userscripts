@@ -29,7 +29,7 @@ describe('discogs provider', () => {
             url: 'https://www.discogs.com/master/1746505',
         }, {
             desc: 'label URLs',
-            url: 'https://www.discogs.com/label/61808-Victor'
+            url: 'https://www.discogs.com/label/61808-Victor',
         }];
 
         // eslint-disable-next-line jest/require-hook

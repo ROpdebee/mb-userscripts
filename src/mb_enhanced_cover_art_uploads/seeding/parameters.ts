@@ -50,7 +50,7 @@ export class SeedParameters {
 
     encode(): URLSearchParams {
         const seedParams = new URLSearchParams(this.images.flatMap((image, index) =>
-            Object.entries(image).map(([key, value]) => [`x_seed.image.${index}.${key}`, encodeValue(value)])
+            Object.entries(image).map(([key, value]) => [`x_seed.image.${index}.${key}`, encodeValue(value)]),
         ));
 
         if (this.origin) {

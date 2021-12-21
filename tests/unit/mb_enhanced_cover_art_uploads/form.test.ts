@@ -119,14 +119,14 @@ describe('enqueuing images', () => {
             images: [
                 createFetchedImage({
                     content: createImageFile({
-                        name: 'test.1.png'
+                        name: 'test.1.png',
                     }),
                     types: [ArtworkTypeIDs.Front],
                     comment: 'test comment',
                 }),
                 createFetchedImage({
                     content: createImageFile({
-                        name: 'test.2.png'
+                        name: 'test.2.png',
                     }),
                     types: [ArtworkTypeIDs.Back],
                     comment: 'test comment 2',

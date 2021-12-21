@@ -170,7 +170,7 @@ describe('metadata generator', () => {
     describe('setting default metadata', () => {
         const packageReaderMock = jest.spyOn(fs.promises, 'readFile');
         const basePackageJson = {
-            repository: 'https://github.com/ROpdebee/mb-userscripts'
+            repository: 'https://github.com/ROpdebee/mb-userscripts',
         };
         const packageJsonWithAuthor = {
             ...basePackageJson,
@@ -268,7 +268,7 @@ describe('metadata generator', () => {
                 .resolves
                 .toMatchObject({
                     downloadURL: urlBase + 'test.user.js',
-                    updateURL: urlBase + 'test.meta.js'
+                    updateURL: urlBase + 'test.meta.js',
                 });
         });
 

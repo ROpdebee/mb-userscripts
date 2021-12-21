@@ -3,7 +3,7 @@ const restrictedGlobals = require('confusing-browser-globals');
 module.exports = {
     env: {
         node: true,
-        es2021: true
+        es2021: true,
     },
     extends: [
         'eslint:recommended',
@@ -24,27 +24,28 @@ module.exports = {
     rules: {
         'indent': [
             'error',
-            4
+            4,
         ],
         'linebreak-style': [
             'error',
-            'unix'
+            'unix',
         ],
         'quotes': [
             'error',
             'single',
             {
                 avoidEscape: true,
-            }
+            },
         ],
         'semi': [
             'error',
-            'always'
+            'always',
         ],
         'arrow-parens': [
             'error',
             'always',
         ],
+        '@typescript-eslint/comma-dangle': ['warn', 'always-multiline'],
         'jest/unbound-method': ['off'],
         'no-restricted-globals': ['error', 'origin'].concat(restrictedGlobals),
         '@delagen/deprecation/deprecation': ['warn'],
@@ -98,7 +99,7 @@ module.exports = {
                 'jest/unbound-method': 'error',
                 'jest/prefer-expect-assertions': 'off',
                 'jest/no-hooks': 'off',
-                'jest/require-top-level-describe': 'off'
+                'jest/require-top-level-describe': 'off',
             },
-        }]
+        }],
 };

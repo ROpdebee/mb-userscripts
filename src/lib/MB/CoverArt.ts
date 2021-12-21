@@ -12,5 +12,5 @@ export enum ArtworkTypeIDs {
     Sticker = 10,
     Track = 7,
     Tray = 9,
-    Watermark = 13
+    Watermark = 13,
 }

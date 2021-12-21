@@ -17,7 +17,7 @@ const HANDLER_NAMES: Record<LogLevel, keyof LoggingSink> = {
 
 const DEFAULT_OPTIONS = {
     logLevel: LogLevel.INFO,
-    sinks: []
+    sinks: [],
 };
 
 export class Logger {
@@ -26,7 +26,7 @@ export class Logger {
     constructor(options?: Partial<LoggerOptions>) {
         this.#configuration = {
             ...DEFAULT_OPTIONS,
-            ...options
+            ...options,
         };
     }
 

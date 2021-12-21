@@ -26,12 +26,12 @@ async function reportDeploy({ github, context }) {
         const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
         issueComment = [
             ':boom: Heads up! Automatic deployment of the changes in this PR failed! :boom:',
-            `See [${context.workflow}#${context.runNumber}](${runUrl}).`
+            `See [${context.workflow}#${context.runNumber}](${runUrl}).`,
         ].join('\n');
     } else if (deployInfo.scripts && deployInfo.scripts.length) {
         // Report deployed versions
         issueComment = [
-            `:rocket: Released ${deployInfo.scripts.length} new userscript version(s):`
+            `:rocket: Released ${deployInfo.scripts.length} new userscript version(s):`,
         // @ts-expect-error Not typescript
         ].concat(deployInfo.scripts.map((script) => {
             return `* ${script.name} ${script.version} in ${script.commit}`;
@@ -60,7 +60,7 @@ async function reportPreview({ github, context }) {
         const basePreviewUrl = `https://raw.github.com/${context.repo.owner}/${context.repo.repo}/dist-preview-${prInfo.number}`;
         const diffUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/compare/dist...dist-preview-${prInfo.number}`;
         content = [
-            `This PR changes ${deployInfo.scripts.length} built userscript(s):`
+            `This PR changes ${deployInfo.scripts.length} built userscript(s):`,
         // @ts-expect-error not typescript
         ].concat(deployInfo.scripts.map((script) => {
             const previewUrl = basePreviewUrl + '/' + script.name + '.user.js';

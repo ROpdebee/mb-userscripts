@@ -55,9 +55,9 @@ export function registerMatchers(): void {
                 message: (): string => {
                     const preamble = this.utils.matcherHint((this.isNot ? '.not' : '') + '.toMatchCoverArt') + '\n\n';
                     return preamble + messageLines.join('\n').trim();
-                }
+                },
             };
-        }
+        },
     });
 }
 

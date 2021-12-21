@@ -3,7 +3,7 @@ const restrictedGlobals = require('confusing-browser-globals');
 module.exports = {
     env: {
         browser: true,
-        es2021: true
+        es2021: true,
     },
     rules: {
         // Warnings for declarations without initialisation to spot variables without inferred types.

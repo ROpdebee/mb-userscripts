@@ -28,7 +28,7 @@ describe('spotify provider', () => {
             url: 'https://open.spotify.com/artist/5Igpc9iLZ3YGtKeYfSrrOE?si=a31abf58e12948fd',
         }, {
             desc: 'playlist URLs',
-            url: 'https://open.spotify.com/playlist/2yNg6AGxM4liENyBAE8Wyr'
+            url: 'https://open.spotify.com/playlist/2yNg6AGxM4liENyBAE8Wyr',
         }];
 
         // eslint-disable-next-line jest/require-hook
