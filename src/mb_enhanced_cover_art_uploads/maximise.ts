@@ -91,27 +91,38 @@ IMU_EXCEPTIONS.set('img.discogs.com', async (smallurl) => {
 // Apple Music
 IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
     // For Apple Music, IMU always returns a PNG, regardless of whether the
-    // original source image was PNG or JPEG. When the original image is a JPEG,
-    // we want to fetch a JPEG version. Although the PNG is of slightly better
-    // quality due to generational loss when a JPEG is re-encoded, the quality
-    // loss is so minor that the additional costs of downloading, uploading,
-    // and storing the PNG are unjustifiable. See #80.
+    // original source image was PNG or JPEG. We can grab the source image
+    // instead. See #80.
 
     const results: MaximisedImage[] = [];
     for await (const imgGeneric of maximiseGeneric(smallurl)) {
         // Assume original file name is penultimate component of pathname, e.g.
         // https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png/999999999x0w-999.png
-        // We're still conservative though, if it's not a JPEG, we won't
-        // return the JPEG version
-        const pathParts = imgGeneric.url.pathname.split('/');
-        if (/\.jpe?g$/i.test(pathParts[pathParts.length - 2])) {
+        // Transform it to the following:
+        // https://a1.mzstatic.com/us/r1000/063/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png
+        // i.e. change domain to a1, path prefix to us/r1000/063, and drop trailing conversion name.
+        // This should also work for images returned by the old iTunes API.
+        const sourceUrl = new URL(imgGeneric.url);
+        sourceUrl.hostname = 'a1.mzstatic.com';
+
+        // Be a bit defensive and don't try to transform URLs which we don't recognize
+        if (sourceUrl.pathname.startsWith('/image/thumb')) {
+            sourceUrl.pathname = sourceUrl.pathname.replace(/^\/image\/thumb/, '/us/r1000/063');
+        }
+        if (sourceUrl.pathname.split('/').length === 12) {
+            // Drop the trailing conversion filename
+            sourceUrl.pathname = sourceUrl.pathname.split('/').slice(0, -1).join('/');
+        }
+
+        if (sourceUrl.href !== imgGeneric.url.href) {
             results.push({
                 ...imgGeneric,
-                url: new URL(imgGeneric.url.href.replace(/\.png$/i, '.jpg'))
+                url: sourceUrl,
             });
         }
 
-        // Always return the original maximised URL as a backup
+        // Always return the original maximised URL as a backup, e.g. for when
+        // the source image is webp.
         results.push(imgGeneric);
     }
 

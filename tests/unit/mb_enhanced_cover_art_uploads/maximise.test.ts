@@ -109,46 +109,22 @@ describe('maximising Apple Music images', () => {
         });
     });
 
-    it('retains PNG format if original is PNG', async () => {
+    it('transform Apple Music images to source URL', async () => {
         const it = getMaximisedCandidates(new URL('https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png/999999999x0w-999.png'));
-        let result = await it.next();
-
-        expect(result.done).toBeFalse();
-        expect(result.value.url.href).toBe('https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png/999999999x0w-999.png');
-
-        result = await it.next();
-
-        expect(result.done).toBeTrue();
-    });
-
-    it('uses JPEG format if original is JPEG', async () => {
-        const it = getMaximisedCandidates(new URL('https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/73/bd/c8/73bdc8dc-9ab2-ce6e-e581-4bb3d9e559fc/190295474089.jpg/999999999x0w-999.png'));
         const result = await it.next();
 
         expect(result.done).toBeFalse();
-        expect(result.value.url.href).toBe('https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/73/bd/c8/73bdc8dc-9ab2-ce6e-e581-4bb3d9e559fc/190295474089.jpg/999999999x0w-999.jpg');
+        expect(result.value.url.href).toBe('https://a1.mzstatic.com/us/r1000/063/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png');
     });
 
-    it('uses PNG format as backup for JPEG', async () => {
-        const it = getMaximisedCandidates(new URL('https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/73/bd/c8/73bdc8dc-9ab2-ce6e-e581-4bb3d9e559fc/190295474089.jpg/999999999x0w-999.png'));
-        let result = await it.next();
-
-        expect(result.done).toBeFalse();
-        expect(result.value.url.href).toBe('https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/73/bd/c8/73bdc8dc-9ab2-ce6e-e581-4bb3d9e559fc/190295474089.jpg/999999999x0w-999.jpg');
-
-        result = await it.next();
-
-        expect(result.done).toBeFalse();
-        expect(result.value.url.href).toBe('https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/73/bd/c8/73bdc8dc-9ab2-ce6e-e581-4bb3d9e559fc/190295474089.jpg/999999999x0w-999.png');
-
-        result = await it.next();
-
-        expect(result.done).toBeTrue();
-    });
-
-    it('keeps original maximised URL if format is unknown', async () => {
+    it('keeps original maximised URL as backup', async () => {
         const it = getMaximisedCandidates(new URL('https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/73/bd/c8/73bdc8dc-9ab2-ce6e-e581-4bb3d9e559fc/190295474089.webp/999999999x0w-999.png'));
         let result = await it.next();
+
+        expect(result.done).toBeFalse();
+        expect(result.value.url.href).toBe('https://a1.mzstatic.com/us/r1000/063/Music124/v4/73/bd/c8/73bdc8dc-9ab2-ce6e-e581-4bb3d9e559fc/190295474089.webp');
+
+        result = await it.next();
 
         expect(result.done).toBeFalse();
         expect(result.value.url.href).toBe('https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/73/bd/c8/73bdc8dc-9ab2-ce6e-e581-4bb3d9e559fc/190295474089.webp/999999999x0w-999.png');
@@ -167,7 +143,7 @@ describe('maximising Apple Music images', () => {
         let result = await it.next();
 
         expect(result.done).toBeFalse();
-        expect(result.value.url.href).toBe('https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/f1/e6/ad/f1e6adf1-fce1-a7fa-2f9c-e37e32738306/075679767103.jpg/999999999x0w-999.jpg');
+        expect(result.value.url.href).toBe('https://a1.mzstatic.com/us/r1000/063/Music115/v4/f1/e6/ad/f1e6adf1-fce1-a7fa-2f9c-e37e32738306/075679767103.jpg');
 
         result = await it.next();
 
@@ -180,12 +156,20 @@ describe('maximising Apple Music images', () => {
         expect(fakeImu).toHaveBeenCalledOnce();
     });
 
-    it('retains PNG for old-style iTunes URLs', async () => {
+    it('transforms old-style iTunes URLs into source images', async () => {
         const it = getMaximisedCandidates(new URL('https://is2-ssl.mzstatic.com/image/thumb/Music114/v4/61/67/d4/6167d478-a353-28be-75fa-0ebbc74808e2/source/999999999x0w-999.png'));
+        const result = await it.next();
+
+        expect(result.done).toBeFalse();
+        expect(result.value.url.href).toBe('https://a1.mzstatic.com/us/r1000/063/Music114/v4/61/67/d4/6167d478-a353-28be-75fa-0ebbc74808e2/source');
+    });
+
+    it('does not transform URLs that already point to source image', async () => {
+        const it = getMaximisedCandidates(new URL('https://a1.mzstatic.com/us/r1000/063/Music114/v4/61/67/d4/6167d478-a353-28be-75fa-0ebbc74808e2/source'));
         let result = await it.next();
 
         expect(result.done).toBeFalse();
-        expect(result.value.url.href).toBe('https://is2-ssl.mzstatic.com/image/thumb/Music114/v4/61/67/d4/6167d478-a353-28be-75fa-0ebbc74808e2/source/999999999x0w-999.png');
+        expect(result.value.url.href).toBe('https://a1.mzstatic.com/us/r1000/063/Music114/v4/61/67/d4/6167d478-a353-28be-75fa-0ebbc74808e2/source');
 
         result = await it.next();
 
