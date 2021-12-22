@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.12.22.2
+// @version      2021.12.22.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1632,7 +1632,7 @@
 
       _defineProperty(this, "name", 'RateYourMusic');
 
-      _defineProperty(this, "urlRegex", /\/release\/album\/([^/]+\/[^/]+)(?:\/|$)/);
+      _defineProperty(this, "urlRegex", /\/release\/((?:album|single)\/[^/]+\/[^/]+)(?:\/|$)/);
     }
 
     findImages(url) {
@@ -1642,7 +1642,7 @@
         const releaseId = _this.extractId(url);
 
         assertHasValue(releaseId);
-        const buyUrl = "https://rateyourmusic.com/release/album/".concat(releaseId, "/buy");
+        const buyUrl = "https://rateyourmusic.com/release/".concat(releaseId, "/buy");
         return _await(_this.fetchPage(new URL(buyUrl)), function (_this$fetchPage) {
           const buyDoc = parseDOM(_this$fetchPage, buyUrl);
 
