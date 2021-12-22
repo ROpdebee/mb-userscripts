@@ -16,11 +16,19 @@ describe('rateyourmusic provider', () => {
         const supportedUrls = [{
             desc: 'album URLs',
             url: 'https://rateyourmusic.com/release/album/fishmans/long-season.p/',
-            id: 'fishmans/long-season.p',
+            id: 'album/fishmans/long-season.p',
         }, {
             desc: 'album buy URLs',
             url: 'https://rateyourmusic.com/release/album/fishmans/long-season.p/buy/',
-            id: 'fishmans/long-season.p',
+            id: 'album/fishmans/long-season.p',
+        }, {
+            desc: 'single URLs',
+            url: 'https://rateyourmusic.com/release/single/hot_dad/undertale/',
+            id: 'single/hot_dad/undertale',
+        }, {
+            desc: 'single buy URLs',
+            url: 'https://rateyourmusic.com/release/single/hot_dad/undertale/buy',
+            id: 'single/hot_dad/undertale',
         }];
 
         const unsupportedUrls = [{
