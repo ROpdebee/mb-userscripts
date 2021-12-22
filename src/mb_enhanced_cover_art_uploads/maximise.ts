@@ -114,7 +114,7 @@ IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
             sourceUrl.pathname = sourceUrl.pathname.split('/').slice(0, -1).join('/');
         }
 
-        if (sourceUrl.href !== imgGeneric.url.href) {
+        if (sourceUrl.pathname !== imgGeneric.url.pathname) {
             results.push({
                 ...imgGeneric,
                 url: sourceUrl,
