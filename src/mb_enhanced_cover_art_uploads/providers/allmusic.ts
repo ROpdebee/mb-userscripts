@@ -1,4 +1,5 @@
 import { safeParseJSON } from '@lib/util/json';
+
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
 

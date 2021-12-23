@@ -1,11 +1,13 @@
 // GM_xmlhttpRequest adapter for pollyjs
 import { Buffer } from 'buffer';
-import fetch from 'node-fetch';
+
 import type { Request } from '@pollyjs/core';
 import Adapter from '@pollyjs/adapter';
+import fetch from 'node-fetch';
 
 import { assertDefined } from '@lib/util/assert';
 import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
+
 import { CRLFHeaders, FetchHeaders, PollyHeaders } from '../headers';
 
 type RequestType<Context> = Request<GM.Request<Context>>;

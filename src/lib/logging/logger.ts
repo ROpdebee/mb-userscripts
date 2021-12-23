@@ -1,5 +1,5 @@
-import { LogLevel } from './levels';
 import type { LoggingSink } from './sink';
+import { LogLevel } from './levels';
 
 interface LoggerOptions {
     logLevel: LogLevel;

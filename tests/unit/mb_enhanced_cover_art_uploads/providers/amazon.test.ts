@@ -1,8 +1,7 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { AmazonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon';
-
-import { itBehavesLike } from '@test-utils/shared_behaviour';
 import { mockGMgetResourceURL } from '@test-utils/gm_mocks';
+import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 import type { ExtractionCase } from './find_images_spec';
 import { findImagesSpec } from './find_images_spec';

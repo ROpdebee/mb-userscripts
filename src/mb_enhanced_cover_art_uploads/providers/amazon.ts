@@ -1,9 +1,9 @@
+import { GMgetResourceUrl } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertNonNull } from '@lib/util/assert';
 import { parseDOM, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
-import { GMgetResourceUrl } from '@lib/compat';
 
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';

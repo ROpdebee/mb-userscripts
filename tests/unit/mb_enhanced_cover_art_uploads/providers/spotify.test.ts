@@ -1,10 +1,9 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { SpotifyProvider } from '@src/mb_enhanced_cover_art_uploads/providers/spotify';
-
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
-import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('spotify provider', () => {
     const provider = new SpotifyProvider();

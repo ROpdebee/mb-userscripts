@@ -1,8 +1,8 @@
 /* eslint-disable jest/no-export, jest/consistent-test-it */
 
-import type { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-
 import type { Context } from 'setup-polly-jest';
+
+import type { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { setupPolly } from '@test-utils/pollyjs';
 
 import type { ExpectedCoverArt } from '../test-utils/matchers';

@@ -1,11 +1,10 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { QobuzProvider } from '@src/mb_enhanced_cover_art_uploads/providers/qobuz';
-
 import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
-import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('qobuz provider', () => {
     const pollyContext = setupPolly();

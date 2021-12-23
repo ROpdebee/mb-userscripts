@@ -1,11 +1,13 @@
 import USERSCRIPT_NAME from 'consts:userscript-name';
+
 import { LOGGER } from '@lib/logging/logger';
+import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { qs } from '@lib/util/dom';
-import type { CoverArtProvider } from '../providers/base';
+
 import type { App } from '../App';
+import type { CoverArtProvider } from '../providers/base';
 
 import css from './main.scss';
-import { createPersistentCheckbox } from '@lib/util/checkboxes';
 
 export class InputForm {
     #urlInput: HTMLInputElement;

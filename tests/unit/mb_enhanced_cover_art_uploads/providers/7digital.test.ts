@@ -1,11 +1,10 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { SevenDigitalProvider } from '@src/mb_enhanced_cover_art_uploads/providers/7digital';
-
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 import { createCoverArt, createFetchedImageFromCoverArt } from '../test-utils/dummy-data';
-import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('7digital provider', () => {
     const provider = new SevenDigitalProvider();

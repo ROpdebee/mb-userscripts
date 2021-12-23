@@ -1,7 +1,9 @@
-import { assert, assertHasValue } from '@lib/util/assert';
 import type { Har, HarEntry, HarLog as RealHarLog, HarRequest, HarResponse } from '@pollyjs/persister';
-import { WARCParser } from 'warcio/src/warcparser';
 import type { WARCRecord } from 'warcio/src/warcrecord';
+import { WARCParser } from 'warcio/src/warcparser';
+
+import { assert, assertHasValue } from '@lib/util/assert';
+
 import type { WARCInfoFields, WARCRecordMetadataFields } from './types';
 
 interface HarLog extends RealHarLog {

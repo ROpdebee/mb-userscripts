@@ -2,6 +2,7 @@ import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { urlBasename } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
+
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
 

@@ -1,10 +1,11 @@
+import type { FetchedImage } from '@src/mb_enhanced_cover_art_uploads/fetch';
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { gmxhr, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
-import type { FetchedImage } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
-import { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
+import { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+
 import { createCoverArt, createImageFile, createXhrResponse } from './test-utils/dummy-data';
 
 jest.mock('@lib/util/xhr');

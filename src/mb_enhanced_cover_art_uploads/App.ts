@@ -1,17 +1,18 @@
 /* istanbul ignore file: Covered by E2E */
 
-import { EditNote } from '@lib/MB/EditNote';
-import { assertHasValue } from '@lib/util/assert';
 import { LOGGER } from '@lib/logging/logger';
-import { getProvider } from './providers';
-import type { CoverArt } from './providers/base';
-import { StatusBanner } from './ui/status_banner';
-import { InputForm } from './ui/main';
-import type { FetchedImages } from './fetch';
-import { ImageFetcher } from './fetch';
-import { SeedParameters } from './seeding/parameters';
-import { enqueueImages, fillEditNote } from './form';
+import { EditNote } from '@lib/MB/EditNote';
 import { getURLsForRelease } from '@lib/MB/URLs';
+import { assertHasValue } from '@lib/util/assert';
+
+import type { FetchedImages } from './fetch';
+import type { CoverArt } from './providers/base';
+import { ImageFetcher } from './fetch';
+import { enqueueImages, fillEditNote } from './form';
+import { getProvider } from './providers';
+import { SeedParameters } from './seeding/parameters';
+import { InputForm } from './ui/main';
+import { StatusBanner } from './ui/status_banner';
 
 export class App {
     #note: EditNote;

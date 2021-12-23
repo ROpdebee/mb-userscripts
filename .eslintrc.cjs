@@ -1,4 +1,6 @@
 const restrictedGlobals = require('confusing-browser-globals');
+// For eslint-plugin-simple-import-sort
+const builtinModulesJoined = require('module').builtinModules.join('|');
 
 module.exports = {
     env: {
@@ -15,6 +17,7 @@ module.exports = {
     plugins: [
         '@typescript-eslint',
         '@delagen/deprecation',
+        'simple-import-sort',
     ],
     parserOptions: {
         ecmaVersion: 12,
@@ -37,6 +40,28 @@ module.exports = {
         'eslint-comments/disable-enable-pair': ['warn', {
             allowWholeFile: true
         }],
+        'simple-import-sort/imports': ['error', {
+            groups: [
+                // For each group, put type-only imports first.
+                // Side-effect imports
+                ['^\\u0000'],
+                // Node builtin modules
+                [`^(${builtinModulesJoined})(?=/|$).*\\u0000$`, `^(${builtinModulesJoined})(/|$)`],
+                // 3rd party packages. Need a negative lookahead in the first
+                // to prevent type-only imports from our mapped paths from matching.
+                // Doesn't matter for the second one, since simple-import-sort
+                // prefers the longer match, and the group below will always have
+                // the longer match.
+                ['^@?(?!src|test-utils|lib)\\w.*\\u0000$', '^@?\\w'],
+                // Our aliases
+                ['^@(src|test-utils|lib).*\\u0000$', '^@(src|test-utils|lib).*'],
+                // Relative imports, parent first, then current directory
+                ['^\\.\\..*\\u0000', '^\\..*\\u0000', '^\\.\\.', '^\\.'],
+                // Styles
+                ['^.+\\.s?css$'],
+            ],
+        }],
+        'simple-import-sort/exports': 'error',
 
         // Require non-initialised variables to have a type annotation. Per
         // https://github.com/typescript-eslint/typescript-eslint/issues/4342#issuecomment-1000452796

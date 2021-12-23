@@ -1,10 +1,9 @@
 import { when } from 'jest-when';
 
-import { gmxhr } from '@lib/util/xhr';
-
 import type { CoverArt, ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { gmxhr } from '@lib/util/xhr';
+import { CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
 import { createBlob, createFetchedImage, createXhrResponse } from '../test-utils/dummy-data';
 import { registerMatchers } from '../test-utils/matchers';

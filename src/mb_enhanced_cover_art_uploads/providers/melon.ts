@@ -1,4 +1,5 @@
 import { qsMaybe } from '@lib/util/dom';
+
 import { HeadMetaPropertyProvider } from './base';
 
 export class MelonProvider extends HeadMetaPropertyProvider {

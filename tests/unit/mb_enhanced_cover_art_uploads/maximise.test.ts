@@ -1,5 +1,5 @@
+import type { maxurlInterface,maxurlResult } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import * as libAsync from '@lib/util/async';
-import type { maxurlResult, maxurlInterface } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/discogs';
 

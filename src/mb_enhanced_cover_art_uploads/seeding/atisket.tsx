@@ -1,7 +1,8 @@
 import { LOGGER } from '@lib/logging/logger';
 import { qs, qsa, qsMaybe } from '@lib/util/dom';
-import { getImageDimensions } from '../image_dimensions';
+
 import type { Seeder } from './base';
+import { getImageDimensions } from '../image_dimensions';
 import { SeedParameters } from './parameters';
 
 // For main page after search but before adding

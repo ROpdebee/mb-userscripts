@@ -1,10 +1,9 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { TidalProvider } from '@src/mb_enhanced_cover_art_uploads/providers/tidal';
-
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
-import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('tidal provider', () => {
     const provider = new TidalProvider();

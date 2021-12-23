@@ -1,8 +1,10 @@
-import simpleGit from 'simple-git';
 import fs from 'fs/promises';
 import path from 'path';
-import { getPreviousReleaseVersion, incrementVersion } from './versions';
+
+import simpleGit from 'simple-git';
+
 import { buildUserscript } from './rollup';
+import { getPreviousReleaseVersion, incrementVersion } from './versions';
 
 if (!process.env.GITHUB_ACTIONS) {
     throw new Error('Refusing to run outside of CI, sorry :(');
