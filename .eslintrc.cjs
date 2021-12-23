@@ -28,7 +28,7 @@ module.exports = {
         'quotes': ['error', 'single', {
             avoidEscape: true
         }],
-        'semi': ['error', 'always'],
+        '@typescript-eslint/semi': ['error', 'always'],
         'arrow-parens': ['error', 'always'],
         '@typescript-eslint/comma-dangle': ['warn', 'always-multiline'],
         'no-restricted-globals': ['error', 'origin'].concat(restrictedGlobals),

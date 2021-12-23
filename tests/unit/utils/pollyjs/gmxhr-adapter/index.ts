@@ -8,7 +8,7 @@ import { assertDefined } from '@lib/util/assert';
 import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
 import { CRLFHeaders, FetchHeaders, PollyHeaders } from '../headers';
 
-type RequestType<Context> = Request<GM.Request<Context>>
+type RequestType<Context> = Request<GM.Request<Context>>;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Context>> {

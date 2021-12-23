@@ -17,21 +17,21 @@ export abstract class CoverArtProvider {
      * from one with `*.example.xyz`. Similarly, for domain `example.com`, a
      * provider with the pattern `example.com` wins from one with `*.example.com`.
      */
-    abstract readonly supportedDomains: string[]
+    abstract readonly supportedDomains: string[];
     /**
      * URL of the provider's favicon, for use in import buttons.
      */
-    abstract get favicon(): string | Promise<string>
+    abstract get favicon(): string | Promise<string>;
     /**
      * Provider name, used in import buttons.
      */
-    abstract readonly name: string
+    abstract readonly name: string;
 
     /**
      * Regular expression used to both match supported URLs and extract ID
      * from the URL. Matched against the full URL.
      */
-    abstract readonly urlRegex: RegExp | RegExp[]
+    abstract readonly urlRegex: RegExp | RegExp[];
 
     /**
      * Set to false to disallow placing provider buttons on cover art pages.
@@ -45,7 +45,7 @@ export abstract class CoverArtProvider {
      * @param      {boolean}    onlyFront     True if we'll only enqueue the front image, can be used to skip expensive lookups. Providers can still return all images, they'll be filtered later.
      * @return     {Promise<CoverArt[]>}  List of cover arts that should be imported.
      */
-    abstract findImages(url: URL, onlyFront: boolean): Promise<CoverArt[]>
+    abstract findImages(url: URL, onlyFront: boolean): Promise<CoverArt[]>;
 
     /**
      * Postprocess the fetched images. By default, does nothing, however,
