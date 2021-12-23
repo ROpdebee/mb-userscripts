@@ -76,11 +76,17 @@ module.exports = {
         '@typescript-eslint/non-nullable-type-assertion-style': 'error',
         '@typescript-eslint/prefer-enum-initializers': 'error',
         '@typescript-eslint/prefer-for-of': 'error',
+        '@typescript-eslint/prefer-function-type': 'error',
+        '@typescript-eslint/prefer-includes': 'error',
         '@typescript-eslint/prefer-nullish-coalescing': 'error',
         '@typescript-eslint/prefer-optional-chain': 'error',
+        '@typescript-eslint/prefer-readonly': 'error',
         '@typescript-eslint/prefer-reduce-type-parameter': 'error',
+        '@typescript-eslint/prefer-return-this-type': 'error',
+        '@typescript-eslint/prefer-string-starts-ends-with': 'error',
         '@typescript-eslint/prefer-ts-expect-error': 'error',
         '@typescript-eslint/require-array-sort-compare': 'error',
+        '@typescript-eslint/return-await': 'error',
         '@typescript-eslint/type-annotation-spacing': 'error',
 
         // Disable some recommended rules
@@ -104,6 +110,7 @@ module.exports = {
         // We want this one to be enabled, but it'll produce a lot of warnings,
         // so leaving it as a placeholder to enable at the end.
         '@typescript-eslint/explicit-member-accessibility': 'off',
+        '@typescript-eslint/prefer-readonly-parameter-types': 'off',
     },
     overrides: [{
             // Override per eslint-plugin-jest documentation.
