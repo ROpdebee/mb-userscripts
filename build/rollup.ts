@@ -3,7 +3,7 @@ import path from 'path';
 
 import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, SourceMapInput } from 'rollup';
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
-import type { MinifyOptions, MinifyOutput } from 'terser';
+import type { MinifyOptions } from 'terser';
 
 import postcssPresetEnv from 'postcss-preset-env';
 import { rollup } from 'rollup';
@@ -231,8 +231,7 @@ const minifyPlugin: OutputPlugin = {
             },
         };
 
-        return await minify(code, terserOptions)
-            .then((result: Readonly<MinifyOutput>) =>
-                result.code ? { code: result.code } : null);
+        const result = await minify(code, terserOptions);
+        return result.code ? { code: result.code, map: result.map } : null;
     },
 };
