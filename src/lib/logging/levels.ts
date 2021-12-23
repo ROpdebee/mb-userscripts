@@ -1,8 +1,8 @@
 export const enum LogLevel {
-    DEBUG,
-    LOG,
-    INFO,
-    SUCCESS,
-    WARNING,
-    ERROR,
+    DEBUG = 0,
+    LOG = 1,
+    INFO = 2,
+    SUCCESS = 3,
+    WARNING = 4,
+    ERROR = 5,
 }

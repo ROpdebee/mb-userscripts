@@ -71,6 +71,7 @@ module.exports = {
         '@typescript-eslint/no-unnecessary-condition': 'error',
         '@typescript-eslint/no-unused-expressions': 'error',
         '@typescript-eslint/non-nullable-type-assertion-style': 'error',
+        '@typescript-eslint/prefer-enum-initializers': 'error',
         '@typescript-eslint/prefer-nullish-coalescing': 'error',
         '@typescript-eslint/prefer-optional-chain': 'error',
         '@typescript-eslint/prefer-reduce-type-parameter': 'error',
