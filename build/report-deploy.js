@@ -5,6 +5,8 @@ async function reportDeploy({ github, context }) {
     const deployInfo = JSON.parse(process.env.DEPLOY_INFO || '{}');
 
     // Set labels on PR
+    /** @type {string} */
+    // eslint-disable-next-line @typescript-eslint/init-declarations
     let label;
     if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
         label = 'deploy:failed';
@@ -20,6 +22,8 @@ async function reportDeploy({ github, context }) {
         labels: [label],
     });
 
+    /** @type {string | undefined} */
+    // eslint-disable-next-line @typescript-eslint/init-declarations
     let issueComment;
     if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
         // Warn if deployment is skipped due to failures
@@ -53,6 +57,8 @@ async function reportPreview({ github, context }) {
     const prInfo = JSON.parse(process.env.PR_INFO || '{}');
     const deployInfo = JSON.parse(process.env.DEPLOY_INFO || '{}');
 
+    /** @type {string} */
+    // eslint-disable-next-line @typescript-eslint/init-declarations
     let content;
     if (!deployInfo.scripts || !deployInfo.scripts.length) {
         content = 'This PR makes no changes to the built userscripts.';

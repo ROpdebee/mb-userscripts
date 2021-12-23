@@ -1,5 +1,6 @@
 import { EditNote } from '@lib/MB/EditNote';
 
+// eslint-disable-next-line @typescript-eslint/init-declarations
 let textarea: HTMLTextAreaElement;
 
 beforeEach(() => {

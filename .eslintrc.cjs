@@ -51,6 +51,9 @@ module.exports = {
         '@delagen/deprecation/deprecation': ['warn'],
         'eslint-comments/no-unused-disable': 'warn',
         'eslint-comments/disable-enable-pair': ['warn', { allowWholeFile: true }],
+        // Warnings for declarations without initialisation to spot variables without inferred types.
+        // This makes it easier to ensure they have type annotations before disabling the warning locally.
+        '@typescript-eslint/init-declarations': ['warn', 'always'],
     },
     overrides: [
         {
@@ -100,6 +103,11 @@ module.exports = {
                 'jest/prefer-expect-assertions': 'off',
                 'jest/no-hooks': 'off',
                 'jest/require-top-level-describe': 'off',
+            },
+        }, {
+            files: ['*.d.ts'],
+            rules: {
+                '@typescript-eslint/init-declarations': 'off',
             },
         }],
 };
