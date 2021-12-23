@@ -63,7 +63,6 @@ function disableDummyFetch(mock: jest.SpiedFunction<ImageFetcher['fetchImageCont
 }
 
 describe('fetching image contents', () => {
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let fetcher: ImageFetcher;
 
     beforeEach(() => {
@@ -176,9 +175,7 @@ describe('fetching image contents', () => {
 });
 
 describe('fetching image from URL', () => {
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let fetcher: ImageFetcher;
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let mockFetchImageContents: jest.SpiedFunction<ImageFetcher['fetchImageContents']>;
 
     beforeEach(() => {
@@ -299,9 +296,7 @@ describe('fetching image from URL', () => {
 });
 
 describe('fetching images from providers', () => {
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let fetcher: ImageFetcher;
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let mockFetchImageContents: jest.SpiedFunction<ImageFetcher['fetchImageContents']>;
 
     beforeAll(() => {
@@ -612,9 +607,7 @@ describe('fetching images from providers', () => {
 });
 
 describe('fetching images', () => {
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let fetcher: ImageFetcher;
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let mockFetchImageContents: jest.SpiedFunction<ImageFetcher['fetchImageContents']>;
 
     beforeAll(() => {

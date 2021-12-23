@@ -67,7 +67,7 @@ async function reportDeploy({ github, context }) {
 
     // Set labels on PR
     /** @type string */
-    // eslint-disable-next-line @typescript-eslint/init-declarations
+    // eslint-disable-next-line no-restricted-syntax
     let label;
     if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
         label = 'deploy:failed';
@@ -85,7 +85,7 @@ async function reportDeploy({ github, context }) {
 
     // Leave a comment is deployment succeeded or failed, but not if it was skipped.
     /** @type string | undefined */
-    // eslint-disable-next-line @typescript-eslint/init-declarations
+    // eslint-disable-next-line no-restricted-syntax
     let issueComment;
     if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
         // Warn if deployment is skipped due to failures
@@ -128,7 +128,7 @@ async function reportPreview({ github, context }) {
     const deployInfo = JSON.parse(process.env.DEPLOY_INFO);
 
     /** @type string */
-    // eslint-disable-next-line @typescript-eslint/init-declarations
+    // eslint-disable-next-line no-restricted-syntax
     let content;
     if (!deployInfo.scripts.length) {
         content = 'This PR makes no changes to the built userscripts.';

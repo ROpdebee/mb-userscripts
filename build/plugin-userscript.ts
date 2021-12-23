@@ -216,7 +216,6 @@ export function userscript(options: Readonly<UserscriptOptions>): Plugin {
 
     // Will be set to the string content of the metadata block during the build
     // phase, and will be used again during the output phase.
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let metadataBlock: string;
 
     return {

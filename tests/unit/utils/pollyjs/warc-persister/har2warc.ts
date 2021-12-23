@@ -60,7 +60,6 @@ function shouldDecodeResponse(response: HarResponse): boolean {
 function createWarcResponseRecord(url: string, response: HarResponse): WARCRecord {
     const httpStatusLine = `${response.httpVersion} ${response.status} ${response.statusText}`;
     const httpHeaders = Object.fromEntries(response.headers.map(({ name, value }) => [name, value]));
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let content: Uint8Array;
     if (!response.content.text) {
         content = new Uint8Array();

@@ -30,7 +30,6 @@ export class InputForm {
                 const oldValue = evt.currentTarget.value;
 
                 for (const inputUrl of oldValue.trim().split(/\s+/)) {
-                    // eslint-disable-next-line @typescript-eslint/init-declarations
                     let url: URL;
                     // Only use the try block to parse the URL, since we don't
                     // want to suppress errors in the image fetching.

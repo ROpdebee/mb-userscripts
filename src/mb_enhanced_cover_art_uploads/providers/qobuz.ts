@@ -90,7 +90,6 @@ export class QobuzProvider extends CoverArtProvider {
         const id = this.extractId(url);
         assertHasValue(id);
 
-        // eslint-disable-next-line @typescript-eslint/init-declarations
         let metadata: AlbumMetadata;
         try {
             metadata = await QobuzProvider.getMetadata(id);
