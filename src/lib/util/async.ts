@@ -6,7 +6,7 @@ export function asyncSleep(ms?: number): Promise<void> {
 
 export function retryTimes<T>(fn: () => T | Promise<T>, times: number, retryWait: number): Promise<T> {
     if (times <= 0) {
-        return Promise.reject(new TypeError('Invalid number of retry times: ' + times));
+        return Promise.reject(new TypeError(`Invalid number of retry times: ${times}`));
     }
 
     async function createTryPromise(triesLeft: number): Promise<T> {
