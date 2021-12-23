@@ -115,7 +115,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
                     response: arrayBuffer,
                 });
             } else {
-                throw new Error('Unknown response type: ' + responseType);
+                throw new Error(`Unknown response type: ${responseType}`);
             }
         } else {
             options.onload({

@@ -114,6 +114,7 @@ module.exports = {
         '@typescript-eslint/prefer-string-starts-ends-with': 'error',
         '@typescript-eslint/prefer-ts-expect-error': 'error',
         '@typescript-eslint/require-array-sort-compare': 'error',
+        '@typescript-eslint/restrict-plus-operands': 'error',
         '@typescript-eslint/return-await': 'error',
         '@typescript-eslint/switch-exhaustiveness-check': 'error',
         '@typescript-eslint/type-annotation-spacing': 'error',
@@ -127,6 +128,9 @@ module.exports = {
         // Disabled because otherwise we have to unnecessarily insert
         // Promise.resolve everywhere.
         '@typescript-eslint/require-await': 'off',
+        // Disabled because we explicitly use template literals to convert to
+        // strings.
+        '@typescript-eslint/restrict-template-expressions': 'off',
 
         // Temporarily disabled so we can inspect each warning one-by-one
         // TODO: Enable these.
@@ -134,8 +138,6 @@ module.exports = {
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
-        '@typescript-eslint/restrict-template-expressions': 'off',
-        '@typescript-eslint/restrict-plus-operands': 'off',
         '@typescript-eslint/unbound-method': 'off',
         // We want this one to be enabled, but it'll produce a lot of warnings,
         // so leaving it as a placeholder to enable at the end.
