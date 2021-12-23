@@ -89,6 +89,7 @@ module.exports = {
         '@typescript-eslint/return-await': 'error',
         '@typescript-eslint/switch-exhaustiveness-check': 'error',
         '@typescript-eslint/type-annotation-spacing': 'error',
+        '@typescript-eslint/unified-signatures': 'error',
 
         // Disable some recommended rules
 
