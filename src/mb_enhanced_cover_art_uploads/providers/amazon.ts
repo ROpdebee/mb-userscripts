@@ -56,6 +56,7 @@ export class AmazonProvider extends CoverArtProvider {
         const pageDom = parseDOM(pageContent, url.href);
 
         let finder: typeof this.findDigitalImages;
+        /* eslint-disable @typescript-eslint/unbound-method -- Bound further down */
         if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
             LOGGER.debug('Searching for images in Audible page');
             finder = this.findAudibleImages;
@@ -69,6 +70,7 @@ export class AmazonProvider extends CoverArtProvider {
             LOGGER.debug('Searching for images in generic physical page');
             finder = this.findGenericPhysicalImages;
         }
+        /* eslint-enable @typescript-eslint/unbound-method */
 
         const covers = await finder.bind(this)(url, pageContent, pageDom);
         return covers.filter((img) => !PLACEHOLDER_IMG_REGEX.test(img.url.href));

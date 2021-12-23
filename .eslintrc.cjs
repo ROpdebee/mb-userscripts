@@ -118,6 +118,7 @@ module.exports = {
         '@typescript-eslint/return-await': 'error',
         '@typescript-eslint/switch-exhaustiveness-check': 'error',
         '@typescript-eslint/type-annotation-spacing': 'error',
+        '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
         '@typescript-eslint/unified-signatures': 'error',
 
         // Disable some recommended rules
@@ -138,7 +139,6 @@ module.exports = {
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
-        '@typescript-eslint/unbound-method': 'off',
         // We want this one to be enabled, but it'll produce a lot of warnings,
         // so leaving it as a placeholder to enable at the end.
         '@typescript-eslint/explicit-member-accessibility': 'off',
