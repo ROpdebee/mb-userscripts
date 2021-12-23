@@ -20,8 +20,9 @@ describe('enqueuing images', () => {
         const fileRowPath = path.resolve('.', 'tests', 'test-data', 'mb_enhanced_cover_art_uploads', 'form-row.html');
         const rowHtml = await fs.readFile(fileRowPath, 'utf-8');
 
-        for (let i = 0; i < files.length; i++) {
-            document.querySelector('tbody')?.insertAdjacentHTML('beforeend', rowHtml.replace('%file-name%', files[i].name));
+        for (const file of files) {
+            document.querySelector('tbody')
+                ?.insertAdjacentHTML('beforeend', rowHtml.replace('%file-name%', file.name));
         }
     }
 

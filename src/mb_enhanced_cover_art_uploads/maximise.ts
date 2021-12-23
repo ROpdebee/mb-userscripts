@@ -257,14 +257,13 @@ async function* maximiseGeneric(smallurl: URL): AsyncIterableIterator<MaximisedI
         });
     });
 
-    for (let i = 0; i < results.length; i++) {
-        const current = results[i];
+    for (const maximisedResult of results) {
         // Filter out results that will definitely not work
-        if (current.fake || current.bad || current.likely_broken) continue;
+        if (maximisedResult.fake || maximisedResult.bad || maximisedResult.likely_broken) continue;
         try {
             yield {
-                ...current,
-                url: new URL(current.url),
+                ...maximisedResult,
+                url: new URL(maximisedResult.url),
             };
         } catch {
             // pass, invalid URL
