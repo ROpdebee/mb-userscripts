@@ -13,36 +13,45 @@ declare global {
 
 /* eslint-disable no-restricted-globals */
 
+// Declare v3 GM_* APIs, but not globally.
+declare function GM_xmlhttpRequest<T>(details: GM.Request<T>): void;
+declare function GM_getResourceURL(resourceName: string): string;
+declare const GM_info: typeof GM.info;
+
 function existsInGM(name: string): boolean {
     return typeof GM !== 'undefined' && typeof (GM as Record<string, unknown>)[name] !== 'undefined';
 }
 
-function promisify<T extends unknown[], R>(f: (...args: T) => R): (...args: T) => Promise<R> {
-    return function(...args: T): Promise<R> {
-        return Promise.resolve(f(...args));
-    };
+// We need to take care to ensure GM functions are properly bound. I'm not 100%
+// sure whether they ever use `this`, but it's better to be careful. However,
+// we cannot `.bind()` them, as that breaks the mocking in the tests.
+
+// Cannot use generics here as that doesn't play nicely with the mocks. The
+// type declarations for `@types/greasemonkey` don't use generics for this
+// function either.
+export function GMxmlHttpRequest(details: GM.Request): void {
+    if (existsInGM('xmlHttpRequest')) {
+        GM.xmlHttpRequest(details);
+    } else {
+        GM_xmlhttpRequest(details);
+    }
 }
 
-export const GMxmlHttpRequest: typeof GM.xmlHttpRequest = existsInGM('xmlHttpRequest')
-    ? GM.xmlHttpRequest
-    // @ts-expect-error Old API.
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    : promisify(GM_xmlhttpRequest);
-
-export const GMgetResourceUrl: typeof GM.getResourceUrl = existsInGM('getResourceUrl')
-    ? GM.getResourceUrl
-    // This is called GM.getResourceURL in Violentmonkey.
-    : (existsInGM('getResourceURL')
+export function GMgetResourceUrl(resourceName: string): Promise<string> {
+    if (existsInGM('getResourceUrl')) {
+        return GM.getResourceUrl(resourceName);
+    } else if (existsInGM('getResourceURL')) {
         // @ts-expect-error Violentmonkey alternative spelling.
-        ? GM.getResourceURL
-        // @ts-expect-error Old API.
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        : promisify(GM_getResourceURL));
+        // We cannot add a declaration for it, because it would either need to
+        // be globally available in the namespace, or our local declarations
+        // would replace `GM` for the rest of this file.
+        return GM.getResourceURL(resourceName);
+    } else {
+        return Promise.resolve(GM_getResourceURL(resourceName));
+    }
+}
 
-export const GMinfo: typeof GM.info = existsInGM('info')
-    ? GM.info
-    // @ts-expect-error Old API.
-    : GM_info;
+export const GMinfo = existsInGM('info') ? GM.info : GM_info;
 
 /* eslint-enable no-restricted-globals */
 
