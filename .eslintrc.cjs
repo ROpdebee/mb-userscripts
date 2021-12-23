@@ -90,8 +90,10 @@ module.exports = {
         '@typescript-eslint/member-delimiter-style': 'error',
         '@typescript-eslint/no-base-to-string': 'error',
         '@typescript-eslint/no-confusing-void-expression': 'error',
+        '@typescript-eslint/no-floating-promises': 'error',
         '@typescript-eslint/no-invalid-void-type': 'error',
         '@typescript-eslint/no-loop-func': 'error',
+        '@typescript-eslint/no-misused-promises': 'error',
         '@typescript-eslint/no-namespace': ['error', {
             allowDeclarations: true
         }],
@@ -122,16 +124,16 @@ module.exports = {
         // Disabled because we rarely use non-null assertions, and if we do,
         // it's only to fix TS false positives.
         '@typescript-eslint/no-non-null-assertion': 'off',
+        // Disabled because otherwise we have to unnecessarily insert
+        // Promise.resolve everywhere.
+        '@typescript-eslint/require-await': 'off',
 
         // Temporarily disabled so we can inspect each warning one-by-one
         // TODO: Enable these.
-        '@typescript-eslint/require-await': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
-        '@typescript-eslint/no-floating-promises': 'off',
-        '@typescript-eslint/no-misused-promises': 'off',
         '@typescript-eslint/restrict-template-expressions': 'off',
         '@typescript-eslint/restrict-plus-operands': 'off',
         '@typescript-eslint/unbound-method': 'off',

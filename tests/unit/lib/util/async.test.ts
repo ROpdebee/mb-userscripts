@@ -10,7 +10,7 @@ describe('async timeout', () => {
         jest.useFakeTimers();
         const promise = asyncSleep(500);
         const spy = jest.fn();
-        promise.then(spy);
+        void promise.then(spy);
 
         expect(spy).not.toHaveBeenCalled();
 
@@ -26,7 +26,7 @@ describe('async timeout', () => {
         jest.useFakeTimers();
         const promise = asyncSleep(500);
         const spy = jest.fn();
-        promise.then(spy);
+        void promise.then(spy);
 
         expect(spy).not.toHaveBeenCalled();
 
@@ -71,7 +71,7 @@ describe('retryTimes', () => {
             });
         const prom = retryTimes(mock, 5, 500);
         const spy = jest.fn();
-        prom.then(spy);
+        void prom.then(spy);
 
         expect(spy).not.toHaveBeenCalled();
 

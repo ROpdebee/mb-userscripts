@@ -6,7 +6,7 @@ import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/di
 const fakeImu = jest.fn<ReturnType<maxurlInterface>, Parameters<maxurlInterface>>();
 
 function setIMUResult(results: maxurlResult[]): void {
-    fakeImu.mockImplementation(async (_url, options) => {
+    fakeImu.mockImplementation((_url, options) => {
         options.cb?.(results);
     });
 }
@@ -105,7 +105,7 @@ describe('maximising Discogs images', () => {
 
 describe('maximising Apple Music images', () => {
     beforeAll(() => {
-        fakeImu.mockImplementation(async (url, options) => {
+        fakeImu.mockImplementation((url, options) => {
             options.cb?.([{ url } as unknown as maxurlResult]);
         });
     });
@@ -136,7 +136,7 @@ describe('maximising Apple Music images', () => {
     });
 
     it('maximises images', async () => {
-        fakeImu.mockImplementationOnce(async (_url, options) => {
+        fakeImu.mockImplementationOnce((_url, options) => {
             options.cb?.([{ url: 'https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/f1/e6/ad/f1e6adf1-fce1-a7fa-2f9c-e37e32738306/075679767103.jpg/999999999x0w-999.png' } as unknown as maxurlResult]);
         });
 

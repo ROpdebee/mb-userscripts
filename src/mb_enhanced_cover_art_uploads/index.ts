@@ -22,8 +22,14 @@ function runOnMB(): void {
     // parameters.
     const app = new App();
 
-    app.processSeedingParameters();
-    app.addImportButtons();
+    app.processSeedingParameters()
+        .catch((err) => {
+            LOGGER.error('Failed to process seeded cover art parameters', err);
+        });
+    app.addImportButtons()
+        .catch((err) => {
+            LOGGER.error('Failed to add some provider import buttons', err);
+        });
 }
 
 function runOnSeederPage(): void {

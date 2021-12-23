@@ -47,9 +47,11 @@ export const AtasketSeeder: Seeder = {
 };
 
 function addSeedLinkToCovers(mbid: string, origin: string): void {
-    qsa('figure.cover').forEach((fig) => {
-        addSeedLinkToCover(fig, mbid, origin);
-    });
+    const covers = qsa('figure.cover');
+    Promise.all(covers.map((fig) => addSeedLinkToCover(fig, mbid, origin)))
+        .catch((err) => {
+            LOGGER.error('Failed to add seed links to some cover art', err);
+        });
 }
 
 async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): Promise<void> {
