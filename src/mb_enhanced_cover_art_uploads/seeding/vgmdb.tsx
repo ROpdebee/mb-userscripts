@@ -33,9 +33,13 @@ export const VGMdbSeeder: Seeder = {
         const releaseIdsProm = getMBReleases();
         const coversProm = extractCovers();
 
-        Promise.all([releaseIdsProm, coversProm]).then(([releaseIds, covers]) => {
-            insertSeedButtons(coverHeading, releaseIds, covers);
-        });
+        Promise.all([releaseIdsProm, coversProm])
+            .then(([releaseIds, covers]) => {
+                insertSeedButtons(coverHeading, releaseIds, covers);
+            })
+            .catch((err) => {
+                LOGGER.error('Failed to insert seed links', err);
+            });
     },
 };
 

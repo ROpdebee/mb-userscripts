@@ -109,13 +109,22 @@ export class App {
         });
         const supportedURLs = attachedURLs.filter((url) => getProvider(url)?.allowButtons);
 
-        if (!supportedURLs.length)
-            return;
+        if (!supportedURLs.length) return;
 
-        supportedURLs.forEach((url) => {
+        // Helper to ensure we don't silently ignore promise rejections in
+        // `this.processURL`, as the callback given to `ui.addImportButton`
+        // expects a synchronous function.
+        const syncProcessURL = (url: URL): void => {
+            this.processURL(url)
+                .catch((err) => {
+                    LOGGER.error(`Failed to process URL ${url.href}`, err);
+                });
+        };
+
+        await Promise.all(supportedURLs.map((url) => {
             const provider = getProvider(url);
             assertHasValue(provider);
-            this.#ui.addImportButton(this.processURL.bind(this, url), url.href, provider);
-        });
+            return this.#ui.addImportButton(syncProcessURL.bind(this, url), url.href, provider);
+        }));
     }
 }

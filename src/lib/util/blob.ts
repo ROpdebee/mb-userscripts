@@ -9,24 +9,32 @@ function hexEncode(buffer: ArrayBuffer): string {
 }
 
 export function blobToDigest(blob: Blob): Promise<string> {
+    async function onLoad(reader: FileReader): Promise<string> {
+        const buffer = reader.result as ArrayBuffer;
+        // Crypto API might be unavailable in older browsers, and on http://*
+        // istanbul ignore next: Not available in node, second part will never be covered.
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        const hasCrypto = typeof crypto !== 'undefined' && typeof crypto.subtle?.digest !== 'undefined';
+
+        // istanbul ignore else: Not available in node
+        if (hasCrypto) {
+            return hexEncode(await crypto.subtle.digest('SHA-256', buffer));
+        } else {
+            return hexEncode(buffer);
+        }
+    }
+
     return new Promise((resolve, reject) => {
         // Can't use blob.arrayBuffer since it's very new and not polyfilled
         // by core-js (W3C, not ES)
         const reader = new FileReader();
         reader.addEventListener('error', reject);
-        reader.addEventListener('load', async () => {
-            const buffer = reader.result as ArrayBuffer;
-            // Crypto API might be unavailable in older browsers, and on http://*
-            // istanbul ignore next: Not available in node, second part will never be covered.
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            const hasCrypto = typeof crypto !== 'undefined' && typeof crypto.subtle?.digest !== 'undefined';
-
-            // istanbul ignore else: Not available in node
-            if (hasCrypto) {
-                resolve(hexEncode(await crypto.subtle.digest('SHA-256', buffer)));
-            } else {
-                resolve(hexEncode(buffer));
-            }
+        // `FileReader.addEventListener` expects a synchronous callback, but we
+        // need to do asynchronous stuff to create the SHA-256 digest.
+        // Therefore, we do the asynchronous stuff in `onLoad` and `.then()`
+        // the result to resolve/reject the outer promise.
+        reader.addEventListener('load', () => {
+            onLoad(reader).then(resolve, reject);
         });
 
         reader.readAsArrayBuffer(blob);
