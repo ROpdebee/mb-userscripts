@@ -22,7 +22,7 @@ interface DeployedScript {
     commit: string;
 }
 
-interface DeployInfo {
+export interface DeployInfo {
     scripts: DeployedScript[];
 }
 
