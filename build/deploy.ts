@@ -3,6 +3,7 @@ import path from 'path';
 
 import simpleGit from 'simple-git';
 
+import type { DeployedScript, DeployInfo, PullRequestInfo } from './types-deploy';
 import { buildUserscript } from './rollup';
 import { getPreviousReleaseVersion, incrementVersion } from './versions';
 
@@ -16,17 +17,7 @@ if (!process.env.PR_INFO) {
     throw new Error('Missing PR info');
 }
 
-const prInfo: { number: number; title: string; labels: string[] } = JSON.parse(process.env.PR_INFO);
-
-interface DeployedScript {
-    name: string;
-    version: string;
-    commit: string;
-}
-
-export interface DeployInfo {
-    scripts: DeployedScript[];
-}
+const prInfo = JSON.parse(process.env.PR_INFO) as PullRequestInfo;
 
 // We're using a separate clone of the same repo here. gitDist is checked out
 // to the `dist` branch of our repo. We're using the separate copy  so we can
