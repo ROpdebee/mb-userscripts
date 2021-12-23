@@ -17,7 +17,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
         return 'GM_xmlhttpRequest';
     }
 
-    override onConnect = (): void => {
+    override onConnect(): void {
         mockGMxmlHttpRequest.mockImplementation((options: GM.Request<Context>): void => {
             this.handleRequest({
                 url: options.url,
@@ -27,11 +27,11 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
                 requestArguments: options,
             });
         });
-    };
+    }
 
-    override onDisconnect = (): void => {
+    override onDisconnect(): void {
         mockGMxmlHttpRequest.mockRestore();
-    };
+    }
 
     override async onFetchResponse(pollyRequest: RequestType<Context>): ReturnType<Adapter['onFetchResponse']> {
         const { responseType } = pollyRequest.requestArguments;
@@ -57,7 +57,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
         };
     }
 
-    override onRespond = async (pollyRequest: RequestType<Context>, error?: Error): Promise<void> => {
+    override async onRespond(pollyRequest: RequestType<Context>, error?: Error): Promise<void> {
         if (error) throw error;
 
         const response = pollyRequest.response;
@@ -108,5 +108,5 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
                 responseText: response.body as string,
             });
         }
-    };
+    }
 }
