@@ -1,14 +1,14 @@
 /* istanbul ignore file: Covered by E2E */
 
-import DEBUG_MODE from 'consts:debug-mode';
-import USERSCRIPT_NAME from 'consts:userscript-name';
-
 import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 import { LOGGER } from '@lib/logging/logger';
 
 import { App } from './App';
 import { seederFactory } from './seeding';
+
+import DEBUG_MODE from 'consts:debug-mode';
+import USERSCRIPT_NAME from 'consts:userscript-name';
 
 LOGGER.configure({
     logLevel: DEBUG_MODE ? LogLevel.DEBUG : LogLevel.INFO,

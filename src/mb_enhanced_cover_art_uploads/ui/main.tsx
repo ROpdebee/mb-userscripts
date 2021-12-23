@@ -1,5 +1,3 @@
-import USERSCRIPT_NAME from 'consts:userscript-name';
-
 import { LOGGER } from '@lib/logging/logger';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { qs } from '@lib/util/dom';
@@ -7,6 +5,7 @@ import { qs } from '@lib/util/dom';
 import type { App } from '../App';
 import type { CoverArtProvider } from '../providers/base';
 
+import USERSCRIPT_NAME from 'consts:userscript-name';
 import css from './main.scss';
 
 export class InputForm {
