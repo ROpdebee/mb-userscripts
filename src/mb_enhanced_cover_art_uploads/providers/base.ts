@@ -194,8 +194,8 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         return imageUrl;
     }
 
-    protected async mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string | undefined, byContent: boolean): Promise<CoverArt[]> {
-        const allTrackImages = filterNonNull(trackImages);
+    protected async mergeTrackImages(parsedTrackImages: Array<ParsedTrackImage | undefined>, mainUrl: string | undefined, byContent: boolean): Promise<CoverArt[]> {
+        const allTrackImages = filterNonNull(parsedTrackImages);
 
         // First pass: URL only
         const groupedImages = this.#groupIdenticalImages(allTrackImages, (img) => img.url, mainUrl);
