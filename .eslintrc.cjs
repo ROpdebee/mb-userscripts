@@ -58,8 +58,8 @@ module.exports = {
                 ['^@(src|test-utils|lib).*\\u0000$', '^@(src|test-utils|lib).*'],
                 // Relative imports, parent first, then current directory
                 ['^\\.\\..*\\u0000', '^\\..*\\u0000', '^\\.\\.', '^\\.'],
-                // Styles
-                ['^.+\\.s?css$'],
+                // Styles and constants
+                ['^consts:.+', '^.+\\.s?css$'],
             ],
         }],
         'simple-import-sort/exports': 'error',
