@@ -49,7 +49,6 @@ function getOrCreateEntry(entryMap: Map<string, HarEntry>, warcRecordId: string 
         entryMap.set(warcRecordId, { cache: {}, request: {}, response: {} } as unknown as HarEntry);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return entryMap.get(warcRecordId)!;
 }
 
