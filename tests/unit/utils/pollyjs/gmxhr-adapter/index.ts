@@ -105,7 +105,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
         } else {
             options.onload({
                 ...resp,
-                responseText: response.body as string,
+                responseText: response.body ?? '',
             });
         }
     }
