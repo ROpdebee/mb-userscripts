@@ -72,7 +72,6 @@ export async function buildUserscript(userscriptName: string, version: string, o
  *                        above.
  */
 async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutput> {
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let inputPath: string;
     try {
         inputPath = await Promise.any(EXTENSIONS.map(async (ext) => {

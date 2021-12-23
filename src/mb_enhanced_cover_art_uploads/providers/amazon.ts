@@ -55,7 +55,6 @@ export class AmazonProvider extends CoverArtProvider {
         const pageContent = await this.fetchPage(url);
         const pageDom = parseDOM(pageContent, url.href);
 
-        // eslint-disable-next-line @typescript-eslint/init-declarations
         let finder: typeof this.findDigitalImages;
         if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
             LOGGER.debug('Searching for images in Audible page');

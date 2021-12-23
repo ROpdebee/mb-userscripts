@@ -17,7 +17,6 @@ export default async function warc2har(warc: Uint8Array): Promise<Har> {
     const entryMap = new Map<string, HarEntry>();
 
     for await (const record of WARCParser.iterRecords([warc])) {
-        // eslint-disable-next-line @typescript-eslint/init-declarations
         let entry: HarEntry;
         switch(record.warcType) {
         case 'warcinfo':

@@ -38,9 +38,12 @@ module.exports = {
             allowWholeFile: true
         }],
 
-        // Warnings for declarations without initialisation to spot variables without inferred types.
-        // This makes it easier to ensure they have type annotations before disabling the warning locally.
-        '@typescript-eslint/init-declarations': ['warn', 'always'],
+        // Require non-initialised variables to have a type annotation. Per
+        // https://github.com/typescript-eslint/typescript-eslint/issues/4342#issuecomment-1000452796
+        'no-restricted-syntax': ['error', {
+            selector: ':not(ForOfStatement) > VariableDeclaration > VariableDeclarator[init = null] > Identifier.id:not([typeAnnotation])',
+            message: 'Variable declaration without initialiser requires a type annotation'
+        }],
 
         // TypeScript-specific linting rules as the default, since 99% of the
         // linted files are TS.

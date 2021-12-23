@@ -1,7 +1,6 @@
 import { DispatchMap } from '@lib/util/domain_dispatch';
 
 describe('domain dispatcher', () => {
-    // eslint-disable-next-line @typescript-eslint/init-declarations
     let dispatcher: DispatchMap<number>;
 
     beforeEach(() => {
