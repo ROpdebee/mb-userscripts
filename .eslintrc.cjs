@@ -87,6 +87,7 @@ module.exports = {
         '@typescript-eslint/prefer-ts-expect-error': 'error',
         '@typescript-eslint/require-array-sort-compare': 'error',
         '@typescript-eslint/return-await': 'error',
+        '@typescript-eslint/switch-exhaustiveness-check': 'error',
         '@typescript-eslint/type-annotation-spacing': 'error',
 
         // Disable some recommended rules
