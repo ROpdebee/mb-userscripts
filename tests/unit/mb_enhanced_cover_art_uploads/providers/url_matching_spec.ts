@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-export, jest/consistent-test-it */
 
-import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
 import type { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
 
 interface SupportedURL {
     desc: string;

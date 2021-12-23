@@ -1,10 +1,10 @@
 import path from 'path';
-import type { PollyConfig } from '@pollyjs/core';
-import type { Context } from 'setup-polly-jest';
-import { setupPolly as realSetupPolly } from 'setup-polly-jest';
 
-import fetch from 'node-fetch';
+import type { PollyConfig } from '@pollyjs/core';
 import type { RequestInfo, RequestInit, Response } from 'node-fetch';
+import type { Context } from 'setup-polly-jest';
+import fetch from 'node-fetch';
+import { setupPolly as realSetupPolly } from 'setup-polly-jest';
 
 import GMXHRAdapter from './gmxhr-adapter';
 import { WarcPersister } from './warc-persister';

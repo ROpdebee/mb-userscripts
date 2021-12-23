@@ -1,9 +1,8 @@
 import { MusikSammlerProvider } from '@src/mb_enhanced_cover_art_uploads/providers/musik_sammler';
-
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
-import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('musik-sammler provider', () => {
     const provider = new MusikSammlerProvider();

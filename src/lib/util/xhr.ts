@@ -1,7 +1,8 @@
 // Async XHR interfaces
 
-import { GMxmlHttpRequest } from '@lib/compat';
 import { CustomError } from 'ts-custom-error';
+
+import { GMxmlHttpRequest } from '@lib/compat';
 
 // eslint-disable-next-line no-restricted-globals
 type LimitedGMXHROptions = Omit<GM.Request, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'|'method'|'url'>;

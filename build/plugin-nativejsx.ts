@@ -1,7 +1,6 @@
+import type { FilterPattern } from '@rollup/pluginutils';
 import type { JSXOptions } from 'nativejsx';
 import type { Plugin } from 'rollup';
-import type { FilterPattern } from '@rollup/pluginutils';
-
 import { createFilter } from '@rollup/pluginutils';
 import nativejsxPkg from 'nativejsx';
 const { transpile } = nativejsxPkg;

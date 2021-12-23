@@ -1,6 +1,7 @@
-import { HeadMetaPropertyProvider } from './base';
-import type { FetchedImage } from '../fetch';
 import { LOGGER } from '@lib/logging/logger';
+
+import type { FetchedImage } from '../fetch';
+import { HeadMetaPropertyProvider } from './base';
 
 // Technically, the cover URL is very predictable from the release ID. However,
 // we can also grab it from the <head> element metadata, which is a lot less

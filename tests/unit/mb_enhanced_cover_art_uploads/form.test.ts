@@ -1,10 +1,12 @@
-import path from 'path';
 import fs from 'fs/promises';
+import path from 'path';
 
 import $ from 'jquery';
+
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { enqueueImages, fillEditNote } from '@src/mb_enhanced_cover_art_uploads/form';
 import { EditNote } from '@lib/MB/EditNote';
+import { enqueueImages, fillEditNote } from '@src/mb_enhanced_cover_art_uploads/form';
+
 import { createFetchedImage, createImageFile } from './test-utils/dummy-data';
 
 // @ts-expect-error need to inject a jQuery

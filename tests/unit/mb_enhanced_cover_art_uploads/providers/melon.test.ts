@@ -1,10 +1,9 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { MelonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/melon';
-
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
-import { urlMatchingSpec } from './url_matching_spec';
 import { findImagesSpec } from './find_images_spec';
+import { urlMatchingSpec } from './url_matching_spec';
 
 describe('melon provider', () => {
     const provider = new MelonProvider();

@@ -4,6 +4,7 @@ import { collatedSort, filterNonNull, groupBy } from '@lib/util/array';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
+
 import type { FetchedImage } from '../fetch';
 
 export abstract class CoverArtProvider {

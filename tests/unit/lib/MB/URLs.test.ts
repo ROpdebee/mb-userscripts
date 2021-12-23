@@ -1,5 +1,6 @@
-import { getReleaseIDsForURL, getURLsForRelease } from '@lib/MB/URLs';
 import HttpAdapter from '@pollyjs/adapter-node-http';
+
+import { getReleaseIDsForURL, getURLsForRelease } from '@lib/MB/URLs';
 import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 
 // Using polly here so we don't have to manually save the MB output. This runs

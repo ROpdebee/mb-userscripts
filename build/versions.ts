@@ -1,5 +1,5 @@
-import path from 'path';
 import fs from 'fs/promises';
+import path from 'path';
 
 export function getVersionForToday(): string {
     const today = new Date();

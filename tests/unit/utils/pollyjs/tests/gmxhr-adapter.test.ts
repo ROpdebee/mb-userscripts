@@ -1,7 +1,9 @@
 import path from 'path';
+
 import { setupPolly } from 'setup-polly-jest';
 
 import GMXHRAdapter from '@test-utils/pollyjs/gmxhr-adapter';
+
 import { WarcPersister } from '../warc-persister';
 
 describe('gmxhr adapter', () => {

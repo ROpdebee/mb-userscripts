@@ -1,10 +1,11 @@
-import { filterNonNull } from '@lib/util/array';
-import { ProviderWithTrackImages } from './base';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import type { CoverArt } from './base';
-import { safeParseJSON } from '@lib/util/json';
+import { filterNonNull } from '@lib/util/array';
 import { assert } from '@lib/util/assert';
+import { safeParseJSON } from '@lib/util/json';
 import { urlBasename } from '@lib/util/urls';
+
+import type { CoverArt } from './base';
+import { ProviderWithTrackImages } from './base';
 
 // Incomplete, only what we need.
 interface SCHydration {

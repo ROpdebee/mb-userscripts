@@ -1,5 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 import { safeParseJSON } from '@lib/util/json';
+
 import type { CoverArt } from '../providers/base';
 
 function encodeValue(value: unknown): string {

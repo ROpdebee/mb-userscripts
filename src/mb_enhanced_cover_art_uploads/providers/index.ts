@@ -1,7 +1,6 @@
 import { DispatchMap } from '@lib/util/domain_dispatch';
 
 import type { CoverArtProvider } from './base';
-
 import { SevenDigitalProvider } from './7digital';
 import { AllMusicProvider } from './allmusic';
 import { AmazonProvider } from './amazon';

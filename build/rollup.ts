@@ -1,21 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 
-import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, SourceMapInput } from 'rollup';
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
+import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, SourceMapInput } from 'rollup';
 import type { MinifyOptions } from 'terser';
-
-import postcssPresetEnv from 'postcss-preset-env';
-import { rollup } from 'rollup';
 import alias from '@rollup/plugin-alias';
 import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import virtual from '@rollup/plugin-virtual';
+import postcssPresetEnv from 'postcss-preset-env';
+import { rollup } from 'rollup';
+import consts from 'rollup-plugin-consts';
 import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
-import consts from 'rollup-plugin-consts';
 
 import { nativejsx } from './plugin-nativejsx';
 import { userscript } from './plugin-userscript';

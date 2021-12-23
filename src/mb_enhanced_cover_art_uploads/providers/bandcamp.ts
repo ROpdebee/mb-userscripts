@@ -6,8 +6,8 @@ import { filterNonNull } from '@lib/util/array';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 
 import type { CoverArt, ParsedTrackImage } from './base';
-import { ProviderWithTrackImages } from './base';
 import { getImageDimensions } from '../image_dimensions';
+import { ProviderWithTrackImages } from './base';
 
 export class BandcampProvider extends ProviderWithTrackImages {
     supportedDomains = ['*.bandcamp.com'];

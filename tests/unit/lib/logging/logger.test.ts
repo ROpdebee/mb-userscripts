@@ -1,6 +1,6 @@
+import type { LoggingSink } from '@lib/logging/sink';
 import { LogLevel } from '@lib/logging/levels';
 import { Logger } from '@lib/logging/logger';
-import type { LoggingSink } from '@lib/logging/sink';
 
 // This needs to be a class, it cannot be a simple object that structurally
 // matches the LoggingSink interface since we have test cases that create two

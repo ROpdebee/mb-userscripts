@@ -1,11 +1,12 @@
+import { getFromPageContext } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { gmxhr } from '@lib/util/xhr';
 import { urlBasename } from '@lib/util/urls';
-import { getFromPageContext } from '@lib/compat';
+import { gmxhr } from '@lib/util/xhr';
+
+import type { CoverArt, CoverArtProvider } from './providers/base';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider } from './providers';
-import type { CoverArt, CoverArtProvider } from './providers/base';
 
 interface ImageContents {
     requestedUrl: URL;

@@ -1,10 +1,12 @@
-import { assert, assertHasValue } from '@lib/util/assert';
 import type { Har, HarEntry, HarRequest, HarResponse } from '@pollyjs/persister';
+import { concatChunks } from 'warcio/src/utils';
 // Need to import from warcio/src because otherwise it includes the webcrypto
 // polyfill, which leads to errors, likely because of babel transpilation.
 import { WARCRecord } from 'warcio/src/warcrecord';
 import { WARCSerializer } from 'warcio/src/warcserializer';
-import { concatChunks } from 'warcio/src/utils';
+
+import { assert, assertHasValue } from '@lib/util/assert';
+
 import type { WARCRecordMetadataFields } from './types';
 
 const ENCODER = new TextEncoder();
