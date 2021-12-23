@@ -198,7 +198,6 @@ export interface maxurlInterface {
     // loop: any
 }
 
-// eslint-disable-next-line init-declarations
 declare const $$IMU_EXPORT$$: maxurlInterface;
 
 

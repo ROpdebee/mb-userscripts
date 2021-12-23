@@ -37,6 +37,7 @@ export function incrementVersion(lastVersion: string | undefined): string {
 
 export async function getPreviousReleaseVersion(userscriptName: string, buildDir: string): Promise<string | undefined> {
     const distMetaFile = path.resolve(buildDir, userscriptName + '.meta.js');
+    // eslint-disable-next-line @typescript-eslint/init-declarations
     let metaContent: string;
     try {
         metaContent = await fs.readFile(distMetaFile, 'utf-8');

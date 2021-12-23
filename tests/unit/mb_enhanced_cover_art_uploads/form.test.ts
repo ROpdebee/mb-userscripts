@@ -134,7 +134,8 @@ describe('enqueuing images', () => {
             ],
         });
         const rows = document.querySelectorAll('tr');
-        let row1, row2;
+        // eslint-disable-next-line @typescript-eslint/init-declarations
+        let row1: HTMLTableRowElement, row2: HTMLTableRowElement;
         if (rows[0].querySelector('.file-info span')?.textContent === 'test.1.png') {
             row1 = rows[0];
             row2 = rows[1];
@@ -153,7 +154,9 @@ describe('enqueuing images', () => {
 });
 
 describe('filling edit notes', () => {
+    // eslint-disable-next-line @typescript-eslint/init-declarations
     let textarea: HTMLTextAreaElement;
+    // eslint-disable-next-line @typescript-eslint/init-declarations
     let editNote: EditNote;
 
     beforeEach(() => {

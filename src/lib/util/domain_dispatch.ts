@@ -102,7 +102,7 @@ export class DispatchMap<Leaf> {
         const firstKey = keyPath[0];
         const existing = this._get(firstKey);
 
-        // eslint-disable-next-line init-declarations
+        // eslint-disable-next-line @typescript-eslint/init-declarations
         let subMap: DispatchMap<Leaf>;
         if (existing instanceof DispatchMap) {
             subMap = existing;
@@ -158,7 +158,7 @@ export class DispatchMap<Leaf> {
     }
 
     #retrieve(keyPath: string[]): Leaf | undefined {
-        // eslint-disable-next-line init-declarations
+        // eslint-disable-next-line @typescript-eslint/init-declarations
         let child: Leaf | undefined;
 
         if (keyPath.length === 1) {

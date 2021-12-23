@@ -45,7 +45,7 @@ export class App {
     }
 
     async #_processURL(url: URL): Promise<void> {
-        // eslint-disable-next-line init-declarations
+        // eslint-disable-next-line @typescript-eslint/init-declarations
         let fetchResult: FetchedImages;
         try {
             fetchResult = await this.#fetcher.fetchImages(url, this.onlyFront);
@@ -73,7 +73,7 @@ export class App {
         // and enqueue multiple images. We want to fetch images in parallel, but
         // enqueue them sequentially to ensure the order stays consistent.
 
-        // eslint-disable-next-line init-declarations
+        // eslint-disable-next-line @typescript-eslint/init-declarations
         let fetchResults: Array<[FetchedImages, CoverArt]>;
         try {
             fetchResults = await Promise.all(params.images
