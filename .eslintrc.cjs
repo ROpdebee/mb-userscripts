@@ -66,6 +66,7 @@ module.exports = {
         '@typescript-eslint/no-namespace': ['error', {
             allowDeclarations: true
         }],
+        '@typescript-eslint/no-shadow': 'error',
         '@typescript-eslint/no-unnecessary-condition': 'error',
         '@typescript-eslint/no-unsafe-argument': 'error',
         '@typescript-eslint/prefer-nullish-coalescing': 'error',
@@ -111,6 +112,9 @@ module.exports = {
                 'jest/prefer-expect-assertions': 'off',
                 'jest/no-hooks': 'off',
                 'jest/require-top-level-describe': 'off',
+                // Allow shadowing in tests as we sometimes use it to define
+                // common data, but refine the data in some specific test cases
+                '@typescript-eslint/no-shadow': 'off',
             },
         }, {
             files: ['*.d.ts'],

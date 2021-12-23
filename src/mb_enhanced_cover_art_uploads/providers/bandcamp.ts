@@ -149,7 +149,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
                 comment: filterNonNull([cover.comment, 'Bandcamp square crop']).join(' - '),
                 skipMaximisation: true,
             }];
-        })).then((covers) => covers.flat());
+        })).then((nestedCovers) => nestedCovers.flat());
     }
 
     override imageToThumbnailUrl(imageUrl: string): string {

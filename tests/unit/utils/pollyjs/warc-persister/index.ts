@@ -41,9 +41,9 @@ export class WarcPersister extends Persister<Options> {
     }
 
     override async onDeleteRecording(recordingId: string): Promise<void> {
-        const path = this.filenameFor(recordingId);
+        const warcPath = this.filenameFor(recordingId);
 
-        await fs.unlink(path);
+        await fs.unlink(warcPath);
     }
 
     filenameFor(recordingId: string): string {
