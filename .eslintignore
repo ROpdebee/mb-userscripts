@@ -4,3 +4,7 @@ coverage/*
 mb_*.js
 lib/*
 node_modules/**
+# ESLint gets really slow when it needs to lint its own configuration. Not sure
+# whether it ever even halts.
+.eslintrc.cjs
+src/.eslintrc.cjs

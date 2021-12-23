@@ -40,6 +40,7 @@
     "@rollup/plugin-virtual": "2.0.3",
     "@rollup/pluginutils": "4.1.2",
     "@types/babel__core": "7.1.17",
+    "@types/confusing-browser-globals": "^1.0.0",
     "@types/greasemonkey": "4.0.2",
     "@types/jest": "27.0.3",
     "@types/jest-when": "2.7.3",
