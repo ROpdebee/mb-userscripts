@@ -62,6 +62,7 @@ module.exports = {
         '@typescript-eslint/no-base-to-string': 'error',
         '@typescript-eslint/no-confusing-void-expression': 'error',
         '@typescript-eslint/no-invalid-void-type': 'error',
+        '@typescript-eslint/no-loop-func': 'error',
         '@typescript-eslint/no-namespace': ['error', {
             allowDeclarations: true
         }],
@@ -73,6 +74,12 @@ module.exports = {
         '@typescript-eslint/prefer-ts-expect-error': 'error',
         '@typescript-eslint/require-array-sort-compare': 'error',
         '@typescript-eslint/type-annotation-spacing': 'error',
+
+        // Disable some recommended rules
+
+        // Disabled because we rarely use non-null assertions, and if we do,
+        // it's only to fix TS false positives.
+        '@typescript-eslint/no-non-null-assertion': 'off',
 
         // Temporarily disabled so we can inspect each warning one-by-one
         // TODO: Enable these.

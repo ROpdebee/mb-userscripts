@@ -52,7 +52,6 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
 
     if (extractionFailedCases.length) {
         it.each(extractionFailedCases)('throws on $desc', async (extractionFailedCase) => {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             pollyContext!.polly.configure({
                 recordFailedRequests: true,
             });

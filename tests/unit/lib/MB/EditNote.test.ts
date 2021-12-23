@@ -5,7 +5,6 @@ let textarea: HTMLTextAreaElement;
 
 beforeEach(() => {
     document.body.innerHTML = '<textarea class="edit-note" />';
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     textarea = document.body.querySelector<HTMLTextAreaElement>('textarea')!;
 });
 

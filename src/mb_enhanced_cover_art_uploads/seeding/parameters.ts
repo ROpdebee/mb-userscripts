@@ -9,7 +9,6 @@ function encodeValue(value: unknown): string {
 }
 
 function decodeSingleKeyValue(key: string, value: string, images: CoverArt[]): void {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const keyName = key.split('.').pop()!;
     const imageIdxString = key.match(/x_seed\.image\.(\d+)\./)?.[1];
     if (!imageIdxString || !['url', 'types', 'comment'].includes(keyName)) {

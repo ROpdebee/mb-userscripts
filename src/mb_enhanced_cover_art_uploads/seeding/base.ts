@@ -17,8 +17,6 @@ export function registerSeeder(seeder: Seeder): void {
             SEEDER_DISPATCH_MAP.set(domain, []);
         }
 
-        // Optional chaining is unnecessary overhead, we just created the entry above
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         SEEDER_DISPATCH_MAP.get(domain)!.push(seeder);
     });
 }
