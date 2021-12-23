@@ -1,13 +1,23 @@
 // Aggregate project referencing all composite sub-projects, for use with `tsc`
 // type checker and `ts-node`.
+// NOTE: Only refer to this file via the symlink in the root, otherwise it will
+// use the wrong root directory.
 {
-    "files": [],
+    "extends": "./configs/tsconfig.base",
+    // We'll also typecheck the config files in the root
+    "files": [
+        "./babel.config.cjs",
+        "./jest.config.cjs",
+        "./.eslintrc.cjs",
+        "./src/.eslintrc.cjs",
+    ],
     "include": [],
     // Specific compiler options necessary for `tsconfig-paths`. It expects the
     // path mapping in the root `tsconfig.json`, it cannot extract it from
     // referenced projects. These mappings do not have an impact on the
     // referenced projects though.
     "compilerOptions": {
+        "noEmit": true,
         "baseUrl": "./",
         "paths": {
             "@lib/*": ["src/lib/*"],
