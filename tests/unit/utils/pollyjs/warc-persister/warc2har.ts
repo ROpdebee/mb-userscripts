@@ -33,6 +33,8 @@ export default async function warc2har(warc: Uint8Array): Promise<Har> {
             entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
             await populateEntryMetadata(record, entry);
             break;
+        default:
+            console.log(`Unsupported WARC entry type: ${record.warcType}`);
         }
     }
 
