@@ -181,7 +181,11 @@ describe('logger', () => {
             });
         });
 
-        type Case = { shouldCall: boolean; desc: string; level: LoggerMethodName };
+        interface Case {
+            shouldCall: boolean;
+            desc: string;
+            level: LoggerMethodName;
+        }
         const cases: Case[] = loggerMethodNames.map((level, levelIdx) => {
             const shouldCall = levelIdx >= minLogLevel;
             return {
