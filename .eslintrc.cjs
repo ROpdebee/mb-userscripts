@@ -51,6 +51,7 @@ module.exports = {
             assertionStyle: 'as',
             objectLiteralTypeAssertions: 'allow-as-parameter',
         }],
+        '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
         '@typescript-eslint/consistent-type-imports': ['error', {
             prefer: 'type-imports',
             disallowTypeAnnotations: true,
