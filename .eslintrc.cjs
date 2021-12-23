@@ -54,43 +54,37 @@ module.exports = {
         // Warnings for declarations without initialisation to spot variables without inferred types.
         // This makes it easier to ensure they have type annotations before disabling the warning locally.
         '@typescript-eslint/init-declarations': ['warn', 'always'],
+        // TypeScript-specific linting rules as the default, since 99% of the
+        // linted files are TS.
+        '@typescript-eslint/array-type': ['error', {
+            default: 'array-simple',
+        }],
+        '@typescript-eslint/consistent-indexed-object-style': ['error', 'record'],
+        '@typescript-eslint/consistent-type-assertions': ['error', {
+            assertionStyle: 'as',
+            objectLiteralTypeAssertions: 'allow-as-parameter',
+        }],
+        '@typescript-eslint/consistent-type-imports': ['error', {
+            prefer: 'type-imports',
+            disallowTypeAnnotations: true,
+        }],
+        '@typescript-eslint/explicit-function-return-type': ['error'],
+        '@typescript-eslint/member-delimiter-style': ['error'],
+        '@typescript-eslint/no-base-to-string': ['error'],
+        '@typescript-eslint/no-confusing-void-expression': ['error'],
+        '@typescript-eslint/no-invalid-void-type': ['error'],
+        '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }],
+        '@typescript-eslint/no-unnecessary-condition': ['error'],
+        '@typescript-eslint/no-unsafe-argument': ['error'],
+        '@typescript-eslint/prefer-nullish-coalescing': ['error'],
+        '@typescript-eslint/prefer-optional-chain': ['error'],
+        '@typescript-eslint/prefer-reduce-type-parameter': ['error'],
+        '@typescript-eslint/prefer-ts-expect-error': ['error'],
+        '@typescript-eslint/require-array-sort-compare': ['error'],
+        '@typescript-eslint/type-annotation-spacing': ['error'],
     },
-    overrides: [
-        {
-            files: ['*.ts', '*.tsx'],
-            parserOptions: {
-                parser: '@typescript-eslint/parser',
-                project: 'configs/tsconfig.glue-eslint.json',
-            },
-            rules: {
-                '@typescript-eslint/array-type': ['error', {
-                    default: 'array-simple',
-                }],
-                '@typescript-eslint/consistent-indexed-object-style': ['error', 'record'],
-                '@typescript-eslint/consistent-type-assertions': ['error', {
-                    assertionStyle: 'as',
-                    objectLiteralTypeAssertions: 'allow-as-parameter',
-                }],
-                '@typescript-eslint/consistent-type-imports': ['error', {
-                    prefer: 'type-imports',
-                    disallowTypeAnnotations: true,
-                }],
-                '@typescript-eslint/explicit-function-return-type': ['error'],
-                '@typescript-eslint/member-delimiter-style': ['error'],
-                '@typescript-eslint/no-base-to-string': ['error'],
-                '@typescript-eslint/no-confusing-void-expression': ['error'],
-                '@typescript-eslint/no-invalid-void-type': ['error'],
-                '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }],
-                '@typescript-eslint/no-unnecessary-condition': ['error'],
-                '@typescript-eslint/no-unsafe-argument': ['error'],
-                '@typescript-eslint/prefer-nullish-coalescing': ['error'],
-                '@typescript-eslint/prefer-optional-chain': ['error'],
-                '@typescript-eslint/prefer-reduce-type-parameter': ['error'],
-                '@typescript-eslint/prefer-ts-expect-error': ['error'],
-                '@typescript-eslint/require-array-sort-compare': ['error'],
-                '@typescript-eslint/type-annotation-spacing': ['error'],
-            }
-        }, { // Override per eslint-plugin-jest documentation.
+    overrides: [{
+            // Override per eslint-plugin-jest documentation.
             files: ['tests/**'],
             plugins: ['jest'],
             extends: [
