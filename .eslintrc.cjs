@@ -32,6 +32,7 @@ module.exports = {
             avoidEscape: true
         }],
         '@typescript-eslint/semi': ['error', 'always'],
+        '@typescript-eslint/comma-spacing': 'error',
         'arrow-parens': ['error', 'always'],
         '@typescript-eslint/comma-dangle': ['warn', 'always-multiline'],
         'no-restricted-globals': ['error', 'origin'].concat(restrictedGlobals),

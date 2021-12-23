@@ -215,7 +215,7 @@ describe('fetching image from URL', () => {
                 fetchedUrl: new URL('https://example.com/test/redirect'),
                 requestedUrl: new URL('https://example.com/test/'),
                 wasRedirected: true,
-                file: new File([new Blob(['test'])],'test.0.jpg', { type: 'image/jpeg' }),
+                file: new File([new Blob(['test'])], 'test.0.jpg', { type: 'image/jpeg' }),
             });
 
             await expect(fetcher.fetchImageFromURL(new URL('https://example.com/test/')))
