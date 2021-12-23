@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Seed the batch recording comments script
-// @version      2021.12.18
+// @version      2021.12.23
 // @description  Seed the recording comments for the batch recording comments userscripts with live and DJ-mix data.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -129,7 +129,10 @@ function formatRecordingBareArea(area) {
     else country = country.name;
 
     state = state && state.primary_code.split('-')[1];
-    city = city && city.name;
+    // Exception for Washington D.C., it's set as a subdivision in MB, leading
+    // to comments for venues in DC to be "live, ...: <venue>, DC, USA" without
+    // the city name.
+    city = (city && city.name) || (state === 'DC' && 'Washington');
     let parts = [city, state, country].filter((part) => part);
     return parts.join(', ');
 }
