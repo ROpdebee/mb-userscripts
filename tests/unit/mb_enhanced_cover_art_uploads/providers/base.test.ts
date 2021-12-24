@@ -288,6 +288,7 @@ describe('providers with track images', () => {
 
         describe('deduplicating by content', () => {
             it('deduplicates images with identical thumbnail content', async () => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call -- Outdated type declarations
                 when(mockXhr)
                     // Use specific blob for the main image
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

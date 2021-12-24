@@ -45,7 +45,7 @@ export function GMgetResourceUrl(resourceName: string): Promise<string> {
         // We cannot add a declaration for it, because it would either need to
         // be globally available in the namespace, or our local declarations
         // would replace `GM` for the rest of this file.
-        return GM.getResourceURL(resourceName);
+        return (GM.getResourceURL as typeof GM.getResourceUrl)(resourceName);
     } else {
         return Promise.resolve(GM_getResourceURL(resourceName));
     }
