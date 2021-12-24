@@ -199,10 +199,10 @@ export class VGMdbProvider extends CoverArtProvider {
 
         assert(metadata.link === 'album/' + id, `VGMdb.info returned wrong release: Requested album/${id}, got ${metadata.link}`);
 
-        return VGMdbProvider.#extractImagesFromApiMetadata(metadata);
+        return VGMdbProvider.extractImagesFromApiMetadata(metadata);
     }
 
-    static #extractImagesFromApiMetadata(metadata: AlbumMetadata): CoverArt[] {
+    private static extractImagesFromApiMetadata(metadata: AlbumMetadata): CoverArt[] {
         const covers = metadata.covers.map((cover) => {
             return { url: cover.full, caption: cover.name };
         });

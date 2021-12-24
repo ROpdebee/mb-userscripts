@@ -32,19 +32,19 @@ const DEFAULT_OPTIONS = {
 };
 
 export /* for tests */ class GitURLs {
-    readonly #owner: string;
-    readonly #repoName: string;
+    private readonly owner: string;
+    private readonly repoName: string;
 
     constructor(repoUrl: string) {
         const [owner, repoName] = new URL(repoUrl).pathname.match(/^\/([^/]+)\/([^/]+?)(?:\.git|$)/)?.slice(1) ?? [];
         if (!owner || !repoName) throw new Error(`Malformed git URL ${repoUrl}`);
 
-        this.#owner = owner;
-        this.#repoName = repoName;
+        this.owner = owner;
+        this.repoName = repoName;
     }
 
     get homepageURL(): string {
-        return `https://github.com/${this.#owner}/${this.#repoName}`;
+        return `https://github.com/${this.owner}/${this.repoName}`;
     }
 
     get issuesURL(): string {
@@ -52,11 +52,11 @@ export /* for tests */ class GitURLs {
     }
 
     constructRawURL(branchName: string, filePath: string): string {
-        return 'https://raw.github.com/' + [this.#owner, this.#repoName, branchName, filePath].join('/');
+        return 'https://raw.github.com/' + [this.owner, this.repoName, branchName, filePath].join('/');
     }
 
     constructSourceURL(userscriptName: string): string {
-        return 'https://github.com/' + [this.#owner, this.#repoName, 'tree/main/src', userscriptName].join('/');
+        return 'https://github.com/' + [this.owner, this.repoName, 'tree/main/src', userscriptName].join('/');
     }
 
     static fromPackageJson(npmPackage: PackageJson): GitURLs {

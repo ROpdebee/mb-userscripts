@@ -55,7 +55,7 @@ export class DispatchMap<Leaf> {
 
     // Using composition over inheritance because our interface is semantically
     // different from that of a standard map
-    #map: Map<string, Leaf | DispatchMap<Leaf>> = new Map();
+    private readonly map: Map<string, Leaf | DispatchMap<Leaf>> = new Map();
 
     set(domainPattern: string, leaf: Leaf): this {
         // Don't allow e.g. sub*.domain.com or *.com or domain.* or a.*.c.com.
@@ -66,39 +66,39 @@ export class DispatchMap<Leaf> {
             throw new Error('Invalid pattern: ' + domainPattern);
         }
 
-        this.#insert(domainParts.slice().reverse(), leaf);
+        this.insert(domainParts.slice().reverse(), leaf);
         return this;
     }
 
     get(domain: string): Leaf | undefined {
-        return this.#retrieve(splitDomain(domain).slice().reverse());
+        return this.retrieve(splitDomain(domain).slice().reverse());
     }
 
     // Workaround for https://github.com/babel/babel/issues/13875
     private _get(domainPart: '' | '*'): Leaf | undefined;
     private _get(domainPart: string): Leaf | DispatchMap<Leaf> | undefined;
     private _get(domainPart: string): Leaf | DispatchMap<Leaf> | undefined {
-        return this.#map.get(domainPart);
+        return this.map.get(domainPart);
     }
 
     private _set(domainPart: '' | '*', value: Leaf): this;
     private _set(domainPart: string, value: Leaf | DispatchMap<Leaf>): this;
     private _set(domainPart: string, value: Leaf | DispatchMap<Leaf>): this {
-        this.#map.set(domainPart, value);
+        this.map.set(domainPart, value);
         return this;
     }
 
-    #insertLeaf(key: string, leaf: Leaf): void {
+    private insertLeaf(key: string, leaf: Leaf): void {
         const existing = this._get(key);
         if (!existing) {
             this._set(key, leaf);
         } else {
-            assert(existing instanceof DispatchMap && !existing.#map.has(''), 'Duplicate leaf!');
+            assert(existing instanceof DispatchMap && !existing.map.has(''), 'Duplicate leaf!');
             existing._set('', leaf);
         }
     }
 
-    #insertInternal(keyPath: string[], leaf: Leaf): void {
+    private insertInternal(keyPath: string[], leaf: Leaf): void {
         const firstKey = keyPath[0];
         const existing = this._get(firstKey);
 
@@ -115,19 +115,19 @@ export class DispatchMap<Leaf> {
             }
         }
 
-        subMap.#insert(keyPath.slice(1), leaf);
+        subMap.insert(keyPath.slice(1), leaf);
     }
 
-    #insert(keyPath: string[], leaf: Leaf): void {
+    private insert(keyPath: string[], leaf: Leaf): void {
         if (keyPath.length > 1) {
-            this.#insertInternal(keyPath, leaf);
+            this.insertInternal(keyPath, leaf);
         } else {
             assert(keyPath.length === 1, 'Empty domain parts?!');
-            this.#insertLeaf(keyPath[0], leaf);
+            this.insertLeaf(keyPath[0], leaf);
         }
     }
 
-    #retrieveLeaf(key: string): Leaf | undefined {
+    private retrieveLeaf(key: string): Leaf | undefined {
         let child = this._get(key);
         if (child instanceof DispatchMap) {
             let newChild = child._get('');
@@ -141,7 +141,7 @@ export class DispatchMap<Leaf> {
         return child;
     }
 
-    #retrieveInternal(keyPath: string[]): Leaf | undefined {
+    private retrieveInternal(keyPath: string[]): Leaf | undefined {
         const child = this._get(keyPath[0]);
         if (!(child instanceof DispatchMap)) {
             // following the path may have led us to a leaf, but we need to
@@ -153,16 +153,16 @@ export class DispatchMap<Leaf> {
             return;
         }
 
-        return child.#retrieve(keyPath.slice(1));
+        return child.retrieve(keyPath.slice(1));
     }
 
-    #retrieve(keyPath: string[]): Leaf | undefined {
+    private retrieve(keyPath: string[]): Leaf | undefined {
         let child: Leaf | undefined;
 
         if (keyPath.length === 1) {
-            child = this.#retrieveLeaf(keyPath[0]);
+            child = this.retrieveLeaf(keyPath[0]);
         } else {
-            child = this.#retrieveInternal(keyPath);
+            child = this.retrieveInternal(keyPath);
         }
 
         if (typeof child === 'undefined') {

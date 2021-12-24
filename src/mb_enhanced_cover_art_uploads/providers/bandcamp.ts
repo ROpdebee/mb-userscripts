@@ -21,7 +21,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
 
     async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
-        const albumCoverUrl = this.#extractCover(respDocument);
+        const albumCoverUrl = this.extractCover(respDocument);
 
         const covers: CoverArt[] = [];
         if (albumCoverUrl) {
@@ -35,12 +35,12 @@ export class BandcampProvider extends ProviderWithTrackImages {
         }
 
         // Don't bother extracting track images if we only need the front cover
-        const trackImages = onlyFront ? [] : await this.#findTrackImages(respDocument, albumCoverUrl);
+        const trackImages = onlyFront ? [] : await this.findTrackImages(respDocument, albumCoverUrl);
 
-        return this.#amendSquareThumbnails(covers.concat(trackImages));
+        return this.amendSquareThumbnails(covers.concat(trackImages));
     }
 
-    #extractCover(doc: Document): string | undefined {
+    private extractCover(doc: Document): string | undefined {
         if (qsMaybe('#missing-tralbum-art', doc) !== null) {
             // No images
             return;
@@ -49,7 +49,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         return qs<HTMLAnchorElement>('#tralbumArt > .popupImage', doc).href;
     }
 
-    async #findTrackImages(doc: Document, mainUrl?: string): Promise<CoverArt[]> {
+    private async findTrackImages(doc: Document, mainUrl?: string): Promise<CoverArt[]> {
         // Unfortunately it doesn't seem like they can be extracted from the
         // album page itself, so we have to load each of the tracks separately.
         // Deliberately throttling these requests as to not flood Bandcamp and
@@ -72,7 +72,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // e.g. using an async generator, it might lead to issues with users
         // submitting the upload form before all track images are fetched...
         const trackImages = await Promise.all(trackRows
-            .map((trackRow) => this.#findTrackImage(trackRow, throttledFetchPage)));
+            .map((trackRow) => this.findTrackImage(trackRow, throttledFetchPage)));
         const mergedTrackImages = await this.mergeTrackImages(trackImages, mainUrl, true);
         if (mergedTrackImages.length) {
             LOGGER.info(`Found ${mergedTrackImages.length} unique track images`);
@@ -83,7 +83,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         return mergedTrackImages;
     }
 
-    async #findTrackImage(trackRow: HTMLTableRowElement, fetchPage: (url: URL) => Promise<string>): Promise<ParsedTrackImage | undefined> {
+    private async findTrackImage(trackRow: HTMLTableRowElement, fetchPage: (url: URL) => Promise<string>): Promise<ParsedTrackImage | undefined> {
         // Account for alphabetical track numbers too
         const trackNum = trackRow.getAttribute('rel')?.match(/tracknum=(\w+)/)?.[1];
         const trackUrl = qsMaybe<HTMLAnchorElement>('.title > a', trackRow)?.href;
@@ -96,7 +96,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
 
         try {
             const trackPage = parseDOM(await fetchPage(new URL(trackUrl)), trackUrl);
-            const imageUrl = this.#extractCover(trackPage);
+            const imageUrl = this.extractCover(trackPage);
             /* istanbul ignore if: Cannot find example */
             if (!imageUrl) {
                 // Track has no cover
@@ -113,7 +113,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         }
     }
 
-    async #amendSquareThumbnails(covers: CoverArt[]): Promise<CoverArt[]> {
+    private async amendSquareThumbnails(covers: CoverArt[]): Promise<CoverArt[]> {
         return Promise.all(covers.map(async (cover) => {
             // To figure out the original image's dimensions, we need to fetch
             // the cover itself, preferably the full-sized one. This means that

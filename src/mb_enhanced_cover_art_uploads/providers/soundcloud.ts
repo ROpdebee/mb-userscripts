@@ -81,21 +81,21 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         }
 
         if (metadata.hydratable === 'sound') {
-            return this.#extractCoverFromTrackMetadata(metadata as SCHydrationSound);
+            return this.extractCoverFromTrackMetadata(metadata as SCHydrationSound);
         } else {
             assert(metadata.hydratable === 'playlist');
-            return this.#extractCoversFromSetMetadata(metadata as SCHydrationPlaylist, onlyFront);
+            return this.extractCoversFromSetMetadata(metadata as SCHydrationPlaylist, onlyFront);
         }
     }
 
-    extractMetadataFromJS(pageContent: string): SCHydration[] | undefined {
+    private extractMetadataFromJS(pageContent: string): SCHydration[] | undefined {
         const jsonData = pageContent.match(/>window\.__sc_hydration = (.+);<\/script>/)?.[1];
         /* istanbul ignore if: Shouldn't happen */
         if (!jsonData) return;
         return safeParseJSON<SCHydration[]>(jsonData);
     }
 
-    #extractCoverFromTrackMetadata(metadata: SCHydrationSound): CoverArt[] {
+    private extractCoverFromTrackMetadata(metadata: SCHydrationSound): CoverArt[] {
         if (!metadata.data.artwork_url) {
             return [];
         }
@@ -106,7 +106,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         }];
     }
 
-    async #extractCoversFromSetMetadata(metadata: SCHydrationPlaylist, onlyFront: boolean): Promise<CoverArt[]> {
+    private async extractCoversFromSetMetadata(metadata: SCHydrationPlaylist, onlyFront: boolean): Promise<CoverArt[]> {
         const covers: CoverArt[] = [];
         /* istanbul ignore else: Cannot find case */
         if (metadata.data.artwork_url) {

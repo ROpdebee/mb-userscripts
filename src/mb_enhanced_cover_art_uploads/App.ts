@@ -15,40 +15,40 @@ import { InputForm } from './ui/main';
 import { StatusBanner } from './ui/status_banner';
 
 export class App {
-    #note: EditNote;
-    #fetcher: ImageFetcher;
-    #ui: InputForm;
-    #urlsInProgress: Set<string>;
+    private readonly note: EditNote;
+    private readonly fetcher: ImageFetcher;
+    private readonly ui: InputForm;
+    private readonly urlsInProgress: Set<string>;
     onlyFront = false;
 
     constructor() {
-        this.#note = EditNote.withFooterFromGMInfo();
-        this.#fetcher = new ImageFetcher();
-        this.#urlsInProgress = new Set();
+        this.note = EditNote.withFooterFromGMInfo();
+        this.fetcher = new ImageFetcher();
+        this.urlsInProgress = new Set();
 
         const banner = new StatusBanner();
         LOGGER.addSink(banner);
-        this.#ui = new InputForm(banner.htmlElement, this);
+        this.ui = new InputForm(banner.htmlElement, this);
     }
 
     async processURL(url: URL): Promise<void> {
         // Don't process a URL if we're already doing so
-        if (this.#urlsInProgress.has(url.href)) {
+        if (this.urlsInProgress.has(url.href)) {
             return;
         }
 
         try {
-            this.#urlsInProgress.add(url.href);
-            await this.#_processURL(url);
+            this.urlsInProgress.add(url.href);
+            await this._processURL(url);
         } finally {
-            this.#urlsInProgress.delete(url.href);
+            this.urlsInProgress.delete(url.href);
         }
     }
 
-    async #_processURL(url: URL): Promise<void> {
+    private async _processURL(url: URL): Promise<void> {
         let fetchResult: FetchedImages;
         try {
-            fetchResult = await this.#fetcher.fetchImages(url, this.onlyFront);
+            fetchResult = await this.fetcher.fetchImages(url, this.onlyFront);
         } catch (err) {
             LOGGER.error('Failed to grab images', err);
             return;
@@ -61,7 +61,7 @@ export class App {
             return;
         }
 
-        fillEditNote([fetchResult], '', this.#note);
+        fillEditNote([fetchResult], '', this.note);
         if (fetchResult.images.length) {
             LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);
         }
@@ -77,7 +77,7 @@ export class App {
         try {
             fetchResults = await Promise.all(params.images
                 .map(async (cover): Promise<[FetchedImages, CoverArt]> => {
-                    return [await this.#fetcher.fetchImages(cover.url, this.onlyFront), cover];
+                    return [await this.fetcher.fetchImages(cover.url, this.onlyFront), cover];
                 }));
         } catch (err) {
             LOGGER.error('Failed to grab images', err);
@@ -93,7 +93,7 @@ export class App {
             }
         }
 
-        fillEditNote(fetchResults.map((pair) => pair[0]), params.origin ?? '', this.#note);
+        fillEditNote(fetchResults.map((pair) => pair[0]), params.origin ?? '', this.note);
         const totalNumImages = fetchResults.reduce((acc, pair) => acc + pair[0].images.length, 0);
         if (totalNumImages) {
             LOGGER.success(`Successfully added ${totalNumImages} image(s)`);
@@ -124,7 +124,7 @@ export class App {
         await Promise.all(supportedURLs.map((url) => {
             const provider = getProvider(url);
             assertHasValue(provider);
-            return this.#ui.addImportButton(syncProcessURL.bind(this, url), url.href, provider);
+            return this.ui.addImportButton(syncProcessURL.bind(this, url), url.href, provider);
         }));
     }
 }

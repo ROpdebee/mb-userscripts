@@ -77,17 +77,17 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     async findGenericPhysicalImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
-        const imgs = this.#extractEmbeddedJSImages(pageContent, /\s*'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
+        const imgs = this.extractEmbeddedJSImages(pageContent, /\s*'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
         assertNonNull(imgs, 'Failed to extract images from embedded JS on generic physical page');
 
         return imgs.map((img) => {
             // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
-            return this.#convertVariant({ url: img.hiRes ?? img.large, variant: img.variant });
+            return this.convertVariant({ url: img.hiRes ?? img.large, variant: img.variant });
         });
     }
 
     async findPhysicalAudiobookImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
-        const imgs = this.#extractEmbeddedJSImages(pageContent, /\s*'imageGalleryData' : (.+),$/m) as Array<{ mainUrl: string }> | null;
+        const imgs = this.extractEmbeddedJSImages(pageContent, /\s*'imageGalleryData' : (.+),$/m) as Array<{ mainUrl: string }> | null;
         assertNonNull(imgs, 'Failed to extract images from embedded JS on physical audiobook page');
 
         // Amazon embeds no image variants on these pages, so we don't know the types
@@ -95,7 +95,7 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     async findDigitalImages(_url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
-        return this.#extractFrontCover(pageDom, DIGITAL_FRONT_IMAGE_QUERY);
+        return this.extractFrontCover(pageDom, DIGITAL_FRONT_IMAGE_QUERY);
     }
 
     async findAudibleImages(url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
@@ -109,10 +109,10 @@ export class AmazonProvider extends CoverArtProvider {
             return this.findAudibleImages(audibleUrl, audibleContent, audibleDom);
         }
 
-        return this.#extractFrontCover(pageDom, AUDIBLE_FRONT_IMAGE_QUERY);
+        return this.extractFrontCover(pageDom, AUDIBLE_FRONT_IMAGE_QUERY);
     }
 
-    #extractFrontCover(pageDom: Document, selector: string): CoverArt[] {
+    private extractFrontCover(pageDom: Document, selector: string): CoverArt[] {
         const productImage = qsMaybe<HTMLImageElement>(selector, pageDom);
         assertNonNull(productImage, 'Could not find front image on Amazon page');
         return [{
@@ -122,7 +122,7 @@ export class AmazonProvider extends CoverArtProvider {
         }];
     }
 
-    #extractEmbeddedJSImages(pageContent: string, jsonRegex: RegExp): object[] | null {
+    private extractEmbeddedJSImages(pageContent: string, jsonRegex: RegExp): object[] | null {
         const embeddedImages = pageContent.match(jsonRegex)?.[1];
         if (!embeddedImages) {
             LOGGER.debug('Could not extract embedded JS images, regex did not match');
@@ -138,7 +138,7 @@ export class AmazonProvider extends CoverArtProvider {
         return imgs;
     }
 
-    #convertVariant(cover: { url: string; variant?: string | null }): CoverArt {
+    private convertVariant(cover: { url: string; variant?: string | null }): CoverArt {
         const url = new URL(cover.url);
         const type = cover.variant && VARIANT_TYPE_MAPPING[cover.variant];
         LOGGER.debug(`${url.href} has the Amazon image variant code '${cover.variant}'`);

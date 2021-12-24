@@ -177,12 +177,12 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
     // payload is identical if the source images are identical, so then we don't
     // have to load the full image.
 
-    #groupIdenticalImages<T>(images: T[], getImageUniqueId: (img: T) => string, mainUniqueId?: string): Map<string, T[]> {
+    private groupIdenticalImages<T>(images: T[], getImageUniqueId: (img: T) => string, mainUniqueId?: string): Map<string, T[]> {
         const uniqueImages = images.filter((img) => getImageUniqueId(img) !== mainUniqueId);
         return groupBy(uniqueImages, getImageUniqueId, (img) => img);
     }
 
-    async #urlToDigest(imageUrl: string): Promise<string> {
+    private async urlToDigest(imageUrl: string): Promise<string> {
         const resp = await gmxhr(this.imageToThumbnailUrl(imageUrl), {
             responseType: 'blob',
         });
@@ -199,7 +199,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         const allTrackImages = filterNonNull(parsedTrackImages);
 
         // First pass: URL only
-        const groupedImages = this.#groupIdenticalImages(allTrackImages, (img) => img.url, mainUrl);
+        const groupedImages = this.groupIdenticalImages(allTrackImages, (img) => img.url, mainUrl);
 
         // Second pass: Thumbnail content
         // We do not need to deduplicate by content if there's only one track
@@ -209,13 +209,13 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
             // Compute unique digests of all thumbnail images. We'll use these
             // digests in `#groupIdenticalImages` to group by thumbnail content.
-            const mainDigest = mainUrl ? await this.#urlToDigest(mainUrl) : '';
+            const mainDigest = mainUrl ? await this.urlToDigest(mainUrl) : '';
 
             // Extend the track image with the track's unique digest. We compute
             // this digest once for each unique URL.
             const tracksWithDigest = await Promise.all([...groupedImages.entries()]
                 .map(async ([coverUrl, trackImages]) => {
-                    const digest = await this.#urlToDigest(coverUrl);
+                    const digest = await this.urlToDigest(coverUrl);
                     return trackImages.map((trackImage) => {
                         return {
                             ...trackImage,
@@ -224,7 +224,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
                     });
                 }));
 
-            const groupedThumbnails = this.#groupIdenticalImages(tracksWithDigest.flat(), (trackWithDigest) => trackWithDigest.digest, mainDigest);
+            const groupedThumbnails = this.groupIdenticalImages(tracksWithDigest.flat(), (trackWithDigest) => trackWithDigest.digest, mainDigest);
             // The previous `groupedImages` map groups images by URL. Overwrite
             // this to group images by thumbnail content. Keys will remain URLs,
             // we'll use the URL of the first image in the group. It doesn't
@@ -244,14 +244,14 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
             results.push({
                 url: new URL(imgUrl),
                 types: [ArtworkTypeIDs.Track],
-                comment: this.#createTrackImageComment(trackImages.map((trackImage) => trackImage.trackNumber)) || undefined,
+                comment: this.createTrackImageComment(trackImages.map((trackImage) => trackImage.trackNumber)) || undefined,
             });
         });
 
         return results;
     }
 
-    #createTrackImageComment(trackNumbers: Array<string | undefined>): string {
+    private createTrackImageComment(trackNumbers: Array<string | undefined>): string {
         const definedTrackNumbers = filterNonNull(trackNumbers);
         if (!definedTrackNumbers.length) return '';
 
