@@ -55,7 +55,7 @@ async function parseWARCFields<T>(record: WARCRecord): Promise<T> {
     assert(record.warcContentType === 'application/warc-fields', 'Wrong content type for record');
     const content = await record.contentText();
     return Object.fromEntries(content.split('\r\n')
-        .map((line) => line.split(': ')));
+        .map((line) => line.split(': '))) as T;
 }
 
 async function populateHarLogInfo(record: WARCRecord, log: HarLog): Promise<void> {
