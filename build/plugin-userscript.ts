@@ -76,7 +76,7 @@ async function loadPackageJson(): Promise<PackageJson> {
         encoding: 'utf-8',
     });
 
-    return JSON.parse(content);
+    return JSON.parse(content) as PackageJson;
 }
 
 export /* for tests */ class MetadataGenerator {
