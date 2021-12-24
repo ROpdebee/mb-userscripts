@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment -- Cannot fix this in JS code. */
 /* eslint-disable @typescript-eslint/explicit-function-return-type -- These are present in JSDoc comments. */
 
 /**

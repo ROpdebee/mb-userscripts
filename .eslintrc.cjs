@@ -135,7 +135,6 @@ module.exports = {
 
         // Temporarily disabled so we can inspect each warning one-by-one
         // TODO: Enable these.
-        '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',

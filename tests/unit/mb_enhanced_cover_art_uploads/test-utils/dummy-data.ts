@@ -79,6 +79,7 @@ export function createXhrResponse(response?: Partial<GM.Response<never>>): GM.Re
         status: response.status ?? 200,
         readyState: response.readyState ?? 4,
         responseHeaders: response.responseHeaders ?? '',
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Target is also any
         response: response.response ?? createBlob(),
         responseText: response.responseText ?? '',
         responseXML: response.responseXML ?? false,
