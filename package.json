@@ -43,7 +43,7 @@
     "@types/greasemonkey": "4.0.2",
     "@types/jest": "27.0.3",
     "@types/jest-when": "2.7.4",
-    "@types/jquery": "3.5.10",
+    "@types/jquery": "3.5.11",
     "@types/postcss-preset-env": "6.7.3",
     "@types/rollup__plugin-virtual": "2.0.1",
     "@types/rollup-plugin-progress": "1.1.1",
