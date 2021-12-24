@@ -1,5 +1,6 @@
 // Utilities to mock GM functions
-import * as compat from '@lib/compat';
 
-export const mockGMgetResourceURL = compat.GMgetResourceUrl as jest.MockedFunction<typeof compat.GMgetResourceUrl>;
-export const mockGMxmlHttpRequest = compat.GMxmlHttpRequest as jest.MockedFunction<typeof compat.GMxmlHttpRequest>;
+/* eslint-disable jest/unbound-method -- Fine */
+export const mockGMgetResourceURL = GM.getResourceUrl as jest.MockedFunction<typeof GM.getResourceUrl>;
+export const mockGMxmlHttpRequest = GM.xmlHttpRequest as jest.MockedFunction<typeof GM.xmlHttpRequest>;
+/* eslint-enable jest/unbound-method */
