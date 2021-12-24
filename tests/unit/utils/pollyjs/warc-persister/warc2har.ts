@@ -1,15 +1,10 @@
-import type { Har, HarEntry, HarLog as RealHarLog, HarRequest, HarResponse } from '@pollyjs/persister';
+import type { Har, HarEntry, HarLog, HarRequest, HarResponse } from '@pollyjs/persister';
 import type { WARCRecord } from 'warcio/src/warcrecord';
 import { WARCParser } from 'warcio/src/warcparser';
 
 import { assert, assertHasValue } from '@lib/util/assert';
 
 import type { WARCInfoFields, WARCRecordMetadataFields } from './types';
-
-interface HarLog extends RealHarLog {
-    creator: Record<string, string>;
-    _recordingName: string;
-}
 
 export default async function warc2har(warc: Uint8Array): Promise<Har> {
     const harLog = {
@@ -84,7 +79,6 @@ async function populateEntryMetadata(record: WARCRecord, entry: HarEntry): Promi
     // @ts-expect-error hack
     entry.responseShouldBeEncoded = JSON.parse(metadata.responseDecoded);
 
-    // @ts-expect-error: Typo
     const request: HarRequest = entry.request;
     request.headersSize = parseInt(metadata.warcRequestHeadersSize);
     request.cookies = JSON.parse(metadata.warcRequestCookies);
@@ -114,7 +108,6 @@ function parseQueryString(path: string): Array<{ name: string; value: string}> {
 async function populateEntryRequest(record: WARCRecord, entry: HarEntry): Promise<void> {
     const [method, path, httpVersion] = record.httpHeaders.statusline.split(' ');
     const request: HarRequest = {
-        // @ts-expect-error: Typo in declarations
         ...entry.request,
         httpVersion,
         method,
@@ -124,7 +117,6 @@ async function populateEntryRequest(record: WARCRecord, entry: HarEntry): Promis
         queryString: parseQueryString(path),
     };
 
-    // @ts-expect-error: Typo in declarations
     entry.request = request;
 }
 

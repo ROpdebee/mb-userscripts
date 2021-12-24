@@ -1,3 +1,5 @@
+import '@pollyjs/persister';
+
 export interface WARCInfoFields {
     software: string;
     harVersion: string;
@@ -19,4 +21,20 @@ export interface WARCRecordMetadataFields {
     warcResponseCookies: string;
     warcResponseContentEncoding?: string;
     responseDecoded: string;
+}
+
+// Fix @pollyjs/persister type declarations through declaration merging.
+declare module '@pollyjs/persister' {
+    interface HarEntry {
+        request: HarRequest;
+    }
+
+    interface HarLog {
+        _recordingName: string;
+        creator: {
+            name: string;
+            version: string;
+            comment: string;
+        };
+    }
 }
