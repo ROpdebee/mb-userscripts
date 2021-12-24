@@ -538,6 +538,7 @@ describe('fetching images from providers', () => {
 
             await expect(fetcher.fetchImagesFromProvider(new URL('https://example.com'), fakeProvider, true))
                 .resolves.toMatchObject({
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     images: expect.toBeArrayOfSize(2),
                 });
             expect(mockFetchImageContents).toHaveBeenCalledTimes(2);

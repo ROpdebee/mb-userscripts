@@ -31,7 +31,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
                 const resp: GM.Response<Context> = {
                     readyState: 4,
                     status: 0,
-                    statusText: err.toString(),
+                    statusText: `${err}`,
                     responseHeaders: '',
                     finalUrl: options.url,
                     context: options.context,

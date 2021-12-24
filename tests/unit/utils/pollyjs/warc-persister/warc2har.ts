@@ -3,6 +3,7 @@ import type { WARCRecord } from 'warcio/src/warcrecord';
 import { WARCParser } from 'warcio/src/warcparser';
 
 import { assert, assertHasValue } from '@lib/util/assert';
+import { safeParseJSON } from '@lib/util/json';
 
 import type { WARCInfoFields, WARCRecordMetadataFields } from './types';
 
@@ -60,7 +61,7 @@ async function parseWARCFields<T>(record: WARCRecord): Promise<T> {
 async function populateHarLogInfo(record: WARCRecord, log: HarLog): Promise<void> {
     const metadata = await parseWARCFields<WARCInfoFields>(record);
     log.version = metadata.harVersion;
-    log.creator = JSON.parse(metadata.harCreator);
+    log.creator = safeParseJSON<HarLog['creator']>(metadata.harCreator, 'Malformed WARC record: Missing `creator` field');
 
     const filename = record.warcHeader('WARC-Filename');
     assertHasValue(filename);
@@ -72,18 +73,18 @@ async function populateEntryMetadata(record: WARCRecord, entry: HarEntry): Promi
 
     entry._id = metadata.harEntryId;
     entry._order = parseInt(metadata.harEntryOrder);
-    entry.cache = JSON.parse(metadata.cache);
+    entry.cache = safeParseJSON<HarEntry['cache']>(metadata.cache, 'Malformed WARC record: Missing `cache` field');
     entry.startedDateTime = metadata.startedDateTime;
     entry.time = parseInt(metadata.time);
-    entry.timings = JSON.parse(metadata.timings);
+    entry.timings = safeParseJSON<HarEntry['timings']>(metadata.timings, 'Malformed WARC record: Missing `timings` field');
     // @ts-expect-error hack
-    entry.responseShouldBeEncoded = JSON.parse(metadata.responseDecoded);
+    entry.responseShouldBeEncoded = safeParseJSON<boolean>(metadata.responseDecoded, 'Malformed WARC record: Missing `responseShouldBeEncoded` field');
 
     const request: HarRequest = entry.request;
     request.headersSize = parseInt(metadata.warcRequestHeadersSize);
-    request.cookies = JSON.parse(metadata.warcRequestCookies);
+    request.cookies = safeParseJSON<HarRequest['cookies']>(metadata.warcRequestCookies, 'Malformed WARC record: Missing `cookies` field on request');
 
-    entry.response.cookies = JSON.parse(metadata.warcResponseCookies);
+    entry.response.cookies = safeParseJSON<HarResponse['cookies']>(metadata.warcResponseCookies, 'Malformed WARC record: Missing `cookies` field on response');
     entry.response.headersSize = parseInt(metadata.warcResponseHeadersSize);
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     entry.response.content = {} as { mimeType: string };
