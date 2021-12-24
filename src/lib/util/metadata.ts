@@ -26,7 +26,7 @@ export interface UserscriptDefaultMetadata {
 }
 
 export type UserscriptMetadata = UserscriptCustomMetadata & Partial<UserscriptDefaultMetadata>;
-export type AllUserscriptMetadata = UserscriptCustomMetadata & UserscriptDefaultMetadata;
+export type AllUserscriptMetadata = UserscriptCustomMetadata & UserscriptDefaultMetadata & { version: string };
 
 
 export function transformMBMatchURL(requireString: string): string {
