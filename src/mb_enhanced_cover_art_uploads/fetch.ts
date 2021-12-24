@@ -39,17 +39,17 @@ function getFilename(url: URL): string {
 }
 
 export class ImageFetcher {
-    #doneImages: Set<string>;
+    private readonly doneImages: Set<string>;
     // Monotonically increasing ID to uniquely identify the image. We use this
     // so we can later set the image type.
-    #lastId = 0;
+    private lastId = 0;
 
     constructor() {
-        this.#doneImages = new Set();
+        this.doneImages = new Set();
     }
 
     async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImages> {
-        if (this.#urlAlreadyAdded(url)) {
+        if (this.urlAlreadyAdded(url)) {
             LOGGER.warn(`${getFilename(url)} has already been added`);
             return {
                 images: [],
@@ -78,7 +78,7 @@ export class ImageFetcher {
         if (!skipMaximisation) {
             for await (const maxCandidate of getMaximisedCandidates(url)) {
                 const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
-                if (this.#urlAlreadyAdded(maxCandidate.url)) {
+                if (this.urlAlreadyAdded(maxCandidate.url)) {
                     LOGGER.warn(`${candidateName} has already been added`);
                     return;
                 }
@@ -99,9 +99,9 @@ export class ImageFetcher {
             fetchResult = await this.fetchImageContents(url, getFilename(url), {});
         }
 
-        this.#doneImages.add(fetchResult.fetchedUrl.href);
-        this.#doneImages.add(fetchResult.requestedUrl.href);
-        this.#doneImages.add(url.href);
+        this.doneImages.add(fetchResult.fetchedUrl.href);
+        this.doneImages.add(fetchResult.requestedUrl.href);
+        this.doneImages.add(url.href);
 
         return {
             content: fetchResult.file,
@@ -120,13 +120,13 @@ export class ImageFetcher {
 
         // This could throw, assuming caller will catch.
         const images = await provider.findImages(url, onlyFront);
-        const finalImages = onlyFront ? this.#retainOnlyFront(images) : images;
+        const finalImages = onlyFront ? this.retainOnlyFront(images) : images;
         const hasMoreImages = onlyFront && images.length !== finalImages.length;
 
         LOGGER.info(`Found ${finalImages.length || 'no'} images in ${provider.name} release`);
         const fetchResults: FetchedImage[] = [];
         for (const img of finalImages) {
-            if (this.#urlAlreadyAdded(img.url)) {
+            if (this.urlAlreadyAdded(img.url)) {
                 LOGGER.warn(`${getFilename(img.url)} has already been added`);
                 continue;
             }
@@ -151,7 +151,7 @@ export class ImageFetcher {
         if (!hasMoreImages) {
             // Don't mark the whole provider URL as done if we haven't grabbed
             // all images.
-            this.#doneImages.add(url.href);
+            this.doneImages.add(url.href);
         } else {
             LOGGER.warn(`Not all images were fetched: ${images.length - finalImages.length} covers were skipped.`);
         }
@@ -162,7 +162,7 @@ export class ImageFetcher {
         };
     }
 
-    #retainOnlyFront(images: CoverArt[]): CoverArt[] {
+    private retainOnlyFront(images: CoverArt[]): CoverArt[] {
         // Return only the front images. If no image with Front type is found
         // in the array, assume the first image is the front one. If there are
         // multiple front images, return them all (e.g. Bandcamp original and
@@ -171,9 +171,9 @@ export class ImageFetcher {
         return filtered.length ? filtered : images.slice(0, 1);
     }
 
-    #createUniqueFilename(filename: string, mimeType: string): string {
+    private createUniqueFilename(filename: string, mimeType: string): string {
         const filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif|pdf)$/i, '');
-        return `${filenameWithoutExt}.${this.#lastId++}.${mimeType.split('/')[1]}`;
+        return `${filenameWithoutExt}.${this.lastId++}.${mimeType.split('/')[1]}`;
     }
 
     async fetchImageContents(url: URL, fileName: string, headers: Record<string, string>): Promise<ImageContents> {
@@ -226,12 +226,12 @@ export class ImageFetcher {
             wasRedirected,
             file: new File(
                 [resp.response as Blob],
-                this.#createUniqueFilename(fileName, mimeType),
+                this.createUniqueFilename(fileName, mimeType),
                 { type: mimeType }),
         };
     }
 
-    #urlAlreadyAdded(url: URL): boolean {
-        return this.#doneImages.has(url.href);
+    private urlAlreadyAdded(url: URL): boolean {
+        return this.doneImages.has(url.href);
     }
 }

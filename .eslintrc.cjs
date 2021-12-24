@@ -64,11 +64,17 @@ module.exports = {
         }],
         'simple-import-sort/exports': 'error',
 
-        // Require non-initialised variables to have a type annotation. Per
-        // https://github.com/typescript-eslint/typescript-eslint/issues/4342#issuecomment-1000452796
         'no-restricted-syntax': ['error', {
+            // Require non-initialised variables to have a type annotation. Per
+            // https://github.com/typescript-eslint/typescript-eslint/issues/4342#issuecomment-1000452796
             selector: ':not(ForOfStatement) > VariableDeclaration > VariableDeclarator[init = null] > Identifier.id:not([typeAnnotation])',
             message: 'Variable declaration without initialiser requires a type annotation'
+        }, {
+            // Disallow ES private (#) field and method declarations in favour
+            // of TypeScript access modifiers. ES modifiers need to be
+            // transpiled, TS modifiers only exist at compile time.
+            selector: ':matches(MethodDefinition, PropertyDefinition) > PrivateIdentifier',
+            message: 'Use TypeScript `private` instead.'
         }],
 
         // TypeScript-specific linting rules as the default, since 99% of the

@@ -9,9 +9,9 @@ import USERSCRIPT_NAME from 'consts:userscript-name';
 import css from './main.scss';
 
 export class InputForm {
-    #urlInput: HTMLInputElement;
-    #buttonContainer: HTMLDivElement;
-    #orSpan: HTMLSpanElement;
+    private readonly urlInput: HTMLInputElement;
+    private readonly buttonContainer: HTMLDivElement;
+    private readonly orSpan: HTMLSpanElement;
 
     constructor(banner: HTMLElement, app: App) {
         // Inject our custom CSS
@@ -20,7 +20,7 @@ export class InputForm {
         </style>);
 
         // The input element into which URLs will be pasted.
-        this.#urlInput = <input
+        this.urlInput = <input
             type='url'
             placeholder='or paste one or more URLs here'
             size={47}
@@ -44,8 +44,8 @@ export class InputForm {
                     await app.processURL(url);
                 }
 
-                if (this.#urlInput.value === oldValue) {
-                    this.#urlInput.value = '';
+                if (this.urlInput.value === oldValue) {
+                    this.urlInput.value = '';
                 }
             }}
         /> as HTMLInputElement;
@@ -60,7 +60,7 @@ export class InputForm {
 
         // Container element for the URL input and additional information
         const container = <div className='ROpdebee_paste_url_cont'>
-            {this.#urlInput}
+            {this.urlInput}
             <a
                 href='https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md'
                 target='_blank'
@@ -72,17 +72,17 @@ export class InputForm {
             {banner}
         </div>;
 
-        this.#buttonContainer = <div className='ROpdebee_import_url_buttons buttons'/> as HTMLDivElement;
+        this.buttonContainer = <div className='ROpdebee_import_url_buttons buttons'/> as HTMLDivElement;
 
         // If we inline this into the function call below, nativejsx crashes.
         // It might have something to do with the optional chaining on the
         // function calls.
-        this.#orSpan = <span style={{ display: 'none' }}>or</span>;
+        this.orSpan = <span style={{ display: 'none' }}>or</span>;
 
         qs('#drop-zone')
             .insertAdjacentElement('afterend', container)
-            ?.insertAdjacentElement('afterend', this.#orSpan)
-            ?.insertAdjacentElement('afterend', this.#buttonContainer);
+            ?.insertAdjacentElement('afterend', this.orSpan)
+            ?.insertAdjacentElement('afterend', this.buttonContainer);
     }
 
     async addImportButton(onClickCallback: () => void, url: string, provider: CoverArtProvider): Promise<void> {
@@ -96,7 +96,7 @@ export class InputForm {
             <span>{'Import from ' + provider.name}</span>
         </button>;
 
-        this.#orSpan.style.display = '';
-        this.#buttonContainer.insertAdjacentElement('beforeend', button);
+        this.orSpan.style.display = '';
+        this.buttonContainer.insertAdjacentElement('beforeend', button);
     }
 }

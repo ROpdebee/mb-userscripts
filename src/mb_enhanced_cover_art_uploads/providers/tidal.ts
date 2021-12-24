@@ -33,20 +33,20 @@ export class TidalProvider extends CoverArtProvider {
     name = 'Tidal';
     urlRegex = /\/album\/(\d+)/;
 
-    #countryCode: string | null = null;
+    private countryCode: string | null = null;
 
     async getCountryCode(): Promise<string> {
-        if (!this.#countryCode) {
+        if (!this.countryCode) {
             const resp = await gmxhr('https://listen.tidal.com/v1/country/context?countryCode=WW&locale=en_US&deviceType=BROWSER', {
                 headers: {
                     'x-tidal-token': APP_ID,
                 },
             });
             const codeResponse = safeParseJSON<{ countryCode: string }>(resp.responseText, 'Invalid JSON response from Tidal API for country code');
-            this.#countryCode = codeResponse.countryCode;
+            this.countryCode = codeResponse.countryCode;
         }
-        assertHasValue(this.#countryCode, 'Cannot determine Tidal country');
-        return this.#countryCode;
+        assertHasValue(this.countryCode, 'Cannot determine Tidal country');
+        return this.countryCode;
     }
 
     async getCoverUrlFromMetadata(albumId: string): Promise<string> {

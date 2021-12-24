@@ -21,19 +21,19 @@ const DEFAULT_OPTIONS = {
 };
 
 export class Logger {
-    #configuration: LoggerOptions;
+    private readonly _configuration: LoggerOptions;
 
     constructor(options?: Partial<LoggerOptions>) {
-        this.#configuration = {
+        this._configuration = {
             ...DEFAULT_OPTIONS,
             ...options,
         };
     }
 
-    #fireHandlers(level: LogLevel, message: string, exception?: unknown): void {
-        if (level < this.#configuration.logLevel) return;
+    private fireHandlers(level: LogLevel, message: string, exception?: unknown): void {
+        if (level < this._configuration.logLevel) return;
 
-        this.#configuration.sinks
+        this._configuration.sinks
             .forEach((sink) => {
                 const handler = sink[HANDLER_NAMES[level]];
                 if (!handler) return;
@@ -50,34 +50,34 @@ export class Logger {
     }
 
     debug(message: string): void {
-        this.#fireHandlers(LogLevel.DEBUG, message);
+        this.fireHandlers(LogLevel.DEBUG, message);
     }
     log(message: string): void {
-        this.#fireHandlers(LogLevel.LOG, message);
+        this.fireHandlers(LogLevel.LOG, message);
     }
     info(message: string): void {
-        this.#fireHandlers(LogLevel.INFO, message);
+        this.fireHandlers(LogLevel.INFO, message);
     }
     success(message: string): void {
-        this.#fireHandlers(LogLevel.SUCCESS, message);
+        this.fireHandlers(LogLevel.SUCCESS, message);
     }
     warn(message: string, exception?: unknown): void {
-        this.#fireHandlers(LogLevel.WARNING, message, exception);
+        this.fireHandlers(LogLevel.WARNING, message, exception);
     }
     error(message: string, exception?: unknown): void {
-        this.#fireHandlers(LogLevel.ERROR, message, exception);
+        this.fireHandlers(LogLevel.ERROR, message, exception);
     }
 
     configure(options: Partial<LoggerOptions>): void {
-        Object.assign(this.#configuration, options);
+        Object.assign(this._configuration, options);
     }
 
     get configuration(): Readonly<LoggerOptions> {
-        return this.#configuration;
+        return this._configuration;
     }
 
     addSink(sink: LoggingSink): void {
-        this.#configuration.sinks.push(sink);
+        this._configuration.sinks.push(sink);
     }
 }
 
