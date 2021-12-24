@@ -199,7 +199,7 @@ describe('metadata generator', () => {
 
             await expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .rejects
-                .toSatisfy((err) => err.message.startsWith('No author set'));
+                .toSatisfy<Error>((err) => err.message.startsWith('No author set'));
         });
 
         it('uses author string in package.json', async () => {

@@ -1,4 +1,6 @@
 // GM_xmlhttpRequest adapter for pollyjs
+import '@lib/compat'; // To fix GM.Request declaration
+
 import { Buffer } from 'buffer';
 
 import type { Request } from '@pollyjs/core';
