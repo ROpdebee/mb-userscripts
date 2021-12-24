@@ -50,7 +50,7 @@
     "@types/setup-polly-jest": "0.5.1",
     "@typescript-eslint/eslint-plugin": "5.8.0",
     "@typescript-eslint/parser": "5.8.0",
-    "babel-plugin-transform-async-to-promises": "0.8.16",
+    "babel-plugin-transform-async-to-promises": "0.8.17",
     "confusing-browser-globals": "1.0.11",
     "eslint": "8.5.0",
     "eslint-plugin-eslint-comments": "3.2.0",
