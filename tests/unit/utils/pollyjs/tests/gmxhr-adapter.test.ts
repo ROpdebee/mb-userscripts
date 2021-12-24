@@ -29,6 +29,7 @@ describe('gmxhr adapter', () => {
         });
 
         expect(resp.status).toBe(200);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(JSON.parse(resp.responseText).id).toBe(1);
     });
 });

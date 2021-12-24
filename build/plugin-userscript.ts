@@ -152,7 +152,7 @@ export /* for tests */ class MetadataGenerator {
      */
     private async loadMetadata(): Promise<AllUserscriptMetadata> {
         const metadataFile = path.resolve('./src', this.options.userscriptName, 'meta.ts');
-        const specificMetadata = (await import(metadataFile)).default as UserscriptMetadata;
+        const specificMetadata = (await import(metadataFile) as { default: UserscriptMetadata }).default;
         return this.insertDefaultMetadata(specificMetadata);
     }
 

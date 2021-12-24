@@ -1,4 +1,5 @@
 import type { FetchedImage } from '@src/mb_enhanced_cover_art_uploads/fetch';
+import type { MaximisedImage } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { gmxhr, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
@@ -39,7 +40,7 @@ const fakeProvider = new FakeProvider();
 // Utility setup functions
 function disableMaximisation(): void {
     // eslint-disable-next-line require-yield
-    mockGetMaximisedCandidates.mockImplementation(async function* () {
+    mockGetMaximisedCandidates.mockImplementation(async function* (): AsyncGenerator<MaximisedImage, undefined, undefined> {
         return;
     });
 }
@@ -248,6 +249,7 @@ describe('fetching image from URL', () => {
                     filename: '',
                     headers: {},
                 };
+                return undefined;
             });
         });
 
@@ -401,6 +403,7 @@ describe('fetching images from providers', () => {
                 filename: '3',
                 headers: {},
             };
+            return undefined;
         }
         mockGetMaximisedCandidates
             // Need to mock the implementation twice, once for each URL
@@ -684,6 +687,7 @@ describe('fetching images', () => {
                 filename: '1.png',
                 headers: {},
             };
+            return undefined;
         });
 
         await expect(fetcher.fetchImages(new URL('https://example.com/2'), false))

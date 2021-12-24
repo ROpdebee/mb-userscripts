@@ -135,7 +135,6 @@ module.exports = {
 
         // Temporarily disabled so we can inspect each warning one-by-one
         // TODO: Enable these.
-        '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
         // We want this one to be enabled, but it'll produce a lot of warnings,
         // so leaving it as a placeholder to enable at the end.
