@@ -7,6 +7,8 @@ import { WARCSerializer } from 'warcio/src/warcserializer';
 
 import { assert, assertHasValue } from '@lib/util/assert';
 
+// Importing from ./types will allow declaration merging to fix PollyJS
+// declaration problems.
 import type { WARCRecordMetadataFields } from './types';
 
 const ENCODER = new TextEncoder();
@@ -22,12 +24,10 @@ export default async function har2warc(har: Har): Promise<Uint8Array> {
 
 function createWarcInfoRecord(har: Har): WARCRecord {
     const warcVersion = 'WARC/1.1';
-    // @ts-expect-error: Incomplete type definitions
     const warcName = har.log._recordingName;
     const info = {
         software: 'warcio.js',
         harVersion: har.log.version,
-        // @ts-expect-error: Incomplete type definitions
         harCreator: JSON.stringify(har.log.creator),
     };
 
@@ -102,7 +102,6 @@ function createWarcRequestRecord(url: string, request: HarRequest, responseId: s
 }
 
 function createWarcMetadataRecord(url: string, entry: HarEntry, responseId: string): WARCRecord {
-    // @ts-expect-error: Typo
     const request: HarRequest = entry.request;
     const requestMetadata: WARCRecordMetadataFields = {
         harEntryId: entry._id,
