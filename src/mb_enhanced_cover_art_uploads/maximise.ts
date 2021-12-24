@@ -237,16 +237,17 @@ export interface MaximisedImage {
     headers: Record<string, string>;
 }
 
-export async function* getMaximisedCandidates(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
+export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<MaximisedImage, undefined, undefined> {
     const exceptionFn = IMU_EXCEPTIONS.get(smallurl.hostname);
     if (exceptionFn) {
         yield* await exceptionFn(smallurl);
     } else {
         yield* maximiseGeneric(smallurl);
     }
+    return;
 }
 
-async function* maximiseGeneric(smallurl: URL): AsyncIterableIterator<MaximisedImage> {
+async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
     const results = await new Promise<maxurlResult[]>((resolve) => {
         maxurl(smallurl.href, {
             ...options,
