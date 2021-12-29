@@ -1,6 +1,6 @@
 // Aggregate project referencing all composite sub-projects, for use with `tsc`
 // type checker and `ts-node`.
-// NOTE: Only refer to this file via the symlink in the root, otherwise it will
+// NOTE: Only refer to this file via `tsconfig.json` in the root, otherwise it will
 // use the wrong root directory.
 {
     "extends": "./configs/tsconfig.base",
