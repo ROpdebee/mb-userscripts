@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.12.29.2
+// @version      2021.12.29.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -610,7 +610,7 @@
 
   }
 
-  const PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/;
+  const PLACEHOLDER_IMG_NAMES = ['01RmK+J4pJL', '01QFb8SNuTL', '01PkLIhTX3L', '01MKUOLsA5L', '31CTP6oiIBL'];
   const VARIANT_TYPE_MAPPING = {
     MAIN: ArtworkTypeIDs.Front,
     FRNT: ArtworkTypeIDs.Front,
@@ -660,7 +660,7 @@
           }
 
           return _await(finder.bind(_this)(url, pageContent, pageDom), function (covers) {
-            return covers.filter(img => !PLACEHOLDER_IMG_REGEX.test(img.url.href));
+            return covers.filter(img => !PLACEHOLDER_IMG_NAMES.some(name => decodeURIComponent(img.url.pathname).includes(name)));
           });
         });
       });
