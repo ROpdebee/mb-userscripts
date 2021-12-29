@@ -43,11 +43,11 @@ module.exports = {
         }],
         'simple-import-sort/imports': ['error', {
             groups: [
-                // For each group, put type-only imports first.
+                // For each group, put type-only imports (ending with null character) first.
                 // Side-effect imports
                 ['^\\u0000'],
                 // Node builtin modules
-                [`^(${builtinModulesJoined})(?=/|$).*\\u0000$`, `^(${builtinModulesJoined})(/|$)`],
+                [`^(${builtinModulesJoined})(/.*)?\\u0000$`, `^(${builtinModulesJoined})(/|$)`],
                 // 3rd party packages. Need a negative lookahead in the first
                 // to prevent type-only imports from our mapped paths from matching.
                 // Doesn't matter for the second one, since simple-import-sort
