@@ -8,7 +8,13 @@ import { GMgetResourceUrl } from '@src/compat';
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
 
-const PLACEHOLDER_IMG_REGEX = /01RmK(?:\+|%2B)J4pJL/;
+const PLACEHOLDER_IMG_NAMES = [
+    '01RmK+J4pJL',  // .com via B000Q3KSMQ
+    '01QFb8SNuTL',  // .de via B08F6QNPJ4
+    '01PkLIhTX3L',  // .fr via B08F6QNPJ4
+    '01MKUOLsA5L',  // .co.jp via B003XZRSAE
+    '31CTP6oiIBL',  // Found on .pl and .es, e.g. B00E6GJAE6
+];
 
 // Incomplete, only what we need
 interface AmazonImage {
@@ -72,7 +78,7 @@ export class AmazonProvider extends CoverArtProvider {
         }
 
         const covers = await finder.bind(this)(url, pageContent, pageDom);
-        return covers.filter((img) => !PLACEHOLDER_IMG_REGEX.test(img.url.href));
+        return covers.filter((img) => !PLACEHOLDER_IMG_NAMES.some((name) => decodeURIComponent(img.url.pathname).includes(name)));
     }
 
     async findGenericPhysicalImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
