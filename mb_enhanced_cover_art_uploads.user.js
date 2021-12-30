@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2021.12.29.3
+// @version      2021.12.30
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -481,7 +481,7 @@
             _step;
 
         return _continueIgnored(_for(function () {
-          return _await(!!_iterator.next(), function (_iterator$next) {
+          return _await(_iterator.next(), function (_iterator$next) {
             return _iteratorAbruptCompletion = !(_step = _iterator$next).done;
           });
         }, function () {
@@ -1834,7 +1834,7 @@
                 let _interrupt = false;
                 _iterator = _asyncIterator(getMaximisedCandidates(url));
                 return _for(function () {
-                  return _await(!(_interrupt || _exit) && !!_iterator.next(), function (_iterator$next) {
+                  return _await(!(_interrupt || _exit) && _iterator.next(), function (_iterator$next) {
                     return !(_interrupt || _exit) && !!(_iteratorAbruptCompletion = !(_step = _iterator$next).done);
                   }, !!(_interrupt || _exit));
                 }, function () {
