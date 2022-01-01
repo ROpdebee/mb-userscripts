@@ -33,7 +33,7 @@
     "@pollyjs/core": "6.0.4",
     "@pollyjs/persister": "6.0.4",
     "@pollyjs/utils": "6.0.1",
-    "@rollup/plugin-alias": "3.1.8",
+    "@rollup/plugin-alias": "3.1.9",
     "@rollup/plugin-babel": "5.3.0",
     "@rollup/plugin-commonjs": "21.0.1",
     "@rollup/plugin-node-resolve": "13.1.1",
