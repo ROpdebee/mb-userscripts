@@ -16,6 +16,12 @@ const prodConfig = {
         ['@babel/preset-env', {
             corejs: '3.19',
             useBuiltIns: 'entry',
+            exclude: [
+                // Don't transform async functions and async generators using
+                // babel itself, this is handled by a plugin.
+                '@babel/plugin-transform-async-to-generator',
+                '@babel/plugin-proposal-async-generator-functions',
+            ],
         }],
     ],
     plugins: [
