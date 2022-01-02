@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment -- Cannot fix this in JS code. */
 /* eslint-disable @typescript-eslint/explicit-function-return-type -- These are present in JSDoc comments. */
+/* eslint-disable @typescript-eslint/prefer-optional-chain -- Syntax not supported in github-script on CI. */
 
 /**
  * Use JSDoc type defs to do type imports.
@@ -29,9 +30,9 @@ async function reportDeploy({ github, context }) {
     /** @type string */
     // eslint-disable-next-line no-restricted-syntax
     let label;
-    if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success' || !deployInfo) {
+    if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
         label = 'deploy:failed';
-    } else if (!deployInfo.scripts.length) {
+    } else if (!deployInfo || !deployInfo.scripts.length) {
         label = 'deploy:skipped';
     } else {
         label = 'deploy:success';
@@ -47,14 +48,14 @@ async function reportDeploy({ github, context }) {
     /** @type string | undefined */
     // eslint-disable-next-line no-restricted-syntax
     let issueComment;
-    if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success' || !deployInfo) {
+    if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
         // Warn if deployment is skipped due to failures
         const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
         issueComment = [
             ':boom: Heads up! Automatic deployment of the changes in this PR failed! :boom:',
             `See [${context.workflow}#${context.runNumber}](${runUrl}).`,
         ].join('\n');
-    } else if (deployInfo.scripts.length) {
+    } else if (deployInfo && deployInfo.scripts.length) {
         // Report deployed versions
         issueComment = [
             `:rocket: Released ${deployInfo.scripts.length} new userscript version(s):`,
