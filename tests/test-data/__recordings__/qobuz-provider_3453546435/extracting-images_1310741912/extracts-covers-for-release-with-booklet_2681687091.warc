@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: qobuz provider/extracting images/extracts covers for release with booklet
-WARC-Date: 2021-12-11T20:26:44.262Z
+WARC-Date: 2022-01-02T19:54:13.005Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:3a237a03-34b9-4b84-afca-e40744f1da8e>
+WARC-Record-ID: <urn:uuid:ae60ec37-330d-486b-92d0-877e0789a30e>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:70735611-2c9b-40fb-a00f-ba9be983aec1>
+WARC-Concurrent-To: <urn:uuid:53304e13-2f67-4892-878f-969b185e1001>
 WARC-Target-URI: https://www.qobuz.com/api.json/0.2/album/get?album_id=0825646089178&offset=0&limit=20
-WARC-Date: 2021-12-11T20:26:44.263Z
+WARC-Date: 2022-01-02T19:54:13.006Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:92771f06-8a3f-4794-ac30-37648a7fdc02>
+WARC-Record-ID: <urn:uuid:31297645-b602-4474-9214-5835f67f2d60>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:e74ae54d32917d1378dfea4bd0ace2c2acc1c0c6139e91370c6879d0e63b1d16
@@ -28,38 +28,38 @@ x-app-id: 712109809
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:70735611-2c9b-40fb-a00f-ba9be983aec1>
+WARC-Concurrent-To: <urn:uuid:53304e13-2f67-4892-878f-969b185e1001>
 WARC-Target-URI: https://www.qobuz.com/api.json/0.2/album/get?album_id=0825646089178&offset=0&limit=20
-WARC-Date: 2021-12-11T20:26:44.263Z
+WARC-Date: 2022-01-02T19:54:13.006Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:223db0c8-9aeb-4414-b07d-8db49ce78eb0>
+WARC-Record-ID: <urn:uuid:f8cb1d24-23a6-4f58-b2b0-74c13af94d0f>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:a8173c6462f23104191d70fa95f4132fceda6e9026c075d05db619f0dc3ea6ff
-WARC-Block-Digest: sha256:a8173c6462f23104191d70fa95f4132fceda6e9026c075d05db619f0dc3ea6ff
+WARC-Payload-Digest: sha256:f6ba11122decf5b3821e0e1e8daa08aa716053fef852e3adfa6b2317da70990a
+WARC-Block-Digest: sha256:f6ba11122decf5b3821e0e1e8daa08aa716053fef852e3adfa6b2317da70990a
 Content-Length: 509
 
 harEntryId: 636c45cde411cd14147a0559740e48e9
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:43.751Z
-time: 509
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":509,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:12.559Z
+time: 444
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":444,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 123
 warcRequestCookies: []
-warcResponseHeadersSize: 607
-warcResponseCookies: [{"name":"qobuz-session-aws","value":"4e6c948e139fae2924570ee3112c3b21:0bf202488ea807b71b55d11e6f320412eefb06c1","path":"/","domain":"qobuz.com","httpOnly":true}]
+warcResponseHeadersSize: 608
+warcResponseCookies: [{"name":"qobuz-session-aws","value":"635c19f9532a73c2fe5f41662a4d8812:9b1e7d397071ee515c641e466484121fd8849ac0","path":"/","domain":"qobuz.com","httpOnly":true}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://www.qobuz.com/api.json/0.2/album/get?album_id=0825646089178&offset=0&limit=20
-WARC-Date: 2021-12-11T20:26:44.262Z
+WARC-Date: 2022-01-02T19:54:13.005Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:70735611-2c9b-40fb-a00f-ba9be983aec1>
+WARC-Record-ID: <urn:uuid:53304e13-2f67-4892-878f-969b185e1001>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:5b39aa5308fba5d75d315ababfdcfa9bf43d54e1ad5e8271525a361166369f9b
-WARC-Block-Digest: sha256:f84c485fe345405057d1590feca6aecfd34b3360f968e2005bf67a2d0c60f445
-Content-Length: 17988
+WARC-Block-Digest: sha256:7c3b24f5f9c9cac45a4d373be6815bcbdc1fce1f5ee131c2033f38c56ace5124
+Content-Length: 17989
 
 HTTP/1.1 200 OK
 accept-ranges: bytes
@@ -70,13 +70,13 @@ cache-control: private
 connection: Close
 content-length: 17364
 content-type: application/json
-date: Sat, 11 Dec 2021 20:26:44 GMT
+date: Sun, 02 Jan 2022 19:54:13 GMT
 server: nginx
-set-cookie: qobuz-session-aws=4e6c948e139fae2924570ee3112c3b21:0bf202488ea807b71b55d11e6f320412eefb06c1; path=/; domain=qobuz.com; HttpOnly
+set-cookie: qobuz-session-aws=635c19f9532a73c2fe5f41662a4d8812:9b1e7d397071ee515c641e466484121fd8849ac0; path=/; domain=qobuz.com; HttpOnly
 via: 1.1 varnish
 x-language-code: nl
 x-store: NL-nl
-x-varnish: 405829498
+x-varnish: 1533825164
 x-zone: NL
 x-pollyjs-finalurl: https://www.qobuz.com/api.json/0.2/album/get?album_id=0825646089178&offset=0&limit=20
 

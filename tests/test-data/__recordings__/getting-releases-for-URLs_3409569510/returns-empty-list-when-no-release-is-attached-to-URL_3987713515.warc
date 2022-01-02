@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting releases for URLs/returns empty list when no release is attached to URL
-WARC-Date: 2021-12-11T20:26:40.687Z
+WARC-Date: 2022-01-02T19:54:15.531Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:931c1c60-d2c3-40b1-bdd3-fc9c15fcbdb6>
+WARC-Record-ID: <urn:uuid:aa3dae94-fe63-466f-8e4d-f3693e60b82e>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:a73262c1-3a31-4b44-8531-632c88f67d4f>
+WARC-Concurrent-To: <urn:uuid:72d2a95a-c4b3-44b9-abf5-dca354830697>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.687Z
+WARC-Date: 2022-01-02T19:54:15.531Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:57463c40-9aa5-4aac-8906-59738f33cbb7>
+WARC-Record-ID: <urn:uuid:c92f03e7-6045-44c5-bd0b-74f08322377b>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:3aae3f7f68506966cbb86f65f168a15b38864f75106a03d132249a8f5436368c
@@ -32,22 +32,22 @@ host: musicbrainz.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:a73262c1-3a31-4b44-8531-632c88f67d4f>
+WARC-Concurrent-To: <urn:uuid:72d2a95a-c4b3-44b9-abf5-dca354830697>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.687Z
+WARC-Date: 2022-01-02T19:54:15.531Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:440ea2d7-ac42-4a81-a300-566ef78afcbb>
+WARC-Record-ID: <urn:uuid:01193667-1016-4698-9a0c-141806a16744>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:d90939bc2aeafaac83ad13dd727a24047f5245dd72f83a913a0eefae3f01cd10
-WARC-Block-Digest: sha256:d90939bc2aeafaac83ad13dd727a24047f5245dd72f83a913a0eefae3f01cd10
+WARC-Payload-Digest: sha256:45feacbbf5188a10f29114fbf64d8b02eab7df53dcb3c12bda31bdb4292d92f2
+WARC-Block-Digest: sha256:45feacbbf5188a10f29114fbf64d8b02eab7df53dcb3c12bda31bdb4292d92f2
 Content-Length: 349
 
 harEntryId: 303e1b8705b5a2e6ab0833e45a1d05cc
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:40.494Z
-time: 188
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":188,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:15.362Z
+time: 164
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":164,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 246
 warcRequestCookies: []
 warcResponseHeadersSize: 339
@@ -57,26 +57,26 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.687Z
+WARC-Date: 2022-01-02T19:54:15.531Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:a73262c1-3a31-4b44-8531-632c88f67d4f>
+WARC-Record-ID: <urn:uuid:72d2a95a-c4b3-44b9-abf5-dca354830697>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:38285b0b31d4660150ea146a41ea6b0c59a2d4cd3a020197231fadb7b0ad8751
-WARC-Block-Digest: sha256:42fccd1e2d85c3657e674343844761105e24d6fa64015b083ace916fc633201f
+WARC-Payload-Digest: sha256:aa2f3b2de8cf656277be3bbd8b7bc320fe99e31f4f19bb1c0d30a7f66723306d
+WARC-Block-Digest: sha256:94f8c9b91c956653baeac00ee3f842f9157ee75e6656aea37dc5b20b9cc78071
 Content-Length: 468
 
 HTTP/1.1 200 OK
-date: Sat, 11 Dec 2021 20:26:40 GMT
+date: Sun, 02 Jan 2022 19:54:15 GMT
 content-type: application/json; charset=utf-8
 content-length: 112
 connection: close
 x-ratelimit-limit: 1200
-x-ratelimit-remaining: 741
-x-ratelimit-reset: 1639254401
+x-ratelimit-remaining: 663
+x-ratelimit-reset: 1641153255
 server: Plack::Handler::Starlet
-etag: "23ee07cc3319d41aa18f97e7683d5b97"
+etag: "9e1f9094437be8c6db2e31f2162a1710"
 access-control-allow-origin: *
 x-cache-status: MISS
 
-{"relations":[],"id":"b3853e43-d80f-48af-80a7-117021f04e30","resource":"https://www.discogs.com/artist/5788865"}
+{"resource":"https://www.discogs.com/artist/5788865","id":"b3853e43-d80f-48af-80a7-117021f04e30","relations":[]}
 

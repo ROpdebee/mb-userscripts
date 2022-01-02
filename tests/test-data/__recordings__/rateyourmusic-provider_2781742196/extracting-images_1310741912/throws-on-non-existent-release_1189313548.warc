@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: rateyourmusic provider/extracting images/throws on non-existent release
-WARC-Date: 2021-12-11T20:26:41.651Z
+WARC-Date: 2022-01-02T19:54:13.088Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:086296b1-e2df-4c97-bb84-226f6bdc3def>
+WARC-Record-ID: <urn:uuid:4c96cb8a-9df0-4514-8b6f-ad4bc3a67160>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:df8d0a61-a522-4189-9fe6-7be79d07462e>
+WARC-Concurrent-To: <urn:uuid:98da6962-d9f3-4d55-9b01-9289d5852504>
 WARC-Target-URI: https://rateyourmusic.com/release/album/fishmans/long/buy
-WARC-Date: 2021-12-11T20:26:41.651Z
+WARC-Date: 2022-01-02T19:54:13.089Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:7425f6df-d3e5-44a6-b5c7-f5885507945d>
+WARC-Record-ID: <urn:uuid:92ee1fa2-ceaa-4150-b63c-708b7c101dca>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:7f26699778cb3684c60e9296eafd4f9be125d196bf40f2fe196d403c65ad4aeb
@@ -27,46 +27,46 @@ GET /release/album/fishmans/long/buy HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:df8d0a61-a522-4189-9fe6-7be79d07462e>
+WARC-Concurrent-To: <urn:uuid:98da6962-d9f3-4d55-9b01-9289d5852504>
 WARC-Target-URI: https://rateyourmusic.com/release/album/fishmans/long/buy
-WARC-Date: 2021-12-11T20:26:41.651Z
+WARC-Date: 2022-01-02T19:54:13.089Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:7cabd8b0-82bd-458c-a83e-311c3f84afe0>
+WARC-Record-ID: <urn:uuid:d1b77ad3-6650-4000-912c-3982f3d79cf6>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:5f7105575925a8202434e49bcf46d59e9bbfa92340cb7036e610027ce216ca7b
-WARC-Block-Digest: sha256:5f7105575925a8202434e49bcf46d59e9bbfa92340cb7036e610027ce216ca7b
-Content-Length: 556
+WARC-Payload-Digest: sha256:b4d4074a959f644df7affe15751304dee51245ec13c907b64ddee6580e248063
+WARC-Block-Digest: sha256:b4d4074a959f644df7affe15751304dee51245ec13c907b64ddee6580e248063
+Content-Length: 558
 
 harEntryId: 7445508b7cb6ea0f2cb8326222dac7d3
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:40.825Z
-time: 824
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":824,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:12.028Z
+time: 1056
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1056,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 76
 warcRequestCookies: []
 warcResponseHeadersSize: 555
-warcResponseCookies: [{"name":"sec_bs","value":"1c7861d8be15aa50998fb3e5a8fdc4fb","expires":"2021-12-11T20:51:41.000Z","path":"/","secure":true,"httpOnly":true,", sec_ts":"1639254401",", sec_id":"49050e1812c6b85d3eb5a9fad574b0f9"}]
+warcResponseCookies: [{"name":"sec_bs","value":"e42e31cf0aeb7e31eadd0fbe7c51eaee","expires":"2022-01-02T20:19:12.000Z","path":"/","secure":true,"httpOnly":true,", sec_ts":"1641153252",", sec_id":"d40b15f217dc86526200e49393f49f4b"}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://rateyourmusic.com/release/album/fishmans/long/buy
-WARC-Date: 2021-12-11T20:26:41.651Z
+WARC-Date: 2022-01-02T19:54:13.089Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:df8d0a61-a522-4189-9fe6-7be79d07462e>
+WARC-Record-ID: <urn:uuid:98da6962-d9f3-4d55-9b01-9289d5852504>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:fed8f06da1cbf2254d79ee87391e2dc18494ddcd46ae70f6e77c198c58edf7d5
-WARC-Block-Digest: sha256:fd18a4e7bbbd21cfa6d791c4321e86b02a16e8bfbe57f1a2438631f35d106d75
-Content-Length: 74468
+WARC-Payload-Digest: sha256:9305b07bdc06d9c882433d7d21cab6a12cf3df01d2376e92732a7bbb3053f1ae
+WARC-Block-Digest: sha256:64380387109e64630f742dd919a923b68ca3e1c1d0521ab4483461cf8bac2c8e
+Content-Length: 75736
 
 HTTP/1.1 404 Not Found
 connection: close
 content-encoding: gzip
 content-type: text/html; charset=utf-8
-date: Sat, 11 Dec 2021 20:26:41 GMT
+date: Sun, 02 Jan 2022 19:54:13 GMT
 server: nginx
-set-cookie: sec_bs=1c7861d8be15aa50998fb3e5a8fdc4fb; Expires=Sat, 11-Dec-2021 20:51:41 GMT; Path=/; secure; HttpOnly;, sec_ts=1639254401; Expires=Sat, 11-Dec-2021 20:51:41 GMT; Path=/; secure; HttpOnly;, sec_id=49050e1812c6b85d3eb5a9fad574b0f9; Expires=Sat, 11-Dec-2021 20:51:41 GMT; Path=/; secure; HttpOnly;
+set-cookie: sec_bs=e42e31cf0aeb7e31eadd0fbe7c51eaee; Expires=Sun, 02-Jan-2022 20:19:12 GMT; Path=/; secure; HttpOnly;, sec_ts=1641153252; Expires=Sun, 02-Jan-2022 20:19:12 GMT; Path=/; secure; HttpOnly;, sec_id=d40b15f217dc86526200e49393f49f4b; Expires=Sun, 02-Jan-2022 20:19:12 GMT; Path=/; secure; HttpOnly;
 transfer-encoding: chunked
 x-pollyjs-finalurl: https://rateyourmusic.com/release/album/fishmans/long/buy
 
@@ -262,7 +262,7 @@ var c=(i,a,o)=>new Promise((e,t)=>{var l=s=>{try{r(o.next(s))}catch(n){t(n)}},d=
                   }
 
                
-             .ui_fundraiser_bar_inner  { width: 53.2%; background: crimson; } </style>
+             .ui_fundraiser_bar_inner  { width: 54.8%; background: crimson; } </style>
          <!-- Begin Google Funding Choices CMP -->
          <script>
              window.googlefc = window.googlefc || {};
@@ -483,6 +483,36 @@ var c=(i,a,o)=>new Promise((e,t)=>{var l=s=>{try{r(o.next(s))}catch(n){t(n)}},d=
          <div id="total_cover"></div>
          <div id="content_total_cover"></div>          
       
+         <style>
+            #end_of_year_banner {
+
+               background:var(--mono-f);
+               border-radius:5px;
+               max-width:50em;
+               text-align:center;
+               margin:0 auto;
+               padding:0.6em 3em;
+               border-radius:5px;
+               border:2px solid var(--gen-blue-dark);
+               color:var(--mono-0);
+               position:relative;
+               font-size:1.1em;
+            }
+
+         </style>
+      
+            <div style="padding:1em;padding-bottom:2em;">
+              <div data-nosnippet id="end_of_year_banner" class="">
+
+                 <p>Enter the <a href="/giveaway-2021/"><b>Best of 2021 giveaway</b></a> for your chance to win one of the year's best albums!</p>
+
+                 <p>Visit <b><a href="/feature/rate-your-music-best-of-2021/">RYM: Best of 2021</a></b> for our special year-end feature with member reviews.</p>
+
+                 <span style="cursor:pointer;margin-left:2em;color:var(--mono-6);padding:0.5em;float:right;right: 0.6em;top: 0.15em;position: absolute;" onClick="rym.request.post('DismissEndOfYearBanner', {}, null, 'script');"><i class="fa fa-times-circle"></i></span>
+             </div>
+
+            </div>
+         <div class="clear"></div>
 
          <script>
               try {

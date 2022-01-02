@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting URLs for release/retrieves all URLs
-WARC-Date: 2021-12-11T20:26:39.061Z
+WARC-Date: 2022-01-02T19:54:14.749Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:76f4f2ae-e238-46ce-a60f-ca613a137ad4>
+WARC-Record-ID: <urn:uuid:850828e0-dff5-44ce-a59b-0e2d0b9f5c6c>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:191c59c6-2b32-47ad-b35a-b7becca960a4>
+WARC-Concurrent-To: <urn:uuid:68d3e7e3-0db9-4db1-9f0e-e53fa60549e2>
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:39.063Z
+WARC-Date: 2022-01-02T19:54:14.751Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:b238f1af-3e58-4065-a4eb-582733d6e5eb>
+WARC-Record-ID: <urn:uuid:d00879fd-d5de-4b81-8dad-cef745ee18c2>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:c6bf16baa3797189ad8c89c220eea88e3e686ba4fe1fae7f93592c22e608fbdf
@@ -32,25 +32,25 @@ host: musicbrainz.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:191c59c6-2b32-47ad-b35a-b7becca960a4>
+WARC-Concurrent-To: <urn:uuid:68d3e7e3-0db9-4db1-9f0e-e53fa60549e2>
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:39.063Z
+WARC-Date: 2022-01-02T19:54:14.751Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:30267af4-d427-4647-ab84-d6e9142382a7>
+WARC-Record-ID: <urn:uuid:79f641b6-d9e1-45aa-929f-f9fb9ef00150>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:bdc1d5e1ca58ce11c4fa0cf4bb7d78a972230cd37abd74a7bc68d5a4f9e207e5
-WARC-Block-Digest: sha256:bdc1d5e1ca58ce11c4fa0cf4bb7d78a972230cd37abd74a7bc68d5a4f9e207e5
+WARC-Payload-Digest: sha256:ac13c70832c2509a2fa532ba543f8084f8f960eeb51410291456d43f2863088f
+WARC-Block-Digest: sha256:ac13c70832c2509a2fa532ba543f8084f8f960eeb51410291456d43f2863088f
 Content-Length: 386
 
 harEntryId: a5a01867bdce64a1d440e98c7637da11
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:38.558Z
-time: 488
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":488,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:14.452Z
+time: 286
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":286,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 225
 warcRequestCookies: []
-warcResponseHeadersSize: 396
+warcResponseHeadersSize: 395
 warcResponseCookies: []
 responseDecoded: false
 warcResponseContentEncoding: base64
@@ -58,28 +58,28 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:39.062Z
+WARC-Date: 2022-01-02T19:54:14.750Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:191c59c6-2b32-47ad-b35a-b7becca960a4>
+WARC-Record-ID: <urn:uuid:68d3e7e3-0db9-4db1-9f0e-e53fa60549e2>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:80e295cfc9863fa5d58c750a6efdb6feef27813a0ad453763863d9a07f1463a9
-WARC-Block-Digest: sha256:257694ba0926ab755d4aebc380d913450e602636fa0f1228331eecf247aef8a2
-Content-Length: 1513
+WARC-Payload-Digest: sha256:310febb6dc7e26411d1fc70bfcb1dae6741bc283bd673c5602b2dc52b5723da6
+WARC-Block-Digest: sha256:f3c551fca618949a952478932121ca41a9c1325d98c29657204a5298daa5482d
+Content-Length: 1500
 
 HTTP/1.1 200 OK
-date: Sat, 11 Dec 2021 20:26:39 GMT
+date: Sun, 02 Jan 2022 19:54:14 GMT
 content-type: application/json; charset=utf-8
 transfer-encoding: chunked
 connection: close
 vary: Accept-Encoding
 x-ratelimit-limit: 1200
-x-ratelimit-remaining: 626
-x-ratelimit-reset: 1639254399
+x-ratelimit-remaining: 917
+x-ratelimit-reset: 1641153255
 server: Plack::Handler::Starlet
-etag: W/"81777fd0460a293e88c590c2927072d8"
+etag: W/"785650cafeb7e8bde47839308ed4f664"
 access-control-allow-origin: *
-x-cache-status: STALE
+x-cache-status: MISS
 content-encoding: gzip
 
-["H4sIAAAAAAAAA71VTW/jNhD9KwHPmYQUKYnMre1ht8Ci7aFAii72MKSGXiGy5KWouKkRoH+jf6+/ZIe2k3VQBwtsgR41nI/33jyPd8JjClNH4kZYa2qprLK61uJS9F2JadSxChJ0wBYMNQSuIwuxNRIVeeuc5NwwLWNOD1zw2y1/JhoIZwK6pzHP4ub9TnSYy4xKqgqUAlUmYCIUNzvRzxNo1TSgoEApBaXPh0vR9TOufb9aMPfTyPVcNeK6dHp/O6Wh2/YdfeBgfthwcFyG4Qi8rurOkLKgO8nolXeAtfWAyjToVMMkItfNU8rwakcorUrTx0cG82nBoc+F5DilNQ6lPGNeGK/4OcY+9PvYOaaHvH07YUhLw3RB26YDbSQjixVBa23dEoU6RBLnqWf6I0OiTaKZhT0+7MQcUr/JnPIO88hpA45ctiooaFyJx0uxwXCHq35cHSAo5chj24DXRoMmWQFWroIoo5SNMd47v9/qPSVAVog98rG/pzKsw3RHI3GbiMNMlyKmaeThOS1UVpq3U7p7+vQ89zlxbxJxoxhP7vNQ4L2lf/76e774bhgufrx4M+WDd/bEDraZpyUFgpCo6/NBhK5PFI6axCltMXXFSzmn3i+Z4B6HpXho93gSLd14hTR2J8ifVyykNaYOIULrnQNjtAUXHUL0DoOy0jkqO8mYVpRfoPHEsj457/h+MKNY0vDsTFaJ6GLO7Pg1r4Hj5bV4v4x3PvjYIptVUgXGqhqcCxratm6C5aVUst1Lc5CDKz7mvJlvrq+nDY1X82bKfXy4CtP6Gge/rK8VPdz+os3d99Wn39UP6W397s2v6404VYSJH0ViUY4uv9z9D4r9x5UedTujxXa7veqI/qR0okQjXSsb9XTPqqaysZMEqg4eTBsMWN8i1DI2usLQKb5nX5Hpm5f+Qt8vjV9ntF7mPlzhZjPQntIyH1nVrVWNdVY+8VJYu3KrAZEMOyjUYCsvgc+JVzXZmqmJlyTO4X5J7PByatrX3KAriV2sGnBNRDD8FwJOmhpUrKOuotU6ePHvn+MZd5y3whnPnHNHudI4f2HwfPa45KdpJPH4GQsbVH/wBgAA"]
+["H4sIAAAAAAAAA71UwW7jNhD9lUDnTEKKlET61vawW2DR9lAgRRc5DKmhV4gsaSkqbhoY6G/09/olHVpu4na96J72YEAezjzOe/M4z8WcMC1zsSl+DKHzHfbFdTGhf8BtN2yha/lESksOmxqc0goUiRKwtCUEEYSotXbOOq465hqFKpRegPLYgKaawLZkIDRaoCRnrBWcG6nH1I0DX/z+uaChJS4O2M90nf8Vm2Hp++siPU209iCM1pX3ARpnLWitDNhgEYKz6KUR1hIxLqYUO7ckgkfsF2L458N1scSeP9YGrfMuNGhACSpBG1mBtV5B01S1N8yoFM2xwXlcoieu+JDSNG9ub8eJhpt5GlMXnm78uLvF3i27W0lPdz8p/fBt+fFX+V18W7178/NuKg5r91wfItHVnCLhjiVl7LaL5DP7fDjGPcaWo45Y8X+Iv/Lo2hOJl1DW7J7RMW4pwemSTPEl5iO1XeIoh1YaZ6HD9dcVvKxLE1pBICvvQDdeg3ENQiVCrUr0rTw54hPB9/v9TUv0O8UzuWthG1HLrO9lHT+n+tfU9wtrv6CLT+D/Q+R0xf/b63wkEiubHyogkuY34CswpRNAvnKyIlPxVC6PZLfMnb/BaerpOJNlPo2laoysjTWiOHzOFK/eUqXANpQ12DogaGkUWKErkKEKqgxGKZ8Xypkvzw17YFk+Lth36YmxhjHu/r20OPjDOGRz+nEZUsxZv9zlUR1X3dqCJiW0kjUoU7egtLCAoSRojKkaYiF8WBEeKQLGxD//oXukrOERtthIJhrTfowPxSbFhR+S4xZeXlWIY85aT1qMDzS8Usi50Y9t1tYYXQlpWIVKZZ90qc/ht/TXH3/OV9/0/dX3V2/GlP0ynw2efksQaeIh0ZBwnfdz0eOwXXCbAejohtnHbsrOeYdpWF/NjDvXcdbJI+s6JpwJ6JGx1p2MbKgMuBpsvfOoXFVWrSbJC7QVvOalY+Uq4wClrtHKmrd9KC5fM48s5IC73N37uzH27b5r6Z5PLga7eWT8ugYJWarcVx7k/ZmVcl+ZE6ZcXgpZgpQgVZFNciH6N1D4NvTwBgAA"]
 

@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: vgmdb provider/extracting images/extracts covers for release without cover, but with picture
-WARC-Date: 2021-12-11T20:26:41.007Z
+WARC-Date: 2022-01-02T19:54:13.279Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:871e18fe-0773-4e4d-aca4-a30f38d41497>
+WARC-Record-ID: <urn:uuid:a82e0874-c4b3-412c-b73f-5352e81fc61d>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:471ec547-1fa4-4d32-8778-281dd32065df>
+WARC-Concurrent-To: <urn:uuid:52e71de8-1d79-47be-a44e-091c5da397c9>
 WARC-Target-URI: https://vgmdb.net/album/90871
-WARC-Date: 2021-12-11T20:26:41.007Z
+WARC-Date: 2022-01-02T19:54:13.279Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:2f949c34-e9d0-45d9-86c9-cddd304949e7>
+WARC-Record-ID: <urn:uuid:3223ace6-d34b-4404-9ca3-5a3617c51cd6>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:40d7c785bc37747ca170adcade2642d449413c749516ea3243a897130e5666d0
@@ -27,49 +27,49 @@ GET /album/90871 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:471ec547-1fa4-4d32-8778-281dd32065df>
+WARC-Concurrent-To: <urn:uuid:52e71de8-1d79-47be-a44e-091c5da397c9>
 WARC-Target-URI: https://vgmdb.net/album/90871
-WARC-Date: 2021-12-11T20:26:41.007Z
+WARC-Date: 2022-01-02T19:54:13.280Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:b807a9c0-dc96-451a-92b4-eb92c7daa19d>
+WARC-Record-ID: <urn:uuid:90a869e2-c5a5-4dba-b844-c836ec04cf79>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:a10894c0e9e6f590ccf0a7ead33c258276102969a92d4c37d06d0d1b8f75791c
-WARC-Block-Digest: sha256:a10894c0e9e6f590ccf0a7ead33c258276102969a92d4c37d06d0d1b8f75791c
+WARC-Payload-Digest: sha256:9caad4b1ed7bc5bf65d3c5b29598a0ae76dd5aa6578f642ecdbb1695035d8c24
+WARC-Block-Digest: sha256:9caad4b1ed7bc5bf65d3c5b29598a0ae76dd5aa6578f642ecdbb1695035d8c24
 Content-Length: 539
 
 harEntryId: 25aaaace333675824f66dde1f1d17b85
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:40.454Z
-time: 456
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":456,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:12.755Z
+time: 437
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":437,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 48
 warcRequestCookies: []
 warcResponseHeadersSize: 794
-warcResponseCookies: [{"name":"vgmlastvisit","value":"1639254400","expires":"2022-12-11T20:26:40.000Z","maxAge":31536000,"path":"/","domain":".vgmdb.net","secure, vgmlastactivity":"0","secure, vgm_filter_ver":"1"}]
+warcResponseCookies: [{"name":"vgmlastvisit","value":"1641153253","expires":"2023-01-02T19:54:13.000Z","maxAge":31536000,"path":"/","domain":".vgmdb.net","secure, vgmlastactivity":"0","secure, vgm_filter_ver":"1"}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://vgmdb.net/album/90871
-WARC-Date: 2021-12-11T20:26:41.007Z
+WARC-Date: 2022-01-02T19:54:13.279Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:471ec547-1fa4-4d32-8778-281dd32065df>
+WARC-Record-ID: <urn:uuid:52e71de8-1d79-47be-a44e-091c5da397c9>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:2cd48288e29cb6359e54478b96be025fff23eb4cb7866abe9a830025b624988f
-WARC-Block-Digest: sha256:d10f0ca22c244baf03485a7b81fa224efe2cfc385bf1325e81b7e6aa88831604
-Content-Length: 37328
+WARC-Payload-Digest: sha256:848f61600b0ec828db66503b9e6f98dfddcc35610e0ea4edde3ccfadaedea2b7
+WARC-Block-Digest: sha256:719e68eb32710826876ee0e0231339af94b8fbd2ceba274bd69d1fdd9b9a37e2
+Content-Length: 37423
 
 HTTP/1.1 200 OK
 cache-control: private
 connection: close
 content-encoding: gzip
 content-type: text/html; charset=UTF-8
-date: Sat, 11 Dec 2021 20:26:40 GMT
+date: Sun, 02 Jan 2022 19:54:13 GMT
 pragma: private
 referrer-policy: no-referrer-when-downgrade
 server: nginx
-set-cookie: vgmlastvisit=1639254400; expires=Sun, 11-Dec-2022 20:26:40 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgmlastactivity=0; expires=Sun, 11-Dec-2022 20:26:40 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgm_filter_ver=1; path=/, vgm_filter_pubtype=7; path=/, vgm_filter_distype=511; path=/, vgm_filter_category_on=0; path=/, vgm_filter_category_off=0; path=/
+set-cookie: vgmlastvisit=1641153253; expires=Mon, 02-Jan-2023 19:54:13 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgmlastactivity=0; expires=Mon, 02-Jan-2023 19:54:13 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgm_filter_ver=1; path=/, vgm_filter_pubtype=7; path=/, vgm_filter_distype=511; path=/, vgm_filter_category_on=0; path=/, vgm_filter_category_off=0; path=/
 transfer-encoding: chunked
 x-content-type-options: nosniff
 x-frame-options: SAMEORIGIN
@@ -121,7 +121,7 @@ x-pollyjs-finalurl: https://vgmdb.net/album/90871
 <script type="text/javascript" src="/db/clientscript/connection-min.js"></script>
 <script type="text/javascript">
 <!--
-var SESSIONURL = "s=049795155c400e9a6cf06c3df55a88c9&";
+var SESSIONURL = "s=f576a2e96ea8d56077cde864ebd2dff1&";
 var SECURITYTOKEN = "guest";
 var IMGDIR_MISC = "/db/images/misc";
 var vb_disable_ajax = parseInt("1", 10);
@@ -200,6 +200,7 @@ $(document).ready(function() {
 	$('label.tristate').tristate(); // 'sup IRA
 	
 });</script>
+<meta name="google-site-verification" content="3hoyGArPHzn4HMMeNfYCjhqM5Ci_675U7M7NxbiLJ1A" />
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -361,7 +362,7 @@ $(document).ready(function() {
 	</li>
 	<li id="nav_advsearch"><a title="More search options" href="/search">Advanced Search</a></li>
 	<li id="nav_update"><a title="Latest submissions and edits" href="/db/recent.php">Updates</a></li>
-	<li id="nav_calendar"><a title="Release schedules" href="/db/calendar.php?year=2021&month=12">Calendar</a></li>
+	<li id="nav_calendar"><a title="Release schedules" href="/db/calendar.php?year=2022&month=1">Calendar</a></li>
 	<li id="nav_forum"><a title="Community discussions" href="/forums/">Forums</a></li>
 	<li id="nav_market"><a title="Trade with other members" href="/db/marketplace.php?do=view">Marketplace</a></li>
 	<!--li id="nav_users"><a title="User collections" href="/db/collection.php">Users</a></li-->
@@ -389,7 +390,7 @@ $(document).ready(function() {
 		<td><input type="submit" class="button" value="Log in" tabindex="104" title="Enter your username and password in the boxes provided to login, or click the 'register' button to create a profile for yourself." accesskey="s" /></td>
 	</tr>
 	</table>
-	<input type="hidden" name="s" value="049795155c400e9a6cf06c3df55a88c9" />
+	<input type="hidden" name="s" value="f576a2e96ea8d56077cde864ebd2dff1" />
 	<input type="hidden" name="securitytoken" value="guest" />
 	<input type="hidden" name="do" value="login" />		
 	<input type="hidden" name="vb_login_md5password" />
@@ -667,7 +668,7 @@ Sep 25, 2019 <span class="time">01:52 PM</span></div>
 Sep 25, 2019 <span class="time">01:54 PM</span></div>
 
 <div style="margin-bottom: 10px;"><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Page traffic</b><br />
-<span class="time">491</span> visitors<br />
+<span class="time">514</span> visitors<br />
 <span class="time" style="word-break:break-all">0/-</span> freedb<br />
 <!----></div>
 
@@ -716,7 +717,7 @@ Sep 25, 2019 <span class="time">01:54 PM</span></div>
 	<div style="float: right; text-align: right; font-family: Arial;" class="label">
 		<a href="/about">About Us</a> &bull;
 		<a href="/faq">F.A.Q.</a> &bull;
-		<a href="/forums/sendmessage.php?s=049795155c400e9a6cf06c3df55a88c9" rel="nofollow" accesskey="9">Contact Us</a> &bull;
+		<a href="/forums/sendmessage.php?s=f576a2e96ea8d56077cde864ebd2dff1" rel="nofollow" accesskey="9">Contact Us</a> &bull;
 		<a href="/db/statistics.php" rel="nofollow">Statistics</a> &bull;
 		<a href="https://vgmdb.net">Home</a>
 
@@ -746,7 +747,7 @@ Sep 25, 2019 <span class="time">01:54 PM</span></div>
 		<!-- Do not remove this copyright notice --></div>
 		<div class="smallfont">Site code and design copyright VGMdb.net</div>
 		<div class="smallfont">Site material is property of their respective owners.</div>
-		<div class="smallfont">All times are GMT -8. The time now is <span class="time">12:26 PM</span>.</div>
+		<div class="smallfont">All times are GMT -8. The time now is <span class="time">11:54 AM</span>.</div>
 	</div>
 
 

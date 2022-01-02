@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: tidal provider/extracting images/extracts covers for tidal.com release
-WARC-Date: 2021-12-11T20:26:46.763Z
+WARC-Date: 2022-01-02T19:54:14.761Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:39769148-44ca-4900-90b3-7b765417b131>
+WARC-Record-ID: <urn:uuid:dd0f0489-9560-4e87-a492-ec96c482013f>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:7fd7ef3f-b260-4fb8-8a3f-916a0b13c9d4>
+WARC-Concurrent-To: <urn:uuid:bec1233d-6429-4217-8923-b8fba1afc9f7>
 WARC-Target-URI: https://listen.tidal.com/v1/ping
-WARC-Date: 2021-12-11T20:26:46.764Z
+WARC-Date: 2022-01-02T19:54:14.761Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:4d6fd0f2-9313-4d6d-be5a-c4adf647987d>
+WARC-Record-ID: <urn:uuid:3326e5fb-5d82-4496-81fd-2b35d784294f>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:a4291b722c9f4e08c6aeac93fdb1c1506f4ab5f0e747a8ea7b6501609fe69d5f
@@ -27,22 +27,22 @@ GET /v1/ping HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:7fd7ef3f-b260-4fb8-8a3f-916a0b13c9d4>
+WARC-Concurrent-To: <urn:uuid:bec1233d-6429-4217-8923-b8fba1afc9f7>
 WARC-Target-URI: https://listen.tidal.com/v1/ping
-WARC-Date: 2021-12-11T20:26:46.764Z
+WARC-Date: 2022-01-02T19:54:14.761Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:ddc4745a-fecb-4f25-9aaa-09c6ca0f2cc1>
+WARC-Record-ID: <urn:uuid:b85b0df9-b557-49da-8ee3-cc6faa81f35b>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:33d08098b7e9e5c7a9008713e53c9a5485d150018cc71d4ab413480311f79877
-WARC-Block-Digest: sha256:33d08098b7e9e5c7a9008713e53c9a5485d150018cc71d4ab413480311f79877
+WARC-Payload-Digest: sha256:fe05672399106702129dc351d04524044e1f29302f0e7b49fdc83e654c1e6f4d
+WARC-Block-Digest: sha256:fe05672399106702129dc351d04524044e1f29302f0e7b49fdc83e654c1e6f4d
 Content-Length: 348
 
 harEntryId: 47c39b1a5162a6c91ca5b413317109d4
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:45.987Z
-time: 302
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":302,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:14.113Z
+time: 327
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":327,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 51
 warcRequestCookies: []
 warcResponseHeadersSize: 393
@@ -52,12 +52,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://listen.tidal.com/v1/ping
-WARC-Date: 2021-12-11T20:26:46.763Z
+WARC-Date: 2022-01-02T19:54:14.761Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:7fd7ef3f-b260-4fb8-8a3f-916a0b13c9d4>
+WARC-Record-ID: <urn:uuid:bec1233d-6429-4217-8923-b8fba1afc9f7>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3
-WARC-Block-Digest: sha256:d09205d714a40336b13d6111ce0c90d5ccdc40d4c13d1ccbe80b3dadf0bc701b
+WARC-Block-Digest: sha256:828ed77a7dc4170e9c5563ba29f29677539b1e3b6662faae1408a9a95ca7e1cc
 Content-Length: 412
 
 HTTP/1.1 200 OK
@@ -65,22 +65,22 @@ cache-control: no-cache
 connection: close
 content-length: 2
 content-type: text/plain
-date: Sat, 11 Dec 2021 20:26:46 GMT
+date: Sun, 02 Jan 2022 19:54:14 GMT
 server: noyb
-via: 1.1 fb7dd4ab7d279a5ac003ba27474cf5ef.cloudfront.net (CloudFront)
-x-amz-cf-id: cV4EbEBH6ecPrdKC5Me1SYIjrzz23ahjAspqt4zpq45_HqAWeYb_8g==
-x-amz-cf-pop: CDG52-P1
+via: 1.1 b103085320b440f2b61bad94c412ff70.cloudfront.net (CloudFront)
+x-amz-cf-id: aiGACk1menj1cVjGJucNvSZo0MH4DKaPpdSfdH9MmaQrW8DjIxWJtQ==
+x-amz-cf-pop: ZRH50-C1
 x-cache: Miss from cloudfront
 x-pollyjs-finalurl: https://listen.tidal.com/v1/ping
 
 OK
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:4fa61acd-0a68-4a9d-a5b3-a912f947a50b>
+WARC-Concurrent-To: <urn:uuid:fc8512a4-eaa7-493b-a735-1254c62011dd>
 WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=175441105&countryCode=NL&deviceType=BROWSER
-WARC-Date: 2021-12-11T20:26:46.764Z
+WARC-Date: 2022-01-02T19:54:14.761Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:af962ab5-0893-47c8-8a21-bbef29865708>
+WARC-Record-ID: <urn:uuid:8ece6e7f-b847-449f-9816-d19565182113>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:e08be61722a4c992ab7f18e732ffe6e7c22028fc5932c8f8a6af537140e8fcfa
@@ -92,53 +92,53 @@ x-tidal-token: CzET4vdadNUFQ5JU
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:4fa61acd-0a68-4a9d-a5b3-a912f947a50b>
+WARC-Concurrent-To: <urn:uuid:fc8512a4-eaa7-493b-a735-1254c62011dd>
 WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=175441105&countryCode=NL&deviceType=BROWSER
-WARC-Date: 2021-12-11T20:26:46.764Z
+WARC-Date: 2022-01-02T19:54:14.761Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:c9d45be5-e4c2-409b-9757-bab26d482f88>
+WARC-Record-ID: <urn:uuid:44465615-a298-4615-b409-fde87c6316de>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:8a6767b6dcad456a8ac88530b753f21f81ebf32ef9073a075aaefd1ca1d29144
-WARC-Block-Digest: sha256:8a6767b6dcad456a8ac88530b753f21f81ebf32ef9073a075aaefd1ca1d29144
+WARC-Payload-Digest: sha256:38e760314185beb97cceda2294e1d02386fa68c7287346775bacc52815bf0cd6
+WARC-Block-Digest: sha256:38e760314185beb97cceda2294e1d02386fa68c7287346775bacc52815bf0cd6
 Content-Length: 349
 
 harEntryId: 313883047370a53028a4cd3c723ed0d3
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:46.291Z
-time: 470
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":470,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:14.441Z
+time: 318
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":318,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 141
 warcRequestCookies: []
-warcResponseHeadersSize: 575
+warcResponseHeadersSize: 574
 warcResponseCookies: []
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=175441105&countryCode=NL&deviceType=BROWSER
-WARC-Date: 2021-12-11T20:26:46.764Z
+WARC-Date: 2022-01-02T19:54:14.761Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:4fa61acd-0a68-4a9d-a5b3-a912f947a50b>
+WARC-Record-ID: <urn:uuid:fc8512a4-eaa7-493b-a735-1254c62011dd>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:62007fa097d2864d6419d378d4c707bac0f843a0340e291101b8dcd669ec6497
-WARC-Block-Digest: sha256:799a724c4bbc733e4e04aea0917a0057666be1546fc67c5a2d0c41b77f3c1eb8
-Content-Length: 3479
+WARC-Payload-Digest: sha256:792025a241e8a082437be0a8659f2d9277d8b60fdf91fbabc58a42707a5f7538
+WARC-Block-Digest: sha256:f1617831e4206d62b6db2c258adfd8b498c3c855a531843862d13fac1bc537e5
+Content-Length: 3478
 
 HTTP/1.1 200 OK
 cache-control: private, max-age=60, s-max-age=60,
 connection: close
 content-length: 2887
 content-type: application/json;charset=UTF-8
-date: Sat, 11 Dec 2021 20:26:46 GMT
-etag: "-2019561145"
+date: Sun, 02 Jan 2022 19:54:14 GMT
+etag: "-630623157"
 server: noyb
 vary: x-tidal-sessionid,x-tidal-token,authorization
-via: 1.1 5c0a9fbe4f8b2e7835a09c41c52efb12.cloudfront.net (CloudFront)
-x-amz-cf-id: X1PNroEDx3QF3sYVgTO3LczG-28vTDlf4v56j0jqOw9fNPh49EkwFQ==
-x-amz-cf-pop: CDG52-P1
+via: 1.1 d4ab4520827d99650a0d233539c37425.cloudfront.net (CloudFront)
+x-amz-cf-id: igWXIVtp9Ch87a3dgR8F0ghpCgkuHnr54FjuX5XfV4yKmNdlYSegOg==
+x-amz-cf-pop: ZRH50-C1
 x-cache: Miss from cloudfront
 x-pollyjs-finalurl: https://listen.tidal.com/v1/pages/album?albumId=175441105&countryCode=NL&deviceType=BROWSER
 
-{"selfLink":null,"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzfQ==","title":"Maiilett","rows":[{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiOTg3YjJiZGUtMGE5MS00YzYxLWFkNGItNzllYzdkNGY5NmU0IiwibVYiOjEsIm1IIjoiNmNiMDQ2ODQifQ==","type":"ALBUM_HEADER","width":100,"title":"","description":"","preTitle":"","album":{"id":175441105,"title":"Maiilett","duration":198,"streamReady":true,"streamStartDate":"2021-03-01T00:00:00.000+0000","allowStreaming":true,"numberOfTracks":1,"numberOfVideos":0,"numberOfVolumes":1,"releaseDate":"2021-03-01","copyright":"2861170 Records DK","type":"SINGLE","version":null,"url":"http://www.tidal.com/album/175441105","cover":"c61b75cd-0159-4b63-9f25-27b3d6cedd63","videoCover":null,"explicit":false,"popularity":0,"audioQuality":"LOSSLESS","audioModes":["STEREO"],"artists":[{"name":"kapulett","id":23736224,"type":"MAIN","picture":"2c913f90-da73-4ab8-9a6f-6e253ded1ee9"}]},"review":{"text":null,"source":null},"credits":{"items":[]},"playbackControls":[{"shuffle":false,"playbackMode":"PLAY","title":"Play","icon":"play_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiMzE0ZTUyYTYifQ=="},{"shuffle":true,"playbackMode":"SHUFFLE","title":"Shuffle","icon":"shuffle_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiMzE0ZTUyYTYifQ=="}]}]},{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiMzE0ZTUyYTYifQ==","type":"ALBUM_ITEMS","width":100,"title":"","description":"","preTitle":null,"showMore":null,"supportsPaging":false,"quickPlay":false,"copyright":"2861170 Records DK","releaseDate":"2021-03-01","listFormat":"NUMBERS","pagedList":{"limit":9999,"offset":0,"totalNumberOfItems":1,"items":[{"item":{"id":175441106,"duration":198,"version":null,"url":"https://tidal.com/browse/track/175441106","editable":false,"volumeNumber":1,"trackNumber":1,"title":"Maiilett","mixes":{},"audioModes":["STEREO"],"artists":[{"id":23736224,"name":"kapulett","type":"MAIN","picture":"2c913f90-da73-4ab8-9a6f-6e253ded1ee9"}],"album":{"id":175441105,"title":"Maiilett","cover":"c61b75cd-0159-4b63-9f25-27b3d6cedd63","vibrantColor":"#ebd1f9","videoCover":null,"url":"https://tidal.com/browse/album/175441105","releaseDate":"2021-03-01"},"audioQuality":"LOSSLESS","streamReady":true,"streamStartDate":"2021-03-01T00:00:00.000+0000","allowStreaming":true,"explicit":false,"popularity":0,"replayGain":2.21},"type":"track"}],"dataApiPath":"pages/data/2fbf68c2-dc58-49b1-b1be-6958e66383f3?albumId=175441105"},"playButton":true,"shuffleButton":true}]}]}
+{"selfLink":null,"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzfQ==","title":"Maiilett","rows":[{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiOTg3YjJiZGUtMGE5MS00YzYxLWFkNGItNzllYzdkNGY5NmU0IiwibVYiOjEsIm1IIjoiNmNiMDQ2ODQifQ==","type":"ALBUM_HEADER","width":100,"title":"","description":"","preTitle":"","album":{"id":175441105,"title":"Maiilett","duration":198,"streamReady":true,"streamStartDate":"2021-03-01T00:00:00.000+0000","allowStreaming":true,"numberOfTracks":1,"numberOfVideos":0,"numberOfVolumes":1,"releaseDate":"2021-03-01","copyright":"2861170 Records DK","type":"SINGLE","version":null,"url":"http://www.tidal.com/album/175441105","cover":"c61b75cd-0159-4b63-9f25-27b3d6cedd63","videoCover":null,"explicit":false,"popularity":0,"audioQuality":"LOSSLESS","audioModes":["STEREO"],"artists":[{"picture":"2c913f90-da73-4ab8-9a6f-6e253ded1ee9","name":"kapulett","id":23736224,"type":"MAIN"}]},"review":{"text":null,"source":null},"credits":{"items":[]},"playbackControls":[{"shuffle":false,"playbackMode":"PLAY","title":"Play","icon":"play_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiMzE0ZTUyYTYifQ=="},{"shuffle":true,"playbackMode":"SHUFFLE","title":"Shuffle","icon":"shuffle_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiMzE0ZTUyYTYifQ=="}]}]},{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiMzE0ZTUyYTYifQ==","type":"ALBUM_ITEMS","width":100,"title":"","description":"","preTitle":null,"showMore":null,"supportsPaging":false,"quickPlay":false,"copyright":"2861170 Records DK","releaseDate":"2021-03-01","listFormat":"NUMBERS","pagedList":{"limit":9999,"offset":0,"totalNumberOfItems":1,"items":[{"item":{"title":"Maiilett","duration":198,"version":null,"url":"https://tidal.com/browse/track/175441106","replayGain":2.21,"editable":false,"mixes":{},"volumeNumber":1,"trackNumber":1,"album":{"id":175441105,"title":"Maiilett","cover":"c61b75cd-0159-4b63-9f25-27b3d6cedd63","vibrantColor":"#ebd1f9","videoCover":null,"url":"https://tidal.com/browse/album/175441105","releaseDate":"2021-03-01"},"artists":[{"id":23736224,"name":"kapulett","type":"MAIN","picture":"2c913f90-da73-4ab8-9a6f-6e253ded1ee9"}],"audioQuality":"LOSSLESS","streamReady":true,"streamStartDate":"2021-03-01T00:00:00.000+0000","allowStreaming":true,"explicit":false,"popularity":0,"audioModes":["STEREO"],"id":175441106},"type":"track"}],"dataApiPath":"pages/data/2fbf68c2-dc58-49b1-b1be-6958e66383f3?albumId=175441105"},"playButton":true,"shuffleButton":true}]}]}
 

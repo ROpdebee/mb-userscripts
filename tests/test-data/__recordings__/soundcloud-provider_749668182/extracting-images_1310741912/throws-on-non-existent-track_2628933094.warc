@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: soundcloud provider/extracting images/throws on non-existent track
-WARC-Date: 2021-12-11T20:26:44.941Z
+WARC-Date: 2022-01-02T19:54:14.785Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:8aab6964-6b4b-4894-bfbe-8ab3892ed047>
+WARC-Record-ID: <urn:uuid:363ee522-3bd6-4f8f-a301-85365667c0c5>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:6452dcd3-4bca-4d6f-982f-a909d824a07f>
+WARC-Concurrent-To: <urn:uuid:80af8276-ef0b-4391-a90f-7961c6b287f5>
 WARC-Target-URI: https://soundcloud.com/404/404
-WARC-Date: 2021-12-11T20:26:44.942Z
+WARC-Date: 2022-01-02T19:54:14.786Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:802a9e5f-a115-45aa-b2f5-d74914427b43>
+WARC-Record-ID: <urn:uuid:9c01d797-6aad-4aa9-a95e-beda9c40531f>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:10fe5030e34a5bb29382a2040c008cc2945e4dcadf16ba30bc02bc78f0ec0888
@@ -27,20 +27,20 @@ GET /404/404 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:6452dcd3-4bca-4d6f-982f-a909d824a07f>
+WARC-Concurrent-To: <urn:uuid:80af8276-ef0b-4391-a90f-7961c6b287f5>
 WARC-Target-URI: https://soundcloud.com/404/404
-WARC-Date: 2021-12-11T20:26:44.942Z
+WARC-Date: 2022-01-02T19:54:14.786Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:f1cb4930-a654-421c-9248-448176120602>
+WARC-Record-ID: <urn:uuid:b41e86f1-b980-436b-8951-46e7af80becc>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:3f24b82ff8c447df500f0b63de642f2d854d938328a26e0778bc69c7ed3951f6
-WARC-Block-Digest: sha256:3f24b82ff8c447df500f0b63de642f2d854d938328a26e0778bc69c7ed3951f6
+WARC-Payload-Digest: sha256:75ae27b11a3613141703e09f6fcc2bdbcbf73a7bf07dfbaac2f26ee0a9b6d5de
+WARC-Block-Digest: sha256:75ae27b11a3613141703e09f6fcc2bdbcbf73a7bf07dfbaac2f26ee0a9b6d5de
 Content-Length: 348
 
 harEntryId: ce10312940092213d8f479bce017f0ef
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:44.690Z
+startedDateTime: 2022-01-02T19:54:14.533Z
 time: 250
 timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":250,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 49
@@ -52,28 +52,28 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://soundcloud.com/404/404
-WARC-Date: 2021-12-11T20:26:44.941Z
+WARC-Date: 2022-01-02T19:54:14.785Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:6452dcd3-4bca-4d6f-982f-a909d824a07f>
+WARC-Record-ID: <urn:uuid:80af8276-ef0b-4391-a90f-7961c6b287f5>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:5528c5337f8768169ed306698b32afe8e6086a580220de4f60925ef74c8bee84
-WARC-Block-Digest: sha256:36642ec7830f00cf002c1b4c3ff1eeb5663a18017ff4ff430fc3aadea5cdc434
-Content-Length: 17040
+WARC-Payload-Digest: sha256:a747d7e0fea902ef4148710ffe817f0a83508fa568b97bdf2452470bc93a3c75
+WARC-Block-Digest: sha256:da753cc6fc2ce9337eeb3c5b8fe69a3cb51ae772f8351a09030a40d07f3bf40c
+Content-Length: 17084
 
 HTTP/1.1 200 OK
 cache-control: private, max-age=0, no-cache, no-store
 connection: close
 content-encoding: gzip
 content-type: text/html
-date: Sat, 11 Dec 2021 20:26:44 GMT
+date: Sun, 02 Jan 2022 19:54:14 GMT
 server: am/2
-server-timing: enabledFeatures; dur=7.571425; desc="api-v2/enabledFeatures", experiments; dur=9.143382; desc="api-v2/experiments", geoip; dur=1.327211; desc="geoip/geoip", privacySettings; dur=7.001691; desc="api-v2/privacySettings"
+server-timing: enabledFeatures; dur=5.341369; desc="api-v2/enabledFeatures", experiments; dur=6.322208; desc="api-v2/experiments", geoip; dur=1.302827; desc="geoip/geoip", privacySettings; dur=5.751061; desc="api-v2/privacySettings"
 strict-transport-security: max-age=63072000; includeSubdomains; preload
 transfer-encoding: chunked
 vary: Accept-Encoding
-via: 1.1 bfe6539ddfc76c3ba5ee5e95acacd26e.cloudfront.net (CloudFront)
-x-amz-cf-id: 8BjdRrIWiTgfFkEeXV4K8lCAQXGYmHyIjKUHERUwnKefdIyNqqSUIA==
-x-amz-cf-pop: CDG52-P1
+via: 1.1 5e318b3ea3fa81a8c20898c2f8c40e7c.cloudfront.net (CloudFront)
+x-amz-cf-id: RdZ8IU5l69TWJPxzQ4TH-Efe_Qa1PN7Ur-3fq19jDAyc10GLi9L0zA==
+x-amz-cf-pop: ZRH50-C1
 x-cache: Miss from cloudfront
 x-frame-options: SAMEORIGIN
 x-pants: distant-towel
@@ -128,7 +128,7 @@ x-pollyjs-finalurl: https://soundcloud.com/404/404
 <link href="https://a-v2.sndcdn.com/assets/images/sc-icons/fluid-b4e7a64b8b.png" rel="fluid-icon">
 <script>!function(){var o,a,e;function i(a){return a.test(o)}o=window.navigator.userAgent.toLowerCase();var r,n,t,s=void 0!==window.opera&&"[object Opera]"===window.opera.toString(),p=o.match(/\sopr\/([0-9]+)\./),d=i(/chrome/),c=i(/webkit/),m=!d&&i(/safari/),w=!s&&i(/msie/),f=!c&&i(/gecko/);r=p?parseInt(p[1],10):(t=o.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i))&&(n=o.match(/version\/([.\d]+)/i))?parseInt(n[1],10):t?parseInt(t[2],10):null;var h=i(/mobile|android|iphone|ipod|symbianos|nokia|s60|playbook|playstation/);f&&(e=(a=o.match(/(firefox)\/?\s*(\.?\d+(\.\d+)*)/i))&&a.length>1&&parseInt(a[2],10)>=41),r&&!h&&(d&&!p&&r<40||f&&!p&&!1===e||m&&r<8||w&&r<11||s&&r<13||p&&r<27)&&(window.__sc_abortApp=!0)}()</script>
 <link rel="stylesheet" href="https://style.sndcdn.com/css/interstate-a86f07cf94ae5a496b24.css">
-<link rel="stylesheet" href="https://a-v2.sndcdn.com/assets/css/app-bb8773887c598a5c3d91.css">
+<link rel="stylesheet" href="https://a-v2.sndcdn.com/assets/css/app-b2906e294e1841f768cf.css">
 </head>
 <body class="sc-classic ot-hide-banner">
 
@@ -192,7 +192,7 @@ Please download one of our supported browsers.
 </p>
 </div>
 <script crossorigin src="https://a-v2.sndcdn.com/assets/51-98a51327.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/49-f84724e5.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/49-1dd53f28.js"></script>
 <script src="https://cdn.cookielaw.org/consent/7e62c772-c97a-4d95-8d0a-f99bbeadcf61/otSDKStub.js"
     data-document-language="true" type="text/javascript" charset="UTF-8"
     data-domain-script="7e62c772-c97a-4d95-8d0a-f99bbeadcf61" ></script>
@@ -236,16 +236,16 @@ Please download one of our supported browsers.
   }(window));
 </script>
 
-<script>window.__sc_version="1639042757"</script>
-<script>window.__sc_hydration = [{"hydratable":"anonymousId","data":"272177-990660-107670-519319"},{"hydratable":"features","data":{"features":["v2_stations_as_system_playlists","v2_enable_sourcepoint_tcfv2","v2_use_onetrust_tcfv2_eu1","v2_popular_tags","v2_enable_onetrust","v2_use_onetrust_eu2","v2_use_onetrust_us","v2_tags_recent_tracks","v2_enable_pwa","use_recurly_checkout","v2_show_pro_unlimited_badge_profile","mobi_enable_onetrust_tcfv2","mobi_use_onetrust_eu1","mobi_use_onetrust_gb","v2_hide_pro_badge_on_avatar","mobi_social_sharing","v2_can_request_verified_badge","mobi_use_onetrust_tcfv2_eu2","v2_snippet_ux_skip_snippets_in_play_queue","mobi_use_onetrust_tcfv2_eu1","v2_post_with_caption","mobi_use_onetrust_eu4","featured_artists_banner","v2_repost_redirect_page","v2_use_onetrust_gb","v2_signals_collection","v2_direct_support_link","v2_hq_file_storage_release","v2_use_onetrust_eu4","v2_stories_onboarding","mobi_use_onetrust_eu3","mobi_use_onetrust_elsewhere","v2_show_verified_badge","v2_use_onetrust_eu3","mobi_use_onetrust_us","v2_oscp_german_tax_fields_support","v2_use_new_connect","v2_use_onetrust_tcfv2_eu2","v2_use_onetrust_eu1","v2_enable_sourcepoint","mobi_use_onetrust_eu2","v2_enable_new_web_errors","v2_use_onetrust_elsewhere","mobi_sign_in_experiment","mobi_enable_onetrust","v2_can_see_insights","mobi_trinity","mobi_use_hls_hack","v2_stories","v2_enable_onetrust_tcfv2","v2_enable_tcfv2_consent_string_cache"]}},{"hydratable":"experiments","data":{}},{"hydratable":"geoip","data":{"country_code":"NL","country_name":"Netherlands","latitude":52.38240051269531,"longitude":4.899505615234375}},{"hydratable":"privacySettings","data":{"allows_messages_from_unfollowed_users":false,"analytics_opt_in":true,"communications_opt_in":true,"targeted_advertising_opt_in":false,"legislation":[]}}];</script>
+<script>window.__sc_version="1640775853"</script>
+<script>window.__sc_hydration = [{"hydratable":"anonymousId","data":"177400-479321-961278-960495"},{"hydratable":"features","data":{"features":["v2_stations_as_system_playlists","v2_enable_sourcepoint_tcfv2","v2_use_onetrust_tcfv2_eu1","v2_popular_tags","v2_enable_onetrust","v2_use_onetrust_eu2","v2_use_onetrust_us","v2_tags_recent_tracks","use_recurly_checkout","v2_show_pro_unlimited_badge_profile","mobi_enable_onetrust_tcfv2","mobi_use_onetrust_eu1","mobi_use_onetrust_gb","v2_hide_pro_badge_on_avatar","mobi_social_sharing","v2_can_request_verified_badge","mobi_use_onetrust_tcfv2_eu2","v2_test_feature_toggle","v2_snippet_ux_skip_snippets_in_play_queue","mobi_use_onetrust_tcfv2_eu1","v2_post_with_caption","mobi_use_onetrust_eu4","featured_artists_banner","v2_repost_redirect_page","v2_use_onetrust_gb","v2_signals_collection","v2_direct_support_link","v2_hq_file_storage_release","v2_use_onetrust_eu4","v2_stories_onboarding","mobi_use_onetrust_eu3","mobi_use_onetrust_elsewhere","v2_show_verified_badge","v2_use_onetrust_eu3","mobi_use_onetrust_us","v2_oscp_german_tax_fields_support","v2_use_new_connect","v2_use_onetrust_tcfv2_eu2","v2_use_onetrust_eu1","v2_enable_sourcepoint","mobi_use_onetrust_eu2","v2_enable_new_web_errors","v2_use_onetrust_elsewhere","mobi_sign_in_experiment","mobi_enable_onetrust","v2_can_see_insights","mobi_trinity","v2_eg_via_apiweb","v2_enable_pwa","mobi_use_hls_hack","v2_stories","v2_enable_onetrust_tcfv2","v2_enable_tcfv2_consent_string_cache"]}},{"hydratable":"experiments","data":{}},{"hydratable":"geoip","data":{"country_code":"NL","country_name":"Netherlands","latitude":52.38240051269531,"longitude":4.899505615234375}},{"hydratable":"privacySettings","data":{"allows_messages_from_unfollowed_users":false,"analytics_opt_in":true,"communications_opt_in":true,"targeted_advertising_opt_in":false,"legislation":[]}}];</script>
 
 
-<script crossorigin src="https://a-v2.sndcdn.com/assets/50-e0385168.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/1-0ff18e51.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/3-1325e9c6.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/2-4d1b2640.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/0-32bf4b06.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/48-23e0c345.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/50-cbc94b7c.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/1-4d43f02a.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/3-fd02480d.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/2-518733cd.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/0-e21c214b.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/48-8240765f.js"></script>
 </body>
 </html>
 

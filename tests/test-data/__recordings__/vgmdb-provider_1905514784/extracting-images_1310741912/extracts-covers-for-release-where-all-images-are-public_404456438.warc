@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: vgmdb provider/extracting images/extracts covers for release where all images are public
-WARC-Date: 2021-12-11T20:26:40.445Z
+WARC-Date: 2022-01-02T19:54:12.748Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:01e31d28-9c3e-427c-93f4-6431146bf25e>
+WARC-Record-ID: <urn:uuid:dd2e9168-513c-4f2c-a8a3-19548db867be>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:6e13e015-df28-417b-93f7-6c4e9d6b5498>
+WARC-Concurrent-To: <urn:uuid:c163dc03-9342-4890-83c4-f2aba2950071>
 WARC-Target-URI: https://vgmdb.net/album/96418
-WARC-Date: 2021-12-11T20:26:40.446Z
+WARC-Date: 2022-01-02T19:54:12.749Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:61e63a9b-d2ce-44ca-b049-6dacc5463f20>
+WARC-Record-ID: <urn:uuid:1a4480fd-5e80-42e2-b690-3d9948cc7b4c>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:36aee871410a99cba4aaa4e8ab98227b9e7faeebd3fef8a7864181d9c71222b4
@@ -27,49 +27,49 @@ GET /album/96418 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:6e13e015-df28-417b-93f7-6c4e9d6b5498>
+WARC-Concurrent-To: <urn:uuid:c163dc03-9342-4890-83c4-f2aba2950071>
 WARC-Target-URI: https://vgmdb.net/album/96418
-WARC-Date: 2021-12-11T20:26:40.446Z
+WARC-Date: 2022-01-02T19:54:12.749Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:0f30725b-d41c-4867-b5d5-365b2fa5decf>
+WARC-Record-ID: <urn:uuid:235d7b32-f055-42c4-b599-8cb33e796db0>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:e86d12f67767d5c328008f2ff75f126a0bbbd02e46bc1183aa305b1467d22a1e
-WARC-Block-Digest: sha256:e86d12f67767d5c328008f2ff75f126a0bbbd02e46bc1183aa305b1467d22a1e
-Content-Length: 603
+WARC-Payload-Digest: sha256:5b626c57f7b47b118aac606c5eb912399b6093a87c7cf19e493c7187ea730316
+WARC-Block-Digest: sha256:5b626c57f7b47b118aac606c5eb912399b6093a87c7cf19e493c7187ea730316
+Content-Length: 601
 
 harEntryId: 45afb1943a4963e8b5b78f0e82c86f06
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:38.948Z
-time: 1358
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1358,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:11.843Z
+time: 724
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":724,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 48
 warcRequestCookies: []
 warcResponseHeadersSize: 880
-warcResponseCookies: [{"name":"vgmsessionhash","value":"049795155c400e9a6cf06c3df55a88c9","path":"/","domain":".vgmdb.net","httponly, vgmlastvisit":"1639254400","expires":"2022-12-11T20:26:40.000Z","maxAge":31536000,"secure, vgmlastactivity":"0","secure, vgm_filter_ver":"1"}]
+warcResponseCookies: [{"name":"vgmsessionhash","value":"f576a2e96ea8d56077cde864ebd2dff1","path":"/","domain":".vgmdb.net","httponly, vgmlastvisit":"1641153252","expires":"2023-01-02T19:54:12.000Z","maxAge":31536000,"secure, vgmlastactivity":"0","secure, vgm_filter_ver":"1"}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://vgmdb.net/album/96418
-WARC-Date: 2021-12-11T20:26:40.446Z
+WARC-Date: 2022-01-02T19:54:12.748Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:6e13e015-df28-417b-93f7-6c4e9d6b5498>
+WARC-Record-ID: <urn:uuid:c163dc03-9342-4890-83c4-f2aba2950071>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:2146daa828e3a012d68479a07063ff17378c68be4ac83bde2bd4b3280a2f6b15
-WARC-Block-Digest: sha256:3098137b9ddd5fccb2b8fc0221a832e6cc4467025fa70a748d5e3060a4ce3480
-Content-Length: 38375
+WARC-Payload-Digest: sha256:a65b6f609e81857a15ae359f4146ccdb2fbefc445fb6b05981383439d4a72ce4
+WARC-Block-Digest: sha256:6a41c93a0e11634a5ebe251cb57be4440b6e58a3d931d0c199c0850743824124
+Content-Length: 38470
 
 HTTP/1.1 200 OK
 cache-control: private
 connection: close
 content-encoding: gzip
 content-type: text/html; charset=UTF-8
-date: Sat, 11 Dec 2021 20:26:40 GMT
+date: Sun, 02 Jan 2022 19:54:12 GMT
 pragma: private
 referrer-policy: no-referrer-when-downgrade
 server: nginx
-set-cookie: vgmsessionhash=049795155c400e9a6cf06c3df55a88c9; path=/; domain=.vgmdb.net; HttpOnly, vgmlastvisit=1639254400; expires=Sun, 11-Dec-2022 20:26:40 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgmlastactivity=0; expires=Sun, 11-Dec-2022 20:26:40 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgm_filter_ver=1; path=/, vgm_filter_pubtype=7; path=/, vgm_filter_distype=511; path=/, vgm_filter_category_on=0; path=/, vgm_filter_category_off=0; path=/
+set-cookie: vgmsessionhash=f576a2e96ea8d56077cde864ebd2dff1; path=/; domain=.vgmdb.net; HttpOnly, vgmlastvisit=1641153252; expires=Mon, 02-Jan-2023 19:54:12 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgmlastactivity=0; expires=Mon, 02-Jan-2023 19:54:12 GMT; Max-Age=31536000; path=/; domain=.vgmdb.net; secure, vgm_filter_ver=1; path=/, vgm_filter_pubtype=7; path=/, vgm_filter_distype=511; path=/, vgm_filter_category_on=0; path=/, vgm_filter_category_off=0; path=/
 transfer-encoding: chunked
 x-content-type-options: nosniff
 x-frame-options: SAMEORIGIN
@@ -121,7 +121,7 @@ x-pollyjs-finalurl: https://vgmdb.net/album/96418
 <script type="text/javascript" src="/db/clientscript/connection-min.js"></script>
 <script type="text/javascript">
 <!--
-var SESSIONURL = "s=049795155c400e9a6cf06c3df55a88c9&";
+var SESSIONURL = "s=f576a2e96ea8d56077cde864ebd2dff1&";
 var SECURITYTOKEN = "guest";
 var IMGDIR_MISC = "/db/images/misc";
 var vb_disable_ajax = parseInt("1", 10);
@@ -200,6 +200,7 @@ $(document).ready(function() {
 	$('label.tristate').tristate(); // 'sup IRA
 	
 });</script>
+<meta name="google-site-verification" content="3hoyGArPHzn4HMMeNfYCjhqM5Ci_675U7M7NxbiLJ1A" />
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -361,7 +362,7 @@ $(document).ready(function() {
 	</li>
 	<li id="nav_advsearch"><a title="More search options" href="/search">Advanced Search</a></li>
 	<li id="nav_update"><a title="Latest submissions and edits" href="/db/recent.php">Updates</a></li>
-	<li id="nav_calendar"><a title="Release schedules" href="/db/calendar.php?year=2021&month=12">Calendar</a></li>
+	<li id="nav_calendar"><a title="Release schedules" href="/db/calendar.php?year=2022&month=1">Calendar</a></li>
 	<li id="nav_forum"><a title="Community discussions" href="/forums/">Forums</a></li>
 	<li id="nav_market"><a title="Trade with other members" href="/db/marketplace.php?do=view">Marketplace</a></li>
 	<!--li id="nav_users"><a title="User collections" href="/db/collection.php">Users</a></li-->
@@ -389,7 +390,7 @@ $(document).ready(function() {
 		<td><input type="submit" class="button" value="Log in" tabindex="104" title="Enter your username and password in the boxes provided to login, or click the 'register' button to create a profile for yourself." accesskey="s" /></td>
 	</tr>
 	</table>
-	<input type="hidden" name="s" value="049795155c400e9a6cf06c3df55a88c9" />
+	<input type="hidden" name="s" value="f576a2e96ea8d56077cde864ebd2dff1" />
 	<input type="hidden" name="securitytoken" value="guest" />
 	<input type="hidden" name="do" value="login" />		
 	<input type="hidden" name="vb_login_md5password" />
@@ -696,7 +697,7 @@ Feb 16, 2020 <span class="time">02:47 PM</span></div>
 Jul 4, 2020 <span class="time">04:48 AM</span></div>
 
 <div style="margin-bottom: 10px;"><img src="/db/img/arrowbit.gif" alt="" /> <b class="label">Page traffic</b><br />
-<span class="time">381</span> visitors<br />
+<span class="time">397</span> visitors<br />
 <span class="time" style="word-break:break-all">-</span> freedb<br />
 <!----></div>
 
@@ -745,7 +746,7 @@ Jul 4, 2020 <span class="time">04:48 AM</span></div>
 	<div style="float: right; text-align: right; font-family: Arial;" class="label">
 		<a href="/about">About Us</a> &bull;
 		<a href="/faq">F.A.Q.</a> &bull;
-		<a href="/forums/sendmessage.php?s=049795155c400e9a6cf06c3df55a88c9" rel="nofollow" accesskey="9">Contact Us</a> &bull;
+		<a href="/forums/sendmessage.php?s=f576a2e96ea8d56077cde864ebd2dff1" rel="nofollow" accesskey="9">Contact Us</a> &bull;
 		<a href="/db/statistics.php" rel="nofollow">Statistics</a> &bull;
 		<a href="https://vgmdb.net">Home</a>
 
@@ -775,7 +776,7 @@ Jul 4, 2020 <span class="time">04:48 AM</span></div>
 		<!-- Do not remove this copyright notice --></div>
 		<div class="smallfont">Site code and design copyright VGMdb.net</div>
 		<div class="smallfont">Site material is property of their respective owners.</div>
-		<div class="smallfont">All times are GMT -8. The time now is <span class="time">12:26 PM</span>.</div>
+		<div class="smallfont">All times are GMT -8. The time now is <span class="time">11:54 AM</span>.</div>
 	</div>
 
 

@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: melon provider/extracting images/extracts covers for release
-WARC-Date: 2021-12-11T20:26:40.912Z
+WARC-Date: 2022-01-02T19:54:19.212Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:b706281e-53e4-407e-8f66-be3b0b79b352>
+WARC-Record-ID: <urn:uuid:69fff4b2-48aa-4d62-8e1f-8b9c4dadbc1c>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:38b6a7b3-2459-4623-8a31-6c724ec417a8>
+WARC-Concurrent-To: <urn:uuid:0723bf7f-0e9a-4e40-9505-14671cf7aa05>
 WARC-Target-URI: https://www.melon.com/album/detail.htm?albumId=10749882
-WARC-Date: 2021-12-11T20:26:40.914Z
+WARC-Date: 2022-01-02T19:54:19.214Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:6040fc1e-1482-463c-89b2-e8e75bfee7ff>
+WARC-Record-ID: <urn:uuid:1dcff1c7-aa74-4e5f-b540-859deabe14cd>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:f6654b8e1386c4db0d033897fc5faa7862eca1c24e425fd2a4e217b418f45aa0
@@ -27,22 +27,22 @@ GET /album/detail.htm?albumId=10749882 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:38b6a7b3-2459-4623-8a31-6c724ec417a8>
+WARC-Concurrent-To: <urn:uuid:0723bf7f-0e9a-4e40-9505-14671cf7aa05>
 WARC-Target-URI: https://www.melon.com/album/detail.htm?albumId=10749882
-WARC-Date: 2021-12-11T20:26:40.914Z
+WARC-Date: 2022-01-02T19:54:19.215Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:59cc4ff7-9fc6-48b7-a6d2-1ecaa6a38846>
+WARC-Record-ID: <urn:uuid:36bd3265-38a1-4376-a378-c70c8a0c2c4a>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:39db82f2c6f2318442bf88ea1841ebe930fd76487a8b2f7372c1b470d17da8b5
-WARC-Block-Digest: sha256:39db82f2c6f2318442bf88ea1841ebe930fd76487a8b2f7372c1b470d17da8b5
+WARC-Payload-Digest: sha256:4e20a500ef8ba665e6c5f7375f2f8b99a40e852187ec5c0e3f5651a17a5c31be
+WARC-Block-Digest: sha256:4e20a500ef8ba665e6c5f7375f2f8b99a40e852187ec5c0e3f5651a17a5c31be
 Content-Length: 350
 
 harEntryId: 6ac3e3311f3071bf6a7511d88caf7b1f
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:38.727Z
-time: 1997
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1997,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:17.309Z
+time: 1737
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1737,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 74
 warcRequestCookies: []
 warcResponseHeadersSize: 310
@@ -52,22 +52,22 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://www.melon.com/album/detail.htm?albumId=10749882
-WARC-Date: 2021-12-11T20:26:40.914Z
+WARC-Date: 2022-01-02T19:54:19.214Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:38b6a7b3-2459-4623-8a31-6c724ec417a8>
+WARC-Record-ID: <urn:uuid:0723bf7f-0e9a-4e40-9505-14671cf7aa05>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:7016d2fde8d81ea70f3f55de26fc78b2854b98b11b187b4f67d634890f83ffa2
-WARC-Block-Digest: sha256:910f476342f514fafbe9e1b5d9463f6d1379935be7996b4700cfc1ddf9815929
-Content-Length: 126869
+WARC-Payload-Digest: sha256:9380a78ecf8b1ff0c9ed16f046d736c6b32d9f1b732277d799438441b96e7eec
+WARC-Block-Digest: sha256:eabd388baf0b07504a6a0f60348f8661379cacf7b0073d540006a10682ef5693
+Content-Length: 131286
 
 HTTP/1.1 200 OK
 cache-control: no-cache
 connection: close
 content-encoding: gzip
 content-language: ko-KR
-content-length: 26216
+content-length: 26455
 content-type: text/html;charset=utf-8
-date: Sat, 11 Dec 2021 20:26:40 GMT
+date: Sun, 02 Jan 2022 19:54:18 GMT
 server: Apache
 vary: Accept-Encoding
 x-pollyjs-finalurl: https://www.melon.com/album/detail.htm?albumId=10749882
@@ -152,7 +152,7 @@ x-pollyjs-finalurl: https://www.melon.com/album/detail.htm?albumId=10749882
 	
 	
 	<script type="text/javascript" src="/resource/script/web/common/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="https://member.melon.com/resource/script/web/member/melonweb_member_external.js?tm=20211212"></script>
+	<script type="text/javascript" src="https://member.melon.com/resource/script/web/member/melonweb_member_external.js?tm=20220103"></script>
 	<script type="text/javascript" src="https://cdnimg.melon.co.kr/static/web/resource/script/w1/ei/s/lqtorqn28.js"></script> 
 	<script type="text/javascript">
 	(function() {
@@ -736,7 +736,7 @@ x-pollyjs-finalurl: https://www.melon.com/album/detail.htm?albumId=10749882
 										</dt>
 										<dd>
 											<a href="#none" data-control="dropdown">
-												<span class="text" id="gradCountLayer">75명</span>
+												<span class="text" id="gradCountLayer">78명</span>
 												<span class="button_icons arrow_link02"></span>
 											</a>
 											<!-- [DP] 별점평가 레이어 -->
@@ -1027,7 +1027,7 @@ bookletDown = function(downType) {
 											<span class="odd_span">좋아요</span>
 											<span class="cnt">
 												<span class="none">총건수</span>
-												1618
+												1713
 											</span>
 										</button>
 									</div></td>
@@ -1080,7 +1080,7 @@ bookletDown = function(downType) {
 											<span class="odd_span">좋아요</span>
 											<span class="cnt">
 												<span class="none">총건수</span>
-												62
+												66
 											</span>
 										</button>
 									</div></td>
@@ -1301,6 +1301,86 @@ $(function(){
 						</div>
 						<div class="service_list_album d_album_list">
 							<h3 class="none">앨범리스트</h3>
+							
+							
+							<ul>
+							
+								<li>
+									<div class="thumb">
+										<a href="javascript:melon.link.goAlbumDetail('10817186');" title="지리산 OST Special - 페이지 이동" class="image_typeAll">
+											<img onerror="WEBPOCIMG.defaultAlbumImg(this);" width="180" height="180" src="https://cdnimg.melon.co.kr/cm2/album/images/108/17/186/10817186_20211217160548_500.jpg/melon/resize/180/quality/80/optimize" alt=""/>
+											<span class="bg_album_frame"></span>
+										</a>
+									</div>
+									<div class="entry">
+										<div class="info">
+											<span class="vdo_name">[OST]</span>
+											<a href="javascript:melon.link.goAlbumDetail('10817186');" class="ellipsis album_name" title="지리산 OST Special - 페이지 이동">지리산 OST Special</a>
+											<span class="ellipsis artist">
+												Various Artists
+											</span>
+											
+										</div>
+										<div class="meta">
+											<span class="reg_date" title="발매일">2021.12.19</span>
+											<i class="bar"></i>
+											<button type="button" class="button_etc like btn_rel_like" title="지리산 OST Special 좋아요" data-album-no="10817186" data-album-menuid="28010101">
+												<span class="odd_span">좋아요</span>
+												<span class="cnt">
+													<span class="none">총건수</span>
+													0
+												</span>
+											</button>
+											<i class="bar"></i>
+											<span class="tot_song" title="총 수록곡">35곡</span>
+										</div>
+										<div class="wrap_btn_tb">
+											<button type="button" title="앨범듣기" class="button_rbox "  onclick="javascript:melon.play.playAlbum('28010101','10817186');"><span class="button_icons type02 play"></span><span class="cnt">앨범듣기</span></button>
+											<button type="button" title="앨범 다운로드" class="button_rbox "  onClick="javascript:melon.buy.goBuyProduct('frm','10817186','3B0001','','0','28010101','1');"><span class="button_icons type02 download"></span><span class="cnt">앨범다운</span></button>
+										</div>
+									</div>
+								</li>
+							
+							
+							
+								<li>
+									<div class="thumb">
+										<a href="javascript:melon.link.goAlbumDetail('10810005');" title="지리산 OST Part.12 - 페이지 이동" class="image_typeAll">
+											<img onerror="WEBPOCIMG.defaultAlbumImg(this);" width="180" height="180" src="https://cdnimg.melon.co.kr/cm2/album/images/108/10/005/10810005_20211210162514_500.jpg/melon/resize/180/quality/80/optimize" alt=""/>
+											<span class="bg_album_frame"></span>
+										</a>
+									</div>
+									<div class="entry">
+										<div class="info">
+											<span class="vdo_name">[OST]</span>
+											<a href="javascript:melon.link.goAlbumDetail('10810005');" class="ellipsis album_name" title="지리산 OST Part.12 - 페이지 이동">지리산 OST Part.12</a>
+											<span class="ellipsis artist">
+												<a href="javascript:melon.link.goArtistDetail('710006');" title="헨리 (HENRY) - 페이지 이동">헨리 (HENRY)</a>
+											</span>
+											
+										</div>
+										<div class="meta">
+											<span class="reg_date" title="발매일">2021.12.12</span>
+											<i class="bar"></i>
+											<button type="button" class="button_etc like btn_rel_like" title="지리산 OST Part.12 좋아요" data-album-no="10810005" data-album-menuid="28010101">
+												<span class="odd_span">좋아요</span>
+												<span class="cnt">
+													<span class="none">총건수</span>
+													0
+												</span>
+											</button>
+											<i class="bar"></i>
+											<span class="tot_song" title="총 수록곡">1곡</span>
+										</div>
+										<div class="wrap_btn_tb">
+											<button type="button" title="앨범듣기" class="button_rbox "  onclick="javascript:melon.play.playAlbum('28010101','10810005');"><span class="button_icons type02 play"></span><span class="cnt">앨범듣기</span></button>
+											<button type="button" title="앨범 다운로드" class="button_rbox "  onClick="javascript:melon.buy.goBuyProduct('frm','10810005','3B0001','','0','28010101','1');"><span class="button_icons type02 download"></span><span class="cnt">앨범다운</span></button>
+										</div>
+									</div>
+								</li>
+							
+							</ul>
+							
 							
 							
 							<ul>
@@ -1733,7 +1813,7 @@ $(function(){
 										
 											
 												<a href="javascript:MELON.WEBSVC.POC.link.goDjPlaylistDetail('0','Y','N','457492442');" title="HOT TRENDY 놓쳐선 안될 &#39;국내 ROCK&#39; (매주 업데이트) - 페이지 이동" class="image_typeAll">
-													<img onerror="WEBPOCIMG.defaultPlaylistImg(this);" src="https://cdnimg.melon.co.kr/svc/images/melondj/playlist/457492442_org.jpg?tm=20211207010152/melon/resize/180/quality/80/optimize" alt=""/>
+													<img onerror="WEBPOCIMG.defaultPlaylistImg(this);" src="https://cdnimg.melon.co.kr/svc/images/melondj/playlist/457492442_org.jpg?tm=20211228015017/melon/resize/180/quality/80/optimize" alt=""/>
 													<span class="bg_album_frame"></span>
 												</a>
 											
@@ -1786,7 +1866,7 @@ $(function(){
 										
 											
 												<a href="javascript:MELON.WEBSVC.POC.link.goDjPlaylistDetail('0','Y','N','459555326');" title="그 장면이 생각나는 드라마 OST &bull;͈ᴗ&bull;͈ - 페이지 이동" class="image_typeAll">
-													<img onerror="WEBPOCIMG.defaultPlaylistImg(this);" src="https://cdnimg.melon.co.kr/svc/user_images/plylst/2020/04/356/8/459555326_org.jpg?tm=20211211080458/melon/resize/180/quality/80/optimize" alt=""/>
+													<img onerror="WEBPOCIMG.defaultPlaylistImg(this);" src="https://cdnimg.melon.co.kr/svc/user_images/plylst/2020/04/356/8/459555326_org.jpg?tm=20220101100253/melon/resize/180/quality/80/optimize" alt=""/>
 													<span class="bg_album_frame"></span>
 												</a>
 											
@@ -1814,7 +1894,7 @@ $(function(){
 												</span>
 											</button>
 											<i class="bar"></i>
-											<span class="tot_song" title="그 장면이 생각나는 드라마 OST &bull;͈ᴗ&bull;͈ 수록곡">418곡</span>								
+											<span class="tot_song" title="그 장면이 생각나는 드라마 OST &bull;͈ᴗ&bull;͈ 수록곡">435곡</span>								
 										</div>
 										
 										
@@ -1924,7 +2004,7 @@ $(function() {
 		WEBSVC = MELON.WEBSVC,
 		PBPGN = MELON.PBPGN,
 		addComma = WEBSVC.number.addComma,
-		serverTime = "2021:12:12 05:26:40"; 	// 시간은 서버에서 찍어주세요.
+		serverTime = "2022:01:03 04:54:18"; 	// 시간은 서버에서 찍어주세요.
 		 
 		 $('.section_info').each(function() {
 			 if ($(this).find('.song_name').height() > 30) {
@@ -2325,7 +2405,7 @@ $(function() {
 	});
 
  	// Banner Info
-	var serverTime = "2021:12:12 05:26:40"; 	// 시간은 서버에서 찍어주세요.(yyyy:MM:dd hh:mm:ss)
+	var serverTime = "2022:01:03 04:54:18"; 	// 시간은 서버에서 찍어주세요.(yyyy:MM:dd hh:mm:ss)
 	$(document).on('limitpopup', function( e, cookieId ) {
 		if ( cookieId === 'linebanner01' ) {
 			$('div.line_ban').show();

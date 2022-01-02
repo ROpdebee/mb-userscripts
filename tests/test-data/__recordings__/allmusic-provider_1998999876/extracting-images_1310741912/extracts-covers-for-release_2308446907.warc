@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: allmusic provider/extracting images/extracts covers for release
-WARC-Date: 2021-12-11T20:26:43.874Z
+WARC-Date: 2022-01-02T19:54:15.716Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:d732b4e6-98fa-421a-9db4-d234898d2ac5>
+WARC-Record-ID: <urn:uuid:b8c94d53-ff5c-4e0c-b209-d54d5e0079e3>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:fee513a8-f0a2-4648-8447-b0507bc45be0>
+WARC-Concurrent-To: <urn:uuid:85553efc-eb8e-488d-b236-2985d25214b7>
 WARC-Target-URI: https://www.allmusic.com/album/release/thank-you-mr0005436124
-WARC-Date: 2021-12-11T20:26:43.875Z
+WARC-Date: 2022-01-02T19:54:15.717Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:f842cb9d-0402-4342-a72f-09dc2d742efd>
+WARC-Record-ID: <urn:uuid:e26a379c-15d6-4eb8-ab30-4bc5806abc5a>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:55dd1a4656e52aa53cb36aec6758158c02697dbe8e577985a0e154636c87da90
@@ -27,38 +27,38 @@ GET /album/release/thank-you-mr0005436124 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:fee513a8-f0a2-4648-8447-b0507bc45be0>
+WARC-Concurrent-To: <urn:uuid:85553efc-eb8e-488d-b236-2985d25214b7>
 WARC-Target-URI: https://www.allmusic.com/album/release/thank-you-mr0005436124
-WARC-Date: 2021-12-11T20:26:43.875Z
+WARC-Date: 2022-01-02T19:54:15.718Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:9ef15618-c661-44e3-84e7-798822ab4e87>
+WARC-Record-ID: <urn:uuid:570d1ba2-2cea-44b2-a6d5-abf08cb426f9>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:09cefa3cec9365d73fe8de67366121f4e112c0761f4797fbd679b58998d8f835
-WARC-Block-Digest: sha256:09cefa3cec9365d73fe8de67366121f4e112c0761f4797fbd679b58998d8f835
-Content-Length: 1166
+WARC-Payload-Digest: sha256:d449df69c9bec6ccf7b314edadd97b9596c27b07e574a42217576c1b190a094e
+WARC-Block-Digest: sha256:d449df69c9bec6ccf7b314edadd97b9596c27b07e574a42217576c1b190a094e
+Content-Length: 1186
 
 harEntryId: c1a6d5544ca0261be86062031e835f4f
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:43.476Z
-time: 393
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":393,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:15.385Z
+time: 326
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":326,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 80
 warcRequestCookies: []
-warcResponseHeadersSize: 2262
-warcResponseCookies: [{"name":"allmusic_session","value":"LehU1FSiMiN4FdhSIzopIUvLzKlGwNnF6lAvb8QdhxtMfAJTupCVzft8ciiNsV7WxJwtstQk0/Ctg8Gyhbpsdbcn5Hj0R5LuJWSvL/hSOcrC0AqdyqpASLznpOAfJ3/mQpughQty7mI5KxO8cUIF6MURD6rrzZY40cA1lVTpyaAnvIO5eGJLDB4stlOT7p5YwmYAJwuy5AYkYSfmrraWcRXb3Hnah2HAutV08bZA8whKmEVQwzTl/MqEYesjQsQSruVh+5KtZjP/z0mqkwPBbkjzV/NuNpi1jJfvkDtkhmLwH3vmdvk38yZCBY/A7/dgQick2iJ2P1lL3lfkvazAFg==","path":"/","secure":true,"httponly, allmusic_session":"kkGQ3TvBQ9cnlqNa4fHuvAgotvt4fVZURRv99o0mS4E87f5zagVM1pbKzvoWpkD3D8ruYb%2B8Ro%2B8e%2BWMXlyAjuobifZdzvXkXG8ncEVGWodcAuGK6Xghecg4CrLvWqNUFrjTJP6DmP5rt0XVbmwgKwNWBSdtq7i9dwFJbDNzr7mnljj65OfIBSIqRbtoI5Smr8x7z8%2FROGxti7J2x9vgR73%2FcTM66RhmZjwRaL6x4rEIRqbrvrgaB8YetXYqfro45rDke4WYybWMt13oBq9ezT3Ov9vGbJdrrelpL22Nt4K7%2FpbZZJ7SZQheks%2FQnymsEk1yPx0LCyBfjbUrAyMoCQ%3D%3D","httpOnly":true}]
+warcResponseHeadersSize: 2302
+warcResponseCookies: [{"name":"allmusic_session","value":"/YcD5iqXaoAq0Vud+ZDQXJt3fEGqPIALfDjjxrkaiGXrRmZxWM+rYQJ3Rq4rrPGVbgLu4z7hDVkalTP7HH+nvvrMDmxKtg+HrRTku9rfreSNt4jNhqJRL+J+yS4eB0DnMmoMFUsXVdEdpITXJ1k5N9ZVwCVFP7lvk5bIBrwNynpvpxpFYbniw++tQ846tiRpFwDU9xdQwHJeUnq7tnazq9dh6ilUr47Zrs6gbbc8AFG+5BX5FMubu5/+QEk0EzSfa6dyvBjRwR38b003Wn5DxiLVWdsOgwA8jZ0HcZPdLu2h/OU7pPkSDb70KYN8bfIcuxv7z8tpmnoLphiLMA5w/g==","path":"/","secure":true,"httponly, allmusic_session":"64l6uZ0FbxcqjRDY5DOAUaF1RJussvcVMfl%2FjN%2FnJVww%2Fra4roUZAES3Onas3nRKgk%2BS1pLqT2W%2FgNDj%2BAOV29dxhubqy%2FaADJ%2FSHumyk%2BstGgTDGdwkHKDZE2MShuhLYCizTaW5Es3Mp1mcf38CPtt6xipcJxvLFGC%2FPkk1RV59Jy4AmxTb7gGBxQ2DgHPs%2FiyYD0zV4Ua0Qf0HiCAkRxWjfsqb0c84eMIjNVVKkzBuX02FtlZ9%2Bh0QGKNCu9zmslNE9%2FDieS%2Bl3sUHVPi%2BSvE%2B%2BuQOG0myP1OAUqPUZMEwaAVnBmVErgo74hsXo5xqozxhd6K9436ZreJ3SSfZ0g%3D%3D","httpOnly":true}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://www.allmusic.com/album/release/thank-you-mr0005436124
-WARC-Date: 2021-12-11T20:26:43.875Z
+WARC-Date: 2022-01-02T19:54:15.717Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:fee513a8-f0a2-4648-8447-b0507bc45be0>
+WARC-Record-ID: <urn:uuid:85553efc-eb8e-488d-b236-2985d25214b7>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:80cc31c2333690d2c43788f0e1f45dd697d87e0607473f01c5e865a62e4ab2cd
-WARC-Block-Digest: sha256:1540443f54d27b898a46443112cf44d93be2122a64734cbcbf77e53ee8febf28
-Content-Length: 91764
+WARC-Payload-Digest: sha256:6a8d25490eb213cf72bdc38e9ce2cebf1ac8fdec9d062e6de26ce4cbe96010d1
+WARC-Block-Digest: sha256:7183757558e761ff022e1ca5b24c9b0444b1d446e054d5d6d4462a9b6ee671ad
+Content-Length: 91805
 
 HTTP/1.1 200 OK
 accept-ranges: bytes
@@ -69,25 +69,25 @@ connection: close
 content-encoding: gzip
 content-security-policy: upgrade-insecure-requests
 content-type: text/html; charset=UTF-8
-date: Sat, 11 Dec 2021 20:26:43 GMT
-expires: Sun, 12 Dec 2021 08:26:43 GMT
+date: Sun, 02 Jan 2022 19:54:15 GMT
+expires: Mon, 03 Jan 2022 07:54:15 GMT
 server: nginx/1.20.1
-set-cookie: allmusic_session=LehU1FSiMiN4FdhSIzopIUvLzKlGwNnF6lAvb8QdhxtMfAJTupCVzft8ciiNsV7WxJwtstQk0%2FCtg8Gyhbpsdbcn5Hj0R5LuJWSvL%2FhSOcrC0AqdyqpASLznpOAfJ3%2FmQpughQty7mI5KxO8cUIF6MURD6rrzZY40cA1lVTpyaAnvIO5eGJLDB4stlOT7p5YwmYAJwuy5AYkYSfmrraWcRXb3Hnah2HAutV08bZA8whKmEVQwzTl%2FMqEYesjQsQSruVh%2B5KtZjP%2Fz0mqkwPBbkjzV%2FNuNpi1jJfvkDtkhmLwH3vmdvk38yZCBY%2FA7%2FdgQick2iJ2P1lL3lfkvazAFg%3D%3D; path=/; secure; HttpOnly, allmusic_session=kkGQ3TvBQ9cnlqNa4fHuvAgotvt4fVZURRv99o0mS4E87f5zagVM1pbKzvoWpkD3D8ruYb%2B8Ro%2B8e%2BWMXlyAjuobifZdzvXkXG8ncEVGWodcAuGK6Xghecg4CrLvWqNUFrjTJP6DmP5rt0XVbmwgKwNWBSdtq7i9dwFJbDNzr7mnljj65OfIBSIqRbtoI5Smr8x7z8%2FROGxti7J2x9vgR73%2FcTM66RhmZjwRaL6x4rEIRqbrvrgaB8YetXYqfro45rDke4WYybWMt13oBq9ezT3Ov9vGbJdrrelpL22Nt4K7%2FpbZZJ7SZQheks%2FQnymsEk1yPx0LCyBfjbUrAyMoCQ%3D%3D; path=/; secure; HttpOnly
+set-cookie: allmusic_session=%2FYcD5iqXaoAq0Vud%2BZDQXJt3fEGqPIALfDjjxrkaiGXrRmZxWM%2BrYQJ3Rq4rrPGVbgLu4z7hDVkalTP7HH%2BnvvrMDmxKtg%2BHrRTku9rfreSNt4jNhqJRL%2BJ%2ByS4eB0DnMmoMFUsXVdEdpITXJ1k5N9ZVwCVFP7lvk5bIBrwNynpvpxpFYbniw%2B%2BtQ846tiRpFwDU9xdQwHJeUnq7tnazq9dh6ilUr47Zrs6gbbc8AFG%2B5BX5FMubu5%2F%2BQEk0EzSfa6dyvBjRwR38b003Wn5DxiLVWdsOgwA8jZ0HcZPdLu2h%2FOU7pPkSDb70KYN8bfIcuxv7z8tpmnoLphiLMA5w%2Fg%3D%3D; path=/; secure; HttpOnly, allmusic_session=64l6uZ0FbxcqjRDY5DOAUaF1RJussvcVMfl%2FjN%2FnJVww%2Fra4roUZAES3Onas3nRKgk%2BS1pLqT2W%2FgNDj%2BAOV29dxhubqy%2FaADJ%2FSHumyk%2BstGgTDGdwkHKDZE2MShuhLYCizTaW5Es3Mp1mcf38CPtt6xipcJxvLFGC%2FPkk1RV59Jy4AmxTb7gGBxQ2DgHPs%2FiyYD0zV4Ua0Qf0HiCAkRxWjfsqb0c84eMIjNVVKkzBuX02FtlZ9%2Bh0QGKNCu9zmslNE9%2FDieS%2Bl3sUHVPi%2BSvE%2B%2BuQOG0myP1OAUqPUZMEwaAVnBmVErgo74hsXo5xqozxhd6K9436ZreJ3SSfZ0g%3D%3D; path=/; secure; HttpOnly
 strict-transport-security: max-age=31536000; includeSubDomains
-tmp-set-cookie: allmusic_session=LehU1FSiMiN4FdhSIzopIUvLzKlGwNnF6lAvb8QdhxtMfAJTupCVzft8ciiNsV7WxJwtstQk0%2FCtg8Gyhbpsdbcn5Hj0R5LuJWSvL%2FhSOcrC0AqdyqpASLznpOAfJ3%2FmQpughQty7mI5KxO8cUIF6MURD6rrzZY40cA1lVTpyaAnvIO5eGJLDB4stlOT7p5YwmYAJwuy5AYkYSfmrraWcRXb3Hnah2HAutV08bZA8whKmEVQwzTl%2FMqEYesjQsQSruVh%2B5KtZjP%2Fz0mqkwPBbkjzV%2FNuNpi1jJfvkDtkhmLwH3vmdvk38yZCBY%2FA7%2FdgQick2iJ2P1lL3lfkvazAFg%3D%3D; path=/; secure; HttpOnly
+tmp-set-cookie: allmusic_session=%2FYcD5iqXaoAq0Vud%2BZDQXJt3fEGqPIALfDjjxrkaiGXrRmZxWM%2BrYQJ3Rq4rrPGVbgLu4z7hDVkalTP7HH%2BnvvrMDmxKtg%2BHrRTku9rfreSNt4jNhqJRL%2BJ%2ByS4eB0DnMmoMFUsXVdEdpITXJ1k5N9ZVwCVFP7lvk5bIBrwNynpvpxpFYbniw%2B%2BtQ846tiRpFwDU9xdQwHJeUnq7tnazq9dh6ilUr47Zrs6gbbc8AFG%2B5BX5FMubu5%2F%2BQEk0EzSfa6dyvBjRwR38b003Wn5DxiLVWdsOgwA8jZ0HcZPdLu2h%2FOU7pPkSDb70KYN8bfIcuxv7z8tpmnoLphiLMA5w%2Fg%3D%3D; path=/; secure; HttpOnly
 transfer-encoding: chunked
 vary: Accept-Encoding
 via: 1.1 varnish (Varnish/6.1), 1.1 varnish (Varnish/6.1), 1.1 google
 worker: vdir_prod_music_precache
-x-amn-trace: 5f6ddaaf6f5c91919da17dfc4c74225e/8413264909140986615
+x-amn-trace: 1fb983a993e3e534078f7ddcf311e457/249070596579257139
 x-content-type-options: nosniff
 x-ecache: MISS
 x-evarnish-trace: gce-all-prod-evarnish-autogroup-b-5kbq
 x-frame-options: SAMEORIGIN
 x-icache: ivarnish
-x-ivarnish-trace: gce-all-prod-ivarnish-autogroup-zjbh
-x-ivxid: 6717599
-x-varnish: 8893021
+x-ivarnish-trace: gce-all-prod-ivarnish-autogroup-2s14
+x-ivxid: 10661340
+x-varnish: 6487394
 x-xss-protection: 1; mode=block
 x-pollyjs-finalurl: https://www.allmusic.com/album/release/thank-you-mr0005436124
 
@@ -129,7 +129,7 @@ x-pollyjs-finalurl: https://www.allmusic.com/album/release/thank-you-mr000543612
 <link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1B_unhinted_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
 <!-- preload page css -->
-    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/release/release-188c14538c.css" as="style" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/release/release-2541dd88e1.css" as="style" crossorigin="anonymous" >
 
 
 <!-- preload setup (header) js -->
@@ -224,7 +224,7 @@ x-pollyjs-finalurl: https://www.allmusic.com/album/release/thank-you-mr000543612
     
     <link rel="canonical" href="https://www.allmusic.com/album/release/thank-you-mr0005436124">
 
-            <link type="text/css" rel="stylesheet" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/release/release-188c14538c.css" crossorigin="anonymous">    
+            <link type="text/css" rel="stylesheet" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/release/release-2541dd88e1.css" crossorigin="anonymous">    
     
     
     <!-- Alexa tag -->
@@ -1580,7 +1580,7 @@ window.catalyst = window.catalyst || {cmd: []};
                 </form>
             </div>
             <div id="copyright">
-                <h3>&copy;2021 ALLMUSIC, NETAKTION LLC - ALL RIGHTS RESERVED</h3>
+                <h3>&copy;2022 ALLMUSIC, NETAKTION LLC - ALL RIGHTS RESERVED</h3>
             </div>
         </div>
     </div>
@@ -1633,7 +1633,7 @@ window.catalyst.cmd.push('loadAds',[
 <!-- Double Verify -->
 <script>
     if (document.cookie.indexOf("scroll0=") < 0 && scroll_v7 == "no-scroll") {
-        document.write('<img src="https://tps30.doubleverify.com/visit.jpg?ctx=2908533&cmp=2736444&sid=24324&plc=DV-RTHM20170324001&advid=2908534&region=30&btadsrv=rhythmone&app=appid&sup=sspid&DVP_DV_TT=2&DVP_DV_CT=1&DVP_APPID=NotApplicable&DVP_SSPID=NotApplicable&DVP_PUBID=NotApplicable&DVP_PP_BUNDLE_ID=NotApplicable&DVP_RO_SSPID=NotApplicable&DVP_PP_ORTB_PUB_ID=NotApplicable&DVP_RO_SITEID=NotApplicable&DVP_RO_TRAFFIC=NotApplicable&DVP_PP_DEAL_ID=NotApplicable&DVPX_PP_IMP_ID=NotApplicable&DVPX_PP_UID=NotApplicable&DVP_RO_CDID=NotApplicable&DVPX_PP_AUCTION_UA=node-fetch&DVP_PP_AUCTION_IP=10.128.2.7&turl=AllMusic.com&dvtagver=6.1.img" alt="" width="0" height="0" alt="double verify pixel">');
+        document.write('<img src="https://tps30.doubleverify.com/visit.jpg?ctx=2908533&cmp=2736444&sid=24324&plc=DV-RTHM20170324001&advid=2908534&region=30&btadsrv=rhythmone&app=appid&sup=sspid&DVP_DV_TT=2&DVP_DV_CT=1&DVP_APPID=NotApplicable&DVP_SSPID=NotApplicable&DVP_PUBID=NotApplicable&DVP_PP_BUNDLE_ID=NotApplicable&DVP_RO_SSPID=NotApplicable&DVP_PP_ORTB_PUB_ID=NotApplicable&DVP_RO_SITEID=NotApplicable&DVP_RO_TRAFFIC=NotApplicable&DVP_PP_DEAL_ID=NotApplicable&DVPX_PP_IMP_ID=NotApplicable&DVPX_PP_UID=NotApplicable&DVP_RO_CDID=NotApplicable&DVPX_PP_AUCTION_UA=node-fetch&DVP_PP_AUCTION_IP=10.128.2.25&turl=AllMusic.com&dvtagver=6.1.img" alt="" width="0" height="0" alt="double verify pixel">');
     }
 </script>
 <!-- End Double Verify -->

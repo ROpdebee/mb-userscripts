@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting releases for URLs/returns empty list when URL does not exist
-WARC-Date: 2021-12-11T20:26:40.488Z
+WARC-Date: 2022-01-02T19:54:15.356Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:a3a98153-4b0f-44e7-a9dc-473b69edbe32>
+WARC-Record-ID: <urn:uuid:62a6d0b1-4996-419c-a05d-1d2cfef6f57c>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:51220b5b-6932-4af2-bd8c-56f9e84e1037>
+WARC-Concurrent-To: <urn:uuid:78789c66-f6d6-4aac-ac18-f2682bfbd340>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.488Z
+WARC-Date: 2022-01-02T19:54:15.357Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:48ade9e8-959d-4614-9076-12c7b2ca15c1>
+WARC-Record-ID: <urn:uuid:8af060bb-cab1-4c66-9255-66b758a1f28b>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:da1d991914b6ed46cf2df603542030a7160fcebb723026f25a7fa307a2c2e383
@@ -32,22 +32,22 @@ host: musicbrainz.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:51220b5b-6932-4af2-bd8c-56f9e84e1037>
+WARC-Concurrent-To: <urn:uuid:78789c66-f6d6-4aac-ac18-f2682bfbd340>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.488Z
+WARC-Date: 2022-01-02T19:54:15.357Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:c3036c15-a8f4-43cf-a3a4-bf73e6232f5c>
+WARC-Record-ID: <urn:uuid:5198f574-170d-4cef-8606-05979c2e5566>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:19aceab5e54488bd71a48d33803eedbbe13b5368b12222d99fdff1ea67dc37c0
-WARC-Block-Digest: sha256:19aceab5e54488bd71a48d33803eedbbe13b5368b12222d99fdff1ea67dc37c0
+WARC-Payload-Digest: sha256:c138bae5359c83342748ec7deb9bf5c85e5b34e9e803d99d3c4ec4c6bbd0a8b4
+WARC-Block-Digest: sha256:c138bae5359c83342748ec7deb9bf5c85e5b34e9e803d99d3c4ec4c6bbd0a8b4
 Content-Length: 349
 
 harEntryId: 1da35b6695a66421e008745ab8704fb2
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:40.304Z
-time: 180
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":180,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:15.159Z
+time: 192
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":192,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 223
 warcRequestCookies: []
 warcResponseHeadersSize: 316
@@ -57,25 +57,25 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.488Z
+WARC-Date: 2022-01-02T19:54:15.356Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:51220b5b-6932-4af2-bd8c-56f9e84e1037>
+WARC-Record-ID: <urn:uuid:78789c66-f6d6-4aac-ac18-f2682bfbd340>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:a00943cd14c32cab2a0e3891907a7bf079ed608627ab75cff6dfd049ecd1c2fe
-WARC-Block-Digest: sha256:4228491faee9c271392c4ff993e2637537c7aa46a881f1dfba54391a7f830675
+WARC-Payload-Digest: sha256:2783070336792de781fc6774a492456dad1caf20585d0e23a1279ead0a88c37b
+WARC-Block-Digest: sha256:78d6022d9c9fdbadd60d675bc152e5182534162c6519960e904d8eae114ebb16
 Content-Length: 433
 
 HTTP/1.1 404 Not Found
-date: Sat, 11 Dec 2021 20:26:40 GMT
+date: Sun, 02 Jan 2022 19:54:15 GMT
 content-type: application/json; charset=utf-8
 content-length: 93
 connection: close
 x-ratelimit-limit: 1200
-x-ratelimit-remaining: 808
-x-ratelimit-reset: 1639254401
+x-ratelimit-remaining: 714
+x-ratelimit-reset: 1641153255
 server: Plack::Handler::Starlet
-etag: "8b5a62e76b15ec04b7cbc0eb576f7f62"
+etag: "74811b6ebfb55bc761c2a7cca11d88d6"
 access-control-allow-origin: *
 
-{"help":"For usage, please see: https://musicbrainz.org/development/mmd","error":"Not Found"}
+{"error":"Not Found","help":"For usage, please see: https://musicbrainz.org/development/mmd"}
 

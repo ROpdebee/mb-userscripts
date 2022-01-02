@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: spotify provider/extracting images/throws on non-existent release
-WARC-Date: 2021-12-11T20:26:44.617Z
+WARC-Date: 2022-01-02T19:54:17.311Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:d8688061-8c76-4ad5-978e-cf83db074832>
+WARC-Record-ID: <urn:uuid:ca0e7874-655a-4185-810d-36ce45c556e1>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:6170ef72-f22e-49be-85ed-6b3fe11bbc66>
+WARC-Concurrent-To: <urn:uuid:b7885b49-f25c-40d4-adda-894ea8ddc407>
 WARC-Target-URI: https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURi
-WARC-Date: 2021-12-11T20:26:44.617Z
+WARC-Date: 2022-01-02T19:54:17.311Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:0782d41e-1aca-4e93-8d66-957ff110c8e1>
+WARC-Record-ID: <urn:uuid:974e3e72-8c02-462a-89bc-6edc60865b37>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:14f68d311776b33a2d7f9ca78984b6c0e3be6c5fb0a19a4e9a614c1d572d0b5e
@@ -27,37 +27,37 @@ GET /album/5Lj94YpHLkmjM7JZ8wuURi HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:6170ef72-f22e-49be-85ed-6b3fe11bbc66>
+WARC-Concurrent-To: <urn:uuid:b7885b49-f25c-40d4-adda-894ea8ddc407>
 WARC-Target-URI: https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURi
-WARC-Date: 2021-12-11T20:26:44.617Z
+WARC-Date: 2022-01-02T19:54:17.311Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:e26834b9-04ab-44dc-85e9-6fbdb9ea9dd3>
+WARC-Record-ID: <urn:uuid:8600be1d-e559-475a-ba3c-49bc30fd2760>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:36963e6c29957ff77d9bfd13368127f24aebbb80b8e12fd2b1f8f3cb54f3538d
-WARC-Block-Digest: sha256:36963e6c29957ff77d9bfd13368127f24aebbb80b8e12fd2b1f8f3cb54f3538d
+WARC-Payload-Digest: sha256:43eab9185d5f735538e76a4f2f2ea6be7b188e2a9561e0a6151820fc1c5f2902
+WARC-Block-Digest: sha256:43eab9185d5f735538e76a4f2f2ea6be7b188e2a9561e0a6151820fc1c5f2902
 Content-Length: 613
 
 harEntryId: 77f46870dde4de38775760810e477ed6
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:44.353Z
-time: 262
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":262,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:17.057Z
+time: 252
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":252,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 72
 warcRequestCookies: []
 warcResponseHeadersSize: 859
-warcResponseCookies: [{"name":"sp_t","value":"42ad51c31e0b1242eed61c1a5792ef44","path":"/","expires":"2021-12-12T20:26:44.000Z","domain":".spotify.com","sameSite":"none","secure, sp_landing":"https%3A%2F%2Fopen.spotify.com%2Falbum%2F5Lj94YpHLkmjM7JZ8wuURi","secure":true,"httpOnly":true}]
+warcResponseCookies: [{"name":"sp_t","value":"95f90f95abfd4fe0f4afd2327e4058e0","path":"/","expires":"2022-01-03T19:54:17.000Z","domain":".spotify.com","sameSite":"none","secure, sp_landing":"https%3A%2F%2Fopen.spotify.com%2Falbum%2F5Lj94YpHLkmjM7JZ8wuURi","secure":true,"httpOnly":true}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURi
-WARC-Date: 2021-12-11T20:26:44.617Z
+WARC-Date: 2022-01-02T19:54:17.311Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:6170ef72-f22e-49be-85ed-6b3fe11bbc66>
+WARC-Record-ID: <urn:uuid:b7885b49-f25c-40d4-adda-894ea8ddc407>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:131ec42f71c71a6acdfbe72d5bc183f6ce28d2e99d6bf4e1e7d01b0a1e75490b
-WARC-Block-Digest: sha256:7735c76c58955dd65593e7ff781966ba0ac578b4249541d65b04d786271bcfeb
+WARC-Block-Digest: sha256:0b09a97ed5d05839880d1800e253f781d73ff8aa7cd04d5b487e5669a1546cb1
 Content-Length: 3443
 
 HTTP/1.1 404 Not Found
@@ -65,11 +65,11 @@ alt-svc: clear
 connection: close
 content-encoding: br
 content-type: text/html; charset=utf-8
-date: Sat, 11 Dec 2021 20:26:44 GMT
+date: Sun, 02 Jan 2022 19:54:17 GMT
 server: envoy
-set-cookie: sp_t=42ad51c31e0b1242eed61c1a5792ef44; path=/; expires=Sun, 11 Dec 2022 20:26:44 GMT; domain=.spotify.com; samesite=none; secure, sp_landing=https%3A%2F%2Fopen.spotify.com%2Falbum%2F5Lj94YpHLkmjM7JZ8wuURi; path=/; expires=Sun, 12 Dec 2021 20:26:44 GMT; domain=.spotify.com; samesite=none; secure; httponly
-sp-trace-id: 7f91ddc2751cb8aa
-spotify-request-id: ec265c78-bac4-4ba1-bd93-3a159ac80a1f
+set-cookie: sp_t=95f90f95abfd4fe0f4afd2327e4058e0; path=/; expires=Mon, 02 Jan 2023 19:54:17 GMT; domain=.spotify.com; samesite=none; secure, sp_landing=https%3A%2F%2Fopen.spotify.com%2Falbum%2F5Lj94YpHLkmjM7JZ8wuURi; path=/; expires=Mon, 03 Jan 2022 19:54:17 GMT; domain=.spotify.com; samesite=none; secure; httponly
+sp-trace-id: 9d4d7fb338b2c3bf
+spotify-request-id: da937057-793a-4d6b-a85f-cffe2f7d6da1
 strict-transport-security: max-age=31536000
 transfer-encoding: chunked
 vary: Accept-Encoding

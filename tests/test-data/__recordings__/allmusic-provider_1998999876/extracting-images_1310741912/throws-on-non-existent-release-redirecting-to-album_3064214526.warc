@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: allmusic provider/extracting images/throws on non-existent release redirecting to album
-WARC-Date: 2021-12-11T20:26:44.504Z
+WARC-Date: 2022-01-02T19:54:16.468Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:cba35049-4063-4ff4-9796-1a9d69b7e21f>
+WARC-Record-ID: <urn:uuid:dd33843a-e11b-4077-8543-bdc863c85379>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:0782ae4b-ba5c-44f9-9f9a-387795100585>
+WARC-Concurrent-To: <urn:uuid:fa932f8d-febf-45ab-88db-eeaccfdabf6d>
 WARC-Target-URI: https://www.allmusic.com/album/release/mr1234
-WARC-Date: 2021-12-11T20:26:44.504Z
+WARC-Date: 2022-01-02T19:54:16.468Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:f77c7ad5-66ca-48be-8417-eb2f08143669>
+WARC-Record-ID: <urn:uuid:69e780e6-9713-4402-b270-92c88efd7b3d>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:f42ffaf51bc5cb106803f3dc8286c696a3aa75eacbee1f0d01be4741c9149e0f
@@ -27,38 +27,38 @@ GET /album/release/mr1234 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:0782ae4b-ba5c-44f9-9f9a-387795100585>
+WARC-Concurrent-To: <urn:uuid:fa932f8d-febf-45ab-88db-eeaccfdabf6d>
 WARC-Target-URI: https://www.allmusic.com/album/release/mr1234
-WARC-Date: 2021-12-11T20:26:44.504Z
+WARC-Date: 2022-01-02T19:54:16.468Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:e3a759b0-b0a4-4c6c-ac2d-822be02e70e6>
+WARC-Record-ID: <urn:uuid:5ba08200-d098-4ab9-8f99-c9a8dfb068fb>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:2ba626cfe88b350009b9d4e3b66630e711fb04615eb5ee688887184931eb6c17
-WARC-Block-Digest: sha256:2ba626cfe88b350009b9d4e3b66630e711fb04615eb5ee688887184931eb6c17
-Content-Length: 1176
+WARC-Payload-Digest: sha256:c756e76b648fb5c55c2d67d54f61dfc7bf41b94364276137374fea1974899569
+WARC-Block-Digest: sha256:c756e76b648fb5c55c2d67d54f61dfc7bf41b94364276137374fea1974899569
+Content-Length: 1170
 
 harEntryId: 9ca6ba9da68d65a5fa35420ec9114951
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:43.883Z
-time: 619
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":619,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:15.722Z
+time: 744
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":744,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 64
 warcRequestCookies: []
-warcResponseHeadersSize: 2269
-warcResponseCookies: [{"name":"allmusic_session","value":"SYkeI7ZpfhJslPD5IThAdKoxArc4Ru/VhayREQjNXYVOVLAkwJHV1XZxC7X7qf6W7hoLe3mKTrPO/OxiMUT/20plWgn2Sjlb1WWOIQzgpeF0pQ8RlN8nH47LVNAJv5kobejL0x7aKB/Zzn26fo3iZnW26ntOkqVYWXdT8/TDqWG0TpT6ElrW4oEeNA3wyUkIA4j7UmK19SQS1u/63HDSULfUQYPNv2Zqdose2M0MPovL60lfgpB1ajppx92ZVyGYcJa6SqSb7GzjhKmSC8S5m/DhamcPbi/ztTLQh0qShOTPhLyPkf/iFbrbzDzj2kBu1oCAUJyg1zFgiyj/0mN21w==","path":"/","secure":true,"httponly, allmusic_session":"KP2Zvzjx7hQblFjad8So6JTjbdRlBbaBC7RwQkIGXfgIllyXCULD%2FWA%2BYUzu2lTQGRY%2BHNamAcbpYLTyOXPZ%2FmXiX45cDj7Kt86J%2BNCmGtjYpxv8T2OKUdv2p6voBJdOJM2uSzM6Taq%2B7y7M3grxlcdySwOH8w3mi17Xf5OUKQyhDUWgR7C5v%2Bv%2FSUkIFnx1ixllY9zXfmcO8WioUoW0vpIZsI3LacEFDCyqq%2Byfs%2FvSa3PfWv%2Fmy4NmsJVypjip12u7pKwYtlIYhCGX75TXfxzxMj4yf25qqjzb6ecRtNL82KNYzGW4TWEWt8%2F8AiNn3UjgWRxeBsXvIVzIdkcrLA%3D%3D","httpOnly":true}]
+warcResponseHeadersSize: 2276
+warcResponseCookies: [{"name":"allmusic_session","value":"9SrG8EQCrk8Ia02xEfP+7rtyalM/DhHa7v64XUNGqwC/YO59wNTDUN/wVsI6UJT5rAYqDc1V0qpWwLTVRBVNjQaVuW/0sNhlmRHsL8kMO/VdwiTgdATapDMOSN+/sCWnncsSnrPG3YpTEAvCcLMomEUXd6HmZs+/d6fR2sIa5i3pjNPO+Tf9CLnOjET3HHMiKC7gg89roybHg+84rDosbtXHEHBxR1vqVLcQVjhjYoGKpmCb8+Ny4oargs9sqa7ssNC9RSz0CQq0NJPjS0zE5UYvdaYNyF9UQ5yh1YSHpueLJsvs9s8sYwZ1bEGdykOtLVDQSRoE3DKzr7G4W3jSSw==","path":"/","secure":true,"httponly, allmusic_session":"aFJNqCcPyFTSRVs5amK1JQKe4013S%2F1oUoNVk9XfKfLIlqt5JAceDpb%2FI24XDt1M9MYa4Kj3iLL%2FwXJ2ilMYc%2BqIVCwXG3Acc7Wqxkh2MdZLjPhNf5u8KEM3hzhU1oJQ%2BIbEI3KkNsNI3bzHwKnzueqh8CdrStKoRNwzGDkNoka5kN%2BGQAO2wkmjwh0aj5TlLgDSguuakD0TDuuF8q5%2B%2FqAD4tgVOwf25U7EXsDQ41ywbQsE8nDoq1PPY5LG5psYm5vorLroxAd0xf54pSp3sAUfqJ8wPfhZkiLWesAlN2Nt8oS88AsUZuEFfUzJs2wemusan4ITgYd7qhs%2FMdnsLg%3D%3D","httpOnly":true}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://www.allmusic.com/album/release/mr1234
-WARC-Date: 2021-12-11T20:26:44.504Z
+WARC-Date: 2022-01-02T19:54:16.468Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:0782ae4b-ba5c-44f9-9f9a-387795100585>
+WARC-Record-ID: <urn:uuid:fa932f8d-febf-45ab-88db-eeaccfdabf6d>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:5c28317d08e647cb15bb6436edd946a67f6b38f40ad351b69e56fb60dbd4a034
-WARC-Block-Digest: sha256:371f7cb2fd9e2e14ad879b948de55cff4684f673b2078cc2edd68cfbcd4bf556
-Content-Length: 76059
+WARC-Payload-Digest: sha256:b3fb14d58deedc6d64fe5b296120335d33103d0153473c990efb21fb71c46b2c
+WARC-Block-Digest: sha256:563c58c594b95b2c5c2a962f663bdc00a0c2d668b6bbb4630090c2bacc8f2fae
+Content-Length: 76066
 
 HTTP/1.1 200 OK
 accept-ranges: bytes
@@ -69,25 +69,25 @@ connection: close
 content-encoding: gzip
 content-security-policy: upgrade-insecure-requests
 content-type: text/html; charset=UTF-8
-date: Sat, 11 Dec 2021 20:26:44 GMT
-expires: Sun, 12 Dec 2021 08:26:44 GMT
+date: Sun, 02 Jan 2022 19:54:16 GMT
+expires: Mon, 03 Jan 2022 07:54:16 GMT
 server: nginx/1.20.1
-set-cookie: allmusic_session=SYkeI7ZpfhJslPD5IThAdKoxArc4Ru%2FVhayREQjNXYVOVLAkwJHV1XZxC7X7qf6W7hoLe3mKTrPO%2FOxiMUT%2F20plWgn2Sjlb1WWOIQzgpeF0pQ8RlN8nH47LVNAJv5kobejL0x7aKB%2FZzn26fo3iZnW26ntOkqVYWXdT8%2FTDqWG0TpT6ElrW4oEeNA3wyUkIA4j7UmK19SQS1u%2F63HDSULfUQYPNv2Zqdose2M0MPovL60lfgpB1ajppx92ZVyGYcJa6SqSb7GzjhKmSC8S5m%2FDhamcPbi%2FztTLQh0qShOTPhLyPkf%2FiFbrbzDzj2kBu1oCAUJyg1zFgiyj%2F0mN21w%3D%3D; path=/; secure; HttpOnly, allmusic_session=KP2Zvzjx7hQblFjad8So6JTjbdRlBbaBC7RwQkIGXfgIllyXCULD%2FWA%2BYUzu2lTQGRY%2BHNamAcbpYLTyOXPZ%2FmXiX45cDj7Kt86J%2BNCmGtjYpxv8T2OKUdv2p6voBJdOJM2uSzM6Taq%2B7y7M3grxlcdySwOH8w3mi17Xf5OUKQyhDUWgR7C5v%2Bv%2FSUkIFnx1ixllY9zXfmcO8WioUoW0vpIZsI3LacEFDCyqq%2Byfs%2FvSa3PfWv%2Fmy4NmsJVypjip12u7pKwYtlIYhCGX75TXfxzxMj4yf25qqjzb6ecRtNL82KNYzGW4TWEWt8%2F8AiNn3UjgWRxeBsXvIVzIdkcrLA%3D%3D; path=/; secure; HttpOnly
+set-cookie: allmusic_session=9SrG8EQCrk8Ia02xEfP%2B7rtyalM%2FDhHa7v64XUNGqwC%2FYO59wNTDUN%2FwVsI6UJT5rAYqDc1V0qpWwLTVRBVNjQaVuW%2F0sNhlmRHsL8kMO%2FVdwiTgdATapDMOSN%2B%2FsCWnncsSnrPG3YpTEAvCcLMomEUXd6HmZs%2B%2Fd6fR2sIa5i3pjNPO%2BTf9CLnOjET3HHMiKC7gg89roybHg%2B84rDosbtXHEHBxR1vqVLcQVjhjYoGKpmCb8%2BNy4oargs9sqa7ssNC9RSz0CQq0NJPjS0zE5UYvdaYNyF9UQ5yh1YSHpueLJsvs9s8sYwZ1bEGdykOtLVDQSRoE3DKzr7G4W3jSSw%3D%3D; path=/; secure; HttpOnly, allmusic_session=aFJNqCcPyFTSRVs5amK1JQKe4013S%2F1oUoNVk9XfKfLIlqt5JAceDpb%2FI24XDt1M9MYa4Kj3iLL%2FwXJ2ilMYc%2BqIVCwXG3Acc7Wqxkh2MdZLjPhNf5u8KEM3hzhU1oJQ%2BIbEI3KkNsNI3bzHwKnzueqh8CdrStKoRNwzGDkNoka5kN%2BGQAO2wkmjwh0aj5TlLgDSguuakD0TDuuF8q5%2B%2FqAD4tgVOwf25U7EXsDQ41ywbQsE8nDoq1PPY5LG5psYm5vorLroxAd0xf54pSp3sAUfqJ8wPfhZkiLWesAlN2Nt8oS88AsUZuEFfUzJs2wemusan4ITgYd7qhs%2FMdnsLg%3D%3D; path=/; secure; HttpOnly
 strict-transport-security: max-age=31536000; includeSubDomains
-tmp-set-cookie: allmusic_session=SYkeI7ZpfhJslPD5IThAdKoxArc4Ru%2FVhayREQjNXYVOVLAkwJHV1XZxC7X7qf6W7hoLe3mKTrPO%2FOxiMUT%2F20plWgn2Sjlb1WWOIQzgpeF0pQ8RlN8nH47LVNAJv5kobejL0x7aKB%2FZzn26fo3iZnW26ntOkqVYWXdT8%2FTDqWG0TpT6ElrW4oEeNA3wyUkIA4j7UmK19SQS1u%2F63HDSULfUQYPNv2Zqdose2M0MPovL60lfgpB1ajppx92ZVyGYcJa6SqSb7GzjhKmSC8S5m%2FDhamcPbi%2FztTLQh0qShOTPhLyPkf%2FiFbrbzDzj2kBu1oCAUJyg1zFgiyj%2F0mN21w%3D%3D; path=/; secure; HttpOnly
+tmp-set-cookie: allmusic_session=9SrG8EQCrk8Ia02xEfP%2B7rtyalM%2FDhHa7v64XUNGqwC%2FYO59wNTDUN%2FwVsI6UJT5rAYqDc1V0qpWwLTVRBVNjQaVuW%2F0sNhlmRHsL8kMO%2FVdwiTgdATapDMOSN%2B%2FsCWnncsSnrPG3YpTEAvCcLMomEUXd6HmZs%2B%2Fd6fR2sIa5i3pjNPO%2BTf9CLnOjET3HHMiKC7gg89roybHg%2B84rDosbtXHEHBxR1vqVLcQVjhjYoGKpmCb8%2BNy4oargs9sqa7ssNC9RSz0CQq0NJPjS0zE5UYvdaYNyF9UQ5yh1YSHpueLJsvs9s8sYwZ1bEGdykOtLVDQSRoE3DKzr7G4W3jSSw%3D%3D; path=/; secure; HttpOnly
 transfer-encoding: chunked
 vary: Accept-Encoding
 via: 1.1 varnish (Varnish/6.1), 1.1 varnish (Varnish/6.1), 1.1 google
 worker: vdir_prod_music_precache
-x-amn-trace: d7ff13fe2a6a932835d4217173a1377f/1188535206900202007
+x-amn-trace: bebfe497504bbbd77655624c87fa3c31/6979847592781636138
 x-content-type-options: nosniff
 x-ecache: MISS
 x-evarnish-trace: gce-all-prod-evarnish-autogroup-b-5kbq
 x-frame-options: SAMEORIGIN
 x-icache: ivarnish
 x-ivarnish-trace: gce-all-prod-ivarnish-autogroup-zjbh
-x-ivxid: 6622119
-x-varnish: 8870383
+x-ivxid: 9959163
+x-varnish: 14068077
 x-xss-protection: 1; mode=block
 x-pollyjs-finalurl: https://www.allmusic.com/album/bambi-slam-mw0000203198
 
@@ -129,7 +129,7 @@ x-pollyjs-finalurl: https://www.allmusic.com/album/bambi-slam-mw0000203198
 <link rel="preload" href="https://cdn-gce.allmusic.com/webfonts/plutosans/25BEAD_1B_unhinted_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
 <!-- preload page css -->
-    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/album/album-012a06dff9.css" as="style" crossorigin="anonymous" >
+    <link rel="preload" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/album/album-082a60b544.css" as="style" crossorigin="anonymous" >
 
 
 <!-- preload setup (header) js -->
@@ -219,7 +219,7 @@ x-pollyjs-finalurl: https://www.allmusic.com/album/bambi-slam-mw0000203198
     
     <link rel="canonical" href="https://www.allmusic.com/album/bambi-slam-mw0000203198">
 
-            <link type="text/css" rel="stylesheet" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/album/album-012a06dff9.css" crossorigin="anonymous">    
+            <link type="text/css" rel="stylesheet" href="https://cdn-gce.allmusic.com/cache/dist/css/pages/album/album-082a60b544.css" crossorigin="anonymous">    
     
     
     <!-- Alexa tag -->
@@ -1500,7 +1500,7 @@ window.catalyst = window.catalyst || {cmd: []};
                 </form>
             </div>
             <div id="copyright">
-                <h3>&copy;2021 ALLMUSIC, NETAKTION LLC - ALL RIGHTS RESERVED</h3>
+                <h3>&copy;2022 ALLMUSIC, NETAKTION LLC - ALL RIGHTS RESERVED</h3>
             </div>
         </div>
     </div>

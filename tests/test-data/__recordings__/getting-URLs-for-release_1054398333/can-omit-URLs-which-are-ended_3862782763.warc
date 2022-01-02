@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting URLs for release/can omit URLs which are ended
-WARC-Date: 2021-12-11T20:26:40.115Z
+WARC-Date: 2022-01-02T19:54:14.950Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:e372a1f0-8303-4a33-970d-b50fc1370de7>
+WARC-Record-ID: <urn:uuid:ecc198bb-7afb-4d22-8360-ee62bef4ea4c>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:09f7bf93-8566-47d2-8e37-54f1e086e1fe>
+WARC-Concurrent-To: <urn:uuid:312011ea-78a6-4489-b6dd-619029d5cec9>
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/7d0cf748-475e-4be6-b7f2-ef2d55f3f0f5?inc=url-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.115Z
+WARC-Date: 2022-01-02T19:54:14.950Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:d027ab2a-4b96-4fbc-b22b-6bd97802bc5f>
+WARC-Record-ID: <urn:uuid:930a082d-23c0-46f1-819f-f55cb2a3374b>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:68dbf049cdb7e2ebf0be8a79a67a01d76ea05ca437ded1c907098a284efc88e0
@@ -32,25 +32,25 @@ host: musicbrainz.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:09f7bf93-8566-47d2-8e37-54f1e086e1fe>
+WARC-Concurrent-To: <urn:uuid:312011ea-78a6-4489-b6dd-619029d5cec9>
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/7d0cf748-475e-4be6-b7f2-ef2d55f3f0f5?inc=url-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.116Z
+WARC-Date: 2022-01-02T19:54:14.950Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:20e6b082-f9d7-4b38-8e40-c6a5b8027492>
+WARC-Record-ID: <urn:uuid:9a2f35fc-9eb0-488d-b14d-56ad3940da74>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:6bd4a41589621399d45158bfaae531c6423da9a9695361f6cf5f7ff92db416bf
-WARC-Block-Digest: sha256:6bd4a41589621399d45158bfaae531c6423da9a9695361f6cf5f7ff92db416bf
-Content-Length: 388
+WARC-Payload-Digest: sha256:fad14d411767fff2a57645fbfc6f3ab5441722c3a394ef0a8306e4b16f741524
+WARC-Block-Digest: sha256:fad14d411767fff2a57645fbfc6f3ab5441722c3a394ef0a8306e4b16f741524
+Content-Length: 386
 
 harEntryId: 19f52f55acaf0262f6a28d0a9f17b7d2
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:39.075Z
-time: 1034
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1034,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:14.757Z
+time: 186
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":186,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 225
 warcRequestCookies: []
-warcResponseHeadersSize: 396
+warcResponseHeadersSize: 395
 warcResponseCookies: []
 responseDecoded: false
 warcResponseContentEncoding: base64
@@ -58,28 +58,28 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/7d0cf748-475e-4be6-b7f2-ef2d55f3f0f5?inc=url-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.115Z
+WARC-Date: 2022-01-02T19:54:14.950Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:09f7bf93-8566-47d2-8e37-54f1e086e1fe>
+WARC-Record-ID: <urn:uuid:312011ea-78a6-4489-b6dd-619029d5cec9>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:f1e218a80c7493981adf3862e8648be1fb667f1b61c92f2b3254be5481280b9b
-WARC-Block-Digest: sha256:35f645a50a8eb77449d30cebbcf82ce073bb3d03e00e724e8d313ed67f3258b1
-Content-Length: 1601
+WARC-Payload-Digest: sha256:7dea029d053829a0e1195f67ee07872208e29f7adae54871c5bffe3977488e5a
+WARC-Block-Digest: sha256:c92eb41692c8acd922cb49de2258b324fb9549672a35f02a566fbada226d0f3b
+Content-Length: 1596
 
 HTTP/1.1 200 OK
-date: Sat, 11 Dec 2021 20:26:40 GMT
+date: Sun, 02 Jan 2022 19:54:15 GMT
 content-type: application/json; charset=utf-8
 transfer-encoding: chunked
 connection: close
 vary: Accept-Encoding
 x-ratelimit-limit: 1200
-x-ratelimit-remaining: 936
-x-ratelimit-reset: 1639254401
+x-ratelimit-remaining: 854
+x-ratelimit-reset: 1641153255
 server: Plack::Handler::Starlet
-etag: W/"06740707858f43c8a853afb286e2f34e"
+etag: W/"8c73654443f9ebd04882bcf1734aae93"
 access-control-allow-origin: *
-x-cache-status: STALE
+x-cache-status: MISS
 content-encoding: gzip
 
-["H4sIAAAAAAAAA6VVyXLbOBD9FRfOahsbSUC33KecU+aQqRywNGRWKFIBSWsSlf59GpJsWTZnqZqDqkQs3a/fe904sAn/nCDjLuOI/eSmdujZ+sDGkNvdxNbsNzf1bMU6129mt0FawX7Djiu2c+G727T9BtpIq0JY9K6pwSutQCGX4KSVkHjivNbae+spztROXQnyO/ZtQFoIwzNmcHmiX3hqn7Fk9xSbrZPrRiwn5p6QiBWjU/sh086UZ9pIeSgb54/o8nfsMV6uEcCM3amcka3/OLDp567kTRnxbpwyui1BL4Bc3uAEl+05d7Tmkepi637uuhWVG1/+umnKrZ8npJIp6oGSlAsEmNgb5hxKiKdp2o3rh4f9fn8fEX9hvg/D9sF1ft4+CK6s0rWUlOVMm5ZSO2OhEjKCtoqD18pBdF5Hr+sm1LKwfU397LoZL9ljmzGcJWNpyHuXIwU+Q4GQMbZFwmuVN0tU8Vk6brSuQkjQeGtBa2XAJusgeeuCMNxaLEoREa/0vgFU6P12XB2WclyunBW6JrQGuQmSg9FkEy1qBcY2HCpVcTJK7QRq9j7F/+bgPwl5wlcZG2VFKlTBG9CebOwq1FCrGEJUKUll2GpJ9O08tuHe7XYdnlSfxxfhdaMkpwLroubFbTu6/eRGvCPcd3HY993g4r97spB9Y9Gl85ePt1b/e6++h93/+gj7YlhDRvWcC9JOe9CuUWBr0s4IH0JtjbR1ujXsK8VvBFiQZ1nHZc3fO+NqLULrYpI1gUqOrGUIHtcViFQlJZNRKvgPXv7g3GNx23gl+HXW0ebj0Jdu8DSuhlhIFFZrKwSxpMXJFR2SpoDPNE/Psye6qRyUXFjgBkRVCiNdToYbB1CirkFAiVcusE9f2LcXBc8AYju6rW9pBF8Yogi925aon2bS2HWtex0pvEbuMYCvqZOVVw34RglIlYoVb2LgHE8dQjN3IcYrlyerFa/9E/yb07dBH3F/9xUdvRzxah6pQxMtJN1IUMZycLoykKQhaEZEG0rjL3Hy+LVwshh6iZwrecci5ukNyT9LqV9ewDSRh9RoavCmQupypLerSRIwyViRW+jlKpX+mImYqVzth7x1pbdGeidnQsU+p9SG9rS2RNL53NmYGhXXVBRVXUdQmltwSSI0xlQNYqhCwsVajn8B5MnsIaQHAAA="]
+["H4sIAAAAAAAAA5WVTXPbOAyG/0qGZyOhSEoifet9pz21h+7sgR+go4kseSkq3tbj/76gPxK7o+xsbzYpAi9ePAQPLGGPdkLAVxzyxNZ/HliwGdmaCV4Z4Bqqmq2YTWjZ+sC6QDsVb5A79OAaqUE62YJrZQWxlqHmbfCcI53JP3YUZ5j7fsUGuy0xP81TTrbvLG130wiyahqowI8BS2726Sv7a8WmMWVYOBG6yW5dt5lt7saBNi9JoKgqeY7H1eFeqq6F8m0wEFUrQGrDwapaQxSapOoqGK/Ym7zPuH/4jra3Q/hA4OfvReBtZUuibgu4j3kvd7Xg9ZHi76x/sZtu2MDZ78qgs20DTioJErkAK4yAyCPnjVLOGVeyZpvn6XxEoeSKxFPJTQCpuAEbBUKrdd0i+tpHfDtC33+JsfOd7WnNj6+YwFIFNvnn7hWLmcGmFxyQQkfbT1i+mofM1tWKORL7thzTWJZzmrFAk/djejn/pWJzl/tS7TccOl/S26kbrj6eAqYfpeVfaYu4PBl6RtLmnDo35+IdrRwoGA7hevRtt3xc2mPTBjOcu8TmVKq6rPmEocvv6NCvmBAfCDK0W3Kc3YSDV9vPeMk3jXPyeBeAJNw44nDzXk3oEvoLEHFMe5tK94sUMjPhORjtPee8m9ZPT/v9/jEg/sT06Mftk+3dvH2quDRSNUIUGE8gKCGU1QbqSgRQRnJwSloI1qngVNP6RrDjDWWMa6Vq7yO0zhhQiu6ricZCdMb6SnNjEFm5Ne9HjEauveCgFYGmqkaCNi2HWtacUGtshepDl+5MuPhzhmHBv981aTtPnX+0u12PJ5fm6WqUaqXgJLC5OlVrE0RN1tTeaVCOboutUUEjg/dBxiikPjn1W6jsSNAzTcsHUvsQxv3QjzawZRbfSb3H82o2hbuFbinpgrZfUf/vi/HeVLLHhigaME201FQtwXBVQxXrKEXUUvoyQpbad8F7oX/LCPz//g0/P+yfJsId5xVBqBwo25LehiDUlfO+MVpQHaV/SwiVCbr0hv090zuSy4QZxrQ9zbql4f02fMvwHge8SmoD97FVRFNbIyGFNI/bKACjCDW5SNO4ZHE0Nem1KLfVKGWqiupSVWkn/pMh4Y6Moaf2kvDA6GGg9JtyAE8kTD51u+LwHzYP7Hj8FyyAJlakBwAA"]
 

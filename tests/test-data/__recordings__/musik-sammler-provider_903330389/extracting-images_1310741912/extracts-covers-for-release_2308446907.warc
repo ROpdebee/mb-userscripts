@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: musik-sammler provider/extracting images/extracts covers for release
-WARC-Date: 2021-12-11T20:26:43.201Z
+WARC-Date: 2022-01-02T19:54:16.801Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:c9e00a83-0194-4a96-a51c-519cffae172c>
+WARC-Record-ID: <urn:uuid:2a8ebfd1-2eb3-4221-b420-78d23d856560>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8a13852f-cd2a-42df-aab1-be3155027cad>
+WARC-Concurrent-To: <urn:uuid:701e6b9d-fdbe-43c4-b1d5-bfd6bdc3393a>
 WARC-Target-URI: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/
-WARC-Date: 2021-12-11T20:26:43.202Z
+WARC-Date: 2022-01-02T19:54:16.802Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:180a0dde-68cc-40c9-a326-0a7227d82f64>
+WARC-Record-ID: <urn:uuid:21057b92-01b0-44a7-b867-1f2638b0e362>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:55812fba4393265bc854410e3d20c98672e03cf837ee9b108f9b3fd5a83794b0
@@ -27,22 +27,22 @@ GET /release/vanilla-fudge-vanilla-fudge-cd-1539691/ HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8a13852f-cd2a-42df-aab1-be3155027cad>
+WARC-Concurrent-To: <urn:uuid:701e6b9d-fdbe-43c4-b1d5-bfd6bdc3393a>
 WARC-Target-URI: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/
-WARC-Date: 2021-12-11T20:26:43.202Z
+WARC-Date: 2022-01-02T19:54:16.803Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:cebcaabc-6525-477d-9632-65406776588b>
+WARC-Record-ID: <urn:uuid:1feb4a9e-1fcd-462d-bd0f-7aa32eb3127d>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:a0a12f107b8c7aaabb7b98eabf1f0235ee1180af82295b1d7ee17c57162b8bf8
-WARC-Block-Digest: sha256:a0a12f107b8c7aaabb7b98eabf1f0235ee1180af82295b1d7ee17c57162b8bf8
+WARC-Payload-Digest: sha256:4827ed9f542cf2dbf7111b0b173831f5ed4fb7f645e03725604b47f0503ed5e6
+WARC-Block-Digest: sha256:4827ed9f542cf2dbf7111b0b173831f5ed4fb7f645e03725604b47f0503ed5e6
 Content-Length: 348
 
 harEntryId: 5ec68c3ed0ef41d91c8a564a7c5a257e
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:42.605Z
-time: 456
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":456,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:16.414Z
+time: 274
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":274,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 95
 warcRequestCookies: []
 warcResponseHeadersSize: 379
@@ -52,12 +52,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/
-WARC-Date: 2021-12-11T20:26:43.201Z
+WARC-Date: 2022-01-02T19:54:16.802Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:8a13852f-cd2a-42df-aab1-be3155027cad>
+WARC-Record-ID: <urn:uuid:701e6b9d-fdbe-43c4-b1d5-bfd6bdc3393a>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:825138af6abf13456efd59d8effa93a98367d71deb6ee4e3c7c79a04302cb4c2
-WARC-Block-Digest: sha256:a2cd71168e86993143b9dcf905ec52bd9945c85b4f4f35a9e6a19eb1aa86dbd2
+WARC-Payload-Digest: sha256:47036261f615e831ae5aef2a37930dca0e6c1ea6164f49ad027e3e80539793db
+WARC-Block-Digest: sha256:a5c408929f15e07e4c5a4c6bd7198b439676088a0288376b9aaa768e0498e449
 Content-Length: 52171
 
 HTTP/1.1 200 OK
@@ -66,8 +66,8 @@ connection: Upgrade, close
 content-encoding: gzip
 content-length: 6590
 content-type: text/html; charset=utf-8
-date: Sat, 11 Dec 2021 20:26:42 GMT
-expires: Mon, 10 Jan 2022 20:26:42 GMT
+date: Sun, 02 Jan 2022 19:54:16 GMT
+expires: Tue, 01 Feb 2022 19:54:16 GMT
 server: Apache
 upgrade: h2
 vary: Accept-Encoding
@@ -148,7 +148,7 @@ x-pollyjs-finalurl: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-f
     </script>
             <script async src="https://cdns.yieldscale.com/musik-sammler.js"></script>
 
-    <link rel="stylesheet" href="/styles/ms-1639126428.css">
+    <link rel="stylesheet" href="/styles/ms-1640261483.css">
                 
         <link type="text/css" rel="stylesheet" href="/js/jquery/plugins/lightslider-1.1.6/css/lightslider.min.css" />
     <link type="text/css" rel="stylesheet" href="/js/jquery/plugins/lightgallery-1.6.12/css/lightgallery.min.css" />
@@ -726,7 +726,7 @@ x-pollyjs-finalurl: https://www.musik-sammler.de/release/vanilla-fudge-vanilla-f
                     </div>
                 </div>
                 <p id="copyNote">
-                    © 2005 - 2021 Musik-Sammler.de - Alle Einträge wurden von den Mitgliedern dieser Seite erstellt.
+                    © 2005 - 2022 Musik-Sammler.de - Alle Einträge wurden von den Mitgliedern dieser Seite erstellt.
                 </p>
             </footer>
         </div>

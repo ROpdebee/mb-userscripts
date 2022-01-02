@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: bandcamp provider/extracting images/throws on non-existent release
-WARC-Date: 2021-12-11T20:26:49.405Z
+WARC-Date: 2022-01-02T19:54:20.490Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:52efdf50-12e9-4772-ac9b-7347228e1373>
+WARC-Record-ID: <urn:uuid:4bd007df-6c6e-4a79-a5ee-ec6b739bcac1>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:383142bd-a8e1-41ff-8dee-4f5692753dd5>
+WARC-Concurrent-To: <urn:uuid:85352e92-be47-4f7c-92dd-141757a8f790>
 WARC-Target-URI: https://powergameheavy.bandcamp.com/album/404
-WARC-Date: 2021-12-11T20:26:49.406Z
+WARC-Date: 2022-01-02T19:54:20.491Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:f3a88900-0359-4c41-ab2f-2ac9878f992c>
+WARC-Record-ID: <urn:uuid:2c1b5358-37ec-48d7-bd9f-5d200da001ae>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:484b6f28c60f60d305ceecdb23711a48da226e7a44655a94212c9726330d63e7
@@ -27,38 +27,38 @@ GET /album/404 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:383142bd-a8e1-41ff-8dee-4f5692753dd5>
+WARC-Concurrent-To: <urn:uuid:85352e92-be47-4f7c-92dd-141757a8f790>
 WARC-Target-URI: https://powergameheavy.bandcamp.com/album/404
-WARC-Date: 2021-12-11T20:26:49.406Z
+WARC-Date: 2022-01-02T19:54:20.491Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:35d625d4-083f-4537-a086-349109fe53f7>
+WARC-Record-ID: <urn:uuid:8f4c25e1-cd41-4e31-aea9-d42950718c36>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:40708f203f815aff1c8905fbb6f585c2d89e26e209090df20be300d71b96b511
-WARC-Block-Digest: sha256:40708f203f815aff1c8905fbb6f585c2d89e26e209090df20be300d71b96b511
+WARC-Payload-Digest: sha256:27ad8fe8f12f5b6706a37c2e838be76f4c7e7af09d563ef6c1a11f14f5500749
+WARC-Block-Digest: sha256:27ad8fe8f12f5b6706a37c2e838be76f4c7e7af09d563ef6c1a11f14f5500749
 Content-Length: 586
 
 harEntryId: be99428f034c3ad4d2c03d907278ab5c
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:48.963Z
-time: 441
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":441,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-02T19:54:19.922Z
+time: 567
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":567,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 64
 warcRequestCookies: []
 warcResponseHeadersSize: 806
-warcResponseCookies: [{"name":"client_id","value":"BD94BA944C358873AB623C4D31522D8A25D24DE79AD143EBF0C3795EEB383167","domain":".bandcamp.com","path":"/","expires":"2031-12-11T20:26:49.000Z","secure":true,"httpOnly":true,"sameSite":"None, BACKENDID=bender21-5"}]
+warcResponseCookies: [{"name":"client_id","value":"85585028B8931E4D4B443EF0BFAF10BD17C0714C1B29EB276D45B608D84DA101","domain":".bandcamp.com","path":"/","expires":"2032-01-02T19:54:20.000Z","secure":true,"httpOnly":true,"sameSite":"None, BACKENDID=bender22-2"}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://powergameheavy.bandcamp.com/album/404
-WARC-Date: 2021-12-11T20:26:49.405Z
+WARC-Date: 2022-01-02T19:54:20.490Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:383142bd-a8e1-41ff-8dee-4f5692753dd5>
+WARC-Record-ID: <urn:uuid:85352e92-be47-4f7c-92dd-141757a8f790>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:dde85498054be0c98511722ebe5bc35035b226a7c0daaf60cbe58e714ebdcc21
-WARC-Block-Digest: sha256:e635c374cd04758d0874211bd5208de3409246e496293c611b82c742e04d279e
-Content-Length: 40849
+WARC-Payload-Digest: sha256:3041cd195d09c8e1cd569af1d03082558bc7106dc069d472c699eee1a12b9623
+WARC-Block-Digest: sha256:ebd3667e384153cb31e24c8cb0ff16d9fac3f5850b5654369936e9482ffb0758
+Content-Length: 41161
 
 HTTP/1.1 404 Not Found
 accept-ranges: bytes
@@ -66,19 +66,19 @@ cache-control: no-cache, no-store
 connection: close
 content-encoding: gzip
 content-type: text/html; charset=UTF-8
-date: Sat, 11 Dec 2021 20:26:49 GMT
+date: Sun, 02 Jan 2022 19:54:20 GMT
 link: <https://powergameheavy.bandcamp.com/album/404>;   rel="canonical"
 referrer-policy: no-referrer-when-downgrade
 server: nginx
-set-cookie: client_id=BD94BA944C358873AB623C4D31522D8A25D24DE79AD143EBF0C3795EEB383167; domain=.bandcamp.com; path=/; expires=Thu, 11 Dec 2031 20:26:49 -0000; secure; HttpOnly; SameSite=None, BACKENDID=bender21-5; path=/; Secure
+set-cookie: client_id=85585028B8931E4D4B443EF0BFAF10BD17C0714C1B29EB276D45B608D84DA101; domain=.bandcamp.com; path=/; expires=Fri, 02 Jan 2032 19:54:20 -0000; secure; HttpOnly; SameSite=None, BACKENDID=bender22-2; path=/; Secure
 transfer-encoding: chunked
 vary: Accept-Encoding
 via: 1.1 varnish
 x-cache: MISS
 x-cache-hits: 0
 x-robots-tag: noindex
-x-served-by: cache-ams21033-AMS
-x-timer: S1639254409.113302,VS0,VE304
+x-served-by: cache-ams21034-AMS
+x-timer: S1641153260.165220,VS0,VE320
 x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 
     
@@ -134,7 +134,7 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
     
     
 
-    <link type="text/css" rel="stylesheet" href="https://s4.bcbits.com/bundle/bundle/1/global-0930daa8354c1d2faafe01ce7c425631.css">
+    <link type="text/css" rel="stylesheet" href="https://s4.bcbits.com/bundle/bundle/1/global-a3b3bc39a3c6c0bc92e80fe0c2d516fb.css">
 
     <meta id="js-crumbs-data" data-crumbs="{}">
     
@@ -470,7 +470,7 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 
 
 
-    <div id="pagedata" data-blob="{&quot;templglobals&quot;:{&quot;is_phone&quot;:false,&quot;endpoint_mobilized&quot;:true},&quot;help_center_url&quot;:&quot;https://get.bandcamp.help/hc/en-us&quot;,&quot;localize_page&quot;:true,&quot;recaptcha_public_key&quot;:&quot;6LfhSPgSAAAAAPwto_qzHuwSmjgfrkg35xXXu_8K&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;invisible_recaptcha_public_key&quot;:&quot;6Ld7hz4UAAAAANlndw60vAheGUwN0Mb-qeWD_LHr&quot;,&quot;cfg&quot;:{&quot;tko&quot;:true},&quot;languages&quot;:{&quot;en&quot;:&quot;English&quot;,&quot;ja&quot;:&quot;日本語&quot;,&quot;fr&quot;:&quot;Français&quot;}}"></div>
+    <div id="pagedata" data-blob="{&quot;templglobals&quot;:{&quot;endpoint_mobilized&quot;:true,&quot;is_phone&quot;:false},&quot;localize_page&quot;:true,&quot;invisible_recaptcha_public_key&quot;:&quot;6Ld7hz4UAAAAANlndw60vAheGUwN0Mb-qeWD_LHr&quot;,&quot;languages&quot;:{&quot;ja&quot;:&quot;日本語&quot;,&quot;fr&quot;:&quot;Français&quot;,&quot;en&quot;:&quot;English&quot;},&quot;help_center_url&quot;:&quot;https://get.bandcamp.help/hc/en-us&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;recaptcha_public_key&quot;:&quot;6LfhSPgSAAAAAPwto_qzHuwSmjgfrkg35xXXu_8K&quot;,&quot;cfg&quot;:{&quot;tko&quot;:true}}"></div>
 
 
 
@@ -595,7 +595,7 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
     
         <a id="footer-logo" href="https://bandcamp.com?from=logo"><span class="hiddenAccess">Bandcamp</span></a>
     
-        <span id="webapp-selector-ui" class="webapp-selector-ui" style="display:none" data-webapps="[{&quot;appNumbers&quot;:[7],&quot;hostnameRange&quot;:[13,29],&quot;hostnameBase&quot;:&quot;bender&quot;}]" data-backendid="bender21-5" data-bccookie=""></span>
+        <span id="webapp-selector-ui" class="webapp-selector-ui" style="display:none" data-webapps="[&quot;bender13-7&quot;,&quot;bender14-7&quot;,&quot;bender15-7&quot;,&quot;bender16-7&quot;,&quot;bender17-7&quot;,&quot;bender18-7&quot;,&quot;bender19-7&quot;,&quot;bender20-7&quot;,&quot;bender21-7&quot;,&quot;bender22-7&quot;,&quot;bender23-7&quot;,&quot;bender24-7&quot;,&quot;bender25-7&quot;,&quot;bender26-7&quot;,&quot;bender27-7&quot;,&quot;bender28-7&quot;,&quot;bender29-7&quot;]" data-backendid="bender22-2" data-bccookie="" data-cookiename="bc_webapp"></span>
     </div>
     
     <ul id="legal" class="horizNav">
@@ -661,7 +661,7 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 
 </body>
 </html>
-<!-- bender21-5 Sat Dec 11 20:26:49 UTC 2021 -->
+<!-- bender22-2 Sun Jan 02 19:54:20 UTC 2022 -->
 
 
 
