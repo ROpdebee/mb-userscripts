@@ -16,20 +16,20 @@
 async function reportDeploy({ github, context }) {
     const { TEST_RESULT, DEPLOY_RESULT } = process.env;
 
-    if (!process.env.PR_INFO || !process.env.DEPLOY_INFO) {
-        throw new Error('Required environment variables not set, are we running in CI?');
+    if (!process.env.PR_INFO) {
+        throw new Error('PR info not set, are we running in CI?');
     }
 
     /** @type PullRequestInfo */
     const prInfo = JSON.parse(process.env.PR_INFO);
-    /** @type DeployInfo */
-    const deployInfo = JSON.parse(process.env.DEPLOY_INFO);
+    /** @type DeployInfo | null */
+    const deployInfo = process.env.DEPLOY_INFO ? JSON.parse(process.env.DEPLOY_INFO) : null;
 
     // Set labels on PR
     /** @type string */
     // eslint-disable-next-line no-restricted-syntax
     let label;
-    if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
+    if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success' || !deployInfo) {
         label = 'deploy:failed';
     } else if (!deployInfo.scripts.length) {
         label = 'deploy:skipped';
@@ -47,7 +47,7 @@ async function reportDeploy({ github, context }) {
     /** @type string | undefined */
     // eslint-disable-next-line no-restricted-syntax
     let issueComment;
-    if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
+    if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success' || !deployInfo) {
         // Warn if deployment is skipped due to failures
         const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
         issueComment = [
@@ -78,19 +78,19 @@ async function reportDeploy({ github, context }) {
  * @param { { github: Octokit; context: GithubActionsContext } } args
  */
 async function reportPreview({ github, context }) {
-    if (!process.env.PR_INFO || !process.env.DEPLOY_INFO) {
-        throw new Error('Required environment variables not set, are we running in CI?');
+    if (!process.env.PR_INFO) {
+        throw new Error('PR info not set, are we running in CI?');
     }
 
     /** @type PullRequestInfo */
     const prInfo = JSON.parse(process.env.PR_INFO);
-    /** @type DeployInfo */
-    const deployInfo = JSON.parse(process.env.DEPLOY_INFO);
+    /** @type DeployInfo | null */
+    const deployInfo = process.env.DEPLOY_INFO ? JSON.parse(process.env.DEPLOY_INFO) : null;
 
     /** @type string */
     // eslint-disable-next-line no-restricted-syntax
     let content;
-    if (!deployInfo.scripts.length) {
+    if (!deployInfo || !deployInfo.scripts.length) {
         content = 'This PR makes no changes to the built userscripts.';
     } else {
         const basePreviewUrl = `https://raw.github.com/${context.repo.owner}/${context.repo.repo}/dist-preview-${prInfo.number}`;
