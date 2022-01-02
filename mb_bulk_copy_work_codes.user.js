@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2021.10.20
+// @version      2022.1.2
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -84,12 +84,25 @@ function normaliseID(id, agencyKey) {
     return formatResult.formattedCode;
 }
 
+/**
+ * Convert translated agency IDs into English variant.
+ * TODO: There needs to be a better way to do this without hardcoding...
+ */
+function normaliseAgencyId(agencyId) {
+    return agencyId
+        .replace(/-ID$/, ' ID')  // German and Dutch use e.g. 'ASCAP-ID'.
+        .replace(/^ID (.+)/, '$1 ID')  // French and Italian use 'ID ASCAP'
+        .replace(/-tunniste$/, ' ID');  // Finnish
+    // TODO: "PRS tune code" is heavily translated in French etc. We need a more
+    // robust way of converting those.
+}
+
 function getSelectedID(select) {
-    return select.options[select.selectedIndex].text.trim();
+    return normaliseAgencyId(select.options[select.selectedIndex].text.trim());
 }
 
 function setRowKey(select, agencyKey) {
-    let idx = [...select.options].findIndex(opt => opt.text.trim() === agencyKey);
+    let idx = [...select.options].findIndex(opt => normaliseAgencyId(opt.text.trim()) === agencyKey);
     if (idx < 0) {
         throw new Error('Unknown agency key');
     }
