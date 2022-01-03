@@ -65,9 +65,7 @@ jobs:
         working-directory: repoDist
         # Don't fail if the branch did not exist
         continue-on-error: true
-        env:
-          BRANCH_NAME: dist-preview-${{ fromJSON(steps.active-pr.outputs.result).number }}
-        run: git push origin --delete "$BRANCH_NAME";
+        run: git push origin --delete "dist-preview-${{ fromJSON(steps.active-pr.outputs.result).number }}";
 
       - name: Deploy new userscript versions
         id: deploy-step
