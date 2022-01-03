@@ -5,7 +5,7 @@ import simpleGit from 'simple-git';
 
 import type { DeployedScript, DeployInfo, PullRequestInfo } from './types-deploy';
 import { buildUserscript } from './rollup';
-import { getPreviousReleaseVersion, incrementVersion } from './versions';
+import { getPreviousReleaseVersion, incrementVersion, userscriptHasChanged } from './versions';
 
 if (!process.env.GITHUB_ACTIONS) {
     throw new Error('Refusing to run outside of CI, sorry :(');
@@ -25,17 +25,6 @@ const prInfo = JSON.parse(process.env.PR_INFO) as PullRequestInfo;
 // committing to dist, without constantly having to change branches.
 const gitDist = simpleGit(distRepo);
 
-async function userscriptHasChanged(scriptName: string, previousVersion: string): Promise<boolean> {
-    // We'll check whether the userscript has changed by building the latest
-    // code and diffing it against the previous released version. If there's a
-    // diff, we assume it needs a new release. To prevent diffs caused solely
-    // by version bumps, we're building the script with the same version as
-    // before.
-    await buildUserscript(scriptName, previousVersion, distRepo);
-    const diffSummary = await gitDist.diffSummary();
-    return !!diffSummary.changed;
-}
-
 async function commitIfUpdated(scriptName: string): Promise<DeployedScript | undefined> {
     console.log(`Checking ${scriptName}…`);
     const previousVersion = await getPreviousReleaseVersion(scriptName, distRepo);
@@ -44,7 +33,7 @@ async function commitIfUpdated(scriptName: string): Promise<DeployedScript | und
     if (!previousVersion) {
         console.log(`First release: ${nextVersion}`);
         return commitUpdate(scriptName, nextVersion);
-    } else if (await userscriptHasChanged(scriptName, previousVersion)) {
+    } else if (await userscriptHasChanged(scriptName, previousVersion, distRepo)) {
         console.log(`${previousVersion} -> ${nextVersion}`);
         return commitUpdate(scriptName, nextVersion);
     }

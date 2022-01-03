@@ -5,5 +5,22 @@
     ":semanticCommitTypeAll(build)",
     ":maintainLockFilesMonthly",
     ":label(dependencies)"
+  ],
+  "packageRules": [
+    {
+      "description": "Automatically merge pinning dependencies and lock file maintenance",
+      "matchUpdateTypes": ["pin", "lockFileMaintenance"],
+      "automerge": true,
+      "automergeType": "branch",
+      "schedule": ["at any time"]
+    },
+    {
+      "description": "Automatically merge patch and minor updates to dev dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "automergeType": "branch",
+      "schedule": ["at any time"]
+    }
   ]
 }

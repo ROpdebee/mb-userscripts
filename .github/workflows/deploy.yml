@@ -74,7 +74,7 @@ jobs:
         run: npm run deploy repoDist
 
       - name: Report deployment status
-        if: always() && steps.deploy-step.result != 'cancelled'
+        if: always() && steps.active-pr.outputs.result && steps.deploy-step.result != 'cancelled'
         env:
           PR_INFO: ${{ steps.active-pr.outputs.result }}
           TEST_RESULT: ${{ inputs.test-result }}
