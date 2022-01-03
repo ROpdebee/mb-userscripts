@@ -58,7 +58,10 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'GitHub Actions'
           git config push.default current
+      
+      # Skip the remainder of these steps if we're not in a PR
       - name: Delete preview branch, if any
+        if: steps.active-pr.outputs.result
         working-directory: repoDist
         # Don't fail if the branch did not exist
         continue-on-error: true
@@ -68,7 +71,7 @@ jobs:
 
       - name: Deploy new userscript versions
         id: deploy-step
-        if: inputs.test-result == 'success'
+        if: inputs.test-result == 'success' && steps.active-pr.outputs.result
         env:
           PR_INFO: ${{ steps.active-pr.outputs.result }}
         run: npm run deploy repoDist
