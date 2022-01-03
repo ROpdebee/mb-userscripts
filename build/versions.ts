@@ -1,6 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+import simpleGit from 'simple-git';
+
+import { buildUserscript } from './rollup';
+
 export function getVersionForToday(): string {
     const today = new Date();
     return `${today.getUTCFullYear()}.${today.getUTCMonth() + 1}.${today.getUTCDate()}`;
@@ -50,4 +54,16 @@ export async function getPreviousReleaseVersion(userscriptName: string, buildDir
     }
 
     return extractVersion(metaContent);
+}
+
+export async function userscriptHasChanged(scriptName: string, previousVersion: string, distRepo: string): Promise<boolean> {
+    // We'll check whether the userscript has changed by building the latest
+    // code and diffing it against the previous released version. If there's a
+    // diff, we assume it needs a new release. To prevent diffs caused solely
+    // by version bumps, we're building the script with the same version as
+    // before.
+    await buildUserscript(scriptName, previousVersion, distRepo);
+    const gitDist = simpleGit(distRepo);
+    const diffSummary = await gitDist.diffSummary();
+    return !!diffSummary.changed;
 }

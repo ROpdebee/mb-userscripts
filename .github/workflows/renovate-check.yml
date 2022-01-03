@@ -1,0 +1,32 @@
+---
+name: Check renovate auto-merge applicability
+on:
+  push:
+    branches:
+      - renovate/*
+
+jobs:
+  build-and-test:
+    name: Build and test
+    uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@main
+
+  fail-changed-userscript:
+    name: Fail if userscript are changed by update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.github/actions/setup
+      - name: Checkout second dist copy
+        uses: actions/checkout@v2
+        with:
+          path: repoDist
+          ref: dist
+
+      - name: Deploy new userscript versions
+        id: deploy-step
+        if: inputs.test-result == 'success'
+        env:
+          PR_INFO: ${{ steps.active-pr.outputs.result }}
+        run: npx ts-node -r tsconfig-paths/register build/check-scripts-unchanged.ts
