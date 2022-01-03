@@ -24,9 +24,5 @@ jobs:
           path: repoDist
           ref: dist
 
-      - name: Deploy new userscript versions
-        id: deploy-step
-        if: inputs.test-result == 'success'
-        env:
-          PR_INFO: ${{ steps.active-pr.outputs.result }}
+      - name: Check that userscripts remain unchanged
         run: npx ts-node -r tsconfig-paths/register build/check-scripts-unchanged.ts
