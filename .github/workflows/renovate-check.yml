@@ -11,7 +11,7 @@ jobs:
     uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@main
 
   fail-changed-userscript:
-    name: Fail if userscript are changed by update
+    name: Fail if userscripts are changed by update
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -25,4 +25,4 @@ jobs:
           ref: dist
 
       - name: Check that userscripts remain unchanged
-        run: npx ts-node -r tsconfig-paths/register build/check-scripts-unchanged.ts
+        run: npx ts-node -r tsconfig-paths/register build/check-scripts-unchanged.ts repoDist
