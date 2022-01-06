@@ -8,11 +8,18 @@
   ],
   "packageRules": [
     {
-      "description": "Automatically merge pinning dependencies and lock file maintenance",
-      "matchUpdateTypes": ["pin", "lockFileMaintenance"],
+      "description": "Automatically merge pinning dependencies",
+      "matchUpdateTypes": ["pin"],
       "automerge": true,
       "automergeType": "branch",
       "schedule": ["at any time"]
+    },
+    {
+      "description": "Automatically merge lock file maintenance every month",
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "automerge": true,
+      "automergeType": "branch",
+      "schedule": ["on the first day of the month"]
     },
     {
       "description": "Automatically merge patch and minor updates to dev dependencies",
