@@ -22,10 +22,10 @@
   "homepage": "https://github.com/ROpdebee/mb-userscripts#readme",
   "private": true,
   "devDependencies": {
-    "@babel/core": "7.16.7",
+    "@babel/core": "7.16.10",
     "@babel/plugin-syntax-jsx": "7.16.7",
-    "@babel/plugin-transform-runtime": "7.16.8",
-    "@babel/preset-env": "7.16.8",
+    "@babel/plugin-transform-runtime": "7.16.10",
+    "@babel/preset-env": "7.16.10",
     "@babel/preset-typescript": "7.16.7",
     "@delagen/eslint-plugin-deprecation": "1.3.2",
     "@pollyjs/adapter-fetch": "6.0.4",
