@@ -50,12 +50,9 @@ describe('qub musique provider', () => {
             }],
         }];
 
-        const extractionFailedCases = [{
-            desc: 'non-existent release',
-            url: 'https://www.qub.ca/musique/album/pour-le-plug-dbssx',
-        }];
-
+        // No failure cases because it'll fall back to URL rewriting, but the
+        // cover image shouldn't exist.
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases: [] });
     });
 });
