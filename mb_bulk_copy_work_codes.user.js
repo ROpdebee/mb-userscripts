@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2022.1.2
+// @version      2022.1.22
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -127,6 +127,20 @@ function extractCodes(data) {
             acc[MBWorkIdentifiers.agencyNameToID(key)] = codes;
             return acc;
         }, {});
+}
+
+function deduplicateCodes(codes, key) {
+    const seen = new Set();
+    // We can't just map with normaliseID and convert to Set and back to array,
+    // since we must retain the original code value before cleanup, as the user
+    // might opt not to auto-format the codes.
+    const results = [];
+    for (const code of codes) {
+        if (seen.has(normaliseID(code, key))) continue;
+        seen.add(normaliseID(code, key));
+        results.push(code);
+    }
+    return results;
 }
 
 function fillInput(inp, val) {
@@ -331,11 +345,12 @@ class BaseWorkForm {
     }
 
     retainOnlyNew(externalCodes, mbCodes) {
-        return Object.entries(externalCodes).reduce((acc, [key, codes]) => {
+        return Object.entries(externalCodes).reduce((acc, [key, rawCodes]) => {
+            const codes = deduplicateCodes(rawCodes, key);
             if (!mbCodes.hasOwnProperty(key)) {
                 acc[key] = codes;
             } else {
-                let mbNormCodes = mbCodes[key].map(c => normaliseID(c, key))
+                const mbNormCodes = mbCodes[key].map(c => normaliseID(c, key))
                 acc[key] = codes
                     .filter(id => !mbNormCodes.includes(normaliseID(id, key)));
             }
