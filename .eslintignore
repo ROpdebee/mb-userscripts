@@ -7,3 +7,5 @@
 # ESLint gets really slow when it needs to lint its own configuration. Not sure
 # whether it ever even halts. This covers both .eslintrc.cjs files in the repo.
 .eslintrc.cjs
+# Auxiliary files of jest HTML reporter
+/jest-html-reporters-attach/**
