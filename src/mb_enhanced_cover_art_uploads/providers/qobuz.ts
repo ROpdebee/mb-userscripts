@@ -1,3 +1,4 @@
+import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
@@ -105,6 +106,18 @@ export class QobuzProvider extends CoverArtProvider {
                 throw new Error('Bad request to Qobuz API, app ID invalid?');
             }
 
+            // istanbul ignore else: Difficult to cover
+            if (err instanceof HTTPResponseError && err.statusCode == 404) {
+                // Qobuz API may occasionally throw a 404 for releases which
+                // actually exist. Fall back to URL rewriting for these.
+                LOGGER.warn('Qobuz API returned 404, falling back on URL rewriting. Booklets may be missed.');
+                return [{
+                    url: QobuzProvider.idToCoverUrl(id),
+                    types: [ArtworkTypeIDs.Front],
+                }];
+            }
+
+            // istanbul ignore next: Difficult to cover
             throw err;
         }
 

@@ -1,0 +1,81 @@
+WARC/1.1
+WARC-Filename: qobuz provider/extracting images/falls back to URL rewriting when API returns 404
+WARC-Date: 2022-01-22T12:36:22.755Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:a7598910-e271-44e8-ab46-d2619841d7a1>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:3d6e5195-546a-40e6-a4b3-9162f3b8a5f6>
+WARC-Target-URI: https://www.qobuz.com/api.json/0.2/album/get?album_id=y8859avlbfe3a&offset=0&limit=20
+WARC-Date: 2022-01-22T12:36:22.758Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:5c8bec49-a0d1-442d-8ed7-3de1339e984a>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:bec4885e483dd96a3b0c1c73ac6dae860a940d9dc5ab40ab1e40a47ee9038c97
+Content-Length: 102
+
+GET /api.json/0.2/album/get?album_id=y8859avlbfe3a&offset=0&limit=20 HTTP/1.1
+x-app-id: 712109809
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:3d6e5195-546a-40e6-a4b3-9162f3b8a5f6>
+WARC-Target-URI: https://www.qobuz.com/api.json/0.2/album/get?album_id=y8859avlbfe3a&offset=0&limit=20
+WARC-Date: 2022-01-22T12:36:22.758Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:05b5497f-7a0c-46bf-bc9a-ae2c3c92903a>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:590cc91877672dfb097bab5bcd00ec492d8d26fe3a5674736d69a2ef5387cd90
+WARC-Block-Digest: sha256:590cc91877672dfb097bab5bcd00ec492d8d26fe3a5674736d69a2ef5387cd90
+Content-Length: 509
+
+harEntryId: d7a918f96be0cdfd6bcba95c08cd0c95
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-01-22T12:36:22.075Z
+time: 631
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":631,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 123
+warcRequestCookies: []
+warcResponseHeadersSize: 556
+warcResponseCookies: [{"name":"qobuz-session-aws","value":"1ff8a464d94dc309695b4cbe8883897b:28300e1fe1c4a6d0954a8febe67931fa3bb22fda","path":"/","domain":"qobuz.com","httpOnly":true}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.qobuz.com/api.json/0.2/album/get?album_id=y8859avlbfe3a&offset=0&limit=20
+WARC-Date: 2022-01-22T12:36:22.757Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:3d6e5195-546a-40e6-a4b3-9162f3b8a5f6>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:a256b158455c26180780ef6ddffca332fc0ec703c1061baab63fa79efd985eb9
+WARC-Block-Digest: sha256:28cfae7def64b368ffb68eb4d086dd8e9ec55dd86d1a046dd038b1b3228d890a
+Content-Length: 655
+
+HTTP/1.1 404 Not Found
+accept-ranges: bytes
+access-control-allow-origin: *
+access-control-expose-headers: x-zone, x-language-code
+age: 0
+cache-control: private
+connection: Close
+content-length: 75
+content-type: application/json
+date: Sat, 22 Jan 2022 12:36:22 GMT
+server: nginx
+set-cookie: qobuz-session-aws=1ff8a464d94dc309695b4cbe8883897b:28300e1fe1c4a6d0954a8febe67931fa3bb22fda; path=/; domain=qobuz.com; HttpOnly
+via: 1.1 varnish
+x-varnish: 2183734931
+x-pollyjs-finalurl: https://www.qobuz.com/api.json/0.2/album/get?album_id=y8859avlbfe3a&offset=0&limit=20
+
+{"status":"error","code":404,"message":"No result matching given argument"}
+

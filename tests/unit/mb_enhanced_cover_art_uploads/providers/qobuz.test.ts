@@ -73,13 +73,24 @@ describe('qobuz provider', () => {
             }],
         }];
 
-        const extractionFailedCases = [{
-            desc: 'non-existent release',
-            url: 'https://open.qobuz.com/album/123',
-        }];
-
+        // No failure cases because it'll fall back to URL rewriting, but the
+        // cover image shouldn't exist.
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases: [], pollyContext });
+
+        it('falls back to URL rewriting when API returns 404', async () => {
+            pollyContext.polly.configure({
+                recordFailedRequests: true,
+            });
+
+            const covers = await provider.findImages(new URL('https://www.qobuz.com/us-en/album/sunburn-fuel/y8859avlbfe3a'));
+
+            expect(covers).toBeArrayOfSize(1);
+            expect(covers[0]).toMatchCoverArt({
+                urlPart: '/images/covers/3a/fe/y8859avlbfe3a_org.jpg',
+                types: [ArtworkTypeIDs.Front],
+            });
+        });
 
         describe('with invalid app ID', () => {
             // Separate describe block so we can patch out console.error before
