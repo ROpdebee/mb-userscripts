@@ -121,16 +121,16 @@ describe('qobuz provider', () => {
 
     describe('extracting goodies', () => {
         it('sets booklet type if goodie is a booklet', () => {
-            const cover = QobuzProvider.extractGoodies({
+            const covers = QobuzProvider.extractGoodies([{
                 original_url: 'https://example.com/original_url',
                 url: 'https://example.com/url',
                 name: 'Livret Numérique',
                 id: 123,
                 file_format_id: 456,
                 description: 'test',
-            });
+            }]);
 
-            expect(cover).toMatchCoverArt({
+            expect(covers[0]).toMatchCoverArt({
                 urlPart: /^https:\/\/example\.com\/original_url$/,
                 types: [ArtworkTypeIDs.Booklet],
                 comment: 'Qobuz booklet',
@@ -138,20 +138,40 @@ describe('qobuz provider', () => {
         });
 
         it('sets no type if goodie is not a booklet', () => {
-            const cover = QobuzProvider.extractGoodies({
+            const covers = QobuzProvider.extractGoodies([{
                 original_url: 'https://example.com/original_url',
                 url: 'https://example.com/url',
                 name: 'not a booklet',
                 id: 123,
                 file_format_id: 456,
                 description: 'test',
-            });
+            }]);
 
-            expect(cover).toMatchCoverArt({
+            expect(covers[0]).toMatchCoverArt({
                 urlPart: /^https:\/\/example\.com\/original_url$/,
                 types: [],
                 comment: 'not a booklet',
             });
+        });
+
+        it('ignores goodie if URL is not set', () => {
+            const covers = QobuzProvider.extractGoodies([{
+                id: 111512,
+                file_format_id: 52,
+                name: 'Clip vidéo',
+                description: 'Evrika (B)',
+                url: null,
+                original_url: null,
+            }, {
+                id: 111513,
+                file_format_id: 21,
+                name: 'Livret Numérique',
+                description: 'Pink Floyd - The Endless River',
+                url: 'https://example.com/url',
+                original_url: 'https://example.com/original_url',
+            }]);
+
+            expect(covers).toBeArrayOfSize(1);
         });
     });
 
