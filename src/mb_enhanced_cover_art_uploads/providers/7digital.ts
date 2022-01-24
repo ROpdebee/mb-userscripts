@@ -12,7 +12,7 @@ export class SevenDigitalProvider extends HeadMetaPropertyProvider {
     name = '7digital';
     urlRegex = /release\/.*-(\d+)(?:\/|$)/;
 
-    override postprocessImages(images: FetchedImage[]): FetchedImage[] {
+    override async postprocessImages(images: FetchedImage[]): Promise<FetchedImage[]> {
         return images
             // Filter out images that either are, or were redirected to the cover
             // with ID 0000000016. This is a placeholder image.

@@ -59,7 +59,7 @@ describe('7digital provider', () => {
             const cover = createCoverArt('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg');
             const fetchedImage = createFetchedImageFromCoverArt(cover);
 
-            const afterFetch = provider.postprocessImages([fetchedImage]);
+            const afterFetch = await provider.postprocessImages([fetchedImage]);
 
             expect(afterFetch).toBeArrayOfSize(1);
             expect(afterFetch[0]).toStrictEqual(fetchedImage);
@@ -71,7 +71,7 @@ describe('7digital provider', () => {
                 fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/000/000/0000000016_800.jpg'),
             });
 
-            const afterFetch = provider.postprocessImages([fetchedImage]);
+            const afterFetch = await provider.postprocessImages([fetchedImage]);
 
             expect(afterFetch).toBeEmpty();
         });

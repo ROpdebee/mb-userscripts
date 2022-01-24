@@ -53,7 +53,7 @@ export abstract class CoverArtProvider {
      * subclasses can override this to e.g. filter out or merge images after
      * they've been fetched.
      */
-    postprocessImages(images: FetchedImage[]): FetchedImage[] {
+    async postprocessImages(images: FetchedImage[]): Promise<FetchedImage[]> {
         return images;
     }
 
