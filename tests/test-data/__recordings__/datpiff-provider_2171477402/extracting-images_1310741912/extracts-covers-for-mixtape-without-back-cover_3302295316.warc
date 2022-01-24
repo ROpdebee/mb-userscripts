@@ -1,8 +1,8 @@
 WARC/1.1
-WARC-Filename: datpiff provider/extracting images/extracts covers for mixtape without front cover
-WARC-Date: 2022-01-24T14:54:21.440Z
+WARC-Filename: datpiff provider/extracting images/extracts covers for mixtape without back cover
+WARC-Date: 2022-01-24T17:47:06.060Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:9192718c-da56-493d-8fe8-c4c12fe023f0>
+WARC-Record-ID: <urn:uuid:44b1a8b9-5d47-4a6c-9933-2de035534e1a>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:539d9524-b4a6-429c-bb1a-014434c857c8>
+WARC-Concurrent-To: <urn:uuid:1812a7b3-a900-4a02-b6eb-b15120c6d4f8>
 WARC-Target-URI: https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.438559.html
-WARC-Date: 2022-01-24T14:54:21.440Z
+WARC-Date: 2022-01-24T17:47:06.062Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:9eeee4e6-840f-4eba-b880-1faefe17228c>
+WARC-Record-ID: <urn:uuid:ef104549-b62c-4c1d-8d86-53cac7cc9b2e>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:1e43474c7cbc5edf67defd0a0353bb10ac3d6321d1d48263c39028694e5cddc2
@@ -27,48 +27,48 @@ GET /Deno-Blue-Crazy-The-Mixtape.438559.html HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:539d9524-b4a6-429c-bb1a-014434c857c8>
+WARC-Concurrent-To: <urn:uuid:1812a7b3-a900-4a02-b6eb-b15120c6d4f8>
 WARC-Target-URI: https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.438559.html
-WARC-Date: 2022-01-24T14:54:21.440Z
+WARC-Date: 2022-01-24T17:47:06.062Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:70e5de9c-1db0-4ca5-9117-e04cd5831f4e>
+WARC-Record-ID: <urn:uuid:4bdcbc83-8246-4d28-ac28-96658aaac0d2>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:28c1027b10e8a19bae97683f80f0c30d544f9704380a8e95e6934627dc9ba9f9
-WARC-Block-Digest: sha256:28c1027b10e8a19bae97683f80f0c30d544f9704380a8e95e6934627dc9ba9f9
+WARC-Payload-Digest: sha256:18f5ba812545d29501ac83f2277884f5a7206a0df27babf245c1bf7c02ee84bf
+WARC-Block-Digest: sha256:18f5ba812545d29501ac83f2277884f5a7206a0df27babf245c1bf7c02ee84bf
 Content-Length: 450
 
 harEntryId: a0245dfde4b8adf7f05ff6a063391835
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-01-24T14:54:19.426Z
-time: 1958
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1958,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-24T17:47:03.924Z
+time: 2060
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":2060,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 82
 warcRequestCookies: []
 warcResponseHeadersSize: 476
-warcResponseCookies: [{"name":"datpiff","value":"5206-web6~mqi5ua9lqvdq80acrk5mv709e4","path":"/","domain":".datpiff.com"}]
+warcResponseCookies: [{"name":"datpiff","value":"5283-web2~vogviqejjlg4t2cqsithbrhpp1","path":"/","domain":".datpiff.com"}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.438559.html
-WARC-Date: 2022-01-24T14:54:21.440Z
+WARC-Date: 2022-01-24T17:47:06.061Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:539d9524-b4a6-429c-bb1a-014434c857c8>
+WARC-Record-ID: <urn:uuid:1812a7b3-a900-4a02-b6eb-b15120c6d4f8>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:ca4e46f6f3c51de618837c010f325db47385c6ac3ce50fe8f3d59074ff7587fd
-WARC-Block-Digest: sha256:00cd3550e75dcc71e5736cd36d0cbdf1bab559189b59e96f2e77075cec78ac9e
-Content-Length: 53165
+WARC-Payload-Digest: sha256:c6f275db25df61da029b53613eed9436354a7704ea9eb37fb61f69a9c456a879
+WARC-Block-Digest: sha256:5fce3777e855cfbc2d83a5a1f7e706a76c940c325bf3dc9881f47f7f5f422d40
+Content-Length: 53199
 
 HTTP/1.1 200 OK
 cache-control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
 connection: close
 content-type: text/html; charset=UTF-8
-date: Mon, 24 Jan 2022 14:54:20 GMT
+date: Mon, 24 Jan 2022 17:47:04 GMT
 expires: Thu, 19 Nov 1981 08:52:00 GMT
 pragma: no-cache
 server: Apache
-set-cookie: datpiff=5206-web6~mqi5ua9lqvdq80acrk5mv709e4; path=/; domain=.datpiff.com
+set-cookie: datpiff=5283-web2~vogviqejjlg4t2cqsithbrhpp1; path=/; domain=.datpiff.com
 transfer-encoding: chunked
 x-powered-by: PHP/5.3.3
 x-pollyjs-finalurl: https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.438559.html
@@ -317,7 +317,7 @@ x-pollyjs-finalurl: https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.438559.h
                             <li class="title">Crazy: The Mixtape</li>
                             <li class="artist">Deno Blue</li>
                             <li class="dj">&nbsp;</li>
-                            <li class="listens"><img src="//hw-static.datpiff.com/images/icon-views.png">3,169</li>                          </ul>
+                            <li class="listens"><img src="//hw-static.datpiff.com/images/icon-views.png">3,176</li>                          </ul>
                         </div>
                         <div class="actionButtons">
                           <div class="listen" onClick="openMixtape( 'mc561281' );">Stream</div>
@@ -562,11 +562,11 @@ x-pollyjs-finalurl: https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.438559.h
             	<span class="header"></span>
                 	                	                    <div class="module2015 searchbox">
                         <form action="/mixtapes-search" method="post">
-                        	<input type="hidden" name="submit" value="MTAxNTY3NC4zNTA0MzA2NzA3NjIxMjMyMQ">
+                        	<input type="hidden" name="submit" value="MTAxNTY3NC4zODAxNDg2NDQ4MjI1MjMyMQ">
                             <input type="text" name="criteria" placeholder="SEARCH MIXTAPES" id="inptSearch">
                             <input type="submit">
                         </form>
-                        <div class="popSearches">POPULAR: <a href="/mixtapes-search?criteria=50 cent&sort=relevance">50 cent</a>, <a href="/mixtapes-search?criteria=young jeezy&sort=relevance">young jeezy</a>, <a href="/mixtapes-search?criteria=wiz khalifa&sort=relevance">wiz khalifa</a>, <a href="/mixtapes-search?criteria=fliiko l&sort=relevance">fliiko l</a>, <a href="/mixtapes-search?criteria=b.o.b&sort=relevance">b.o.b</a>, <a href="/mixtapes-search?criteria=migos&sort=relevance">migos</a>, <a href="/mixtapes-search?criteria=mac miller&sort=relevance">mac miller</a>, <a href="/mixtapes-search?criteria=meek+mill&sort=relevance">meek mill</a>, <a href="/mixtapes-search?criteria=1017&sort=relevance">1017</a>, <a href="/mixtapes-search?criteria=hip&sort=relevance">hip</a>, <a href="/mixtapes-search?criteria=drake&sort=relevance">drake</a>, <a href="/mixtapes-search?criteria=uzi&sort=relevance">uzi</a>, <a href="/mixtapes-search?criteria=z-ro&sort=relevance">z-ro</a></div>                    </div>
+                        <div class="popSearches">POPULAR: <a href="/mixtapes-search?criteria=dj remix&sort=relevance">dj remix</a>, <a href="/mixtapes-search?criteria=lil peep&sort=relevance">lil peep</a>, <a href="/mixtapes-search?criteria=f.a.m.e.&sort=relevance">f.a.m.e.</a>, <a href="/mixtapes-search?criteria=future&sort=relevance">future</a>, <a href="/mixtapes-search?criteria=50 cent&sort=relevance">50 cent</a>, <a href="/mixtapes-search?criteria=mac miller&sort=relevance">mac miller</a>, <a href="/mixtapes-search?criteria=yung  bleu&sort=relevance">yung  bleu</a>, <a href="/mixtapes-search?criteria=uk&sort=relevance">uk</a>, <a href="/mixtapes-search?criteria=al&sort=relevance">al</a>, <a href="/mixtapes-search?criteria=chief keef&sort=relevance">chief keef</a>, <a href="/mixtapes-search?criteria=cypher&sort=relevance">cypher</a>, <a href="/mixtapes-search?criteria=rain&sort=relevance">rain</a>, <a href="/mixtapes-search?criteria=various instrumentals&sort=relevance">various instrumentals</a></div>                    </div>
                     
                                         <div class="module2015 socialbox">
                         <div class="facebook">
