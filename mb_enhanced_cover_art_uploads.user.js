@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.24.4
+// @version      2022.1.24.5
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -51,7 +51,7 @@
     }
 
     postprocessImages(images) {
-      return images;
+      return _await(images);
     }
 
     cleanUrl(url) {
@@ -415,6 +415,16 @@
       headers: {}
     }];
   }));
+  IMU_EXCEPTIONS.set('hw-img.datpiff.com', _async(function (smallurl) {
+    const urlNoSuffix = smallurl.href.replace(/-(?:large|medium)(\.\w+$)/, '$1');
+    return ['-large', '-medium', ''].map(suffix => {
+      return {
+        url: new URL(urlNoSuffix.replace(/\.(\w+)$/, "".concat(suffix, ".$1"))),
+        filename: '',
+        headers: {}
+      };
+    });
+  }));
 
   class SevenDigitalProvider extends HeadMetaPropertyProvider {
     constructor() {
@@ -430,13 +440,15 @@
     }
 
     postprocessImages(images) {
-      return images.filter(image => {
-        if (/\/0000000016_\d+/.test(image.fetchedUrl.pathname)) {
-          LOGGER.warn('Ignoring placeholder cover in 7digital release');
-          return false;
-        }
+      return _call(function () {
+        return _await(images.filter(image => {
+          if (/\/0000000016_\d+/.test(image.fetchedUrl.pathname)) {
+            LOGGER.warn("Skipping \"".concat(image.content.name, "\" as it matches a placeholder cover"));
+            return false;
+          }
 
-        return true;
+          return true;
+        }));
       });
     }
 
@@ -914,6 +926,72 @@
     }
 
   }
+
+  class DatPiffProvider extends CoverArtProvider {
+    constructor() {
+      super(...arguments);
+
+      _defineProperty(this, "supportedDomains", ['datpiff.com']);
+
+      _defineProperty(this, "favicon", 'http://hw-static.datpiff.com/favicon.ico');
+
+      _defineProperty(this, "name", 'DatPiff');
+
+      _defineProperty(this, "urlRegex", /mixtape\.(\d+)\.html/i);
+    }
+
+    findImages(url) {
+      const _this = this;
+
+      return _call(function () {
+        return _await(_this.fetchPage(url), function (_this$fetchPage) {
+          const respDocument = parseDOM(_this$fetchPage, url.href);
+
+          if (respDocument.title === 'Mixtape Not Found') {
+            throw new Error(_this.name + ' release does not exist');
+          }
+
+          const coverCont = qs('.tapeBG', respDocument);
+          const frontCoverUrl = coverCont.getAttribute('data-front');
+          const backCoverUrl = coverCont.getAttribute('data-back');
+          const hasBackCover = qsMaybe('#screenshot', coverCont) !== null;
+          assertNonNull(frontCoverUrl, 'No front image found in DatPiff release');
+          const covers = [{
+            url: new URL(frontCoverUrl),
+            types: [ArtworkTypeIDs.Front]
+          }];
+
+          if (hasBackCover) {
+            assertNonNull(backCoverUrl, 'No back cover found in DatPiff release, even though there should be one');
+            covers.push({
+              url: new URL(backCoverUrl),
+              types: [ArtworkTypeIDs.Back]
+            });
+          }
+
+          return covers;
+        });
+      });
+    }
+
+    postprocessImages(images) {
+      return _call(function () {
+        return _await(Promise.all(images.map(_async(function (image) {
+          return _await(blobToDigest(image.content), function (digest) {
+            if (DatPiffProvider.placeholderDigests.includes(digest)) {
+              LOGGER.warn("Skipping \"".concat(image.content.name, "\" as it matches a placeholder cover"));
+              return null;
+            } else {
+              return image;
+            }
+          });
+        }))), filterNonNull);
+      });
+    }
+
+  }
+
+  _defineProperty(DatPiffProvider, "placeholderDigests", ['259b065660159922c881d242701aa64d4e02672deba437590a2014519e7caeec', 'ef406a25c3ffd61150b0658f3fe4863898048b4e54b81289e0e53a0f00ad0ced', 'a2691bde8f4a5ced9e5b066d4fab0675b0ceb80f1f0ab3c4d453228549560048']);
 
   class DeezerProvider extends HeadMetaPropertyProvider {
     constructor() {
@@ -1657,6 +1735,7 @@
   addProvider(new AppleMusicProvider());
   addProvider(new BandcampProvider());
   addProvider(new BeatportProvider());
+  addProvider(new DatPiffProvider());
   addProvider(new DeezerProvider());
   addProvider(new DiscogsProvider());
   addProvider(new JamendoProvider());
@@ -1786,7 +1865,7 @@
         return _await(provider.findImages(url, onlyFront), function (images) {
           const finalImages = onlyFront ? _this3.retainOnlyFront(images) : images;
           const hasMoreImages = onlyFront && images.length !== finalImages.length;
-          LOGGER.info("Found ".concat(finalImages.length || 'no', " images in ").concat(provider.name, " release"));
+          LOGGER.info("Found ".concat(finalImages.length || 'no', " image(s) in ").concat(provider.name, " release"));
           const fetchResults = [];
           return _continue(_forOf(finalImages, function (img) {
             if (_this3.urlAlreadyAdded(img.url)) {
@@ -1806,18 +1885,18 @@
               LOGGER.warn("Skipping ".concat(getFilename(img.url)), err);
             }));
           }), function () {
-            const fetchedImages = provider.postprocessImages(fetchResults);
+            return _await(provider.postprocessImages(fetchResults), function (fetchedImages) {
+              if (!hasMoreImages) {
+                _this3.doneImages.add(url.href);
+              } else {
+                LOGGER.warn("Not all images were fetched: ".concat(images.length - finalImages.length, " covers were skipped."));
+              }
 
-            if (!hasMoreImages) {
-              _this3.doneImages.add(url.href);
-            } else {
-              LOGGER.warn("Not all images were fetched: ".concat(images.length - finalImages.length, " covers were skipped."));
-            }
-
-            return {
-              containerUrl: url,
-              images: fetchedImages
-            };
+              return {
+                containerUrl: url,
+                images: fetchedImages
+              };
+            });
           });
         });
       });
