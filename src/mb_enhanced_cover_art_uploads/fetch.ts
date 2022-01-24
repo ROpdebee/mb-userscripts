@@ -123,7 +123,7 @@ export class ImageFetcher {
         const finalImages = onlyFront ? this.retainOnlyFront(images) : images;
         const hasMoreImages = onlyFront && images.length !== finalImages.length;
 
-        LOGGER.info(`Found ${finalImages.length || 'no'} images in ${provider.name} release`);
+        LOGGER.info(`Found ${finalImages.length || 'no'} image(s) in ${provider.name} release`);
         const fetchResults: FetchedImage[] = [];
         for (const img of finalImages) {
             if (this.urlAlreadyAdded(img.url)) {
