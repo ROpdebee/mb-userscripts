@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.24.2
+// @version      2022.1.24.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1654,8 +1654,11 @@
   }
 
   function getProvider(url) {
-    const provider = PROVIDER_DISPATCH.get(extractDomain(url));
+    const provider = getProviderByDomain(url);
     return provider !== null && provider !== void 0 && provider.supportsUrl(url) ? provider : undefined;
+  }
+  function getProviderByDomain(url) {
+    return PROVIDER_DISPATCH.get(extractDomain(url));
   }
 
   function getFilename(url) {
@@ -1826,35 +1829,24 @@
             LOGGER.warn("Followed redirect of ".concat(url.href, " -> ").concat(resp.finalUrl, " while fetching image contents"));
           }
 
-          const rawFile = new File([resp.response], fileName);
-          return _await(new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.addEventListener('load', () => {
-              const Uint32Array = getFromPageContext('Uint32Array');
-              const uint32view = new Uint32Array(reader.result);
+          return _await(_this4.determineMimeType(resp), function (_ref) {
+            let mimeType = _ref.mimeType,
+                isImage = _ref.isImage;
 
-              if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
-                resolve('image/jpeg');
-              } else if (uint32view[0] === 0x38464947) {
-                resolve('image/gif');
-              } else if (uint32view[0] === 0x474E5089) {
-                resolve('image/png');
-              } else if (uint32view[0] === 0x46445025) {
-                resolve('application/pdf');
-              } else {
-                var _resp$responseHeaders;
-
-                const actualMimeType = (_resp$responseHeaders = resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)) === null || _resp$responseHeaders === void 0 ? void 0 : _resp$responseHeaders[1];
-
-                if (actualMimeType !== null && actualMimeType !== void 0 && actualMimeType.startsWith('text/')) {
-                  reject(new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?'));
-                } else {
-                  reject(new Error("Expected \"".concat(fileName, "\" to be an image, but received ").concat(actualMimeType !== null && actualMimeType !== void 0 ? actualMimeType : 'unknown file type', ".")));
-                }
+            if (!isImage) {
+              if (!(mimeType !== null && mimeType !== void 0 && mimeType.startsWith('text/'))) {
+                throw new Error("Expected \"".concat(fileName, "\" to be an image, but received ").concat(mimeType !== null && mimeType !== void 0 ? mimeType : 'unknown file type', "."));
               }
-            });
-            reader.readAsArrayBuffer(rawFile.slice(0, 4));
-          }), function (mimeType) {
+
+              const candidateProvider = getProviderByDomain(url);
+
+              if (typeof candidateProvider !== 'undefined') {
+                throw new Error("This page is not (yet) supported by the ".concat(candidateProvider.name, " provider, are you sure this is an album?"));
+              }
+
+              throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
+            }
+
             return {
               requestedUrl: url,
               fetchedUrl,
@@ -1865,6 +1857,50 @@
             };
           });
         });
+      });
+    }
+
+    determineMimeType(resp) {
+      return _call(function () {
+        const rawFile = new File([resp.response], 'image');
+        return _await(new Promise(resolve => {
+          const reader = new FileReader();
+          reader.addEventListener('load', () => {
+            const Uint32Array = getFromPageContext('Uint32Array');
+            const uint32view = new Uint32Array(reader.result);
+
+            if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
+              resolve({
+                mimeType: 'image/jpeg',
+                isImage: true
+              });
+            } else if (uint32view[0] === 0x38464947) {
+              resolve({
+                mimeType: 'image/gif',
+                isImage: true
+              });
+            } else if (uint32view[0] === 0x474E5089) {
+              resolve({
+                mimeType: 'image/png',
+                isImage: true
+              });
+            } else if (uint32view[0] === 0x46445025) {
+              resolve({
+                mimeType: 'application/pdf',
+                isImage: true
+              });
+            } else {
+              var _resp$responseHeaders;
+
+              const actualMimeType = (_resp$responseHeaders = resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)) === null || _resp$responseHeaders === void 0 ? void 0 : _resp$responseHeaders[1];
+              resolve({
+                mimeType: actualMimeType,
+                isImage: false
+              });
+            }
+          });
+          reader.readAsArrayBuffer(rawFile.slice(0, 4));
+        }));
       });
     }
 
