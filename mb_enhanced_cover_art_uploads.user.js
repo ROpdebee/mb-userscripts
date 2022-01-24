@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.24.3
+// @version      2022.1.24.4
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -407,6 +407,13 @@
         headers: {}
       };
     });
+  }));
+  IMU_EXCEPTIONS.set('usercontent.jamendo.com', _async(function (smallurl) {
+    return [{
+      url: new URL(smallurl.href.replace(/([&?])width=\d+/, '$1width=0')),
+      filename: '',
+      headers: {}
+    }];
   }));
 
   class SevenDigitalProvider extends HeadMetaPropertyProvider {
@@ -937,6 +944,21 @@
           });
         });
       });
+    }
+
+  }
+
+  class JamendoProvider extends HeadMetaPropertyProvider {
+    constructor() {
+      super(...arguments);
+
+      _defineProperty(this, "supportedDomains", ['jamendo.com']);
+
+      _defineProperty(this, "favicon", 'https://www.jamendo.com/Client/assets/toolkit/images/icon/favicon-32x32.png');
+
+      _defineProperty(this, "name", 'Jamendo');
+
+      _defineProperty(this, "urlRegex", /album\/(\d+)\/?/);
     }
 
   }
@@ -1637,6 +1659,7 @@
   addProvider(new BeatportProvider());
   addProvider(new DeezerProvider());
   addProvider(new DiscogsProvider());
+  addProvider(new JamendoProvider());
   addProvider(new MelonProvider());
   addProvider(new MusicBrainzProvider());
   addProvider(new MusikSammlerProvider());
