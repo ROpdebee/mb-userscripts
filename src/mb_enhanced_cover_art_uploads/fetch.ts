@@ -6,7 +6,7 @@ import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt, CoverArtProvider } from './providers/base';
 import { getMaximisedCandidates } from './maximise';
-import { getProvider } from './providers';
+import { getProvider, getProviderByDomain } from './providers';
 
 interface ImageContents {
     requestedUrl: URL;
@@ -191,11 +191,20 @@ export class ImageFetcher {
         const { mimeType, isImage } = await this.determineMimeType(resp);
 
         if (!isImage) {
-            if (mimeType?.startsWith('text/')) {
-                throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
-            } else {
+            if (!mimeType?.startsWith('text/')) {
                 throw new Error(`Expected "${fileName}" to be an image, but received ${mimeType ?? 'unknown file type'}.`);
             }
+
+            // Check for wrong provider URL, e.g. artist URLs. We need to delay
+            // this check until now as we cannot check for unsupported provider
+            // URLs in the top-level `fetchImages`, because the URL given there
+            // could still point to an actual image.
+            const candidateProvider = getProviderByDomain(url);
+            if (typeof candidateProvider !== 'undefined') {
+                throw new Error(`This page is not (yet) supported by the ${candidateProvider.name} provider, are you sure this is an album?`);
+            }
+
+            throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
         }
 
         return {

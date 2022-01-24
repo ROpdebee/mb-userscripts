@@ -4,7 +4,7 @@ import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { gmxhr, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
-import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
+import { getProvider, getProviderByDomain } from '@src/mb_enhanced_cover_art_uploads/providers';
 import { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
 import { createCoverArt, createImageFile, createXhrResponse } from './test-utils/dummy-data';
@@ -23,6 +23,7 @@ jest.mock('@src/mb_enhanced_cover_art_uploads/providers');
 const mockXhr = gmxhr as jest.MockedFunction<typeof gmxhr>;
 const mockGetMaximisedCandidates = getMaximisedCandidates as jest.MockedFunction<typeof getMaximisedCandidates>;
 const mockGetProvider = getProvider as jest.MockedFunction<typeof getProvider>;
+const mockGetProviderByDomain = getProviderByDomain as jest.MockedFunction<typeof getProvider>;
 
 // Fake provider to enable us to control which images are extracted through
 // this mock function.
@@ -87,6 +88,18 @@ describe('fetching image contents', () => {
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', {}))
             .rejects.toThrow('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
+    });
+
+    it('rejects on unsupported provider page', async () => {
+        mockXhr.mockResolvedValueOnce(createXhrResponse({
+            finalUrl: 'https://example.com/not-an-album',
+            response: new Blob(['test']),
+            responseHeaders: 'Content-Type: text/html; charset=utf-8',
+        }));
+        mockGetProviderByDomain.mockImplementationOnce(() => fakeProvider);
+
+        await expect(fetcher.fetchImageContents(new URL('https://example.com/not-an-album'), 'test.jpg', {}))
+            .rejects.toThrow('This page is not (yet) supported by the test provider, are you sure this is an album?');
     });
 
     it('rejects on invalid image', async () => {
