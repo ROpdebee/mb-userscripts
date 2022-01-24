@@ -53,6 +53,10 @@ function extractDomain(url: URL): string {
 }
 
 export function getProvider(url: URL): CoverArtProvider | undefined {
-    const provider = PROVIDER_DISPATCH.get(extractDomain(url));
+    const provider = getProviderByDomain(url);
     return provider?.supportsUrl(url) ? provider : undefined;
+}
+
+export function getProviderByDomain(url: URL): CoverArtProvider | undefined {
+    return PROVIDER_DISPATCH.get(extractDomain(url));
 }
