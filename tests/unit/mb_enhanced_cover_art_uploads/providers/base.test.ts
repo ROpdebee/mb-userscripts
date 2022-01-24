@@ -154,7 +154,7 @@ describe('cover art providers', () => {
         it('does no post-processing by default', async () => {
             const fetchedImages = [createFetchedImage(), createFetchedImage()];
 
-            const results = fakeProvider.postprocessImages(fetchedImages);
+            const results = await fakeProvider.postprocessImages(fetchedImages);
 
             expect(results).toStrictEqual(fetchedImages);
         });

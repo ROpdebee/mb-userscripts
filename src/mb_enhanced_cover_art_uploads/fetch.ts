@@ -146,7 +146,7 @@ export class ImageFetcher {
             }
         }
 
-        const fetchedImages = provider.postprocessImages(fetchResults);
+        const fetchedImages = await provider.postprocessImages(fetchResults);
 
         if (!hasMoreImages) {
             // Don't mark the whole provider URL as done if we haven't grabbed

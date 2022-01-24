@@ -471,7 +471,7 @@ describe('fetching images from providers', () => {
 
     it('allows provider to postprocess images', async () => {
         class PostprocessingProvider extends FakeProvider {
-            override postprocessImages(images: FetchedImage[]): FetchedImage[] {
+            override async postprocessImages(images: FetchedImage[]): Promise<FetchedImage[]> {
                 return images.slice(1);
             }
         }
