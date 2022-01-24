@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.24
+// @version      2022.1.24.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1080,13 +1080,15 @@
       });
     }
 
-    static extractGoodies(goodie) {
-      const isBooklet = goodie.name.toLowerCase() === 'livret numérique';
-      return {
-        url: new URL(goodie.original_url),
-        types: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
-        comment: isBooklet ? 'Qobuz booklet' : goodie.name
-      };
+    static extractGoodies(goodies) {
+      return goodies.filter(goodie => !!goodie.original_url).map(goodie => {
+        const isBooklet = goodie.name.toLowerCase() === 'livret numérique';
+        return {
+          url: new URL(goodie.original_url),
+          types: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
+          comment: isBooklet ? 'Qobuz booklet' : goodie.name
+        };
+      });
     }
 
     findImages(url) {
@@ -1124,7 +1126,7 @@
           var _metadata$goodies;
 
           if (_exit) return _result;
-          const goodies = ((_metadata$goodies = metadata.goodies) !== null && _metadata$goodies !== void 0 ? _metadata$goodies : []).map(QobuzProvider.extractGoodies);
+          const goodies = QobuzProvider.extractGoodies((_metadata$goodies = metadata.goodies) !== null && _metadata$goodies !== void 0 ? _metadata$goodies : []);
           const coverUrl = metadata.image.large.replace(/_\d+\.([a-zA-Z0-9]+)$/, '_org.$1');
           return [{
             url: new URL(coverUrl),
