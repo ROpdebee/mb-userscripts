@@ -188,8 +188,31 @@ export class ImageFetcher {
             LOGGER.warn(`Followed redirect of ${url.href} -> ${resp.finalUrl} while fetching image contents`);
         }
 
-        const rawFile = new File([resp.response as Blob], fileName);
-        const mimeType = await new Promise<string>((resolve, reject) => {
+        const { mimeType, isImage } = await this.determineMimeType(resp);
+
+        if (!isImage) {
+            if (mimeType?.startsWith('text/')) {
+                throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
+            } else {
+                throw new Error(`Expected "${fileName}" to be an image, but received ${mimeType ?? 'unknown file type'}.`);
+            }
+        }
+
+        return {
+            requestedUrl: url,
+            fetchedUrl,
+            wasRedirected,
+            file: new File(
+                [resp.response as Blob],
+                this.createUniqueFilename(fileName, mimeType!),
+                { type: mimeType }),
+        };
+    }
+
+    // eslint-disable-next-line no-restricted-globals
+    private async determineMimeType(resp: GM.Response<never>): Promise<{ mimeType: string; isImage: true } | { mimeType: string | undefined; isImage: false }> {
+        const rawFile = new File([resp.response as Blob], 'image');
+        return new Promise((resolve) => {
             // Adapted from https://github.com/metabrainz/musicbrainz-server/blob/2b00b844f3fe4293fc4ccb9de1c30e3c2ddc95c1/root/static/scripts/edit/MB/CoverArt.js#L139
             // We can't use MB.CoverArt.validate_file since it's not available
             // in Greasemonkey unless we use unsafeWindow. However, if we use
@@ -201,34 +224,20 @@ export class ImageFetcher {
                 const Uint32Array = getFromPageContext('Uint32Array');
                 const uint32view = new Uint32Array(reader.result as ArrayBuffer);
                 if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
-                    resolve('image/jpeg');
+                    resolve({ mimeType: 'image/jpeg', isImage: true });
                 } else if (uint32view[0] === 0x38464947) {
-                    resolve('image/gif');
+                    resolve({ mimeType: 'image/gif', isImage: true });
                 } else if (uint32view[0] === 0x474E5089) {
-                    resolve('image/png');
+                    resolve({ mimeType: 'image/png', isImage: true });
                 } else if (uint32view[0] === 0x46445025) {
-                    resolve('application/pdf');
+                    resolve({ mimeType: 'application/pdf', isImage: true });
                 } else {
                     const actualMimeType = resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)?.[1];
-                    if (actualMimeType?.startsWith('text/')) {
-                        reject(new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?'));
-                    } else {
-                        reject(new Error(`Expected "${fileName}" to be an image, but received ${actualMimeType ?? 'unknown file type'}.`));
-                    }
+                    resolve({ mimeType: actualMimeType, isImage: false });
                 }
             });
             reader.readAsArrayBuffer(rawFile.slice(0, 4));
         });
-
-        return {
-            requestedUrl: url,
-            fetchedUrl,
-            wasRedirected,
-            file: new File(
-                [resp.response as Blob],
-                this.createUniqueFilename(fileName, mimeType),
-                { type: mimeType }),
-        };
     }
 
     private urlAlreadyAdded(url: URL): boolean {
