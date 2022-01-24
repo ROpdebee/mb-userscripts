@@ -52,7 +52,7 @@ describe('datpiff provider', () => {
                 types: [ArtworkTypeIDs.Back],
             }],
         }, {
-            desc: 'mixtape without front cover',
+            desc: 'mixtape without back cover',
             url: 'https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.438559.html',
             numImages: 1,
             expectedImages: [{
