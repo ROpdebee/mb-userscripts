@@ -346,3 +346,12 @@ IMU_EXCEPTIONS.set('artwork-cdn.7static.com', async (smallurl) => {
         };
     });
 });
+
+
+IMU_EXCEPTIONS.set('usercontent.jamendo.com', async (smallurl) => {
+    return [{
+        url: new URL(smallurl.href.replace(/([&?])width=\d+/, '$1width=0')),
+        filename: '',
+        headers: {},
+    }];
+});
