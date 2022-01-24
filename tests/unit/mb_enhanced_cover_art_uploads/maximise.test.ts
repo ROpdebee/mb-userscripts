@@ -178,7 +178,6 @@ describe('maximising Apple Music images', () => {
     });
 });
 
-
 describe('maximising 7digital images', () => {
     it('returns 800x800 image first', async () => {
         const it = getMaximisedCandidates(new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/143/859/0014385941_350.jpg'));
@@ -220,5 +219,45 @@ describe('maximising Jamendo images', () => {
         expect(result.value!.url.href).toBe('https://usercontent.jamendo.com/?cid=1632996942&type=album&id=453609&width=0');
 
         expect((await it.next()).done).toBeTrue();
+    });
+});
+
+describe('maximising DatPiff images', () => {
+    it('returns large image first', async () => {
+        const it = getMaximisedCandidates(new URL('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front.jpg'));
+        const result = await it.next();
+
+        expect(result.done).toBeFalse();
+        expect(result.value!.url.href).toBe('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front-large.jpg');
+    });
+
+    it('includes smaller images as backup', async () => {
+        const it = getMaximisedCandidates(new URL('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front.jpg'));
+        let result = await it.next();
+
+        expect(result.done).toBeFalse();
+        expect(result.value!.url.pathname).toEndWith('-front-large.jpg');
+
+        result = await it.next();
+
+        expect(result.done).toBeFalse();
+        expect(result.value!.url.pathname).toEndWith('-front-medium.jpg');
+
+        result = await it.next();
+
+        expect(result.done).toBeFalse();
+        expect(result.value!.url.pathname).toEndWith('-front.jpg');
+
+        result = await it.next();
+
+        expect(result.done).toBeTrue();
+    });
+
+    it('removes existing suffix', async () => {
+        const it = getMaximisedCandidates(new URL('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front-medium.jpg'));
+        const result = await it.next();
+
+        expect(result.done).toBeFalse();
+        expect(result.value!.url.pathname).toEndWith('-front-large.jpg');
     });
 });

@@ -347,11 +347,23 @@ IMU_EXCEPTIONS.set('artwork-cdn.7static.com', async (smallurl) => {
     });
 });
 
-
 IMU_EXCEPTIONS.set('usercontent.jamendo.com', async (smallurl) => {
     return [{
         url: new URL(smallurl.href.replace(/([&?])width=\d+/, '$1width=0')),
         filename: '',
         headers: {},
     }];
+});
+
+IMU_EXCEPTIONS.set('hw-img.datpiff.com', async (smallurl) => {
+    // Some sizes may be missing, so try '-large' and '-medium' first, but fall
+    // back to smallest (no suffix) if neither exist.
+    const urlNoSuffix = smallurl.href.replace(/-(?:large|medium)(\.\w+$)/, '$1');
+    return ['-large', '-medium', ''].map((suffix) => {
+        return {
+            url: new URL(urlNoSuffix.replace(/\.(\w+)$/, `${suffix}.$1`)),
+            filename: '',
+            headers: {},
+        };
+    });
 });
