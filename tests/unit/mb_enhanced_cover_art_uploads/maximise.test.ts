@@ -210,3 +210,15 @@ describe('maximising 7digital images', () => {
         expect(result.done).toBeTrue();
     });
 });
+
+describe('maximising Jamendo images', () => {
+    it('returns width=0 image', async () => {
+        const it = getMaximisedCandidates(new URL('https://usercontent.jamendo.com/?cid=1632996942&type=album&id=453609&width=300'));
+        const result = await it.next();
+
+        expect(result.done).toBeFalse();
+        expect(result.value!.url.href).toBe('https://usercontent.jamendo.com/?cid=1632996942&type=album&id=453609&width=0');
+
+        expect((await it.next()).done).toBeTrue();
+    });
+});
