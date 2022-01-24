@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.2
+// @version      2022.1.24
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1109,11 +1109,21 @@
             throw new Error('Bad request to Qobuz API, app ID invalid?');
           }
 
+          if (err instanceof HTTPResponseError && err.statusCode == 404) {
+            LOGGER.warn('Qobuz API returned 404, falling back on URL rewriting. Booklets may be missed.');
+            const _temp = [{
+              url: QobuzProvider.idToCoverUrl(id),
+              types: [ArtworkTypeIDs.Front]
+            }];
+            _exit = true;
+            return _temp;
+          }
+
           throw err;
         }), function (_result) {
           var _metadata$goodies;
 
-          if (_exit) ;
+          if (_exit) return _result;
           const goodies = ((_metadata$goodies = metadata.goodies) !== null && _metadata$goodies !== void 0 ? _metadata$goodies : []).map(QobuzProvider.extractGoodies);
           const coverUrl = metadata.image.large.replace(/_\d+\.([a-zA-Z0-9]+)$/, '_org.$1');
           return [{
