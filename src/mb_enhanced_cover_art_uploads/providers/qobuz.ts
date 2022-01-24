@@ -12,8 +12,8 @@ interface Goodie {
     file_format_id: number;
     name: string;
     description: string;
-    url: string;
-    original_url: string;
+    url: string | null;
+    original_url: string | null;
 }
 
 // Incomplete, only what we need
@@ -77,14 +77,18 @@ export class QobuzProvider extends CoverArtProvider {
         return metadata;
     }
 
-    static extractGoodies(goodie: Goodie): CoverArt {
-        // Livret Numérique = Digital Booklet
-        const isBooklet = goodie.name.toLowerCase() === 'livret numérique';
-        return {
-            url: new URL(goodie.original_url),
-            types: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
-            comment: isBooklet ? 'Qobuz booklet' : goodie.name,
-        };
+    static extractGoodies(goodies: Goodie[]): CoverArt[] {
+        return goodies
+            .filter((goodie) => !!goodie.original_url)
+            .map((goodie) => {
+                // Livret Numérique = Digital Booklet
+                const isBooklet = goodie.name.toLowerCase() === 'livret numérique';
+                return {
+                    url: new URL(goodie.original_url!),
+                    types: isBooklet ? [ArtworkTypeIDs.Booklet] : [],
+                    comment: isBooklet ? 'Qobuz booklet' : goodie.name,
+                };
+            });
     }
 
     async findImages(url: URL): Promise<CoverArt[]> {
@@ -121,7 +125,7 @@ export class QobuzProvider extends CoverArtProvider {
             throw err;
         }
 
-        const goodies = (metadata.goodies ?? []).map(QobuzProvider.extractGoodies);
+        const goodies = QobuzProvider.extractGoodies(metadata.goodies ?? []);
         const coverUrl = metadata.image.large.replace(/_\d+\.([a-zA-Z0-9]+)$/, '_org.$1');
         return [
             {
