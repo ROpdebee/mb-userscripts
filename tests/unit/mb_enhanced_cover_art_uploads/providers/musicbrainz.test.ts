@@ -1,5 +1,5 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { MusicBrainzProvider } from '@src/mb_enhanced_cover_art_uploads/providers/musicbrainz';
+import { CoverArtArchiveProvider, MusicBrainzProvider } from '@src/mb_enhanced_cover_art_uploads/providers/musicbrainz';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 import { findImagesSpec } from './find_images_spec';
@@ -57,5 +57,28 @@ describe('musicbrainz provider', () => {
 
         // eslint-disable-next-line jest/require-hook
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+    });
+});
+
+describe('coverartarchive provider', () => {
+    const provider = new CoverArtArchiveProvider();
+
+    describe('url matching', () => {
+        const supportedUrls = [{
+            desc: 'release URLs',
+            url: 'https://coverartarchive.org/release/3a179b58-6be9-476a-b36e-63461c93992f',
+            id: '3a179b58-6be9-476a-b36e-63461c93992f',
+        }];
+
+        const unsupportedUrls = [{
+            desc: 'direct image URLs',
+            url: 'https://coverartarchive.org/release/e276296d-0e1a-40bb-ac14-7a95f1ca7ff0/31558457789-1200.jpg',
+        }, {
+            desc: 'release group URLs',
+            url: 'https://coverartarchive.org/release-group/84ed9e3e-10d2-4719-856c-69efe4d965bb',
+        }];
+
+        // eslint-disable-next-line jest/require-hook
+        itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 });
