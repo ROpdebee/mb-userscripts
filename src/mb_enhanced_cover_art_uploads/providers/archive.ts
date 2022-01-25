@@ -128,6 +128,6 @@ export class ArchiveProvider extends CoverArtProvider {
     private createBaseDownloadUrl(itemMetadata: ArchiveMetadata): string {
         // While we could just use the standard archive.org/download/... URL,
         // it would always lead to redirection warnings which can be avoided.
-        return `https://${itemMetadata.server}/${itemMetadata.dir}/`;
+        return `https://${itemMetadata.server}${itemMetadata.dir}/`;
     }
 }
