@@ -10,6 +10,7 @@ const metadata: UserscriptMetadata = {
         'release/*/add-cover-art?*',
     ].map(transformMBMatchURL).concat([
         '*://atisket.pulsewidth.org.uk/*',
+        '*://etc.marlonob.info/atisket/*',
         '*://vgmdb.net/album/*',
     ]),
     exclude: ['*://atisket.pulsewidth.org.uk/'],
