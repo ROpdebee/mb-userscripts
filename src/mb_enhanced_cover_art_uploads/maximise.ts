@@ -4,6 +4,7 @@ import type { GMxmlHttpRequest } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { retryTimes } from '@lib/util/async';
 import { DispatchMap } from '@lib/util/domain_dispatch';
+import { urlBasename, urlDirname } from '@lib/util/urls';
 
 import { DiscogsProvider } from './providers/discogs';
 
@@ -234,6 +235,7 @@ export interface MaximisedImage {
     url: URL;
     filename: string;
     headers: Record<string, string>;
+    likely_broken?: boolean;
 }
 
 export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<MaximisedImage, undefined, undefined> {
@@ -267,7 +269,7 @@ async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
 
     for (const maximisedResult of results) {
         // Filter out results that will definitely not work
-        if (maximisedResult.fake || maximisedResult.bad || maximisedResult.likely_broken) continue;
+        if (maximisedResult.fake || maximisedResult.bad) continue;
         try {
             yield {
                 ...maximisedResult,
@@ -292,39 +294,24 @@ IMU_EXCEPTIONS.set('i.discogs.com', async (smallurl) => {
 
 // Apple Music
 IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
-    // For Apple Music, IMU always returns a PNG, regardless of whether the
-    // original source image was PNG or JPEG. We can grab the source image
-    // instead. See #80.
+    // For Apple Music, IMU always returns a `/source` URL first, but it may
+    // not always exist. Mark such a URL as likely broken so that we don't warn
+    // for those. We don't reorder the candidates to ensure we always get the
+    // largest possible image.
 
     const results: MaximisedImage[] = [];
+    let lastSource: MaximisedImage | undefined;
     for await (const imgGeneric of maximiseGeneric(smallurl)) {
-        // Assume original file name is penultimate component of pathname, e.g.
-        // https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png/999999999x0w-999.png
-        // Transform it to the following:
-        // https://a1.mzstatic.com/us/r1000/063/Music124/v4/58/34/98/58349857-55bb-62ae-81d4-4a2726e33528/5060786561909.png
-        // i.e. change domain to a1, path prefix to us/r1000/063, and drop trailing conversion name.
-        // This should also work for images returned by the old iTunes API.
-        const sourceUrl = new URL(imgGeneric.url);
-        sourceUrl.hostname = 'a1.mzstatic.com';
-
-        // Be a bit defensive and don't try to transform URLs which we don't recognize
-        if (sourceUrl.pathname.startsWith('/image/thumb')) {
-            sourceUrl.pathname = sourceUrl.pathname.replace(/^\/image\/thumb/, '/us/r1000/063');
+        if (urlBasename(imgGeneric.url) === 'source') {
+            lastSource = imgGeneric;
+        } else if (
+            typeof lastSource !== 'undefined'
+                && urlDirname(imgGeneric.url) === urlDirname(lastSource.url)
+                && imgGeneric.url.hostname === lastSource.url.hostname) {
+            // Mark the `/source` image as likely broken if there's another URL
+            // with the same directory but a different image name.
+            lastSource.likely_broken = true;
         }
-        if (sourceUrl.pathname.split('/').length === 12) {
-            // Drop the trailing conversion filename
-            sourceUrl.pathname = sourceUrl.pathname.split('/').slice(0, -1).join('/');
-        }
-
-        if (sourceUrl.pathname !== imgGeneric.url.pathname) {
-            results.push({
-                ...imgGeneric,
-                url: sourceUrl,
-            });
-        }
-
-        // Always return the original maximised URL as a backup, e.g. for when
-        // the source image is webp.
         results.push(imgGeneric);
     }
 
