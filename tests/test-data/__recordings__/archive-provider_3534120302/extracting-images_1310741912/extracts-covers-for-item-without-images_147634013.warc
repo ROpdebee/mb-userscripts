@@ -1,0 +1,77 @@
+WARC/1.1
+WARC-Filename: archive provider/extracting images/extracts covers for item without images
+WARC-Date: 2022-01-25T12:02:25.301Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:a384b64f-d14a-4405-81b8-1a873d735128>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:bd8b11a4-d9ed-4fa5-ab2a-46d68e625a81>
+WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
+WARC-Date: 2022-01-25T12:02:25.302Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:ef69998c-3c7b-4d8d-8b95-d63090bf3768>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:df1a62ace4c2cd1be4030091ddbe1ca220601da4e187c4dd1078e2f0660056c3
+Content-Length: 57
+
+GET /metadata/coverartarchive_audit_20210419 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:bd8b11a4-d9ed-4fa5-ab2a-46d68e625a81>
+WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
+WARC-Date: 2022-01-25T12:02:25.302Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:2a9ce334-1f74-4346-97b5-7a650e50833b>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:88ecc9822841bb4d463440efca566be784b0f2dd803672c97d5a5553daf6e0fa
+WARC-Block-Digest: sha256:88ecc9822841bb4d463440efca566be784b0f2dd803672c97d5a5553daf6e0fa
+Content-Length: 348
+
+harEntryId: 569de8558b7b371c223276ef3b35b98e
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-01-25T12:02:24.729Z
+time: 571
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":571,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 78
+warcRequestCookies: []
+warcResponseHeadersSize: 399
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
+WARC-Date: 2022-01-25T12:02:25.301Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:bd8b11a4-d9ed-4fa5-ab2a-46d68e625a81>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:14286dd5a7f5cbb487d6b903fb4152db33418aed3e1c89566360691c748d7161
+WARC-Block-Digest: sha256:132200205a8a0afc72776b43f0cdb98b81fe9fc299b976280a0374a45aa79045
+Content-Length: 3799
+
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+connection: close
+content-encoding: gzip
+content-type: application/json
+date: Tue, 25 Jan 2022 12:02:25 GMT
+referrer-policy: no-referrer-when-downgrade
+server: nginx/1.18.0 (Ubuntu)
+strict-transport-security: max-age=15724800
+transfer-encoding: chunked
+vary: Accept-Encoding
+x-pollyjs-finalurl: https://archive.org/metadata/coverartarchive_audit_20210419
+
+{"created":1643111797,"d1":"ia903402.us.archive.org","d2":"ia803402.us.archive.org","dir":"/1/items/coverartarchive_audit_20210419","files":[{"name":"actionable_results.tar.xz","source":"original","mtime":"1618845187","size":"36646612","md5":"6601896d818fac840b9d1b00442aaf7b","crc32":"1d6451d2","sha1":"3f46a63d6ab239a84191e5dceea5e24369a0bb77","format":"Unknown"},{"name":"all_results.xz","source":"original","mtime":"1618845288","size":"230234484","md5":"4a4158a673007693c4a24457bb742169","crc32":"284112c3","sha1":"869c16a9adef8cfa37c6c71572a0a3e5d3cb211e","format":"Unknown"},{"name":"audit_data.tar.xz","source":"original","mtime":"1618845253","size":"2126641992","md5":"2a6ecb2faf9c462526c1bf962207c098","crc32":"8ec7b2a2","sha1":"47d1cf924148635fe3715a3e93b142d52241ed57","format":"Unknown"},{"name":"audit_results.tar.xz","source":"original","mtime":"1618845257","size":"41798012","md5":"3bfe3925459ed4131fdb133beedb75f3","crc32":"c195bff3","sha1":"5e0bdf0f5fe32c98408edd74c76698d51b26956d","format":"Unknown"},{"name":"coverartarchive_audit_20210419_archive.torrent","source":"metadata","btih":"44f4303d78fe63e4c22799342d614d2ffcdcb2c4","mtime":"1630101402","size":"27547","md5":"53480bafd5f4dca66039727b108e8c93","crc32":"2af11071","sha1":"8f4ad078168beb72d2ab51f91819087fa9882569","format":"Archive BitTorrent"},{"name":"coverartarchive_audit_20210419_files.xml","source":"original","format":"Metadata","md5":"1941e0aa79ba046601dab17b7c28ddbe","summation":"md5"},{"name":"coverartarchive_audit_20210419_meta.sqlite","source":"original","mtime":"1618845346","size":"20480","md5":"19cdb4853c1e20e078dfc3d66ea4cd9a","crc32":"658d7bc2","sha1":"aacb4608d2e347043fa510dff819f3d2ba38e3fb","format":"Metadata"},{"name":"coverartarchive_audit_20210419_meta.xml","source":"original","mtime":"1630101402","size":"1299","md5":"6a78e9bf7ad657e50c75c741df907fa8","crc32":"77a94498","sha1":"85bb3bd4f5e6c53c5bb3e9181ddcdecd61731de2","format":"Metadata"},{"name":"input_data.tar.xz","source":"original","mtime":"1618845262","size":"142553436","md5":"aeb9ae3b559bbe00f6d2a14ff8366612","crc32":"50ef7fd1","sha1":"74d83c46d30238d565c7b2ffd819294398432855","format":"Unknown"}],"files_count":9,"item_last_updated":1630101402,"item_size":2577923862,"metadata":{"identifier":"coverartarchive_audit_20210419","scanner":"Internet Archive Python library 1.9.9","mediatype":"data","uploader":"cwub3jkw1kvy@opayq.com","title":"coverartarchive_audit_20210419","publicdate":"2021-04-19 15:13:24","addeddate":"2021-04-19 15:13:24","curation":"[curator]validator@archive.org[/curator][date]20210419152250[/date][comment]checked for malware[/comment]","description":"<div>Results of an audit of the coverartarchive collection, performed on 2021-04-19.</div><div><br /></div><div>input_data.tar.xz: Archive of input data to the auditor.</div><div>audit_data.tar.xz: Archive of output data produced by the auditor. Warning: Will expand to >5 million files totalling over 40GB.</div><div>audit_results.tar.xz: Archive of resulting reports.</div><div>actionable_results.tar.xz: Archive of postprocessed reports.</div><div>all_results.xz: Expands to text file containing results of all checks. Warning: >10GB uncompressed.<br /></div>","collection":["opensource_media","community"]},"server":"ia903402.us.archive.org","uniq":339624342,"workable_servers":["ia903402.us.archive.org","ia803402.us.archive.org"]}
+
