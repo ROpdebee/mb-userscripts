@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.24.5
+// @version      2022.1.25
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -12,6 +12,7 @@
 // @match        *://*.musicbrainz.org/release/*/add-cover-art
 // @match        *://*.musicbrainz.org/release/*/add-cover-art?*
 // @match        *://atisket.pulsewidth.org.uk/*
+// @match        *://etc.marlonob.info/atisket/*
 // @match        *://vgmdb.net/album/*
 // @exclude      *://atisket.pulsewidth.org.uk/
 // @require      https://github.com/qsniyg/maxurl/blob/563626fe3b7c5ed3f6dc19d90a356746c68b5b4b/userscript.user.js?raw=true
@@ -2527,21 +2528,10 @@
       const imageUrl = qs('a.icon', fig).href;
       const ext = (_imageUrl$match = imageUrl.match(/\.(\w+)$/)) === null || _imageUrl$match === void 0 ? void 0 : _imageUrl$match[1];
       return _await(getImageDimensions(imageUrl), function (imageDimensions) {
-          var _fig$closest, _qs$insertAdjacentEle;
+          var _tryExtractReleaseUrl, _qs$insertAdjacentEle;
           const dimensionStr = ''.concat(imageDimensions.width, 'x').concat(imageDimensions.height);
-          const countryCode = (_fig$closest = fig.closest('div')) === null || _fig$closest === void 0 ? void 0 : _fig$closest.getAttribute('data-matched-country');
-          const vendorId = fig.getAttribute('data-vendor-id');
-          const vendorCode = [...fig.classList].find(klass => [
-              'spf',
-              'deez',
-              'itu'
-          ].includes(klass));
-          if (!vendorCode || !vendorId || typeof countryCode !== 'string' || vendorCode === 'itu' && countryCode === '') {
-              LOGGER.error('Could not extract required data for ' + fig.classList.value);
-              return;
-          }
-          const releaseUrl = RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
-          const params = new SeedParameters([{ url: new URL(releaseUrl) }], origin);
+          const realUrl = (_tryExtractReleaseUrl = tryExtractReleaseUrl(fig)) !== null && _tryExtractReleaseUrl !== void 0 ? _tryExtractReleaseUrl : imageUrl;
+          const params = new SeedParameters([{ url: new URL(realUrl) }], origin);
           const seedUrl = params.createSeedURL(mbid);
           const dimSpan = function () {
               var $$a = document.createElement('span');
@@ -2561,8 +2551,11 @@
       });
   });
   const AtisketSeeder = {
-      supportedDomains: ['atisket.pulsewidth.org.uk'],
-      supportedRegexes: [/\.uk\/\?.+/],
+      supportedDomains: [
+          'atisket.pulsewidth.org.uk',
+          'etc.marlonob.info'
+      ],
+      supportedRegexes: [/(?:\.uk|\.info\/atisket)\/\?.+/],
       insertSeedLinks() {
           var _qs$textContent$trim, _qs$textContent, _cachedAnchor$href;
           const alreadyInMB = qsMaybe('.already-in-mb-item');
@@ -2575,8 +2568,11 @@
       }
   };
   const AtasketSeeder = {
-      supportedDomains: ['atisket.pulsewidth.org.uk'],
-      supportedRegexes: [/\.uk\/atasket\.php\?/],
+      supportedDomains: [
+          'atisket.pulsewidth.org.uk',
+          'etc.marlonob.info'
+      ],
+      supportedRegexes: [/(?:\.uk|\.info\/atisket)\/atasket\.php\?/],
       insertSeedLinks() {
           const urlParams = new URLSearchParams(document.location.search);
           const mbid = urlParams.get('release_mbid');
@@ -2594,6 +2590,21 @@
       Promise.all(covers.map(fig => addSeedLinkToCover(fig, mbid, origin))).catch(err => {
           LOGGER.error('Failed to add seed links to some cover art', err);
       });
+  }
+  function tryExtractReleaseUrl(fig) {
+      var _fig$closest;
+      const countryCode = (_fig$closest = fig.closest('div')) === null || _fig$closest === void 0 ? void 0 : _fig$closest.getAttribute('data-matched-country');
+      const vendorId = fig.getAttribute('data-vendor-id');
+      const vendorCode = [...fig.classList].find(klass => [
+          'spf',
+          'deez',
+          'itu'
+      ].includes(klass));
+      if (!vendorCode || !vendorId || typeof countryCode !== 'string' || vendorCode === 'itu' && countryCode === '') {
+          LOGGER.error('Could not extract required data for ' + fig.classList.value);
+          return;
+      }
+      return RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
   }
   const RELEASE_URL_CONSTRUCTORS = {
       itu: (id, country) => 'https://music.apple.com/'.concat(country.toLowerCase(), '/album/').concat(id),
