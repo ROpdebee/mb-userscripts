@@ -1,8 +1,5 @@
-import HttpAdapter from '@pollyjs/adapter-node-http';
-
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { MusicBrainzProvider } from '@src/mb_enhanced_cover_art_uploads/providers/musicbrainz';
-import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 import { findImagesSpec } from './find_images_spec';
@@ -10,10 +7,6 @@ import { urlMatchingSpec } from './url_matching_spec';
 
 describe('musicbrainz provider', () => {
     const provider = new MusicBrainzProvider();
-    const pollyContext = setupPolly({
-        adapters: [HttpAdapter],
-        recordFailedRequests: true,
-    });
 
     describe('url matching', () => {
         const supportedUrls = [{
@@ -39,10 +32,6 @@ describe('musicbrainz provider', () => {
     });
 
     describe('extracting images', () => {
-        beforeAll(() => {
-            mockFetch('https://musicbrainz.org');
-        });
-
         const extractionCases = [{
             desc: 'release',
             url: 'https://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687',
@@ -63,10 +52,10 @@ describe('musicbrainz provider', () => {
         const extractionFailedCases = [{
             desc: 'non-existent release',
             url: 'https://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa46687',
-            errorMessage: 'Cannot load index.json: HTTP error 404',
+            errorMessage: 'Empty IA metadata, item might not exist',
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });
