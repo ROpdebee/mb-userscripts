@@ -1,0 +1,77 @@
+WARC/1.1
+WARC-Filename: archive provider/extracting images/throws on non-existent release
+WARC-Date: 2022-01-25T12:02:28.240Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:ce468619-086d-47c8-81d1-08e2fe0a0939>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:294cacb7-6ea5-44c1-a4c0-47705345eb1f>
+WARC-Target-URI: https://archive.org/metadata/e3e23e23r32r32
+WARC-Date: 2022-01-25T12:02:28.241Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:d3e2a52d-7b24-460a-a6e8-8a5cb0979c55>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:a03e47bb1d58cd9cecb300438468e8e32553f5bfc24ae5e4b18b059422420849
+Content-Length: 41
+
+GET /metadata/e3e23e23r32r32 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:294cacb7-6ea5-44c1-a4c0-47705345eb1f>
+WARC-Target-URI: https://archive.org/metadata/e3e23e23r32r32
+WARC-Date: 2022-01-25T12:02:28.241Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:c4ad0f24-f011-4d23-9624-d9a45ad65231>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:abf8909725352afa3c7346c986547fd59ff837ef13eb97da9e8466dbed4324ff
+WARC-Block-Digest: sha256:abf8909725352afa3c7346c986547fd59ff837ef13eb97da9e8466dbed4324ff
+Content-Length: 350
+
+harEntryId: 3d56554066c90c1a248d23819ea7f869
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-01-25T12:02:25.306Z
+time: 2926
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":2926,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 62
+warcRequestCookies: []
+warcResponseHeadersSize: 383
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/metadata/e3e23e23r32r32
+WARC-Date: 2022-01-25T12:02:28.241Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:294cacb7-6ea5-44c1-a4c0-47705345eb1f>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
+WARC-Block-Digest: sha256:f1635657cc27a7c4cc87c0b4b998524560b15386d46287f838c06d5d7ef87325
+Content-Length: 402
+
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+connection: close
+content-encoding: gzip
+content-type: application/json
+date: Tue, 25 Jan 2022 12:02:28 GMT
+referrer-policy: no-referrer-when-downgrade
+server: nginx/1.18.0 (Ubuntu)
+strict-transport-security: max-age=15724800
+transfer-encoding: chunked
+vary: Accept-Encoding
+x-pollyjs-finalurl: https://archive.org/metadata/e3e23e23r32r32
+
+{}
+
