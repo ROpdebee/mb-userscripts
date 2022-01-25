@@ -7,8 +7,8 @@ import { SeedParameters } from './parameters';
 
 // For main page after search but before adding
 export const AtisketSeeder: Seeder = {
-    supportedDomains: ['atisket.pulsewidth.org.uk'],
-    supportedRegexes: [/\.uk\/\?.+/],
+    supportedDomains: ['atisket.pulsewidth.org.uk', 'etc.marlonob.info'],
+    supportedRegexes: [/(?:\.uk|\.info\/atisket)\/\?.+/],
 
     insertSeedLinks(): void {
         const alreadyInMB = qsMaybe('.already-in-mb-item');
@@ -27,8 +27,8 @@ export const AtisketSeeder: Seeder = {
 
 // For post-add page with complementary links
 export const AtasketSeeder: Seeder = {
-    supportedDomains: ['atisket.pulsewidth.org.uk'],
-    supportedRegexes: [/\.uk\/atasket\.php\?/],
+    supportedDomains: ['atisket.pulsewidth.org.uk', 'etc.marlonob.info'],
+    supportedRegexes: [/(?:\.uk|\.info\/atisket)\/atasket\.php\?/],
 
     insertSeedLinks(): void {
         const urlParams = new URLSearchParams(document.location.search);
@@ -54,17 +54,7 @@ function addSeedLinkToCovers(mbid: string, origin: string): void {
         });
 }
 
-async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): Promise<void> {
-    const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
-
-    // Not using .split('.') here because Spotify images do not have an extension.
-    const ext = imageUrl.match(/\.(\w+)$/)?.[1];
-    const imageDimensions = await getImageDimensions(imageUrl);
-    const dimensionStr = `${imageDimensions.width}x${imageDimensions.height}`;
-
-    // We'll seed the release URLs, instead of the images directly. This will
-    // allow us to e.g. extract additional images for the release, or handle
-    // some maximisations exceptions (e.g. Apple Music).
+function tryExtractReleaseUrl(fig: Element): string | undefined {
     const countryCode = fig.closest('div')?.getAttribute('data-matched-country');
     const vendorId = fig.getAttribute('data-vendor-id');
     const vendorCode = [...fig.classList]
@@ -75,10 +65,26 @@ async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): P
         return;
     }
 
-    const releaseUrl = RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
+    return RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
+}
+
+async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): Promise<void> {
+    const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
+
+    // Not using .split('.') here because Spotify images do not have an extension.
+    const ext = imageUrl.match(/\.(\w+)$/)?.[1];
+    const imageDimensions = await getImageDimensions(imageUrl);
+    const dimensionStr = `${imageDimensions.width}x${imageDimensions.height}`;
+
+    // On atj's mirror, we'll seed the release URLs, instead of the images
+    // directly. This will allow us to e.g. extract additional images for the
+    // release, or handle some maximisations exceptions (e.g. Apple Music).
+    // On marlonob's version, we cannot do this, since the required information
+    // is not necessarily present.
+    const realUrl = tryExtractReleaseUrl(fig) ?? imageUrl;
 
     const params = new SeedParameters([{
-        url: new URL(releaseUrl),
+        url: new URL(realUrl),
     }], origin);
     const seedUrl = params.createSeedURL(mbid);
 
