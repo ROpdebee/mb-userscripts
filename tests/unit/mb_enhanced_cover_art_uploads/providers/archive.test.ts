@@ -1,3 +1,4 @@
+import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { ArchiveProvider } from '@src/mb_enhanced_cover_art_uploads/providers/archive';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
@@ -49,6 +50,16 @@ describe('archive provider', () => {
             url: 'https://archive.org/details/coverartarchive_audit_20210419',
             numImages: 0,
             expectedImages: [],
+        }, {
+            desc: 'CAA item',
+            url: 'https://archive.org/details/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '/items/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0-31558457789.jpg',
+                types: [ArtworkTypeIDs.Front],
+                comment: '',
+            }],
         }];
 
         const extractionFailedCases = [{
