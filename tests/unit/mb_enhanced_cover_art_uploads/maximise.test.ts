@@ -178,38 +178,6 @@ describe('maximising Apple Music images', () => {
     });
 });
 
-describe('maximising 7digital images', () => {
-    it('returns 800x800 image first', async () => {
-        const it = getMaximisedCandidates(new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/143/859/0014385941_350.jpg'));
-        const result = await it.next();
-
-        expect(result.done).toBeFalse();
-        expect(result.value!.url.href).toBe('https://artwork-cdn.7static.com/static/img/sleeveart/00/143/859/0014385941_800.jpg');
-    });
-
-    it('includes smaller images as backup', async () => {
-        const it = getMaximisedCandidates(new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/143/859/0014385941_350.jpg'));
-        let result = await it.next();
-
-        expect(result.done).toBeFalse();
-        expect(result.value!.url.pathname).toEndWith('_800.jpg');
-
-        result = await it.next();
-
-        expect(result.done).toBeFalse();
-        expect(result.value!.url.pathname).toEndWith('_500.jpg');
-
-        result = await it.next();
-
-        expect(result.done).toBeFalse();
-        expect(result.value!.url.pathname).toEndWith('_350.jpg');
-
-        result = await it.next();
-
-        expect(result.done).toBeTrue();
-    });
-});
-
 describe('maximising Jamendo images', () => {
     it('returns width=0 image', async () => {
         const it = getMaximisedCandidates(new URL('https://usercontent.jamendo.com/?cid=1632996942&type=album&id=453609&width=300'));
