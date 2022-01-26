@@ -1,13 +1,13 @@
 import { getFromPageContext } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { enumerate } from '@lib/util/array';
 import { urlBasename } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt, CoverArtProvider } from './providers/base';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider, getProviderByDomain } from './providers';
-import { enumerate } from '@lib/util/array';
 
 interface ImageContents {
     requestedUrl: URL;
