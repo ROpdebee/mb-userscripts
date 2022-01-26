@@ -8,6 +8,7 @@ const metadata: UserscriptMetadata = {
     match: [
         'release/*/add-cover-art',
         'release/*/add-cover-art?*',
+        'release/*/cover-art',
     ].map(transformMBMatchURL).concat([
         '*://atisket.pulsewidth.org.uk/*',
         '*://etc.marlonob.info/atisket/*',
