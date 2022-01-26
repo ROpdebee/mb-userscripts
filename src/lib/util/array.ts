@@ -40,3 +40,10 @@ export function collatedSort(array: string[]): string[] {
     const coll = new Intl.Collator('en', { numeric: true });
     return array.sort(coll.compare.bind(coll));
 }
+
+export function* enumerate<T>(array: T[]): Iterable<[number, T]> {
+    let idx = 0;
+    for (const el of array) {
+        yield [idx++, el];
+    }
+}
