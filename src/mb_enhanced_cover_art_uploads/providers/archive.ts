@@ -2,7 +2,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertDefined } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
-import { urlBasename } from '@lib/util/urls';
+import { urlBasename, urlJoin } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
@@ -78,7 +78,7 @@ export class ArchiveProvider extends CoverArtProvider {
         return this.extractCAAImages(itemId, baseDownloadUrl);
     }
 
-    private async extractCAAImages(itemId: string, baseDownloadUrl: string): Promise<CoverArt[]> {
+    private async extractCAAImages(itemId: string, baseDownloadUrl: URL): Promise<CoverArt[]> {
         // Grabbing metadata through CAA isn't 100% reliable, since the info
         // in the index.json isn't always up-to-date (see CAA-129, only a few
         // cases though).
@@ -89,21 +89,21 @@ export class ArchiveProvider extends CoverArtProvider {
         return caaIndex.images.map((img) => {
             const imageFileName = urlBasename(img.image);
             return {
-                url: new URL(baseDownloadUrl + `${itemId}-${imageFileName}`),
+                url: urlJoin(baseDownloadUrl, `${itemId}-${imageFileName}`),
                 comment: img.comment,
                 types: img.types.map((type) => ArtworkTypeIDs[type as keyof typeof ArtworkTypeIDs]),
             };
         });
     }
 
-    extractGenericImages(itemMetadata: ArchiveMetadata, baseDownloadUrl: string): CoverArt[] {
+    extractGenericImages(itemMetadata: ArchiveMetadata, baseDownloadUrl: URL): CoverArt[] {
         const originalImagePaths = itemMetadata.files
             .filter((file) => file.source === 'original' && ArchiveProvider.IMAGE_FILE_FORMATS.includes(file.format))
             .map((file) => file.name);
 
         return originalImagePaths.map((path) => {
             return {
-                url: new URL(baseDownloadUrl + path),
+                url: urlJoin(baseDownloadUrl, path),
             };
         });
     }
@@ -125,9 +125,9 @@ export class ArchiveProvider extends CoverArtProvider {
         return itemMetadata;
     }
 
-    private createBaseDownloadUrl(itemMetadata: ArchiveMetadata): string {
+    private createBaseDownloadUrl(itemMetadata: ArchiveMetadata): URL {
         // While we could just use the standard archive.org/download/... URL,
         // it would always lead to redirection warnings which can be avoided.
-        return `https://${itemMetadata.server}${itemMetadata.dir}/`;
+        return urlJoin(`https://${itemMetadata.server}`, `${itemMetadata.dir}/`);
     }
 }

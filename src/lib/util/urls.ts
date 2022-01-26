@@ -5,3 +5,7 @@ export function urlBasename(url: string | URL, defaultBasename = ''): string {
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     return url.split('/').pop() || defaultBasename;
 }
+
+export function urlJoin(base: string | URL, sub: string): URL {
+    return new URL(sub, base);
+}
