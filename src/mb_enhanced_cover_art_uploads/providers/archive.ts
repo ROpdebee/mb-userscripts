@@ -119,7 +119,7 @@ export class ArchiveProvider extends CoverArtProvider {
         }
 
         if (itemMetadata.is_dark) {
-            throw new Error('Cannot extract images: This item is darked');
+            throw new Error('Cannot extract images: This item is darkened');
         }
 
         return itemMetadata;

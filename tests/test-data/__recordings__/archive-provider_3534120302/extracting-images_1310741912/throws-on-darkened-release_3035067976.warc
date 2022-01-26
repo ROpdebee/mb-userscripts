@@ -1,8 +1,8 @@
 WARC/1.1
-WARC-Filename: archive provider/extracting images/throws on darked release
-WARC-Date: 2022-01-25T12:11:31.246Z
+WARC-Filename: archive provider/extracting images/throws on darkened release
+WARC-Date: 2022-01-26T01:07:14.099Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:b9139243-870a-41b7-8da9-8421dec08ce1>
+WARC-Record-ID: <urn:uuid:c632ed2f-f794-494a-889b-83260ebfe6ba>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:e02e907c-75cd-4c7a-b2f1-0bdd14106198>
+WARC-Concurrent-To: <urn:uuid:e20e4470-116d-448a-8f5f-e3a8823a3e87>
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-01-25T12:11:31.247Z
+WARC-Date: 2022-01-26T01:07:14.100Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:f8337bbd-36bf-4ffd-b86e-f096824c5a51>
+WARC-Record-ID: <urn:uuid:77558cb3-7a04-4bd3-87b0-182a0046e019>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:691186fe2847239aace5a24d806f9f275511d5c325aee2496b6b308b40b31ca9
@@ -27,22 +27,22 @@ GET /metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:e02e907c-75cd-4c7a-b2f1-0bdd14106198>
+WARC-Concurrent-To: <urn:uuid:e20e4470-116d-448a-8f5f-e3a8823a3e87>
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-01-25T12:11:31.248Z
+WARC-Date: 2022-01-26T01:07:14.101Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:68d3b04c-29f9-4bbe-a179-a0c36afb61dd>
+WARC-Record-ID: <urn:uuid:5e9a46e2-3eb5-41e8-8042-679494d6be21>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:e699492c3f260a221202ec0fc01d390c9293f25107de8305e57e60dbe678aa26
-WARC-Block-Digest: sha256:e699492c3f260a221202ec0fc01d390c9293f25107de8305e57e60dbe678aa26
+WARC-Payload-Digest: sha256:50930bd9c8b7b5c84307093e0ad23946f5146c3fcaed12beeb3d35a8f04710fb
+WARC-Block-Digest: sha256:50930bd9c8b7b5c84307093e0ad23946f5146c3fcaed12beeb3d35a8f04710fb
 Content-Length: 348
 
 harEntryId: 8f488356119f40d7eb9137f38049f921
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-01-25T12:11:30.335Z
-time: 908
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":908,"receive":0,"ssl":-1}
+startedDateTime: 2022-01-26T01:07:13.192Z
+time: 904
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":904,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 89
 warcRequestCookies: []
 warcResponseHeadersSize: 410
@@ -52,12 +52,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-01-25T12:11:31.247Z
+WARC-Date: 2022-01-26T01:07:14.100Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:e02e907c-75cd-4c7a-b2f1-0bdd14106198>
+WARC-Record-ID: <urn:uuid:e20e4470-116d-448a-8f5f-e3a8823a3e87>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:acb6a1289d086f2841a102ef08646d5caf5cb56192ad902bf4dd76ff00c4a002
-WARC-Block-Digest: sha256:fdd1ecdc313a35c1a8a8a47c286315c011fa91da3dc392e2ea171708c75ae563
+WARC-Payload-Digest: sha256:22f8a650fdd2b6c98ee414fd3f3130863d8e5cfe8e25fdb250b44e0dd6d16d34
+WARC-Block-Digest: sha256:1031dd57681f0d6e5448a0e5537f151cee275778c9ddab6ada5d6f1d10aa2043
 Content-Length: 711
 
 HTTP/1.1 200 OK
@@ -65,7 +65,7 @@ access-control-allow-origin: *
 connection: close
 content-encoding: gzip
 content-type: application/json
-date: Tue, 25 Jan 2022 12:11:31 GMT
+date: Wed, 26 Jan 2022 01:07:14 GMT
 referrer-policy: no-referrer-when-downgrade
 server: nginx/1.18.0 (Ubuntu)
 strict-transport-security: max-age=15724800
@@ -73,5 +73,5 @@ transfer-encoding: chunked
 vary: Accept-Encoding
 x-pollyjs-finalurl: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
 
-{"created":1643112516,"d1":"ia903200.us.archive.org","d2":"ia803200.us.archive.org","dir":"/9/items/mbid-3c556c47-110d-4782-a607-c93e486bccf8","is_dark":true,"server":"ia903200.us.archive.org","uniq":1934319621,"workable_servers":["ia903200.us.archive.org","ia803200.us.archive.org"]}
+{"created":1643112516,"d1":"ia903200.us.archive.org","d2":"ia803200.us.archive.org","dir":"/9/items/mbid-3c556c47-110d-4782-a607-c93e486bccf8","is_dark":true,"server":"ia803200.us.archive.org","uniq":1934319621,"workable_servers":["ia803200.us.archive.org","ia903200.us.archive.org"]}
 
