@@ -4,7 +4,8 @@ import css from './guiSink.scss';
 
 export class GuiSink implements LoggingSink {
     readonly rootElement: HTMLElement;
-    private lastTransientMessage?: HTMLSpanElement;
+    private persistentMessages: HTMLSpanElement[] = [];
+    private transientMessages: HTMLSpanElement[] = [];
 
     constructor() {
         // Inject our custom CSS
@@ -27,22 +28,26 @@ export class GuiSink implements LoggingSink {
     }
 
     private addMessage(el: HTMLSpanElement): void {
+        this.removeTransientMessages();
         this.rootElement.appendChild(el);
         this.rootElement.style.display = 'block';
     }
 
+    private removeTransientMessages(): void {
+        this.transientMessages.forEach((el) => {
+            el.remove();
+        });
+        this.transientMessages = [];
+    }
+
     private addPersistentMessage(el: HTMLSpanElement): void {
         this.addMessage(el);
+        this.persistentMessages.push(el);
     }
 
     private addTransientMessage(el: HTMLSpanElement): void {
-        // Remove existing transient message to replace it by the new one.
-        if (typeof this.lastTransientMessage !== 'undefined') {
-            this.lastTransientMessage.remove();
-        }
-
-        this.lastTransientMessage = el;
         this.addMessage(el);
+        this.transientMessages.push(el);
     }
 
     onLog(message: string): void {
@@ -61,5 +66,10 @@ export class GuiSink implements LoggingSink {
 
     onError(message: string, exception?: unknown): void {
         this.addPersistentMessage(this.createMessage('error', message, exception));
+    }
+
+    clearAllLater(): void {
+        this.transientMessages = this.transientMessages.concat(this.persistentMessages);
+        this.persistentMessages = [];
     }
 }

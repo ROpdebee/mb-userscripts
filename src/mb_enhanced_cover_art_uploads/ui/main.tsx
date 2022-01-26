@@ -43,6 +43,7 @@ export class InputForm {
 
                     await app.processURL(url);
                 }
+                app.clearLogLater();
 
                 if (this.urlInput.value === oldValue) {
                     this.urlInput.value = '';
