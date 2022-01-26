@@ -20,6 +20,7 @@ export class App {
     private readonly fetcher: ImageFetcher;
     private readonly ui: InputForm;
     private readonly urlsInProgress: Set<string>;
+    private readonly loggingSink = new GuiSink();
     onlyFront = false;
 
     constructor() {
@@ -28,9 +29,8 @@ export class App {
         this.urlsInProgress = new Set();
 
         // Set up logging banner
-        const loggingSink = new GuiSink();
-        LOGGER.addSink(loggingSink);
-        qs('.add-files').insertAdjacentElement('afterend', loggingSink.rootElement);
+        LOGGER.addSink(this.loggingSink);
+        qs('.add-files').insertAdjacentElement('afterend', this.loggingSink.rootElement);
         this.ui = new InputForm(this);
     }
 
@@ -46,6 +46,10 @@ export class App {
         } finally {
             this.urlsInProgress.delete(url.href);
         }
+    }
+
+    clearLogLater(): void {
+        this.loggingSink.clearAllLater();
     }
 
     private async _processURL(url: URL): Promise<void> {
@@ -101,6 +105,7 @@ export class App {
         if (totalNumImages) {
             LOGGER.success(`Successfully added ${totalNumImages} image(s)`);
         }
+        this.clearLogLater();
     }
 
     async addImportButtons(): Promise<void> {
@@ -121,6 +126,9 @@ export class App {
             this.processURL(url)
                 .catch((err) => {
                     LOGGER.error(`Failed to process URL ${url.href}`, err);
+                })
+                .finally(() => {
+                    this.clearLogLater();
                 });
         };
 
