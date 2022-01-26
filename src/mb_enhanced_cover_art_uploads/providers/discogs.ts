@@ -131,7 +131,6 @@ export class DiscogsProvider extends CoverArtProvider {
         /* istanbul ignore if: Should never happen on valid image */
         if (!releaseId) return url;
         const releaseData = await this.getReleaseImages(releaseId);
-        console.log(releaseData.data.release.images.edges);
         const matchedImage = releaseData.data.release.images.edges
             .find((img) => this.getFilenameFromUrl(new URL(img.node.fullsize.sourceUrl)) === imageName);
 
