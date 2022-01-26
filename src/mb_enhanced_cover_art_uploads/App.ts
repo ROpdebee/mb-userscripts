@@ -1,9 +1,11 @@
 /* istanbul ignore file: Covered by E2E */
 
+import { GuiSink } from '@lib/logging/guiSink';
 import { LOGGER } from '@lib/logging/logger';
 import { EditNote } from '@lib/MB/EditNote';
 import { getURLsForRelease } from '@lib/MB/URLs';
 import { assertHasValue } from '@lib/util/assert';
+import { qs } from '@lib/util/dom';
 
 import type { FetchedImages } from './fetch';
 import type { CoverArt } from './providers/base';
@@ -12,7 +14,6 @@ import { enqueueImages, fillEditNote } from './form';
 import { getProvider } from './providers';
 import { SeedParameters } from './seeding/parameters';
 import { InputForm } from './ui/main';
-import { StatusBanner } from './ui/status_banner';
 
 export class App {
     private readonly note: EditNote;
@@ -26,9 +27,11 @@ export class App {
         this.fetcher = new ImageFetcher();
         this.urlsInProgress = new Set();
 
-        const banner = new StatusBanner();
-        LOGGER.addSink(banner);
-        this.ui = new InputForm(banner.htmlElement, this);
+        // Set up logging banner
+        const loggingSink = new GuiSink();
+        LOGGER.addSink(loggingSink);
+        qs('.add-files').insertAdjacentElement('afterend', loggingSink.rootElement);
+        this.ui = new InputForm(this);
     }
 
     async processURL(url: URL): Promise<void> {

@@ -1,0 +1,40 @@
+#ROpdebee_log_container {
+    margin: 1.5rem auto;
+    width: 75%;
+
+    .msg {
+        padding: .5rem .75rem;
+        margin-bottom: .5rem;
+        width: 100%;
+        display: block;
+        border: 1px solid;
+        border-radius: 4px;
+        font-weight: 500;
+
+        // Colours come from bootstrap.
+        &.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            font-weight: 600;
+            border-color: #f5c6cb;
+        }
+
+        &.warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-color: #ffeeba;
+        }
+
+        &.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        &.info {
+            background-color: #e2e3e5;
+            color: #383d41;
+            border-color: #d6d8db;
+        }
+    }
+}

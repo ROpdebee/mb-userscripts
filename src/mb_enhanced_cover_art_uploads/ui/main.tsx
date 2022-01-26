@@ -13,7 +13,7 @@ export class InputForm {
     private readonly buttonContainer: HTMLDivElement;
     private readonly orSpan: HTMLSpanElement;
 
-    constructor(banner: HTMLElement, app: App) {
+    constructor(app: App) {
         // Inject our custom CSS
         document.head.append(<style id={'ROpdebee_' + USERSCRIPT_NAME}>
             {css}
@@ -69,7 +69,6 @@ export class InputForm {
             </a>
             {onlyFrontCheckbox}
             {onlyFrontLabel}
-            {banner}
         </div>;
 
         this.buttonContainer = <div className='ROpdebee_import_url_buttons buttons'/> as HTMLDivElement;
