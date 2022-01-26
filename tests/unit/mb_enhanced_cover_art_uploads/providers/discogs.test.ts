@@ -42,15 +42,15 @@ describe('discogs provider', () => {
             numImages: 3,
             expectedImages: [{
                 index: 0,
-                urlPart: '/cGX5KW1uJCaiPRzaRY8iE3btV3g=/fit-in/600x624/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg',
+                urlPart: '/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg',
                 types: undefined,
             }, {
                 index: 1,
-                urlPart: '/GjkwgdSXa6b6KAXHqtt1lrrSebQ=/fit-in/600x601/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-4048.jpeg.jpg',
+                urlPart: '/VKFNcm02R4h4UfP9lF4qVq7KkdR8XGTrSyn2sGUH8xU/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy00MDQ4Lmpw/ZWc.jpeg',
                 types: undefined,
             }, {
                 index: 2,
-                urlPart: '/hch5Dfg5ZsgGY7DCxWtNWEpRSs8=/fit-in/600x681/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1488067341-2872.jpeg.jpg',
+                urlPart: '/kL5esHGWNIcGaRvR2m-B1sK2OqvKJro8t2zRrsqQzOs/rs:fit/g:sm/q:90/h:600/w:528/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTQ4ODA2/NzM0MS0yODcyLmpw/ZWc.jpeg',
                 types: undefined,
             }],
         }];
@@ -67,9 +67,17 @@ describe('discogs provider', () => {
 
     describe('maximising image', () => {
         it('finds the image', async () => {
-            const maxUrl = await DiscogsProvider.maximiseImage(new URL('https://img.discogs.com/husmGPLvKp_kDmwLCXA_fc75LcM=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg'));
+            const maxUrl = await DiscogsProvider.maximiseImage(new URL('https://i.discogs.com/_xL4yC-gjc-awYVWmO4dDmOv-Za3oICJweuYqpnEzwk/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg'));
 
-            expect(maxUrl.pathname).toBe('/cGX5KW1uJCaiPRzaRY8iE3btV3g=/fit-in/600x624/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9892912-1579456707-2320.jpeg.jpg');
+            expect(maxUrl.pathname).toBe('/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg');
+        });
+    });
+
+    describe('extracting filename from URL', () => {
+        it('extracts the correct filename', async () => {
+            const filename = DiscogsProvider.getFilenameFromUrl(new URL('https://i.discogs.com/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg'));
+
+            expect(filename).toBe('R-9892912-1579456707-2320.jpeg');
         });
     });
 

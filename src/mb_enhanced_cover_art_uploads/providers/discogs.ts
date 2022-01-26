@@ -1,6 +1,5 @@
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
-import { urlBasename } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
@@ -109,17 +108,32 @@ export class DiscogsProvider extends CoverArtProvider {
         return metadata;
     }
 
+    static getFilenameFromUrl(url: URL): string | undefined {
+        // E.g. https://i.discogs.com/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg
+        // First part is signature, everything following containing colon is param.
+        // Last part is base64-encoded S3 URL, split with slashes.
+        const urlParts = url.pathname.split('/');
+        const firstFilenameIdx = urlParts.slice(2).findIndex((urlPart) => !/^\w+:/.test(urlPart)) + 2;
+        const s3Url = urlParts.slice(firstFilenameIdx).join('');
+
+        // Cut off the extension added by Discogs, this leads to decoding errors.
+        // eslint-disable-next-line @delagen/deprecation/deprecation -- Incorrect environment
+        const s3UrlDecoded = atob(s3Url.slice(0, s3Url.indexOf('.')));
+        return s3UrlDecoded.split('/').pop();
+    }
+
     static async maximiseImage(url: URL): Promise<URL> {
         // Maximising by querying the API for all images of the release, finding
         // the right one, and extracting the "full size" (i.e., 600x600 JPEG) URL.
-        const imageName = url.pathname.match(/discogs-images\/(R-.+)$/)?.[1];
+        const imageName = this.getFilenameFromUrl(url);
         const releaseId = imageName?.match(/^R-(\d+)/)?.[1];
 
         /* istanbul ignore if: Should never happen on valid image */
         if (!releaseId) return url;
         const releaseData = await this.getReleaseImages(releaseId);
+        console.log(releaseData.data.release.images.edges);
         const matchedImage = releaseData.data.release.images.edges
-            .find((img) => urlBasename(img.node.fullsize.sourceUrl) === imageName);
+            .find((img) => this.getFilenameFromUrl(new URL(img.node.fullsize.sourceUrl)) === imageName);
 
         /* istanbul ignore if: Should never happen on valid image */
         if (!matchedImage) return url;

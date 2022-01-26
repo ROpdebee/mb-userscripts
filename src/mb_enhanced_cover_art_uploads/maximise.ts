@@ -4,7 +4,6 @@ import type { GMxmlHttpRequest } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { retryTimes } from '@lib/util/async';
 import { DispatchMap } from '@lib/util/domain_dispatch';
-import { urlBasename } from '@lib/util/urls';
 
 import { DiscogsProvider } from './providers/discogs';
 
@@ -281,12 +280,12 @@ async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
 }
 
 // Discogs
-IMU_EXCEPTIONS.set('img.discogs.com', async (smallurl) => {
+IMU_EXCEPTIONS.set('i.discogs.com', async (smallurl) => {
     // Workaround for maxurl returning broken links and webp images
     const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
     return [{
         url: fullSizeURL,
-        filename: urlBasename(fullSizeURL),
+        filename: DiscogsProvider.getFilenameFromUrl(smallurl) ?? '',
         headers: {},
     }];
 });
