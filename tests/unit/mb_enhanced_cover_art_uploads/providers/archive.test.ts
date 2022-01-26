@@ -67,9 +67,9 @@ describe('archive provider', () => {
             url: 'https://archive.org/details/e3e23e23r32r32',
             errorMessage: 'Empty IA metadata, item might not exist',
         }, {
-            desc: 'darked release',
+            desc: 'darkened release',
             url: 'https://archive.org/details/mbid-3c556c47-110d-4782-a607-c93e486bccf8',
-            errorMessage: 'Cannot extract images: This item is darked',
+            errorMessage: 'Cannot extract images: This item is darkened',
         }];
 
         // eslint-disable-next-line jest/require-hook

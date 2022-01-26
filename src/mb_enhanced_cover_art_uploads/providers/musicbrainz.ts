@@ -23,6 +23,6 @@ export class MusicBrainzProvider extends CoverArtProvider {
 export class CoverArtArchiveProvider extends MusicBrainzProvider {
     override supportedDomains = ['coverartarchive.org'];
     override favicon = 'https://coverartarchive.org/favicon.png';
-    override name = 'CoverArtArchive';
+    override name = 'Cover Art Archive';
     override urlRegex = /release\/([a-f0-9-]+)\/?$/; // Don't match direct image URLs!
 }
