@@ -15,7 +15,10 @@ LOGGER.configure({
 });
 LOGGER.addSink(new ConsoleSink(USERSCRIPT_NAME));
 
-function runOnMB(): void {
+const seeder = seederFactory(document.location);
+if (seeder) {
+    seeder.insertSeedLinks();
+} else if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
     // Initialise the app, which will start listening for pasted URLs.
     // The only reason we're using an app here is so we can easily access the
     // UI and fetcher instances without having to pass them around as
@@ -30,19 +33,6 @@ function runOnMB(): void {
         .catch((err) => {
             LOGGER.error('Failed to add some provider import buttons', err);
         });
-}
-
-function runOnSeederPage(): void {
-    const seeder = seederFactory(document.location);
-    if (seeder) {
-        seeder.insertSeedLinks();
-    } else {
-        LOGGER.error('Somehow I am running on a page I do not support…');
-    }
-}
-
-if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
-    runOnMB();
 } else {
-    runOnSeederPage();
+    LOGGER.error('Somehow I am running on a page I do not support…');
 }
