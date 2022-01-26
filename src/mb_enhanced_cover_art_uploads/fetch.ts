@@ -7,6 +7,7 @@ import { gmxhr } from '@lib/util/xhr';
 import type { CoverArt, CoverArtProvider } from './providers/base';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider, getProviderByDomain } from './providers';
+import { enumerate } from '@lib/util/array';
 
 interface ImageContents {
     requestedUrl: URL;
@@ -61,6 +62,7 @@ export class ImageFetcher {
             return this.fetchImagesFromProvider(url, provider, onlyFront);
         }
 
+        LOGGER.info(`Attempting to fetch ${getFilename(url)}`);
         const result = await this.fetchImageFromURL(url);
         if (!result) {
             return { images: [] };
@@ -125,12 +127,13 @@ export class ImageFetcher {
 
         LOGGER.info(`Found ${finalImages.length || 'no'} image(s) in ${provider.name} release`);
         const fetchResults: FetchedImage[] = [];
-        for (const img of finalImages) {
+        for (const [idx, img] of enumerate(finalImages)) {
             if (this.urlAlreadyAdded(img.url)) {
                 LOGGER.warn(`${getFilename(img.url)} has already been added`);
                 continue;
             }
 
+            LOGGER.info(`Fetching ${getFilename(img.url)} (${idx + 1}/${finalImages.length})`);
             try {
                 const result = await this.fetchImageFromURL(img.url, img.skipMaximisation);
                 // Maximised image already added
