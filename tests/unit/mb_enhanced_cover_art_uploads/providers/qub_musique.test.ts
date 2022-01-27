@@ -41,11 +41,11 @@ describe('qub musique provider', () => {
     describe('extracting images', () => {
         const extractionCases = [{
             desc: 'release',
-            url: 'https://www.qub.ca/musique/album/pour-le-plug-dbssxi6nl5fuc',
+            url: 'https://www.qub.ca/musique/album/live-slow-die-wise-tqnrum7g908sc',
             numImages: 1,
             expectedImages: [{
                 index: 0,
-                urlPart: '/images/covers/uc/5f/dbssxi6nl5fuc_org.jpg',
+                urlPart: '/images/covers/sc/08/tqnrum7g908sc_org.jpg',
                 types: [ArtworkTypeIDs.Front],
             }],
         }];
