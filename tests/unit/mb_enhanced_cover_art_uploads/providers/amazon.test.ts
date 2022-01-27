@@ -113,6 +113,15 @@ describe('amazon provider', () => {
                 urlPart: '917XxoD2LaL',
                 types: [ArtworkTypeIDs.Front],
             }],
+        }, {
+            desc: 'Audible audiobooks with dirty URL',
+            url: 'https://www.amazon.com/Harry-Potter-%C3%A0-l%C3%89cole-Sorciers/dp/B06Y65ZVWV',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '91lJmLAcjOL',
+                types: [ArtworkTypeIDs.Front],
+            }],
         }];
 
         const extractionFailedCases = [{
