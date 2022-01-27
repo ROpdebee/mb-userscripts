@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.26.2
+// @version      2022.1.27
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -290,16 +290,25 @@
       });
     }
 
+    static getFilenameFromUrl(url) {
+      const urlParts = url.pathname.split('/');
+      const firstFilenameIdx = urlParts.slice(2).findIndex(urlPart => !/^\w+:/.test(urlPart)) + 2;
+      const s3Url = urlParts.slice(firstFilenameIdx).join('');
+      const s3UrlDecoded = atob(s3Url.slice(0, s3Url.indexOf('.')));
+      return s3UrlDecoded.split('/').pop();
+    }
+
     static maximiseImage(url) {
       const _this2 = this;
 
       return _call(function () {
-        var _url$pathname$match, _imageName$match;
+        var _imageName$match;
 
-        const imageName = (_url$pathname$match = url.pathname.match(/discogs-images\/(R-.+)$/)) === null || _url$pathname$match === void 0 ? void 0 : _url$pathname$match[1];
+        const imageName = _this2.getFilenameFromUrl(url);
+
         const releaseId = imageName === null || imageName === void 0 ? void 0 : (_imageName$match = imageName.match(/^R-(\d+)/)) === null || _imageName$match === void 0 ? void 0 : _imageName$match[1];
         return releaseId ? _await(_this2.getReleaseImages(releaseId), function (releaseData) {
-          const matchedImage = releaseData.data.release.images.edges.find(img => urlBasename(img.node.fullsize.sourceUrl) === imageName);
+          const matchedImage = releaseData.data.release.images.edges.find(img => _this2.getFilenameFromUrl(new URL(img.node.fullsize.sourceUrl)) === imageName);
           return matchedImage ? new URL(matchedImage.node.fullsize.sourceUrl) : url;
         }) : _await(url);
       });
@@ -366,11 +375,13 @@
 
   };
   const IMU_EXCEPTIONS = new DispatchMap();
-  IMU_EXCEPTIONS.set('img.discogs.com', _async(function (smallurl) {
+  IMU_EXCEPTIONS.set('i.discogs.com', _async(function (smallurl) {
     return _await(DiscogsProvider.maximiseImage(smallurl), function (fullSizeURL) {
+      var _DiscogsProvider$getF;
+
       return [{
         url: fullSizeURL,
-        filename: urlBasename(fullSizeURL),
+        filename: (_DiscogsProvider$getF = DiscogsProvider.getFilenameFromUrl(smallurl)) !== null && _DiscogsProvider$getF !== void 0 ? _DiscogsProvider$getF : '',
         headers: {}
       }];
     });
