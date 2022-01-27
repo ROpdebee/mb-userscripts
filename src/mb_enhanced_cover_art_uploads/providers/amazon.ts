@@ -4,6 +4,7 @@ import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertNonNull } from '@lib/util/assert';
 import { parseDOM, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
+import { urlJoin } from '@lib/util/urls';
 
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
@@ -109,7 +110,7 @@ export class AmazonProvider extends CoverArtProvider {
         // /hz/audible/mlp/mfpdp pages which should have the same image in its
         // full resolution.
         if (/\/(?:gp\/product|dp)\//.test(url.pathname)) {
-            const audibleUrl = new URL(url.pathname.replace(/\/(?:gp\/product|dp)\//, '/hz/audible/mlp/mfpdp/'), url);
+            const audibleUrl = urlJoin(url.origin, '/hz/audible/mlp/mfpdp/', this.extractId(url)!);
             const audibleContent = await this.fetchPage(audibleUrl);
             const audibleDom = parseDOM(audibleContent, audibleUrl.href);
             return this.findAudibleImages(audibleUrl, audibleContent, audibleDom);
