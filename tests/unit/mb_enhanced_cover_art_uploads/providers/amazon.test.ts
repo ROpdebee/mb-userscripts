@@ -89,6 +89,14 @@ describe('amazon provider', () => {
                 urlPart: '91NVbKDHCWL',
             }],
         }, {
+            desc: 'physical audiobooks where Audible version is also available',
+            url: 'https://www.amazon.com/gp/product/207055998X',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '812VSsX9rpL',
+            }],
+        }, {
             desc: 'digital releases on dp URLs',
             url: 'https://www.amazon.com/dp/B07R92TVWN',
             ...expectedDigital,
