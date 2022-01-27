@@ -12,8 +12,3 @@ export function urlJoin(base: string | URL, ...subPaths: string[]): URL {
     }
     return newUrl;
 }
-
-export function urlDirname(url: string | URL): string {
-    if (typeof url !== 'string') url = url.pathname;
-    return url.split('/').slice(0, -1).join('/');
-}

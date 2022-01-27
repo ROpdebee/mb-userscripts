@@ -4,7 +4,7 @@ import type { GMxmlHttpRequest } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { retryTimes } from '@lib/util/async';
 import { DispatchMap } from '@lib/util/domain_dispatch';
-import { urlBasename, urlDirname } from '@lib/util/urls';
+import { urlBasename } from '@lib/util/urls';
 
 import { DiscogsProvider } from './providers/discogs';
 
@@ -300,17 +300,13 @@ IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
     // largest possible image.
 
     const results: MaximisedImage[] = [];
-    let lastSource: MaximisedImage | undefined;
+    const smallOriginalName = smallurl.href.match(/(?:[a-f0-9]{2}\/){3}[a-f0-9-]{36}\/([^/]+)/)?.[1];
+
     for await (const imgGeneric of maximiseGeneric(smallurl)) {
-        if (urlBasename(imgGeneric.url) === 'source') {
-            lastSource = imgGeneric;
-        } else if (
-            typeof lastSource !== 'undefined'
-                && urlDirname(imgGeneric.url) === urlDirname(lastSource.url)
-                && imgGeneric.url.hostname === lastSource.url.hostname) {
-            // Mark the `/source` image as likely broken if there's another URL
-            // with the same directory but a different image name.
-            lastSource.likely_broken = true;
+        if (urlBasename(imgGeneric.url) === 'source' && smallOriginalName !== 'source') {
+            // Mark the `/source` image as likely broken if the alleged original
+            // name isn't "source", but instead e.g. "20UMGIM63158.rgb.jpg".
+            imgGeneric.likely_broken = true;
         }
         results.push(imgGeneric);
     }
