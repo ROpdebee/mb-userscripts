@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.27.4
+// @version      2022.1.27.5
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -456,7 +456,7 @@
       return _call(function () {
         return _await(images.filter(image => {
           if (/\/0000000016_\d+/.test(image.fetchedUrl.pathname)) {
-            LOGGER.warn("Skipping \"".concat(image.content.name, "\" as it matches a placeholder cover"));
+            LOGGER.warn("Skipping \"".concat(image.fetchedUrl, "\" as it matches a placeholder cover"));
             return false;
           }
 
@@ -1103,7 +1103,7 @@
         return _await(Promise.all(images.map(_async(function (image) {
           return _await(blobToDigest(image.content), function (digest) {
             if (DatPiffProvider.placeholderDigests.includes(digest)) {
-              LOGGER.warn("Skipping \"".concat(image.content.name, "\" as it matches a placeholder cover"));
+              LOGGER.warn("Skipping \"".concat(image.fetchedUrl, "\" as it matches a placeholder cover"));
               return null;
             } else {
               return image;
@@ -1904,7 +1904,7 @@
 
       return _call(function () {
         if (_this.urlAlreadyAdded(url)) {
-          LOGGER.warn("".concat(getFilename(url), " has already been added"));
+          LOGGER.warn("".concat(url, " has already been added"));
           return _await({
             images: []
           });
@@ -1916,7 +1916,7 @@
           return _await(_this.fetchImagesFromProvider(url, provider, onlyFront));
         }
 
-        LOGGER.info("Attempting to fetch ".concat(getFilename(url)));
+        LOGGER.info("Attempting to fetch ".concat(url));
         return _await(_this.fetchImageFromURL(url), function (result) {
           return result ? {
             images: [result]
@@ -1941,7 +1941,7 @@
               const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
 
               if (_this2.urlAlreadyAdded(maxCandidate.url)) {
-                LOGGER.warn("".concat(candidateName, " has already been added"));
+                LOGGER.warn("".concat(maxCandidate.url, " has already been added"));
                 _exit = true;
                 return;
               }
@@ -1949,11 +1949,15 @@
               return _continueIgnored(_catch(function () {
                 return _await(_this2.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers), function (_this2$fetchImageCont) {
                   fetchResult = _this2$fetchImageCont;
-                  LOGGER.debug("Maximised ".concat(url.href, " to ").concat(maxCandidate.url.href));
+
+                  if (maxCandidate.url.href !== url.href) {
+                    LOGGER.info("Maximised ".concat(url.href, " to ").concat(maxCandidate.url.href));
+                  }
+
                   _interrupt = true;
                 });
               }, function (err) {
-                LOGGER.warn("Skipping maximised candidate ".concat(candidateName), err);
+                LOGGER.warn("Skipping maximised candidate ".concat(maxCandidate.url), err);
               }));
             }, function () {
               return _interrupt || _exit;
@@ -2002,11 +2006,11 @@
                 idx = _ref2[1];
 
             if (_this3.urlAlreadyAdded(img.url)) {
-              LOGGER.warn("".concat(getFilename(img.url), " has already been added"));
+              LOGGER.warn("".concat(img.url, " has already been added"));
               return;
             }
 
-            LOGGER.info("Fetching ".concat(getFilename(img.url), " (").concat(idx + 1, "/").concat(finalImages.length, ")"));
+            LOGGER.info("Fetching ".concat(img.url, " (").concat(idx + 1, "/").concat(finalImages.length, ")"));
             return _continueIgnored(_catch(function () {
               return _await(_this3.fetchImageFromURL(img.url, img.skipMaximisation), function (result) {
                 if (!result) return;
@@ -2016,7 +2020,7 @@
                 }));
               });
             }, function (err) {
-              LOGGER.warn("Skipping ".concat(getFilename(img.url)), err);
+              LOGGER.warn("Skipping ".concat(img.url), err);
             }));
           }), function () {
             return _await(provider.postprocessImages(fetchResults), function (fetchedImages) {
