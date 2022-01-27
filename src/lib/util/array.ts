@@ -41,9 +41,6 @@ export function collatedSort(array: string[]): string[] {
     return array.sort(coll.compare.bind(coll));
 }
 
-export function* enumerate<T>(array: T[]): Iterable<[number, T]> {
-    let idx = 0;
-    for (const el of array) {
-        yield [idx++, el];
-    }
+export function enumerate<T>(array: T[]): Array<[T, number]> {
+    return array.map((el, idx) => [el, idx]);
 }

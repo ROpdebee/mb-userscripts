@@ -126,8 +126,11 @@ export class ImageFetcher {
         const hasMoreImages = onlyFront && images.length !== finalImages.length;
 
         LOGGER.info(`Found ${finalImages.length || 'no'} image(s) in ${provider.name} release`);
+        // We need to fetch each image sequentially because each one is checked
+        // against any previously fetched images, to avoid adding duplicates.
+        // Fetching in parallel would lead to race conditions.
         const fetchResults: FetchedImage[] = [];
-        for (const [idx, img] of enumerate(finalImages)) {
+        for (const [img, idx] of enumerate(finalImages)) {
             if (this.urlAlreadyAdded(img.url)) {
                 LOGGER.warn(`${getFilename(img.url)} has already been added`);
                 continue;
