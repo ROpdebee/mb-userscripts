@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.27.5
+// @version      2022.1.27.6
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -16,7 +16,7 @@
 // @match        *://etc.marlonob.info/atisket/*
 // @match        *://vgmdb.net/album/*
 // @exclude      *://atisket.pulsewidth.org.uk/
-// @require      https://github.com/qsniyg/maxurl/blob/563626fe3b7c5ed3f6dc19d90a356746c68b5b4b/userscript.user.js?raw=true
+// @require      https://github.com/qsniyg/maxurl/blob/e2b9dc7e3dce254a5b6d645e077aa82cba4570d5/userscript.user.js?raw=true
 // @resource     amazonFavicon https://www.amazon.com/favicon.ico
 // @run-at       document-end
 // @grant        GM_xmlhttpRequest
@@ -307,7 +307,7 @@
 
         const imageName = _this2.getFilenameFromUrl(url);
 
-        const releaseId = imageName === null || imageName === void 0 ? void 0 : (_imageName$match = imageName.match(/^R-(\d+)/)) === null || _imageName$match === void 0 ? void 0 : _imageName$match[1];
+        const releaseId = (_imageName$match = imageName.match(/^R-(\d+)/)) === null || _imageName$match === void 0 ? void 0 : _imageName$match[1];
         return releaseId ? _await(_this2.getReleaseImages(releaseId), function (releaseData) {
           const matchedImage = releaseData.data.release.images.edges.find(img => _this2.getFilenameFromUrl(new URL(img.node.fullsize.sourceUrl)) === imageName);
           return matchedImage ? new URL(matchedImage.node.fullsize.sourceUrl) : url;
@@ -336,7 +336,7 @@
         });
       }), function (results) {
         return _continueIgnored(_forOf(results, function (maximisedResult) {
-          if (maximisedResult.fake || maximisedResult.bad || maximisedResult.likely_broken) return;
+          if (maximisedResult.fake || maximisedResult.bad) return;
           return _continueIgnored(_catchInGenerator(function () {
             return _generator2._yield(_objectSpread2(_objectSpread2({}, maximisedResult), {}, {
               url: new URL(maximisedResult.url)
@@ -378,47 +378,26 @@
   const IMU_EXCEPTIONS = new DispatchMap();
   IMU_EXCEPTIONS.set('i.discogs.com', _async(function (smallurl) {
     return _await(DiscogsProvider.maximiseImage(smallurl), function (fullSizeURL) {
-      var _DiscogsProvider$getF;
-
       return [{
         url: fullSizeURL,
-        filename: (_DiscogsProvider$getF = DiscogsProvider.getFilenameFromUrl(smallurl)) !== null && _DiscogsProvider$getF !== void 0 ? _DiscogsProvider$getF : '',
+        filename: DiscogsProvider.getFilenameFromUrl(smallurl),
         headers: {}
       }];
     });
   }));
   IMU_EXCEPTIONS.set('*.mzstatic.com', _async(function (smallurl) {
+    var _smallurl$href$match;
+
     const results = [];
+    const smallOriginalName = (_smallurl$href$match = smallurl.href.match(/(?:[a-f0-9]{2}\/){3}[a-f0-9-]{36}\/([^/]+)/)) === null || _smallurl$href$match === void 0 ? void 0 : _smallurl$href$match[1];
     return _continue(_forAwaitOf(maximiseGeneric(smallurl), function (imgGeneric) {
-      const sourceUrl = new URL(imgGeneric.url);
-      sourceUrl.hostname = 'a1.mzstatic.com';
-
-      if (sourceUrl.pathname.startsWith('/image/thumb')) {
-        sourceUrl.pathname = sourceUrl.pathname.replace(/^\/image\/thumb/, '/us/r1000/063');
-      }
-
-      if (sourceUrl.pathname.split('/').length === 12) {
-        sourceUrl.pathname = sourceUrl.pathname.split('/').slice(0, -1).join('/');
-      }
-
-      if (sourceUrl.pathname !== imgGeneric.url.pathname) {
-        results.push(_objectSpread2(_objectSpread2({}, imgGeneric), {}, {
-          url: sourceUrl
-        }));
+      if (urlBasename(imgGeneric.url) === 'source' && smallOriginalName !== 'source') {
+        imgGeneric.likely_broken = true;
       }
 
       results.push(imgGeneric);
     }), function () {
       return results;
-    });
-  }));
-  IMU_EXCEPTIONS.set('artwork-cdn.7static.com', _async(function (smallurl) {
-    return ['800', '500', '350'].map(size => {
-      return {
-        url: new URL(smallurl.href.replace(/_\d+\.jpg$/, "_".concat(size, ".jpg"))),
-        filename: '',
-        headers: {}
-      };
     });
   }));
   IMU_EXCEPTIONS.set('usercontent.jamendo.com', _async(function (smallurl) {
@@ -1957,6 +1936,7 @@
                   _interrupt = true;
                 });
               }, function (err) {
+                if (maxCandidate.likely_broken) return;
                 LOGGER.warn("Skipping maximised candidate ".concat(maxCandidate.url), err);
               }));
             }, function () {
