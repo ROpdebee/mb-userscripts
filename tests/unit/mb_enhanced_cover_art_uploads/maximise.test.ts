@@ -110,7 +110,7 @@ describe('maximising Apple Music images', () => {
         });
     });
 
-    it('marks /source URLs as likely broken if followed by real URL', async () => {
+    it('marks /source URLs as likely broken if original name is not "source"', async () => {
         fakeImu.mockImplementation((url, options) => {
             options.cb?.([{
                 url: 'https://a1.mzstatic.com/us/r1000/063/Music114/v4/cc/fc/dc/ccfcdc3b-5d9b-6305-8d59-687db6c67fd2/source',
@@ -133,7 +133,7 @@ describe('maximising Apple Music images', () => {
         expect(result.value!.likely_broken).toBeFalsy();
     });
 
-    it('does not mark /source URLs as likely broken if not followed by real URL', async () => {
+    it('does not mark /source URLs as likely broken if original name is "source"', async () => {
         fakeImu.mockImplementation((url, options) => {
             options.cb?.([{
                 url: 'https://a1.mzstatic.com/us/r1000/063/Music114/v4/6e/ff/f5/6efff51c-17f2-1d8b-21f3-b8029fa28434/source',
@@ -148,6 +148,21 @@ describe('maximising Apple Music images', () => {
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toEndWith('/source');
         expect(result.value!.likely_broken).toBeFalsy();
+    });
+
+    it('marks /source URL as likely broken if smallurl is already maximised', async () => {
+        fakeImu.mockImplementation((url, options) => {
+            options.cb?.([{
+                url: 'https://a1.mzstatic.com/us/r1000/063/Music111/v4/e1/dc/68/e1dc6808-6d55-1e38-a34d-a3807d488859/source',
+            }] as unknown as maxurlResult[]);
+        });
+
+        const it = getMaximisedCandidates(new URL('https://a1.mzstatic.com/us/r1000/063/Music111/v4/e1/dc/68/e1dc6808-6d55-1e38-a34d-a3807d488859/191061355977.jpg'));
+        const result = await it.next();
+
+        expect(result.done).toBeFalse();
+        expect(result.value!.url.href).toEndWith('/source');
+        expect(result.value!.likely_broken).toBeTrue();
     });
 });
 

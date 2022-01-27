@@ -94,6 +94,7 @@ export class ImageFetcher {
                     }
                     break;
                 } catch (err) {
+                    // istanbul ignore if: Fine.
                     if (maxCandidate.likely_broken) continue;
                     LOGGER.warn(`Skipping maximised candidate ${maxCandidate.url}`, err);
                 }
