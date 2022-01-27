@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.27
+// @version      2022.1.27.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -11,6 +11,7 @@
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_enhanced_cover_art_uploads.meta.js
 // @match        *://*.musicbrainz.org/release/*/add-cover-art
 // @match        *://*.musicbrainz.org/release/*/add-cover-art?*
+// @match        *://*.musicbrainz.org/release/*/cover-art
 // @match        *://atisket.pulsewidth.org.uk/*
 // @match        *://etc.marlonob.info/atisket/*
 // @match        *://vgmdb.net/album/*
@@ -2728,6 +2729,52 @@
     return (_SEEDER_DISPATCH_MAP$ = SEEDER_DISPATCH_MAP.get(url.hostname.replace(/^www\./, ''))) === null || _SEEDER_DISPATCH_MAP$ === void 0 ? void 0 : _SEEDER_DISPATCH_MAP$.find(seeder => seederSupportsURL(seeder, url));
   }
 
+  const MusicBrainzSeeder = {
+      supportedDomains: [
+          'musicbrainz.org',
+          'beta.musicbrainz.org'
+      ],
+      supportedRegexes: [/release\/[a-f0-9-]{36}\/cover-art/],
+      insertSeedLinks: function insertSeedLinks() {
+          try {
+              var _window$location$href;
+              const mbid = (_window$location$href = window.location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)) === null || _window$location$href === void 0 ? void 0 : _window$location$href[1];
+              assertHasValue(mbid);
+              return _await(getURLsForRelease(mbid, {
+                  excludeEnded: true,
+                  excludeDuplicates: true
+              }), function (attachedURLs) {
+                  return _await(Promise.all(attachedURLs.map(_async(function (url) {
+                      const provider = getProvider(url);
+                      if (!(provider !== null && provider !== void 0 && provider.allowButtons))
+                          return;
+                      return _await(provider.favicon, function (favicon) {
+                          const seedUrl = new SeedParameters([{ url }]).createSeedURL(mbid);
+                          return function () {
+                              var $$a = document.createElement('a');
+                              $$a.setAttribute('title', url.href);
+                              $$a.setAttribute('href', seedUrl);
+                              var $$b = document.createElement('img');
+                              $$b.setAttribute('src', favicon);
+                              $$b.setAttribute('alt', provider.name);
+                              $$a.appendChild($$b);
+                              var $$c = document.createElement('span');
+                              $$a.appendChild($$c);
+                              appendChildren($$c, 'Import from ' + provider.name);
+                              return $$a;
+                          }.call(this);
+                      });
+                  }))), function (buttons) {
+                      const buttonRow = qs('#content > .buttons');
+                      filterNonNull(buttons).forEach(buttonRow.appendChild.bind(buttonRow));
+                  });
+              });
+          } catch (e) {
+              return Promise.reject(e);
+          }
+      }
+  };
+
   const extractCovers = _async(function () {
       return _await(VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery')), function (covers) {
           return _await(new VGMdbProvider().findImagesWithApi(new URL(document.location.href)), function (_VGMdbProvider$findIm) {
@@ -2844,14 +2891,18 @@
 
   registerSeeder(AtisketSeeder);
   registerSeeder(AtasketSeeder);
+  registerSeeder(MusicBrainzSeeder);
   registerSeeder(VGMdbSeeder);
 
   LOGGER.configure({
     logLevel: LogLevel.INFO
   });
   LOGGER.addSink(new ConsoleSink(USERSCRIPT_NAME));
+  const seeder = seederFactory(document.location);
 
-  function runOnMB() {
+  if (seeder) {
+    seeder.insertSeedLinks();
+  } else if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
     const app = new App();
     app.processSeedingParameters().catch(err => {
       LOGGER.error('Failed to process seeded cover art parameters', err);
@@ -2859,22 +2910,8 @@
     app.addImportButtons().catch(err => {
       LOGGER.error('Failed to add some provider import buttons', err);
     });
-  }
-
-  function runOnSeederPage() {
-    const seeder = seederFactory(document.location);
-
-    if (seeder) {
-      seeder.insertSeedLinks();
-    } else {
-      LOGGER.error('Somehow I am running on a page I do not support…');
-    }
-  }
-
-  if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
-    runOnMB();
   } else {
-    runOnSeederPage();
+    LOGGER.error('Somehow I am running on a page I do not support…');
   }
 
 })();

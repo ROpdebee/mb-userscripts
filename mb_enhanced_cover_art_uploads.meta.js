@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.27
+// @version      2022.1.27.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -11,6 +11,7 @@
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_enhanced_cover_art_uploads.meta.js
 // @match        *://*.musicbrainz.org/release/*/add-cover-art
 // @match        *://*.musicbrainz.org/release/*/add-cover-art?*
+// @match        *://*.musicbrainz.org/release/*/cover-art
 // @match        *://atisket.pulsewidth.org.uk/*
 // @match        *://etc.marlonob.info/atisket/*
 // @match        *://vgmdb.net/album/*
