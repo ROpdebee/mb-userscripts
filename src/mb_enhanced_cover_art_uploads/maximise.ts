@@ -287,7 +287,7 @@ IMU_EXCEPTIONS.set('i.discogs.com', async (smallurl) => {
     const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
     return [{
         url: fullSizeURL,
-        filename: DiscogsProvider.getFilenameFromUrl(smallurl) ?? '',
+        filename: DiscogsProvider.getFilenameFromUrl(smallurl),
         headers: {},
     }];
 });
