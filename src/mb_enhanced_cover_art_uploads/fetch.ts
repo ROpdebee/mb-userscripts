@@ -51,7 +51,7 @@ export class ImageFetcher {
 
     async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImages> {
         if (this.urlAlreadyAdded(url)) {
-            LOGGER.warn(`${getFilename(url)} has already been added`);
+            LOGGER.warn(`${url} has already been added`);
             return {
                 images: [],
             };
@@ -62,7 +62,7 @@ export class ImageFetcher {
             return this.fetchImagesFromProvider(url, provider, onlyFront);
         }
 
-        LOGGER.info(`Attempting to fetch ${getFilename(url)}`);
+        LOGGER.info(`Attempting to fetch ${url}`);
         const result = await this.fetchImageFromURL(url);
         if (!result) {
             return { images: [] };
@@ -81,16 +81,20 @@ export class ImageFetcher {
             for await (const maxCandidate of getMaximisedCandidates(url)) {
                 const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
                 if (this.urlAlreadyAdded(maxCandidate.url)) {
-                    LOGGER.warn(`${candidateName} has already been added`);
+                    LOGGER.warn(`${maxCandidate.url} has already been added`);
                     return;
                 }
 
                 try {
                     fetchResult = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
-                    LOGGER.debug(`Maximised ${url.href} to ${maxCandidate.url.href}`);
+                    // IMU might return the same URL as was inputted, no use in logging that.
+                    // istanbul ignore next: Logging
+                    if (maxCandidate.url.href !== url.href) {
+                        LOGGER.info(`Maximised ${url.href} to ${maxCandidate.url.href}`);
+                    }
                     break;
                 } catch (err) {
-                    LOGGER.warn(`Skipping maximised candidate ${candidateName}`, err);
+                    LOGGER.warn(`Skipping maximised candidate ${maxCandidate.url}`, err);
                 }
             }
         }
@@ -132,11 +136,11 @@ export class ImageFetcher {
         const fetchResults: FetchedImage[] = [];
         for (const [img, idx] of enumerate(finalImages)) {
             if (this.urlAlreadyAdded(img.url)) {
-                LOGGER.warn(`${getFilename(img.url)} has already been added`);
+                LOGGER.warn(`${img.url} has already been added`);
                 continue;
             }
 
-            LOGGER.info(`Fetching ${getFilename(img.url)} (${idx + 1}/${finalImages.length})`);
+            LOGGER.info(`Fetching ${img.url} (${idx + 1}/${finalImages.length})`);
             try {
                 const result = await this.fetchImageFromURL(img.url, img.skipMaximisation);
                 // Maximised image already added
@@ -148,7 +152,7 @@ export class ImageFetcher {
                     comment: img.comment,
                 });
             } catch (err) {
-                LOGGER.warn(`Skipping ${getFilename(img.url)}`, err);
+                LOGGER.warn(`Skipping ${img.url}`, err);
             }
         }
 

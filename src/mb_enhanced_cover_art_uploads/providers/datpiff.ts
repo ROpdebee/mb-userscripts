@@ -62,7 +62,7 @@ export class DatPiffProvider extends CoverArtProvider {
         const withoutPlaceholders = await Promise.all(images.map(async (image) => {
             const digest = await blobToDigest(image.content);
             if (DatPiffProvider.placeholderDigests.includes(digest)) {
-                LOGGER.warn(`Skipping "${image.content.name}" as it matches a placeholder cover`);
+                LOGGER.warn(`Skipping "${image.fetchedUrl}" as it matches a placeholder cover`);
                 return null;
             } else {
                 return image;
