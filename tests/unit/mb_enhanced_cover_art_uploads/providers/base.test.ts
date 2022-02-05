@@ -288,7 +288,6 @@ describe('providers with track images', () => {
 
         describe('deduplicating by content', () => {
             it('deduplicates images with identical thumbnail content', async () => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call -- Outdated type declarations
                 when(mockXhr)
                     // Use specific blob for the main image
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -297,7 +296,6 @@ describe('providers with track images', () => {
                     }))
                     // Always use the same image for any other request, but this
                     // image is different from the previous one.
-                    // @ts-expect-error: Outdated typings, PR open
                     .defaultResolvedValue(createXhrResponse({
                         response: createBlob(),
                     }));
