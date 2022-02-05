@@ -43,7 +43,7 @@
     "@types/confusing-browser-globals": "1.0.0",
     "@types/greasemonkey": "4.0.2",
     "@types/jest": "27.4.0",
-    "@types/jest-when": "2.7.4",
+    "@types/jest-when": "3.5.0",
     "@types/jquery": "3.5.13",
     "@types/postcss-preset-env": "6.7.3",
     "@types/rollup__plugin-virtual": "2.0.1",
