@@ -165,6 +165,7 @@ module.exports = {
                 'jest/prefer-expect-assertions': 'off',
                 'jest/no-hooks': 'off',
                 'jest/require-top-level-describe': 'off',
+                'jest/no-conditional-in-test': 'off',
                 // Allow shadowing in tests as we sometimes use it to define
                 // common data, but refine the data in some specific test cases
                 '@typescript-eslint/no-shadow': 'off',
