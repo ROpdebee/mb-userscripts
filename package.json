@@ -62,7 +62,7 @@
     "jest": "27.5.0",
     "jest-extended": "2.0.0",
     "jest-html-reporters": "3.0.5",
-    "jest-when": "3.5.0",
+    "jest-when": "3.5.1",
     "license-checker": "25.0.1",
     "nativejsx": "github:ROpdebee/nativejsx",
     "node-fetch": "3.2.0",
