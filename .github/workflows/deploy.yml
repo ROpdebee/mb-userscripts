@@ -20,7 +20,7 @@ jobs:
 
       - name: Find out PR number and title
         id: active-pr
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             // Find PR that introduced this commit by searching the commit SHA
@@ -81,7 +81,7 @@ jobs:
           TEST_RESULT: ${{ inputs.test-result }}
           DEPLOY_RESULT: ${{ steps.deploy-step.outcome }}
           DEPLOY_INFO: ${{ steps.deploy-step.outputs.deployment-info }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const script = require('./build/report-deploy.js');

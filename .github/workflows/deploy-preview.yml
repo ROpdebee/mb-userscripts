@@ -20,7 +20,7 @@ jobs:
 
       - name: Find out PR number and title
         id: active-pr
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             // Information can be found in the payload
@@ -65,7 +65,7 @@ jobs:
         env:
           PR_INFO: ${{ steps.active-pr.outputs.result }}
           DEPLOY_INFO: ${{ steps.deploy-step.outputs.deployment-info }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const script = require('./build/report-deploy.js');
