@@ -67,7 +67,7 @@
     "nativejsx": "github:ROpdebee/nativejsx",
     "node-fetch": "3.2.0",
     "postcss": "8.4.6",
-    "postcss-preset-env": "7.3.2",
+    "postcss-preset-env": "7.3.3",
     "rollup": "2.67.2",
     "rollup-plugin-consts": "1.0.2",
     "rollup-plugin-postcss": "4.0.2",
