@@ -167,7 +167,7 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
         input: 'index.js',
         plugins: [
             // Feed the code of the previous pass as virtual files
-            virtual(fileMapping) as Plugin,
+            virtual(fileMapping),
             userscript({
                 userscriptName: userscriptDir,
                 version: version,
