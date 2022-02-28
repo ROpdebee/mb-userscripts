@@ -308,8 +308,7 @@ class BaseWorkForm {
         return this.findEmptyRow(parentSelector, inputName);
     }
 
-    checkAndFill(rawData) {
-        let data = this.parseData(rawData);
+    checkAndFill(data) {
         console.log(data);
         let externalCodes = extractCodes(data);
         let externalISWCs = data['iswcs'];
@@ -479,17 +478,6 @@ class BaseWorkForm {
         GM_deleteValue('workCodeData');
     }
 
-    parseData(raw) {
-        try {
-            return JSON.parse(raw);
-        } catch(e) {
-            this.log('error', 'Invalid data');
-            console.log(raw);
-            console.log(e);
-            return {};
-        }
-    }
-
     promptForConfirmation(conflicts) {
         const lis = conflicts.reduce((acc, [agency, mbCodes, extCodes]) => {
             return acc + `<li>${agency}: [${mbCodes.join(', ')}] vs [${extCodes.join(', ')}]</li>`
@@ -607,7 +595,7 @@ function storeData(source, iswcs, codes, title) {
     console.log(obj);
 
     // Use GM functions rather than clipboard because reading clipboard in a portable manner is difficult
-    GM_setValue('workCodeData', JSON.stringify(obj));
+    GM_setValue('workCodeData', obj);
 }
 
 
