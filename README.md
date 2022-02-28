@@ -24,7 +24,7 @@ Blinds editor and voter details before your votes are cast.
 
 ## MB: Bulk copy-paste work codes
 
-Quickly copy-paste work identifiers (ISWC, agency work codes) from CISAC's ISWCNet into a MusicBrainz work.
+Quickly copy-paste work identifiers (ISWC, agency work codes) from [CISAC's ISWCNet](https://iswcnet.cisac.org/search) or [GEMA repertoire search](https://online.gema.de/werke/search.faces?lang=en) into a MusicBrainz work.
 
 [![Install](https://img.shields.io/badge/install-latest-informational?style=for-the-badge&logo=tampermonkey)](mb_bulk_copy_work_codes.user.js?raw=1)
 [![Source](https://img.shields.io/badge/source-grey?style=for-the-badge&logo=github)](mb_bulk_copy_work_codes.user.js)
