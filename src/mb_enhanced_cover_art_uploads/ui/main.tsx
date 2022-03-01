@@ -25,6 +25,7 @@ export class InputForm {
             placeholder='or paste one or more URLs here'
             size={47}
             id='ROpdebee_paste_url'
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onInput={async (evt): Promise<void> => {
                 // Early validation.
                 if (!evt.currentTarget.value) return;
