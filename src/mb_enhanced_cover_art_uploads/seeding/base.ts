@@ -1,7 +1,7 @@
 export interface Seeder {
     supportedDomains: string[];
     supportedRegexes: RegExp[];
-    insertSeedLinks(): void;
+    insertSeedLinks(): void | Promise<void>;
 }
 
 export function seederSupportsURL(seeder: Seeder, url: URL | Location): boolean {

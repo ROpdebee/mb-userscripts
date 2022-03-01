@@ -17,7 +17,10 @@ LOGGER.addSink(new ConsoleSink(USERSCRIPT_NAME));
 
 const seeder = seederFactory(document.location);
 if (seeder) {
-    seeder.insertSeedLinks();
+    Promise.resolve(seeder.insertSeedLinks())
+        .catch((err) => {
+            LOGGER.error('Failed to add seeding links', err);
+        });
 } else if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
     // Initialise the app, which will start listening for pasted URLs.
     // The only reason we're using an app here is so we can easily access the
