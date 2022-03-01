@@ -137,7 +137,7 @@ export /* for tests */ class MetadataGenerator {
 
         const allMetadata = {...defaultMetadata, ...specificMetadata};
         if (specificMetadata.grant?.length) {
-            const oldGrant: string[] = Array.isArray(allMetadata.grant) ? allMetadata.grant : filterNonNull([allMetadata.grant as string]);
+            const oldGrant = (Array.isArray(allMetadata.grant) ? allMetadata.grant : filterNonNull([allMetadata.grant as string])) as string[];
             allMetadata.grant = oldGrant.flatMap(this.transformGMFunction.bind(this));
         }
 
