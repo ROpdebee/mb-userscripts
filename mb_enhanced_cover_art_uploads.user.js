@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.1.27.7
+// @version      2022.3.1
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2889,7 +2889,9 @@
   const seeder = seederFactory(document.location);
 
   if (seeder) {
-    seeder.insertSeedLinks();
+    Promise.resolve(seeder.insertSeedLinks()).catch(err => {
+      LOGGER.error('Failed to add seeding links', err);
+    });
   } else if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
     const app = new App();
     app.processSeedingParameters().catch(err => {
