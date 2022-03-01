@@ -65,7 +65,7 @@
     "jest-when": "3.5.1",
     "license-checker": "25.0.1",
     "nativejsx": "github:ROpdebee/nativejsx",
-    "node-fetch": "3.2.0",
+    "node-fetch": "3.2.1",
     "postcss": "8.4.7",
     "postcss-preset-env": "7.4.1",
     "rollup": "2.68.0",
