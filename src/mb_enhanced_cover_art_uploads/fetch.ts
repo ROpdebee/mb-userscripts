@@ -225,7 +225,7 @@ export class ImageFetcher {
             wasRedirected,
             file: new File(
                 [resp.response as Blob],
-                this.createUniqueFilename(fileName, mimeType!),
+                this.createUniqueFilename(fileName, mimeType),
                 { type: mimeType }),
         };
     }
