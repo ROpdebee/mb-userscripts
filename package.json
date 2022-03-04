@@ -61,7 +61,7 @@
     "eslint-plugin-simple-import-sort": "7.0.0",
     "jest": "27.5.1",
     "jest-extended": "2.0.0",
-    "jest-html-reporters": "3.0.5",
+    "jest-html-reporters": "3.0.6",
     "jest-when": "3.5.1",
     "license-checker": "25.0.1",
     "nativejsx": "github:ROpdebee/nativejsx",
