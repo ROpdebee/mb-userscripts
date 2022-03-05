@@ -10,7 +10,7 @@ jobs:
     name: Run ESLint
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up environment
         uses: ./.github/actions/setup
 
@@ -22,7 +22,7 @@ jobs:
     name: Run TypeScript typechecker
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up environment
         uses: ./.github/actions/setup
 
@@ -34,7 +34,7 @@ jobs:
     name: Build userscripts
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up environment
         uses: ./.github/actions/setup
 
@@ -46,7 +46,7 @@ jobs:
     name: Run tests
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up environment
         uses: ./.github/actions/setup
 
