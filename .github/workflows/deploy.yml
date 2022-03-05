@@ -14,7 +14,7 @@ jobs:
     name: Deploy userscripts
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up environment
         uses: ./.github/actions/setup
 
@@ -48,7 +48,7 @@ jobs:
             }
 
       - name: Checkout second dist copy
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: repoDist
           ref: dist
