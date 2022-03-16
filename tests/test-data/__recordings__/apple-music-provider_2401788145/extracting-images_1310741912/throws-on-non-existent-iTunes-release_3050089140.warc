@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: apple music provider/extracting images/throws on non-existent iTunes release
-WARC-Date: 2021-12-11T20:26:47.439Z
+WARC-Date: 2022-03-16T09:53:51.013Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:0f5a0e41-91d4-4612-bb81-1faf9a34c86c>
+WARC-Record-ID: <urn:uuid:986fa54a-6af3-4515-9ab0-b644385d8197>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,76 +12,76 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:99304f6c-f475-4325-8eae-d3e27ee18635>
-WARC-Target-URI: https://itunes.apple.com/gb/album/id993998924
-WARC-Date: 2021-12-11T20:26:47.440Z
+WARC-Concurrent-To: <urn:uuid:fb7ff7ef-069b-4304-9d3b-5f7ddfbde10b>
+WARC-Target-URI: https://itunes.apple.com/gb/album/id123456789
+WARC-Date: 2022-03-16T09:53:51.013Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:3a78abf1-6374-4e61-b751-60a260f1dbe2>
+WARC-Record-ID: <urn:uuid:f422358f-3d6f-45f7-9aa3-487415611605>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:46cd1ed85ca941848e67e7ae0ff88fec91773bdb4f51830cf96a2967507fcb67
+WARC-Block-Digest: sha256:1390a680649cac0689cebe286f30feec08a58d6d8b932009667ea8f6b30df510
 Content-Length: 38
 
-GET /gb/album/id993998924 HTTP/1.1
+GET /gb/album/id123456789 HTTP/1.1
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:99304f6c-f475-4325-8eae-d3e27ee18635>
-WARC-Target-URI: https://itunes.apple.com/gb/album/id993998924
-WARC-Date: 2021-12-11T20:26:47.440Z
+WARC-Concurrent-To: <urn:uuid:fb7ff7ef-069b-4304-9d3b-5f7ddfbde10b>
+WARC-Target-URI: https://itunes.apple.com/gb/album/id123456789
+WARC-Date: 2022-03-16T09:53:51.013Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:92274617-91a5-4f9e-a9da-bb6dc34f7e14>
+WARC-Record-ID: <urn:uuid:3f08bf2f-65d9-4705-bd6a-1c31758a8f20>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:79d0157bce2b59419482637aaa8dda0fbbadf68f3e58989a786ac1ca41903543
-WARC-Block-Digest: sha256:79d0157bce2b59419482637aaa8dda0fbbadf68f3e58989a786ac1ca41903543
+WARC-Payload-Digest: sha256:46f5245bb00b2930e2a398145a571cf81d0942d10fb93510d0df234bad0bb560
+WARC-Block-Digest: sha256:46f5245bb00b2930e2a398145a571cf81d0942d10fb93510d0df234bad0bb560
 Content-Length: 409
 
-harEntryId: c9aeae4f214a71d9cdceadba4f0bcb5b
+harEntryId: f2d41230e981702c4ecb552d41741fbf
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:46.631Z
-time: 784
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":784,"receive":0,"ssl":-1}
+startedDateTime: 2022-03-16T09:53:50.264Z
+time: 742
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":742,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 64
 warcRequestCookies: []
-warcResponseHeadersSize: 1640
+warcResponseHeadersSize: 1638
 warcResponseCookies: [{"name":"geo","value":"NL","path":"/","domain":".apple.com"}]
 responseDecoded: false
 
 
 WARC/1.1
-WARC-Target-URI: https://itunes.apple.com/gb/album/id993998924
-WARC-Date: 2021-12-11T20:26:47.439Z
+WARC-Target-URI: https://itunes.apple.com/gb/album/id123456789
+WARC-Date: 2022-03-16T09:53:51.013Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:99304f6c-f475-4325-8eae-d3e27ee18635>
+WARC-Record-ID: <urn:uuid:fb7ff7ef-069b-4304-9d3b-5f7ddfbde10b>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:f6fb7ee2b130ac34e10d4e2e879fd23895cc17fed4e1256860d16db3a7b4f702
-WARC-Block-Digest: sha256:a406c0906cbbc217433fce5582f705dd68c7f3f740a364269b373db45aa130ae
-Content-Length: 13309
+WARC-Payload-Digest: sha256:1937279fedcbd6f6892c57b94e20cfe481aed040142ce2301d2e04f0036a23d7
+WARC-Block-Digest: sha256:6d0d957059e9987d75d29e061044878e79350fe0bb6beb7958d1d83bc4eb8022
+Content-Length: 13305
 
 HTTP/1.1 200 OK
-cache-control: public, max-age=58
+cache-control: public, max-age=54
 connection: close
 content-encoding: gzip
-content-length: 4037
+content-length: 4039
 content-security-policy: default-src 'self' https://*.apple.com; img-src 'self' https://*.apple.com https://*.mzstatic.com artwork: data:; style-src 'self' https://*.apple.com 'unsafe-inline'; script-src 'self' https://*.apple.com blob: 'sha256-4ywTGAe4rEpoHt8XkjbkdOWklMJ/1Py/x6b3/aGbtSQ=' 'unsafe-eval'; connect-src 'self' https://*.apple.com https://*.applemusic.com https://*.mzstatic.com; media-src 'self' https://*.apple.com https://*.applemusic.com https://*.mzstatic.com blob:; child-src 'self' https://*.apple.com musics: blob: itms: itmss:; frame-ancestors 'none'; block-all-mixed-content ;
 content-type: text/html; charset=utf-8
-date: Sat, 11 Dec 2021 20:26:47 GMT
+date: Wed, 16 Mar 2022 09:53:51 GMT
 server: daiquiri/3.0.0
 set-cookie: geo=NL; path=/; domain=.apple.com
 strict-transport-security: max-age=31536000; includeSubDomains
 vary: Accept-Encoding, X-Apple-Store-Front, Cookie, Accept-Encoding
-x-apple-jingle-correlation-key: JCQII44XD6HSSYEJO6MY4VGA7Q
+x-apple-jingle-correlation-key: 3VLVQZNDLBQSEZVJR6TSAZIVC4
 x-apple-partner: origin.0
-x-cache: TCP_MISS from a2-19-195-103.deploy.akamaitechnologies.com (AkamaiGHost/10.4.6-37171458) (-)
-x-cache-remote: TCP_HIT from a2-19-195-44.deploy.akamaitechnologies.com (AkamaiGHost/10.4.6-37171458) (-)
+x-cache: TCP_MISS from a2-19-195-13.deploy.akamaitechnologies.com (AkamaiGHost/10.7.3-39449967) (-)
+x-cache-remote: TCP_HIT from a2-19-195-44.deploy.akamaitechnologies.com (AkamaiGHost/10.7.3-39449967) (-)
 x-content-type-options: nosniff
-x-daiquiri-instance: daiquiri:47691001:st44p00it-hyhk16124001:7987:21RELEASE198:daiquiri-amp-store-shared-ext-003-st
+x-daiquiri-instance: daiquiri:48215001:st44p00it-hyhk15044901:7987:22RELEASE24:daiquiri-amp-store-shared-ext-001-st
 x-frame-options: DENY
-x-true-cache-key: /L/music.apple.com/gb/album/993998924 vcd=2897 ci2=///USERCOUNTRY=NL
+x-true-cache-key: /L/music.apple.com/gb/album/123456789 vcd=2897 ci2=///USERCOUNTRY=NL
 x-xss-protection: 1; mode=block
-x-pollyjs-finalurl: https://music.apple.com/gb/album/993998924
+x-pollyjs-finalurl: https://music.apple.com/gb/album/123456789
 
 <!DOCTYPE html><html prefix="og: http://ogp.me/ns#"  dir="ltr" lang="en-GB"><head>
     <meta charset="utf-8">
@@ -103,12 +103,12 @@ x-pollyjs-finalurl: https://music.apple.com/gb/album/993998924
     <link rel="preconnect" href="https://js-cdn.music.apple.com" crossorigin="">
 
     
-<meta name="desktop-music-app/config/environment" content="%7B%22modulePrefix%22%3A%22desktop-music-app%22%2C%22environment%22%3A%22production%22%2C%22rootURL%22%3A%22%2F%22%2C%22historyLocationType%22%3A%22history%22%2C%22iTunesHistoryLocationType%22%3A%22desktop-music-app%22%2C%22historySupportMiddleware%22%3Atrue%2C%22cwcVersionHash%22%3A%22a7145d35%22%2C%22viewportConfig%22%3A%7B%22viewportDidScroll%22%3Afalse%2C%22viewportTolerance%22%3A%7B%22top%22%3A200%2C%22left%22%3A100%2C%22bottom%22%3A200%2C%22right%22%3A100%7D%7D%2C%22LocaleSwitcher%22%3A%7B%22locKeys%22%3A%7B%22ModalTitleText%22%3A%22FUSE.WEB.CountrySelector.Title%22%2C%22AfricaMiddleEastIndia%22%3A%22FUSE.WEB.CountrySelector.Region.AfricaMiddleEastIndia%22%2C%22AsiaPacific%22%3A%22FUSE.WEB.CountrySelector.Region.AsiaPacific%22%2C%22Europe%22%3A%22FUSE.WEB.CountrySelector.Region.Europe%22%2C%22LatinAmericaCaribbean%22%3A%22FUSE.WEB.CountrySelector.Region.LatinAmericaCaribbean%22%2C%22USCanadaPuertoRico%22%3A%22FUSE.WEB.CountrySelector.Region.USCanadaPuertoRico%22%2C%22HeaderPrompt%22%3A%22FUSE.WEB.CountrySelector.Header.Prompt%22%2C%22HeaderDoneButton%22%3A%22FUSE.WEB.CountrySelector.Done%22%2C%22HeaderDropdownPrompt%22%3A%22FUSE.WEB.CountrySelector.ChooseOption%22%7D%7D%2C%22SASSKIT_GENERATOR%22%3A%7B%22VIEWPORT_CONFIG%22%3A%7B%22BREAKPOINTS%22%3A%7B%22xsmall%22%3A%7B%22min%22%3A320%2C%22max%22%3A999%7D%2C%22small%22%3A%7B%22min%22%3A1000%2C%22max%22%3A1259%7D%2C%22medium%22%3A%7B%22min%22%3A1260%2C%22max%22%3A1579%7D%2C%22large%22%3A%7B%22min%22%3A1580%2C%22max%22%3A1939%7D%2C%22xlarge%22%3A%7B%22min%22%3A1940%2C%22content%22%3A1680%7D%7D%7D%7D%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Function%22%3Afalse%2C%22String%22%3Afalse%2C%22Date%22%3Afalse%7D%2C%22_APPLICATION_TEMPLATE_WRAPPER%22%3Afalse%2C%22_DEFAULT_ASYNC_OBSERVERS%22%3Atrue%2C%22_JQUERY_INTEGRATION%22%3Afalse%2C%22_TEMPLATE_ONLY_GLIMMER_COMPONENTS%22%3Atrue%7D%2C%22i18n%22%3A%7B%22defaultLocale%22%3A%22en-us%22%7D%2C%22fastboot%22%3A%7B%22hostWhitelist%22%3A%5B%7B%7D%5D%7D%2C%22routerScroll%22%3A%7B%22MAX_ATTEMPTS%22%3A300%2C%22scrollWhenIdle%22%3Atrue%7D%2C%22APP%22%3A%7B%22SPINNER_DELAY%22%3A1500%2C%22SONGS_LIST_SPINNER_DELAY%22%3A750%2C%22FAIL_SPINNER_DELAY%22%3A5000%2C%22LIBRARY_CHANGE_DELAY_FOR_REFRESH%22%3A3000%2C%22PLAY_SPINNER_DELAY%22%3A2000%2C%22PLAYBACK_DELAY%22%3A2500%2C%22SHARING_TIMER%22%3A1200%2C%22ADD_PRODUCT_TIMER%22%3A5000%2C%22SEARCH_HINTS_TIMER%22%3A200%2C%22COMMERCE_MODAL_OPEN%22%3A250%2C%22SEARCH_METRICS_DELAY%22%3A1000%2C%22SHELF_ITEMS_UNTIL_LAZY%22%3A6%2C%22REFRESH_JS_TIMER%22%3A1800000%2C%22FOLDER_EXPAND_DELAY%22%3A1000%2C%22tvMoviesRatingsUrl%22%3A%22https%3A%2F%2Fdesktop-store.itunes.apple.com%2FmovieTvRatingsAdvisory%2F%22%2C%22socialOnboardingInvite%22%3A%22https%3A%2F%2Fitunes.apple.com%2Fdeeplink%3Fp%3Dsharing%26app%3Dmusic%22%2C%22manageAppleIdURL%22%3A%22https%3A%2F%2Fappleid.apple.com%2Faccount%2Fmanage%22%2C%22iCloudSettingUrl%22%3A%22https%3A%2F%2Fsetup.icloud.com%2Femail%2Fprefs%2FaccountDetails%3Fpath%3DloadPersonalInfoUI%22%2C%22getMusicSDKAuthorizationsSrv%22%3A%22https%3A%2F%2Fplay.itunes.apple.com%2FWebObjects%2FMZPlay.woa%2Fwa%2FgetMusicSDKAuthorizationsSrv%22%2C%22revokeMusicSDKAuthorizationSrv%22%3A%22https%3A%2F%2Fplay.itunes.apple.com%2FWebObjects%2FMZPlay.woa%2Fwa%2FrevokeMusicSDKAuthorizationSrv%22%2C%22REPLAY_LATEST_YEAR%22%3A2020%2C%22BREAKPOINTS%22%3A%7B%22xsmall%22%3A%7B%22min%22%3A320%2C%22max%22%3A999%7D%2C%22small%22%3A%7B%22min%22%3A1000%2C%22max%22%3A1259%7D%2C%22medium%22%3A%7B%22min%22%3A1260%2C%22max%22%3A1579%7D%2C%22large%22%3A%7B%22min%22%3A1580%2C%22max%22%3A1939%7D%2C%22xlarge%22%3A%7B%22min%22%3A1940%2C%22content%22%3A1680%7D%7D%2C%22name%22%3A%22desktop-music-app%22%2C%22version%22%3A%222150.13.0%2B0f90faa8%22%7D%2C%22METRICS%22%3A%7B%22baseFields%22%3A%7B%22appName%22%3A%22web-music-app%22%2C%22constraintProfiles%22%3A%5B%22AMPWeb%22%5D%2C%22delegateApp%22%3A%22web-music-app%22%7D%2C%22clickstream%22%3A%7B%22enabled%22%3Atrue%2C%22topic%22%3A%5B%22xp_its_music_main%22%5D%2C%22autoTrackClicks%22%3Atrue%2C%22funnel%22%3A%7B%22enabled%22%3Atrue%2C%22topic%22%3A%5B%22xp_amp_music_cs_unidentified%22%5D%2C%22constraintProfiles%22%3A%5B%22AMPFunnel%22%5D%7D%2C%22impressions%22%3A%7B%22enabled%22%3Afalse%7D%7D%2C%22impressions%22%3A%7B%22viewableThreshold%22%3A1000%2C%22viewablePercentage%22%3A0.5%7D%2C%22performance%22%3A%7B%22enabled%22%3Atrue%2C%22topic%22%3A%5B%22xp_amp_music_perf%22%5D%7D%2C%22variant%22%3A%22web%22%7D%2C%22MEDIA_SHELF%22%3A%7B%22GRID_CONFIG%22%3A%7B%221-1-1-2%22%3A%7B%22xsmall%22%3A1%2C%22small%22%3A1%2C%22medium%22%3A1%2C%22large%22%3A2%2C%22xlarge%22%3A2%7D%2C%221-1-2-3%22%3A%7B%22xsmall%22%3A1%2C%22small%22%3A1%2C%22medium%22%3A2%2C%22large%22%3A3%2C%22xlarge%22%3A3%7D%2C%222-2-3-4%22%3A%7B%22xsmall%22%3A2%2C%22small%22%3A2%2C%22medium%22%3A3%2C%22large%22%3A4%2C%22xlarge%22%3A4%7D%2C%22music-radio%22%3A%7B%22xsmall%22%3A3%2C%22small%22%3A3%2C%22medium%22%3A3%2C%22large%22%3A3%2C%22xlarge%22%3A3%7D%7D%2C%22BREAKPOINTS%22%3A%7B%22xsmall%22%3A%7B%22min%22%3A320%2C%22max%22%3A999%7D%2C%22small%22%3A%7B%22min%22%3A1000%2C%22max%22%3A1259%7D%2C%22medium%22%3A%7B%22min%22%3A1260%2C%22max%22%3A1579%7D%2C%22large%22%3A%7B%22min%22%3A1580%2C%22max%22%3A1939%7D%2C%22xlarge%22%3A%7B%22min%22%3A1940%2C%22content%22%3A1680%7D%7D%7D%2C%22MEDIA_API%22%3A%7B%22token%22%3A%22eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNjM5MDg1NjY1LCJleHAiOjE2NTQ2Mzc2NjV9.hjX-hCq2xVAgjOyiYvnlT6vbhBWl-RZETjVRZ6fGiVHaPW_yjsHv_jOJs57mrt-7uNa8kODd1Eo8dc179YkYoQ%22%7D%2C%22MUSIC%22%3A%7B%22BASE_URL%22%3A%22https%3A%2F%2Famp-api.music.apple.com%2Fv1%22%2C%22REALM%22%3A%22amp-music%22%2C%22DEFAULT_TRANSITION%22%3A%22index%22%2C%22TOKEN%22%3A%22eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNTY5MjczNzU1LCJleHAiOjE1ODQ4MjU3NTV9.eVPXnwUaRy-6-Vv5EVoGDiQ4EW96y-L3jxMHsiqDyr38t58KdRX_PfnnMReRFbayOUcgrsP_MKNtqvXn7Hn57g%22%2C%22FEATURES%22%3A%7B%22useDevLocalizations%22%3Afalse%2C%22showDevTools%22%3Afalse%2C%22chameleon%22%3Atrue%2C%22captureLogs%22%3Atrue%7D%7D%2C%22features%22%3A%7B%22AMWEB%22%3Atrue%2C%22RESKIN%22%3Atrue%2C%22CARRY%22%3Afalse%2C%22SOW%22%3Afalse%2C%22FY_2021%22%3Atrue%2C%22GAMMA%22%3Afalse%2C%22DELTA%22%3Afalse%2C%22BETA%22%3Afalse%2C%22DEFAULT%22%3Afalse%7D%2C%22ember-cli-mirage%22%3A%7B%22enabled%22%3Afalse%2C%22usingProxy%22%3Afalse%2C%22useDefaultPassthroughs%22%3Atrue%7D%2C%22ember-cli-content-security-policy%22%3A%7B%22policy%22%3A%22default-src%20'self'%20https%3A%2F%2F*.apple.com%3B%20img-src%20'self'%20https%3A%2F%2F*.apple.com%20https%3A%2F%2F*.mzstatic.com%20artwork%3A%20data%3A%3B%20style-src%20'self'%20https%3A%2F%2F*.apple.com%20'unsafe-inline'%3B%20script-src%20'self'%20https%3A%2F%2F*.apple.com%20blob%3A%20'sha256-4ywTGAe4rEpoHt8XkjbkdOWklMJ%2F1Py%2Fx6b3%2FaGbtSQ%3D'%20'unsafe-eval'%3B%20connect-src%20'self'%20https%3A%2F%2F*.apple.com%20https%3A%2F%2F*.applemusic.com%20https%3A%2F%2F*.mzstatic.com%3B%20media-src%20'self'%20https%3A%2F%2F*.apple.com%20https%3A%2F%2F*.applemusic.com%20https%3A%2F%2F*.mzstatic.com%20blob%3A%3B%20child-src%20'self'%20https%3A%2F%2F*.apple.com%20musics%3A%20blob%3A%20itms%3A%20itmss%3A%3B%20frame-ancestors%20'none'%3B%20block-all-mixed-content%20%3B%22%2C%22reportOnly%22%3Afalse%7D%2C%22exportApplicationGlobal%22%3Afalse%7D">
+<meta name="desktop-music-app/config/environment" content="%7B%22modulePrefix%22%3A%22desktop-music-app%22%2C%22environment%22%3A%22production%22%2C%22rootURL%22%3A%22%2F%22%2C%22historyLocationType%22%3A%22history%22%2C%22iTunesHistoryLocationType%22%3A%22desktop-music-app%22%2C%22historySupportMiddleware%22%3Atrue%2C%22cwcVersionHash%22%3A%22a7145d35%22%2C%22viewportConfig%22%3A%7B%22viewportDidScroll%22%3Afalse%2C%22viewportTolerance%22%3A%7B%22top%22%3A200%2C%22left%22%3A100%2C%22bottom%22%3A200%2C%22right%22%3A100%7D%7D%2C%22LocaleSwitcher%22%3A%7B%22locKeys%22%3A%7B%22ModalTitleText%22%3A%22FUSE.WEB.CountrySelector.Title%22%2C%22AfricaMiddleEastIndia%22%3A%22FUSE.WEB.CountrySelector.Region.AfricaMiddleEastIndia%22%2C%22AsiaPacific%22%3A%22FUSE.WEB.CountrySelector.Region.AsiaPacific%22%2C%22Europe%22%3A%22FUSE.WEB.CountrySelector.Region.Europe%22%2C%22LatinAmericaCaribbean%22%3A%22FUSE.WEB.CountrySelector.Region.LatinAmericaCaribbean%22%2C%22USCanadaPuertoRico%22%3A%22FUSE.WEB.CountrySelector.Region.USCanadaPuertoRico%22%2C%22HeaderPrompt%22%3A%22FUSE.WEB.CountrySelector.Header.Prompt%22%2C%22HeaderDoneButton%22%3A%22FUSE.WEB.CountrySelector.Done%22%2C%22HeaderDropdownPrompt%22%3A%22FUSE.WEB.CountrySelector.ChooseOption%22%7D%7D%2C%22SASSKIT_GENERATOR%22%3A%7B%22VIEWPORT_CONFIG%22%3A%7B%22BREAKPOINTS%22%3A%7B%22xsmall%22%3A%7B%22min%22%3A320%2C%22max%22%3A999%7D%2C%22small%22%3A%7B%22min%22%3A1000%2C%22max%22%3A1259%7D%2C%22medium%22%3A%7B%22min%22%3A1260%2C%22max%22%3A1579%7D%2C%22large%22%3A%7B%22min%22%3A1580%2C%22max%22%3A1939%7D%2C%22xlarge%22%3A%7B%22min%22%3A1940%2C%22content%22%3A1680%7D%7D%7D%7D%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Function%22%3Afalse%2C%22String%22%3Afalse%2C%22Date%22%3Afalse%7D%2C%22_APPLICATION_TEMPLATE_WRAPPER%22%3Afalse%2C%22_DEFAULT_ASYNC_OBSERVERS%22%3Atrue%2C%22_JQUERY_INTEGRATION%22%3Afalse%2C%22_TEMPLATE_ONLY_GLIMMER_COMPONENTS%22%3Atrue%7D%2C%22i18n%22%3A%7B%22defaultLocale%22%3A%22en-us%22%7D%2C%22fastboot%22%3A%7B%22hostWhitelist%22%3A%5B%7B%7D%5D%7D%2C%22routerScroll%22%3A%7B%22MAX_ATTEMPTS%22%3A300%2C%22scrollWhenIdle%22%3Atrue%7D%2C%22APP%22%3A%7B%22SPINNER_DELAY%22%3A1500%2C%22SONGS_LIST_SPINNER_DELAY%22%3A750%2C%22FAIL_SPINNER_DELAY%22%3A5000%2C%22LIBRARY_CHANGE_DELAY_FOR_REFRESH%22%3A3000%2C%22PLAY_SPINNER_DELAY%22%3A2000%2C%22PLAYBACK_DELAY%22%3A2500%2C%22SHARING_TIMER%22%3A1200%2C%22ADD_PRODUCT_TIMER%22%3A5000%2C%22SEARCH_HINTS_TIMER%22%3A200%2C%22COMMERCE_MODAL_OPEN%22%3A250%2C%22SEARCH_METRICS_DELAY%22%3A1000%2C%22SHELF_ITEMS_UNTIL_LAZY%22%3A6%2C%22REFRESH_JS_TIMER%22%3A1800000%2C%22FOLDER_EXPAND_DELAY%22%3A1000%2C%22tvMoviesRatingsUrl%22%3A%22https%3A%2F%2Fdesktop-store.itunes.apple.com%2FmovieTvRatingsAdvisory%2F%22%2C%22socialOnboardingInvite%22%3A%22https%3A%2F%2Fitunes.apple.com%2Fdeeplink%3Fp%3Dsharing%26app%3Dmusic%22%2C%22manageAppleIdURL%22%3A%22https%3A%2F%2Fappleid.apple.com%2Faccount%2Fmanage%22%2C%22iCloudSettingUrl%22%3A%22https%3A%2F%2Fsetup.icloud.com%2Femail%2Fprefs%2FaccountDetails%3Fpath%3DloadPersonalInfoUI%22%2C%22getMusicSDKAuthorizationsSrv%22%3A%22https%3A%2F%2Fplay.itunes.apple.com%2FWebObjects%2FMZPlay.woa%2Fwa%2FgetMusicSDKAuthorizationsSrv%22%2C%22revokeMusicSDKAuthorizationSrv%22%3A%22https%3A%2F%2Fplay.itunes.apple.com%2FWebObjects%2FMZPlay.woa%2Fwa%2FrevokeMusicSDKAuthorizationSrv%22%2C%22REPLAY_LATEST_YEAR%22%3A2020%2C%22BREAKPOINTS%22%3A%7B%22xsmall%22%3A%7B%22min%22%3A320%2C%22max%22%3A999%7D%2C%22small%22%3A%7B%22min%22%3A1000%2C%22max%22%3A1259%7D%2C%22medium%22%3A%7B%22min%22%3A1260%2C%22max%22%3A1579%7D%2C%22large%22%3A%7B%22min%22%3A1580%2C%22max%22%3A1939%7D%2C%22xlarge%22%3A%7B%22min%22%3A1940%2C%22content%22%3A1680%7D%7D%2C%22name%22%3A%22desktop-music-app%22%2C%22version%22%3A%222210.4.0%2B757b0968%22%7D%2C%22METRICS%22%3A%7B%22baseFields%22%3A%7B%22appName%22%3A%22web-music-app%22%2C%22constraintProfiles%22%3A%5B%22AMPWeb%22%5D%2C%22delegateApp%22%3A%22web-music-app%22%7D%2C%22clickstream%22%3A%7B%22enabled%22%3Atrue%2C%22topic%22%3A%5B%22xp_its_music_main%22%5D%2C%22autoTrackClicks%22%3Atrue%2C%22funnel%22%3A%7B%22enabled%22%3Atrue%2C%22topic%22%3A%5B%22xp_amp_music_cs_unidentified%22%5D%2C%22constraintProfiles%22%3A%5B%22AMPFunnel%22%5D%7D%2C%22impressions%22%3A%7B%22enabled%22%3Afalse%7D%7D%2C%22impressions%22%3A%7B%22viewableThreshold%22%3A1000%2C%22viewablePercentage%22%3A0.5%7D%2C%22performance%22%3A%7B%22enabled%22%3Atrue%2C%22topic%22%3A%5B%22xp_amp_music_perf%22%5D%7D%2C%22variant%22%3A%22web%22%7D%2C%22MEDIA_SHELF%22%3A%7B%22GRID_CONFIG%22%3A%7B%221-1-1-2%22%3A%7B%22xsmall%22%3A1%2C%22small%22%3A1%2C%22medium%22%3A1%2C%22large%22%3A2%2C%22xlarge%22%3A2%7D%2C%221-1-2-3%22%3A%7B%22xsmall%22%3A1%2C%22small%22%3A1%2C%22medium%22%3A2%2C%22large%22%3A3%2C%22xlarge%22%3A3%7D%2C%222-2-3-4%22%3A%7B%22xsmall%22%3A2%2C%22small%22%3A2%2C%22medium%22%3A3%2C%22large%22%3A4%2C%22xlarge%22%3A4%7D%2C%22music-radio%22%3A%7B%22xsmall%22%3A3%2C%22small%22%3A3%2C%22medium%22%3A3%2C%22large%22%3A3%2C%22xlarge%22%3A3%7D%7D%2C%22BREAKPOINTS%22%3A%7B%22xsmall%22%3A%7B%22min%22%3A320%2C%22max%22%3A999%7D%2C%22small%22%3A%7B%22min%22%3A1000%2C%22max%22%3A1259%7D%2C%22medium%22%3A%7B%22min%22%3A1260%2C%22max%22%3A1579%7D%2C%22large%22%3A%7B%22min%22%3A1580%2C%22max%22%3A1939%7D%2C%22xlarge%22%3A%7B%22min%22%3A1940%2C%22content%22%3A1680%7D%7D%7D%2C%22MEDIA_API%22%3A%7B%22token%22%3A%22eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNjQ2NDM1NTgxLCJleHAiOjE2NjE5ODc1ODF9.Ob5bfZBWLDlDkR4r5fNXIjp1Y1G0qY5mP9MVBm1mDFjG701_6AcZS6nwjk-CMJE2b8VLv1JWxKR5j5BDkKxQ7w%22%7D%2C%22MUSIC%22%3A%7B%22BASE_URL%22%3A%22https%3A%2F%2Famp-api.music.apple.com%2Fv1%22%2C%22REALM%22%3A%22amp-music%22%2C%22DEFAULT_TRANSITION%22%3A%22index%22%2C%22TOKEN%22%3A%22eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNTY5MjczNzU1LCJleHAiOjE1ODQ4MjU3NTV9.eVPXnwUaRy-6-Vv5EVoGDiQ4EW96y-L3jxMHsiqDyr38t58KdRX_PfnnMReRFbayOUcgrsP_MKNtqvXn7Hn57g%22%2C%22FEATURES%22%3A%7B%22useDevLocalizations%22%3Afalse%2C%22showDevTools%22%3Afalse%2C%22chameleon%22%3Atrue%2C%22captureLogs%22%3Atrue%7D%7D%2C%22features%22%3A%7B%22AMWEB%22%3Atrue%2C%22RESKIN%22%3Atrue%2C%22CARRY%22%3Afalse%2C%22SOW%22%3Afalse%2C%22FY_2021%22%3Atrue%2C%22GAMMA%22%3Afalse%2C%22DELTA%22%3Afalse%2C%22BETA%22%3Afalse%2C%22DEFAULT%22%3Afalse%7D%2C%22ember-cli-mirage%22%3A%7B%22enabled%22%3Afalse%2C%22usingProxy%22%3Afalse%2C%22useDefaultPassthroughs%22%3Atrue%7D%2C%22ember-cli-content-security-policy%22%3A%7B%22policy%22%3A%22default-src%20'self'%20https%3A%2F%2F*.apple.com%3B%20img-src%20'self'%20https%3A%2F%2F*.apple.com%20https%3A%2F%2F*.mzstatic.com%20artwork%3A%20data%3A%3B%20style-src%20'self'%20https%3A%2F%2F*.apple.com%20'unsafe-inline'%3B%20script-src%20'self'%20https%3A%2F%2F*.apple.com%20blob%3A%20'sha256-4ywTGAe4rEpoHt8XkjbkdOWklMJ%2F1Py%2Fx6b3%2FaGbtSQ%3D'%20'unsafe-eval'%3B%20connect-src%20'self'%20https%3A%2F%2F*.apple.com%20https%3A%2F%2F*.applemusic.com%20https%3A%2F%2F*.mzstatic.com%3B%20media-src%20'self'%20https%3A%2F%2F*.apple.com%20https%3A%2F%2F*.applemusic.com%20https%3A%2F%2F*.mzstatic.com%20blob%3A%3B%20child-src%20'self'%20https%3A%2F%2F*.apple.com%20musics%3A%20blob%3A%20itms%3A%20itmss%3A%3B%20frame-ancestors%20'none'%3B%20block-all-mixed-content%20%3B%22%2C%22reportOnly%22%3Afalse%7D%2C%22exportApplicationGlobal%22%3Afalse%7D">
 <!-- EMBER_CLI_FASTBOOT_TITLE --><link rel="stylesheet" name="fonts" href="//www.apple.com/wss/fonts?families=SF+Pro,v4|SF+Pro+Icons,v1&amp;display=swap">
-    <meta name="version" content="2150.13.0">
+    <meta name="version" content="2210.4.0">
 
     <link integrity="" rel="stylesheet" href="/assets/vendor-8d7965ce24c49d54b974569e37339677.css">
-    <link integrity="" rel="stylesheet" href="/assets/desktop-music-app-08dc8910d1482fe06138acd84c165cb8.css">
+    <link integrity="" rel="stylesheet" href="/assets/desktop-music-app-e4514da44a89adc30bac2126a3f63eea.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/favicon-180-f10a76334177ea08c0b3b35b0269fe16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32-283b261ac09e23987aae02bdb3cbbbaa.png">
@@ -126,9 +126,9 @@ x-pollyjs-finalurl: https://music.apple.com/gb/album/993998924
             
     
 
-    <script src="/assets/vendor-c48e9d726242338f5c16fb827bf3aa88.js" integrity="sha256-pX/r+FOClbUWlPOhtX5B0H53izQ82yGjgdE/QCQOsPA= sha512-KDfJP2A/kAMtkEqzVpp7+V8FPHdBqJQa9wsKvQN2ME6+x/MGbp4iwFRdO4ZhdlDpGBBDa07S+18tDrq6MmcyJQ=="></script>
-    <script nomodule src="/assets/desktop-music-app-6ef35cb647e7afd820d73606a73aa595.js" integrity="sha256-M3YkyClsYVXV54FlZSvg9PW6Epr+9yn3Jjtbv3wxVHs= sha512-AYvbGy8OzGrARjQHRmW1G4HTAZ4OLzeO91pQJtasDJo9VeSH0l6/SETznMXBnGBYe8nv6ic8lw6COUJNg8lMnA=="></script>
-    <script type="module" src="/assets/desktop-music-app-56b5e258aa92a54eeef7555543d3dcbc.modern.js" data-modern-src="" integrity="sha256-XYShrXXYcdU0paVqvcuQj3AYF0+WVUGQlRXqK2KPPao= sha512-uKOxBfZbgtrEJ/rTZspSe9DvCdQYKiSm2hKFliBgMgAPxqWjBeugrhRip2srFWKZcBNc/HBKelm1ARZiOcaGHw=="></script>
+    <script src="/assets/vendor-7b48192d50765143debe6fad0a6108f8.js" integrity="sha256-v4mFar9LTGUI+uAIsPSRX9uuRj9tz2gPjfBeT2JpV6E= sha512-5bqp7OmEs5D7xGBTpHUufDozslz4gYR1ghlXSPKUR8XiB0KqNbPHYbL/cPgpGUsmFLXC0F9iHN3RKHv48ephFA=="></script>
+    <script nomodule src="/assets/desktop-music-app-e2739eaba6016e6ee3d0bb9d80f5d5c7.js" integrity="sha256-21FFbaPiYDlgKeYC0XjZP7KO3nCrGW49Fok0jpwJ4V8= sha512-UxXMz3m60S3SYW7pPg6i2fBQJCxbmGb78Nvx0QpI9XeXIKIxSNGDxDrKxeqCgsHiQugEiKxkv/O0jV+WeaRAtA=="></script>
+    <script type="module" src="/assets/desktop-music-app-f004dd1999ef15216154e1a594593e74.modern.js" data-modern-src="" integrity="sha256-vvZmoDhYlNAjE8m5ZqNALwfeX2x1hSVxDSm/4bd2xgA= sha512-/pcezNZGNleeWi91feMS2gNJrfAku+sgNhKRYA9ikfZXV/Tzi+nfBU3GjkxvJs6Fr+f7eJMUEuy7imD+o/+ShQ=="></script>
 
     
     
