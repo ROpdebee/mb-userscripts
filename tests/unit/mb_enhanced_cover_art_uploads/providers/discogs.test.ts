@@ -42,15 +42,15 @@ describe('discogs provider', () => {
             numImages: 3,
             expectedImages: [{
                 index: 0,
-                urlPart: '/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg',
+                urlPart: '/MPDZnLHLvqDXD9VgXjG6EuxI5mrTCMqjoysNLPs7n9g/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4OTI5/MTItMTU3OTQ1Njcw/Ny0yMzIwLmpwZWc.jpeg',
                 types: undefined,
             }, {
                 index: 1,
-                urlPart: '/VKFNcm02R4h4UfP9lF4qVq7KkdR8XGTrSyn2sGUH8xU/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy00MDQ4Lmpw/ZWc.jpeg',
+                urlPart: '/YUazmsa2FN7AEVL9uiiQcP7Akm7YzvWbOfBmlcBnp0E/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4OTI5/MTItMTU3OTQ1Njcw/Ny00MDQ4LmpwZWc.jpeg',
                 types: undefined,
             }, {
                 index: 2,
-                urlPart: '/kL5esHGWNIcGaRvR2m-B1sK2OqvKJro8t2zRrsqQzOs/rs:fit/g:sm/q:90/h:600/w:528/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTQ4ODA2/NzM0MS0yODcyLmpw/ZWc.jpeg',
+                urlPart: '/lc-HuQ8YhjbAzL1wbsE0ZYTNm62hhRX-23bpK01moEo/rs:fit/g:sm/q:90/h:600/w:528/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4OTI5/MTItMTQ4ODA2NzM0/MS0yODcyLmpwZWc.jpeg',
                 types: undefined,
             }],
         }];
@@ -67,15 +67,15 @@ describe('discogs provider', () => {
 
     describe('maximising image', () => {
         it('finds the image', async () => {
-            const maxUrl = await DiscogsProvider.maximiseImage(new URL('https://i.discogs.com/_xL4yC-gjc-awYVWmO4dDmOv-Za3oICJweuYqpnEzwk/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg'));
+            const maxUrl = await DiscogsProvider.maximiseImage(new URL('https://i.discogs.com/wAcTcCu1v8cmYfw_D_I00DNR_RcxJfBUMb3ls7yG9Wo/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4OTI5/MTItMTU3OTQ1Njcw/Ny0yMzIwLmpwZWc.jpeg'));
 
-            expect(maxUrl.pathname).toBe('/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg');
+            expect(maxUrl.pathname).toBe('/MPDZnLHLvqDXD9VgXjG6EuxI5mrTCMqjoysNLPs7n9g/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4OTI5/MTItMTU3OTQ1Njcw/Ny0yMzIwLmpwZWc.jpeg');
         });
     });
 
     describe('extracting filename from URL', () => {
         it('extracts the correct filename', async () => {
-            const filename = DiscogsProvider.getFilenameFromUrl(new URL('https://i.discogs.com/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg'));
+            const filename = DiscogsProvider.getFilenameFromUrl(new URL('https://i.discogs.com/MPDZnLHLvqDXD9VgXjG6EuxI5mrTCMqjoysNLPs7n9g/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4OTI5/MTItMTU3OTQ1Njcw/Ny0yMzIwLmpwZWc.jpeg'));
 
             expect(filename).toBe('R-9892912-1579456707-2320.jpeg');
         });
