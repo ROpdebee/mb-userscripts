@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2021.9.25
+// @version      2022.3.22
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -9,7 +9,6 @@
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_caa_dimensions.user.js
 // @match        *://musicbrainz.org/*
 // @match        *://*.musicbrainz.org/*
-// @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
@@ -22,8 +21,6 @@ let _debug = DEBUG ? _debug_int : ((msg) => {});
 function _log(msg) {
     console.log('[caa_dimensions] ' + msg);
 }
-
-let $ = this.$ = this.jQuery = jQuery.noConflict(true);
 
 const CACHE_DB_NAME = 'ROpdebee_CAA_Dimensions_Cache';
 const CACHE_STORE_NAME = 'cacheStore';
@@ -61,7 +58,7 @@ function async_memoised(fn, keyFn) {
 function humanFileSize(size) {
     let i = Math.floor(Math.log(size) / Math.log(1024));
     return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
-};
+}
 
 class CacheMgr {
     constructor() {
@@ -313,12 +310,13 @@ function displayInfo(imgElement, infoStr) {
     } else {
         dimensionStr = `Dimensions: ${infoStr}`;
     }
-    let $existing = $(imgElement).parent().find('span.ROpdebee_dimensions');
-    if (!$existing.length) {
-        $existing = $('<span>').addClass('ROpdebee_dimensions');
-        $(imgElement).after($existing);
+    let existing = imgElement.parentNode.querySelector('span.ROpdebee_dimensions');
+    if (!existing) {
+        existing = document.createElement('span');
+        existing.classList.add('ROpdebee_dimensions');
+        imgElement.insertAdjacentElement('afterend', existing);
     }
-    $existing.text(dimensionStr);
+    existing.textContent = dimensionStr;
 }
 
 function createInfoString(result) {
@@ -432,7 +430,7 @@ function listenForNewCoverArtThumbs() {
     // TODO: Wouldn't this be much more efficient if we were to use a mutation
     // observer? Now it's just rechecking the same images over and over.
     setInterval(() => {
-        $('img.uploader-preview-image').each((i, img) => {
+        document.querySelectorAll('img.uploader-preview-image').forEach((img) => {
             if (img.getAttribute('ROpdebee_lazyDimensions')) return;
             // Too early to get dimensions, src hasn't been set yet
             if (!img.naturalWidth) return;
@@ -445,33 +443,35 @@ function listenForNewCoverArtThumbs() {
     }, 500);
 }
 
-$(window).on('load', () => {
+window.addEventListener('load', () => {
 
     setupStyle();
 
     // cover art pages
-    $('#content div.artwork-cont').each((i, div) => {
-        let imgElement = $(div).find('span.cover-art-image > img')[0];
+    document.querySelectorAll('#content div.artwork-cont').forEach((div) => {
+        const imgElement = div.querySelector('span.cover-art-image > img');
         // Could be absent if the image isn't available in CAA yet.
         if (!imgElement) {
             return;
         }
-        let anchor = $(div).find('p.small > a:last')[0];
+        const anchor = div.querySelector('p.small > a:last-of-type');
         if (!anchor) return;
         imgElement.setAttribute('fullSizeURL', anchor.href);
         getDimensionsWhenInView(imgElement);
     });
 
     // edit pages + release page + add/remove/edit/reorder cover art pages
-    $('.edit-cover-art img, p.artwork img, #sidebar .cover-art-image > img, div.thumb-position > a.artwork-image img').each((i, img) => {
-        let anchor = img.closest('a.artwork-image');
+    document.querySelectorAll(
+        '.edit-cover-art img, p.artwork img, #sidebar .cover-art-image > img, div.thumb-position > a.artwork-image img'
+    ).forEach((img) => {
+        const anchor = img.closest('a.artwork-image');
         if (!anchor) return;
         img.setAttribute('fullSizeURL', anchor.href);
         getDimensionsWhenInView(img);
     });
 
     // add cover art pages, listen for new images
-    if ($('#add-cover-art').length) {
+    if (document.querySelector('#add-cover-art')) {
         listenForNewCoverArtThumbs();
     }
 });
