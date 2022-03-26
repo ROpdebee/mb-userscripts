@@ -26,7 +26,7 @@ runs:
     # Inspired by https://www.voorhoede.nl/en/blog/super-fast-npm-install-on-github-actions/
 
     - name: Cache npm package downloads
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: '~/.npm'
         key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ hashFiles('package-lock.json') }}
@@ -45,7 +45,7 @@ runs:
     # package-lock.json.
     - name: Cache node_modules
       id: cache-node-modules
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ./node_modules
         key: modules-${{ runner.os }}-node-${{ steps.node-version.outputs.node-version }}-${{ hashFiles('package-lock.json') }}
