@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2022.2.28
+// @version      2022.3.31
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -760,6 +760,12 @@ function handleGEMA() {
         if (searchResults.nodeType !== Node.ELEMENT_NODE) return;
 
         injectButtons(searchResults);
+    }
+
+    // GEMA overwrites `JSON.stringify()` with a custom implementation which causes `JSON.parse()` to fail on MB.
+    // Restore it again using the original implementation which seems to be backed up as `Object.toJSON()`.
+    if (Object.toJSON) {
+        JSON.stringify = Object.toJSON;
     }
 
     const observer = new MutationObserver(handleChangeGEMA);
