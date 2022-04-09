@@ -53,6 +53,6 @@ jobs:
       - name: Run jest
         run: npm run test
       - name: Upload coverage data
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           files: ./coverage/lcov.info
