@@ -74,7 +74,7 @@
     "rollup-plugin-progress": "1.1.2",
     "sass": "1.50.1",
     "setup-polly-jest": "0.10.0",
-    "simple-git": "3.7.0",
+    "simple-git": "3.7.1",
     "terser": "5.12.1",
     "ts-jest": "27.1.4",
     "ts-node": "10.7.0",
