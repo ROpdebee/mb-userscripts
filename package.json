@@ -75,7 +75,7 @@
     "sass": "1.51.0",
     "setup-polly-jest": "0.10.0",
     "simple-git": "3.7.1",
-    "terser": "5.13.0",
+    "terser": "5.13.1",
     "ts-jest": "27.1.4",
     "ts-node": "10.7.0",
     "tsconfig-paths": "3.14.1",
