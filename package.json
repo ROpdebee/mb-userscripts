@@ -78,7 +78,7 @@
     "terser": "5.13.1",
     "ts-jest": "27.1.4",
     "ts-node": "10.7.0",
-    "tsconfig-paths": "3.14.1",
+    "tsconfig-paths": "4.0.0",
     "type-fest": "2.12.2",
     "typescript": "4.6.4",
     "warcio": "1.5.1"
