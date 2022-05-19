@@ -27,7 +27,7 @@ const metadata: UserscriptMetadata = {
         'GM.getResourceURL',
     ],
     connect: '*',
-    require: ['https://github.com/qsniyg/maxurl/blob/e2b9dc7e3dce254a5b6d645e077aa82cba4570d5/userscript.user.js?raw=true'],
+    require: ['https://github.com/qsniyg/maxurl/blob/96b47410593666efa03aa4979a587818f73d2f3f/userscript.user.js?raw=true'],
     resource: ['amazonFavicon https://www.amazon.com/favicon.ico'],
 };
 
