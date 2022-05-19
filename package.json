@@ -68,7 +68,7 @@
     "node-fetch": "3.2.4",
     "postcss": "8.4.14",
     "postcss-preset-env": "7.5.0",
-    "rollup": "2.73.0",
+    "rollup": "2.74.0",
     "rollup-plugin-consts": "1.1.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-progress": "1.1.2",
