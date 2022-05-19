@@ -99,7 +99,7 @@ export class ArchiveProvider extends CoverArtProvider {
     extractGenericImages(itemMetadata: ArchiveMetadata, baseDownloadUrl: URL): CoverArt[] {
         const originalImagePaths = itemMetadata.files
             .filter((file) => file.source === 'original' && ArchiveProvider.IMAGE_FILE_FORMATS.includes(file.format))
-            .map((file) => file.name);
+            .map((file) => encodeURIComponent(file.name).replaceAll('%2F', '/')); // keep path separators
 
         return originalImagePaths.map((path) => {
             return {
