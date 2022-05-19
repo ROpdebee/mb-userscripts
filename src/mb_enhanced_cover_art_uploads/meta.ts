@@ -17,17 +17,11 @@ const metadata: UserscriptMetadata = {
     exclude: ['*://atisket.pulsewidth.org.uk/'],
     grant: [
         'GM.xmlhttpRequest',
-        // We don't actually use GM.getValue, but it needs to be exposed so that
-        // maxurl exports its interface in userscripts.
-        'GM.getValue',
-        // Similarly, we don't use GM.setValue, but IMU doesn't properly test
-        // whether it exists so it leads to an error.
-        'GM.setValue',
         // Used for some favicons
         'GM.getResourceURL',
     ],
     connect: '*',
-    require: ['https://github.com/qsniyg/maxurl/blob/96b47410593666efa03aa4979a587818f73d2f3f/userscript.user.js?raw=true'],
+    require: ['https://github.com/qsniyg/maxurl/blob/4b8661ee2d7a856dc6c4a9b910664584b397d45a/userscript.user.js?raw=true'],
     resource: ['amazonFavicon https://www.amazon.com/favicon.ico'],
 };
 
