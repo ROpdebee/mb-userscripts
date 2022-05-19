@@ -46,6 +46,14 @@ describe('archive provider', () => {
                 urlPart: '/items/20010917Fantmas-MagicStickDetroitMIUSA/Front.jpg',
             }],
         }, {
+            desc: 'item with a filename that requires URL encoding',
+            url: ' https://archive.org/details/skd815',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: '/items/skd815/%23cover.jpg',
+            }],
+        }, {
             desc: 'item without images',
             url: 'https://archive.org/details/coverartarchive_audit_20210419',
             numImages: 0,
