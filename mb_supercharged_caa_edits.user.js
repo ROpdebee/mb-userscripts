@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2021.10.21
+// @version      2022.5.19
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -35,6 +35,8 @@ const STATUSES = {
     2: 'Promotion',
     3: 'Bootleg',
     4: 'Pseudo-Release',
+    5: 'Withdrawn',
+    6: 'Cancelled',
 };
 
 const PACKAGING_TYPES = {
@@ -56,6 +58,9 @@ const PACKAGING_TYPES = {
     18: 'Plastic Sleeve',
     19: 'Box',
     20: 'Slidepack',
+    21: 'SnapPack',
+    54: 'Metal Tin',
+    55: 'Longbox',
 };
 
 const NONSQUARE_PACKAGING_TYPES = [
@@ -66,6 +71,7 @@ const NONSQUARE_PACKAGING_TYPES = [
     10, // Fatbox
     11, // Snap case
     17, // Digibook
+    55, // Longbox
 ];
 
 const NONSQUARE_PACKAGING_COVER_TYPES = [
