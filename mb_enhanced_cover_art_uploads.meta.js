@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.3.16
+// @version      2022.5.19
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -16,7 +16,7 @@
 // @match        *://etc.marlonob.info/atisket/*
 // @match        *://vgmdb.net/album/*
 // @exclude      *://atisket.pulsewidth.org.uk/
-// @require      https://github.com/qsniyg/maxurl/blob/e2b9dc7e3dce254a5b6d645e077aa82cba4570d5/userscript.user.js?raw=true
+// @require      https://github.com/qsniyg/maxurl/blob/96b47410593666efa03aa4979a587818f73d2f3f/userscript.user.js?raw=true
 // @resource     amazonFavicon https://www.amazon.com/favicon.ico
 // @run-at       document-end
 // @grant        GM_xmlhttpRequest
