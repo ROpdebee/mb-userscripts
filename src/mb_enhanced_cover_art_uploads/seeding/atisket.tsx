@@ -15,7 +15,8 @@ export const AtisketSeeder: Seeder = {
         if (alreadyInMB === null) {
             return;
         }
-        const mbid = qs<HTMLAnchorElement>('a.mb', alreadyInMB).textContent?.trim() ?? '';
+        const mbid = encodeURIComponent(qs<HTMLAnchorElement>('a.mb', alreadyInMB).textContent?.trim() ?? '');
+
         // Try to use the cached link as the origin instead of the page URL itself,
         // so that we link to the state at the time the image was submitted.
         // If the cached link doesn't exist on the page, we're probably already
