@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
-import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput, SourceMapInput } from 'rollup';
+import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput } from 'rollup';
 import type { MinifyOptions } from 'terser';
 import alias from '@rollup/plugin-alias';
 import { babel } from '@rollup/plugin-babel';
@@ -220,7 +220,7 @@ const minifyPlugin: OutputPlugin = {
     async renderChunk(
         code: string,
         chunk: Readonly<RenderedChunk>,
-    ): Promise<{ code: string; map?: SourceMapInput } | null> {
+    ): Promise<{ code: string; map?: string } | null> {
         // Only minify the vendor and lib chunks
         if (![VENDOR_CHUNK_NAME, BUILTIN_LIB_CHUNK_NAME].includes(chunk.name)) return null;
         const terserOptions = {
@@ -231,6 +231,6 @@ const minifyPlugin: OutputPlugin = {
         };
 
         const result = await minify(code, terserOptions);
-        return result.code ? { code: result.code, map: result.map } : null;
+        return result.code ? { code: result.code, map: (typeof result.map === 'string') ? result.map : result.map?.mappings } : null;
     },
 };
