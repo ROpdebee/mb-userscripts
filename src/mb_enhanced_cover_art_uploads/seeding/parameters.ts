@@ -60,8 +60,8 @@ export class SeedParameters {
         return seedParams;
     }
 
-    createSeedURL(releaseId: string): string {
-        return `https://musicbrainz.org/release/${releaseId}/add-cover-art?${this.encode()}`;
+    createSeedURL(releaseId: string, domain = 'musicbrainz.org'): string {
+        return `https://${domain}/release/${releaseId}/add-cover-art?${this.encode()}`;
     }
 
     static decode(seedParams: URLSearchParams): SeedParameters {
