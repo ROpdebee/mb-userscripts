@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.6.1.2
+// @version      2022.6.1.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2061,7 +2061,7 @@
               const candidateProvider = getProviderByDomain(url);
 
               if (typeof candidateProvider !== 'undefined') {
-                throw new Error("This page is not (yet) supported by the ".concat(candidateProvider.name, " provider, are you sure this is an album?"));
+                throw new Error("This page is not (yet) supported by the ".concat(candidateProvider.name, " provider, are you sure this page corresponds to a MusicBrainz release?"));
               }
 
               throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
@@ -2645,7 +2645,7 @@
           if (alreadyInMB === null) {
               return;
           }
-          const mbid = (_qs$textContent$trim = (_qs$textContent = qs('a.mb', alreadyInMB).textContent) === null || _qs$textContent === void 0 ? void 0 : _qs$textContent.trim()) !== null && _qs$textContent$trim !== void 0 ? _qs$textContent$trim : '';
+          const mbid = encodeURIComponent((_qs$textContent$trim = (_qs$textContent = qs('a.mb', alreadyInMB).textContent) === null || _qs$textContent === void 0 ? void 0 : _qs$textContent.trim()) !== null && _qs$textContent$trim !== void 0 ? _qs$textContent$trim : '');
           const cachedAnchor = qsMaybe('#submit-button + div > a');
           addSeedLinkToCovers(mbid, (_cachedAnchor$href = cachedAnchor === null || cachedAnchor === void 0 ? void 0 : cachedAnchor.href) !== null && _cachedAnchor$href !== void 0 ? _cachedAnchor$href : document.location.href);
       }
