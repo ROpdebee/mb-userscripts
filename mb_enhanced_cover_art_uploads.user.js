@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.6.1.4
+// @version      2022.6.1.5
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2061,7 +2061,7 @@
               const candidateProvider = getProviderByDomain(url);
 
               if (typeof candidateProvider !== 'undefined') {
-                throw new Error("This page is not (yet) supported by the ".concat(candidateProvider.name, " provider, are you sure this is an album?"));
+                throw new Error("This page is not (yet) supported by the ".concat(candidateProvider.name, " provider, are you sure this page corresponds to a MusicBrainz release?"));
               }
 
               throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
