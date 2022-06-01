@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.6.1
+// @version      2022.6.1.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2311,7 +2311,8 @@
     }
 
     createSeedURL(releaseId) {
-      return "https://musicbrainz.org/release/".concat(releaseId, "/add-cover-art?").concat(this.encode());
+      let domain = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'musicbrainz.org';
+      return "https://".concat(domain, "/release/").concat(releaseId, "/add-cover-art?").concat(this.encode());
     }
 
     static decode(seedParams) {
@@ -2733,7 +2734,7 @@
                       if (!(provider !== null && provider !== void 0 && provider.allowButtons))
                           return;
                       return _await(provider.favicon, function (favicon) {
-                          const seedUrl = new SeedParameters([{ url }]).createSeedURL(mbid);
+                          const seedUrl = new SeedParameters([{ url }]).createSeedURL(mbid, window.location.host);
                           return function () {
                               var $$a = document.createElement('a');
                               $$a.setAttribute('title', url.href);
