@@ -28,7 +28,7 @@ export const MusicBrainzSeeder: Seeder = {
                 const favicon = await provider.favicon;
                 const seedUrl = new SeedParameters([{
                     url,
-                }]).createSeedURL(mbid);
+                }]).createSeedURL(mbid, window.location.host);
 
                 return <a
                     title={url.href}

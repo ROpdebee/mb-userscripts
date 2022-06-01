@@ -96,4 +96,20 @@ describe('seed parameters', () => {
                 url: new URL('https://example.com/123'),
             }]);
     });
+
+    describe('creating seeding URL', () => {
+        const params = new SeedParameters([dummyImageWithTypeAndComment]);
+
+        it('should default to main MB', () => {
+            const url = params.createSeedURL('dummy-id');
+
+            expect(new URL(url)).toHaveProperty('host', 'musicbrainz.org');
+        });
+
+        it('should be customisable', () => {
+            const url = params.createSeedURL('dummy-id', 'custom.musicbrainz.instance.com');
+
+            expect(new URL(url)).toHaveProperty('host', 'custom.musicbrainz.instance.com');
+        });
+    });
 });
