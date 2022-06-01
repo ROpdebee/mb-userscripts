@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2021.12.18
+// @version      2022.6.1
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -15,7 +15,7 @@
 // @grant        none
 // ==/UserScript==
 
-let $ = this.$ = this.jQuery = jQuery.noConflict(true);
+const $ = jQuery.noConflict(true);
 
 function splitChunks(arr, chunkSize) {
     let chunks = [];

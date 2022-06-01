@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Blind Votes
-// @version      2021.3.30
+// @version      2022.6.1
 // @description  Blinds editor details before your votes are cast.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -13,7 +13,7 @@
 // @run-at       document-body
 // ==/UserScript==
 
-let $ = this.$ = this.jQuery = jQuery.noConflict(true);
+const $ = jQuery.noConflict(true);
 
 function setupStyle() {
     let style = document.createElement('style');

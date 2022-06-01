@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Validate Work Codes
-// @version      2021.12.18
+// @version      2022.6.1
 // @description  Validate work identifier codes: Highlight invalid or ill-formatted work codes.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -21,7 +21,7 @@
 
 // A bit too similar to mb_collapse_work_attributes to my liking, but eh.
 
-let $ = this.$ = this.jQuery = jQuery.noConflict(true);
+const $ = jQuery.noConflict(true);
 
 const ATTR_TRANSLATIONS = [
     'Attributes',

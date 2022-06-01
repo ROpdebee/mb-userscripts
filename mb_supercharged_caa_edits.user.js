@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2022.5.19
+// @version      2022.6.1
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -17,7 +17,7 @@
 // @grant        none
 // ==/UserScript==
 
-let $ = this.$ = this.jQuery = jQuery.noConflict(true);
+const $ = jQuery.noConflict(true);
 resemble.outputSettings({
     errorColor: {red: 0, green: 0, blue: 0},
     errorType: 'movementDifferenceIntensity',

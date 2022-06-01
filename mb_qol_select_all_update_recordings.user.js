@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Select All Update Recordings
-// @version      2021.10.24
+// @version      2022.6.1
 // @description  Add buttons to release editor to select all "Update recordings" checkboxes.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -14,7 +14,7 @@
 // @grant        none
 // ==/UserScript==
 
-let $ = this.$ = this.jQuery = jQuery.noConflict(true);
+const $ = jQuery.noConflict(true);
 
 function changeToTargetState($checkbox, targetState) {
     if ($checkbox.prop('checked') != targetState) {
