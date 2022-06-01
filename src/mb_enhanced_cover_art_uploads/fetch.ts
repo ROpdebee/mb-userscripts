@@ -213,7 +213,7 @@ export class ImageFetcher {
             // could still point to an actual image.
             const candidateProvider = getProviderByDomain(url);
             if (typeof candidateProvider !== 'undefined') {
-                throw new Error(`This page is not (yet) supported by the ${candidateProvider.name} provider, are you sure this is an album?`);
+                throw new Error(`This page is not (yet) supported by the ${candidateProvider.name} provider, are you sure this page corresponds to a MusicBrainz release?`);
             }
 
             throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');

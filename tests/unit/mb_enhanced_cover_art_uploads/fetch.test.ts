@@ -99,7 +99,7 @@ describe('fetching image contents', () => {
         mockGetProviderByDomain.mockImplementationOnce(() => fakeProvider);
 
         await expect(fetcher.fetchImageContents(new URL('https://example.com/not-an-album'), 'test.jpg', {}))
-            .rejects.toThrow('This page is not (yet) supported by the test provider, are you sure this is an album?');
+            .rejects.toThrow('This page is not (yet) supported by the test provider, are you sure this page corresponds to a MusicBrainz release?');
     });
 
     it('rejects on invalid image', async () => {
