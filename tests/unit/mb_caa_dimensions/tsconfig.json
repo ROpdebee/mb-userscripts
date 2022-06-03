@@ -1,0 +1,11 @@
+{
+    "extends": "../../../configs/tsconfig.base-unit",
+    "include": ["**/*"],
+    "files": [
+        "../../types/fake-indexeddb.d.ts"
+    ],
+    "references": [
+        { "path": "../../../src/mb_caa_dimensions" },
+        { "path": "../utils" }
+    ]
+}

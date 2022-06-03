@@ -1,3 +1,6 @@
+import type { ImageInfo } from './ImageInfo';
+import { createCache } from './InfoCache';
+
 const DEBUG = false;
 function _debug_int(msg) {
     console.debug('[caa_dimensions] ' + msg);
@@ -6,14 +9,6 @@ let _debug = DEBUG ? _debug_int : ((msg) => {});
 function _log(msg) {
     console.log('[caa_dimensions] ' + msg);
 }
-
-const CACHE_DB_NAME = 'ROpdebee_CAA_Dimensions_Cache';
-const CACHE_STORE_NAME = 'cacheStore';
-const CACHE_DB_VERSION = 1;
-
-const CACHE_TIMESTAMP_NAME = 'ROpdebee_Last_Cache_Prune_Check';
-const CACHE_CHECK_INTERVAL = 24 * 60 * 60 * 1000;   // Daily
-const CACHE_STALE_TIME = 14 * 24 * 60 * 60 * 1000;  // 2 weeks
 
 function async_memoised(fn, keyFn) {
     // Wrap the given asynchronous function into a memoised one
@@ -45,110 +40,8 @@ function humanFileSize(size) {
     return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
 }
 
-class CacheMgr {
-    constructor() {
-        // Promise that is resolved when a DB is successfully opened, and
-        // rejected when a DB cannot be opened or isn't available.
-        this.dbProm = new Promise((resolve, reject) => {
-            if (!window.indexedDB) {
-                _log('Not using cache, IndexedDB not supported?');
-                reject();
-            }
-
-            // Try to open a DB, if it fails, just don't use the cache
-            let dbReq = window.indexedDB.open(CACHE_DB_NAME, CACHE_DB_VERSION);
-            dbReq.onsuccess = ((evt) => {
-                _debug('Successfully opened indexed DB');
-                resolve(evt.target.result);
-            });
-            dbReq.onupgradeneeded = ((evt) => {
-                _log('Creating indexed DB object store');
-                let store = evt.target.result
-                    .createObjectStore(CACHE_STORE_NAME, { keyPath: 'url' });
-                // Index to quickly remove stale entries.
-                store.createIndex('added_datetime', 'added_datetime');
-                resolve(evt.target.result);
-            });
-            dbReq.onerror = ((evt) => {
-                _log(`Failed to open indexedDB: ${evt.target.errorCode}`);
-                reject();
-            });
-        });
-
-        this.dbProm.then(this.maybePruneCache.bind(this));
-    }
-
-    maybePruneCache(db) {
-        const lastCheck = parseInt(window.localStorage.getItem(CACHE_TIMESTAMP_NAME)) || 0;
-        const timeElapsed = Date.now() - lastCheck;
-        if (lastCheck && timeElapsed < CACHE_CHECK_INTERVAL) {
-            _debug(`Last checked at ${new Date(lastCheck)}, not pruning cache`);
-            return;
-        }
-
-        _log('Pruning stale entries from cache');
-        let idx = db
-            .transaction(CACHE_STORE_NAME, 'readwrite')
-            .objectStore(CACHE_STORE_NAME)
-            .index('added_datetime');
-        let range = IDBKeyRange.upperBound(Date.now() - CACHE_STALE_TIME);
-        idx.openCursor(range).onsuccess = function (evt) {
-            let cursor = evt.target.result;
-            if (cursor) {
-                _debug(`Removing ${cursor.value.url} (added at ${new Date(cursor.value.added_datetime)})`);
-                cursor.delete();
-                cursor.continue();
-            } else {
-                // Done
-                _debug('Done pruning stale entries');
-                window.localStorage.setItem(CACHE_TIMESTAMP_NAME, Date.now());
-            }
-        }
-    }
-
-    loadFromCache(imgUrl) {
-        return this.dbProm
-            // If the DB was successfully loaded, use it to get the cache.
-            .then((db) => new Promise((resolve, reject) => {
-                let t = db.transaction(CACHE_STORE_NAME)
-                    .objectStore(CACHE_STORE_NAME)
-                    .get(imgUrl)
-                t.onsuccess = ((evt) => {
-                    let res = evt.target.result;
-                    if (res) {
-                        _debug(`${imgUrl}: Cache hit`);
-                        resolve(res);
-                    } else {
-                        _debug(`${imgUrl}: Cache miss`);
-                        reject(null);
-                    }
-                });
-                t.onerror = ((evt) => {
-                    _log(`Failed to load ${imgUrl} from cache: ${evt.target.error}`);
-                    reject(evt.target.error);
-                });
-            }));
-    }
-
-    storeInCache(imgUrl, width, height, size, format) {
-        return this.dbProm.then((db) => {
-            let obj = {url: imgUrl, width: width, height: height, size: size, format: format, added_datetime: Date.now()};
-            let t = db.transaction(CACHE_STORE_NAME, 'readwrite')
-                .objectStore(CACHE_STORE_NAME)
-                .put(obj)
-            t.onerror = ((evt) => {
-                _log(`Failed to store ${imgUrl} into cache: ${evt.target.error}`)
-            });
-            t.onsuccess = ((evt) => {
-                _debug(`${imgUrl} successfully stored in cache.`);
-            });
-
-            return obj;
-        });
-    }
-}
-
-const cacheMgr = new CacheMgr();
+// TODO: Refactor this so it's already awaited and we can use the bare cache instead of a promise all the time.
+const cacheProm = createCache();
 
 function actuallyLoadImageDimensions(imgUrl) {
     _log(`Getting image dimensions for ${imgUrl}`);
@@ -222,7 +115,7 @@ async function loadImageFileMeta(imgUrl) {
     return imgMeta;
 }
 
-function actuallyLoadImageInfo(imgUrl) {
+function actuallyLoadImageInfo(imgUrl: string): Promise<ImageInfo> {
     const loaders = [actuallyLoadImageDimensions, loadImageFileMeta];
     return Promise.allSettled(loaders.map((fn) => fn(imgUrl)))
         .then((results) => {
@@ -250,17 +143,28 @@ function actuallyLoadImageInfo(imgUrl) {
                 format = '';
             }
 
+            const result: ImageInfo = {
+                dimensions: {
+                    width: w,
+                    height: h,
+                },
+                size,
+                fileType: format,
+            };
+
             if (dimFailed || metaFailed) {
                 // Don't store in cache if either of the two failed, but still
                 // return a result
-                return {url: imgUrl, width: w, height: h, size: size, format: format};
+                return result;
             }
 
-            return cacheMgr.storeInCache(imgUrl, w, h, size, format);
+            return cacheProm
+                .then((cache) => cache.put(imgUrl, result))
+                .then(() => result);
         });
 }
 
-function _loadImageInfo(imgUrl) {
+async function _loadImageInfo(imgUrl: string): Promise<ImageInfo> {
     let urlObj = new URL(imgUrl);
     if (urlObj.hostname === 'coverartarchive.org' && !urlObj.pathname.startsWith('/release-group/')) {
         // Bypass the redirect and go to IA directly. No use hitting CAA with
@@ -270,11 +174,18 @@ function _loadImageInfo(imgUrl) {
         imgUrl = `https://archive.org/download/mbid-${mbid}/mbid-${mbid}-${imgPath}`;
     }
 
-    return cacheMgr
-        // Try loading from cache first
-        .loadFromCache(imgUrl)
-        // If we couldn't load it from the cache, actually do the loading
-        .catch((err) => actuallyLoadImageInfo(imgUrl));
+
+    // Try loading from cache first
+    try {
+        const cachedResult = await cacheProm.then((cache) => cache.get(imgUrl));
+        if (typeof cachedResult !== 'undefined') return cachedResult;
+        // cache miss, fall through to actually loading
+    } catch {
+        // cache error, fall through to actually loading
+    }
+
+    // If we couldn't load it from the cache, actually do the loading.
+    return actuallyLoadImageInfo(imgUrl);
 }
 const loadImageInfo = async_memoised(
         _loadImageInfo,
@@ -282,7 +193,7 @@ const loadImageInfo = async_memoised(
 
 // For compatibility with older scripts. Deprecated.
 function loadImageDimensions(imgUrl) {
-    return loadImageInfo(imgUrl).then((res) => [res.width, res.height]);
+    return loadImageInfo(imgUrl).then((res) => [res.dimensions.width, res.dimensions.height]);
 }
 
 function displayInfo(imgElement, infoStr) {
@@ -304,28 +215,28 @@ function displayInfo(imgElement, infoStr) {
     existing.textContent = dimensionStr;
 }
 
-function createInfoString(result) {
-    let dimStr, sizeStr;
-    if (!result.width || !result.height) {
+function createInfoString(result: ImageInfo): string {
+    let dimStr: string, sizeStr: string;
+    if (!result.dimensions.width || !result.dimensions.height) {
         dimStr = 'failed :(';
     } else {
-        dimStr = `${result.width}x${result.height}`;
+        dimStr = `${result.dimensions.width}x${result.dimensions.height}`;
     }
 
-    if (!result.size) {
+    if (typeof result.size === 'undefined') {
         sizeStr = '??? KB';
     } else {
         sizeStr = humanFileSize(result.size);
     }
 
-    if (result.format) {
-        sizeStr += `, ${result.format}`;
+    if (typeof result.fileType !== 'undefined') {
+        sizeStr += `, ${result.fileType}`;
     }
 
     return `${dimStr} (${sizeStr})`;
 }
 
-function cbImageInView(imgElement) {
+function cbImageInView(imgElement: HTMLImageElement): void {
     // Don't load dimensions if it's already loaded/currently being loaded
     if (imgElement.getAttribute('ROpdebee_lazyDimensions')) {
         return;
