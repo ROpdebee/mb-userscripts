@@ -154,11 +154,6 @@ async function _loadImageInfo(imgUrl: string): Promise<ImageInfo> {
 }
 const loadImageInfo = memoize(_loadImageInfo);
 
-// For compatibility with older scripts. Deprecated.
-function loadImageDimensions(imgUrl) {
-    return loadImageInfo(imgUrl).then((res) => [res.dimensions.width, res.dimensions.height]);
-}
-
 function displayInfo(imgElement, infoStr) {
     imgElement.setAttribute('ROpdebee_lazyDimensions', infoStr);
 
@@ -236,7 +231,6 @@ let getDimensionsWhenInView = (function() {
 
 // Expose the function for use in other scripts that may load images.
 window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
-window.ROpdebee_loadImageDimensions = loadImageDimensions;
 window.ROpdebee_loadImageInfo = loadImageInfo;
 
 function setupStyle() {
