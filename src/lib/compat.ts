@@ -2,15 +2,6 @@
 // istanbul ignore file: Covered by E2E
 
 
-// Fix GM.Request interface through declaration merging.
-declare global {
-    namespace GM {
-        interface Request {
-            responseType?: string;
-        }
-    }
-}
-
 /* eslint-disable no-restricted-globals */
 
 // Declare v3 GM_* APIs, but not globally.
