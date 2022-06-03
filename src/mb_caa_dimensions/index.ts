@@ -1,3 +1,6 @@
+import { formatSize } from '@lib/util/format';
+import { memoize } from '@lib/util/functions';
+
 import type { ImageInfo } from './ImageInfo';
 import { createCache } from './InfoCache';
 
@@ -8,36 +11,6 @@ function _debug_int(msg) {
 let _debug = DEBUG ? _debug_int : ((msg) => {});
 function _log(msg) {
     console.log('[caa_dimensions] ' + msg);
-}
-
-function async_memoised(fn, keyFn) {
-    // Wrap the given asynchronous function into a memoised one
-    // keyFn extracts the cache key from the arguments, it is given the arguments
-    // as the actual call.
-
-    // Maps the keys to the promise of the first call
-    let cache = new Map();
-
-    function wrapper(...args) {
-        let key = keyFn(...args);
-        if (cache.has(key)) {
-            _debug(`Using pre-existing promise for ${key}`);
-            return cache.get(key);
-        }
-
-        _debug(`Creating new promise for ${key}`);
-        let promise = fn(...args);
-        cache.set(key, promise);
-        return promise;
-    }
-
-    return wrapper;
-}
-
-// Thanks to https://stackoverflow.com/a/20732091
-function humanFileSize(size) {
-    let i = Math.floor(Math.log(size) / Math.log(1024));
-    return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
 }
 
 // TODO: Refactor this so it's already awaited and we can use the bare cache instead of a promise all the time.
@@ -90,7 +63,7 @@ async function _fetchIAMetadata(itemId) {
 }
 // Use memoised fetch so that a single page can reuse the same metadata.
 // Don't cache metadata across page loads, as it might change.
-const fetchIAMetadata = async_memoised(_fetchIAMetadata, (itemId) => itemId);
+const fetchIAMetadata = memoize(_fetchIAMetadata);
 
 async function loadImageFileMeta(imgUrl) {
     let urlObj = new URL(imgUrl);
@@ -187,9 +160,7 @@ async function _loadImageInfo(imgUrl: string): Promise<ImageInfo> {
     // If we couldn't load it from the cache, actually do the loading.
     return actuallyLoadImageInfo(imgUrl);
 }
-const loadImageInfo = async_memoised(
-        _loadImageInfo,
-        (url, ...args) => url);
+const loadImageInfo = memoize(_loadImageInfo);
 
 // For compatibility with older scripts. Deprecated.
 function loadImageDimensions(imgUrl) {
@@ -226,7 +197,7 @@ function createInfoString(result: ImageInfo): string {
     if (typeof result.size === 'undefined') {
         sizeStr = '??? KB';
     } else {
-        sizeStr = humanFileSize(result.size);
+        sizeStr = formatSize(result.size);
     }
 
     if (typeof result.fileType !== 'undefined') {
