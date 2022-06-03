@@ -1,23 +1,15 @@
+import { LOGGER } from '@lib/logging/logger';
 import { formatSize } from '@lib/util/format';
 import { memoize } from '@lib/util/functions';
 
 import type { ImageInfo } from './ImageInfo';
 import { createCache } from './InfoCache';
 
-const DEBUG = false;
-function _debug_int(msg) {
-    console.debug('[caa_dimensions] ' + msg);
-}
-let _debug = DEBUG ? _debug_int : ((msg) => {});
-function _log(msg) {
-    console.log('[caa_dimensions] ' + msg);
-}
-
 // TODO: Refactor this so it's already awaited and we can use the bare cache instead of a promise all the time.
 const cacheProm = createCache();
 
 function actuallyLoadImageDimensions(imgUrl) {
-    _log(`Getting image dimensions for ${imgUrl}`);
+    LOGGER.info(`Getting image dimensions for ${imgUrl}`);
     return new Promise((resolve, reject) => {
         // Create dummy element to contain the image, from which we retrieve the natural width and height.
         var img = document.createElement('img');
@@ -75,13 +67,13 @@ async function loadImageFileMeta(imgUrl) {
 
     let metadata = await fetchIAMetadata(itemId);
     if (!metadata) {
-        _log(`${imgUrl}: Empty metadata. Darked?`);
+        LOGGER.warn(`${imgUrl}: Empty metadata. Darked?`);
         return {};
     }
 
     let imgMeta = metadata.result.find((meta) => meta.name === imagePath);
     if (!imgMeta) {
-        _log(`${imgUrl}: Could not find image in metadata.`);
+        LOGGER.error(`${imgUrl}: Could not find image in metadata.`);
         return {};
     }
 
@@ -103,7 +95,7 @@ function actuallyLoadImageInfo(imgUrl: string): Promise<ImageInfo> {
             if (!dimFailed) {
                 [w, h] = dimResult.value;
             } else {
-                _log(`${imgUrl}: Failed to load dimensions: ${dimResult.reason}`);
+                LOGGER.error(`${imgUrl}: Failed to load dimensions: ${dimResult.reason}`);
                 [w, h] = [0, 0];
             }
 
@@ -111,7 +103,7 @@ function actuallyLoadImageInfo(imgUrl: string): Promise<ImageInfo> {
                 size = parseInt(metaResult.value.size);
                 format = metaResult.value.format;
             } else {
-                _log(`${imgUrl}: Failed to load metadata: ${metaResult.reason}`);
+                LOGGER.error(`${imgUrl}: Failed to load metadata: ${metaResult.reason}`);
                 size = 0;
                 format = '';
             }
@@ -215,7 +207,7 @@ function cbImageInView(imgElement: HTMLImageElement): void {
 
     // If there's no full size URL, don't attempt to load dimensions
     if (!imgElement.getAttribute('fullSizeURL')) {
-        _log('No fullSizeURL on image, not loading');
+        LOGGER.error('No fullSizeURL on image, not loading');
         return;
     }
 
@@ -225,8 +217,8 @@ function cbImageInView(imgElement: HTMLImageElement): void {
     loadImageInfo(imgElement.getAttribute('fullSizeURL'))
         .then((res) => displayInfo(imgElement, createInfoString(res)))
         .catch((err) => {
-            _log(err);
-            displayInfo(imgElement, 'failed :(')
+            LOGGER.error('Failed to load image information', err);
+            displayInfo(imgElement, 'failed :(');
         });
 }
 
