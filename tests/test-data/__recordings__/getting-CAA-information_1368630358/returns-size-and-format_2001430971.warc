@@ -1,0 +1,82 @@
+WARC/1.1
+WARC-Filename: getting CAA information/returns size and format
+WARC-Date: 2022-06-05T14:46:24.106Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:dcbf655f-4772-4b3e-94de-e14a4d2f1057>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:c71a4d28-d6e3-4049-9a73-7c62f27b1868>
+WARC-Target-URI: https://archive.org/metadata/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0
+WARC-Date: 2022-06-05T14:46:24.107Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:e596bc50-078a-4913-be24-17997709d351>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:fa7ab5d4b1203da7939c8f63ecb89e6fc800f5e8ad86c6d2fbec1fe8ee1d09d5
+Content-Length: 177
+
+GET /metadata/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0 HTTP/1.1
+accept: */*
+accept-encoding: gzip,deflate,br
+connection: close
+user-agent: node-fetch
+host: archive.org
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:c71a4d28-d6e3-4049-9a73-7c62f27b1868>
+WARC-Target-URI: https://archive.org/metadata/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0
+WARC-Date: 2022-06-05T14:46:24.108Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:9b19f2e5-0882-4a91-bf5f-5c5cce93d59c>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:219dd71c33d2df72fea8b69a5740f2e3306b6111863b3f48a3b9472f8034ddd4
+WARC-Block-Digest: sha256:219dd71c33d2df72fea8b69a5740f2e3306b6111863b3f48a3b9472f8034ddd4
+Content-Length: 386
+
+harEntryId: 968f281c7aaa5bc810ea351d51a57c23
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-06-05T14:46:23.177Z
+time: 912
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":912,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 196
+warcRequestCookies: []
+warcResponseHeadersSize: 318
+warcResponseCookies: []
+responseDecoded: false
+warcResponseContentEncoding: base64
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/metadata/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0
+WARC-Date: 2022-06-05T14:46:24.106Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:c71a4d28-d6e3-4049-9a73-7c62f27b1868>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:1f95d1b11b42014e741c7cc8a6b767a7ccf4f017c7aeed5ef374c6fa3369e3d4
+WARC-Block-Digest: sha256:3ee45bac4b48e557e39fd00891f21329430808e740923f3d414d3f7b48709edd
+Content-Length: 2555
+
+HTTP/1.1 200 OK
+server: nginx/1.18.0 (Ubuntu)
+date: Sun, 05 Jun 2022 14:46:24 GMT
+content-type: application/json
+transfer-encoding: chunked
+connection: close
+access-control-allow-origin: *
+content-encoding: gzip
+vary: Accept-Encoding
+strict-transport-security: max-age=15724800
+referrer-policy: no-referrer-when-downgrade
+
+["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"]
+

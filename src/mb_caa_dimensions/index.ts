@@ -2,138 +2,42 @@ import { LOGGER } from '@lib/logging/logger';
 import { formatSize } from '@lib/util/format';
 import { memoize } from '@lib/util/functions';
 
-import type { Dimensions, ImageInfo } from './ImageInfo';
+import type { ImageInfo } from './ImageInfo';
+import { getCAAInfo } from './caa_info';
+import { getImageDimensions } from './dimensions';
 import { createCache } from './InfoCache';
 
 // TODO: Refactor this so it's already awaited and we can use the bare cache instead of a promise all the time.
 const cacheProm = createCache();
 
-function actuallyLoadImageDimensions(imgUrl) {
-    LOGGER.info(`Getting image dimensions for ${imgUrl}`);
-    return new Promise((resolve, reject) => {
-        // Create dummy element to contain the image, from which we retrieve the natural width and height.
-        var img = document.createElement('img');
-        img.src = imgUrl;
+async function actuallyLoadImageInfo(imgUrl: string): Promise<ImageInfo> {
+    const results: ImageInfo = {};
+    const cache = await cacheProm;
 
-        let done = false;
-        // Poll continuously until we can retrieve the height/width of the element
-        // Ideally, this is before the image is fully loaded.
-        var poll = setInterval(function () {
-            if (img.naturalWidth) {
-                clearInterval(poll);
-                let [w, h] = [img.naturalWidth, img.naturalHeight];
-                img.src = '';
-                done = true;
-                resolve([w, h]);
-            }
-        }, 50);
-
-        img.addEventListener('load', () => {
-            clearInterval(poll);
-            // If loaded but not yet done, fire the callback. Otherwise the interval is cleared
-            // and no results are sent to the CB.
-            if (!done) {
-                done = true;
-                resolve([img.naturalWidth, img.naturalHeight]);
-            }
-        });
-
-        img.addEventListener('error', (evt) => {
-            clearInterval(poll);
-            if (!done) {
-                done = true;
-                reject(evt.target.error);
-            }
-        });
-    });
-}
-
-async function _fetchIAMetadata(itemId) {
-    let resp = await fetch(`https://archive.org/metadata/${itemId}/files`);
-    let metadata = await resp.json();
-    return metadata;
-}
-// Use memoised fetch so that a single page can reuse the same metadata.
-// Don't cache metadata across page loads, as it might change.
-const fetchIAMetadata = memoize(_fetchIAMetadata);
-
-async function loadImageFileMeta(imgUrl) {
-    let urlObj = new URL(imgUrl);
-    if (urlObj.hostname !== 'archive.org') {
-        return {};
+    try {
+        const dimensions = await getImageDimensions(imgUrl);
+        await cache.putDimensions(imgUrl, dimensions);
+        results.dimensions = dimensions;
+    } catch (e) {
+        LOGGER.error(`${imgUrl}: Failed to load dimensions`, e);
     }
 
-    let [itemId, imagePath] = urlObj.pathname.split('/').slice(2);
-
-    let metadata = await fetchIAMetadata(itemId);
-    if (!metadata) {
-        LOGGER.warn(`${imgUrl}: Empty metadata. Darked?`);
-        return {};
+    try {
+        const urlObj = new URL(imgUrl);
+        if (urlObj.host === 'archive.org') {
+            const [itemId, imageName] = urlObj.pathname.split('/').slice(2);
+            const fileInfo = await getCAAInfo(itemId, imageName);
+            await cache.putFileInfo(imgUrl, fileInfo);
+            results.size = fileInfo.size;
+            results.fileType = fileInfo.fileType;
+        } else {
+            LOGGER.warn('Not loading image file info, not an IA URL');
+        }
+    } catch (e) {
+        LOGGER.error(`${imgUrl}: Failed to load file info`, e);
     }
 
-    let imgMeta = metadata.result.find((meta) => meta.name === imagePath);
-    if (!imgMeta) {
-        LOGGER.error(`${imgUrl}: Could not find image in metadata.`);
-        return {};
-    }
-
-    return imgMeta;
-}
-
-function actuallyLoadImageInfo(imgUrl: string): Promise<ImageInfo> {
-    const loaders = [actuallyLoadImageDimensions, loadImageFileMeta];
-    return Promise.allSettled(loaders.map((fn) => fn(imgUrl)))
-        .then((results) => {
-            let [dimFailed, metaFailed] = results.map((res) => res.status !== 'fulfilled');
-            let [dimResult, metaResult] = results;
-
-            if (dimFailed && metaFailed) {
-                throw new Error(`${imgUrl}: ${dimResult.reason}, ${metaResult.reason}`);
-            }
-
-            let w, h, size;
-            if (!dimFailed) {
-                [w, h] = dimResult.value;
-            } else {
-                LOGGER.error(`${imgUrl}: Failed to load dimensions: ${dimResult.reason}`);
-                [w, h] = [0, 0];
-            }
-
-            if (!metaFailed) {
-                size = parseInt(metaResult.value.size);
-                format = metaResult.value.format;
-            } else {
-                LOGGER.error(`${imgUrl}: Failed to load metadata: ${metaResult.reason}`);
-                size = 0;
-                format = '';
-            }
-
-            const result: ImageInfo = {
-                dimensions: {
-                    width: w,
-                    height: h,
-                },
-                size,
-                fileType: format,
-            };
-
-            if (dimFailed || metaFailed) {
-                // Don't store in cache if either of the two failed, but still
-                // return a result
-                return result;
-            }
-
-            return cacheProm
-                .then((cache) => {
-                    return Promise.all([
-                        cache.putDimensions(imgUrl, result.dimensions),
-                        cache.putFileInfo(imgUrl, {
-                            size: result.size,
-                            fileType: result.fileType,
-                        }),
-                    ]);
-                }).then(() => result);
-        });
+    return results;
 }
 
 async function _loadImageInfo(imgUrl: string): Promise<ImageInfo> {
@@ -188,7 +92,7 @@ function displayInfo(imgElement, infoStr) {
 
 function createInfoString(result: ImageInfo): string {
     let dimStr: string, sizeStr: string;
-    if (!result.dimensions.width || !result.dimensions.height) {
+    if (typeof result.dimensions === 'undefined') {
         dimStr = 'failed :(';
     } else {
         dimStr = `${result.dimensions.width}x${result.dimensions.height}`;
@@ -257,7 +161,7 @@ window.ROpdebee_loadImageInfo = ((imgUrl: string): Promise<LegacyImageInfo> =>
     loadImageInfo(imgUrl)
         .then((imageInfo) => ({
             url: imgUrl,
-            ...imageInfo.dimensions,
+            ...imageInfo.dimensions ?? { width: 0, height: 0 },
             size: imageInfo.size,
             format: imageInfo.fileType,
         }))

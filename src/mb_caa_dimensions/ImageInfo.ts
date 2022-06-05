@@ -15,5 +15,5 @@ export interface FileInfo {
 /** Image information. */
 export interface ImageInfo extends FileInfo {
     /** Dimensions of the image. */
-    dimensions: Dimensions;
+    dimensions?: Dimensions;
 }
