@@ -7,11 +7,12 @@ import type { FileInfo } from './ImageInfo';
 // Don't cache metadata across page loads, as it might change.
 const fetchIAMetadata = memoize(getItemMetadata);
 
-export async function getCAAInfo(itemId: string, imageName: string): Promise<FileInfo> {
+export async function getCAAInfo(itemId: string, imageId: string): Promise<FileInfo> {
     const iaManifest = await fetchIAMetadata(itemId);
-    const imgMetadata = iaManifest.files.find((fileMeta) => fileMeta.name === imageName);
+    const fileNameRegex = new RegExp(`mbid-[a-f0-9-]{36}-${imageId}\\.\\w+$`);
+    const imgMetadata = iaManifest.files.find((fileMeta) => fileNameRegex.test(fileMeta.name));
     if (typeof imgMetadata === 'undefined') {
-        throw new Error(`Could not find image "${imageName}" in IA manifest`);
+        throw new Error(`Could not find image "${imageId}" in IA manifest`);
     }
 
     return {

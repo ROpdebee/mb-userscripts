@@ -6,70 +6,11 @@ import type { ImageInfo } from './ImageInfo';
 import { getCAAInfo } from './caa_info';
 import { getImageDimensions } from './dimensions';
 import { createCache } from './InfoCache';
+import { CAAImage } from './Image';
 
 // TODO: Refactor this so it's already awaited and we can use the bare cache instead of a promise all the time.
 const cacheProm = createCache();
 
-async function actuallyLoadImageInfo(imgUrl: string): Promise<ImageInfo> {
-    const results: ImageInfo = {};
-    const cache = await cacheProm;
-
-    try {
-        const dimensions = await getImageDimensions(imgUrl);
-        await cache.putDimensions(imgUrl, dimensions);
-        results.dimensions = dimensions;
-    } catch (e) {
-        LOGGER.error(`${imgUrl}: Failed to load dimensions`, e);
-    }
-
-    try {
-        const urlObj = new URL(imgUrl);
-        if (urlObj.host === 'archive.org') {
-            const [itemId, imageName] = urlObj.pathname.split('/').slice(2);
-            const fileInfo = await getCAAInfo(itemId, imageName);
-            await cache.putFileInfo(imgUrl, fileInfo);
-            results.size = fileInfo.size;
-            results.fileType = fileInfo.fileType;
-        } else {
-            LOGGER.warn('Not loading image file info, not an IA URL');
-        }
-    } catch (e) {
-        LOGGER.error(`${imgUrl}: Failed to load file info`, e);
-    }
-
-    return results;
-}
-
-async function _loadImageInfo(imgUrl: string): Promise<ImageInfo> {
-    let urlObj = new URL(imgUrl);
-    if (urlObj.hostname === 'coverartarchive.org' && !urlObj.pathname.startsWith('/release-group/')) {
-        // Bypass the redirect and go to IA directly. No use hitting CAA with
-        // requests, and it's likely we'll get 429s when there are too many
-        // images on the page.
-        let [mbid, imgPath] = urlObj.pathname.split('/').slice(2);
-        imgUrl = `https://archive.org/download/mbid-${mbid}/mbid-${mbid}-${imgPath}`;
-    }
-
-
-    // Try loading from cache first
-    try {
-        const cachedDimensions = await cacheProm.then((cache) => cache.getDimensions(imgUrl));
-        const cachedInfo = await cacheProm.then((cache) => cache.getFileInfo(imgUrl));
-        if (typeof cachedDimensions !== 'undefined' && typeof cachedInfo !== 'undefined') {
-            return {
-                dimensions: cachedDimensions,
-                ...cachedInfo,
-            };
-        }
-        // cache miss, fall through to actually loading
-    } catch {
-        // cache error, fall through to actually loading
-    }
-
-    // If we couldn't load it from the cache, actually do the loading.
-    return actuallyLoadImageInfo(imgUrl);
-}
-const loadImageInfo = memoize(_loadImageInfo);
 
 function displayInfo(imgElement, infoStr) {
     imgElement.setAttribute('ROpdebee_lazyDimensions', infoStr);
@@ -111,27 +52,31 @@ function createInfoString(result: ImageInfo): string {
     return `${dimStr} (${sizeStr})`;
 }
 
-function cbImageInView(imgElement: HTMLImageElement): void {
+async function cbImageInView(imgElement: HTMLImageElement): Promise<void> {
     // Don't load dimensions if it's already loaded/currently being loaded
     if (imgElement.getAttribute('ROpdebee_lazyDimensions')) {
         return;
     }
 
-    // If there's no full size URL, don't attempt to load dimensions
-    if (!imgElement.getAttribute('fullSizeURL')) {
-        LOGGER.error('No fullSizeURL on image, not loading');
+    const matchGroups = imgElement.src.match(/(mbid-[a-f0-9-]{36})\/mbid-[a-f0-9-]{36}-(\d+)/);
+    if (matchGroups === null) {
+        LOGGER.error(`Failed to extract image ID from URL ${imgElement.src}`);
         return;
     }
+    const [itemId, imageId] = matchGroups.slice(1);
 
     // Placeholder while loading, prevent from loading again.
     displayInfo(imgElement, 'pending…');
+    const cache = await cacheProm;
+    const image = new CAAImage(itemId, imageId, cache);
 
-    loadImageInfo(imgElement.getAttribute('fullSizeURL'))
-        .then((res) => displayInfo(imgElement, createInfoString(res)))
-        .catch((err) => {
-            LOGGER.error('Failed to load image information', err);
-            displayInfo(imgElement, 'failed :(');
-        });
+    try {
+        const imageInfo = await image.getImageInfo();
+        displayInfo(imgElement, createInfoString(imageInfo));
+    } catch (e) {
+        LOGGER.error('Failed to load image information', e);
+        displayInfo(imgElement, 'failed :(');
+    }
 }
 
 let getDimensionsWhenInView = (function() {
@@ -154,11 +99,29 @@ interface LegacyImageInfo {
     format?: string;
 }
 
+async function getCAAImageInfo(imgUrl: string): Promise<ImageInfo> {
+    const urlObj = new URL(imgUrl);
+    if (urlObj.host !== 'archive.org') {
+        throw new Error('Unsupported URL');
+    }
+
+    const matchGroups = imgUrl.match(/(mbid-[a-f0-9-]{36})\/mbid-[a-f0-9-]{36}-(\d+)/);
+    if (matchGroups === null) {
+        LOGGER.error(`Failed to extract image ID from URL ${imgUrl}`);
+        throw new Error('Invalid URL');
+    }
+    const [itemId, imageId] = matchGroups.slice(1);
+
+    const cache = await cacheProm;
+    const image = new CAAImage(itemId, imageId, cache);
+    return image.getImageInfo();
+}
+
 // Expose the function for use in other scripts that may load images.
 window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
 // Deprecated, use `ROpdebee_getImageInfo` instead.
 window.ROpdebee_loadImageInfo = ((imgUrl: string): Promise<LegacyImageInfo> =>
-    loadImageInfo(imgUrl)
+    getCAAImageInfo(imgUrl)
         .then((imageInfo) => ({
             url: imgUrl,
             ...imageInfo.dimensions ?? { width: 0, height: 0 },
@@ -166,7 +129,7 @@ window.ROpdebee_loadImageInfo = ((imgUrl: string): Promise<LegacyImageInfo> =>
             format: imageInfo.fileType,
         }))
 );
-window.ROpdebee_getImageInfo = loadImageInfo;
+window.ROpdebee_getCAAImageInfo = getCAAImageInfo;
 
 function setupStyle() {
     let style = document.createElement('style');
