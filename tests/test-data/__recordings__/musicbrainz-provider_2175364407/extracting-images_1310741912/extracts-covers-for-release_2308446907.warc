@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: musicbrainz provider/extracting images/extracts covers for release
-WARC-Date: 2022-06-05T12:48:49.694Z
+WARC-Date: 2022-06-05T21:54:17.282Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:3ba1763a-6fe0-4d23-9e24-0c0c964261f9>
+WARC-Record-ID: <urn:uuid:99be2946-01e6-49fb-b091-c73d23cb9d2e>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,80 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d3bb58ee-da8a-438b-943f-d4b093faefc7>
-WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
-WARC-Date: 2022-06-05T12:48:49.695Z
+WARC-Concurrent-To: <urn:uuid:6a5e13b2-749d-4b41-8402-fe8ed2b93c5d>
+WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
+WARC-Date: 2022-06-05T21:54:17.283Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:c6548768-d301-4d1b-a4ab-0537fa173826>
+WARC-Record-ID: <urn:uuid:d15dea53-2e5e-4f0b-bf8f-19b7dbd7b7c8>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:8c45887ae9325cbcdcb17bcbbb179ad709c728cc28a57326790ebe526dbc8e3a
+Content-Length: 177
+
+GET /metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687 HTTP/1.1
+accept: */*
+accept-encoding: gzip,deflate,br
+connection: close
+user-agent: node-fetch
+host: archive.org
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:6a5e13b2-749d-4b41-8402-fe8ed2b93c5d>
+WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
+WARC-Date: 2022-06-05T21:54:17.283Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:51f4c0ef-aaf0-47d8-be46-c285ab65fa9e>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:baf509770f7dc74318c637f5f7dc350c01ad06bdcd00c112ac920549d0aa8a57
+WARC-Block-Digest: sha256:baf509770f7dc74318c637f5f7dc350c01ad06bdcd00c112ac920549d0aa8a57
+Content-Length: 386
+
+harEntryId: f853f94d5a61d438bb311851ff3bfda1
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-06-05T21:54:15.170Z
+time: 804
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":804,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 196
+warcRequestCookies: []
+warcResponseHeadersSize: 318
+warcResponseCookies: []
+responseDecoded: false
+warcResponseContentEncoding: base64
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
+WARC-Date: 2022-06-05T21:54:17.282Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:6a5e13b2-749d-4b41-8402-fe8ed2b93c5d>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:2029d37e39868bf35d599f25d5356afbfd8e256577a583be7dec27dfa9797be8
+WARC-Block-Digest: sha256:58d69865aa2e32a03082f873f2f464012455f7577b9cc83bc0c5fa68ded8216b
+Content-Length: 6291
+
+HTTP/1.1 200 OK
+server: nginx/1.18.0 (Ubuntu)
+date: Sun, 05 Jun 2022 21:54:15 GMT
+content-type: application/json
+transfer-encoding: chunked
+connection: close
+access-control-allow-origin: *
+content-encoding: gzip
+vary: Accept-Encoding
+strict-transport-security: max-age=15724800
+referrer-policy: no-referrer-when-downgrade
+
+["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"]
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:2ea4951c-82c6-4880-b396-b44be67879e9>
+WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-06-05T21:54:17.283Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:4d07d4e8-6576-4470-948b-2f271bd4a737>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:1c09b61e3888ad810fb45923521722e1c69310b980cb47f1259f095cbd1b7e01
@@ -27,22 +96,22 @@ GET /download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d3bb58ee-da8a-438b-943f-d4b093faefc7>
+WARC-Concurrent-To: <urn:uuid:2ea4951c-82c6-4880-b396-b44be67879e9>
 WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
-WARC-Date: 2022-06-05T12:48:49.696Z
+WARC-Date: 2022-06-05T21:54:17.283Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:4a6168f7-2d77-43b6-b58b-fb0fb05b937b>
+WARC-Record-ID: <urn:uuid:efd64873-e925-4a78-9d2f-7368ea2a0437>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:1236424fac20a15e5da4994a29a6abb725f8b5a9014910cc5135a4f0d5d38460
-WARC-Block-Digest: sha256:1236424fac20a15e5da4994a29a6abb725f8b5a9014910cc5135a4f0d5d38460
+WARC-Payload-Digest: sha256:a35b8ad1a4fe2420131db076c8f0a06d19471d9b0766a837024c001f84db6d13
+WARC-Block-Digest: sha256:a35b8ad1a4fe2420131db076c8f0a06d19471d9b0766a837024c001f84db6d13
 Content-Length: 351
 
 harEntryId: e8c296d183df78d75c6d958d76bb5d98
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-06-05T12:48:47.337Z
-time: 2345
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":2345,"receive":0,"ssl":-1}
+startedDateTime: 2022-06-05T21:54:15.988Z
+time: 1282
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1282,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 100
 warcRequestCookies: []
 warcResponseHeadersSize: 674
@@ -52,12 +121,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
-WARC-Date: 2022-06-05T12:48:49.695Z
+WARC-Date: 2022-06-05T21:54:17.283Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:d3bb58ee-da8a-438b-943f-d4b093faefc7>
+WARC-Record-ID: <urn:uuid:2ea4951c-82c6-4880-b396-b44be67879e9>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:2a55063ba1b884c3f17b01a67a74cb4afec7bb5ef02e3cc7b5479e6394577428
-WARC-Block-Digest: sha256:0f564323fa3408315822922ed420412a378b39aa8fa08a15de3b8474380d904a
+WARC-Block-Digest: sha256:b48c1e0c0d418cd2ffe9c30ddf0a26d01c34713abf192dd73941db826f8bd16f
 Content-Length: 4647
 
 HTTP/1.1 200 OK
@@ -69,13 +138,153 @@ cache-control: max-age=21600
 connection: close
 content-length: 3956
 content-type: application/json
-date: Sun, 05 Jun 2022 12:48:49 GMT
+date: Sun, 05 Jun 2022 21:54:17 GMT
 etag: "55c152b4-f74"
-expires: Sun, 05 Jun 2022 18:48:49 GMT
+expires: Mon, 06 Jun 2022 03:54:17 GMT
 last-modified: Wed, 05 Aug 2015 00:03:00 GMT
 server: nginx/1.18.0 (Ubuntu)
 strict-transport-security: max-age=15724800
 x-pollyjs-finalurl: https://ia601307.us.archive.org/0/items/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+
+{"images":[{"types":["Front"],"front":true,"back":false,"edit":34293307,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162.jpg","comment":"","approved":true,"id":"11059679162","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162-250.jpg"}},{"types":["Back","Spine"],"front":false,"back":true,"edit":34293308,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252.jpg","comment":"","approved":true,"id":"11059681252","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252-250.jpg"}},{"types":["Tray"],"front":false,"back":false,"edit":34293309,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512.jpg","comment":"","approved":true,"id":"11059682512","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293311,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688.jpg","comment":"","approved":true,"id":"11059683688","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293316,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192.jpg","comment":"","approved":true,"id":"11059685192","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293319,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050.jpg","comment":"","approved":true,"id":"11059686050","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293321,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800.jpg","comment":"","approved":true,"id":"11059686800","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293322,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738.jpg","comment":"","approved":true,"id":"11059687738","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738-250.jpg"}},{"types":["Obi"],"front":false,"back":false,"edit":34293323,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534.jpg","comment":"","approved":true,"id":"11059689534","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534-250.jpg"}}],"release":"http://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687"}
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:244c11cf-c888-41dd-ab49-331afeb3f643>
+WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-06-05T21:54:17.284Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:4579931a-23bf-4a39-b704-350d0fba7dab>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:53fa4953d735a0207570d843e91b55b6c7737d69e2a4c106ef3417a32c03c359
+Content-Length: 188
+
+GET /download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json HTTP/1.1
+accept: */*
+accept-encoding: gzip,deflate,br
+connection: close
+user-agent: node-fetch
+host: archive.org
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:244c11cf-c888-41dd-ab49-331afeb3f643>
+WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-06-05T21:54:17.284Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:60a8079f-62df-415e-a37d-3ab942c0f072>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:52b596bb11b5d848e8636e73ff98d8724e0036a7ff678c6f06ded6ee5fe38554
+WARC-Block-Digest: sha256:52b596bb11b5d848e8636e73ff98d8724e0036a7ff678c6f06ded6ee5fe38554
+Content-Length: 349
+
+harEntryId: 1f1dbabedc0ac7412bb9519b6ba6ebc2
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-06-05T21:54:15.991Z
+time: 560
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":560,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 207
+warcRequestCookies: []
+warcResponseHeadersSize: 405
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-06-05T21:54:17.283Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:244c11cf-c888-41dd-ab49-331afeb3f643>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:883ebe2a0f8a7250f8f21160d9e32ad7ee6309b0579537090437591bb60a9b47
+Content-Length: 425
+
+HTTP/1.1 302 Found
+server: nginx/1.18.0 (Ubuntu)
+date: Sun, 05 Jun 2022 21:54:16 GMT
+content-type: text/html; charset=UTF-8
+transfer-encoding: chunked
+connection: close
+access-control-allow-origin: *
+accept-ranges: bytes
+location: https://ia601307.us.archive.org/0/items/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+strict-transport-security: max-age=15724800
+referrer-policy: no-referrer-when-downgrade
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:175c4544-8f95-445e-859e-4537efa73f89>
+WARC-Target-URI: https://ia601307.us.archive.org/0/items/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-06-05T21:54:17.284Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:48b65a29-2daa-4103-939f-cc43a79fe792>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:1d0f2ef295d8cac787a7d6239bb5820d889cb1f018c1460a0797317e4c0533a0
+Content-Length: 199
+
+GET /0/items/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json HTTP/1.1
+accept: */*
+accept-encoding: gzip,deflate,br
+connection: close
+user-agent: node-fetch
+host: ia601307.us.archive.org
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:175c4544-8f95-445e-859e-4537efa73f89>
+WARC-Target-URI: https://ia601307.us.archive.org/0/items/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-06-05T21:54:17.284Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:6f44c556-1c94-450a-8db7-8d9df1a5b205>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:7ae810f1a7cf094eac80035b60f5b4715384a7c8a14b7f92ceba2f276f30bae1
+WARC-Block-Digest: sha256:7ae810f1a7cf094eac80035b60f5b4715384a7c8a14b7f92ceba2f276f30bae1
+Content-Length: 349
+
+harEntryId: 835302196f6043f8ee5ed1a26f1459e4
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-06-05T21:54:16.557Z
+time: 708
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":708,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 230
+warcRequestCookies: []
+warcResponseHeadersSize: 560
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://ia601307.us.archive.org/0/items/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-06-05T21:54:17.284Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:175c4544-8f95-445e-859e-4537efa73f89>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:2a55063ba1b884c3f17b01a67a74cb4afec7bb5ef02e3cc7b5479e6394577428
+WARC-Block-Digest: sha256:bbfc996f92a9eaa4da7caac34ac28a90f42f9acb5689a23b6d0f2cec66bcec15
+Content-Length: 4533
+
+HTTP/1.1 200 OK
+server: nginx/1.18.0 (Ubuntu)
+date: Sun, 05 Jun 2022 21:54:17 GMT
+content-type: application/json
+content-length: 3956
+last-modified: Wed, 05 Aug 2015 00:03:00 GMT
+connection: close
+etag: "55c152b4-f74"
+strict-transport-security: max-age=15724800
+expires: Mon, 06 Jun 2022 03:54:17 GMT
+cache-control: max-age=21600
+access-control-allow-origin: *
+access-control-allow-headers: Accept-Encoding,Accept-Language,DNT,Cache-Control,Pragma,Range,Content-Range,Content-Length,X-Requested-With
+access-control-allow-credentials: true
+accept-ranges: bytes
 
 {"images":[{"types":["Front"],"front":true,"back":false,"edit":34293307,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162.jpg","comment":"","approved":true,"id":"11059679162","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162-250.jpg"}},{"types":["Back","Spine"],"front":false,"back":true,"edit":34293308,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252.jpg","comment":"","approved":true,"id":"11059681252","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252-250.jpg"}},{"types":["Tray"],"front":false,"back":false,"edit":34293309,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512.jpg","comment":"","approved":true,"id":"11059682512","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293311,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688.jpg","comment":"","approved":true,"id":"11059683688","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293316,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192.jpg","comment":"","approved":true,"id":"11059685192","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293319,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050.jpg","comment":"","approved":true,"id":"11059686050","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293321,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800.jpg","comment":"","approved":true,"id":"11059686800","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293322,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738.jpg","comment":"","approved":true,"id":"11059687738","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738-250.jpg"}},{"types":["Obi"],"front":false,"back":false,"edit":34293323,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534.jpg","comment":"","approved":true,"id":"11059689534","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534-250.jpg"}}],"release":"http://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687"}
 

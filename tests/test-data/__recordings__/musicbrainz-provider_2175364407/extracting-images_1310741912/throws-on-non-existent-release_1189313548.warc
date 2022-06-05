@@ -1,0 +1,82 @@
+WARC/1.1
+WARC-Filename: musicbrainz provider/extracting images/throws on non-existent release
+WARC-Date: 2022-06-05T21:54:20.220Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:ea67ddd8-812e-434f-8901-3a44e4682067>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:410a2e44-450b-40b6-b768-a00cc7b57db1>
+WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa46687
+WARC-Date: 2022-06-05T21:54:20.220Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:ef34be99-d6f8-4808-873d-1c72960bbf21>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:b58c53f68a753cfcb319412bde61a52bf1b9d8abb462245cc2ba1970173ebcb2
+Content-Length: 173
+
+GET /metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa46687 HTTP/1.1
+accept: */*
+accept-encoding: gzip,deflate,br
+connection: close
+user-agent: node-fetch
+host: archive.org
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:410a2e44-450b-40b6-b768-a00cc7b57db1>
+WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa46687
+WARC-Date: 2022-06-05T21:54:20.220Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:b01e9d47-5e21-422c-8381-59d4a8477a3a>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:f821240bc5538e4393bfef05acb3fe1b6b09a73ea0bcf2538fb16c26f7209054
+WARC-Block-Digest: sha256:f821240bc5538e4393bfef05acb3fe1b6b09a73ea0bcf2538fb16c26f7209054
+Content-Length: 388
+
+harEntryId: f85a4fb264388ca42e7859ef90f44548
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-06-05T21:54:17.294Z
+time: 2920
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":2920,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 192
+warcRequestCookies: []
+warcResponseHeadersSize: 318
+warcResponseCookies: []
+responseDecoded: false
+warcResponseContentEncoding: base64
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa46687
+WARC-Date: 2022-06-05T21:54:20.220Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:410a2e44-450b-40b6-b768-a00cc7b57db1>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:12db2400883f1c02eded1079c38c35f53ddfcb7b18348c8503a7ce586454292b
+WARC-Block-Digest: sha256:a804ff261a9bfad60da2a28f2712bef48efbb1eda9767a346728ed641a2b4ae8
+Content-Length: 371
+
+HTTP/1.1 200 OK
+server: nginx/1.18.0 (Ubuntu)
+date: Sun, 05 Jun 2022 21:54:20 GMT
+content-type: application/json
+transfer-encoding: chunked
+connection: close
+access-control-allow-origin: *
+content-encoding: gzip
+vary: Accept-Encoding
+strict-transport-security: max-age=15724800
+referrer-policy: no-referrer-when-downgrade
+
+["H4sIAAAAAAAAA6uuBQBDv6ajAgAAAA=="]
+

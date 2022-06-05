@@ -3,13 +3,14 @@ import NodeHttpAdapter from '@pollyjs/adapter-node-http';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { CoverArtArchiveProvider, MusicBrainzProvider } from '@src/mb_enhanced_cover_art_uploads/providers/musicbrainz';
 import { mockFetch, setupPolly } from '@test-utils/pollyjs';
+import GMXHRAdapter from '@test-utils/pollyjs/gmxhr-adapter';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 import { findImagesSpec } from './find_images_spec';
 import { urlMatchingSpec } from './url_matching_spec';
 
 const pollyContext = setupPolly({
-    adapters: [NodeHttpAdapter],
+    adapters: [NodeHttpAdapter, GMXHRAdapter],
 });
 
 beforeAll(() => {
@@ -67,7 +68,7 @@ describe('musicbrainz provider', () => {
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
     });
 });
 
