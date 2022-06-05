@@ -2,7 +2,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { formatSize } from '@lib/util/format';
 import { memoize } from '@lib/util/functions';
 
-import type { ImageInfo } from './ImageInfo';
+import type { Dimensions, ImageInfo } from './ImageInfo';
 import { createCache } from './InfoCache';
 
 // TODO: Refactor this so it's already awaited and we can use the bare cache instead of a promise all the time.
@@ -124,8 +124,15 @@ function actuallyLoadImageInfo(imgUrl: string): Promise<ImageInfo> {
             }
 
             return cacheProm
-                .then((cache) => cache.put(imgUrl, result))
-                .then(() => result);
+                .then((cache) => {
+                    return Promise.all([
+                        cache.putDimensions(imgUrl, result.dimensions),
+                        cache.putFileInfo(imgUrl, {
+                            size: result.size,
+                            fileType: result.fileType,
+                        }),
+                    ]);
+                }).then(() => result);
         });
 }
 
@@ -142,8 +149,14 @@ async function _loadImageInfo(imgUrl: string): Promise<ImageInfo> {
 
     // Try loading from cache first
     try {
-        const cachedResult = await cacheProm.then((cache) => cache.get(imgUrl));
-        if (typeof cachedResult !== 'undefined') return cachedResult;
+        const cachedDimensions = await cacheProm.then((cache) => cache.getDimensions(imgUrl));
+        const cachedInfo = await cacheProm.then((cache) => cache.getFileInfo(imgUrl));
+        if (typeof cachedDimensions !== 'undefined' && typeof cachedInfo !== 'undefined') {
+            return {
+                dimensions: cachedDimensions,
+                ...cachedInfo,
+            };
+        }
         // cache miss, fall through to actually loading
     } catch {
         // cache error, fall through to actually loading

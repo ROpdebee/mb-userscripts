@@ -1,13 +1,15 @@
-import type { DBSchema, IDBPDatabase, IDBPObjectStore, IDBPTransaction } from 'idb';
+import type { DBSchema, IDBPDatabase, IDBPTransaction, StoreNames } from 'idb';
 import { openDB } from 'idb/with-async-ittr';
 
 import { LOGGER } from '@lib/logging/logger';
 
-import type { ImageInfo } from './ImageInfo';
+import type { Dimensions, FileInfo } from './ImageInfo';
 
 const CACHE_DB_NAME = 'ROpdebee_CAA_Dimensions_Cache';
-const CACHE_STORE_NAME = 'cacheStore';
+const CACHE_DIMENSIONS_STORE_NAME = 'dimensionsStore';
+const CACHE_FILE_INFO_STORE_NAME = 'fileInfoStore';
 const CACHE_ADDED_TIMESTAMP_INDEX = 'addedDatetimeIdx';
+
 /**
  * Cache DB version.
  *
@@ -30,9 +32,16 @@ const CACHE_CHECK_INTERVAL: number = 24 * 60 * 60 * 1000;   // Daily
 const CACHE_STALE_TIME: number = 14 * 24 * 60 * 60 * 1000;  // 2 weeks
 
 interface CacheDBSchema extends DBSchema {
-    [CACHE_STORE_NAME]: {
+    [CACHE_DIMENSIONS_STORE_NAME]: {
         key: string;
-        value: ImageInfo & { addedDatetime: number };
+        value: Dimensions & { addedDatetime: number };
+        indexes: {
+            [CACHE_ADDED_TIMESTAMP_INDEX]: number;
+        };
+    };
+    [CACHE_FILE_INFO_STORE_NAME]: {
+        key: string;
+        value: FileInfo & { addedDatetime: number };
         indexes: {
             [CACHE_ADDED_TIMESTAMP_INDEX]: number;
         };
@@ -43,8 +52,11 @@ interface CacheDBSchema extends DBSchema {
  * Image information cache.
  */
 export interface InfoCache {
-    get(imageUrl: string): Promise<ImageInfo | undefined>;
-    put(imageUrl: string, imageInfo: ImageInfo): Promise<void>;
+    getDimensions(imageUrl: string): Promise<Dimensions | undefined>;
+    putDimensions(imageUrl: string, dimensions: Dimensions): Promise<void>;
+
+    getFileInfo(imageUrl: string): Promise<FileInfo | undefined>;
+    putFileInfo(imageUrl: string, fileInfo: FileInfo): Promise<void>;
 }
 
 /**
@@ -73,11 +85,19 @@ export async function createCache(): Promise<InfoCache> {
  * Dummy information cache used when no storage backend is available.
  */
 class NoInfoCache implements InfoCache {
-    get(): Promise<ImageInfo | undefined> {
+    getDimensions(_imageUrl: string): Promise<Dimensions | undefined> {
         return Promise.resolve(undefined);
     }
 
-    put(): Promise<void> {
+    putDimensions(_imageUrl: string, _dimensions: Dimensions): Promise<void> {
+        return Promise.resolve();
+    }
+
+    getFileInfo(_imageUrl: string): Promise<FileInfo | undefined> {
+        return Promise.resolve(undefined);
+    }
+
+    putFileInfo(_imageUrl: string, _fileInfo: FileInfo): Promise<void> {
         return Promise.resolve();
     }
 }
@@ -94,12 +114,14 @@ class IndexedDBInfoCache {
 
     static async create(): Promise<IndexedDBInfoCache> {
         const db = await openDB(CACHE_DB_NAME, CACHE_DB_VERSION, {
-            async upgrade(database: IDBPDatabase<CacheDBSchema>, oldVersion: number, newVersion: number, tx: IDBPTransaction<CacheDBSchema, Array<typeof CACHE_STORE_NAME>, 'versionchange'>): Promise<void> {
+            async upgrade(database: IDBPDatabase<CacheDBSchema>, oldVersion: number, newVersion: number, tx: IDBPTransaction<CacheDBSchema, Array<StoreNames<CacheDBSchema>>, 'versionchange'>): Promise<void> {
                 LOGGER.info(`Creating or upgrading IndexedDB cache version ${newVersion}`);
                 if (oldVersion < 1) {
                     // Unopened, create the original stores
-                    const store = database.createObjectStore(CACHE_STORE_NAME);
-                    store.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
+                    const dimensionsStore = database.createObjectStore(CACHE_DIMENSIONS_STORE_NAME);
+                    dimensionsStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
+                    const fileInfoStore = database.createObjectStore(CACHE_FILE_INFO_STORE_NAME);
+                    fileInfoStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
                     return;
                 }
 
@@ -118,9 +140,9 @@ class IndexedDBInfoCache {
         return new IndexedDBInfoCache(db);
     }
 
-    async get(imageUrl: string): Promise<ImageInfo | undefined> {
+    private async get<StoreName extends StoreNames<CacheDBSchema>>(storeName: StoreName, imageUrl: string): Promise<CacheDBSchema[StoreName]['value'] | undefined> {
         try {
-            const cachedResult = await this.db.get(CACHE_STORE_NAME, imageUrl);
+            const cachedResult = await this.db.get(storeName, imageUrl);
             if (typeof cachedResult !== 'undefined') {
                 LOGGER.debug(`${imageUrl}: Cache hit`);
             } else {
@@ -134,16 +156,32 @@ class IndexedDBInfoCache {
         }
     }
 
-    async put(imageUrl: string, imageInfo: ImageInfo): Promise<void> {
+    private async put<StoreName extends StoreNames<CacheDBSchema>>(storeName: StoreName, imageUrl: string, value: Omit<CacheDBSchema[StoreName]['value'], 'addedDatetime'>): Promise<void> {
         try {
-            await this.db.put(CACHE_STORE_NAME, {
-                ...imageInfo,
+            await this.db.put(storeName, {
+                ...value,
                 addedDatetime: Date.now(),
             }, imageUrl);
             LOGGER.debug(`Successfully stored ${imageUrl} in cache`);
         } catch (e) /* istanbul ignore next: Difficult to cover */ {
             LOGGER.error(`Failed to store ${imageUrl} in cache`, e);
         }
+    }
+
+    async getDimensions(imageUrl: string): Promise<Dimensions | undefined> {
+        return this.get(CACHE_DIMENSIONS_STORE_NAME, imageUrl);
+    }
+
+    async putDimensions(imageUrl: string, dimensions: Dimensions): Promise<void> {
+        return this.put(CACHE_DIMENSIONS_STORE_NAME, imageUrl, dimensions);
+    }
+
+    async getFileInfo(imageUrl: string): Promise<FileInfo | undefined> {
+        return this.get(CACHE_FILE_INFO_STORE_NAME, imageUrl);
+    }
+
+    async putFileInfo(imageUrl: string, fileInfo: FileInfo): Promise<void> {
+        return this.put(CACHE_FILE_INFO_STORE_NAME, imageUrl, fileInfo);
     }
 }
 
@@ -157,10 +195,16 @@ async function maybePruneDb(db: IDBPDatabase<CacheDBSchema>): Promise<void> {
 
     LOGGER.info('Pruning stale entries from cache');
     const pruneRange = IDBKeyRange.upperBound(Date.now() - CACHE_STALE_TIME);
-    for await (const cursor of db.transaction(CACHE_STORE_NAME, 'readwrite').store.index(CACHE_ADDED_TIMESTAMP_INDEX).iterate(pruneRange)) {
-        LOGGER.debug(`Removing ${cursor.key} (added at ${new Date(cursor.value.addedDatetime)})`);
-        await cursor.delete();
+
+    async function iterateAndPrune(storeName: StoreNames<CacheDBSchema>): Promise<void> {
+        for await (const cursor of db.transaction(storeName, 'readwrite').store.index(CACHE_ADDED_TIMESTAMP_INDEX).iterate(pruneRange)) {
+            LOGGER.debug(`Removing ${cursor.key} (added at ${new Date(cursor.value.addedDatetime)})`);
+            await cursor.delete();
+        }
     }
+
+    await iterateAndPrune(CACHE_DIMENSIONS_STORE_NAME);
+    await iterateAndPrune(CACHE_FILE_INFO_STORE_NAME);
 
     LOGGER.debug('Done pruning stale entries');
     localStorage.setItem(CACHE_TIMESTAMP_NAME, Date.now().toString());
@@ -170,7 +214,7 @@ async function maybePruneDb(db: IDBPDatabase<CacheDBSchema>): Promise<void> {
 //// Legacy stuff
 
 interface CacheDBSchemaV1 extends DBSchema {
-    [CACHE_STORE_NAME]: {
+    'cacheStore': {
         key: string;
         value: {
             url: string;
@@ -183,7 +227,7 @@ interface CacheDBSchemaV1 extends DBSchema {
     };
 }
 
-type Migrator = (db: IDBPDatabase<CacheDBSchema>, tx: IDBPTransaction<CacheDBSchema, Array<typeof CACHE_STORE_NAME>, 'versionchange'>) => Promise<void>;
+type Migrator = (db: IDBPDatabase<CacheDBSchema>, tx: IDBPTransaction<CacheDBSchema, Array<StoreNames<CacheDBSchema>>, 'versionchange'>) => Promise<void>;
 /**
  * Map of database migrations, indexed by current version.
  */
@@ -194,21 +238,29 @@ const DbMigrations: Record<number, Migrator> = {
         // Retrieve all existing values, drop and recreate the store, and reinsert all.
         // We can't update the values in-place since v1 uses a keypath and expects
         // the URL in the values, whereas v2 does not support that.
-        const oldRecords = await (tx.objectStore(CACHE_STORE_NAME) as unknown as IDBPObjectStore<CacheDBSchemaV1>).getAll();
-        db.deleteObjectStore(CACHE_STORE_NAME);
+        const txV1 = tx as unknown as IDBPTransaction<CacheDBSchemaV1, ['cacheStore'], 'versionchange'>;
+        const dbV1 = db as unknown as IDBPDatabase<CacheDBSchemaV1>;
+        const oldRecords = await (txV1.objectStore('cacheStore')).getAll();
+        dbV1.deleteObjectStore('cacheStore');
 
-        const newStore = db.createObjectStore(CACHE_STORE_NAME);
-        await Promise.all(oldRecords.map((rec) => tx.objectStore(CACHE_STORE_NAME).put({
-            dimensions: {
+        // Create new stores and indices
+        const newDimensionsStore = db.createObjectStore(CACHE_DIMENSIONS_STORE_NAME);
+        const newFileInfoStore = db.createObjectStore(CACHE_FILE_INFO_STORE_NAME);
+        newDimensionsStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
+        newFileInfoStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
+
+        // Transfer the old records
+        await Promise.all(oldRecords.map(async (rec) => {
+            await tx.objectStore(CACHE_DIMENSIONS_STORE_NAME).put({
                 width: rec.width,
                 height: rec.height,
-            },
-            size: rec.size,
-            fileType: rec.format,
-            addedDatetime: rec.added_datetime,
-        }, rec.url)));
-
-        // Create the new index
-        newStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
+                addedDatetime: rec.added_datetime,
+            }, rec.url);
+            await tx.objectStore(CACHE_FILE_INFO_STORE_NAME).put({
+                size: rec.size,
+                fileType: rec.format,
+                addedDatetime: rec.added_datetime,
+            }, rec.url);
+        }));
     },
 };
