@@ -8,7 +8,7 @@ const metadata: UserscriptMetadata = {
     match: [
         'release/*',
         'edit/*',  // Cover art in edit history
-        'search/edits/*',
+        'search/edits*',
         'release-group/*',
     ].map(transformMBMatchURL),
     exclude: [
