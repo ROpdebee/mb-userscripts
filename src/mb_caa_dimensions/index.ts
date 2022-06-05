@@ -229,9 +229,27 @@ let getDimensionsWhenInView = (function() {
     return (elmt) => observer.observe(elmt);
 })();
 
+interface LegacyImageInfo {
+    url: string;
+    width: number;
+    height: number;
+    size?: number;
+    format?: string;
+}
+
 // Expose the function for use in other scripts that may load images.
 window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
-window.ROpdebee_loadImageInfo = loadImageInfo;
+// Deprecated, use `ROpdebee_getImageInfo` instead.
+window.ROpdebee_loadImageInfo = ((imgUrl: string): Promise<LegacyImageInfo> =>
+    loadImageInfo(imgUrl)
+        .then((imageInfo) => ({
+            url: imgUrl,
+            ...imageInfo.dimensions,
+            size: imageInfo.size,
+            format: imageInfo.fileType,
+        }))
+);
+window.ROpdebee_getImageInfo = loadImageInfo;
 
 function setupStyle() {
     let style = document.createElement('style');
