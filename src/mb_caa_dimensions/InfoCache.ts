@@ -85,19 +85,19 @@ export async function createCache(): Promise<InfoCache> {
  * Dummy information cache used when no storage backend is available.
  */
 class NoInfoCache implements InfoCache {
-    getDimensions(_imageUrl: string): Promise<Dimensions | undefined> {
+    getDimensions(): Promise<Dimensions | undefined> {
         return Promise.resolve(undefined);
     }
 
-    putDimensions(_imageUrl: string, _dimensions: Dimensions): Promise<void> {
+    putDimensions(): Promise<void> {
         return Promise.resolve();
     }
 
-    getFileInfo(_imageUrl: string): Promise<FileInfo | undefined> {
+    getFileInfo(): Promise<FileInfo | undefined> {
         return Promise.resolve(undefined);
     }
 
-    putFileInfo(_imageUrl: string, _fileInfo: FileInfo): Promise<void> {
+    putFileInfo(): Promise<void> {
         return Promise.resolve();
     }
 }

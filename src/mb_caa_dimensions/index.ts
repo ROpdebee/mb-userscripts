@@ -1,28 +1,25 @@
 import { LOGGER } from '@lib/logging/logger';
 import { formatSize } from '@lib/util/format';
-import { memoize } from '@lib/util/functions';
 
 import type { ImageInfo } from './ImageInfo';
-import { getCAAInfo } from './caa_info';
-import { getImageDimensions } from './dimensions';
-import { createCache } from './InfoCache';
 import { CAAImage } from './Image';
+import { createCache } from './InfoCache';
 
 // TODO: Refactor this so it's already awaited and we can use the bare cache instead of a promise all the time.
 const cacheProm = createCache();
 
 
-function displayInfo(imgElement, infoStr) {
+function displayInfo(imgElement: HTMLImageElement, infoStr: string): void {
     imgElement.setAttribute('ROpdebee_lazyDimensions', infoStr);
 
-    let dimensionStr;
+    let dimensionStr: string;
     if (imgElement.closest('div.thumb-position') || imgElement.classList.contains('uploader-preview-image')) {
         // Shorter for thumbnails
         dimensionStr = infoStr;
     } else {
         dimensionStr = `Dimensions: ${infoStr}`;
     }
-    let existing = imgElement.parentNode.querySelector('span.ROpdebee_dimensions');
+    let existing = imgElement.parentNode?.querySelector('span.ROpdebee_dimensions');
     if (!existing) {
         existing = document.createElement('span');
         existing.classList.add('ROpdebee_dimensions');
@@ -79,16 +76,23 @@ async function cbImageInView(imgElement: HTMLImageElement): Promise<void> {
     }
 }
 
-let getDimensionsWhenInView = (function() {
-    let options = {
-        root: document
-    }
-    let observer = new IntersectionObserver((entries, observer) => {
+const getDimensionsWhenInView = (function(): (imgElement: HTMLImageElement) => void {
+    const options = {
+        root: document,
+    };
+    const observer = new IntersectionObserver((entries) => {
         entries
-            .filter(e => e.intersectionRatio > 0)
-            .forEach(e => cbImageInView(e.target));
+            .filter((evt) => evt.intersectionRatio > 0)
+            .forEach((evt) => {
+                cbImageInView(evt.target as HTMLImageElement)
+                    .catch((err) => {
+                        LOGGER.error('Something went wrong', err);
+                    });
+            });
     }, options);
-    return (elmt) => observer.observe(elmt);
+    return (elmt) => {
+        observer.observe(elmt);
+    };
 })();
 
 interface LegacyImageInfo {
@@ -117,6 +121,14 @@ async function getCAAImageInfo(imgUrl: string): Promise<ImageInfo> {
     return image.getImageInfo();
 }
 
+declare global {
+    interface Window {
+        ROpdebee_getDimensionsWhenInView: typeof getDimensionsWhenInView;
+        ROpdebee_getCAAImageInfo: typeof getCAAImageInfo;
+        ROpdebee_loadImageInfo: (imgUrl: string) => Promise<LegacyImageInfo>;
+    }
+}
+
 // Expose the function for use in other scripts that may load images.
 window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
 // Deprecated, use `ROpdebee_getImageInfo` instead.
@@ -131,57 +143,56 @@ window.ROpdebee_loadImageInfo = ((imgUrl: string): Promise<LegacyImageInfo> =>
 );
 window.ROpdebee_getCAAImageInfo = getCAAImageInfo;
 
-function setupStyle() {
-    let style = document.createElement('style');
-    style.type = 'text/css';
+function setupStyle(): void {
+    const style = document.createElement('style');
     style.id = 'ROpdebee_CAA_Dimensions';
     document.head.appendChild(style);
     // Thumbnails in add/reorder cover art pages
-    style.sheet.insertRule(`div.thumb-position {
+    style.sheet?.insertRule(`div.thumb-position {
         height: auto;
         display: flex;
         flex-direction: column;
     }`);
-    style.sheet.insertRule(`.image-position {
+    style.sheet?.insertRule(`.image-position {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
     }`);
     // Put the reorder buttons at the bottom
-    style.sheet.insertRule(`div.thumb-position > div:last-of-type::before {
+    style.sheet?.insertRule(`div.thumb-position > div:last-of-type::before {
         margin-bottom: auto;
     }`);
-    style.sheet.insertRule(`div.thumb-position > div:last-of-type {
+    style.sheet?.insertRule(`div.thumb-position > div:last-of-type {
         margin-top: auto;
         padding-top: 5px;
     }`);
     // Center the thumbnail img
-    style.sheet.insertRule(`div.thumb-position img {
+    style.sheet?.insertRule(`div.thumb-position img {
         display: block;
         margin: auto;
     }`);
 
-    style.sheet.insertRule(`span.ROpdebee_dimensions {
+    style.sheet?.insertRule(`span.ROpdebee_dimensions {
         display: block;
     }`);
-    style.sheet.insertRule(`div.thumb-position span.ROpdebee_dimensions {
+    style.sheet?.insertRule(`div.thumb-position span.ROpdebee_dimensions {
         text-align: center;
         font-size: smaller;
         padding: 0.5em 0;
     }`);
 
-    style.sheet.insertRule(`img.uploader-preview-column > span.ROpdebee_dimensions {
+    style.sheet?.insertRule(`img.uploader-preview-column > span.ROpdebee_dimensions {
         display: inline;
     }`);
 }
 
-function listenForNewCoverArtThumbs() {
+function listenForNewCoverArtThumbs(): void {
     // On add cover art pages
     // Continuously check for images and display their dimensions.
     // TODO: Wouldn't this be much more efficient if we were to use a mutation
     // observer? Now it's just rechecking the same images over and over.
     setInterval(() => {
-        document.querySelectorAll('img.uploader-preview-image').forEach((img) => {
+        document.querySelectorAll<HTMLImageElement>('img.uploader-preview-image').forEach((img) => {
             if (img.getAttribute('ROpdebee_lazyDimensions')) return;
             // Too early to get dimensions, src hasn't been set yet
             if (!img.naturalWidth) return;
@@ -200,22 +211,20 @@ window.addEventListener('load', () => {
 
     // cover art pages
     document.querySelectorAll('#content div.artwork-cont').forEach((div) => {
-        const imgElement = div.querySelector('span.cover-art-image > img');
+        const imgElement = div.querySelector<HTMLImageElement>('span.cover-art-image > img');
         // Could be absent if the image isn't available in CAA yet.
         if (!imgElement) {
             return;
         }
-        const anchor = div.querySelector('p.small > a:last-of-type');
+        const anchor = div.querySelector<HTMLAnchorElement>('p.small > a:last-of-type');
         if (!anchor) return;
         imgElement.setAttribute('fullSizeURL', anchor.href);
         getDimensionsWhenInView(imgElement);
     });
 
     // edit pages + release page + add/remove/edit/reorder cover art pages
-    document.querySelectorAll(
-        '.edit-cover-art img, p.artwork img, #sidebar .cover-art-image > img, div.thumb-position > a.artwork-image img'
-    ).forEach((img) => {
-        const anchor = img.closest('a.artwork-image');
+    document.querySelectorAll<HTMLImageElement>('.edit-cover-art img, p.artwork img, #sidebar .cover-art-image > img, div.thumb-position > a.artwork-image img').forEach((img) => {
+        const anchor = img.closest<HTMLAnchorElement>('a.artwork-image');
         if (!anchor) return;
         img.setAttribute('fullSizeURL', anchor.href);
         getDimensionsWhenInView(img);
