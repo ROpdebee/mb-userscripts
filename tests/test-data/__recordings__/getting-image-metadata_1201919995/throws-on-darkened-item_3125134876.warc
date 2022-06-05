@@ -1,8 +1,8 @@
 WARC/1.1
-WARC-Filename: archive provider/extracting images/throws on darkened release
-WARC-Date: 2022-06-05T12:48:57.250Z
+WARC-Filename: getting image metadata/throws on darkened item
+WARC-Date: 2022-06-05T13:03:18.181Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:861d67bf-8dc3-4531-ae92-179ab89125b8>
+WARC-Record-ID: <urn:uuid:324c6fb8-4ebe-421f-9929-ec3976077009>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:fa9e6e18-132d-4155-9b4d-9ad2efc8886a>
+WARC-Concurrent-To: <urn:uuid:d1724382-e59e-47f6-a551-a24eda935c1f>
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-06-05T12:48:57.251Z
+WARC-Date: 2022-06-05T13:03:18.181Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:d4f66555-1dcb-42be-aca9-294b1b937a85>
+WARC-Record-ID: <urn:uuid:1e5c0446-01a0-4b87-a85f-07ed5728e0a6>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:eacc8c8d8b5f771de9696f46290d95074b23c0e5dc2d28752678eb2a6e23f3d8
@@ -32,22 +32,22 @@ host: archive.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:fa9e6e18-132d-4155-9b4d-9ad2efc8886a>
+WARC-Concurrent-To: <urn:uuid:d1724382-e59e-47f6-a551-a24eda935c1f>
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-06-05T12:48:57.251Z
+WARC-Date: 2022-06-05T13:03:18.182Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:27b2a55b-d619-44a9-bb66-26e1534a0ddf>
+WARC-Record-ID: <urn:uuid:4f89f879-87f7-4d92-8d45-50ee8c1371b9>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:a173d70aede8ee663ea1bf98278cf593fc4525db6e1200f75e457e2d07a00ed9
-WARC-Block-Digest: sha256:a173d70aede8ee663ea1bf98278cf593fc4525db6e1200f75e457e2d07a00ed9
+WARC-Payload-Digest: sha256:9e0be60498395d423eb30b46708f177c07b9640c3846f40bd5f9ec858d5919bc
+WARC-Block-Digest: sha256:9e0be60498395d423eb30b46708f177c07b9640c3846f40bd5f9ec858d5919bc
 Content-Length: 386
 
 harEntryId: aaed81feade71eaf2356c542eb064685
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-06-05T12:48:56.604Z
-time: 642
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":642,"receive":0,"ssl":-1}
+startedDateTime: 2022-06-05T13:03:17.636Z
+time: 536
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":536,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 196
 warcRequestCookies: []
 warcResponseHeadersSize: 318
@@ -58,17 +58,17 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-06-05T12:48:57.250Z
+WARC-Date: 2022-06-05T13:03:18.181Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:fa9e6e18-132d-4155-9b4d-9ad2efc8886a>
+WARC-Record-ID: <urn:uuid:d1724382-e59e-47f6-a551-a24eda935c1f>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:254586bc0a7bd094d2282753f3d9c478512a4273ac458d0cfbfb0da11a1b419f
-WARC-Block-Digest: sha256:d924e927388c60091a96c3479e7c08b7dbdb1bd687357974be02293fc9b9f911
+WARC-Payload-Digest: sha256:956e31382e09dbac3bf8161eb36fe5cdd565254642bf03f1602dba03d3ff19a9
+WARC-Block-Digest: sha256:9547cbe31cd65f3b30d5449f34f656937f6e976a30cb2c1784d257ca475bb528
 Content-Length: 575
 
 HTTP/1.1 200 OK
 server: nginx/1.18.0 (Ubuntu)
-date: Sun, 05 Jun 2022 12:48:57 GMT
+date: Sun, 05 Jun 2022 13:03:18 GMT
 content-type: application/json
 transfer-encoding: chunked
 connection: close
@@ -78,5 +78,5 @@ vary: Accept-Encoding
 strict-transport-security: max-age=15724800
 referrer-policy: no-referrer-when-downgrade
 
-["H4sIAAAAAAAAA33PSw6CMBSF4b3cMYXSF223Ygwp7VUbH8RbwIFx7xIdw/jLn5zzhkgYJkzgW6OVEs52ooLUgoccHJeC83oudaB4yQvWI51hZfFju8WZVm9ckye8l+Y+5MRk1NpE1bG25YmpzgoWDO9YdBKVNUOMJ7umufQp0BX8RDNWUJAWpN0t8yM/wQsuNXeaS1PBa6RrGG7Y/+sC/rDTb904fr6eQWubHAEAAA=="]
+["H4sIAAAAAAAAA33PSw6CMBSF4b3cMYXSF223Ygwp7VUbH8RbwIFx7xIdw/jLn5PzhkgYJkzgW6OVEs52ooLUgoccHJeC83oudaB4yQvWI51hZfFju8WZVm9ckye8l+Y+5MRk1NpE1bG25YmpzgoWDO9YdBKVNUOMJ7umufQp0BX8RDNWUJAWpN2x+ZGf4AWXmjvNpangNdI1DDfs/3UBf9jpt14eP18gFnjgHAEAAA=="]
 
