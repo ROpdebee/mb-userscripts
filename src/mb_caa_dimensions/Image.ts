@@ -5,6 +5,8 @@ import type { InfoCache } from './InfoCache';
 import { getCAAInfo } from './caa_info';
 import { getImageDimensions } from './dimensions';
 
+const CAA_ID_REGEX = /(mbid-[a-f0-9-]{36})\/mbid-[a-f0-9-]{36}-(\d+)/;
+
 export abstract class Image {
 
     private readonly imgUrl: string;
@@ -21,7 +23,7 @@ export abstract class Image {
             if (typeof cachedResult !== 'undefined') {
                 return cachedResult;
             }
-        } catch (e) /* istanbul ignore next: Difficult to cover */ {
+        } catch (e) {
             LOGGER.warn('Failed to retrieve image dimensions from cache', e);
         }
 
@@ -42,7 +44,7 @@ export abstract class Image {
             if (typeof cachedResult !== 'undefined') {
                 return cachedResult;
             }
-        } catch (e)  /* istanbul ignore next: Difficult to cover */ {
+        } catch (e) {
             LOGGER.warn('Failed to retrieve image file info from cache', e);
         }
 
@@ -62,7 +64,10 @@ export abstract class Image {
         const fileInfo = await this.getFileInfo();
         return {
             dimensions,
-            ...fileInfo,
+            // The explicit undefined isn't strictly necessary but IMO it's still
+            // better to ensure the properties actually exist, otherwise it might
+            // look like we forgot to query this info altogether.
+            ...fileInfo ?? { size: undefined, fileType: undefined },
         };
     }
 
@@ -73,16 +78,27 @@ export abstract class Image {
 export class CAAImage extends Image {
 
     private readonly itemId: string;
-    private readonly imageName: string;
+    private readonly imageId: string;
 
-    constructor(itemId: string, imageName: string, cache?: InfoCache) {
-        const imgUrl = `https://archive.org/download/${itemId}/${imageName}`;
-        super(imgUrl, cache);
+    constructor(fullSizeUrl: string, cache: InfoCache, thumbnailUrl?: string) {
+        super(fullSizeUrl, cache);
+
+        const urlObj = new URL(thumbnailUrl ?? fullSizeUrl);
+        if (urlObj.host !== 'archive.org') {
+            throw new Error('Unsupported URL');
+        }
+
+        const matchGroups = urlObj.pathname.match(CAA_ID_REGEX);
+        if (matchGroups === null) {
+            LOGGER.error(`Failed to extract image ID from URL ${thumbnailUrl}`);
+            throw new Error('Invalid URL');
+        }
+        const [itemId, imageId] = matchGroups.slice(1);
         this.itemId = itemId;
-        this.imageName = imageName;
+        this.imageId = imageId;
     }
 
     loadFileInfo(): Promise<FileInfo> {
-        return getCAAInfo(this.itemId, this.imageName);
+        return getCAAInfo(this.itemId, this.imageId);
     }
 }

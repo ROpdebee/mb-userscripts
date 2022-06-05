@@ -55,17 +55,10 @@ async function cbImageInView(imgElement: HTMLImageElement): Promise<void> {
         return;
     }
 
-    const matchGroups = imgElement.src.match(/(mbid-[a-f0-9-]{36})\/mbid-[a-f0-9-]{36}-(\d+)/);
-    if (matchGroups === null) {
-        LOGGER.error(`Failed to extract image ID from URL ${imgElement.src}`);
-        return;
-    }
-    const [itemId, imageId] = matchGroups.slice(1);
-
     // Placeholder while loading, prevent from loading again.
     displayInfo(imgElement, 'pending…');
     const cache = await cacheProm;
-    const image = new CAAImage(itemId, imageId, cache);
+    const image = new CAAImage(imgElement.getAttribute('fullSizeURL') ?? imgElement.src, cache, imgElement.src);
 
     try {
         const imageInfo = await image.getImageInfo();
@@ -104,20 +97,12 @@ interface LegacyImageInfo {
 }
 
 async function getCAAImageInfo(imgUrl: string): Promise<ImageInfo> {
-    const urlObj = new URL(imgUrl);
-    if (urlObj.host !== 'archive.org') {
-        throw new Error('Unsupported URL');
+    if (new URL(imgUrl).hostname !== 'archive.org') {
+        throw new Error('Unsupported URL: Need direct image URL');
     }
-
-    const matchGroups = imgUrl.match(/(mbid-[a-f0-9-]{36})\/mbid-[a-f0-9-]{36}-(\d+)/);
-    if (matchGroups === null) {
-        LOGGER.error(`Failed to extract image ID from URL ${imgUrl}`);
-        throw new Error('Invalid URL');
-    }
-    const [itemId, imageId] = matchGroups.slice(1);
 
     const cache = await cacheProm;
-    const image = new CAAImage(itemId, imageId, cache);
+    const image = new CAAImage(imgUrl, cache);
     return image.getImageInfo();
 }
 

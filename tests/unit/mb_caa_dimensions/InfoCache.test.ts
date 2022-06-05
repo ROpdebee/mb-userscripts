@@ -6,15 +6,7 @@ import { openDB } from 'idb';
 
 import { createCache } from '@src/mb_caa_dimensions/InfoCache';
 
-const dummyDimensions = {
-    width: 100,
-    height: 100,
-};
-
-const dummyFileInfo = {
-    size: 100,
-    fileType: 'PNG',
-};
+import { dummyDimensions, dummyFileInfo } from './test-utils/mock-data';
 
 const mockDateNow = jest.spyOn(Date, 'now');
 
