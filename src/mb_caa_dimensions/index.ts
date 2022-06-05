@@ -110,14 +110,14 @@ declare global {
     interface Window {
         ROpdebee_getDimensionsWhenInView: typeof getDimensionsWhenInView;
         ROpdebee_getCAAImageInfo: typeof getCAAImageInfo;
-        ROpdebee_loadImageInfo: (imgUrl: string) => Promise<LegacyImageInfo>;
+        ROpdebee_loadImageDimensions: (imgUrl: string) => Promise<LegacyImageInfo>;
     }
 }
 
 // Expose the function for use in other scripts that may load images.
 window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
 // Deprecated, use `ROpdebee_getImageInfo` instead.
-window.ROpdebee_loadImageInfo = ((imgUrl: string): Promise<LegacyImageInfo> =>
+window.ROpdebee_loadImageDimensions = ((imgUrl: string): Promise<LegacyImageInfo> =>
     getCAAImageInfo(imgUrl)
         .then((imageInfo) => ({
             url: imgUrl,
