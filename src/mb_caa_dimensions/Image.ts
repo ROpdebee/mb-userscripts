@@ -1,4 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
+import { assertDefined } from '@lib/util/assert';
 
 import type { Dimensions, FileInfo, ImageInfo } from './ImageInfo';
 import type { InfoCache } from './InfoCache';
@@ -75,6 +76,18 @@ export abstract class Image {
 }
 
 
+function transformCAAURL(url: string): string {
+    const urlObj = new URL(url);
+
+    if (urlObj.host === 'coverartarchive.org' && urlObj.pathname.startsWith('/release/')) {
+        const [releaseId, imageName] = urlObj.pathname.split('/').slice(2);
+        return `https://archive.org/download/mbid-${releaseId}/mbid-${releaseId}-${imageName}`;
+    }
+
+    return url;
+}
+
+
 /**
  * Parse IDs from CAA URLs.
  *
@@ -84,13 +97,10 @@ export abstract class Image {
 function parseCAAIDs(url: string): [string, string] {
     const urlObj = new URL(url);
 
-    if (urlObj.host === 'coverartarchive.org' && urlObj.pathname.startsWith('/release')) {
+    if (urlObj.host === 'coverartarchive.org' && urlObj.pathname.startsWith('/release/')) {
         const [releaseId, thumbName] = urlObj.pathname.split('/').slice(2);
         const imageId = thumbName.match(/^(\d+)/)?.[0];
-        if (typeof imageId === 'undefined') {
-            // Possibly RG '/front' URL
-            throw new Error('Unsupported URL');
-        }
+        assertDefined(imageId, 'Malformed URL');
         return [`mbid-${releaseId}`, imageId];
     }
 
@@ -114,6 +124,8 @@ export class CAAImage extends Image {
     private readonly imageId: string;
 
     constructor(fullSizeUrl: string, cache: InfoCache, thumbnailUrl?: string) {
+        fullSizeUrl = transformCAAURL(fullSizeUrl);
+
         super(fullSizeUrl, cache);
 
         const [itemId, imageId] = parseCAAIDs(thumbnailUrl ?? fullSizeUrl);

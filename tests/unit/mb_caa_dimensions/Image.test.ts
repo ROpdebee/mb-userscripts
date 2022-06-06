@@ -2,7 +2,7 @@ import { getCAAInfo } from '@src/mb_caa_dimensions/caa_info';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 import { CAAImage } from '@src/mb_caa_dimensions/Image';
 
-import { dummyCAAItemID, dummyCAAReleaseURL, dummyDimensions, dummyFileInfo, dummyFullSizeURL, dummyImageID, dummyImageInfo, dummyReleaseGroupURL, dummyThumbnail, mockCache } from './test-utils/mock-data';
+import { dummyCAAItemID, dummyCAAReleaseFullSizeURL, dummyCAAReleaseThumbnailURL, dummyDimensions, dummyFileInfo, dummyFullSizeURL, dummyImageID, dummyImageInfo, dummyReleaseGroupURL, dummyThumbnail, mockCache } from './test-utils/mock-data';
 
 jest.mock('@src/mb_caa_dimensions/InfoCache');
 jest.mock('@src/mb_caa_dimensions/caa_info');
@@ -166,7 +166,7 @@ describe('caa image', () => {
         });
 
         it('extracts correct item ID and image ID from coverartarchive.org release URLs', async () => {
-            const image = new CAAImage(dummyCAAReleaseURL, mockCache);
+            const image = new CAAImage(dummyCAAReleaseThumbnailURL, mockCache, dummyCAAReleaseThumbnailURL);
             await image.getFileInfo();
 
             expect(mockGetCAAInfo).toHaveBeenCalledWith(dummyCAAItemID, dummyImageID);
@@ -190,6 +190,20 @@ describe('caa image', () => {
             await image.getFileInfo();
 
             expect(mockGetCAAInfo).toHaveBeenCalledWith(dummyCAAItemID, dummyImageID);
+        });
+
+        it('transforms full-size release coverartarchive.org URLs', async () => {
+            const image = new CAAImage(dummyCAAReleaseFullSizeURL, mockCache);
+            await image.getDimensions();
+
+            expect(mockGetImageDimensions).toHaveBeenCalledWith(dummyFullSizeURL);
+        });
+
+        it('does not transform full-size RG coverartarchive.org URLs', async () => {
+            const image = new CAAImage(dummyReleaseGroupURL, mockCache, dummyThumbnail);
+            await image.getDimensions();
+
+            expect(mockGetImageDimensions).toHaveBeenCalledWith(dummyReleaseGroupURL);
         });
     });
 });
