@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
-// @version      2022.3.22
+// @version      2022.6.5
 // @description  Loads and displays the image dimensions of images in the cover art archive.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
-// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_caa_dimensions.user.js
-// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_caa_dimensions.user.js
+// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_caa_dimensions.user.js
+// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_caa_dimensions.user.js
 // @match        *://musicbrainz.org/*
 // @match        *://*.musicbrainz.org/*
 // @run-at       document-start
