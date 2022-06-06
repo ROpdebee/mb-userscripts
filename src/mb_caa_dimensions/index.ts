@@ -77,14 +77,14 @@ function detectAndObserveImages(cache: InfoCache): void {
     }
 }
 
+const cachePromise = createCache();
+// Need to setup the exports before we wait for the cache promise to resolve,
+// since otherwise the exports might not yet be available for scripts that
+// might need them.
+setupExports(cachePromise);
+
 onDocumentLoaded(() => {
     setupStyle();
-
-    const cachePromise = createCache();
-    // Need to setup the exports before we wait for the cache promise to resolve,
-    // since otherwise the exports might not yet be available for scripts that
-    // might need them.
-    setupExports(cachePromise);
 
     logFailure(cachePromise.then((cache) => {
         detectAndObserveImages(cache);
