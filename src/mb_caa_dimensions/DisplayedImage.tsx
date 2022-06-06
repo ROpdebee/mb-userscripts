@@ -169,7 +169,7 @@ export class DisplayedQueuedUploadImage implements DisplayedImage {
 export function displayedCoverArtFactory(img: HTMLImageElement, cache: InfoCache): DisplayedImage {
     if (img.closest('.artwork-cont') !== null) {  // Release cover art tab
         return new CoverArtTabCAAImage(img, cache);
-    } else if (img.closest('.thumb-position') !== null) {  // Add cover art page, existing images
+    } else if (img.closest('.thumb-position') !== null || img.closest('form#set-cover-art') !== null) {  // Add cover art page, existing images; set-cover-art pages for RG
         return new ThumbnailCAAImage(img, cache);
     } else {
         return new ArtworkImageAnchorCAAImage(img, cache);
