@@ -1,3 +1,5 @@
+import pRetry from 'p-retry';
+
 import { LOGGER } from '@lib/logging/logger';
 import { memoize } from '@lib/util/functions';
 
@@ -54,4 +56,9 @@ function _getImageDimensions(url: string): Promise<Dimensions> {
     });
 }
 
-export const getImageDimensions = memoize(_getImageDimensions);
+export const getImageDimensions = memoize((url: string) => pRetry(() => _getImageDimensions(url), {
+    retries: 5,
+    onFailedAttempt: /* istanbul ignore next: Difficult to cover */ (err) => {
+        LOGGER.warn(`Failed to retrieve image dimensions: ${err.cause}. Retrying…`);
+    },
+}));
