@@ -1,6 +1,6 @@
 import { getCAAInfo } from '@src/mb_caa_dimensions/caa_info';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
-import { CAAImage } from '@src/mb_caa_dimensions/Image';
+import { CAAImage, QueuedUploadImage } from '@src/mb_caa_dimensions/Image';
 
 import { dummyCAAItemID, dummyCAAReleaseFullSizeURL, dummyCAAReleaseThumbnailURL, dummyDimensions, dummyFileInfo, dummyFullSizeURL, dummyImageID, dummyImageInfo, dummyReleaseGroupURL, dummyThumbnail, mockCache } from './test-utils/mock-data';
 
@@ -205,5 +205,30 @@ describe('caa image', () => {
 
             expect(mockGetImageDimensions).toHaveBeenCalledWith(dummyReleaseGroupURL);
         });
+    });
+});
+
+
+describe('queued upload image', () => {
+    const img = document.createElement('img');
+
+    beforeEach(() => {
+        jest.spyOn(img, 'naturalHeight', 'get').mockReturnValue(100);
+        jest.spyOn(img, 'naturalWidth', 'get').mockReturnValue(200);
+    });
+
+    it('loads dimensions', async () => {
+        const queuedImage = new QueuedUploadImage(img);
+
+        await expect(queuedImage.getDimensions()).resolves.toStrictEqual({
+            height: 100,
+            width: 200,
+        });
+    });
+
+    it('has no file info', async () => {
+        const queuedImage = new QueuedUploadImage(img);
+
+        await expect(queuedImage.getFileInfo()).resolves.toBeUndefined();
     });
 });

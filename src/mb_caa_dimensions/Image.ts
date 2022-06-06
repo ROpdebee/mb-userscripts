@@ -8,7 +8,12 @@ import { getImageDimensions } from './dimensions';
 
 const CAA_ID_REGEX = /(mbid-[a-f0-9-]{36})\/mbid-[a-f0-9-]{36}-(\d+)/;
 
-export abstract class Image {
+export interface Image {
+    getDimensions(): Promise<Dimensions | undefined>;
+    getFileInfo(): Promise<FileInfo | undefined>;
+}
+
+export abstract class BaseImage {
 
     private readonly imgUrl: string;
     private readonly cache?: InfoCache;
@@ -118,7 +123,7 @@ function parseCAAIDs(url: string): [string, string] {
 }
 
 
-export class CAAImage extends Image {
+export class CAAImage extends BaseImage {
 
     private readonly itemId: string;
     private readonly imageId: string;
@@ -135,5 +140,25 @@ export class CAAImage extends Image {
 
     loadFileInfo(): Promise<FileInfo> {
         return getCAAInfo(this.itemId, this.imageId);
+    }
+}
+
+
+export class QueuedUploadImage implements Image {
+    private readonly imgElement: HTMLImageElement;
+
+    constructor(imgElement: HTMLImageElement) {
+        this.imgElement = imgElement;
+    }
+
+    getFileInfo(): Promise<undefined> {
+        return Promise.resolve(undefined); // Already displayed on the page by MB itself
+    }
+
+    getDimensions(): Promise<Dimensions> {
+        return Promise.resolve({
+            width: this.imgElement.naturalWidth,
+            height: this.imgElement.naturalHeight,
+        });
     }
 }

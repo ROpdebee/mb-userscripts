@@ -1,90 +1,46 @@
+import { ConsoleSink } from '@lib/logging/consoleSink';
+import { LogLevel } from '@lib/logging/levels';
 import { LOGGER } from '@lib/logging/logger';
-import { formatSize } from '@lib/util/format';
+import { logFailure } from '@lib/util/async';
+import { onDocumentLoaded, qs, qsa, qsMaybe } from '@lib/util/dom';
 
+import type { DisplayedImage } from './DisplayedImage';
 import type { ImageInfo } from './ImageInfo';
+import type { InfoCache } from './InfoCache';
+import { ArtworkImageAnchorCAAImage, CAAImageWithFullSizeURL, CoverArtTabCAAImage, DisplayedQueuedUploadImage, ThumbnailCAAImage } from './DisplayedImage';
 import { CAAImage } from './Image';
 import { createCache } from './InfoCache';
+
+import DEBUG_MODE from 'consts:debug-mode';
+import USERSCRIPT_NAME from 'consts:userscript-name';
 
 // TODO: Refactor this so it's already awaited and we can use the bare cache instead of a promise all the time.
 const cacheProm = createCache();
 
+const displayInfoWhenInView = ((): ((image: DisplayedImage) => void) => {
+    // Map image src to DisplayedImage instances. We'll retrieve from this map
+    // when the image scrolls into view.
+    const imageMap = new Map<HTMLImageElement, DisplayedImage>();
 
-function displayInfo(imgElement: HTMLImageElement, infoStr: string): void {
-    imgElement.setAttribute('ROpdebee_lazyDimensions', infoStr);
-
-    let dimensionStr: string;
-    if (imgElement.closest('div.thumb-position') || imgElement.classList.contains('uploader-preview-image')) {
-        // Shorter for thumbnails
-        dimensionStr = infoStr;
-    } else {
-        dimensionStr = `Dimensions: ${infoStr}`;
-    }
-    let existing = imgElement.parentNode?.querySelector('span.ROpdebee_dimensions');
-    if (!existing) {
-        existing = document.createElement('span');
-        existing.classList.add('ROpdebee_dimensions');
-        imgElement.insertAdjacentElement('afterend', existing);
-    }
-    existing.textContent = dimensionStr;
-}
-
-function createInfoString(result: ImageInfo): string {
-    let dimStr: string, sizeStr: string;
-    if (typeof result.dimensions === 'undefined') {
-        dimStr = 'failed :(';
-    } else {
-        dimStr = `${result.dimensions.width}x${result.dimensions.height}`;
-    }
-
-    if (typeof result.size === 'undefined') {
-        sizeStr = '??? KB';
-    } else {
-        sizeStr = formatSize(result.size);
-    }
-
-    if (typeof result.fileType !== 'undefined') {
-        sizeStr += `, ${result.fileType}`;
-    }
-
-    return `${dimStr} (${sizeStr})`;
-}
-
-async function cbImageInView(imgElement: HTMLImageElement): Promise<void> {
-    // Don't load dimensions if it's already loaded/currently being loaded
-    if (imgElement.getAttribute('ROpdebee_lazyDimensions')) {
-        return;
-    }
-
-    // Placeholder while loading, prevent from loading again.
-    displayInfo(imgElement, 'pending…');
-    const cache = await cacheProm;
-    const image = new CAAImage(imgElement.getAttribute('fullSizeURL') ?? imgElement.src, cache, imgElement.src);
-
-    try {
-        const imageInfo = await image.getImageInfo();
-        displayInfo(imgElement, createInfoString(imageInfo));
-    } catch (e) {
-        LOGGER.error('Failed to load image information', e);
-        displayInfo(imgElement, 'failed :(');
-    }
-}
-
-const getDimensionsWhenInView = (function(): (imgElement: HTMLImageElement) => void {
-    const options = {
-        root: document,
-    };
-    const observer = new IntersectionObserver((entries) => {
+    function inViewCb(entries: IntersectionObserverEntry[]): void {
         entries
-            .filter((evt) => evt.intersectionRatio > 0)
-            .forEach((evt) => {
-                cbImageInView(evt.target as HTMLImageElement)
-                    .catch((err) => {
-                        LOGGER.error('Something went wrong', err);
-                    });
+            .filter((entry) => entry.intersectionRatio > 0)
+            .forEach((entry) => {
+                const image = imageMap.get(entry.target as HTMLImageElement)!;
+                logFailure(image.loadAndDisplay(), 'Failed to process image');
             });
-    }, options);
-    return (elmt) => {
-        observer.observe(elmt);
+    }
+    const observer = new IntersectionObserver(inViewCb, {
+        root: document,
+    });
+
+    return (image) => {
+        if (imageMap.has(image.imgElement)) {
+            // Already observing
+            return;
+        }
+        imageMap.set(image.imgElement, image);
+        observer.observe(image.imgElement);
     };
 })();
 
@@ -108,14 +64,19 @@ async function getCAAImageInfo(imgUrl: string): Promise<ImageInfo> {
 
 declare global {
     interface Window {
-        ROpdebee_getDimensionsWhenInView: typeof getDimensionsWhenInView;
+        ROpdebee_getDimensionsWhenInView: (imgElement: HTMLImageElement) => void;
         ROpdebee_getCAAImageInfo: typeof getCAAImageInfo;
         ROpdebee_loadImageDimensions: (imgUrl: string) => Promise<LegacyImageInfo>;
     }
 }
 
 // Expose the function for use in other scripts that may load images.
-window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
+window.ROpdebee_getDimensionsWhenInView = ((imgElement: HTMLImageElement): void => {
+    logFailure(cacheProm.then((cache) => {
+        const image = new CAAImageWithFullSizeURL(imgElement, cache);
+        displayInfoWhenInView(image);
+    }), `Something went wrong when attempting to load image info for ${imgElement.src}`);
+});
 // Deprecated, use `ROpdebee_getImageInfo` instead.
 window.ROpdebee_loadImageDimensions = ((imgUrl: string): Promise<LegacyImageInfo> =>
     getCAAImageInfo(imgUrl)
@@ -171,52 +132,80 @@ function setupStyle(): void {
     }`);
 }
 
-function listenForNewCoverArtThumbs(): void {
-    // On add cover art pages
-    // Continuously check for images and display their dimensions.
-    // TODO: Wouldn't this be much more efficient if we were to use a mutation
-    // observer? Now it's just rechecking the same images over and over.
-    setInterval(() => {
-        document.querySelectorAll<HTMLImageElement>('img.uploader-preview-image').forEach((img) => {
-            if (img.getAttribute('ROpdebee_lazyDimensions')) return;
-            // Too early to get dimensions, src hasn't been set yet
-            if (!img.naturalWidth) return;
-            // Don't display on PDF images
-            if (img.src.endsWith('/static/images/icons/pdf-icon.png')) return;
+LOGGER.configure({
+    logLevel: DEBUG_MODE ? LogLevel.DEBUG : LogLevel.INFO,
+});
+LOGGER.addSink(new ConsoleSink(USERSCRIPT_NAME));
 
-            // No need to load these through the network here.
-            displayInfo(img, `${img.naturalWidth}x${img.naturalHeight}`);
+async function processPageChange(mutations: MutationRecord[], cache: InfoCache): Promise<void> {
+    mutations.flatMap((mutation) => [...mutation.addedNodes])
+        .filter((addedNode) => addedNode instanceof HTMLImageElement)
+        .forEach((addedImage) => {
+            displayInfoWhenInView(displayedCoverArtFactory(addedImage as HTMLImageElement, cache));
         });
-    }, 500);
 }
 
-window.addEventListener('load', () => {
+function displayedCoverArtFactory(img: HTMLImageElement, cache: InfoCache): DisplayedImage {
+    if (img.closest('.artwork-cont') !== null) {  // Release cover art tab
+        return new CoverArtTabCAAImage(img, cache);
+    } else if (img.closest('.thumb-position') !== null) {  // Add cover art page, existing images
+        return new ThumbnailCAAImage(img, cache);
+    } else {
+        return new ArtworkImageAnchorCAAImage(img, cache);
+    }
+}
 
+function observeQueuedUploads(queuedUploadTable: HTMLTableElement): void {
+    const queuedUploadObserver = new MutationObserver((mutations) => {
+        // Looking for additions of table rows, this indicates a newly queued upload.
+        mutations.forEach((mutation) => {
+            [...mutation.addedNodes]
+                .filter((addedNode) => addedNode instanceof HTMLTableRowElement)
+                .forEach((addedRow) => {
+                    const img = qsMaybe<HTMLImageElement>('img', addedRow as HTMLTableRowElement);
+                    if (img !== null) {
+                        displayInfoWhenInView(new DisplayedQueuedUploadImage(img));
+                    }
+                });
+        });
+    });
+
+    queuedUploadObserver.observe(qs('tbody', queuedUploadTable), {
+        childList: true,
+    });
+}
+
+onDocumentLoaded(() => {
     setupStyle();
 
-    // cover art pages
-    document.querySelectorAll('#content div.artwork-cont').forEach((div) => {
-        const imgElement = div.querySelector<HTMLImageElement>('span.cover-art-image > img');
-        // Could be absent if the image isn't available in CAA yet.
-        if (!imgElement) {
-            return;
+    cacheProm.then((cache) => {
+        // MB's react lazily loads images, and this might run before it was able
+        // to insert the <img> elements. So we'll use a mutation observer and
+        // process the image whenever it gets added.
+        const imageLoadObserver = new MutationObserver((mutations) => {
+            logFailure(processPageChange(mutations, cache));
+        });
+
+        qsa('.cover-art-image').forEach((container) => {
+            // Seems to cover all possible cover art images except for queued upload thumbnails
+            const imgElement = qsMaybe<HTMLImageElement>('img', container);
+
+            // Cover art not available or not loaded by react yet.
+            if (imgElement === null) {
+                imageLoadObserver.observe(container, {
+                    childList: true,
+                });
+            } else {
+                displayInfoWhenInView(displayedCoverArtFactory(imgElement, cache));
+            }
+        });
+
+        // Listen for new queued uploads on "add cover art" pages
+        const queuedUploadTable = qsMaybe<HTMLTableElement>('#add-cover-art > table');
+        if (queuedUploadTable !== null) {
+            observeQueuedUploads(queuedUploadTable);
         }
-        const anchor = div.querySelector<HTMLAnchorElement>('p.small > a:last-of-type');
-        if (!anchor) return;
-        imgElement.setAttribute('fullSizeURL', anchor.href);
-        getDimensionsWhenInView(imgElement);
+    }).catch((err) => {
+        LOGGER.error('Something went wrong when initialising', err);
     });
-
-    // edit pages + release page + add/remove/edit/reorder cover art pages
-    document.querySelectorAll<HTMLImageElement>('.edit-cover-art img, p.artwork img, #sidebar .cover-art-image > img, div.thumb-position > a.artwork-image img').forEach((img) => {
-        const anchor = img.closest<HTMLAnchorElement>('a.artwork-image');
-        if (!anchor) return;
-        img.setAttribute('fullSizeURL', anchor.href);
-        getDimensionsWhenInView(img);
-    });
-
-    // add cover art pages, listen for new images
-    if (document.querySelector('#add-cover-art')) {
-        listenForNewCoverArtThumbs();
-    }
 });

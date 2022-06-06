@@ -1,5 +1,7 @@
 // Asynchronous utilities
 
+import { LOGGER } from '@lib/logging/logger';
+
 export function asyncSleep(ms?: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -28,4 +30,10 @@ export function retryTimes<T>(fn: () => T | Promise<T>, times: number, retryWait
     }
 
     return createTryPromise(times);
+}
+
+export function logFailure(promise: Promise<unknown>, message?: string): void {
+    promise.catch((err) => {
+        LOGGER.error(message ?? 'An error occurred', err);
+    });
 }
