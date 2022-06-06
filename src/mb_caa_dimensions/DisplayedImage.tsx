@@ -182,6 +182,9 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
     }
 
     async loadAndDisplay(): Promise<void> {
+        // Don't display on PDF images
+        if (this.imgElement.src.endsWith('/static/images/icons/pdf-icon.png')) return;
+
         const dimensions = await this.image.getDimensions();
         const infoString = `${dimensions.height}x${dimensions.width}`;
         this.dimensionsSpan.textContent = infoString;
