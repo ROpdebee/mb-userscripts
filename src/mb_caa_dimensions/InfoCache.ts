@@ -1,5 +1,5 @@
 import type { DBSchema, IDBPDatabase, IDBPTransaction, StoreNames } from 'idb';
-import { openDB } from 'idb/with-async-ittr';
+import { openDB } from 'idb';
 
 import { LOGGER } from '@lib/logging/logger';
 
@@ -197,9 +197,11 @@ async function maybePruneDb(db: IDBPDatabase<CacheDBSchema>): Promise<void> {
     const pruneRange = IDBKeyRange.upperBound(Date.now() - CACHE_STALE_TIME);
 
     async function iterateAndPrune(storeName: StoreNames<CacheDBSchema>): Promise<void> {
-        for await (const cursor of db.transaction(storeName, 'readwrite').store.index(CACHE_ADDED_TIMESTAMP_INDEX).iterate(pruneRange)) {
+        let cursor = await db.transaction(storeName, 'readwrite').store.index(CACHE_ADDED_TIMESTAMP_INDEX).openCursor(pruneRange);
+        while (cursor !== null) {
             LOGGER.debug(`Removing ${cursor.key} (added at ${new Date(cursor.value.addedDatetime)})`);
             await cursor.delete();
+            cursor = await cursor.continue();
         }
     }
 
