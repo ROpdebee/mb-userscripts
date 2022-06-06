@@ -36,7 +36,8 @@ export function createFileInfoString(imageInfo: ImageInfo): string {
 abstract class DisplayedCAAImage implements DisplayedImage {
     readonly imgElement: HTMLImageElement;
     private readonly image: CAAImage;
-    protected infoSpan?: HTMLSpanElement;
+    protected dimensionsSpan?: HTMLSpanElement;
+    protected fileInfoSpan?: HTMLSpanElement;
 
     constructor(imgElement: HTMLImageElement, image: CAAImage) {
         this.imgElement = imgElement;
@@ -53,31 +54,39 @@ abstract class DisplayedCAAImage implements DisplayedImage {
 
         try {
             const imageInfo = await this.image.getImageInfo();
-            this.displayInfo(this.createInfoString(imageInfo));
+            this.displayInfo(this.createDimensionsString(imageInfo), this.createFileInfoString(imageInfo));
         } catch (e) {
             LOGGER.error('Failed to load image information', e);
             this.displayInfo('failed :(');
         }
     }
 
-    protected displayInfo(infoString: string): void {
-        this.imgElement.setAttribute('ROpdebee_lazyDimensions', infoString);
+    protected displayInfo(dimensionsString: string, fileInfoString?: string): void {
+        this.imgElement.setAttribute('ROpdebee_lazyDimensions', dimensionsString);
 
-        if (typeof this.infoSpan === 'undefined') {
-            this.infoSpan = <span className={'ROpdebee_dimensions'}></span>;
-            this.imgElement.insertAdjacentElement('afterend', this.infoSpan);
+        if (typeof this.dimensionsSpan === 'undefined') {
+            this.dimensionsSpan = <span className={'ROpdebee_dimensions'}></span>;
+            this.fileInfoSpan = <span className={'ROpdebee_fileInfo'}></span>;
+            this.imgElement.insertAdjacentElement('afterend', this.fileInfoSpan);
+            this.imgElement.insertAdjacentElement('afterend', this.dimensionsSpan);
         }
 
-        this.infoSpan.textContent = infoString;
+        this.dimensionsSpan.textContent = dimensionsString;
+        if (typeof fileInfoString !== 'undefined') {
+            this.fileInfoSpan!.textContent = fileInfoString;
+        }
     }
 
-    protected createInfoString(imageInfo: ImageInfo): string {
-        const infoString = `Dimensions: ${createDimensionsString(imageInfo)}`;
+    protected createDimensionsString(imageInfo: ImageInfo): string {
+        return `Dimensions: ${createDimensionsString(imageInfo)}`;
+    }
+
+    protected createFileInfoString(imageInfo: ImageInfo): string | undefined {
         const detailsString = createFileInfoString(imageInfo);
         if (detailsString) {
-            return `${infoString} (${detailsString})`;
+            return detailsString;
         }
-        return infoString;
+        return undefined;
     }
 }
 
@@ -130,13 +139,8 @@ export class CAAImageWithFullSizeURL extends DisplayedCAAImage {
  */
 export class ThumbnailCAAImage extends ArtworkImageAnchorCAAImage {
 
-    protected override createInfoString(imageInfo: ImageInfo): string {
-        const dimensionsString = createDimensionsString(imageInfo);
-        const detailsString = createFileInfoString(imageInfo);
-        if (detailsString) {
-            return `${dimensionsString} (${detailsString})`;
-        }
-        return dimensionsString;
+    protected override createDimensionsString(imageInfo: ImageInfo): string {
+        return createDimensionsString(imageInfo);
     }
 }
 

@@ -29,13 +29,36 @@ div.thumb-position {
 }
 
 // Styling of the info spans
-span.ROpdebee_dimensions {
+span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
     display: block;
 }
-div.thumb-position span.ROpdebee_dimensions {
-    text-align: center;
-    font-size: smaller;
-    padding: 0.5em 0;
+// Center the labels.
+a.artwork-image {
+    span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
+        text-align: center;
+    }
+}
+// In edit pages, the container is very wide and the text wouldn't be centered nicely,
+// so add a max width to be the same as the image it's labelling.
+// Not sure why the container is so wide though.
+td.edit-cover-art {
+    span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
+        max-width: 250px;
+    }
+}
+div.thumb-position {
+    span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
+        text-align: center;
+        font-size: smaller;
+    }
+
+    span.ROpdebee_dimensions {
+        padding-top: 0.5em;
+    }
+
+    span.ROpdebee_fileInfo {
+        padding-bottom: 0.5em;
+    }
 }
 img.uploader-preview-column > span.ROpdebee_dimensions {
     display: inline;
