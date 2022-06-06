@@ -1,7 +1,7 @@
 import { LOGGER } from '@lib/logging/logger';
 import { assertDefined, assertNonNull } from '@lib/util/assert';
 import { logFailure } from '@lib/util/async';
-import { qs } from '@lib/util/dom';
+import { qs, qsMaybe } from '@lib/util/dom';
 import { formatSize } from '@lib/util/format';
 
 import type { ImageInfo } from './ImageInfo';
@@ -33,14 +33,48 @@ export function createFileInfoString(imageInfo: ImageInfo): string {
     return details.join(', ');
 }
 
-abstract class DisplayedCAAImage implements DisplayedImage {
+abstract class BaseDisplayedImage implements DisplayedImage {
     readonly imgElement: HTMLImageElement;
+    private _dimensionsSpan: HTMLSpanElement | null = null;
+    private _fileInfoSpan: HTMLSpanElement | null = null;
+
+    constructor(imgElement: HTMLImageElement) {
+        this.imgElement = imgElement;
+    }
+
+    protected get dimensionsSpan(): HTMLSpanElement {
+        if (this._dimensionsSpan !== null) return this._dimensionsSpan;
+
+        // Possibly already added previously. Shouldn't happen within this script,
+        // but can happen in Supercharged CAA Edits.
+        this._dimensionsSpan = qsMaybe<HTMLSpanElement>('span.ROpdebee_dimensions', this.imgElement.parentElement!);
+        if (this._dimensionsSpan !== null) return this._dimensionsSpan;
+
+        // First time accessing the dimensions, add it now.
+        this._dimensionsSpan = <span className={'ROpdebee_dimensions'}></span>;
+        this.imgElement.insertAdjacentElement('afterend', this._dimensionsSpan);
+        return this._dimensionsSpan;
+    }
+
+    protected get fileInfoSpan(): HTMLSpanElement {
+        if (this._fileInfoSpan !== null) return this._fileInfoSpan;
+
+        this._fileInfoSpan = qsMaybe<HTMLSpanElement>('span.ROpdebee_fileInfo', this.imgElement.parentElement!);
+        if (this._fileInfoSpan !== null) return this._fileInfoSpan;
+
+        this._fileInfoSpan = <span className={'ROpdebee_fileInfo'}></span>;
+        this.dimensionsSpan.insertAdjacentElement('afterend', this._fileInfoSpan);
+        return this._fileInfoSpan;
+    }
+
+    abstract loadAndDisplay(): Promise<void>;
+}
+
+abstract class DisplayedCAAImage extends BaseDisplayedImage {
     private readonly image: CAAImage;
-    protected dimensionsSpan?: HTMLSpanElement;
-    protected fileInfoSpan?: HTMLSpanElement;
 
     constructor(imgElement: HTMLImageElement, image: CAAImage) {
-        this.imgElement = imgElement;
+        super(imgElement);
         this.image = image;
     }
 
@@ -64,16 +98,9 @@ abstract class DisplayedCAAImage implements DisplayedImage {
     protected displayInfo(dimensionsString: string, fileInfoString?: string): void {
         this.imgElement.setAttribute('ROpdebee_lazyDimensions', dimensionsString);
 
-        if (typeof this.dimensionsSpan === 'undefined') {
-            this.dimensionsSpan = <span className={'ROpdebee_dimensions'}></span>;
-            this.fileInfoSpan = <span className={'ROpdebee_fileInfo'}></span>;
-            this.imgElement.insertAdjacentElement('afterend', this.fileInfoSpan);
-            this.imgElement.insertAdjacentElement('afterend', this.dimensionsSpan);
-        }
-
         this.dimensionsSpan.textContent = dimensionsString;
         if (typeof fileInfoString !== 'undefined') {
-            this.fileInfoSpan!.textContent = fileInfoString;
+            this.fileInfoSpan.textContent = fileInfoString;
         }
     }
 
@@ -144,29 +171,20 @@ export class ThumbnailCAAImage extends ArtworkImageAnchorCAAImage {
     }
 }
 
-export class DisplayedQueuedUploadImage implements DisplayedImage {
-    readonly imgElement: HTMLImageElement;
+export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
     private readonly image: QueuedUploadImage;
-    private infoSpan?: HTMLSpanElement;
 
     // No cache, unnecessary to cache.
     constructor(imgElement: HTMLImageElement) {
-        this.imgElement = imgElement;
+        super(imgElement);
         this.image = new QueuedUploadImage(imgElement);
 
     }
 
     async loadAndDisplay(): Promise<void> {
         const dimensions = await this.image.getDimensions();
-
-        if (typeof this.infoSpan === 'undefined') {
-            this.infoSpan = <span className={'ROpdebee_dimensions'}></span>;
-            this.imgElement.insertAdjacentElement('afterend', this.infoSpan);
-        }
-
         const infoString = `${dimensions.height}x${dimensions.width}`;
-
-        this.infoSpan.textContent = infoString;
+        this.dimensionsSpan.textContent = infoString;
     }
 }
 
