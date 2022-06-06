@@ -75,6 +75,39 @@ export abstract class Image {
 }
 
 
+/**
+ * Parse IDs from CAA URLs.
+ *
+ * @param      {string}            url     The url.
+ * @return     {[string, string]}  IA item ID and image ID.
+ */
+function parseCAAIDs(url: string): [string, string] {
+    const urlObj = new URL(url);
+
+    if (urlObj.host === 'coverartarchive.org' && urlObj.pathname.startsWith('/release')) {
+        const [releaseId, thumbName] = urlObj.pathname.split('/').slice(2);
+        const imageId = thumbName.match(/^(\d+)/)?.[0];
+        if (typeof imageId === 'undefined') {
+            // Possibly RG '/front' URL
+            throw new Error('Unsupported URL');
+        }
+        return [`mbid-${releaseId}`, imageId];
+    }
+
+    if (urlObj.host !== 'archive.org') {
+        throw new Error('Unsupported URL');
+    }
+
+    const matchGroups = urlObj.pathname.match(CAA_ID_REGEX);
+    if (matchGroups === null) {
+        LOGGER.error(`Failed to extract image ID from URL ${url}`);
+        throw new Error('Invalid URL');
+    }
+    const [itemId, imageId] = matchGroups.slice(1);
+    return [itemId, imageId];
+}
+
+
 export class CAAImage extends Image {
 
     private readonly itemId: string;
@@ -83,17 +116,7 @@ export class CAAImage extends Image {
     constructor(fullSizeUrl: string, cache: InfoCache, thumbnailUrl?: string) {
         super(fullSizeUrl, cache);
 
-        const urlObj = new URL(thumbnailUrl ?? fullSizeUrl);
-        if (urlObj.host !== 'archive.org') {
-            throw new Error('Unsupported URL');
-        }
-
-        const matchGroups = urlObj.pathname.match(CAA_ID_REGEX);
-        if (matchGroups === null) {
-            LOGGER.error(`Failed to extract image ID from URL ${thumbnailUrl}`);
-            throw new Error('Invalid URL');
-        }
-        const [itemId, imageId] = matchGroups.slice(1);
+        const [itemId, imageId] = parseCAAIDs(thumbnailUrl ?? fullSizeUrl);
         this.itemId = itemId;
         this.imageId = imageId;
     }

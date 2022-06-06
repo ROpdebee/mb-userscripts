@@ -2,7 +2,7 @@ import { getCAAInfo } from '@src/mb_caa_dimensions/caa_info';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 import { CAAImage } from '@src/mb_caa_dimensions/Image';
 
-import { dummyCAAItemID, dummyDimensions, dummyFileInfo, dummyFullSizeURL, dummyImageID, dummyImageInfo, dummyReleaseGroupURL, dummyThumbnail, mockCache } from './test-utils/mock-data';
+import { dummyCAAItemID, dummyCAAReleaseURL, dummyDimensions, dummyFileInfo, dummyFullSizeURL, dummyImageID, dummyImageInfo, dummyReleaseGroupURL, dummyThumbnail, mockCache } from './test-utils/mock-data';
 
 jest.mock('@src/mb_caa_dimensions/InfoCache');
 jest.mock('@src/mb_caa_dimensions/caa_info');
@@ -165,12 +165,24 @@ describe('caa image', () => {
             expect(mockGetCAAInfo).toHaveBeenCalledWith(dummyCAAItemID, dummyImageID);
         });
 
-        it('only accepts IA URLs', async () => {
+        it('extracts correct item ID and image ID from coverartarchive.org release URLs', async () => {
+            const image = new CAAImage(dummyCAAReleaseURL, mockCache);
+            await image.getFileInfo();
+
+            expect(mockGetCAAInfo).toHaveBeenCalledWith(dummyCAAItemID, dummyImageID);
+        });
+
+        it('does not parse CAA RG URLs', async () => {
+            // These don't have the image ID.
             expect(() => new CAAImage(dummyReleaseGroupURL, mockCache)).toThrowWithMessage(Error, 'Unsupported URL');
         });
 
         it('throws if URL is not supported', async () => {
             expect(() => new CAAImage('https://archive.org/download/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0/index.json', mockCache)).toThrowWithMessage(Error, 'Invalid URL');
+        });
+
+        it('only supports CAA or IA URLs', async () => {
+            expect(() => new CAAImage('https://example.com/test', mockCache)).toThrowWithMessage(Error, 'Unsupported URL');
         });
 
         it('uses thumbnail URL if available', async () => {
