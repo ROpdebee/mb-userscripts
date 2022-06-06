@@ -1,5 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 import { assertDefined, assertNonNull } from '@lib/util/assert';
+import { logFailure } from '@lib/util/async';
 import { qs } from '@lib/util/dom';
 import { formatSize } from '@lib/util/format';
 
@@ -164,3 +165,40 @@ export class DisplayedQueuedUploadImage implements DisplayedImage {
         this.infoSpan.textContent = infoString;
     }
 }
+
+export function displayedCoverArtFactory(img: HTMLImageElement, cache: InfoCache): DisplayedImage {
+    if (img.closest('.artwork-cont') !== null) {  // Release cover art tab
+        return new CoverArtTabCAAImage(img, cache);
+    } else if (img.closest('.thumb-position') !== null) {  // Add cover art page, existing images
+        return new ThumbnailCAAImage(img, cache);
+    } else {
+        return new ArtworkImageAnchorCAAImage(img, cache);
+    }
+}
+
+export const displayInfoWhenInView = ((): ((image: DisplayedImage) => void) => {
+    // Map image src to DisplayedImage instances. We'll retrieve from this map
+    // when the image scrolls into view.
+    const imageMap = new Map<HTMLImageElement, DisplayedImage>();
+
+    function inViewCb(entries: IntersectionObserverEntry[]): void {
+        entries
+            .filter((entry) => entry.intersectionRatio > 0)
+            .forEach((entry) => {
+                const image = imageMap.get(entry.target as HTMLImageElement)!;
+                logFailure(image.loadAndDisplay(), 'Failed to process image');
+            });
+    }
+    const observer = new IntersectionObserver(inViewCb, {
+        root: document,
+    });
+
+    return (image) => {
+        if (imageMap.has(image.imgElement)) {
+            // Already observing
+            return;
+        }
+        imageMap.set(image.imgElement, image);
+        observer.observe(image.imgElement);
+    };
+})();

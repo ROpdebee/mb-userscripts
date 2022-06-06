@@ -32,6 +32,7 @@ export function retryTimes<T>(fn: () => T | Promise<T>, times: number, retryWait
     return createTryPromise(times);
 }
 
+// istanbul ignore next: Fine.
 export function logFailure(promise: Promise<unknown>, message?: string): void {
     promise.catch((err) => {
         LOGGER.error(message ?? 'An error occurred', err);

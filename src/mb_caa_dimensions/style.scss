@@ -1,0 +1,42 @@
+// Thumbnails in add/reorder cover art pages
+div.thumb-position {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.image-position {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+div.thumb-position {
+    // Put the reorder buttons at the bottom
+    > div:last-of-type {
+        &::before {
+            margin-bottom: auto;
+        }
+
+        margin-top: auto;
+        padding-top: 5px;
+    }
+
+    // Center the thumbnail img
+    img {
+        display: block;
+        margin: auto;
+    }
+}
+
+// Styling of the info spans
+span.ROpdebee_dimensions {
+    display: block;
+}
+div.thumb-position span.ROpdebee_dimensions {
+    text-align: center;
+    font-size: smaller;
+    padding: 0.5em 0;
+}
+img.uploader-preview-column > span.ROpdebee_dimensions {
+    display: inline;
+}
