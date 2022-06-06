@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Supercharged Cover Art Edits
-// @version      2022.5.19
+// @version      2022.6.6
 // @description  Supercharges reviewing cover art edits. Displays release information on CAA edits. Enables image comparisons on removed and added images.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -61,6 +61,7 @@ const PACKAGING_TYPES = {
     21: 'SnapPack',
     54: 'Metal Tin',
     55: 'Longbox',
+    56: 'Clamshell Case',
 };
 
 const NONSQUARE_PACKAGING_TYPES = [
