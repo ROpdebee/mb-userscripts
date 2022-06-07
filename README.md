@@ -33,8 +33,8 @@ Quickly copy-paste work identifiers (ISWC, agency work codes) from [CISAC's ISWC
 
 Loads and displays the image dimensions of images in the cover art archive.
 
-[![Install](https://img.shields.io/badge/install-latest-informational?style=for-the-badge&logo=tampermonkey)](mb_caa_dimensions.user.js?raw=1)
-[![Source](https://img.shields.io/badge/source-grey?style=for-the-badge&logo=github)](mb_caa_dimensions.user.js)
+[![Install](https://img.shields.io/badge/dynamic/json?label=install&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FROpdebee%2Fmb-userscripts%2Fdist%2Fmb_caa_dimensions.metadata.json&logo=tampermonkey&style=for-the-badge&color=informational)](https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_caa_dimensions.user.js)
+[![Source](https://img.shields.io/badge/source-grey?style=for-the-badge&logo=github)](src/mb_caa_dimensions)
 
 ## MB: Enhanced Cover Art Uploads
 
