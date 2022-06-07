@@ -1,11 +1,11 @@
 // https://github.com/NotWoods/rollup-plugin-consts/wiki/Usage-with-TypeScript
 
-declare module 'consts:userscript-name' {
-    const userscriptName: string;
-    export default userscriptName;
+declare module 'consts:userscript-id' {
+    const USERSCRIPT_ID: string;
+    export default USERSCRIPT_ID;
 }
 
 declare module 'consts:debug-mode' {
-    const debugMode: boolean;
-    export default debugMode;
+    const DEBUG_MODE: boolean;
+    export default DEBUG_MODE;
 }

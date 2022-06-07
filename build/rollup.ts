@@ -94,7 +94,7 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
                 },
             }),
             consts({
-                'userscript-name': userscriptDir,
+                'userscript-id': userscriptDir,
                 'debug-mode': process.env.NODE_ENV !== 'production',
             }),
             // To resolve node_modules imports
