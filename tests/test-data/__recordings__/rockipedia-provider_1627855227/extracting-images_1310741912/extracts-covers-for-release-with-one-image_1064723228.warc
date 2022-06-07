@@ -1,0 +1,145 @@
+WARC/1.1
+WARC-Filename: rockipedia provider/extracting images/extracts covers for release with one image
+WARC-Date: 2022-06-07T12:58:16.128Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:1e5e6066-5e55-4f93-96fb-58da4cec6289>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:7b6b0a49-438c-4a1f-a497-bdfe87a441f9>
+WARC-Target-URI: https://www.rockipedia.no/?imagebrowser=true&t=album&id=4580
+WARC-Date: 2022-06-07T12:58:16.130Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:8075a769-6438-4960-a56a-dad5b74168fe>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:f7be9c53af3e69734369e6b48269b145315fd1835b2247bd387db8500b7b20ad
+Content-Length: 52
+
+GET /?imagebrowser=true&t=album&id=4580 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:7b6b0a49-438c-4a1f-a497-bdfe87a441f9>
+WARC-Target-URI: https://www.rockipedia.no/?imagebrowser=true&t=album&id=4580
+WARC-Date: 2022-06-07T12:58:16.130Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:b0de8305-bf2b-4281-b03b-0ecfb9ae6c28>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:8737a205750c7bcffc1bea08a5010ee45312d61e228d486122b6c62ff12591b9
+WARC-Block-Digest: sha256:8737a205750c7bcffc1bea08a5010ee45312d61e228d486122b6c62ff12591b9
+Content-Length: 348
+
+harEntryId: 78b41c1c4a3f9726ec9345eb8ad45548
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-06-07T12:58:15.744Z
+time: 370
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":370,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 79
+warcRequestCookies: []
+warcResponseHeadersSize: 281
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.rockipedia.no/?imagebrowser=true&t=album&id=4580
+WARC-Date: 2022-06-07T12:58:16.129Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:7b6b0a49-438c-4a1f-a497-bdfe87a441f9>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:adf18d246e6563f363da5a05c10fc44a90411389e4730b0e1160a93ccf44347f
+WARC-Block-Digest: sha256:63a4e61635946a21ec9fd642285d935ea6a0573caa0eb4ceb1bd7295e82e2562
+Content-Length: 3692
+
+HTTP/1.1 200 OK
+connection: close
+content-encoding: gzip
+content-length: 1214
+content-type: text/html; charset=UTF-8
+date: Tue, 07 Jun 2022 12:58:16 GMT
+server: Apache/2.4.18 (Ubuntu)
+vary: Accept-Encoding
+x-pollyjs-finalurl: https://www.rockipedia.no/?imagebrowser=true&t=album&id=4580
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Rockheim</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Rockheim" />
+    <meta name='robots' content='noindex,nofollow' />
+    <link rel='stylesheet' id='royalslider-frontend-css-css'  href='/wp-content/plugins/royalslider/css/royalslider.css?ver=3.4.1' type='text/css' media='all' />
+    <link rel='stylesheet' id='royalslider-skin-default-css'  href='/wp-content/plugins/royalslider/css/royalslider-skins/default/default.css?ver=3.4.1' type='text/css' media='all' />
+    <script type="text/javascript" src="https://www.rockipedia.no/wp-content/themes/rockipedia/js/jquery.min.js"></script>
+    <script type='text/javascript' src='/wp-content/plugins/royalslider/js/jquery.royal-slider.min.js?ver=1.0'></script>
+    <script type='text/javascript' src='/wp-content/plugins/royalslider/js/jquery.easing.1.3.min.js?ver=3.4.1'></script>
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+        jQuery("#royalslider").royalSlider({
+          "width":"600px",
+          "height":"450px",
+          "skin":"default",
+          "preloadSkin":true,
+          "lazyLoading":true,
+          "preloadNearbyImages":true,
+          "slideshowEnabled":false,
+          "slideshowDelay":5000,
+          "slideshowPauseOnHover":true,
+          "slideshowAutoStart":true,
+          "keyboardNavEnabled":false,
+          "dragUsingMouse":true,
+          "slideSpacing":0,
+          "startSlideIndex":0,
+          "imageAlignCenter":true,
+          "imageScaleMode":"fit",
+          "autoScaleSlider":false,
+          "autoScaleSliderWidth":960,
+          "autoScaleSliderHeight":400,
+          "slideTransitionType":"move",
+          "slideTransitionSpeed":400,
+          "slideTransitionEasing":"easeInOutSine",
+          "directionNavEnabled":false,
+          "directionNavAutoHide":false,
+          "hideArrowOnLastSlide":false,
+          "controlNavigationType":"none",
+          "auto-generate-images":false,
+          "auto-generate-thumbs":false,
+          "thumb-width":60,
+          "thumb-height":60,
+          "captionAnimationEnabled":true,
+          "captionShowFadeEffect":true,
+          "captionShowMoveEffect":"movetop",
+          "captionMoveOffset":20,
+          "captionShowSpeed":400,
+          "captionShowEasing":"easeInOutSine",
+          "captionShowDelay":200,
+          "controlNavEnabled":false,
+          "captionShowEffects":["fade","movetop"]
+        });
+      });
+    </script>
+  </head>
+  <body style="margin: 0; padding: 0;">
+    <div id="royalslider" class="royalSlider default" style="width:600px; height:450px; background: ">
+      <ul class="royalSlidesContainer">
+                  <li data-src="https://www.rockipedia.no/?image=3224_original.jpg" class="royalSlide">
+                          <div style="position: absolute; top: 0; left: 0; color: #fff; margin-top: 370px; padding: 15px 25px; width: 650px; height: 70px; font-size: .9em; background: rgba(0,0,0,0.4); width: 100%; float: left; line-height: 20px; overflow: hidden;">
+                                  <strong>Omslagsfoto</strong><br/>
+                                                  <span> / 5099908514127</span>
+                              </div>
+                      </li>
+              </ul>
+    </div>
+  </body>
+</html>
+
