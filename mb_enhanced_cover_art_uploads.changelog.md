@@ -1,3 +1,4 @@
+- **2022.6.8**: New feature: update notifications ([#458](https://github.com/ROpdebee/mb-userscripts/pull/458))
 - **2022.6.1.5**: Internal changes: redeploying because of earlier failure ([#449](https://github.com/ROpdebee/mb-userscripts/pull/449))
 - **2022.6.1.4**: Bug fix: sanitise MBID in atisket seeder ([#447](https://github.com/ROpdebee/mb-userscripts/pull/447))
 - **2022.6.1.3**: Bug fix: improve wording of unsupported provider page messages ([#446](https://github.com/ROpdebee/mb-userscripts/pull/446))
