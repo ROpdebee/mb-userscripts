@@ -2,7 +2,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { assertDefined, assertNonNull } from '@lib/util/assert';
 import { logFailure } from '@lib/util/async';
 import { qs, qsMaybe } from '@lib/util/dom';
-import { formatSize } from '@lib/util/format';
+import { formatFileSize } from '@lib/util/format';
 
 import type { ImageInfo } from './ImageInfo';
 import type { InfoCache } from './InfoCache';
@@ -24,7 +24,7 @@ export function createDimensionsString(imageInfo: ImageInfo): string {
 export function createFileInfoString(imageInfo: ImageInfo): string {
     const details: string[] = [];
     if (typeof imageInfo.size !== 'undefined') {
-        details.push(formatSize(imageInfo.size));
+        details.push(formatFileSize(imageInfo.size));
     }
     if (typeof imageInfo.fileType !== 'undefined') {
         details.push(imageInfo.fileType);

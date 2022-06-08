@@ -1,10 +1,10 @@
 /**
- * Format a number to a human-readable size string.
+ * Format a number to a human-readable file size string.
  *
- * @param      {number}  size    The size.
+ * @param      {number}  size    The file's size in bytes.
  * @return     {string}  Human-readable, formatted version.
  */
-export function formatSize(size: number): string {
+export function formatFileSize(size: number): string {
     // Thanks to https://stackoverflow.com/a/20732091
     const order = size === 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
     const suffixes = ['B', 'kB', 'MB', 'GB', 'TB'];
