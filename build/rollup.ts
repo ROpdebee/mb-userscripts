@@ -56,7 +56,7 @@ export async function buildUserscripts(version: string, outputDir: string = OUTP
 
 export async function buildUserscript(userscriptName: string, version: string, outputDir: string): Promise<void> {
     console.log(`Building ${userscriptName}`);
-    const userscriptMetaGenerator = MetadataGenerator.create({
+    const userscriptMetaGenerator = await MetadataGenerator.create({
         userscriptName,
         version,
         branchName: 'dist',

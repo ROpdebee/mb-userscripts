@@ -1,5 +1,3 @@
-import fs from 'fs';
-
 import type { AllUserscriptMetadata, UserscriptMetadata } from '@lib/util/metadata';
 
 import { GitURLs, MetadataGenerator } from '../../../build/plugin-userscript';
@@ -96,12 +94,19 @@ describe('metadata generator', () => {
         branchName: 'branch',
         metadataOrder: ['name', 'namespace', 'version'],
     };
+    const basePackageJson = {
+        repository: 'https://github.com/ROpdebee/mb-userscripts',
+    };
+    const packageJsonWithAuthor = {
+        ...basePackageJson,
+        author: 'ROpdebee',
+    };
 
     // In the following, we call `createMetadataLine` by indexing, as this
     // removes the private modifier.
 
     describe('creating metadata line', () => {
-        const metaGen = new MetadataGenerator(options);
+        const metaGen = new MetadataGenerator(options, packageJsonWithAuthor);
 
         it('concatenates field and value', () => {
             const line = metaGen['createMetadataLine']('namespace', 'test_namespace');
@@ -117,7 +122,7 @@ describe('metadata generator', () => {
     });
 
     describe('creating metadata lines', () => {
-        const metaGen = new MetadataGenerator(options);
+        const metaGen = new MetadataGenerator(options, packageJsonWithAuthor);
 
         it('generates a single line', () => {
             const lines = metaGen['createMetadataLines'](['name', 'test1']);
@@ -133,7 +138,7 @@ describe('metadata generator', () => {
     });
 
     describe('creating metadata block', () => {
-        const metaGen = new MetadataGenerator(options);
+        const metaGen = new MetadataGenerator(options, packageJsonWithAuthor);
 
         it('wraps stanzas in userscript metadata block', () => {
             const block = metaGen['createMetadataBlock']({ name: 'test' } as AllUserscriptMetadata);
@@ -159,7 +164,7 @@ describe('metadata generator', () => {
             const metaGen = new MetadataGenerator({
                 ...options,
                 metadataOrder: ['version', 'namespace', 'name'],
-            });
+            }, packageJsonWithAuthor);
             const block = metaGen['createMetadataBlock']({ version: '1.2.3', namespace: 'ns', name: 'name' } as AllUserscriptMetadata);
 
             expect(block).toBe(`
@@ -172,127 +177,98 @@ describe('metadata generator', () => {
     });
 
     describe('setting default metadata', () => {
-        const packageReaderMock = jest.spyOn(fs.promises, 'readFile');
-        const basePackageJson = {
-            repository: 'https://github.com/ROpdebee/mb-userscripts',
-        };
-        const packageJsonWithAuthor = {
-            ...basePackageJson,
-            author: 'ROpdebee',
-        };
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         const defaultMeta = {} as UserscriptMetadata;
-        const metaGen = new MetadataGenerator(options);
 
-        afterEach(() => {
-            packageReaderMock.mockReset();
-        });
-
-        afterAll(() => {
-            packageReaderMock.mockRestore();
-        });
-
-        it('throws on empty author', async () => {
+        it('throws on empty author', () => {
             expect.assertions(1);
 
-            packageReaderMock.mockResolvedValue(JSON.stringify(basePackageJson));
+            const metaGen = new MetadataGenerator(options, basePackageJson);
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .rejects
-                .toSatisfy<Error>((err) => err.message.startsWith('No author set'));
+            expect(() => metaGen['insertDefaultMetadata'](defaultMeta))
+                .toThrowWithMessage(Error, /^No author set/);
         });
 
-        it('uses author string in package.json', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify({ ...basePackageJson, author: 'ROpdebee' }));
+        it('uses author string in package.json', () => {
+            const metaGen = new MetadataGenerator(options, { ...basePackageJson, author: 'ROpdebee' });
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ author: 'ROpdebee' });
         });
 
-        it('uses author object in package.json', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify({ ...basePackageJson, author: { name: 'ROpdebee' }}));
+        it('uses author object in package.json', () => {
+            const metaGen = new MetadataGenerator(options, { ...basePackageJson, author: { name: 'ROpdebee' }});
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ author: 'ROpdebee' });
         });
 
-        it('inserts license', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor, license: 'MIT' }));
+        it('inserts license', () => {
+            const metaGen = new MetadataGenerator(options, { ...packageJsonWithAuthor, license: 'MIT' });
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ license: 'MIT' });
         });
 
-        it('inserts namespace', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
+        it('inserts namespace', () => {
+            const metaGen = new MetadataGenerator(options, packageJsonWithAuthor);
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ namespace: 'https://github.com/ROpdebee/mb-userscripts' });
         });
 
-        it('inserts homepage URL', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
+        it('inserts homepage URL', () => {
+            const metaGen = new MetadataGenerator(options, packageJsonWithAuthor);
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ homepageURL: 'https://github.com/ROpdebee/mb-userscripts' });
         });
 
-        it('inserts issues URL from git repo', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
+        it('inserts issues URL from git repo', () => {
+            const metaGen = new MetadataGenerator(options, packageJsonWithAuthor);
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ supportURL: 'https://github.com/ROpdebee/mb-userscripts/issues' });
         });
 
-        it('inserts issues URL from package.json bugs', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor, bugs: 'test URL' }));
+        it('inserts issues URL from package.json bugs', () => {
+            const metaGen = new MetadataGenerator(options, { ...packageJsonWithAuthor, bugs: 'test URL' });
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ supportURL: 'test URL' });
         });
 
-        it('inserts issues URL from package.json bugs object', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify({ ...packageJsonWithAuthor, bugs: { url: 'test URL' }}));
+        it('inserts issues URL from package.json bugs object', () => {
+            const metaGen = new MetadataGenerator(options, { ...packageJsonWithAuthor, bugs: { url: 'test URL' }});
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ supportURL: 'test URL' });
         });
 
-        it('inserts download and update URL', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
+        it('inserts download and update URL', () => {
+            const metaGen = new MetadataGenerator(options, packageJsonWithAuthor);
             const urlBase = 'https://raw.github.com/ROpdebee/mb-userscripts/branch/';
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({
                     downloadURL: urlBase + 'test.user.js',
                     updateURL: urlBase + 'test.meta.js',
                 });
         });
 
-        it('inserts @grant none by default', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
+        it('inserts @grant none by default', () => {
+            const metaGen = new MetadataGenerator(options, packageJsonWithAuthor);
 
-            await expect(metaGen['insertDefaultMetadata'](defaultMeta))
-                .resolves
+            expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({
                     grant: ['none'],
                 });
         });
 
-        it('allows overriding @grant none', async () => {
-            packageReaderMock.mockResolvedValue(JSON.stringify(packageJsonWithAuthor));
+        it('allows overriding @grant none', () => {
+            const metaGen = new MetadataGenerator(options, packageJsonWithAuthor);
 
-            await expect(metaGen['insertDefaultMetadata']({ ...defaultMeta, grant: ['GM_xmlhttpRequest'] }))
-                .resolves
+            expect(metaGen['insertDefaultMetadata']({ ...defaultMeta, grant: ['GM_xmlhttpRequest'] }))
                 .toMatchObject({
                     grant: ['GM_xmlhttpRequest', 'GM.xmlHttpRequest'],
                 });
