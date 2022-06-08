@@ -40,7 +40,7 @@ jobs:
                 number: prs[0].number,
                 title: prs[0].title,
                 labels: prs[0].labels.map((label) => label.name),
-                url: pr.html_url,
+                url: prs[0].html_url,
               };
             } catch (err) {
               console.error('Could not find PR number for commit!');
