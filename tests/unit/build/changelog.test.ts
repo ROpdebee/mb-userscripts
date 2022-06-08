@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { generateChangelogEntry, parsePullRequestTitle, updateChangelog } from '../../../build/changelog';
+import { generateChangelogEntry, parseChangelogEntries, parsePullRequestTitle, updateChangelog } from '../../../build/changelog';
 
 describe('parsing PR title', () => {
     const ccTypes = ['feat', 'fix', 'docs', 'test', 'refactor', 'style', 'chore'];
@@ -109,5 +109,61 @@ describe('updating changelog', () => {
 
         expect(changelogWriterMock).toHaveBeenCalledTimes(1);
         expect(changelogWriterMock).toHaveBeenCalledWith(expectedPath, expectedChangelog + 'Existing\nchangelog\ncontent');
+    });
+});
+
+describe('parsing changelog', () => {
+    const changelogReaderMock = jest.spyOn(fs.promises, 'readFile');
+    const changelogWriterMock = jest.spyOn(fs.promises, 'writeFile');
+
+    beforeEach(() => {
+        changelogWriterMock.mockResolvedValue(undefined);
+    });
+
+    afterEach(() => {
+        changelogReaderMock.mockReset();
+        changelogWriterMock.mockReset();
+    });
+
+    it('returns no entries on empty changelog', async () => {
+        changelogReaderMock.mockRejectedValue(new Error('File not found'));
+
+        await expect(parseChangelogEntries('test')).resolves.toStrictEqual([]);
+    });
+
+    it('parses previously-generated changelogs', async () => {
+        changelogReaderMock.mockRejectedValue(new Error('File not found'));
+        await updateChangelog('testScript', '1.2.3', 'testRepo', {
+            title: 'feat(ecau): add Jamendo provider',
+            number: 123,
+            labels: [],
+        });
+        // @ts-expect-error: Mocking
+        changelogReaderMock.mockResolvedValue(changelogWriterMock.mock.lastCall[1]);
+        await updateChangelog('testScript', '1.2.3.1', 'testRepo', {
+            title: 'fix(ecau): fix a mistake!!',
+            number: 124,
+            labels: [],
+        });
+        // @ts-expect-error: Mocking
+        changelogReaderMock.mockResolvedValue(changelogWriterMock.mock.lastCall[1]);
+
+        await expect(parseChangelogEntries('test')).resolves.toStrictEqual([{
+            title: 'Bug fix',
+            version: '1.2.3.1',
+            subject: 'fix a mistake!!',
+            prNumber: 124,
+        }, {
+            title: 'New feature',
+            version: '1.2.3',
+            subject: 'add Jamendo provider',
+            prNumber: 123,
+        }]);
+    });
+
+    it('ignores malformed entries', async () => {
+        changelogReaderMock.mockResolvedValue('not a correct\nchangelog');
+
+        await expect(parseChangelogEntries('test')).resolves.toStrictEqual([]);
     });
 });
