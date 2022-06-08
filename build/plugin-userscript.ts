@@ -12,9 +12,12 @@ import { filterNonNull } from '@lib/util/array';
 interface UserscriptOptions {
     userscriptName: string;
     version: string;
-    include: Readonly<RegExp>;
     branchName?: string;
     metadataOrder?: readonly string[];
+}
+
+interface PluginOptions {
+    include: Readonly<RegExp>;
 }
 
 interface _UserscriptOptionsWithDefaults extends UserscriptOptions {
@@ -79,13 +82,17 @@ async function loadPackageJson(): Promise<PackageJson> {
     return JSON.parse(content) as PackageJson;
 }
 
-export /* for tests */ class MetadataGenerator {
+export class MetadataGenerator {
     readonly options: Readonly<_UserscriptOptionsWithDefaults>;
     readonly longestMetadataFieldLength: number;
 
     constructor(options: Readonly<_UserscriptOptionsWithDefaults>) {
         this.options = options;
         this.longestMetadataFieldLength = Math.max(...options.metadataOrder.map((field) => field.length));
+    }
+
+    static create(options: Readonly<UserscriptOptions>): MetadataGenerator {
+        return new MetadataGenerator({ ...DEFAULT_OPTIONS, ...options });
     }
 
     transformGMFunction(name: string): string[] {
@@ -212,7 +219,7 @@ export /* for tests */ class MetadataGenerator {
 }
 
 /* istanbul ignore next: Covered by build, can't be tested, see `loadMetadata`. */
-export function userscript(options: Readonly<UserscriptOptions>): Plugin {
+export function userscript(options: Readonly<PluginOptions>, metaGenerator: MetadataGenerator): Plugin {
 
     // Will be set to the string content of the metadata block during the build
     // phase, and will be used again during the output phase.
@@ -235,12 +242,11 @@ export function userscript(options: Readonly<UserscriptOptions>): Plugin {
             // need
             if (!id.match(options.include)) return;
 
-            const metaGenerator = new MetadataGenerator({ ...DEFAULT_OPTIONS, ...options });
             metadataBlock = await metaGenerator.generateMetadataBlock();
 
             this.emitFile({
                 type: 'asset',
-                fileName: `${options.userscriptName}.meta.js`,
+                fileName: `${metaGenerator.options.userscriptName}.meta.js`,
                 source: metadataBlock,
             });
 
@@ -257,7 +263,7 @@ export function userscript(options: Readonly<UserscriptOptions>): Plugin {
          * @return     {String}  The code with the metadata block prepended.
          */
         async renderChunk(code: string): Promise<{ code: string }> {
-            const sourceUrl = GitURLs.fromPackageJson(await loadPackageJson()).constructSourceURL(options.userscriptName);
+            const sourceUrl = GitURLs.fromPackageJson(await loadPackageJson()).constructSourceURL(metaGenerator.options.userscriptName);
             const sourceReferenceComment = `// For original source code, see ${sourceUrl}`;
             return {
                 code: `${metadataBlock}\n\n${sourceReferenceComment}\n${code}`,

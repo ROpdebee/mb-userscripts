@@ -17,7 +17,7 @@ import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
 import { nativejsx } from './plugin-nativejsx';
-import { userscript } from './plugin-userscript';
+import { MetadataGenerator, userscript } from './plugin-userscript';
 
 const OUTPUT_DIR = 'dist';
 const VENDOR_CHUNK_NAME = 'vendor';
@@ -163,17 +163,19 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
         return acc;
     }, {});
 
+    const userscriptMetaGenerator = MetadataGenerator.create({
+        userscriptName: userscriptDir,
+        version,
+        branchName: 'dist',
+    });
     const bundle = await rollup({
         input: 'index.js',
         plugins: [
             // Feed the code of the previous pass as virtual files
             virtual(fileMapping),
             userscript({
-                userscriptName: userscriptDir,
-                version: version,
-                branchName: 'dist',
                 include: /index\.js/,
-            }),
+            }, userscriptMetaGenerator),
         ],
     });
 
