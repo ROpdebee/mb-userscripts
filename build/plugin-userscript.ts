@@ -85,14 +85,20 @@ async function loadPackageJson(): Promise<PackageJson> {
 export class MetadataGenerator {
     readonly options: Readonly<_UserscriptOptionsWithDefaults>;
     readonly longestMetadataFieldLength: number;
+    readonly npmPackage: Readonly<PackageJson>;
+    readonly gitURLs: Readonly<GitURLs>;
 
-    constructor(options: Readonly<_UserscriptOptionsWithDefaults>) {
+    constructor(options: Readonly<_UserscriptOptionsWithDefaults>, npmPackage: Readonly<PackageJson>) {
         this.options = options;
         this.longestMetadataFieldLength = Math.max(...options.metadataOrder.map((field) => field.length));
+
+        this.npmPackage = npmPackage;
+        this.gitURLs = GitURLs.fromPackageJson(npmPackage);
     }
 
-    static create(options: Readonly<UserscriptOptions>): MetadataGenerator {
-        return new MetadataGenerator({ ...DEFAULT_OPTIONS, ...options });
+    static async create(options: Readonly<UserscriptOptions>): Promise<MetadataGenerator> {
+        const npmPackage = await loadPackageJson();
+        return new MetadataGenerator({ ...DEFAULT_OPTIONS, ...options }, npmPackage);
     }
 
     transformGMFunction(name: string): string[] {
@@ -119,26 +125,23 @@ export class MetadataGenerator {
     /**
      * Insert missing metadata from defaults.
      *
-     * @param      {UserscriptMetadata}              specificMetadata  The userscript-specific metadata.
-     * @return     {Promise<AllUserscriptMetadata>}  The specific metadata amended with defaults.
+     * @param      {UserscriptMetadata}     specificMetadata  The userscript-specific metadata.
+     * @return     {AllUserscriptMetadata}  The specific metadata amended with defaults.
      */
-    private async insertDefaultMetadata(specificMetadata: Readonly<UserscriptMetadata>): Promise<AllUserscriptMetadata> {
-        const npmPackage = await loadPackageJson();
-        const gitURLs = GitURLs.fromPackageJson(npmPackage);
-
-        if (!npmPackage.author) {
+    private insertDefaultMetadata(specificMetadata: Readonly<UserscriptMetadata>): AllUserscriptMetadata {
+        if (!this.npmPackage.author) {
             throw new Error('No author set in package.json');
         }
 
         const defaultMetadata = {
             version: this.options.version,
-            author: typeof npmPackage.author === 'string' ? npmPackage.author : npmPackage.author.name,
-            license: npmPackage.license,
-            supportURL: (typeof npmPackage.bugs === 'string' ? npmPackage.bugs : npmPackage.bugs?.url) ?? gitURLs.issuesURL,
-            homepageURL: gitURLs.homepageURL,
-            downloadURL: gitURLs.constructRawURL(this.options.branchName, `${this.options.userscriptName}.user.js`),
-            updateURL: gitURLs.constructRawURL(this.options.branchName, `${this.options.userscriptName}.meta.js`),
-            namespace: gitURLs.homepageURL, // often used as homepage URL (has the widest support)
+            author: typeof this.npmPackage.author === 'string' ? this.npmPackage.author : this.npmPackage.author.name,
+            license: this.npmPackage.license,
+            supportURL: (typeof this.npmPackage.bugs === 'string' ? this.npmPackage.bugs : this.npmPackage.bugs?.url) ?? this.gitURLs.issuesURL,
+            homepageURL: this.gitURLs.homepageURL,
+            downloadURL: this.gitURLs.constructRawURL(this.options.branchName, `${this.options.userscriptName}.user.js`),
+            updateURL: this.gitURLs.constructRawURL(this.options.branchName, `${this.options.userscriptName}.meta.js`),
+            namespace: this.gitURLs.homepageURL, // often used as homepage URL (has the widest support)
             grant: ['none'],
         };
 
