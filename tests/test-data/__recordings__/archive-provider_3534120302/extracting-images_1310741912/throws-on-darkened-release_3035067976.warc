@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: archive provider/extracting images/throws on darkened release
-WARC-Date: 2022-06-05T12:48:57.250Z
+WARC-Date: 2022-06-08T15:45:43.318Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:861d67bf-8dc3-4531-ae92-179ab89125b8>
+WARC-Record-ID: <urn:uuid:717ffe3f-2426-4b22-8e6d-58c232805644>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,19 +12,19 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:fa9e6e18-132d-4155-9b4d-9ad2efc8886a>
+WARC-Concurrent-To: <urn:uuid:8e1b92df-27f0-4d9e-a0ad-8b9615ed6da5>
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-06-05T12:48:57.251Z
+WARC-Date: 2022-06-08T15:45:43.319Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:d4f66555-1dcb-42be-aca9-294b1b937a85>
+WARC-Record-ID: <urn:uuid:28010e44-53d2-4eb7-a121-d5a6b9995852>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:eacc8c8d8b5f771de9696f46290d95074b23c0e5dc2d28752678eb2a6e23f3d8
-Content-Length: 177
+WARC-Block-Digest: sha256:0b2698899c496bf8ee413057cae0417b8478b6c5dc910b5bcf7ba3fb8e7a0ccc
+Content-Length: 179
 
 GET /metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8 HTTP/1.1
 accept: */*
-accept-encoding: gzip,deflate,br
+accept-encoding: gzip, deflate, br
 connection: close
 user-agent: node-fetch
 host: archive.org
@@ -32,23 +32,23 @@ host: archive.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:fa9e6e18-132d-4155-9b4d-9ad2efc8886a>
+WARC-Concurrent-To: <urn:uuid:8e1b92df-27f0-4d9e-a0ad-8b9615ed6da5>
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-06-05T12:48:57.251Z
+WARC-Date: 2022-06-08T15:45:43.319Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:27b2a55b-d619-44a9-bb66-26e1534a0ddf>
+WARC-Record-ID: <urn:uuid:6f5ae1e9-d1bd-4bf3-a14d-9367a5d7a918>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:a173d70aede8ee663ea1bf98278cf593fc4525db6e1200f75e457e2d07a00ed9
-WARC-Block-Digest: sha256:a173d70aede8ee663ea1bf98278cf593fc4525db6e1200f75e457e2d07a00ed9
+WARC-Payload-Digest: sha256:4779358c412ba535f7154c47a12e3a4f17e5be9892882162d8165c32b5f17cf1
+WARC-Block-Digest: sha256:4779358c412ba535f7154c47a12e3a4f17e5be9892882162d8165c32b5f17cf1
 Content-Length: 386
 
-harEntryId: aaed81feade71eaf2356c542eb064685
+harEntryId: e4fb4ec5c16ece6fade5f6fcf156821d
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-06-05T12:48:56.604Z
-time: 642
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":642,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 196
+startedDateTime: 2022-06-08T15:45:42.788Z
+time: 526
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":526,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 198
 warcRequestCookies: []
 warcResponseHeadersSize: 318
 warcResponseCookies: []
@@ -58,17 +58,17 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-06-05T12:48:57.250Z
+WARC-Date: 2022-06-08T15:45:43.318Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:fa9e6e18-132d-4155-9b4d-9ad2efc8886a>
+WARC-Record-ID: <urn:uuid:8e1b92df-27f0-4d9e-a0ad-8b9615ed6da5>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:254586bc0a7bd094d2282753f3d9c478512a4273ac458d0cfbfb0da11a1b419f
-WARC-Block-Digest: sha256:d924e927388c60091a96c3479e7c08b7dbdb1bd687357974be02293fc9b9f911
+WARC-Payload-Digest: sha256:69fca09190a11c64986b68e3da26446bdac0d515c07201ad9cc5194528f2dbf3
+WARC-Block-Digest: sha256:bff1dc43fe713b1361b1a949d80e766371f225a4662a2ef164eae49522d89a8b
 Content-Length: 575
 
 HTTP/1.1 200 OK
 server: nginx/1.18.0 (Ubuntu)
-date: Sun, 05 Jun 2022 12:48:57 GMT
+date: Wed, 08 Jun 2022 15:45:43 GMT
 content-type: application/json
 transfer-encoding: chunked
 connection: close
@@ -78,5 +78,5 @@ vary: Accept-Encoding
 strict-transport-security: max-age=15724800
 referrer-policy: no-referrer-when-downgrade
 
-["H4sIAAAAAAAAA33PSw6CMBSF4b3cMYXSF223Ygwp7VUbH8RbwIFx7xIdw/jLn5zzhkgYJkzgW6OVEs52ooLUgoccHJeC83oudaB4yQvWI51hZfFju8WZVm9ckye8l+Y+5MRk1NpE1bG25YmpzgoWDO9YdBKVNUOMJ7umufQp0BX8RDNWUJAWpN0t8yM/wQsuNXeaS1PBa6RrGG7Y/+sC/rDTb904fr6eQWubHAEAAA=="]
+["H4sIAAAAAAAAA32PQQ6CMBRE7/LXFNpS2sJVjCGl/WqDSPwFXBjvbqNr2M7Ly8y8wRO6BQN0QjdKS86VLCAI6CC6ltc5KNdUOvK3uGE50xUylj9s93CkzKu2igtOqZqGGFjtm0Z7ZZgQPDBlrGROc8N8W6OyevD+YrMaUx8cjdAttGIBCWlDOixbH/GZx4taKym5EQW8ZhrdcMf+byfoTgf+3svz5wuDN6kVHAEAAA=="]
 

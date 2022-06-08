@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting image metadata/throws on darkened item
-WARC-Date: 2022-06-05T13:03:18.181Z
+WARC-Date: 2022-06-08T15:45:41.670Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:324c6fb8-4ebe-421f-9929-ec3976077009>
+WARC-Record-ID: <urn:uuid:586c42ad-f351-461f-958a-41570940d2b3>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,19 +12,19 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d1724382-e59e-47f6-a551-a24eda935c1f>
+WARC-Concurrent-To: <urn:uuid:7a84488a-1d58-4231-b2a9-42e65f829b0d>
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-06-05T13:03:18.181Z
+WARC-Date: 2022-06-08T15:45:41.670Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:1e5c0446-01a0-4b87-a85f-07ed5728e0a6>
+WARC-Record-ID: <urn:uuid:e6b7e6b3-7e0b-4ffe-a633-afa831488417>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:eacc8c8d8b5f771de9696f46290d95074b23c0e5dc2d28752678eb2a6e23f3d8
-Content-Length: 177
+WARC-Block-Digest: sha256:0b2698899c496bf8ee413057cae0417b8478b6c5dc910b5bcf7ba3fb8e7a0ccc
+Content-Length: 179
 
 GET /metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8 HTTP/1.1
 accept: */*
-accept-encoding: gzip,deflate,br
+accept-encoding: gzip, deflate, br
 connection: close
 user-agent: node-fetch
 host: archive.org
@@ -32,23 +32,23 @@ host: archive.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d1724382-e59e-47f6-a551-a24eda935c1f>
+WARC-Concurrent-To: <urn:uuid:7a84488a-1d58-4231-b2a9-42e65f829b0d>
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-06-05T13:03:18.182Z
+WARC-Date: 2022-06-08T15:45:41.670Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:4f89f879-87f7-4d92-8d45-50ee8c1371b9>
+WARC-Record-ID: <urn:uuid:2836c75c-d90a-4714-9434-48d2ec6b5158>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:9e0be60498395d423eb30b46708f177c07b9640c3846f40bd5f9ec858d5919bc
-WARC-Block-Digest: sha256:9e0be60498395d423eb30b46708f177c07b9640c3846f40bd5f9ec858d5919bc
-Content-Length: 386
+WARC-Payload-Digest: sha256:14afe52b6baa23f4646ef74b1fbdf2ce62fe00a1a6cfa1390efe27662ac8f915
+WARC-Block-Digest: sha256:14afe52b6baa23f4646ef74b1fbdf2ce62fe00a1a6cfa1390efe27662ac8f915
+Content-Length: 388
 
-harEntryId: aaed81feade71eaf2356c542eb064685
+harEntryId: e4fb4ec5c16ece6fade5f6fcf156821d
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-06-05T13:03:17.636Z
-time: 536
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":536,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 196
+startedDateTime: 2022-06-08T15:45:40.103Z
+time: 1560
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1560,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 198
 warcRequestCookies: []
 warcResponseHeadersSize: 318
 warcResponseCookies: []
@@ -58,17 +58,17 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/mbid-3c556c47-110d-4782-a607-c93e486bccf8
-WARC-Date: 2022-06-05T13:03:18.181Z
+WARC-Date: 2022-06-08T15:45:41.670Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:d1724382-e59e-47f6-a551-a24eda935c1f>
+WARC-Record-ID: <urn:uuid:7a84488a-1d58-4231-b2a9-42e65f829b0d>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:956e31382e09dbac3bf8161eb36fe5cdd565254642bf03f1602dba03d3ff19a9
-WARC-Block-Digest: sha256:9547cbe31cd65f3b30d5449f34f656937f6e976a30cb2c1784d257ca475bb528
+WARC-Payload-Digest: sha256:69fca09190a11c64986b68e3da26446bdac0d515c07201ad9cc5194528f2dbf3
+WARC-Block-Digest: sha256:be543d03f299bf682ccadbb27f9a9763f1a076ab7374bff8d8e133bfa9f79604
 Content-Length: 575
 
 HTTP/1.1 200 OK
 server: nginx/1.18.0 (Ubuntu)
-date: Sun, 05 Jun 2022 13:03:18 GMT
+date: Wed, 08 Jun 2022 15:45:41 GMT
 content-type: application/json
 transfer-encoding: chunked
 connection: close
@@ -78,5 +78,5 @@ vary: Accept-Encoding
 strict-transport-security: max-age=15724800
 referrer-policy: no-referrer-when-downgrade
 
-["H4sIAAAAAAAAA33PSw6CMBSF4b3cMYXSF223Ygwp7VUbH8RbwIFx7xIdw/jLn5PzhkgYJkzgW6OVEs52ooLUgoccHJeC83oudaB4yQvWI51hZfFju8WZVm9ckye8l+Y+5MRk1NpE1bG25YmpzgoWDO9YdBKVNUOMJ7umufQp0BX8RDNWUJAWpN2x+ZGf4AWXmjvNpangNdI1DDfs/3UBf9jpt14eP18gFnjgHAEAAA=="]
+["H4sIAAAAAAAAA32PQQ6CMBRE7/LXFNpS2sJVjCGl/WqDSPwFXBjvbqNr2M7Ly8y8wRO6BQN0QjdKS86VLCAI6CC6ltc5KNdUOvK3uGE50xUylj9s93CkzKu2igtOqZqGGFjtm0Z7ZZgQPDBlrGROc8N8W6OyevD+YrMaUx8cjdAttGIBCWlDOixbH/GZx4taKym5EQW8ZhrdcMf+byfoTgf+3svz5wuDN6kVHAEAAA=="]
 

@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: archive provider/extracting images/extracts covers for item with a filename that requires URL encoding
-WARC-Date: 2022-06-05T12:48:47.978Z
+WARC-Date: 2022-06-08T15:45:40.092Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:0b50226b-09d8-4689-9cc9-d7f6ac7eefbb>
+WARC-Record-ID: <urn:uuid:6934d2a6-4fd9-4ad9-ab65-d1607d0dba2b>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,19 +12,19 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8d5ec13d-99a8-42e4-a86b-cdfcd7c175d4>
+WARC-Concurrent-To: <urn:uuid:e97b8b1c-072f-45f3-9eab-5b0e2bf0f0a5>
 WARC-Target-URI: https://archive.org/metadata/skd815
-WARC-Date: 2022-06-05T12:48:47.978Z
+WARC-Date: 2022-06-08T15:45:40.092Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:c4798f70-e1d9-4a2c-a760-d7fbf7e20198>
+WARC-Record-ID: <urn:uuid:52112cb9-67f2-4661-8c20-2a87fff8f0a8>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:42d12ca209d1291024e12a828d3bb873b7d0ebae185d6702059e08e7c875bc7e
-Content-Length: 142
+WARC-Block-Digest: sha256:e5f0d05c9bea55b85bc146f2c3d5187f79eaaaed6d66342fc2e83fa4ecc821b7
+Content-Length: 144
 
 GET /metadata/skd815 HTTP/1.1
 accept: */*
-accept-encoding: gzip,deflate,br
+accept-encoding: gzip, deflate, br
 connection: close
 user-agent: node-fetch
 host: archive.org
@@ -32,23 +32,23 @@ host: archive.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8d5ec13d-99a8-42e4-a86b-cdfcd7c175d4>
+WARC-Concurrent-To: <urn:uuid:e97b8b1c-072f-45f3-9eab-5b0e2bf0f0a5>
 WARC-Target-URI: https://archive.org/metadata/skd815
-WARC-Date: 2022-06-05T12:48:47.978Z
+WARC-Date: 2022-06-08T15:45:40.092Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:8ca3414e-8cff-4481-be62-02ef9b6ce7d1>
+WARC-Record-ID: <urn:uuid:813a1a28-fd6b-4aef-9b43-5be211c812aa>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:26db15c695001df243637f9a62e6337e1493bf343abb09035139d3af6a3e9e14
-WARC-Block-Digest: sha256:26db15c695001df243637f9a62e6337e1493bf343abb09035139d3af6a3e9e14
+WARC-Payload-Digest: sha256:cc3a2fff9239c76c0899f419c3582ec83f57a7376f372b4dce7774d3c521ec7f
+WARC-Block-Digest: sha256:cc3a2fff9239c76c0899f419c3582ec83f57a7376f372b4dce7774d3c521ec7f
 Content-Length: 386
 
-harEntryId: a82e5725f2d98d113fc92ed4954359a1
+harEntryId: 614a42e9e8de7d3b09b44dbf70c43def
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-06-05T12:48:47.412Z
-time: 559
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":559,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 161
+startedDateTime: 2022-06-08T15:45:39.529Z
+time: 552
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":552,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 163
 warcRequestCookies: []
 warcResponseHeadersSize: 318
 warcResponseCookies: []
@@ -58,17 +58,17 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/skd815
-WARC-Date: 2022-06-05T12:48:47.978Z
+WARC-Date: 2022-06-08T15:45:40.092Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:8d5ec13d-99a8-42e4-a86b-cdfcd7c175d4>
+WARC-Record-ID: <urn:uuid:e97b8b1c-072f-45f3-9eab-5b0e2bf0f0a5>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:cf3f71be9cf0cdf984ae09734371006035f39de26a7f3d1ee997623bd43a2d2d
-WARC-Block-Digest: sha256:e9ad8038181dac74ad792627472030e34347d065c4960ff1390ef3c83bb4b1e7
+WARC-Payload-Digest: sha256:d9d79cef62a71dba5ebfe4d42ca41b9229647d8658dbf8d88a75b46d6d41cf32
+WARC-Block-Digest: sha256:36f7c5378d37237ebf01d8de02abc879cf61c890d0f83895f1e52fd2927b0f01
 Content-Length: 2919
 
 HTTP/1.1 200 OK
 server: nginx/1.18.0 (Ubuntu)
-date: Sun, 05 Jun 2022 12:48:47 GMT
+date: Wed, 08 Jun 2022 15:45:40 GMT
 content-type: application/json
 transfer-encoding: chunked
 connection: close
@@ -78,5 +78,5 @@ vary: Accept-Encoding
 strict-transport-security: max-age=15724800
 referrer-policy: no-referrer-when-downgrade
 
-["H4sIAAAAAAAAA6xY23IbxxH9lS3kIS8kMPcLTTOxI5Ulx5JYMm1X2XSh5tIDjLjYhRcLMrTK/54egASWFMkwKr0A2J7LTp/uPn0GH0ehA9dDHB1RJYXgzEpyMIp0dDTKzhJOCR2vV2PXhXm+hHHbzUY4zDbD5rHh3OH4hPNJ7mGxmqwuoqESB1KuYTU6+u3jqHELwDl/C+0ldOMPy7Js1a67UKxtl2e5cTXaFn3eTKRSS84YI2WbVf6z2IQi2tAyKUp8DNoG6bRzQGPgTBJPlHaKE8JZSjHhxNDhAE4lWgQQqqxdzV3xVXEQQjmpuHXGMa5EpDyRoLXRMXJqpOG4bShOtN3C9bjm+9OX3+Fz1/auz21T9h39dXDPt2k/Xy/8fQ8jdPkSV13C/Q2rszIfrTsQ7qF0DxEp9R4RSikxO0BSNJCYNElKBgDUU5akAW6JodFzNQAkEZaIj2IPCHVKMM8jGAhGES4JsSxY4mQioIT1jGuWVBx6/LY9/L69rg6r924JVdtUrjrrXG7QQuh949il5cX/xuRfbY14ZFedgrtY3cXl/3vfYsk/hU8zs4fPSkGN2OEnhDFCBcwnSpSnDkGyXDJMBJZAChjgF8BCAG32+GlCvArS++gsoo+J6mUgyXJtLFOBAFcKkrWfj9/Wn2cUDad0kCKYy4xaaXduUuK8EF6qyDkngWrlNAtcCxdd0swP3NREE4pVv3cTKySSqChzLlFFQgwsaAI0eeWYcJoKmaildhjSn799X705LZvU0Mz6OZoK7YxFgW8OeTbvtwDi41WOmwnbpz73dXHiHhSbEyKLtd0ORDS52q8XD07uOxcuiudlVtfnVb9f99nhaGfPqPB3s1n1c9v5/OUzGYt8H2WEi1jD2C7I2nAkx0QdUgIF6pjxKlJwVoBBjgiDIIuA7GCT3AeZi8itRSZRgeLsFHl0FCMLxmrtDcVE0ZA4+TSichjRYTzJ5wO9bJ4B9Onb7748wmbQfBgzRu3gtTFEYxUj3gchJbfJs8AI1ckyIYQbwEs1tTFGN6BaCZqCFUIHIhWNzkRR1kIKhEnrFQYOpJWfDdl0tYTQd+2sc4vnwffjfsEXh1FxPqAjjW1F7nCUyVuCnRjhsxL5CJMzUC688IpZumnYOy5KkWqk5wEX4U4RqU2xhJhrT4In+OS9Jqy0Mw5JBknutKwf//0Cpcn4z7x8HpdSYweHZ5YxgZW3Oz/hIiDBawkpyhAxZxSI5LC78vIRh2WmONWoTPbnB++ZUJpzyYNBEaMTpxITgHlkbO1Q/aRgmCDDQP36+nToznSa3cOK4yGXsK0z7HjsTjyE3bvDfYoRA6EUw7NRRDwQGpTF+k/Y14bhwAaA+GzFyNYdby0mNjY5prByHLeiKIykgnagjMYCiokmc6c1vEa9WJ2hSnxCV23V5PRWciLrd9D0Q18X0CMl9aXEfJ8L3UiBhQkM27DHH9wbz5LnAnRIQVCIJCgkM+rvoqOFxFZJBuhIbfboIPMFiUIxCm84MRxx0pxoD8xZI4kd6gOOOSGj3aMjsLq19dhykTBIIBy4wL5JUKliulpEmWF0bBqi883W5erb3J/deP0pLhuNPf7Pon4k+rvd3uxRukleTSI2cpOEYaVzM0us9ikoFQRHOfzAywrS49UfNer852oRfSfZNnL18SNp46gK4AtDUomhKkIev0LCPoTsMIAYBYjWjKo9xNE5xaLACDFNUAbrwGyBXGhMAB2EiCogJ7jH/Hocw/s5YgYiEklBPOmTVdhEnQp4M8FLhRFe6yQcKy03ME6GHIESnKD3g6KSnGtdbjQYm2AT1+Apl1JgeglvHTYhAUhK6NPvN9etaWjXmChHlB+MynVsWrtVP10v4+2t7zbNb4a3bnCO0lhbwg721XT0cZQjJl1OGbodVsUviNn118vivlvH3BYX2rrGHrKp399w6rqu47qZQVsEWAN97TzUqxGeMsIqdHl5U+rH/mTLyce+qyYn28+fmtAull27yKvczKpXrlvNq7dtXkH1i6vrm6kTf3Ic8yWuORlYJhvTrd1V8w7S1+ejed8vV0eTyeDmOontVVO3Lt5cWCf75nA+qjqocVnTJnSsvTofnRyvT168++XtD+++eVG9evn+5fFkjW9zj7/7vt2fbLvpUfXpsZr28EN7PfauicEtlmP0f/LQIZ6avznMZPfi7Wcu7z0fvYLr6rpdH1Sug/KjWrSYK31Bdw7dP6rXqVj/joOzthj7toptlfuDqncX2OPXfRnvqtCGiwojs4Suvh6fj7bu5ZOSscE1zSZRXjc9dBjz6pbAXp29+UFWPy0L2NBVdKzGm6vn2n/AnMEV802Em02ErzDCXw0MX20/55iJLqPpdsqyvcK9oN4olyaH1Y1lO70r0mT7s98IlmIYXCkeEzY4Zbn2dQ6lXkqfI9QeUnZIWMXoEbNHopD6+saVUhU5XGRQSv1z3vYLl+txLs3JxQjxyT08XkrWy2ndhtu2V/6AwWLXUy6Qo0Yr6C43r3j8n5d1k//AmiYoPITB2xwK7ra7cL6G6XZ1+fflifWP/eXz+1//BQAA//8DADpZpfgpEgAA"]
+["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"]
 
