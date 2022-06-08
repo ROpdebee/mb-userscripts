@@ -3,6 +3,7 @@
 import { qs, qsMaybe } from '@lib/util/dom';
 import { parseVersion, versionLessThan } from '@lib/util/versions';
 
+import CHANGELOG_URL from 'consts:changelog-url';
 import USERSCRIPT_FEATURE_HISTORY from 'consts:userscript-feature-history';
 import USERSCRIPT_ID from 'consts:userscript-id';
 import bannerStyle from './banner.scss';
@@ -43,9 +44,12 @@ function insertStyle(): void {
 
 function showFeatureNotification(scriptName: string, newVersion: string, newFeatures: string[]): void {
     insertStyle();
+
     const banner = <div className={'banner warning-header'}>
         <p>
-            {scriptName + ' was updated to v' + newVersion + '! New features since last update:'}
+            {`${scriptName} was updated to v${newVersion}! `}
+            <a href={CHANGELOG_URL}>See full changelog here</a>
+            {'. New features since last update:'}
         </p>
         <div className={'ROpdebee_feature_list'}>
             <ul>
