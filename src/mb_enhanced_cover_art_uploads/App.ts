@@ -4,7 +4,6 @@ import { GuiSink } from '@lib/logging/guiSink';
 import { LOGGER } from '@lib/logging/logger';
 import { EditNote } from '@lib/MB/EditNote';
 import { getURLsForRelease } from '@lib/MB/URLs';
-import { maybeDisplayNewFeatures } from '@lib/update-notifications';
 import { assertHasValue } from '@lib/util/assert';
 import { qs } from '@lib/util/dom';
 
@@ -33,7 +32,6 @@ export class App {
         LOGGER.addSink(this.loggingSink);
         qs('.add-files').insertAdjacentElement('afterend', this.loggingSink.rootElement);
         this.ui = new InputForm(this);
-        maybeDisplayNewFeatures();
     }
 
     async processURL(url: URL): Promise<void> {
