@@ -178,7 +178,6 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
     constructor(imgElement: HTMLImageElement) {
         super(imgElement);
         this.image = new QueuedUploadImage(imgElement);
-
     }
 
     async loadAndDisplay(): Promise<void> {
