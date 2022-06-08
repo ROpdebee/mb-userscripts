@@ -1,6 +1,7 @@
 // istanbul ignore file: Covered by E2E
 
-import { qs, qsMaybe } from '@lib/util/dom';
+import { insertStylesheet } from '@lib/util/css';
+import { qs } from '@lib/util/dom';
 import { parseVersion, versionLessThan } from '@lib/util/versions';
 
 import CHANGELOG_URL from 'consts:changelog-url';
@@ -31,19 +32,8 @@ export function maybeDisplayNewFeatures(): void {
     showFeatureNotification(scriptInfo.name, scriptInfo.version, newFeatures.map((feat) => feat.description));
 }
 
-
-function insertStyle(): void {
-    const STYLE_ID = 'ROpdebee_Update_Banner';
-
-    // Skip if already inserted by other script
-    if (qsMaybe(`style#${STYLE_ID}`) !== null) return;
-
-    const style = <style id={STYLE_ID}>{bannerStyle}</style>;
-    document.head.insertAdjacentElement('beforeend', style);
-}
-
 function showFeatureNotification(scriptName: string, newVersion: string, newFeatures: string[]): void {
-    insertStyle();
+    insertStylesheet(bannerStyle, 'ROpdebee_Update_Banner');
 
     const banner = <div className={'banner warning-header'}>
         <p>

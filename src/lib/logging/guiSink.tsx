@@ -1,3 +1,5 @@
+import { insertStylesheet } from '@lib/util/css';
+
 import type { LoggingSink } from './sink';
 
 import css from './guiSink.scss';
@@ -9,9 +11,7 @@ export class GuiSink implements LoggingSink {
 
     constructor() {
         // Inject our custom CSS
-        document.head.append(<style id={'ROpdebee_GUI_Logger'}>
-            {css}
-        </style>);
+        insertStylesheet(css, 'ROpdebee_GUI_Logger');
 
         this.rootElement = <div id='ROpdebee_log_container' style={{ display: 'none' }} />;
     }

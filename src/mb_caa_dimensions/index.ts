@@ -4,16 +4,17 @@ import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 import { LOGGER } from '@lib/logging/logger';
 import { logFailure } from '@lib/util/async';
+import { insertStylesheet } from '@lib/util/css';
 import { onDocumentLoaded, qs, qsa, qsMaybe } from '@lib/util/dom';
 
 import type { InfoCache } from './InfoCache';
 import { displayedCoverArtFactory, DisplayedQueuedUploadImage, displayInfoWhenInView } from './DisplayedImage';
 import { setupExports } from './exports';
 import { createCache } from './InfoCache';
-import { setupStyle } from './style';
 
 import DEBUG_MODE from 'consts:debug-mode';
 import USERSCRIPT_ID from 'consts:userscript-id';
+import css from './style.scss';
 
 LOGGER.configure({
     logLevel: DEBUG_MODE ? LogLevel.DEBUG : LogLevel.INFO,
@@ -84,7 +85,7 @@ const cachePromise = createCache();
 setupExports(cachePromise);
 
 onDocumentLoaded(() => {
-    setupStyle();
+    insertStylesheet(css);
 
     logFailure(cachePromise.then((cache) => {
         detectAndObserveImages(cache);
