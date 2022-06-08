@@ -137,6 +137,7 @@ describe('parsing changelog', () => {
             title: 'feat(ecau): add Jamendo provider',
             number: 123,
             labels: [],
+            url: 'testurl',
         });
         // @ts-expect-error: Mocking
         changelogReaderMock.mockResolvedValue(changelogWriterMock.mock.lastCall[1]);
@@ -144,6 +145,7 @@ describe('parsing changelog', () => {
             title: 'fix(ecau): fix a mistake!!',
             number: 124,
             labels: [],
+            url: 'testurl',
         });
         // @ts-expect-error: Mocking
         changelogReaderMock.mockResolvedValue(changelogWriterMock.mock.lastCall[1]);
