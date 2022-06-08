@@ -56,8 +56,13 @@ export async function buildUserscripts(version: string, outputDir: string = OUTP
 
 export async function buildUserscript(userscriptName: string, version: string, outputDir: string): Promise<void> {
     console.log(`Building ${userscriptName}`);
-    const passOneOutput = await buildUserscriptPassOne(userscriptName, outputDir);
-    await buildUserscriptPassTwo(passOneOutput, userscriptName, version, outputDir);
+    const userscriptMetaGenerator = MetadataGenerator.create({
+        userscriptName,
+        version,
+        branchName: 'dist',
+    });
+    const passOneOutput = await buildUserscriptPassOne(userscriptName, userscriptMetaGenerator, outputDir);
+    await buildUserscriptPassTwo(passOneOutput, userscriptName, userscriptMetaGenerator, outputDir);
 }
 
 /**
@@ -72,7 +77,7 @@ export async function buildUserscript(userscriptName: string, version: string, o
  * @return     {Promise}  Promise that resolves to the output as described
  *                        above.
  */
-async function buildUserscriptPassOne(userscriptDir: string, outputDir: string): Promise<RollupOutput> {
+async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<RollupOutput> {
     let inputPath: string;
     try {
         inputPath = await Promise.any(EXTENSIONS.map(async (ext) => {
@@ -170,17 +175,12 @@ async function buildUserscriptPassOne(userscriptDir: string, outputDir: string):
  * @return     {Promise}  Promise that resolves once the files have been
  *                        written.
  */
-async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string, version: string, outputDir: string): Promise<void> {
+async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<void> {
     const fileMapping = passOneResult.output.reduce<Record<string, string>>((acc, curr) => {
         if (curr.type === 'chunk') acc[curr.fileName] = curr.code;
         return acc;
     }, {});
 
-    const userscriptMetaGenerator = MetadataGenerator.create({
-        userscriptName: userscriptDir,
-        version,
-        branchName: 'dist',
-    });
     const bundle = await rollup({
         input: 'index.js',
         plugins: [
