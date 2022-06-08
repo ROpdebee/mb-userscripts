@@ -1,0 +1,14 @@
+// Make the feature list centered, but each item in the list still left-aligned.
+.ROpdebee_feature_list {
+    margin: 0 auto;
+    width: fit-content;
+    font-weight: 300;
+
+    ul {
+        // Center with the paragraph, need a bit of a margin for the button on the right
+        margin: 0px;
+        margin-right: 28px;
+        margin-top: 6px;
+        text-align: left;
+    }
+}

@@ -16,6 +16,7 @@ import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
+import { parseChangelogEntries } from './changelog';
 import { nativejsx } from './plugin-nativejsx';
 import { MetadataGenerator, userscript } from './plugin-userscript';
 
@@ -54,7 +55,7 @@ export async function buildUserscripts(version: string, outputDir: string = OUTP
 
 export async function buildUserscript(userscriptName: string, version: string, outputDir: string): Promise<void> {
     console.log(`Building ${userscriptName}`);
-    const passOneOutput = await buildUserscriptPassOne(userscriptName);
+    const passOneOutput = await buildUserscriptPassOne(userscriptName, outputDir);
     await buildUserscriptPassTwo(passOneOutput, userscriptName, version, outputDir);
 }
 
@@ -70,7 +71,7 @@ export async function buildUserscript(userscriptName: string, version: string, o
  * @return     {Promise}  Promise that resolves to the output as described
  *                        above.
  */
-async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutput> {
+async function buildUserscriptPassOne(userscriptDir: string, outputDir: string): Promise<RollupOutput> {
     let inputPath: string;
     try {
         inputPath = await Promise.any(EXTENSIONS.map(async (ext) => {
@@ -81,6 +82,14 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
     } catch {
         throw new Error(`No top-level file found in ${userscriptDir}`);
     }
+
+    const changelogEntries = await parseChangelogEntries(path.join(outputDir, `${userscriptDir}.changelog.md`));
+    const featureHistory = changelogEntries
+        .filter((entry) => entry.title === 'New feature')
+        .map((entry) => ({
+            versionAdded: entry.version,
+            description: entry.subject,
+        }));
 
     const bundle = await rollup({
         input: inputPath,
@@ -95,6 +104,7 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
             }),
             consts({
                 'userscript-id': userscriptDir,
+                'userscript-feature-history': featureHistory,
                 'debug-mode': process.env.NODE_ENV !== 'production',
             }),
             // To resolve node_modules imports
