@@ -18,3 +18,8 @@ declare module 'consts:userscript-feature-history' {
     const USERSCRIPT_FEATURE_HISTORY: Feature[];
     export default USERSCRIPT_FEATURE_HISTORY;
 }
+
+declare module 'consts:changelog-url' {
+    const CHANGELOG_URL: string;
+    export default CHANGELOG_URL;
+}

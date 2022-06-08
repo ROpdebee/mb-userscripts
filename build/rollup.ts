@@ -98,6 +98,11 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
         }))
         // Limit the number of entries we store, otherwise the scripts might grow very large.
         .slice(0, MAX_FEATURE_HISTORY - 1);
+    const changelogUrl = userscriptMetaGenerator.gitURLs
+        .constructBlobURL(
+            userscriptMetaGenerator.options.branchName,
+            `${userscriptDir}.changelog.md`,
+        );
 
     const bundle = await rollup({
         input: inputPath,
@@ -113,6 +118,7 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
             consts({
                 'userscript-id': userscriptDir,
                 'userscript-feature-history': featureHistory,
+                'changelog-url': changelogUrl,
                 'debug-mode': process.env.NODE_ENV !== 'production',
             }),
             // To resolve node_modules imports

@@ -63,6 +63,15 @@ describe('git URLs', () => {
         });
     });
 
+    describe('blob URL', () => {
+        it('creates correct URLs', () => {
+            const gitUrls = new GitURLs('https://github.com/ROpdebee/mb-userscripts');
+
+            expect(gitUrls.constructBlobURL('dist', 'README.md'))
+                .toBe('https://github.com/ROpdebee/mb-userscripts/blob/dist/README.md');
+        });
+    });
+
     describe('creating from package.json', () => {
         it('should throw if no repository defined', () => {
             expect(() => GitURLs.fromPackageJson({}))

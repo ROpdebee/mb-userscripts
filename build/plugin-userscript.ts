@@ -62,6 +62,10 @@ export /* for tests */ class GitURLs {
         return 'https://github.com/' + [this.owner, this.repoName, 'tree/main/src', userscriptName].join('/');
     }
 
+    constructBlobURL(branchName: string, filePath: string): string {
+        return 'https://github.com/' + [this.owner, this.repoName, 'blob', branchName, filePath].join('/');
+    }
+
     static fromPackageJson(npmPackage: PackageJson): GitURLs {
         if (!npmPackage.repository) {
             throw new Error('No repository defined in package.json');
