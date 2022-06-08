@@ -18,6 +18,7 @@ import { minify } from 'terser';
 
 import { parseChangelogEntries } from './changelog';
 import { nativejsx } from './plugin-nativejsx';
+import { updateNotifications } from './plugin-update-notifications';
 import { MetadataGenerator, userscript } from './plugin-userscript';
 
 const OUTPUT_DIR = 'dist';
@@ -151,6 +152,9 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
                     postcssPresetEnv,
                 ],
                 extensions: ['.css', '.scss', '.sass'],
+            }),
+            updateNotifications({
+                include: inputPath,
             }),
         ],
     });
