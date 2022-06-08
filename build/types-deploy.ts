@@ -14,6 +14,7 @@ export interface DeployInfo {
 export interface PullRequestInfo {
     number: number;
     title: string;
+    url: string;
     labels: string[];
 }
 

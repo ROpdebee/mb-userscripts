@@ -4,6 +4,7 @@ import path from 'path';
 import simpleGit from 'simple-git';
 
 import type { DeployedScript, DeployInfo, PullRequestInfo } from './types-deploy';
+import { updateChangelog } from './changelog';
 import { buildUserscript } from './rollup';
 import { getPreviousReleaseVersion, incrementVersion, userscriptHasChanged } from './versions';
 
@@ -43,6 +44,8 @@ async function commitIfUpdated(scriptName: string): Promise<DeployedScript | und
 }
 
 async function commitUpdate(scriptName: string, version: string): Promise<DeployedScript> {
+    // Update the changelog
+    await updateChangelog(scriptName, version, distRepo, prInfo);
     // Build the userscripts with the new version into the dist repository.
     await buildUserscript(scriptName, version, distRepo);
     // Update the version.json file, which we'll use to dynamically create badges

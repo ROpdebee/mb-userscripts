@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting releases for URLs/returns empty list when URL does not exist
-WARC-Date: 2021-12-11T20:26:40.488Z
+WARC-Date: 2022-06-08T13:06:56.282Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:a3a98153-4b0f-44e7-a9dc-473b69edbe32>
+WARC-Record-ID: <urn:uuid:8d65e40c-d76f-4fdf-989c-c58e1271a33d>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,19 +12,19 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:51220b5b-6932-4af2-bd8c-56f9e84e1037>
+WARC-Concurrent-To: <urn:uuid:39cc83a1-7649-4051-9068-7ab0275e9f08>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.488Z
+WARC-Date: 2022-06-08T13:06:56.282Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:48ade9e8-959d-4614-9076-12c7b2ca15c1>
+WARC-Record-ID: <urn:uuid:1aaf0f08-4e73-4e73-807e-9ee5829a396d>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:da1d991914b6ed46cf2df603542030a7160fcebb723026f25a7fa307a2c2e383
-Content-Length: 200
+WARC-Block-Digest: sha256:239a85bd5b31fdb2c4d71c5c223e89f957e920f249e9dac630837726973027e2
+Content-Length: 202
 
 GET /ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json HTTP/1.1
 accept: */*
-accept-encoding: gzip,deflate,br
+accept-encoding: gzip, deflate, br
 connection: close
 user-agent: node-fetch
 host: musicbrainz.org
@@ -32,47 +32,47 @@ host: musicbrainz.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:51220b5b-6932-4af2-bd8c-56f9e84e1037>
+WARC-Concurrent-To: <urn:uuid:39cc83a1-7649-4051-9068-7ab0275e9f08>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.488Z
+WARC-Date: 2022-06-08T13:06:56.282Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:c3036c15-a8f4-43cf-a3a4-bf73e6232f5c>
+WARC-Record-ID: <urn:uuid:e0cd9899-7c53-4395-9764-1d7ddf527d05>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:19aceab5e54488bd71a48d33803eedbbe13b5368b12222d99fdff1ea67dc37c0
-WARC-Block-Digest: sha256:19aceab5e54488bd71a48d33803eedbbe13b5368b12222d99fdff1ea67dc37c0
+WARC-Payload-Digest: sha256:5fb6b02229f1a45be231fab6f76685fa25a1a1ae50e54c228e7694b6c7751fd6
+WARC-Block-Digest: sha256:5fb6b02229f1a45be231fab6f76685fa25a1a1ae50e54c228e7694b6c7751fd6
 Content-Length: 349
 
-harEntryId: 1da35b6695a66421e008745ab8704fb2
+harEntryId: aaf2a340680360fcdad896a506075aa1
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:40.304Z
-time: 180
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":180,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 223
+startedDateTime: 2022-06-08T13:06:56.159Z
+time: 120
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":120,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 225
 warcRequestCookies: []
-warcResponseHeadersSize: 316
+warcResponseHeadersSize: 317
 warcResponseCookies: []
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.488Z
+WARC-Date: 2022-06-08T13:06:56.282Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:51220b5b-6932-4af2-bd8c-56f9e84e1037>
+WARC-Record-ID: <urn:uuid:39cc83a1-7649-4051-9068-7ab0275e9f08>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:a00943cd14c32cab2a0e3891907a7bf079ed608627ab75cff6dfd049ecd1c2fe
-WARC-Block-Digest: sha256:4228491faee9c271392c4ff993e2637537c7aa46a881f1dfba54391a7f830675
-Content-Length: 433
+WARC-Block-Digest: sha256:384bbd5ed5f1e9d14c586aa3c59f073fac2d8008909173f8bf47da6f6b5ee407
+Content-Length: 434
 
 HTTP/1.1 404 Not Found
-date: Sat, 11 Dec 2021 20:26:40 GMT
+date: Wed, 08 Jun 2022 13:06:56 GMT
 content-type: application/json; charset=utf-8
 content-length: 93
 connection: close
 x-ratelimit-limit: 1200
-x-ratelimit-remaining: 808
-x-ratelimit-reset: 1639254401
+x-ratelimit-remaining: 1013
+x-ratelimit-reset: 1654693617
 server: Plack::Handler::Starlet
 etag: "8b5a62e76b15ec04b7cbc0eb576f7f62"
 access-control-allow-origin: *

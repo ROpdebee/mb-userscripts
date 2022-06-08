@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting releases for URLs/returns release ID for URL
-WARC-Date: 2021-12-11T20:26:40.893Z
+WARC-Date: 2022-06-08T13:06:56.526Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:f8860c28-de33-4c30-bbda-9ac114afa6f3>
+WARC-Record-ID: <urn:uuid:e9eb1cd7-dd1d-41e8-87e3-fabbbc9ad095>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,19 +12,19 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:c569b266-7b23-463d-ad0e-39a757aba014>
+WARC-Concurrent-To: <urn:uuid:04573344-b874-47d5-89e2-dd06746e3d4c>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.893Z
+WARC-Date: 2022-06-08T13:06:56.527Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:92fede02-a3ff-4680-8058-2d9b69e5d615>
+WARC-Record-ID: <urn:uuid:25eb3d24-e649-4762-a7f5-7fa9fdbb7def>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:95619141c6673b6e05690ecfac34c3702fab8330b8aa4097a27b8abab284f7eb
-Content-Length: 225
+WARC-Block-Digest: sha256:0e725b8c47394ebb74004f0d9446518ad3ce1e1b6eae2693dd2b8c92fd080c9d
+Content-Length: 227
 
 GET /ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json HTTP/1.1
 accept: */*
-accept-encoding: gzip,deflate,br
+accept-encoding: gzip, deflate, br
 connection: close
 user-agent: node-fetch
 host: musicbrainz.org
@@ -32,25 +32,25 @@ host: musicbrainz.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:c569b266-7b23-463d-ad0e-39a757aba014>
+WARC-Concurrent-To: <urn:uuid:04573344-b874-47d5-89e2-dd06746e3d4c>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.893Z
+WARC-Date: 2022-06-08T13:06:56.527Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:2726af74-ae15-43a3-aa7a-71a6dc6680aa>
+WARC-Record-ID: <urn:uuid:2d0499a4-e601-4a3a-8438-ba369cfc93f4>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:6db1de4a3f8b1272da7c222fddf4974c183fab550428991ac843bdd64359af33
-WARC-Block-Digest: sha256:6db1de4a3f8b1272da7c222fddf4974c183fab550428991ac843bdd64359af33
+WARC-Payload-Digest: sha256:ccc600e645c6aad28489c3cb234cc8d58b90e4134598d1ad17fc7945c6762818
+WARC-Block-Digest: sha256:ccc600e645c6aad28489c3cb234cc8d58b90e4134598d1ad17fc7945c6762818
 Content-Length: 386
 
-harEntryId: 1e1af7b19fd74d3c614196e6da0c12da
+harEntryId: ac5a6afc90467cc508868e86c9f86fe2
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:40.691Z
-time: 197
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":197,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 248
+startedDateTime: 2022-06-08T13:06:56.412Z
+time: 111
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":111,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 250
 warcRequestCookies: []
-warcResponseHeadersSize: 395
+warcResponseHeadersSize: 396
 warcResponseCookies: []
 responseDecoded: false
 warcResponseContentEncoding: base64
@@ -58,28 +58,28 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
-WARC-Date: 2021-12-11T20:26:40.893Z
+WARC-Date: 2022-06-08T13:06:56.526Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:c569b266-7b23-463d-ad0e-39a757aba014>
+WARC-Record-ID: <urn:uuid:04573344-b874-47d5-89e2-dd06746e3d4c>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:14e4b22ebc6e1aad1b7419341fee558d1ab0804c28dd4a960a5d8094688ec0dd
-WARC-Block-Digest: sha256:a1c732b3f59a8c1d340cfd2d38a97ceb406947ad0576388b1223f6be13d126fa
-Content-Length: 1092
+WARC-Payload-Digest: sha256:b8f75beb56f34f01aa3a775958ff86944dd047492f54e3b57dbfc2527c1ca76b
+WARC-Block-Digest: sha256:7c4fc3447cc23ad238040315b1a8264203c9a915d7c994432f64a089b11ff96e
+Content-Length: 1101
 
 HTTP/1.1 200 OK
-date: Sat, 11 Dec 2021 20:26:40 GMT
+date: Wed, 08 Jun 2022 13:06:56 GMT
 content-type: application/json; charset=utf-8
 transfer-encoding: chunked
 connection: close
 vary: Accept-Encoding
 x-ratelimit-limit: 1200
-x-ratelimit-remaining: 676
-x-ratelimit-reset: 1639254401
+x-ratelimit-remaining: 947
+x-ratelimit-reset: 1654693617
 server: Plack::Handler::Starlet
-etag: W/"d14e4f8fb406fd38e19544d327282c99"
+etag: W/"d6365382a1b6959b531767b56ffd2a2c"
 access-control-allow-origin: *
-x-cache-status: MISS
+x-cache-status: STALE
 content-encoding: gzip
 
-["H4sIAAAAAAAAA21Ty27bMBD8lYBnbyyJD8m+51CgH1CgyGFJrRUiepWk4gaG/71LW0lUtNfl7szszPIifCuOQpMlq8oSUDkF6kASUFIFrXTyVCutXNOInQjUY/LTGMXx50Wk95l4tvXRTV3k5zgtwRG4QK1P/MIlTCl4uySCN+wX4sHLdSdoZNJx6fudSBg6SrBiMQFhJHFrIW46YR9pJyx1fvwY+cTMMp63HL5dCVbUrZIP6ONF/Fqw9+md6+MUBuz5tcWU+auibKAsoNBcsxjc1OayKSptalOXlck2zOhekQV14L/2oN8JAs2BIo3p5lKmii74OSv4jmnk0R7HbsEug9LYCZYauXmJG6R74RPXpz53fxsyI30tAvTGRPckMBBmtruL98Fbrs0BTa1dBZJkDVLzdraRDlTZWGz1ARuNDDnikDmeljDNmSLjbBT5OIEsjYESsiGZU/x4Emw9Z4+D9bzSfWFxu4KQ4G/E6/8Mvj6vIguDjvUdQKuTBWXIglWFhYNU2tZthZVsGddNy5hCTo25NyF8qPxHS3qhh6VPfmDqh3wIuXzdbCcU1k1TsR+l05JNqQ2gPknQTVEZV5tTZV0+Dh/IraCWac8Y2pt8Dvt28lx/SWmOx/3+fD4/rj/i0U3Dfk1rz6dTFU1RiOsfoydaw3MDAAA="]
+["H4sIAAAAAAAAA21Sy27bMBD8lYBnbyyJpCT7nkOBfkCBIocluXaI6OGSVNzA0L93KSmG0fYmjji7M8O5Ce/EUWgyZFRZAiqrQB1IAkqqwEkrT43Syrat2IlAHSY/DlEcf94EDY6YfMIu0k4YOvtBHIep63YijlOwBDaQ84nnMzd9Xoi/nI92PMcNgGW7wqZtK2mhtFqCKpsaUJ8k6LaoatvUp8pYJmBKwZspUV7/uqghjDz0Ji5o35H3n5eBq4Y79gUsu4oarSR5AK1OBlRNBowqDByk0qZxFVbS8S6Wib3x52nxy7z0Rk9Tl3yPiZ6yqwzvhB2nIYVPvvDjhY8xYZriPYXl9CBpUwz0QUNaQ3Q8j9lVUbZQFlDobDQQZldxDAkG7POFlymMHODmoj1g3WhbAVtpQGomm5YDVGVr0OkDthr57t/cf1zleXEEWdY1lGBHt2Sbvbw+PNAqfn3A/D3P/Pd/wpNPXQa/9Tn4vNFgyFMZq4tK103dlFWdq/Rrws6nHNwwhh67zKbfCQJdAkWOZ5N4Ex0OLPicZxA/Jsdqg7/kVn3HNIh5ZiaGMyXYKvbVi11u6F39euWxkfc+sUm2fZsfoQ/sJtpQ5wPZLTHDrbpicGJeGrgWnfG3lC7xuN9fr9fnrePPduz3m5g9266KtijE/AfMS6NncwMAAA=="]
 

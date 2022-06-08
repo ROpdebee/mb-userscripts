@@ -51,6 +51,7 @@ Full list of supported artwork providers [here](src/mb_enhanced_cover_art_upload
 
 [![Install](https://img.shields.io/badge/dynamic/json?label=install&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FROpdebee%2Fmb-userscripts%2Fdist%2Fmb_enhanced_cover_art_uploads.metadata.json&logo=tampermonkey&style=for-the-badge&color=informational)](https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_enhanced_cover_art_uploads.user.js)
 [![Source](https://img.shields.io/badge/source-grey?style=for-the-badge&logo=github)](src/mb_enhanced_cover_art_uploads)
+[![Changelog](https://img.shields.io/badge/changelog-grey?style=for-the-badge)](https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_enhanced_cover_art_uploads.changelog.md)
 
 ## MB: Supercharged Cover Art Edits
 

@@ -29,6 +29,7 @@ jobs:
               number: pr.number,
               title: pr.title,
               labels: pr.labels.map((label) => label.name),
+              url: pr.html_url,
             };
 
       - name: Checkout second dist copy
