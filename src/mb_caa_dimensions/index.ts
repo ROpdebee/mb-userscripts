@@ -13,12 +13,12 @@ import { createCache } from './InfoCache';
 import { setupStyle } from './style';
 
 import DEBUG_MODE from 'consts:debug-mode';
-import USERSCRIPT_NAME from 'consts:userscript-name';
+import USERSCRIPT_ID from 'consts:userscript-id';
 
 LOGGER.configure({
     logLevel: DEBUG_MODE ? LogLevel.DEBUG : LogLevel.INFO,
 });
-LOGGER.addSink(new ConsoleSink(USERSCRIPT_NAME));
+LOGGER.addSink(new ConsoleSink(USERSCRIPT_ID));
 
 async function processPageChange(mutations: MutationRecord[], cache: InfoCache): Promise<void> {
     mutations.flatMap((mutation) => [...mutation.addedNodes])
