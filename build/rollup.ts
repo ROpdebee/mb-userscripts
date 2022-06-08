@@ -44,6 +44,7 @@ const TERSER_OPTIONS: MinifyOptions = {
 };
 
 const SKIP_PACKAGES = new Set(['lib', 'types']);
+const MAX_FEATURE_HISTORY = 10;  // Include only the last 10 new features of the changelog
 
 export async function buildUserscripts(version: string, outputDir: string = OUTPUT_DIR): Promise<void> {
     const userscriptDirs = await fs.promises.readdir('./src');
@@ -89,7 +90,9 @@ async function buildUserscriptPassOne(userscriptDir: string, outputDir: string):
         .map((entry) => ({
             versionAdded: entry.version,
             description: entry.subject,
-        }));
+        }))
+        // Limit the number of entries we store, otherwise the scripts might grow very large.
+        .slice(0, MAX_FEATURE_HISTORY - 1);
 
     const bundle = await rollup({
         input: inputPath,
