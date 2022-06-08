@@ -11,6 +11,7 @@ describe('parsing PR title', () => {
             title: `${ccType}: test subject`,
             number: 123,
             labels: [],
+            url: 'testurl',
         };
 
         await expect(parsePullRequestTitle(prInfo)).resolves.toStrictEqual({
@@ -24,6 +25,7 @@ describe('parsing PR title', () => {
             title: `${ccType}(test scope): test subject`,
             number: 123,
             labels: [],
+            url: 'testurl',
         };
 
         await expect(parsePullRequestTitle(prInfo)).resolves.toStrictEqual({
@@ -37,6 +39,7 @@ describe('parsing PR title', () => {
             title: 'test subject',
             number: 123,
             labels: [],
+            url: 'testurl',
         };
 
         await expect(parsePullRequestTitle(prInfo)).rejects.toThrowWithMessage(Error, 'Could not parse pull request title');
@@ -63,10 +66,11 @@ describe('generating changelog entry', () => {
             title: `${type}: test change`,
             number: 123,
             labels: [],
+            url: 'testurl',
         };
 
         await expect(generateChangelogEntry('1.2.3', prInfo)).resolves
-            .toBe(`- **1.2.3**: ${title}: test change (#123)`);
+            .toBe(`- **1.2.3**: ${title}: test change ([#123](testurl))`);
     });
 });
 
@@ -77,8 +81,9 @@ describe('updating changelog', () => {
         title: 'feat(ecau): test provider',
         number: 123,
         labels: [],
+        url: 'testurl',
     };
-    const expectedChangelog = '- **1.2.3**: New feature: test provider (#123)\n';
+    const expectedChangelog = '- **1.2.3**: New feature: test provider ([#123](testurl))\n';
     const expectedPath = path.join('testRepo', 'testScript.changelog.md');
 
     beforeEach(() => {
