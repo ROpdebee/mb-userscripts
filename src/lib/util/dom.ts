@@ -40,7 +40,7 @@ export function qsa<T extends Element>(query: string, element?: Document | Eleme
  * is already loaded, will be fired immediately.
  */
 export function onDocumentLoaded(listener: () => void): void {
-    if (document.readyState === 'complete') {
+    if (document.readyState !== 'loading') {
         listener();
     } else {
         document.addEventListener('DOMContentLoaded', listener);
