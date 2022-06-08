@@ -9,3 +9,12 @@ declare module 'consts:debug-mode' {
     const DEBUG_MODE: boolean;
     export default DEBUG_MODE;
 }
+
+declare module 'consts:userscript-feature-history' {
+    interface Feature {
+        versionAdded: string;
+        description: string;
+    }
+    const USERSCRIPT_FEATURE_HISTORY: Feature[];
+    export default USERSCRIPT_FEATURE_HISTORY;
+}
