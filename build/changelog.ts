@@ -3,6 +3,8 @@ import path from 'path';
 
 import conventionalCommitsParser from 'conventional-commits-parser';
 
+import { filterNonNull } from '@lib/util/array';
+
 import type { PullRequestInfo } from './types-deploy';
 
 const CC_TYPE_TO_TITLE: Record<string, string | undefined> = {
@@ -58,13 +60,44 @@ export async function updateChangelog(scriptName: string, version: string, distR
 }
 
 async function renderChangelog(changelogPath: string, changelogEntry: string): Promise<string> {
+    const existing = await readChangelog(changelogPath);
+    return `${changelogEntry}\n${existing}`;
+}
+
+async function readChangelog(changelogPath: string): Promise<string> {
     try {
-        const existing = await fs.readFile(changelogPath, {
+        return await fs.readFile(changelogPath, {
             encoding: 'utf-8',
         });
-        return `${changelogEntry}\n${existing}`;
     } catch (e) {
         // Changelog doesn't exist yet
-        return changelogEntry + '\n';
+        return '';
     }
+}
+
+interface ChangelogEntry {
+    version: string;
+    title: string;
+    subject: string;
+    prNumber: number;
+}
+
+export async function parseChangelogEntries(changelogPath: string): Promise<ChangelogEntry[]> {
+    const contents = await readChangelog(changelogPath);
+    return filterNonNull(contents.split('\n').map(parseChangelogEntry));
+}
+
+function parseChangelogEntry(line: string): ChangelogEntry | null {
+    const re = /- \*\*([\d.]+)\*\*: ([\w\s]+): (.+?) \(\[#(\d+)\]\(.+\)\)/;
+    const match = line.match(re);
+    if (match === null) {
+        // Malformed
+        return null;
+    }
+    return {
+        version: match[1],
+        title: match[2],
+        subject: match[3],
+        prNumber: parseInt(match[4]),
+    };
 }

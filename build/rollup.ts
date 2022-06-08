@@ -16,8 +16,10 @@ import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
+import { parseChangelogEntries } from './changelog';
 import { nativejsx } from './plugin-nativejsx';
-import { userscript } from './plugin-userscript';
+import { updateNotifications } from './plugin-update-notifications';
+import { MetadataGenerator, userscript } from './plugin-userscript';
 
 const OUTPUT_DIR = 'dist';
 const VENDOR_CHUNK_NAME = 'vendor';
@@ -43,6 +45,7 @@ const TERSER_OPTIONS: MinifyOptions = {
 };
 
 const SKIP_PACKAGES = new Set(['lib', 'types']);
+const MAX_FEATURE_HISTORY = 10;  // Include only the last 10 new features of the changelog
 
 export async function buildUserscripts(version: string, outputDir: string = OUTPUT_DIR): Promise<void> {
     const userscriptDirs = await fs.promises.readdir('./src');
@@ -54,8 +57,13 @@ export async function buildUserscripts(version: string, outputDir: string = OUTP
 
 export async function buildUserscript(userscriptName: string, version: string, outputDir: string): Promise<void> {
     console.log(`Building ${userscriptName}`);
-    const passOneOutput = await buildUserscriptPassOne(userscriptName);
-    await buildUserscriptPassTwo(passOneOutput, userscriptName, version, outputDir);
+    const userscriptMetaGenerator = await MetadataGenerator.create({
+        userscriptName,
+        version,
+        branchName: 'dist',
+    });
+    const passOneOutput = await buildUserscriptPassOne(userscriptName, userscriptMetaGenerator, outputDir);
+    await buildUserscriptPassTwo(passOneOutput, userscriptName, userscriptMetaGenerator, outputDir);
 }
 
 /**
@@ -70,7 +78,7 @@ export async function buildUserscript(userscriptName: string, version: string, o
  * @return     {Promise}  Promise that resolves to the output as described
  *                        above.
  */
-async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutput> {
+async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<RollupOutput> {
     let inputPath: string;
     try {
         inputPath = await Promise.any(EXTENSIONS.map(async (ext) => {
@@ -81,6 +89,21 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
     } catch {
         throw new Error(`No top-level file found in ${userscriptDir}`);
     }
+
+    const changelogEntries = await parseChangelogEntries(path.join(outputDir, `${userscriptDir}.changelog.md`));
+    const featureHistory = changelogEntries
+        .filter((entry) => entry.title === 'New feature')
+        .map((entry) => ({
+            versionAdded: entry.version,
+            description: entry.subject,
+        }))
+        // Limit the number of entries we store, otherwise the scripts might grow very large.
+        .slice(0, MAX_FEATURE_HISTORY - 1);
+    const changelogUrl = userscriptMetaGenerator.gitURLs
+        .constructBlobURL(
+            userscriptMetaGenerator.options.branchName,
+            `${userscriptDir}.changelog.md`,
+        );
 
     const bundle = await rollup({
         input: inputPath,
@@ -94,7 +117,9 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
                 },
             }),
             consts({
-                'userscript-name': userscriptDir,
+                'userscript-id': userscriptDir,
+                'userscript-feature-history': featureHistory,
+                'changelog-url': changelogUrl,
                 'debug-mode': process.env.NODE_ENV !== 'production',
             }),
             // To resolve node_modules imports
@@ -128,6 +153,9 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
                 ],
                 extensions: ['.css', '.scss', '.sass'],
             }),
+            updateNotifications({
+                include: inputPath,
+            }),
         ],
     });
 
@@ -157,7 +185,7 @@ async function buildUserscriptPassOne(userscriptDir: string): Promise<RollupOutp
  * @return     {Promise}  Promise that resolves once the files have been
  *                        written.
  */
-async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string, version: string, outputDir: string): Promise<void> {
+async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<void> {
     const fileMapping = passOneResult.output.reduce<Record<string, string>>((acc, curr) => {
         if (curr.type === 'chunk') acc[curr.fileName] = curr.code;
         return acc;
@@ -169,11 +197,8 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
             // Feed the code of the previous pass as virtual files
             virtual(fileMapping),
             userscript({
-                userscriptName: userscriptDir,
-                version: version,
-                branchName: 'dist',
                 include: /index\.js/,
-            }),
+            }, userscriptMetaGenerator),
         ],
     });
 
