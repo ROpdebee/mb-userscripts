@@ -214,6 +214,7 @@ export class ImageFetcher {
             // could still point to an actual image.
             const candidateProvider = getProviderByDomain(url);
             if (typeof candidateProvider !== 'undefined') {
+                // eslint-disable-next-line unicorn/prefer-type-error -- Not a type error.
                 throw new Error(`This page is not (yet) supported by the ${candidateProvider.name} provider, are you sure this page corresponds to a MusicBrainz release?`);
             }
 
@@ -247,15 +248,26 @@ export class ImageFetcher {
                 const uint32view = new Uint32Array(reader.result as ArrayBuffer);
                 if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
                     resolve({ mimeType: 'image/jpeg', isImage: true });
-                } else if (uint32view[0] === 0x38464947) {
-                    resolve({ mimeType: 'image/gif', isImage: true });
-                } else if (uint32view[0] === 0x474E5089) {
-                    resolve({ mimeType: 'image/png', isImage: true });
-                } else if (uint32view[0] === 0x46445025) {
-                    resolve({ mimeType: 'application/pdf', isImage: true });
                 } else {
-                    const actualMimeType = resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)?.[1];
-                    resolve({ mimeType: actualMimeType, isImage: false });
+                    switch (uint32view[0]) {
+                    case 0x38464947:
+                        resolve({ mimeType: 'image/gif', isImage: true });
+                        break;
+
+                    case 0x474E5089:
+                        resolve({ mimeType: 'image/png', isImage: true });
+                        break;
+
+                    case 0x46445025:
+                        resolve({ mimeType: 'application/pdf', isImage: true });
+                        break;
+
+                    default:
+                        resolve({
+                            mimeType: resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)?.[1],
+                            isImage: false,
+                        });
+                    }
                 }
             });
             reader.readAsArrayBuffer(rawFile.slice(0, 4));
