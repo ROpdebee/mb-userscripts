@@ -24,30 +24,38 @@ export function registerMatchers(): void {
             // Only set message if we expect it to pass and it doesn't, or when
             // we don't expect it to pass but it does.
             if (passPathname === this.isNot) {
-                messageLines.push('Expected URL ' + notString + 'to ' + (expected.urlPart instanceof RegExp ? 'match' : 'include') + ':');
-                messageLines.push(this.utils.printExpected(expected.urlPart));
-                messageLines.push('Received:');
-                messageLines.push(this.utils.printReceived(received.url.href));
-                messageLines.push('');
+                messageLines.push(
+                    'Expected URL ' + notString + 'to ' + (expected.urlPart instanceof RegExp ? 'match' : 'include') + ':',
+                    this.utils.printExpected(expected.urlPart),
+                    'Received:',
+                    this.utils.printReceived(received.url.href),
+                    '',
+                );
             }
             if (passTypes === this.isNot) {
                 const expectedTypeStrings = expected.types?.map((type) => ArtworkTypeIDs[type]);
                 const receivedTypeStrings = received.types?.map((type) => ArtworkTypeIDs[type]);
-                messageLines.push('Expected types ' + notString + 'to strict equal:');
-                messageLines.push(this.utils.printExpected(expectedTypeStrings));
-                messageLines.push('Received:');
-                messageLines.push(this.utils.printReceived(receivedTypeStrings));
-                messageLines.push('');
+                messageLines.push(
+                    'Expected types ' + notString + 'to strict equal:',
+                    this.utils.printExpected(expectedTypeStrings),
+                    'Received:',
+                    this.utils.printReceived(receivedTypeStrings),
+                    '',
+                );
             }
             if (passComment === this.isNot) {
                 if (typeof expected.comment === 'undefined') {
                     messageLines.push('Expected comment ' + notString + 'to be undefined');
                 } else {
-                    messageLines.push('Expected comment ' + notString + 'to be:');
-                    messageLines.push(this.utils.printExpected(expected.comment));
+                    messageLines.push(
+                        'Expected comment ' + notString + 'to be:',
+                        this.utils.printExpected(expected.comment),
+                    );
                 }
-                messageLines.push('Received:');
-                messageLines.push(this.utils.printReceived(received.comment));
+                messageLines.push(
+                    'Received:',
+                    this.utils.printReceived(received.comment),
+                );
             }
 
             return {
