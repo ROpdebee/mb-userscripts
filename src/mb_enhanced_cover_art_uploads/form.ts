@@ -76,42 +76,47 @@ function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], ima
     }
 }
 
+function fillEditNoteFragment(editNote: EditNote, images: FetchedImage[], containerUrl?: URL): void {
+    const prefix = containerUrl ? ' * ' : '';
+
+    if (containerUrl) {
+        editNote.addExtraInfo(decodeURI(containerUrl.href));
+    }
+
+    for (const queuedUrl of images) {
+        // Prevent noise from data: URLs
+        if (queuedUrl.maximisedUrl.protocol === 'data:') {
+            editNote.addExtraInfo(prefix + 'Uploaded from data URL');
+            continue;
+        }
+        editNote.addExtraInfo(prefix + decodeURI(queuedUrl.originalUrl.href));
+        if (queuedUrl.wasMaximised) {
+            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + decodeURI(queuedUrl.maximisedUrl.href));
+        }
+        if (queuedUrl.wasRedirected) {
+            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.fetchedUrl.href));
+        }
+    }
+}
+
 export function fillEditNote(allFetchedImages: FetchedImages[], origin: string, editNote: EditNote): void {
     const totalNumImages = allFetchedImages.reduce((acc, fetched) => acc + fetched.images.length, 0);
     // Nothing enqueued => Skip edit note altogether
     if (!totalNumImages) return;
 
     // Limiting to 3 URLs to reduce noise
+    const maxFilled = 3;
     let numFilled = 0;
     for (const { containerUrl, images } of allFetchedImages) {
-        let prefix = '';
-        if (containerUrl) {
-            prefix = ' * ';
-            editNote.addExtraInfo(decodeURI(containerUrl.href));
-        }
+        const imagesToFill = images.slice(0, maxFilled - numFilled);
+        fillEditNoteFragment(editNote, imagesToFill, containerUrl);
 
-        for (const queuedUrl of images) {
-            numFilled += 1;
-            if (numFilled > 3) break;
-            // Prevent noise from data: URLs
-            if (queuedUrl.maximisedUrl.protocol === 'data:') {
-                editNote.addExtraInfo(prefix + 'Uploaded from data URL');
-                continue;
-            }
-            editNote.addExtraInfo(prefix + decodeURI(queuedUrl.originalUrl.href));
-            if (queuedUrl.wasMaximised) {
-                editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + decodeURI(queuedUrl.maximisedUrl.href));
-            }
-            if (queuedUrl.wasRedirected) {
-                editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.fetchedUrl.href));
-            }
-        }
-
-        if (numFilled > 3) break;
+        numFilled += imagesToFill.length;
+        if (numFilled >= maxFilled) break;
     }
 
-    if (totalNumImages > 3) {
-        editNote.addExtraInfo(`…and ${totalNumImages - 3} additional image(s)`);
+    if (totalNumImages > maxFilled) {
+        editNote.addExtraInfo(`…and ${totalNumImages - maxFilled} additional image(s)`);
     }
 
     if (origin) {
