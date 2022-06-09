@@ -12,32 +12,31 @@ import { createFetchedImage, createImageFile } from './test-utils/dummy-data';
 // @ts-expect-error need to inject a jQuery
 global.$ = $;
 
+async function insertFileRows(evt: JQuery.TriggeredEvent): Promise<void> {
+    const files = (evt.originalEvent as (DragEvent | undefined))?.dataTransfer?.files;
+    if (!files) return;
+
+    const fileRowPath = path.resolve('.', 'tests', 'test-data', 'mb_enhanced_cover_art_uploads', 'form-row.html');
+    const rowHtml = await fs.readFile(fileRowPath, 'utf8');
+
+    for (const file of files) {
+        document.querySelector('tbody')
+            ?.insertAdjacentHTML('beforeend', rowHtml.replace('%file-name%', file.name));
+    }
+}
+
+function getSelectedTypes(row: HTMLTableRowElement | null): ArtworkTypeIDs[] {
+    return [...row?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]') ?? []]
+        .filter((input) => input.checked)
+        .map((input) => parseInt(input.value));
+}
+
+function getComment(row: HTMLTableRowElement | null): string | undefined {
+    return row?.querySelector<HTMLInputElement>('input.comment')?.value;
+}
+
 describe('enqueuing images', () => {
     const mockHtml = '<div id="drop-zone"/><table><tbody data-bind="foreach: files_to_upload"/></table>';
-
-    async function insertFileRows(evt: JQuery.TriggeredEvent): Promise<void> {
-        const files = (evt.originalEvent as (DragEvent | undefined))?.dataTransfer?.files;
-        if (!files) return;
-
-        const fileRowPath = path.resolve('.', 'tests', 'test-data', 'mb_enhanced_cover_art_uploads', 'form-row.html');
-        const rowHtml = await fs.readFile(fileRowPath, 'utf8');
-
-        for (const file of files) {
-            document.querySelector('tbody')
-                ?.insertAdjacentHTML('beforeend', rowHtml.replace('%file-name%', file.name));
-        }
-    }
-
-    function getSelectedTypes(row: HTMLTableRowElement | null): ArtworkTypeIDs[] {
-        return [...row?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]') ?? []]
-            .filter((input) => input.checked)
-            .map((input) => parseInt(input.value));
-    }
-
-    function getComment(row: HTMLTableRowElement | null): string | undefined {
-        return row?.querySelector<HTMLInputElement>('input.comment')?.value;
-    }
-
     const onDropMock = jest.fn().mockImplementation(insertFileRows);
 
     beforeEach(() => {
