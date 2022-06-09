@@ -122,6 +122,7 @@ export class App {
         // Helper to ensure we don't silently ignore promise rejections in
         // `this.processURL`, as the callback given to `ui.addImportButton`
         // expects a synchronous function.
+        // eslint-disable-next-line unicorn/consistent-function-scoping -- Requires access to `this`.
         const syncProcessURL = (url: URL): void => {
             this.processURL(url)
                 .catch((err) => {
