@@ -1,7 +1,7 @@
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { filterNonNull } from '@lib/util/array';
-import { assertNonNull } from '@lib/util/assert';
+import { assertDefined } from '@lib/util/assert';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 
@@ -35,20 +35,20 @@ export class DatPiffProvider extends CoverArtProvider {
         }
 
         const coverCont = qs<HTMLDivElement>('.tapeBG', respDocument);
-        const frontCoverUrl = coverCont.getAttribute('data-front');
-        const backCoverUrl = coverCont.getAttribute('data-back');
+        const frontCoverUrl = coverCont.dataset.front;
+        const backCoverUrl = coverCont.dataset.back;
         // If there's no back cover, this element won't be present but the
         // data-back attribute would still be set with a bad URL.
         const hasBackCover = qsMaybe('#screenshot', coverCont) !== null;
 
-        assertNonNull(frontCoverUrl, 'No front image found in DatPiff release');
+        assertDefined(frontCoverUrl, 'No front image found in DatPiff release');
 
         const covers = [{
             url: new URL(frontCoverUrl),
             types: [ArtworkTypeIDs.Front],
         }];
         if (hasBackCover) {
-            assertNonNull(backCoverUrl, 'No back cover found in DatPiff release, even though there should be one');
+            assertDefined(backCoverUrl, 'No back cover found in DatPiff release, even though there should be one');
             covers.push({
                 url: new URL(backCoverUrl),
                 types: [ArtworkTypeIDs.Back],
