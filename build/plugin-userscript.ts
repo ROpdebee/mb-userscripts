@@ -80,7 +80,7 @@ export /* for tests */ class GitURLs {
 
 async function loadPackageJson(): Promise<PackageJson> {
     const content = await fs.promises.readFile('package.json', {
-        encoding: 'utf-8',
+        encoding: 'utf8',
     });
 
     return JSON.parse(content) as PackageJson;

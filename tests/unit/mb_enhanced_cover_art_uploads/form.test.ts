@@ -20,7 +20,7 @@ describe('enqueuing images', () => {
         if (!files) return;
 
         const fileRowPath = path.resolve('.', 'tests', 'test-data', 'mb_enhanced_cover_art_uploads', 'form-row.html');
-        const rowHtml = await fs.readFile(fileRowPath, 'utf-8');
+        const rowHtml = await fs.readFile(fileRowPath, 'utf8');
 
         for (const file of files) {
             document.querySelector('tbody')

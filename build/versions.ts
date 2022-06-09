@@ -43,7 +43,7 @@ export async function getPreviousReleaseVersion(userscriptName: string, buildDir
     const distMetaFile = path.resolve(buildDir, userscriptName + '.meta.js');
     let metaContent: string;
     try {
-        metaContent = await fs.readFile(distMetaFile, 'utf-8');
+        metaContent = await fs.readFile(distMetaFile, 'utf8');
     } catch (err) {
         if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
             // File doesn't exist -> First build, version is undefined.
