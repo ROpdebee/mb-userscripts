@@ -19,7 +19,7 @@ export const VGMdbSeeder: Seeder = {
     supportedDomains: ['vgmdb.net'],
     supportedRegexes: [/\/album\/(\d+)(?:\/|#|\?|$)/],
 
-    insertSeedLinks(): void {
+    async insertSeedLinks(): Promise<void> {
         if (!isLoggedIn()) {
             return;
         }
@@ -33,13 +33,13 @@ export const VGMdbSeeder: Seeder = {
         const releaseIdsProm = getMBReleases();
         const coversProm = extractCovers();
 
-        Promise.all([releaseIdsProm, coversProm])
-            .then(([releaseIds, covers]) => {
-                insertSeedButtons(coverHeading, releaseIds, covers);
-            })
-            .catch((err) => {
-                LOGGER.error('Failed to insert seed links', err);
-            });
+        // Load in parallel
+        try {
+            const [releaseIds, covers] = await Promise.all([releaseIdsProm, coversProm]);
+            insertSeedButtons(coverHeading, releaseIds, covers);
+        } catch (err) {
+            LOGGER.error('Failed to insert seed links', err);
+        }
     },
 };
 
