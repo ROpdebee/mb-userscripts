@@ -226,12 +226,12 @@ function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
     if (chunk.name === BUILTIN_LIB_CHUNK_NAME) return '/* minified: lib */';
 
     const bundledModules = Object.keys(chunk.modules)
-        .filter((module) => !module.startsWith('\x00'))
+        .filter((module) => !module.startsWith('\u0000'))
         .map((module) => path.relative('./node_modules', module))
         .map((module) => module.split(path.sep).slice(0, module.startsWith('@') ? 2 : 1).join('/'));
 
     const uniqueBundledModules = [...new Set(bundledModules)];
-    if ('\x00rollupPluginBabelHelpers.js' in chunk.modules) {
+    if ('\u0000rollupPluginBabelHelpers.js' in chunk.modules) {
         uniqueBundledModules.unshift('babel helpers');
     }
 
