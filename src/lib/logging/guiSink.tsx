@@ -25,7 +25,7 @@ export class GuiSink implements LoggingSink {
 
     private addMessage(el: HTMLSpanElement): void {
         this.removeTransientMessages();
-        this.rootElement.appendChild(el);
+        this.rootElement.append(el);
         this.rootElement.style.display = 'block';
     }
 
