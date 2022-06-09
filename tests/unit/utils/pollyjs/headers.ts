@@ -26,11 +26,11 @@ export const FetchHeaders = {
 export const CRLFHeaders = {
     fromPollyHeaders(pollyHeaders: PollyHeadersT): CRLFHeadersT {
         return Object.entries(pollyHeaders).flatMap(([k, v]) => {
-            if (!Array.isArray(v))
-                return [`${k}: ${v}`];
-            else {
-                return v.map((vi) => `${k}: ${vi}`);
+            if (!Array.isArray(v)) {
+                v = [v];
             }
+
+            return v.map((vi) => `${k}: ${vi}`);
         }).join('\r\n');
     },
 };

@@ -243,12 +243,9 @@ export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<Max
     // Workaround for https://github.com/rpetrich/babel-plugin-transform-async-to-promises/issues/80
     // Cannot use yield*, so we'll loop over the results manually and yield all
     // of the results individually.
-    let iterable: AsyncIterable<MaximisedImage> | Iterable<MaximisedImage>;
-    if (exceptionFn) {
-        iterable = await exceptionFn(smallurl);
-    } else {
-        iterable = maximiseGeneric(smallurl);
-    }
+    // Use `exceptionFn` if it exists, otherwise maximise it as a generic image.
+    const iterable = await (exceptionFn ?? maximiseGeneric)(smallurl);
+
     for await (const item of iterable) {
         yield item;
     }

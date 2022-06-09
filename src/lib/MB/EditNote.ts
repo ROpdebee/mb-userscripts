@@ -15,11 +15,10 @@ export class EditNote {
         this.editNoteTextArea = qs('textarea.edit-note');
         // Maybe kept from page reload
         const existingInfoBlock = this.editNoteTextArea.value.split(separator)[0];
-        if (existingInfoBlock) {
-            this.extraInfoLines = new Set(existingInfoBlock.split('\n').map((l) => l.trimEnd()));
-        } else {
-            this.extraInfoLines = new Set();
-        }
+        this.extraInfoLines = new Set(
+            existingInfoBlock
+                ? existingInfoBlock.split('\n').map((l) => l.trimEnd())
+                : null);
     }
 
     addExtraInfo(infoLine: string): void {

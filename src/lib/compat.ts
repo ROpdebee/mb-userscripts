@@ -103,11 +103,6 @@ export function cloneIntoPageContext<T>(object: T): T {
 export function getFromPageContext<M extends keyof Window>(name: M): Window[M];
 export function getFromPageContext<M extends keyof typeof globalThis>(name: M): (typeof globalThis)[M];
 export function getFromPageContext<M extends keyof (Window | typeof globalThis)>(name: M): (Window | typeof globalThis)[M] {
-    /* eslint-disable @typescript-eslint/no-unsafe-return */
-    if (typeof unsafeWindow !== 'undefined') {
-        return unsafeWindow[name];
-    } else {
-        return window[name];
-    }
-    /* eslint-enable @typescript-eslint/no-unsafe-return */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return (typeof unsafeWindow !== 'undefined' ? unsafeWindow : window)[name];
 }

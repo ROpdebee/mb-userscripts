@@ -63,6 +63,7 @@ function createWarcResponseRecord(url: string, response: HarResponse): WARCRecor
     const httpStatusLine = `${response.httpVersion} ${response.status} ${response.statusText}`;
     const httpHeaders = Object.fromEntries(response.headers.map(({ name, value }) => [name, value]));
     let content: Uint8Array;
+    // eslint-disable-next-line unicorn/prefer-ternary -- Too complex
     if (!response.content.text) {
         content = new Uint8Array();
     } else {
