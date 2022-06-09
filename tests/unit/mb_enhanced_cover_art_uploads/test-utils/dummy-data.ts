@@ -10,7 +10,7 @@ export interface DummyImageData {
 }
 
 export function createBlob(): Blob {
-    return new Blob([Math.random().toString().substring(2, 8)]);
+    return new Blob([Math.random().toString().slice(2, 8)]);
 }
 export function createImageFile(data?: DummyImageData): File {
     data = data ?? {};
@@ -20,7 +20,7 @@ export function createImageFile(data?: DummyImageData): File {
 }
 
 export function createRandomURL(): URL {
-    return new URL('https://example.com/' + Math.random().toString().substring(2, 8));
+    return new URL('https://example.com/' + Math.random().toString().slice(2, 8));
 }
 
 export function createFetchedImage(data?: Partial<FetchedImage>): FetchedImage {
