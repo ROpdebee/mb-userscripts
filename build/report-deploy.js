@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment -- Cannot fix this in JS code. */
 /* eslint-disable @typescript-eslint/explicit-function-return-type -- These are present in JSDoc comments. */
- 
+/* eslint-disable unicorn/prefer-module -- Not supported in @actions/github-script. */
 
 /**
  * Use JSDoc type defs to do type imports.
@@ -15,16 +15,16 @@
  * @param { { github: Octokit; context: GithubActionsContext } } args
  */
 async function reportDeploy({ github, context }) {
-    const { TEST_RESULT, DEPLOY_RESULT } = process.env;
+    const { TEST_RESULT, DEPLOY_RESULT, PR_INFO, DEPLOY_INFO } = process.env;
 
-    if (!process.env.PR_INFO) {
+    if (!PR_INFO) {
         throw new Error('PR info not set, are we running in CI?');
     }
 
     /** @type PullRequestInfo */
-    const prInfo = JSON.parse(process.env.PR_INFO);
+    const prInfo = JSON.parse(PR_INFO);
     /** @type DeployInfo | null */
-    const deployInfo = process.env.DEPLOY_INFO ? JSON.parse(process.env.DEPLOY_INFO) : null;
+    const deployInfo = DEPLOY_INFO ? JSON.parse(DEPLOY_INFO) : null;
 
     // Set labels on PR
     /** @type string */
