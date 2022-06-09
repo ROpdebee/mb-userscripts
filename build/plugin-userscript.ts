@@ -1,7 +1,7 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34960
-import { URL } from 'url';
+import { URL } from 'node:url';
 
 import type { Plugin } from 'rollup';
 import type { PackageJson } from 'type-fest';
