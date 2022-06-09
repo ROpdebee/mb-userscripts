@@ -15,7 +15,7 @@ const ENCODER = new TextEncoder();
 
 export default async function har2warc(har: Har): Promise<Uint8Array> {
     const infoRecord = createWarcInfoRecord(har);
-    const payloadRecords = har.log.entries.flatMap(createWarcPayloadRecords);
+    const payloadRecords = har.log.entries.flatMap((entry) => createWarcPayloadRecords(entry));
 
     const allRecords = [infoRecord, ...payloadRecords];
     const serialisedRecords = await Promise.all(allRecords.map((record) => WARCSerializer.serialize(record)));

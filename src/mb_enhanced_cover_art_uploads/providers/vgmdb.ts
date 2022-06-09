@@ -212,6 +212,6 @@ export class VGMdbProvider extends CoverArtProvider {
             covers.unshift({ url: metadata.picture_full, caption: 'Front' });
         }
 
-        return covers.map(convertCaptions);
+        return covers.map((cover) => convertCaptions(cover));
     }
 }

@@ -84,7 +84,7 @@ interface ChangelogEntry {
 
 export async function parseChangelogEntries(changelogPath: string): Promise<ChangelogEntry[]> {
     const contents = await readChangelog(changelogPath);
-    return filterNonNull(contents.split('\n').map(parseChangelogEntry));
+    return filterNonNull(contents.split('\n').map((line) => parseChangelogEntry(line)));
 }
 
 function parseChangelogEntry(line: string): ChangelogEntry | null {
