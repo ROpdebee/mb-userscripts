@@ -39,7 +39,7 @@ async function iterCommits(repo: SimpleGit): Promise<void> {
                 url: `https://github.com/ROpdebee/mb-userscripts/pull/${prNumber}`,
             });
             entryList.push(changelogEntry);
-        } catch (e) {
+        } catch (err) {
             // Fix manually, probably not adhering to conventional commits
             entryList.push(`- **${version}**: FAILED!!! ${commit.body.trim()}`);
         }
