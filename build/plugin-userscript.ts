@@ -70,11 +70,8 @@ export /* for tests */ class GitURLs {
         if (!npmPackage.repository) {
             throw new Error('No repository defined in package.json');
         }
-        if (typeof npmPackage.repository === 'string') {
-            return new GitURLs(npmPackage.repository);
-        } else {
-            return new GitURLs(npmPackage.repository.url);
-        }
+        const repo = npmPackage.repository;
+        return new GitURLs(typeof repo === 'string' ? repo : repo.url);
     }
 }
 

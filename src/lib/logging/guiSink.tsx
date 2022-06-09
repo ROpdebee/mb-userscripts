@@ -17,12 +17,8 @@ export class GuiSink implements LoggingSink {
     }
 
     private createMessage(className: string, message: string, exception?: unknown): HTMLSpanElement {
-        let content: string;
-        if (exception && exception instanceof Error) {
-            content = message + ': ' + exception.message;
-        } else {
-            content = message;
-        }
+        const extraMessage = exception instanceof Error ? `: ${exception.message}` : '';
+        const content = message + extraMessage;
 
         return <span className={`msg ${className}`}>{content}</span>;
     }

@@ -91,11 +91,8 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
         id='ROpdebee_incl_public_checkbox'
         onChange={(evt): void => {
             relIdToAnchors.forEach((a, relId) => {
-                if (evt.currentTarget.checked) {
-                    a.href = seedParamsAll.createSeedURL(relId);
-                } else {
-                    a.href = seedParamsPrivate.createSeedURL(relId);
-                }
+                const seedParams = evt.currentTarget.checked ? seedParamsAll : seedParamsPrivate;
+                a.href = seedParams.createSeedURL(relId);
             });
         }}
     />;

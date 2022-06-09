@@ -162,20 +162,13 @@ export class DispatchMap<Leaf> {
     }
 
     private retrieve(keyPath: string[]): Leaf | undefined {
-        let child: Leaf | undefined;
+        const child = (keyPath.length === 1
+            ? this.retrieveLeaf(keyPath[0])
+            : this.retrieveInternal(keyPath));
 
-        if (keyPath.length === 1) {
-            child = this.retrieveLeaf(keyPath[0]);
-        } else {
-            child = this.retrieveInternal(keyPath);
-        }
-
-        if (typeof child === 'undefined') {
-            // Fall back to wildcard if there is one
-            child = this._get('*');
-        }
-        // Could be undefined in case a wildcard doesn't exist, in which case
+        // Fall back to wildcard if there is one
+        // Could still be undefined in case a wildcard doesn't exist, in which case
         // the recursive caller will try a wildcard themselves.
-        return child;
+        return child ?? this._get('*');
     }
 }
