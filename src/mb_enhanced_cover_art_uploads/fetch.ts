@@ -73,39 +73,44 @@ export class ImageFetcher {
         };
     }
 
-    async fetchImageFromURL(url: URL, skipMaximisation = false): Promise<FetchedImage | undefined> {
-        // Attempt to maximise the image
-        let fetchResult: ImageContents | null = null;
+    private async fetchMaximisedImage(url: URL): Promise<ImageContents | undefined> {
+        for await (const maxCandidate of getMaximisedCandidates(url)) {
+            const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
+            if (this.urlAlreadyAdded(maxCandidate.url)) {
+                LOGGER.warn(`${maxCandidate.url} has already been added`);
+                return;
+            }
 
-        if (!skipMaximisation) {
-            for await (const maxCandidate of getMaximisedCandidates(url)) {
-                const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
-                if (this.urlAlreadyAdded(maxCandidate.url)) {
-                    LOGGER.warn(`${maxCandidate.url} has already been added`);
-                    return;
+            try {
+                const result = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
+                // IMU might return the same URL as was inputted, no use in logging that.
+                // istanbul ignore next: Logging
+                if (maxCandidate.url.href !== url.href) {
+                    LOGGER.info(`Maximised ${url.href} to ${maxCandidate.url.href}`);
                 }
-
-                try {
-                    fetchResult = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
-                    // IMU might return the same URL as was inputted, no use in logging that.
-                    // istanbul ignore next: Logging
-                    if (maxCandidate.url.href !== url.href) {
-                        LOGGER.info(`Maximised ${url.href} to ${maxCandidate.url.href}`);
-                    }
-                    break;
-                } catch (err) {
-                    // istanbul ignore if: Fine.
-                    if (maxCandidate.likely_broken) continue;
-                    LOGGER.warn(`Skipping maximised candidate ${maxCandidate.url}`, err);
-                }
+                return result;
+            } catch (err) {
+                // istanbul ignore if: Fine.
+                if (maxCandidate.likely_broken) continue;
+                LOGGER.warn(`Skipping maximised candidate ${maxCandidate.url}`, err);
             }
         }
 
         // If we couldn't fetch any maximised images, try the original URL
-        if (!fetchResult) {
-            // Might throw, caller needs to catch
-            fetchResult = await this.fetchImageContents(url, getFilename(url), {});
-        }
+        return this.fetchImageContents(url, getFilename(url), {});;
+    }
+
+    async fetchImageFromURL(url: URL, skipMaximisation = false): Promise<FetchedImage | undefined> {
+        // Attempt to maximise the image if necessary
+        // Might throw, caller needs to catch
+        const fetchResult = await (
+            skipMaximisation
+                ? this.fetchImageContents(url, getFilename(url), {})
+                : this.fetchMaximisedImage(url)
+        );
+
+        // If result is undefined, the image was already added previously.
+        if (!fetchResult) return;
 
         this.doneImages.add(fetchResult.fetchedUrl.href);
         this.doneImages.add(fetchResult.requestedUrl.href);
