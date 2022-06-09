@@ -10,10 +10,10 @@ import { SeedParameters } from './parameters';
 
 export const MusicBrainzSeeder: Seeder = {
     supportedDomains: ['musicbrainz.org', 'beta.musicbrainz.org'],
-    supportedRegexes: [/release\/[a-f0-9-]{36}\/cover-art/],
+    supportedRegexes: [/release\/[a-f\d-]{36}\/cover-art/],
 
     async insertSeedLinks(): Promise<void> {
-        const mbid = window.location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)?.[1];
+        const mbid = window.location.href.match(/musicbrainz\.org\/release\/([a-f\d-]+)\//)?.[1];
         assertHasValue(mbid);
         const attachedURLs = await getURLsForRelease(mbid, {
             excludeEnded: true,

@@ -37,7 +37,7 @@ export class ArchiveProvider extends CoverArtProvider {
     name = 'Archive.org';
     urlRegex = /(?:details|metadata|download)\/([^/?#]+)/;
 
-    static CAA_ITEM_REGEX = /^mbid-[a-f0-9-]+$/;
+    static CAA_ITEM_REGEX = /^mbid-[a-f\d-]+$/;
     static IMAGE_FILE_FORMATS = [
         'JPEG',
         'PNG',

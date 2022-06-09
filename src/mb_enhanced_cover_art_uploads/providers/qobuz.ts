@@ -44,8 +44,8 @@ export class QobuzProvider extends CoverArtProvider {
     // Not sure if such URLs would ever occur, but using a single regexp could
     // lead to `related` being matched as the ID and the actual ID as the title.
     urlRegex = [
-        /open\.qobuz\.com\/(?:.+?\/)?album\/([A-Za-z0-9]+)(?:\/|$)/,
-        /album\/[^/]+\/([A-Za-z0-9]+)(?:\/|$)/,
+        /open\.qobuz\.com\/(?:.+?\/)?album\/([A-Za-z\d]+)(?:\/|$)/,
+        /album\/[^/]+\/([A-Za-z\d]+)(?:\/|$)/,
     ];
 
     // Assuming this doesn't change often. If it does, we might have to extract it
@@ -126,7 +126,7 @@ export class QobuzProvider extends CoverArtProvider {
         }
 
         const goodies = QobuzProvider.extractGoodies(metadata.goodies ?? []);
-        const coverUrl = metadata.image.large.replace(/_\d+\.([a-zA-Z0-9]+)$/, '_org.$1');
+        const coverUrl = metadata.image.large.replace(/_\d+\.([a-zA-Z\d]+)$/, '_org.$1');
         return [
             {
                 url: new URL(coverUrl),

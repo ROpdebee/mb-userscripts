@@ -109,7 +109,7 @@ export class App {
     }
 
     async addImportButtons(): Promise<void> {
-        const mbid = window.location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)?.[1];
+        const mbid = window.location.href.match(/musicbrainz\.org\/release\/([a-f\d-]+)\//)?.[1];
         assertHasValue(mbid);
         const attachedURLs = await getURLsForRelease(mbid, {
             excludeEnded: true,

@@ -34,7 +34,7 @@ export /* for tests */ function mapJacketType(caption: string): MappedArtwork {
     }
 
     const types = [];
-    const keywords = caption.split(/(?:,|\s|and|&)/i);
+    const keywords = caption.split(/,|\s|and|&/i);
     const faceKeywords = ['front', 'back', 'spine'];
     const [hasFront, hasBack, hasSpine] = faceKeywords
         .map((faceKw) => keywords

@@ -9,7 +9,7 @@ export class MusicBrainzProvider extends CoverArtProvider {
     favicon = 'https://musicbrainz.org/static/images/favicons/favicon-32x32.png';
     override allowButtons = false;
     name = 'MusicBrainz';
-    urlRegex = /release\/([a-f0-9-]+)/;
+    urlRegex = /release\/([a-f\d-]+)/;
 
     async findImages(url: URL): Promise<CoverArt[]> {
         const mbid = this.extractId(url);
@@ -24,5 +24,5 @@ export class CoverArtArchiveProvider extends MusicBrainzProvider {
     override supportedDomains = ['coverartarchive.org'];
     override favicon = 'https://coverartarchive.org/favicon.png';
     override name = 'Cover Art Archive';
-    override urlRegex = /release\/([a-f0-9-]+)\/?$/; // Don't match direct image URLs!
+    override urlRegex = /release\/([a-f\d-]+)\/?$/; // Don't match direct image URLs!
 }
