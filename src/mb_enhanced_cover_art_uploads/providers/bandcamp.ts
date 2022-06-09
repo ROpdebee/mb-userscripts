@@ -58,7 +58,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // images in one request, but that API has been locked down :(
         // https://michaelherger.github.io/Bandcamp-API/#/Albums/get_api_album_2_info
         const trackRows = qsa<HTMLTableRowElement>('#track_table .track_row_view', doc);
-        if (!trackRows.length) return [];
+        if (trackRows.length === 0) return [];
         LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
 
         // Max 5 requests per second
@@ -74,7 +74,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         const trackImages = await Promise.all(trackRows
             .map((trackRow) => this.findTrackImage(trackRow, throttledFetchPage)));
         const mergedTrackImages = await this.mergeTrackImages(trackImages, mainUrl, true);
-        if (mergedTrackImages.length) {
+        if (mergedTrackImages.length > 0) {
             LOGGER.info(`Found ${mergedTrackImages.length} unique track images`);
         } else {
             LOGGER.info('Found no unique track images this time');

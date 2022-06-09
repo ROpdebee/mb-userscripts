@@ -103,7 +103,7 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
     >Include publicly accessible covers</label>;
 
     const containedElements = [inclPublicCheckbox, inclPublicLabel, ...anchors];
-    if (!anchors.length) {
+    if (anchors.length === 0) {
         containedElements.push(<span style={{ display: 'block'}}>
             This album is not linked to any MusicBrainz releases!
         </span>);

@@ -83,7 +83,7 @@ function createWarcResponseRecord(url: string, response: HarResponse): WARCRecor
 }
 
 function createWarcRequestRecord(url: string, request: HarRequest, responseId: string): WARCRecord {
-    assert(!request.cookies.length, 'Cannot serialise cookies to WARC yet');
+    assert(request.cookies.length === 0, 'Cannot serialise cookies to WARC yet');
     assert(!request.postData, 'Cannot serialise request body to WARC yet');
     const parsedUrl = new URL(url);
     const fullPath = parsedUrl.pathname + parsedUrl.search;

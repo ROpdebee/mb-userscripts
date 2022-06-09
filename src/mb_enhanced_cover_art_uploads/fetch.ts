@@ -131,6 +131,7 @@ export class ImageFetcher {
         const finalImages = onlyFront ? this.retainOnlyFront(images) : images;
         const hasMoreImages = onlyFront && images.length !== finalImages.length;
 
+        // eslint-disable-next-line unicorn/explicit-length-check
         LOGGER.info(`Found ${finalImages.length || 'no'} image(s) in ${provider.name} release`);
         // We need to fetch each image sequentially because each one is checked
         // against any previously fetched images, to avoid adding duplicates.
@@ -180,7 +181,7 @@ export class ImageFetcher {
         // multiple front images, return them all (e.g. Bandcamp original and
         // square crop).
         const filtered = images.filter((img) => img.types?.includes(ArtworkTypeIDs.Front));
-        return filtered.length ? filtered : images.slice(0, 1);
+        return filtered.length > 0 ? filtered : images.slice(0, 1);
     }
 
     private createUniqueFilename(filename: string, mimeType: string): string {

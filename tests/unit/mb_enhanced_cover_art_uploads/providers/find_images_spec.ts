@@ -38,7 +38,7 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
         registerMatchers();
     });
 
-    if (extractionCases.length) {
+    if (extractionCases.length > 0) {
         it.each(extractionCases)('extracts covers for $desc', async (extractionCase) => {
             const covers = await provider.findImages(new URL(extractionCase.url), false);
 
@@ -50,7 +50,7 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
         });
     }
 
-    if (extractionFailedCases.length) {
+    if (extractionFailedCases.length > 0) {
         it.each(extractionFailedCases)('throws on $desc', async (extractionFailedCase) => {
             pollyContext!.polly.configure({
                 recordFailedRequests: true,

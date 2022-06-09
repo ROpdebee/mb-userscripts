@@ -204,7 +204,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         // Second pass: Thumbnail content
         // We do not need to deduplicate by content if there's only one track
         // image and there's no main URL to compare to.
-        if (byContent && groupedImages.size && !(groupedImages.size === 1 && !mainUrl)) {
+        if (byContent && groupedImages.size > 0 && !(groupedImages.size === 1 && !mainUrl)) {
             LOGGER.info('Deduplicating track images by content, this may take a while…');
 
             // Compute unique digests of all thumbnail images. We'll use these
@@ -253,7 +253,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
     private createTrackImageComment(trackNumbers: Array<string | undefined>): string {
         const definedTrackNumbers = filterNonNull(trackNumbers);
-        if (!definedTrackNumbers.length) return '';
+        if (definedTrackNumbers.length === 0) return '';
 
         const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
         // Use a collated sort here to make sure we keep numeric ordering.

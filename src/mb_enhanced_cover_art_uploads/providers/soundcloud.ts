@@ -55,7 +55,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             .replace(/\/$/, '')
             .split('/');
 
-        return (!!pathParts.length
+        return (pathParts.length > 0
             && !SoundcloudProvider.badArtistIDs.has(artistId)
             // artist/likes, artist/track/recommended, artist/sets, ...
             // but not artist/sets/setname!
