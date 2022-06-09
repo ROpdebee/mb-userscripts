@@ -1,10 +1,6 @@
 {
     "extends": "../configs/tsconfig.base-node",
     "include": ["**/*", "../src/*/meta.ts"],
-    "compilerOptions": {
-        // For rollup-plugin-consts
-        "skipLibCheck": true,
-    },
     "references": [
         { "path": "../src/lib" },
     ]
