@@ -47,7 +47,7 @@ module.exports = {
                 // Side-effect imports
                 ['^\\u0000'],
                 // Node builtin modules
-                [`^(${builtinModulesJoined})(/.*)?\\u0000$`, `^(${builtinModulesJoined})(/|$)`],
+                [`^(?:node:)?(${builtinModulesJoined})(/.*)?\\u0000$`, `^(?:node:)?(${builtinModulesJoined})(/|$)`],
                 // 3rd party packages. Need a negative lookahead in the first
                 // to prevent type-only imports from our mapped paths from matching.
                 // Doesn't matter for the second one, since simple-import-sort

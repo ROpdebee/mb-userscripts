@@ -1,5 +1,5 @@
 // Script to retroactively generate a changelog for scripts in the dist branch
-import fs from 'fs/promises';
+import fs from 'node:fs/promises';
 
 import type { SimpleGit } from 'simple-git';
 import simpleGit from 'simple-git';

@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import type { PollyConfig } from '@pollyjs/core';
 import type { RequestInfo, RequestInit, Response } from 'node-fetch';

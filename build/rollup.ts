@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput } from 'rollup';
