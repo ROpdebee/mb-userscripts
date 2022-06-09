@@ -57,11 +57,14 @@ async function reportDeploy({ github, context }) {
         ].join('\n');
     } else if (deployInfo && deployInfo.scripts.length) {
         // Report deployed versions
-        issueComment = [
-            `:rocket: Released ${deployInfo.scripts.length} new userscript version(s):`,
-        ].concat(deployInfo.scripts.map((script) => {
+        const deployedScriptsLines = deployInfo.scripts.map((script) => {
             return `* ${script.name} ${script.version} in ${script.commit}`;
-        })).join('\n');
+        });
+        const commentLines = [
+            `:rocket: Released ${deployInfo.scripts.length} new userscript version(s):`,
+            ...deployedScriptsLines,
+        ];
+        issueComment = commentLines.join('\n');
     }
 
     if (issueComment) {
@@ -96,15 +99,16 @@ async function reportPreview({ github, context }) {
     } else {
         const basePreviewUrl = `https://raw.github.com/${context.repo.owner}/${context.repo.repo}/dist-preview-${prInfo.number}`;
         const diffUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/compare/dist...dist-preview-${prInfo.number}`;
-        content = [
-            `This PR changes ${deployInfo.scripts.length} built userscript(s):`,
-        ].concat(deployInfo.scripts.map((script) => {
+        const changedScriptsLines = deployInfo.scripts.map((script) => {
             const previewUrl = basePreviewUrl + '/' + script.name + '.user.js';
             return `* \`${script.name}\` ([install preview](${previewUrl}), changes: ${script.commit})`;
-        })).concat([
+        });
+        content = [
+            `This PR changes ${deployInfo.scripts.length} built userscript(s):`,
+            ...changedScriptsLines,
             '',
             `[See all changes](${diffUrl})`,
-        ]).join('\n');
+        ].join('\n');
     }
 
     const existingComments = await github.rest.issues.listComments({

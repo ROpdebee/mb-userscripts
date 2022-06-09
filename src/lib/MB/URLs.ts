@@ -19,7 +19,7 @@ export async function getURLsForRelease(releaseId: string, options?: { excludeEn
     }
     let urls = urlARs.map((ar) => ar.url.resource);
     if (excludeDuplicates) {
-        urls = Array.from(new Set([...urls]));
+        urls = [...new Set([...urls])];
     }
 
     return urls.flatMap((url) => {

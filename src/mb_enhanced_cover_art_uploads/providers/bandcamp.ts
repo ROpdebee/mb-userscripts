@@ -37,7 +37,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // Don't bother extracting track images if we only need the front cover
         const trackImages = onlyFront ? [] : await this.findTrackImages(respDocument, albumCoverUrl);
 
-        return this.amendSquareThumbnails(covers.concat(trackImages));
+        return this.amendSquareThumbnails([...covers, ...trackImages]);
     }
 
     private extractCover(doc: Document): string | undefined {

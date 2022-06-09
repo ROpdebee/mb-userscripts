@@ -69,7 +69,7 @@ export class GuiSink implements LoggingSink {
     }
 
     clearAllLater(): void {
-        this.transientMessages = this.transientMessages.concat(this.persistentMessages);
+        this.transientMessages = [...this.transientMessages, ...this.persistentMessages];
         this.persistentMessages = [];
     }
 }

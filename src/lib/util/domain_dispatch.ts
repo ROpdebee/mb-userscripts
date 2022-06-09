@@ -11,7 +11,12 @@ function splitDomain(domain: string): string[] {
     if (['org', 'co', 'com'].includes(parts[parts.length - 2])) {
         splitIdx = -3;
     }
-    return parts.slice(0, splitIdx).concat([parts.slice(splitIdx).join('.')]);
+    return [
+        // ['sub', 'domain']
+        ...parts.slice(0, splitIdx),
+        // 'site.com'
+        parts.slice(splitIdx).join('.'),
+    ];
 }
 
 export class DispatchMap<Leaf> {
@@ -66,12 +71,12 @@ export class DispatchMap<Leaf> {
             throw new Error('Invalid pattern: ' + domainPattern);
         }
 
-        this.insert(domainParts.slice().reverse(), leaf);
+        this.insert([...domainParts].reverse(), leaf);
         return this;
     }
 
     get(domain: string): Leaf | undefined {
-        return this.retrieve(splitDomain(domain).slice().reverse());
+        return this.retrieve([...splitDomain(domain)].reverse());
     }
 
     // Workaround for https://github.com/babel/babel/issues/13875
