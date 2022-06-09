@@ -54,8 +54,7 @@ export function nativejsx(options?: Readonly<NativeJSXPluginOptions>): Plugin {
                 return transpiled;
             }
 
-            const result = [HELPER_IMPORTS, transpiled].join('\n\n');
-            return result;
+            return [HELPER_IMPORTS, transpiled].join('\n\n');
         },
     };
 }

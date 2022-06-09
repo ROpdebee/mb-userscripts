@@ -240,7 +240,7 @@ export function userscript(options: Readonly<PluginOptions>, metaGenerator: Meta
          * @param      {string}              id      The chunk's identifier.
          * @return     {Promise<undefined>}  Nothing, resolves after emitted.
          */
-        async transform(_code: string, id: string): Promise<undefined> {
+        async transform(_code: string, id: string): Promise<void> {
             // We're not using createFilter from @rollup/pluginutils here,
             // since that filters out the virtual files, which we actually
             // need
@@ -253,8 +253,6 @@ export function userscript(options: Readonly<PluginOptions>, metaGenerator: Meta
                 fileName: `${metaGenerator.options.userscriptName}.meta.js`,
                 source: metadataBlock,
             });
-
-            return;
         },
 
         // Using renderChunk rather than banner because with banner, it adds
