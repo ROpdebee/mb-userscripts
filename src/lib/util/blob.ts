@@ -28,7 +28,9 @@ export function blobToDigest(blob: Blob): Promise<string> {
         // Therefore, we do the asynchronous stuff in `onLoad` and `.then()`
         // the result to resolve/reject the outer promise.
         reader.addEventListener('load', () => {
-            onLoad(reader).then(resolve).catch(reject);
+            onLoad(reader)
+                .then(resolve)
+                .catch(reject);
         });
 
         reader.readAsArrayBuffer(blob);

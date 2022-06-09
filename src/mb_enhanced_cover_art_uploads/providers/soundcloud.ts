@@ -41,6 +41,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
     static badArtistIDs = new Set([
         'you', 'discover', 'stream', 'upload', 'search',
     ]);
+
     static badSubpaths = new Set([
         'likes', 'followers', 'following', 'reposts', 'albums', 'tracks',
         'popular-tracks', 'comments', 'sets', 'recommended',

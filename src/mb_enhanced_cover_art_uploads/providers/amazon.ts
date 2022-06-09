@@ -50,6 +50,7 @@ export class AmazonProvider extends CoverArtProvider {
         'amazon.nl', 'amazon.pl', 'amazon.sa', 'amazon.se', 'amazon.sg',
         'amazon.co.jp', 'amazon.co.uk', 'amazon.com', 'amazon.com.au',
         'amazon.com.br', 'amazon.com.mx', 'amazon.com.tr'];
+
     // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
     get favicon(): Promise<string> {
         return GMgetResourceUrl('amazonFavicon');

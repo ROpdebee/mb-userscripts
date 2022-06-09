@@ -5,7 +5,6 @@ afterEach(() => {
 });
 
 describe('async timeout', () => {
-
     it('resolves after a timeout', async () => {
         jest.useFakeTimers();
         const promise = asyncSleep(500);
@@ -42,7 +41,6 @@ describe('async timeout', () => {
 });
 
 describe('retryTimes', () => {
-
     it('resolves immediately if function does not fail', async () => {
         jest.useFakeTimers();
         const mock = jest.fn().mockImplementation(() => 42);

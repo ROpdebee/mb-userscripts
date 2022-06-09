@@ -21,7 +21,6 @@ const loggerToHandlerNames = Object.fromEntries(loggerMethodNames
     .map((name) => [name, 'on' + name[0].toUpperCase() + name.slice(1) as keyof LoggingSink]));
 
 describe('logger', () => {
-
     describe('configuring', () => {
         it('gets configured through constructor', () => {
             const logger = new Logger({
@@ -117,7 +116,6 @@ describe('logger', () => {
 
             expect(sink.onDebug).not.toHaveBeenCalled();
         });
-
     });
 
     describe('logging with incomplete sink', () => {
