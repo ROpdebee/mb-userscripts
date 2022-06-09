@@ -59,8 +59,8 @@ async function extractCovers(): Promise<VGMdbCovers> {
 
     // Split the extracted covers into public and private, to provide the option
     // to seed only private covers.
-    const publicCoverURLs = new Set((await new VGMdbProvider().findImagesWithApi(new URL(document.location.href)))
-        .map((cover) => cover.url.href));
+    const publicCovers = await new VGMdbProvider().findImagesWithApi(new URL(document.location.href));
+    const publicCoverURLs = new Set(publicCovers.map((cover) => cover.url.href));
     const result: VGMdbCovers = {
         allCovers: covers,
         privateCovers: covers.filter((cover) => !publicCoverURLs.has(cover.url.href)),

@@ -174,7 +174,7 @@ describe('maximising Jamendo images', () => {
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toBe('https://usercontent.jamendo.com/?cid=1632996942&type=album&id=453609&width=0');
 
-        expect((await it.next()).done).toBeTrue();
+        await expect(it.next()).resolves.toHaveProperty('done', true);
     });
 });
 
