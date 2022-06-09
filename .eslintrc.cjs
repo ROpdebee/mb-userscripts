@@ -48,6 +48,10 @@ module.exports = {
         'quotes': ['error', 'single', {
             avoidEscape: true
         }],
+        'newline-per-chained-call': 'warn',
+        'padded-blocks': ['warn', 'never'],
+        'no-multiple-empty-lines': 'warn',
+
         '@typescript-eslint/semi': ['error', 'always'],
         '@typescript-eslint/comma-spacing': 'error',
         'arrow-parens': ['error', 'always'],
@@ -110,6 +114,9 @@ module.exports = {
             disallowTypeAnnotations: true,
         }],
         '@typescript-eslint/explicit-function-return-type': 'error',
+        '@typescript-eslint/lines-between-class-members': ['warn', 'always', {
+            exceptAfterSingleLine: true,
+        }],
         '@typescript-eslint/member-delimiter-style': 'error',
         '@typescript-eslint/no-base-to-string': 'error',
         '@typescript-eslint/no-confusing-void-expression': 'error',

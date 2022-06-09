@@ -52,18 +52,23 @@ export class Logger {
     debug(message: string): void {
         this.fireHandlers(LogLevel.DEBUG, message);
     }
+
     log(message: string): void {
         this.fireHandlers(LogLevel.LOG, message);
     }
+
     info(message: string): void {
         this.fireHandlers(LogLevel.INFO, message);
     }
+
     success(message: string): void {
         this.fireHandlers(LogLevel.SUCCESS, message);
     }
+
     warn(message: string, exception?: unknown): void {
         this.fireHandlers(LogLevel.WARNING, message, exception);
     }
+
     error(message: string, exception?: unknown): void {
         this.fireHandlers(LogLevel.ERROR, message, exception);
     }

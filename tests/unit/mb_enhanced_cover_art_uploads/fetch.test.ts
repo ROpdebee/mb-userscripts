@@ -204,7 +204,6 @@ describe('fetching image from URL', () => {
     });
 
     describe('without maximisation', () => {
-
         beforeAll(() => {
             disableMaximisation();
         });

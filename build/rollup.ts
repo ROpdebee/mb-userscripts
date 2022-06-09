@@ -230,7 +230,10 @@ function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
     const bundledModules = Object.keys(chunk.modules)
         .filter((module) => !module.startsWith('\u0000'))
         .map((module) => path.relative('./node_modules', module))
-        .map((module) => module.split(path.sep).slice(0, module.startsWith('@') ? 2 : 1).join('/'));
+        .map((module) => module
+            .split(path.sep)
+            .slice(0, module.startsWith('@') ? 2 : 1)
+            .join('/'));
 
     const uniqueBundledModules = [...new Set(bundledModules)];
     if ('\u0000rollupPluginBabelHelpers.js' in chunk.modules) {

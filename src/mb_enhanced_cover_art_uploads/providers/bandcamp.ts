@@ -16,7 +16,10 @@ export class BandcampProvider extends ProviderWithTrackImages {
     urlRegex = /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/;
 
     override extractId(url: URL): string | undefined {
-        return this.cleanUrl(url).match(this.urlRegex)?.slice(1)?.join('/');
+        return this.cleanUrl(url)
+            .match(this.urlRegex)
+            ?.slice(1)
+            ?.join('/');
     }
 
     async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {

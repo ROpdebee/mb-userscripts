@@ -80,5 +80,4 @@ describe('gmxhr', () => {
         expect(mockGMxmlHttpRequest).toHaveBeenCalledOnce();
         expect(mockGMxmlHttpRequest).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://example.com/test?x=1#y' }));
     });
-
 });

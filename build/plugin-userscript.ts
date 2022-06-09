@@ -225,7 +225,6 @@ export class MetadataGenerator {
 
 /* istanbul ignore next: Covered by build, can't be tested, see `loadMetadata`. */
 export function userscript(options: Readonly<PluginOptions>, metaGenerator: MetadataGenerator): Plugin {
-
     // Will be set to the string content of the metadata block during the build
     // phase, and will be used again during the output phase.
     let metadataBlock: string;

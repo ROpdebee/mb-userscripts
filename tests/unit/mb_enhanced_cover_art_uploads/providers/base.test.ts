@@ -29,6 +29,7 @@ describe('cover art providers', () => {
         get urlRegex(): RegExp | RegExp[] {
             return /example\.com\/(.+)/;
         }
+
         findImages = findImagesMock;
     }
     const fakeProvider = new FakeProvider();
@@ -291,7 +292,8 @@ describe('providers with track images', () => {
                 when(mockXhr)
                     // Use specific blob for the main image
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                    .calledWith('https://example.com/x', expect.anything()).mockResolvedValue(createXhrResponse({
+                    .calledWith('https://example.com/x', expect.anything())
+                    .mockResolvedValue(createXhrResponse({
                         response: createBlob(),
                     }))
                     // Always use the same image for any other request, but this

@@ -45,5 +45,4 @@ export class AllMusicProvider extends CoverArtProvider {
             };
         });
     }
-
 }

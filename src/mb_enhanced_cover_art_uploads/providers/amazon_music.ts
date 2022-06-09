@@ -10,6 +10,7 @@ export class AmazonMusicProvider extends CoverArtProvider {
         'music.amazon.fr', 'music.amazon.in', 'music.amazon.it',
         'music.amazon.co.jp', 'music.amazon.co.uk', 'music.amazon.com',
         'music.amazon.com.au', 'music.amazon.com.br', 'music.amazon.com.mx'];
+
     favicon = 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png';
     name = 'Amazon Music';
     urlRegex = /\/albums\/([A-Za-z\d]{10})(?:\/|$)/;

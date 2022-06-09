@@ -15,7 +15,6 @@ interface Options extends Polly {
 }
 
 export class WarcPersister extends Persister<Options> {
-
     static override get id(): string {
         return 'fs-warc';
     }
