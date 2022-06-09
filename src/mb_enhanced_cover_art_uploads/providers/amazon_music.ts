@@ -12,7 +12,7 @@ export class AmazonMusicProvider extends CoverArtProvider {
         'music.amazon.com.au', 'music.amazon.com.br', 'music.amazon.com.mx'];
     favicon = 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png';
     name = 'Amazon Music';
-    urlRegex = /\/albums\/([A-Za-z0-9]{10})(?:\/|$)/;
+    urlRegex = /\/albums\/([A-Za-z\d]{10})(?:\/|$)/;
 
     async findImages(url: URL): Promise<CoverArt[]> {
         // Translate Amazon Music to Amazon product links. The cover art should

@@ -8,7 +8,7 @@ export class QubMusiqueProvider extends QobuzProvider {
     override name = 'QUB Musique';
     // Include musique in the regex as it seems QUB does much more than just
     // music streaming
-    override urlRegex = [/musique\/album\/[\w-]*-([A-Za-z0-9]+)(?:\/|$)/];
+    override urlRegex = [/musique\/album\/[\w-]*-([A-Za-z\d]+)(?:\/|$)/];
     // We can reuse the rest of the implementations of QobuzProvider, since it
     // extracts the ID and uses the Qobuz API instead of loading the page.
 }

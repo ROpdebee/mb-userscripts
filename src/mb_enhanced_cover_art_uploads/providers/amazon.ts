@@ -56,7 +56,7 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     name = 'Amazon';
-    urlRegex = /\/(?:gp\/product|dp|hz\/audible\/mlp\/mfpdp)\/([A-Za-z0-9]{10})(?:\/|$)/;
+    urlRegex = /\/(?:gp\/product|dp|hz\/audible\/mlp\/mfpdp)\/([A-Za-z\d]{10})(?:\/|$)/;
 
     async findImages(url: URL): Promise<CoverArt[]> {
         const pageContent = await this.fetchPage(url);

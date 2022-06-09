@@ -17,7 +17,7 @@ export class SevenDigitalProvider extends HeadMetaPropertyProvider {
             // Filter out images that either are, or were redirected to the cover
             // with ID 0000000016. This is a placeholder image.
             .filter((image) => {
-                if (/\/0000000016_\d+/.test(image.fetchedUrl.pathname)) {
+                if (/\/0{8}16_\d+/.test(image.fetchedUrl.pathname)) {
                     LOGGER.warn(`Skipping "${image.fetchedUrl}" as it matches a placeholder cover`);
                     return false;
                 }

@@ -13,7 +13,7 @@ export class RateYourMusicProvider extends CoverArtProvider {
     // Include release type in the ID to make sure it doesn't redirect a single
     // to an album and vice versa, and also to simplify the URL transformation
     // below.
-    urlRegex = /\/release\/((?:album|single)\/[^/]+\/[^/]+)(?:\/|$)/;
+    urlRegex = /\/release\/((?:album|single)(?:\/[^/]+){2})(?:\/|$)/;
 
     async findImages(url: URL): Promise<CoverArt[]> {
         const releaseId = this.extractId(url);

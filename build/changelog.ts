@@ -88,7 +88,7 @@ export async function parseChangelogEntries(changelogPath: string): Promise<Chan
 }
 
 function parseChangelogEntry(line: string): ChangelogEntry | null {
-    const re = /- \*\*([\d.]+)\*\*: ([\w\s]+): (.+?) \(\[#(\d+)\]\(.+\)\)/;
+    const re = /- \*\*([\d.]+)\*\*: ([\w\s]+): (.+?) \(\[#(\d+)]\(.+\)\)/;
     const match = line.match(re);
     if (match === null) {
         // Malformed
