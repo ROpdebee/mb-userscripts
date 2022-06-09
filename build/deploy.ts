@@ -85,7 +85,7 @@ async function scanAndPush(): Promise<void> {
         if (update) updates.push(update);
     }
 
-    if (updates.length) {
+    if (updates.length > 0) {
         if (!process.env.SKIP_PUSH) {
             console.log('Pushing…');
             await gitDist.push();

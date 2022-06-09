@@ -69,7 +69,7 @@ export class App {
         }
 
         fillEditNote([fetchResult], '', this.note);
-        if (fetchResult.images.length) {
+        if (fetchResult.images.length > 0) {
             LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);
         }
     }
@@ -117,7 +117,7 @@ export class App {
         });
         const supportedURLs = attachedURLs.filter((url) => getProvider(url)?.allowButtons);
 
-        if (!supportedURLs.length) return;
+        if (supportedURLs.length === 0) return;
 
         // Helper to ensure we don't silently ignore promise rejections in
         // `this.processURL`, as the callback given to `ui.addImportButton`

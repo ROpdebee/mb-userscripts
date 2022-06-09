@@ -235,7 +235,7 @@ function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
         uniqueBundledModules.unshift('babel helpers');
     }
 
-    if (!uniqueBundledModules.length) return '';
+    if (uniqueBundledModules.length === 0) return '';
 
     return `/* minified: ${uniqueBundledModules.join(', ')} */`;
 }

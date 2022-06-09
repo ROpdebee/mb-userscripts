@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment -- Cannot fix this in JS code. */
 /* eslint-disable @typescript-eslint/explicit-function-return-type -- These are present in JSDoc comments. */
-/* eslint-disable @typescript-eslint/prefer-optional-chain -- Syntax not supported in github-script on CI. */
+ 
 
 /**
  * Use JSDoc type defs to do type imports.
@@ -32,7 +32,7 @@ async function reportDeploy({ github, context }) {
     let label;
     if (TEST_RESULT !== 'success' || DEPLOY_RESULT !== 'success') {
         label = 'deploy:failed';
-    } else if (!deployInfo || !deployInfo.scripts.length) {
+    } else if (!deployInfo || deployInfo.scripts.length === 0) {
         label = 'deploy:skipped';
     } else {
         label = 'deploy:success';
@@ -55,7 +55,7 @@ async function reportDeploy({ github, context }) {
             ':boom: Heads up! Automatic deployment of the changes in this PR failed! :boom:',
             `See [${context.workflow}#${context.runNumber}](${runUrl}).`,
         ].join('\n');
-    } else if (deployInfo && deployInfo.scripts.length) {
+    } else if (deployInfo && deployInfo.scripts.length > 0) {
         // Report deployed versions
         const deployedScriptsLines = deployInfo.scripts.map((script) => {
             return `* ${script.name} ${script.version} in ${script.commit}`;
@@ -94,7 +94,7 @@ async function reportPreview({ github, context }) {
     /** @type string */
     // eslint-disable-next-line no-restricted-syntax
     let content;
-    if (!deployInfo || !deployInfo.scripts.length) {
+    if (!deployInfo || deployInfo.scripts.length === 0) {
         content = 'This PR makes no changes to the built userscripts.';
     } else {
         const basePreviewUrl = `https://raw.github.com/${context.repo.owner}/${context.repo.repo}/dist-preview-${prInfo.number}`;
@@ -121,7 +121,7 @@ async function reportPreview({ github, context }) {
         .filter((comment) => comment.user.login === 'github-actions[bot]')
         .map((comment) => comment.id);
 
-    if (existingBotCommentIds.length) {
+    if (existingBotCommentIds.length > 0) {
         const commentId = existingBotCommentIds[existingBotCommentIds.length - 1];
         await github.rest.issues.updateComment({
             owner: context.repo.owner,
