@@ -5,7 +5,7 @@ const mbMatchedUrls = [
     'release/*/add-cover-art',
     'release/*/add-cover-art?*',
     'release/*/cover-art',
-].map(transformMBMatchURL);
+].map((url) => transformMBMatchURL(url));
 
 const metadata: UserscriptMetadata = {
     name: 'MB: Enhanced Cover Art Uploads',
