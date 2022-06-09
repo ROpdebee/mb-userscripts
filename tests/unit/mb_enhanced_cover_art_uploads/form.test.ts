@@ -174,7 +174,7 @@ describe('filling edit notes', () => {
         const baseExpectedLines = args.containerUrl ? [args.containerUrl.href] : [];
 
         function createExpectedContent(expectedLines: string[]): string {
-            const allExpectedLines = baseExpectedLines.concat(expectedLines).concat(['–', 'test footer']);
+            const allExpectedLines = [...baseExpectedLines, ...expectedLines, '–', 'test footer'];
             return allExpectedLines.join('\n');
         }
 

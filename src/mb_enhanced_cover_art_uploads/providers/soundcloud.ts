@@ -129,6 +129,6 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             }));
         const mergedTrackCovers = await this.mergeTrackImages(trackCovers, metadata.data.artwork_url, true);
 
-        return covers.concat(mergedTrackCovers);
+        return [...covers, ...mergedTrackCovers];
     }
 }
