@@ -48,16 +48,16 @@ export const AtasketSeeder: Seeder = {
 };
 
 function addSeedLinkToCovers(mbid: string, origin: string): void {
-    const covers = qsa('figure.cover');
+    const covers = qsa<HTMLElement>('figure.cover');
     Promise.all(covers.map((fig) => addSeedLinkToCover(fig, mbid, origin)))
         .catch((err) => {
             LOGGER.error('Failed to add seed links to some cover art', err);
         });
 }
 
-function tryExtractReleaseUrl(fig: Element): string | undefined {
-    const countryCode = fig.closest('div')?.getAttribute('data-matched-country');
-    const vendorId = fig.getAttribute('data-vendor-id');
+function tryExtractReleaseUrl(fig: HTMLElement): string | undefined {
+    const countryCode = fig.closest('div')?.dataset['matched-country'];
+    const vendorId = fig.dataset['vendor-id'];
     const vendorCode = [...fig.classList]
         .find((klass) => ['spf', 'deez', 'itu'].includes(klass));
     // Vendor code and ID are required, but we only need a non-empty country code for Apple Music/iTunes releases
@@ -69,7 +69,7 @@ function tryExtractReleaseUrl(fig: Element): string | undefined {
     return RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
 }
 
-async function addSeedLinkToCover(fig: Element, mbid: string, origin: string): Promise<void> {
+async function addSeedLinkToCover(fig: HTMLElement, mbid: string, origin: string): Promise<void> {
     const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
 
     // Not using .split('.') here because Spotify images do not have an extension.
