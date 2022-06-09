@@ -186,10 +186,12 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
  *                        written.
  */
 async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<void> {
-    const fileMapping = passOneResult.output.reduce<Record<string, string>>((acc, curr) => {
-        if (curr.type === 'chunk') acc[curr.fileName] = curr.code;
-        return acc;
-    }, {});
+    const fileMapping: Record<string, string> = {};
+    for (const outputChunk of passOneResult.output) {
+        if (outputChunk.type === 'chunk') {
+            fileMapping[outputChunk.fileName] = outputChunk.code;
+        }
+    }
 
     const bundle = await rollup({
         input: 'index.js',
