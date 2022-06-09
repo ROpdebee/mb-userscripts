@@ -19,7 +19,7 @@ export function setupPolly(overrideOptions?: PollyConfig): Context {
                 recordingsDir: path.resolve('.', 'tests', 'test-data', '__recordings__'),
             },
         },
-        ...overrideOptions ?? {},
+        ...overrideOptions,
     });
 }
 
