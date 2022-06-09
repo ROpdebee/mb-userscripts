@@ -25,8 +25,7 @@ export class WarcPersister extends Persister<Options> {
 
         try {
             const warcContent = await fs.readFile(searchPath);
-            const har = await warc2har(warcContent);
-            return har;
+            return await warc2har(warcContent);
         } catch (err) {
             if (Object.prototype.hasOwnProperty.call(err, 'errno')
                 && (err as NodeJS.ErrnoException).code === 'ENOENT') {

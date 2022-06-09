@@ -38,6 +38,7 @@ export function GMgetResourceUrl(resourceName: string): Promise<string> {
         // would replace `GM` for the rest of this file.
         return (GM.getResourceURL as typeof GM.getResourceUrl)(resourceName);
     } else {
+        // eslint-disable-next-line sonarjs/no-use-of-empty-return-value -- False positive.
         return Promise.resolve(GM_getResourceURL(resourceName));
     }
 }

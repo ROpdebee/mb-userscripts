@@ -238,7 +238,7 @@ export interface MaximisedImage {
     likely_broken?: boolean;
 }
 
-export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<MaximisedImage, undefined, undefined> {
+export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<MaximisedImage, void, undefined> {
     const exceptionFn = IMU_EXCEPTIONS.get(smallurl.hostname);
     // Workaround for https://github.com/rpetrich/babel-plugin-transform-async-to-promises/issues/80
     // Cannot use yield*, so we'll loop over the results manually and yield all
@@ -249,7 +249,6 @@ export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<Max
     for await (const item of iterable) {
         yield item;
     }
-    return;
 }
 
 async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
