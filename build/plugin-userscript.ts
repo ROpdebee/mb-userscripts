@@ -244,7 +244,7 @@ export function userscript(options: Readonly<PluginOptions>, metaGenerator: Meta
             // We're not using createFilter from @rollup/pluginutils here,
             // since that filters out the virtual files, which we actually
             // need
-            if (!id.match(options.include)) return;
+            if (!options.include.test(id)) return;
 
             metadataBlock = await metaGenerator.generateMetadataBlock();
 
