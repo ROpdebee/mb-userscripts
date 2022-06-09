@@ -103,6 +103,7 @@ module.exports = {
         '@typescript-eslint/no-namespace': ['error', {
             allowDeclarations: true
         }],
+        '@typescript-eslint/no-redundant-type-constituents': 'error',
         '@typescript-eslint/no-shadow': 'error',
         '@typescript-eslint/no-throw-literal': 'error',
         '@typescript-eslint/no-unnecessary-condition': 'error',
