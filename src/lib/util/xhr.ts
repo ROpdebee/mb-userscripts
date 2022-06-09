@@ -62,7 +62,7 @@ export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<
         GMxmlHttpRequest({
             method: 'GET',
             url: url instanceof URL ? url.href : url,
-            ...options ?? {},
+            ...options,
 
             onload: (resp) => {
                 if (resp.status >= 400) reject(new HTTPResponseError(url, resp));
