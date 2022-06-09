@@ -156,6 +156,7 @@ describe('qobuz provider', () => {
 
         it('ignores goodie if URL is not set', () => {
             const covers = QobuzProvider.extractGoodies([{
+                // eslint-disable-next-line unicorn/numeric-separators-style
                 id: 111512,
                 file_format_id: 52,
                 name: 'Clip vidéo',
@@ -163,6 +164,7 @@ describe('qobuz provider', () => {
                 url: null,
                 original_url: null,
             }, {
+                // eslint-disable-next-line unicorn/numeric-separators-style
                 id: 111513,
                 file_format_id: 21,
                 name: 'Livret Numérique',
