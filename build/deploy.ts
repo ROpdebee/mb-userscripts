@@ -76,8 +76,8 @@ async function scanAndPush(): Promise<void> {
         return;
     }
 
-    const userscriptDirs = (await fs.readdir('./src'))
-        .filter((name) => name.startsWith('mb_'));
+    const srcContents = await fs.readdir('./src');
+    const userscriptDirs = srcContents.filter((name) => name.startsWith('mb_'));
 
     const updates: DeployedScript[] = [];
     for (const scriptName of userscriptDirs) {

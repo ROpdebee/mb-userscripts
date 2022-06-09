@@ -9,8 +9,8 @@ if (!process.env.GITHUB_ACTIONS) {
 const distRepo = process.argv[2];
 
 async function checkUserscriptsChanged(): Promise<void> {
-    const userscriptDirs = (await fs.readdir('./src'))
-        .filter((name) => name.startsWith('mb_'));
+    const srcContents = await fs.readdir('./src');
+    const userscriptDirs = srcContents.filter((name) => name.startsWith('mb_'));
 
     for (const scriptName of userscriptDirs) {
         console.log(`Checking ${scriptName}`);
