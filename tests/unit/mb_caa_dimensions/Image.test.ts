@@ -2,7 +2,7 @@ import { getCAAInfo } from '@src/mb_caa_dimensions/caa_info';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 import { CAAImage, QueuedUploadImage } from '@src/mb_caa_dimensions/Image';
 
-import { dummyCAAItemID, dummyCAAReleaseFullSizeURL, dummyCAAReleaseThumbnailURL, dummyDimensions, dummyFileInfo, dummyFullSizeURL, dummyImageID, dummyImageInfo, dummyReleaseGroupURL, dummyThumbnail, mockCache } from './test-utils/mock-data';
+import { dummyCAAItemID, dummyCAAReleaseFullSizeURL, dummyCAAReleaseThumbnailURL, dummyDimensions, dummyFileInfo, dummyFullSizeURL, dummyImageID, dummyImageInfo, dummyPDFURL, dummyReleaseGroupURL, dummyThumbnail, mockCache } from './test-utils/mock-data';
 
 jest.mock('@src/mb_caa_dimensions/InfoCache');
 jest.mock('@src/mb_caa_dimensions/caa_info');
@@ -66,6 +66,13 @@ describe('caa image', () => {
             expect(mockGetImageDimensions).toHaveBeenCalledOnce();
             expect(mockGetImageDimensions).toHaveBeenCalledWith(dummyFullSizeURL);
             expect(mockCache.putDimensions).not.toHaveBeenCalled();
+        });
+
+        it('does not attempt to load PDF dimensions', async () => {
+            const image = new CAAImage(dummyPDFURL, mockCache);
+
+            await expect(image.getDimensions()).resolves.toBeUndefined();
+            expect(mockGetImageDimensions).not.toHaveBeenCalled();
         });
     });
 

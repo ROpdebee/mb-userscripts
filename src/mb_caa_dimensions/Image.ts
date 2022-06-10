@@ -15,7 +15,7 @@ export interface Image {
 
 export abstract class BaseImage {
 
-    private readonly imgUrl: string;
+    protected readonly imgUrl: string;
     private readonly cache?: InfoCache;
 
     constructor(imgUrl: string, cache?: InfoCache) {
@@ -136,6 +136,15 @@ export class CAAImage extends BaseImage {
         const [itemId, imageId] = parseCAAIDs(thumbnailUrl ?? fullSizeUrl);
         this.itemId = itemId;
         this.imageId = imageId;
+    }
+
+    override getDimensions(): Promise<Dimensions | undefined> {
+        if (this.imgUrl.endsWith('.pdf')) {
+            LOGGER.warn(`Cannot get dimensions of PDF, skipping ${this.imgUrl}`);
+            return Promise.resolve(undefined);
+        }
+
+        return super.getDimensions();
     }
 
     loadFileInfo(): Promise<FileInfo> {
