@@ -1,5 +1,5 @@
 import type { UserscriptMetadata } from '@lib/util/metadata';
-import { transformMBMatchURL } from '@lib/util/metadata';
+import { MB_EDIT_PAGE_PATHS, transformMBMatchURL } from '@lib/util/metadata';
 
 const metadata: UserscriptMetadata = {
     name: 'MB: Display CAA image dimensions',
@@ -7,9 +7,8 @@ const metadata: UserscriptMetadata = {
     'run-at': 'document-start',
     match: [
         'release/*',
-        'edit/*',  // Cover art in edit history
-        'search/edits*',
         'release-group/*',
+        ...MB_EDIT_PAGE_PATHS,
     ].map(transformMBMatchURL),
     exclude: [
         transformMBMatchURL('release/*/edit'),
