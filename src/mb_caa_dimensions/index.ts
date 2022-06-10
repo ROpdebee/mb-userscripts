@@ -25,7 +25,9 @@ async function processPageChange(mutations: MutationRecord[], cache: InfoCache):
     mutations.flatMap((mutation) => [...mutation.addedNodes])
         .filter((addedNode) => addedNode instanceof HTMLImageElement)
         .forEach((addedImage) => {
-            displayInfoWhenInView(displayedCoverArtFactory(addedImage as HTMLImageElement, cache));
+            const displayedImage = displayedCoverArtFactory(addedImage as HTMLImageElement, cache);
+            if (!displayedImage) return;
+            displayInfoWhenInView(displayedImage);
         });
 }
 
@@ -67,7 +69,9 @@ function detectAndObserveImages(cache: InfoCache): void {
                 childList: true,
             });
         } else {
-            displayInfoWhenInView(displayedCoverArtFactory(imgElement, cache));
+            const displayedImage = displayedCoverArtFactory(imgElement, cache);
+            if (!displayedImage) return;
+            displayInfoWhenInView(displayedImage);
         }
     });
 
