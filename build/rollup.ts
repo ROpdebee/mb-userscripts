@@ -18,7 +18,7 @@ import { minify } from 'terser';
 
 import { parseChangelogEntries } from './changelog';
 import { nativejsx } from './plugin-nativejsx';
-import { updateNotifications, UPDATE_NOTIFICATIONS_SOURCE_ID } from './plugin-update-notifications';
+import { UPDATE_NOTIFICATIONS_SOURCE_ID, updateNotifications } from './plugin-update-notifications';
 import { MetadataGenerator, userscript } from './plugin-userscript';
 
 const OUTPUT_DIR = 'dist';
