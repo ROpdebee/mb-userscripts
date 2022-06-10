@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto';
 
-import type { IDBPDatabase } from 'idb';
+import type { IDBPDatabase, OpenDBCallbacks } from 'idb';
 import FDBFactory from 'fake-indexeddb/lib/FDBFactory';
 import { openDB } from 'idb';
 
@@ -122,15 +122,59 @@ describe('indexedDB-backed info cache', () => {
     });
 });
 
+function oldDBCreateSchema(db: IDBPDatabase): void {
+    const store = db.createObjectStore('cacheStore', { keyPath: 'url' });
+    store.createIndex('added_datetime', 'added_datetime');
+}
+
+function createOtherDB(version = 1, options?: OpenDBCallbacks<unknown>): Promise<IDBPDatabase> {
+    return openDB('ROpdebee_CAA_Dimensions_Cache', version, options ?? {
+        upgrade: oldDBCreateSchema,
+    });
+}
+
 describe('database migrations', () => {
+    describe('blocked upgrades', () => {
+        it('falls back on no cache if blocked by an open DB that will not close', async () => {
+            const oldDB = await createOtherDB();
+            const cache = await createCache();
+
+            await cache.putDimensions('test', dummyDimensions);
+            await cache.putFileInfo('test', dummyFileInfo);
+
+            await expect(cache.getDimensions('test')).resolves.toBeUndefined();
+            await expect(cache.getFileInfo('test')).resolves.toBeUndefined();
+
+            // I think jest will complain if a promise is settled twice, so this
+            // should be enough to verify that it doesn't resolve after rejecting.
+            // We do need to take care to close the blocking DB instance though,
+            // otherwise the tests leak resources.
+            oldDB.close();
+        });
+
+        it('closes the DB when blocking an upgrade', async () => {
+            const upgradeMock = jest.fn();
+            await createCache();
+            await createOtherDB(99999, {
+                upgrade: upgradeMock,
+            });
+
+            expect(upgradeMock).toHaveBeenCalledOnce();
+        });
+
+        it('allows no further use of the DB after closing when blocking an upgrade', async () => {
+            const cache = await createCache();
+            await createOtherDB(99999, {
+                upgrade: jest.fn(),
+            });
+
+            await expect(cache.getDimensions('test')).toReject();
+        });
+    });
+
     describe('1 to 2', () => {
         beforeEach(async () => {
-            const oldDB = await openDB('ROpdebee_CAA_Dimensions_Cache', 1, {
-                upgrade(db) {
-                    const store = db.createObjectStore('cacheStore', { keyPath: 'url' });
-                    store.createIndex('added_datetime', 'added_datetime');
-                },
-            });
+            const oldDB = await createOtherDB();
 
             await Promise.all([
                 oldDB.put('cacheStore', {

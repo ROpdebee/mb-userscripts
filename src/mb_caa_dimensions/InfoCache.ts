@@ -2,6 +2,7 @@ import type { DBSchema, IDBPDatabase, IDBPTransaction, StoreNames } from 'idb';
 import { openDB } from 'idb';
 
 import { LOGGER } from '@lib/logging/logger';
+import { logFailure } from '@lib/util/async';
 
 import type { Dimensions, FileInfo } from './ImageInfo';
 
@@ -113,31 +114,96 @@ class IndexedDBInfoCache {
     }
 
     static async create(): Promise<IndexedDBInfoCache> {
-        const db = await openDB(CACHE_DB_NAME, CACHE_DB_VERSION, {
-            async upgrade(database: IDBPDatabase<CacheDBSchema>, oldVersion: number, newVersion: number, tx: IDBPTransaction<CacheDBSchema, Array<StoreNames<CacheDBSchema>>, 'versionchange'>): Promise<void> {
-                LOGGER.info(`Creating or upgrading IndexedDB cache version ${newVersion}`);
-                if (oldVersion < 1) {
-                    // Unopened, create the original stores
-                    const dimensionsStore = database.createObjectStore(CACHE_DIMENSIONS_STORE_NAME);
-                    dimensionsStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
-                    const fileInfoStore = database.createObjectStore(CACHE_FILE_INFO_STORE_NAME);
-                    fileInfoStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
-                    return;
-                }
+        return new Promise((resolve, reject) => {
+            let wasBlocked = false;
 
-                while (oldVersion < newVersion) {
-                    LOGGER.info(`Upgrading IndexedDB cache from version ${oldVersion} to ${oldVersion + 1}`);
-                    const migrator = DbMigrations[oldVersion];
-                    await migrator(database, tx);
-                    oldVersion++;
+            const dbPromise = openDB(CACHE_DB_NAME, CACHE_DB_VERSION, {
+                async upgrade(database: IDBPDatabase<CacheDBSchema>, oldVersion: number, newVersion: number, tx: IDBPTransaction<CacheDBSchema, Array<StoreNames<CacheDBSchema>>, 'versionchange'>): Promise<void> {
+                    LOGGER.info(`Creating or upgrading IndexedDB cache version ${newVersion}`);
+                    if (oldVersion < 1) {
+                        // Unopened, create the original stores
+                        const dimensionsStore = database.createObjectStore(CACHE_DIMENSIONS_STORE_NAME);
+                        dimensionsStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
+                        const fileInfoStore = database.createObjectStore(CACHE_FILE_INFO_STORE_NAME);
+                        fileInfoStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
+                        return;
+                    }
+
+                    while (oldVersion < newVersion) {
+                        LOGGER.info(`Upgrading IndexedDB cache from version ${oldVersion} to ${oldVersion + 1}`);
+                        const migrator = DbMigrations[oldVersion];
+                        await migrator(database, tx);
+                        oldVersion++;
+                    }
+                },
+
+                /* Upgrade mechanism
+                 * =================
+                 *
+                 * When carrying out schema changes, the database needs to be locked. The browser takes care of this.
+                 * However, when earlier versions of the DB are still open, the request which is supposed to carry out
+                 * the schema change is blocked, and the blocked handler on the new DB will be called. Simultaneously,
+                 * the blocking handler will be called on the old DB. This can happen when two tabs are open that use the DB,
+                 * which is likely to happen for this script.
+                 *
+                 * Typically, DBs are set up in a way that the old instance will close itself to allow the schema change
+                 * to occur. Scenario:
+                 *  1. Tab 1 has open connection to DB v1.
+                 *  2. User updates script to new DB v2.
+                 *  3. Tab 2 tries to open DB v2. `blocked` is called in tab 2, `blocking` is called in tab 1.
+                 *
+                 * Ideally:
+                 *  4. Tab 1's `blocking` closes connection to DB v1 and any further modification attempts will fail.
+                 *  5. Tab 2 is unblocked, its `upgrade` will be called and it can perform the schema change.
+                 *
+                 * However, older versions of this script **do not** have a `blocking` listener and will not close the DB.
+                 * This may prevent the new DB from opening indefinitely. Although we made an update to the old script to
+                 * close the DB when it's blocking, it is not guaranteed that this update has been applied for everyone.
+                 * Therefore, in the new script versions, when we notice that the request to perform a schema change is
+                 * blocked, we fail the creation of the cache and fall back on no cache immediately without waiting to
+                 * be unblocked. Whenever we get unblocked, we'll still perform the schema change, but the tab will
+                 * continue without cache regardless.
+                 *
+                 * For newer versions of scripts, which do have a `blocking` listener, it seems that the `blocked` handler
+                 * isn't called as long as the `blocking` handlers of the old DB instances immediately close the DB.
+                 * Tested only on Firefox though.
+                 */
+                blocked() {
+                    // Some other tab is preventing us from carrying out the required schema change.
+                    // Fail and continue without cache.
+
+                    // When unblocked, this may still perform the upgrade.
+                    // However, it shouldn't attempt to resolve an already-rejected
+                    // promise, so make sure it doesn't.
+                    wasBlocked = true;
+                    reject(new Error('Required schema change on cache DB is blocked by an older version of the script. Please close or reload any other tab on which this script is running'));
+                },
+
+                blocking() {
+                    // We're preventing a new version of the script from carrying out a schema change.
+                    // Close this DB instance to allow the other tab to perform the schema change.
+
+                    // This will only be called after the DB was created successfully,
+                    // so this variable will have been initialised.
+                    LOGGER.warn('Closing DB for schema change in other tab');
+                    logFailure(dbPromise.then((db) => {
+                        db.close();
+                    }), 'Failed to close database');
+                },
+            });
+
+            // When database opened successfully, return it if we didn't already
+            // reject before.
+            dbPromise.then(async (db) => {
+                LOGGER.debug('Successfully opened IndexedDB cache');
+
+                await maybePruneDb(db);
+
+                if (!wasBlocked) {
+                    resolve(new IndexedDBInfoCache(db));
                 }
-            },
+            }).catch(reject);
         });
-
-        LOGGER.debug('Successfully opened IndexedDB cache');
-
-        await maybePruneDb(db);
-        return new IndexedDBInfoCache(db);
     }
 
     private async get<StoreName extends StoreNames<CacheDBSchema>>(storeName: StoreName, imageUrl: string): Promise<CacheDBSchema[StoreName]['value'] | undefined> {

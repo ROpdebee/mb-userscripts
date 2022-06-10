@@ -90,7 +90,15 @@ class CacheMgr {
             });
         });
 
-        this.dbProm.then(this.maybePruneCache.bind(this));
+        this.dbProm.then((db) => {
+            // Close the DB if another tab wants to upgrade the schema, therefore
+            // unblocking the other tab. Any future transaction will fail,
+            // but that's fine.
+            db.addEventListener('versionchange', () => {
+                db.close();
+            });
+            this.maybePruneCache(db);
+        });
     }
 
     maybePruneCache(db) {
