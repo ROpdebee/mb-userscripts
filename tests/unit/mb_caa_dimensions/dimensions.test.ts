@@ -1,3 +1,5 @@
+import pRetry from 'p-retry';
+
 import type { memoize as mockMemoize } from '@lib/util/functions';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 
@@ -6,6 +8,14 @@ import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 jest.mock('@lib/util/functions', () => ({
     memoize: ((fn) => fn) as typeof mockMemoize,
 }));
+
+jest.mock('p-retry');
+
+const mockpRetry = pRetry as jest.MockedFunction<typeof pRetry>;
+
+beforeAll(() => {
+    mockpRetry.mockImplementation(((fn) => (fn(0))) as typeof pRetry);
+});
 
 describe('retrieving image dimensions', () => {
     // jsdom doesn't actually load the images, so we need to mock that behaviour
