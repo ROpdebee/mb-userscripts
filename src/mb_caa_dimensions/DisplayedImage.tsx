@@ -125,7 +125,7 @@ abstract class DisplayedCAAImage extends BaseDisplayedImage {
 export class ArtworkImageAnchorCAAImage extends DisplayedCAAImage {
 
     constructor(imgElement: HTMLImageElement, cache: InfoCache) {
-        const fullSizeUrl = imgElement.closest<HTMLAnchorElement>('a.artwork-image')?.href;
+        const fullSizeUrl = imgElement.closest<HTMLAnchorElement>('a.artwork-image, a.artwork-pdf')?.href;
         assertDefined(fullSizeUrl);
         super(imgElement, new CAAImage(fullSizeUrl, cache, imgElement.src));
     }
