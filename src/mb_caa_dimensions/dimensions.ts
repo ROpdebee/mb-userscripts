@@ -21,11 +21,12 @@ function _getImageDimensions(url: string): Promise<Dimensions> {
             }
         }
 
-        function dimensionsFailed(): void {
+        function dimensionsFailed(evt: ErrorEvent): void {
             clearInterval(interval);
             if (!done) {
                 done = true;
-                reject();
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- Firefox doesn't have a message property.
+                reject(new Error(evt.message ?? 'Image failed to load for unknown reason'));
             }
         }
 
@@ -59,6 +60,6 @@ function _getImageDimensions(url: string): Promise<Dimensions> {
 export const getImageDimensions = memoize((url: string) => pRetry(() => _getImageDimensions(url), {
     retries: 5,
     onFailedAttempt: /* istanbul ignore next: Difficult to cover */ (err) => {
-        LOGGER.warn(`Failed to retrieve image dimensions: ${err.cause}. Retrying…`);
+        LOGGER.warn(`Failed to retrieve image dimensions: ${err.message}. Retrying…`);
     },
 }));
