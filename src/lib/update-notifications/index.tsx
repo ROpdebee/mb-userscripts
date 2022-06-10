@@ -29,6 +29,9 @@ export function maybeDisplayNewFeatures(): void {
     const newFeatures = USERSCRIPT_FEATURE_HISTORY
         .filter((feat) => versionLessThan(lastDisplayedVersion, parseVersion(feat.versionAdded)));
 
+    // Don't show a notification when there are no new features
+    if (!newFeatures.length) return;
+
     showFeatureNotification(scriptInfo.name, scriptInfo.version, newFeatures.map((feat) => feat.description));
 }
 
