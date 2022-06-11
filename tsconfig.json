@@ -9,7 +9,7 @@
         "./babel.config.cjs",
         "./jest.config.cjs",
         "./.eslintrc.cjs",
-        "./src/.eslintrc.cjs",
+        "./src/.eslintrc.cjs"
     ],
     "include": [],
     // Specific compiler options necessary for `tsconfig-paths`. It expects the
@@ -22,17 +22,19 @@
         "paths": {
             "@lib/*": ["src/lib/*"],
             "@src/*": ["src/*"],
-            "@test-utils/*": ["tests/unit/utils/*"],
+            "@test-utils/*": ["tests/unit/utils/*"]
         }
     },
     // Reference all sub-projects
     "references": [
         { "path": "./build" },
         { "path": "./src/lib" },
+        { "path": "./src/mb_caa_dimensions" },
         { "path": "./src/mb_enhanced_cover_art_uploads" },
         { "path": "./tests/unit/build" },
         { "path": "./tests/unit/lib" },
+        { "path": "./tests/unit/mb_caa_dimensions" },
         { "path": "./tests/unit/mb_enhanced_cover_art_uploads" },
-        { "path": "./tests/unit/utils" },
+        { "path": "./tests/unit/utils" }
     ]
 }
