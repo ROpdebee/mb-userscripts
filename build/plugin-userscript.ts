@@ -38,7 +38,7 @@ export /* for tests */ class GitURLs {
     private readonly owner: string;
     private readonly repoName: string;
 
-    constructor(repoUrl: string) {
+    private constructor(repoUrl: string) {
         const [owner, repoName] = new URL(repoUrl).pathname.match(/^\/([^/]+)\/([^/]+?)(?:\.git|$)/)?.slice(1) ?? [];
         if (!owner || !repoName) throw new Error(`Malformed git URL ${repoUrl}`);
 
@@ -46,27 +46,27 @@ export /* for tests */ class GitURLs {
         this.repoName = repoName;
     }
 
-    get homepageURL(): string {
+    public get homepageURL(): string {
         return `https://github.com/${this.owner}/${this.repoName}`;
     }
 
-    get issuesURL(): string {
+    public get issuesURL(): string {
         return `${this.homepageURL}/issues`;
     }
 
-    constructRawURL(branchName: string, filePath: string): string {
+    public constructRawURL(branchName: string, filePath: string): string {
         return 'https://raw.github.com/' + [this.owner, this.repoName, branchName, filePath].join('/');
     }
 
-    constructSourceURL(userscriptName: string): string {
+    public constructSourceURL(userscriptName: string): string {
         return 'https://github.com/' + [this.owner, this.repoName, 'tree/main/src', userscriptName].join('/');
     }
 
-    constructBlobURL(branchName: string, filePath: string): string {
+    public constructBlobURL(branchName: string, filePath: string): string {
         return 'https://github.com/' + [this.owner, this.repoName, 'blob', branchName, filePath].join('/');
     }
 
-    static fromPackageJson(npmPackage: PackageJson): GitURLs {
+    public static fromPackageJson(npmPackage: PackageJson): GitURLs {
         if (!npmPackage.repository) {
             throw new Error('No repository defined in package.json');
         }
@@ -84,12 +84,12 @@ async function loadPackageJson(): Promise<PackageJson> {
 }
 
 export class MetadataGenerator {
-    readonly options: Readonly<_UserscriptOptionsWithDefaults>;
-    readonly longestMetadataFieldLength: number;
-    readonly npmPackage: Readonly<PackageJson>;
-    readonly gitURLs: Readonly<GitURLs>;
+    public readonly options: Readonly<_UserscriptOptionsWithDefaults>;
+    private readonly longestMetadataFieldLength: number;
+    public readonly npmPackage: Readonly<PackageJson>;
+    public readonly gitURLs: Readonly<GitURLs>;
 
-    constructor(options: Readonly<_UserscriptOptionsWithDefaults>, npmPackage: Readonly<PackageJson>) {
+    public /* for tests */ constructor(options: Readonly<_UserscriptOptionsWithDefaults>, npmPackage: Readonly<PackageJson>) {
         this.options = options;
         this.longestMetadataFieldLength = Math.max(...options.metadataOrder.map((field) => field.length));
 
@@ -97,12 +97,12 @@ export class MetadataGenerator {
         this.gitURLs = GitURLs.fromPackageJson(npmPackage);
     }
 
-    static async create(options: Readonly<UserscriptOptions>): Promise<MetadataGenerator> {
+    public static async create(options: Readonly<UserscriptOptions>): Promise<MetadataGenerator> {
         const npmPackage = await loadPackageJson();
         return new MetadataGenerator({ ...DEFAULT_OPTIONS, ...options }, npmPackage);
     }
 
-    transformGMFunction(name: string): string[] {
+    private transformGMFunction(name: string): string[] {
         const bareName = name.match(/GM[_.](.+)$/)?.[1];
         if (!bareName) return [name];
 
@@ -218,7 +218,7 @@ export class MetadataGenerator {
     }
 
     /* istanbul ignore next: Covered by build, see `loadMetadata`. */
-    async generateMetadataBlock(): Promise<string> {
+    public async generateMetadataBlock(): Promise<string> {
         return this.createMetadataBlock(await this.loadMetadata());
     }
 }
