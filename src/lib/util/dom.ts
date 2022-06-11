@@ -47,6 +47,15 @@ export function onDocumentLoaded(listener: () => void): void {
     }
 }
 
+// istanbul ignore next: TODO: Test
+export function onWindowLoaded(listener: () => void, windowInstance: Window = window): void {
+    if (windowInstance.document.readyState === 'complete') {
+        listener();
+    } else {
+        windowInstance.addEventListener('load', listener);
+    }
+}
+
 export function parseDOM(html: string, baseUrl: string): Document {
     const doc = new DOMParser().parseFromString(html, 'text/html');
 
@@ -62,6 +71,7 @@ export function parseDOM(html: string, baseUrl: string): Document {
     return doc;
 }
 
+// istanbul ignore next: TODO: Test
 // https://github.com/facebook/react/issues/10135#issuecomment-401496776
 // Via loujine's wikidata script.
 export function setInputValue(input: HTMLInputElement, value: string): void {

@@ -25,10 +25,12 @@ export interface ReleaseEditor {
 }
 
 declare global {
-    const MB: {
-        releaseEditor?: ReleaseEditor;
-        sourceExternalLinksEditor?: {
-            current: ExternalLinks;
+    interface Window {
+        MB: {
+            releaseEditor?: ReleaseEditor;
+            sourceExternalLinksEditor?: {
+                current: ExternalLinks;
+            };
         };
-    };
+    }
 }

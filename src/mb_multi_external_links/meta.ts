@@ -8,6 +8,7 @@ const metadata: UserscriptMetadata = {
     match: [
         '*/edit',
         '*/edit?*',  // Not entirely sure whether these links can ever exist, but if they do, we should match them.
+        'release/*/edit-relationships*',
         '*/add',
         '*/add?*',
         '*/create',
