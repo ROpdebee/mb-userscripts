@@ -106,7 +106,8 @@ describe('qobuz provider', () => {
             });
 
             it('throws on invalid app ID', async () => {
-                const spyAppId = jest.spyOn(QobuzProvider, 'QOBUZ_APP_ID', 'get');
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Needed to spy on private method.
+                const spyAppId = jest.spyOn(QobuzProvider as any, 'QOBUZ_APP_ID', 'get');
                 spyAppId.mockReturnValueOnce('123');
 
                 pollyContext.polly.configure({
@@ -121,7 +122,7 @@ describe('qobuz provider', () => {
 
     describe('extracting goodies', () => {
         it('sets booklet type if goodie is a booklet', () => {
-            const covers = QobuzProvider.extractGoodies([{
+            const covers = QobuzProvider['extractGoodies']([{
                 original_url: 'https://example.com/original_url',
                 url: 'https://example.com/url',
                 name: 'Livret Numérique',
@@ -138,7 +139,7 @@ describe('qobuz provider', () => {
         });
 
         it('sets no type if goodie is not a booklet', () => {
-            const covers = QobuzProvider.extractGoodies([{
+            const covers = QobuzProvider['extractGoodies']([{
                 original_url: 'https://example.com/original_url',
                 url: 'https://example.com/url',
                 name: 'not a booklet',
@@ -155,7 +156,7 @@ describe('qobuz provider', () => {
         });
 
         it('ignores goodie if URL is not set', () => {
-            const covers = QobuzProvider.extractGoodies([{
+            const covers = QobuzProvider['extractGoodies']([{
                 // eslint-disable-next-line unicorn/numeric-separators-style
                 id: 111512,
                 file_format_id: 52,
@@ -182,7 +183,7 @@ describe('qobuz provider', () => {
             // Not the most powerful of tests, the output of this method will
             // likely be nonsensical if an ID with less that 4 characters is
             // provided, but we're assuming that won't happen.
-            expect(QobuzProvider.idToCoverUrl('0825646089178').href)
+            expect(QobuzProvider['idToCoverUrl']('0825646089178').href)
                 .toBe('https://static.qobuz.com/images/covers/78/91/0825646089178_org.jpg');
         });
     });

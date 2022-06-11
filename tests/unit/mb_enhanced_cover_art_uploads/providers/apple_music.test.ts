@@ -110,7 +110,7 @@ describe('apple music provider', () => {
             const itunesUrl = new URL('https://itunes.apple.com/gb/album/id993998924');
             const appleMusicUrl = new URL('https://music.apple.com/gb/album/993998924');
 
-            expect(provider.isSafeRedirect(itunesUrl, appleMusicUrl))
+            expect(provider['isSafeRedirect'](itunesUrl, appleMusicUrl))
                 .toBeTrue();
         });
     });

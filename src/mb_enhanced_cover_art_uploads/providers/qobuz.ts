@@ -33,9 +33,9 @@ interface AlbumMetadata {
 }
 
 export class QobuzProvider extends CoverArtProvider {
-    supportedDomains = ['qobuz.com', 'open.qobuz.com'];
-    favicon = 'https://www.qobuz.com/favicon.ico';
-    name = 'Qobuz';
+    public readonly supportedDomains = ['qobuz.com', 'open.qobuz.com'];
+    public readonly favicon: string = 'https://www.qobuz.com/favicon.ico';
+    public readonly name: string = 'Qobuz';
     // Splitting these regexps up for each domain. www.qobuz.com includes the album
     // title in the URL, open.qobuz.com does not. Although we could make the album
     // title part optional and match both domains with the same regexp, this could
@@ -43,7 +43,7 @@ export class QobuzProvider extends CoverArtProvider {
     // https://open.qobuz.com/album/1234567890/related
     // Not sure if such URLs would ever occur, but using a single regexp could
     // lead to `related` being matched as the ID and the actual ID as the title.
-    urlRegex = [
+    protected readonly urlRegex = [
         /open\.qobuz\.com\/(?:.+?\/)?album\/([A-Za-z\d]+)(?:\/|$)/,
         /album\/[^/]+\/([A-Za-z\d]+)(?:\/|$)/,
     ];
@@ -52,11 +52,11 @@ export class QobuzProvider extends CoverArtProvider {
     // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
     // just use a constant app ID first.
     // Static getter instead of property so that we can spy on it in the tests.
-    static get QOBUZ_APP_ID(): string {
+    private static get QOBUZ_APP_ID(): string {
         return '712109809';
     }
 
-    static idToCoverUrl(id: string): URL {
+    private static idToCoverUrl(id: string): URL {
         const d1 = id.slice(-2);
         const d2 = id.slice(-4, -2);
         // Is this always .jpg?
@@ -64,7 +64,7 @@ export class QobuzProvider extends CoverArtProvider {
         return new URL(imgUrl);
     }
 
-    static async getMetadata(id: string): Promise<AlbumMetadata> {
+    private static async getMetadata(id: string): Promise<AlbumMetadata> {
         const resp = await gmxhr(`https://www.qobuz.com/api.json/0.2/album/get?album_id=${id}&offset=0&limit=20`, {
             headers: {
                 'x-app-id': QobuzProvider.QOBUZ_APP_ID,
@@ -77,7 +77,7 @@ export class QobuzProvider extends CoverArtProvider {
         return metadata;
     }
 
-    static extractGoodies(goodies: Goodie[]): CoverArt[] {
+    private static extractGoodies(goodies: Goodie[]): CoverArt[] {
         return goodies
             .filter((goodie) => !!goodie.original_url)
             .map((goodie) => {
@@ -91,7 +91,7 @@ export class QobuzProvider extends CoverArtProvider {
             });
     }
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         const id = this.extractId(url);
         assertHasValue(id);
 

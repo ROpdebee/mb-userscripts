@@ -111,7 +111,7 @@ describe('bandcamp provider', () => {
             const originalUrl = new URL('https://tempelfanwolven.bandcamp.com/album/spell-of-the-driftless-forest');
             const redirectedUrl = new URL('https://tempelfanwolven.bandcamp.com/album/the-coming-war');
 
-            expect(provider.isSafeRedirect(originalUrl, redirectedUrl))
+            expect(provider['isSafeRedirect'](originalUrl, redirectedUrl))
                 .toBeFalse();
         });
 

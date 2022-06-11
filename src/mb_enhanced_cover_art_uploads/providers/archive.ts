@@ -32,20 +32,20 @@ interface CAAIndex {
 }
 
 export class ArchiveProvider extends CoverArtProvider {
-    supportedDomains = ['archive.org'];
-    favicon = 'https://archive.org/images/glogo.jpg';
-    name = 'Archive.org';
-    urlRegex = /(?:details|metadata|download)\/([^/?#]+)/;
+    public readonly supportedDomains = ['archive.org'];
+    public readonly favicon = 'https://archive.org/images/glogo.jpg';
+    public readonly name = 'Archive.org';
+    protected readonly urlRegex = /(?:details|metadata|download)\/([^/?#]+)/;
 
-    static CAA_ITEM_REGEX = /^mbid-[a-f\d-]+$/;
-    static IMAGE_FILE_FORMATS = [
+    private static readonly CAA_ITEM_REGEX = /^mbid-[a-f\d-]+$/;
+    private static readonly IMAGE_FILE_FORMATS = [
         'JPEG',
         'PNG',
         'Text PDF',  // TODO: Is there a non-text variant?
         'Animated GIF',  // TODO: Is there a non-animated variant?
     ];
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         const itemId = this.extractId(url);
         assertDefined(itemId);
 
@@ -72,7 +72,7 @@ export class ArchiveProvider extends CoverArtProvider {
      * Entrypoint for MB/CAA providers to delegate to IA. Does not fall back
      * onto generic extraction.
      */
-    async findImagesCAA(itemId: string): Promise<CoverArt[]> {
+    public async findImagesCAA(itemId: string): Promise<CoverArt[]> {
         const itemMetadata = await this.getItemMetadata(itemId);
         const baseDownloadUrl = this.createBaseDownloadUrl(itemMetadata);
         return this.extractCAAImages(itemId, baseDownloadUrl);
@@ -96,7 +96,7 @@ export class ArchiveProvider extends CoverArtProvider {
         });
     }
 
-    extractGenericImages(itemMetadata: ArchiveMetadata, baseDownloadUrl: URL): CoverArt[] {
+    private extractGenericImages(itemMetadata: ArchiveMetadata, baseDownloadUrl: URL): CoverArt[] {
         const originalImagePaths = itemMetadata.files
             .filter((file) => file.source === 'original' && ArchiveProvider.IMAGE_FILE_FORMATS.includes(file.format))
             .map((file) => encodeURIComponent(file.name).replaceAll('%2F', '/')); // keep path separators

@@ -9,7 +9,7 @@ import type { CoverArt, CoverArtProvider } from './providers/base';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider, getProviderByDomain } from './providers';
 
-interface ImageContents {
+export interface ImageContents {
     requestedUrl: URL;
     fetchedUrl: URL;
     wasRedirected: boolean;
@@ -45,11 +45,11 @@ export class ImageFetcher {
     // so we can later set the image type.
     private lastId = 0;
 
-    constructor() {
+    public constructor() {
         this.doneImages = new Set();
     }
 
-    async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImages> {
+    public async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImages> {
         if (this.urlAlreadyAdded(url)) {
             LOGGER.warn(`${url} has already been added`);
             return {
@@ -100,7 +100,7 @@ export class ImageFetcher {
         return this.fetchImageContents(url, getFilename(url), {});;
     }
 
-    async fetchImageFromURL(url: URL, skipMaximisation = false): Promise<FetchedImage | undefined> {
+    private async fetchImageFromURL(url: URL, skipMaximisation = false): Promise<FetchedImage | undefined> {
         // Attempt to maximise the image if necessary
         // Might throw, caller needs to catch
         const fetchResult = await (
@@ -128,7 +128,7 @@ export class ImageFetcher {
         };
     }
 
-    async fetchImagesFromProvider(url: URL, provider: CoverArtProvider, onlyFront: boolean): Promise<FetchedImages> {
+    private async fetchImagesFromProvider(url: URL, provider: CoverArtProvider, onlyFront: boolean): Promise<FetchedImages> {
         LOGGER.info(`Searching for images in ${provider.name} release…`);
 
         // This could throw, assuming caller will catch.
@@ -194,7 +194,7 @@ export class ImageFetcher {
         return `${filenameWithoutExt}.${this.lastId++}.${mimeType.split('/')[1]}`;
     }
 
-    async fetchImageContents(url: URL, fileName: string, headers: Record<string, string>): Promise<ImageContents> {
+    private async fetchImageContents(url: URL, fileName: string, headers: Record<string, string>): Promise<ImageContents> {
         const resp = await gmxhr(url, {
             responseType: 'blob',
             headers: headers,
