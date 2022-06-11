@@ -91,5 +91,6 @@ Seed the recording comments for the batch recording comments userscripts with li
 ### MB: QoL: Paste multiple external links at once
 Paste multiple external links at once into the external link editor. Input is split on whitespace (newlines, tabs, spaces, etc.) and fed into the link editor separately.
 
-[![Install](https://img.shields.io/badge/install-latest-informational?style=for-the-badge&logo=tampermonkey)](mb_multi_external_links.user.js?raw=1)
-[![Source](https://img.shields.io/badge/source-grey?style=for-the-badge&logo=github)](mb_multi_external_links.user.js)
+[![Install](https://img.shields.io/badge/dynamic/json?label=install&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FROpdebee%2Fmb-userscripts%2Fdist%2Fmb_multi_external_links.metadata.json&logo=tampermonkey&style=for-the-badge&color=informational)](https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_multi_external_links.user.js)
+[![Source](https://img.shields.io/badge/source-grey?style=for-the-badge&logo=github)](src/mb_multi_external_links)
+[![Changelog](https://img.shields.io/badge/changelog-grey?style=for-the-badge)](https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_multi_external_links.changelog.md)
