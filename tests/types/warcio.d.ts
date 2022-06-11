@@ -36,30 +36,30 @@ interface StatusAndHeaders {
 
 declare module 'warcio/src/warcrecord' {
     class WARCRecord {
-        static create(options: WARCRecordCreateOptions, reader?: AsyncIterable<Uint8Array>): WARCRecord;
-        static createWARCInfo(opts: { filename: string; warcVersion: string }, info: Record<string, string>): WARCRecord;
-        warcHeader(name: string): string | null;
+        public static create(options: WARCRecordCreateOptions, reader?: AsyncIterable<Uint8Array>): WARCRecord;
+        public static createWARCInfo(opts: { filename: string; warcVersion: string }, info: Record<string, string>): WARCRecord;
+        public warcHeader(name: string): string | null;
 
-        readFully(): Promise<Uint8Array>;
-        contentText(): Promise<string>;
-        get warcType(): WARCType;
-        get warcTargetURI(): string;
-        get warcContentType(): string;
-        httpHeaders: StatusAndHeaders;
+        public readFully(): Promise<Uint8Array>;
+        public contentText(): Promise<string>;
+        public get warcType(): WARCType;
+        public get warcTargetURI(): string;
+        public get warcContentType(): string;
+        public httpHeaders: StatusAndHeaders;
     }
 }
 
 declare module 'warcio/src/warcserializer' {
     import type { WARCRecord } from 'warcio/src/warcrecord';
     class WARCSerializer {
-        static serialize(record: WARCRecord, opts?: WARCSerializerOptions): Promise<Uint8Array>;
+        public static serialize(record: WARCRecord, opts?: WARCSerializerOptions): Promise<Uint8Array>;
     }
 }
 
 declare module 'warcio/src/warcparser' {
     import type { WARCRecord } from 'warcio/src/warcrecord';
     class WARCParser {
-        static iterRecords(source: Iterable<Uint8Array>, options?: WARCParserOptions): AsyncIterable<WARCRecord>;
+        public static iterRecords(source: Iterable<Uint8Array>, options?: WARCParserOptions): AsyncIterable<WARCRecord>;
     }
 }
 
