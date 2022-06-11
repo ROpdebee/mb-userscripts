@@ -23,7 +23,7 @@ const DEFAULT_OPTIONS = {
 export class Logger {
     private readonly _configuration: LoggerOptions;
 
-    constructor(options?: Partial<LoggerOptions>) {
+    public constructor(options?: Partial<LoggerOptions>) {
         this._configuration = {
             ...DEFAULT_OPTIONS,
             ...options,
@@ -49,39 +49,39 @@ export class Logger {
             });
     }
 
-    debug(message: string): void {
+    public debug(message: string): void {
         this.fireHandlers(LogLevel.DEBUG, message);
     }
 
-    log(message: string): void {
+    public log(message: string): void {
         this.fireHandlers(LogLevel.LOG, message);
     }
 
-    info(message: string): void {
+    public info(message: string): void {
         this.fireHandlers(LogLevel.INFO, message);
     }
 
-    success(message: string): void {
+    public success(message: string): void {
         this.fireHandlers(LogLevel.SUCCESS, message);
     }
 
-    warn(message: string, exception?: unknown): void {
+    public warn(message: string, exception?: unknown): void {
         this.fireHandlers(LogLevel.WARNING, message, exception);
     }
 
-    error(message: string, exception?: unknown): void {
+    public error(message: string, exception?: unknown): void {
         this.fireHandlers(LogLevel.ERROR, message, exception);
     }
 
-    configure(options: Partial<LoggerOptions>): void {
+    public configure(options: Partial<LoggerOptions>): void {
         Object.assign(this._configuration, options);
     }
 
-    get configuration(): Readonly<LoggerOptions> {
+    public get configuration(): Readonly<LoggerOptions> {
         return this._configuration;
     }
 
-    addSink(sink: LoggingSink): void {
+    public addSink(sink: LoggingSink): void {
         this._configuration.sinks.push(sink);
     }
 }

@@ -6,12 +6,12 @@ import { Logger } from '@lib/logging/logger';
 // matches the LoggingSink interface since we have test cases that create two
 // of these sinks.
 class FakeSink implements LoggingSink {
-    onDebug = jest.fn();
-    onError = jest.fn();
-    onInfo = jest.fn();
-    onSuccess = jest.fn();
-    onLog = jest.fn();
-    onWarn = jest.fn();
+    public readonly onDebug = jest.fn();
+    public readonly onError = jest.fn();
+    public readonly onInfo = jest.fn();
+    public readonly onSuccess = jest.fn();
+    public readonly onLog = jest.fn();
+    public readonly onWarn = jest.fn();
 }
 
 const handlerNames: Array<keyof LoggingSink> = ['onDebug', 'onLog', 'onWarn', 'onError', 'onInfo', 'onSuccess'];
