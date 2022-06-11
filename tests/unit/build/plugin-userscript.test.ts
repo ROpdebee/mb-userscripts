@@ -3,79 +3,20 @@ import type { AllUserscriptMetadata, UserscriptMetadata } from '@lib/util/metada
 import { GitURLs, MetadataGenerator } from '../../../build/plugin-userscript';
 
 describe('git URLs', () => {
-    describe('constructor', () => {
-        it('throw on invalid URL', () => {
-            expect(() => new GitURLs('not a url'))
+    describe('creating from package.json', () => {
+        it('throws if no repository defined', () => {
+            expect(() => GitURLs.fromPackageJson({}))
+                .toThrow('No repository defined');
+        });
+
+        it('throws if URL is malformed', () => {
+            expect(() => GitURLs.fromPackageJson({ repository: 'not a url' }))
                 .toThrow('Invalid URL');
         });
 
         it('throws on incomplete GitHub URL', () => {
-            expect(() => new GitURLs('https://github.com/ROpdebee'))
+            expect(() => GitURLs.fromPackageJson({ repository: 'https://github.com/ROpdebee' }))
                 .toThrow('Malformed git URL');
-        });
-    });
-
-    describe('homepage URL', () => {
-        it('use owner and repo name', () => {
-            const gitUrls = new GitURLs('https://github.com/ROpdebee/mb-userscripts');
-
-            expect(gitUrls.homepageURL)
-                .toBe('https://github.com/ROpdebee/mb-userscripts');
-        });
-
-        it('should remove .git suffix', () => {
-            const gitUrls = new GitURLs('https://github.com/ROpdebee/mb-userscripts.git');
-
-            expect(gitUrls.homepageURL)
-                .toBe('https://github.com/ROpdebee/mb-userscripts');
-        });
-    });
-
-    describe('issues URL', () => {
-        it('use owner and repo name', () => {
-            const gitUrls = new GitURLs('https://github.com/ROpdebee/mb-userscripts');
-
-            expect(gitUrls.issuesURL)
-                .toBe('https://github.com/ROpdebee/mb-userscripts/issues');
-        });
-
-        it('should remove .git suffix', () => {
-            const gitUrls = new GitURLs('https://github.com/ROpdebee/mb-userscripts.git');
-
-            expect(gitUrls.issuesURL)
-                .toBe('https://github.com/ROpdebee/mb-userscripts/issues');
-        });
-    });
-
-    describe('raw URL', () => {
-        it('use owner and repo name', () => {
-            const gitUrls = new GitURLs('https://github.com/ROpdebee/mb-userscripts');
-
-            expect(gitUrls.constructRawURL('dist', 'test.user.js'))
-                .toBe('https://raw.github.com/ROpdebee/mb-userscripts/dist/test.user.js');
-        });
-
-        it('use correct branch name', () => {
-            const gitUrls = new GitURLs('https://github.com/ROpdebee/mb-userscripts');
-
-            expect(gitUrls.constructRawURL('some-branch', 'test.user.js'))
-                .toBe('https://raw.github.com/ROpdebee/mb-userscripts/some-branch/test.user.js');
-        });
-    });
-
-    describe('blob URL', () => {
-        it('creates correct URLs', () => {
-            const gitUrls = new GitURLs('https://github.com/ROpdebee/mb-userscripts');
-
-            expect(gitUrls.constructBlobURL('dist', 'README.md'))
-                .toBe('https://github.com/ROpdebee/mb-userscripts/blob/dist/README.md');
-        });
-    });
-
-    describe('creating from package.json', () => {
-        it('should throw if no repository defined', () => {
-            expect(() => GitURLs.fromPackageJson({}))
-                .toThrow('No repository defined');
         });
 
         it('should construct from simple string', () => {
@@ -90,6 +31,54 @@ describe('git URLs', () => {
 
             expect(gitUrls.homepageURL)
                 .toBe('https://github.com/ROpdebee/mb-userscripts');
+        });
+    });
+
+    describe('constructing URLs', () => {
+        const gitUrls = GitURLs.fromPackageJson({ repository: 'https://github.com/ROpdebee/mb-userscripts'});
+        const gitUrlsWithGitExtension = GitURLs.fromPackageJson({ repository: 'https://github.com/ROpdebee/mb-userscripts.git'});
+
+        describe('homepage URL', () => {
+            it('use owner and repo name', () => {
+                expect(gitUrls.homepageURL)
+                    .toBe('https://github.com/ROpdebee/mb-userscripts');
+            });
+
+            it('should remove .git suffix', () => {
+                expect(gitUrlsWithGitExtension.homepageURL)
+                    .toBe('https://github.com/ROpdebee/mb-userscripts');
+            });
+        });
+
+        describe('issues URL', () => {
+            it('use owner and repo name', () => {
+                expect(gitUrls.issuesURL)
+                    .toBe('https://github.com/ROpdebee/mb-userscripts/issues');
+            });
+
+            it('should remove .git suffix', () => {
+                expect(gitUrlsWithGitExtension.issuesURL)
+                    .toBe('https://github.com/ROpdebee/mb-userscripts/issues');
+            });
+        });
+
+        describe('raw URL', () => {
+            it('use owner and repo name', () => {
+                expect(gitUrls.constructRawURL('dist', 'test.user.js'))
+                    .toBe('https://raw.github.com/ROpdebee/mb-userscripts/dist/test.user.js');
+            });
+
+            it('use correct branch name', () => {
+                expect(gitUrls.constructRawURL('some-branch', 'test.user.js'))
+                    .toBe('https://raw.github.com/ROpdebee/mb-userscripts/some-branch/test.user.js');
+            });
+        });
+
+        describe('blob URL', () => {
+            it('creates correct URLs', () => {
+                expect(gitUrls.constructBlobURL('dist', 'README.md'))
+                    .toBe('https://github.com/ROpdebee/mb-userscripts/blob/dist/README.md');
+            });
         });
     });
 });

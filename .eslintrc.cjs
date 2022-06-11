@@ -114,6 +114,7 @@ module.exports = {
             disallowTypeAnnotations: true,
         }],
         '@typescript-eslint/explicit-function-return-type': 'error',
+        '@typescript-eslint/explicit-member-accessibility': 'error',
         '@typescript-eslint/lines-between-class-members': ['warn', 'always', {
             exceptAfterSingleLine: true,
         }],
@@ -189,7 +190,6 @@ module.exports = {
         // TODO: Enable these.
         // We want this one to be enabled, but it'll produce a lot of warnings,
         // so leaving it as a placeholder to enable at the end.
-        '@typescript-eslint/explicit-member-accessibility': 'off',
         '@typescript-eslint/prefer-readonly-parameter-types': 'off',
 
         // All places where this warned were either led to type errors or were
