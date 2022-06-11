@@ -2,7 +2,7 @@
  * DOM utilities.
  */
 
-import { assertNonNull } from './assert';
+import { assertDefined, assertNonNull } from './assert';
 
 /**
  * Element.querySelector shorthand, query result required to exist.
@@ -60,4 +60,21 @@ export function parseDOM(html: string, baseUrl: string): Document {
     }
 
     return doc;
+}
+
+// https://github.com/facebook/react/issues/10135#issuecomment-401496776
+// Via loujine's wikidata script.
+export function setInputValue(input: HTMLInputElement, value: string): void {
+    /* eslint-disable @typescript-eslint/unbound-method -- Will bind later. */
+    const valueSetter = Object.getOwnPropertyDescriptor(input, 'value')?.set;
+    const prototype = Object.getPrototypeOf(input) as typeof HTMLInputElement.prototype;
+    const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value')?.set;
+    /* eslint-enable @typescript-eslint/unbound-method */
+
+    if (prototypeValueSetter && valueSetter !== prototypeValueSetter) {
+        prototypeValueSetter.call(input, value);
+    } else {
+        assertDefined(valueSetter, 'Element has no value setter');
+        valueSetter.call(input, value);
+    }
 }
