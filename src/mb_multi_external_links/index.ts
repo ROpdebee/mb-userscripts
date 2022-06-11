@@ -7,14 +7,14 @@ import { LOGGER } from '@lib/logging/logger';
 import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
-import { qsa, qsMaybe, setInputValue } from '@lib/util/dom';
+import { onWindowLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
 import DEBUG_MODE from 'consts:debug-mode';
 import USERSCRIPT_ID from 'consts:userscript-id';
 
-function getExternalLinksEditor(): ExternalLinks {
+function getExternalLinksEditor(mbInstance: typeof window.MB): ExternalLinks {
     // Can be found in the MB object, but exact property depends on actual page.
-    const editor = (MB.releaseEditor?.externalLinks ?? MB.sourceExternalLinksEditor)?.current;
+    const editor = (mbInstance.releaseEditor?.externalLinks ?? mbInstance.sourceExternalLinksEditor)?.current;
     assertDefined(editor, 'Cannot find external links editor object');
     return editor;
 }
@@ -121,12 +121,12 @@ function insertCheckboxElements(editor: ExternalLinks, checkboxElmt: HTMLInputEl
     checkboxElmt.style.marginLeft = `${marginLeft}px`;
 }
 
-async function run(): Promise<void> {
+async function run(windowInstance: Window): Promise<void> {
     // This element should be present even before React is initialized. Checking
     // for its existence enables us to skip attempting to find the link input on
     // edit pages that don't have external links, without having to exclude
     // specific pages.
-    const editorContainer = qsMaybe<HTMLElement>('#external-links-editor-container');
+    const editorContainer = qsMaybe<HTMLElement>('#external-links-editor-container', windowInstance.document);
     if (!editorContainer) return;
 
     // We might be running before the release editor is loaded, so retry a couple of times
@@ -134,7 +134,7 @@ async function run(): Promise<void> {
     // load event, but if the page takes an extraordinary amount to load e.g. an image,
     // the external links editor may be ready long before we run. We want to add our
     // functionality as soon as possible without waiting for the whole page to load.
-    const editor = await retryTimes(getExternalLinksEditor, 100, 50);
+    const editor = await retryTimes(() => getExternalLinksEditor(windowInstance.MB), 100, 50);
     const splitter = createLinkSplitter(editor);
     const [checkboxElmt, labelElmt] = createPersistentCheckbox('ROpdebee_multi_links_no_split', "Don't split links", () => {
         splitter.toggle();
@@ -143,13 +143,55 @@ async function run(): Promise<void> {
     insertCheckboxElements(editor, checkboxElmt, labelElmt);
 }
 
+function onIframeAdded(iframe: HTMLIFrameElement): void {
+    LOGGER.debug(`Initialising on iframe ${iframe.src}`);
+    const iframeWindow = iframe.contentWindow;
+    if (!iframeWindow) return;
+
+    function runInIframe(): void {
+        run(iframeWindow!)
+            .catch((err) => {
+                LOGGER.error('Something went wrong', err);
+            });
+    }
+
+    // Cannot use onDocumentLoaded even if we make it accept a custom document
+    // since iframe contentDocument doesn't fire the DOMContentLoaded event in
+    // Firefox.
+    onWindowLoaded(runInIframe, iframeWindow);
+}
+
+// Observe for additions of embedded entity creation dialogs and run the link
+// splitter on those as well.
+function listenForIframes(): void {
+    const iframeObserver = new MutationObserver((mutations) => {
+        for (const addedNode of mutations.flatMap((mut) => [...mut.addedNodes])) {
+            if (addedNode instanceof HTMLElement && addedNode.classList.contains('iframe-dialog')) {
+                // Addition of a dialog: Get the iframe and run the splitter
+                const iframe = qsMaybe<HTMLIFrameElement>('iframe', addedNode);
+
+                if (iframe) {
+                    onIframeAdded(iframe);
+                }
+            }
+        }
+    });
+
+    iframeObserver.observe(document, {
+        subtree: true,
+        childList: true,
+    });
+}
+
 LOGGER.configure({
     logLevel: DEBUG_MODE ? LogLevel.DEBUG : LogLevel.INFO,
 });
 LOGGER.addSink(new ConsoleSink(USERSCRIPT_ID));
 
-run()
+run(window)
     // TODO: Replace this by `logFailure`
     .catch((err) => {
         LOGGER.error('Something went wrong', err);
     });
+
+listenForIframes();
