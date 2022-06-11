@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         MB: QoL: Paste multiple external links at once
-// @version      2021.9.19
+// @version      2022.6.10
 // @description  Enables pasting multiple links, separated by whitespace, into the external link editor.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
-// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_multi_external_links.user.js
-// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_multi_external_links.user.js
+// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_multi_external_links.user.js
+// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_multi_external_links.meta.js
 // @match        *://*.musicbrainz.org/*/edit
 // @match        *://musicbrainz.org/*/edit
 // @run-at       document-end
