@@ -1,19 +1,37 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import $ from 'jquery';
-
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { EditNote } from '@lib/MB/EditNote';
+import { qs } from '@lib/util/dom';
 import { enqueueImages, fillEditNote } from '@src/mb_enhanced_cover_art_uploads/form';
 
 import { createFetchedImage, createImageFile } from './test-utils/dummy-data';
 
-// @ts-expect-error need to inject a jQuery
-global.$ = $;
+beforeAll(() => {
+    // Need to mock DataTransfer and DragEvent.
+    class DataTransfer {
+        public readonly files: File[];
 
-async function insertFileRows(evt: JQuery.TriggeredEvent): Promise<void> {
-    const files = (evt.originalEvent as (DragEvent | undefined))?.dataTransfer?.files;
+        public constructor(files: File[]) {
+            this.files = files;
+        }
+    }
+
+    class DragEvent {
+        public readonly dataTransfer: DataTransfer;
+
+        public constructor(type: string, initOpts: { dataTransfer: DataTransfer }) {
+            this.dataTransfer = initOpts.dataTransfer;
+        }
+    }
+
+    global.DataTransfer = DataTransfer as unknown as typeof window.DataTransfer;
+    global.DragEvent = DragEvent as unknown as typeof window.DragEvent;
+});
+
+async function insertFileRows(evt: DragEvent): Promise<void> {
+    const files = evt.dataTransfer?.files;
     if (!files) return;
 
     const fileRowPath = path.resolve('.', 'tests', 'test-data', 'mb_enhanced_cover_art_uploads', 'form-row.html');
@@ -37,12 +55,13 @@ function getComment(row: HTMLTableRowElement | null): string | undefined {
 
 describe('enqueuing images', () => {
     const mockHtml = '<div id="drop-zone"/><table><tbody data-bind="foreach: files_to_upload"/></table>';
-    const onDropMock = jest.fn().mockImplementation(insertFileRows);
 
     beforeEach(() => {
         document.body.innerHTML = mockHtml;
-        onDropMock.mockClear();
-        $('#drop-zone').on('drop', onDropMock);
+        jest.spyOn(qs<HTMLElement>('#drop-zone'), 'dispatchEvent').mockImplementation((evt) => {
+            void insertFileRows(evt as unknown as DragEvent);
+            return true;
+        });
     });
 
     it('triggers the correct drop event', async () => {
@@ -53,14 +72,7 @@ describe('enqueuing images', () => {
             })],
         });
 
-        expect(onDropMock).toHaveBeenCalledOnce();
-        expect(onDropMock).toHaveBeenCalledWith(expect.objectContaining({
-            originalEvent: {
-                dataTransfer: {
-                    files: [image],
-                },
-            },
-        }));
+        expect(document.querySelector('tr')).not.toBeNil();
     });
 
     it('fills the correct parameters', async () => {

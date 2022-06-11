@@ -13,12 +13,6 @@ export async function enqueueImages({ images }: FetchedImages, defaultTypes: Art
     }));
 }
 
-declare global {
-    interface Window {
-        $: typeof jQuery;
-    }
-}
-
 async function enqueueImage(image: FetchedImage, defaultTypes: ArtworkTypeIDs[], defaultComment: string): Promise<void> {
     dropImage(image.content);
     await retryTimes(setImageParameters.bind(
@@ -30,23 +24,18 @@ async function enqueueImage(image: FetchedImage, defaultTypes: ArtworkTypeIDs[],
 }
 
 function dropImage(imageData: File): void {
-    // Fake event to trigger the drop event on the drag'n'drop element
-    // Using jQuery because native JS cannot manually trigger such events
-    // for security reasons.
-    const $ = getFromPageContext('$');
-    const dropEvent = $.Event('drop') as JQuery.TriggeredEvent;
-    // We need to clone the underlying data since we might be running as a
-    // content script, meaning that even though we trigger the event through
-    // unsafeWindow, the page context may not be able to access the event's
-    // properties.
-    dropEvent.originalEvent = cloneIntoPageContext({
-        dataTransfer: { files: [imageData] },
-    } as unknown as DragEvent);
+    // Greasemonkey acts up unless we use the page context `DataTransfer`.
+    const DataTransfer = getFromPageContext('DataTransfer');
+    const dataTransfer = new DataTransfer();
 
-    // Note that we're using MB's own jQuery here, not a script-local one.
-    // We need to reuse MB's own jQuery to be able to trigger the event
-    // handler.
-    $('#drop-zone').trigger(dropEvent);
+    // `files` is a readonly property, but we can circumvent that with Object.defineProperty.
+    Object.defineProperty(dataTransfer, 'files', {
+        value: cloneIntoPageContext([imageData]),
+    });
+
+    const dropEvent = new DragEvent('drop', { dataTransfer });
+
+    qs('#drop-zone').dispatchEvent(dropEvent);
 }
 
 function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], imageComment: string): void {
