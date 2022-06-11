@@ -5,12 +5,12 @@ import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
 
 export class MusikSammlerProvider extends CoverArtProvider {
-    supportedDomains = ['musik-sammler.de'];
-    name = 'Musik-Sammler';
-    favicon = 'https://www.musik-sammler.de/favicon.ico';
-    urlRegex = /release\/(?:.*-)?(\d+)(?:\/|$)/;
+    public readonly supportedDomains = ['musik-sammler.de'];
+    public readonly name = 'Musik-Sammler';
+    public readonly favicon = 'https://www.musik-sammler.de/favicon.ico';
+    protected readonly urlRegex = /release\/(?:.*-)?(\d+)(?:\/|$)/;
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         const page = parseDOM(await this.fetchPage(url), url.href);
         const coverElements = qsa<HTMLLIElement>('#imageGallery > li', page);
         return coverElements.map((coverLi) => {

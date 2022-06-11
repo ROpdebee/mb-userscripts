@@ -82,13 +82,14 @@ describe('discogs provider', () => {
     });
 
     describe('caching API responses', () => {
-        const requestSpy = jest.spyOn(DiscogsProvider, 'actuallyGetReleaseImages');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Needed to spy on private method.
+        const requestSpy = jest.spyOn(DiscogsProvider as any, 'actuallyGetReleaseImages');
         const discogsUrl = new URL('https://www.discogs.com/release/9892912');
 
         beforeEach(() => {
             // Make sure to clear the cache before each test, since it's static
             // individual tests may otherwise influence each other.
-            DiscogsProvider.apiResponseCache.clear();
+            DiscogsProvider['apiResponseCache'].clear();
             requestSpy.mockClear();
         });
 
@@ -120,7 +121,7 @@ describe('discogs provider', () => {
             // This is quite difficult to test, since we can't control the
             // ordering in which promises will be resolved.
             requestSpy.mockRejectedValueOnce(new Error('404'));
-            const deleteSpy = jest.spyOn(DiscogsProvider.apiResponseCache, 'delete');
+            const deleteSpy = jest.spyOn(DiscogsProvider['apiResponseCache'], 'delete');
             deleteSpy.mockClear();
 
             const p1 = provider.findImages(discogsUrl);

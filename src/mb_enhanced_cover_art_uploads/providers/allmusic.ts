@@ -14,12 +14,12 @@ interface AllMusicImage {
 }
 
 export class AllMusicProvider extends CoverArtProvider {
-    supportedDomains = ['allmusic.com'];
-    favicon = 'https://cdn-gce.allmusic.com/images/favicon/favicon-32x32.png';
-    name = 'AllMusic';
-    urlRegex = /album\/release\/.*(mr\d+)(?:\/|$)/;
+    public readonly supportedDomains = ['allmusic.com'];
+    public readonly favicon = 'https://cdn-gce.allmusic.com/images/favicon/favicon-32x32.png';
+    public readonly name = 'AllMusic';
+    protected readonly urlRegex = /album\/release\/.*(mr\d+)(?:\/|$)/;
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         // If the release does not exist, AllMusic redirects to the front page
         // (and sometimes to an album). The redirection check should figure that
         // out and raise an error.

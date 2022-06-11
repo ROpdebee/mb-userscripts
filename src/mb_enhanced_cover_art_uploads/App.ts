@@ -21,9 +21,9 @@ export class App {
     private readonly ui: InputForm;
     private readonly urlsInProgress: Set<string>;
     private readonly loggingSink = new GuiSink();
-    onlyFront = false;
+    public onlyFront = false;
 
-    constructor() {
+    public constructor() {
         this.note = EditNote.withFooterFromGMInfo();
         this.fetcher = new ImageFetcher();
         this.urlsInProgress = new Set();
@@ -34,7 +34,7 @@ export class App {
         this.ui = new InputForm(this);
     }
 
-    async processURL(url: URL): Promise<void> {
+    public async processURL(url: URL): Promise<void> {
         // Don't process a URL if we're already doing so
         if (this.urlsInProgress.has(url.href)) {
             return;
@@ -48,7 +48,7 @@ export class App {
         }
     }
 
-    clearLogLater(): void {
+    public clearLogLater(): void {
         this.loggingSink.clearAllLater();
     }
 
@@ -74,7 +74,7 @@ export class App {
         }
     }
 
-    async processSeedingParameters(): Promise<void> {
+    public async processSeedingParameters(): Promise<void> {
         const params = SeedParameters.decode(new URLSearchParams(document.location.search));
         // Although this is very similar to `processURL`, we may have to fetch
         // and enqueue multiple images. We want to fetch images in parallel, but
@@ -108,7 +108,7 @@ export class App {
         this.clearLogLater();
     }
 
-    async addImportButtons(): Promise<void> {
+    public async addImportButtons(): Promise<void> {
         const mbid = window.location.href.match(/musicbrainz\.org\/release\/([a-f\d-]+)\//)?.[1];
         assertHasValue(mbid);
         const attachedURLs = await getURLsForRelease(mbid, {

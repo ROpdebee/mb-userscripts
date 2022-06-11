@@ -36,19 +36,23 @@ function decodeSingleKeyValue(key: string, value: string, images: CoverArt[]): v
 }
 
 export class SeedParameters {
-    readonly images: CoverArt[];
-    readonly origin?: string;
+    private readonly _images: Array<Readonly<CoverArt>>;
+    public readonly origin?: string;
 
-    constructor(images?: CoverArt[], origin?: string) {
-        this.images = images ?? [];
+    public constructor(images?: ReadonlyArray<Readonly<CoverArt>>, origin?: string) {
+        this._images = [...(images ?? [])];
         this.origin = origin;
     }
 
-    addImage(image: CoverArt): void {
-        this.images.push(image);
+    public get images(): ReadonlyArray<Readonly<CoverArt>> {
+        return this._images;
     }
 
-    encode(): URLSearchParams {
+    public addImage(image: CoverArt): void {
+        this._images.push(image);
+    }
+
+    public encode(): URLSearchParams {
         const seedParams = new URLSearchParams(this.images.flatMap((image, index) =>
             Object.entries(image).map(([key, value]) => [`x_seed.image.${index}.${key}`, encodeValue(value)]),
         ));
@@ -60,11 +64,11 @@ export class SeedParameters {
         return seedParams;
     }
 
-    createSeedURL(releaseId: string, domain = 'musicbrainz.org'): string {
+    public createSeedURL(releaseId: string, domain = 'musicbrainz.org'): string {
         return `https://${domain}/release/${releaseId}/add-cover-art?${this.encode()}`;
     }
 
-    static decode(seedParams: URLSearchParams): SeedParameters {
+    public static decode(seedParams: URLSearchParams): SeedParameters {
         let images: CoverArt[] = [];
         seedParams.forEach((value, key) => {
             // only image parameters can be decoded to cover art images

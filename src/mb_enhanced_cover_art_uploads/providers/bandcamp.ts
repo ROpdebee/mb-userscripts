@@ -10,19 +10,19 @@ import { getImageDimensions } from '../image_dimensions';
 import { ProviderWithTrackImages } from './base';
 
 export class BandcampProvider extends ProviderWithTrackImages {
-    supportedDomains = ['*.bandcamp.com'];
-    favicon = 'https://s4.bcbits.com/img/favicon/favicon-32x32.png';
-    name = 'Bandcamp';
-    urlRegex = /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/;
+    public readonly supportedDomains = ['*.bandcamp.com'];
+    public readonly favicon = 'https://s4.bcbits.com/img/favicon/favicon-32x32.png';
+    public readonly name = 'Bandcamp';
+    protected readonly urlRegex = /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/;
 
-    override extractId(url: URL): string | undefined {
+    public override extractId(url: URL): string | undefined {
         return this.cleanUrl(url)
             .match(this.urlRegex)
             ?.slice(1)
             ?.join('/');
     }
 
-    async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
+    public async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
         const albumCoverUrl = this.extractCover(respDocument);
 
@@ -155,7 +155,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         })).then((nestedCovers) => nestedCovers.flat());
     }
 
-    override imageToThumbnailUrl(imageUrl: string): string {
+    protected override imageToThumbnailUrl(imageUrl: string): string {
         // 150x150
         return imageUrl.replace(/_\d+\.(\w+)$/, '_7.$1');
     }

@@ -13,7 +13,7 @@ export class InputForm {
     private readonly buttonContainer: HTMLDivElement;
     private readonly orSpan: HTMLSpanElement;
 
-    constructor(app: App) {
+    public constructor(app: App) {
         // Inject our custom CSS
         document.head.append(<style id={'ROpdebee_' + USERSCRIPT_ID}>
             {css}
@@ -86,7 +86,7 @@ export class InputForm {
             ?.insertAdjacentElement('afterend', this.buttonContainer);
     }
 
-    async addImportButton(onClickCallback: () => void, url: string, provider: CoverArtProvider): Promise<void> {
+    public async addImportButton(onClickCallback: () => void, url: string, provider: CoverArtProvider): Promise<void> {
         const favicon = await provider.favicon;
         const button = <button
             type='button'
