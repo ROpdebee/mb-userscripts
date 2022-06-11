@@ -3,11 +3,12 @@ import type { LoggingSink } from './sink';
 import css from './guiSink.scss';
 
 export class GuiSink implements LoggingSink {
-    readonly rootElement: HTMLElement;
+    // public so that users of the GUI sink can add the container to the page.
+    public readonly rootElement: HTMLElement;
     private persistentMessages: HTMLSpanElement[] = [];
     private transientMessages: HTMLSpanElement[] = [];
 
-    constructor() {
+    public constructor() {
         // Inject our custom CSS
         document.head.append(<style id={'ROpdebee_GUI_Logger'}>
             {css}
@@ -46,25 +47,25 @@ export class GuiSink implements LoggingSink {
         this.transientMessages.push(el);
     }
 
-    onLog(message: string): void {
+    public onLog(message: string): void {
         this.addTransientMessage(this.createMessage('info', message));
     }
 
-    onInfo = this.onLog.bind(this);
+    public readonly onInfo = this.onLog.bind(this);
 
-    onSuccess(message: string): void {
+    public onSuccess(message: string): void {
         this.addTransientMessage(this.createMessage('success', message));
     }
 
-    onWarn(message: string, exception?: unknown): void {
+    public onWarn(message: string, exception?: unknown): void {
         this.addPersistentMessage(this.createMessage('warning', message, exception));
     }
 
-    onError(message: string, exception?: unknown): void {
+    public onError(message: string, exception?: unknown): void {
         this.addPersistentMessage(this.createMessage('error', message, exception));
     }
 
-    clearAllLater(): void {
+    public clearAllLater(): void {
         this.transientMessages = [...this.transientMessages, ...this.persistentMessages];
         this.persistentMessages = [];
     }

@@ -62,7 +62,7 @@ export class DispatchMap<Leaf> {
     // different from that of a standard map
     private readonly map: Map<string, Leaf | DispatchMap<Leaf>> = new Map();
 
-    set(domainPattern: string, leaf: Leaf): this {
+    public set(domainPattern: string, leaf: Leaf): this {
         // Don't allow e.g. sub*.domain.com or *.com or domain.* or a.*.c.com.
         const domainParts = splitDomain(domainPattern);
         if (domainPattern === '*'
@@ -75,7 +75,7 @@ export class DispatchMap<Leaf> {
         return this;
     }
 
-    get(domain: string): Leaf | undefined {
+    public get(domain: string): Leaf | undefined {
         return this.retrieve([...splitDomain(domain)].reverse());
     }
 
