@@ -16,11 +16,11 @@ type RequestType<Context> = Request<GM.Request<Context>>;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Context>> {
-    static override get id(): string {
+    public static override get id(): string {
         return 'GM_xmlhttpRequest';
     }
 
-    override onConnect(): void {
+    public override onConnect(): void {
         mockGMxmlHttpRequest.mockImplementation((options: GM.Request<Context>): void => {
             this.handleRequest({
                 url: options.url,
@@ -45,11 +45,11 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
         });
     }
 
-    override onDisconnect(): void {
+    public override onDisconnect(): void {
         mockGMxmlHttpRequest.mockRestore();
     }
 
-    override async onFetchResponse(pollyRequest: RequestType<Context>): ReturnType<Adapter['onFetchResponse']> {
+    public override async onFetchResponse(pollyRequest: RequestType<Context>): ReturnType<Adapter['onFetchResponse']> {
         const { responseType } = pollyRequest.requestArguments;
         const headers = FetchHeaders.fromPollyHeaders(pollyRequest.headers);
         const resp = await fetch(pollyRequest.url, {
@@ -73,7 +73,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
         };
     }
 
-    override async onRespond(pollyRequest: RequestType<Context>, error?: Error): Promise<void> {
+    public override async onRespond(pollyRequest: RequestType<Context>, error?: Error): Promise<void> {
         if (error) throw error;
 
         const response = pollyRequest.response;
