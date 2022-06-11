@@ -1,3 +1,4 @@
+- **2022.6.11**: New feature: rockipedia.no provider ([#456](https://github.com/ROpdebee/mb-userscripts/pull/456))
 - **2022.6.9**: Bug fix: don't show update notifications when there are no new features ([#462](https://github.com/ROpdebee/mb-userscripts/pull/462))
 - **2022.6.8**: New feature: update notifications ([#458](https://github.com/ROpdebee/mb-userscripts/pull/458))
 - **2022.6.1.5**: Internal changes: redeploying because of earlier failure ([#449](https://github.com/ROpdebee/mb-userscripts/pull/449))
