@@ -112,8 +112,13 @@ function createLinkSplitter(editor: ExternalLinks): LinkSplitter {
 }
 
 function insertCheckboxElements(editor: ExternalLinks, checkboxElmt: HTMLInputElement, labelElmt: HTMLLabelElement): void {
+    // Adding the checkbox beneath the last input element would require constantly
+    // removing and reinserting while react re-renders the link editor. Instead,
+    // let's just add it outside of the table and align it with JS.
+    editor.tableRef.current.after(checkboxElmt, labelElmt);
     const lastInput = getLastInput(editor);
-    lastInput.after(checkboxElmt, labelElmt);
+    const marginLeft = lastInput.offsetLeft + (lastInput.parentElement?.offsetLeft ?? 0);
+    checkboxElmt.style.marginLeft = `${marginLeft}px`;
 }
 
 async function run(): Promise<void> {
