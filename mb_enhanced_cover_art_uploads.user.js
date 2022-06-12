@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.6.12
+// @version      2022.6.12.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2186,14 +2186,15 @@
   });
 
   function dropImage(imageData) {
-    const $ = getFromPageContext('$');
-    const dropEvent = $.Event('drop');
-    dropEvent.originalEvent = cloneIntoPageContext({
-      dataTransfer: {
-        files: [imageData]
-      }
+    const DataTransfer = getFromPageContext('DataTransfer');
+    const dataTransfer = new DataTransfer();
+    Object.defineProperty(dataTransfer, 'files', {
+      value: cloneIntoPageContext([imageData])
     });
-    $('#drop-zone').trigger(dropEvent);
+    const dropEvent = new DragEvent('drop', {
+      dataTransfer
+    });
+    qs('#drop-zone').dispatchEvent(dropEvent);
   }
 
   function setImageParameters(imageName, imageTypes, imageComment) {
