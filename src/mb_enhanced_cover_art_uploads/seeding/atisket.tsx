@@ -56,8 +56,8 @@ function addSeedLinkToCovers(mbid: string, origin: string): void {
 }
 
 function tryExtractReleaseUrl(fig: HTMLElement): string | undefined {
-    const countryCode = fig.closest('div')?.dataset['matched-country'];
-    const vendorId = fig.dataset['vendor-id'];
+    const countryCode = fig.closest('div')?.dataset.matchedCountry;
+    const vendorId = fig.dataset.vendorId;
     const vendorCode = [...fig.classList]
         .find((klass) => ['spf', 'deez', 'itu'].includes(klass));
     // Vendor code and ID are required, but we only need a non-empty country code for Apple Music/iTunes releases
