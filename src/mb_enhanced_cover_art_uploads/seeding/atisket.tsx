@@ -72,10 +72,8 @@ function tryExtractReleaseUrl(fig: HTMLElement): string | undefined {
 async function addSeedLinkToCover(fig: HTMLElement, mbid: string, origin: string): Promise<void> {
     const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
 
-    // Not using .split('.') here because Spotify images do not have an extension.
-    const ext = imageUrl.match(/\.(\w+)$/)?.[1];
-    const imageDimensions = await getImageDimensions(imageUrl);
-    const dimensionStr = `${imageDimensions.width}x${imageDimensions.height}`;
+    // Already start loading the image dimensions.
+    const dimensionsPromise = addDimensions(fig, imageUrl);
 
     // On atj's mirror, we'll seed the release URLs, instead of the images
     // directly. This will allow us to e.g. extract additional images for the
@@ -89,15 +87,32 @@ async function addSeedLinkToCover(fig: HTMLElement, mbid: string, origin: string
     }], origin);
     const seedUrl = params.createSeedURL(mbid);
 
-    const dimSpan = <span style={{ display: 'block' }}>
-        {dimensionStr + (ext ? ` ${ext.toUpperCase()}` : '')}
-    </span>;
     const seedLink = <a href={seedUrl} style={{ display: 'block' }}>
         Add to release
     </a>;
-    qs<HTMLElement>('figcaption > a', fig)
-        .insertAdjacentElement('afterend', dimSpan)
-        ?.insertAdjacentElement('afterend', seedLink);
+
+    // The way in which we're adding the seed link here and the dimensions span
+    // below should lead to a consistent ordering of elements.
+    qs<HTMLElement>('figcaption', fig)
+        .insertAdjacentElement('beforeend', seedLink);
+
+    return dimensionsPromise
+        // TODO: Use `logFailure`
+        .catch((err) => {
+            LOGGER.warn('Failed to insert dimensions', err);
+        });
+}
+
+async function addDimensions(fig: HTMLElement, imageUrl: string): Promise<void> {
+    const imageDimensions = await getImageDimensions(imageUrl);
+    // Not using .split('.') here because Spotify images do not have an extension.
+    const ext = imageUrl.match(/\.(\w+)$/)?.[1];
+    const dimensionStr = `${imageDimensions.width}x${imageDimensions.height}`;
+    const dimSpan = <span style={{ display: 'block' }}>
+        {dimensionStr + (ext ? ` ${ext.toUpperCase()}` : '')}
+    </span>;
+
+    qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
 }
 
 const RELEASE_URL_CONSTRUCTORS: Record<string, (id: string, country: string) => string> = {
