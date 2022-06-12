@@ -13,7 +13,7 @@ const metadata: UserscriptMetadata = {
         '*/add?*',
         '*/create',
         '*/create?*',
-    ].map(transformMBMatchURL),
+    ].map((path) => transformMBMatchURL(path)),
 };
 
 export default metadata;
