@@ -1,3 +1,4 @@
+- **2022.6.12.3**: Bug fix: support vgmdb releases without covers ([#474](https://github.com/ROpdebee/mb-userscripts/pull/474))
 - **2022.6.12.2**: Bug fix: drop images without jQuery ([#472](https://github.com/ROpdebee/mb-userscripts/pull/472))
 - **2022.6.12**: Internal changes: more linting and refactoring ([#464](https://github.com/ROpdebee/mb-userscripts/pull/464))
 - **2022.6.11**: New feature: rockipedia.no provider ([#456](https://github.com/ROpdebee/mb-userscripts/pull/456))

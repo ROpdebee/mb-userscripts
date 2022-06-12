@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.6.12.2
+// @version      2022.6.12.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1730,6 +1730,7 @@
     };
   }
 
+  const PLACEHOLDER_URL = '/db/img/album-nocover-medium.gif';
   function convertCaptions(cover) {
     const url = new URL(cover.url);
 
@@ -1788,9 +1789,9 @@
 
             const mainCoverUrl = (_qsMaybe = qsMaybe('#coverart', pageDom)) === null || _qsMaybe === void 0 ? void 0 : (_qsMaybe$style$backgr = _qsMaybe.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)) === null || _qsMaybe$style$backgr === void 0 ? void 0 : _qsMaybe$style$backgr[1];
 
-            if (mainCoverUrl && !galleryCovers.some(cover => urlBasename(cover.url) === urlBasename(mainCoverUrl))) {
+            if (mainCoverUrl && mainCoverUrl !== PLACEHOLDER_URL && !galleryCovers.some(cover => urlBasename(cover.url) === urlBasename(mainCoverUrl))) {
               galleryCovers.unshift({
-                url: new URL(mainCoverUrl),
+                url: new URL(mainCoverUrl, url.origin),
                 types: [ArtworkTypeIDs.Front],
                 comment: ''
               });
