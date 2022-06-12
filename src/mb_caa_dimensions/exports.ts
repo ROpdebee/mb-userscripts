@@ -24,7 +24,6 @@ declare global {
 }
 
 export function setupExports(cachePromise: Promise<InfoCache>): void {
-
     async function getCAAImageInfo(imgUrl: string): Promise<ImageInfo> {
         if (new URL(imgUrl).hostname !== 'archive.org') {
             throw new Error('Unsupported URL: Need direct image URL');

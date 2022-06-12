@@ -192,6 +192,9 @@ module.exports = {
         // so leaving it as a placeholder to enable at the end.
         '@typescript-eslint/prefer-readonly-parameter-types': 'off',
 
+        // I don't agree with this.
+        'promise/always-return': 'off',
+
         // All places where this warned were either led to type errors or were
         // places where in my opinion, an explicit `undefined` reduced confusion.
         'unicorn/no-useless-undefined': 'off',

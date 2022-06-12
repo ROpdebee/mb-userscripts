@@ -16,7 +16,7 @@ describe('getting CAA information', () => {
     it('returns size and format', async () => {
         const info = await getCAAInfo('mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0', '31558457789');
 
-        expect(info.size).toBe(2063874);
+        expect(info.size).toBe(2_063_874);
         expect(info.fileType).toBe('JPEG');
     });
 

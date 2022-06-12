@@ -1,6 +1,6 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { promisify } from 'util';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { promisify } from 'node:util';
 
 import type { TsConfigJson } from 'type-fest';
 import globCb from 'glob';

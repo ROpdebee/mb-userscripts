@@ -9,7 +9,7 @@ const metadata: UserscriptMetadata = {
         'release/*',
         'release-group/*',
         ...MB_EDIT_PAGE_PATHS,
-    ].map(transformMBMatchURL),
+    ].map((path) => transformMBMatchURL(path)),
     exclude: [
         transformMBMatchURL('release/*/edit'),
         transformMBMatchURL('release/*/edit-relationships'),

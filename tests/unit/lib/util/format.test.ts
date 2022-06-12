@@ -6,11 +6,11 @@ describe('formatting size', () => {
     });
 
     it('formats larger sizes', () => {
-        expect(formatFileSize(1073741824)).toBe('1 GB');
+        expect(formatFileSize(1_073_741_824)).toBe('1 GB');
     });
 
     it('formats larger, non-round sizes', () => {
-        expect(formatFileSize(123049392)).toBe('117.35 MB');
+        expect(formatFileSize(123_049_392)).toBe('117.35 MB');
     });
 
     it('formats empty size', () => {

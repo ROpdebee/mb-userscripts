@@ -155,7 +155,7 @@ describe('database migrations', () => {
         it('closes the DB when blocking an upgrade', async () => {
             const upgradeMock = jest.fn();
             await createCache();
-            await createOtherDB(99999, {
+            await createOtherDB(99_999, {
                 upgrade: upgradeMock,
             });
 
@@ -164,7 +164,7 @@ describe('database migrations', () => {
 
         it('allows no further use of the DB after closing when blocking an upgrade', async () => {
             const cache = await createCache();
-            await createOtherDB(99999, {
+            await createOtherDB(99_999, {
                 upgrade: jest.fn(),
             });
 

@@ -71,34 +71,34 @@ export async function createCache(): Promise<InfoCache> {
             // Need to await this to ensure we catch errors here and fall back
             // on the dummy cache.
             return await IndexedDBInfoCache.create();
-        } catch (e) {
-            LOGGER.error('Failed to create IndexedDB-backed image information cache, repeated lookups will be slow!', e);
+        } catch (err) {
+            LOGGER.error('Failed to create IndexedDB-backed image information cache, repeated lookups will be slow!', err);
             // fall through and create a dummy cache
         }
     } else {
         LOGGER.warn('Your browser does not seem to support IndexedDB. A persistent image information cache will not be used, which may result in slower lookups. Consider upgrading to a more modern browser version for improved performance.');
     }
 
-    return Promise.resolve(new NoInfoCache());
+    return new NoInfoCache();
 }
 
 /**
  * Dummy information cache used when no storage backend is available.
  */
 class NoInfoCache implements InfoCache {
-    getDimensions(): Promise<Dimensions | undefined> {
+    public getDimensions(): Promise<Dimensions | undefined> {
         return Promise.resolve(undefined);
     }
 
-    putDimensions(): Promise<void> {
+    public putDimensions(): Promise<void> {
         return Promise.resolve();
     }
 
-    getFileInfo(): Promise<FileInfo | undefined> {
+    public getFileInfo(): Promise<FileInfo | undefined> {
         return Promise.resolve(undefined);
     }
 
-    putFileInfo(): Promise<void> {
+    public putFileInfo(): Promise<void> {
         return Promise.resolve();
     }
 }
@@ -109,11 +109,11 @@ class NoInfoCache implements InfoCache {
 class IndexedDBInfoCache {
     private readonly db: IDBPDatabase<CacheDBSchema>;
 
-    constructor(db: IDBPDatabase<CacheDBSchema>) {
+    private constructor(db: IDBPDatabase<CacheDBSchema>) {
         this.db = db;
     }
 
-    static async create(): Promise<IndexedDBInfoCache> {
+    public static async create(): Promise<IndexedDBInfoCache> {
         return new Promise((resolve, reject) => {
             let wasBlocked = false;
 
@@ -216,9 +216,9 @@ class IndexedDBInfoCache {
             }
 
             return cachedResult;
-        } catch (e) /* istanbul ignore next: Difficult to cover */ {
-            LOGGER.error(`Failed to load ${imageUrl} from cache: ${e}`);
-            throw e;
+        } catch (err) /* istanbul ignore next: Difficult to cover */ {
+            LOGGER.error(`Failed to load ${imageUrl} from cache`, err);
+            throw err;
         }
     }
 
@@ -229,24 +229,24 @@ class IndexedDBInfoCache {
                 addedDatetime: Date.now(),
             }, imageUrl);
             LOGGER.debug(`Successfully stored ${imageUrl} in cache`);
-        } catch (e) /* istanbul ignore next: Difficult to cover */ {
-            LOGGER.error(`Failed to store ${imageUrl} in cache`, e);
+        } catch (err) /* istanbul ignore next: Difficult to cover */ {
+            LOGGER.error(`Failed to store ${imageUrl} in cache`, err);
         }
     }
 
-    async getDimensions(imageUrl: string): Promise<Dimensions | undefined> {
+    public async getDimensions(imageUrl: string): Promise<Dimensions | undefined> {
         return this.get(CACHE_DIMENSIONS_STORE_NAME, imageUrl);
     }
 
-    async putDimensions(imageUrl: string, dimensions: Dimensions): Promise<void> {
+    public async putDimensions(imageUrl: string, dimensions: Dimensions): Promise<void> {
         return this.put(CACHE_DIMENSIONS_STORE_NAME, imageUrl, dimensions);
     }
 
-    async getFileInfo(imageUrl: string): Promise<FileInfo | undefined> {
+    public async getFileInfo(imageUrl: string): Promise<FileInfo | undefined> {
         return this.get(CACHE_FILE_INFO_STORE_NAME, imageUrl);
     }
 
-    async putFileInfo(imageUrl: string, fileInfo: FileInfo): Promise<void> {
+    public async putFileInfo(imageUrl: string, fileInfo: FileInfo): Promise<void> {
         return this.put(CACHE_FILE_INFO_STORE_NAME, imageUrl, fileInfo);
     }
 }

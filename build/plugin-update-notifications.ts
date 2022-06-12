@@ -42,7 +42,7 @@ export function updateNotifications(options?: Readonly<PluginOptions>): Plugin {
 
         load(id): string | undefined {
             if (id === UPDATE_NOTIFICATIONS_SOURCE_ID) return UPDATE_NOTIFICATION_CODE;
-            return;
+            return undefined;
         },
 
         /**

@@ -14,11 +14,9 @@ export interface DisplayedImage {
 }
 
 export function createDimensionsString(imageInfo: ImageInfo): string {
-    if (typeof imageInfo.dimensions !== 'undefined') {
-        return `${imageInfo.dimensions.height}x${imageInfo.dimensions.width}`;
-    } else {
-        return 'failed :(';
-    }
+    return (typeof imageInfo.dimensions !== 'undefined'
+        ? `${imageInfo.dimensions.height}x${imageInfo.dimensions.width}`
+        : 'failed :(');
 }
 
 export function createFileInfoString(imageInfo: ImageInfo): string {
@@ -34,11 +32,11 @@ export function createFileInfoString(imageInfo: ImageInfo): string {
 }
 
 abstract class BaseDisplayedImage implements DisplayedImage {
-    readonly imgElement: HTMLImageElement;
+    public readonly imgElement: HTMLImageElement;
     private _dimensionsSpan: HTMLSpanElement | null = null;
     private _fileInfoSpan: HTMLSpanElement | null = null;
 
-    constructor(imgElement: HTMLImageElement) {
+    public constructor(imgElement: HTMLImageElement) {
         this.imgElement = imgElement;
     }
 
@@ -67,18 +65,18 @@ abstract class BaseDisplayedImage implements DisplayedImage {
         return this._fileInfoSpan;
     }
 
-    abstract loadAndDisplay(): Promise<void>;
+    public abstract loadAndDisplay(): Promise<void>;
 }
 
 abstract class DisplayedCAAImage extends BaseDisplayedImage {
     private readonly image: CAAImage;
 
-    constructor(imgElement: HTMLImageElement, image: CAAImage) {
+    public constructor(imgElement: HTMLImageElement, image: CAAImage) {
         super(imgElement);
         this.image = image;
     }
 
-    async loadAndDisplay(): Promise<void> {
+    public async loadAndDisplay(): Promise<void> {
         // Don't load dimensions if it's already loaded/currently being loaded
         if (this.imgElement.getAttribute('ROpdebee_lazyDimensions')) {
             return;
@@ -89,8 +87,8 @@ abstract class DisplayedCAAImage extends BaseDisplayedImage {
         try {
             const imageInfo = await this.image.getImageInfo();
             this.displayInfo(this.createDimensionsString(imageInfo), this.createFileInfoString(imageInfo));
-        } catch (e) {
-            LOGGER.error('Failed to load image information', e);
+        } catch (err) {
+            LOGGER.error('Failed to load image information', err);
             this.displayInfo('failed :(');
         }
     }
@@ -123,13 +121,11 @@ abstract class DisplayedCAAImage extends BaseDisplayedImage {
  * The full-size URL is the `href` of that anchor.
  */
 export class ArtworkImageAnchorCAAImage extends DisplayedCAAImage {
-
-    constructor(imgElement: HTMLImageElement, cache: InfoCache) {
+    public constructor(imgElement: HTMLImageElement, cache: InfoCache) {
         const fullSizeUrl = imgElement.closest<HTMLAnchorElement>('a.artwork-image, a.artwork-pdf')?.href;
         assertDefined(fullSizeUrl);
         super(imgElement, new CAAImage(fullSizeUrl, cache, imgElement.src));
     }
-
 }
 
 /**
@@ -138,14 +134,12 @@ export class ArtworkImageAnchorCAAImage extends DisplayedCAAImage {
  * Full-size URL needs to be retrieved from the anchors below the image.
  */
 export class CoverArtTabCAAImage extends DisplayedCAAImage {
-
-    constructor(imgElement: HTMLImageElement, cache: InfoCache) {
+    public constructor(imgElement: HTMLImageElement, cache: InfoCache) {
         const container = imgElement.closest('div.artwork-cont');
         assertNonNull(container);
         const fullSizeUrl = qs<HTMLAnchorElement>('p.small > a:last-of-type', container).href;
         super(imgElement, new CAAImage(fullSizeUrl, cache));
     }
-
 }
 
 /**
@@ -154,7 +148,7 @@ export class CoverArtTabCAAImage extends DisplayedCAAImage {
  * Intended for backward compatibility with other scripts.
  */
 export class CAAImageWithFullSizeURL extends DisplayedCAAImage {
-    constructor(imgElement: HTMLImageElement, cache: InfoCache) {
+    public constructor(imgElement: HTMLImageElement, cache: InfoCache) {
         const fullSizeUrl = imgElement.getAttribute('fullSizeURL');
         assertNonNull(fullSizeUrl);
         super(imgElement, new CAAImage(fullSizeUrl, cache));
@@ -165,7 +159,6 @@ export class CAAImageWithFullSizeURL extends DisplayedCAAImage {
  * Like `ArtworkImageAnchorCAAImage`, but shorter info string.
  */
 export class ThumbnailCAAImage extends ArtworkImageAnchorCAAImage {
-
     protected override createDimensionsString(imageInfo: ImageInfo): string {
         return createDimensionsString(imageInfo);
     }
@@ -175,12 +168,12 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
     private readonly image: QueuedUploadImage;
 
     // No cache, unnecessary to cache.
-    constructor(imgElement: HTMLImageElement) {
+    public constructor(imgElement: HTMLImageElement) {
         super(imgElement);
         this.image = new QueuedUploadImage(imgElement);
     }
 
-    async loadAndDisplay(): Promise<void> {
+    public async loadAndDisplay(): Promise<void> {
         // Don't display on PDF images
         if (this.imgElement.src.endsWith('/static/images/icons/pdf-icon.png')) return;
 

@@ -6,7 +6,7 @@ import type { InfoCache } from './InfoCache';
 import { getCAAInfo } from './caa_info';
 import { getImageDimensions } from './dimensions';
 
-const CAA_ID_REGEX = /(mbid-[a-f0-9-]{36})\/mbid-[a-f0-9-]{36}-(\d+)/;
+const CAA_ID_REGEX = /(mbid-[a-f\d-]{36})\/mbid-[a-f\d-]{36}-(\d+)/;
 
 export interface Image {
     getDimensions(): Promise<Dimensions | undefined>;
@@ -14,58 +14,57 @@ export interface Image {
 }
 
 export abstract class BaseImage {
-
     protected readonly imgUrl: string;
     private readonly cache?: InfoCache;
 
-    constructor(imgUrl: string, cache?: InfoCache) {
+    public constructor(imgUrl: string, cache?: InfoCache) {
         this.imgUrl = imgUrl;
         this.cache = cache;
     }
 
-    async getDimensions(): Promise<Dimensions | undefined> {
+    public async getDimensions(): Promise<Dimensions | undefined> {
         try {
             const cachedResult = await this.cache?.getDimensions(this.imgUrl);
             if (typeof cachedResult !== 'undefined') {
                 return cachedResult;
             }
-        } catch (e) {
-            LOGGER.warn('Failed to retrieve image dimensions from cache', e);
+        } catch (err) {
+            LOGGER.warn('Failed to retrieve image dimensions from cache', err);
         }
 
         try {
             const liveResult = await getImageDimensions(this.imgUrl);
             await this.cache?.putDimensions(this.imgUrl, liveResult);
             return liveResult;
-        } catch (e) {
-            LOGGER.error('Failed to retrieve image dimensions', e);
+        } catch (err) {
+            LOGGER.error('Failed to retrieve image dimensions', err);
         }
 
         return undefined;
     }
 
-    async getFileInfo(): Promise<FileInfo | undefined> {
+    public async getFileInfo(): Promise<FileInfo | undefined> {
         try {
             const cachedResult = await this.cache?.getFileInfo(this.imgUrl);
             if (typeof cachedResult !== 'undefined') {
                 return cachedResult;
             }
-        } catch (e) {
-            LOGGER.warn('Failed to retrieve image file info from cache', e);
+        } catch (err) {
+            LOGGER.warn('Failed to retrieve image file info from cache', err);
         }
 
         try {
             const liveResult = await this.loadFileInfo();
             await this.cache?.putFileInfo(this.imgUrl, liveResult);
             return liveResult;
-        } catch (e) {
-            LOGGER.error('Failed to retrieve image file info', e);
+        } catch (err) {
+            LOGGER.error('Failed to retrieve image file info', err);
         }
 
         return undefined;
     }
 
-    async getImageInfo(): Promise<ImageInfo> {
+    public async getImageInfo(): Promise<ImageInfo> {
         const dimensions = await this.getDimensions();
         const fileInfo = await this.getFileInfo();
         return {
@@ -124,11 +123,10 @@ function parseCAAIDs(url: string): [string, string] {
 
 
 export class CAAImage extends BaseImage {
-
     private readonly itemId: string;
     private readonly imageId: string;
 
-    constructor(fullSizeUrl: string, cache: InfoCache, thumbnailUrl?: string) {
+    public constructor(fullSizeUrl: string, cache: InfoCache, thumbnailUrl?: string) {
         fullSizeUrl = transformCAAURL(fullSizeUrl);
 
         super(fullSizeUrl, cache);
@@ -138,7 +136,7 @@ export class CAAImage extends BaseImage {
         this.imageId = imageId;
     }
 
-    override getDimensions(): Promise<Dimensions | undefined> {
+    public override getDimensions(): Promise<Dimensions | undefined> {
         if (this.imgUrl.endsWith('.pdf')) {
             LOGGER.warn(`Cannot get dimensions of PDF, skipping ${this.imgUrl}`);
             return Promise.resolve(undefined);
@@ -147,7 +145,7 @@ export class CAAImage extends BaseImage {
         return super.getDimensions();
     }
 
-    loadFileInfo(): Promise<FileInfo> {
+    public loadFileInfo(): Promise<FileInfo> {
         return getCAAInfo(this.itemId, this.imageId);
     }
 }
@@ -156,15 +154,15 @@ export class CAAImage extends BaseImage {
 export class QueuedUploadImage implements Image {
     private readonly imgElement: HTMLImageElement;
 
-    constructor(imgElement: HTMLImageElement) {
+    public constructor(imgElement: HTMLImageElement) {
         this.imgElement = imgElement;
     }
 
-    getFileInfo(): Promise<undefined> {
+    public getFileInfo(): Promise<undefined> {
         return Promise.resolve(undefined); // Already displayed on the page by MB itself
     }
 
-    getDimensions(): Promise<Dimensions> {
+    public getDimensions(): Promise<Dimensions> {
         return Promise.resolve({
             width: this.imgElement.naturalWidth,
             height: this.imgElement.naturalHeight,

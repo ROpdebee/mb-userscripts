@@ -23,7 +23,6 @@ afterEach(() => {
 });
 
 describe('caa image', () => {
-
     describe('getting dimensions', () => {
         it('retrieves from cache if available', async () => {
             mockCache.getDimensions.mockResolvedValue(dummyDimensions);
