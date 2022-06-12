@@ -44,21 +44,22 @@ const AUDIBLE_FRONT_IMAGE_QUERY = '#mf_pdp_hero_widget_book_img img';  // Only f
 const DIGITAL_FRONT_IMAGE_QUERY = '#digitalMusicProductImage_feature_div > img';
 
 export class AmazonProvider extends CoverArtProvider {
-    supportedDomains = [
+    public readonly supportedDomains = [
         'amazon.ae', 'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.eg',
         'amazon.es', 'amazon.fr', 'amazon.in', 'amazon.it', 'amazon.jp',
         'amazon.nl', 'amazon.pl', 'amazon.sa', 'amazon.se', 'amazon.sg',
         'amazon.co.jp', 'amazon.co.uk', 'amazon.com', 'amazon.com.au',
         'amazon.com.br', 'amazon.com.mx', 'amazon.com.tr'];
+
     // Favicon URL is blocked by Firefox' Enhanced Tracking Protection
-    get favicon(): Promise<string> {
+    public get favicon(): Promise<string> {
         return GMgetResourceUrl('amazonFavicon');
     }
 
-    name = 'Amazon';
-    urlRegex = /\/(?:gp\/product|dp|hz\/audible\/mlp\/mfpdp)\/([A-Za-z0-9]{10})(?:\/|$)/;
+    public readonly name = 'Amazon';
+    protected readonly urlRegex = /\/(?:gp\/product|dp|hz\/audible\/mlp\/mfpdp)\/([A-Za-z\d]{10})(?:\/|$)/;
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         const pageContent = await this.fetchPage(url);
         const pageDom = parseDOM(pageContent, url.href);
 
@@ -83,7 +84,7 @@ export class AmazonProvider extends CoverArtProvider {
         return covers.filter((img) => !PLACEHOLDER_IMG_NAMES.some((name) => decodeURIComponent(img.url.pathname).includes(name)));
     }
 
-    async findGenericPhysicalImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
+    private async findGenericPhysicalImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
         const imgs = this.extractEmbeddedJSImages(pageContent, /\s*'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
         assertNonNull(imgs, 'Failed to extract images from embedded JS on generic physical page');
 
@@ -93,7 +94,7 @@ export class AmazonProvider extends CoverArtProvider {
         });
     }
 
-    async findPhysicalAudiobookImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
+    private async findPhysicalAudiobookImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
         const imgs = this.extractEmbeddedJSImages(pageContent, /\s*'imageGalleryData' : (.+),$/m) as Array<{ mainUrl: string }> | null;
         assertNonNull(imgs, 'Failed to extract images from embedded JS on physical audiobook page');
 
@@ -101,11 +102,11 @@ export class AmazonProvider extends CoverArtProvider {
         return imgs.map((img) => ({ url: new URL(img.mainUrl) }));
     }
 
-    async findDigitalImages(_url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
+    private async findDigitalImages(_url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
         return this.extractFrontCover(pageDom, DIGITAL_FRONT_IMAGE_QUERY);
     }
 
-    async findAudibleImages(url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
+    private async findAudibleImages(url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
         // We can only extract 500px images from standard product pages. Prefer
         // /hz/audible/mlp/mfpdp pages which should have the same image in its
         // full resolution.

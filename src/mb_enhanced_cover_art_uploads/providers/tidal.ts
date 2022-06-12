@@ -28,14 +28,14 @@ interface AlbumMetadata {
 }
 
 export class TidalProvider extends CoverArtProvider {
-    supportedDomains = ['tidal.com', 'listen.tidal.com', 'store.tidal.com'];
-    favicon = 'https://listen.tidal.com/favicon.ico';
-    name = 'Tidal';
-    urlRegex = /\/album\/(\d+)/;
+    public readonly supportedDomains = ['tidal.com', 'listen.tidal.com', 'store.tidal.com'];
+    public readonly favicon = 'https://listen.tidal.com/favicon.ico';
+    public readonly name = 'Tidal';
+    protected readonly urlRegex = /\/album\/(\d+)/;
 
     private countryCode: string | null = null;
 
-    async getCountryCode(): Promise<string> {
+    private async getCountryCode(): Promise<string> {
         if (!this.countryCode) {
             const resp = await gmxhr('https://listen.tidal.com/v1/country/context?countryCode=WW&locale=en_US&deviceType=BROWSER', {
                 headers: {
@@ -49,7 +49,7 @@ export class TidalProvider extends CoverArtProvider {
         return this.countryCode;
     }
 
-    async getCoverUrlFromMetadata(albumId: string): Promise<string> {
+    private async getCoverUrlFromMetadata(albumId: string): Promise<string> {
         const countryCode = await this.getCountryCode();
         // Not sure whether it's strictly necessary to ping, but let's impersonate
         // the browser as much as we can to avoid getting accidentally blocked.
@@ -70,7 +70,7 @@ export class TidalProvider extends CoverArtProvider {
         return `https://resources.tidal.com/images/${coverId.replace(/-/g, '/')}/origin.jpg`;
     }
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         // Rewrite the URL to point to the main page
         // Both listen.tidal.com and store.tidal.com load metadata through an
         // API. Bare tidal.com returns the image in a <meta> property.

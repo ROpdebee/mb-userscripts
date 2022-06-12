@@ -15,9 +15,9 @@ const ENCODER = new TextEncoder();
 
 export default async function har2warc(har: Har): Promise<Uint8Array> {
     const infoRecord = createWarcInfoRecord(har);
-    const payloadRecords = har.log.entries.flatMap(createWarcPayloadRecords);
+    const payloadRecords = har.log.entries.flatMap((entry) => createWarcPayloadRecords(entry));
 
-    const allRecords = [infoRecord].concat(payloadRecords);
+    const allRecords = [infoRecord, ...payloadRecords];
     const serialisedRecords = await Promise.all(allRecords.map((record) => WARCSerializer.serialize(record)));
     return concatChunks(serialisedRecords, serialisedRecords.reduce((acc, curr) => acc + curr.length, 0));
 }
@@ -63,6 +63,7 @@ function createWarcResponseRecord(url: string, response: HarResponse): WARCRecor
     const httpStatusLine = `${response.httpVersion} ${response.status} ${response.statusText}`;
     const httpHeaders = Object.fromEntries(response.headers.map(({ name, value }) => [name, value]));
     let content: Uint8Array;
+    // eslint-disable-next-line unicorn/prefer-ternary -- Too complex
     if (!response.content.text) {
         content = new Uint8Array();
     } else {
@@ -82,7 +83,7 @@ function createWarcResponseRecord(url: string, response: HarResponse): WARCRecor
 }
 
 function createWarcRequestRecord(url: string, request: HarRequest, responseId: string): WARCRecord {
-    assert(!request.cookies.length, 'Cannot serialise cookies to WARC yet');
+    assert(request.cookies.length === 0, 'Cannot serialise cookies to WARC yet');
     assert(!request.postData, 'Cannot serialise request body to WARC yet');
     const parsedUrl = new URL(url);
     const fullPath = parsedUrl.pathname + parsedUrl.search;

@@ -13,21 +13,21 @@ interface GMXHROptions extends LimitedGMXHROptions {
 }
 
 export abstract class ResponseError extends CustomError {
-    url: string | URL;
+    public readonly url: string | URL;
 
-    constructor(url: string | URL, extraMessage: string) {
+    protected constructor(url: string | URL, extraMessage: string) {
         super(extraMessage);
         this.url = url;
     }
 }
 export class HTTPResponseError extends ResponseError {
-    statusCode: number;
-    statusText: string;
+    public readonly statusCode: number;
+    public readonly statusText: string;
     // eslint-disable-next-line no-restricted-globals
-    response: GM.Response<never>;
+    public readonly response: GM.Response<never>;
 
     // eslint-disable-next-line no-restricted-globals
-    constructor(url: string | URL, response: GM.Response<never>) {
+    public constructor(url: string | URL, response: GM.Response<never>) {
         /* istanbul ignore else: Should not happen */
         if (response.statusText.trim()) {
             super(url, `HTTP error ${response.status}: ${response.statusText}`);
@@ -41,17 +41,17 @@ export class HTTPResponseError extends ResponseError {
     }
 }
 export class TimeoutError extends ResponseError {
-    constructor(url: string | URL) {
+    public constructor(url: string | URL) {
         super(url, 'Request timed out');
     }
 }
 export class AbortedError extends ResponseError {
-    constructor(url: string | URL) {
+    public constructor(url: string | URL) {
         super(url, 'Request aborted');
     }
 }
 export class NetworkError extends ResponseError {
-    constructor(url: string | URL) {
+    public constructor(url: string | URL) {
         super(url, 'Network error');
     }
 }
@@ -62,7 +62,7 @@ export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<
         GMxmlHttpRequest({
             method: 'GET',
             url: url instanceof URL ? url.href : url,
-            ...options ?? {},
+            ...options,
 
             onload: (resp) => {
                 if (resp.status >= 400) reject(new HTTPResponseError(url, resp));

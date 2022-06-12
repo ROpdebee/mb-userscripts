@@ -11,17 +11,11 @@ function hexEncode(buffer: ArrayBuffer): string {
 export function blobToDigest(blob: Blob): Promise<string> {
     async function onLoad(reader: FileReader): Promise<string> {
         const buffer = reader.result as ArrayBuffer;
-        // Crypto API might be unavailable in older browsers, and on http://*
-        // istanbul ignore next: Not available in node, second part will never be covered.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        const hasCrypto = typeof crypto !== 'undefined' && typeof crypto.subtle?.digest !== 'undefined';
 
-        // istanbul ignore else: Not available in node
-        if (hasCrypto) {
-            return hexEncode(await crypto.subtle.digest('SHA-256', buffer));
-        } else {
-            return hexEncode(buffer);
-        }
+        // Crypto API might be unavailable in older browsers, and on http://*
+        // istanbul ignore next: Not available in node
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        return hexEncode(await (crypto?.subtle?.digest?.('SHA-256', buffer) ?? buffer));
     }
 
     return new Promise((resolve, reject) => {
@@ -34,7 +28,9 @@ export function blobToDigest(blob: Blob): Promise<string> {
         // Therefore, we do the asynchronous stuff in `onLoad` and `.then()`
         // the result to resolve/reject the outer promise.
         reader.addEventListener('load', () => {
-            onLoad(reader).then(resolve, reject);
+            onLoad(reader)
+                .then(resolve)
+                .catch(reject);
         });
 
         reader.readAsArrayBuffer(blob);

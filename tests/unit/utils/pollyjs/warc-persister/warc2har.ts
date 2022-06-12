@@ -18,19 +18,24 @@ export default async function warc2har(warc: Uint8Array): Promise<Har> {
         let entry: HarEntry;
         switch(record.warcType) {
         case 'warcinfo':
-            await populateHarLogInfo(record, harLog); break;
+            await populateHarLogInfo(record, harLog);
+            break;
+
         case 'request':
             entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
             await populateEntryRequest(record, entry);
             break;
+
         case 'response':
             entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Record-ID'));
             await populateEntryResponse(record, entry);
             break;
+
         case 'metadata':
             entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
             await populateEntryMetadata(record, entry);
             break;
+
         default:
             console.log(`Unsupported WARC entry type: ${record.warcType}`);
         }

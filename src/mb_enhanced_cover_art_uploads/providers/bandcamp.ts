@@ -10,16 +10,19 @@ import { getImageDimensions } from '../image_dimensions';
 import { ProviderWithTrackImages } from './base';
 
 export class BandcampProvider extends ProviderWithTrackImages {
-    supportedDomains = ['*.bandcamp.com'];
-    favicon = 'https://s4.bcbits.com/img/favicon/favicon-32x32.png';
-    name = 'Bandcamp';
-    urlRegex = /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/;
+    public readonly supportedDomains = ['*.bandcamp.com'];
+    public readonly favicon = 'https://s4.bcbits.com/img/favicon/favicon-32x32.png';
+    public readonly name = 'Bandcamp';
+    protected readonly urlRegex = /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/;
 
-    override extractId(url: URL): string | undefined {
-        return this.cleanUrl(url).match(this.urlRegex)?.slice(1)?.join('/');
+    public override extractId(url: URL): string | undefined {
+        return this.cleanUrl(url)
+            .match(this.urlRegex)
+            ?.slice(1)
+            ?.join('/');
     }
 
-    async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
+    public async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
         const albumCoverUrl = this.extractCover(respDocument);
 
@@ -37,7 +40,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // Don't bother extracting track images if we only need the front cover
         const trackImages = onlyFront ? [] : await this.findTrackImages(respDocument, albumCoverUrl);
 
-        return this.amendSquareThumbnails(covers.concat(trackImages));
+        return this.amendSquareThumbnails([...covers, ...trackImages]);
     }
 
     private extractCover(doc: Document): string | undefined {
@@ -58,7 +61,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // images in one request, but that API has been locked down :(
         // https://michaelherger.github.io/Bandcamp-API/#/Albums/get_api_album_2_info
         const trackRows = qsa<HTMLTableRowElement>('#track_table .track_row_view', doc);
-        if (!trackRows.length) return [];
+        if (trackRows.length === 0) return [];
         LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
 
         // Max 5 requests per second
@@ -74,7 +77,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         const trackImages = await Promise.all(trackRows
             .map((trackRow) => this.findTrackImage(trackRow, throttledFetchPage)));
         const mergedTrackImages = await this.mergeTrackImages(trackImages, mainUrl, true);
-        if (mergedTrackImages.length) {
+        if (mergedTrackImages.length > 0) {
             LOGGER.info(`Found ${mergedTrackImages.length} unique track images`);
         } else {
             LOGGER.info('Found no unique track images this time');
@@ -152,7 +155,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         })).then((nestedCovers) => nestedCovers.flat());
     }
 
-    override imageToThumbnailUrl(imageUrl: string): string {
+    protected override imageToThumbnailUrl(imageUrl: string): string {
         // 150x150
         return imageUrl.replace(/_\d+\.(\w+)$/, '_7.$1');
     }

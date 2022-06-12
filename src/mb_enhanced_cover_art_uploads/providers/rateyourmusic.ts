@@ -7,15 +7,15 @@ import { CoverArtProvider } from './base';
 
 
 export class RateYourMusicProvider extends CoverArtProvider {
-    supportedDomains = ['rateyourmusic.com'];
-    favicon = 'https://e.snmc.io/2.5/img/sonemic.png';
-    name = 'RateYourMusic';
+    public readonly supportedDomains = ['rateyourmusic.com'];
+    public readonly favicon = 'https://e.snmc.io/2.5/img/sonemic.png';
+    public readonly name = 'RateYourMusic';
     // Include release type in the ID to make sure it doesn't redirect a single
     // to an album and vice versa, and also to simplify the URL transformation
     // below.
-    urlRegex = /\/release\/((?:album|single)\/[^/]+\/[^/]+)(?:\/|$)/;
+    protected readonly urlRegex = /\/release\/((?:album|single)(?:\/[^/]+){2})(?:\/|$)/;
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         const releaseId = this.extractId(url);
         assertHasValue(releaseId);
         // Need to go through the Buy page to find full-res images. The user

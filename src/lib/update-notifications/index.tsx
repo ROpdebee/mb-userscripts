@@ -30,7 +30,7 @@ export function maybeDisplayNewFeatures(): void {
         .filter((feat) => versionLessThan(lastDisplayedVersion, parseVersion(feat.versionAdded)));
 
     // Don't show a notification when there are no new features
-    if (!newFeatures.length) return;
+    if (newFeatures.length === 0) return;
 
     showFeatureNotification(scriptInfo.name, scriptInfo.version, newFeatures.map((feat) => feat.description));
 }

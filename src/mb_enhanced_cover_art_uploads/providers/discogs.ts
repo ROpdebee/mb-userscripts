@@ -40,18 +40,18 @@ interface DiscogsImages {
 }
 
 export class DiscogsProvider extends CoverArtProvider {
-    supportedDomains = ['discogs.com'];
-    favicon = 'https://catalog-assets.discogs.com/e95f0cd9.png';
-    name = 'Discogs';
-    urlRegex = /\/release\/(\d+)/;
+    public readonly supportedDomains = ['discogs.com'];
+    public readonly favicon = 'https://catalog-assets.discogs.com/e95f0cd9.png';
+    public readonly name = 'Discogs';
+    protected readonly urlRegex = /\/release\/(\d+)/;
 
     // Map of Discogs IDs to promises which will resolve to API responses.
     // We're using promises so we can make an entry as soon as we create a
     // request to the API, to prevent multiple concurrent requests in async
     // code.
-    static apiResponseCache: Map<string, Promise<DiscogsImages>> = new Map();
+    private static readonly apiResponseCache: Map<string, Promise<DiscogsImages>> = new Map();
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         // Loading the full HTML and parsing the metadata JSON embedded within
         // it.
         const releaseId = this.extractId(url);
@@ -64,7 +64,7 @@ export class DiscogsProvider extends CoverArtProvider {
         });
     }
 
-    static getReleaseImages(releaseId: string): Promise<DiscogsImages> {
+    private static getReleaseImages(releaseId: string): Promise<DiscogsImages> {
         let respProm = this.apiResponseCache.get(releaseId);
         if (typeof respProm === 'undefined') {
             respProm = this.actuallyGetReleaseImages(releaseId);
@@ -84,7 +84,7 @@ export class DiscogsProvider extends CoverArtProvider {
         return respProm;
     }
 
-    static async actuallyGetReleaseImages(releaseId: string): Promise<DiscogsImages> {
+    private static async actuallyGetReleaseImages(releaseId: string): Promise<DiscogsImages> {
         const graphqlParams = new URLSearchParams({
             operationName: 'ReleaseAllImages',
             variables: JSON.stringify({
@@ -108,7 +108,7 @@ export class DiscogsProvider extends CoverArtProvider {
         return metadata;
     }
 
-    static getFilenameFromUrl(url: URL): string {
+    public static getFilenameFromUrl(url: URL): string {
         // E.g. https://i.discogs.com/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg
         // First part is signature, everything following containing colon is param.
         // Last part is base64-encoded S3 URL, split with slashes.
@@ -122,7 +122,7 @@ export class DiscogsProvider extends CoverArtProvider {
         return s3UrlDecoded.split('/').pop()!;
     }
 
-    static async maximiseImage(url: URL): Promise<URL> {
+    public static async maximiseImage(url: URL): Promise<URL> {
         // Maximising by querying the API for all images of the release, finding
         // the right one, and extracting the "full size" (i.e., 600x600 JPEG) URL.
         const imageName = this.getFilenameFromUrl(url);

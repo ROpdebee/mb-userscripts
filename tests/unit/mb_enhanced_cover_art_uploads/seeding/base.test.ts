@@ -33,7 +33,6 @@ describe('seeder', () => {
 });
 
 describe('seeder factory', () => {
-
     beforeAll(() => {
         registerSeeder(FakeSeeder);
         registerSeeder(SecondFakeSeeder);

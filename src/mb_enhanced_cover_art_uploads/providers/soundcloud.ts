@@ -30,23 +30,24 @@ interface SCHydrationPlaylist extends SCHydration {
 }
 
 export class SoundcloudProvider extends ProviderWithTrackImages {
-    supportedDomains = ['soundcloud.com'];
-    favicon = 'https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico';
-    name = 'Soundcloud';
+    public readonly supportedDomains = ['soundcloud.com'];
+    public readonly favicon = 'https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico';
+    public readonly name = 'Soundcloud';
     // Soundcloud's URL scheme is a bit complicated, so instead of creating overly
     // complex regular expressions, we'll match URLs programmatically. However,
     // we still need to define this field, even though it'll never be used.
-    urlRegex = [];
+    protected readonly urlRegex = [];
 
-    static badArtistIDs = new Set([
+    private static readonly badArtistIDs = new Set([
         'you', 'discover', 'stream', 'upload', 'search',
     ]);
-    static badSubpaths = new Set([
+
+    private static readonly badSubpaths = new Set([
         'likes', 'followers', 'following', 'reposts', 'albums', 'tracks',
         'popular-tracks', 'comments', 'sets', 'recommended',
     ]);
 
-    override supportsUrl(url: URL): boolean {
+    public override supportsUrl(url: URL): boolean {
         const [artistId, ...pathParts] = url.pathname
             .trim()
             // Remove leading slash
@@ -55,14 +56,14 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             .replace(/\/$/, '')
             .split('/');
 
-        return (!!pathParts.length
+        return (pathParts.length > 0
             && !SoundcloudProvider.badArtistIDs.has(artistId)
             // artist/likes, artist/track/recommended, artist/sets, ...
             // but not artist/sets/setname!
             && !SoundcloudProvider.badSubpaths.has(urlBasename(url)));
     }
 
-    override extractId(url: URL): string | undefined {
+    public override extractId(url: URL): string | undefined {
         // We'll use the full path as the ID. This will allow us to distinguish
         // between sets and single tracks, artists, etc.
         // We should've filtered out all bad URLs already.
@@ -72,7 +73,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         return url.pathname.slice(1);  // Remove leading slash
     }
 
-    async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
+    public async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
         const pageContent = await this.fetchPage(url);
         const metadata = this.extractMetadataFromJS(pageContent)
             ?.find((data) => ['sound', 'playlist'].includes(data.hydratable));
@@ -129,6 +130,6 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             }));
         const mergedTrackCovers = await this.mergeTrackImages(trackCovers, metadata.data.artwork_url, true);
 
-        return covers.concat(mergedTrackCovers);
+        return [...covers, ...mergedTrackCovers];
     }
 }

@@ -5,11 +5,12 @@ import type { LoggingSink } from './sink';
 import css from './guiSink.scss';
 
 export class GuiSink implements LoggingSink {
-    readonly rootElement: HTMLElement;
+    // public so that users of the GUI sink can add the container to the page.
+    public readonly rootElement: HTMLElement;
     private persistentMessages: HTMLSpanElement[] = [];
     private transientMessages: HTMLSpanElement[] = [];
 
-    constructor() {
+    public constructor() {
         // Inject our custom CSS
         insertStylesheet(css, 'ROpdebee_GUI_Logger');
 
@@ -17,19 +18,15 @@ export class GuiSink implements LoggingSink {
     }
 
     private createMessage(className: string, message: string, exception?: unknown): HTMLSpanElement {
-        let content: string;
-        if (exception && exception instanceof Error) {
-            content = message + ': ' + exception.message;
-        } else {
-            content = message;
-        }
+        const extraMessage = exception instanceof Error ? `: ${exception.message}` : '';
+        const content = message + extraMessage;
 
         return <span className={`msg ${className}`}>{content}</span>;
     }
 
     private addMessage(el: HTMLSpanElement): void {
         this.removeTransientMessages();
-        this.rootElement.appendChild(el);
+        this.rootElement.append(el);
         this.rootElement.style.display = 'block';
     }
 
@@ -50,26 +47,26 @@ export class GuiSink implements LoggingSink {
         this.transientMessages.push(el);
     }
 
-    onLog(message: string): void {
+    public onLog(message: string): void {
         this.addTransientMessage(this.createMessage('info', message));
     }
 
-    onInfo = this.onLog.bind(this);
+    public readonly onInfo = this.onLog.bind(this);
 
-    onSuccess(message: string): void {
+    public onSuccess(message: string): void {
         this.addTransientMessage(this.createMessage('success', message));
     }
 
-    onWarn(message: string, exception?: unknown): void {
+    public onWarn(message: string, exception?: unknown): void {
         this.addPersistentMessage(this.createMessage('warning', message, exception));
     }
 
-    onError(message: string, exception?: unknown): void {
+    public onError(message: string, exception?: unknown): void {
         this.addPersistentMessage(this.createMessage('error', message, exception));
     }
 
-    clearAllLater(): void {
-        this.transientMessages = this.transientMessages.concat(this.persistentMessages);
+    public clearAllLater(): void {
+        this.transientMessages = [...this.transientMessages, ...this.persistentMessages];
         this.persistentMessages = [];
     }
 }

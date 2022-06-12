@@ -1,5 +1,5 @@
-import fs from 'fs/promises';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 import conventionalCommitsParser from 'conventional-commits-parser';
 
@@ -67,9 +67,9 @@ async function renderChangelog(changelogPath: string, changelogEntry: string): P
 async function readChangelog(changelogPath: string): Promise<string> {
     try {
         return await fs.readFile(changelogPath, {
-            encoding: 'utf-8',
+            encoding: 'utf8',
         });
-    } catch (e) {
+    } catch (err) {
         // Changelog doesn't exist yet
         return '';
     }
@@ -84,11 +84,11 @@ interface ChangelogEntry {
 
 export async function parseChangelogEntries(changelogPath: string): Promise<ChangelogEntry[]> {
     const contents = await readChangelog(changelogPath);
-    return filterNonNull(contents.split('\n').map(parseChangelogEntry));
+    return filterNonNull(contents.split('\n').map((line) => parseChangelogEntry(line)));
 }
 
 function parseChangelogEntry(line: string): ChangelogEntry | null {
-    const re = /- \*\*([\d.]+)\*\*: ([\w\s]+): (.+?) \(\[#(\d+)\]\(.+\)\)/;
+    const re = /- \*\*([\d.]+)\*\*: ([\w\s]+): (.+?) \(\[#(\d+)]\(.+\)\)/;
     const match = line.match(re);
     if (match === null) {
         // Malformed
