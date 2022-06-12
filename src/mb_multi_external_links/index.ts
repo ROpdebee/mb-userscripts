@@ -51,7 +51,7 @@ const Patcher = {
             // onchange should have removed the other URLs and queued them in the urlQueue.
             originalOnBlur(index, isDupe, event, urlIndex, canMerge);
 
-            // Past each link in the URL queue one-by-one.
+            // Paste each link in the URL queue one-by-one.
             submitUrls(editor, this.urlQueue);
             this.urlQueue = [];
         };
@@ -150,6 +150,7 @@ function onIframeAdded(iframe: HTMLIFrameElement): void {
 
     function runInIframe(): void {
         run(iframeWindow!)
+            // TODO: Replace this by `logFailure`
             .catch((err) => {
                 LOGGER.error('Something went wrong', err);
             });
