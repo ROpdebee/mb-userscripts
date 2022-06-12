@@ -159,6 +159,11 @@ describe('vgmdb provider', () => {
                 types: [ArtworkTypeIDs.Front],
                 comment: '',
             }],
+        }, {
+            desc: 'release without any cover or picture',
+            url: 'https://vgmdb.net/album/111880',
+            numImages: 0,
+            expectedImages: [],
         }];
 
         const extractionFailedCases = [{
