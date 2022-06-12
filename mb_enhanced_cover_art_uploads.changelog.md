@@ -1,3 +1,4 @@
+- **2022.6.12.4**: Internal changes: migrate "MB: Display CAA image dimensions" to TypeScript ([#451](https://github.com/ROpdebee/mb-userscripts/pull/451))
 - **2022.6.12.3**: Bug fix: support vgmdb releases without covers ([#474](https://github.com/ROpdebee/mb-userscripts/pull/474))
 - **2022.6.12.2**: Bug fix: drop images without jQuery ([#472](https://github.com/ROpdebee/mb-userscripts/pull/472))
 - **2022.6.12**: Internal changes: more linting and refactoring ([#464](https://github.com/ROpdebee/mb-userscripts/pull/464))
