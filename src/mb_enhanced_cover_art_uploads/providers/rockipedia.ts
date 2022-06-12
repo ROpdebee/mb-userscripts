@@ -8,12 +8,12 @@ import { CoverArtProvider } from './base';
 
 // There's an API, but it requires an API key.
 export class RockipediaProvider extends CoverArtProvider {
-    supportedDomains = ['rockipedia.no'];
-    favicon = 'https://www.rockipedia.no/wp-content/themes/rockipedia/img/favicon.ico';
-    name = 'Rockipedia';
-    urlRegex = /utgivelser\/.+?-(\d+)/;
+    public readonly supportedDomains = ['rockipedia.no'];
+    public readonly favicon = 'https://www.rockipedia.no/wp-content/themes/rockipedia/img/favicon.ico';
+    public readonly name = 'Rockipedia';
+    protected readonly urlRegex = /utgivelser\/.+?-(\d+)/;
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         const id = this.extractId(url);
         assertDefined(id);
         const imageBrowserUrl = new URL(`https://www.rockipedia.no/?imagebrowser=true&t=album&id=${id}`);
@@ -23,9 +23,9 @@ export class RockipediaProvider extends CoverArtProvider {
 
         const coverElements = qsa<HTMLLIElement>('li.royalSlide', imageBrowserDoc);
         return filterNonNull(coverElements.map((coverElement) => {
-            const coverUrl = coverElement.getAttribute('data-src');
+            const coverUrl = coverElement.dataset.src;
             // istanbul ignore if: Should not happen
-            if (coverUrl === null) {
+            if (!coverUrl) {
                 LOGGER.warn(`Could not extract a cover for Rockipedia release ${url}: Unexpected null src`);
                 return null;
             }
