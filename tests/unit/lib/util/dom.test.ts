@@ -1,5 +1,5 @@
 import { AssertionError } from '@lib/util/assert';
-import { onDocumentLoaded, parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
+import { onDocumentLoaded, onWindowLoaded, parseDOM, qs, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
 describe('qs', () => {
     it('selects from the document by default', () => {
@@ -121,5 +121,108 @@ describe('callback on document loaded', () => {
         document.dispatchEvent(new Event('DOMContentLoaded'));
 
         expect(cb).toHaveBeenCalledOnce();
+    });
+});
+
+describe('callback on window loaded', () => {
+    const cb = jest.fn();
+
+    afterEach(() => {
+        cb.mockReset();
+    });
+
+    function runTests(windowInstance?: Window): void {
+        it('does not fire if the window is not loaded', () => {
+            jest.spyOn(windowInstance?.document ?? document, 'readyState', 'get').mockReturnValue('interactive');
+            const cb = jest.fn();
+            onWindowLoaded(cb, windowInstance);
+
+            expect(cb).not.toHaveBeenCalled();
+        });
+
+        it('fires if the window was already loaded', () => {
+            jest.spyOn(windowInstance?.document ?? document, 'readyState', 'get').mockReturnValue('complete');
+            const cb = jest.fn();
+            onWindowLoaded(cb, windowInstance);
+
+            expect(cb).toHaveBeenCalledOnce();
+        });
+
+        it('fires after the window was loaded', () => {
+            jest.spyOn(windowInstance?.document ?? document, 'readyState', 'get').mockReturnValue('interactive');
+            const cb = jest.fn();
+            onWindowLoaded(cb, windowInstance);
+
+            expect(cb).not.toHaveBeenCalled();
+
+            (windowInstance ?? window).dispatchEvent(new Event('load'));
+
+            expect(cb).toHaveBeenCalledOnce();
+        });
+    }
+
+    describe('with main window', () => {
+        // eslint-disable-next-line jest/require-hook
+        runTests();
+    });
+
+    describe('with custom window', () => {
+        const customWindow = {
+            eventListener: null as (() => void) | null,
+            document: {
+                get readyState(): string {
+                    return 'uninitialized';
+                },
+            },
+            addEventListener(evt: string, listener: () => void): void {
+                if (evt === 'load') this.eventListener = listener;
+            },
+            dispatchEvent(evt: Event): void {
+                if (evt.type === 'load') {
+                    this.eventListener?.();
+                }
+            },
+        };
+
+        // eslint-disable-next-line jest/require-hook
+        runTests(customWindow as unknown as Window);
+    });
+});
+
+describe('setting input value', () => {
+    // These tests are a bit dumb, and this should really be E2E tested instead.
+    // The whole purpose of this function is to test setting values of inputs
+    // controlled by React, but React is of course not running in the test session.
+    const domContent = '<html><body><input type="value" /></body></html>';
+
+    it('sets input value', () => {
+        const dom = parseDOM(domContent, 'https://example.com');
+        const input = qs<HTMLInputElement>('input', dom);
+        setInputValue(input, 'test123');
+
+        expect(input.value).toBe('test123');
+    });
+
+    it('dispatches event if wanted', () => {
+        const dom = parseDOM(domContent, 'https://example.com');
+        const input = qs<HTMLInputElement>('input', dom);
+        const handler = jest.fn();
+        input.addEventListener('input', handler);
+        setInputValue(input, 'test123', true);
+
+        expect(handler).toHaveBeenCalledOnce();
+        expect(handler).toHaveBeenCalledWith(expect.objectContaining({
+            target: input,
+        }));
+    });
+
+    it('does not dispatch event if unwanted', () => {
+        const dom = parseDOM(domContent, 'https://example.com');
+        const input = qs<HTMLInputElement>('input', dom);
+        const handler = jest.fn();
+        input.addEventListener('input', handler);
+        setInputValue(input, 'test123', false);
+
+        expect(handler).not.toHaveBeenCalled();
     });
 });

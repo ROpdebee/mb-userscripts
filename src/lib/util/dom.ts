@@ -47,7 +47,6 @@ export function onDocumentLoaded(listener: () => void): void {
     }
 }
 
-// istanbul ignore next: TODO: Test
 export function onWindowLoaded(listener: () => void, windowInstance: Window = window): void {
     if (windowInstance.document.readyState === 'complete') {
         listener();
@@ -75,7 +74,6 @@ export function parseDOM(html: string, baseUrl: string): Document {
 const nativeInputValueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
 assertDefined(nativeInputValueSetter);
 
-// istanbul ignore next: TODO: Test
 // https://stackoverflow.com/a/46012210
 // Via kellnerd, https://github.com/kellnerd/musicbrainz-bookmarklets/blob/730ed0f96a81ef9bb239ed564f247bd68f84bee3/utils/dom/react.js
 export function setInputValue(input: HTMLInputElement, value: string, dispatchEvent = true): void {
