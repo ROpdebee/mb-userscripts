@@ -47,9 +47,11 @@ const Patcher = {
     urlQueue: [] as string[],
 
     patchOnBlur(editor: ExternalLinks, originalOnBlur: ExternalLinks['handleUrlBlur']): ExternalLinks['handleUrlBlur'] {
-        return (index, isDupe, event, urlIndex, canMerge) => {
+        // Accepting and passing arguments as array to prevent potential problems
+        // when the signature of the patched methods change.
+        return (...args) => {
             // onchange should have removed the other URLs and queued them in the urlQueue.
-            originalOnBlur(index, isDupe, event, urlIndex, canMerge);
+            originalOnBlur(...args);
 
             // Paste each link in the URL queue one-by-one.
             submitUrls(editor, this.urlQueue);
@@ -58,17 +60,31 @@ const Patcher = {
     },
 
     patchOnChange(originalOnBlur: ExternalLinks['handleUrlChange']): ExternalLinks['handleUrlChange'] {
-        return (linkIndexes, urlIndex, rawUrl) => {
+        // Like above, we won't make too many assumptions about the signature
+        // of `onUrlBlur`.
+        return (...args) => {
             // Split the URLs and only feed the first URL into actual handler. This
             // is to prevent it from performing any cleanup or relationship type
             // inference that doesn't make sense.
             // We'll feed the other URLs one-by-one separately later on the blur event.
             // However, we need to "remember" those URLs, as the original handler
             // seems to assign the input value and we'll lose the rest of the URLs.
+            const rawUrl = args[2];
             LOGGER.debug(`onchange received URLs ${rawUrl}`);
-            const splitUrls = rawUrl.trim().split(/\s+/);
-            this.urlQueue = splitUrls.slice(1);
-            originalOnBlur(linkIndexes, urlIndex, splitUrls.length > 0 ? splitUrls[0] : rawUrl);
+            args = [...args]; // Copy, prevent modifying original argument list.
+            try {
+                const splitUrls = rawUrl.trim().split(/\s+/);
+                this.urlQueue = splitUrls.slice(1);
+                // Take care to retain the rest of the arguments, the signature could
+                // change in a server update and we want to avoid feeding the
+                // wrong data.
+                if (splitUrls.length > 1) {
+                    args[2] = splitUrls[0];
+                }
+            } catch (err) {
+                LOGGER.error('Something went wrong. onUrlBlur signature change?', err);
+            }
+            originalOnBlur(...args);
         };
     },
 };
