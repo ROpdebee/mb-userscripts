@@ -11,7 +11,12 @@ function splitDomain(domain: string): string[] {
     if (['org', 'co', 'com'].includes(parts[parts.length - 2])) {
         splitIdx = -3;
     }
-    return parts.slice(0, splitIdx).concat([parts.slice(splitIdx).join('.')]);
+    return [
+        // ['sub', 'domain']
+        ...parts.slice(0, splitIdx),
+        // 'site.com'
+        parts.slice(splitIdx).join('.'),
+    ];
 }
 
 export class DispatchMap<Leaf> {
@@ -57,7 +62,7 @@ export class DispatchMap<Leaf> {
     // different from that of a standard map
     private readonly map: Map<string, Leaf | DispatchMap<Leaf>> = new Map();
 
-    set(domainPattern: string, leaf: Leaf): this {
+    public set(domainPattern: string, leaf: Leaf): this {
         // Don't allow e.g. sub*.domain.com or *.com or domain.* or a.*.c.com.
         const domainParts = splitDomain(domainPattern);
         if (domainPattern === '*'
@@ -66,12 +71,12 @@ export class DispatchMap<Leaf> {
             throw new Error('Invalid pattern: ' + domainPattern);
         }
 
-        this.insert(domainParts.slice().reverse(), leaf);
+        this.insert([...domainParts].reverse(), leaf);
         return this;
     }
 
-    get(domain: string): Leaf | undefined {
-        return this.retrieve(splitDomain(domain).slice().reverse());
+    public get(domain: string): Leaf | undefined {
+        return this.retrieve([...splitDomain(domain)].reverse());
     }
 
     // Workaround for https://github.com/babel/babel/issues/13875
@@ -157,20 +162,13 @@ export class DispatchMap<Leaf> {
     }
 
     private retrieve(keyPath: string[]): Leaf | undefined {
-        let child: Leaf | undefined;
+        const child = (keyPath.length === 1
+            ? this.retrieveLeaf(keyPath[0])
+            : this.retrieveInternal(keyPath));
 
-        if (keyPath.length === 1) {
-            child = this.retrieveLeaf(keyPath[0]);
-        } else {
-            child = this.retrieveInternal(keyPath);
-        }
-
-        if (typeof child === 'undefined') {
-            // Fall back to wildcard if there is one
-            child = this._get('*');
-        }
-        // Could be undefined in case a wildcard doesn't exist, in which case
+        // Fall back to wildcard if there is one
+        // Could still be undefined in case a wildcard doesn't exist, in which case
         // the recursive caller will try a wildcard themselves.
-        return child;
+        return child ?? this._get('*');
     }
 }

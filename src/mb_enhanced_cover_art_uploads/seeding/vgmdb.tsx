@@ -19,7 +19,7 @@ export const VGMdbSeeder: Seeder = {
     supportedDomains: ['vgmdb.net'],
     supportedRegexes: [/\/album\/(\d+)(?:\/|#|\?|$)/],
 
-    insertSeedLinks(): void {
+    async insertSeedLinks(): Promise<void> {
         if (!isLoggedIn()) {
             return;
         }
@@ -33,13 +33,13 @@ export const VGMdbSeeder: Seeder = {
         const releaseIdsProm = getMBReleases();
         const coversProm = extractCovers();
 
-        Promise.all([releaseIdsProm, coversProm])
-            .then(([releaseIds, covers]) => {
-                insertSeedButtons(coverHeading, releaseIds, covers);
-            })
-            .catch((err) => {
-                LOGGER.error('Failed to insert seed links', err);
-            });
+        // Load in parallel
+        try {
+            const [releaseIds, covers] = await Promise.all([releaseIdsProm, coversProm]);
+            insertSeedButtons(coverHeading, releaseIds, covers);
+        } catch (err) {
+            LOGGER.error('Failed to insert seed links', err);
+        }
     },
 };
 
@@ -59,8 +59,8 @@ async function extractCovers(): Promise<VGMdbCovers> {
 
     // Split the extracted covers into public and private, to provide the option
     // to seed only private covers.
-    const publicCoverURLs = new Set((await new VGMdbProvider().findImagesWithApi(new URL(document.location.href)))
-        .map((cover) => cover.url.href));
+    const publicCovers = await new VGMdbProvider().findImagesWithApi(new URL(document.location.href));
+    const publicCoverURLs = new Set(publicCovers.map((cover) => cover.url.href));
     const result: VGMdbCovers = {
         allCovers: covers,
         privateCovers: covers.filter((cover) => !publicCoverURLs.has(cover.url.href)),
@@ -91,11 +91,8 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
         id='ROpdebee_incl_public_checkbox'
         onChange={(evt): void => {
             relIdToAnchors.forEach((a, relId) => {
-                if (evt.currentTarget.checked) {
-                    a.href = seedParamsAll.createSeedURL(relId);
-                } else {
-                    a.href = seedParamsPrivate.createSeedURL(relId);
-                }
+                const seedParams = evt.currentTarget.checked ? seedParamsAll : seedParamsPrivate;
+                a.href = seedParams.createSeedURL(relId);
             });
         }}
     />;
@@ -105,8 +102,8 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
         style={{ cursor: 'help' }}
     >Include publicly accessible covers</label>;
 
-    const containedElements = [inclPublicCheckbox, inclPublicLabel].concat(anchors);
-    if (!anchors.length) {
+    const containedElements = [inclPublicCheckbox, inclPublicLabel, ...anchors];
+    if (anchors.length === 0) {
         containedElements.push(<span style={{ display: 'block'}}>
             This album is not linked to any MusicBrainz releases!
         </span>);

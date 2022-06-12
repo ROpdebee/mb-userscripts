@@ -9,7 +9,7 @@ import type { CoverArt, CoverArtProvider } from './providers/base';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider, getProviderByDomain } from './providers';
 
-interface ImageContents {
+export interface ImageContents {
     requestedUrl: URL;
     fetchedUrl: URL;
     wasRedirected: boolean;
@@ -45,11 +45,11 @@ export class ImageFetcher {
     // so we can later set the image type.
     private lastId = 0;
 
-    constructor() {
+    public constructor() {
         this.doneImages = new Set();
     }
 
-    async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImages> {
+    public async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImages> {
         if (this.urlAlreadyAdded(url)) {
             LOGGER.warn(`${url} has already been added`);
             return {
@@ -73,39 +73,44 @@ export class ImageFetcher {
         };
     }
 
-    async fetchImageFromURL(url: URL, skipMaximisation = false): Promise<FetchedImage | undefined> {
-        // Attempt to maximise the image
-        let fetchResult: ImageContents | null = null;
+    private async fetchMaximisedImage(url: URL): Promise<ImageContents | undefined> {
+        for await (const maxCandidate of getMaximisedCandidates(url)) {
+            const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
+            if (this.urlAlreadyAdded(maxCandidate.url)) {
+                LOGGER.warn(`${maxCandidate.url} has already been added`);
+                return;
+            }
 
-        if (!skipMaximisation) {
-            for await (const maxCandidate of getMaximisedCandidates(url)) {
-                const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
-                if (this.urlAlreadyAdded(maxCandidate.url)) {
-                    LOGGER.warn(`${maxCandidate.url} has already been added`);
-                    return;
+            try {
+                const result = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
+                // IMU might return the same URL as was inputted, no use in logging that.
+                // istanbul ignore next: Logging
+                if (maxCandidate.url.href !== url.href) {
+                    LOGGER.info(`Maximised ${url.href} to ${maxCandidate.url.href}`);
                 }
-
-                try {
-                    fetchResult = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
-                    // IMU might return the same URL as was inputted, no use in logging that.
-                    // istanbul ignore next: Logging
-                    if (maxCandidate.url.href !== url.href) {
-                        LOGGER.info(`Maximised ${url.href} to ${maxCandidate.url.href}`);
-                    }
-                    break;
-                } catch (err) {
-                    // istanbul ignore if: Fine.
-                    if (maxCandidate.likely_broken) continue;
-                    LOGGER.warn(`Skipping maximised candidate ${maxCandidate.url}`, err);
-                }
+                return result;
+            } catch (err) {
+                // istanbul ignore if: Fine.
+                if (maxCandidate.likely_broken) continue;
+                LOGGER.warn(`Skipping maximised candidate ${maxCandidate.url}`, err);
             }
         }
 
         // If we couldn't fetch any maximised images, try the original URL
-        if (!fetchResult) {
-            // Might throw, caller needs to catch
-            fetchResult = await this.fetchImageContents(url, getFilename(url), {});
-        }
+        return this.fetchImageContents(url, getFilename(url), {});;
+    }
+
+    private async fetchImageFromURL(url: URL, skipMaximisation = false): Promise<FetchedImage | undefined> {
+        // Attempt to maximise the image if necessary
+        // Might throw, caller needs to catch
+        const fetchResult = await (
+            skipMaximisation
+                ? this.fetchImageContents(url, getFilename(url), {})
+                : this.fetchMaximisedImage(url)
+        );
+
+        // If result is undefined, the image was already added previously.
+        if (!fetchResult) return;
 
         this.doneImages.add(fetchResult.fetchedUrl.href);
         this.doneImages.add(fetchResult.requestedUrl.href);
@@ -123,7 +128,7 @@ export class ImageFetcher {
         };
     }
 
-    async fetchImagesFromProvider(url: URL, provider: CoverArtProvider, onlyFront: boolean): Promise<FetchedImages> {
+    private async fetchImagesFromProvider(url: URL, provider: CoverArtProvider, onlyFront: boolean): Promise<FetchedImages> {
         LOGGER.info(`Searching for images in ${provider.name} release…`);
 
         // This could throw, assuming caller will catch.
@@ -131,6 +136,7 @@ export class ImageFetcher {
         const finalImages = onlyFront ? this.retainOnlyFront(images) : images;
         const hasMoreImages = onlyFront && images.length !== finalImages.length;
 
+        // eslint-disable-next-line unicorn/explicit-length-check
         LOGGER.info(`Found ${finalImages.length || 'no'} image(s) in ${provider.name} release`);
         // We need to fetch each image sequentially because each one is checked
         // against any previously fetched images, to avoid adding duplicates.
@@ -180,7 +186,7 @@ export class ImageFetcher {
         // multiple front images, return them all (e.g. Bandcamp original and
         // square crop).
         const filtered = images.filter((img) => img.types?.includes(ArtworkTypeIDs.Front));
-        return filtered.length ? filtered : images.slice(0, 1);
+        return filtered.length > 0 ? filtered : images.slice(0, 1);
     }
 
     private createUniqueFilename(filename: string, mimeType: string): string {
@@ -188,7 +194,7 @@ export class ImageFetcher {
         return `${filenameWithoutExt}.${this.lastId++}.${mimeType.split('/')[1]}`;
     }
 
-    async fetchImageContents(url: URL, fileName: string, headers: Record<string, string>): Promise<ImageContents> {
+    private async fetchImageContents(url: URL, fileName: string, headers: Record<string, string>): Promise<ImageContents> {
         const resp = await gmxhr(url, {
             responseType: 'blob',
             headers: headers,
@@ -213,6 +219,7 @@ export class ImageFetcher {
             // could still point to an actual image.
             const candidateProvider = getProviderByDomain(url);
             if (typeof candidateProvider !== 'undefined') {
+                // eslint-disable-next-line unicorn/prefer-type-error -- Not a type error.
                 throw new Error(`This page is not (yet) supported by the ${candidateProvider.name} provider, are you sure this page corresponds to a MusicBrainz release?`);
             }
 
@@ -246,15 +253,26 @@ export class ImageFetcher {
                 const uint32view = new Uint32Array(reader.result as ArrayBuffer);
                 if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
                     resolve({ mimeType: 'image/jpeg', isImage: true });
-                } else if (uint32view[0] === 0x38464947) {
-                    resolve({ mimeType: 'image/gif', isImage: true });
-                } else if (uint32view[0] === 0x474E5089) {
-                    resolve({ mimeType: 'image/png', isImage: true });
-                } else if (uint32view[0] === 0x46445025) {
-                    resolve({ mimeType: 'application/pdf', isImage: true });
                 } else {
-                    const actualMimeType = resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)?.[1];
-                    resolve({ mimeType: actualMimeType, isImage: false });
+                    switch (uint32view[0]) {
+                    case 0x38464947:
+                        resolve({ mimeType: 'image/gif', isImage: true });
+                        break;
+
+                    case 0x474E5089:
+                        resolve({ mimeType: 'image/png', isImage: true });
+                        break;
+
+                    case 0x46445025:
+                        resolve({ mimeType: 'application/pdf', isImage: true });
+                        break;
+
+                    default:
+                        resolve({
+                            mimeType: resp.responseHeaders.match(/content-type:\s*([^;\s]+)/i)?.[1],
+                            isImage: false,
+                        });
+                    }
                 }
             });
             reader.readAsArrayBuffer(rawFile.slice(0, 4));

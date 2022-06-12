@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import type { PollyConfig } from '@pollyjs/core';
 import type { RequestInfo, RequestInit, Response } from 'node-fetch';
@@ -19,7 +19,7 @@ export function setupPolly(overrideOptions?: PollyConfig): Context {
                 recordingsDir: path.resolve('.', 'tests', 'test-data', '__recordings__'),
             },
         },
-        ...overrideOptions ?? {},
+        ...overrideOptions,
     });
 }
 

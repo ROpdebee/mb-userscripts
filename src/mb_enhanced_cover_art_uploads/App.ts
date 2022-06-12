@@ -21,9 +21,9 @@ export class App {
     private readonly ui: InputForm;
     private readonly urlsInProgress: Set<string>;
     private readonly loggingSink = new GuiSink();
-    onlyFront = false;
+    public onlyFront = false;
 
-    constructor() {
+    public constructor() {
         this.note = EditNote.withFooterFromGMInfo();
         this.fetcher = new ImageFetcher();
         this.urlsInProgress = new Set();
@@ -34,7 +34,7 @@ export class App {
         this.ui = new InputForm(this);
     }
 
-    async processURL(url: URL): Promise<void> {
+    public async processURL(url: URL): Promise<void> {
         // Don't process a URL if we're already doing so
         if (this.urlsInProgress.has(url.href)) {
             return;
@@ -48,7 +48,7 @@ export class App {
         }
     }
 
-    clearLogLater(): void {
+    public clearLogLater(): void {
         this.loggingSink.clearAllLater();
     }
 
@@ -69,12 +69,12 @@ export class App {
         }
 
         fillEditNote([fetchResult], '', this.note);
-        if (fetchResult.images.length) {
+        if (fetchResult.images.length > 0) {
             LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);
         }
     }
 
-    async processSeedingParameters(): Promise<void> {
+    public async processSeedingParameters(): Promise<void> {
         const params = SeedParameters.decode(new URLSearchParams(document.location.search));
         // Although this is very similar to `processURL`, we may have to fetch
         // and enqueue multiple images. We want to fetch images in parallel, but
@@ -108,8 +108,8 @@ export class App {
         this.clearLogLater();
     }
 
-    async addImportButtons(): Promise<void> {
-        const mbid = window.location.href.match(/musicbrainz\.org\/release\/([a-f0-9-]+)\//)?.[1];
+    public async addImportButtons(): Promise<void> {
+        const mbid = window.location.href.match(/musicbrainz\.org\/release\/([a-f\d-]+)\//)?.[1];
         assertHasValue(mbid);
         const attachedURLs = await getURLsForRelease(mbid, {
             excludeEnded: true,
@@ -117,11 +117,12 @@ export class App {
         });
         const supportedURLs = attachedURLs.filter((url) => getProvider(url)?.allowButtons);
 
-        if (!supportedURLs.length) return;
+        if (supportedURLs.length === 0) return;
 
         // Helper to ensure we don't silently ignore promise rejections in
         // `this.processURL`, as the callback given to `ui.addImportButton`
         // expects a synchronous function.
+        // eslint-disable-next-line unicorn/consistent-function-scoping -- Requires access to `this`.
         const syncProcessURL = (url: URL): void => {
             this.processURL(url)
                 .catch((err) => {

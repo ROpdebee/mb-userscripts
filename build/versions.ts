@@ -1,5 +1,5 @@
-import fs from 'fs/promises';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 import simpleGit from 'simple-git';
 
@@ -11,7 +11,7 @@ export function getVersionForToday(): string {
 }
 
 export function extractVersion(fileContent: string): string {
-    const version = fileContent.match(/\/\/\s*@version\s+([^\s]+)/)?.[1];
+    const version = fileContent.match(/\/\/\s*@version\s+(\S+)/)?.[1];
     if (!version) {
         throw new Error('Could not extract version of existing built script!');
     }
@@ -43,7 +43,7 @@ export async function getPreviousReleaseVersion(userscriptName: string, buildDir
     const distMetaFile = path.resolve(buildDir, userscriptName + '.meta.js');
     let metaContent: string;
     try {
-        metaContent = await fs.readFile(distMetaFile, 'utf-8');
+        metaContent = await fs.readFile(distMetaFile, 'utf8');
     } catch (err) {
         if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
             // File doesn't exist -> First build, version is undefined.

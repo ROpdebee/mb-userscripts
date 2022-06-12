@@ -2,6 +2,11 @@ const restrictedGlobals = require('confusing-browser-globals');
 // For eslint-plugin-simple-import-sort
 const builtinModulesJoined = require('module').builtinModules.join('|');
 
+// eslint-config-adjunct is logging stuff to the console, which is breaking
+// LSP-eslint in my IDE. This turns off the logging. Need to do it here since
+// the LSP plugin doesn't support setting env variables for the command, it seems.
+process.env.NO_LOGS = 'true';
+
 module.exports = {
     env: {
         node: true,
@@ -13,12 +18,24 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:eslint-comments/recommended',
+        'adjunct',
     ],
     plugins: [
         '@typescript-eslint',
         '@delagen/deprecation',
         'simple-import-sort',
+        'disable',
     ],
+    processor: 'disable/disable',
+    settings: {
+        'disable/plugins': [
+            // scanjs-rules is deprecated and its warnings are a bit stupid.
+            'scanjs-rules',
+            // Too many false positives
+            'security',
+            'no-secrets',
+        ],
+    },
     parserOptions: {
         ecmaVersion: 12,
         sourceType: 'module',
@@ -31,6 +48,10 @@ module.exports = {
         'quotes': ['error', 'single', {
             avoidEscape: true
         }],
+        'newline-per-chained-call': 'warn',
+        'padded-blocks': ['warn', 'never'],
+        'no-multiple-empty-lines': 'warn',
+
         '@typescript-eslint/semi': ['error', 'always'],
         '@typescript-eslint/comma-spacing': 'error',
         'arrow-parens': ['error', 'always'],
@@ -47,7 +68,7 @@ module.exports = {
                 // Side-effect imports
                 ['^\\u0000'],
                 // Node builtin modules
-                [`^(${builtinModulesJoined})(/.*)?\\u0000$`, `^(${builtinModulesJoined})(/|$)`],
+                [`^(?:node:)?(${builtinModulesJoined})(/.*)?\\u0000$`, `^(?:node:)?(${builtinModulesJoined})(/|$)`],
                 // 3rd party packages. Need a negative lookahead in the first
                 // to prevent type-only imports from our mapped paths from matching.
                 // Doesn't matter for the second one, since simple-import-sort
@@ -93,6 +114,10 @@ module.exports = {
             disallowTypeAnnotations: true,
         }],
         '@typescript-eslint/explicit-function-return-type': 'error',
+        '@typescript-eslint/explicit-member-accessibility': 'error',
+        '@typescript-eslint/lines-between-class-members': ['warn', 'always', {
+            exceptAfterSingleLine: true,
+        }],
         '@typescript-eslint/member-delimiter-style': 'error',
         '@typescript-eslint/no-base-to-string': 'error',
         '@typescript-eslint/no-confusing-void-expression': 'error',
@@ -103,6 +128,7 @@ module.exports = {
         '@typescript-eslint/no-namespace': ['error', {
             allowDeclarations: true
         }],
+        '@typescript-eslint/no-redundant-type-constituents': 'error',
         '@typescript-eslint/no-shadow': 'error',
         '@typescript-eslint/no-throw-literal': 'error',
         '@typescript-eslint/no-unnecessary-condition': 'error',
@@ -132,6 +158,22 @@ module.exports = {
         '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
         '@typescript-eslint/unified-signatures': 'error',
 
+        'unicorn/better-regex': ['warn', {
+            sortCharacterClasses: false,
+        }],
+        'unicorn/catch-error-name': ['warn', {
+            name: 'err',
+        }],
+        'unicorn/numeric-separators-style': ['warn', {
+            hexadecimal: {
+                minimumDigits: 0,
+                groupLength: 8,
+            },
+        }],
+        'promise/catch-or-return': ['warn', {
+            allowFinally: true,
+        }],
+
         // Disable some recommended rules
 
         // Disabled because we rarely use non-null assertions, and if we do,
@@ -148,8 +190,16 @@ module.exports = {
         // TODO: Enable these.
         // We want this one to be enabled, but it'll produce a lot of warnings,
         // so leaving it as a placeholder to enable at the end.
-        '@typescript-eslint/explicit-member-accessibility': 'off',
         '@typescript-eslint/prefer-readonly-parameter-types': 'off',
+
+        // All places where this warned were either led to type errors or were
+        // places where in my opinion, an explicit `undefined` reduced confusion.
+        'unicorn/no-useless-undefined': 'off',
+
+        'unicorn/no-process-exit': 'off',
+
+        // Already included in unicorn/better-regex and doesn't allow disabling the sorting
+        'optimize-regex/optimize-regex': 'off',
     },
     overrides: [{
             // Override per eslint-plugin-jest documentation.
@@ -159,6 +209,14 @@ module.exports = {
                 'plugin:jest/all',
                 'plugin:jest-formatting/strict',
             ],
+            settings: {
+                'disable/plugins': [
+                    'no-unsanitized',
+                    'scanjs-rules',
+                    'security',
+                    'no-secrets',
+                ],
+            },
             rules: {
                 '@typescript-eslint/unbound-method': 'off',
                 'jest/unbound-method': 'error',
@@ -174,6 +232,7 @@ module.exports = {
             files: ['*.d.ts'],
             rules: {
                 '@typescript-eslint/init-declarations': 'off',
+                'unicorn/no-static-only-class': 'off',
             },
         }],
 };

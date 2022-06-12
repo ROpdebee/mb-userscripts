@@ -18,26 +18,26 @@ export abstract class CoverArtProvider {
      * from one with `*.example.xyz`. Similarly, for domain `example.com`, a
      * provider with the pattern `example.com` wins from one with `*.example.com`.
      */
-    abstract readonly supportedDomains: string[];
+    public abstract readonly supportedDomains: string[];
     /**
      * URL of the provider's favicon, for use in import buttons.
      */
-    abstract get favicon(): string | Promise<string>;
+    public abstract get favicon(): string | Promise<string>;
     /**
      * Provider name, used in import buttons.
      */
-    abstract readonly name: string;
+    public abstract readonly name: string;
 
     /**
      * Regular expression used to both match supported URLs and extract ID
      * from the URL. Matched against the full URL.
      */
-    abstract readonly urlRegex: RegExp | RegExp[];
+    protected abstract readonly urlRegex: RegExp | RegExp[];
 
     /**
      * Set to false to disallow placing provider buttons on cover art pages.
      */
-    readonly allowButtons: boolean = true;
+    public readonly allowButtons: boolean = true;
 
     /**
      * Find the provider's images.
@@ -46,14 +46,14 @@ export abstract class CoverArtProvider {
      * @param      {boolean}    onlyFront     True if we'll only enqueue the front image, can be used to skip expensive lookups. Providers can still return all images, they'll be filtered later.
      * @return     {Promise<CoverArt[]>}  List of cover arts that should be imported.
      */
-    abstract findImages(url: URL, onlyFront: boolean): Promise<CoverArt[]>;
+    public abstract findImages(url: URL, onlyFront: boolean): Promise<CoverArt[]>;
 
     /**
      * Postprocess the fetched images. By default, does nothing, however,
      * subclasses can override this to e.g. filter out or merge images after
      * they've been fetched.
      */
-    async postprocessImages(images: FetchedImage[]): Promise<FetchedImage[]> {
+    public async postprocessImages(images: FetchedImage[]): Promise<FetchedImage[]> {
         return images;
     }
 
@@ -61,7 +61,7 @@ export abstract class CoverArtProvider {
      * Returns a clean version of the given URL.
      * This version should be used to match against `urlRegex`.
      */
-    cleanUrl(url: URL): string {
+    protected cleanUrl(url: URL): string {
         return url.host + url.pathname;
     }
 
@@ -71,7 +71,7 @@ export abstract class CoverArtProvider {
      * @param      {URL}    url     The provider URL.
      * @return     {boolean}  Whether images can be extracted for this URL.
      */
-    supportsUrl(url: URL): boolean {
+    public supportsUrl(url: URL): boolean {
         if (Array.isArray(this.urlRegex)) {
             return this.urlRegex.some((regex) => regex.test(this.cleanUrl(url)));
         }
@@ -81,7 +81,7 @@ export abstract class CoverArtProvider {
     /**
      * Extract ID from a release URL.
      */
-    extractId(url: URL): string | undefined {
+    public extractId(url: URL): string | undefined {
         if (!Array.isArray(this.urlRegex)) {
             return this.cleanUrl(url).match(this.urlRegex)?.[1];
         }
@@ -95,12 +95,12 @@ export abstract class CoverArtProvider {
      * Check whether a redirect is safe, i.e. both URLs point towards the same
      * release.
      */
-    isSafeRedirect(originalUrl: URL, redirectedUrl: URL): boolean {
+    protected isSafeRedirect(originalUrl: URL, redirectedUrl: URL): boolean {
         const id = this.extractId(originalUrl);
         return !!id && id === this.extractId(redirectedUrl);
     }
 
-    async fetchPage(url: URL): Promise<string> {
+    protected async fetchPage(url: URL): Promise<string> {
         const resp = await gmxhr(url);
         if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
             throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${resp.finalUrl}, which may be a different release. If this redirected URL is correct, please retry with ${resp.finalUrl} directly.`);
@@ -149,7 +149,7 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
         return false;
     }
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         // Find an image link from a HTML head meta property, maxurl will
         // maximize it for us. Don't want to use the API because of OAuth.
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
@@ -204,7 +204,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         // Second pass: Thumbnail content
         // We do not need to deduplicate by content if there's only one track
         // image and there's no main URL to compare to.
-        if (byContent && groupedImages.size && !(groupedImages.size === 1 && !mainUrl)) {
+        if (byContent && groupedImages.size > 0 && !(groupedImages.size === 1 && !mainUrl)) {
             LOGGER.info('Deduplicating track images by content, this may take a while…');
 
             // Compute unique digests of all thumbnail images. We'll use these
@@ -253,7 +253,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
     private createTrackImageComment(trackNumbers: Array<string | undefined>): string {
         const definedTrackNumbers = filterNonNull(trackNumbers);
-        if (!definedTrackNumbers.length) return '';
+        if (definedTrackNumbers.length === 0) return '';
 
         const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
         // Use a collated sort here to make sure we keep numeric ordering.

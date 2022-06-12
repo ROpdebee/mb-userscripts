@@ -1,5 +1,5 @@
-import fs from 'fs/promises';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 import simpleGit from 'simple-git';
 
@@ -76,8 +76,8 @@ async function scanAndPush(): Promise<void> {
         return;
     }
 
-    const userscriptDirs = (await fs.readdir('./src'))
-        .filter((name) => name.startsWith('mb_'));
+    const srcContents = await fs.readdir('./src');
+    const userscriptDirs = srcContents.filter((name) => name.startsWith('mb_'));
 
     const updates: DeployedScript[] = [];
     for (const scriptName of userscriptDirs) {
@@ -85,7 +85,7 @@ async function scanAndPush(): Promise<void> {
         if (update) updates.push(update);
     }
 
-    if (updates.length) {
+    if (updates.length > 0) {
         if (!process.env.SKIP_PUSH) {
             console.log('Pushing…');
             await gitDist.push();

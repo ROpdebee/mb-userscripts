@@ -5,16 +5,17 @@ import { AmazonProvider } from './amazon';
 import { CoverArtProvider } from './base';
 
 export class AmazonMusicProvider extends CoverArtProvider {
-    supportedDomains = [
+    public readonly supportedDomains = [
         'music.amazon.ca', 'music.amazon.de', 'music.amazon.es',
         'music.amazon.fr', 'music.amazon.in', 'music.amazon.it',
         'music.amazon.co.jp', 'music.amazon.co.uk', 'music.amazon.com',
         'music.amazon.com.au', 'music.amazon.com.br', 'music.amazon.com.mx'];
-    favicon = 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png';
-    name = 'Amazon Music';
-    urlRegex = /\/albums\/([A-Za-z0-9]{10})(?:\/|$)/;
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public readonly favicon = 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png';
+    public readonly name = 'Amazon Music';
+    protected readonly urlRegex = /\/albums\/([A-Za-z\d]{10})(?:\/|$)/;
+
+    public async findImages(url: URL): Promise<CoverArt[]> {
         // Translate Amazon Music to Amazon product links. The cover art should
         // be the same, but extracting the cover art from Amazon Music requires
         // complex API requests with CSRF tokens, whereas product pages are much

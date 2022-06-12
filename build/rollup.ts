@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput } from 'rollup';
@@ -186,10 +186,12 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
  *                        written.
  */
 async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<void> {
-    const fileMapping = passOneResult.output.reduce<Record<string, string>>((acc, curr) => {
-        if (curr.type === 'chunk') acc[curr.fileName] = curr.code;
-        return acc;
-    }, {});
+    const fileMapping: Record<string, string> = {};
+    for (const outputChunk of passOneResult.output) {
+        if (outputChunk.type === 'chunk') {
+            fileMapping[outputChunk.fileName] = outputChunk.code;
+        }
+    }
 
     const bundle = await rollup({
         input: 'index.js',
@@ -226,16 +228,19 @@ function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
     if (chunk.name === BUILTIN_LIB_CHUNK_NAME) return '/* minified: lib */';
 
     const bundledModules = Object.keys(chunk.modules)
-        .filter((module) => !module.startsWith('\x00'))
+        .filter((module) => !module.startsWith('\u0000'))
         .map((module) => path.relative('./node_modules', module))
-        .map((module) => module.split(path.sep).slice(0, module.startsWith('@') ? 2 : 1).join('/'));
+        .map((module) => module
+            .split(path.sep)
+            .slice(0, module.startsWith('@') ? 2 : 1)
+            .join('/'));
 
     const uniqueBundledModules = [...new Set(bundledModules)];
-    if ('\x00rollupPluginBabelHelpers.js' in chunk.modules) {
+    if ('\u0000rollupPluginBabelHelpers.js' in chunk.modules) {
         uniqueBundledModules.unshift('babel helpers');
     }
 
-    if (!uniqueBundledModules.length) return '';
+    if (uniqueBundledModules.length === 0) return '';
 
     return `/* minified: ${uniqueBundledModules.join(', ')} */`;
 }

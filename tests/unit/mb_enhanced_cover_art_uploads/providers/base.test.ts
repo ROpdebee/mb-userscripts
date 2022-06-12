@@ -23,13 +23,27 @@ afterEach(() => {
 
 describe('cover art providers', () => {
     class FakeProvider extends CoverArtProvider {
-        name = 'fake';
-        favicon = '';
-        supportedDomains = ['example.com'];
-        get urlRegex(): RegExp | RegExp[] {
+        public readonly name = 'fake';
+        public readonly favicon = '';
+        public readonly supportedDomains = ['example.com'];
+        public get urlRegex(): RegExp | RegExp[] {
             return /example\.com\/(.+)/;
         }
-        findImages = findImagesMock;
+
+        public readonly findImages = findImagesMock;
+
+        // Hoist some protected methods to public to facilitate testing
+        public override cleanUrl(url: URL): string {
+            return super.cleanUrl(url);
+        }
+
+        public override fetchPage(url: URL): Promise<string> {
+            return super.fetchPage(url);
+        }
+
+        public override isSafeRedirect(originalUrl: URL, redirectedUrl: URL): boolean {
+            return super.isSafeRedirect(originalUrl, redirectedUrl);
+        }
     }
     const fakeProvider = new FakeProvider();
 
@@ -163,10 +177,14 @@ describe('cover art providers', () => {
 
 describe('providers using head meta element', () => {
     class FakeProvider extends HeadMetaPropertyProvider {
-        name = 'fake';
-        favicon = '';
-        supportedDomains = ['example.com'];
-        urlRegex = /example\.com\/(.+)/;
+        public readonly name = 'fake';
+        public readonly favicon = '';
+        public readonly supportedDomains = ['example.com'];
+        protected readonly urlRegex = /example\.com\/(.+)/;
+
+        public override fetchPage(url: URL): Promise<string> {
+            return super.fetchPage(url);
+        }
     }
     const fakeProvider = new FakeProvider();
     const mockFetchPage = jest.spyOn(fakeProvider, 'fetchPage');
@@ -195,14 +213,14 @@ describe('providers using head meta element', () => {
 
 describe('providers with track images', () => {
     class FakeProvider extends ProviderWithTrackImages {
-        name = 'fake';
-        favicon = '';
-        supportedDomains = ['example.com'];
-        urlRegex = /example\.com\/(.+)/;
-        findImages = findImagesMock;
+        public readonly name = 'fake';
+        public readonly favicon = '';
+        public readonly supportedDomains = ['example.com'];
+        protected readonly urlRegex = /example\.com\/(.+)/;
+        public readonly findImages = findImagesMock;
         // Hoist the function to be public instead of protected, so we can
         // call it directly in the tests.
-        override mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string, byContent = false): Promise<CoverArt[]> {
+        public override mergeTrackImages(trackImages: Array<ParsedTrackImage | undefined>, mainUrl: string, byContent = false): Promise<CoverArt[]> {
             return super.mergeTrackImages(trackImages, mainUrl, byContent);
         }
     }
@@ -291,7 +309,8 @@ describe('providers with track images', () => {
                 when(mockXhr)
                     // Use specific blob for the main image
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                    .calledWith('https://example.com/x', expect.anything()).mockResolvedValue(createXhrResponse({
+                    .calledWith('https://example.com/x', expect.anything())
+                    .mockResolvedValue(createXhrResponse({
                         response: createBlob(),
                     }))
                     // Always use the same image for any other request, but this

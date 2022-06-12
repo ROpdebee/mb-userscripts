@@ -34,12 +34,12 @@ export /* for tests */ function mapJacketType(caption: string): MappedArtwork {
     }
 
     const types = [];
-    const keywords = caption.split(/(?:,|\s|and|&)/i);
+    const keywords = caption.split(/,|\s|and|&/i);
     const faceKeywords = ['front', 'back', 'spine'];
     const [hasFront, hasBack, hasSpine] = faceKeywords
-        .map((faceKw) => !!keywords
+        .map((faceKw) => keywords
             // Case-insensitive .includes()
-            .find((kw) => kw.toLowerCase() === faceKw.toLowerCase()));
+            .some((kw) => kw.toLowerCase() === faceKw.toLowerCase()));
 
     if (hasFront) types.push(ArtworkTypeIDs.Front);
     if (hasBack) types.push(ArtworkTypeIDs.Back);
@@ -143,12 +143,12 @@ export function convertCaptions(cover: { url: string; caption: string }): CoverA
 }
 
 export class VGMdbProvider extends CoverArtProvider {
-    supportedDomains = ['vgmdb.net'];
-    favicon = 'https://vgmdb.net/favicon.ico';
-    name = 'VGMdb';
-    urlRegex = /\/album\/(\d+)(?:\/|$)/;
+    public readonly supportedDomains = ['vgmdb.net'];
+    public readonly favicon = 'https://vgmdb.net/favicon.ico';
+    public readonly name = 'VGMdb';
+    protected readonly urlRegex = /\/album\/(\d+)(?:\/|$)/;
 
-    async findImages(url: URL): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         const pageSrc = await this.fetchPage(url);
         if (pageSrc.includes('/db/img/banner-error.gif')) {
             throw new Error('VGMdb returned an error');
@@ -177,19 +177,19 @@ export class VGMdbProvider extends CoverArtProvider {
         return galleryCovers;
     }
 
-    static async extractCoversFromDOMGallery(coverGallery: Element): Promise<CoverArt[]> {
+    public static async extractCoversFromDOMGallery(coverGallery: Element): Promise<CoverArt[]> {
         const coverElements = qsa<HTMLAnchorElement>('a[id*="thumb_"]', coverGallery);
         return coverElements.map(this.extractCoverFromAnchor.bind(this));
     }
 
-    static extractCoverFromAnchor(anchor: HTMLAnchorElement): CoverArt {
+    private static extractCoverFromAnchor(anchor: HTMLAnchorElement): CoverArt {
         return convertCaptions({
             url: anchor.href,
             caption: qs('.label', anchor).textContent ?? /* istanbul ignore next */ '',
         });
     }
 
-    async findImagesWithApi(url: URL): Promise<CoverArt[]> {
+    public async findImagesWithApi(url: URL): Promise<CoverArt[]> {
         // Using the unofficial API at vgmdb.info
         const id = this.extractId(url);
         assertHasValue(id);
@@ -207,11 +207,11 @@ export class VGMdbProvider extends CoverArtProvider {
             return { url: cover.full, caption: cover.name };
         });
         if (metadata.picture_full
-                && !covers.find((cover) => cover.url === metadata.picture_full)) {
+                && !covers.some((cover) => cover.url === metadata.picture_full)) {
             // Assuming the main picture is the front cover
             covers.unshift({ url: metadata.picture_full, caption: 'Front' });
         }
 
-        return covers.map(convertCaptions);
+        return covers.map((cover) => convertCaptions(cover));
     }
 }

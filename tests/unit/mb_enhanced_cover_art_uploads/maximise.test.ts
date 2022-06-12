@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion -- False positives throughout. */
+
 import type { maxurlInterface, maxurlResult } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import * as libAsync from '@lib/util/async';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
@@ -174,7 +176,7 @@ describe('maximising Jamendo images', () => {
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toBe('https://usercontent.jamendo.com/?cid=1632996942&type=album&id=453609&width=0');
 
-        expect((await it.next()).done).toBeTrue();
+        await expect(it.next()).resolves.toHaveProperty('done', true);
     });
 });
 
