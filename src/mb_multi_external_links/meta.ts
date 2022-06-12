@@ -7,7 +7,7 @@ const metadata: UserscriptMetadata = {
     'run-at': 'document-end',
     match: [
         '*/edit',
-        '*/edit?*',  // Not entirely sure whether these links can ever exist, but if they do, we should match them.
+        '*/edit?*',
         'release/*/edit-relationships*',
         '*/add',
         '*/add?*',
