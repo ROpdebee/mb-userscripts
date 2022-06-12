@@ -18,7 +18,7 @@ import { minify } from 'terser';
 
 import { parseChangelogEntries } from './changelog';
 import { nativejsx } from './plugin-nativejsx';
-import { updateNotifications } from './plugin-update-notifications';
+import { UPDATE_NOTIFICATIONS_SOURCE_ID, updateNotifications } from './plugin-update-notifications';
 import { MetadataGenerator, userscript } from './plugin-userscript';
 
 const OUTPUT_DIR = 'dist';
@@ -109,6 +109,9 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
         input: inputPath,
         plugins: [
             progress() as Plugin,
+            updateNotifications({
+                include: inputPath,
+            }),
             // To resolve some aliases, like @lib
             alias({
                 entries: {
@@ -152,9 +155,6 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
                     postcssPresetEnv,
                 ],
                 extensions: ['.css', '.scss', '.sass'],
-            }),
-            updateNotifications({
-                include: inputPath,
             }),
         ],
     });
@@ -217,7 +217,7 @@ function isExternalLibrary(modulePath: string): boolean {
     // Don't mark `consts:...` modules are external libraries. They're fake
     // modules whose default exports get replaced by constants by the `consts`
     // plugin.
-    return !(relPath.startsWith('src') || relPath.startsWith('consts:'));
+    return !(relPath.startsWith('src') || relPath.startsWith('consts:') || modulePath === UPDATE_NOTIFICATIONS_SOURCE_ID);
 }
 
 function isBuiltinLib(modulePath: string): boolean {

@@ -1,11 +1,11 @@
 import { LOGGER } from '@lib/logging/logger';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
+import { insertStylesheet } from '@lib/util/css';
 import { qs } from '@lib/util/dom';
 
 import type { App } from '../App';
 import type { CoverArtProvider } from '../providers/base';
 
-import USERSCRIPT_ID from 'consts:userscript-id';
 import css from './main.scss';
 
 export class InputForm {
@@ -15,9 +15,7 @@ export class InputForm {
 
     public constructor(app: App) {
         // Inject our custom CSS
-        document.head.append(<style id={'ROpdebee_' + USERSCRIPT_ID}>
-            {css}
-        </style>);
+        insertStylesheet(css);
 
         // The input element into which URLs will be pasted.
         this.urlInput = <input

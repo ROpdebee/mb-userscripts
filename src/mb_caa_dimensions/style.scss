@@ -1,0 +1,68 @@
+// Thumbnails in add/reorder cover art pages
+div.thumb-position {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.image-position {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+div.thumb-position {
+    // Put the reorder buttons at the bottom
+    > div:last-of-type {
+        &::before {
+            margin-bottom: auto;
+        }
+
+        margin-top: auto;
+        padding-top: 5px;
+    }
+
+    // Center the thumbnail img
+    img {
+        display: block;
+        margin: auto;
+    }
+}
+
+// Styling of the info spans
+span.cover-art-image {
+    display: inline-block;
+}
+span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
+    display: block;
+}
+// Center the labels.
+a.artwork-image, a.artwork-pdf {
+    span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
+        text-align: center;
+    }
+}
+// In edit pages, the container is very wide and the text wouldn't be centered nicely,
+// so add a max width to be the same as the image it's labelling.
+// Not sure why the container is so wide though.
+td.edit-cover-art {
+    span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
+        max-width: 250px;
+    }
+}
+div.thumb-position {
+    span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
+        text-align: center;
+        font-size: smaller;
+    }
+
+    span.ROpdebee_dimensions {
+        padding-top: 0.5em;
+    }
+
+    span.ROpdebee_fileInfo {
+        padding-bottom: 0.5em;
+    }
+}
+img.uploader-preview-column > span.ROpdebee_dimensions {
+    display: inline;
+}

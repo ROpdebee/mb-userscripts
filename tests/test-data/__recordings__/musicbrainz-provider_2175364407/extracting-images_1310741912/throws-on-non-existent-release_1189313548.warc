@@ -1,77 +1,82 @@
 WARC/1.1
 WARC-Filename: musicbrainz provider/extracting images/throws on non-existent release
-WARC-Date: 2022-01-25T12:50:50.378Z
+WARC-Date: 2022-06-08T15:45:42.075Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:c8292766-dbf5-4a60-a5be-80f5d840b1a8>
+WARC-Record-ID: <urn:uuid:34d9e3ac-dc5d-4944-857a-db15dc10692f>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:bf5889c1-6a52-47e7-8fdc-17fdf5343559>
+WARC-Concurrent-To: <urn:uuid:7cbffa91-4a9f-4f66-a4f3-22718df9aae9>
 WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa46687
-WARC-Date: 2022-01-25T12:50:50.379Z
+WARC-Date: 2022-06-08T15:45:42.076Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:105d10b1-8eab-4559-8186-e13c3e549cf6>
+WARC-Record-ID: <urn:uuid:f350e694-f5b7-4078-9f58-022aa352ffc8>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:ab7ad7d1525498a340346ded93ebf84370c51e59a7b1c803c2226e09eeeea8e2
-Content-Length: 64
+WARC-Block-Digest: sha256:113578f96b2499dc58b7a89957d757bf9d721e5b3ba6212841455e4e193fc90d
+Content-Length: 175
 
 GET /metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa46687 HTTP/1.1
+accept: */*
+accept-encoding: gzip, deflate, br
+connection: close
+user-agent: node-fetch
+host: archive.org
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:bf5889c1-6a52-47e7-8fdc-17fdf5343559>
+WARC-Concurrent-To: <urn:uuid:7cbffa91-4a9f-4f66-a4f3-22718df9aae9>
 WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa46687
-WARC-Date: 2022-01-25T12:50:50.379Z
+WARC-Date: 2022-06-08T15:45:42.076Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:1568853e-28a9-4344-ae54-2d5daf31e95f>
+WARC-Record-ID: <urn:uuid:6bab04f4-8174-4a82-bc29-74271d9a42ce>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:9abcab50c1ed3feebad6852ad871e3477f65444a3e053d2186183ca8375183a7
-WARC-Block-Digest: sha256:9abcab50c1ed3feebad6852ad871e3477f65444a3e053d2186183ca8375183a7
-Content-Length: 350
+WARC-Payload-Digest: sha256:8ee5224152b77cf76509ea50d3ba76100f5fae6504a6ae309351c712650cdfaa
+WARC-Block-Digest: sha256:8ee5224152b77cf76509ea50d3ba76100f5fae6504a6ae309351c712650cdfaa
+Content-Length: 388
 
-harEntryId: 19f4c6a02e1653d0fb9f2dd02f762d2e
+harEntryId: df6b503c40dcc016cc61d0a9fd56f24c
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-01-25T12:50:47.313Z
-time: 3063
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":3063,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 85
+startedDateTime: 2022-06-08T15:45:39.258Z
+time: 2811
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":2811,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 194
 warcRequestCookies: []
-warcResponseHeadersSize: 406
+warcResponseHeadersSize: 318
 warcResponseCookies: []
 responseDecoded: false
+warcResponseContentEncoding: base64
 
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa46687
-WARC-Date: 2022-01-25T12:50:50.378Z
+WARC-Date: 2022-06-08T15:45:42.075Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:bf5889c1-6a52-47e7-8fdc-17fdf5343559>
+WARC-Record-ID: <urn:uuid:7cbffa91-4a9f-4f66-a4f3-22718df9aae9>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
-WARC-Block-Digest: sha256:2916333ee5aec60192101d8cf31aacf6c44d8bb6e102341267c89c7e26558dab
-Content-Length: 425
+WARC-Payload-Digest: sha256:12db2400883f1c02eded1079c38c35f53ddfcb7b18348c8503a7ce586454292b
+WARC-Block-Digest: sha256:1e4a08f45c91818dbc909558f261ccbf5197e8500f03014c6a98baba9fdd5ca6
+Content-Length: 371
 
 HTTP/1.1 200 OK
-access-control-allow-origin: *
-connection: close
-content-encoding: gzip
-content-type: application/json
-date: Tue, 25 Jan 2022 12:50:50 GMT
-referrer-policy: no-referrer-when-downgrade
 server: nginx/1.18.0 (Ubuntu)
-strict-transport-security: max-age=15724800
+date: Wed, 08 Jun 2022 15:45:42 GMT
+content-type: application/json
 transfer-encoding: chunked
+connection: close
+access-control-allow-origin: *
+content-encoding: gzip
 vary: Accept-Encoding
-x-pollyjs-finalurl: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa46687
+strict-transport-security: max-age=15724800
+referrer-policy: no-referrer-when-downgrade
 
-{}
+["H4sIAAAAAAAAA6uuBQBDv6ajAgAAAA=="]
 

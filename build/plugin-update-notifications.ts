@@ -15,6 +15,8 @@ if (document.location.hostname === 'musicbrainz.org' || document.location.hostna
     onDocumentLoaded(maybeDisplayNewFeatures);
 }`;
 
+export const UPDATE_NOTIFICATIONS_SOURCE_ID = '_UpdateNotifications_virtualSource_';
+
 /**
  * Transformer plugin to automatically inject the update notifications.
  *
@@ -28,6 +30,21 @@ export function updateNotifications(options?: Readonly<PluginOptions>): Plugin {
     return {
         name: 'UpdateNotificationsPlugin',
 
+        resolveId(id): { id: string; moduleSideEffects: boolean } | null {
+            if (id === UPDATE_NOTIFICATIONS_SOURCE_ID) {
+                return {
+                    id: UPDATE_NOTIFICATIONS_SOURCE_ID,
+                    moduleSideEffects: true,
+                };
+            }
+            return null;
+        },
+
+        load(id): string | undefined {
+            if (id === UPDATE_NOTIFICATIONS_SOURCE_ID) return UPDATE_NOTIFICATION_CODE;
+            return undefined;
+        },
+
         /**
          * Transform hook for the plugin.
          *
@@ -40,7 +57,7 @@ export function updateNotifications(options?: Readonly<PluginOptions>): Plugin {
         async transform(code: string, id: string): Promise<undefined | string> {
             if (!filter(id)) return;
 
-            return [code, UPDATE_NOTIFICATION_CODE].join('\n\n');
+            return [code, `import "${UPDATE_NOTIFICATIONS_SOURCE_ID}";`].join('\n\n');
         },
     };
 }

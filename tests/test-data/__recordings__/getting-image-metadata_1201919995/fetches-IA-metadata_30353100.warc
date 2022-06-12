@@ -1,0 +1,82 @@
+WARC/1.1
+WARC-Filename: getting image metadata/fetches IA metadata
+WARC-Date: 2022-06-08T15:45:37.239Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:5fb1a00d-d5e6-409c-8872-af94b02bef9c>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:521b42b2-27f3-4140-bc6d-e4c3c6ca8042>
+WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
+WARC-Date: 2022-06-08T15:45:37.240Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:7b9148f9-e0c2-4390-bc34-68f256133f85>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:a1e0bc6d05a65d2cbe665678e7e09561c230981869f8e9736dc8b1057a17c638
+Content-Length: 168
+
+GET /metadata/coverartarchive_audit_20210419 HTTP/1.1
+accept: */*
+accept-encoding: gzip, deflate, br
+connection: close
+user-agent: node-fetch
+host: archive.org
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:521b42b2-27f3-4140-bc6d-e4c3c6ca8042>
+WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
+WARC-Date: 2022-06-08T15:45:37.240Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:a6bde220-ccb4-4aba-a1af-ec13e10610ec>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:2eb332b47ac6657f5da77d32ac2bf508bc4dc9e0c2ab2c7ea630c323cabb876c
+WARC-Block-Digest: sha256:2eb332b47ac6657f5da77d32ac2bf508bc4dc9e0c2ab2c7ea630c323cabb876c
+Content-Length: 386
+
+harEntryId: 06c4559da1de67b56770270a54ca9dea
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-06-08T15:45:36.333Z
+time: 889
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":889,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 187
+warcRequestCookies: []
+warcResponseHeadersSize: 318
+warcResponseCookies: []
+responseDecoded: false
+warcResponseContentEncoding: base64
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
+WARC-Date: 2022-06-08T15:45:37.239Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:521b42b2-27f3-4140-bc6d-e4c3c6ca8042>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e9a6a8fea8d8e731693323fa1181dd7436324eb2f83c792f9cd516f154d185d1
+WARC-Block-Digest: sha256:8f20c78d5cb5e2e13b41f0e40e8156aceb730f2101c68767f65f6d055d002434
+Content-Length: 2227
+
+HTTP/1.1 200 OK
+server: nginx/1.18.0 (Ubuntu)
+date: Wed, 08 Jun 2022 15:45:37 GMT
+content-type: application/json
+transfer-encoding: chunked
+connection: close
+access-control-allow-origin: *
+content-encoding: gzip
+vary: Accept-Encoding
+strict-transport-security: max-age=15724800
+referrer-policy: no-referrer-when-downgrade
+
+["H4sIAAAAAAAAA51XWW/bRhD+K4SeHXnvQwiMNEBR9KFAUbTIg2EIs7uzMWuKVEjKR4L8985Slkw38ZG8Sbszs/PNNxe/LGKPMGJarLjRyjLhnTlZJL5YLWrwTComlrthCX28rK9x2fUfF3Qtpmv31HXd0/0pP61H3AynsbvGHvrxXmgNu1SPa8EEZ4p7ks91g8Nidf5l0cIGSRXiWHcthAbXPQ67ZhyWpL28/UzCQ7frYxHq+vpj3UJDZ5uxnvS44c4pzZ0tgvXnciaNUcZwUcSSpgNjGHfeJMddhugUCz7xwJhSAiDbQIKxj7JA5MmQtVR0h0soMZFZGTAyGQhCenAEgKNOERE0CiWNBxaCLe/nrt/ASDr/tFdtd9Muvp48AGyaI7LXohLOPaASkgmplFNHWAoU1w6MlYxZ42VUIJTSlrxRghs/gyXIbS6ifIDljI/cgIeE2cUM0kYTLddWAANJAGUMgnN8CdbEbIIRfogvoeUMGRfEGPf+gTEBBun9DNlHZYQWJvKQvRGC2ci8m0FzGG0QMGNM2cRj9kJx5YzUGSXhIkxeBq5E0oJuMOkXGZug/Uw2Cj3LRsWtd2yWjTKQR15opT0mxSXPKXApA2IKVmc5wxa51yHnGW0aWUiZ5YJKRE+57DAlq6I1xrukeRDGa5NewPZ8ga4PxT12fY/tOEe9wREK3XQWxvqyAFRZSSaTdRmNRBWFsN5LirThKomcYyIqo3oUJ8k449RKZllgqRkdg6SlcixATjqrFIEqWHorbOCE10U/D5KAzDmzfJbbWUFi1nHjAgYrkoCgefbccc+czeCdE3oqkGOQftlDrt7X49/3qF8fr6mdLW83zRP5cXzlj4fo7XFyT7nIAKwPwFRpVAkCt8FG4VIKpfyG3YaUqTuW6JPS690qXC2HTw015dclrlRmRggjCmaOxhSU0zJyFAwpuilH6ooGQcXkYUaI0S7ZEGcVCRCDMswlgZImjpIZNGcpZyIkyyQCSIcyh++G6gfxPs3Cc9nHhfcP8wKsQx+yhWS0Rc2i1dEqnrJnlD3z7mMteKWmhnRIPh2CDElljSZSuMpfLKmXUkwYqSis5AnFS1jrdrv7mc5q5qiU0ESqNEdogMEDyqC1DwEZy4aKgytigqbmfmYeoGmG2eY0qyurkqMpY1IZRdRsjC6tN2carF54JakdSeG0/m7zubif+uvY7ai4Vv5kUZaFdQPDuN5t02ElOXBzf71HQh3VenrT0PGxA62+LOpEhVrnGvsXs6PAiNC2k+jv7Yh9i2N1KPs/78bLrq2aOpCFu4ov/XLKB0w1jHfbEsz7ut1tm46G5vTgzS7If69u+NX13btuC3eflrHbkMxYj83L+UqC211o6liwTwUn+Bum3nBfcb3iciVKz4SUqMM/JxF3/aE/nE+/u/7iGpo6lV/vZova+enh+rwYvDg4wmkkanZ+Oh2eE4QNRfUiXmK8wlQRldUGmhvokQzcX5adD4fY19v7l9+m+vrsr/2wrLpcQVtNaMvv8RKr/4WC/jcNTkvfSbXFvuQLvUUUPGBcvj0tRifLb0NfnZ7NDr4pj9WRS3pxuq3KbTV20/uTM10/t/nN7vLIRLcbjza2fZd2kfwLd4+MVR+gb+v246r6UDdNhbdbaFN58UxXGzohdNWU9HQ20gZIolWJQ6XYb++/deXxrvHIm/1V0e9x2/UkNNd+anl+ZGLbDSMBiTgMhOR7Zh6tqKvq1wnOMEUQb8cJCfHWjlC3e08e2Cb0U74Ms5iccUJZ7VrKmW0/vbqc01gy95gE9C2w6LbY7jvceqq7SWCz2bX1eLe4+Er1i/31VHhPf6eQ8KfSRWgHstw7ahc3XX81hWavXb46ntF/6hPn4ut/H849HTgNAAA="]
+

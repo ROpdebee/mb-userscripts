@@ -1,8 +1,8 @@
 WARC/1.1
-WARC-Filename: archive provider/extracting images/throws on non-existent release
-WARC-Date: 2022-06-08T15:45:42.783Z
+WARC-Filename: getting image metadata/throws on non-existent item
+WARC-Date: 2022-06-08T15:45:40.095Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:8795c4ca-15a7-4750-b092-350062f8500e>
+WARC-Record-ID: <urn:uuid:fcad04d1-61bb-4f5e-8b3e-271411bab9d3>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:0ba99651-ac82-4795-8fec-17f74d9643ff>
+WARC-Concurrent-To: <urn:uuid:26851371-010a-4fee-b54e-268d74d57e6c>
 WARC-Target-URI: https://archive.org/metadata/e3e23e23r32r32
-WARC-Date: 2022-06-08T15:45:42.783Z
+WARC-Date: 2022-06-08T15:45:40.096Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:91595be7-7120-4c4c-80e7-fb1c1637465e>
+WARC-Record-ID: <urn:uuid:6cb5d0fa-7180-4b6a-ae2e-6bb2eb24453c>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:4ee4fa320e5279b7172fe6d8cad7f937d8dfe028a488d981a63d17c77b31d6de
@@ -32,22 +32,22 @@ host: archive.org
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:0ba99651-ac82-4795-8fec-17f74d9643ff>
+WARC-Concurrent-To: <urn:uuid:26851371-010a-4fee-b54e-268d74d57e6c>
 WARC-Target-URI: https://archive.org/metadata/e3e23e23r32r32
-WARC-Date: 2022-06-08T15:45:42.783Z
+WARC-Date: 2022-06-08T15:45:40.096Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:ddf2698c-719b-4b7c-acfc-ebf5108a3efa>
+WARC-Record-ID: <urn:uuid:5ff26094-3ffb-46f8-8e9a-876b04856fda>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:a2a91fc1f5b7417819e881474040526233e1fa75c6071a2e3dcae6888842a86c
-WARC-Block-Digest: sha256:a2a91fc1f5b7417819e881474040526233e1fa75c6071a2e3dcae6888842a86c
-Content-Length: 386
+WARC-Payload-Digest: sha256:b2e791b1a7a076ca76f941317889b5fd9a57ce6ab36acb9fb68d912f56949bc6
+WARC-Block-Digest: sha256:b2e791b1a7a076ca76f941317889b5fd9a57ce6ab36acb9fb68d912f56949bc6
+Content-Length: 388
 
 harEntryId: 2787f64ede08a84f9736908d0cab037a
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-06-08T15:45:42.246Z
-time: 529
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":529,"receive":0,"ssl":-1}
+startedDateTime: 2022-06-08T15:45:37.252Z
+time: 2838
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":2838,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 171
 warcRequestCookies: []
 warcResponseHeadersSize: 318
@@ -58,17 +58,17 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/e3e23e23r32r32
-WARC-Date: 2022-06-08T15:45:42.783Z
+WARC-Date: 2022-06-08T15:45:40.095Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:0ba99651-ac82-4795-8fec-17f74d9643ff>
+WARC-Record-ID: <urn:uuid:26851371-010a-4fee-b54e-268d74d57e6c>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:12db2400883f1c02eded1079c38c35f53ddfcb7b18348c8503a7ce586454292b
-WARC-Block-Digest: sha256:1e4a08f45c91818dbc909558f261ccbf5197e8500f03014c6a98baba9fdd5ca6
+WARC-Block-Digest: sha256:a009d0d704a7184e9e5504268f93c5432d77d6eaf5b28cae5358a66f0eaa0268
 Content-Length: 371
 
 HTTP/1.1 200 OK
 server: nginx/1.18.0 (Ubuntu)
-date: Wed, 08 Jun 2022 15:45:42 GMT
+date: Wed, 08 Jun 2022 15:45:40 GMT
 content-type: application/json
 transfer-encoding: chunked
 connection: close

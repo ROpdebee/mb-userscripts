@@ -32,3 +32,13 @@ export type AllUserscriptMetadata = UserscriptCustomMetadata & UserscriptDefault
 export function transformMBMatchURL(requireString: string): string {
     return `*://*.musicbrainz.org/${requireString}`;
 }
+
+/** Any pages on which edits can occur */
+export const MB_EDIT_PAGE_PATHS = [
+    'edit/*',
+    // <entity>/<entity_id>/edits, user/<username>/edits/open, search/edits?condition.0=..., ...
+    // TODO: This also matches /search/edits, on which no edits are shown. Should somehow be excluded
+    '*/edits*',
+    'user/*/votes',
+    '*/open_edits',
+];

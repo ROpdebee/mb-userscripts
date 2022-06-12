@@ -1,3 +1,5 @@
+import type { ArchiveMetadata } from '@lib/IA/ArchiveMetadata';
+import { getItemMetadata } from '@lib/IA/ArchiveMetadata';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertDefined } from '@lib/util/assert';
@@ -7,20 +9,6 @@ import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from './base';
 import { CoverArtProvider } from './base';
-
-// Incomplete.
-interface ArchiveMetadata {
-    server: string; // Server hostname on which the file is hosted
-    dir: string; // Path to item on ^
-    files: ArchiveFileMetadata[];
-    is_dark?: true;
-}
-
-interface ArchiveFileMetadata {
-    name: string;  // For files in subdirectories, this will contain the full path including directory paths.
-    source: 'original' | 'derivative';
-    format: string;
-}
 
 interface CAAIndex {
     images: Array<{
@@ -49,7 +37,7 @@ export class ArchiveProvider extends CoverArtProvider {
         const itemId = this.extractId(url);
         assertDefined(itemId);
 
-        const itemMetadata = await this.getItemMetadata(itemId);
+        const itemMetadata = await getItemMetadata(itemId);
         const baseDownloadUrl = this.createBaseDownloadUrl(itemMetadata);
 
         if (ArchiveProvider.CAA_ITEM_REGEX.test(itemId)) {
@@ -73,7 +61,7 @@ export class ArchiveProvider extends CoverArtProvider {
      * onto generic extraction.
      */
     public async findImagesCAA(itemId: string): Promise<CoverArt[]> {
-        const itemMetadata = await this.getItemMetadata(itemId);
+        const itemMetadata = await getItemMetadata(itemId);
         const baseDownloadUrl = this.createBaseDownloadUrl(itemMetadata);
         return this.extractCAAImages(itemId, baseDownloadUrl);
     }
@@ -106,23 +94,6 @@ export class ArchiveProvider extends CoverArtProvider {
                 url: urlJoin(baseDownloadUrl, path),
             };
         });
-    }
-
-    private async getItemMetadata(itemId: string): Promise<ArchiveMetadata> {
-        const itemMetadataResp = await this.fetchPage(new URL(`https://archive.org/metadata/${itemId}`));
-        const itemMetadata = safeParseJSON<ArchiveMetadata>(itemMetadataResp, 'Could not parse IA metadata');
-
-        // IA's metadata API always returns a 200, even for items which don't
-        // exist.
-        if (!itemMetadata.server) {
-            throw new Error('Empty IA metadata, item might not exist');
-        }
-
-        if (itemMetadata.is_dark) {
-            throw new Error('Cannot extract images: This item is darkened');
-        }
-
-        return itemMetadata;
     }
 
     private createBaseDownloadUrl(itemMetadata: ArchiveMetadata): URL {
