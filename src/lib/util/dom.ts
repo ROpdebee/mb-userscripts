@@ -71,20 +71,16 @@ export function parseDOM(html: string, baseUrl: string): Document {
     return doc;
 }
 
-// istanbul ignore next: TODO: Test
-// https://github.com/facebook/react/issues/10135#issuecomment-401496776
-// Via loujine's wikidata script.
-export function setInputValue(input: HTMLInputElement, value: string): void {
-    /* eslint-disable @typescript-eslint/unbound-method -- Will bind later. */
-    const valueSetter = Object.getOwnPropertyDescriptor(input, 'value')?.set;
-    const prototype = Object.getPrototypeOf(input) as typeof HTMLInputElement.prototype;
-    const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value')?.set;
-    /* eslint-enable @typescript-eslint/unbound-method */
+// eslint-disable-next-line @typescript-eslint/unbound-method
+const nativeInputValueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
+assertDefined(nativeInputValueSetter);
 
-    if (prototypeValueSetter && valueSetter !== prototypeValueSetter) {
-        prototypeValueSetter.call(input, value);
-    } else {
-        assertDefined(valueSetter, 'Element has no value setter');
-        valueSetter.call(input, value);
+// istanbul ignore next: TODO: Test
+// https://stackoverflow.com/a/46012210
+// Via kellnerd, https://github.com/kellnerd/musicbrainz-bookmarklets/blob/730ed0f96a81ef9bb239ed564f247bd68f84bee3/utils/dom/react.js
+export function setInputValue(input: HTMLInputElement, value: string, dispatchEvent = true): void {
+    nativeInputValueSetter!.call(input, value);
+    if (dispatchEvent) {
+        input.dispatchEvent(new Event('input', { bubbles: true }));
     }
 }
