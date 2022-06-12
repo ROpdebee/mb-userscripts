@@ -46,7 +46,6 @@
     "@types/greasemonkey": "4.0.3",
     "@types/jest": "28.1.1",
     "@types/jest-when": "3.5.0",
-    "@types/jquery": "3.5.14",
     "@types/postcss-preset-env": "6.7.3",
     "@types/rollup__plugin-virtual": "2.0.1",
     "@types/rollup-plugin-progress": "1.1.1",
@@ -110,7 +109,6 @@
   },
   "dependencies": {
     "idb": "^7.0.1",
-    "jquery": "3.6.0",
     "p-retry": "^5.1.1",
     "p-throttle": "5.0.0",
     "ts-custom-error": "3.2.0"
