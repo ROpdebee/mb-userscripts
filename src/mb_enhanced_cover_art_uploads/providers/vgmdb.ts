@@ -126,6 +126,8 @@ for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
     };
 }
 
+const PLACEHOLDER_URL = '/db/img/album-nocover-medium.gif';
+
 export function convertCaptions(cover: { url: string; caption: string }): CoverArt {
     const url = new URL(cover.url);
     if (!cover.caption) {
@@ -166,9 +168,9 @@ export class VGMdbProvider extends CoverArtProvider {
 
         // Add the main cover if it's not in the gallery
         const mainCoverUrl = qsMaybe<HTMLDivElement>('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)?.[1];
-        if (mainCoverUrl && !galleryCovers.some((cover) => urlBasename(cover.url) === urlBasename(mainCoverUrl))) {
+        if (mainCoverUrl && mainCoverUrl !== PLACEHOLDER_URL && !galleryCovers.some((cover) => urlBasename(cover.url) === urlBasename(mainCoverUrl))) {
             galleryCovers.unshift({
-                url: new URL(mainCoverUrl),
+                url: new URL(mainCoverUrl, url.origin),
                 types: [ArtworkTypeIDs.Front],
                 comment: '',
             });
