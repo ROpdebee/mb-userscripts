@@ -1,0 +1,1 @@
+- **2022.6.12**: Internal changes: rewrite "MB: Paste multiple external links" to TypeScript, fix shortcomings ([#473](https://github.com/ROpdebee/mb-userscripts/pull/473))
