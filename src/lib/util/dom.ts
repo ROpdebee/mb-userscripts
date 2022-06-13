@@ -70,12 +70,12 @@ export function parseDOM(html: string, baseUrl: string): Document {
     return doc;
 }
 
-const inputValueSetterDescriptor = /*#__PURE__*/ Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+const inputValueDescriptor = /*#__PURE__*/ Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
 
 // https://stackoverflow.com/a/46012210
 // Via kellnerd, https://github.com/kellnerd/musicbrainz-bookmarklets/blob/730ed0f96a81ef9bb239ed564f247bd68f84bee3/utils/dom/react.js
 export function setInputValue(input: HTMLInputElement, value: string, dispatchEvent = true): void {
-    inputValueSetterDescriptor!.set!.call(input, value);
+    inputValueDescriptor!.set!.call(input, value);
     if (dispatchEvent) {
         input.dispatchEvent(new Event('input', { bubbles: true }));
     }
