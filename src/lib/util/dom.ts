@@ -2,7 +2,7 @@
  * DOM utilities.
  */
 
-import { assertDefined, assertNonNull } from './assert';
+import { assertNonNull } from './assert';
 
 /**
  * Element.querySelector shorthand, query result required to exist.
@@ -70,14 +70,12 @@ export function parseDOM(html: string, baseUrl: string): Document {
     return doc;
 }
 
-// eslint-disable-next-line @typescript-eslint/unbound-method
-const nativeInputValueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
-assertDefined(nativeInputValueSetter);
+const inputValueSetterDescriptor = /*#__PURE__*/ Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
 
 // https://stackoverflow.com/a/46012210
 // Via kellnerd, https://github.com/kellnerd/musicbrainz-bookmarklets/blob/730ed0f96a81ef9bb239ed564f247bd68f84bee3/utils/dom/react.js
 export function setInputValue(input: HTMLInputElement, value: string, dispatchEvent = true): void {
-    nativeInputValueSetter!.call(input, value);
+    inputValueSetterDescriptor!.set!.call(input, value);
     if (dispatchEvent) {
         input.dispatchEvent(new Event('input', { bubbles: true }));
     }
