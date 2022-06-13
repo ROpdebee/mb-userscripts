@@ -34,7 +34,6 @@ function submitUrls(editor: ExternalLinks, urls: string[]): void {
 
     LOGGER.debug(`Submitting URL ${urls[0]}`);
     setInputValue(lastInput, urls[0]);
-    lastInput.dispatchEvent(new InputEvent('input', { bubbles: true }));
     // Need to wait a while before the input event is processed before we can
     // fire the blur event, otherwise things get messy.
     setTimeout(() => {
