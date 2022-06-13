@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.6.12.5
+// @version      2022.6.13
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2627,31 +2627,38 @@
 
   }
 
-  const addSeedLinkToCover = _async(function (fig, mbid, origin) {
-      var _imageUrl$match;
-      const imageUrl = qs('a.icon', fig).href;
-      const ext = (_imageUrl$match = imageUrl.match(/\.(\w+)$/)) === null || _imageUrl$match === void 0 ? void 0 : _imageUrl$match[1];
+  const addDimensions = _async(function (fig, imageUrl) {
       return _await(getImageDimensions(imageUrl), function (imageDimensions) {
-          var _tryExtractReleaseUrl, _qs$insertAdjacentEle;
+          var _imageUrl$match;
+          const ext = (_imageUrl$match = imageUrl.match(/\.(\w+)$/)) === null || _imageUrl$match === void 0 ? void 0 : _imageUrl$match[1];
           const dimensionStr = ''.concat(imageDimensions.width, 'x').concat(imageDimensions.height);
-          const realUrl = (_tryExtractReleaseUrl = tryExtractReleaseUrl(fig)) !== null && _tryExtractReleaseUrl !== void 0 ? _tryExtractReleaseUrl : imageUrl;
-          const params = new SeedParameters([{ url: new URL(realUrl) }], origin);
-          const seedUrl = params.createSeedURL(mbid);
           const dimSpan = function () {
               var $$a = document.createElement('span');
               setStyles($$a, { display: 'block' });
               appendChildren($$a, dimensionStr + (ext ? ' '.concat(ext.toUpperCase()) : ''));
               return $$a;
           }.call(this);
-          const seedLink = function () {
-              var $$c = document.createElement('a');
-              $$c.setAttribute('href', seedUrl);
-              setStyles($$c, { display: 'block' });
-              var $$d = document.createTextNode('\n        Add to release\n    ');
-              $$c.appendChild($$d);
-              return $$c;
-          }.call(this);
-          (_qs$insertAdjacentEle = qs('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan)) === null || _qs$insertAdjacentEle === void 0 ? void 0 : _qs$insertAdjacentEle.insertAdjacentElement('afterend', seedLink);
+          qs('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
+      });
+  });
+  const addSeedLinkToCover = _async(function (fig, mbid, origin) {
+      var _tryExtractReleaseUrl;
+      const imageUrl = qs('a.icon', fig).href;
+      const dimensionsPromise = addDimensions(fig, imageUrl);
+      const realUrl = (_tryExtractReleaseUrl = tryExtractReleaseUrl(fig)) !== null && _tryExtractReleaseUrl !== void 0 ? _tryExtractReleaseUrl : imageUrl;
+      const params = new SeedParameters([{ url: new URL(realUrl) }], origin);
+      const seedUrl = params.createSeedURL(mbid);
+      const seedLink = function () {
+          var $$c = document.createElement('a');
+          $$c.setAttribute('href', seedUrl);
+          setStyles($$c, { display: 'block' });
+          var $$d = document.createTextNode('\n        Add to release\n    ');
+          $$c.appendChild($$d);
+          return $$c;
+      }.call(this);
+      qs('figcaption', fig).insertAdjacentElement('beforeend', seedLink);
+      return dimensionsPromise.catch(err => {
+          LOGGER.warn('Failed to insert dimensions', err);
       });
   });
   const AtisketSeeder = {
@@ -2697,8 +2704,8 @@
   }
   function tryExtractReleaseUrl(fig) {
       var _fig$closest;
-      const countryCode = (_fig$closest = fig.closest('div')) === null || _fig$closest === void 0 ? void 0 : _fig$closest.dataset['matched-country'];
-      const vendorId = fig.dataset['vendor-id'];
+      const countryCode = (_fig$closest = fig.closest('div')) === null || _fig$closest === void 0 ? void 0 : _fig$closest.dataset.matchedCountry;
+      const vendorId = fig.dataset.vendorId;
       const vendorCode = [...fig.classList].find(klass => [
           'spf',
           'deez',
