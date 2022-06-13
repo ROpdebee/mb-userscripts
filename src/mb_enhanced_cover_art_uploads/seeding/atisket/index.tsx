@@ -14,6 +14,8 @@ export const AtisketSeeder: Seeder = {
     supportedRegexes: [/(?:\.uk|\.info\/atisket)\/\?.+/],
 
     insertSeedLinks(): void {
+        addDimensionsToCovers();
+
         const alreadyInMB = qsMaybe('.already-in-mb-item');
         if (alreadyInMB === null) {
             return;
@@ -35,6 +37,8 @@ export const AtasketSeeder: Seeder = {
     supportedRegexes: [/(?:\.uk|\.info\/atisket)\/atasket\.php\?/],
 
     insertSeedLinks(): void {
+        addDimensionsToCovers();
+
         const urlParams = new URLSearchParams(document.location.search);
         const mbid = urlParams.get('release_mbid');
         const selfId = urlParams.get('self_id');
@@ -54,6 +58,12 @@ function addSeedLinkToCovers(mbid: string, origin: string): void {
     const covers = qsa<HTMLElement>('figure.cover');
     for (const fig of covers) {
         addSeedLinkToCover(fig, mbid, origin);
+    }
+}
+
+function addDimensionsToCovers(): void {
+    const covers = qsa<HTMLElement>('figure.cover');
+    for (const fig of covers) {
         logFailure(addDimensions(fig), 'Failed to insert image information');
     }
 }
