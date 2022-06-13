@@ -2,6 +2,7 @@ import type { ImageInfo } from '@src/mb_caa_dimensions/ImageInfo';
 import { LOGGER } from '@lib/logging/logger';
 import { logFailure } from '@lib/util/async';
 import { qs, qsa, qsMaybe } from '@lib/util/dom';
+import { formatFileSize } from '@lib/util/format';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
 
 import type { Seeder } from '../base';
@@ -118,6 +119,7 @@ async function addDimensions(fig: HTMLElement): Promise<void> {
 
     const infoStringParts = [
         imageInfo.dimensions ? `${imageInfo.dimensions.width}x${imageInfo.dimensions.height}` : '',
+        typeof imageInfo.size !== 'undefined' ? formatFileSize(imageInfo.size) : '',
         imageInfo.fileType,
     ];
     const infoString = infoStringParts.filter(Boolean).join(', ');

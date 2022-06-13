@@ -1,6 +1,9 @@
+import pRetry from 'p-retry';
+
 import type { Dimensions, FileInfo } from '@src/mb_caa_dimensions/ImageInfo';
 import { LOGGER } from '@lib/logging/logger';
 import { safeParseJSON } from '@lib/util/json';
+import { gmxhr, HTTPResponseError } from '@lib/util/xhr';
 import { BaseImage } from '@src/mb_caa_dimensions/Image';
 
 // Use a multiple of 3, most a-tisket releases have 3 images.
@@ -96,11 +99,27 @@ export class AtisketImage extends BaseImage {
         super(imgUrl, localStorageCache);
     }
 
-    protected loadFileInfo(): Promise<FileInfo> {
-        // Not using .split('.') here because Spotify images do not have an extension.
-        const ext = this.imgUrl.match(/\.(\w+)$/)?.[1];
-        return Promise.resolve({
-            fileType: ext?.toUpperCase(),
+    protected async loadFileInfo(): Promise<FileInfo> {
+        const resp = await pRetry(() => gmxhr(this.imgUrl, {
+            method: 'HEAD',
+        }), {
+            retries: 5,
+            onFailedAttempt: (err) => {
+                // Don't retry on 4xx status codes except for 429. Anything below 400 doesn't throw a HTTPResponseError.
+                if (err instanceof HTTPResponseError && err.statusCode < 500 && err.statusCode !== 429) {
+                    throw err;
+                }
+
+                LOGGER.warn(`Failed to retrieve image file info: ${err.message}. Retrying…`);
+            },
         });
+
+        const fileSize = resp.responseHeaders.match(/content-length: (\d+)/i)?.[1];
+        const fileType = resp.responseHeaders.match(/content-type: \w+\/(\w+)/i)?.[1];
+
+        return {
+            fileType: fileType?.toUpperCase(),
+            size: fileSize ? parseInt(fileSize) : /* istanbul ignore next: Probably won't happen */ undefined,
+        };
     }
 }

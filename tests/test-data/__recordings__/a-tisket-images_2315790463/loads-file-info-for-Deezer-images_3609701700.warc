@@ -1,0 +1,87 @@
+WARC/1.1
+WARC-Filename: a-tisket images/loads file info for Deezer images
+WARC-Date: 2022-06-13T14:57:08.078Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:18c3ff31-3a87-4bad-a76d-7a0c5cfe155d>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:07bec5fb-737c-4691-a54e-a352ea7d0d12>
+WARC-Target-URI: https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg
+WARC-Date: 2022-06-13T14:57:08.079Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:8f155e26-9d40-4045-aec4-e001890634b0>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:457216300c0deb4b1eedd78c7ef7bddc78beb20d9fba61d61db372ac553fc231
+Content-Length: 90
+
+HEAD /images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:07bec5fb-737c-4691-a54e-a352ea7d0d12>
+WARC-Target-URI: https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg
+WARC-Date: 2022-06-13T14:57:08.079Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:1860c9ef-db23-4db6-9f85-f6e2ee4d30f9>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:dc6a7f3ea7ad39bbd36dc7060f2a7578fb061fd5e9f9ff6c28abb48b7b14ed81
+WARC-Block-Digest: sha256:dc6a7f3ea7ad39bbd36dc7060f2a7578fb061fd5e9f9ff6c28abb48b7b14ed81
+Content-Length: 349
+
+harEntryId: e2999d54c7a0124f04f7b51ff2b16768
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-06-13T14:57:07.886Z
+time: 190
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":190,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 123
+warcRequestCookies: []
+warcResponseHeadersSize: 780
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg
+WARC-Date: 2022-06-13T14:57:08.078Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:07bec5fb-737c-4691-a54e-a352ea7d0d12>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:4cfdce07f484feeb4d49073408eac9ac48cd1e2e20cc6c0040645c6ba1cb3167
+Content-Length: 797
+
+HTTP/1.1 200 OK
+accept-ranges: bytes
+access-control-allow-origin: *
+access-control-expose-headers: x-deezer-client-ip, content-length, content-range
+age: 3951
+cache-control: public
+connection: close
+content-length: 365960
+content-type: image/jpeg
+date: Mon, 13 Jun 2022 14:57:08 GMT
+expires: Thu, 10 Nov 2022 14:57:08 GMT
+last-modified: Sat, 25 Apr 2020 14:39:07 GMT
+p3p: policyref="/w3c/p3p.xml" CP="IDC DSP COR CURa ADMa OUR IND PHY ONL COM STA"
+pragma: 
+server: ECS (pab/6FAF)
+strict-transport-security: max-age=60;
+x-cache: HIT
+x-deezer-cache: MISS
+x-deezer-client-ip: 92.223.88.228
+x-host: blm-static-06
+x-md5: 2d8c720d7fee9506e40c5f16760c3640
+x-pollyjs-finalurl: https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg
+
+
+
