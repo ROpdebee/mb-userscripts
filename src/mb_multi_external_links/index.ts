@@ -5,7 +5,7 @@ import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 import { LOGGER } from '@lib/logging/logger';
 import { assertDefined } from '@lib/util/assert';
-import { retryTimes } from '@lib/util/async';
+import { logFailure, retryTimes } from '@lib/util/async';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { onWindowLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
@@ -163,18 +163,12 @@ function onIframeAdded(iframe: HTMLIFrameElement): void {
     const iframeWindow = iframe.contentWindow;
     if (!iframeWindow) return;
 
-    function runInIframe(): void {
-        run(iframeWindow!)
-            // TODO: Replace this by `logFailure`
-            .catch((err) => {
-                LOGGER.error('Something went wrong', err);
-            });
-    }
-
     // Cannot use onDocumentLoaded even if we make it accept a custom document
     // since iframe contentDocument doesn't fire the DOMContentLoaded event in
     // Firefox.
-    onWindowLoaded(runInIframe, iframeWindow);
+    onWindowLoaded(() => {
+        logFailure(run(iframeWindow));
+    }, iframeWindow);
 }
 
 // Observe for additions of embedded entity creation dialogs and run the link
@@ -204,10 +198,6 @@ LOGGER.configure({
 });
 LOGGER.addSink(new ConsoleSink(USERSCRIPT_ID));
 
-run(window)
-    // TODO: Replace this by `logFailure`
-    .catch((err) => {
-        LOGGER.error('Something went wrong', err);
-    });
+logFailure(run(window));
 
 listenForIframes();
