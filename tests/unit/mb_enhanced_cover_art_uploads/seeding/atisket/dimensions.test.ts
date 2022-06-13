@@ -1,5 +1,9 @@
+import retry from 'retry';
+
 import type { CacheStore} from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
+import * as xhr from '@lib/util/xhr';
 import { AtisketImage, CACHE_LOCALSTORAGE_KEY, localStorageCache, MAX_CACHED_IMAGES } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
+import { setupPolly } from '@test-utils/pollyjs';
 
 describe('local storage cache', () => {
     const dummyDimensions = {
@@ -236,19 +240,91 @@ describe('local storage cache', () => {
 });
 
 describe('a-tisket images', () => {
-    it('loads file info for images with extension', async () => {
+    const pollyContext = setupPolly();
+
+    it('loads file info for Apple Music images', async () => {
         const image = new AtisketImage('https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg');
 
         await expect(image.getFileInfo()).resolves.toStrictEqual({
-            fileType: 'JPG',
+            size: 1_826_850,
+            fileType: 'JPEG',
         });
     });
 
-    it('loads file info for images without', async () => {
+    it('loads file info for Apple Music PNG images', async () => {
+        const image = new AtisketImage('https://a1.mzstatic.com/us/r1000/063/Music126/v4/48/4f/49/484f49a5-fb52-37b3-f3c6-244e20f74b7c/5052075509815.png');
+
+        await expect(image.getFileInfo()).resolves.toStrictEqual({
+            size: 23_803_429,  // I'm glad we're just getting headers, this is huge!
+            fileType: 'PNG',
+        });
+    });
+
+    it('loads file info for Spotify images', async () => {
         const image = new AtisketImage('https://i.scdn.co/image/ab67616d0000b273843b6bc2dc1517b7f7f0f424');
 
         await expect(image.getFileInfo()).resolves.toStrictEqual({
-            fileType: undefined,
+            fileType: 'JPEG',
+            size: 102_281,
+        });
+    });
+
+    it('loads file info for Deezer images', async () => {
+        const image = new AtisketImage('https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg');
+
+        await expect(image.getFileInfo()).resolves.toStrictEqual({
+            fileType: 'JPEG',
+            size: 365_960,
+        });
+    });
+
+    describe('retrying', () => {
+        // We won't mock out the p-retry module, since replicating its behaviour
+        // will be tricky. Instead, we'll mock out the function that creates the
+        // underlying timeouts, so retries are done immediately and the tests don't
+        // time out.
+        const timeoutsSpy = jest.spyOn(retry, 'timeouts');
+        const xhrSpy = jest.spyOn(xhr, 'gmxhr');
+
+        beforeEach(() => {
+            timeoutsSpy.mockReturnValue([0, 0, 0, 0, 0]);
+            xhrSpy.mockClear();
+        });
+
+        it('retries on 429 errors', async () => {
+            pollyContext.polly.server
+                .any()
+                .intercept((_req, res) => {
+                    res.sendStatus(429);
+                });
+            const image = new AtisketImage('https://example.com/test');
+
+            await expect(image.getFileInfo()).resolves.toBeUndefined();
+            expect(xhrSpy).toHaveBeenCalledTimes(6); // First try + 5 retries
+        });
+
+        it('does not retry on 404 errors', async () => {
+            pollyContext.polly.server
+                .any()
+                .intercept((_req, res) => {
+                    res.sendStatus(404);
+                });
+            const image = new AtisketImage('https://example.com/test');
+
+            await expect(image.getFileInfo()).resolves.toBeUndefined();
+            expect(xhrSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('retries on 503 errors', async () => {
+            pollyContext.polly.server
+                .any()
+                .intercept((_req, res) => {
+                    res.sendStatus(503);
+                });
+            const image = new AtisketImage('https://example.com/test');
+
+            await expect(image.getFileInfo()).resolves.toBeUndefined();
+            expect(xhrSpy).toHaveBeenCalledTimes(6);
         });
     });
 });

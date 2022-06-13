@@ -1,0 +1,90 @@
+WARC/1.1
+WARC-Filename: a-tisket images/loads file info for Apple Music images
+WARC-Date: 2022-06-13T14:57:06.442Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:07db5a2b-82b5-4642-a26c-df10f22aee45>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:72414f2d-63cf-487a-8b3a-a3022c817e97>
+WARC-Target-URI: https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg
+WARC-Date: 2022-06-13T14:57:06.443Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:9c53b375-962a-4dda-b18c-cd32efb14963>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:92a9aac19b35e75639c4604720fbdc00fb0b402b9f9ca4aac1791068a8481a91
+Content-Length: 120
+
+HEAD /image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:72414f2d-63cf-487a-8b3a-a3022c817e97>
+WARC-Target-URI: https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg
+WARC-Date: 2022-06-13T14:57:06.444Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:f8eb7c14-a396-4eaf-a5c6-76e82288e42c>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:c01562fed521e54e795a955394b67f7d5043add7a0f1293b0b982901dbf438fd
+WARC-Block-Digest: sha256:c01562fed521e54e795a955394b67f7d5043add7a0f1293b0b982901dbf438fd
+Content-Length: 350
+
+harEntryId: 3b2fc26069c8b0517f1f82a8bd9f4d21
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-06-13T14:57:06.225Z
+time: 212
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":212,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 150
+warcRequestCookies: []
+warcResponseHeadersSize: 1349
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg
+WARC-Date: 2022-06-13T14:57:06.442Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:72414f2d-63cf-487a-8b3a-a3022c817e97>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:874b0ad7467be14fd48a48ce650e6d88e08c9ca7a89617b978d96f6708fd4149
+Content-Length: 1366
+
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+access-control-expose-headers: Content-Length,Content-Type,ETag,Cache-Control,Expires,Last-Modified
+apple-originating-system: UnknownOriginatingSystem
+apple-seq: 0.0
+apple-tk: false
+b3: 8a26894cd12e045a5be796db4861a04d-35ad78ebf433fc59
+cache-control: no-transform, max-age=13235202
+cdnuuid: c8a5e60f-aad7-4a50-b11a-eb9edb257fc0-1949909649
+connection: close
+content-length: 1826850
+content-type: image/jpeg
+date: Mon, 13 Jun 2022 14:57:06 GMT
+etag: "MSwxLjI3LTIyRyxWZXJzaW9uIDExLjMuMSAoQnVpbGQgMjBFMjQxKSwxNjU0MDgyNzAzNjAwLGlzQnVpbGRWZXJzaW9uTm90U2V0LDUwMDQ1LG5vRWZmZWN0"
+last-modified: Wed, 01 Jun 2022 11:25:03 GMT
+server: daiquiri/3.0.0
+strict-transport-security: max-age=31536000; includeSubDomains
+timing-allow-origin: *
+x-apple-jingle-correlation-key: RITISTGRFYCFUW7HS3NUQYNAJU
+x-apple-request-uuid: 8a26894c-d12e-045a-5be7-96db4861a04d
+x-b3-spanid: 35ad78ebf433fc59
+x-b3-traceid: 8a26894cd12e045a5be796db4861a04d
+x-cache: TCP_HIT from a2-19-194-101.deploy.akamaitechnologies.com (AkamaiGHost/10.8.2-41758951) (-)
+x-daiquiri-instance: daiquiri:13624002:mr85p00it-hyhk03094901:7987:22RELEASE72:daiquiri-amp-processing-shared-int-001-mr
+x-pollyjs-finalurl: https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg
+
+
+
