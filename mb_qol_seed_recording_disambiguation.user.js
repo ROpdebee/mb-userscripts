@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Seed the batch recording comments script
-// @version      2021.12.23
+// @version      2022.6.13
 // @description  Seed the recording comments for the batch recording comments userscripts with live and DJ-mix data.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -29,7 +29,9 @@ function unicodeToAscii(s) {
 }
 
 function getReleaseTitle() {
-    return $('.releaseheader > h1:first-child bdi').text();
+    // Make sure we're only taking the first <bdi> element. There could be a
+    // second if the release has a disambiguation comment itself.
+    return document.querySelector('.releaseheader > h1 bdi').textContent;
 }
 
 function getDJMixComment() {
