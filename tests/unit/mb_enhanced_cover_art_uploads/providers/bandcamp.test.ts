@@ -1,5 +1,5 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { getImageDimensions } from '@src/mb_enhanced_cover_art_uploads/image_dimensions';
+import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 import { BandcampProvider } from '@src/mb_enhanced_cover_art_uploads/providers/bandcamp';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
@@ -7,8 +7,8 @@ import { findImagesSpec } from './find_images_spec';
 import { urlMatchingSpec } from './url_matching_spec';
 
 // We need to mock getImageDimensions since jsdom doesn't actually load images.
-// See also tests/mb_enhanced_cover_art_uploads/image_dimensions.test.ts
-jest.mock('@src/mb_enhanced_cover_art_uploads/image_dimensions');
+// See also tests/mb_caa_dimensions/dimensions.test.ts
+jest.mock('@src/mb_caa_dimensions/dimensions');
 const mockGetImageDimensions = getImageDimensions as jest.MockedFunction<typeof getImageDimensions>;
 
 describe('bandcamp provider', () => {
