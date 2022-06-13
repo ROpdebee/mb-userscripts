@@ -1,6 +1,8 @@
+import type { ImageInfo } from '@src/mb_caa_dimensions/ImageInfo';
 import { LOGGER } from '@lib/logging/logger';
 import { logFailure } from '@lib/util/async';
 import { qs, qsa, qsMaybe } from '@lib/util/dom';
+import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
 
 import type { Seeder } from '../base';
 import { SeedParameters } from '../parameters';
@@ -97,7 +99,12 @@ function addSeedLinkToCover(fig: HTMLElement, mbid: string, origin: string): voi
 
 async function addDimensions(fig: HTMLElement): Promise<void> {
     const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
-    const imageInfo = await new AtisketImage(imageUrl).getImageInfo();
+    const dimSpan = <span style={{ display: 'block' }}>
+        loading…
+    </span>;
+    qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
+
+    const imageInfo = await getImageInfo(imageUrl);
 
     const infoStringParts = [
         imageInfo.dimensions ? `${imageInfo.dimensions.width}x${imageInfo.dimensions.height}` : '',
@@ -105,13 +112,42 @@ async function addDimensions(fig: HTMLElement): Promise<void> {
     ];
     const infoString = infoStringParts.filter(Boolean).join(', ');
 
-    if (!infoString) return;
+    if (infoString) {
+        dimSpan.textContent = infoString;
+    } else {
+        dimSpan.remove();
+    }
+}
 
-    const dimSpan = <span style={{ display: 'block' }}>
-        {infoString}
-    </span>;
+async function getImageInfo(imageUrl: string): Promise<ImageInfo> {
+    // Try maximising the image
+    for await (const maxCandidate of getMaximisedCandidates(new URL(imageUrl))) {
+        // Skip likely broken images. Happens on Apple Music images a lot as the
+        // first candidate.
+        if (maxCandidate.likely_broken) continue;
 
-    qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
+        LOGGER.debug(`Trying to get image information for maximised candidate ${maxCandidate.url}`);
+        const atisketImage = new AtisketImage(maxCandidate.url.toString());
+        // Query dimensions and file info separately, don't use `Image#getImageInfo`
+        // since it resolves even if both queries fail. We're dealing with images
+        // that may not exist, so instead we'll call both parts separately and
+        // check their output.
+        const dimensions = await atisketImage.getDimensions();
+        if (!dimensions) {
+            LOGGER.warn(`Failed to load dimensions for maximised candidate ${maxCandidate.url}`);
+            continue;
+        }
+        const fileInfo = await atisketImage.getFileInfo();
+
+        return {
+            dimensions,
+            fileType: fileInfo?.fileType,
+            size: fileInfo?.size,
+        };
+    }
+
+    // Fall back on original URL. Using `Image#getImageInfo` is fine here.
+    return new AtisketImage(imageUrl).getImageInfo();
 }
 
 const RELEASE_URL_CONSTRUCTORS: Record<string, (id: string, country: string) => string> = {
