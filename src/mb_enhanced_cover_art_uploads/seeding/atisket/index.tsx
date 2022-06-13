@@ -1,9 +1,10 @@
 import { LOGGER } from '@lib/logging/logger';
+import { logFailure } from '@lib/util/async';
 import { qs, qsa, qsMaybe } from '@lib/util/dom';
 
 import type { Seeder } from '../base';
-import { getImageDimensions } from '../../image_dimensions';
 import { SeedParameters } from '../parameters';
+import { AtisketImage } from './dimensions';
 
 // For main page after search but before adding
 export const AtisketSeeder: Seeder = {
@@ -49,10 +50,10 @@ export const AtasketSeeder: Seeder = {
 
 function addSeedLinkToCovers(mbid: string, origin: string): void {
     const covers = qsa<HTMLElement>('figure.cover');
-    Promise.all(covers.map((fig) => addSeedLinkToCover(fig, mbid, origin)))
-        .catch((err) => {
-            LOGGER.error('Failed to add seed links to some cover art', err);
-        });
+    for (const fig of covers) {
+        addSeedLinkToCover(fig, mbid, origin);
+        logFailure(addDimensions(fig), 'Failed to insert image information');
+    }
 }
 
 function tryExtractReleaseUrl(fig: HTMLElement): string | undefined {
@@ -69,11 +70,8 @@ function tryExtractReleaseUrl(fig: HTMLElement): string | undefined {
     return RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
 }
 
-async function addSeedLinkToCover(fig: HTMLElement, mbid: string, origin: string): Promise<void> {
+function addSeedLinkToCover(fig: HTMLElement, mbid: string, origin: string): void {
     const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
-
-    // Already start loading the image dimensions.
-    const dimensionsPromise = addDimensions(fig, imageUrl);
 
     // On atj's mirror, we'll seed the release URLs, instead of the images
     // directly. This will allow us to e.g. extract additional images for the
@@ -95,21 +93,22 @@ async function addSeedLinkToCover(fig: HTMLElement, mbid: string, origin: string
     // below should lead to a consistent ordering of elements.
     qs<HTMLElement>('figcaption', fig)
         .insertAdjacentElement('beforeend', seedLink);
-
-    return dimensionsPromise
-        // TODO: Use `logFailure`
-        .catch((err) => {
-            LOGGER.warn('Failed to insert dimensions', err);
-        });
 }
 
-async function addDimensions(fig: HTMLElement, imageUrl: string): Promise<void> {
-    const imageDimensions = await getImageDimensions(imageUrl);
-    // Not using .split('.') here because Spotify images do not have an extension.
-    const ext = imageUrl.match(/\.(\w+)$/)?.[1];
-    const dimensionStr = `${imageDimensions.width}x${imageDimensions.height}`;
+async function addDimensions(fig: HTMLElement): Promise<void> {
+    const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
+    const imageInfo = await new AtisketImage(imageUrl).getImageInfo();
+
+    const infoStringParts = [
+        imageInfo.dimensions ? `${imageInfo.dimensions.width}x${imageInfo.dimensions.height}` : '',
+        imageInfo.fileType,
+    ];
+    const infoString = infoStringParts.filter(Boolean).join(', ');
+
+    if (!infoString) return;
+
     const dimSpan = <span style={{ display: 'block' }}>
-        {dimensionStr + (ext ? ` ${ext.toUpperCase()}` : '')}
+        {infoString}
     </span>;
 
     qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
