@@ -144,17 +144,20 @@ async function getImageInfo(imageUrl: string): Promise<ImageInfo> {
         // since it resolves even if both queries fail. We're dealing with images
         // that may not exist, so instead we'll call both parts separately and
         // check their output.
-        const dimensions = await atisketImage.getDimensions();
+
+        // Load file info first, and skip loading dimensions if file info failed.
+        // File info does a HEAD request and fails immediately on 404, dimensions
+        // will retry on 404, which would be wasteful.
+        const fileInfo = await atisketImage.getFileInfo();
+        const dimensions = fileInfo && await atisketImage.getDimensions();
         if (!dimensions) {
             LOGGER.warn(`Failed to load dimensions for maximised candidate ${maxCandidate.url}`);
             continue;
         }
-        const fileInfo = await atisketImage.getFileInfo();
 
         return {
             dimensions,
-            fileType: fileInfo?.fileType,
-            size: fileInfo?.size,
+            ...fileInfo,
         };
     }
 
