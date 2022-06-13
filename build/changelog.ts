@@ -48,9 +48,14 @@ export function parsePullRequestTitle(prInfo: PullRequestInfo): Promise<ChangeIn
 
 // Exported for tests
 export async function generateChangelogEntry(scriptVersion: string, prInfo: PullRequestInfo): Promise<string> {
-    const changeInfo = await parsePullRequestTitle(prInfo);
-    const changelogTitle = CC_TYPE_TO_TITLE[changeInfo.type] ?? 'Internal changes';
-    return `- **${scriptVersion}**: ${changelogTitle}: ${changeInfo.subject} ([#${prInfo.number}](${prInfo.url}))`;
+    try {
+        const changeInfo = await parsePullRequestTitle(prInfo);
+        const changelogTitle = CC_TYPE_TO_TITLE[changeInfo.type] ?? 'Internal changes';
+        return `- **${scriptVersion}**: ${changelogTitle}: ${changeInfo.subject} ([#${prInfo.number}](${prInfo.url}))`;
+    } catch (err) {
+        console.error(err);
+        return `- **${scriptVersion}**: UNKNOWN CHANGE TYPE: ${prInfo.title} ([#${prInfo.number}](${prInfo.url}))`;
+    }
 }
 
 export async function updateChangelog(scriptName: string, version: string, distRepo: string, prInfo: PullRequestInfo): Promise<void> {
