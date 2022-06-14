@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2022.6.13
+// @version      2022.6.14
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -101,9 +101,12 @@ function loadAndInsert() {
     });
 }
 
-// FIXME: onload workaround for hydration errors, not ideal, will cause script
-// to postpone initialising until cover art is loaded.
-window.addEventListener('load', () => {
+// MBS will fire a custom `mb-hydration` event whenever a React component gets
+// hydrated. We need to wait for hydration to complete before modifying the
+// component, React gets mad otherwise.
+// Multiple `mb-hydration` events will fire on a release page, so make sure we're
+// listening for the correct one.
+document.querySelector('.tracklist-and-credits').addEventListener('mb-hydration', () => {
     const button = document.createElement('button');
     button.classList.add('btn-link');
     button.type = 'button';
@@ -112,5 +115,4 @@ window.addEventListener('load', () => {
 
     document.querySelector('span#medium-toolbox')
         .firstChild.before(button, ' | ');
-
 });
