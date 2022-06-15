@@ -10,6 +10,8 @@ export interface FileInfo {
     size?: number;
     /** Textual file type description, may be unknown. */
     fileType?: string;
+    /** Number of pages in PDF, may be unknown. */
+    pageCount?: number;
 }
 
 /** Image information. */
