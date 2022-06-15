@@ -85,10 +85,18 @@ function transformCAAURL(url: string): string {
 
     if (urlObj.host === 'coverartarchive.org' && urlObj.pathname.startsWith('/release/')) {
         const [releaseId, imageName] = urlObj.pathname.split('/').slice(2);
-        return `https://archive.org/download/mbid-${releaseId}/mbid-${releaseId}-${imageName}`;
+        urlObj.href = `https://archive.org/download/mbid-${releaseId}/mbid-${releaseId}-${imageName}`;
     }
 
-    return url;
+    if (urlObj.pathname.endsWith('.pdf')) {
+        // Transform the PDF URL to the direct URL to the derived JPEG in the JP2 ZIP.
+        const [imageName] = urlObj.pathname.split('/').slice(3);
+        const imageBasename = imageName.replace(/\.pdf$/, '');
+        urlObj.pathname = urlObj.pathname.replace(/\.pdf$/, `_jp2.zip/${imageBasename}_jp2%2F${imageBasename}_0000.jp2`);
+        urlObj.search = '?ext=jpg';
+    }
+
+    return urlObj.href;
 }
 
 
@@ -134,15 +142,6 @@ export class CAAImage extends BaseImage {
         const [itemId, imageId] = parseCAAIDs(thumbnailUrl ?? fullSizeUrl);
         this.itemId = itemId;
         this.imageId = imageId;
-    }
-
-    public override getDimensions(): Promise<Dimensions | undefined> {
-        if (this.imgUrl.endsWith('.pdf')) {
-            LOGGER.warn(`Cannot get dimensions of PDF, skipping ${this.imgUrl}`);
-            return Promise.resolve(undefined);
-        }
-
-        return super.getDimensions();
     }
 
     public loadFileInfo(): Promise<FileInfo> {
