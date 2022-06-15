@@ -106,7 +106,23 @@ function loadAndInsert() {
 // component, React gets mad otherwise.
 // Multiple `mb-hydration` events will fire on a release page, so make sure we're
 // listening for the correct one.
-document.querySelector('.tracklist-and-credits').addEventListener('mb-hydration', () => {
+function onReactHydrated(element, callback) {
+    var alreadyHydrated = Object.keys(element).some(function (propertyName) {
+        return propertyName.indexOf('_reactListening') === 0 && element[propertyName];
+    });
+
+    if (alreadyHydrated) {
+        callback();
+    } else if (window.__MB__.DBDefs.GIT_BRANCH === 'production' && window.__MB__.DBDefs.GIT_SHA === '923237cf73') {
+        // Current production version does not have this custom event yet.
+        // TODO: Remove this when prod is updated.
+        window.addEventListener('load', callback);
+    } else {
+        element.addEventListener('mb-hydration', callback);
+    }
+}
+
+onReactHydrated(document.querySelector('.tracklist-and-credits'), () => {
     const button = document.createElement('button');
     button.classList.add('btn-link');
     button.type = 'button';
