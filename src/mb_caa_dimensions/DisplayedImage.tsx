@@ -15,7 +15,7 @@ export interface DisplayedImage {
 
 export function createDimensionsString(imageInfo: ImageInfo): string {
     return (typeof imageInfo.dimensions !== 'undefined'
-        ? `${imageInfo.dimensions.height}x${imageInfo.dimensions.width}`
+        ? `${imageInfo.dimensions.width}x${imageInfo.dimensions.height}`
         : 'failed :(');
 }
 
