@@ -28,3 +28,4 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Spotify | ✔️ | ✔️ |
 | Tidal | ✔️ | ✔️ | listen.tidal.com/store.tidal.com are converted to tidal.com prior to fetching |
 | VGMdb | ✔️ | ✔️ | Types are filled on a best-effort basis, make sure to double-check. Some images may be missed if you are not logged in to a VGMdb account. If you are logged in, the script _should_ be able to fetch those images, but support may depend on your userscript engine. |
+| VK Music | ✔️ | ✔️ | Likely limited to 1184px.
