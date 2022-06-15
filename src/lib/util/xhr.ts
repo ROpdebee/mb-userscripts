@@ -7,7 +7,7 @@ import { GMxmlHttpRequest } from '@lib/compat';
 // eslint-disable-next-line no-restricted-globals
 type LimitedGMXHROptions = Omit<GM.Request, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'|'method'|'url'>;
 
-interface GMXHROptions extends LimitedGMXHROptions {
+export interface GMXHROptions extends LimitedGMXHROptions {
     // eslint-disable-next-line no-restricted-globals
     method?: GM.Request['method'];
 }

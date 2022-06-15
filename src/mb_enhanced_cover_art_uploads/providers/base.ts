@@ -1,3 +1,4 @@
+import type { GMXHROptions } from '@lib/util/xhr';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { collatedSort, filterNonNull, groupBy } from '@lib/util/array';
@@ -100,8 +101,8 @@ export abstract class CoverArtProvider {
         return !!id && id === this.extractId(redirectedUrl);
     }
 
-    protected async fetchPage(url: URL): Promise<string> {
-        const resp = await gmxhr(url);
+    protected async fetchPage(url: URL, options?: GMXHROptions): Promise<string> {
+        const resp = await gmxhr(url, options);
         if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
             throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${resp.finalUrl}, which may be a different release. If this redirected URL is correct, please retry with ${resp.finalUrl} directly.`);
         }
