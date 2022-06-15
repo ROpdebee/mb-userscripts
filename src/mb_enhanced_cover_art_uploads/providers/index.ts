@@ -26,6 +26,7 @@ import { SpotifyProvider } from './spotify';
 import { TidalProvider } from './tidal';
 import { VGMdbProvider } from './vgmdb';
 import { VKMusicProvider } from './vk_music';
+import { YandexMusicProvider } from './yandex_music';
 
 const PROVIDER_DISPATCH = new DispatchMap<CoverArtProvider>();
 
@@ -60,6 +61,7 @@ addProvider(new SpotifyProvider());
 addProvider(new TidalProvider());
 addProvider(new VGMdbProvider());
 addProvider(new VKMusicProvider());
+addProvider(new YandexMusicProvider());
 
 function extractDomain(url: URL): string {
     return url.hostname.replace(/^www\./, '');
