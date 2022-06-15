@@ -108,7 +108,7 @@ function loadAndInsert() {
 // listening for the correct one.
 function onReactHydrated(element, callback) {
     var alreadyHydrated = Object.keys(element).some(function (propertyName) {
-        return propertyName.indexOf('_reactListening') === 0 && element[propertyName];
+        return propertyName.startsWith('_reactListening') && element[propertyName];
     });
 
     if (alreadyHydrated) {
