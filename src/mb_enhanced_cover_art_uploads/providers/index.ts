@@ -24,6 +24,7 @@ import { SoundcloudProvider } from './soundcloud';
 import { SpotifyProvider } from './spotify';
 import { TidalProvider } from './tidal';
 import { VGMdbProvider } from './vgmdb';
+import { VKMusicProvider } from './vk_music';
 
 const PROVIDER_DISPATCH = new DispatchMap<CoverArtProvider>();
 
@@ -56,6 +57,7 @@ addProvider(new SoundcloudProvider());
 addProvider(new SpotifyProvider());
 addProvider(new TidalProvider());
 addProvider(new VGMdbProvider());
+addProvider(new VKMusicProvider());
 
 function extractDomain(url: URL): string {
     return url.hostname.replace(/^www\./, '');
