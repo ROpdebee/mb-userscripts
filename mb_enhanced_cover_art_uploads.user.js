@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.6.13.2
+// @version      2022.6.15
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -31,11 +31,11 @@
 (function () {
   'use strict';
 
-  /* minified: babel helpers, babel-plugin-transform-async-to-promises, nativejsx, ts-custom-error, p-throttle */
-  function ownKeys(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n);}return r}function _objectSpread2(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?ownKeys(Object(r),!0).forEach((function(e){_defineProperty(t,e,r[e]);})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):ownKeys(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e));}));}return t}function _defineProperty(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function _slicedToArray(t,e){return _arrayWithHoles(t)||_iterableToArrayLimit(t,e)||_unsupportedIterableToArray(t,e)||_nonIterableRest()}function _toArray(t){return _arrayWithHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableRest()}function _arrayWithHoles(t){if(Array.isArray(t))return t}function _iterableToArray(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}function _iterableToArrayLimit(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,i=[],a=!0,u=!1;try{for(r=r.call(t);!(a=(n=r.next()).done)&&(i.push(n.value),!e||i.length!==e);a=!0);}catch(c){u=!0,o=c;}finally{try{a||null==r.return||r.return();}finally{if(u)throw o}}return i}}function _unsupportedIterableToArray(t,e){if(t){if("string"==typeof t)return _arrayLikeToArray(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return "Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?_arrayLikeToArray(t,e):void 0}}function _arrayLikeToArray(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _createForOfIteratorHelper(t,e){var r="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!r){if(Array.isArray(t)||(r=_unsupportedIterableToArray(t))||e&&t&&"number"==typeof t.length){r&&(t=r);var n=0,o=function(){};return {s:o,n:function(){return n>=t.length?{done:!0}:{done:!1,value:t[n++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,a=!0,u=!1;return {s:function(){r=r.call(t);},n:function(){var t=r.next();return a=t.done,t},e:function(t){u=!0,i=t;},f:function(){try{a||null==r.return||r.return();}finally{if(u)throw i}}}}const _Pact=function(){function t(){}return t.prototype.then=function(e,r){const n=new t,o=this.s;if(o){const t=1&o?e:r;if(t){try{_settle(n,1,t(this.v));}catch(i){_settle(n,2,i);}return n}return this}return this.o=function(t){try{const o=t.v;1&t.s?_settle(n,1,e?e(o):o):r?_settle(n,1,r(o)):_settle(n,2,o);}catch(i){_settle(n,2,i);}},n},t}();function _settle(t,e,r){if(!t.s){if(r instanceof _Pact){if(!r.s)return void(r.o=_settle.bind(null,t,e));1&e&&(e=r.s),r=r.v;}if(r&&r.then)return void r.then(_settle.bind(null,t,e),_settle.bind(null,t,2));t.s=e,t.v=r;const n=t.o;n&&n(t);}}function _isSettledPact(t){return t instanceof _Pact&&1&t.s}function _async(t){return function(){for(var e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];try{return Promise.resolve(t.apply(this,e))}catch(n){return Promise.reject(n)}}}function _await(t,e,r){return r?e?e(t):t:(t&&t.then||(t=Promise.resolve(t)),e?t.then(e):t)}function _awaitIgnored(t,e){if(!e)return t&&t.then?t.then(_empty):Promise.resolve()}function _continue(t,e){return t&&t.then?t.then(e):e(t)}function _continueIgnored(t){if(t&&t.then)return t.then(_empty)}function _forTo(t,e,r){var n,o,i=-1;return function a(u){try{for(;++i<t.length&&(!r||!r());)if((u=e(i))&&u.then){if(!_isSettledPact(u))return void u.then(a,o||(o=_settle.bind(null,n=new _Pact,2)));u=u.v;}n?_settle(n,1,u):n=u;}catch(c){_settle(n||(n=new _Pact),2,c);}}(),n}const _iteratorSymbol="undefined"!=typeof Symbol?Symbol.iterator||(Symbol.iterator=Symbol("Symbol.iterator")):"@@iterator";function _forOf(t,e,r){if("function"==typeof t[_iteratorSymbol]){var n,o,i,a=t[_iteratorSymbol]();if(function t(u){try{for(;!((n=a.next()).done||r&&r());)if((u=e(n.value))&&u.then){if(!_isSettledPact(u))return void u.then(t,i||(i=_settle.bind(null,o=new _Pact,2)));u=u.v;}o?_settle(o,1,u):o=u;}catch(c){_settle(o||(o=new _Pact),2,c);}}(),a.return){var u=function(t){try{n.done||a.return();}catch(e){}return t};if(o&&o.then)return o.then(u,(function(t){throw u(t)}));u();}return o}if(!("length"in t))throw new TypeError("Object is not iterable");for(var c=[],l=0;l<t.length;l++)c.push(t[l]);return _forTo(c,(function(t){return e(c[t])}),r)}const _asyncIteratorSymbol="undefined"!=typeof Symbol?Symbol.asyncIterator||(Symbol.asyncIterator=Symbol("Symbol.asyncIterator")):"@@asyncIterator";function _forAwaitOf(t,e,r){if("function"==typeof t[_asyncIteratorSymbol]){var n=new _Pact,o=t[_asyncIteratorSymbol]();return o.next().then(a).then(void 0,u),n;function i(t){if(r&&r())return _settle(n,1,o.return?o.return().then((function(){return t})):t);o.next().then(a).then(void 0,u);}function a(t){t.done?_settle(n,1):Promise.resolve(e(t.value)).then(i).then(void 0,u);}function u(t){_settle(n,2,o.return?o.return().then((function(){return t})):t);}}return Promise.resolve(_forOf(t,(function(t){return Promise.resolve(t).then(e)}),r))}function _call(t,e,r){if(r)return e?e(t()):t();try{var n=Promise.resolve(t());return e?n.then(e):n}catch(o){return Promise.reject(o)}}function _invoke(t,e){var r=t();return r&&r.then?r.then(e):e(r)}function _catch(t,e){try{var r=t();}catch(n){return e(n)}return r&&r.then?r.then(void 0,e):r}function _finallyRethrows(t,e){try{var r=t();}catch(n){return e(!0,n)}return r&&r.then?r.then(e.bind(null,!1),e.bind(null,!0)):e(!1,r)}function _rethrow(t,e){if(t)throw e;return e}function _empty(){}const _earlyReturn={};function _catchInGenerator(t,e){return _catch(t,(function(t){if(t===_earlyReturn)throw t;return e(t)}))}const _AsyncGenerator=function(){function t(t){this._entry=t,this._pact=null,this._resolve=null,this._return=null,this._promise=null;}function e(t){return {value:t,done:!0}}function r(t){return {value:t,done:!1}}return t.prototype._yield=function(t){return this._resolve(t&&t.then?t.then(r):r(t)),this._pact=new _Pact},t.prototype.next=function(t){const r=this;return r._promise=new Promise((function(n){const o=r._pact;if(null===o){const u=r._entry;if(null===u)return n(r._promise);function i(t){r._resolve(t&&t.then?t.then(e):e(t)),r._pact=null,r._resolve=null;}r._entry=null,r._resolve=n;var a=u(r);a&&a.then?a.then(i,(function(t){if(t===_earlyReturn)i(r._return);else {const e=new _Pact;r._resolve(e),r._pact=null,r._resolve=null,_resolve(e,2,t);}})):i(a);}else r._pact=null,r._resolve=n,_settle(o,1,t);}))},t.prototype.return=function(t){const r=this;return r._promise=new Promise((function(n){const o=r._pact;if(null===o)return null===r._entry?n(r._promise):(r._entry=null,n(t&&t.then?t.then(e):e(t)));r._return=t,r._resolve=n,r._pact=null,_settle(o,2,_earlyReturn);}))},t.prototype.throw=function(t){const e=this;return e._promise=new Promise((function(r,n){const o=e._pact;if(null===o)return null===e._entry?r(e._promise):(e._entry=null,n(t));e._resolve=r,e._pact=null,_settle(o,2,t);}))},t.prototype[_asyncIteratorSymbol]=function(){return this},t}();var appendChildren=function(t,e){(e=Array.isArray(e)?e:[e]).forEach((function(e){e instanceof HTMLElement?t.appendChild(e):(e||"string"==typeof e)&&t.appendChild(document.createTextNode(e.toString()));}));},setStyles=function(t,e){for(const r in e)t.style[r]=e[r];};function fixProto(t,e){var r=Object.setPrototypeOf;r?r(t,e):t.__proto__=e;}function fixStack(t,e){void 0===e&&(e=t.constructor);var r=Error.captureStackTrace;r&&r(t,e);}var __extends=function(){var t=function(e,r){return t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e;}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r]);},t(e,r)};return function(e,r){function n(){this.constructor=e;}t(e,r),e.prototype=null===r?Object.create(r):(n.prototype=r.prototype,new n);}}(),CustomError=function(t){function e(e){var r=this.constructor,n=t.call(this,e)||this;return Object.defineProperty(n,"name",{value:r.name,enumerable:!1,configurable:!0}),fixProto(n,r.prototype),fixStack(n),n}return __extends(e,t),e}(Error);class AbortError extends Error{constructor(){super("Throttled function aborted"),this.name="AbortError";}}function pThrottle(t){let e=t.limit,r=t.interval,n=t.strict;if(!Number.isFinite(e))throw new TypeError("Expected `limit` to be a finite number");if(!Number.isFinite(r))throw new TypeError("Expected `interval` to be a finite number");const o=new Map;let i=0,a=0;const u=[],c=n?function(){const t=Date.now();if(u.length<e)return u.push(t),0;const n=u.shift()+r;return t>=n?(u.push(t),0):(u.push(n),n-t)}:function(){const t=Date.now();return t-i>r?(a=1,i=t,0):(a<e?a++:(i+=r,a=1),i-t)};return t=>{const e=function e(){const r=this;for(var n=arguments.length,i=new Array(n),a=0;a<n;a++)i[a]=arguments[a];if(!e.isEnabled)return _async((function(){return t.apply(r,i)}))();let u;return new Promise(((e,r)=>{u=setTimeout((()=>{e(t.apply(this,i)),o.delete(u);}),c()),o.set(u,r);}))};return e.abort=()=>{var t,e=_createForOfIteratorHelper(o.keys());try{for(e.s();!(t=e.n()).done;){const e=t.value;clearTimeout(e),o.get(e)(new AbortError);}}catch(r){e.e(r);}finally{e.f();}o.clear(),u.splice(0,u.length);},e.isEnabled=!0,e}}
+  /* minified: babel helpers, babel-plugin-transform-async-to-promises, nativejsx, ts-custom-error, p-throttle, retry, p-retry */
+  function ownKeys(t,r){var e=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);r&&(n=n.filter((function(r){return Object.getOwnPropertyDescriptor(t,r).enumerable}))),e.push.apply(e,n);}return e}function _objectSpread2(t){for(var r=1;r<arguments.length;r++){var e=null!=arguments[r]?arguments[r]:{};r%2?ownKeys(Object(e),!0).forEach((function(r){_defineProperty(t,r,e[r]);})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(e)):ownKeys(Object(e)).forEach((function(r){Object.defineProperty(t,r,Object.getOwnPropertyDescriptor(e,r));}));}return t}function _defineProperty(t,r,e){return r in t?Object.defineProperty(t,r,{value:e,enumerable:!0,configurable:!0,writable:!0}):t[r]=e,t}function _slicedToArray(t,r){return _arrayWithHoles(t)||_iterableToArrayLimit(t,r)||_unsupportedIterableToArray(t,r)||_nonIterableRest()}function _toArray(t){return _arrayWithHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableRest()}function _arrayWithHoles(t){if(Array.isArray(t))return t}function _iterableToArray(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}function _iterableToArrayLimit(t,r){var e=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=e){var n,o,i=[],a=!0,s=!1;try{for(e=e.call(t);!(a=(n=e.next()).done)&&(i.push(n.value),!r||i.length!==r);a=!0);}catch(u){s=!0,o=u;}finally{try{a||null==e.return||e.return();}finally{if(s)throw o}}return i}}function _unsupportedIterableToArray(t,r){if(t){if("string"==typeof t)return _arrayLikeToArray(t,r);var e=Object.prototype.toString.call(t).slice(8,-1);return "Object"===e&&t.constructor&&(e=t.constructor.name),"Map"===e||"Set"===e?Array.from(t):"Arguments"===e||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(e)?_arrayLikeToArray(t,r):void 0}}function _arrayLikeToArray(t,r){(null==r||r>t.length)&&(r=t.length);for(var e=0,n=new Array(r);e<r;e++)n[e]=t[e];return n}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _createForOfIteratorHelper(t,r){var e="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!e){if(Array.isArray(t)||(e=_unsupportedIterableToArray(t))||r&&t&&"number"==typeof t.length){e&&(t=e);var n=0,o=function(){};return {s:o,n:function(){return n>=t.length?{done:!0}:{done:!1,value:t[n++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,a=!0,s=!1;return {s:function(){e=e.call(t);},n:function(){var t=e.next();return a=t.done,t},e:function(t){s=!0,i=t;},f:function(){try{a||null==e.return||e.return();}finally{if(s)throw i}}}}const _Pact=function(){function t(){}return t.prototype.then=function(r,e){const n=new t,o=this.s;if(o){const t=1&o?r:e;if(t){try{_settle(n,1,t(this.v));}catch(i){_settle(n,2,i);}return n}return this}return this.o=function(t){try{const o=t.v;1&t.s?_settle(n,1,r?r(o):o):e?_settle(n,1,e(o)):_settle(n,2,o);}catch(i){_settle(n,2,i);}},n},t}();function _settle(t,r,e){if(!t.s){if(e instanceof _Pact){if(!e.s)return void(e.o=_settle.bind(null,t,r));1&r&&(r=e.s),e=e.v;}if(e&&e.then)return void e.then(_settle.bind(null,t,r),_settle.bind(null,t,2));t.s=r,t.v=e;const n=t.o;n&&n(t);}}function _isSettledPact(t){return t instanceof _Pact&&1&t.s}function _async(t){return function(){for(var r=[],e=0;e<arguments.length;e++)r[e]=arguments[e];try{return Promise.resolve(t.apply(this,r))}catch(n){return Promise.reject(n)}}}function _await(t,r,e){return e?r?r(t):t:(t&&t.then||(t=Promise.resolve(t)),r?t.then(r):t)}function _awaitIgnored(t,r){if(!r)return t&&t.then?t.then(_empty):Promise.resolve()}function _continue(t,r){return t&&t.then?t.then(r):r(t)}function _continueIgnored(t){if(t&&t.then)return t.then(_empty)}function _forTo(t,r,e){var n,o,i=-1;return function a(s){try{for(;++i<t.length&&(!e||!e());)if((s=r(i))&&s.then){if(!_isSettledPact(s))return void s.then(a,o||(o=_settle.bind(null,n=new _Pact,2)));s=s.v;}n?_settle(n,1,s):n=s;}catch(u){_settle(n||(n=new _Pact),2,u);}}(),n}const _iteratorSymbol="undefined"!=typeof Symbol?Symbol.iterator||(Symbol.iterator=Symbol("Symbol.iterator")):"@@iterator";function _forOf(t,r,e){if("function"==typeof t[_iteratorSymbol]){var n,o,i,a=t[_iteratorSymbol]();if(function t(s){try{for(;!((n=a.next()).done||e&&e());)if((s=r(n.value))&&s.then){if(!_isSettledPact(s))return void s.then(t,i||(i=_settle.bind(null,o=new _Pact,2)));s=s.v;}o?_settle(o,1,s):o=s;}catch(u){_settle(o||(o=new _Pact),2,u);}}(),a.return){var s=function(t){try{n.done||a.return();}catch(r){}return t};if(o&&o.then)return o.then(s,(function(t){throw s(t)}));s();}return o}if(!("length"in t))throw new TypeError("Object is not iterable");for(var u=[],c=0;c<t.length;c++)u.push(t[c]);return _forTo(u,(function(t){return r(u[t])}),e)}const _asyncIteratorSymbol="undefined"!=typeof Symbol?Symbol.asyncIterator||(Symbol.asyncIterator=Symbol("Symbol.asyncIterator")):"@@asyncIterator";function _forAwaitOf(t,r,e){if("function"==typeof t[_asyncIteratorSymbol]){var n=new _Pact,o=t[_asyncIteratorSymbol]();return o.next().then(a).then(void 0,s),n;function i(t){if(e&&e())return _settle(n,1,o.return?o.return().then((function(){return t})):t);o.next().then(a).then(void 0,s);}function a(t){t.done?_settle(n,1):Promise.resolve(r(t.value)).then(i).then(void 0,s);}function s(t){_settle(n,2,o.return?o.return().then((function(){return t})):t);}}return Promise.resolve(_forOf(t,(function(t){return Promise.resolve(t).then(r)}),e))}function _call(t,r,e){if(e)return r?r(t()):t();try{var n=Promise.resolve(t());return r?n.then(r):n}catch(o){return Promise.reject(o)}}function _invoke(t,r){var e=t();return e&&e.then?e.then(r):r(e)}function _invokeIgnored(t){var r=t();if(r&&r.then)return r.then(_empty)}function _catch(t,r){try{var e=t();}catch(n){return r(n)}return e&&e.then?e.then(void 0,r):e}function _finallyRethrows(t,r){try{var e=t();}catch(n){return r(!0,n)}return e&&e.then?e.then(r.bind(null,!1),r.bind(null,!0)):r(!1,e)}function _rethrow(t,r){if(t)throw r;return r}function _empty(){}const _earlyReturn={};function _catchInGenerator(t,r){return _catch(t,(function(t){if(t===_earlyReturn)throw t;return r(t)}))}const _AsyncGenerator=function(){function t(t){this._entry=t,this._pact=null,this._resolve=null,this._return=null,this._promise=null;}function r(t){return {value:t,done:!0}}function e(t){return {value:t,done:!1}}return t.prototype._yield=function(t){return this._resolve(t&&t.then?t.then(e):e(t)),this._pact=new _Pact},t.prototype.next=function(t){const e=this;return e._promise=new Promise((function(n){const o=e._pact;if(null===o){const s=e._entry;if(null===s)return n(e._promise);function i(t){e._resolve(t&&t.then?t.then(r):r(t)),e._pact=null,e._resolve=null;}e._entry=null,e._resolve=n;var a=s(e);a&&a.then?a.then(i,(function(t){if(t===_earlyReturn)i(e._return);else {const r=new _Pact;e._resolve(r),e._pact=null,e._resolve=null,_resolve(r,2,t);}})):i(a);}else e._pact=null,e._resolve=n,_settle(o,1,t);}))},t.prototype.return=function(t){const e=this;return e._promise=new Promise((function(n){const o=e._pact;if(null===o)return null===e._entry?n(e._promise):(e._entry=null,n(t&&t.then?t.then(r):r(t)));e._return=t,e._resolve=n,e._pact=null,_settle(o,2,_earlyReturn);}))},t.prototype.throw=function(t){const r=this;return r._promise=new Promise((function(e,n){const o=r._pact;if(null===o)return null===r._entry?e(r._promise):(r._entry=null,n(t));r._resolve=e,r._pact=null,_settle(o,2,t);}))},t.prototype[_asyncIteratorSymbol]=function(){return this},t}();var appendChildren=function(t,r){(r=Array.isArray(r)?r:[r]).forEach((function(r){r instanceof HTMLElement?t.appendChild(r):(r||"string"==typeof r)&&t.appendChild(document.createTextNode(r.toString()));}));},setStyles=function(t,r){for(const e in r)t.style[e]=r[e];};function fixProto(t,r){var e=Object.setPrototypeOf;e?e(t,r):t.__proto__=r;}function fixStack(t,r){void 0===r&&(r=t.constructor);var e=Error.captureStackTrace;e&&e(t,r);}var __extends=function(){var t=function(r,e){return t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,r){t.__proto__=r;}||function(t,r){for(var e in r)r.hasOwnProperty(e)&&(t[e]=r[e]);},t(r,e)};return function(r,e){function n(){this.constructor=r;}t(r,e),r.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n);}}(),CustomError=function(t){function r(r){var e=this.constructor,n=t.call(this,r)||this;return Object.defineProperty(n,"name",{value:e.name,enumerable:!1,configurable:!0}),fixProto(n,e.prototype),fixStack(n),n}return __extends(r,t),r}(Error);class AbortError$1 extends Error{constructor(){super("Throttled function aborted"),this.name="AbortError";}}function pThrottle(t){let r=t.limit,e=t.interval,n=t.strict;if(!Number.isFinite(r))throw new TypeError("Expected `limit` to be a finite number");if(!Number.isFinite(e))throw new TypeError("Expected `interval` to be a finite number");const o=new Map;let i=0,a=0;const s=[],u=n?function(){const t=Date.now();if(s.length<r)return s.push(t),0;const n=s.shift()+e;return t>=n?(s.push(t),0):(s.push(n),n-t)}:function(){const t=Date.now();return t-i>e?(a=1,i=t,0):(a<r?a++:(i+=e,a=1),i-t)};return t=>{const r=function r(){const e=this;for(var n=arguments.length,i=new Array(n),a=0;a<n;a++)i[a]=arguments[a];if(!r.isEnabled)return _async((function(){return t.apply(e,i)}))();let s;return new Promise(((r,e)=>{s=setTimeout((()=>{r(t.apply(this,i)),o.delete(s);}),u()),o.set(s,e);}))};return r.abort=()=>{var t,r=_createForOfIteratorHelper(o.keys());try{for(r.s();!(t=r.n()).done;){const r=t.value;clearTimeout(r),o.get(r)(new AbortError$1);}}catch(e){r.e(e);}finally{r.f();}o.clear(),s.splice(0,s.length);},r.isEnabled=!0,r}}function getDefaultExportFromCjs(t){return t&&t.__esModule&&Object.prototype.hasOwnProperty.call(t,"default")?t.default:t}var retry$2={exports:{}},retry$1={};function RetryOperation(t,r){"boolean"==typeof r&&(r={forever:r}),this._originalTimeouts=JSON.parse(JSON.stringify(t)),this._timeouts=t,this._options=r||{},this._maxRetryTime=r&&r.maxRetryTime||1/0,this._fn=null,this._errors=[],this._attempts=1,this._operationTimeout=null,this._operationTimeoutCb=null,this._timeout=null,this._operationStart=null,this._timer=null,this._options.forever&&(this._cachedTimeouts=this._timeouts.slice(0));}var retry_operation=RetryOperation;RetryOperation.prototype.reset=function(){this._attempts=1,this._timeouts=this._originalTimeouts.slice(0);},RetryOperation.prototype.stop=function(){this._timeout&&clearTimeout(this._timeout),this._timer&&clearTimeout(this._timer),this._timeouts=[],this._cachedTimeouts=null;},RetryOperation.prototype.retry=function(t){if(this._timeout&&clearTimeout(this._timeout),!t)return !1;var r=(new Date).getTime();if(t&&r-this._operationStart>=this._maxRetryTime)return this._errors.push(t),this._errors.unshift(new Error("RetryOperation timeout occurred")),!1;this._errors.push(t);var e=this._timeouts.shift();if(void 0===e){if(!this._cachedTimeouts)return !1;this._errors.splice(0,this._errors.length-1),e=this._cachedTimeouts.slice(-1);}var n=this;return this._timer=setTimeout((function(){n._attempts++,n._operationTimeoutCb&&(n._timeout=setTimeout((function(){n._operationTimeoutCb(n._attempts);}),n._operationTimeout),n._options.unref&&n._timeout.unref()),n._fn(n._attempts);}),e),this._options.unref&&this._timer.unref(),!0},RetryOperation.prototype.attempt=function(t,r){this._fn=t,r&&(r.timeout&&(this._operationTimeout=r.timeout),r.cb&&(this._operationTimeoutCb=r.cb));var e=this;this._operationTimeoutCb&&(this._timeout=setTimeout((function(){e._operationTimeoutCb();}),e._operationTimeout)),this._operationStart=(new Date).getTime(),this._fn(this._attempts);},RetryOperation.prototype.try=function(t){console.log("Using RetryOperation.try() is deprecated"),this.attempt(t);},RetryOperation.prototype.start=function(t){console.log("Using RetryOperation.start() is deprecated"),this.attempt(t);},RetryOperation.prototype.start=RetryOperation.prototype.try,RetryOperation.prototype.errors=function(){return this._errors},RetryOperation.prototype.attempts=function(){return this._attempts},RetryOperation.prototype.mainError=function(){if(0===this._errors.length)return null;for(var t={},r=null,e=0,n=0;n<this._errors.length;n++){var o=this._errors[n],i=o.message,a=(t[i]||0)+1;t[i]=a,a>=e&&(r=o,e=a);}return r},function(t){var r=retry_operation;t.operation=function(e){var n=t.timeouts(e);return new r(n,{forever:e&&(e.forever||e.retries===1/0),unref:e&&e.unref,maxRetryTime:e&&e.maxRetryTime})},t.timeouts=function(t){if(t instanceof Array)return [].concat(t);var r={retries:10,factor:2,minTimeout:1e3,maxTimeout:1/0,randomize:!1};for(var e in t)r[e]=t[e];if(r.minTimeout>r.maxTimeout)throw new Error("minTimeout is greater than maxTimeout");for(var n=[],o=0;o<r.retries;o++)n.push(this.createTimeout(o,r));return t&&t.forever&&!n.length&&n.push(this.createTimeout(o,r)),n.sort((function(t,r){return t-r})),n},t.createTimeout=function(t,r){var e=r.randomize?Math.random()+1:1,n=Math.round(e*Math.max(r.minTimeout,1)*Math.pow(r.factor,t));return Math.min(n,r.maxTimeout)},t.wrap=function(r,e,n){if(e instanceof Array&&(n=e,e=null),!n)for(var o in n=[],r)"function"==typeof r[o]&&n.push(o);for(var i=0;i<n.length;i++){var a=n[i],s=r[a];r[a]=function(n){var o=t.operation(e),i=Array.prototype.slice.call(arguments,1),a=i.pop();i.push((function(t){o.retry(t)||(t&&(arguments[0]=o.mainError()),a.apply(this,arguments));})),o.attempt((function(){n.apply(r,i);}));}.bind(r,s),r[a].options=e;}};}(retry$1),retry$2.exports=retry$1;var retry=getDefaultExportFromCjs(retry$2.exports);const pRetry=_async((function(t,r){return new Promise(((e,n)=>{r=_objectSpread2({onFailedAttempt(){},retries:10},r);const o=retry.operation(r);o.attempt(_async((function(i){return _catch((function(){return _await(t(i),(function(t){e(t);}))}),(function(t){let e=!1;if(t instanceof Error)return _invokeIgnored((function(){if(!(t instanceof AbortError))return _invokeIgnored((function(){if(!(t instanceof TypeError)||isNetworkError(t.message))return decorateErrorWithCounts(t,i,r),_continue(_catch((function(){return _awaitIgnored(r.onFailedAttempt(t))}),(function(t){n(t),e=!0;})),(function(r){if(e)return r;o.retry(t)||n(o.mainError());}));o.stop(),n(t);}));o.stop(),n(t.originalError);}));n(new TypeError('Non-error was thrown: "'.concat(t,'". You should only throw errors.')));}))}))),r.signal&&!r.signal.aborted&&r.signal.addEventListener("abort",(()=>{o.stop();const t=void 0===r.signal.reason?getDOMException("The operation was aborted."):r.signal.reason;n(t instanceof Error?t:getDOMException(t));}),{once:!0});}))})),networkErrorMsgs=new Set(["Failed to fetch","NetworkError when attempting to fetch resource.","The Internet connection appears to be offline.","Network request failed"]);class AbortError extends Error{constructor(t){super(),t instanceof Error?(this.originalError=t,t=t.message):(this.originalError=new Error(t),this.originalError.stack=this.stack),this.name="AbortError",this.message=t;}}const decorateErrorWithCounts=(t,r,e)=>{const n=e.retries-(r-1);return t.attemptNumber=r,t.retriesLeft=n,t},isNetworkError=t=>networkErrorMsgs.has(t),getDOMException=t=>void 0===globalThis.DOMException?new Error(t):new DOMException(t);
 
   /* minified: lib */
-  class ConsoleSink{constructor(e){_defineProperty(this,"scriptName",void 0),_defineProperty(this,"onSuccess",this.onInfo.bind(this)),this.scriptName=e;}formatMessage(e){return "[".concat(this.scriptName,"] ").concat(e)}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel;!function(e){e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR";}(LogLevel||(LogLevel={}));const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){_defineProperty(this,"_configuration",void 0),this._configuration=_objectSpread2(_objectSpread2({},DEFAULT_OPTIONS),e);}fireHandlers(e,t,r){e<this._configuration.logLevel||this._configuration.sinks.forEach((n=>{const s=n[HANDLER_NAMES[e]];s&&(r?s.call(n,t,r):s.call(n,t));}));}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(null!=t?t:"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,null!=t?t:"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,null!=t?t:"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,null!=t?t:"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (null!=t?t:document).querySelector(e)}function qsa(e,t){return [...(null!=t?t:document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){const e=r.createElement("base");e.href=t,r.head.insertAdjacentElement("beforeend",e);}return r}var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";function insertStylesheet(e,t){if(void 0===t&&(t="ROpdebee_".concat(USERSCRIPT_ID,"_css")),null!==qsMaybe("style#".concat(t)))return;const r=function(){var r=document.createElement("style");return r.setAttribute("id",t),appendChildren(r,e),r}.call(this);document.head.insertAdjacentElement("beforeend",r);}var css_248z$1="#ROpdebee_log_container{margin:1.5rem auto;width:75%}#ROpdebee_log_container .msg{border:1px solid;border-radius:4px;display:block;font-weight:500;margin-bottom:.5rem;padding:.5rem .75rem;width:100%}#ROpdebee_log_container .msg.error{background-color:#f8d7da;border-color:#f5c6cb;color:#721c24;font-weight:600}#ROpdebee_log_container .msg.warning{background-color:#fff3cd;border-color:#ffeeba;color:#856404}#ROpdebee_log_container .msg.success{background-color:#d4edda;border-color:#c3e6cb;color:#155724}#ROpdebee_log_container .msg.info{background-color:#e2e3e5;border-color:#d6d8db;color:#383d41}";class GuiSink{constructor(){_defineProperty(this,"rootElement",void 0),_defineProperty(this,"persistentMessages",[]),_defineProperty(this,"transientMessages",[]),_defineProperty(this,"onInfo",this.onLog.bind(this)),insertStylesheet(css_248z$1,"ROpdebee_GUI_Logger"),this.rootElement=function(){var e=document.createElement("div");return e.setAttribute("id","ROpdebee_log_container"),setStyles(e,{display:"none"}),e}.call(this);}createMessage(e,t,r){const n=t+(r instanceof Error?": ".concat(r.message):"");return function(){var t=document.createElement("span");return t.setAttribute("class","msg ".concat(e)),appendChildren(t,n),t}.call(this)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){this.transientMessages.forEach((e=>{e.remove();})),this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){_defineProperty(this,"footer",void 0),_defineProperty(this,"extraInfoLines",void 0),_defineProperty(this,"editNoteTextArea",void 0),this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map((e=>e.trimEnd())):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let t=this.editNoteTextArea.value.split(separator),r=_toArray(t),n=r[0],s=r.slice(1);n=(n+"\n"+e).trim(),this.editNoteTextArea.value=[n,...s].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter((e=>e.trim()!==this.footer));this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t="".concat(e.name," ").concat(e.version,"\n").concat(e.namespace);return new EditNote(t)}}const getReleaseIDsForURL=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/url?resource=".concat(encodeURIComponent(e),"&inc=release-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t,r;return null!==(t=null===(r=e.relations)||void 0===r?void 0:r.map((e=>e.release.id)))&&void 0!==t?t:[]}))}))})),getURLsForRelease=_async((function(e,t){const r=null!=t?t:{},n=r.excludeEnded,s=r.excludeDuplicates;return _await(getReleaseUrlARs(e),(function(e){n&&(e=e.filter((e=>!e.ended)));let t=e.map((e=>e.url.resource));return s&&(t=[...new Set(t)]),t.flatMap((e=>{try{return [new URL(e)]}catch(t){return console.warn("Found malformed URL linked to release: ".concat(e)),[]}}))}))})),getReleaseUrlARs=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/release/".concat(e,"?inc=url-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t;return null!==(t=e.relations)&&void 0!==t?t:[]}))}))}));let ArtworkTypeIDs;function filterNonNull(e){return e.filter((e=>!(null==e)))}function groupBy(e,t,r){const n=new Map;var s,o=_createForOfIteratorHelper(e);try{for(o.s();!(s=o.n()).done;){var a;const e=s.value,o=t(e),i=r(e);n.has(o)?null===(a=n.get(o))||void 0===a||a.push(i):n.set(o,[i]);}}catch(i){o.e(i);}finally{o.f();}return n}function collatedSort(e){const t=new Intl.Collator("en",{numeric:!0});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map(((e,t)=>[e,t]))}function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var r=arguments.length,n=new Array(r>1?r-1:0),s=1;s<r;s++)n[s-1]=arguments[s];for(var o=0,a=n;o<a.length;o++){const e=a[o];t=new URL(e,t);}return t}!function(e){e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e.Raw=14]="Raw",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark";}(ArtworkTypeIDs||(ArtworkTypeIDs={}));const gmxhr=_async((function(e,t){return new Promise(((r,n)=>{GMxmlHttpRequest(_objectSpread2(_objectSpread2({method:"GET",url:e instanceof URL?e.href:e},t),{},{onload:t=>{t.status>=400?n(new HTTPResponseError(e,t)):r(t);},onerror:()=>{n(new NetworkError(e));},onabort:()=>{n(new AbortedError(e));},ontimeout:()=>{n(new TimeoutError(e));}}));}))}));class ResponseError extends CustomError{constructor(e,t){super(t),_defineProperty(this,"url",void 0),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t){t.statusText.trim()?(super(e,"HTTP error ".concat(t.status,": ").concat(t.statusText)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):(super(e,"HTTP error ".concat(t.status)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function asyncSleep(e){return new Promise((t=>setTimeout(t,e)))}function retryTimes(e,t,r){const n=_async((function(t){return _catch(e,(function(e){if(t<=1)throw e;return asyncSleep(r).then((()=>n(t-1)))}))}));return t<=0?Promise.reject(new TypeError("Invalid number of retry times: ".concat(t))):n(t)}function splitDomain(e){const t=e.split(".");let r=-2;return ["org","co","com"].includes(t[t.length-2])&&(r=-3),[...t.slice(0,r),t.slice(r).join(".")]}class DispatchMap{constructor(){_defineProperty(this,"map",new Map);}set(e,t){const r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((e=>e.includes("*"))))throw new Error("Invalid pattern: "+e);return this.insert([...r].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const r=this._get(e);r?(assert(r instanceof DispatchMap&&!r.map.has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}insertInternal(e,t){const r=e[0],n=this._get(r);let s;n instanceof DispatchMap?s=n:(s=new DispatchMap,this._set(r,s),void 0!==n&&s._set("",n)),s.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);if(t instanceof DispatchMap){let e=t._get("");void 0===e&&(e=t._get("*")),t=e;}return t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){const t=1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e);return null!=t?t:this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error("".concat(t,": ").concat(r));return}}function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map((e=>e.toString(16).padStart(2,"0"))).join("")}function blobToDigest(e){const t=_async((function(e){var t,r,n,s;const o=e.result;return _await(null!==(t=null===(r=crypto)||void 0===r||null===(n=r.subtle)||void 0===n||null===(s=n.digest)||void 0===s?void 0:s.call(n,"SHA-256",o))&&void 0!==t?t:o,hexEncode)}));return new Promise(((r,n)=>{const s=new FileReader;s.addEventListener("error",n),s.addEventListener("load",(()=>{t(s).then(r).catch(n);})),s.readAsArrayBuffer(e);}))}const getItemMetadata=_async((function(e){return _await(fetch(new URL("https://archive.org/metadata/".concat(e))),(function(e){return _await(e.text(),(function(e){const t=safeParseJSON(e,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}))}))}));function createPersistentCheckbox(e,t,r){return [function(){var t=document.createElement("input");return t.setAttribute("type","checkbox"),t.setAttribute("id",e),t.addEventListener("change",(t=>{t.currentTarget.checked?localStorage.setItem(e,"delete_to_disable"):localStorage.removeItem(e),r(t);})),t.setAttribute("defaultChecked",!!localStorage.getItem(e)),t}.call(this),function(){var r=document.createElement("label");return r.setAttribute("for",e),appendChildren(r,t),r}.call(this)]}function parseVersion(e){return e.split(".").map((e=>parseInt(e)))}function versionLessThan(e,t){let r=0;for(;r<e.length&&r<t.length;){if(e[r]<t[r])return !0;if(e[r]>t[r])return !1;r++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2022.6.11",description:"rockipedia.no provider"},{versionAdded:"2022.6.8",description:"update notifications"},{versionAdded:"2022.1.27.6",description:"bump IMU to latest version"},{versionAdded:"2022.1.27.5",description:"include full URL in logging messages"},{versionAdded:"2022.1.27.2",description:"add provider buttons to main cover art page"},{versionAdded:"2022.1.26.2",description:"improved logging message display"},{versionAdded:"2022.1.26",description:"archive.org provider"},{versionAdded:"2022.1.25",description:"seed from marlonob's atisket"},{versionAdded:"2022.1.24.5",description:"add DatPiff provider"}],css_248z$2=".ROpdebee_feature_list{font-weight:300;margin:0 auto;width:-moz-fit-content;width:fit-content}.ROpdebee_feature_list ul{margin:6px 28px 0 0;text-align:left}";const LAST_DISPLAYED_KEY="ROpdebee_".concat(USERSCRIPT_ID,"_last_notified_update");function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const r=parseVersion(e),n=USERSCRIPT_FEATURE_HISTORY.filter((e=>versionLessThan(r,parseVersion(e.versionAdded))));0!==n.length&&showFeatureNotification(t.name,t.version,n.map((e=>e.description)));}function showFeatureNotification(e,t,r){insertStylesheet(css_248z$2,"ROpdebee_Update_Banner");const n=function(){var s=document.createElement("div");s.setAttribute("class","banner warning-header");var o=document.createElement("p");s.appendChild(o),appendChildren(o,"".concat(e," was updated to v").concat(t,"! "));var a=document.createElement("a");a.setAttribute("href",CHANGELOG_URL),o.appendChild(a);var i=document.createTextNode("See full changelog here");a.appendChild(i),appendChildren(o,". New features since last update:");var c=document.createElement("div");c.setAttribute("class","ROpdebee_feature_list"),s.appendChild(c);var l=document.createElement("ul");c.appendChild(l),appendChildren(l,r.map((e=>function(){var t=document.createElement("li");return appendChildren(t,e),t}.call(this))));var d=document.createElement("button");return d.setAttribute("class","dismiss-banner remove-item icon"),d.setAttribute("data-banner-name","alert"),d.setAttribute("type","button"),d.addEventListener("click",(()=>{n.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);})),s.appendChild(d),s}.call(this);qs("#page").insertAdjacentElement("beforebegin",n);}
+  class ConsoleSink{constructor(e){_defineProperty(this,"scriptName",void 0),_defineProperty(this,"onSuccess",this.onInfo.bind(this)),this.scriptName=e;}formatMessage(e){return "[".concat(this.scriptName,"] ").concat(e)}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel;!function(e){e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR";}(LogLevel||(LogLevel={}));const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){_defineProperty(this,"_configuration",void 0),this._configuration=_objectSpread2(_objectSpread2({},DEFAULT_OPTIONS),e);}fireHandlers(e,t,r){e<this._configuration.logLevel||this._configuration.sinks.forEach((n=>{const s=n[HANDLER_NAMES[e]];s&&(r?s.call(n,t,r):s.call(n,t));}));}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(null!=t?t:"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,null!=t?t:"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,null!=t?t:"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,null!=t?t:"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (null!=t?t:document).querySelector(e)}function qsa(e,t){return [...(null!=t?t:document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){const e=r.createElement("base");e.href=t,r.head.insertAdjacentElement("beforeend",e);}return r}var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";function insertStylesheet(e,t){if(void 0===t&&(t="ROpdebee_".concat(USERSCRIPT_ID,"_css")),null!==qsMaybe("style#".concat(t)))return;const r=function(){var r=document.createElement("style");return r.setAttribute("id",t),appendChildren(r,e),r}.call(this);document.head.insertAdjacentElement("beforeend",r);}var css_248z$1="#ROpdebee_log_container{margin:1.5rem auto;width:75%}#ROpdebee_log_container .msg{border:1px solid;border-radius:4px;display:block;font-weight:500;margin-bottom:.5rem;padding:.5rem .75rem;width:100%}#ROpdebee_log_container .msg.error{background-color:#f8d7da;border-color:#f5c6cb;color:#721c24;font-weight:600}#ROpdebee_log_container .msg.warning{background-color:#fff3cd;border-color:#ffeeba;color:#856404}#ROpdebee_log_container .msg.success{background-color:#d4edda;border-color:#c3e6cb;color:#155724}#ROpdebee_log_container .msg.info{background-color:#e2e3e5;border-color:#d6d8db;color:#383d41}";class GuiSink{constructor(){_defineProperty(this,"rootElement",void 0),_defineProperty(this,"persistentMessages",[]),_defineProperty(this,"transientMessages",[]),_defineProperty(this,"onInfo",this.onLog.bind(this)),insertStylesheet(css_248z$1,"ROpdebee_GUI_Logger"),this.rootElement=function(){var e=document.createElement("div");return e.setAttribute("id","ROpdebee_log_container"),setStyles(e,{display:"none"}),e}.call(this);}createMessage(e,t,r){const n=t+(r instanceof Error?": ".concat(r.message):"");return function(){var t=document.createElement("span");return t.setAttribute("class","msg ".concat(e)),appendChildren(t,n),t}.call(this)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){this.transientMessages.forEach((e=>{e.remove();})),this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){_defineProperty(this,"footer",void 0),_defineProperty(this,"extraInfoLines",void 0),_defineProperty(this,"editNoteTextArea",void 0),this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map((e=>e.trimEnd())):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let t=this.editNoteTextArea.value.split(separator),r=_toArray(t),n=r[0],s=r.slice(1);n=(n+"\n"+e).trim(),this.editNoteTextArea.value=[n,...s].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter((e=>e.trim()!==this.footer));this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t="".concat(e.name," ").concat(e.version,"\n").concat(e.namespace);return new EditNote(t)}}const getReleaseIDsForURL=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/url?resource=".concat(encodeURIComponent(e),"&inc=release-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t,r;return null!==(t=null===(r=e.relations)||void 0===r?void 0:r.map((e=>e.release.id)))&&void 0!==t?t:[]}))}))})),getURLsForRelease=_async((function(e,t){const r=null!=t?t:{},n=r.excludeEnded,s=r.excludeDuplicates;return _await(getReleaseUrlARs(e),(function(e){n&&(e=e.filter((e=>!e.ended)));let t=e.map((e=>e.url.resource));return s&&(t=[...new Set(t)]),t.flatMap((e=>{try{return [new URL(e)]}catch(t){return console.warn("Found malformed URL linked to release: ".concat(e)),[]}}))}))})),getReleaseUrlARs=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/release/".concat(e,"?inc=url-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t;return null!==(t=e.relations)&&void 0!==t?t:[]}))}))}));let ArtworkTypeIDs;function filterNonNull(e){return e.filter((e=>!(null==e)))}function groupBy(e,t,r){const n=new Map;var s,o=_createForOfIteratorHelper(e);try{for(o.s();!(s=o.n()).done;){var a;const e=s.value,o=t(e),i=r(e);n.has(o)?null===(a=n.get(o))||void 0===a||a.push(i):n.set(o,[i]);}}catch(i){o.e(i);}finally{o.f();}return n}function collatedSort(e){const t=new Intl.Collator("en",{numeric:!0});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map(((e,t)=>[e,t]))}function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var r=arguments.length,n=new Array(r>1?r-1:0),s=1;s<r;s++)n[s-1]=arguments[s];for(var o=0,a=n;o<a.length;o++){const e=a[o];t=new URL(e,t);}return t}!function(e){e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e.Raw=14]="Raw",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark";}(ArtworkTypeIDs||(ArtworkTypeIDs={}));const gmxhr=_async((function(e,t){return new Promise(((r,n)=>{GMxmlHttpRequest(_objectSpread2(_objectSpread2({method:"GET",url:e instanceof URL?e.href:e},t),{},{onload:t=>{t.status>=400?n(new HTTPResponseError(e,t)):r(t);},onerror:()=>{n(new NetworkError(e));},onabort:()=>{n(new AbortedError(e));},ontimeout:()=>{n(new TimeoutError(e));}}));}))}));class ResponseError extends CustomError{constructor(e,t){super(t),_defineProperty(this,"url",void 0),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t){t.statusText.trim()?(super(e,"HTTP error ".concat(t.status,": ").concat(t.statusText)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):(super(e,"HTTP error ".concat(t.status)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function asyncSleep(e){return new Promise((t=>setTimeout(t,e)))}function retryTimes(e,t,r){const n=_async((function(t){return _catch(e,(function(e){if(t<=1)throw e;return asyncSleep(r).then((()=>n(t-1)))}))}));return t<=0?Promise.reject(new TypeError("Invalid number of retry times: ".concat(t))):n(t)}function logFailure(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"An error occurred";e.catch((e=>{LOGGER.error(t,e);}));}function splitDomain(e){const t=e.split(".");let r=-2;return ["org","co","com"].includes(t[t.length-2])&&(r=-3),[...t.slice(0,r),t.slice(r).join(".")]}class DispatchMap{constructor(){_defineProperty(this,"map",new Map);}set(e,t){const r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((e=>e.includes("*"))))throw new Error("Invalid pattern: "+e);return this.insert([...r].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const r=this._get(e);r?(assert(r instanceof DispatchMap&&!r.map.has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}insertInternal(e,t){const r=e[0],n=this._get(r);let s;n instanceof DispatchMap?s=n:(s=new DispatchMap,this._set(r,s),void 0!==n&&s._set("",n)),s.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);if(t instanceof DispatchMap){let e=t._get("");void 0===e&&(e=t._get("*")),t=e;}return t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){const t=1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e);return null!=t?t:this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error("".concat(t,": ").concat(r));return}}function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map((e=>e.toString(16).padStart(2,"0"))).join("")}function blobToDigest(e){const t=_async((function(e){var t,r,n,s;const o=e.result;return _await(null!==(t=null===(r=crypto)||void 0===r||null===(n=r.subtle)||void 0===n||null===(s=n.digest)||void 0===s?void 0:s.call(n,"SHA-256",o))&&void 0!==t?t:o,hexEncode)}));return new Promise(((r,n)=>{const s=new FileReader;s.addEventListener("error",n),s.addEventListener("load",(()=>{t(s).then(r).catch(n);})),s.readAsArrayBuffer(e);}))}const getItemMetadata=_async((function(e){return _await(fetch(new URL("https://archive.org/metadata/".concat(e))),(function(e){return _await(e.text(),(function(e){const t=safeParseJSON(e,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}))}))}));function memoize(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:e=>"".concat(e[0]);const r=new Map;return function(){for(var n=arguments.length,s=new Array(n),o=0;o<n;o++)s[o]=arguments[o];const a=t(s);if(!r.has(a)){const t=e(...s);r.set(a,t);}return r.get(a)}}function createPersistentCheckbox(e,t,r){return [function(){var t=document.createElement("input");return t.setAttribute("type","checkbox"),t.setAttribute("id",e),t.addEventListener("change",(t=>{t.currentTarget.checked?localStorage.setItem(e,"delete_to_disable"):localStorage.removeItem(e),r(t);})),t.setAttribute("defaultChecked",!!localStorage.getItem(e)),t}.call(this),function(){var r=document.createElement("label");return r.setAttribute("for",e),appendChildren(r,t),r}.call(this)]}function formatFileSize(e){const t=0===e?0:Math.floor(Math.log(e)/Math.log(1024)),r=Number((e/Math.pow(1024,t)).toFixed(2));return "".concat(r," ").concat(["B","kB","MB","GB","TB"][t])}function parseVersion(e){return e.split(".").map((e=>parseInt(e)))}function versionLessThan(e,t){let r=0;for(;r<e.length&&r<t.length;){if(e[r]<t[r])return !0;if(e[r]>t[r])return !1;r++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2022.6.15",description:"file size and type on a-tisket images"},{versionAdded:"2022.6.11",description:"rockipedia.no provider"},{versionAdded:"2022.6.8",description:"update notifications"},{versionAdded:"2022.1.27.6",description:"bump IMU to latest version"},{versionAdded:"2022.1.27.5",description:"include full URL in logging messages"},{versionAdded:"2022.1.27.2",description:"add provider buttons to main cover art page"},{versionAdded:"2022.1.26.2",description:"improved logging message display"},{versionAdded:"2022.1.26",description:"archive.org provider"},{versionAdded:"2022.1.25",description:"seed from marlonob's atisket"}],css_248z$2=".ROpdebee_feature_list{font-weight:300;margin:0 auto;width:-moz-fit-content;width:fit-content}.ROpdebee_feature_list ul{margin:6px 28px 0 0;text-align:left}";const LAST_DISPLAYED_KEY="ROpdebee_".concat(USERSCRIPT_ID,"_last_notified_update");function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const r=parseVersion(e),n=USERSCRIPT_FEATURE_HISTORY.filter((e=>versionLessThan(r,parseVersion(e.versionAdded))));0!==n.length&&showFeatureNotification(t.name,t.version,n.map((e=>e.description)));}function showFeatureNotification(e,t,r){insertStylesheet(css_248z$2,"ROpdebee_Update_Banner");const n=function(){var s=document.createElement("div");s.setAttribute("class","banner warning-header");var o=document.createElement("p");s.appendChild(o),appendChildren(o,"".concat(e," was updated to v").concat(t,"! "));var a=document.createElement("a");a.setAttribute("href",CHANGELOG_URL),o.appendChild(a);var i=document.createTextNode("See full changelog here");a.appendChild(i),appendChildren(o,". New features since last update:");var c=document.createElement("div");c.setAttribute("class","ROpdebee_feature_list"),s.appendChild(c);var l=document.createElement("ul");c.appendChild(l),appendChildren(l,r.map((e=>function(){var t=document.createElement("li");return appendChildren(t,e),t}.call(this))));var d=document.createElement("button");return d.setAttribute("class","dismiss-banner remove-item icon"),d.setAttribute("data-banner-name","alert"),d.setAttribute("type","button"),d.addEventListener("click",(()=>{n.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);})),s.appendChild(d),s}.call(this);qs("#page").insertAdjacentElement("beforebegin",n);}
 
   class CoverArtProvider {
     constructor() {
@@ -781,7 +781,8 @@
 
   _defineProperty(ArchiveProvider, "IMAGE_FILE_FORMATS", ['JPEG', 'PNG', 'Text PDF', 'Animated GIF']);
 
-  function getImageDimensions(url) {
+  function _getImageDimensions(url) {
+    LOGGER.info("Getting image dimensions for ".concat(url));
     return new Promise((resolve, reject) => {
       let done = false;
 
@@ -795,12 +796,14 @@
         }
       }
 
-      function dimensionsFailed() {
+      function dimensionsFailed(evt) {
         clearInterval(interval);
 
         if (!done) {
+          var _evt$message;
+
           done = true;
-          reject();
+          reject(new Error((_evt$message = evt.message) !== null && _evt$message !== void 0 ? _evt$message : 'Image failed to load for unknown reason'));
         }
       }
 
@@ -823,6 +826,13 @@
       img.src = url;
     });
   }
+
+  const getImageDimensions = memoize(url => pRetry(() => _getImageDimensions(url), {
+    retries: 5,
+    onFailedAttempt: err => {
+      LOGGER.warn("Failed to retrieve image dimensions: ".concat(err.message, ". Retrying\u2026"));
+    }
+  }));
 
   class BandcampProvider extends ProviderWithTrackImages {
     constructor() {
@@ -2627,38 +2637,275 @@
 
   }
 
-  const addDimensions = _async(function (fig, imageUrl) {
-      return _await(getImageDimensions(imageUrl), function (imageDimensions) {
-          var _imageUrl$match;
-          const ext = (_imageUrl$match = imageUrl.match(/\.(\w+)$/)) === null || _imageUrl$match === void 0 ? void 0 : _imageUrl$match[1];
-          const dimensionStr = ''.concat(imageDimensions.width, 'x').concat(imageDimensions.height);
-          const dimSpan = function () {
-              var $$a = document.createElement('span');
-              setStyles($$a, { display: 'block' });
-              appendChildren($$a, dimensionStr + (ext ? ' '.concat(ext.toUpperCase()) : ''));
-              return $$a;
-          }.call(this);
-          qs('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
+  class BaseImage {
+    constructor(imgUrl, cache) {
+      _defineProperty(this, "imgUrl", void 0);
+
+      _defineProperty(this, "cache", void 0);
+
+      this.imgUrl = imgUrl;
+      this.cache = cache;
+    }
+
+    getDimensions() {
+      const _this = this;
+
+      return _call(function () {
+        let _exit = false;
+        return _await(_continue(_catch(function () {
+          var _this$cache;
+
+          return _await((_this$cache = _this.cache) === null || _this$cache === void 0 ? void 0 : _this$cache.getDimensions(_this.imgUrl), function (cachedResult) {
+            if (typeof cachedResult !== 'undefined') {
+              _exit = true;
+              return cachedResult;
+            }
+          });
+        }, function (err) {
+          LOGGER.warn('Failed to retrieve image dimensions from cache', err);
+        }), function (_result) {
+          let _exit2 = false;
+          if (_exit) return _result;
+          return _continue(_catch(function () {
+            return _await(getImageDimensions(_this.imgUrl), function (liveResult) {
+              var _this$cache2;
+
+              return _await((_this$cache2 = _this.cache) === null || _this$cache2 === void 0 ? void 0 : _this$cache2.putDimensions(_this.imgUrl, liveResult), function () {
+                _exit2 = true;
+                return liveResult;
+              });
+            });
+          }, function (err) {
+            LOGGER.error('Failed to retrieve image dimensions', err);
+          }), function (_result2) {
+            return _exit2 ? _result2 : undefined;
+          });
+        }));
+      });
+    }
+
+    getFileInfo() {
+      const _this2 = this;
+
+      return _call(function () {
+        let _exit3 = false;
+        return _await(_continue(_catch(function () {
+          var _this2$cache;
+
+          return _await((_this2$cache = _this2.cache) === null || _this2$cache === void 0 ? void 0 : _this2$cache.getFileInfo(_this2.imgUrl), function (cachedResult) {
+            if (typeof cachedResult !== 'undefined') {
+              _exit3 = true;
+              return cachedResult;
+            }
+          });
+        }, function (err) {
+          LOGGER.warn('Failed to retrieve image file info from cache', err);
+        }), function (_result3) {
+          let _exit4 = false;
+          if (_exit3) return _result3;
+          return _continue(_catch(function () {
+            return _await(_this2.loadFileInfo(), function (liveResult) {
+              var _this2$cache2;
+
+              return _await((_this2$cache2 = _this2.cache) === null || _this2$cache2 === void 0 ? void 0 : _this2$cache2.putFileInfo(_this2.imgUrl, liveResult), function () {
+                _exit4 = true;
+                return liveResult;
+              });
+            });
+          }, function (err) {
+            LOGGER.error('Failed to retrieve image file info', err);
+          }), function (_result4) {
+            return _exit4 ? _result4 : undefined;
+          });
+        }));
+      });
+    }
+
+    getImageInfo() {
+      const _this3 = this;
+
+      return _call(function () {
+        return _await(_this3.getDimensions(), function (dimensions) {
+          return _await(_this3.getFileInfo(), function (fileInfo) {
+            return _objectSpread2({
+              dimensions
+            }, fileInfo !== null && fileInfo !== void 0 ? fileInfo : {
+              size: undefined,
+              fileType: undefined
+            });
+          });
+        });
+      });
+    }
+
+  }
+
+  const MAX_CACHED_IMAGES = 30;
+  const CACHE_LOCALSTORAGE_KEY = 'ROpdebee_dimensions_cache';
+  const localStorageCache = {
+    getStore: function getStore() {
+      var _localStorage$getItem;
+
+      const store = safeParseJSON((_localStorage$getItem = localStorage.getItem(CACHE_LOCALSTORAGE_KEY)) !== null && _localStorage$getItem !== void 0 ? _localStorage$getItem : '{}');
+
+      if (!store) {
+        LOGGER.warn('Cache was malformed, resetting');
+        this.putStore({});
+        return {};
+      }
+
+      return store;
+    },
+    putStore: function putStore(store) {
+      localStorage.setItem(CACHE_LOCALSTORAGE_KEY, JSON.stringify(store));
+    },
+    getInfo: function getInfo(imageUrl) {
+      return this.getStore()[imageUrl];
+    },
+    putInfo: function putInfo(imageUrl, cacheEntry) {
+      const prevStore = this.getStore();
+
+      if (Object.keys(prevStore).length >= MAX_CACHED_IMAGES) {
+        const entries = Object.entries(prevStore);
+        entries.sort((_ref, _ref2) => {
+          let _ref3 = _slicedToArray(_ref, 2),
+              info1 = _ref3[1];
+
+          let _ref4 = _slicedToArray(_ref2, 2),
+              info2 = _ref4[1];
+
+          return info2.addedDatetime - info1.addedDatetime;
+        });
+
+        var _iterator = _createForOfIteratorHelper(entries.slice(MAX_CACHED_IMAGES - 1)),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            const _step$value = _slicedToArray(_step.value, 1),
+                  url = _step$value[0];
+
+            delete prevStore[url];
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+
+      this.putStore(_objectSpread2(_objectSpread2({}, prevStore), {}, {
+        [imageUrl]: _objectSpread2(_objectSpread2({}, cacheEntry), {}, {
+          addedDatetime: Date.now()
+        })
+      }));
+    },
+    getDimensions: function getDimensions(imageUrl) {
+      var _this$getInfo;
+
+      return Promise.resolve((_this$getInfo = this.getInfo(imageUrl)) === null || _this$getInfo === void 0 ? void 0 : _this$getInfo.dimensions);
+    },
+    getFileInfo: function getFileInfo(imageUrl) {
+      var _this$getInfo2;
+
+      return Promise.resolve((_this$getInfo2 = this.getInfo(imageUrl)) === null || _this$getInfo2 === void 0 ? void 0 : _this$getInfo2.fileInfo);
+    },
+    putDimensions: function putDimensions(imageUrl, dimensions) {
+      const prevEntry = this.getInfo(imageUrl);
+      this.putInfo(imageUrl, _objectSpread2(_objectSpread2({}, prevEntry), {}, {
+        dimensions
+      }));
+      return Promise.resolve();
+    },
+    putFileInfo: function putFileInfo(imageUrl, fileInfo) {
+      const prevEntry = this.getInfo(imageUrl);
+      this.putInfo(imageUrl, _objectSpread2(_objectSpread2({}, prevEntry), {}, {
+        fileInfo
+      }));
+      return Promise.resolve();
+    }
+  };
+  class AtisketImage extends BaseImage {
+    constructor(imgUrl) {
+      super(imgUrl, localStorageCache);
+    }
+
+    loadFileInfo() {
+      const _this = this;
+
+      return _call(function () {
+        return _await(pRetry(() => gmxhr(_this.imgUrl, {
+          method: 'HEAD'
+        }), {
+          retries: 5,
+          onFailedAttempt: err => {
+            if (err instanceof HTTPResponseError && err.statusCode < 500 && err.statusCode !== 429) {
+              throw err;
+            }
+
+            LOGGER.warn("Failed to retrieve image file info: ".concat(err.message, ". Retrying\u2026"));
+          }
+        }), function (resp) {
+          var _resp$responseHeaders, _resp$responseHeaders2;
+
+          const fileSize = (_resp$responseHeaders = resp.responseHeaders.match(/content-length: (\d+)/i)) === null || _resp$responseHeaders === void 0 ? void 0 : _resp$responseHeaders[1];
+          const fileType = (_resp$responseHeaders2 = resp.responseHeaders.match(/content-type: \w+\/(\w+)/i)) === null || _resp$responseHeaders2 === void 0 ? void 0 : _resp$responseHeaders2[1];
+          return {
+            fileType: fileType === null || fileType === void 0 ? void 0 : fileType.toUpperCase(),
+            size: fileSize ? parseInt(fileSize) : undefined
+          };
+        });
+      });
+    }
+
+  }
+
+  const getImageInfo = _async(function (imageUrl) {
+      let _exit = false;
+      return _continue(_forAwaitOf(getMaximisedCandidates(new URL(imageUrl)), function (maxCandidate) {
+          if (maxCandidate.likely_broken)
+              return;
+          LOGGER.debug('Trying to get image information for maximised candidate '.concat(maxCandidate.url));
+          const atisketImage = new AtisketImage(maxCandidate.url.toString());
+          return _await(atisketImage.getFileInfo(), function (fileInfo) {
+              return _await(fileInfo && atisketImage.getDimensions(), function (dimensions) {
+                  if (!dimensions) {
+                      LOGGER.warn('Failed to load dimensions for maximised candidate '.concat(maxCandidate.url));
+                      return;
+                  }
+                  const _dimensions$fileInfo = _objectSpread2({ dimensions }, fileInfo);
+                  _exit = true;
+                  return _dimensions$fileInfo;
+              }, !fileInfo);
+          });
+      }, function () {
+          return _exit;
+      }), function (_result) {
+          return _exit ? _result : new AtisketImage(imageUrl).getImageInfo();
       });
   });
-  const addSeedLinkToCover = _async(function (fig, mbid, origin) {
-      var _tryExtractReleaseUrl;
+  const addDimensions = _async(function (fig) {
       const imageUrl = qs('a.icon', fig).href;
-      const dimensionsPromise = addDimensions(fig, imageUrl);
-      const realUrl = (_tryExtractReleaseUrl = tryExtractReleaseUrl(fig)) !== null && _tryExtractReleaseUrl !== void 0 ? _tryExtractReleaseUrl : imageUrl;
-      const params = new SeedParameters([{ url: new URL(realUrl) }], origin);
-      const seedUrl = params.createSeedURL(mbid);
-      const seedLink = function () {
-          var $$c = document.createElement('a');
-          $$c.setAttribute('href', seedUrl);
-          setStyles($$c, { display: 'block' });
-          var $$d = document.createTextNode('\n        Add to release\n    ');
-          $$c.appendChild($$d);
-          return $$c;
+      const dimSpan = function () {
+          var $$a = document.createElement('span');
+          setStyles($$a, { display: 'block' });
+          var $$b = document.createTextNode('\n        loading\u2026\n    ');
+          $$a.appendChild($$b);
+          return $$a;
       }.call(this);
-      qs('figcaption', fig).insertAdjacentElement('beforeend', seedLink);
-      return dimensionsPromise.catch(err => {
-          LOGGER.warn('Failed to insert dimensions', err);
+      qs('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
+      return _await(getImageInfo(imageUrl), function (imageInfo) {
+          const infoStringParts = [
+              imageInfo.dimensions ? ''.concat(imageInfo.dimensions.width, 'x').concat(imageInfo.dimensions.height) : '',
+              typeof imageInfo.size !== 'undefined' ? formatFileSize(imageInfo.size) : '',
+              imageInfo.fileType
+          ];
+          const infoString = infoStringParts.filter(Boolean).join(', ');
+          if (infoString) {
+              dimSpan.textContent = infoString;
+          } else {
+              dimSpan.remove();
+          }
       });
   });
   const AtisketSeeder = {
@@ -2669,6 +2916,7 @@
       supportedRegexes: [/(?:\.uk|\.info\/atisket)\/\?.+/],
       insertSeedLinks() {
           var _qs$textContent$trim, _qs$textContent, _cachedAnchor$href;
+          addDimensionsToCovers();
           const alreadyInMB = qsMaybe('.already-in-mb-item');
           if (alreadyInMB === null) {
               return;
@@ -2685,6 +2933,7 @@
       ],
       supportedRegexes: [/(?:\.uk|\.info\/atisket)\/atasket\.php\?/],
       insertSeedLinks() {
+          addDimensionsToCovers();
           const urlParams = new URLSearchParams(document.location.search);
           const mbid = urlParams.get('release_mbid');
           const selfId = urlParams.get('self_id');
@@ -2698,9 +2947,31 @@
   };
   function addSeedLinkToCovers(mbid, origin) {
       const covers = qsa('figure.cover');
-      Promise.all(covers.map(fig => addSeedLinkToCover(fig, mbid, origin))).catch(err => {
-          LOGGER.error('Failed to add seed links to some cover art', err);
-      });
+      var _iterator = _createForOfIteratorHelper(covers), _step;
+      try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              const fig = _step.value;
+              addSeedLinkToCover(fig, mbid, origin);
+          }
+      } catch (err) {
+          _iterator.e(err);
+      } finally {
+          _iterator.f();
+      }
+  }
+  function addDimensionsToCovers() {
+      const covers = qsa('figure.cover');
+      var _iterator2 = _createForOfIteratorHelper(covers), _step2;
+      try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              const fig = _step2.value;
+              logFailure(addDimensions(fig), 'Failed to insert image information');
+          }
+      } catch (err) {
+          _iterator2.e(err);
+      } finally {
+          _iterator2.f();
+      }
   }
   function tryExtractReleaseUrl(fig) {
       var _fig$closest;
@@ -2716,6 +2987,22 @@
           return;
       }
       return RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
+  }
+  function addSeedLinkToCover(fig, mbid, origin) {
+      var _tryExtractReleaseUrl;
+      const imageUrl = qs('a.icon', fig).href;
+      const realUrl = (_tryExtractReleaseUrl = tryExtractReleaseUrl(fig)) !== null && _tryExtractReleaseUrl !== void 0 ? _tryExtractReleaseUrl : imageUrl;
+      const params = new SeedParameters([{ url: new URL(realUrl) }], origin);
+      const seedUrl = params.createSeedURL(mbid);
+      const seedLink = function () {
+          var $$c = document.createElement('a');
+          $$c.setAttribute('href', seedUrl);
+          setStyles($$c, { display: 'block' });
+          var $$d = document.createTextNode('\n        Add to release\n    ');
+          $$c.appendChild($$d);
+          return $$c;
+      }.call(this);
+      qs('figcaption', fig).insertAdjacentElement('beforeend', seedLink);
   }
   const RELEASE_URL_CONSTRUCTORS = {
       itu: (id, country) => 'https://music.apple.com/'.concat(country.toLowerCase(), '/album/').concat(id),
