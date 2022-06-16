@@ -80,3 +80,32 @@ export function setInputValue(input: HTMLInputElement, value: string, dispatchEv
         input.dispatchEvent(new Event('input', { bubbles: true }));
     }
 }
+
+/**
+ * Notify when a given element has finished React hydration.
+ *
+ * If the element was already hydrated, it will run the callback immediately.
+ *
+ * @param      {HTMLElement}  element   The element. Must be a React root that
+ *                                      gets hydrated.
+ * @param      {() => void}   callback  The callback.
+ */
+export function onReactHydrated(element: HTMLElement, callback: () => void): void {
+    // MBS will fire a custom `mb-hydration` event whenever a React component gets
+    // hydrated. We need to wait for hydration to complete before modifying the
+    // component, React gets mad otherwise. However, it is possible that hydration
+    // has already occurred, in which case a `_reactListening` attribute with a
+    // random suffix will be added to the element.
+    const alreadyHydrated = element.getAttributeNames()
+        .some((attrName) => attrName.startsWith('_reactListening') && element.getAttribute(attrName));
+
+    if (alreadyHydrated) {
+        callback();
+    } else if (window.__MB__?.DBDefs.GIT_BRANCH === 'production' && window.__MB__.DBDefs.GIT_SHA === '923237cf73') {
+        // Current production version does not have this custom event yet.
+        // TODO: Remove this when prod is updated.
+        window.addEventListener('load', callback);
+    } else {
+        element.addEventListener('mb-hydration', callback);
+    }
+}

@@ -1,4 +1,4 @@
-import type { ReleaseAdvRel, URLAdvRel } from './advanced-relationships';
+import type { ReleaseAdvRel, URLAdvRel } from './types-api';
 
 interface ReleaseMetadataWithARs {
     relations?: Array<URLAdvRel & ReleaseAdvRel>;

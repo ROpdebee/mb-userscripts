@@ -32,5 +32,12 @@ declare global {
                 current: ExternalLinks;
             };
         };
+
+        __MB__?: {
+            DBDefs: {
+                GIT_BRANCH: string;
+                GIT_SHA: string;
+            };
+        };
     }
 }

@@ -44,3 +44,31 @@ export function collatedSort(array: string[]): string[] {
 export function enumerate<T>(array: T[]): Array<[T, number]> {
     return array.map((el, idx) => [el, idx]);
 }
+
+export function splitChunks<T>(arr: readonly T[], chunkSize: number): T[][] {
+    const chunks: T[][] = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+        chunks.push(arr.slice(i, i + chunkSize));
+    }
+
+    return chunks;
+}
+
+/**
+ * Create an array wherein a given element is inserted between every two
+ * consecutive elements of the original array.
+ *
+ * Example:
+ *  insertBetween([1,2,3], 0) // => [1, 0, 2, 0, 3]
+ *  insertBetween([1], 0)  // => [1]
+ *
+ * @param      {readonly T1[]}   arr         The original array.
+ * @param      {T2}              newElement  The element to insert.
+ * @return     {(Array<T1|T2>)}  Resulting array.
+ */
+export function insertBetween<T1, T2>(arr: readonly T1[], newElement: T2): Array<T1 | T2> {
+    return [
+        ...arr.slice(0, 1),
+        ...arr.slice(1).flatMap((elmt) => [newElement, elmt]),
+    ];
+}

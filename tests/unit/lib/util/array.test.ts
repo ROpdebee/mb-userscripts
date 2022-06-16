@@ -1,4 +1,4 @@
-import { filterNonNull, findRight, groupBy } from '@lib/util/array';
+import { filterNonNull, findRight, groupBy, insertBetween } from '@lib/util/array';
 
 describe('filtering null values', () => {
     it('retains non-null values', () => {
@@ -55,5 +55,19 @@ describe('group by', () => {
         const expected = new Map([['a', ['a', 'b', 'c']]]);
 
         expect(result).toStrictEqual(expected);
+    });
+});
+
+describe('insert between', () => {
+    it('returns empty array when given empty array', () => {
+        expect(insertBetween([], 0)).toStrictEqual([]);
+    });
+
+    it('does not add elements for array with one element', () => {
+        expect(insertBetween([1], 0)).toStrictEqual([1]);
+    });
+
+    it('adds element for array with multiple elements', () => {
+        expect(insertBetween([1, 2, 3], 0)).toStrictEqual([1, 0, 2, 0, 3]);
     });
 });
