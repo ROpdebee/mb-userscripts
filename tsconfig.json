@@ -30,6 +30,7 @@
         { "path": "./build" },
         { "path": "./src/lib" },
         { "path": "./src/mb_blind_votes" },
+        { "path": "./src/mb_bulk_copy_work_codes" },
         { "path": "./src/mb_caa_dimensions" },
         { "path": "./src/mb_enhanced_cover_art_uploads" },
         { "path": "./src/mb_multi_external_links" },

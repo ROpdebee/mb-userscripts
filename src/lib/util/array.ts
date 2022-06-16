@@ -72,3 +72,18 @@ export function insertBetween<T1, T2>(arr: readonly T1[], newElement: T2): Array
         ...arr.slice(1).flatMap((elmt) => [newElement, elmt]),
     ];
 }
+
+/**
+ * Intersect two arrays: Return array with elements common to both arrays.
+ */
+export function intersect<T>(arr1: readonly T[], arr2: readonly T[]): T[] {
+    return arr1.filter((el) => arr2.includes(el));
+}
+
+/**
+ * Take difference between two arrays: Return array with elements of first array
+ * that are not present in second.
+ */
+export function difference<T>(arr1: readonly T[], arr2: readonly T[]): T[] {
+    return arr1.filter((el) => !arr2.includes(el));
+}
