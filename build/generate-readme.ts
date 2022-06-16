@@ -58,11 +58,6 @@ const LEGACY_SCRIPT_DATA: UserscriptData[] = [
         blurb: 'Validate work attributes on various MB pages. Highlights invalid (red) or ill-formatted (yellow) work codes.',
     },
     {
-        id: 'mb_qol_select_all_update_recordings',
-        name: 'MB: QoL: Select All Update Recordings',
-        blurb: 'Add buttons to release editor to select all "Update recordings" checkboxes. Differs from the built-in "Select All" checkboxes in that it doesn\'t lock the checkboxes to a given state, enabling you to deselect some checkboxes.',
-    },
-    {
         id: 'mb_qol_inline_recording_tracks',
         name: "MB: QoL: Inline all recording's tracks on releases",
         blurb: 'Display all tracks and releases on which a recording appears from the release page. Makes it easier to check whether live or DJ-mix recordings are wrongly linked to other tracks.',

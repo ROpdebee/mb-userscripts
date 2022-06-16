@@ -88,8 +88,9 @@ Seed the recording comments for the batch recording comments userscripts with li
 
 Add buttons to release editor to select all "Update recordings" checkboxes. Differs from the built-in "Select All" checkboxes in that it doesn't lock the checkboxes to a given state, enabling you to deselect some checkboxes.
 
-[![Install](https://img.shields.io/badge/install-latest-informational?style=for-the-badge&logo=tampermonkey)](mb_qol_select_all_update_recordings.user.js?raw=1)
-[![Source](https://img.shields.io/badge/source-grey?style=for-the-badge&logo=github)](mb_qol_select_all_update_recordings.user.js)
+[![Install](https://img.shields.io/badge/dynamic/json?label=install&query=%24.version&url=https%3A%2F%2Fraw.github.com%2FROpdebee%2Fmb-userscripts%2Fdist%2Fmb_qol_select_all_update_recordings.metadata.json&logo=tampermonkey&style=for-the-badge&color=informational)](https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_qol_select_all_update_recordings.user.js)
+[![Source](https://img.shields.io/badge/source-grey?style=for-the-badge&logo=github)](src/mb_qol_select_all_update_recordings)
+[![Changelog](https://img.shields.io/badge/changelog-grey?style=for-the-badge)](https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_qol_select_all_update_recordings.changelog.md)
 
 
 ## MB: Supercharged Cover Art Edits
