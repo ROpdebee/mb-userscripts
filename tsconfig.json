@@ -29,9 +29,13 @@
     "references": [
         { "path": "./build" },
         { "path": "./src/lib" },
+        { "path": "./src/mb_blind_votes" },
         { "path": "./src/mb_caa_dimensions" },
         { "path": "./src/mb_enhanced_cover_art_uploads" },
         { "path": "./src/mb_multi_external_links" },
+        { "path": "./src/mb_qol_inline_recording_tracks" },
+        { "path": "./src/mb_qol_seed_recording_disambiguation" },
+        { "path": "./src/mb_qol_select_all_update_recordings" },
         { "path": "./tests/unit/build" },
         { "path": "./tests/unit/lib" },
         { "path": "./tests/unit/mb_caa_dimensions" },
