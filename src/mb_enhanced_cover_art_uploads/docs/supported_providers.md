@@ -18,12 +18,12 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Discogs | Partial | ❌ | Images are limited to 600x600, see [qsniyg/maxurl#689](https://github.com/qsniyg/maxurl/issues/689) |
 | Jamendo | ✔️ | ✔️ |
 | Melon | ✔️ | ✔️ |
-| MusicBrainz/CAA | ✔️ | ✔️ | To copy images from one release to another. |
+| MusicBrainz/Cover Art Archive | ✔️ | ✔️ | To copy images from one release to another. |
 | Musik-Sammler | ✔️ | ❌ |
 | Qobuz | ✔️ | ✔️ | Goodies are grabbed whenever possible. Back covers might not be supported at this time, if you have a release with a back cover, please let me know. Maximised to original source image. |
 | QUB Musique | ✔️ | ✔️ | Dispatched to Qobuz provider. |
 | RateYourMusic | ✔️ | ✔️ | Requires being logged in to RYM. |
-| Rockipedia.no | ✔️ | ❌ |
+| Rockipedia | ✔️ | ❌ |
 | Soundcloud | ✔️ | ✔️ | Grabs custom track images. |
 | Spotify | ✔️ | ✔️ |
 | Tidal | ✔️ | ✔️ | listen.tidal.com/store.tidal.com are converted to tidal.com prior to fetching |
