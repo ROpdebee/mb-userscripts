@@ -163,9 +163,24 @@ export class QueuedUploadImage implements Image {
     }
 
     public getDimensions(): Promise<Dimensions> {
-        return Promise.resolve({
-            width: this.imgElement.naturalWidth,
-            height: this.imgElement.naturalHeight,
+        // Image may not have fully loaded yet, in which case its dimensions
+        // would be 0x0. Wait for it to finish loading.
+        return new Promise((resolve) => {
+            const onLoad = (): void => {
+                resolve({
+                    width: this.imgElement.naturalWidth,
+                    height: this.imgElement.naturalHeight,
+                });
+            };
+
+            // Adding the event listener and then checking the state to make
+            // sure that we don't miss the event in between the check and the
+            // adding of the listener.
+            this.imgElement.addEventListener('load', onLoad);
+            if (this.imgElement.complete) {
+                this.imgElement.removeEventListener('load', onLoad);
+                onLoad();
+            }
         });
     }
 }
