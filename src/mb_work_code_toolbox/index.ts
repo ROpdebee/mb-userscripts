@@ -3,6 +3,7 @@ import { difference, groupBy, intersect } from '@lib/util/array';
 import { logFailure } from '@lib/util/async';
 
 import { agencyNameToID, validateCode, VERSION as CODES_VERSION } from './identifiers';
+import { validateCodes } from './validate';
 
 //////////////
 // Utils
@@ -772,6 +773,8 @@ const repertoireToHandler: Record<string, RepertoireHandler> = {
 };
 
 if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
+    // FIXME: It should be either validate or fill, not both.
+    validateCodes();
     handleMB();
 } else {
     repertoireToHandler[document.location.hostname]();
