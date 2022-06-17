@@ -160,12 +160,12 @@ export class CAAEdit {
 
         const detailsContent = insertBetween(
             [['Status', status], ['Packaging', packaging], ['Format', format]]
-                .flatMap(([title, value]) => {
+                .map(([title, value]) => {
                     // FIXME: Another thing NativeJSX crashes on: Cannot put it into the array. More below.
                     const valueSpan = <span data-name={title}>{value}</span>;
                     return [`${title}: `, valueSpan];
                 }),
-            '; ');
+            '; ').flat();
         const eventsContent = insertBetween(
             events.flatMap(([evtDate, evtCountries]) => {
                 const countries = (evtCountries.length <= 3 && evtCountries.length > 0)
