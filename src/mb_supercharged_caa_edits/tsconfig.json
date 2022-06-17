@@ -1,0 +1,12 @@
+{
+    "extends": "../../configs/tsconfig.base-web.json",
+    "include": ["**/*"],
+    "references": [
+        { "path": "../lib/" },
+        { "path": "../mb_caa_dimensions" },
+        { "path": "../mb_enhanced_cover_art_uploads" }
+    ],
+    "compilerOptions": {
+        "types": ["nativejsx/types/jsx", "jquery", "jqueryui"]
+    }
+}

@@ -69,9 +69,9 @@ export interface Place {
 }
 
 export interface RelationshipDate {
-    day: number | null;
-    month: number | null;
-    year: number | null;
+    day?: number | null;
+    month?: number | null;
+    year?: number | null;
 }
 
 interface BaseRecordingRelationship {
@@ -113,6 +113,30 @@ export interface ReleaseRecordingRels {
     releaseGroup: {
         secondaryTypeIDs?: number[];
     };
+}
+
+export interface Release {
+    id: string;
+    packagingID: number;
+    statusID: number;
+    combined_format_name?: string;
+    barcode?: string;
+    events?: Array<{
+        country?: { primary_code: string };
+        date?: RelationshipDate;
+    }>;
+    labels?: Array<{
+        catalogNumber?: string;
+        label?: {
+            gid: string;
+            name: string;
+        };
+    }>;
+    mediums: Array<{
+        format?: {
+            name: string;
+        };
+    }>;
 }
 
 interface BaseAPIResponse {
