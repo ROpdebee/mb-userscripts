@@ -37,6 +37,7 @@
         { "path": "./src/mb_qol_inline_recording_tracks" },
         { "path": "./src/mb_qol_seed_recording_disambiguation" },
         { "path": "./src/mb_qol_select_all_update_recordings" },
+        { "path": "./src/mb_supercharged_caa_edits" },
         { "path": "./tests/unit/build" },
         { "path": "./tests/unit/lib" },
         { "path": "./tests/unit/mb_caa_dimensions" },

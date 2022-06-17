@@ -38,6 +38,16 @@ declare global {
                 GIT_BRANCH: string;
                 GIT_SHA: string;
             };
+            $c: {
+                user: {
+                    preferences: {
+                        datetime_format: string;
+                    };
+                };
+                stash: {
+                    current_language?: string;
+                };
+            };
         };
     }
 }
