@@ -71,7 +71,7 @@ function insertRows(recordingTd: HTMLTableCellElement, recordingInfo: Recording)
 }
 
 function loadAndInsert(): void {
-    const recAnchors = qsa<HTMLAnchorElement>('table.medium td > a[href^="/recording/"]:first-child, table.medium td > span:first-child > a[href^="/recording/"]:first-child');
+    const recAnchors = qsa<HTMLAnchorElement>('table.medium td > a[href^="/recording/"]:first-of-type, table.medium td > span:first-child > a[href^="/recording/"]:first-of-type');
     const todo = recAnchors
         .map((a): [HTMLTableCellElement, string] => [a.closest('td')!, a.href.split('/recording/')[1]])
         .filter(([td]) => qsMaybe('div.ars.ROpdebee_inline_tracks', td) === null);
