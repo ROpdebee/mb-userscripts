@@ -1,3 +1,4 @@
+- **2022.6.18**: Bug fix: wait until dimensions are known on queued uploads ([#500](https://github.com/ROpdebee/mb-userscripts/pull/500))
 - **2022.6.16**: Bug fix: fix order of dimensions ([#495](https://github.com/ROpdebee/mb-userscripts/pull/495))
 - **2022.6.13**: Internal changes: allow tree-shaking the prototype input setter ([#477](https://github.com/ROpdebee/mb-userscripts/pull/477))
 - **2022.6.12.2**: Internal changes: rewrite "MB: Paste multiple external links" to TypeScript, fix shortcomings ([#473](https://github.com/ROpdebee/mb-userscripts/pull/473))
