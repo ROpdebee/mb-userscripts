@@ -237,7 +237,7 @@ async function seedLive(): Promise<void> {
         fillInput(qs<HTMLInputElement>('input#all-recording-comments'), uniqueComments[0]);
     } else {
         recComments.forEach(([trackGid, comment]) => {
-            fillInput(qs<HTMLInputElement>(`tr#${trackGid} input.recording-comment`), comment);
+            fillInput(qs<HTMLInputElement>(`tr[id="${trackGid}"] input.recording-comment`), comment);
         });
     }
 
