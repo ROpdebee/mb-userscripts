@@ -159,8 +159,6 @@ async function processEdit(edit: Element): Promise<void> {
         });
     }
 
-    console.log(otherImages);
-
     const currImage = allImages.find((img) => {
         const id = typeof img.id === 'string' ? parseInt(img.id) : img.id;
         return id === imageId;
