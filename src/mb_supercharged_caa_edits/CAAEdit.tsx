@@ -166,14 +166,13 @@ export class CAAEdit {
                     return [`${title}: `, valueSpan];
                 }),
             '; ').flat();
-        const eventsContent = insertBetween(
-            events.flatMap(([evtDate, evtCountries]) => {
-                const countries = (evtCountries.length <= 3 && evtCountries.length > 0)
-                    ? evtCountries.join(', ')
-                    : `${evtCountries.length} countries`;
-                const releaseDateSpan = <span data-name='release-date'>{evtDate}</span>;
-                return [releaseDateSpan, ` (${countries})`];
-            }), '; ');
+        const eventsContent = events.flatMap(([evtDate, evtCountries]) => {
+            const countries = (evtCountries.length <= 3 && evtCountries.length > 0)
+                ? evtCountries.join(', ')
+                : `${evtCountries.length} countries`;
+            const releaseDateSpan = <span data-name='release-date'>{evtDate}</span>;
+            return [releaseDateSpan, ` (${countries})`];
+        });
         const labelsContent = insertBetween(
             [...labels].map(([lblGid, lblName]) => <a href={`/label/${lblGid}`}>{lblName}</a>),
             ', ');
