@@ -1,16 +1,12 @@
 // istanbul ignore file: Better suited for E2E test.
 
 import type { ExternalLinks } from '@lib/MB/types';
-import { ConsoleSink } from '@lib/logging/consoleSink';
-import { LogLevel } from '@lib/logging/levels';
 import { LOGGER } from '@lib/logging/logger';
 import { assertDefined } from '@lib/util/assert';
 import { logFailure, retryTimes } from '@lib/util/async';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { onWindowLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
-import DEBUG_MODE from 'consts:debug-mode';
-import USERSCRIPT_ID from 'consts:userscript-id';
 
 function getExternalLinksEditor(mbInstance: typeof window.MB): ExternalLinks {
     // Can be found in the MB object, but exact property depends on actual page.
@@ -192,11 +188,6 @@ function listenForIframes(): void {
         childList: true,
     });
 }
-
-LOGGER.configure({
-    logLevel: DEBUG_MODE ? LogLevel.DEBUG : LogLevel.INFO,
-});
-LOGGER.addSink(new ConsoleSink(USERSCRIPT_ID));
 
 logFailure(run(window));
 
