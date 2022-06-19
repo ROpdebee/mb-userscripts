@@ -1,19 +1,17 @@
 import type { UserscriptMetadata } from '@lib/util/metadata';
-import { MB_EDIT_PAGE_PATHS, transformMBMatchURL } from '@lib/util/metadata';
+import { createMBRegex as mb, MB_EDIT_DISPLAY_PAGE_PATTERNS, MBID_REGEX_PART as mbid } from '@lib/util/metadata';
 
 const metadata: UserscriptMetadata = {
     name: 'MB: Display CAA image dimensions',
     description: 'Displays the dimensions and size of images in the cover art archive.',
     'run-at': 'document-start',
-    match: [
-        'release/*',
-        'release-group/*',
-        ...MB_EDIT_PAGE_PATHS,
-    ].map((path) => transformMBMatchURL(path)),
+    include: [
+        ...MB_EDIT_DISPLAY_PAGE_PATTERNS,
+        mb`release(-group)?/${mbid}(/.+?)?`,
+    ],
     exclude: [
-        transformMBMatchURL('release/*/edit'),
-        transformMBMatchURL('release/*/edit-relationships'),
-        transformMBMatchURL('release-group/*/edit'),
+        mb`release(-group)?/${mbid}/edit`,
+        mb`release-group/${mbid}/edit-relationships`,
     ],
 };
 
