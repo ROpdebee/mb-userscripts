@@ -1,0 +1,1 @@
+- **2022.6.19**: New feature: script to guess language and script from tracklist ([#502](https://github.com/ROpdebee/mb-userscripts/pull/502))
