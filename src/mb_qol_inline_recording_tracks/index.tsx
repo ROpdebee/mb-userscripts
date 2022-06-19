@@ -64,10 +64,14 @@ function insertRows(recordingTd: HTMLTableCellElement, recordingInfo: Recording)
             <dd>{row}</dd>
         </dl>);
 
-    qs<HTMLElement>('div.ars', recordingTd)
-        .insertAdjacentElement('beforebegin', <div className='ars ROpdebee_inline_tracks'>
+    // Insert before the first ARs element, or just at the end if no such element
+    // exists. The latter can happen is the user is displaying credits at the
+    // bottom of the page and does not have jesus2099's INLINE STUFF script.
+    recordingTd.insertBefore(
+        <div className='ars ROpdebee_inline_tracks'>
             {rowElements}
-        </div>);
+        </div>,
+        qsMaybe<HTMLElement>('div.ars', recordingTd));
 }
 
 function loadAndInsert(): void {
