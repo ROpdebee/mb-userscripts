@@ -1,19 +1,9 @@
 /* istanbul ignore file: Covered by E2E */
 
-import { ConsoleSink } from '@lib/logging/consoleSink';
-import { LogLevel } from '@lib/logging/levels';
 import { LOGGER } from '@lib/logging/logger';
 
 import { App } from './App';
 import { seederFactory } from './seeding';
-
-import DEBUG_MODE from 'consts:debug-mode';
-import USERSCRIPT_ID from 'consts:userscript-id';
-
-LOGGER.configure({
-    logLevel: DEBUG_MODE ? LogLevel.DEBUG : LogLevel.INFO,
-});
-LOGGER.addSink(new ConsoleSink(USERSCRIPT_ID));
 
 const seeder = seederFactory(document.location);
 if (seeder) {

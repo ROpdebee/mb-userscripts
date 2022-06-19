@@ -17,8 +17,9 @@ import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
 import { parseChangelogEntries } from './changelog';
+import { logger } from './plugin-logger';
 import { nativejsx } from './plugin-nativejsx';
-import { UPDATE_NOTIFICATIONS_SOURCE_ID, updateNotifications } from './plugin-update-notifications';
+import { updateNotifications } from './plugin-update-notifications';
 import { MetadataGenerator, userscript } from './plugin-userscript';
 
 const OUTPUT_DIR = 'dist';
@@ -110,6 +111,9 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
         plugins: [
             progress() as Plugin,
             updateNotifications({
+                include: inputPath,
+            }),
+            logger({
                 include: inputPath,
             }),
             // To resolve some aliases, like @lib
@@ -216,8 +220,9 @@ function isExternalLibrary(modulePath: string): boolean {
     const relPath = path.relative('.', modulePath);
     // Don't mark `consts:...` modules are external libraries. They're fake
     // modules whose default exports get replaced by constants by the `consts`
-    // plugin.
-    return !(relPath.startsWith('src') || relPath.startsWith('consts:') || modulePath === UPDATE_NOTIFICATIONS_SOURCE_ID);
+    // plugin. Also don't consider any first party code we inject as 3rd party
+    // (marked with the _virtualSource_ suffix).
+    return !(relPath.startsWith('src') || relPath.startsWith('consts:') || modulePath.endsWith('_virtualSource_'));
 }
 
 function isBuiltinLib(modulePath: string): boolean {
