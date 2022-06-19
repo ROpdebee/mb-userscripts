@@ -18,10 +18,27 @@ export interface ExternalLinks {
     };
 }
 
+export interface ReleaseEditorMedium {
+    loaded(): boolean;
+    loading(): boolean;
+    loadTracks(): void;
+    tracks(): Array<{
+        name(): string;
+    }>;
+}
+
+export interface ReleaseEditorFields {
+    release(): {
+        name(): string;
+        mediums(): ReleaseEditorMedium[];
+    };
+}
+
 export interface ReleaseEditor {
     externalLinks: {
         current: ExternalLinks;
     };
+    rootField: ReleaseEditorFields;
 }
 
 declare global {
