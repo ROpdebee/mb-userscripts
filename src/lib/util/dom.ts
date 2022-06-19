@@ -96,15 +96,18 @@ export function onReactHydrated(element: HTMLElement, callback: () => void): voi
     // component, React gets mad otherwise. However, it is possible that hydration
     // has already occurred, in which case a `_reactListening` attribute with a
     // random suffix will be added to the element.
-    const alreadyHydrated = element.getAttributeNames()
-        .some((attrName) => attrName.startsWith('_reactListening') && element.getAttribute(attrName));
+    const alreadyHydrated = Object.keys(element)
+        .some((attrName) =>
+            attrName.startsWith('_reactListening')
+            // @ts-expect-error custom property
+            && element[attrName]);
 
     if (alreadyHydrated) {
         callback();
     } else if (window.__MB__?.DBDefs.GIT_BRANCH === 'production' && window.__MB__.DBDefs.GIT_SHA === '923237cf73') {
         // Current production version does not have this custom event yet.
         // TODO: Remove this when prod is updated.
-        window.addEventListener('load', callback);
+        onWindowLoaded(callback);
     } else {
         element.addEventListener('mb-hydration', callback);
     }
