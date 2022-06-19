@@ -431,7 +431,8 @@ export class CAAEdit {
     private checkUrlInComment(): void {
         const trs = this.edit.querySelectorAll('table.details > tbody > tr');
         const commentRow = [...trs].find((tr) => tr.querySelector<HTMLTableCellElement>('th')!.textContent === 'Comment:');
-        const commentEl = commentRow!.querySelector('td')!;
+        if (!commentRow) return;
+        const commentEl = commentRow.querySelector('td')!;
         if (commentEl.textContent!.includes('://')) {
             this.markShady(commentEl, SHADY_REASONS.urlInComment);
         }
