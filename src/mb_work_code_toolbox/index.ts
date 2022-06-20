@@ -1,6 +1,7 @@
 import { GMdeleteValue, GMgetValue, GMinfo, GMsetValue } from '@lib/compat';
 import { difference, groupBy, intersect } from '@lib/util/array';
 import { logFailure } from '@lib/util/async';
+import { onWindowLoaded } from '@lib/util/dom';
 
 import { agencyNameToID, validateCode, VERSION as CODES_VERSION } from './identifiers';
 import { validateCodes } from './validate';
@@ -548,9 +549,13 @@ function handleMB(): void {
         // FIXME: We should check the changes in more detail before querying.
         const workForms: Array<[HTMLFormElement, boolean]> = [...document.querySelectorAll<HTMLFormElement>(editWorkFormQuery)].map((f) => [f, false]);
         document.querySelectorAll('iframe').forEach((iframe) => {
-            iframe.contentWindow?.document
-                .querySelectorAll<HTMLFormElement>('editWorkFormQuery')
-                .forEach((form) => workForms.push([form, true]));
+            if (!iframe.contentWindow) return;
+
+            onWindowLoaded(() => {
+                iframe.contentWindow!.document
+                    .querySelectorAll<HTMLFormElement>(editWorkFormQuery)
+                    .forEach((form) => workForms.push([form, true]));
+            }, iframe.contentWindow);
         });
 
         workForms
