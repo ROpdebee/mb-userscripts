@@ -8,7 +8,7 @@ const metadata: UserscriptMetadata = {
     include: [
         mb`release/${mbid}/add-cover-art`,
         mb`release/${mbid}/cover-art`,
-        createURLRuleRegex('atisket.pulsewidth.org.uk/', /.*?/, { query: 'mandatory' }),
+        createURLRuleRegex('atisket.pulsewidth.org.uk', /.*?/, { query: 'mandatory' }),
         createURLRuleRegex('etc.marlonob.info', /atisket\/.*?/, { query: 'mandatory' }),
         createURLRuleRegex('vgmdb.net', /album\/\d+/),
     ],
