@@ -6,8 +6,8 @@ const metadata: UserscriptMetadata = {
     description: 'Guess language and script from release tracklist',
     'run-at': 'document-end',
     match: [
-        'release/*/add',
-        'release/*/add?*',
+        'release/add',
+        'release/add?*',
         'release/*/edit',
         'release/*/edit?*',
     ].map((path) => transformMBMatchURL(path)),
