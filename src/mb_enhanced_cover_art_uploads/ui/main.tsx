@@ -8,6 +8,8 @@ import type { CoverArtProvider } from '../providers/base';
 
 import css from './main.scss';
 
+const INPUT_PLACEHOLDER_TEXT = 'or paste one or more URLs here';
+
 export class InputForm {
     private readonly urlInput: HTMLInputElement;
     private readonly buttonContainer: HTMLDivElement;
@@ -20,7 +22,7 @@ export class InputForm {
         // The input element into which URLs will be pasted.
         this.urlInput = <input
             type='url'
-            placeholder='or paste one or more URLs here'
+            placeholder={INPUT_PLACEHOLDER_TEXT}
             size={47}
             id='ROpdebee_paste_url'
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -28,6 +30,12 @@ export class InputForm {
                 // Early validation.
                 if (!evt.currentTarget.value) return;
                 const oldValue = evt.currentTarget.value;
+                // Prevent accidental double pasting, which could append to the
+                // existing URL.
+                evt.currentTarget.value = '';
+                // Set the URL we'll process as the input's placeholder text as
+                // an "acknowledgement".
+                evt.currentTarget.placeholder = oldValue;
 
                 for (const inputUrl of oldValue.trim().split(/\s+/)) {
                     let url: URL;
@@ -44,8 +52,8 @@ export class InputForm {
                 }
                 app.clearLogLater();
 
-                if (this.urlInput.value === oldValue) {
-                    this.urlInput.value = '';
+                if (this.urlInput.placeholder === oldValue) {
+                    this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
                 }
             }}
         /> as HTMLInputElement;
