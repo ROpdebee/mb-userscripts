@@ -178,7 +178,7 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
         if (this.imgElement.src.endsWith('/static/images/icons/pdf-icon.png')) return;
 
         const dimensions = await this.image.getDimensions();
-        const infoString = `${dimensions.height}x${dimensions.width}`;
+        const infoString = `${dimensions.width}x${dimensions.height}`;
         this.dimensionsSpan.textContent = infoString;
     }
 }
