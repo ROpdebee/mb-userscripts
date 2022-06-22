@@ -105,6 +105,7 @@ const mbid = MBID_REGEX_PART;
 export const MB_EDITABLE_ENTITIES = [
     'area',
     'artist',
+    'collection',
     'event',
     'instrument',
     'label',
