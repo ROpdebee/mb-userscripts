@@ -6,6 +6,7 @@ import { EditNote } from '@lib/MB/EditNote';
 import { getURLsForRelease } from '@lib/MB/URLs';
 import { assertHasValue } from '@lib/util/assert';
 import { qs } from '@lib/util/dom';
+import { ObservableSemaphore } from '@lib/util/observable';
 
 import type { FetchedImages } from './fetch';
 import type { CoverArt } from './providers/base';
@@ -21,6 +22,7 @@ export class App {
     private readonly ui: InputForm;
     private readonly urlsInProgress: Set<string>;
     private readonly loggingSink = new GuiSink();
+    private readonly fetchingSema: ObservableSemaphore;
     public onlyFront = false;
 
     public constructor() {
@@ -31,6 +33,16 @@ export class App {
         // Set up logging banner
         LOGGER.addSink(this.loggingSink);
         qs('.add-files').insertAdjacentElement('afterend', this.loggingSink.rootElement);
+
+        this.fetchingSema = new ObservableSemaphore({
+            // Need to use lambdas here to access the original `this`.
+            onAcquired: (): void => {
+                this.ui.disableSubmissions();
+            },
+            onReleased: (): void => {
+                this.ui.enableSubmissions();
+            },
+        });
         this.ui = new InputForm(this);
     }
 
@@ -40,9 +52,12 @@ export class App {
             return;
         }
 
+        this.urlsInProgress.add(url.href);
         try {
-            this.urlsInProgress.add(url.href);
-            await this._processURL(url);
+            // Run the fetcher in a section during which submitting the edit
+            // form will be blocked. This is to prevent users from submitting
+            // the edits while we're still adding images.
+            await this.fetchingSema.runInSection(this._processURL.bind(this, url));
         } finally {
             this.urlsInProgress.delete(url.href);
         }
