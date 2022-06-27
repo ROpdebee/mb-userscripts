@@ -1,2 +1,3 @@
+- **2022.6.27**: Bug fix: run in iframes in Chrome and Violentmonkey Beta ([#504](https://github.com/ROpdebee/mb-userscripts/pull/504))
 - **2022.6.13**: Internal changes: allow tree-shaking the prototype input setter ([#477](https://github.com/ROpdebee/mb-userscripts/pull/477))
 - **2022.6.12**: Internal changes: rewrite "MB: Paste multiple external links" to TypeScript, fix shortcomings ([#473](https://github.com/ROpdebee/mb-userscripts/pull/473))
