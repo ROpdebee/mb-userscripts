@@ -1,3 +1,4 @@
+- **2022.6.27**: Bug fix: fix order of dimensions on queued upload thumbnails ([#505](https://github.com/ROpdebee/mb-userscripts/pull/505))
 - **2022.6.18**: Bug fix: wait until dimensions are known on queued uploads ([#500](https://github.com/ROpdebee/mb-userscripts/pull/500))
 - **2022.6.16**: Bug fix: fix order of dimensions ([#495](https://github.com/ROpdebee/mb-userscripts/pull/495))
 - **2022.6.13**: Internal changes: allow tree-shaking the prototype input setter ([#477](https://github.com/ROpdebee/mb-userscripts/pull/477))
