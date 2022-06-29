@@ -1,3 +1,4 @@
+- **2022.6.29**: New feature: add VK Music provider ([#494](https://github.com/ROpdebee/mb-userscripts/pull/494))
 - **2022.6.15**: New feature: file size and type on a-tisket images ([#478](https://github.com/ROpdebee/mb-userscripts/pull/478))
 - **2022.6.13.2**: Internal changes: allow tree-shaking the prototype input setter ([#477](https://github.com/ROpdebee/mb-userscripts/pull/477))
 - **2022.6.13**: Bug fix: don't require dimensions to load before inserting seed links on a-tisket ([#476](https://github.com/ROpdebee/mb-userscripts/pull/476))
