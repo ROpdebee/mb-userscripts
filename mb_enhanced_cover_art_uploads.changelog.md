@@ -1,3 +1,4 @@
+- **2022.6.29.3**: New feature: add Yandex Music provider ([#493](https://github.com/ROpdebee/mb-userscripts/pull/493))
 - **2022.6.29.2**: New feature: add Audiomack provider ([#492](https://github.com/ROpdebee/mb-userscripts/pull/492))
 - **2022.6.29**: New feature: add VK Music provider ([#494](https://github.com/ROpdebee/mb-userscripts/pull/494))
 - **2022.6.15**: New feature: file size and type on a-tisket images ([#478](https://github.com/ROpdebee/mb-userscripts/pull/478))
