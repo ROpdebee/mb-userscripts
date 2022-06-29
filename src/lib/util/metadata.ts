@@ -121,6 +121,7 @@ export const MB_EDITABLE_ENTITIES = [
 /** Any pages on which edits can occur */
 export const MB_EDIT_DISPLAY_PAGE_PATTERNS = [
     mb`edit/\d+`,
+    mb`edit/(open|subscribed(_editors)?)`,
     // <entity>/<entity_id>/edits, <entity>/<entity_id>/open_edits
     mb`(${MB_EDITABLE_ENTITIES.join('|')})/${mbid}/(open_)?edits`,
     // user/<username>/edits/...
