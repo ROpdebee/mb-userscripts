@@ -5,7 +5,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { assertDefined } from '@lib/util/assert';
 import { logFailure, retryTimes } from '@lib/util/async';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
-import { onWindowLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
+import { onAddEntityDialogLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
 
 function getExternalLinksEditor(mbInstance: typeof window.MB): ExternalLinks {
@@ -156,15 +156,10 @@ async function run(windowInstance: Window): Promise<void> {
 
 function onIframeAdded(iframe: HTMLIFrameElement): void {
     LOGGER.debug(`Initialising on iframe ${iframe.src}`);
-    const iframeWindow = iframe.contentWindow;
-    if (!iframeWindow) return;
 
-    // Cannot use onDocumentLoaded even if we make it accept a custom document
-    // since iframe contentDocument doesn't fire the DOMContentLoaded event in
-    // Firefox.
-    onWindowLoaded(() => {
-        logFailure(run(iframeWindow));
-    }, iframeWindow);
+    onAddEntityDialogLoaded(iframe, () => {
+        logFailure(run(iframe.contentWindow!));
+    });
 }
 
 // Observe for additions of embedded entity creation dialogs and run the link

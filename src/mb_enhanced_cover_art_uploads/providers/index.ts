@@ -7,6 +7,7 @@ import { AmazonProvider } from './amazon';
 import { AmazonMusicProvider } from './amazon_music';
 import { AppleMusicProvider } from './apple_music';
 import { ArchiveProvider } from './archive';
+import { AudiomackProvider } from './audiomack';
 import { BandcampProvider } from './bandcamp';
 import { BeatportProvider } from './beatport';
 import { DatPiffProvider } from './datpiff';
@@ -24,6 +25,7 @@ import { SoundcloudProvider } from './soundcloud';
 import { SpotifyProvider } from './spotify';
 import { TidalProvider } from './tidal';
 import { VGMdbProvider } from './vgmdb';
+import { VKMusicProvider } from './vk_music';
 
 const PROVIDER_DISPATCH = new DispatchMap<CoverArtProvider>();
 
@@ -37,6 +39,7 @@ addProvider(new AmazonProvider());
 addProvider(new AmazonMusicProvider());
 addProvider(new AppleMusicProvider());
 addProvider(new ArchiveProvider());
+addProvider(new AudiomackProvider());
 addProvider(new BandcampProvider());
 addProvider(new BeatportProvider());
 addProvider(new CoverArtArchiveProvider());
@@ -56,6 +59,7 @@ addProvider(new SoundcloudProvider());
 addProvider(new SpotifyProvider());
 addProvider(new TidalProvider());
 addProvider(new VGMdbProvider());
+addProvider(new VKMusicProvider());
 
 function extractDomain(url: URL): string {
     return url.hostname.replace(/^www\./, '');

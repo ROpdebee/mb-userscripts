@@ -131,61 +131,32 @@ describe('callback on window loaded', () => {
         cb.mockReset();
     });
 
-    function runTests(windowInstance?: Window): void {
-        it('does not fire if the window is not loaded', () => {
-            jest.spyOn(windowInstance?.document ?? document, 'readyState', 'get').mockReturnValue('interactive');
-            const cb = jest.fn();
-            onWindowLoaded(cb, windowInstance);
+    it('does not fire if the window is not loaded', () => {
+        jest.spyOn(document, 'readyState', 'get').mockReturnValue('interactive');
+        const cb = jest.fn();
+        onWindowLoaded(cb);
 
-            expect(cb).not.toHaveBeenCalled();
-        });
-
-        it('fires if the window was already loaded', () => {
-            jest.spyOn(windowInstance?.document ?? document, 'readyState', 'get').mockReturnValue('complete');
-            const cb = jest.fn();
-            onWindowLoaded(cb, windowInstance);
-
-            expect(cb).toHaveBeenCalledOnce();
-        });
-
-        it('fires after the window was loaded', () => {
-            jest.spyOn(windowInstance?.document ?? document, 'readyState', 'get').mockReturnValue('interactive');
-            const cb = jest.fn();
-            onWindowLoaded(cb, windowInstance);
-
-            expect(cb).not.toHaveBeenCalled();
-
-            (windowInstance ?? window).dispatchEvent(new Event('load'));
-
-            expect(cb).toHaveBeenCalledOnce();
-        });
-    }
-
-    describe('with main window', () => {
-        // eslint-disable-next-line jest/require-hook
-        runTests();
+        expect(cb).not.toHaveBeenCalled();
     });
 
-    describe('with custom window', () => {
-        const customWindow = {
-            eventListener: null as (() => void) | null,
-            document: {
-                get readyState(): string {
-                    return 'uninitialized';
-                },
-            },
-            addEventListener(evt: string, listener: () => void): void {
-                if (evt === 'load') this.eventListener = listener;
-            },
-            dispatchEvent(evt: Event): void {
-                if (evt.type === 'load') {
-                    this.eventListener?.();
-                }
-            },
-        };
+    it('fires if the window was already loaded', () => {
+        jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
+        const cb = jest.fn();
+        onWindowLoaded(cb);
 
-        // eslint-disable-next-line jest/require-hook
-        runTests(customWindow as unknown as Window);
+        expect(cb).toHaveBeenCalledOnce();
+    });
+
+    it('fires after the window was loaded', () => {
+        jest.spyOn(document, 'readyState', 'get').mockReturnValue('interactive');
+        const cb = jest.fn();
+        onWindowLoaded(cb);
+
+        expect(cb).not.toHaveBeenCalled();
+
+        window.dispatchEvent(new Event('load'));
+
+        expect(cb).toHaveBeenCalledOnce();
     });
 });
 

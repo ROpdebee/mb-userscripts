@@ -47,11 +47,21 @@ export function onDocumentLoaded(listener: () => void): void {
     }
 }
 
-export function onWindowLoaded(listener: () => void, windowInstance: Window = window): void {
-    if (windowInstance.document.readyState === 'complete') {
+export function onWindowLoaded(listener: () => void): void {
+    if (window.document.readyState === 'complete') {
         listener();
     } else {
-        windowInstance.addEventListener('load', listener);
+        window.addEventListener('load', listener);
+    }
+}
+
+export function onAddEntityDialogLoaded(dialog: HTMLIFrameElement, listener: () => void): void {
+    // iframe could already have finished loading. We can detect this as the
+    // absence of the loading div.
+    if (qsMaybe('.content-loading', dialog.parentElement!) === null) {
+        listener();
+    } else {
+        dialog.addEventListener('load', () => { listener(); });
     }
 }
 
