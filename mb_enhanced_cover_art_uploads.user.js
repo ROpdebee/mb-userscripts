@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.6.29.3
+// @version      2022.7.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2477,6 +2477,7 @@
 
   var css_248z = ".ROpdebee_paste_url_cont{display:inline-block;margin-left:32px;vertical-align:middle}.ROpdebee_paste_url_cont>*{display:block}.ROpdebee_paste_url_cont>label{display:inline;float:none!important}.ROpdebee_paste_url_cont>input#ROpdebee_paste_front_only{display:inline}.ROpdebee_paste_url_cont>a{font-size:smaller;text-align:right}.ROpdebee_paste_url_cont+span{margin-left:32px}.ROpdebee_import_url_buttons{margin-left:32px;vertical-align:middle}.ROpdebee_import_url_buttons>button{display:block;float:none;margin:4px}";
 
+  const INPUT_PLACEHOLDER_TEXT = 'or paste one or more URLs here';
   class InputForm {
       constructor(app) {
           var _qs$insertAdjacentEle, _qs$insertAdjacentEle2;
@@ -2488,13 +2489,15 @@
           this.urlInput = function () {
               var $$a = document.createElement('input');
               $$a.setAttribute('type', 'url');
-              $$a.setAttribute('placeholder', 'or paste one or more URLs here');
+              $$a.setAttribute('placeholder', INPUT_PLACEHOLDER_TEXT);
               $$a.setAttribute('size', 47);
               $$a.setAttribute('id', 'ROpdebee_paste_url');
               $$a.addEventListener('input', _async(function (evt) {
                   if (!evt.currentTarget.value)
                       return;
                   const oldValue = evt.currentTarget.value;
+                  evt.currentTarget.value = '';
+                  evt.currentTarget.placeholder = oldValue;
                   return _continue(_forOf(oldValue.trim().split(/\s+/), function (inputUrl) {
                       let url;
                       try {
@@ -2506,8 +2509,8 @@
                       return _awaitIgnored(app.processURL(url));
                   }), function () {
                       app.clearLogLater();
-                      if (_this.urlInput.value === oldValue) {
-                          _this.urlInput.value = '';
+                      if (_this.urlInput.placeholder === oldValue) {
+                          _this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
                       }
                   });
               }));
