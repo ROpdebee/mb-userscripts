@@ -74,8 +74,16 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // before it even returns the main album cover. Although fixable by
         // e.g. using an async generator, it might lead to issues with users
         // submitting the upload form before all track images are fetched...
+        let numProcessed = 0;
         const trackImages = await Promise.all(trackRows
-            .map((trackRow) => this.findTrackImage(trackRow, throttledFetchPage)));
+            .map(async (trackRow) => {
+                const trackImage = await this.findTrackImage(trackRow, throttledFetchPage);
+                // Cannot use `map`'s index argument since this is asynchronous
+                // and might resolve out of order.
+                numProcessed++;
+                LOGGER.info(`Checking for Bandcamp track images, this may take a few seconds… (${numProcessed}/${trackRows.length})`);
+                return trackImage;
+            }));
         const mergedTrackImages = await this.mergeTrackImages(trackImages, mainUrl, true);
         if (mergedTrackImages.length > 0) {
             LOGGER.info(`Found ${mergedTrackImages.length} unique track images`);
