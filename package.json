@@ -85,7 +85,7 @@
     "jest": "28.1.2",
     "jest-environment-jsdom": "28.1.2",
     "jest-extended": "2.0.0",
-    "jest-html-reporters": "3.0.9",
+    "jest-html-reporters": "3.0.10",
     "jest-when": "3.5.1",
     "license-checker": "25.0.1",
     "nativejsx": "github:ROpdebee/nativejsx",
