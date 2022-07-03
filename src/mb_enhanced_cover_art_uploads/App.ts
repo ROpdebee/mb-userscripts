@@ -8,7 +8,7 @@ import { assertHasValue } from '@lib/util/assert';
 import { qs } from '@lib/util/dom';
 import { ObservableSemaphore } from '@lib/util/observable';
 
-import type { CoverArt, FetchedImageBatch } from './types';
+import type { BareCoverArt, FetchedImageBatch } from './types';
 import { ImageFetcher } from './fetch';
 import { enqueueImages, fillEditNote } from './form';
 import { getProvider } from './providers';
@@ -46,79 +46,58 @@ export class App {
     }
 
     public async processURL(url: URL): Promise<void> {
-        // Don't process a URL if we're already doing so
-        if (this.urlsInProgress.has(url.href)) {
-            return;
-        }
-
-        this.urlsInProgress.add(url.href);
-        try {
-            // Run the fetcher in a section during which submitting the edit
-            // form will be blocked. This is to prevent users from submitting
-            // the edits while we're still adding images.
-            await this.fetchingSema.runInSection(this._processURL.bind(this, url));
-        } finally {
-            this.urlsInProgress.delete(url.href);
-        }
+        return this._processURLs([{ url }]);
     }
 
     public clearLogLater(): void {
         this.loggingSink.clearAllLater();
     }
 
-    private async _processURL(url: URL): Promise<void> {
-        let fetchResult: FetchedImageBatch;
-        try {
-            fetchResult = await this.fetcher.fetchImages(url, this.onlyFront);
-        } catch (err) {
-            LOGGER.error('Failed to grab images', err);
-            return;
-        }
+    private async _processURLs(coverArts: readonly BareCoverArt[], origin?: string): Promise<void> {
+        // Run the fetcher in a section during which submitting the edit form
+        // will be blocked. This is to prevent users from submitting the edits
+        // while we're still adding images. We run the whole loop in the section
+        // to prevent toggling the button in between two URLs.
+        const batches = await this.fetchingSema.runInSection(async () => {
+            const fetchedBatches: FetchedImageBatch[] = [];
 
-        try {
-            await enqueueImages(fetchResult);
-        } catch (err) {
-            LOGGER.error('Failed to enqueue images', err);
-            return;
-        }
+            for (const coverArt of coverArts) {
+                // Don't process a URL if we're already doing so, e.g. a user
+                // clicked a button that was already processing via a seed param.
+                if (this.urlsInProgress.has(coverArt.url.href)) {
+                    continue;
+                }
 
-        fillEditNote([fetchResult], '', this.note);
-        if (fetchResult.images.length > 0) {
-            LOGGER.success(`Successfully added ${fetchResult.images.length} image(s)`);
+                this.urlsInProgress.add(coverArt.url.href);
+                try {
+                    const fetchResult = await this._processURL(coverArt);
+                    fetchedBatches.push(fetchResult);
+                } catch (err) {
+                    LOGGER.error('Failed to fetch or enqueue images', err);
+                }
+
+                this.urlsInProgress.delete(coverArt.url.href);
+            }
+
+            return fetchedBatches;
+        });
+
+        fillEditNote(batches, origin ?? '', this.note);
+        const totalNumImages = batches.reduce((acc, batch) => acc + batch.images.length, 0);
+        if (totalNumImages > 0) {
+            LOGGER.success(`Successfully added ${totalNumImages} image(s)`);
         }
+    }
+
+    private async _processURL(coverArt: BareCoverArt): Promise<FetchedImageBatch> {
+        const fetchResult = await this.fetcher.fetchImages(coverArt.url, this.onlyFront);
+        await enqueueImages(fetchResult, coverArt.types, coverArt.comment);
+        return fetchResult;
     }
 
     public async processSeedingParameters(): Promise<void> {
         const params = SeedParameters.decode(new URLSearchParams(document.location.search));
-        // Although this is very similar to `processURL`, we may have to fetch
-        // and enqueue multiple images. We want to fetch images in parallel, but
-        // enqueue them sequentially to ensure the order stays consistent.
-
-        let fetchResults: Array<[FetchedImageBatch, CoverArt]>;
-        try {
-            fetchResults = await Promise.all(params.images
-                .map(async (cover): Promise<[FetchedImageBatch, CoverArt]> => {
-                    return [await this.fetcher.fetchImages(cover.url, this.onlyFront), cover];
-                }));
-        } catch (err) {
-            LOGGER.error('Failed to grab images', err);
-            return;
-        }
-
-        // Not using Promise.all to ensure images get added in order.
-        for (const [fetchResult, cover] of fetchResults) {
-            try {
-                await enqueueImages(fetchResult, cover.types, cover.comment);
-            } catch (err) {
-                LOGGER.error('Failed to enqueue some images', err);
-            }
-        }
-
-        fillEditNote(fetchResults.map((pair) => pair[0]), params.origin ?? '', this.note);
-        const totalNumImages = fetchResults.reduce((acc, pair) => acc + pair[0].images.length, 0);
-        if (totalNumImages) {
-            LOGGER.success(`Successfully added ${totalNumImages} image(s)`);
-        }
+        await this._processURLs(params.images, params.origin);
         this.clearLogLater();
     }
 
