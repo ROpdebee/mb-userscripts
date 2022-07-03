@@ -4,12 +4,20 @@ import { CustomError } from 'ts-custom-error';
 
 import { GMxmlHttpRequest } from '@lib/compat';
 
+export interface FetchProgress {
+    lengthComputable: boolean;
+    loaded: number;
+    total: number;
+}
+
 // eslint-disable-next-line no-restricted-globals
 type LimitedGMXHROptions = Omit<GM.Request, 'onload'|'onerror'|'onabort'|'ontimeout'|'onprogress'|'onreadystatechange'|'method'|'url'>;
 
 export interface GMXHROptions extends LimitedGMXHROptions {
     // eslint-disable-next-line no-restricted-globals
     method?: GM.Request['method'];
+    progressCb?: (progress: FetchProgress) => void;
+
 }
 
 export abstract class ResponseError extends CustomError {
@@ -71,6 +79,7 @@ export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<
             onerror: () => { reject(new NetworkError(url)); },
             onabort: () => { reject(new AbortedError(url)); },
             ontimeout: () => { reject(new TimeoutError(url)); },
+            onprogress: options?.progressCb,
         // eslint-disable-next-line no-restricted-globals
         } as GM.Request<never>);
     });

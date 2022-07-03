@@ -1,3 +1,4 @@
+import type { FetchProgress} from '@lib/util/xhr';
 import { getFromPageContext } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
@@ -15,14 +16,29 @@ function getFilename(url: URL): string {
     return decodeURIComponent(urlBasename(url, 'image'));
 }
 
+/**
+ * Hooks to observe fetcher state. URL is indicative and may change in between
+ * calls, e.g. after maximisation.
+ */
+export interface FetcherHooks {
+    /** Called when fetching an image has started. */
+    onFetchStarted?(imageId: number, url: URL): void;
+    /** Called to notify of progress of fetch. */
+    onFetchProgress?(imageId: number, url: URL, progress: FetchProgress): void;
+    /** Called when fetching has finished, either successfully or failed. */
+    onFetchFinished?(imageId: number): void;
+}
+
 export class ImageFetcher {
     private readonly doneImages: Set<string>;
+    private readonly hooks: FetcherHooks;
     // Monotonically increasing ID to uniquely identify the image. We use this
     // so we can later set the image type.
     private lastId = 0;
 
-    public constructor() {
+    public constructor(hooks: FetcherHooks) {
         this.doneImages = new Set();
+        this.hooks = hooks;
     }
 
     public async fetchImages(coverArt: BareCoverArt, onlyFront: boolean): Promise<QueuedImageBatch> {
@@ -52,7 +68,7 @@ export class ImageFetcher {
         };
     }
 
-    private async fetchMaximisedImage(url: URL): Promise<ImageContents | undefined> {
+    private async fetchMaximisedImage(url: URL, id: number): Promise<ImageContents | undefined> {
         for await (const maxCandidate of getMaximisedCandidates(url)) {
             const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
             if (this.urlAlreadyAdded(maxCandidate.url)) {
@@ -61,7 +77,7 @@ export class ImageFetcher {
             }
 
             try {
-                const result = await this.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers);
+                const result = await this.fetchImageContents(maxCandidate.url, candidateName, id, maxCandidate.headers);
                 // IMU might return the same URL as was inputted, no use in logging that.
                 // istanbul ignore next: Logging
                 if (maxCandidate.url.href !== url.href) {
@@ -76,35 +92,41 @@ export class ImageFetcher {
         }
 
         // If we couldn't fetch any maximised images, try the original URL
-        return this.fetchImageContents(url, getFilename(url), {});;
+        return this.fetchImageContents(url, getFilename(url), id, {});
     }
 
     private async fetchImageFromURL(url: URL, skipMaximisation = false): Promise<FetchedImage | undefined> {
+        const id = this.getImageId();
+        this.hooks.onFetchStarted?.(id, url);
         // Attempt to maximise the image if necessary
         // Might throw, caller needs to catch
-        const fetchResult = await (
-            skipMaximisation
-                ? this.fetchImageContents(url, getFilename(url), {})
-                : this.fetchMaximisedImage(url)
-        );
+        try {
+            const fetchResult = await (
+                skipMaximisation
+                    ? this.fetchImageContents(url, getFilename(url), id, {})
+                    : this.fetchMaximisedImage(url, id)
+            );
 
-        // If result is undefined, the image was already added previously.
-        if (!fetchResult) return;
+            // If result is undefined, the image was already added previously.
+            if (!fetchResult) return;
 
-        this.doneImages.add(fetchResult.fetchedUrl.href);
-        this.doneImages.add(fetchResult.requestedUrl.href);
-        this.doneImages.add(url.href);
+            this.doneImages.add(fetchResult.fetchedUrl.href);
+            this.doneImages.add(fetchResult.requestedUrl.href);
+            this.doneImages.add(url.href);
 
-        return {
-            content: fetchResult.file,
-            originalUrl: url,
-            maximisedUrl: fetchResult.requestedUrl,
-            fetchedUrl: fetchResult.fetchedUrl,
-            wasMaximised: url.href !== fetchResult.requestedUrl.href,
-            wasRedirected: fetchResult.wasRedirected,
-            // We have no idea what the type or comment will be, so leave them
-            // undefined so that a default, if any, can be inserted.
-        };
+            return {
+                content: fetchResult.file,
+                originalUrl: url,
+                maximisedUrl: fetchResult.requestedUrl,
+                fetchedUrl: fetchResult.fetchedUrl,
+                wasMaximised: url.href !== fetchResult.requestedUrl.href,
+                wasRedirected: fetchResult.wasRedirected,
+                // We have no idea what the type or comment will be, so leave them
+                // undefined so that a default, if any, can be inserted.
+            };
+        } finally {
+            this.hooks.onFetchFinished?.(id);
+        }
     }
 
     private async fetchImagesFromProvider({ url, types: defaultTypes, comment: defaultComment }: BareCoverArt, provider: CoverArtProvider, onlyFront: boolean): Promise<QueuedImageBatch> {
@@ -173,15 +195,20 @@ export class ImageFetcher {
         return filtered.length > 0 ? filtered : images.slice(0, 1);
     }
 
-    private createUniqueFilename(filename: string, mimeType: string): string {
-        const filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif|pdf)$/i, '');
-        return `${filenameWithoutExt}.${this.lastId++}.${mimeType.split('/')[1]}`;
+    private getImageId(): number {
+        return this.lastId++;
     }
 
-    private async fetchImageContents(url: URL, fileName: string, headers: Record<string, string>): Promise<ImageContents> {
+    private createUniqueFilename(filename: string, id: number, mimeType: string): string {
+        const filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif|pdf)$/i, '');
+        return `${filenameWithoutExt}.${id}.${mimeType.split('/')[1]}`;
+    }
+
+    private async fetchImageContents(url: URL, fileName: string, id: number, headers: Record<string, string>): Promise<ImageContents> {
         const resp = await gmxhr(url, {
             responseType: 'blob',
             headers: headers,
+            progressCb: this.hooks.onFetchProgress?.bind(this.hooks, id, url),
         });
         const fetchedUrl = new URL(resp.finalUrl);
         const wasRedirected = resp.finalUrl !== url.href;
@@ -216,7 +243,7 @@ export class ImageFetcher {
             wasRedirected,
             file: new File(
                 [resp.response as Blob],
-                this.createUniqueFilename(fileName, mimeType),
+                this.createUniqueFilename(fileName, id, mimeType),
                 { type: mimeType }),
         };
     }
