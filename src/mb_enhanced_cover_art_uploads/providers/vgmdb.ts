@@ -72,7 +72,7 @@ const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) 
     card: { type: ArtworkTypeIDs.Other, comment: 'Card' },
     sticker: ArtworkTypeIDs.Sticker,
     slipcase: { type: ArtworkTypeIDs.Other, comment: 'Slipcase' },
-    digipack: { type: ArtworkTypeIDs.Other, comment: 'Digipack' },
+    digipack: { type: ArtworkTypeIDs.Other, comment: 'Digipak' },
     insert: { type: ArtworkTypeIDs.Other, comment: 'Insert' }, // Or poster?
     case: { type: ArtworkTypeIDs.Other, comment: 'Case' },
     contents: ArtworkTypeIDs.Raw,
@@ -128,13 +128,26 @@ for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
 
 const PLACEHOLDER_URL = '/db/img/album-nocover-medium.gif';
 
+function cleanupCaption(captionRest: string): string {
+    return captionRest
+        // Remove superfluous spaces
+        .trim()
+        // Remove parentheses, braces and brackets, but only if they wrap the
+        // whole caption
+        .replace(/^\((.+)\)$/, '$1')
+        .replace(/^\[(.+)]$/, '$1')
+        .replace(/^{(.+)}$/, '$1')
+        // Remove leading dash, possibly used to split type from comment
+        .replace(/^[-–]\s*/, '');
+}
+
 export function convertCaptions(cover: { url: string; caption: string }): CoverArt {
     const url = new URL(cover.url);
     if (!cover.caption) {
         return { url };
     }
     const [captionType, ...captionRestParts] = cover.caption.split(' ');
-    const captionRest = captionRestParts.join(' ');
+    const captionRest = cleanupCaption(captionRestParts.join(' '));
     const mapper = CAPTION_TYPE_MAPPING[captionType.toLowerCase()];
 
     if (!mapper) return { url, comment: cover.caption };

@@ -95,7 +95,7 @@ describe('vgmdb provider', () => {
             ['Card', [ArtworkTypeIDs.Other], 'Card'],
             ['Sticker', [ArtworkTypeIDs.Sticker], ''],
             ['Slipcase', [ArtworkTypeIDs.Other], 'Slipcase'],
-            ['Digipack Outer Left', [ArtworkTypeIDs.Other], 'Digipack Outer Left'],
+            ['Digipack Outer Left', [ArtworkTypeIDs.Other], 'Digipak Outer Left'],
             ['Insert', [ArtworkTypeIDs.Other], 'Insert'],
             ['Case', [ArtworkTypeIDs.Other], 'Case'],
             ['Contents', [ArtworkTypeIDs.Raw], ''],
@@ -112,7 +112,7 @@ describe('vgmdb provider', () => {
                 });
         });
 
-        it('does not map types if there is no caption', async () => {
+        it('does not map types if there is no caption', () => {
             expect(convertCaptions({ url: 'https://example.com/', caption: '' }))
                 .toMatchObject({
                     url: {
@@ -121,11 +121,33 @@ describe('vgmdb provider', () => {
                 });
         });
 
-        it('does not map types if the caption type is unknown', async () => {
+        it('does not map types if the caption type is unknown', () => {
             // Cannot find a real-life example of this, so let's mock a fake one
             expect(convertCaptions({ url: 'https://example.com/', caption: 'not a correct caption' }))
                 .toMatchObject({
                     comment: 'not a correct caption',
+                    url: {
+                        href: 'https://example.com/',
+                    },
+                });
+        });
+
+        it('removes unnecessary parentheses', () => {
+            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc (CD1)'}))
+                .toMatchObject({
+                    types: [ArtworkTypeIDs.Medium],
+                    comment: 'CD1',
+                    url: {
+                        href: 'https://example.com/',
+                    },
+                });
+        });
+
+        it('removes unnecessary dashes', () => {
+            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc - CD1'}))
+                .toMatchObject({
+                    types: [ArtworkTypeIDs.Medium],
+                    comment: 'CD1',
                     url: {
                         href: 'https://example.com/',
                     },
