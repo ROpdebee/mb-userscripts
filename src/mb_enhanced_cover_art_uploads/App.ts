@@ -26,7 +26,6 @@ export class App {
 
     public constructor() {
         this.note = EditNote.withFooterFromGMInfo();
-        this.fetcher = new ImageFetcher();
         this.urlsInProgress = new Set();
 
         // Set up logging banner
@@ -43,6 +42,7 @@ export class App {
             },
         });
         this.ui = new InputForm(this);
+        this.fetcher = new ImageFetcher(this.ui);
     }
 
     public async processURL(url: URL): Promise<void> {
