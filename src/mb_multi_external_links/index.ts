@@ -3,7 +3,7 @@
 import type { ExternalLinks } from '@lib/MB/types';
 import { LOGGER } from '@lib/logging/logger';
 import { assertHasValue } from '@lib/util/assert';
-import { logFailure, retryTimes } from '@lib/util/async';
+import { asyncSleep, logFailure, retryTimes } from '@lib/util/async';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { onAddEntityDialogLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
@@ -20,7 +20,7 @@ function getLastInput(editor: ExternalLinks): HTMLInputElement {
     return linkInputs[linkInputs.length - 1];
 }
 
-function submitUrls(editor: ExternalLinks, urls: string[]): void {
+async function submitUrls(editor: ExternalLinks, urls: string[]): Promise<void> {
     // Technically we're recursively calling the patched methods, but the
     // patched methods just pass through to the originals when there's only
     // one link.
@@ -32,94 +32,72 @@ function submitUrls(editor: ExternalLinks, urls: string[]): void {
     setInputValue(lastInput, urls[0]);
     // Need to wait a while before the input event is processed before we can
     // fire the blur event, otherwise things get messy.
-    setTimeout(() => {
-        lastInput.dispatchEvent(new Event('focusout', { bubbles: true }));
-        submitUrls(editor, urls.slice(1));
-    });
+    await asyncSleep();
+    lastInput.dispatchEvent(new Event('focusout', { bubbles: true }));
+    await submitUrls(editor, urls.slice(1));
 }
 
-const Patcher = {
-    urlQueue: [] as string[],
+class LinkSplitter {
+    private readonly editor: ExternalLinks;
+    private readonly originalOnChange: ExternalLinks['handleUrlChange'];
+    private readonly patchedOnChange: ExternalLinks['handleUrlChange'];
 
-    patchOnBlur(editor: ExternalLinks, originalOnBlur: ExternalLinks['handleUrlBlur']): ExternalLinks['handleUrlBlur'] {
+    public constructor(editor: ExternalLinks) {
+        this.editor = editor;
+        this.originalOnChange = editor.handleUrlChange.bind(editor);
+
         // Accepting and passing arguments as array to prevent potential problems
         // when the signature of the patched methods change.
-        return (...args) => {
-            // onchange should have removed the other URLs and queued them in the urlQueue.
-            originalOnBlur(...args);
-
-            // Paste each link in the URL queue one-by-one.
-            submitUrls(editor, this.urlQueue);
-            this.urlQueue = [];
-        };
-    },
-
-    patchOnChange(originalOnBlur: ExternalLinks['handleUrlChange']): ExternalLinks['handleUrlChange'] {
-        // Like above, we won't make too many assumptions about the signature
-        // of `onUrlBlur`.
-        return (...args) => {
-            // Split the URLs and only feed the first URL into actual handler. This
-            // is to prevent it from performing any cleanup or relationship type
-            // inference that doesn't make sense.
-            // We'll feed the other URLs one-by-one separately later on the blur event.
-            // However, we need to "remember" those URLs, as the original handler
-            // seems to assign the input value and we'll lose the rest of the URLs.
+        this.patchedOnChange = (...args): void => {
+            // Split the URLs and submit all but the last URL into the actual
+            // handlers separately. The last URL will be entered, but not
+            // blurred.
             const rawUrl = args[2];
             LOGGER.debug(`onchange received URLs ${rawUrl}`);
-            args = [...args]; // Copy, prevent modifying original argument list.
-            try {
-                const splitUrls = rawUrl.trim().split(/\s+/);
-                this.urlQueue = splitUrls.slice(1);
-                // Take care to retain the rest of the arguments, the signature could
-                // change in a server update and we want to avoid feeding the
-                // wrong data.
-                if (splitUrls.length > 1) {
-                    args[2] = splitUrls[0];
-                }
-            } catch (err) {
-                LOGGER.error('Something went wrong. onUrlBlur signature change?', err);
+            const splitUrls = rawUrl.trim().split(/\s+/);
+
+            // No links to split, just use the standard handlers.
+            if (splitUrls.length <= 1) {
+                this.originalOnChange(...args);
+                return;
             }
-            originalOnBlur(...args);
+
+            const lastUrl = splitUrls[splitUrls.length - 1];
+            const firstUrls = splitUrls.slice(0, -1);
+            // Submit all but the last URL.
+            logFailure(submitUrls(editor, firstUrls)
+                // Afterwards, enter the last URL, but don't submit it.
+                .then(() => {
+                    const lastInput = getLastInput(this.editor);
+                    LOGGER.debug(`Submitting URL ${lastUrl}`);
+                    setInputValue(lastInput, lastUrl);
+                    lastInput.focus();
+                }),
+            'Something went wrong. onUrlBlur signature change?');
         };
-    },
-};
+    }
 
-interface LinkSplitter {
-    enable(): void;
-    disable(): void;
-    toggle(): void;
-    setEnabled(enabled: boolean): void;
-}
+    public enable(): void {
+        LOGGER.debug('Enabling link splitter');
+        this.editor.handleUrlChange = this.patchedOnChange;
+    }
 
-function createLinkSplitter(editor: ExternalLinks): LinkSplitter {
-    const originalOnBlur = editor.handleUrlBlur.bind(editor);
-    const originalOnChange = editor.handleUrlChange.bind(editor);
+    public disable(): void {
+        LOGGER.debug('Disabling link splitter');
+        this.editor.handleUrlChange = this.originalOnChange;
+    }
 
-    const patchedOnBlur = Patcher.patchOnBlur(editor, originalOnBlur);
-    const patchedOnChange = Patcher.patchOnChange(originalOnChange);
+    public toggle(): void {
+        this.setEnabled(this.editor.handleUrlChange === this.originalOnChange);
+    }
 
-    return {
-        enable(): void {
-            LOGGER.debug('Enabling link splitter');
-            editor.handleUrlBlur = patchedOnBlur;
-            editor.handleUrlChange = patchedOnChange;
-        },
-        disable(): void {
-            LOGGER.debug('Disabling link splitter');
-            editor.handleUrlBlur = originalOnBlur;
-            editor.handleUrlChange = originalOnChange;
-        },
-        setEnabled(enabled: boolean): void {
-            if (enabled) {
-                this.enable();
-            } else {
-                this.disable();
-            }
-        },
-        toggle(): void {
-            this.setEnabled(editor.handleUrlBlur === originalOnBlur);
-        },
-    };
+    public setEnabled(enabled: boolean): void {
+        if (enabled) {
+            this.enable();
+        } else {
+            this.disable();
+        }
+    }
 }
 
 function insertCheckboxElements(editor: ExternalLinks, checkboxElmt: HTMLInputElement, labelElmt: HTMLLabelElement): void {
@@ -146,7 +124,7 @@ async function run(windowInstance: Window): Promise<void> {
     // the external links editor may be ready long before we run. We want to add our
     // functionality as soon as possible without waiting for the whole page to load.
     const editor = await retryTimes(() => getExternalLinksEditor(windowInstance.MB), 100, 50);
-    const splitter = createLinkSplitter(editor);
+    const splitter = new LinkSplitter(editor);
     const [checkboxElmt, labelElmt] = createPersistentCheckbox('ROpdebee_multi_links_no_split', "Don't split links", () => {
         splitter.toggle();
     });
