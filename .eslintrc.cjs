@@ -199,6 +199,9 @@ module.exports = {
         // places where in my opinion, an explicit `undefined` reduced confusion.
         'unicorn/no-useless-undefined': 'off',
 
+        // Doesn't always work with transpiling into userscripts, ts-node, etc.
+        'unicorn/prefer-top-level-await': 'off',
+
         'unicorn/no-process-exit': 'off',
 
         // Already included in unicorn/better-regex and doesn't allow disabling the sorting
