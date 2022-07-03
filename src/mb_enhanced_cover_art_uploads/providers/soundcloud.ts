@@ -4,7 +4,7 @@ import { assert } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { urlBasename } from '@lib/util/urls';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { ProviderWithTrackImages } from './base';
 
 // Incomplete, only what we need.

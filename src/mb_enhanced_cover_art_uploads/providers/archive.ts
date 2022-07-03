@@ -7,7 +7,7 @@ import { safeParseJSON } from '@lib/util/json';
 import { urlBasename, urlJoin } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 interface CAAIndex {

@@ -1,7 +1,7 @@
 import { LOGGER } from '@lib/logging/logger';
 import { safeParseJSON } from '@lib/util/json';
 
-import type { CoverArt } from '../providers/base';
+import type { BareCoverArt } from '../types';
 
 function encodeValue(value: unknown): string {
     if (value instanceof URL) return value.href;
@@ -9,7 +9,7 @@ function encodeValue(value: unknown): string {
     return JSON.stringify(value);
 }
 
-function decodeSingleKeyValue(key: string, value: string, images: CoverArt[]): void {
+function decodeSingleKeyValue(key: string, value: string, images: BareCoverArt[]): void {
     const keyName = key.split('.').pop()!;
     const imageIdxString = key.match(/x_seed\.image\.(\d+)\./)?.[1];
     if (!imageIdxString || !['url', 'types', 'comment'].includes(keyName)) {
@@ -19,7 +19,7 @@ function decodeSingleKeyValue(key: string, value: string, images: CoverArt[]): v
     const imageIdx = parseInt(imageIdxString);
 
     if (!images[imageIdx]) {
-        images[imageIdx] = {} as unknown as CoverArt;
+        images[imageIdx] = {} as unknown as BareCoverArt;
     }
 
     if (keyName === 'url') {
@@ -36,19 +36,19 @@ function decodeSingleKeyValue(key: string, value: string, images: CoverArt[]): v
 }
 
 export class SeedParameters {
-    private readonly _images: Array<Readonly<CoverArt>>;
+    private readonly _images: Array<Readonly<BareCoverArt>>;
     public readonly origin?: string;
 
-    public constructor(images?: ReadonlyArray<Readonly<CoverArt>>, origin?: string) {
+    public constructor(images?: ReadonlyArray<Readonly<BareCoverArt>>, origin?: string) {
         this._images = [...(images ?? [])];
         this.origin = origin;
     }
 
-    public get images(): ReadonlyArray<Readonly<CoverArt>> {
+    public get images(): ReadonlyArray<Readonly<BareCoverArt>> {
         return this._images;
     }
 
-    public addImage(image: CoverArt): void {
+    public addImage(image: BareCoverArt): void {
         this._images.push(image);
     }
 
@@ -69,7 +69,7 @@ export class SeedParameters {
     }
 
     public static decode(seedParams: URLSearchParams): SeedParameters {
-        let images: CoverArt[] = [];
+        let images: BareCoverArt[] = [];
         seedParams.forEach((value, key) => {
             // only image parameters can be decoded to cover art images
             if (!key.startsWith('x_seed.image.')) return;

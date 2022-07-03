@@ -6,7 +6,7 @@ import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
 
-import type { FetchedImage } from '../fetch';
+import type { CoverArt, FetchedImage } from '../types';
 
 export abstract class CoverArtProvider {
     /**
@@ -109,26 +109,6 @@ export abstract class CoverArtProvider {
 
         return resp.responseText;
     }
-}
-
-export interface CoverArt {
-    /**
-     * URL to fetch.
-     */
-    url: URL;
-    /**
-     * Artwork types to set. May be empty or undefined.
-     */
-    types?: ArtworkTypeIDs[];
-    /**
-     * Comment to set. May be empty or undefined.
-     */
-    comment?: string;
-    /**
-     * Whether maximisation should be skipped for this image. If undefined,
-     * interpreted as false.
-     */
-    skipMaximisation?: boolean;
 }
 
 export interface ParsedTrackImage {

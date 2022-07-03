@@ -5,35 +5,10 @@ import { enumerate } from '@lib/util/array';
 import { urlBasename } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
 
-import type { CoverArt, CoverArtProvider } from './providers/base';
+import type { CoverArtProvider } from './providers/base';
+import type { CoverArt, FetchedImage, FetchedImageBatch, ImageContents } from './types';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider, getProviderByDomain } from './providers';
-
-export interface ImageContents {
-    requestedUrl: URL;
-    fetchedUrl: URL;
-    wasRedirected: boolean;
-    file: File;
-}
-
-export interface FetchedImage {
-    content: File;
-    originalUrl: URL;
-    maximisedUrl: URL;
-    fetchedUrl: URL;
-    wasMaximised: boolean;
-    wasRedirected: boolean;
-    // types and comment may be empty or undefined. If undefined, the value
-    // will be replaced by the default, if any. If defined but empty, the
-    // default will not be used.
-    types?: ArtworkTypeIDs[];
-    comment?: string;  // Can be empty string
-}
-
-export interface FetchedImages {
-    images: FetchedImage[];
-    containerUrl?: URL;
-}
 
 function getFilename(url: URL): string {
     return decodeURIComponent(urlBasename(url, 'image'));
@@ -49,7 +24,7 @@ export class ImageFetcher {
         this.doneImages = new Set();
     }
 
-    public async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImages> {
+    public async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImageBatch> {
         if (this.urlAlreadyAdded(url)) {
             LOGGER.warn(`${url} has already been added`);
             return {
@@ -128,7 +103,7 @@ export class ImageFetcher {
         };
     }
 
-    private async fetchImagesFromProvider(url: URL, provider: CoverArtProvider, onlyFront: boolean): Promise<FetchedImages> {
+    private async fetchImagesFromProvider(url: URL, provider: CoverArtProvider, onlyFront: boolean): Promise<FetchedImageBatch> {
         LOGGER.info(`Searching for images in ${provider.name} release…`);
 
         // This could throw, assuming caller will catch.

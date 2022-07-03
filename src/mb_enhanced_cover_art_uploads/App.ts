@@ -8,8 +8,7 @@ import { assertHasValue } from '@lib/util/assert';
 import { qs } from '@lib/util/dom';
 import { ObservableSemaphore } from '@lib/util/observable';
 
-import type { FetchedImages } from './fetch';
-import type { CoverArt } from './providers/base';
+import type { CoverArt, FetchedImageBatch } from './types';
 import { ImageFetcher } from './fetch';
 import { enqueueImages, fillEditNote } from './form';
 import { getProvider } from './providers';
@@ -68,7 +67,7 @@ export class App {
     }
 
     private async _processURL(url: URL): Promise<void> {
-        let fetchResult: FetchedImages;
+        let fetchResult: FetchedImageBatch;
         try {
             fetchResult = await this.fetcher.fetchImages(url, this.onlyFront);
         } catch (err) {
@@ -95,10 +94,10 @@ export class App {
         // and enqueue multiple images. We want to fetch images in parallel, but
         // enqueue them sequentially to ensure the order stays consistent.
 
-        let fetchResults: Array<[FetchedImages, CoverArt]>;
+        let fetchResults: Array<[FetchedImageBatch, CoverArt]>;
         try {
             fetchResults = await Promise.all(params.images
-                .map(async (cover): Promise<[FetchedImages, CoverArt]> => {
+                .map(async (cover): Promise<[FetchedImageBatch, CoverArt]> => {
                     return [await this.fetcher.fetchImages(cover.url, this.onlyFront), cover];
                 }));
         } catch (err) {

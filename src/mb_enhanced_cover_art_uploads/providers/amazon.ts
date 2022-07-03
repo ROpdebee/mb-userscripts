@@ -6,7 +6,7 @@ import { parseDOM, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
 import { urlJoin } from '@lib/util/urls';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 const PLACEHOLDER_IMG_NAMES = [

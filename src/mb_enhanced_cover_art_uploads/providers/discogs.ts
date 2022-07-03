@@ -2,7 +2,7 @@ import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { gmxhr } from '@lib/util/xhr';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 // Not sure if this changes often. If it does, we might have to parse it from the

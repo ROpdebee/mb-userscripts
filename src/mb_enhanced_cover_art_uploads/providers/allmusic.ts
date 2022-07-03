@@ -1,6 +1,6 @@
 import { safeParseJSON } from '@lib/util/json';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 interface AllMusicImage {

@@ -2,7 +2,7 @@ import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertHasValue } from '@lib/util/assert';
 import { parseDOM, qs } from '@lib/util/dom';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 export class VKMusicProvider extends CoverArtProvider {

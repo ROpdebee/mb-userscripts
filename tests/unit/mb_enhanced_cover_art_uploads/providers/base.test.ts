@@ -1,6 +1,7 @@
 import { when } from 'jest-when';
 
-import type { CoverArt, ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import type { ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/types';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { gmxhr } from '@lib/util/xhr';
 import { CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';

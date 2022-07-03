@@ -2,7 +2,7 @@ import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertHasValue } from '@lib/util/assert';
 import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 

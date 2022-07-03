@@ -5,9 +5,9 @@ import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';
 import { qs, qsa } from '@lib/util/dom';
 
-import type { FetchedImage, FetchedImages } from './fetch';
+import type { FetchedImage, FetchedImageBatch } from './types';
 
-export async function enqueueImages({ images }: FetchedImages, defaultTypes: ArtworkTypeIDs[] = [], defaultComment = ''): Promise<void> {
+export async function enqueueImages({ images }: FetchedImageBatch, defaultTypes: ArtworkTypeIDs[] = [], defaultComment = ''): Promise<void> {
     await Promise.all(images.map((image) => {
         return enqueueImage(image, defaultTypes, defaultComment);
     }));
@@ -88,7 +88,7 @@ function fillEditNoteFragment(editNote: EditNote, images: FetchedImage[], contai
     }
 }
 
-export function fillEditNote(allFetchedImages: FetchedImages[], origin: string, editNote: EditNote): void {
+export function fillEditNote(allFetchedImages: FetchedImageBatch[], origin: string, editNote: EditNote): void {
     const totalNumImages = allFetchedImages.reduce((acc, fetched) => acc + fetched.images.length, 0);
     // Nothing enqueued => Skip edit note altogether
     if (!totalNumImages) return;
