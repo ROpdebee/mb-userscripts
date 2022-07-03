@@ -214,9 +214,14 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
             // Extend the track image with the track's unique digest. We compute
             // this digest once for each unique URL.
+            let numProcessed = 0;
             const tracksWithDigest = await Promise.all([...groupedImages.entries()]
                 .map(async ([coverUrl, trackImages]) => {
                     const digest = await this.urlToDigest(coverUrl);
+                    // Cannot use `map`'s index argument since this is asynchronous
+                    // and might resolve out of order.
+                    numProcessed++;
+                    LOGGER.info(`Deduplicating track images by content, this may take a while… (${numProcessed}/${groupedImages.size})`);
                     return trackImages.map((trackImage) => {
                         return {
                             ...trackImage,
