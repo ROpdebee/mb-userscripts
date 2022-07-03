@@ -4,7 +4,7 @@ import path from 'node:path';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { EditNote } from '@lib/MB/EditNote';
 import { qs } from '@lib/util/dom';
-import { enqueueImages, fillEditNote } from '@src/mb_enhanced_cover_art_uploads/form';
+import { enqueueImage, fillEditNote } from '@src/mb_enhanced_cover_art_uploads/form';
 
 import { createFetchedImage, createImageFile } from './test-utils/dummy-data';
 
@@ -66,22 +66,18 @@ describe('enqueuing images', () => {
 
     it('triggers the correct drop event', async () => {
         const image = createImageFile();
-        await enqueueImages({
-            images: [createFetchedImage({
-                content: image,
-            })],
-        });
+        await enqueueImage(createFetchedImage({
+            content: image,
+        }));
 
         expect(document.querySelector('tr')).not.toBeNil();
     });
 
     it('fills the correct parameters', async () => {
-        await enqueueImages({
-            images: [createFetchedImage({
-                types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
-                comment: 'test comment',
-            })],
-        });
+        await enqueueImage(createFetchedImage({
+            types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
+            comment: 'test comment',
+        }));
         const row = document.querySelector('tr');
 
         expect(getSelectedTypes(row))
@@ -90,9 +86,7 @@ describe('enqueuing images', () => {
     });
 
     it('uses the default parameters when none are set', async () => {
-        await enqueueImages({
-            images: [createFetchedImage()],
-        }, [ArtworkTypeIDs.Booklet], 'default comment');
+        await enqueueImage(createFetchedImage(), [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
         expect(getSelectedTypes(row))
@@ -101,12 +95,10 @@ describe('enqueuing images', () => {
     });
 
     it('does not use default parameters when specific ones are set', async () => {
-        await enqueueImages({
-            images: [createFetchedImage({
-                types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
-                comment: 'test comment',
-            })],
-        }, [ArtworkTypeIDs.Booklet], 'default comment');
+        await enqueueImage(createFetchedImage({
+            types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
+            comment: 'test comment',
+        }), [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
         expect(getSelectedTypes(row))
@@ -115,54 +107,15 @@ describe('enqueuing images', () => {
     });
 
     it('allows specific types and comment to be empty', async () => {
-        await enqueueImages({
-            images: [createFetchedImage({
-                types: [],
-                comment: '',
-            })],
-        }, [ArtworkTypeIDs.Booklet], 'default comment');
+        await enqueueImage(createFetchedImage({
+            types: [],
+            comment: '',
+        }), [ArtworkTypeIDs.Booklet], 'default comment');
         const row = document.querySelector('tr');
 
         expect(getSelectedTypes(row))
             .toStrictEqual([]);
         expect(getComment(row)).toBe('');
-    });
-
-    it('fills the correct parameters for multiple images', async () => {
-        await enqueueImages({
-            images: [
-                createFetchedImage({
-                    content: createImageFile({
-                        name: 'test.1.png',
-                    }),
-                    types: [ArtworkTypeIDs.Front],
-                    comment: 'test comment',
-                }),
-                createFetchedImage({
-                    content: createImageFile({
-                        name: 'test.2.png',
-                    }),
-                    types: [ArtworkTypeIDs.Back],
-                    comment: 'test comment 2',
-                }),
-            ],
-        });
-        const rows = document.querySelectorAll('tr');
-        let row1: HTMLTableRowElement, row2: HTMLTableRowElement;
-        if (rows[0].querySelector('.file-info span')?.textContent === 'test.1.png') {
-            row1 = rows[0];
-            row2 = rows[1];
-        } else {
-            row1 = rows[1];
-            row2 = rows[0];
-        }
-
-        expect(getSelectedTypes(row1))
-            .toStrictEqual([ArtworkTypeIDs.Front]);
-        expect(getComment(row1)).toBe('test comment');
-        expect(getSelectedTypes(row2))
-            .toStrictEqual([ArtworkTypeIDs.Back]);
-        expect(getComment(row2)).toBe('test comment 2');
     });
 });
 

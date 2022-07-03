@@ -6,7 +6,8 @@ import { urlBasename } from '@lib/util/urls';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArtProvider } from './providers/base';
-import type { CoverArt, FetchedImage, FetchedImageBatch, ImageContents } from './types';
+import type { BareCoverArt, CoverArt, FetchedImage, ImageContents, QueuedImage, QueuedImageBatch } from './types';
+import { enqueueImage } from './form';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider, getProviderByDomain } from './providers';
 
@@ -24,7 +25,8 @@ export class ImageFetcher {
         this.doneImages = new Set();
     }
 
-    public async fetchImages(url: URL, onlyFront: boolean): Promise<FetchedImageBatch> {
+    public async fetchImages(coverArt: BareCoverArt, onlyFront: boolean): Promise<QueuedImageBatch> {
+        const { url } = coverArt;
         if (this.urlAlreadyAdded(url)) {
             LOGGER.warn(`${url} has already been added`);
             return {
@@ -34,15 +36,17 @@ export class ImageFetcher {
 
         const provider = getProvider(url);
         if (provider) {
-            return this.fetchImagesFromProvider(url, provider, onlyFront);
+            return this.fetchImagesFromProvider(coverArt, provider, onlyFront);
         }
 
+        const { types: defaultTypes, comment: defaultComment } = coverArt;
         LOGGER.info(`Attempting to fetch ${url}`);
         const result = await this.fetchImageFromURL(url);
         if (!result) {
             return { images: [] };
         }
 
+        await enqueueImage(result, defaultTypes, defaultComment);
         return {
             images: [result],
         };
@@ -103,7 +107,7 @@ export class ImageFetcher {
         };
     }
 
-    private async fetchImagesFromProvider(url: URL, provider: CoverArtProvider, onlyFront: boolean): Promise<FetchedImageBatch> {
+    private async fetchImagesFromProvider({ url, types: defaultTypes, comment: defaultComment }: BareCoverArt, provider: CoverArtProvider, onlyFront: boolean): Promise<QueuedImageBatch> {
         LOGGER.info(`Searching for images in ${provider.name} release…`);
 
         // This could throw, assuming caller will catch.
@@ -117,7 +121,7 @@ export class ImageFetcher {
         // We need to fetch each image sequentially because each one is checked
         // against any previously fetched images, to avoid adding duplicates.
         // Fetching in parallel would lead to race conditions.
-        const fetchResults: FetchedImage[] = [];
+        const queuedResults: QueuedImage[] = [];
         for (const [img, idx] of enumerate(finalImages)) {
             if (this.urlAlreadyAdded(img.url)) {
                 LOGGER.warn(`${img.url} has already been added`);
@@ -138,7 +142,8 @@ export class ImageFetcher {
 
                 const postprocessedImage = await provider.postprocessImage(fetchedImage);
                 if (postprocessedImage) {
-                    fetchResults.push(postprocessedImage);
+                    await enqueueImage(fetchedImage, defaultTypes, defaultComment);
+                    queuedResults.push(postprocessedImage);
                 }
             } catch (err) {
                 LOGGER.warn(`Skipping ${img.url}`, err);
@@ -155,7 +160,7 @@ export class ImageFetcher {
 
         return {
             containerUrl: url,
-            images: fetchResults,
+            images: queuedResults,
         };
     }
 

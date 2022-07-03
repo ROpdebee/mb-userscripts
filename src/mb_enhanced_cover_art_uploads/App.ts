@@ -8,9 +8,9 @@ import { assertHasValue } from '@lib/util/assert';
 import { qs } from '@lib/util/dom';
 import { ObservableSemaphore } from '@lib/util/observable';
 
-import type { BareCoverArt, FetchedImageBatch } from './types';
+import type { BareCoverArt, QueuedImageBatch } from './types';
 import { ImageFetcher } from './fetch';
-import { enqueueImages, fillEditNote } from './form';
+import { fillEditNote } from './form';
 import { getProvider } from './providers';
 import { SeedParameters } from './seeding/parameters';
 import { InputForm } from './ui/main';
@@ -59,7 +59,7 @@ export class App {
         // while we're still adding images. We run the whole loop in the section
         // to prevent toggling the button in between two URLs.
         const batches = await this.fetchingSema.runInSection(async () => {
-            const fetchedBatches: FetchedImageBatch[] = [];
+            const fetchedBatches: QueuedImageBatch[] = [];
 
             for (const coverArt of coverArts) {
                 // Don't process a URL if we're already doing so, e.g. a user
@@ -70,7 +70,7 @@ export class App {
 
                 this.urlsInProgress.add(coverArt.url.href);
                 try {
-                    const fetchResult = await this._processURL(coverArt);
+                    const fetchResult = await this.fetcher.fetchImages(coverArt, this.onlyFront);
                     fetchedBatches.push(fetchResult);
                 } catch (err) {
                     LOGGER.error('Failed to fetch or enqueue images', err);
@@ -87,12 +87,6 @@ export class App {
         if (totalNumImages > 0) {
             LOGGER.success(`Successfully added ${totalNumImages} image(s)`);
         }
-    }
-
-    private async _processURL(coverArt: BareCoverArt): Promise<FetchedImageBatch> {
-        const fetchResult = await this.fetcher.fetchImages(coverArt.url, this.onlyFront);
-        await enqueueImages(fetchResult, coverArt.types, coverArt.comment);
-        return fetchResult;
     }
 
     public async processSeedingParameters(): Promise<void> {
