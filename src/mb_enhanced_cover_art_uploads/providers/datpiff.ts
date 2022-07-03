@@ -1,12 +1,10 @@
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { filterNonNull } from '@lib/util/array';
 import { assertDefined } from '@lib/util/assert';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 
-import type { FetchedImage } from '../fetch';
-import type { CoverArt } from './base';
+import type { CoverArt, FetchedImage } from '../types';
 import { CoverArtProvider } from './base';
 
 export class DatPiffProvider extends CoverArtProvider {

@@ -1,7 +1,6 @@
 // Abstractions to create dummy data
 
-import type { FetchedImage } from '@src/mb_enhanced_cover_art_uploads/fetch';
-import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import type { CoverArt, FetchedImage } from '@src/mb_enhanced_cover_art_uploads/types';
 
 export interface DummyImageData {
     blob?: Blob;

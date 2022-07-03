@@ -2,7 +2,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { getReleaseIDsForURL } from '@lib/MB/URLs';
 import { qs, qsMaybe } from '@lib/util/dom';
 
-import type { CoverArt } from '../providers/base';
+import type { CoverArt } from '../types';
 import type { Seeder } from './base';
 import { VGMdbProvider } from '../providers/vgmdb';
 import { SeedParameters } from './parameters';

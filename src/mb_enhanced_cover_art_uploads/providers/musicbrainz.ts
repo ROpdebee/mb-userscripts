@@ -1,6 +1,6 @@
 import { assertDefined } from '@lib/util/assert';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { ArchiveProvider } from './archive';
 import { CoverArtProvider } from './base';
 

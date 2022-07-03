@@ -1,6 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 
-import type { FetchedImage } from '../fetch';
+import type { FetchedImage } from '../types';
 import { HeadMetaPropertyProvider } from './base';
 
 // Technically, the cover URL is very predictable from the release ID. However,

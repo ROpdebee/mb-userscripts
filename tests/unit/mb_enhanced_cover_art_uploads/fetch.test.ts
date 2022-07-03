@@ -1,5 +1,5 @@
-import type { FetchedImage, ImageContents } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import type { MaximisedImage } from '@src/mb_enhanced_cover_art_uploads/maximise';
+import type { ImageContents } from '@src/mb_enhanced_cover_art_uploads/types';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { gmxhr, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';

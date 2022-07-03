@@ -1,7 +1,7 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { parseDOM, qs } from '@lib/util/dom';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 export class BeatportProvider extends CoverArtProvider {

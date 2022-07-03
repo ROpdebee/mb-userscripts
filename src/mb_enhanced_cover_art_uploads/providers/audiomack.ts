@@ -2,7 +2,7 @@ import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertDefined, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 interface AudiomackState {
