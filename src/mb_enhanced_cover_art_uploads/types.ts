@@ -47,7 +47,7 @@ interface BaseFetchedImage {
     wasRedirected: boolean;
 }
 
-/** Image that was fetched. */
+/** Image that was fetched, but not yet queued. */
 export interface FetchedImage extends BaseFetchedImage {
     content: File;
     // types and comment may be empty or undefined. If undefined, the value
@@ -57,8 +57,11 @@ export interface FetchedImage extends BaseFetchedImage {
     comment?: string;  // Can be empty string
 }
 
-/** Batch of images that were fetched, possibly from a provider. */
-export interface FetchedImageBatch {
-    images: FetchedImage[];
+/** Image that was fetched and queued. */
+export type QueuedImage = BaseFetchedImage;
+
+/** Batch of images that were queued, possibly from a provider. */
+export interface QueuedImageBatch {
+    images: QueuedImage[];
     containerUrl?: URL;
 }
