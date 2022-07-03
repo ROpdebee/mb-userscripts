@@ -4,7 +4,7 @@ import type { ExternalLinks } from '@lib/MB/types';
 import { ConsoleSink } from '@lib/logging/consoleSink';
 import { LogLevel } from '@lib/logging/levels';
 import { LOGGER } from '@lib/logging/logger';
-import { assertDefined } from '@lib/util/assert';
+import { assertHasValue } from '@lib/util/assert';
 import { logFailure, retryTimes } from '@lib/util/async';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { onAddEntityDialogLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
@@ -14,8 +14,8 @@ import USERSCRIPT_ID from 'consts:userscript-id';
 
 function getExternalLinksEditor(mbInstance: typeof window.MB): ExternalLinks {
     // Can be found in the MB object, but exact property depends on actual page.
-    const editor = (mbInstance.releaseEditor?.externalLinks ?? mbInstance.sourceExternalLinksEditor)?.current;
-    assertDefined(editor, 'Cannot find external links editor object');
+    const editor = (mbInstance.releaseEditor?.externalLinks ?? mbInstance.sourceExternalLinksEditor)?.externalLinksEditorRef.current;
+    assertHasValue(editor, 'Cannot find external links editor object');
     return editor;
 }
 
