@@ -50,12 +50,12 @@ export abstract class CoverArtProvider {
     public abstract findImages(url: URL, onlyFront: boolean): Promise<CoverArt[]>;
 
     /**
-     * Postprocess the fetched images. By default, does nothing, however,
-     * subclasses can override this to e.g. filter out or merge images after
-     * they've been fetched.
+     * Postprocess a fetched image. By default, does nothing, however,
+     * subclasses can override this to e.g. filter out an image after it has
+     * been fetched.
      */
-    public async postprocessImages(images: FetchedImage[]): Promise<FetchedImage[]> {
-        return images;
+    public postprocessImage(image: FetchedImage): Promise<FetchedImage | null> {
+        return Promise.resolve(image);
     }
 
     /**

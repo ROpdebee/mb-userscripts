@@ -134,6 +134,7 @@ export class ImageFetcher {
         // This could throw, assuming caller will catch.
         const images = await provider.findImages(url, onlyFront);
         const finalImages = onlyFront ? this.retainOnlyFront(images) : images;
+        // FIXME: This may be broken for providers which skip checking track images.
         const hasMoreImages = onlyFront && images.length !== finalImages.length;
 
         // eslint-disable-next-line unicorn/explicit-length-check
@@ -154,17 +155,20 @@ export class ImageFetcher {
                 // Maximised image already added
                 if (!result) continue;
 
-                fetchResults.push({
+                const fetchedImage = {
                     ...result,
                     types: img.types,
                     comment: img.comment,
-                });
+                };
+
+                const postprocessedImage = await provider.postprocessImage(fetchedImage);
+                if (postprocessedImage) {
+                    fetchResults.push(postprocessedImage);
+                }
             } catch (err) {
                 LOGGER.warn(`Skipping ${img.url}`, err);
             }
         }
-
-        const fetchedImages = await provider.postprocessImages(fetchResults);
 
         if (!hasMoreImages) {
             // Don't mark the whole provider URL as done if we haven't grabbed
@@ -176,7 +180,7 @@ export class ImageFetcher {
 
         return {
             containerUrl: url,
-            images: fetchedImages,
+            images: fetchResults,
         };
     }
 

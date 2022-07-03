@@ -479,11 +479,13 @@ describe('fetching images from providers', () => {
     });
 
     it('allows provider to postprocess images', async () => {
+        const mockPostprocessor = jest.fn();
         class PostprocessingProvider extends FakeProvider {
-            public override async postprocessImages(images: FetchedImage[]): Promise<FetchedImage[]> {
-                return images.slice(1);
-            }
+            public override postprocessImage = mockPostprocessor;
         }
+        mockPostprocessor.mockImplementation((image) => Promise.resolve(image));
+        mockPostprocessor.mockResolvedValueOnce(null);
+
         const provider = new PostprocessingProvider();
         mockFindImages.mockResolvedValueOnce([
             createCoverArt('https://example.com/1'),
