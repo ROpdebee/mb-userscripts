@@ -22,12 +22,19 @@ export const mockCache = {
     putFileInfo: jest.fn<ReturnType<InfoCache['putFileInfo']>, Parameters<InfoCache['putFileInfo']>>(),
 };
 
-export const dummyThumbnail = 'https://archive.org/download/mbid-944da2ca-47fc-422c-af26-c3e54845ff65/mbid-944da2ca-47fc-422c-af26-c3e54845ff65-15603614015_thumb500.jpg';
-export const dummyFullSizeURL = 'https://archive.org/download/mbid-944da2ca-47fc-422c-af26-c3e54845ff65/mbid-944da2ca-47fc-422c-af26-c3e54845ff65-15603614015.jpg';
-export const dummyPDFURL = 'https://archive.org/download/mbid-82af81c4-0cfa-4382-abc6-2ec08a79b431/mbid-82af81c4-0cfa-4382-abc6-2ec08a79b431-29531260255.pdf';
-export const dummyPDFJP2URL = 'https://archive.org/download/mbid-82af81c4-0cfa-4382-abc6-2ec08a79b431/mbid-82af81c4-0cfa-4382-abc6-2ec08a79b431-29531260255_jp2.zip/mbid-82af81c4-0cfa-4382-abc6-2ec08a79b431-29531260255_jp2%2Fmbid-82af81c4-0cfa-4382-abc6-2ec08a79b431-29531260255_0000.jp2?ext=jpg';
-export const dummyReleaseGroupURL = 'https://coverartarchive.org/release-group/db4ebf13-42b0-3c47-8a06-374b6a49b645/front';
-export const dummyCAAReleaseThumbnailURL = 'https://coverartarchive.org/release/944da2ca-47fc-422c-af26-c3e54845ff65/15603614015-500.jpg';
-export const dummyCAAReleaseFullSizeURL = 'https://coverartarchive.org/release/944da2ca-47fc-422c-af26-c3e54845ff65/15603614015.jpg';
-export const dummyCAAItemID = 'mbid-944da2ca-47fc-422c-af26-c3e54845ff65';
+export const dummyReleaseID = '944da2ca-47fc-422c-af26-c3e54845ff65';
+export const dummyCAAItemID = `mbid-${dummyReleaseID}`;
 export const dummyImageID = '15603614015';
+const archivePrefix = 'https://archive.org/download';
+const caaPrefix = 'https://coverartarchive.org';
+
+export const dummyDirectThumbnailURL = `${archivePrefix}/${dummyCAAItemID}/${dummyCAAItemID}-${dummyImageID}_thumb500.jpg`;
+export const dummyDirectFullSizeURL = `${archivePrefix}/${dummyCAAItemID}/${dummyCAAItemID}-${dummyImageID}.png`;
+export const dummyCAAReleaseThumbnailURL = `${caaPrefix}/release/${dummyReleaseID}/${dummyImageID}-500.jpg`;
+export const dummyCAAReleaseFullSizeURL = `${caaPrefix}/release/${dummyReleaseID}/${dummyImageID}.png`;
+
+export const dummyDirectPDFURL = `${archivePrefix}/${dummyCAAItemID}/${dummyCAAItemID}-${dummyImageID}.pdf`;
+export const dummyCAAReleasePDFURL = `${caaPrefix}/release/${dummyReleaseID}/${dummyImageID}.pdf`;
+export const dummyPDFJP2URL = `${archivePrefix}/${dummyCAAItemID}/${dummyCAAItemID}-${dummyImageID}_jp2.zip/${dummyCAAItemID}-${dummyImageID}_jp2%2F${dummyCAAItemID}-${dummyImageID}_0000.jp2?ext=jpg`;
+
+export const dummyCAAReleaseGroupURL = `${caaPrefix}/release-group/db4ebf13-42b0-3c47-8a06-374b6a49b645/front`;

@@ -7,6 +7,7 @@ import { getCAAInfo } from './caa_info';
 import { getImageDimensions } from './dimensions';
 
 const CAA_ID_REGEX = /(mbid-[a-f\d-]{36})\/mbid-[a-f\d-]{36}-(\d+)/;
+const CAA_DOMAIN = 'coverartarchive.org';
 
 export interface Image {
     getDimensions(): Promise<Dimensions | undefined>;
@@ -15,16 +16,18 @@ export interface Image {
 
 export abstract class BaseImage {
     protected readonly imgUrl: string;
+    protected readonly cacheKey: string;
     private readonly cache?: InfoCache;
 
-    public constructor(imgUrl: string, cache?: InfoCache) {
+    public constructor(imgUrl: string, cache?: InfoCache, cacheKey?: string) {
         this.imgUrl = imgUrl;
+        this.cacheKey = cacheKey ?? imgUrl;
         this.cache = cache;
     }
 
     public async getDimensions(): Promise<Dimensions | undefined> {
         try {
-            const cachedResult = await this.cache?.getDimensions(this.imgUrl);
+            const cachedResult = await this.cache?.getDimensions(this.cacheKey);
             if (typeof cachedResult !== 'undefined') {
                 return cachedResult;
             }
@@ -34,7 +37,7 @@ export abstract class BaseImage {
 
         try {
             const liveResult = await getImageDimensions(this.imgUrl);
-            await this.cache?.putDimensions(this.imgUrl, liveResult);
+            await this.cache?.putDimensions(this.cacheKey, liveResult);
             return liveResult;
         } catch (err) {
             LOGGER.error('Failed to retrieve image dimensions', err);
@@ -45,7 +48,7 @@ export abstract class BaseImage {
 
     public async getFileInfo(): Promise<FileInfo | undefined> {
         try {
-            const cachedResult = await this.cache?.getFileInfo(this.imgUrl);
+            const cachedResult = await this.cache?.getFileInfo(this.cacheKey);
             if (typeof cachedResult !== 'undefined') {
                 return cachedResult;
             }
@@ -55,7 +58,7 @@ export abstract class BaseImage {
 
         try {
             const liveResult = await this.loadFileInfo();
-            await this.cache?.putFileInfo(this.imgUrl, liveResult);
+            await this.cache?.putFileInfo(this.cacheKey, liveResult);
             return liveResult;
         } catch (err) {
             LOGGER.error('Failed to retrieve image file info', err);
@@ -79,17 +82,62 @@ export abstract class BaseImage {
     protected abstract loadFileInfo(): Promise<FileInfo>;
 }
 
-
-function transformCAAURL(url: string): string {
-    const urlObj = new URL(url);
-
-    if (urlObj.host === 'coverartarchive.org' && urlObj.pathname.startsWith('/release/')) {
+function caaUrlToDirectUrl(urlObj: URL): URL {
+    if (urlObj.host === CAA_DOMAIN && urlObj.pathname.startsWith('/release/')) {
         const [releaseId, imageName] = urlObj.pathname.split('/').slice(2);
         urlObj.href = `https://archive.org/download/mbid-${releaseId}/mbid-${releaseId}-${imageName}`;
     }
 
+    return urlObj;
+}
+
+/**
+ * Extract the cache key from a cover URL.
+ *
+ * For release group covers, this will return the thumbnail URL. For other
+ * images, it will return the full size URL.
+ *
+ * @param      {string}  fullSizeUrl   The full size URL.
+ * @param      {string}  thumbnailUrl  The thumbnail URL.
+ * @return     {string}  Cache key.
+ */
+function urlToCacheKey(fullSizeUrl: string, thumbnailUrl?: string): string {
+    const urlObj = new URL(fullSizeUrl);
+
+    // Use thumbnail URL as cache key for release group images. If the release group cover
+    // is changed, the URL will remain the same, so using the full size URL as the cache
+    // key would lead to the cache not being invalidated properly.
+    // Ideally, the cache key for RG covers would be the full size URL of the release cover,
+    // but we unfortunately cannot get the original image's extension here, so we cannot construct
+    // it.
+    if (urlObj.host === CAA_DOMAIN && urlObj.pathname.startsWith('/release-group/')) {
+        assertDefined(thumbnailUrl, 'Release group image requires a thumbnail URL');
+        return thumbnailUrl;
+    }
+
+    // For other types of images, we'll use the actual full-size URL rather than
+    // the coverartarchive.org redirect, to maximise the ability for caching.
+    // For PDFs, we'll also use that URL instead of the derived JP2 image.
+    return caaUrlToDirectUrl(urlObj).href;
+}
+
+/**
+ * Transform a URL to a direct full-size URL.
+ *
+ * @param      {string}  url     The URL to transform.
+ * @return     {string}  Direct URL to the image to retrieve dimensions from.
+ */
+function urlToDirectImageUrl(url: string): string {
+    let urlObj = new URL(url);
+
+    // Transform CAA redirect
+    urlObj = caaUrlToDirectUrl(urlObj);
+
+    // For PDF URLs, since we cannot get dimensions of a PDF directly, we'll use
+    // a JPEG derived by IA. These are accessible in the derived JP2 ZIP, which
+    // we can access transparently. These JPEGs (should) have the same dimensions
+    // as the PDF pages. We're only using the first page for now.
     if (urlObj.pathname.endsWith('.pdf')) {
-        // Transform the PDF URL to the direct URL to the derived JPEG in the JP2 ZIP.
         const [imageName] = urlObj.pathname.split('/').slice(3);
         const imageBasename = imageName.replace(/\.pdf$/, '');
         urlObj.pathname = urlObj.pathname.replace(/\.pdf$/, `_jp2.zip/${imageBasename}_jp2%2F${imageBasename}_0000.jp2`);
@@ -109,7 +157,7 @@ function transformCAAURL(url: string): string {
 function parseCAAIDs(url: string): [string, string] {
     const urlObj = new URL(url);
 
-    if (urlObj.host === 'coverartarchive.org' && urlObj.pathname.startsWith('/release/')) {
+    if (urlObj.host === CAA_DOMAIN && urlObj.pathname.startsWith('/release/')) {
         const [releaseId, thumbName] = urlObj.pathname.split('/').slice(2);
         const imageId = thumbName.match(/^(\d+)/)?.[0];
         assertDefined(imageId, 'Malformed URL');
@@ -135,9 +183,7 @@ export class CAAImage extends BaseImage {
     private readonly imageId: string;
 
     public constructor(fullSizeUrl: string, cache: InfoCache, thumbnailUrl?: string) {
-        fullSizeUrl = transformCAAURL(fullSizeUrl);
-
-        super(fullSizeUrl, cache);
+        super(urlToDirectImageUrl(fullSizeUrl), cache, urlToCacheKey(fullSizeUrl, thumbnailUrl));
 
         const [itemId, imageId] = parseCAAIDs(thumbnailUrl ?? fullSizeUrl);
         this.itemId = itemId;
