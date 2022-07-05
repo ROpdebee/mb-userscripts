@@ -1,5 +1,6 @@
 import pThrottle from 'p-throttle';
 
+import type { Dimensions } from '@src/mb_caa_dimensions/ImageInfo';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { filterNonNull } from '@lib/util/array';
@@ -126,7 +127,13 @@ export class BandcampProvider extends ProviderWithTrackImages {
             // of the data is loaded, and besides, the second time the content
             // is fetched, browsers can reuse the data they already loaded
             // previously.
-            const coverDims = await getImageDimensions(cover.url.href.replace(/_\d+\.(\w+)$/, '_0.$1'));
+            let coverDims: Dimensions;
+            try {
+                coverDims = await getImageDimensions(cover.url.href.replace(/_\d+\.(\w+)$/, '_0.$1'));
+            } catch (err) {
+                LOGGER.warn(`Could not retrieve image dimensions for ${cover.url}, square thumbnail will not be added`, err);
+                return [cover];
+            }
 
             // Prevent zero-division errors
             /* istanbul ignore if: Should not happen */
