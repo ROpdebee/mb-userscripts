@@ -1,3 +1,4 @@
+- **2022.7.27.3**: Bug fix: clean up VGMdb captions ([#513](https://github.com/ROpdebee/mb-userscripts/pull/513))
 - **2022.7.27.2**: Bug fix: separate cache key from full-size URL ([#518](https://github.com/ROpdebee/mb-userscripts/pull/518))
 - **2022.7.27**: Internal changes: automatically insert logger boilerplate config ([#514](https://github.com/ROpdebee/mb-userscripts/pull/514))
 - **2022.7.3**: Bug fix: prevent accidental double pastes ([#503](https://github.com/ROpdebee/mb-userscripts/pull/503))

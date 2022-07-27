@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.7.27.2
+// @version      2022.7.27.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1712,7 +1712,7 @@
     },
     digipack: {
       type: ArtworkTypeIDs.Other,
-      comment: 'Digipack'
+      comment: 'Digipak'
     },
     insert: {
       type: ArtworkTypeIDs.Other,
@@ -1765,6 +1765,11 @@
   }
 
   const PLACEHOLDER_URL = '/db/img/album-nocover-medium.gif';
+
+  function cleanupCaption(captionRest) {
+    return captionRest.trim().replace(/^\((.+)\)$/, '$1').replace(/^\[(.+)]$/, '$1').replace(/^{(.+)}$/, '$1').replace(/^[-–]\s*/, '');
+  }
+
   function convertCaptions(cover) {
     const url = new URL(cover.url);
 
@@ -1779,7 +1784,7 @@
           captionType = _cover$caption$split2[0],
           captionRestParts = _cover$caption$split2.slice(1);
 
-    const captionRest = captionRestParts.join(' ');
+    const captionRest = cleanupCaption(captionRestParts.join(' '));
     const mapper = CAPTION_TYPE_MAPPING[captionType.toLowerCase()];
     if (!mapper) return {
       url,
