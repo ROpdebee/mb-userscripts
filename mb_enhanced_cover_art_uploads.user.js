@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.7.27.4
+// @version      2022.7.27.5
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -35,12 +35,122 @@
   function ownKeys(t,r){var e=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);r&&(n=n.filter((function(r){return Object.getOwnPropertyDescriptor(t,r).enumerable}))),e.push.apply(e,n);}return e}function _objectSpread2(t){for(var r=1;r<arguments.length;r++){var e=null!=arguments[r]?arguments[r]:{};r%2?ownKeys(Object(e),!0).forEach((function(r){_defineProperty(t,r,e[r]);})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(e)):ownKeys(Object(e)).forEach((function(r){Object.defineProperty(t,r,Object.getOwnPropertyDescriptor(e,r));}));}return t}function _defineProperty(t,r,e){return r in t?Object.defineProperty(t,r,{value:e,enumerable:!0,configurable:!0,writable:!0}):t[r]=e,t}function _slicedToArray(t,r){return _arrayWithHoles(t)||_iterableToArrayLimit(t,r)||_unsupportedIterableToArray(t,r)||_nonIterableRest()}function _toArray(t){return _arrayWithHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableRest()}function _arrayWithHoles(t){if(Array.isArray(t))return t}function _iterableToArray(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}function _iterableToArrayLimit(t,r){var e=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=e){var n,o,i=[],a=!0,s=!1;try{for(e=e.call(t);!(a=(n=e.next()).done)&&(i.push(n.value),!r||i.length!==r);a=!0);}catch(u){s=!0,o=u;}finally{try{a||null==e.return||e.return();}finally{if(s)throw o}}return i}}function _unsupportedIterableToArray(t,r){if(t){if("string"==typeof t)return _arrayLikeToArray(t,r);var e=Object.prototype.toString.call(t).slice(8,-1);return "Object"===e&&t.constructor&&(e=t.constructor.name),"Map"===e||"Set"===e?Array.from(t):"Arguments"===e||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(e)?_arrayLikeToArray(t,r):void 0}}function _arrayLikeToArray(t,r){(null==r||r>t.length)&&(r=t.length);for(var e=0,n=new Array(r);e<r;e++)n[e]=t[e];return n}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _createForOfIteratorHelper(t,r){var e="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!e){if(Array.isArray(t)||(e=_unsupportedIterableToArray(t))||r&&t&&"number"==typeof t.length){e&&(t=e);var n=0,o=function(){};return {s:o,n:function(){return n>=t.length?{done:!0}:{done:!1,value:t[n++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,a=!0,s=!1;return {s:function(){e=e.call(t);},n:function(){var t=e.next();return a=t.done,t},e:function(t){s=!0,i=t;},f:function(){try{a||null==e.return||e.return();}finally{if(s)throw i}}}}const _Pact=function(){function t(){}return t.prototype.then=function(r,e){const n=new t,o=this.s;if(o){const t=1&o?r:e;if(t){try{_settle(n,1,t(this.v));}catch(i){_settle(n,2,i);}return n}return this}return this.o=function(t){try{const o=t.v;1&t.s?_settle(n,1,r?r(o):o):e?_settle(n,1,e(o)):_settle(n,2,o);}catch(i){_settle(n,2,i);}},n},t}();function _settle(t,r,e){if(!t.s){if(e instanceof _Pact){if(!e.s)return void(e.o=_settle.bind(null,t,r));1&r&&(r=e.s),e=e.v;}if(e&&e.then)return void e.then(_settle.bind(null,t,r),_settle.bind(null,t,2));t.s=r,t.v=e;const n=t.o;n&&n(t);}}function _isSettledPact(t){return t instanceof _Pact&&1&t.s}function _async(t){return function(){for(var r=[],e=0;e<arguments.length;e++)r[e]=arguments[e];try{return Promise.resolve(t.apply(this,r))}catch(n){return Promise.reject(n)}}}function _await(t,r,e){return e?r?r(t):t:(t&&t.then||(t=Promise.resolve(t)),r?t.then(r):t)}function _awaitIgnored(t,r){if(!r)return t&&t.then?t.then(_empty):Promise.resolve()}function _continue(t,r){return t&&t.then?t.then(r):r(t)}function _continueIgnored(t){if(t&&t.then)return t.then(_empty)}function _forTo(t,r,e){var n,o,i=-1;return function a(s){try{for(;++i<t.length&&(!e||!e());)if((s=r(i))&&s.then){if(!_isSettledPact(s))return void s.then(a,o||(o=_settle.bind(null,n=new _Pact,2)));s=s.v;}n?_settle(n,1,s):n=s;}catch(u){_settle(n||(n=new _Pact),2,u);}}(),n}const _iteratorSymbol="undefined"!=typeof Symbol?Symbol.iterator||(Symbol.iterator=Symbol("Symbol.iterator")):"@@iterator";function _forOf(t,r,e){if("function"==typeof t[_iteratorSymbol]){var n,o,i,a=t[_iteratorSymbol]();if(function t(s){try{for(;!((n=a.next()).done||e&&e());)if((s=r(n.value))&&s.then){if(!_isSettledPact(s))return void s.then(t,i||(i=_settle.bind(null,o=new _Pact,2)));s=s.v;}o?_settle(o,1,s):o=s;}catch(u){_settle(o||(o=new _Pact),2,u);}}(),a.return){var s=function(t){try{n.done||a.return();}catch(r){}return t};if(o&&o.then)return o.then(s,(function(t){throw s(t)}));s();}return o}if(!("length"in t))throw new TypeError("Object is not iterable");for(var u=[],c=0;c<t.length;c++)u.push(t[c]);return _forTo(u,(function(t){return r(u[t])}),e)}const _asyncIteratorSymbol="undefined"!=typeof Symbol?Symbol.asyncIterator||(Symbol.asyncIterator=Symbol("Symbol.asyncIterator")):"@@asyncIterator";function _forAwaitOf(t,r,e){if("function"==typeof t[_asyncIteratorSymbol]){var n=new _Pact,o=t[_asyncIteratorSymbol]();return o.next().then(a).then(void 0,s),n;function i(t){if(e&&e())return _settle(n,1,o.return?o.return().then((function(){return t})):t);o.next().then(a).then(void 0,s);}function a(t){t.done?_settle(n,1):Promise.resolve(r(t.value)).then(i).then(void 0,s);}function s(t){_settle(n,2,o.return?o.return().then((function(){return t})):t);}}return Promise.resolve(_forOf(t,(function(t){return Promise.resolve(t).then(r)}),e))}function _call(t,r,e){if(e)return r?r(t()):t();try{var n=Promise.resolve(t());return r?n.then(r):n}catch(o){return Promise.reject(o)}}function _invoke(t,r){var e=t();return e&&e.then?e.then(r):r(e)}function _invokeIgnored(t){var r=t();if(r&&r.then)return r.then(_empty)}function _catch(t,r){try{var e=t();}catch(n){return r(n)}return e&&e.then?e.then(void 0,r):e}function _finallyRethrows(t,r){try{var e=t();}catch(n){return r(!0,n)}return e&&e.then?e.then(r.bind(null,!1),r.bind(null,!0)):r(!1,e)}function _rethrow(t,r){if(t)throw r;return r}function _empty(){}const _earlyReturn={};function _catchInGenerator(t,r){return _catch(t,(function(t){if(t===_earlyReturn)throw t;return r(t)}))}const _AsyncGenerator=function(){function t(t){this._entry=t,this._pact=null,this._resolve=null,this._return=null,this._promise=null;}function r(t){return {value:t,done:!0}}function e(t){return {value:t,done:!1}}return t.prototype._yield=function(t){return this._resolve(t&&t.then?t.then(e):e(t)),this._pact=new _Pact},t.prototype.next=function(t){const e=this;return e._promise=new Promise((function(n){const o=e._pact;if(null===o){const s=e._entry;if(null===s)return n(e._promise);function i(t){e._resolve(t&&t.then?t.then(r):r(t)),e._pact=null,e._resolve=null;}e._entry=null,e._resolve=n;var a=s(e);a&&a.then?a.then(i,(function(t){if(t===_earlyReturn)i(e._return);else {const r=new _Pact;e._resolve(r),e._pact=null,e._resolve=null,_resolve(r,2,t);}})):i(a);}else e._pact=null,e._resolve=n,_settle(o,1,t);}))},t.prototype.return=function(t){const e=this;return e._promise=new Promise((function(n){const o=e._pact;if(null===o)return null===e._entry?n(e._promise):(e._entry=null,n(t&&t.then?t.then(r):r(t)));e._return=t,e._resolve=n,e._pact=null,_settle(o,2,_earlyReturn);}))},t.prototype.throw=function(t){const r=this;return r._promise=new Promise((function(e,n){const o=r._pact;if(null===o)return null===r._entry?e(r._promise):(r._entry=null,n(t));r._resolve=e,r._pact=null,_settle(o,2,t);}))},t.prototype[_asyncIteratorSymbol]=function(){return this},t}();var appendChildren=function(t,r){(r=Array.isArray(r)?r:[r]).forEach((function(r){r instanceof HTMLElement?t.appendChild(r):(r||"string"==typeof r)&&t.appendChild(document.createTextNode(r.toString()));}));},setStyles=function(t,r){for(const e in r)t.style[e]=r[e];};function fixProto(t,r){var e=Object.setPrototypeOf;e?e(t,r):t.__proto__=r;}function fixStack(t,r){void 0===r&&(r=t.constructor);var e=Error.captureStackTrace;e&&e(t,r);}var __extends=function(){var t=function(r,e){return t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,r){t.__proto__=r;}||function(t,r){for(var e in r)r.hasOwnProperty(e)&&(t[e]=r[e]);},t(r,e)};return function(r,e){function n(){this.constructor=r;}t(r,e),r.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n);}}(),CustomError=function(t){function r(r){var e=this.constructor,n=t.call(this,r)||this;return Object.defineProperty(n,"name",{value:e.name,enumerable:!1,configurable:!0}),fixProto(n,e.prototype),fixStack(n),n}return __extends(r,t),r}(Error);class AbortError$1 extends Error{constructor(){super("Throttled function aborted"),this.name="AbortError";}}function pThrottle(t){let r=t.limit,e=t.interval,n=t.strict;if(!Number.isFinite(r))throw new TypeError("Expected `limit` to be a finite number");if(!Number.isFinite(e))throw new TypeError("Expected `interval` to be a finite number");const o=new Map;let i=0,a=0;const s=[],u=n?function(){const t=Date.now();if(s.length<r)return s.push(t),0;const n=s.shift()+e;return t>=n?(s.push(t),0):(s.push(n),n-t)}:function(){const t=Date.now();return t-i>e?(a=1,i=t,0):(a<r?a++:(i+=e,a=1),i-t)};return t=>{const r=function r(){const e=this;for(var n=arguments.length,i=new Array(n),a=0;a<n;a++)i[a]=arguments[a];if(!r.isEnabled)return _async((function(){return t.apply(e,i)}))();let s;return new Promise(((r,e)=>{s=setTimeout((()=>{r(t.apply(this,i)),o.delete(s);}),u()),o.set(s,e);}))};return r.abort=()=>{var t,r=_createForOfIteratorHelper(o.keys());try{for(r.s();!(t=r.n()).done;){const r=t.value;clearTimeout(r),o.get(r)(new AbortError$1);}}catch(e){r.e(e);}finally{r.f();}o.clear(),s.splice(0,s.length);},r.isEnabled=!0,r}}function getDefaultExportFromCjs(t){return t&&t.__esModule&&Object.prototype.hasOwnProperty.call(t,"default")?t.default:t}var retry$2={exports:{}},retry$1={};function RetryOperation(t,r){"boolean"==typeof r&&(r={forever:r}),this._originalTimeouts=JSON.parse(JSON.stringify(t)),this._timeouts=t,this._options=r||{},this._maxRetryTime=r&&r.maxRetryTime||1/0,this._fn=null,this._errors=[],this._attempts=1,this._operationTimeout=null,this._operationTimeoutCb=null,this._timeout=null,this._operationStart=null,this._timer=null,this._options.forever&&(this._cachedTimeouts=this._timeouts.slice(0));}var retry_operation=RetryOperation;RetryOperation.prototype.reset=function(){this._attempts=1,this._timeouts=this._originalTimeouts.slice(0);},RetryOperation.prototype.stop=function(){this._timeout&&clearTimeout(this._timeout),this._timer&&clearTimeout(this._timer),this._timeouts=[],this._cachedTimeouts=null;},RetryOperation.prototype.retry=function(t){if(this._timeout&&clearTimeout(this._timeout),!t)return !1;var r=(new Date).getTime();if(t&&r-this._operationStart>=this._maxRetryTime)return this._errors.push(t),this._errors.unshift(new Error("RetryOperation timeout occurred")),!1;this._errors.push(t);var e=this._timeouts.shift();if(void 0===e){if(!this._cachedTimeouts)return !1;this._errors.splice(0,this._errors.length-1),e=this._cachedTimeouts.slice(-1);}var n=this;return this._timer=setTimeout((function(){n._attempts++,n._operationTimeoutCb&&(n._timeout=setTimeout((function(){n._operationTimeoutCb(n._attempts);}),n._operationTimeout),n._options.unref&&n._timeout.unref()),n._fn(n._attempts);}),e),this._options.unref&&this._timer.unref(),!0},RetryOperation.prototype.attempt=function(t,r){this._fn=t,r&&(r.timeout&&(this._operationTimeout=r.timeout),r.cb&&(this._operationTimeoutCb=r.cb));var e=this;this._operationTimeoutCb&&(this._timeout=setTimeout((function(){e._operationTimeoutCb();}),e._operationTimeout)),this._operationStart=(new Date).getTime(),this._fn(this._attempts);},RetryOperation.prototype.try=function(t){console.log("Using RetryOperation.try() is deprecated"),this.attempt(t);},RetryOperation.prototype.start=function(t){console.log("Using RetryOperation.start() is deprecated"),this.attempt(t);},RetryOperation.prototype.start=RetryOperation.prototype.try,RetryOperation.prototype.errors=function(){return this._errors},RetryOperation.prototype.attempts=function(){return this._attempts},RetryOperation.prototype.mainError=function(){if(0===this._errors.length)return null;for(var t={},r=null,e=0,n=0;n<this._errors.length;n++){var o=this._errors[n],i=o.message,a=(t[i]||0)+1;t[i]=a,a>=e&&(r=o,e=a);}return r},function(t){var r=retry_operation;t.operation=function(e){var n=t.timeouts(e);return new r(n,{forever:e&&(e.forever||e.retries===1/0),unref:e&&e.unref,maxRetryTime:e&&e.maxRetryTime})},t.timeouts=function(t){if(t instanceof Array)return [].concat(t);var r={retries:10,factor:2,minTimeout:1e3,maxTimeout:1/0,randomize:!1};for(var e in t)r[e]=t[e];if(r.minTimeout>r.maxTimeout)throw new Error("minTimeout is greater than maxTimeout");for(var n=[],o=0;o<r.retries;o++)n.push(this.createTimeout(o,r));return t&&t.forever&&!n.length&&n.push(this.createTimeout(o,r)),n.sort((function(t,r){return t-r})),n},t.createTimeout=function(t,r){var e=r.randomize?Math.random()+1:1,n=Math.round(e*Math.max(r.minTimeout,1)*Math.pow(r.factor,t));return Math.min(n,r.maxTimeout)},t.wrap=function(r,e,n){if(e instanceof Array&&(n=e,e=null),!n)for(var o in n=[],r)"function"==typeof r[o]&&n.push(o);for(var i=0;i<n.length;i++){var a=n[i],s=r[a];r[a]=function(n){var o=t.operation(e),i=Array.prototype.slice.call(arguments,1),a=i.pop();i.push((function(t){o.retry(t)||(t&&(arguments[0]=o.mainError()),a.apply(this,arguments));})),o.attempt((function(){n.apply(r,i);}));}.bind(r,s),r[a].options=e;}};}(retry$1),retry$2.exports=retry$1;var retry=getDefaultExportFromCjs(retry$2.exports);const pRetry=_async((function(t,r){return new Promise(((e,n)=>{r=_objectSpread2({onFailedAttempt(){},retries:10},r);const o=retry.operation(r);o.attempt(_async((function(i){return _catch((function(){return _await(t(i),(function(t){e(t);}))}),(function(t){let e=!1;if(t instanceof Error)return _invokeIgnored((function(){if(!(t instanceof AbortError))return _invokeIgnored((function(){if(!(t instanceof TypeError)||isNetworkError(t.message))return decorateErrorWithCounts(t,i,r),_continue(_catch((function(){return _awaitIgnored(r.onFailedAttempt(t))}),(function(t){n(t),e=!0;})),(function(r){if(e)return r;o.retry(t)||n(o.mainError());}));o.stop(),n(t);}));o.stop(),n(t.originalError);}));n(new TypeError('Non-error was thrown: "'.concat(t,'". You should only throw errors.')));}))}))),r.signal&&!r.signal.aborted&&r.signal.addEventListener("abort",(()=>{o.stop();const t=void 0===r.signal.reason?getDOMException("The operation was aborted."):r.signal.reason;n(t instanceof Error?t:getDOMException(t));}),{once:!0});}))})),networkErrorMsgs=new Set(["Failed to fetch","NetworkError when attempting to fetch resource.","The Internet connection appears to be offline.","Network request failed"]);class AbortError extends Error{constructor(t){super(),t instanceof Error?(this.originalError=t,t=t.message):(this.originalError=new Error(t),this.originalError.stack=this.stack),this.name="AbortError",this.message=t;}}const decorateErrorWithCounts=(t,r,e)=>{const n=e.retries-(r-1);return t.attemptNumber=r,t.retriesLeft=n,t},isNetworkError=t=>networkErrorMsgs.has(t),getDOMException=t=>void 0===globalThis.DOMException?new Error(t):new DOMException(t);
 
   /* minified: lib */
-  class ConsoleSink{constructor(e){_defineProperty(this,"scriptName",void 0),_defineProperty(this,"onSuccess",this.onInfo.bind(this)),this.scriptName=e;}formatMessage(e){return "[".concat(this.scriptName,"] ").concat(e)}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel;!function(e){e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR";}(LogLevel||(LogLevel={}));const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){_defineProperty(this,"_configuration",void 0),this._configuration=_objectSpread2(_objectSpread2({},DEFAULT_OPTIONS),e);}fireHandlers(e,t,r){e<this._configuration.logLevel||this._configuration.sinks.forEach((n=>{const s=n[HANDLER_NAMES[e]];s&&(r?s.call(n,t,r):s.call(n,t));}));}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(null!=t?t:"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,null!=t?t:"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,null!=t?t:"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,null!=t?t:"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (null!=t?t:document).querySelector(e)}function qsa(e,t){return [...(null!=t?t:document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){const e=r.createElement("base");e.href=t,r.head.insertAdjacentElement("beforeend",e);}return r}function insertStylesheet(e,t){if(void 0===t&&(t="ROpdebee_".concat(USERSCRIPT_ID,"_css")),null!==qsMaybe("style#".concat(t)))return;const r=function(){var r=document.createElement("style");return r.setAttribute("id",t),appendChildren(r,e),r}.call(this);document.head.insertAdjacentElement("beforeend",r);}var css_248z$1="#ROpdebee_log_container{margin:1.5rem auto;width:75%}#ROpdebee_log_container .msg{border:1px solid;border-radius:4px;display:block;font-weight:500;margin-bottom:.5rem;padding:.5rem .75rem;width:100%}#ROpdebee_log_container .msg.error{background-color:#f8d7da;border-color:#f5c6cb;color:#721c24;font-weight:600}#ROpdebee_log_container .msg.warning{background-color:#fff3cd;border-color:#ffeeba;color:#856404}#ROpdebee_log_container .msg.success{background-color:#d4edda;border-color:#c3e6cb;color:#155724}#ROpdebee_log_container .msg.info{background-color:#e2e3e5;border-color:#d6d8db;color:#383d41}";class GuiSink{constructor(){_defineProperty(this,"rootElement",void 0),_defineProperty(this,"persistentMessages",[]),_defineProperty(this,"transientMessages",[]),_defineProperty(this,"onInfo",this.onLog.bind(this)),insertStylesheet(css_248z$1,"ROpdebee_GUI_Logger"),this.rootElement=function(){var e=document.createElement("div");return e.setAttribute("id","ROpdebee_log_container"),setStyles(e,{display:"none"}),e}.call(this);}createMessage(e,t,r){const n=t+(r instanceof Error?": ".concat(r.message):"");return function(){var t=document.createElement("span");return t.setAttribute("class","msg ".concat(e)),appendChildren(t,n),t}.call(this)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){this.transientMessages.forEach((e=>{e.remove();})),this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){_defineProperty(this,"footer",void 0),_defineProperty(this,"extraInfoLines",void 0),_defineProperty(this,"editNoteTextArea",void 0),this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map((e=>e.trimEnd())):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let t=this.editNoteTextArea.value.split(separator),r=_toArray(t),n=r[0],s=r.slice(1);n=(n+"\n"+e).trim(),this.editNoteTextArea.value=[n,...s].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter((e=>e.trim()!==this.footer));this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t="".concat(e.name," ").concat(e.version,"\n").concat(e.namespace);return new EditNote(t)}}const getReleaseIDsForURL=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/url?resource=".concat(encodeURIComponent(e),"&inc=release-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t,r;return null!==(t=null===(r=e.relations)||void 0===r?void 0:r.map((e=>e.release.id)))&&void 0!==t?t:[]}))}))})),getURLsForRelease=_async((function(e,t){const r=null!=t?t:{},n=r.excludeEnded,s=r.excludeDuplicates;return _await(getReleaseUrlARs(e),(function(e){n&&(e=e.filter((e=>!e.ended)));let t=e.map((e=>e.url.resource));return s&&(t=[...new Set(t)]),t.flatMap((e=>{try{return [new URL(e)]}catch(t){return console.warn("Found malformed URL linked to release: ".concat(e)),[]}}))}))})),getReleaseUrlARs=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/release/".concat(e,"?inc=url-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t;return null!==(t=e.relations)&&void 0!==t?t:[]}))}))}));let ArtworkTypeIDs;function filterNonNull(e){return e.filter((e=>!(null==e)))}function groupBy(e,t,r){const n=new Map;var s,o=_createForOfIteratorHelper(e);try{for(o.s();!(s=o.n()).done;){var a;const e=s.value,o=t(e),i=r(e);n.has(o)?null===(a=n.get(o))||void 0===a||a.push(i):n.set(o,[i]);}}catch(i){o.e(i);}finally{o.f();}return n}function collatedSort(e){const t=new Intl.Collator("en",{numeric:!0});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map(((e,t)=>[e,t]))}function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var r=arguments.length,n=new Array(r>1?r-1:0),s=1;s<r;s++)n[s-1]=arguments[s];for(var o=0,a=n;o<a.length;o++){const e=a[o];t=new URL(e,t);}return t}!function(e){e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e.Raw=14]="Raw",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark";}(ArtworkTypeIDs||(ArtworkTypeIDs={}));const gmxhr=_async((function(e,t){return new Promise(((r,n)=>{GMxmlHttpRequest(_objectSpread2(_objectSpread2({method:"GET",url:e instanceof URL?e.href:e},t),{},{onload:t=>{t.status>=400?n(new HTTPResponseError(e,t)):r(t);},onerror:()=>{n(new NetworkError(e));},onabort:()=>{n(new AbortedError(e));},ontimeout:()=>{n(new TimeoutError(e));}}));}))}));class ResponseError extends CustomError{constructor(e,t){super(t),_defineProperty(this,"url",void 0),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t){t.statusText.trim()?(super(e,"HTTP error ".concat(t.status,": ").concat(t.statusText)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):(super(e,"HTTP error ".concat(t.status)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function asyncSleep(e){return new Promise((t=>setTimeout(t,e)))}function retryTimes(e,t,r){const n=_async((function(t){return _catch(e,(function(e){if(t<=1)throw e;return asyncSleep(r).then((()=>n(t-1)))}))}));return t<=0?Promise.reject(new TypeError("Invalid number of retry times: ".concat(t))):n(t)}function logFailure(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"An error occurred";e.catch((e=>{LOGGER.error(t,e);}));}function splitDomain(e){const t=e.split(".");let r=-2;return ["org","co","com"].includes(t[t.length-2])&&(r=-3),[...t.slice(0,r),t.slice(r).join(".")]}class DispatchMap{constructor(){_defineProperty(this,"map",new Map);}set(e,t){const r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((e=>e.includes("*"))))throw new Error("Invalid pattern: "+e);return this.insert([...r].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const r=this._get(e);r?(assert(r instanceof DispatchMap&&!r.map.has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}insertInternal(e,t){const r=e[0],n=this._get(r);let s;n instanceof DispatchMap?s=n:(s=new DispatchMap,this._set(r,s),void 0!==n&&s._set("",n)),s.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);if(t instanceof DispatchMap){let e=t._get("");void 0===e&&(e=t._get("*")),t=e;}return t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){const t=1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e);return null!=t?t:this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error("".concat(t,": ").concat(r));return}}function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map((e=>e.toString(16).padStart(2,"0"))).join("")}function blobToDigest(e){const t=_async((function(e){var t,r,n,s;const o=e.result;return _await(null!==(t=null===(r=crypto)||void 0===r||null===(n=r.subtle)||void 0===n||null===(s=n.digest)||void 0===s?void 0:s.call(n,"SHA-256",o))&&void 0!==t?t:o,hexEncode)}));return new Promise(((r,n)=>{const s=new FileReader;s.addEventListener("error",n),s.addEventListener("load",(()=>{t(s).then(r).catch(n);})),s.readAsArrayBuffer(e);}))}const getItemMetadata=_async((function(e){return _await(fetch(new URL("https://archive.org/metadata/".concat(e))),(function(e){return _await(e.text(),(function(e){const t=safeParseJSON(e,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}))}))}));function memoize(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:e=>"".concat(e[0]);const r=new Map;return function(){for(var n=arguments.length,s=new Array(n),o=0;o<n;o++)s[o]=arguments[o];const a=t(s);if(!r.has(a)){const t=e(...s);r.set(a,t);}return r.get(a)}}function createPersistentCheckbox(e,t,r){return [function(){var t=document.createElement("input");return t.setAttribute("type","checkbox"),t.setAttribute("id",e),t.addEventListener("change",(t=>{t.currentTarget.checked?localStorage.setItem(e,"delete_to_disable"):localStorage.removeItem(e),r(t);})),t.setAttribute("defaultChecked",!!localStorage.getItem(e)),t}.call(this),function(){var r=document.createElement("label");return r.setAttribute("for",e),appendChildren(r,t),r}.call(this)]}function formatFileSize(e){const t=0===e?0:Math.floor(Math.log(e)/Math.log(1024)),r=Number((e/Math.pow(1024,t)).toFixed(2));return "".concat(r," ").concat(["B","kB","MB","GB","TB"][t])}function parseVersion(e){return e.split(".").map((e=>parseInt(e)))}function versionLessThan(e,t){let r=0;for(;r<e.length&&r<t.length;){if(e[r]<t[r])return !0;if(e[r]>t[r])return !1;r++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2022.6.29.3",description:"add Yandex Music provider"},{versionAdded:"2022.6.29.2",description:"add Audiomack provider"},{versionAdded:"2022.6.29",description:"add VK Music provider"},{versionAdded:"2022.6.15",description:"file size and type on a-tisket images"},{versionAdded:"2022.6.11",description:"rockipedia.no provider"},{versionAdded:"2022.6.8",description:"update notifications"},{versionAdded:"2022.1.27.6",description:"bump IMU to latest version"},{versionAdded:"2022.1.27.5",description:"include full URL in logging messages"},{versionAdded:"2022.1.27.2",description:"add provider buttons to main cover art page"}],css_248z$2=".ROpdebee_feature_list{font-weight:300;margin:0 auto;width:-moz-fit-content;width:fit-content}.ROpdebee_feature_list ul{margin:6px 28px 0 0;text-align:left}";const LAST_DISPLAYED_KEY="ROpdebee_".concat(USERSCRIPT_ID,"_last_notified_update");function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const r=parseVersion(e),n=USERSCRIPT_FEATURE_HISTORY.filter((e=>versionLessThan(r,parseVersion(e.versionAdded))));0!==n.length&&showFeatureNotification(t.name,t.version,n.map((e=>e.description)));}function showFeatureNotification(e,t,r){insertStylesheet(css_248z$2,"ROpdebee_Update_Banner");const n=function(){var s=document.createElement("div");s.setAttribute("class","banner warning-header");var o=document.createElement("p");s.appendChild(o),appendChildren(o,"".concat(e," was updated to v").concat(t,"! "));var a=document.createElement("a");a.setAttribute("href",CHANGELOG_URL),o.appendChild(a);var i=document.createTextNode("See full changelog here");a.appendChild(i),appendChildren(o,". New features since last update:");var c=document.createElement("div");c.setAttribute("class","ROpdebee_feature_list"),s.appendChild(c);var l=document.createElement("ul");c.appendChild(l),appendChildren(l,r.map((e=>function(){var t=document.createElement("li");return appendChildren(t,e),t}.call(this))));var d=document.createElement("button");return d.setAttribute("class","dismiss-banner remove-item icon"),d.setAttribute("data-banner-name","alert"),d.setAttribute("type","button"),d.addEventListener("click",(()=>{n.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);})),s.appendChild(d),s}.call(this);qs("#page").insertAdjacentElement("beforebegin",n);}
+  class ConsoleSink{constructor(e){_defineProperty(this,"scriptName",void 0),_defineProperty(this,"onSuccess",this.onInfo.bind(this)),this.scriptName=e;}formatMessage(e){return "[".concat(this.scriptName,"] ").concat(e)}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel;!function(e){e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR";}(LogLevel||(LogLevel={}));const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){_defineProperty(this,"_configuration",void 0),this._configuration=_objectSpread2(_objectSpread2({},DEFAULT_OPTIONS),e);}fireHandlers(e,t,r){e<this._configuration.logLevel||this._configuration.sinks.forEach((n=>{const s=n[HANDLER_NAMES[e]];s&&(r?s.call(n,t,r):s.call(n,t));}));}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(null!=t?t:"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,null!=t?t:"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,null!=t?t:"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,null!=t?t:"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (null!=t?t:document).querySelector(e)}function qsa(e,t){return [...(null!=t?t:document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){const e=r.createElement("base");e.href=t,r.head.insertAdjacentElement("beforeend",e);}return r}function insertStylesheet(e,t){if(void 0===t&&(t="ROpdebee_".concat(USERSCRIPT_ID,"_css")),null!==qsMaybe("style#".concat(t)))return;const r=function(){var r=document.createElement("style");return r.setAttribute("id",t),appendChildren(r,e),r}.call(this);document.head.insertAdjacentElement("beforeend",r);}var css_248z$1="#ROpdebee_log_container{margin:1.5rem auto;width:75%}#ROpdebee_log_container .msg{border:1px solid;border-radius:4px;display:block;font-weight:500;margin-bottom:.5rem;padding:.5rem .75rem;width:100%}#ROpdebee_log_container .msg.error{background-color:#f8d7da;border-color:#f5c6cb;color:#721c24;font-weight:600}#ROpdebee_log_container .msg.warning{background-color:#fff3cd;border-color:#ffeeba;color:#856404}#ROpdebee_log_container .msg.success{background-color:#d4edda;border-color:#c3e6cb;color:#155724}#ROpdebee_log_container .msg.info{background-color:#e2e3e5;border-color:#d6d8db;color:#383d41}";class GuiSink{constructor(){_defineProperty(this,"rootElement",void 0),_defineProperty(this,"persistentMessages",[]),_defineProperty(this,"transientMessages",[]),_defineProperty(this,"onInfo",this.onLog.bind(this)),insertStylesheet(css_248z$1,"ROpdebee_GUI_Logger"),this.rootElement=function(){var e=document.createElement("div");return e.setAttribute("id","ROpdebee_log_container"),setStyles(e,{display:"none"}),e}.call(this);}createMessage(e,t,r){const n=t+(r instanceof Error?": ".concat(r.message):"");return function(){var t=document.createElement("span");return t.setAttribute("class","msg ".concat(e)),appendChildren(t,n),t}.call(this)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){this.transientMessages.forEach((e=>{e.remove();})),this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){_defineProperty(this,"footer",void 0),_defineProperty(this,"extraInfoLines",void 0),_defineProperty(this,"editNoteTextArea",void 0),this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map((e=>e.trimEnd())):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let t=this.editNoteTextArea.value.split(separator),r=_toArray(t),n=r[0],s=r.slice(1);n=(n+"\n"+e).trim(),this.editNoteTextArea.value=[n,...s].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter((e=>e.trim()!==this.footer));this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t="".concat(e.name," ").concat(e.version,"\n").concat(e.namespace);return new EditNote(t)}}const getReleaseIDsForURL=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/url?resource=".concat(encodeURIComponent(e),"&inc=release-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t,r;return null!==(t=null===(r=e.relations)||void 0===r?void 0:r.map((e=>e.release.id)))&&void 0!==t?t:[]}))}))})),getURLsForRelease=_async((function(e,t){const r=null!=t?t:{},n=r.excludeEnded,s=r.excludeDuplicates;return _await(getReleaseUrlARs(e),(function(e){n&&(e=e.filter((e=>!e.ended)));let t=e.map((e=>e.url.resource));return s&&(t=[...new Set(t)]),t.flatMap((e=>{try{return [new URL(e)]}catch(t){return console.warn("Found malformed URL linked to release: ".concat(e)),[]}}))}))})),getReleaseUrlARs=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/release/".concat(e,"?inc=url-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t;return null!==(t=e.relations)&&void 0!==t?t:[]}))}))}));class ObservableSemaphore{constructor(e){let t=e.onAcquired,r=e.onReleased;_defineProperty(this,"onAcquired",void 0),_defineProperty(this,"onReleased",void 0),_defineProperty(this,"counter",0),this.onAcquired=t,this.onReleased=r;}acquire(){this.counter++,1===this.counter&&this.onAcquired();}release(){this.counter--,0===this.counter&&this.onReleased();}runInSection(e){let t;this.acquire();try{return t=e(),t}finally{t instanceof Promise?t.finally((()=>{this.release();})).catch((()=>{})):this.release();}}}let ArtworkTypeIDs;function filterNonNull(e){return e.filter((e=>!(null==e)))}function groupBy(e,t,r){const n=new Map;var s,o=_createForOfIteratorHelper(e);try{for(o.s();!(s=o.n()).done;){var a;const e=s.value,o=t(e),i=r(e);n.has(o)?null===(a=n.get(o))||void 0===a||a.push(i):n.set(o,[i]);}}catch(i){o.e(i);}finally{o.f();}return n}function collatedSort(e){const t=new Intl.Collator("en",{numeric:!0});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map(((e,t)=>[e,t]))}function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var r=arguments.length,n=new Array(r>1?r-1:0),s=1;s<r;s++)n[s-1]=arguments[s];for(var o=0,a=n;o<a.length;o++){const e=a[o];t=new URL(e,t);}return t}!function(e){e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e.Raw=14]="Raw",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark";}(ArtworkTypeIDs||(ArtworkTypeIDs={}));const gmxhr=_async((function(e,t){return new Promise(((r,n)=>{GMxmlHttpRequest(_objectSpread2(_objectSpread2({method:"GET",url:e instanceof URL?e.href:e},t),{},{onload:t=>{t.status>=400?n(new HTTPResponseError(e,t)):r(t);},onerror:()=>{n(new NetworkError(e));},onabort:()=>{n(new AbortedError(e));},ontimeout:()=>{n(new TimeoutError(e));},onprogress:null==t?void 0:t.progressCb}));}))}));class ResponseError extends CustomError{constructor(e,t){super(t),_defineProperty(this,"url",void 0),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t){t.statusText.trim()?(super(e,"HTTP error ".concat(t.status,": ").concat(t.statusText)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):(super(e,"HTTP error ".concat(t.status)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function asyncSleep(e){return new Promise((t=>setTimeout(t,e)))}function retryTimes(e,t,r){const n=_async((function(t){return _catch(e,(function(e){if(t<=1)throw e;return asyncSleep(r).then((()=>n(t-1)))}))}));return t<=0?Promise.reject(new TypeError("Invalid number of retry times: ".concat(t))):n(t)}function logFailure(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"An error occurred";e.catch((e=>{LOGGER.error(t,e);}));}function splitDomain(e){const t=e.split(".");let r=-2;return ["org","co","com"].includes(t[t.length-2])&&(r=-3),[...t.slice(0,r),t.slice(r).join(".")]}class DispatchMap{constructor(){_defineProperty(this,"map",new Map);}set(e,t){const r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((e=>e.includes("*"))))throw new Error("Invalid pattern: "+e);return this.insert([...r].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const r=this._get(e);r?(assert(r instanceof DispatchMap&&!r.map.has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}insertInternal(e,t){const r=e[0],n=this._get(r);let s;n instanceof DispatchMap?s=n:(s=new DispatchMap,this._set(r,s),void 0!==n&&s._set("",n)),s.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);if(t instanceof DispatchMap){let e=t._get("");void 0===e&&(e=t._get("*")),t=e;}return t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){const t=1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e);return null!=t?t:this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error("".concat(t,": ").concat(r));return}}function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map((e=>e.toString(16).padStart(2,"0"))).join("")}function blobToDigest(e){const t=_async((function(e){var t,r,n,s;const o=e.result;return _await(null!==(t=null===(r=crypto)||void 0===r||null===(n=r.subtle)||void 0===n||null===(s=n.digest)||void 0===s?void 0:s.call(n,"SHA-256",o))&&void 0!==t?t:o,hexEncode)}));return new Promise(((r,n)=>{const s=new FileReader;s.addEventListener("error",n),s.addEventListener("load",(()=>{t(s).then(r).catch(n);})),s.readAsArrayBuffer(e);}))}const getItemMetadata=_async((function(e){return _await(fetch(new URL("https://archive.org/metadata/".concat(e))),(function(e){return _await(e.text(),(function(e){const t=safeParseJSON(e,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}))}))}));function memoize(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:e=>"".concat(e[0]);const r=new Map;return function(){for(var n=arguments.length,s=new Array(n),o=0;o<n;o++)s[o]=arguments[o];const a=t(s);if(!r.has(a)){const t=e(...s);r.set(a,t);}return r.get(a)}}function createPersistentCheckbox(e,t,r){return [function(){var t=document.createElement("input");return t.setAttribute("type","checkbox"),t.setAttribute("id",e),t.addEventListener("change",(t=>{t.currentTarget.checked?localStorage.setItem(e,"delete_to_disable"):localStorage.removeItem(e),r(t);})),t.setAttribute("defaultChecked",!!localStorage.getItem(e)),t}.call(this),function(){var r=document.createElement("label");return r.setAttribute("for",e),appendChildren(r,t),r}.call(this)]}function formatFileSize(e){const t=0===e?0:Math.floor(Math.log(e)/Math.log(1024)),r=Number((e/Math.pow(1024,t)).toFixed(2));return "".concat(r," ").concat(["B","kB","MB","GB","TB"][t])}function parseVersion(e){return e.split(".").map((e=>parseInt(e)))}function versionLessThan(e,t){let r=0;for(;r<e.length&&r<t.length;){if(e[r]<t[r])return !0;if(e[r]>t[r])return !1;r++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2022.7.27.5",description:"progress indicators"},{versionAdded:"2022.6.29.3",description:"add Yandex Music provider"},{versionAdded:"2022.6.29.2",description:"add Audiomack provider"},{versionAdded:"2022.6.29",description:"add VK Music provider"},{versionAdded:"2022.6.15",description:"file size and type on a-tisket images"},{versionAdded:"2022.6.11",description:"rockipedia.no provider"},{versionAdded:"2022.6.8",description:"update notifications"},{versionAdded:"2022.1.27.6",description:"bump IMU to latest version"},{versionAdded:"2022.1.27.5",description:"include full URL in logging messages"}],css_248z$2=".ROpdebee_feature_list{font-weight:300;margin:0 auto;width:-moz-fit-content;width:fit-content}.ROpdebee_feature_list ul{margin:6px 28px 0 0;text-align:left}";const LAST_DISPLAYED_KEY="ROpdebee_".concat(USERSCRIPT_ID,"_last_notified_update");function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const r=parseVersion(e),n=USERSCRIPT_FEATURE_HISTORY.filter((e=>versionLessThan(r,parseVersion(e.versionAdded))));0!==n.length&&showFeatureNotification(t.name,t.version,n.map((e=>e.description)));}function showFeatureNotification(e,t,r){insertStylesheet(css_248z$2,"ROpdebee_Update_Banner");const n=function(){var s=document.createElement("div");s.setAttribute("class","banner warning-header");var o=document.createElement("p");s.appendChild(o),appendChildren(o,"".concat(e," was updated to v").concat(t,"! "));var a=document.createElement("a");a.setAttribute("href",CHANGELOG_URL),o.appendChild(a);var i=document.createTextNode("See full changelog here");a.appendChild(i),appendChildren(o,". New features since last update:");var c=document.createElement("div");c.setAttribute("class","ROpdebee_feature_list"),s.appendChild(c);var l=document.createElement("ul");c.appendChild(l),appendChildren(l,r.map((e=>function(){var t=document.createElement("li");return appendChildren(t,e),t}.call(this))));var d=document.createElement("button");return d.setAttribute("class","dismiss-banner remove-item icon"),d.setAttribute("data-banner-name","alert"),d.setAttribute("type","button"),d.addEventListener("click",(()=>{n.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);})),s.appendChild(d),s}.call(this);qs("#page").insertAdjacentElement("beforebegin",n);}
 
   LOGGER.configure({
       logLevel: LogLevel.INFO,
   });
   LOGGER.addSink(new ConsoleSink(USERSCRIPT_ID));
+
+  const enqueueImage = _async(function (image) {
+    var _image$types, _image$comment;
+
+    let defaultTypes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    let defaultComment = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+    dropImage(image.content);
+    return _awaitIgnored(retryTimes(setImageParameters.bind(null, image.content.name, (_image$types = image.types) !== null && _image$types !== void 0 ? _image$types : defaultTypes, ((_image$comment = image.comment) !== null && _image$comment !== void 0 ? _image$comment : defaultComment).trim()), 5, 500));
+  });
+
+  function dropImage(imageData) {
+    const DataTransfer = getFromPageContext('DataTransfer');
+    const dataTransfer = new DataTransfer();
+    Object.defineProperty(dataTransfer, 'files', {
+      value: cloneIntoPageContext([imageData])
+    });
+    const dropEvent = new DragEvent('drop', {
+      dataTransfer
+    });
+    qs('#drop-zone').dispatchEvent(dropEvent);
+  }
+
+  function setImageParameters(imageName, imageTypes, imageComment) {
+    const pendingUploadRows = qsa('tbody[data-bind="foreach: files_to_upload"] > tr');
+    const fileRow = pendingUploadRows.find(row => qs('.file-info span[data-bind="text: name"]', row).textContent == imageName);
+    assertDefined(fileRow, "Could not find image ".concat(imageName, " in queued uploads"));
+    const checkboxesToCheck = qsa('ul.cover-art-type-checkboxes input[type="checkbox"]', fileRow).filter(cbox => imageTypes.includes(parseInt(cbox.value)));
+    checkboxesToCheck.forEach(cbox => {
+      cbox.checked = true;
+      cbox.dispatchEvent(new Event('click'));
+    });
+
+    if (imageComment) {
+      const commentInput = qs('div.comment > input.comment', fileRow);
+      commentInput.value = imageComment;
+      commentInput.dispatchEvent(new Event('change'));
+    }
+  }
+
+  function fillEditNoteFragment(editNote, images, containerUrl) {
+    const prefix = containerUrl ? ' * ' : '';
+
+    if (containerUrl) {
+      editNote.addExtraInfo(decodeURI(containerUrl.href));
+    }
+
+    var _iterator = _createForOfIteratorHelper(images),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        const queuedUrl = _step.value;
+
+        if (queuedUrl.maximisedUrl.protocol === 'data:') {
+          editNote.addExtraInfo(prefix + 'Uploaded from data URL');
+          continue;
+        }
+
+        editNote.addExtraInfo(prefix + decodeURI(queuedUrl.originalUrl.href));
+
+        if (queuedUrl.wasMaximised) {
+          editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + decodeURI(queuedUrl.maximisedUrl.href));
+        }
+
+        if (queuedUrl.wasRedirected) {
+          editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.fetchedUrl.href));
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  }
+
+  function fillEditNote(allFetchedImages, origin, editNote) {
+    const totalNumImages = allFetchedImages.reduce((acc, fetched) => acc + fetched.images.length, 0);
+    if (!totalNumImages) return;
+    const maxFilled = 3;
+    let numFilled = 0;
+
+    var _iterator2 = _createForOfIteratorHelper(allFetchedImages),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        const _step2$value = _step2.value,
+              containerUrl = _step2$value.containerUrl,
+              images = _step2$value.images;
+        const imagesToFill = images.slice(0, maxFilled - numFilled);
+        fillEditNoteFragment(editNote, imagesToFill, containerUrl);
+        numFilled += imagesToFill.length;
+        if (numFilled >= maxFilled) break;
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+
+    if (totalNumImages > maxFilled) {
+      editNote.addExtraInfo("\u2026and ".concat(totalNumImages - maxFilled, " additional image(s)"));
+    }
+
+    if (origin) {
+      editNote.addExtraInfo("Seeded from ".concat(origin));
+    }
+
+    editNote.addFooter();
+  }
 
   class CoverArtProvider {
     constructor() {
@@ -53,8 +163,8 @@
       _defineProperty(this, "allowButtons", true);
     }
 
-    postprocessImages(images) {
-      return _await(images);
+    postprocessImage(image) {
+      return Promise.resolve(image);
     }
 
     cleanUrl(url) {
@@ -163,12 +273,15 @@
           if (byContent && groupedImages.size > 0 && !(groupedImages.size === 1 && !mainUrl)) {
             LOGGER.info('Deduplicating track images by content, this may take a while…');
             return _await(mainUrl ? _this4.urlToDigest(mainUrl) : '', function (mainDigest) {
+              let numProcessed = 0;
               return _await(Promise.all([...groupedImages.entries()].map(_async(function (_ref) {
                 let _ref2 = _slicedToArray(_ref, 2),
                     coverUrl = _ref2[0],
                     trackImages = _ref2[1];
 
                 return _await(_this4.urlToDigest(coverUrl), function (digest) {
+                  numProcessed++;
+                  LOGGER.info("Deduplicating track images by content, this may take a while\u2026 (".concat(numProcessed, "/").concat(groupedImages.size, ")"));
                   return trackImages.map(trackImage => {
                     return _objectSpread2(_objectSpread2({}, trackImage), {}, {
                       digest
@@ -423,16 +536,14 @@
       _defineProperty(this, "urlRegex", /release\/.*-(\d+)(?:\/|$)/);
     }
 
-    postprocessImages(images) {
+    postprocessImage(image) {
       return _call(function () {
-        return _await(images.filter(image => {
-          if (/\/0{8}16_\d+/.test(image.fetchedUrl.pathname)) {
-            LOGGER.warn("Skipping \"".concat(image.fetchedUrl, "\" as it matches a placeholder cover"));
-            return false;
-          }
+        if (/\/0{8}16_\d+/.test(image.fetchedUrl.pathname)) {
+          LOGGER.warn("Skipping \"".concat(image.fetchedUrl, "\" as it matches a placeholder cover"));
+          return _await(null);
+        }
 
-          return true;
-        }));
+        return _await(image);
       });
     }
 
@@ -944,7 +1055,14 @@
           interval: 1000,
           limit: 5
         })(_this2.fetchPage.bind(_this2));
-        return _await(Promise.all(trackRows.map(trackRow => _this2.findTrackImage(trackRow, throttledFetchPage))), function (trackImages) {
+        let numProcessed = 0;
+        return _await(Promise.all(trackRows.map(_async(function (trackRow) {
+          return _await(_this2.findTrackImage(trackRow, throttledFetchPage), function (trackImage) {
+            numProcessed++;
+            LOGGER.info("Checking for Bandcamp track images, this may take a few seconds\u2026 (".concat(numProcessed, "/").concat(trackRows.length, ")"));
+            return trackImage;
+          });
+        }))), function (trackImages) {
           return _await(_this2.mergeTrackImages(trackImages, mainUrl, true), function (mergedTrackImages) {
             if (mergedTrackImages.length > 0) {
               LOGGER.info("Found ".concat(mergedTrackImages.length, " unique track images"));
@@ -1111,18 +1229,16 @@
       });
     }
 
-    postprocessImages(images) {
+    postprocessImage(image) {
       return _call(function () {
-        return _await(Promise.all(images.map(_async(function (image) {
-          return _await(blobToDigest(image.content), function (digest) {
-            if (DatPiffProvider.placeholderDigests.includes(digest)) {
-              LOGGER.warn("Skipping \"".concat(image.fetchedUrl, "\" as it matches a placeholder cover"));
-              return null;
-            } else {
-              return image;
-            }
-          });
-        }))), filterNonNull);
+        return _await(blobToDigest(image.content), function (digest) {
+          if (DatPiffProvider.placeholderDigests.includes(digest)) {
+            LOGGER.warn("Skipping \"".concat(image.fetchedUrl, "\" as it matches a placeholder cover"));
+            return null;
+          } else {
+            return image;
+          }
+        });
       });
     }
 
@@ -2013,18 +2129,23 @@
   }
 
   class ImageFetcher {
-    constructor() {
+    constructor(hooks) {
       _defineProperty(this, "doneImages", void 0);
+
+      _defineProperty(this, "hooks", void 0);
 
       _defineProperty(this, "lastId", 0);
 
       this.doneImages = new Set();
+      this.hooks = hooks;
     }
 
-    fetchImages(url, onlyFront) {
+    fetchImages(coverArt, onlyFront) {
       const _this = this;
 
       return _call(function () {
+        const url = coverArt.url;
+
         if (_this.urlAlreadyAdded(url)) {
           LOGGER.warn("".concat(url, " has already been added"));
           return _await({
@@ -2035,21 +2156,25 @@
         const provider = getProvider(url);
 
         if (provider) {
-          return _await(_this.fetchImagesFromProvider(url, provider, onlyFront));
+          return _await(_this.fetchImagesFromProvider(coverArt, provider, onlyFront));
         }
 
+        const defaultTypes = coverArt.types,
+              defaultComment = coverArt.comment;
         LOGGER.info("Attempting to fetch ".concat(url));
         return _await(_this.fetchImageFromURL(url), function (result) {
-          return result ? {
-            images: [result]
-          } : {
+          return result ? _await(enqueueImage(result, defaultTypes, defaultComment), function () {
+            return {
+              images: [result]
+            };
+          }) : {
             images: []
           };
         });
       });
     }
 
-    fetchMaximisedImage(url) {
+    fetchMaximisedImage(url, id) {
       const _this2 = this;
 
       return _call(function () {
@@ -2064,7 +2189,7 @@
           }
 
           return _catch(function () {
-            return _await(_this2.fetchImageContents(maxCandidate.url, candidateName, maxCandidate.headers), function (result) {
+            return _await(_this2.fetchImageContents(maxCandidate.url, candidateName, id, maxCandidate.headers), function (result) {
               if (maxCandidate.url.href !== url.href) {
                 LOGGER.info("Maximised ".concat(url.href, " to ").concat(maxCandidate.url.href));
               }
@@ -2079,7 +2204,7 @@
         }, function () {
           return _exit;
         }), function (_result2) {
-          return _exit ? _result2 : _this2.fetchImageContents(url, getFilename(url), {});
+          return _exit ? _result2 : _this2.fetchImageContents(url, getFilename(url), id, {});
         }));
       });
     }
@@ -2089,41 +2214,56 @@
 
       let skipMaximisation = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       return _call(function () {
-        return _await(skipMaximisation ? _this3.fetchImageContents(url, getFilename(url), {}) : _this3.fetchMaximisedImage(url), function (fetchResult) {
-          if (!fetchResult) return;
+        var _this3$hooks$onFetchS, _this3$hooks;
 
-          _this3.doneImages.add(fetchResult.fetchedUrl.href);
+        const id = _this3.getImageId();
 
-          _this3.doneImages.add(fetchResult.requestedUrl.href);
+        (_this3$hooks$onFetchS = (_this3$hooks = _this3.hooks).onFetchStarted) === null || _this3$hooks$onFetchS === void 0 ? void 0 : _this3$hooks$onFetchS.call(_this3$hooks, id, url);
+        return _await(_finallyRethrows(function () {
+          return _await(skipMaximisation ? _this3.fetchImageContents(url, getFilename(url), id, {}) : _this3.fetchMaximisedImage(url, id), function (fetchResult) {
+            if (!fetchResult) return;
 
-          _this3.doneImages.add(url.href);
+            _this3.doneImages.add(fetchResult.fetchedUrl.href);
 
-          return {
-            content: fetchResult.file,
-            originalUrl: url,
-            maximisedUrl: fetchResult.requestedUrl,
-            fetchedUrl: fetchResult.fetchedUrl,
-            wasMaximised: url.href !== fetchResult.requestedUrl.href,
-            wasRedirected: fetchResult.wasRedirected
-          };
-        });
+            _this3.doneImages.add(fetchResult.requestedUrl.href);
+
+            _this3.doneImages.add(url.href);
+
+            return {
+              content: fetchResult.file,
+              originalUrl: url,
+              maximisedUrl: fetchResult.requestedUrl,
+              fetchedUrl: fetchResult.fetchedUrl,
+              wasMaximised: url.href !== fetchResult.requestedUrl.href,
+              wasRedirected: fetchResult.wasRedirected
+            };
+          });
+        }, function (_wasThrown, _result3) {
+          var _this3$hooks$onFetchF, _this3$hooks2;
+
+          (_this3$hooks$onFetchF = (_this3$hooks2 = _this3.hooks).onFetchFinished) === null || _this3$hooks$onFetchF === void 0 ? void 0 : _this3$hooks$onFetchF.call(_this3$hooks2, id);
+          return _rethrow(_wasThrown, _result3);
+        }));
       });
     }
 
-    fetchImagesFromProvider(url, provider, onlyFront) {
+    fetchImagesFromProvider(_ref, provider, onlyFront) {
       const _this4 = this;
 
+      let url = _ref.url,
+          defaultTypes = _ref.types,
+          defaultComment = _ref.comment;
       return _call(function () {
         LOGGER.info("Searching for images in ".concat(provider.name, " release\u2026"));
         return _await(provider.findImages(url, onlyFront), function (images) {
           const finalImages = onlyFront ? _this4.retainOnlyFront(images) : images;
           const hasMoreImages = onlyFront && images.length !== finalImages.length;
           LOGGER.info("Found ".concat(finalImages.length || 'no', " image(s) in ").concat(provider.name, " release"));
-          const fetchResults = [];
-          return _continue(_forOf(enumerate(finalImages), function (_ref) {
-            let _ref2 = _slicedToArray(_ref, 2),
-                img = _ref2[0],
-                idx = _ref2[1];
+          const queuedResults = [];
+          return _continue(_forOf(enumerate(finalImages), function (_ref2) {
+            let _ref3 = _slicedToArray(_ref2, 2),
+                img = _ref3[0],
+                idx = _ref3[1];
 
             if (_this4.urlAlreadyAdded(img.url)) {
               LOGGER.warn("".concat(img.url, " has already been added"));
@@ -2134,27 +2274,36 @@
             return _continueIgnored(_catch(function () {
               return _await(_this4.fetchImageFromURL(img.url, img.skipMaximisation), function (result) {
                 if (!result) return;
-                fetchResults.push(_objectSpread2(_objectSpread2({}, result), {}, {
+
+                const fetchedImage = _objectSpread2(_objectSpread2({}, result), {}, {
                   types: img.types,
                   comment: img.comment
-                }));
+                });
+
+                return _await(provider.postprocessImage(fetchedImage), function (postprocessedImage) {
+                  return _invokeIgnored(function () {
+                    if (postprocessedImage) {
+                      return _await(enqueueImage(fetchedImage, defaultTypes, defaultComment), function () {
+                        queuedResults.push(postprocessedImage);
+                      });
+                    }
+                  });
+                });
               });
             }, function (err) {
               LOGGER.warn("Skipping ".concat(img.url), err);
             }));
           }), function () {
-            return _await(provider.postprocessImages(fetchResults), function (fetchedImages) {
-              if (!hasMoreImages) {
-                _this4.doneImages.add(url.href);
-              } else {
-                LOGGER.warn("Not all images were fetched: ".concat(images.length - finalImages.length, " covers were skipped."));
-              }
+            if (!hasMoreImages) {
+              _this4.doneImages.add(url.href);
+            } else {
+              LOGGER.warn("Not all images were fetched: ".concat(images.length - finalImages.length, " covers were skipped."));
+            }
 
-              return {
-                containerUrl: url,
-                images: fetchedImages
-              };
-            });
+            return {
+              containerUrl: url,
+              images: queuedResults
+            };
           });
         });
       });
@@ -2169,18 +2318,25 @@
       return filtered.length > 0 ? filtered : images.slice(0, 1);
     }
 
-    createUniqueFilename(filename, mimeType) {
-      const filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif|pdf)$/i, '');
-      return "".concat(filenameWithoutExt, ".").concat(this.lastId++, ".").concat(mimeType.split('/')[1]);
+    getImageId() {
+      return this.lastId++;
     }
 
-    fetchImageContents(url, fileName, headers) {
+    createUniqueFilename(filename, id, mimeType) {
+      const filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif|pdf)$/i, '');
+      return "".concat(filenameWithoutExt, ".").concat(id, ".").concat(mimeType.split('/')[1]);
+    }
+
+    fetchImageContents(url, fileName, id, headers) {
       const _this5 = this;
 
       return _call(function () {
+        var _this5$hooks$onFetchP;
+
         return _await(gmxhr(url, {
           responseType: 'blob',
-          headers: headers
+          headers: headers,
+          progressCb: (_this5$hooks$onFetchP = _this5.hooks.onFetchProgress) === null || _this5$hooks$onFetchP === void 0 ? void 0 : _this5$hooks$onFetchP.bind(_this5.hooks, id, url)
         }), function (resp) {
           const fetchedUrl = new URL(resp.finalUrl);
           const wasRedirected = resp.finalUrl !== url.href;
@@ -2189,9 +2345,9 @@
             LOGGER.warn("Followed redirect of ".concat(url.href, " -> ").concat(resp.finalUrl, " while fetching image contents"));
           }
 
-          return _await(_this5.determineMimeType(resp), function (_ref3) {
-            let mimeType = _ref3.mimeType,
-                isImage = _ref3.isImage;
+          return _await(_this5.determineMimeType(resp), function (_ref4) {
+            let mimeType = _ref4.mimeType,
+                isImage = _ref4.isImage;
 
             if (!isImage) {
               if (!(mimeType !== null && mimeType !== void 0 && mimeType.startsWith('text/'))) {
@@ -2211,7 +2367,7 @@
               requestedUrl: url,
               fetchedUrl,
               wasRedirected,
-              file: new File([resp.response], _this5.createUniqueFilename(fileName, mimeType), {
+              file: new File([resp.response], _this5.createUniqueFilename(fileName, id, mimeType), {
                 type: mimeType
               })
             };
@@ -2276,123 +2432,6 @@
       return this.doneImages.has(url.href);
     }
 
-  }
-
-  const enqueueImage = _async(function (image, defaultTypes, defaultComment) {
-    var _image$types, _image$comment;
-
-    dropImage(image.content);
-    return _awaitIgnored(retryTimes(setImageParameters.bind(null, image.content.name, (_image$types = image.types) !== null && _image$types !== void 0 ? _image$types : defaultTypes, ((_image$comment = image.comment) !== null && _image$comment !== void 0 ? _image$comment : defaultComment).trim()), 5, 500));
-  });
-
-  const enqueueImages = _async(function (_ref) {
-    let images = _ref.images;
-    let defaultTypes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-    let defaultComment = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-    return _awaitIgnored(Promise.all(images.map(image => {
-      return enqueueImage(image, defaultTypes, defaultComment);
-    })));
-  });
-
-  function dropImage(imageData) {
-    const DataTransfer = getFromPageContext('DataTransfer');
-    const dataTransfer = new DataTransfer();
-    Object.defineProperty(dataTransfer, 'files', {
-      value: cloneIntoPageContext([imageData])
-    });
-    const dropEvent = new DragEvent('drop', {
-      dataTransfer
-    });
-    qs('#drop-zone').dispatchEvent(dropEvent);
-  }
-
-  function setImageParameters(imageName, imageTypes, imageComment) {
-    const pendingUploadRows = qsa('tbody[data-bind="foreach: files_to_upload"] > tr');
-    const fileRow = pendingUploadRows.find(row => qs('.file-info span[data-bind="text: name"]', row).textContent == imageName);
-    assertDefined(fileRow, "Could not find image ".concat(imageName, " in queued uploads"));
-    const checkboxesToCheck = qsa('ul.cover-art-type-checkboxes input[type="checkbox"]', fileRow).filter(cbox => imageTypes.includes(parseInt(cbox.value)));
-    checkboxesToCheck.forEach(cbox => {
-      cbox.checked = true;
-      cbox.dispatchEvent(new Event('click'));
-    });
-
-    if (imageComment) {
-      const commentInput = qs('div.comment > input.comment', fileRow);
-      commentInput.value = imageComment;
-      commentInput.dispatchEvent(new Event('change'));
-    }
-  }
-
-  function fillEditNoteFragment(editNote, images, containerUrl) {
-    const prefix = containerUrl ? ' * ' : '';
-
-    if (containerUrl) {
-      editNote.addExtraInfo(decodeURI(containerUrl.href));
-    }
-
-    var _iterator = _createForOfIteratorHelper(images),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        const queuedUrl = _step.value;
-
-        if (queuedUrl.maximisedUrl.protocol === 'data:') {
-          editNote.addExtraInfo(prefix + 'Uploaded from data URL');
-          continue;
-        }
-
-        editNote.addExtraInfo(prefix + decodeURI(queuedUrl.originalUrl.href));
-
-        if (queuedUrl.wasMaximised) {
-          editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + decodeURI(queuedUrl.maximisedUrl.href));
-        }
-
-        if (queuedUrl.wasRedirected) {
-          editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.fetchedUrl.href));
-        }
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-  }
-
-  function fillEditNote(allFetchedImages, origin, editNote) {
-    const totalNumImages = allFetchedImages.reduce((acc, fetched) => acc + fetched.images.length, 0);
-    if (!totalNumImages) return;
-    const maxFilled = 3;
-    let numFilled = 0;
-
-    var _iterator2 = _createForOfIteratorHelper(allFetchedImages),
-        _step2;
-
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        const _step2$value = _step2.value,
-              containerUrl = _step2$value.containerUrl,
-              images = _step2$value.images;
-        const imagesToFill = images.slice(0, maxFilled - numFilled);
-        fillEditNoteFragment(editNote, imagesToFill, containerUrl);
-        numFilled += imagesToFill.length;
-        if (numFilled >= maxFilled) break;
-      }
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
-
-    if (totalNumImages > maxFilled) {
-      editNote.addExtraInfo("\u2026and ".concat(totalNumImages - maxFilled, " additional image(s)"));
-    }
-
-    if (origin) {
-      editNote.addExtraInfo("Seeded from ".concat(origin));
-    }
-
-    editNote.addFooter();
   }
 
   function encodeValue(value) {
@@ -2501,6 +2540,70 @@
   var css_248z = ".ROpdebee_paste_url_cont{display:inline-block;margin-left:32px;vertical-align:middle}.ROpdebee_paste_url_cont>*{display:block}.ROpdebee_paste_url_cont>label{display:inline;float:none!important}.ROpdebee_paste_url_cont>input#ROpdebee_paste_front_only{display:inline}.ROpdebee_paste_url_cont>a{font-size:smaller;text-align:right}.ROpdebee_paste_url_cont+span{margin-left:32px}.ROpdebee_import_url_buttons{margin-left:32px;vertical-align:middle}.ROpdebee_import_url_buttons>button{display:block;float:none;margin:4px}";
 
   const INPUT_PLACEHOLDER_TEXT = 'or paste one or more URLs here';
+  class ProgressElement {
+      constructor(url) {
+          _defineProperty(this, 'urlSpan', void 0);
+          _defineProperty(this, 'progressbar', void 0);
+          _defineProperty(this, 'rootElement', void 0);
+          this.urlSpan = function () {
+              var $$a = document.createElement('span');
+              appendChildren($$a, url.href);
+              return $$a;
+          }.call(this);
+          this.progressbar = function () {
+              var $$c = document.createElement('div');
+              $$c.setAttribute('class', 'ui-progressbar-value ui-widget-header ui-corner-left');
+              setStyles($$c, {
+                  backgroundColor: '#cce5ff',
+                  width: '0%'
+              });
+              appendChildren($$c, '\xA0');
+              return $$c;
+          }.call(this);
+          this.rootElement = function () {
+              var $$e = document.createElement('tr');
+              setStyles($$e, { display: 'flex' });
+              var $$f = document.createElement('td');
+              $$f.setAttribute('class', 'uploader-preview-column');
+              $$e.appendChild($$f);
+              var $$g = document.createElement('div');
+              $$g.setAttribute('class', 'content-loading');
+              setStyles($$g, {
+                  width: '120px',
+                  height: '120px',
+                  position: 'relative'
+              });
+              $$f.appendChild($$g);
+              var $$h = document.createElement('td');
+              setStyles($$h, { width: '65%' });
+              $$e.appendChild($$h);
+              var $$i = document.createElement('div');
+              $$i.setAttribute('class', 'row');
+              $$h.appendChild($$i);
+              var $$j = document.createElement('label');
+              $$i.appendChild($$j);
+              var $$k = document.createTextNode('URL:');
+              $$j.appendChild($$k);
+              appendChildren($$i, this.urlSpan);
+              var $$m = document.createElement('td');
+              setStyles($$m, { flexGrow: 1 });
+              $$e.appendChild($$m);
+              var $$n = document.createElement('div');
+              $$n.setAttribute('class', 'ui-progressbar ui-widget ui-widget-content ui-corner-all');
+              $$n.setAttribute('role', 'progressbar');
+              setStyles($$n, { width: '100%' });
+              $$m.appendChild($$n);
+              appendChildren($$n, this.progressbar);
+              return $$e;
+          }.call(this);
+      }
+      set url(url) {
+          this.urlSpan.textContent = url.href;
+      }
+      set progress(progressPercentage) {
+          this.progressbar.style.width = ''.concat(progressPercentage * 100, '%');
+      }
+  }
   class InputForm {
       constructor(app) {
           var _qs$insertAdjacentEle, _qs$insertAdjacentEle2;
@@ -2508,14 +2611,17 @@
           _defineProperty(this, 'urlInput', void 0);
           _defineProperty(this, 'buttonContainer', void 0);
           _defineProperty(this, 'orSpan', void 0);
+          _defineProperty(this, 'fakeSubmitButton', void 0);
+          _defineProperty(this, 'realSubmitButton', void 0);
+          _defineProperty(this, 'progressElements', new Map());
           insertStylesheet(css_248z);
           this.urlInput = function () {
-              var $$a = document.createElement('input');
-              $$a.setAttribute('type', 'url');
-              $$a.setAttribute('placeholder', INPUT_PLACEHOLDER_TEXT);
-              $$a.setAttribute('size', 47);
-              $$a.setAttribute('id', 'ROpdebee_paste_url');
-              $$a.addEventListener('input', _async(function (evt) {
+              var $$p = document.createElement('input');
+              $$p.setAttribute('type', 'url');
+              $$p.setAttribute('placeholder', INPUT_PLACEHOLDER_TEXT);
+              $$p.setAttribute('size', 47);
+              $$p.setAttribute('id', 'ROpdebee_paste_url');
+              $$p.addEventListener('input', _async(function (evt) {
                   if (!evt.currentTarget.value)
                       return;
                   const oldValue = evt.currentTarget.value;
@@ -2537,7 +2643,7 @@
                       }
                   });
               }));
-              return $$a;
+              return $$p;
           }.call(this);
           const _createPersistentChec = createPersistentCheckbox('ROpdebee_paste_front_only', 'Fetch front image only', evt => {
                   var _checked, _evt$currentTarget;
@@ -2545,58 +2651,96 @@
               }), _createPersistentChec2 = _slicedToArray(_createPersistentChec, 2), onlyFrontCheckbox = _createPersistentChec2[0], onlyFrontLabel = _createPersistentChec2[1];
           app.onlyFront = onlyFrontCheckbox.checked;
           const container = function () {
-              var $$b = document.createElement('div');
-              $$b.setAttribute('class', 'ROpdebee_paste_url_cont');
-              appendChildren($$b, this.urlInput);
-              var $$d = document.createElement('a');
-              $$d.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md');
-              $$d.setAttribute('target', '_blank');
-              $$b.appendChild($$d);
-              var $$e = document.createTextNode('\n                Supported providers\n            ');
-              $$d.appendChild($$e);
-              appendChildren($$b, onlyFrontCheckbox);
-              appendChildren($$b, onlyFrontLabel);
-              return $$b;
+              var $$q = document.createElement('div');
+              $$q.setAttribute('class', 'ROpdebee_paste_url_cont');
+              appendChildren($$q, this.urlInput);
+              var $$s = document.createElement('a');
+              $$s.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md');
+              $$s.setAttribute('target', '_blank');
+              $$q.appendChild($$s);
+              var $$t = document.createTextNode('\n                Supported providers\n            ');
+              $$s.appendChild($$t);
+              appendChildren($$q, onlyFrontCheckbox);
+              appendChildren($$q, onlyFrontLabel);
+              return $$q;
           }.call(this);
           this.buttonContainer = function () {
-              var $$h = document.createElement('div');
-              $$h.setAttribute('class', 'ROpdebee_import_url_buttons buttons');
-              return $$h;
+              var $$w = document.createElement('div');
+              $$w.setAttribute('class', 'ROpdebee_import_url_buttons buttons');
+              return $$w;
           }.call(this);
           this.orSpan = function () {
-              var $$i = document.createElement('span');
-              setStyles($$i, { display: 'none' });
-              var $$j = document.createTextNode('or');
-              $$i.appendChild($$j);
-              return $$i;
+              var $$x = document.createElement('span');
+              setStyles($$x, { display: 'none' });
+              var $$y = document.createTextNode('or');
+              $$x.appendChild($$y);
+              return $$x;
           }.call(this);
           (_qs$insertAdjacentEle = qs('#drop-zone').insertAdjacentElement('afterend', container)) === null || _qs$insertAdjacentEle === void 0 ? void 0 : (_qs$insertAdjacentEle2 = _qs$insertAdjacentEle.insertAdjacentElement('afterend', this.orSpan)) === null || _qs$insertAdjacentEle2 === void 0 ? void 0 : _qs$insertAdjacentEle2.insertAdjacentElement('afterend', this.buttonContainer);
+          this.realSubmitButton = qs('button#add-cover-art-submit');
+          this.fakeSubmitButton = function () {
+              var $$z = document.createElement('button');
+              $$z.setAttribute('type', 'button');
+              $$z.setAttribute('class', 'submit positive');
+              $$z.disabled = true;
+              $$z.setAttribute('hidden', true);
+              var $$aa = document.createTextNode('\n            Enter edit\n        ');
+              $$z.appendChild($$aa);
+              return $$z;
+          }.call(this);
+          qs('form > .buttons').append(this.fakeSubmitButton);
       }
       addImportButton(onClickCallback, url, provider) {
           const _this2 = this;
           return _call(function () {
               return _await(provider.favicon, function (favicon) {
                   const button = function () {
-                      var $$k = document.createElement('button');
-                      $$k.setAttribute('type', 'button');
-                      $$k.setAttribute('title', url);
-                      $$k.addEventListener('click', evt => {
+                      var $$bb = document.createElement('button');
+                      $$bb.setAttribute('type', 'button');
+                      $$bb.setAttribute('title', url);
+                      $$bb.addEventListener('click', evt => {
                           evt.preventDefault();
                           onClickCallback();
                       });
-                      var $$l = document.createElement('img');
-                      $$l.setAttribute('src', favicon);
-                      $$l.setAttribute('alt', provider.name);
-                      $$k.appendChild($$l);
-                      var $$m = document.createElement('span');
-                      $$k.appendChild($$m);
-                      appendChildren($$m, 'Import from ' + provider.name);
-                      return $$k;
+                      var $$cc = document.createElement('img');
+                      $$cc.setAttribute('src', favicon);
+                      $$cc.setAttribute('alt', provider.name);
+                      $$bb.appendChild($$cc);
+                      var $$dd = document.createElement('span');
+                      $$bb.appendChild($$dd);
+                      appendChildren($$dd, 'Import from ' + provider.name);
+                      return $$bb;
                   }.call(this);
                   _this2.orSpan.style.display = '';
                   _this2.buttonContainer.insertAdjacentElement('beforeend', button);
               });
           });
+      }
+      disableSubmissions() {
+          this.realSubmitButton.hidden = true;
+          this.fakeSubmitButton.hidden = false;
+      }
+      enableSubmissions() {
+          this.realSubmitButton.hidden = false;
+          this.fakeSubmitButton.hidden = true;
+      }
+      onFetchStarted(id, url) {
+          const progressElement = new ProgressElement(url);
+          this.progressElements.set(id, progressElement);
+          qs('form#add-cover-art tbody').append(progressElement.rootElement);
+      }
+      onFetchFinished(id) {
+          const progressElement = this.progressElements.get(id);
+          progressElement === null || progressElement === void 0 ? void 0 : progressElement.rootElement.remove();
+          this.progressElements.delete(id);
+      }
+      onFetchProgress(id, url, progress) {
+          const progressElement = this.progressElements.get(id);
+          assertDefined(progressElement);
+          progressElement.url = url;
+          if (progress.lengthComputable && progress.total > 0) {
+              progressElement.progress = progress.loaded / progress.total;
+          }
       }
   }
 
@@ -2612,29 +2756,33 @@
 
       _defineProperty(this, "loggingSink", new GuiSink());
 
+      _defineProperty(this, "fetchingSema", void 0);
+
       _defineProperty(this, "onlyFront", false);
 
       this.note = EditNote.withFooterFromGMInfo();
-      this.fetcher = new ImageFetcher();
       this.urlsInProgress = new Set();
       LOGGER.addSink(this.loggingSink);
       qs('.add-files').insertAdjacentElement('afterend', this.loggingSink.rootElement);
+      this.fetchingSema = new ObservableSemaphore({
+        onAcquired: () => {
+          this.ui.disableSubmissions();
+        },
+        onReleased: () => {
+          this.ui.enableSubmissions();
+        }
+      });
       this.ui = new InputForm(this);
+      this.fetcher = new ImageFetcher(this.ui);
     }
 
     processURL(url) {
       const _this = this;
 
       return _call(function () {
-        return _this.urlsInProgress.has(url.href) ? _await() : _await(_continueIgnored(_finallyRethrows(function () {
-          _this.urlsInProgress.add(url.href);
-
-          return _awaitIgnored(_this._processURL(url));
-        }, function (_wasThrown, _result) {
-          _this.urlsInProgress.delete(url.href);
-
-          return _rethrow(_wasThrown, _result);
-        })));
+        return _await(_this._processURLs([{
+          url
+        }]));
       });
     }
 
@@ -2642,36 +2790,39 @@
       this.loggingSink.clearAllLater();
     }
 
-    _processURL(url) {
+    _processURLs(coverArts, origin) {
       const _this2 = this;
 
       return _call(function () {
-        let _exit = false;
-        let fetchResult;
-        return _await(_continue(_catch(function () {
-          return _await(_this2.fetcher.fetchImages(url, _this2.onlyFront), function (_this2$fetcher$fetchI) {
-            fetchResult = _this2$fetcher$fetchI;
-          });
-        }, function (err) {
-          LOGGER.error('Failed to grab images', err);
-          _exit = true;
-        }), function (_result2) {
-          let _exit2 = false;
-          if (_exit) return _result2;
-          return _continue(_catch(function () {
-            return _awaitIgnored(enqueueImages(fetchResult));
-          }, function (err) {
-            LOGGER.error('Failed to enqueue images', err);
-            _exit2 = true;
-          }), function (_result3) {
-            if (_exit2) return _result3;
-            fillEditNote([fetchResult], '', _this2.note);
-
-            if (fetchResult.images.length > 0) {
-              LOGGER.success("Successfully added ".concat(fetchResult.images.length, " image(s)"));
+        return _await(_this2.fetchingSema.runInSection(_async(function () {
+          const fetchedBatches = [];
+          return _continue(_forOf(coverArts, function (coverArt) {
+            if (_this2.urlsInProgress.has(coverArt.url.href)) {
+              return;
             }
+
+            _this2.urlsInProgress.add(coverArt.url.href);
+
+            return _continue(_catch(function () {
+              return _await(_this2.fetcher.fetchImages(coverArt, _this2.onlyFront), function (fetchResult) {
+                fetchedBatches.push(fetchResult);
+              });
+            }, function (err) {
+              LOGGER.error('Failed to fetch or enqueue images', err);
+            }), function () {
+              _this2.urlsInProgress.delete(coverArt.url.href);
+            });
+          }), function () {
+            return fetchedBatches;
           });
-        }));
+        })), function (batches) {
+          fillEditNote(batches, origin !== null && origin !== void 0 ? origin : '', _this2.note);
+          const totalNumImages = batches.reduce((acc, batch) => acc + batch.images.length, 0);
+
+          if (totalNumImages > 0) {
+            LOGGER.success("Successfully added ".concat(totalNumImages, " image(s)"));
+          }
+        });
       });
     }
 
@@ -2679,44 +2830,10 @@
       const _this3 = this;
 
       return _call(function () {
-        let _exit3 = false;
         const params = SeedParameters.decode(new URLSearchParams(document.location.search));
-        let fetchResults;
-        return _await(_continue(_catch(function () {
-          return _await(Promise.all(params.images.map(_async(function (cover) {
-            return _await(_this3.fetcher.fetchImages(cover.url, _this3.onlyFront), function (_this3$fetcher$fetchI) {
-              return [_this3$fetcher$fetchI, cover];
-            });
-          }))), function (_Promise$all) {
-            fetchResults = _Promise$all;
-          });
-        }, function (err) {
-          LOGGER.error('Failed to grab images', err);
-          _exit3 = true;
-        }), function (_result4) {
-          return _exit3 ? _result4 : _continue(_forOf(fetchResults, function (_ref) {
-            let _ref2 = _slicedToArray(_ref, 2),
-                fetchResult = _ref2[0],
-                cover = _ref2[1];
-
-            return _continueIgnored(_catch(function () {
-              return _awaitIgnored(enqueueImages(fetchResult, cover.types, cover.comment));
-            }, function (err) {
-              LOGGER.error('Failed to enqueue some images', err);
-            }));
-          }), function () {
-            var _params$origin;
-
-            fillEditNote(fetchResults.map(pair => pair[0]), (_params$origin = params.origin) !== null && _params$origin !== void 0 ? _params$origin : '', _this3.note);
-            const totalNumImages = fetchResults.reduce((acc, pair) => acc + pair[0].images.length, 0);
-
-            if (totalNumImages) {
-              LOGGER.success("Successfully added ".concat(totalNumImages, " image(s)"));
-            }
-
-            _this3.clearLogLater();
-          });
-        }));
+        return _await(_this3._processURLs(params.images, params.origin), function () {
+          _this3.clearLogLater();
+        });
       });
     }
 

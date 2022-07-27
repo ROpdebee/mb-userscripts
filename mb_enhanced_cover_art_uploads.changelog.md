@@ -1,3 +1,4 @@
+- **2022.7.27.5**: New feature: progress indicators ([#516](https://github.com/ROpdebee/mb-userscripts/pull/516))
 - **2022.7.27.4**: Bug fix: skip adding Bandcamp square thumbs if dimensions cannot be loaded ([#517](https://github.com/ROpdebee/mb-userscripts/pull/517))
 - **2022.7.27.3**: Bug fix: clean up VGMdb captions ([#513](https://github.com/ROpdebee/mb-userscripts/pull/513))
 - **2022.7.27.2**: Bug fix: separate cache key from full-size URL ([#518](https://github.com/ROpdebee/mb-userscripts/pull/518))
