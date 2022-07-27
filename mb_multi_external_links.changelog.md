@@ -1,3 +1,4 @@
+- **2022.7.27**: Internal changes: automatically insert logger boilerplate config ([#514](https://github.com/ROpdebee/mb-userscripts/pull/514))
 - **2022.7.5**: Bug fix: adjust links editor properties for new MBS version ([#512](https://github.com/ROpdebee/mb-userscripts/pull/512))
 - **2022.6.27**: Bug fix: run in iframes in Chrome and Violentmonkey Beta ([#504](https://github.com/ROpdebee/mb-userscripts/pull/504))
 - **2022.6.13**: Internal changes: allow tree-shaking the prototype input setter ([#477](https://github.com/ROpdebee/mb-userscripts/pull/477))
