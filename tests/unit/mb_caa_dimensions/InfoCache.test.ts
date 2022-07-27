@@ -309,17 +309,15 @@ describe('pruning cache', () => {
         mockDateNow.mockReturnValue(250 + CACHE_STALE_TIME);
         const cache = await createCache();
 
+        // Should have pruned the entry for 'test', but not for 'test2'
         await expect(cache.getDimensions('test')).resolves.toBeUndefined();
         await expect(cache.getDimensions('test2')).resolves.toBeDefined();
-        await expect(cache.getFileInfo('test')).resolves.toBeUndefined();
-        await expect(cache.getFileInfo('test2')).resolves.toBeDefined();
 
         mockDateNow.mockReturnValue(1000 + CACHE_STALE_TIME);
+        // If another pruning run occurs, this should also prune the entry for
+        // 'test2'. However, the last prune was recent, so it shouldn't run again.
         const cache2 = await createCache();
 
-        await expect(cache2.getDimensions('test')).resolves.toBeUndefined();
         await expect(cache2.getDimensions('test2')).resolves.toBeDefined();
-        await expect(cache2.getFileInfo('test')).resolves.toBeUndefined();
-        await expect(cache2.getFileInfo('test2')).resolves.toBeDefined();
     });
 });
