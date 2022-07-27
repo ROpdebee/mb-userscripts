@@ -1,3 +1,4 @@
+- **2022.7.27**: Internal changes: automatically insert logger boilerplate config ([#514](https://github.com/ROpdebee/mb-userscripts/pull/514))
 - **2022.7.3**: New feature: PDF dimensions and page count ([#496](https://github.com/ROpdebee/mb-userscripts/pull/496))
 - **2022.6.27**: Bug fix: fix order of dimensions on queued upload thumbnails ([#505](https://github.com/ROpdebee/mb-userscripts/pull/505))
 - **2022.6.18**: Bug fix: wait until dimensions are known on queued uploads ([#500](https://github.com/ROpdebee/mb-userscripts/pull/500))
