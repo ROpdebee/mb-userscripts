@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.7.27.3
+// @version      2022.7.27.4
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -996,7 +996,20 @@
     amendSquareThumbnails(covers) {
       return _call(function () {
         return Promise.all(covers.map(_async(function (cover) {
-          return _await(getImageDimensions(cover.url.href.replace(/_\d+\.(\w+)$/, '_0.$1')), function (coverDims) {
+          let _exit = false;
+          let coverDims;
+          return _continue(_catch(function () {
+            return _await(getImageDimensions(cover.url.href.replace(/_\d+\.(\w+)$/, '_0.$1')), function (_getImageDimensions) {
+              coverDims = _getImageDimensions;
+            });
+          }, function (err) {
+            LOGGER.warn("Could not retrieve image dimensions for ".concat(cover.url, ", square thumbnail will not be added"), err);
+            const _temp = [cover];
+            _exit = true;
+            return _temp;
+          }), function (_result) {
+            if (_exit) return _result;
+
             if (!coverDims.width || !coverDims.height) {
               return [cover];
             }
