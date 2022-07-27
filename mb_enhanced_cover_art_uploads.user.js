@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.7.27
+// @version      2022.7.27.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2741,12 +2741,15 @@
   }
 
   class BaseImage {
-    constructor(imgUrl, cache) {
+    constructor(imgUrl, cache, cacheKey) {
       _defineProperty(this, "imgUrl", void 0);
+
+      _defineProperty(this, "cacheKey", void 0);
 
       _defineProperty(this, "cache", void 0);
 
       this.imgUrl = imgUrl;
+      this.cacheKey = cacheKey !== null && cacheKey !== void 0 ? cacheKey : imgUrl;
       this.cache = cache;
     }
 
@@ -2758,7 +2761,7 @@
         return _await(_continue(_catch(function () {
           var _this$cache;
 
-          return _await((_this$cache = _this.cache) === null || _this$cache === void 0 ? void 0 : _this$cache.getDimensions(_this.imgUrl), function (cachedResult) {
+          return _await((_this$cache = _this.cache) === null || _this$cache === void 0 ? void 0 : _this$cache.getDimensions(_this.cacheKey), function (cachedResult) {
             if (typeof cachedResult !== 'undefined') {
               _exit = true;
               return cachedResult;
@@ -2773,7 +2776,7 @@
             return _await(getImageDimensions(_this.imgUrl), function (liveResult) {
               var _this$cache2;
 
-              return _await((_this$cache2 = _this.cache) === null || _this$cache2 === void 0 ? void 0 : _this$cache2.putDimensions(_this.imgUrl, liveResult), function () {
+              return _await((_this$cache2 = _this.cache) === null || _this$cache2 === void 0 ? void 0 : _this$cache2.putDimensions(_this.cacheKey, liveResult), function () {
                 _exit2 = true;
                 return liveResult;
               });
@@ -2795,7 +2798,7 @@
         return _await(_continue(_catch(function () {
           var _this2$cache;
 
-          return _await((_this2$cache = _this2.cache) === null || _this2$cache === void 0 ? void 0 : _this2$cache.getFileInfo(_this2.imgUrl), function (cachedResult) {
+          return _await((_this2$cache = _this2.cache) === null || _this2$cache === void 0 ? void 0 : _this2$cache.getFileInfo(_this2.cacheKey), function (cachedResult) {
             if (typeof cachedResult !== 'undefined') {
               _exit3 = true;
               return cachedResult;
@@ -2810,7 +2813,7 @@
             return _await(_this2.loadFileInfo(), function (liveResult) {
               var _this2$cache2;
 
-              return _await((_this2$cache2 = _this2.cache) === null || _this2$cache2 === void 0 ? void 0 : _this2$cache2.putFileInfo(_this2.imgUrl, liveResult), function () {
+              return _await((_this2$cache2 = _this2.cache) === null || _this2$cache2 === void 0 ? void 0 : _this2$cache2.putFileInfo(_this2.cacheKey, liveResult), function () {
                 _exit4 = true;
                 return liveResult;
               });
