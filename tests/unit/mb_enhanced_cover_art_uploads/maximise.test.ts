@@ -62,18 +62,18 @@ describe('maximising images', () => {
     it('eventually returns all images', async () => {
         setIMUResult([{ url: 'https://example.com/max' }, { url: 'https://example.com/max2' }] as unknown as maxurlResult[]);
 
-        const it = getMaximisedCandidates(new URL('https://example.com/'));
-        let result = await it.next();
+        const iter = getMaximisedCandidates(new URL('https://example.com/'));
+        let result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.pathname).toBe('/max');
 
-        result = await it.next();
+        result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.pathname).toBe('/max2');
 
-        result = await it.next();
+        result = await iter.next();
 
         expect(result.done).toBeTrue();
     });
@@ -82,9 +82,9 @@ describe('maximising images', () => {
         const spyRetryTimes = jest.spyOn(libAsync, 'retryTimes');
         spyRetryTimes.mockRejectedValueOnce(new Error('test'));
 
-        const it = getMaximisedCandidates(new URL('https://example.com'));
+        const iter = getMaximisedCandidates(new URL('https://example.com'));
 
-        await expect(it.next()).resolves.toHaveProperty('done', true);
+        await expect(iter.next()).resolves.toHaveProperty('done', true);
     });
 });
 
@@ -93,13 +93,13 @@ describe('maximising Discogs images', () => {
     jest.spyOn(DiscogsProvider, 'maximiseImage').mockImplementationOnce(() => Promise.resolve(new URL('https://example.com/discogs')));
 
     it('special-cases Discogs images', async () => {
-        const it = getMaximisedCandidates(new URL('https://i.discogs.com/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg'));
-        let result = await it.next();
+        const iter = getMaximisedCandidates(new URL('https://i.discogs.com/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg'));
+        let result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toBe('https://example.com/discogs');
 
-        result = await it.next();
+        result = await iter.next();
 
         expect(result.done).toBeTrue();
     });
@@ -121,14 +121,14 @@ describe('maximising Apple Music images', () => {
             }] as unknown as maxurlResult[]);
         });
 
-        const it = getMaximisedCandidates(new URL('https://is4-ssl.mzstatic.com/image/thumb/Music114/v4/cc/fc/dc/ccfcdc3b-5d9b-6305-8d59-687db6c67fd2/20UMGIM63158.rgb.jpg/1000x1000bb.webp'));
-        let result = await it.next();
+        const iter = getMaximisedCandidates(new URL('https://is4-ssl.mzstatic.com/image/thumb/Music114/v4/cc/fc/dc/ccfcdc3b-5d9b-6305-8d59-687db6c67fd2/20UMGIM63158.rgb.jpg/1000x1000bb.webp'));
+        let result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toEndWith('/source');
         expect(result.value!.likely_broken).toBeTrue();
 
-        result = await it.next();
+        result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toEndWith('/20UMGIM63158.rgb.jpg');
@@ -144,8 +144,8 @@ describe('maximising Apple Music images', () => {
             }] as unknown as maxurlResult[]);
         });
 
-        const it = getMaximisedCandidates(new URL('https://is3-ssl.mzstatic.com/image/thumb/Music114/v4/6e/ff/f5/6efff51c-17f2-1d8b-21f3-b8029fa28434/source/9999x9999-100.jpg'));
-        const result = await it.next();
+        const iter = getMaximisedCandidates(new URL('https://is3-ssl.mzstatic.com/image/thumb/Music114/v4/6e/ff/f5/6efff51c-17f2-1d8b-21f3-b8029fa28434/source/9999x9999-100.jpg'));
+        const result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toEndWith('/source');
@@ -159,8 +159,8 @@ describe('maximising Apple Music images', () => {
             }] as unknown as maxurlResult[]);
         });
 
-        const it = getMaximisedCandidates(new URL('https://a1.mzstatic.com/us/r1000/063/Music111/v4/e1/dc/68/e1dc6808-6d55-1e38-a34d-a3807d488859/191061355977.jpg'));
-        const result = await it.next();
+        const iter = getMaximisedCandidates(new URL('https://a1.mzstatic.com/us/r1000/063/Music111/v4/e1/dc/68/e1dc6808-6d55-1e38-a34d-a3807d488859/191061355977.jpg'));
+        const result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toEndWith('/source');
@@ -170,50 +170,50 @@ describe('maximising Apple Music images', () => {
 
 describe('maximising Jamendo images', () => {
     it('returns width=0 image', async () => {
-        const it = getMaximisedCandidates(new URL('https://usercontent.jamendo.com/?cid=1632996942&type=album&id=453609&width=300'));
-        const result = await it.next();
+        const iter = getMaximisedCandidates(new URL('https://usercontent.jamendo.com/?cid=1632996942&type=album&id=453609&width=300'));
+        const result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toBe('https://usercontent.jamendo.com/?cid=1632996942&type=album&id=453609&width=0');
 
-        await expect(it.next()).resolves.toHaveProperty('done', true);
+        await expect(iter.next()).resolves.toHaveProperty('done', true);
     });
 });
 
 describe('maximising DatPiff images', () => {
     it('returns large image first', async () => {
-        const it = getMaximisedCandidates(new URL('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front.jpg'));
-        const result = await it.next();
+        const iter = getMaximisedCandidates(new URL('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front.jpg'));
+        const result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.href).toBe('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front-large.jpg');
     });
 
     it('includes smaller images as backup', async () => {
-        const it = getMaximisedCandidates(new URL('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front.jpg'));
-        let result = await it.next();
+        const iter = getMaximisedCandidates(new URL('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front.jpg'));
+        let result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.pathname).toEndWith('-front-large.jpg');
 
-        result = await it.next();
+        result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.pathname).toEndWith('-front-medium.jpg');
 
-        result = await it.next();
+        result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.pathname).toEndWith('-front.jpg');
 
-        result = await it.next();
+        result = await iter.next();
 
         expect(result.done).toBeTrue();
     });
 
     it('removes existing suffix', async () => {
-        const it = getMaximisedCandidates(new URL('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front-medium.jpg'));
-        const result = await it.next();
+        const iter = getMaximisedCandidates(new URL('https://hw-img.datpiff.com/m09a0c2c/Chief_Keef_Two_Zero_One_Seven-front-medium.jpg'));
+        const result = await iter.next();
 
         expect(result.done).toBeFalse();
         expect(result.value!.url.pathname).toEndWith('-front-large.jpg');

@@ -85,6 +85,13 @@ module.exports = {
         }],
         'simple-import-sort/exports': 'error',
 
+        // Restrict certain variable names.
+        'id-denylist': [
+            'error',
+            // Clashes with the `it` function used in tests.
+            'it',
+        ],
+
         'no-restricted-syntax': ['error', {
             // Require non-initialised variables to have a type annotation. Per
             // https://github.com/typescript-eslint/typescript-eslint/issues/4342#issuecomment-1000452796
