@@ -172,11 +172,11 @@ export class ImageFetcher {
             }
         }
 
-        if (!hasMoreImages) {
+        if (!hasMoreImages && queuedResults.length === finalImages.length) {
             // Don't mark the whole provider URL as done if we haven't grabbed
-            // all images.
+            // all images or some images failed.
             this.doneImages.add(url.href);
-        } else {
+        } else if (hasMoreImages) {
             LOGGER.warn(`Not all images were fetched: ${images.length - finalImages.length} covers were skipped.`);
         }
 
