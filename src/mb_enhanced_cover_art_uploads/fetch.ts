@@ -56,7 +56,6 @@ export class ImageFetcher {
         }
 
         const { types: defaultTypes, comment: defaultComment } = coverArt;
-        LOGGER.info(`Attempting to fetch ${url}`);
         const result = await this.fetchImageFromURL(url);
         if (!result) {
             return { images: [] };

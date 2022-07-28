@@ -41,6 +41,6 @@ export function collatedSort(array: string[]): string[] {
     return array.sort(coll.compare.bind(coll));
 }
 
-export function enumerate<T>(array: T[]): Array<[T, number]> {
+export function enumerate<T>(array: readonly T[]): Array<[T, number]> {
     return array.map((el, idx) => [el, idx]);
 }
