@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.7.28
+// @version      2022.7.28.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -3156,15 +3156,18 @@
       ],
       supportedRegexes: [/(?:\.uk|\.info\/atisket)\/\?.+/],
       insertSeedLinks() {
-          var _qs$textContent$trim, _qs$textContent, _cachedAnchor$href;
+          var _cachedAnchor$href;
           addDimensionsToCovers();
-          const alreadyInMB = qsMaybe('.already-in-mb-item');
-          if (alreadyInMB === null) {
+          const alreadyInMBItems = qsa('.already-in-mb-item');
+          if (alreadyInMBItems.length === 0) {
               return;
           }
-          const mbid = encodeURIComponent((_qs$textContent$trim = (_qs$textContent = qs('a.mb', alreadyInMB).textContent) === null || _qs$textContent === void 0 ? void 0 : _qs$textContent.trim()) !== null && _qs$textContent$trim !== void 0 ? _qs$textContent$trim : '');
+          const mbids = alreadyInMBItems.map(alreadyInMB => {
+              var _qs$textContent$trim, _qs$textContent;
+              return encodeURIComponent((_qs$textContent$trim = (_qs$textContent = qs('a.mb', alreadyInMB).textContent) === null || _qs$textContent === void 0 ? void 0 : _qs$textContent.trim()) !== null && _qs$textContent$trim !== void 0 ? _qs$textContent$trim : '');
+          }).filter(Boolean);
           const cachedAnchor = qsMaybe('#submit-button + div > a');
-          addSeedLinkToCovers(mbid, (_cachedAnchor$href = cachedAnchor === null || cachedAnchor === void 0 ? void 0 : cachedAnchor.href) !== null && _cachedAnchor$href !== void 0 ? _cachedAnchor$href : document.location.href);
+          addSeedLinkToCovers(mbids, (_cachedAnchor$href = cachedAnchor === null || cachedAnchor === void 0 ? void 0 : cachedAnchor.href) !== null && _cachedAnchor$href !== void 0 ? _cachedAnchor$href : document.location.href);
       }
   };
   const AtasketSeeder = {
@@ -3183,16 +3186,16 @@
               return;
           }
           const cachedUrl = document.location.origin + '/?cached=' + selfId;
-          addSeedLinkToCovers(mbid, cachedUrl);
+          addSeedLinkToCovers([mbid], cachedUrl);
       }
   };
-  function addSeedLinkToCovers(mbid, origin) {
+  function addSeedLinkToCovers(mbids, origin) {
       const covers = qsa('figure.cover');
       var _iterator = _createForOfIteratorHelper(covers), _step;
       try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
               const fig = _step.value;
-              addSeedLinkToCover(fig, mbid, origin);
+              addSeedLinkToCover(fig, mbids, origin);
           }
       } catch (err) {
           _iterator.e(err);
@@ -3229,21 +3232,32 @@
       }
       return RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
   }
-  function addSeedLinkToCover(fig, mbid, origin) {
+  function addSeedLinkToCover(fig, mbids, origin) {
       var _tryExtractReleaseUrl;
       const imageUrl = qs('a.icon', fig).href;
       const realUrl = (_tryExtractReleaseUrl = tryExtractReleaseUrl(fig)) !== null && _tryExtractReleaseUrl !== void 0 ? _tryExtractReleaseUrl : imageUrl;
       const params = new SeedParameters([{ url: new URL(realUrl) }], origin);
-      const seedUrl = params.createSeedURL(mbid);
-      const seedLink = function () {
-          var $$c = document.createElement('a');
-          $$c.setAttribute('href', seedUrl);
-          setStyles($$c, { display: 'block' });
-          var $$d = document.createTextNode('\n        Add to release\n    ');
-          $$c.appendChild($$d);
-          return $$c;
-      }.call(this);
-      qs('figcaption', fig).insertAdjacentElement('beforeend', seedLink);
+      var _iterator3 = _createForOfIteratorHelper(mbids), _step3;
+      try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+              const mbid = _step3.value;
+              const seedUrl = params.createSeedURL(mbid);
+              const seedLink = function () {
+                  var $$c = document.createElement('a');
+                  $$c.setAttribute('href', seedUrl);
+                  setStyles($$c, { display: 'block' });
+                  var $$d = document.createTextNode('\n            Add to release ');
+                  $$c.appendChild($$d);
+                  appendChildren($$c, mbids.length > 1 ? mbid.split('-')[0] : '');
+                  return $$c;
+              }.call(this);
+              qs('figcaption', fig).insertAdjacentElement('beforeend', seedLink);
+          }
+      } catch (err) {
+          _iterator3.e(err);
+      } finally {
+          _iterator3.f();
+      }
   }
   const RELEASE_URL_CONSTRUCTORS = {
       itu: (id, country) => 'https://music.apple.com/'.concat(country.toLowerCase(), '/album/').concat(id),
