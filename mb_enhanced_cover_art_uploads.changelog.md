@@ -1,3 +1,4 @@
+- **2022.7.28.5**: Bug fix: warn when NSFW cover is encountered, skip placeholder ([#534](https://github.com/ROpdebee/mb-userscripts/pull/534))
 - **2022.7.28.4**: Bug fix: indicate progress when fetching single images ([#532](https://github.com/ROpdebee/mb-userscripts/pull/532))
 - **2022.7.28.3**: Bug fix: wrap long URLs in logging banners ([#531](https://github.com/ROpdebee/mb-userscripts/pull/531))
 - **2022.7.28.2**: Bug fix: handle multiple a-tisket release suggestions ([#530](https://github.com/ROpdebee/mb-userscripts/pull/530))

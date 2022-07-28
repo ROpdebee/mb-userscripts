@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.7.28.4
+// @version      2022.7.28.5
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1894,6 +1894,7 @@
   }
 
   const PLACEHOLDER_URL = '/db/img/album-nocover-medium.gif';
+  const NSFW_PLACEHOLDER_URL = '/db/img/album-nsfw-medium.gif';
 
   function cleanupCaption(captionRest) {
     return captionRest.trim().replace(/^\((.+)\)$/, '$1').replace(/^\[(.+)]$/, '$1').replace(/^{(.+)}$/, '$1').replace(/^[-–]\s*/, '');
@@ -1958,11 +1959,15 @@
             const mainCoverUrl = (_qsMaybe = qsMaybe('#coverart', pageDom)) === null || _qsMaybe === void 0 ? void 0 : (_qsMaybe$style$backgr = _qsMaybe.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)) === null || _qsMaybe$style$backgr === void 0 ? void 0 : _qsMaybe$style$backgr[1];
 
             if (mainCoverUrl && mainCoverUrl !== PLACEHOLDER_URL && !galleryCovers.some(cover => urlBasename(cover.url) === urlBasename(mainCoverUrl))) {
-              galleryCovers.unshift({
-                url: new URL(mainCoverUrl, url.origin),
-                types: [ArtworkTypeIDs.Front],
-                comment: ''
-              });
+              if (mainCoverUrl === NSFW_PLACEHOLDER_URL) {
+                LOGGER.warn('Heads up! The main cover of this VGMdb release is marked as NSFW. The original image may have been skipped. Please adjust your VGMdb preferences to show NSFW images to enable fetching these.');
+              } else {
+                galleryCovers.unshift({
+                  url: new URL(mainCoverUrl, url.origin),
+                  types: [ArtworkTypeIDs.Front],
+                  comment: ''
+                });
+              }
             }
 
             return galleryCovers;
