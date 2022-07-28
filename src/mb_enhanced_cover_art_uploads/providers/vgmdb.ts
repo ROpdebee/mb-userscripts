@@ -25,34 +25,79 @@ interface AlbumMetadata {
 // type, list of types, or type with additional information
 type MappedArtwork = ArtworkTypeIDs | ArtworkTypeIDs[] | { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
 
-export /* for tests */ function mapJacketType(caption: string): MappedArtwork {
-    if (!caption) {
+function mapPackagingType(packaging: string, caption: string): MappedArtwork {
+    if (!caption && packaging === 'Jacket') {
+        // Assume jacket is front, back, and spine.
         return {
             type: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine],
             comment: '',
         };
+    } else if (!caption) {
+        // Slipcase, digipak, box is likely just front
+        return {
+            type: [ArtworkTypeIDs.Front],
+            comment: packaging,
+        };
     }
 
-    const types = [];
+    const types = new Set<ArtworkTypeIDs>();
     const keywords = caption.split(/,|\s|and|&/i);
-    const faceKeywords = ['front', 'back', 'spine'];
-    const [hasFront, hasBack, hasSpine] = faceKeywords
-        .map((faceKw) => keywords
-            // Case-insensitive .includes()
-            .some((kw) => kw.toLowerCase() === faceKw.toLowerCase()));
+    const typeKeywordsToTypes = [
+        ['front', ArtworkTypeIDs.Front],
+        ['back', ArtworkTypeIDs.Back],
+        ['spine', ArtworkTypeIDs.Spine],
+        ['top', ArtworkTypeIDs.Top],
+        ['bottom', ArtworkTypeIDs.Bottom],
+        ['interior', ArtworkTypeIDs.Tray],
+        ['inside', ArtworkTypeIDs.Tray],
+    ] as const;
+    for (const [typeKeyword, type] of typeKeywordsToTypes) {
+        if (keywords.some((kw) => kw.toLowerCase() === typeKeyword)) {
+            types.add(type);
+        }
+    }
 
-    if (hasFront) types.push(ArtworkTypeIDs.Front);
-    if (hasBack) types.push(ArtworkTypeIDs.Back);
     // Assuming if the front and back are included, the spine is as well.
-    if (hasSpine || (hasFront && hasBack)) types.push(ArtworkTypeIDs.Spine);
+    if (types.has(ArtworkTypeIDs.Front) && types.has(ArtworkTypeIDs.Back)) {
+        types.add(ArtworkTypeIDs.Spine);
+    }
 
-    // Copy anything other than 'front', 'back', or 'spine' to the comment
+    // Copy anything other than the type keywords to the comment
+    const typeKeywords = new Set<string>(typeKeywordsToTypes.map(([typeKeyword]) => typeKeyword));
     const otherKeywords = keywords
-        .filter((kw) => !faceKeywords.includes(kw.toLowerCase()));
+        .filter((kw) => !typeKeywords.has(kw.toLowerCase()));
+
+    // Also include packaging name in comment if it's not a jacket.
+    if (packaging !== 'Jacket') otherKeywords.unshift(packaging);
     const comment = otherKeywords.join(' ').trim();
+
     return {
-        type: types,
+        type: types.size > 0 ? [...types] : [ArtworkTypeIDs.Other],
         comment,
+    };
+}
+
+function mapDiscType(mediumType: string, caption: string): MappedArtwork {
+    const keywords = caption.split(/,|\s/).filter(Boolean);
+    const commentParts = [];
+    let type = ArtworkTypeIDs.Medium;
+    for (const keyword of keywords) {
+        // As a regular expression because it might be surrounded in parentheses
+        if (/reverse|back/i.test(keyword)) {
+            type = ArtworkTypeIDs.Matrix;
+        } else {
+            commentParts.push(keyword);
+        }
+    }
+
+    // If the comment starts with a sequence number, add the medium type
+    if (commentParts.length > 0 && /^\d+/.test(commentParts[0])) {
+        commentParts.unshift(mediumType);
+    }
+
+    return {
+        type,
+        comment: commentParts.join(' '),
     };
 }
 
@@ -61,20 +106,23 @@ export /* for tests */ function mapJacketType(caption: string): MappedArtwork {
 const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) => MappedArtwork)> = {
     front: ArtworkTypeIDs.Front,
     booklet: ArtworkTypeIDs.Booklet,
-    jacket: mapJacketType, // DVD jacket
-    disc: ArtworkTypeIDs.Medium,
+    jacket: mapPackagingType.bind(undefined, 'Jacket'), // DVD jacket
+    disc: mapDiscType.bind(undefined, 'Disc'),
+    cd: mapDiscType.bind(undefined, 'CD'),
     cassette: ArtworkTypeIDs.Medium,
     vinyl: ArtworkTypeIDs.Medium,
+    dvd: mapDiscType.bind(undefined, 'DVD'),
     tray: ArtworkTypeIDs.Tray,
     back: ArtworkTypeIDs.Back,
     obi: ArtworkTypeIDs.Obi,
-    box: { type: ArtworkTypeIDs.Other, comment: 'Box' },
+    box: mapPackagingType.bind(undefined, 'Box'),
     card: { type: ArtworkTypeIDs.Other, comment: 'Card' },
     sticker: ArtworkTypeIDs.Sticker,
-    slipcase: { type: ArtworkTypeIDs.Other, comment: 'Slipcase' },
-    digipack: { type: ArtworkTypeIDs.Other, comment: 'Digipak' },
+    slipcase: mapPackagingType.bind(undefined, 'Slipcase'),
+    digipack: mapPackagingType.bind(undefined, 'Digipak'),
     insert: { type: ArtworkTypeIDs.Other, comment: 'Insert' }, // Or poster?
-    case: { type: ArtworkTypeIDs.Other, comment: 'Case' },
+    inside: ArtworkTypeIDs.Tray,
+    case: mapPackagingType.bind(undefined, 'Case'),
     contents: ArtworkTypeIDs.Raw,
 };
 
@@ -131,15 +179,30 @@ const NSFW_PLACEHOLDER_URL = '/db/img/album-nsfw-medium.gif';
 
 function cleanupCaption(captionRest: string): string {
     return captionRest
-        // Remove superfluous spaces
-        .trim()
         // Remove parentheses, braces and brackets, but only if they wrap the
         // whole caption
         .replace(/^\((.+)\)$/, '$1')
         .replace(/^\[(.+)]$/, '$1')
         .replace(/^{(.+)}$/, '$1')
-        // Remove leading dash, possibly used to split type from comment
-        .replace(/^[-–]\s*/, '');
+        // Remove leading dash or colon, possibly used to split type from comment
+        .replace(/^[-–:]\s*/, '');
+}
+
+function convertCaption(caption: string): { types?: ArtworkTypeIDs[]; comment: string } {
+    LOGGER.debug(`Found caption “${caption}”`);
+    const [captionType, ...captionRestParts] = caption.trim().split(/\b/);
+    const captionRest = cleanupCaption(captionRestParts.join('').trim());
+    const mapper = CAPTION_TYPE_MAPPING[captionType.toLowerCase()];
+
+    if (!mapper) {
+        LOGGER.debug(`Could not map “${captionType}” to any known cover art types`);
+        LOGGER.debug(`Setting cover art comment to “${caption}”`);
+        return { comment: caption };
+    }
+
+    const mappedResult = mapper(captionRest);
+    LOGGER.debug(`Mapped caption to types ${mappedResult.types} and comment “${mappedResult.comment}”`);
+    return mappedResult;
 }
 
 export function convertCaptions(cover: { url: string; caption: string }): CoverArt {
@@ -147,14 +210,10 @@ export function convertCaptions(cover: { url: string; caption: string }): CoverA
     if (!cover.caption) {
         return { url };
     }
-    const [captionType, ...captionRestParts] = cover.caption.split(' ');
-    const captionRest = cleanupCaption(captionRestParts.join(' '));
-    const mapper = CAPTION_TYPE_MAPPING[captionType.toLowerCase()];
 
-    if (!mapper) return { url, comment: cover.caption };
     return {
         url,
-        ...mapper(captionRest),
+        ...convertCaption(cover.caption),
     };
 }
 
