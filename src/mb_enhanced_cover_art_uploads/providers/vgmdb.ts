@@ -127,6 +127,7 @@ for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
 }
 
 const PLACEHOLDER_URL = '/db/img/album-nocover-medium.gif';
+const NSFW_PLACEHOLDER_URL = '/db/img/album-nsfw-medium.gif';
 
 function cleanupCaption(captionRest: string): string {
     return captionRest
@@ -182,11 +183,18 @@ export class VGMdbProvider extends CoverArtProvider {
         // Add the main cover if it's not in the gallery
         const mainCoverUrl = qsMaybe<HTMLDivElement>('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)?.[1];
         if (mainCoverUrl && mainCoverUrl !== PLACEHOLDER_URL && !galleryCovers.some((cover) => urlBasename(cover.url) === urlBasename(mainCoverUrl))) {
-            galleryCovers.unshift({
-                url: new URL(mainCoverUrl, url.origin),
-                types: [ArtworkTypeIDs.Front],
-                comment: '',
-            });
+            if (mainCoverUrl === NSFW_PLACEHOLDER_URL) {
+                // FIXME: We should be able to work around this by sending a cookie.
+                // I've tried, but for some reason either the cookie isn't being sent,
+                // or VGMdb isn't accepting it.
+                LOGGER.warn('Heads up! The main cover of this VGMdb release is marked as NSFW. The original image may have been skipped. Please adjust your VGMdb preferences to show NSFW images to enable fetching these.');
+            } else {
+                galleryCovers.unshift({
+                    url: new URL(mainCoverUrl, url.origin),
+                    types: [ArtworkTypeIDs.Front],
+                    comment: '',
+                });
+            }
         }
 
         return galleryCovers;
