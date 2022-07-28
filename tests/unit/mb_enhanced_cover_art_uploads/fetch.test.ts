@@ -81,6 +81,8 @@ function disableDummyFetch(mock: FetchImageContentsSpy): void {
 
 beforeEach(() => {
     mockEnqueueImage.mockClear();
+    mockFindImages.mockReset();
+    mockGetProvider.mockReset();
     hooks.onFetchFinished.mockClear();
     hooks.onFetchProgress.mockClear();
     hooks.onFetchStarted.mockClear();
@@ -751,6 +753,46 @@ describe('fetching images', () => {
 
         await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
             .resolves.toHaveProperty('images', []);
+    });
+
+    it('does not fetch provider URL which was already fully fetched', async () => {
+        mockGetProvider.mockImplementation(() => fakeProvider);
+        mockFindImages.mockResolvedValue([
+            createCoverArt('https://example.com/1'),
+            createCoverArt('https://example.com/2'),
+        ]);
+
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
+            .resolves.toHaveProperty('images', expect.toBeArrayOfSize(2));
+        // Second fetch should be blocked, since all previous images are done.
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
+            .resolves.toHaveProperty('images', []);
+        expect(mockFindImages).toHaveBeenCalledOnce();
+    });
+
+    it('allows re-fetching provider URL for which some images failed previously', async () => {
+        mockGetProvider.mockImplementation(() => fakeProvider);
+        mockFindImages.mockResolvedValue([
+            createCoverArt('https://example.com/1'),
+            createCoverArt('https://example.com/2'),
+        ]);
+        mockFetchImageContents.mockRejectedValueOnce(new Error('test'));
+
+        // First fetch will fail to fetch the first of the two images.
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
+            .resolves.toHaveProperty('images', [
+                expect.objectContaining({
+                    fetchedUrl: new URL('https://example.com/2'),
+                }),
+            ]);
+        // Second fetch should now only fetch the first image, second one already fetched previously.
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
+            .resolves.toHaveProperty('images', [
+                expect.objectContaining({
+                    fetchedUrl: new URL('https://example.com/1'),
+                }),
+            ]);
+        expect(mockFindImages).toHaveBeenCalledTimes(2);
     });
 
     it('does not fetch maximised URL which was already fetched previously', async () => {
