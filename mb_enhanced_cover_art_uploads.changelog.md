@@ -1,3 +1,4 @@
+- **2022.7.28.4**: Bug fix: indicate progress when fetching single images ([#532](https://github.com/ROpdebee/mb-userscripts/pull/532))
 - **2022.7.28.3**: Bug fix: wrap long URLs in logging banners ([#531](https://github.com/ROpdebee/mb-userscripts/pull/531))
 - **2022.7.28.2**: Bug fix: handle multiple a-tisket release suggestions ([#530](https://github.com/ROpdebee/mb-userscripts/pull/530))
 - **2022.7.28**: Bug fix: allow retrying provider URLs when some images failed ([#529](https://github.com/ROpdebee/mb-userscripts/pull/529))

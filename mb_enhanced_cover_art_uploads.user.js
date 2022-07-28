@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.7.28.3
+// @version      2022.7.28.4
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2161,7 +2161,6 @@
 
         const defaultTypes = coverArt.types,
               defaultComment = coverArt.comment;
-        LOGGER.info("Attempting to fetch ".concat(url));
         return _await(_this.fetchImageFromURL(url), function (result) {
           return result ? _await(enqueueImage(result, defaultTypes, defaultComment), function () {
             return {
@@ -2796,12 +2795,22 @@
       return _call(function () {
         return _await(_this2.fetchingSema.runInSection(_async(function () {
           const fetchedBatches = [];
-          return _continue(_forOf(coverArts, function (coverArt) {
+          return _continue(_forOf(enumerate(coverArts), function (_ref) {
+            let _ref2 = _slicedToArray(_ref, 2),
+                coverArt = _ref2[0],
+                idx = _ref2[1];
+
             if (_this2.urlsInProgress.has(coverArt.url.href)) {
               return;
             }
 
             _this2.urlsInProgress.add(coverArt.url.href);
+
+            if (coverArts.length > 1) {
+              LOGGER.info("Fetching ".concat(coverArt.url, " (").concat(idx + 1, "/").concat(coverArts.length, ")"));
+            } else {
+              LOGGER.info("Fetching ".concat(coverArt.url));
+            }
 
             return _continue(_catch(function () {
               return _await(_this2.fetcher.fetchImages(coverArt, _this2.onlyFront), function (fetchResult) {
