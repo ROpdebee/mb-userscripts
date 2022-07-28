@@ -186,6 +186,13 @@ describe('vgmdb provider', () => {
             url: 'https://vgmdb.net/album/111880',
             numImages: 0,
             expectedImages: [],
+        }, {
+            // FIXME: This should actually be able to extract the NSFW image by
+            // sending a cookie.
+            desc: 'release with NSFW cover',
+            url: 'https://vgmdb.net/album/103079',
+            numImages: 0,
+            expectedImages: [],
         }];
 
         const extractionFailedCases = [{
