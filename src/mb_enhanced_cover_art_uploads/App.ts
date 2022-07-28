@@ -4,6 +4,7 @@ import { GuiSink } from '@lib/logging/guiSink';
 import { LOGGER } from '@lib/logging/logger';
 import { EditNote } from '@lib/MB/EditNote';
 import { getURLsForRelease } from '@lib/MB/URLs';
+import { enumerate } from '@lib/util/array';
 import { assertHasValue } from '@lib/util/assert';
 import { qs } from '@lib/util/dom';
 import { ObservableSemaphore } from '@lib/util/observable';
@@ -61,7 +62,7 @@ export class App {
         const batches = await this.fetchingSema.runInSection(async () => {
             const fetchedBatches: QueuedImageBatch[] = [];
 
-            for (const coverArt of coverArts) {
+            for (const [coverArt, idx] of enumerate(coverArts)) {
                 // Don't process a URL if we're already doing so, e.g. a user
                 // clicked a button that was already processing via a seed param.
                 if (this.urlsInProgress.has(coverArt.url.href)) {
@@ -69,6 +70,12 @@ export class App {
                 }
 
                 this.urlsInProgress.add(coverArt.url.href);
+                if (coverArts.length > 1) {
+                    LOGGER.info(`Fetching ${coverArt.url} (${idx + 1}/${coverArts.length})`);
+                } else {
+                    // Don't specify progress if there's just one image to process.
+                    LOGGER.info(`Fetching ${coverArt.url}`);
+                }
                 try {
                     const fetchResult = await this.fetcher.fetchImages(coverArt, this.onlyFront);
                     fetchedBatches.push(fetchResult);
