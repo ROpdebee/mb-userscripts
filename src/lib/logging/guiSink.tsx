@@ -1,3 +1,4 @@
+import { insertBetween } from '@lib/util/array';
 import { insertStylesheet } from '@lib/util/css';
 
 import type { LoggingSink } from './sink';
@@ -20,8 +21,15 @@ export class GuiSink implements LoggingSink {
     private createMessage(className: string, message: string, exception?: unknown): HTMLSpanElement {
         const extraMessage = exception instanceof Error ? `: ${exception.message}` : '';
         const content = message + extraMessage;
+        // Insert word-break hints before all forward slashes so that URLs are
+        // more likely to be split in natural places. In case it's still too
+        // long, CSS properties will break even further, but without these,
+        // the long URLs tend to be put on their own line.
+        // Need to use a factory for insertBetween, otherwise the same <wbr>
+        // element will be reused and it'll only be placed at the last slash.
+        const children = insertBetween(content.split(/(?=\/)/), () => <wbr/>);
 
-        return <span className={`msg ${className}`}>{content}</span>;
+        return <span className={`msg ${className}`}>{children}</span>;
     }
 
     private addMessage(el: HTMLSpanElement): void {

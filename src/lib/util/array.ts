@@ -44,3 +44,26 @@ export function collatedSort(array: string[]): string[] {
 export function enumerate<T>(array: T[]): Array<[T, number]> {
     return array.map((el, idx) => [el, idx]);
 }
+
+function isFactory<T2>(maybeFactory: T2 | (() => T2)): maybeFactory is () => T2 {
+    return typeof maybeFactory === 'function';
+}
+
+/**
+ * Create an array wherein a given element is inserted between every two
+ * consecutive elements of the original array.
+ *
+ * Example:
+ *  insertBetween([1,2,3], 0) // => [1, 0, 2, 0, 3]
+ *  insertBetween([1], 0)  // => [1]
+ *
+ * @param      {readonly T1[]}   arr         The original array.
+ * @param      {T2}              newElement  The element to insert, or a factory creating these elements.
+ * @return     {(Array<T1|T2>)}  Resulting array.
+ */
+export function insertBetween<T1, T2>(arr: readonly T1[], newElement: T2 | (() => T2)): Array<T1 | T2> {
+    return [
+        ...arr.slice(0, 1),
+        ...arr.slice(1).flatMap((elmt) => [isFactory(newElement) ? newElement() : newElement, elmt]),
+    ];
+}
