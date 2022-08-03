@@ -91,7 +91,7 @@ describe('maximising images', () => {
 
 describe('maximising Discogs images', () => {
     // Mock Discogs maximisation, assume it works properly
-    jest.spyOn(DiscogsProvider, 'maximiseImage').mockImplementationOnce(() => Promise.resolve(new URL('https://example.com/discogs')));
+    jest.spyOn(DiscogsProvider, 'maximiseImage').mockResolvedValueOnce(new URL('https://example.com/discogs'));
 
     it('special-cases Discogs images', async () => {
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://i.discogs.com/aRe2RbRXu0g4PvRjrPgQKb_YmFWO3Y0CYc098S8Q1go/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTk4/OTI5MTItMTU3OTQ1/NjcwNy0yMzIwLmpw/ZWc.jpeg')));
