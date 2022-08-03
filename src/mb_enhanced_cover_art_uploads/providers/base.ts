@@ -103,7 +103,9 @@ export abstract class CoverArtProvider {
 
     protected async fetchPage(url: URL, options?: GMXHROptions): Promise<string> {
         const resp = await gmxhr(url, options);
-        if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
+        if (typeof resp.finalUrl === 'undefined') {
+            LOGGER.warn(`Could not detect if ${url.href} caused a redirect`);
+        } else if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
             throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${resp.finalUrl}, which may be a different release. If this redirected URL is correct, please retry with ${resp.finalUrl} directly.`);
         }
 
