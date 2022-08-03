@@ -65,7 +65,7 @@ export class NetworkError extends ResponseError {
 }
 
 // eslint-disable-next-line no-restricted-globals
-export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<GM.Response<never>> {
+export async function gmxhr(url: string | URL, options?: GMXHROptions): Promise<GM.Response<never> & { finalUrl?: string }> {
     return new Promise((resolve, reject) => {
         GMxmlHttpRequest({
             method: 'GET',

@@ -209,7 +209,10 @@ export class ImageFetcher {
             headers: headers,
             progressCb: this.hooks.onFetchProgress?.bind(this.hooks, id, url),
         });
-        const fetchedUrl = new URL(resp.finalUrl);
+        if (typeof resp.finalUrl === 'undefined') {
+            LOGGER.warn(`Could not detect if URL ${url.href} caused a redirect`);
+        }
+        const fetchedUrl = new URL(resp.finalUrl || url);
         const wasRedirected = resp.finalUrl !== url.href;
 
         if (wasRedirected) {
