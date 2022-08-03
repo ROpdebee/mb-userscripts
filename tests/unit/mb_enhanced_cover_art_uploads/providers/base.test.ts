@@ -305,6 +305,53 @@ describe('providers with track images', () => {
             expect(results[0].comment).toBeUndefined();
         });
 
+        describe('with custom comments', () => {
+            it('uses singular prefix if only one track number exists', async () => {
+                const trackImages = [{
+                    url: 'https://example.com/123',
+                    trackNumber: '1',
+                    customComment: ['special track', 'special tracks'] as [string, string],
+                }];
+                const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+
+                expect(results[0].comment).toBe('special track 1');
+            });
+
+            it('uses plural prefix if multiple track numbers exists', async () => {
+                const trackImages = [{
+                    url: 'https://example.com/123',
+                    trackNumber: '1',
+                    customComment: ['special track', 'special tracks'] as [string, string],
+                }, {
+                    url: 'https://example.com/123',
+                    trackNumber: '2',
+                    customComment: ['special track', 'special tracks'] as [string, string],
+                }];
+                const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+
+                expect(results[0].comment).toBe('special tracks 1, 2');
+            });
+
+            it('merges multiple custom track comments', async () => {
+                const trackImages = [{
+                    url: 'https://example.com/123',
+                    trackNumber: '1',
+                    customComment: ['special track', 'special tracks'] as [string, string],
+                }, {
+                    url: 'https://example.com/123',
+                    trackNumber: '2',
+                    customComment: ['special track', 'special tracks'] as [string, string],
+                }, {
+                    url: 'https://example.com/123',
+                    trackNumber: '3',
+                    customComment: ['extra special track', 'extra special tracks'] as [string, string],
+                }];
+                const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+
+                expect(results[0].comment).toBe('special tracks 1, 2; extra special track 3');
+            });
+        });
+
         describe('deduplicating by content', () => {
             it('deduplicates images with identical thumbnail content', async () => {
                 when(mockXhr)

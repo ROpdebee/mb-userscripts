@@ -116,6 +116,7 @@ export abstract class CoverArtProvider {
 export interface ParsedTrackImage {
     url: string;
     trackNumber?: string;
+    customComment?: [string, string];  // singular, plural
 }
 
 export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
@@ -232,21 +233,28 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
             results.push({
                 url: new URL(imgUrl),
                 types: [ArtworkTypeIDs.Track],
-                comment: this.createTrackImageComment(trackImages.map((trackImage) => trackImage.trackNumber)) || undefined,
+                comment: this.createTrackImageComment(trackImages) || undefined,
             });
         });
 
         return results;
     }
 
-    private createTrackImageComment(trackNumbers: Array<string | undefined>): string {
-        const definedTrackNumbers = filterNonNull(trackNumbers);
+    private createTrackImageComment(tracks: ParsedTrackImage[]): string {
+        const definedTrackNumbers = tracks.filter((track) => Boolean(track.trackNumber));
         if (definedTrackNumbers.length === 0) return '';
 
-        const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
-        // Use a collated sort here to make sure we keep numeric ordering.
-        // We can't just parse track numbers to actual numbers here, as the
-        // tracks may reasonably be numbered as strings (e.g. Vinyl sides)
-        return `${prefix} ${collatedSort(definedTrackNumbers).join(', ')}`;
+        const commentBins = groupBy(definedTrackNumbers, (track) => track.customComment?.[0] ?? 'Track', (track) => track);
+        const commentChunks = [...commentBins.values()].map((bin) => {
+            const prefixes = bin[0].customComment ?? ['Track', 'Tracks'];
+            const prefix = prefixes[bin.length === 1 ? 0 : 1];
+            const trackNumbers = bin.map((track) => track.trackNumber!);
+            // Use a collated sort here to make sure we keep numeric ordering.
+            // We can't just parse track numbers to actual numbers here, as the
+            // tracks may reasonably be numbered as strings (e.g. Vinyl sides)
+            return `${prefix} ${collatedSort(trackNumbers).join(', ')}`;
+        });
+
+        return commentChunks.join('; ');
     }
 }

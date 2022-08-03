@@ -16,9 +16,7 @@ interface SCHydration {
 
 interface SCHydrationSound extends SCHydration {
     hydratable: 'sound';
-    data: {
-        artwork_url: string;
-    };
+    data: SCHydrationTrack;
 }
 
 interface SCHydrationPlaylist extends SCHydration {
@@ -32,11 +30,17 @@ interface SCHydrationPlaylist extends SCHydration {
 interface LazyAPITrack {
     artwork_url: undefined;
     id: number;
+    visuals: undefined;
 }
 
 interface LoadedAPITrack {
     artwork_url: string;
     id: number;
+    visuals?: {
+        visuals: Array<{
+            visual_url: string;
+        }>;
+    };
 }
 
 type SCHydrationTrack = LazyAPITrack | LoadedAPITrack;
@@ -96,7 +100,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         }
 
         if (metadata.hydratable === 'sound') {
-            return this.extractCoverFromTrackMetadata(metadata as SCHydrationSound);
+            return this.extractCoverFromTrackMetadata(metadata as SCHydrationSound, onlyFront);
         } else {
             assert(metadata.hydratable === 'playlist');
             return this.extractCoversFromSetMetadata(metadata as SCHydrationPlaylist, onlyFront);
@@ -110,15 +114,27 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         return safeParseJSON<SCHydration[]>(jsonData);
     }
 
-    private extractCoverFromTrackMetadata(metadata: SCHydrationSound): CoverArt[] {
+    private extractCoverFromTrackMetadata(metadata: SCHydrationSound, onlyFront: boolean): CoverArt[] {
         if (!metadata.data.artwork_url) {
             return [];
         }
 
-        return [{
+        const covers = [{
             url: new URL(metadata.data.artwork_url),
             types: [ArtworkTypeIDs.Front],
         }];
+
+        if (!onlyFront) {
+            // Check for backdrop images.
+            const backdrops = this.extractVisuals(metadata.data);
+            covers.push(...backdrops.map((backdropUrl) => ({
+                url: new URL(backdropUrl),
+                types: [ArtworkTypeIDs.Other],
+                comment: 'Soundcloud backdrop',
+            })));
+        }
+
+        return covers;
     }
 
     private async extractCoversFromSetMetadata(metadata: SCHydrationPlaylist, onlyFront: boolean): Promise<CoverArt[]> {
@@ -140,14 +156,24 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
 
         const trackCovers = filterNonNull(tracks
             .flatMap((track, trackNumber) => {
+                const trackImages = [];
                 if (!track.artwork_url) {
                     LOGGER.warn(`Track #${trackNumber} has no track image?`);
-                    return null;
+                } else {
+                    trackImages.push({
+                        url: track.artwork_url,
+                        trackNumber: (trackNumber + 1).toString(),
+                    });
                 }
-                return {
-                    url: track.artwork_url,
+
+                const visuals = this.extractVisuals(track);
+                trackImages.push(...visuals.map((visualUrl) => ({
+                    url: visualUrl,
                     trackNumber: (trackNumber + 1).toString(),
-                };
+                    customComment: ['Soundcloud backdrop for track', 'Soundcloud backdrop for tracks'] as [string, string],
+                })));
+
+                return trackImages;
             }));
         const mergedTrackCovers = await this.mergeTrackImages(trackCovers, metadata.data.artwork_url, true);
 
@@ -192,5 +218,9 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             }
             return loadedTrack;
         });
+    }
+
+    private extractVisuals(track: SCHydrationTrack): string[] {
+        return track.visuals?.visuals.map((visual) => visual.visual_url) ?? [];
     }
 }
