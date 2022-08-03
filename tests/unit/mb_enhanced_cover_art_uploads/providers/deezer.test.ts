@@ -47,7 +47,7 @@ describe('deezer provider', () => {
             }],
         }, {
             desc: 'release with placeholder image',
-            url: 'https://www.deezer.com/de/album/673547',
+            url: 'https://www.deezer.com/us/album/6279837',
             numImages: 0,
             expectedImages: [],
         }];
