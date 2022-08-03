@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.7.28.6
+// @version      2022.8.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -203,7 +203,9 @@
 
       return _call(function () {
         return _await(gmxhr(url, options), function (resp) {
-          if (resp.finalUrl !== url.href && !_this.isSafeRedirect(url, new URL(resp.finalUrl))) {
+          if (typeof resp.finalUrl === 'undefined') {
+            LOGGER.warn("Could not detect if ".concat(url.href, " caused a redirect"));
+          } else if (resp.finalUrl !== url.href && !_this.isSafeRedirect(url, new URL(resp.finalUrl))) {
             throw new Error("Refusing to extract images from ".concat(_this.name, " provider because the original URL redirected to ").concat(resp.finalUrl, ", which may be a different release. If this redirected URL is correct, please retry with ").concat(resp.finalUrl, " directly."));
           }
 
@@ -2398,7 +2400,11 @@
           headers: headers,
           progressCb: (_this5$hooks$onFetchP = _this5.hooks.onFetchProgress) === null || _this5$hooks$onFetchP === void 0 ? void 0 : _this5$hooks$onFetchP.bind(_this5.hooks, id, url)
         }), function (resp) {
-          const fetchedUrl = new URL(resp.finalUrl);
+          if (typeof resp.finalUrl === 'undefined') {
+            LOGGER.warn("Could not detect if URL ".concat(url.href, " caused a redirect"));
+          }
+
+          const fetchedUrl = new URL(resp.finalUrl || url);
           const wasRedirected = resp.finalUrl !== url.href;
 
           if (wasRedirected) {
