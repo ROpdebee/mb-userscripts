@@ -1,4 +1,4 @@
-import { asyncSleep, retryTimes } from '@lib/util/async';
+import { asyncSleep, pFinally, retryTimes } from '@lib/util/async';
 
 afterEach(() => {
     jest.useRealTimers();
@@ -112,4 +112,40 @@ describe('retryTimes', () => {
 
             await expect(prom).toReject();
         });
+});
+
+describe('promise finally polyfill', () => {
+    it('runs the finally handler when promise resolves', async () => {
+        const cb = jest.fn();
+        await pFinally(Promise.resolve(1), cb);
+
+        expect(cb).toHaveBeenCalledOnce();
+    });
+
+    it('runs the finally handler when promise rejects', async () => {
+        const cb = jest.fn();
+
+        await expect(pFinally(Promise.reject(123), cb)).toReject();
+        expect(cb).toHaveBeenCalledOnce();
+    });
+
+    it('rejects the promise if the finally handler throws', async () => {
+        const cb = jest.fn().mockImplementation(() => {
+            throw new Error('123');
+        });
+
+        await expect(pFinally(Promise.resolve(1), cb)).rejects.toThrowWithMessage(Error, '123');
+    });
+
+    it('rejects the promise if the finally handler returns a rejected promise', async () => {
+        const cb = jest.fn().mockRejectedValue(123);
+
+        await expect(pFinally(Promise.resolve(1), cb)).rejects.toBe(123);
+    });
+
+    it('rejects the promise with the value of the rejected finally handler', async () => {
+        const cb = jest.fn().mockRejectedValue(123);
+
+        await expect(pFinally(Promise.reject(1), cb)).rejects.toBe(123);
+    });
 });
