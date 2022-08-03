@@ -49,7 +49,6 @@ describe('spotify provider', () => {
         const extractionFailedCases = [{
             desc: 'non-existent release',
             url: 'https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURi',
-            errorMessage: 'Spotify release does not exist',
         }];
 
         // eslint-disable-next-line jest/require-hook
