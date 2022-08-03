@@ -1,1665 +1,0 @@
-WARC/1.1
-WARC-Filename: soundcloud provider/extracting images/extracts covers for set release with >5 track images
-WARC-Date: 2022-08-03T18:32:43.332Z
-WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:a20c1976-dc46-4165-a912-d135682be351>
-Content-Type: application/warc-fields
-Content-Length: 119
-
-software: warcio.js
-harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:55b25fee-6dd6-4c8e-88f5-4138840a09b3>
-WARC-Target-URI: https://soundcloud.com/schnozz/sets/berdlycore-chapter-2
-WARC-Date: 2022-08-03T18:32:43.332Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:8256b36b-bc76-45a3-95f1-be16799a2004>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:101fdb7fee05881b463b4abb938ce95130f26e546f7716186f472801e8782ee7
-Content-Length: 51
-
-GET /schnozz/sets/berdlycore-chapter-2 HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:55b25fee-6dd6-4c8e-88f5-4138840a09b3>
-WARC-Target-URI: https://soundcloud.com/schnozz/sets/berdlycore-chapter-2
-WARC-Date: 2022-08-03T18:32:43.332Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:f8cd029f-6ecc-42c1-a911-3acf0b116969>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:ccdb5e3344ea0a0a6c2e5b09a477969c4881fa1af71a4a65aeaf995d2acd19cb
-WARC-Block-Digest: sha256:ccdb5e3344ea0a0a6c2e5b09a477969c4881fa1af71a4a65aeaf995d2acd19cb
-Content-Length: 348
-
-harEntryId: 09139dd95c009f6b1d5d638e31360984
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:42.436Z
-time: 254
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":254,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 75
-warcRequestCookies: []
-warcResponseHeadersSize: 984
-warcResponseCookies: []
-responseDecoded: false
-
-
-WARC/1.1
-WARC-Target-URI: https://soundcloud.com/schnozz/sets/berdlycore-chapter-2
-WARC-Date: 2022-08-03T18:32:43.332Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:55b25fee-6dd6-4c8e-88f5-4138840a09b3>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:18bc8afab5a68c5e31008df5e15b4484a4044f8d3173350a09432cbe7a189cc6
-WARC-Block-Digest: sha256:de3e86ed1a36bb9a79ee532d5eae486f075efa2af3b406e41e8b180b39c19444
-Content-Length: 46553
-
-HTTP/1.1 200 OK
-cache-control: private, max-age=0, no-cache, no-store
-connection: close
-content-encoding: gzip
-content-type: text/html
-date: Wed, 03 Aug 2022 18:32:42 GMT
-server: am/2
-server-timing: enabledFeatures; dur=4.946902; desc="api-v2/enabledFeatures", experiments; dur=10.468442; desc="api-v2/experiments", geoip; dur=2.275138; desc="geoip/geoip", resolve; dur=95.024946; desc="api-v2/resolve", privacySettings; dur=12.909375; desc="api-v2/privacySettings", user; dur=7.852209; desc="api-v2/user"
-strict-transport-security: max-age=63072000; includeSubdomains; preload
-transfer-encoding: chunked
-vary: Accept-Encoding
-via: 1.1 f138cee49761f5f7e3b88ec7b66614ee.cloudfront.net (CloudFront)
-x-amz-cf-id: -mjB46ocVj_IMjM6Rqm7oiW8cwQbbTyb4UdfKrtZqA1Ean8J1M4Dzg==
-x-amz-cf-pop: LHR50-P4
-x-cache: Miss from cloudfront
-x-frame-options: SAMEORIGIN
-x-pants: distant-towel
-x-xss-protection: 1; mode=block
-x-pollyjs-finalurl: https://soundcloud.com/schnozz/sets/berdlycore-chapter-2
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="theme-color" content="#333">
-<link rel="dns-prefetch" href="//style.sndcdn.com">
-<link rel="dns-prefetch" href="//a-v2.sndcdn.com">
-<link rel="dns-prefetch" href="//api-v2.soundcloud.com">
-<link rel="dns-prefetch" href="//sb.scorecardresearch.com">
-<link rel="dns-prefetch" href="//secure.quantserve.com">
-<link rel="dns-prefetch" href="//eventlogger.soundcloud.com">
-<link rel="dns-prefetch" href="//api.soundcloud.com">
-<link rel="dns-prefetch" href="//ssl.google-analytics.com">
-<link rel="dns-prefetch" href="//i1.sndcdn.com">
-<link rel="dns-prefetch" href="//i2.sndcdn.com">
-<link rel="dns-prefetch" href="//i3.sndcdn.com">
-<link rel="dns-prefetch" href="//i4.sndcdn.com">
-<link rel="dns-prefetch" href="//wis.sndcdn.com">
-<link rel="dns-prefetch" href="//va.sndcdn.com">
-<link rel="dns-prefetch" href="//pixel.quantserve.com">
-<title>Stream schnozz | Listen to berdlycore chapter 2 playlist online for free on SoundCloud</title>
-<meta content="record, sounds, share, sound, audio, tracks, music, soundcloud" name="keywords">
-<meta name="referrer" content="origin">
-<meta name="google-site-verification" content="dY0CigqM8Inubs_hgrYMwk-zGchKwrvJLcvI_G8631Q">
-<link crossorigin="use-credentials" rel="manifest" href="/webmanifest.json">
-<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no">
-<meta content="19507961798" property="fb:app_id">
-<meta content="SoundCloud" property="og:site_name">
-<meta content="SoundCloud" property="twitter:site">
-<meta content="SoundCloud" property="twitter:app:name:iphone">
-<meta content="336353151" property="twitter:app:id:iphone">
-<meta content="SoundCloud" property="twitter:app:name:ipad">
-<meta content="336353151" property="twitter:app:id:ipad">
-<meta content="SoundCloud" property="twitter:app:name:googleplay">
-<meta content="com.soundcloud.android" property="twitter:app:id:googleplay">
-<link href="/sc-opensearch.xml" rel="search" title="SoundCloud" type="application/opensearchdescription+xml">
-<meta name="description" content="Listen to berdlycore chapter 2, a playlist curated by schnozz on desktop and mobile."><meta property="twitter:app:name:iphone" content="SoundCloud"><meta property="twitter:app:id:iphone" content="336353151"><meta property="twitter:app:name:ipad" content="SoundCloud"><meta property="twitter:app:id:ipad" content="336353151"><meta property="twitter:app:name:googleplay" content="SoundCloud"><meta property="twitter:app:id:googleplay" content="com.soundcloud.android"><meta property="twitter:title" content="berdlycore chapter 2"><meta property="twitter:description" content="https://schnozz.xyz"><meta property="twitter:card" content="player"><meta property="twitter:player" content="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F1371716293&amp;auto_play=false&amp;show_artwork=true&amp;visual=true&amp;origin=twitter"><meta property="twitter:url" content="https://soundcloud.com/schnozz/sets/berdlycore-chapter-2"><meta property="twitter:player:height" content="450"><meta property="twitter:player:width" content="435"><meta property="twitter:image" content="https://i1.sndcdn.com/artworks-uUiTDTZGRAzFvDfK-IUPepQ-t500x500.jpg"><meta property="twitter:app:url:googleplay" content="soundcloud://playlists:1371716293"><meta property="twitter:app:url:iphone" content="soundcloud://playlists:1371716293"><meta property="twitter:app:url:ipad" content="soundcloud://playlists:1371716293"><meta property="al:ios:app_name" content="SoundCloud"><meta property="al:ios:app_store_id" content="336353151"><meta property="al:android:app_name" content="SoundCloud"><meta property="al:android:package" content="com.soundcloud.android"><meta property="og:type" content="music.playlist"><meta property="og:url" content="https://soundcloud.com/schnozz/sets/berdlycore-chapter-2"><meta property="og:title" content="berdlycore chapter 2"><meta property="og:image" content="https://i1.sndcdn.com/artworks-uUiTDTZGRAzFvDfK-IUPepQ-t500x500.jpg"><meta property="og:image:width" content="500"><meta property="og:image:height" content="500"><meta property="og:description" content="https://schnozz.xyz"><meta property="al:web:should_fallback" content="false"><meta property="al:ios:url" content="soundcloud://playlists:1371716293"><meta property="al:android:url" content="soundcloud://playlists:1371716293"><meta property="soundcloud:user" content="https://soundcloud.com/schnozz">
-<link rel="canonical" href="https://soundcloud.com/schnozz/sets/berdlycore-chapter-2"><link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.soundcloud.com/schnozz/sets/berdlycore-chapter-2"><link rel="alternate" type="text/xml+oembed" href="https://soundcloud.com/oembed?url=https%3A%2F%2Fsoundcloud.com%2Fschnozz%2Fsets%2Fberdlycore-chapter-2&amp;format=xml"><link rel="alternate" type="text/json+oembed" href="https://soundcloud.com/oembed?url=https%3A%2F%2Fsoundcloud.com%2Fschnozz%2Fsets%2Fberdlycore-chapter-2&amp;format=json"><link rel="author" href="/schnozz"><link rel="alternate" href="android-app://com.soundcloud.android/soundcloud/playlists:1371716293"><link rel="alternate" href="ios-app://336353151/soundcloud/playlists:1371716293">
-<meta name="application-name" content="SoundCloud">
-<meta name="msapplication-tooltip" content="Launch SoundCloud">
-<meta name="msapplication-TileImage" content="https://a-v2.sndcdn.com/assets/images/sc-icons/win8-2dc974a18a.png">
-<meta name="msapplication-TileColor" content="#ff5500">
-<meta name="msapplication-starturl" content="https://soundcloud.com">
-<link href="https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico" rel="icon">
-<link href="https://a-v2.sndcdn.com/assets/images/sc-icons/ios-a62dfc8fe7.png" rel="apple-touch-icon">
-<link href="https://a-v2.sndcdn.com/assets/images/sc-icons/fluid-b4e7a64b8b.png" rel="fluid-icon">
-<script>!function(){var o,a,r;function e(a){return a.test(o)}o=window.navigator.userAgent.toLowerCase();var i,t,n,s=void 0!==window.opera&&"[object Opera]"===window.opera.toString(),p=o.match(/\sopr\/([0-9]+)\./),d=e(/chrome/),c=e(/webkit/),m=!d&&e(/safari/),w=!s&&e(/msie|trident/),f=!c&&e(/gecko/);i=p?parseInt(p[1],10):(n=o.match(/(opera|chrome|safari|firefox|msie|rv:)\/?\s*(\.?\d+(\.\d+)*)/i))&&(t=o.match(/version\/([.\d]+)/i))?parseInt(t[1],10):n?parseInt(n[2],10):null;var h=e(/mobile|android|iphone|ipod|symbianos|nokia|s60|playbook|playstation/);f&&(r=(a=o.match(/(firefox)\/?\s*(\.?\d+(\.\d+)*)/i))&&a.length>1&&parseInt(a[2],10)>=41),i&&!h&&(d&&!p&&i<49||f&&!p&&!1===r||m&&i<8||w||s&&i<13||p&&i<27)&&(window.__sc_abortApp=!0)}()</script>
-<link rel="stylesheet" href="https://style.sndcdn.com/css/interstate-a86f07cf94ae5a496b24.css">
-
-<link rel="stylesheet" href="https://a-v2.sndcdn.com/assets/css/app-b9d42d732a14e0addbff.css">
-</head>
-<body class="ot-hide-banner sc-classic">
-
-<div id="app">
-<style>.header{width:100%;background:var(--background-surface-color);height:46px}.sc-classic .header{background:#333}.header__logo{background:var(--background-surface-color)}.sc-classic .header__logo{background:#333}body:not(.sc-classic) .header__logoLink{display:flex;flex-direction:column;justify-content:center;align-content:center}.header__logoLink{height:46px;width:48px}.header__logoLink svg{color:var(--primary-color)}.sc-classic .header__logoLink{background:transparent url(https://a-v2.sndcdn.com/assets/images/header/brand-1b72dd8210.svg) no-repeat 0 11px;background-size:49px 22px;display:block;height:46px;width:49px;margin-right:23px}.sc-classic .header__logoLink{background-image:url(https://a-v2.sndcdn.com/assets/images/header/cloud-e365a472bf.png);background-position-x:12px;background-size:48px 22px;width:69px;margin-right:unset}.sc-classic .header__logoLink svg{display:none}.header__logoLink:focus{background-color:rgba(255,72,0,.8);outline:0}#header__loading{margin:13px auto 0;width:16px;background:url(https://a-v2.sndcdn.com/assets/images/loader-dark-45940ae3d4.gif) center no-repeat;background-size:16px 16px}@media (-webkit-min-device-pixel-ratio:2),(min-resolution:192dpi),(min-resolution:2dppx){.sc-classic .header__logoLink{background-image:url(https://a-v2.sndcdn.com/assets/images/header/cloud@2x-e5fba4606d.png)}}</style>
-<div role="banner" class="header sc-selection-disabled show fixed g-dark g-z-index-header">
-<div class="header__inner l-container l-fullwidth">
-<div class="header__left left">
-<div class="header__logo left">
-<a href="/" title="Home" class="header__logoLink sc-border-box sc-ir">
-<svg viewBox="0 0 143 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<path fill="currentColor" transform="translate(-166.000000, -1125.000000)" d="M308.984235,1169.99251 C308.382505,1180.70295 299.444837,1189.03525 288.718543,1188.88554 L240.008437,1188.88554 C237.777524,1188.86472 235.977065,1187.05577 235.966737,1184.82478 L235.966737,1132.37801 C235.894282,1130.53582 236.962478,1128.83883 238.654849,1128.10753 C238.654849,1128.10753 243.135035,1124.99996 252.572022,1124.99996 C258.337036,1124.99309 263.996267,1126.54789 268.948531,1129.49925 C276.76341,1134.09703 282.29495,1141.75821 284.200228,1150.62285 C285.880958,1150.14737 287.620063,1149.90993 289.36674,1149.91746 C294.659738,1149.88414 299.738952,1152.0036 303.438351,1155.78928 C307.13775,1159.57496 309.139562,1164.70168 308.984235,1169.99251 Z M229.885123,1135.69525 C231.353099,1153.48254 232.420718,1169.70654 229.885123,1187.43663 C229.796699,1188.23857 229.119091,1188.84557 228.312292,1188.84557 C227.505494,1188.84557 226.827885,1188.23857 226.739461,1187.43663 C224.375448,1169.85905 225.404938,1153.33003 226.739461,1135.69525 C226.672943,1135.09199 226.957336,1134.50383 227.471487,1134.18133 C227.985639,1133.85884 228.638946,1133.85884 229.153097,1134.18133 C229.667248,1134.50383 229.951641,1135.09199 229.885123,1135.69525 Z M220.028715,1187.4557 C219.904865,1188.26549 219.208361,1188.86356 218.389157,1188.86356 C217.569953,1188.86356 216.87345,1188.26549 216.7496,1187.4557 C214.986145,1172.28686 214.986145,1156.96477 216.7496,1141.79593 C216.840309,1140.9535 217.551388,1140.31488 218.398689,1140.31488 C219.245991,1140.31488 219.95707,1140.9535 220.047779,1141.79593 C222.005153,1156.95333 221.998746,1172.29994 220.028715,1187.4557 Z M210.153241,1140.2517 C211.754669,1156.55195 212.479125,1171.15545 210.134176,1187.41757 C210.134176,1188.29148 209.425728,1188.99993 208.551813,1188.99993 C207.677898,1188.99993 206.969449,1188.29148 206.969449,1187.41757 C204.70076,1171.36516 205.463344,1156.34224 206.969449,1140.2517 C207.05845,1139.43964 207.744425,1138.82474 208.561345,1138.82474 C209.378266,1138.82474 210.06424,1139.43964 210.153241,1140.2517 Z M200.258703,1187.47476 C200.169129,1188.29694 199.474788,1188.91975 198.647742,1188.91975 C197.820697,1188.91975 197.126356,1188.29694 197.036782,1187.47476 C195.216051,1173.32359 195.216051,1158.99744 197.036782,1144.84627 C197.036782,1143.94077 197.770837,1143.20671 198.676339,1143.20671 C199.581842,1143.20671 200.315897,1143.94077 200.315897,1144.84627 C202.251054,1158.99121 202.231809,1173.33507 200.258703,1187.47476 Z M190.383229,1155.50339 C192.880695,1166.56087 191.755882,1176.32196 190.287906,1187.58915 C190.168936,1188.33924 189.522207,1188.89148 188.762737,1188.89148 C188.003266,1188.89148 187.356537,1188.33924 187.237567,1187.58915 C185.903044,1176.47448 184.797296,1166.48462 187.142244,1155.50339 C187.142244,1154.60842 187.867763,1153.8829 188.762737,1153.8829 C189.65771,1153.8829 190.383229,1154.60842 190.383229,1155.50339 Z M180.526821,1153.82571 C182.814575,1165.15009 182.071055,1174.7396 180.469627,1186.10211 C180.27898,1187.7798 177.400223,1187.79886 177.247706,1186.10211 C175.798795,1174.91118 175.112468,1165.0357 177.190512,1153.82571 C177.281785,1152.97315 178.001234,1152.32661 178.858666,1152.32661 C179.716099,1152.32661 180.435548,1152.97315 180.526821,1153.82571 Z M170.575089,1159.31632 C172.977231,1166.82778 172.157452,1172.92846 170.479765,1180.63056 C170.391921,1181.42239 169.722678,1182.02149 168.925999,1182.02149 C168.12932,1182.02149 167.460077,1181.42239 167.372232,1180.63056 C165.923321,1173.08097 165.332318,1166.84684 167.23878,1159.31632 C167.330053,1158.46376 168.049502,1157.81722 168.906934,1157.81722 C169.764367,1157.81722 170.483816,1158.46376 170.575089,1159.31632 Z"></path>
-</svg>
-SoundCloud
-</a>
-</div>
-</div>
-<div id="header__loading" class="sc-hidden"></div>
-</div>
-</div>
-<script>window.setTimeout((function(){if(!window.__sc_abortApp){var e=window.document.getElementById("header__loading");e&&(e.className="")}}),6e3)</script>
-<style>.errorPage__inner{width:580px;margin:0 auto;position:relative;padding-top:460px;background:url(https://a-v2.sndcdn.com/assets/images/errors/500-e5a180b7a8.png) no-repeat 50% 80px;text-align:center;transition:all 1s linear}.errorTitle{margin-bottom:10px;font-size:30px}.errorText{line-height:28px;color:#666;font-size:20px}.errorButtons{margin-top:30px}@media (max-width:1280px){.errorPage__inner{background-size:80%}}</style>
-<noscript class="errorPage__inner">
-<div class="errorPage__inner">
-<p class="errorTitle">JavaScript is disabled</p>
-<p class="errorText sc-font-light">You need to enable JavaScript to use SoundCloud</p>
-<div class="errorButtons">
-<a href="http://www.enable-javascript.com/" target="_blank" class="sc-button sc-button-medium">Show me how to enable it</a>
-</div>
-</div>
-</noscript>
-<noscript><article itemscope itemtype="http://schema.org/MusicAlbum">
-  <header>
-    <h1 itemprop="name"><a itemprop="url" href="/schnozz/sets/berdlycore-chapter-2">berdlycore chapter 2</a>
-by <a href="/schnozz">schnozz</a></h1>
-published on <time pubdate>2021-12-30T18:59:53Z</time>
-
-      <meta itemprop="genre" content="berdlycore" />
-
-
-      
-      <div itemscope itemprop="byArtist" itemtype="http://schema.org/MusicGroup"><meta itemprop="name" content="schnozz" /><meta itemprop="url" content="/schnozz" /></div>
-      <div itemscope itemprop="provider" itemtype="http://schema.org/Organization"><meta itemprop="name" content="SoundCloud" /><meta itemprop="image" content="http://developers.soundcloud.com/assets/logo_white-8bf7615eb575eeb114fc65323068e1e4.png" /></div>
-  </header>
-  <p>
-    <img src="https://i1.sndcdn.com/artworks-uUiTDTZGRAzFvDfK-IUPepQ-t500x500.jpg" width="" height="" alt="berdlycore chapter 2" itemprop="image">
-    
-    <meta itemprop="description" content="" />
-  </p>
-    <dl>
-      <dt>Genre</dt>
-      <dd><a href="/tags/berdlycore">berdlycore</a></dd>
-    </dl>
-    <section class="tracklist">
-      <h2>Contains tracks</h2>
-      <meta itemprop="numTracks" content="13" />
-        <article itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-          <h2 itemprop="name"><a itemprop="url" href="/schnozz/dariacore-is-garbage-imagine-making-it">mashups aren&#x27;t real music imagine making them</a>
-by <a href="/schnozz">schnozz</a></h2>
-published on <time pubdate>2021-12-30T18:59:38Z</time>
-          <meta itemprop="duration" content="PT00H02M39S" />
-  <meta itemprop="genre" content="berdlycore" />
-        </article>
-        <article itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-          <h2 itemprop="name"><a itemprop="url" href="/schnozz/leroy-snares-will-soon-replace-nfts">leroy snares will soon replace NFTs</a>
-by <a href="/schnozz">schnozz</a></h2>
-published on <time pubdate>2022-01-03T07:36:17Z</time>
-          <meta itemprop="duration" content="PT00H02M11S" />
-  <meta itemprop="genre" content="berdlycore" />
-        </article>
-        <article itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-          <h2 itemprop="name"><a itemprop="url" href="/schnozz/virtual-riot-pizza">virtual riot pizza</a>
-by <a href="/schnozz">schnozz</a></h2>
-published on <time pubdate>2022-01-06T12:01:14Z</time>
-          <meta itemprop="duration" content="PT00H02M22S" />
-  <meta itemprop="genre" content="berdlycore" />
-        </article>
-        <article itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-          <h2 itemprop="name"><a itemprop="url" href="/schnozz/some-people-need-to-quit-music">some people need to quit music</a>
-by <a href="/schnozz">schnozz</a></h2>
-published on <time pubdate>2022-01-14T06:51:36Z</time>
-          <meta itemprop="duration" content="PT00H01M34S" />
-  <meta itemprop="genre" content="berdlycore" />
-        </article>
-        <article itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-          <h2 itemprop="name"><a itemprop="url" href="/schnozz/they-did-surgery-on-a-bird">they did surgery on a bird</a>
-by <a href="/schnozz">schnozz</a></h2>
-published on <time pubdate>2022-01-16T15:08:15Z</time>
-          <meta itemprop="duration" content="PT00H02M20S" />
-  <meta itemprop="genre" content="berdlycore" />
-        </article>
-    </section>
-
-
-  <footer>
-      <a href="https://schnozz.bandcamp.com/album/berdlycore-chapter-2">Buy berdlycore chapter 2</a>
-      <ul>
-  <li><a rel="nofollow" href="/schnozz/albums">Albums from this user</a></li>
-  <li><a rel="nofollow" href="/schnozz/sets">Playlists from this user</a></li>
-  <li><a rel="nofollow" href="/schnozz/berdlycore-chapter-2/likes">Users who like berdlycore chapter 2</a></li>
-  <li><a rel="nofollow" href="/schnozz/berdlycore-chapter-2/reposts">Users who reposted berdlycore chapter 2</a></li>
-</ul>
-    License: all-rights-reserved
-  </footer>
-</article>
-</noscript>
-<style>#updateBrowserMessage{width:600px;margin:0 auto;position:relative;padding-top:410px;background:url(https://a-v2.sndcdn.com/assets/images/errors/browser-9cdd4e6df7.png) no-repeat 50% 130px;text-align:center;display:none}#updateBrowserMessage .messageText{line-height:26px;font-size:20px;margin-bottom:5px}#updateBrowserMessage .downloadLinks{margin-top:0}</style>
-<div id="updateBrowserMessage">
-<p class="messageText sc-text-light sc-text-secondary">
-Your current browser isn't compatible with SoundCloud. <br>
-Please download one of our supported browsers.
-<a href="https://help.soundcloud.com/hc/articles/115003564308-Technical-requirements">Need help?</a>
-</p>
-<div class="downloadLinks sc-type-h3 sc-text-h3 sc-text-light sc-text-secondary">
-<a href="http://google.com/chrome" target="_blank" title="Chrome">Chrome</a>
-| <a href="http://firefox.com" target="_blank" title="Firefox">Firefox</a> |
-<a href="http://apple.com/safari" target="_blank" title="Safari">Safari</a>
-|
-<a href="https://www.microsoft.com/edge" target="_blank" title="Edge">Edge</a>
-</div>
-</div>
-<script>window.__sc_abortApp&&(window.document.getElementById("updateBrowserMessage").style.display="block")</script>
-<div id="error__timeout" class="errorPage__inner sc-hidden">
-<p class="errorTitle sc-type-h1 sc-text-h1">Sorry! Something went wrong</p>
-<div class="errorText sc-font-light">
-<p>Is your network connection unstable or browser outdated?</p>
-</div>
-<div class="errorButtons">
-<a class="sc-button" href="https://help.soundcloud.com" target="_blank" id="try-again">I need help</a>
-</div>
-</div>
-<script>function displayError(){if(!window.__sc_abortApp){var r=window.document,e=r.getElementById("error__timeout"),o=r.getElementById("header__loading");e&&o&&(e.className="errorPage__inner",o.className="sc-hidden")}}window.setTimeout(displayError,15e3),window.onerror=displayError</script>
-<p>
-<a href="/popular/searches" title="Popular searches">Popular searches</a>
-</p>
-</div>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/53-aed4402d.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/51-a37b01b3.js"></script>
-<script
-  async
-  src="https://cdn.cookielaw.org/consent/7e62c772-c97a-4d95-8d0a-f99bbeadcf61/otSDKStub.js"
-  type="text/javascript"
-  charset="UTF-8"
-  data-domain-script="7e62c772-c97a-4d95-8d0a-f99bbeadcf61"
-></script>
-<style>
-  body.ot-hide-banner #onetrust-banner-sdk {
-    visibility: hidden;
-    transform: translateY(110%);
-  }
-  #onetrust-banner-sdk {
-    transition: transform 1s ease 200ms;
-    transform: translateY(0%);
-  }
-  body.ot-hide-banner .onetrust-pc-dark-filter {
-    background: initial;
-    width: initial;
-    height: initial;
-    overflow: initial;
-    position: initial;
-  }
-</style>
-<script type="text/javascript">
-  (function (global) {
-    function OptanonWrapper() {
-      var activeGroups = (global.OptanonActiveGroups || '').split(',');
-
-      if (Array.isArray(OptanonWrapper.callbacks)) {
-        for (var i = 0, max = OptanonWrapper.callbacks.length; i < max; i++) {
-          try {
-            OptanonWrapper.callbacks[i](activeGroups);
-          } catch (e) {}
-        }
-      }
-
-      OptanonWrapper.isLoaded = true;
-    };
-
-    OptanonWrapper.callbacks = [];
-    OptanonWrapper.isLoaded = false;
-
-    global.OptanonWrapper = OptanonWrapper;
-  }(window));
-</script>
-
-<script>window.__sc_version="1659536590"</script>
-<script>window.__sc_hydration = [{"hydratable":"anonymousId","data":"754849-968124-617617-90574"},{"hydratable":"features","data":{"features":["mobi_use_onetrust_gb","v2_enable_onetrust_user_id","v2_use_new_report_as_spam","v2_peace_ukraine_logo_takeover","v2_use_onetrust_tcfv2_eu1","v2_ie11_support_end","mobi_google_one_tap","v2_use_onetrust_eu2","mobi_enable_onetrust_tcfv2","mobi_use_onetrust_eu1","v2_use_onetrust_user_id_eu2","v2_enable_sourcepoint_tcfv2","mobi_peace_ukraine_logo_takeover","mobi_use_onetrust_tcfv2_eu2","v2_test_feature_toggle","checkout_send_segment_events_to_event_gateway","mobi_use_onetrust_user_id_eu1","mobi_enable_onetrust_user_id","mobi_use_onetrust_user_id_ex_us","mobi_use_onetrust_tcfv2_eu1","v2_post_with_caption","mobi_use_onetrust_eu4","featured_artists_banner","v2_repost_redirect_page","v2_use_onetrust_gb","mobi_use_onetrust_user_id_global","use_onetrust_async","v2_signals_collection","v2_track_level_distro_to_plan_picker","v2_direct_support_link","v2_hq_file_storage_release","mobi_use_onetrust_user_id_eu2","v2_use_onetrust_eu4","v2_stories_onboarding","v2_enable_onetrust","v2_import_playlist_experiment","v2_disable_sidebar_comments_count","v2_use_onetrust_us","checkout_use_recurly_with_paypal","v2_use_onetrust_tcfv2_ex_us","mobi_use_onetrust_eu3","mobi_use_onetrust_elsewhere","v2_use_onetrust_eu3","mobi_use_onetrust_us","v2_oscp_german_tax_fields_support","v2_use_onetrust_user_id_ex_us","v2_use_new_connect","v2_use_onetrust_tcfv2_eu2","v2_send_segment_events_to_event_gateway","v2_use_onetrust_eu1","v2_enable_sourcepoint","v2_repost_with_caption_graphql","mobi_use_onetrust_tcfv2_ex_us","v2_tags_recent_tracks","mobi_use_onetrust_eu2","v2_enable_new_web_errors","v2_use_onetrust_elsewhere","mobi_sign_in_experiment","mobi_enable_onetrust","v2_can_see_insights","v2_count_frontend_errors","mobi_trinity","v2_google_one_tap","v2_enable_pwa","mobi_use_hls_hack","v2_stories","v2_use_onetrust_user_id_eu1","v2_use_onetrust_user_id_global","use_recurly_checkout","v2_show_side_by_side_upsell_experience","v2_enable_onetrust_tcfv2","v2_enable_tcfv2_consent_string_cache","mobi_send_segment_events_to_event_gateway"]}},{"hydratable":"experiments","data":{"reco_listening":{"experiment_name":"hackedsounds","variant_id":2531,"variant_name":"uploads_first"}}},{"hydratable":"geoip","data":{"country_code":"LU","country_name":"Luxembourg","region":"LU","city":"Luxembourg","postal_code":"L-1661","latitude":49.6113,"longitude":6.1294}},{"hydratable":"privacySettings","data":{"allows_messages_from_unfollowed_users":false,"analytics_opt_in":true,"communications_opt_in":true,"targeted_advertising_opt_in":false,"legislation":[]}},{"hydratable":"trackingBrowserTabId","data":"edb137"},{"hydratable":"user","data":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","city":"","comments_count":615,"country_code":null,"created_at":"2021-11-16T12:01:14Z","creator_subscriptions":[{"product":{"id":"creator-pro-unlimited"}}],"creator_subscription":{"product":{"id":"creator-pro-unlimited"}},"description":"https://schnozz.xyz","followers_count":2057,"followings_count":168,"first_name":"","full_name":"","groups_count":0,"id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","likes_count":957,"playlist_likes_count":4,"permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","playlist_count":3,"reposts_count":null,"track_count":39,"uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"visuals":{"urn":"soundcloud:users:1052305921","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168865623","entry_time":0,"visual_url":"https://i1.sndcdn.com/visuals-001052305921-jut5Hv-original.jpg","link":"https://schnozz.xyz"}],"tracking":null},"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921","url":"/schnozz"}},{"hydratable":"playlist","data":{"artwork_url":"https://i1.sndcdn.com/artworks-uUiTDTZGRAzFvDfK-IUPepQ-large.jpg","created_at":"2021-12-30T18:59:53Z","description":"","duration":1840719,"embeddable_by":"all","genre":"berdlycore","id":1371716293,"kind":"playlist","label_name":"schnozz records","last_modified":"2022-06-25T14:37:04Z","license":"all-rights-reserved","likes_count":114,"managed_by_feeds":false,"permalink":"berdlycore-chapter-2","permalink_url":"https://soundcloud.com/schnozz/sets/berdlycore-chapter-2","public":true,"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-04-05T00:00:00Z","reposts_count":17,"secret_token":null,"sharing":"public","tag_list":"EDM Mashup dariacore Complextro House glitch Riddim","title":"berdlycore chapter 2","uri":"https://api.soundcloud.com/playlists/1371716293","user_id":1052305921,"set_type":"album","is_album":true,"published_at":"2021-12-30T18:59:53Z","display_date":"2021-12-30T18:59:53Z","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","city":"","comments_count":615,"country_code":null,"created_at":"2021-11-16T12:01:14Z","creator_subscriptions":[{"product":{"id":"creator-pro-unlimited"}}],"creator_subscription":{"product":{"id":"creator-pro-unlimited"}},"description":"https://schnozz.xyz","followers_count":2057,"followings_count":168,"first_name":"","full_name":"","groups_count":0,"id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","likes_count":957,"playlist_likes_count":4,"permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","playlist_count":3,"reposts_count":null,"track_count":39,"uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"visuals":{"urn":"soundcloud:users:1052305921","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168865623","entry_time":0,"visual_url":"https://i1.sndcdn.com/visuals-001052305921-jut5Hv-original.jpg","link":"https://schnozz.xyz"}],"tracking":null},"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"},"tracks":[{"artwork_url":"https://i1.sndcdn.com/artworks-yoUvkke3DYAEqITD-GMybkw-large.jpg","caption":null,"commentable":true,"comment_count":92,"created_at":"2021-12-30T18:59:38Z","description":"","downloadable":true,"download_count":250,"duration":159138,"full_duration":159138,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1187457787,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-25T14:39:15Z","license":"all-rights-reserved","likes_count":674,"permalink":"dariacore-is-garbage-imagine-making-it","permalink_url":"https://soundcloud.com/schnozz/dariacore-is-garbage-imagine-making-it","playback_count":16661,"public":true,"publisher_metadata":{"id":1187457787,"urn":"soundcloud:tracks:1187457787","artist":"schnozz","contains_music":true,"isrc":"QZS652275888"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2021-12-31T00:00:00Z","reposts_count":65,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"berdlycore edm Riddim dariacore hyperpop","title":"mashups aren't real music imagine making them","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1187457787","urn":"soundcloud:tracks:1187457787","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1187457787","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168309450","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1187457787/0bdc3d44-7404-42df-9976-8c604fd056c1.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/m28tvcsnLJwt_m.json","display_date":"2021-12-30T18:59:38Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1187457787/eb17e56a-869d-4312-a601-1dd79120ee33/stream/hls","preset":"mp3_0_1","duration":159138,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1187457787/eb17e56a-869d-4312-a601-1dd79120ee33/stream/progressive","preset":"mp3_0_1","duration":159138,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1187457787/16b9d97c-8873-41dd-956a-b6345632ad05/stream/hls","preset":"opus_0_0","duration":159109,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1187457787","station_permalink":"track-stations:1187457787","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6IjExODgyZmI3LWQwMDAtNDhhOS1hYTQ4LWQ3MDBjNGFiNTM2NyIsImlhdCI6MTY1OTU1MTU2Mn0.D_LrJUviv1J7dr1JOXWhas83aRj8uBIxJA_X0jmBq3g","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-eh0RgebiFGvwW3RW-M5SDfw-large.jpg","caption":null,"commentable":true,"comment_count":95,"created_at":"2022-01-03T07:36:17Z","description":"","downloadable":true,"download_count":243,"duration":131814,"full_duration":131814,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1189294882,"kind":"track","label_name":"schnozz records","last_modified":"2022-07-13T09:52:44Z","license":"all-rights-reserved","likes_count":641,"permalink":"leroy-snares-will-soon-replace-nfts","permalink_url":"https://soundcloud.com/schnozz/leroy-snares-will-soon-replace-nfts","playback_count":17042,"public":true,"publisher_metadata":{"id":1189294882,"urn":"soundcloud:tracks:1189294882","artist":"schnozz","contains_music":true,"isrc":"QZMHK2208887"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-01-03T00:00:00Z","reposts_count":63,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"chill Hardstyle EDM","title":"leroy snares will soon replace NFTs","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1189294882","urn":"soundcloud:tracks:1189294882","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1189294882","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310548","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1189294882/68955d63-267f-44c9-9de0-700017d04e8b.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/xLuJ7HIwFEqN_m.json","display_date":"2022-01-03T07:36:17Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1189294882/14168108-9e5b-410d-845c-fc8b5201f902/stream/hls","preset":"mp3_0_1","duration":131814,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1189294882/14168108-9e5b-410d-845c-fc8b5201f902/stream/progressive","preset":"mp3_0_1","duration":131814,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1189294882/a7edaef9-634a-4066-9125-bf118c6d91b8/stream/hls","preset":"opus_0_0","duration":131788,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1189294882","station_permalink":"track-stations:1189294882","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6IjVlMjYwMjA3LTg1NTItNDNkMi1hNzhiLTMyNDM1YmZjOTYwOSIsImlhdCI6MTY1OTU1MTU2Mn0.XRnzj0fNF-Wo0Jua8EVsSaE18PxWXR3VJZw7vzDNsmA","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-JFkiVOKkRgNdAmyM-t2qdSQ-large.jpg","caption":null,"commentable":true,"comment_count":41,"created_at":"2022-01-06T12:01:14Z","description":"","downloadable":true,"download_count":174,"duration":142080,"full_duration":142080,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1191333769,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-25T14:39:32Z","license":"all-rights-reserved","likes_count":315,"permalink":"virtual-riot-pizza","permalink_url":"https://soundcloud.com/schnozz/virtual-riot-pizza","playback_count":8584,"public":true,"publisher_metadata":{"id":1191333769,"urn":"soundcloud:tracks:1191333769","artist":"schnozz","contains_music":true,"isrc":"QZMHK2281037"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-01-06T00:00:00Z","reposts_count":30,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"berdlycore Riddim EDM","title":"virtual riot pizza","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1191333769","urn":"soundcloud:tracks:1191333769","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1191333769","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310569","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1191333769/e1dead86-742b-4d0f-a353-028fe5f7b273.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/dADixYzMobHL_m.json","display_date":"2022-01-06T12:01:14Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1191333769/b01373ec-bf80-438e-9386-09ba056402c8/stream/hls","preset":"mp3_0_1","duration":142080,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1191333769/b01373ec-bf80-438e-9386-09ba056402c8/stream/progressive","preset":"mp3_0_1","duration":142080,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1191333769/849395d8-a8c8-4297-a9b9-631d80201bce/stream/hls","preset":"opus_0_0","duration":142051,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1191333769","station_permalink":"track-stations:1191333769","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6Ijc1OWRlZGMxLWJjZTUtNGIzOC1iNGQ4LTY2Y2FjZWVjOTdjYyIsImlhdCI6MTY1OTU1MTU2Mn0.OFgSHqJCgZKnltofYjbxSnNAPoA9G-HLZ2wPzqOQbfw","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-fdXeVZXyRVZBTyG6-ECkkOw-large.jpg","caption":null,"commentable":true,"comment_count":42,"created_at":"2022-01-14T06:51:36Z","description":"","downloadable":true,"download_count":177,"duration":94929,"full_duration":94929,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1196335063,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-25T14:39:39Z","license":"all-rights-reserved","likes_count":276,"permalink":"some-people-need-to-quit-music","permalink_url":"https://soundcloud.com/schnozz/some-people-need-to-quit-music","playback_count":7855,"public":true,"publisher_metadata":{"id":1196335063,"urn":"soundcloud:tracks:1196335063","artist":"schnozz","contains_music":true,"isrc":"QZMHK2238433"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-01-14T00:00:00Z","reposts_count":27,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"berdlycore glitchcore","title":"some people need to quit music","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1196335063","urn":"soundcloud:tracks:1196335063","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1196335063","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310584","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1196335063/5732f405-7880-4fb9-b730-7bd70e8ef287.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/vW5ZARtiVqkW_m.json","display_date":"2022-01-14T06:51:36Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1196335063/af2fea16-37dd-4356-8df8-ba15138a3bd7/stream/hls","preset":"mp3_0_1","duration":94929,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1196335063/af2fea16-37dd-4356-8df8-ba15138a3bd7/stream/progressive","preset":"mp3_0_1","duration":94929,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1196335063/f2d55a64-1b56-496d-96a2-f5e4e2b52236/stream/hls","preset":"opus_0_0","duration":94904,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1196335063","station_permalink":"track-stations:1196335063","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6IjA5OWEwNjI3LWRiNWQtNGFhNS1hMDA0LTRkM2FiYTYwZTk0MSIsImlhdCI6MTY1OTU1MTU2Mn0.mHODYGe8mxTmgVmor5ZQgg-5YOxk3Mo-dMHwEZ9HskM","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-g2pyd9Qyi6Tcsvrm-ILNB8A-large.jpg","caption":null,"commentable":true,"comment_count":38,"created_at":"2022-01-16T15:08:15Z","description":"","downloadable":true,"download_count":174,"duration":140095,"full_duration":140095,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1197531298,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-25T14:39:46Z","license":"all-rights-reserved","likes_count":345,"permalink":"they-did-surgery-on-a-bird","permalink_url":"https://soundcloud.com/schnozz/they-did-surgery-on-a-bird","playback_count":8919,"public":true,"publisher_metadata":{"id":1197531298,"urn":"soundcloud:tracks:1197531298","artist":"schnozz","contains_music":true,"isrc":"QZS672288583"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-01-17T00:00:00Z","reposts_count":36,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"berdlycore edm","title":"they did surgery on a bird","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1197531298","urn":"soundcloud:tracks:1197531298","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1197531298","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310593","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1197531298/8462e35b-8b8d-48dd-9a97-997632a61251.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/x8HgOvaG0Njp_m.json","display_date":"2022-01-16T15:08:15Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1197531298/aacdd448-1217-4720-88db-1c82d3b68a53/stream/hls","preset":"mp3_0_1","duration":140095,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1197531298/aacdd448-1217-4720-88db-1c82d3b68a53/stream/progressive","preset":"mp3_0_1","duration":140095,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1197531298/7a7c7908-19f4-443a-b6a8-b8d0316420c2/stream/hls","preset":"opus_0_0","duration":140050,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1197531298","station_permalink":"track-stations:1197531298","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6ImFmOGUwODBhLWY1MDktNGIyNy1hZDgzLTQ2ZmU0ZjljODFhMSIsImlhdCI6MTY1OTU1MTU2Mn0.2nN6dZSz6Z4bZPH3yS8cvnmcUwDA2ACh_ffgrRqRI9w","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"id":1206535378,"kind":"track","monetization_model":"NOT_APPLICABLE","policy":"ALLOW"},{"id":1209801382,"kind":"track","monetization_model":"NOT_APPLICABLE","policy":"ALLOW"},{"id":1220800159,"kind":"track","monetization_model":"NOT_APPLICABLE","policy":"ALLOW"},{"id":1223242327,"kind":"track","monetization_model":"NOT_APPLICABLE","policy":"ALLOW"},{"id":1226802859,"kind":"track","monetization_model":"NOT_APPLICABLE","policy":"ALLOW"},{"id":1228992703,"kind":"track","monetization_model":"NOT_APPLICABLE","policy":"ALLOW"},{"id":1234600513,"kind":"track","monetization_model":"NOT_APPLICABLE","policy":"ALLOW"},{"id":1241291857,"kind":"track","monetization_model":"NOT_APPLICABLE","policy":"ALLOW"}],"track_count":13,"url":"/schnozz/sets/berdlycore-chapter-2"}}];</script>
-
-
-
-<script src="https://a-v2.sndcdn.com/assets/19-451c59af.js" crossorigin></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/52-9bb26655.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/1-e603bba0.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/3-20d97df4.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/2-753b4828.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/0-4e399491.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/50-eecc0bf5.js"></script>
-</body>
-</html>
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:1c48211e-f09f-4258-8b2d-c6be127f9f4d>
-WARC-Target-URI: https://api-v2.soundcloud.com/tracks?ids=1206535378%2C1209801382%2C1220800159%2C1223242327%2C1226802859%2C1228992703%2C1234600513%2C1241291857&client_id=S6H4wBXupPt9pXl3wpa8Yh2WOdMsoCby
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:db53cd64-6844-4cc4-a2fe-b9c7f3bfd97e>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:7f89acb8bed8f16c6ea02a1293e4f91304a3de27203962276de6cdbf477cc67f
-Content-Length: 173
-
-GET /tracks?ids=1206535378%2C1209801382%2C1220800159%2C1223242327%2C1226802859%2C1228992703%2C1234600513%2C1241291857&client_id=S6H4wBXupPt9pXl3wpa8Yh2WOdMsoCby HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:1c48211e-f09f-4258-8b2d-c6be127f9f4d>
-WARC-Target-URI: https://api-v2.soundcloud.com/tracks?ids=1206535378%2C1209801382%2C1220800159%2C1223242327%2C1226802859%2C1228992703%2C1234600513%2C1241291857&client_id=S6H4wBXupPt9pXl3wpa8Yh2WOdMsoCby
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:19f9f75c-99a4-440d-be18-33723a033ec4>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:c4fcf4a9b68550ea7ee311aab150ad984340fb3c7fcac28994f836f236f048ed
-WARC-Block-Digest: sha256:c4fcf4a9b68550ea7ee311aab150ad984340fb3c7fcac28994f836f236f048ed
-Content-Length: 349
-
-harEntryId: 766c27d7688885d528afd869f7fc4036
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:42.692Z
-time: 216
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":216,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 204
-warcRequestCookies: []
-warcResponseHeadersSize: 772
-warcResponseCookies: []
-responseDecoded: false
-
-
-WARC/1.1
-WARC-Target-URI: https://api-v2.soundcloud.com/tracks?ids=1206535378%2C1209801382%2C1220800159%2C1223242327%2C1226802859%2C1228992703%2C1234600513%2C1241291857&client_id=S6H4wBXupPt9pXl3wpa8Yh2WOdMsoCby
-WARC-Date: 2022-08-03T18:32:43.332Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:1c48211e-f09f-4258-8b2d-c6be127f9f4d>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:25f2e2cfd91a7ab3a3f0b8b16a8dc284319cbbcdd7634d2fe1936713a0177c3e
-WARC-Block-Digest: sha256:a0ce9d66116cc4dcdfe17271260dd963f56b41b5df24af7210083034d35868fb
-Content-Length: 28647
-
-HTTP/1.1 200 OK
-cache-control: private, max-age=0
-connection: close
-content-encoding: gzip
-content-length: 4991
-content-type: application/json; charset=utf-8
-date: Wed, 03 Aug 2022 18:32:42 GMT
-referrer-policy: no-referrer
-server: am/2
-strict-transport-security: max-age=63072000
-vary: Origin
-via: 1.1 b481802150ed76eaa37311e413a69c2a.cloudfront.net (CloudFront)
-x-amz-cf-id: Tbt3kbuYmZ6q_PqNuXWDTgXqYJK6dkSyfQyPB0zKgS5uA7NX8yICUg==
-x-amz-cf-pop: LHR50-P5
-x-cache: Miss from cloudfront
-x-content-type-options: nosniff
-x-frame-options: DENY
-x-robots-tag: noindex
-x-pollyjs-finalurl: https://api-v2.soundcloud.com/tracks?ids=1206535378%2C1209801382%2C1220800159%2C1223242327%2C1226802859%2C1228992703%2C1234600513%2C1241291857&client_id=S6H4wBXupPt9pXl3wpa8Yh2WOdMsoCby
-
-[{"artwork_url":"https://i1.sndcdn.com/artworks-sl0CLeY34hplVJyA-rPieVg-large.jpg","caption":null,"commentable":true,"comment_count":40,"created_at":"2022-03-18T13:47:23Z","description":"","downloadable":true,"download_count":148,"duration":125518,"full_duration":125518,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1234600513,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-25T14:40:44Z","license":"all-rights-reserved","likes_count":352,"permalink":"ch2-p12-his-pronouns-are-theythem","permalink_url":"https://soundcloud.com/schnozz/ch2-p12-his-pronouns-are-theythem","playback_count":8670,"public":true,"publisher_metadata":{"id":1234600513,"urn":"soundcloud:tracks:1234600513","artist":"schnozz","contains_music":true,"isrc":"QZS672236056"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-03-19T00:00:00Z","reposts_count":38,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"berdlycore Complextro House","title":"his pronouns are they/them","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1234600513","urn":"soundcloud:tracks:1234600513","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1234600513","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310923","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1234600513/ef0205f4-b01c-4d9f-9ab0-f35d2ced5277.png"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/wNp8MhyNrmFd_m.json","display_date":"2022-03-18T13:47:23Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1234600513/254611ec-6cf3-49ba-8864-3f8f968113ac/stream/hls","preset":"mp3_0_1","duration":125518,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1234600513/254611ec-6cf3-49ba-8864-3f8f968113ac/stream/progressive","preset":"mp3_0_1","duration":125518,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1234600513/2ce0c5a6-62e8-405f-9244-d8f111944188/stream/hls","preset":"opus_0_0","duration":125498,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1234600513","station_permalink":"track-stations:1234600513","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6IjYxODM2YTQxLTRkNTgtNDY3ZS04NDk2LTUxMWVjOWQzNTFkMSIsImlhdCI6MTY1OTU1MTU2Mn0.5f0webxKcXslJWZHxwYR7USrYq0_gGcOjz9x5uuBhM4","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-bvAUoFjZhG5yUFYl-0G8uIg-large.jpg","caption":null,"commentable":true,"comment_count":49,"created_at":"2022-02-27T06:53:35Z","description":"","downloadable":true,"download_count":188,"duration":125231,"full_duration":125231,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1223242327,"kind":"track","label_name":"schnozz records","last_modified":"2022-07-27T12:48:36Z","license":"all-rights-reserved","likes_count":391,"permalink":"ch2-p9-they-asked-me-how-we-got-here-i-told-them-sir-this-is-an-arbys","permalink_url":"https://soundcloud.com/schnozz/ch2-p9-they-asked-me-how-we-got-here-i-told-them-sir-this-is-an-arbys","playback_count":11044,"public":true,"publisher_metadata":{"id":1223242327,"urn":"soundcloud:tracks:1223242327","artist":"schnozz","contains_music":true,"isrc":"QZMHL2276795"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-02-27T00:00:00Z","reposts_count":44,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"edm hyperpop cute \"OMFG Style\"","title":"they asked me how we got here, i told them 'sir, this is an arby's'","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1223242327","urn":"soundcloud:tracks:1223242327","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1223242327","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310884","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1223242327/51ea592a-7cc8-4583-a14e-29e0a1503cf5.webp"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/QtExmEuJjRb9_m.json","display_date":"2022-02-27T06:53:35Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1223242327/328d1326-0707-4b6b-99d4-56311883b010/stream/hls","preset":"mp3_0_1","duration":125231,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1223242327/328d1326-0707-4b6b-99d4-56311883b010/stream/progressive","preset":"mp3_0_1","duration":125231,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1223242327/af9748b2-0a45-4d45-9d60-c613f07d8adc/stream/hls","preset":"opus_0_0","duration":125202,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1223242327","station_permalink":"track-stations:1223242327","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6IjRlZDcxY2NkLWRhZDktNDY0YS04NjRkLWQ2OTIyNmJmODc5MyIsImlhdCI6MTY1OTU1MTU2Mn0.zwfdjDveWpQsNEZ2Gg1Jh0DX6CfBvW6t8vJxk_qDdxA","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-6R2UAOzPcEkB9BR2-Rj2ulQ-large.jpg","caption":null,"commentable":true,"comment_count":47,"created_at":"2022-01-30T13:12:45Z","description":"","downloadable":true,"download_count":153,"duration":193228,"full_duration":193228,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1206535378,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-25T14:39:53Z","license":"all-rights-reserved","likes_count":355,"permalink":"ok-google-what-the-bird-doin","permalink_url":"https://soundcloud.com/schnozz/ok-google-what-the-bird-doin","playback_count":9624,"public":true,"publisher_metadata":{"id":1206535378,"urn":"soundcloud:tracks:1206535378","artist":"schnozz","contains_music":true,"isrc":"QZS642235493"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-01-31T00:00:00Z","reposts_count":37,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"berdlycore Dubstep","title":"ok google what the bird doin","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1206535378","urn":"soundcloud:tracks:1206535378","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1206535378","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310956","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1206535378/3a2c489a-41ce-479f-b855-1f27f5c98424.png"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/i8kLKw77ERtL_m.json","display_date":"2022-01-30T13:12:45Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1206535378/747d9859-6049-44e3-aab8-2aa4a17eb91e/stream/hls","preset":"mp3_0_1","duration":193228,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1206535378/747d9859-6049-44e3-aab8-2aa4a17eb91e/stream/progressive","preset":"mp3_0_1","duration":193228,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1206535378/a9f467d6-a526-43c6-b756-560f704a80eb/stream/hls","preset":"opus_0_0","duration":193198,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1206535378","station_permalink":"track-stations:1206535378","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6ImY5ZmViYmY4LTc3OTctNGMyZC05NTViLThjZGZlZTg3ZjMyYiIsImlhdCI6MTY1OTU1MTU2Mn0.Wmmx3C3YYMuEerfbhEyoViXHhSXvG77vGoXrMO_9jy0","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-EoGAZO3UCil8jy2W-um45yw-large.jpg","caption":null,"commentable":true,"comment_count":55,"created_at":"2022-02-04T15:16:12Z","description":"@saycarbine","downloadable":true,"download_count":214,"duration":115513,"full_duration":115513,"embeddable_by":"all","genre":"","has_downloads_left":true,"id":1209801382,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-25T14:40:15Z","license":"all-rights-reserved","likes_count":492,"permalink":"none-of-it-matters-if-were-all-gonna-fall","permalink_url":"https://soundcloud.com/schnozz/none-of-it-matters-if-were-all-gonna-fall","playback_count":13928,"public":true,"publisher_metadata":{"id":1209801382,"urn":"soundcloud:tracks:1209801382","artist":"schnozz","contains_music":true,"isrc":"QZS642272857"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-02-05T00:00:00Z","reposts_count":59,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"hyperbounce edm Dubstep arm9 Glitch Riddim lol","title":"none of it matters if we're all gonna fall","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1209801382","urn":"soundcloud:tracks:1209801382","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1209801382","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310638","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1209801382/286a8995-419d-4fd6-a5b7-b0612678220e.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/M8guVPxk7vfn_m.json","display_date":"2022-02-04T15:16:12Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1209801382/3c0b480d-d9db-4513-88cc-d1ef1ac507a7/stream/hls","preset":"mp3_0_1","duration":115513,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1209801382/3c0b480d-d9db-4513-88cc-d1ef1ac507a7/stream/progressive","preset":"mp3_0_1","duration":115513,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1209801382/4dd5a2ea-f97e-4324-8453-d5a64d091c10/stream/hls","preset":"opus_0_0","duration":115475,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1209801382","station_permalink":"track-stations:1209801382","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6ImMxYzI0NTBmLThiOGEtNDkwMi04YTRhLWQ2Nzk4NWZmMDNmZSIsImlhdCI6MTY1OTU1MTU2Mn0.PSFHqN4TYi6y_ZP92sRlOp7fLbJ_8bzE0sdmCehKr-8","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-Zslz8sQ1b9V4zQE7-SAIsbA-large.jpg","caption":null,"commentable":true,"comment_count":67,"created_at":"2022-03-05T08:03:12Z","description":"","downloadable":true,"download_count":180,"duration":142942,"full_duration":142942,"embeddable_by":"all","genre":"","has_downloads_left":true,"id":1226802859,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-25T14:40:31Z","license":"all-rights-reserved","likes_count":487,"permalink":"ch2-p10-its-always-a-good-time-for-complextro","permalink_url":"https://soundcloud.com/schnozz/ch2-p10-its-always-a-good-time-for-complextro","playback_count":12048,"public":true,"publisher_metadata":{"id":1226802859,"urn":"soundcloud:tracks:1226802859","artist":"schnozz","contains_music":true,"isrc":"QZS642260047"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-03-05T00:00:00Z","reposts_count":54,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"berdlycore Complextro Mashup EDM House","title":"it's always a good time for complextro","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1226802859","urn":"soundcloud:tracks:1226802859","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1226802859","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310899","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1226802859/65b8b332-2eb6-4db3-b854-0bb5a9ec029f.png"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/IPELR54enIku_m.json","display_date":"2022-03-05T08:03:12Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1226802859/15f0d648-b577-46e3-b1d1-b678ed44ad0c/stream/hls","preset":"mp3_0_1","duration":142942,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1226802859/15f0d648-b577-46e3-b1d1-b678ed44ad0c/stream/progressive","preset":"mp3_0_1","duration":142942,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1226802859/bf3bd93f-05f2-4307-bc0e-324128229cc2/stream/hls","preset":"opus_0_0","duration":142912,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1226802859","station_permalink":"track-stations:1226802859","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6IjFkM2FmNWIxLWVkYTctNGNjMi1iY2QxLTk4ZGEwMmQ4ZTVmYyIsImlhdCI6MTY1OTU1MTU2Mn0.QYG45cDm4cnjVlYdi-vEWpQYUMb12-HKjWz7In0MZ2s","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-2zOxNu96XOMpscQk-mlxgVA-large.jpg","caption":null,"commentable":true,"comment_count":27,"created_at":"2022-03-09T06:41:06Z","description":"","downloadable":true,"download_count":157,"duration":163971,"full_duration":163971,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1228992703,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-25T14:40:37Z","license":"all-rights-reserved","likes_count":273,"permalink":"ch2-p11-spotify-shut-down-today-so-that-wed-have-to-listen-to-schnozz","permalink_url":"https://soundcloud.com/schnozz/ch2-p11-spotify-shut-down-today-so-that-wed-have-to-listen-to-schnozz","playback_count":6647,"public":true,"publisher_metadata":{"id":1228992703,"urn":"soundcloud:tracks:1228992703","artist":"schnozz","contains_music":true,"isrc":"QZS672280052"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-03-09T00:00:00Z","reposts_count":27,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"Hardstyle Riddim Mashup atonal edm","title":"the internet shut down today so that we'd have to listen to schnozz","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1228992703","urn":"soundcloud:tracks:1228992703","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1228992703","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168310914","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1228992703/5bcf6ce6-b173-4c9f-90c1-4c1ea0256d6a.png"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/Opy0G7hzqjLd_m.json","display_date":"2022-03-09T06:41:06Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1228992703/4ce43863-60cf-46e1-9df6-30afef1b9380/stream/hls","preset":"mp3_0_1","duration":163971,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1228992703/4ce43863-60cf-46e1-9df6-30afef1b9380/stream/progressive","preset":"mp3_0_1","duration":163971,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1228992703/88f2fc8c-2f73-4303-9313-82eb32f56570/stream/hls","preset":"opus_0_0","duration":163931,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1228992703","station_permalink":"track-stations:1228992703","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6ImZhMzUzMWRmLTQwMmMtNDgzNi1iYzFiLTRiZDRmMjhiNDQ4MCIsImlhdCI6MTY1OTU1MTU2Mn0.nACWUBSi435gneYhJQsSOiO1B68ckdWIWt_3H6v56G4","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-x8IeRUAqCuCqgQnF-a4VWTQ-large.jpg","caption":null,"commentable":true,"comment_count":77,"created_at":"2022-03-30T11:22:37Z","description":"","downloadable":true,"download_count":206,"duration":136542,"full_duration":136542,"embeddable_by":"all","genre":"berdlycore","has_downloads_left":true,"id":1241291857,"kind":"track","label_name":"schnozz records","last_modified":"2022-06-28T08:37:43Z","license":"all-rights-reserved","likes_count":575,"permalink":"ch2-p13-unlucky-number","permalink_url":"https://soundcloud.com/schnozz/ch2-p13-unlucky-number","playback_count":12908,"public":true,"publisher_metadata":{"id":1241291857,"urn":"soundcloud:tracks:1241291857","artist":"schnozz","contains_music":true,"isrc":"QZMHK2233591"},"purchase_title":null,"purchase_url":"https://schnozz.bandcamp.com/album/berdlycore-chapter-2","release_date":"2022-03-30T00:00:00Z","reposts_count":64,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"\"OMFG Style\"","title":"unlucky number","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1241291857","urn":"soundcloud:tracks:1241291857","user_id":1052305921,"visuals":{"urn":"soundcloud:tracks:1241291857","enabled":true,"visuals":[{"urn":"soundcloud:visuals:168311145","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:1241291857/7b564673-2f65-4be9-93ed-362a6cac599d.png"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/g0eQKf46FIdW_m.json","display_date":"2022-03-30T11:22:37Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1241291857/9645ef40-77b5-40ce-aa4e-1f95d1b1d60e/stream/hls","preset":"mp3_1_0","duration":136542,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1241291857/9645ef40-77b5-40ce-aa4e-1f95d1b1d60e/stream/progressive","preset":"mp3_1_0","duration":136542,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1241291857/537d9c72-0baa-4d32-9e9b-bdd9f32c037e/stream/hls","preset":"opus_0_0","duration":136499,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1241291857","station_permalink":"track-stations:1241291857","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6IjMwMWU5MDJiLWQyNjMtNDY1MC04ZTFiLWQwNTU5N2EyNzk3NCIsImlhdCI6MTY1OTU1MTU2Mn0.t8KXWQglO1LQ_MAhg0L7wNhM8-VYX8UhoDI0lzSQggk","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-NEBEzC47nfgINXn1-Zzrizg-large.jpg","first_name":"","followers_count":2057,"full_name":"","id":1052305921,"kind":"user","last_modified":"2022-08-02T19:10:02Z","last_name":"","permalink":"schnozz","permalink_url":"https://soundcloud.com/schnozz","uri":"https://api.soundcloud.com/users/1052305921","urn":"soundcloud:users:1052305921","username":"schnozz","verified":false,"city":"","country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1052305921","station_permalink":"artist-stations:1052305921"}},{"artwork_url":"https://i1.sndcdn.com/artworks-EDPDWGrEXAHG4syB-tM44mw-large.jpg","caption":null,"commentable":true,"comment_count":29,"created_at":"2022-02-22T22:54:27Z","description":"FOLLOW SCHNOZZ:\n@schnozz\nhttps://twitter.com/aytanner_\n\nWE'RE BACK FOR ROUND 2!!\n\nat 10PM CST on the 18th of February, 2022, our discord members were tasked with making songs within 24 hours to create our second comp.  with genres ranging from ambient to hyperflip to punk, snare society vol. 2 showcases the incredible musicians in our server and gives them a way to get their music heard.\n\n58 tracks, 65 artists, and LOTS of snares.  we hope you enjoy. <3\n\njoin the discord:\nhttps://discord.gg/885VPzSc8A\n\ncover art:\n@elii4h","downloadable":false,"download_count":0,"duration":169718,"full_duration":169718,"embeddable_by":"all","genre":"","has_downloads_left":false,"id":1220800159,"kind":"track","label_name":null,"last_modified":"2022-04-18T13:20:42Z","license":"all-rights-reserved","likes_count":515,"permalink":"schnozz-virgin-aspiring-vgm","permalink_url":"https://soundcloud.com/snaresociety/schnozz-virgin-aspiring-vgm","playback_count":13602,"public":true,"publisher_metadata":{"id":1220800159,"urn":"soundcloud:tracks:1220800159","contains_music":true},"purchase_title":null,"purchase_url":null,"release_date":"2022-02-20T00:00:00Z","reposts_count":32,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"snare hyperflip berdlycore \"chapter 2\" \"Jersey Club\" Riddim","title":"schnozz - virgin aspiring vgm musician vs. chad hyperflip producer","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/1220800159","urn":"soundcloud:tracks:1220800159","user_id":1075278817,"visuals":null,"waveform_url":"https://wave.sndcdn.com/7RJF96PaTfRd_m.json","display_date":"2022-02-23T04:31:15Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1220800159/646dd4b0-1edd-4542-84d1-5ed353396390/stream/hls","preset":"mp3_0_1","duration":169718,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1220800159/646dd4b0-1edd-4542-84d1-5ed353396390/stream/progressive","preset":"mp3_0_1","duration":169718,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:1220800159/80f3027b-7614-4caf-bdce-365f5ccf345f/stream/hls","preset":"opus_0_0","duration":169682,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:1220800159","station_permalink":"track-stations:1220800159","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJMVSIsInN1YiI6IiIsInJpZCI6IjNjOGI4NDM3LTZlNGItNDYxOC04MDEwLWY5NWI3NTY4YmQxMSIsImlhdCI6MTY1OTU1MTU2Mn0.PObFXYNo4bTsBqoJzgiEzbi2L_b9Zwy3tEXfBoq4xAY","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-YEzY4BOgqiJ7cg5L-y7tkAQ-large.jpg","first_name":"","followers_count":562,"full_name":"","id":1075278817,"kind":"user","last_modified":"2022-05-04T00:47:43Z","last_name":"","permalink":"snaresociety","permalink_url":"https://soundcloud.com/snaresociety","uri":"https://api.soundcloud.com/users/1075278817","urn":"soundcloud:users:1075278817","username":"snare society","verified":false,"city":null,"country_code":null,"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1075278817","station_permalink":"artist-stations:1075278817"}}]
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d524a867-48c5-4aad-a491-0eb2626dc95c>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-uUiTDTZGRAzFvDfK-IUPepQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:2cd45d4d-d9f4-4114-a23a-0d044f34cdc8>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:4da8ffc9d9a6638f66460c7f1abf7ca5d5cf69a69b9e046fe6e6987c9d5b7233
-Content-Length: 60
-
-GET /artworks-uUiTDTZGRAzFvDfK-IUPepQ-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d524a867-48c5-4aad-a491-0eb2626dc95c>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-uUiTDTZGRAzFvDfK-IUPepQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:02360738-da26-422b-9733-53f2771f7903>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:df8dd3969e464ed4eb6d7f53763bc1587f2ccec9363e07d53c50a20d5fb2d0d8
-WARC-Block-Digest: sha256:df8dd3969e464ed4eb6d7f53763bc1587f2ccec9363e07d53c50a20d5fb2d0d8
-Content-Length: 384
-
-harEntryId: abdbe7cd5db4de26b57fdbd4f04b4bde
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:42.909Z
-time: 254
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":254,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 587
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-uUiTDTZGRAzFvDfK-IUPepQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:d524a867-48c5-4aad-a491-0eb2626dc95c>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:4d180381a3c20f24b4f9f109fd6652b79daa5a53eb343e804845d9c44c10cf9c
-WARC-Block-Digest: sha256:44eadaf32437fa029418baa4249e94e9e7dac61f02fa28aa9f76920518972202
-Content-Length: 4386
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-cache-control: public,max-age=3628800
-connection: close
-content-length: 3782
-content-type: image/jpeg
-date: Wed, 03 Aug 2022 18:32:43 GMT
-via: 1.1 70ac0c77136f38f37d334f7cae0b6c42.cloudfront.net (CloudFront)
-x-amz-cf-id: mLFevFW6kt9aAiY56-TpV8Trzi_3ZlggzK3dDhDKSM7KHu-A9fH4zQ==
-x-amz-cf-pop: LHR50-P5
-x-cache: Miss from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-uUiTDTZGRAzFvDfK-IUPepQ-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ            	ÿÄ C 	     !1Qa"A$2q#B‘’3Rb¡³Á4t‚±&DS¢´ÑÒáğÿÄ             ÿÄ 8        !1A"QRSaq‘’¡±ÑÁáğ#rBbÂñÿÚ   ? şYµåUóXšÅ–Ò•æShHº;w¢«CSx³.J™:´hSĞ¥‘*ywœmd¡e:}İ?Ò'-Ãe­jù¨˜ğJ¾Ñ¡d?dÿ Ú$i#7Ò5¬¯l
-0_xgˆQyÖ?ÀJÓ·rö†X>úÇøOä7\ÿ ßoaõjK‡ï·°ú„¥))7Jˆ=A´J&_Á÷­Ğ¬˜2|£Û«˜t!°;’läö×9‘%5ÍlI^˜O‰*3	k–VáN\£ék‚>¾¹wÒ–åË’í İ)XÍsûJ#×é¦ÑöeAa,Ë‚jùo¡YõQïş‚+”Z Ø&öIbœñ2k±()q#rƒ{}7¨Qs+n$¼6Hìô‰˜”R’q\†ÑÃ{“û£rø‘ªy(eµ5˜X¾›sUóô·anäÇTä1ú~u!Ä“ JŒÑµóMJ²a÷2¬|À½ ˆ¼­dZz…üŒËç¤ôQƒÏôH›Uî"7*Sr,¤õ6I§­¿¤NÀS*&É)P·P¡f›•ÎÅ5=ŞSÊ$fJ“e ıáÒ.*_–è(9›Zs!]G~ãcË°¥-‘tæ©××·xØğÎ™5YÆ¹:k,¿4ÜÒfeÛuô²•©²¤«DæJH¹õ4lïÄ]åJ¬E6§!™zG¢Ì)%VºR, Ğ·õ†5ôÎŸî2¿ÈDl8§…e¨nÑ*Ï-ÇñŠêHS¨p2âZJP,<»vŒ½y¿|goî2¿ÈD>«œÛCAä?ê•F£+=fPï"óJ¥¥š}0ÚÜZÎˆ@ºÈzé§^b—);#F—	æLÔFb¤fE›øMıI$zGÚºSO$©M0¿<ÁĞ”5‡M®4Ş$fLÒUOSòŒºH›Qx”…6m–ö: A#Ôß×H‰¨	Ç!ëöõìWCfIÈ~~}•Je~³-?;"Ì™f–ÊKákCd%d”
-ï·×Hò÷†\ -²‡¦å¾5T‚5&ö9v  5ûÑÕ?³í~ŠßéÒ‘ézu ør~}ãñ³8Õîl‘Éï¥ıc!9Mm¬h³IœñŞÒ™um% •‚êì	Ô[KíøC^ği´Îzkÿ ?
-£N³êZßAÍ0HA‘Ş?"%bƒSÎ©D‘æRˆæt=rXcõ«3
-ı–¼©ú¨ÿ Aõ6)LªU´7% Ôº(h’oÒä“¾½÷…K Œò¬fOüy›ıòş$Â]V0œ;¼ı“Ş#:°óöÅ@ÃSóç*fö¹>hüÄ!‹sÓ@O´V]>Íµ(×¸ş…ñÈ;Šæíš"V1	mhZ€RU¥Ó–éÿ Ô; ÒYu‡&_%Ã(DªV>ÖàœÚ›Øe¶‚ıÇª¹³ÌX™S¿ºr÷‡”ğ¥¥¶¬ya$º	Rcl–ŸXÅ&
-Õ6bV›Rh˜†¶Ô¼Â}….‰B—'Q•)C¡ù‚Õ•AJ n/}„M+µc¹:ı™g*4u¨†_ISG:
-3JH]Æ£qøA…›Æ˜ëÙNMH-ºúß—KªCÃ(p›XH×Qhë8…NpÓ»Wb¼äÛr¦ËOS›Õq)77;µ½-¶[«wúšy7³L{VE¿mlinÎµ;RA ‡aŒ1íÁs\%Ã¹üc‹Z•ÃÔ4âz­}%ÙY4<•Ë’è .4µÎÆãîWø|ûIÇü?b–êÕáÛ<rÚ@ËåYÙ6„¸6§‡¤j2îâ‰Êû©Z‹ÇXmôùB•›[ÌlGHÖbš×
-jxV©ìù¾'Mâ@[4µT¦™rXãš]Ô«à½­ëkÁM®5jb2î’F?Äû&p…fÓm´Ò¶2…ñbo]‘p½"¡äÖG5’N\H—äi“-ÒĞÈjr^T”´¯Ö¥
- ÙJÔƒ½¶Ù–«Éá)I¢ºN?8ÚØEA‚Ûi
-'Íkf$£P,-VU:BY4Y¹¦\t©S"öƒdÿ Ë¦Ÿ˜ªË!é‡]™˜)%dhµºêUkã=y}Vå;Î1M¤»<ç™ÈZ¹œkM¨“Q–”K(».™jCAHP¹œÊ7l«Ì¡rÏÎ$”CUUáê¬ÜÛJ
-4ºHÇqËRT…$ØÀµŞ0ßpA±m§ cÏb`¶)jâ_0ó+×©Tªzœ•@æª˜.	7½·&Ú[Ã4Ì„‰ÏX˜LÖfÑÚUèS¼xò]s´1ƒA1 IŒ\Í7$ÛÉÏRÜägPq”‰¦}@
-#BOXHõ6Vf´%©Ş!şk‰Kk˜@R’æ$ ÖöNÂ:F=‘ÂÎI±?†1^2¯×ç¦Vº“U*—JA¹ÎÎ¢µkè7Œõ2I/‰¤¦­=4Ûk’ì#” ÒÅÂÈU¼Ùoq¨$\o­E¡·Äê;ŒwDb0Å6Âãm T`AÄIİ˜8`SJ®¦Ñêsröª8©7KF ÄğKo(nPYHOML®nj]µ L"šÚùi6a·P,F—	Òÿ =`…ÒsC ÄõÆ~KNåñn·Éqç¨O$²ëL2Ò®€Qko¬2¦¦¢ú”ÂQ0ZqH. “”„«Bm®—;k–[‚jìiQûFs+Ş·>^İÌI'Á¼<Rj ºÙ+÷­öímZc0¾{ı]³À{»ïÔ¹öj·)X˜¯ÀAuMªUjNŠRoeh¢~‘¨u¬SU—zZeu©¶Ö›–\}kJ¬AØ›FŠO…tYu2¶—P
-w2Uï>‚ı»·/ÃúkE¥¡ê€+uh>ñè3vì"õ=£M­ºfğ‡f‚¤â4ùõ$Mpk<Ê
-¢£˜ —*Í%I¸Ø‚t=¡>0áv$¡ĞŞ™i©9µ•%´·!:‰—n£k„ “õî#oú r“1PºŸ)?oésÛ´A;éÌJL8·gCnYH\Ù@(Òã2EÆ—ÔCn²H§¿ì¬SáUT Ô0O3ëyq,1‡qêí°ŠuAaÔ.é-*Ä'sÓCoÆ4gÚ¨µ2ÄÛ¶R[V'2¬?ÿ İÑ¤ë˜¡õ«VXŸ˜å1,º|Û6K)%%%-')º•p³©Mc¸‡„_gJ"NYn²Ze­¶”¤œ»•Ü›ª×QÔv;k¶¶›ø§g.Ué¶wÛeµ:•"7€rŒ	ú)[ÁuîKºM@8•-6[ ÀoĞÜGì¸ïÂµ„èå¦'ådÃ‹D¸Ì‰äKemĞå³³%(Ôf¿”ùcƒMàùg<ğqÙwHæ%¹g–›QùA$ÚãÔ˜¸ÿ iğİT–çğ¾f0È­ Î%ğ¥ê.ÿ '“¾‰ÖÂñFµ¢›®–ƒ!P£Â[¥ÕCpÕ‡.9ç’ÙU8Ä™Z3Ó¸¥‰§ñr²"bœpğkÂ§ ‡ˆÈ»\¦Àz^8º¥1kµŠJnVªôíMÅ930§”¥¢¡¶¤Ş5‡É¬‰ófs~¿×^Ğ#È©m‚üı”Îcöşºvïk²6.´ˆ¦BH‚L;IX6~ìú‹f\I&èHx±‰'^èÅU¨x»Prv«%Rš™q(IvbêYJO­’amåğ<ƒ’í-OÏæR?oêGÊk²´@’°xebœow}×g‹ØÆéµe±ËFTû£[iû½„X”â¦/qIO¶Ú@i6MåÛòö~ÓÚŸ†,±2R£l»E65‡0½ÙV…¾ìº,Ÿ±kî%2X%'Âµÿ x¿-Œ1c«J?IYHA+Â5¹¿î÷1ÎéóÅ/(ù>XhÅL¥Ë^İbİ:t5jáÙv.…¾ì·¤¸«Oö¡WıÑ­ÿ /x$ÅJ+0B—˜Öÿ —´cı®¾Aíuôjº²óT~bè[áËS+VÄrAÁ-‰%ĞRT«J5©·İí?5^šqÇ&1#K[¤.ß§ùc;íuôjk¯£Pn¬ÜÕ1³ì€È¤Ùş#ÙkS_ÅimŒPÑJÓ”æ–h›|ò÷Šj~º¥©G1™bÄøvûşïxÏ{]}ƒÚëèÔ«/5ÙöFåI¾ì¶'b²I8¡‹”å>èÖß–‰±ZJHÅ])Ê=Ñ­¿/hÇ{]}ƒÚëèÔ«/7ÕCáv…¾ì¶HÅ±´%Å,¤ =Ñ­‡ù`Œoµ×Ñ¨ İYy¾«Ÿ
-°ô-ğeÏÛ6¼J‡,M­ãêU–2Zªü»Ç9Ğm›˜)Uì![Ny‘(rŞÆÔ!r?z&z&ó{AÍíŞ”BeâÏDÁâÏDÂŞoh9½ Ş”BeâÏDÁâÏDÂŞoh9½ Ş”BeâÏDÁâÏDÂŞoh9½ Ş”BeâÏDÁy½ ƒzQ
-œA—W¶¾#ò‰`‚ „A4" ‚ B ‚ˆ ‚/ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d7cb2f0e-d291-49cd-94de-bd9a555fe7a9>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-EDPDWGrEXAHG4syB-tM44mw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:81275781-3f81-429e-b012-12ed46163890>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:ec0d452944e83498a6787306d0225d4673a3c099cbfe199f159dc85a3e3462de
-Content-Length: 60
-
-GET /artworks-EDPDWGrEXAHG4syB-tM44mw-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d7cb2f0e-d291-49cd-94de-bd9a555fe7a9>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-EDPDWGrEXAHG4syB-tM44mw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:e057838e-199f-4e5d-86a3-127b9e2e72ea>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:b73fbd46c5845b2e35e667af2a3adaa4bb7d9cce12ee27ff028f0bc4d75579f5
-WARC-Block-Digest: sha256:b73fbd46c5845b2e35e667af2a3adaa4bb7d9cce12ee27ff028f0bc4d75579f5
-Content-Length: 384
-
-harEntryId: 05fbf59efeac9b6cedb338742f3ef0fd
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 128
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":128,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 599
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-EDPDWGrEXAHG4syB-tM44mw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:d7cb2f0e-d291-49cd-94de-bd9a555fe7a9>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:4aedd875644900ff13a88a9051ebd10cd8f221a18ecf58c9e2d15398a1879486
-WARC-Block-Digest: sha256:bb1ff9ad40eb79cf3220b65843a9e8a5a5aef2581c01489cc5c5578f1f6571f3
-Content-Length: 8087
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135583
-cache-control: public,max-age=3628800
-connection: close
-content-length: 7471
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:00 GMT
-via: 1.1 c0c9e4c8829632f96f7d87dcb86a7c0e.cloudfront.net (CloudFront)
-x-amz-cf-id: V-Mzl_VHQHD0EASm-xHoYt_AddtJIim7gXxy491AfGUJXpFKjfdKFQ==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-EDPDWGrEXAHG4syB-tM44mw-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ             ÿÄ < 	   !1"A2Q#aqB¡$%3CRSr‘b±²ÁğÿÄ            ÿÄ ;      ! 1AQa"q±‘¡ğRÁÑ#BCbñ235’¢¤áÿÚ   ? Û>]°}]æÕ®å¨]µ$Ê×kFò2¬‰@;Äî*|ÿ ©Ÿ¶9”hNF²Lğ1h%RHe?ÜÖôúæ:—-Íå2œ|V©Ü%ÁÏ"ÙQMDqFÊÒ1#m°;¿ú<}¤ÙÍÿ ‰)é­Å¾O“±5¬UAfZOb?ª2
-Æ°ÚÌÉ 	ŞÛı?UáÊWÓCí0¥ï«ñÆ¿]Æğ$­P+ğL;[¼×Ó,V+šÿ 9Îó;±ÕÍÈìÓå+G:ÂÑXë¤£±”i‰‹°ìşz"¯é}
-õÖœ÷â¹M»´²a¡,ªÿ ún{‚.üƒã¤¥/â¯ëe«x4àÃÕ‘Ì:Égb­$£±&ÇiB/Ş­¦#¸)ß#Û—‘ú+Æ0’r‡¹Épn?Õç°R‰M5÷%Ù·äı©—íF=£DtÈ3İé+% ø±RS¥çÓî7Á°XÜ|Uab£`Ê5Ç„ûªÚVDØĞ×Ûã[èÆ»U†Y&z°}T€!¶	yuøÓÇößA¸,ö2<|ÖqñÍbª¯Ô §/Ô8‰?qXÉ²W´­lumË6_Ö5zÏ’˜å÷Yv¥È<èøüuÓê)@V…(Ø}O,SJŸRô­@»úOÖø¶îÕ–”L¦HÈM ÿ b:°¥“1Y
-Ÿ#Ë†üô²Ìä-Ôœ®ad­-ooéD
-VÌ¢®®|ìyC^Gªëú‡.*2îòÍú1I<Rî ˆ'gäƒ¯ÿ  õ=6_S\„¸¤t/ğ‘óÇÏg¡ß
-¶âcæ4Y¯z»Åf8äT*ñÈ¡•ğA‘Ğ¨tğ¼O‡1–Õœ6³¢:Ç	
-± KŒP»TlÎº¬â¼úŒìÈÇÛÿ ¼FÑìü‘à?=òÇò.5‘§—˜GµY¡¸åüÆ’'È>Aø?ã¨\£zÛ[7YâÒ¡|+±>„ñú¶æj¾e2QäV%–¤X¤D5ä–f!ˆ+±ãÏo¬ï?©¼Ìò^A…Äåò×1TmÚ”Æµáw¹ôò—Xa‘ÈHØ"Æ4H!K'·»­=Ç¹6:#C	Ç«K\T†$¯¶XÇÚ¬ÇZò o-½uç ?ÂïåYKx¬Ús¬ÈÊóI3^MÃù$ S_i'H ì ½I™3X´ ­SnFØâ’ ¼¥)i‹Àùü0ÅşyåŒ¯¢XœŠ[ÖnÙ6´ÄJÁ=çìË¥#´h|§V\saı ãx¾'×ïÅŠ¯Û‹jlLêÎÍ÷² ó   êt¶rÊ·<hBˆ88È%€q³>¶zzÿ çÜbUª­>Åi¬EsX“Ù1¤ñw‘İı4
-vÿ uİ?T£æüN\-Y«\ÍáÍ|*‘¤¹og»İRhØ¨%4ÌºnÙj…aóÕ=FÍYö±Ù-c±	1úù£¿,ò‰eÛö¨@âM  |ƒçgŞœz’ô·ƒ×äY¼¶pr£)ØX=×C#vö’ªAÜÔ—H sëÜúÄÄvÇ4Å`w÷sŸ!Œ¤#Éâù&Ú»G)=õm[†ca,¯·2ş¢˜(u v‚$èl2½4ôú<çÍÕÊ®N9Ú­TÁN6·Zt.¦&"6È»‰íífñåzz¯ã:ÑØ£Æ1tQ+ÅèçY;¤
-{¤Ú{‹:ßs¨ñäOäõ8şC=*IS/iš­xßÙxAPı¿jïËwyÖˆü°Måù©	S±*ØLòÿ ñF£<BXi&Üş\ı~xõáü“•`¸w£ˆ“(´ğxÈh±­LÎìÑ¯µÜâ¬S`”yğt:èµËòU4–³ïM¬ª$VV6^Øöê øŒ÷0`Ì	!Hİã¡|NvK”í–óÉ²Õ–»äŸP¨%şıâ@'ËlŞ6~ezUå.™¨s°Ø¯¢æÏºcŞÂ‘¿#døò:…ÊÍ^Åı‡@Şñ{sûA—ıú¡
-XXëG1Ó”}F=ãç,­«•.ä„5†ZñZ¥´vYÁíWî_¸÷w€ ;Y~{/â2¥í1#‘†ô5!ï—ììh‚45®­²9~!4Ø80ö[±ucÍX0kV„ ´„h²2ë·mÜ46İäé¥…Ëªç.Z²äd"”öX÷êˆîuÿ Ib>Ğ@'@š2œÊŒó IÕ„“hckIˆÅ¥}ö‰R‚Tyzmn¶¿#ËÜzk³²ÜÆŞš¼4Ú4H¤»ôf@I=Í¿-¿¹FÆ¾İöŸ›ô/×©ƒy313kqåVc0…ÕI$®Áî	 4mÖ·Ò[âb5jqMeÜÄØ"iØl»˜ø4 ÏMm¾N@-vØµ‰—Ş„¤=«\5ø?·Î¿±è_æ-4BÒF£Ëœwé„:,Ç2ªÌŠV“ a—Æc¸İø­á0øÊ‘]H\…Ö&´¿­I]~¶?«¦îÒü¿CvûrLÉÚvuä÷x:Ù |ô©à™'ÎánÕÅ­aS†b%—Û
-¥D«ó °ı€ xèw5‡âü¯#O1šõ(Ç)†lmß§’HÜ¡m‘åÁ(¤ì |õ^“\À*LÒş§~Ø~[/5âMç©Œ|?ò	æ²_1ÖàeHfSçöıC©ÒÏ‹s¼ÂÁN<İ§{R!,¨  w,c»È?qÙ>wÔêÂ²º”)j@ç~ÒGñLöÛñLGÊİÑ^¥§Å²8xˆ–tyK˜#’_±d×€§lT‘Út}‰õjÔ„¹<Bœõén•’ÎÎ
-0Ht¡T)ûw¿×í×ã+›©õ8~;ÛL,–$‚ÎXRà¨r$Q¾Ğt»×lh¾\¡½Ú÷²WïÔãßAjşC'aRGD‰‚éTK»²¨­“±½tVœeÔ ¥-™Pj¹´Û¤I‰É‘ÖmÆõî©g.l:PJJŠ¼"âñ Ø›¨–®µëæZi(Ï,QZ·I™ã±"tb¥H¿ooƒ÷ğz©ŸÔ|Æf»³äéS²Ÿb¤Şä„*ƒÚ©ö•Îñ­~]õ½^Gg‹Øá—æ³ƒä&D³rÜ+bä‡îf
-HcÓƒ±ÜWxO@éòÙ°öxÎC7ü¢î`ãíÏ{ì¼HÈZí<o¢>|ó×5…jÖ¤ o°ÂÓîÂ*ó®4®:¦ BA. ‘
-™ 'ìä¯É]˜ò¬q1¡Ôq¬ˆÏà"~ òzä‰g©­_”TA`•#šqŞv>Gg“çì¶Û0ÿ Ø™±v/.róûUÜQCS	ái5u‘	]ßãÉu¾€°<2”^«G„±îØ§Y‹•@gÔ}à05¿ùt'2Ì2ì·/¨®R%,¡K0‘0‘¨mÎ*¢ƒ‰¬¦¥uÅúÒ„’êÈ•ÂĞÛõğSZV™ZÅĞv#œ–UÖ´}½köÿ ]b'Ïñì¤–0¼™jXµl¶cÇ	ÒŸéoıMøüŸ=2yK3r×(­ÅòQã¥â˜¸¯%%ª®nEµ÷ˆcú{”è#}ñ<1å<fŞYyÓ1ÊÔÄãajq‘rÔíå{µö„_¸‘ÒKÄM›e­fĞ°†İHP
-yz¡PS:iÈ¸ Ø˜ç±Ã.c”å¹^bº]R§¨„$ ¨šlA@&Ğ‰¥¡œÏã'IcËâ¦v—İf||…™Î‡s°ˆ1:QçUõË3Ó‚ÄíÛÕÔ÷b"%ĞíPAğu½ø?şˆd§jŞG)„ã¦1äØ¨¬³Ñ~=ìÅ+×ViQ&;û[DtË9W*ã®3tr³ÿ b…şÏ¢‰=ê:voG»ôo~>~:îª—ˆ3KôÄòıûÉ?*pybTfLeRûy…@	Üû6\ f¥bA"F÷éAÏl›2ŞÆÇj„‘™,{ÓsÌt@gÀ,ÇÆ†€òHêÎ?¾ğ4vQñùkçJÒ*-€2;®»Y×¼(UF_$‘ä7ê§"±«K=%J’L‹=…¥†$$w0P£»Cg[ó®˜­’kØLÎG†ó÷äràj}eÜuŞ>i,µû‚>¤ñàhÿ ~®Ó+¢Ò„Ò°#ùÎ˜÷ıÚ>?9e¿i™Uk$>ãôm¦Ì'Âj	U‡ğ§ÈN
-§ÇÒ:\êİFË¤hòËwZYƒ(`ìQ$ìşIñç©Õß§-ê_ƒ1ÜŸ»Ø¶ÙÜ¤¢ÂJŠ»_¢Jèşw³¢Hêtè¬ÉI:I¿šGÊpáK_GTÂj
-T×Ÿv3Çâ5!õJ®9zïòç·*ø“îÉ*(~×ˆ¨mì€×İûuÇüBñü×¯Æ¤â¬×£ÌÉ!µG-$’,1:†Ò¼1v¿İµ4FÎÆ´~å9T|{Å×“ñêlqdÊdqõíÉ
-c…‚òVş°R»Å¹îû|mW[èŠ´xÃf…;\¼9„RÈ*&t»Eí©fŞúIóàèt›˜ñ-w¶ÓÑ:áâAgOüİA¶ò8C¢û0N\µ¼CO2HJ‹ºâ ‚iÉ”oÌE±ãÃøŠf=0¡ŸşQŸ¿‘Èd,×·ÃeUa¬‘¢it,Ì³|tËÊz'„Ç`±óãó<ü“ªwÀ™'"¿ô"“ZŠ´ºû‡ßóç¥e¼ç¥,©s‚ÉBı’w_“íoÛzşãÿ ¾TÏñ}İ¼B¬AO“6]“ğOÁò~?ûuÀÏs¤¤eUŞô×ÿ ±…:º\„U½/Ó ¨ÙP4^à»~ó£Ñ`pqq~%s¼¦[Üƒ#=6¥_7˜„RF¨öG—ï$o@äŸ=Zãğ¼úÃWÅ²÷óóÔ["şFvS?ií5½ö~â	Ş€Èñ»ÆDQÈxu.ÉAş|<ø?ßûÌua‰åØî:óËÇ8Æ:¥¦·Ş|º:ë ŸŸ ÛûtŠs÷5Éjè)ò—‚ŞBĞ
-—N5‚$úŒ$Bşğû-iKVıs:Z[k:QPU‚BAa"VD’Mi›|¦!ëô7²ll¾İLŠ7ÃÕš! ÿ …bØucÍ-c=1åŸñ
-·á³âÙ8ò™Kpå’igVÙ×Ïd
-ƒıÏJœ­<Ÿ ËØ·vjs[´ıîVÔzøğİà 5ÿ Ç\‰Ç,¶µ.<l‘£v!­yû¼tíÃ9!Ë2j*'–
-™iTlJS¦Gmã	ù×=W_Zó.¼§Ná*XQI®”MísÃßÂ2GÔîIÌósâ"ãRE–šÑå`N³Ç(ˆ"«–%‹®†ºÌğ,¿©Ü#ÙáC}1X3Jê6F^	–y«+¸?=)Æb{ØåßÑ?Èîë†ïjQxŞiá{‰ÿ aÑÄÓªB‚ÄÖçß¿\w:`¶ªuS¨6½D~-J(6:"< F’o¾ñ¾YÅs~1Œæ+Z*¹ŒŒpÊ°İB#=©cÛä7Ÿ÷4½IÆrü&”WÀñ>€ãn)®âä®-OIdÚ+u˜ïHH³Ò3Æ­g-cHY¼¯ 1Bºm÷ºÖÉ~Dâøÿ IcÈ¢r^@@á«±+>Í$m¨Ûd 1ğv#]>Ã¥IP@7¿˜3ƒü;×Ô0â§SM«ùŠPL".‰P2L&7‚yà2.kW«fÆV-ßªÊ¤<ıÄyñÿ .§Z/‚r>#Åğ"‡/ànîR9Ÿİ’Õ”kÀt$“ù'}N†½Eš©dé#°R?÷ÍğÓÈir¢ “¨‰=c—–w0÷9¿¦Ôq•—ÿ p¸£ÇÍôô+YŠÅhL¤xü „¢±^ãçezíôWŒä¹rl«½YE‰ëĞjò×ûk¹ûß´á'aµ@Ù hhtB=[Å`#úœ¦/!=|Ò%š•WÇ‰?¨^Uğ[j[¹İ¶İÃ_¥ƒõK¤1O‘©“”ÚÛGÛ4ÎH«&õö «¿¯ø è]Sn‡ Û¯×Õ±¨-å6ˆÚ~£åë„õ?J²™I|Ã*"Ìè$sØ]J¯º>5 ö hx"ÇúGŒ´â¼1Ó¢Vi^xœ¸V  ›:b6ïÑ”Ü—ÆÕÅ\Ä€CŠm#¢e*Ç[å¶ƒù'XÎ9‹¿+œfCğÁ\du];g*€^ß‚úGÖ_MÄ¼VûTjöb~üÿ ]±ŸWğû¹f’ô)À6÷Î+8ï£|ÆW!”kHŠWÚ½4!k»±Tù·¯°ùèK–z}Äğô¦·JnPöÉô²XÉIİ}„fM K(ßù: 2°°×­[6€¡)îe´K¢	$yîIWÁıùéoŠâ9¾1hòjP\HöÑØ’#E‘‡•:?# 9T?
-rHç†Ú¾Èƒ*$ÿ Hƒ¡ı¥É1›œ'/ŸÊY³?±z´£‘ëí¾Ó)fŠ@b<ïäueèï£1d&’?PV<…Nô*Ù‚?a'{]ğÚÑØûŸß‹Ô¬_#ş½J¡•£5«\rÿ ˜2bD÷ÂÆ½ÒV™@¼.Ôèì©%üÜƒÈø+•‹	².‹÷Z9w*Ä†íğÿ 'áwç]5;Vàli2•lyØÏd©)>S…ôcâyn[!ÌpJiGuVŒWì4âhŒ`‰4à’›Ğ=ßp;é¡É¹/á\{¼f–"˜°¦¤IØ‚@']\ÅæoòËµiòT¡ˆZíÈõ3&€h:íu­èïñùªÌæñg0˜¼¦¥Æ[+ZÉ·)Nçòÿ ¯}ªÇÈó½şÿ ‘=:Y}ä)õH"D@#|\{.£¢c]#)B¿¥ G{	Âo#‡ÍàiËlIU3°½½ÆàË3©½Øh‚>à5ğxó¾¿\Ò‹§äc­Y!«Æ¶Æ !·Ş4êaäìüƒ®šùÜ6'#Ånå¸üPÇ#ä˜× ªdq]*ù =şu¿ÕãÊ¨1Õ²~ŠÅzFDKqı†å~â;‰Ù×…Ò(îmÓe1PÓ³YØölz[~½pd¯—½£ÂSbNó?ö&ZÕ^@Öl\Y6íÈ¢Qà†‰‰ò	Ù?Ÿí³:¾—)‹n×ÊÚÆã®¸ÜñÆeuvÙà	£íØcGd³¿¨>åÃêñ;B•+™Ò.zâ‹¼=F§	ĞöÓ×%^×8ÉbçÄVµ-ë„×·–xQhˆb^Ù¶Ò}€’tÀãÖ€Ğº|Š\K|¢¢çV]B÷%ˆÄSH"ÙÛ/ŞŠÍñçhğR¼'Œ[¥zÜÖóÙ
-9*Æõ>£±GnÅ7Ieİ%å‘ºj=6ÁfE!Ígæä<¢ÍëÙ2•}Ë0ÈÕÏ¹A“ÛöÜŸ$ªƒµ×h=b¹çµ—)´:Óá—¼F4¶©ÕRàRO„ZÑÁç âø®gÆ³r®B‰Åå¯òJ[İNø1í·“©‰UFfÛù$~#Çd=åp¹™ä›3DÉ¤}ÕV û 9PCªëÃ’ºÂæíãù
-¶>‹„ÉæcQ‰cˆ¥xÕc”Ià¬mß´×ëşıiü§-ŠÎ&d±ÄY©<kºîÓöm|)UîÒ7Ÿ,4Oäš“—ª£Â
-W0 ¨&AIî#—‡ğ¨ÁŠ6­<Äm~¯×¸6kÕ'Ó¾æÌ	ì1‰	~Óù'î×ŸtGN™¯R?±½Ïp»[ÿ øt˜¡Ëy<—†B…ˆ±ô;
-¥0$‰ßr¯È?~İ0irµVÉ©Ea£9ò?Áù×_U”ª”Z/Ó®¥jI¶¿ŠL|³ÓYğ•3e¨,Ô­#„º8%è…—¸yÃÁŞŠÏƒf®q ¿ô‹äi1{xºy‹ßÖ2“ö:9UPìª„y Èû=İ5*)z[!’C22H’Ú’Ep_¸ì6şIóçÏØk¿9Ãå0Çr¾>åJº½p$
-¯ø~tuøĞ#àu3LºÙLŸîDvõøb‹©J\~¤Üs \`cÓv˜Äì±Vü”“bÌe„pwªdø$~NÏÈñÕ¬S^9¹ãéW§CŞ–Õ†!I”ÖøËíûÇÈø:#æ.„üBÒİÃRÇš1ïVH˜|;%¿÷~İfùd<ó
-Õ¹^3n™h™ç hşêÀş:¾š¶BÒS¿ˆï>@ş¸´… €˜´>›c=ÑõM¹>?c%İZFxŞHáU‰–2 3!û|¯ å"u½[ş~¸N/äô”âÈ%xıÉ!X´ãkÛ¦d:IñøĞ6ñøkX•®¸<8Ê¤ˆiÅYÕWn‰m†$°ÛhşGIqèÏÅañÏÂptñ¹|†E#yÙš×j•rÊ©3:k`kÆÿ è&k–?MFÖ–Ğ™..Ud…k$$[k"@r	å•™u;«©C¸?ÊBBRÔ”…’Sá(U§c6¦×nÅè®;Ô°G „“eaÍV®«¿#JöSñçí ò¤O%L‡ÌÏA3Ú†]"Š©­íBìh‚uäõ:¿@ö_]JİU=@RbA‘äo×cÅŒÑU¹OSDğq$‚`‰ìBà‘n˜è‘,ß^íéæ™cHş ÁÌÊ‘û@V0çúQÇ$ïµ@øŞÆ¨qŒL5ì¼ê±4ÜY‹{iØ”’ğ£@7´î€à1©Ôë,ãĞ¬Ì~cP•}rÀ÷£¸ê¹/V8¿ó
-Õ,%›‚Å„jÑ¨OtÏÚ ¶Ú4cÿ ™‡qÙÙë~Í““‘Ş»C%¦§(xÄ1‰'¨®¶<u:7pJ—jtˆ€ˆíuâ¥wøP|ÿ ,vN u+ã°ÿ ­¼xÿ =.få÷qù4ÚVµ€=™Ğ”$ş|wşıN§ZE ˜†„6)I@LØ|_nü,šÿ óébüÂåÌË$qU©f_j`§_ì“¾§SªùI+qaW¶=†QJ““÷°Ù#gó×ßn35h1qWö²?ª³Ä%×şŞíëçşC©Ôê4]d±ì>c¾‰ècLn
-²ı8òÏYßøˆ¬¸ì]*Ø²ôÄvt’6%Õşà4[}N§\å€)Òƒ±ÜrÀ)ÿ GËóDÍõÙÈ\³fÄîZI³dÿ ²§S©ÑöÚm¤ÛH	  €€Çæú–Zqå-iDÉ$I$îIëÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:a3fc8ba2-8e4c-4ba4-a136-36eb6b8e4fe5>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-g2pyd9Qyi6Tcsvrm-ILNB8A-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:35ac416e-3abc-46ce-8aa9-7b2054128ebd>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:6329cbacd81135f0e2fd3726fca654c52da4d60994abb88d19fa7b949fb58035
-Content-Length: 60
-
-GET /artworks-g2pyd9Qyi6Tcsvrm-ILNB8A-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:a3fc8ba2-8e4c-4ba4-a136-36eb6b8e4fe5>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-g2pyd9Qyi6Tcsvrm-ILNB8A-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:7fa13580-bddc-4d08-bc49-b670eb135f70>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:3f652f5ea82646fede2a9808ec6b0a8755edbe9fa68df1760fc54d475846feef
-WARC-Block-Digest: sha256:3f652f5ea82646fede2a9808ec6b0a8755edbe9fa68df1760fc54d475846feef
-Content-Length: 384
-
-harEntryId: fab5afec3bdb8f8e2fcfbcb0d8f90cd9
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 129
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":129,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 605
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-g2pyd9Qyi6Tcsvrm-ILNB8A-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:a3fc8ba2-8e4c-4ba4-a136-36eb6b8e4fe5>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:097c5f2ab8de341e0093c11557cd01233b756299c5c8d7ffdf5168b450b062e7
-WARC-Block-Digest: sha256:0db9c9bfa502a47a61817513686f86c98439676bf8107239c15fd7b85e05bfb5
-Content-Length: 4919
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135582
-cache-control: public,max-age=3628800
-connection: close
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:01 GMT
-transfer-encoding: chunked
-via: 1.1 512a9cd52d1c7f67c1024cc6f45426f0.cloudfront.net (CloudFront)
-x-amz-cf-id: a0AhjRijaLgNibg1Ss-ptCYSsfJhOFCybi4eVY8nvGjQHwavKBQvCg==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-g2pyd9Qyi6Tcsvrm-ILNB8A-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ              	ÿÄ G     !1A"2Qaq²s‘±4BSr¡Ñ#$56RÁÒ%&3UVbc’•áÿÄ              ÿÄ 1        !1QAq‘¡"2Ba±ğ#3ÁÑáñÿÚ   ? ù¡CmZeœô'E9³{‹=yFß†ÃZ'¥yÂá‡»Ë[í¡ı{ì?ÊtÒ ®)Û‰õt4ex¶Ãx§ZZÕ/¾X ãA]–?}#QÖÆä”WBHÌèÚï8§‚6i;¥çé1lt Ÿ³Cµ£ÛèåîÉzœ0Ñ/£24ÎBº½êSd÷jŸÁ¿Ò±ì›2ÓQÔ4ÂeÃğÆ·»Ôãl×·˜Œ`û:^¢¼Ûï´ñËA,sq‘[‰d9 øº±½†v­ÃêÇÌ5%IÅDË,—1öœò?"“Y'Q¼5åyäXèIŠØâ¼³r=uT8u>Â5çÙª¯¬>:95ÚèqİÑF¨8À]{5¥¯Núß3ÓÔ8äÊş’1?†Œ#üÙqú±øhn}áGe¦s+ŸCÍ—=zé³•ÛUb­Àra;æ†âìÖd@*æCÔˆÆ@ûu4IiW\»Ô¡öN¦ >´ÈÜñ,üÊ€m¶Õ¢ô¹ì:û4Q´:_a÷£üºÑÅ"Ëhˆ*GB5»Úı½ì?Ë¥p $\u¢nØ´nOCE×ë<ÚE£­æ#wÎPà‚àé}tìÒáK8[{GUNß¦ÇOÚÃLK¸=Ü%dx¸KË’6<şíkõ¡¦œEW*°#=ä#_qÿ óM$“ïmJí'ºc¸éZM±³’Ï[ML¦YÕÀURB£¯ÇD[×û-qú±ódƒCuÔÒH’˜äW7óÏ˜ş:ÇŞj_l\z“ÇşÃRD
-§¸y®£gç‘ù¤´¾^Ïá¬Æ¡‘†y:¯¼&íš×ëSßXz¨èsì:¾h¤_¼j}ıßxÕ=õíC­>ÓóUÇê‡á K¿f}ê÷öYğÌ¼š‰Ç“§JUú¡øh}¯ÑØi¡J©Ú`!ó‘‡Çøé³èÀÕXë9'BÆ#¾yu ”ØUì€Ë,¿š6IpÔÑüÂÓQy*L|RE9v¦©ìüÔqâ7 î”±µÛÚ—Ò’VcŒpÏA¢­1}„Øÿ .´ÈC(+Œyc[­¡Öûì?á¥Ğ @ëE]¹hÜ†‹¯–Å»ÓÇM$w'’ûBŸ¼h"³gWRI€±É$	à{³×ÊĞˆ™1È9ÆFqèkÛvÛ©¥î«êa‰ñœ†ä?w†šMlw84šÖYÕGf2:V–Á·^ß]óM‡¤~{Ïˆ·%<•VZ˜iÑ¤–@¡FKC¦²8A0zvG^K†FÈ=F¼Ş*–†ß%D*,_”N”† @ë©GD"¢ó4³!Æù z-v¹Ô%5ºç«pIˆ` ÏŞıÇV+vİ\TĞ*QÔ4°,¿J+eB’rÀycÌŸvŠî[öÏr¤­Z‰®RÏ0áÒU§5z*è:‡òk>áÚfİ42Ak¢klB‹İE)Ã… H\76N¤œ`k‚Şp[ö™™.Wä'÷÷Ê—+`¬~ô¤„‰\óQè¤	êpÃ ÉñöVm½W@ˆCÉHb²èÊ¤‚~ğFäí3jMµÛ®¢
-ì«Ë]ßƒ,¾ˆR¹=JãôÕ±Ú&ŞoÃm†–ZICæY™–Fp3€ cËÇU{, ‘Ú\Qòƒ²İ¯æËõcğĞUËbÔME7Òyà•~Œ?ƒMË©<õñğÖ¦mÁ¸+W¼QÂİg=}u|ŠŒ jGm$ªOgÎƒShÕ8Ï(—¯=u4oOx´\£ï¡ª¦u'gâsğ8ÔÕÊ½h³y88*|©[e³ÖÅM-T‰1¤„ªÈë:FÌp ¤|‡˜6Í›xÛMEúİ[AÒ	Ş‘ª xûÎW_H£’äydhÓù4öŸK±nµÔ—ÄÖ./NÑÕÂ’JÆE•I^‚H1óoD’¤ñãÄºîı©`Ü·¦ßš÷S%¾I!ª¦‡¹ç0W:–3r˜ÊJ¬˜şl‚§IRgŠPª„ïOî Y`gfÁÇÚ’û–Õ%êi)êZ‘ä|÷Š3àOÒ¾¿dİíÓwmI%@9"Hu u'İÓÛ§rMC;TA4\²Q¥0C¨òÈ×[ Ëßfû>ñ­í#ı›s	!K|—’²|<J‡6•ãVàrÊppªÚuxV5ÔFô§‚µÃH!A~›ıºøWlİ¿q¶UC-MSÁ‘I¥GÊÉŸ3åìÑ>öşË\=ñ˜iƒÚ•™o«nYvµgåø¿-Ë+TÚí¯3;·7Uˆ‚P+Qíá‘F€w¬Ûv¾VW!U”Œy-Y‘¬lhk—v¾]c6ØähWıMİ[l›ÄRÇ$qç¼TBÊ„Drxëáöé~¤3œc]¿·6çìÏlMiÛ×øå·^­°%x£^Q0™Ûšõ*Y|À:NÕìÍo´µÎ¿oŞi­È@j™¨dD\ŒŒ’<1çáªLÖ·|SÙ#‘V·ÏyúoZJq–>íUĞÅ*}š)ìÒØ·}×KM-UĞÊ¢)d1 ˆzÌX2‘€r:Œ·İªíºÏi•vÉ6Îá†‚G¢ş™Pò(ä¿Í®	`@ë€G^º˜ƒø®I'$ª‚R‡G-]ÙÙëúhÙôUøÇá Ê~Ãwvê5›z'»RRBÒÍ;È»Âòà9fÆ0«“ÔtÑí}®¶ÊßF¼ÑÔÑT$`´U2cÄgÄ{Æ›î*±°%Üö»le,×6)ç[…Lõ¢*¿äù¤Qª# 8’OMrşgPZ2Ûã €GÔçüùn²´®±¸]³’26ğıñå\tû.ù²ÃWnšx$hå†¥{©#u8eelA`êiíE¶ï[Æ'»SÛ.WSY45T0¼¢IK“!å§‘9ÔÑ	c3( *µ¸Ô€‘¤S#zv]µ»2ßwm-Ûß¸GÒ£·Gj‚ARÅß2§Òêq>®]:ğ8RÃ	Ûİl;²Ã<VÚáNVJd–è1ïC—-ú^‡% àÜ¼±¥sv«¼j.5w÷5êjë€ŒTÔKTÒ<¢5ã$ç¢©ÀömöÏjº®ï5{†å4N•i=ÙÏ†–p8¡µvk¶iÜA%PŒüŠîæ=)­İÚ”
- Üœù×aÜ¶ŞßíbZZ+ÍRV[j<	<®²€O¢‰,`’LÀ ‡å®³ö}aÚ³­¢×zµo¸©¯Üš:ä‚&1+(é$’°Ëz¤ˆÎÃ£Y7h{Š–)![íÖ8«cjyÖ:–Q$L0ÈØ#*GB<¬Sï«Ôq$·ë´PÄ¡#E­*¨ ô cL/c7œT]K+vX²÷q‘ß«N±áŸJQk}6†sŸ{‘ÇØúíNÊj!ÚW›¬UâÏm†ôíP¯Ë¿‘¦æÍ‚[‚ÆÈ ywy9,N®v¥Ùv×İ[=î—]Ã%’¾ZÅ†JÚj&¬¥•ófI*r8W<	ğOI½w*”¿ŞNd\æºCĞ1ëkS½÷¦ák•m~½«l,(¦ú|¼éƒ°æ#<²œ¼ñŒùè5›Ë4¶µv€)ÎA‘¾TëVÛ·†ÕëkØßhé¬¾ıvß9ÎzóÏ_vÏ~]¬WÚšùd°Å=¾ŠéVŠÏOA	Õ$€qÈã:zØît{‡hĞ[oUVÇt‹èwx]ŒR6(¨T±†
-:dcĞ=«ïoúÇtÿ ö'ÿ >¢vµ¾"•^-åºÒD «-æ #Ìz&>!6í!Ë¤¶¬†5nÎùåã‘N/`’êEy%NFq¹øWPnîÆögı£V\vÖáéÌ´ñÚj-K%¾WN¯ÌIÍF[)€CÉÄì³aVveºæëWk¸ÉU8•ÓÍ$Õ&&R¼‘X«g<@È–©7Æä¶$‰mÜÊDšV–E‚ã,aän¬äêÇÌø]^Òwwx¿ïNãñÿ šÍşm*àrÇÃ`	1iØ†f ù*¨ôß¿4EÜ}¸#A ¼×Ğ[îÔÚÛÎßy©İR¤´äÃr£¥j‰(ûÆFs%
-ª–ä}b}^Ó¶İ¶dW:>Ê¯×
-JZ§QUv§e’f)"rHû¡İîN,¼›$u>Z\5êãYnûÂª,†9êä‘yÑ°ÄŒõ=}úµè­“® Ädÿ J||Ú³±ŒñF¾™ÙÕ·’4ŒdaC}w$gzÏGÄ"[q
-Âÿ ›|<…<¶^à“³Û"Ùê¡¶p…¹S¥%GŠ€	âÄ¶CI$çSI8oÕÓÆ$‚é]$mÔ2V9÷êkQF¨‘  ÀÜòºW¶w,ñnyÒ2ÌõF?é ˜ÈôIñ+ÚÈqıÇùN´Ê¸ {5ºÚ?×°şÃüºÁÛŒ:ŠvÚ£sãE{Š:émø²º%Xl§/Ò9Ë?(®\ ®t»-H©vëÏ$±÷{~Í9n3ÉL xcY{‚qôH Ÿ³:¸ßG«u©#FÙBT´i£&£Î•Y^›uør lj›ÂTÁ¼» q”z¾–r¾yÏ·E{Ûû+pú±ófODñÏÀS»¯0ÙÈòÖ÷éµn?V>a©*•BEçY®£p1¸üÒg§†@Õ9tO5Î…v­o}Qºï×”õ×â5Vÿ ©üEø[&¬5ĞÒ >qÃJ½İK}‰ÔÜù½ 8‰áõNAÇ·MX¿4Lş¨~À¢¹-E4qÜa1A}4==¿ÇLİT€	¬eŒí³…Îÿ ¸¤ÜF±w©Qº€?v¦¢‚‰ô~)\*Æ{µ5W³·ZdxÚgà¤ıª²Ib&<üôW²½;Ò=R7#ğÿ MM.¶ø–‰¾ Fşˆ÷…d–û`šŸ4nœ†t§¬¾×ÖÉŞOU/ zpn }Úšš>sïUÄIe±7MÂåZ´ò‰âP]Ç¦0|3çöè£zŒí[T>a©©«c$ÆsA^*­úÜjK0Âô×zMMkUT=GÛªÇë¯Äjjjú—ut™/ÕÃIûæå¯©šJ~ûº…=<‡¼øêjhùşZÍpeS+dVº›pÜ¨£î©+j"Œ…YšššSu­eÜ¨¯ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:eb2cc8ff-6b55-4384-aab6-2d785baf559b>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-6R2UAOzPcEkB9BR2-Rj2ulQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:d51b475c-8237-4a79-ada6-4bb151c8ae1e>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:5cf27d12c5e12231f0bd96f2a7964600127824a4d3846e90f649624436d884d1
-Content-Length: 60
-
-GET /artworks-6R2UAOzPcEkB9BR2-Rj2ulQ-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:eb2cc8ff-6b55-4384-aab6-2d785baf559b>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-6R2UAOzPcEkB9BR2-Rj2ulQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:558947ee-3340-4d98-a080-c988618641c7>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:ddfdba76b5058b6f741dadb043815847e05e3032d486c8a2cf329f0a3760600b
-WARC-Block-Digest: sha256:ddfdba76b5058b6f741dadb043815847e05e3032d486c8a2cf329f0a3760600b
-Content-Length: 384
-
-harEntryId: 69990327bb5649e1ce087bcb10097f18
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 131
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":131,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 605
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-6R2UAOzPcEkB9BR2-Rj2ulQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.333Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:eb2cc8ff-6b55-4384-aab6-2d785baf559b>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:7945c2f8360c13aae73c88e979e3f7d5bd5492924d3ed85d4121942f2d5d7f28
-WARC-Block-Digest: sha256:8022dd03775d2eb403c4d2bf8210f9b471e9b812b37d9cee9107561a686e9e01
-Content-Length: 5440
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135582
-cache-control: public,max-age=3628800
-connection: close
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:01 GMT
-transfer-encoding: chunked
-via: 1.1 ed63bc28ec03a429dffd93eedad2fd5e.cloudfront.net (CloudFront)
-x-amz-cf-id: LRXYaxPmlNLKVcH7SMLIe8LxoKpSODW_UV9leOmnMFpRM5vzcWnxTw==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-6R2UAOzPcEkB9BR2-Rj2ulQ-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ              	ÿÄ I 	     !1"AQa2q4Tst‘”±´Ò35BRu’¡²³ÁÑ#%6Ub‚“¢âÿÄ             ÿÄ 6       !1AQaq‘¡"#S2R±Ñ3ñÁáğÿÚ   ? ù½ÓÓ){ŒtÕ54P)a3SÈcuWª‰Nyv:d³Üê.¢yhåİEMRÔ•0µt•á£’T9Œ(ì/¿ÏK9ûª«ğÔ_¶C¨›«.Uõ«l¦©©h™ŞAeÊ¨=ÉÇ³E>¦šnï§™ª—YK®¸	µòé¿íÑe‚	c©iÄ³K£Ó¼Æ°enşN5ä° oÖĞ|½2/ï3õæÿ ¥*¿Á¦ÒÆßş>¶ş9÷Æ£>Ú[¸Ê„T–¥ÛæVúÓ­ïtKixZ®³rTKYãLÆ+ÛBŠD±…Á½ˆ=¾İzkè*¯öO
-Y·”•¢–²šYã–à¨ÜeY:ƒ–_g³Kçø[oâóşÙQ­òj¦·m~¶ôîñ½ªä¥³ÏTµi42„XŠÈÑ œ²•4Š³Û‹ã\âœIë[wİ.dAVQ¤ü»vêt¦m¬ÛqM€¬¤˜Ÿ?Aµ+Ğìªİ©¸¶uJÕŠ[µg*Yf¢’ŸŸ…(FãÈwÃ2<ˆ#Ù¯]=}eKÓÛ¡¸n‰n56ƒV’¥İÈi|(NHY×Ö­İÓÊ}åµn1²¶¤=/£¥’{}Ñ®	DÔuÎ‹, #q+1À\œ65ò“«}İ[?Y¶·Í7‹…Ò¶‚­ÉOl”‡TqÜÊ3‘ù†0gH¶üaƒ×·Ô,’ ‚ e½5;å"P;cM­8—q—bs  ˜ÙZúïçKÛÆÁé•wK«OWæ1VÔµ”2Bì¥Ñ†nÄ†qıº‘«¼Ëj³ÃQ5]ìÅ=¾ièîmLˆ››qnù_‡™Öåù=ü•ªúİÓ=ÅW]º(v´Ûyª-ÓĞÕÒ<õ&NqO“`Ê2¡bIÈ ‘ßHïª	-6ªšÙZZ*ª$eÎ%+©#88ÈöØb{wrÅ›’ãQœB´*CR ù<*µÛ'›m¾¸|¤é¶ÀËjµVÔî[OK&ç––¤UQUDõ2\	…LnUTcÖcïòøiRñ³şj ¨¨ô©Œ”¦?
-Š)ß‹–
-Ã—˜ÊGRØêêl²Ü©ˆh£«”Æ¹.ÎêÌ0 î0‡L•Ä‹{ÿ »é¿k©Õ™W\¨@&ö›ÓYz•ı5hHI4hÕeYÓ‡N~êªü5íêı]b¸W=®e‰§vWÌjşMG pAw··¶Å°J±[¬T’•@†(Û †Sïì@#â×˜mšêKnÛ,Ã,LäŸn{hØáwò%)t'¶‚†'d­J-…Vî¡ô¥Wø4ÚY°[‹ûãW¢Íµ*Àt{~`¸ñ#‰½b '¿´…Qù¼Ô[shGvÜIP+ğawÏ×'°»®=ÖE&±;Hg'Tj±o(^¢²Ó %Šd@H&² ç_[>I? îtâÒdê…BîÍél·¤—Š
-èŒ´ÖˆÛı§‚±¦9e`Y¸òP£TŞ¢Ãµ*€ñ©,ÑHøEÊ<’ÙSìõ‰?YÎ®u7Ëio‹m=&à‡ÅºŞ­T¶«­iRZ²xÉÁË’™øŒƒÅğÀë/éK€ñ6mÛq’µ²g8l*Lˆ „ï3ò•¥a~/mz²É„,lT@Ü§Ÿ¿enMÛµv¶áÚ¶*Û=âÛµé¯4÷:;$·	iF`­#E*ğ8Âÿ Ù'~àë‹FÂéınØºõ>ógşŠ–¸n­,‘Ğ<Ôï%",¥ã<\TE®0W:ËvÚj)-†¢ßc¼Yj*Ñ-ï-Tş$ïfCR’ÁU‹1T {h~¡oùú‹Ö»¢Ç»ÒÅ³îÍAb«·,SÕÒI
-´oP‘²²eJ LˆÔÜëçŒ/ÃÇïœrÍ²„2•8±3	@Õ0	L©E)HHG*;âÁ”¥Õæ+PJ|TwÀ$’j×RìÓëÌ}BºŞ6U²†Éé.ÂzÏC¡¤†¡AvXL`–ŸP36…Q¯ß(ıÍnŞ»ç{n¹Cj½îHëhQ¢ˆeŠWB÷ ‚=™Æ¯—UnW{^ÀŞ¯¹·…ç~¥Ê¢†ª·‡Ñéâ•+¢ƒÃDIxÄÄ'bÃˆÆ«zÙ6´ÂXg£°Ë´|VHâ#Õ@«Ûà2»[ŸD|/ñT^İ!P ®†FrJ`IVäkÈh3ñÃœeµ¤’d˜å®ÇÀméU/nnJ·r¤ª€´±RÔ­G£3êíÃŸ‰Óoü	âßµÔêÉı‹ìÏù^Ùÿ Áúk/™¶«—èìœEˆÌqpÀg cË±b.¶V°ËèIItDëş¨AÜLÂÔ Èöªi£WF=¶%Ex¬V7FVZ(ˆ#àq£L~O{îCOşocíŸQL{VÃE»]EÖqˆ¢ø…pJ÷ú'à4Ïö½°ıæÿ ¤IşºŠØ7›Ö?›ê:wÖ¯ajÃŒ) ywÖg{túÊ… sî»ö½°ıæÿ ¤Işºãí{bûÍÿ H“÷´Ç£S>ÛíAQ~:ëîSKŸkÛŞoúDŸ½­¯òcÚiiê„Ï¶l6Û²K`­K•5ÂRWÑKCÈ§,|¸ Ã#Ì%–ôˆòÉÕŒù[çW»oQS»Û%;|7x§CrÂÅæŒù`ÏNÌd,Ó¥ÕZZa¤ · ByjHóĞtì¢Ì««2Ñ+%(•NÑı‘S¯ÓKå¯kìw ÛvšÈê*©îÈ|$ˆ6Œı>W±ú>°ò5¬´v[§U7Vá²Z’Óè•0ÔÚã§g§1¬Tñ¤*¤qrÈXãïÖU·šÄç¸«ë¨ãÜ@Ö×EY#C\ËPQj2ÅHÁ	$+äÀ‰³Z&³î“<*±×X©êcc.|cÆUbF=P8ªã¿–}ºÄz:Á­`ÌMmÂ_p?ñVî,(‚3bH	×³–ˆ8°âüëÖ‰mM<”D5 9IÓÂ½}j¬ ŞòmÚi('§£–
-Šú”jÉf3Ö+$&G•‚»2 )‚ª ú ŒkvFÜ‚&–Z9–n-1’o[Ü_<Aüºl©»=ÒÃK$ˆ¦ª–ñz‰HJ¥™'…Gò€ÄQØvLvò
-=Qİiúj›¤H¹ß®‘N’ŞwğìĞÚp£¶SñpdvP	âî}R¬rpú4»k‚`ûf\·ÌïLÉÂR<J
-c°@ˆŠÅ–—ü}âÃ§ ˆ'h‚yìAÿ :î]`t!ea•e©rş¶°©Ø4¦•–‘ÁXØƒéyõëšXn›skEE¹n•÷zä•‹ÔÖÃ¶8€IãÛ>±å’IÆ™*şäŸğMú·[[v^·K‹d$‘$@Óº³gî_iõ6—Š€12u­Mg•şm‹ŒNÃ/ÜË?ÎÈGÍ÷oíÿ ¬èÕ?H«GÈ¯Ø[wiĞmæ±(ô€¡ù°#¶q€ ÷LèÑ¢öšCi	@C:·™fMr;h:}ßÕå¼w$½?6©m»f¦ U[§x£Á É#¾0'`IV z§[ïZæ§l-Q ª¥¶;5Ö¿Æª«§¡)#åI7RíáÎœ2¬r\d,@›’Û]BÊe@ïĞvQ&Mš—qñ9tmJ†i)×,wöÈ']‹ª½®[’ÉI$õRPøöè”¬‘ÄÈqR%G`…Rv|¬ƒ¶ƒßó¼Üv¥f×ÛW@›fZ™jbJGsN^R<@ÜâNmâ,¼°J÷fòß-4G¤kÍ§%,¼é]gXZ–¤²¬se»\±*rl«H‹Œ·ªªëX…f¹VÍPËi®\€8ÆªŠxª£–{g:âøMk–odÛ¤ ÓULfÔåßå$s«[88w[x’‚w:¶ÍØuŞºë"/MÂHâÈT(P¬«œ€;d;9Ø÷vİÜ»z:>©RŞ¤¸Ğ$ĞĞMoéé’0Ê¬¥Ø•	"¸%1Ì\©ë‡dÇ5VÇ–Ft÷H}3‹]bé»µÛ\3úFã} ¥@ë*"DkQ0Î/sƒ4åºÙK­/R•sö"<¼ê*ÕEmQOFÕ±Ó[êç§¦ñ¦ŠG– ÍáHí+âp|0³rvÀ™µZw–Í¨¥›¨ÕËŞÇİö(nÚì|bŒ¤!Õ<KEWC rCòâé¶+ÛöykXôï®sïÛU°CmØ°×%®²7v–¥$¬ñ$ŸWˆyŒç¶']ğFíÃlœrLåR€ÊV €3@:”s0b½Ùñ%¾/n’@ ê
-ŒFĞ£Ù¤ÖÌ—†¾/|G.>Yöãá¡ĞHŒİ\~£®tkD"‚çY¤ÃÒk²T1>d²’~³ÇFœôjá¶Ÿ°TßÄ®¿y¥]›~¸]«.]4«SqúYÏùi«Hİ=q%âôÈr8ÁúuŞµ.Ü:ÿ &¼ß%)x„ˆĞu=,RJ$tÇùóâI\ûğI#İ“®İ˜¤¥BšŠ•)&Rb±–$6tI#o¤®¡úÁ×(‹…Uy*Œ®tie1­rLG*4hÑ®×(e¥X¤`‚2Ôm¯lÚ,sK5–×o –|ø²SS$lùÇ™¿üÃRZ5áM¡J
- 6î¯iqi èhÖ¹Š	]|Ñ‡äÏ]UrOø&ıG^Õå;Š×T{ÃpÖS¤É= Æq#ü´j.ÍQÛaà_#şó£B©º{(ùÏ­­¶‚ˆ•Ånë¬ØT×kÌ4±UÓğF•3—â¸¨ä½ûÙïìïÛS”½@¼VÓEQKKj’ãY#ug!”Œ‚=oqÕ%›©{ª (ÿ t#rPÕp}ÿ Û¦=‹×ÆĞñÒâ&½@ñ$pC=QE§üÑ‚lÉ ›\xĞx æJ<´:™ÒN´[qƒÜê³ •,{>Ê·Ÿf÷ß¼­Ÿÿ {Qezë·RÍ·ä¸dƒH*	”2A^^`WËò¼]èÙjPæ¢9Ä¥”•Ã&;’~@¥ß×Ú+ä·šZæç<~•$É\åÇÁßÓ÷Xù¤-!••f9wLkíMZà×…Ry	çß¾õy>Íï¾Ú+gõŸ÷µÄ{êù"ò6Üdåı‡Îøj‘ß:›¹·%¢½İgª¥.ÆQÖG íÓÙë¾æ²WÃ%Î©î´q+)£¬jÙ ¹ì{ë¨é…9¨'·OqıO…qx-Ô·#)=šÿ ?ê­Û©WK%¶¦¾ãKn–’3$Î«#•Qæp	'^[WWª¯6Úzú%³ŠZ Z™"àd`qŸ†«^ğùBUn½·]iKBPúr3ÇXÌTrŒq#­UQ]SWÕTM4tÉÂ’BÂ5÷(>Cà5û©§€·VtÇ†³Ş6ï:vÏ‡úéTøéÇ·¾¯ŸÛ2¿ß`ı'ÿ ½wA¿ï5!š–Õ*)Ç$v`~¢_?õ=·7­ßmÕQ5}x¤¤¨YMUºG © ãÛÛÛ¨ìôŠñ\8‚qŸø§ÁÊ	ï÷W›ìŞû÷•³ó¿ïj&ùÕ©¬ƒÁ¿Ka·úB†¢bœÇ‘Æ[¾?ÌkB·Ê’¥•€Û°) àúqíÿ ¦µfàêûuE{‚àõ‰‡Œ<h8°Ï´(÷XŞãÆ áR¼ yÌ{T+,ê×õĞŸ|¢}êäZ%²Ÿƒ£«©tdnJÊÄ° û{£U5zÕ½B¥òuU C WF¢§X UzîŸV¼*':}ÿ ªHÑ£F²ÊĞèÑ£F•*4hÑ¥J4iR£FT¨Ñ£F•*4hÑ¥J¿ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:29563745-ee96-4a10-8e63-fefac3527b09>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-2zOxNu96XOMpscQk-mlxgVA-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:7409d11e-83fb-4cfa-88a0-b800ada84f0b>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:c127e05aea20e2d99a8b93369cc7c3b44c784b5a922ee55f25d1a4534d45279b
-Content-Length: 60
-
-GET /artworks-2zOxNu96XOMpscQk-mlxgVA-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:29563745-ee96-4a10-8e63-fefac3527b09>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-2zOxNu96XOMpscQk-mlxgVA-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:3b007085-3a7d-42f0-b5bc-2fba5d7b4b42>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:c7e5fc95ffc610ab6cb66476fb78429ae475c6388facc83a40793ab81643ee62
-WARC-Block-Digest: sha256:c7e5fc95ffc610ab6cb66476fb78429ae475c6388facc83a40793ab81643ee62
-Content-Length: 384
-
-harEntryId: 63ab6056ebdda1b673be5d72de8ce751
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 133
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":133,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 599
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-2zOxNu96XOMpscQk-mlxgVA-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:29563745-ee96-4a10-8e63-fefac3527b09>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:e4f70f5b3f5bf42a547a1e46aebe177a7969dbd4498aeecfc94240e598451935
-WARC-Block-Digest: sha256:0407f66301961b3ffb2f8396d44868aac8404c57a046290ac0bd0e88e39735b5
-Content-Length: 4585
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135583
-cache-control: public,max-age=3628800
-connection: close
-content-length: 3969
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:00 GMT
-via: 1.1 5cd71a2ac63eabf2336afda85c353f66.cloudfront.net (CloudFront)
-x-amz-cf-id: HrojF3j9fjqhBTlpiu6DfRVZfTDGkBGsLBybLRnj1tIgEBc_hOjzOw==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-2zOxNu96XOMpscQk-mlxgVA-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ              ÿÄ F 	     !1A"QT’ÓUaq“Ò25B”%Ece¡Ñ#Rbrƒ‘•±ÃâğÿÄ            ÿÄ 7 
-       !1AR¡Qaq‘±ÑÒğ"#23ST¢ÁáÿÚ   ? ørŠ(¯J¼:+)åCºÛ·ÙæİT¡nŒëá¶¤Œ%?zñ4ÙhìÚá\IW‰VØ-$÷Í%RÒµ¼QÎĞ»#GÏ^”šİbÌa¦Ïø«m<•"Í-%'
-àŒ®Z:ÇB?¨n­»fvÌÌ’é0X`9ÊĞœÇ)ÎxÈÎp.zZéhJ×2"‹Mœ)ÖTB~ò’qøâ¢€›Z`¹Î,ÈŞ—½4=K“ET•TQE!¥{IUšxH$ù3œşÉ®ı³N\®ékhœw«!¶óşòˆãOS³¹6‹ãß´•#Èèx¼‡}oH8)YÂO$‘Æ9®ˆ†KÇ^nm°{z¬˜IK…@ÓŠ*ÃÔ:w+«Ó[¼ØX3O|ã.<´wkWPœ7‚œò1Ó8ğ¢¤S[ÉÓ¯„}#¾—í\/˜¬ß[Êş@şª>a³}o+ùú©šF¶*+°-“Ñ'TGgz €R	lºÎò;²[
-RR ç'<'¡[Ğ•¬ëšk7d<|Ö(”¨yîYtoiö›¨Û^—*Ç“´ Z‡YIÁÜ¥¢A<uÎ8C¶m<Ñz[ÆAwı²©)i9RÂ‘€2	äõã‘¥¯ĞfÚ&CŒËĞZ…imR–‡8*)qÌ©yJZAJBHš‚ViÙãÚoÅ¾´:¤‚PåG%I8èz‚rÉÁÁ¸FKfS”e^í,G9‘E)alQ%Ô?Uj ØË&ïg¿\Š¥¶‰ŠÊŒ7R§‘•%QVŒ``çiàô¯LÄ[o6Ü—@h©”¬¥iÚO ¨d©#$€8>ªW—¤_hJ]æğÛ—İ¡G»!<(q“Ğàz¹û²k­"T-)§ßKo¿qdvÚòT’¢Şí …$©(P%9Ú ˜v9©é(cJ"9ï ^†ƒvÂíôÙjÖáh±ÊŸ%æ.Åm×–´0ˆ$¥ I! îè:~¯ó›Æï'ùı«7'˜“r–ôDhÏHql²	=Ò
-‰JrI'“á]›ŠÔ-IŸ¬gµjDÕ¬AïW¸-¤„îå)B‰
-R²ãi¨» ¨XÎ‹Ä»ÙAİJ./ÌVo­å UeK*•.ë%iI¤Á#põ~Õz¼Zß²]¥Á˜ÙB˜u]ÑS‰Y[EG»^SÇ¤œ¸ƒãZŸ€?añ© Ç
-ÓÇÍD> ?ŸÃÉ]f9[S6/GôcjPÓ8!$í(H#9ã­yq³iû„6‚’ãÒmÆBâ:ã'8ôÖ¼•r<ç'JÚİ©í“a"Óm]Ø0Ò;ğ”´Ş¦Û*ZÊ”Ôğ FxÑ´‚ÊYMòÛâ¥, ÙRB°’PêN#œúès_@ÜÂÛ•Ÿ“ŒLg9ĞßR
-€-•°ô¸›PX®ò5n˜sq•İ!ÍÇ;¬Î¹Ÿ·%Y¢´mZZe±—vî­ËuKâpƒ‚OÙÓÂŠˆkÀ¥âr—&=ÅÑ'œs'üJ«ôÌK¯ÎºrcÚJ[SÔ’”µJqE¤¼˜é[ª¨XŞ0xôMF\qİ<‡q¯EHq%*IA­€Äµ:ZùÁŒòn«Áÿ ìùÔi€âîõ­'>Æ3Œú©PahÉ¿¾à±#DÒlñëé'¥F¤…g=¢Ş>ç,*#†ìÚ%—¢¡m¨¡¢ÚŠ’	 Œ`àóŠ^0İ÷eûfï_•ŒtÏ«ì¬¢,Ææ°ÔQi–ã«Ke…È
-K¡gsŒ§<úI!CÀƒVú
-…XÁkìáï?ğ&­_®œnË# Ùå-%N»PøÚÙÚ·1©[yHÆO¬Òõúõ#QŞ$Üî™JÂ„„0ØC6Ñ&Ó(@–å©0åAE¬…œò¥Ê ‚€ÁõÔJŠâJ@‘lVñS0×¯]ä¨QqÚ_¯¦´¿ŞFHHÊ¸­lŞmsŞ}¶Óå²Î˜q¶[5½n)KS[xÂ”¥zÔOAƒ·_J¸QiÅ-#ïÂh1äF@Ÿç	næ¤„ã¯i1Ø^)ïÀ«ìƒ[Ì ;"A ö…±qnXfÔõÎ‹{ÏÚØ
-iĞ£‚€[ÆãûD%(Ç¦zÖHôYWxô‹s‹P>š§nV õ‘Ÿğ¯NÂy”…-ûfÓ«>ªckhUG
-š…-æõ’ïåo”[ä·!­ÉnB‚†AğÈ¦=/®¤Ã—Ùä;÷¿!i‚ô`·^[+ÆR¢” |01M+.Í¡*/ÛV0ÁãøT°­î‘´HLÔs½íİÖ¼9”ùNìíj±…
-“FB¥)ğXğKí×Øš<ìj8c¹²Íjda,ÃhIQ;Ü%$©d`ö
-)QëL¤¼¶”«[j{’”¿Ü~Ç£’É$ J$œš(EÒÌ”¶ãOØ$/=÷,~ğ™÷måGû–?xLëÓjÊ¬õö1¡ÛÆë¡Ÿï·?EzŠè’?pKçûíÏÑXZÌz~¨ï__ùwÊ_Á=ğıJ¶ÚåúìúXµÉŸ&BÎÒ¥P9&º6ÓõÔÖ˜+vo—?9Ìu¥kïÑÂIëêìÍ=ÆìzÁénV—·Ï¶Î’¤>‹¶üí„ñ  H9ñ®Î§µZ{]›PêæåŞ¤¦#LB”ÜõCKqÑËhCHi!9#ÉóœÕí1‚&?ª´­}ìU]ğó£h ÅJ–ân*e‹<8koÌr†ŒMg×Ú¾ÕìrÖûV•™²Qä¨yC~•úEİŠÆĞ€½Û}U÷Ê#WÇÑZ‚ß+E®|KUí§ŸPHBXL€æÓH)		Ü*pœ' °û,‘³íPäø°$O!Æ¹·s™óS‚CiiÍ¯ÁJ ú@©%c<`év öyÕ²õšÒf¥¿¢t‰ÛY%„8ÒiHÏtœ#ï$î9¬}reÓ.ü[g‡º×iË¢ê—ø&0Šd™&í#ÇÓKÒ—©RÀŠVùÚ¥µjØêƒË¼µ.UÁú¦Î\
-QïäøS‡fv;½ô^¼±Ûê£Ûf»oLXllu—ÂR¥­`¤„„…d'ø|¤ŞÒ4ÛÏ_ìé¶Â’Üxğ™‰¶CÒ;µªşÉVÔ  €<n‹eÊŞ—ï¯®#VÕİ%5Ş®Éç$­üe+yJÊÜm±Ï¬oç$¦¬Æåe…º3÷e½ÊrSÓrÂJ< [.ZĞÍÁÕ5Ë`¯Úª€Öİ ßô&¬¹X.÷FUµí‹P@Nà@RNÊII¤òAéWwÈÏD½ò¡Ô÷›]ãSßìI€Ë&–-åèî¼¥[yÀ‚¢	#$ioUvk¤õ&£™*ñf‰&äT¯+•k»-¸ó	Q(”à¥¤ú\”ä J€š×«ï'+,×û™t±·uy¤Î€g.dYÅ
-È´@È($”‚JT¡Ğœ¬ÎG,®“Ö0ø6<8á”ü!|G	ìÅ‹‡­ÛôKò~ísPhKõõw7ìo¥-Ü# %¹m)hpq¬äáAC'¿Ù÷l—Ù:¦:íÂeÍÈí­kˆ!9ÎAÍXš†Ñoí[³´X×;İòåµI–ıÅQ‰QPKIFê^ ƒœp9c±Mõ¿úÛŸ¢›v0!Æ'ø¤y¼Ÿ™—¬9…âÆ¬ÈŒ`åØR¬íñSİ%ríÎªJ–¸¡Ğ÷tUÎ7íç¯Z)ôv-¢I?Ğø8?Ón~Š(tÔjş ïM‡ÍÏ)5º‰·\?YñNÛ‚ÔÙO çÂ¥ÅSßH8]~d³şlŸ‹YúAÂëó-Ÿó¤üZªeaşâúHçRKø±§©[Ël, ´2à
-J¶<Ê]B°AÂ R¤œr’#ƒXm¤´’–[e–÷†™l6†Á9	JGD€zª¢úBBú–ÏùÒ~-cé	¹lÿ 'â×uváÃ¤·b_ÌŞMÓiµ8¸©Jı9V´üİ*İq„:xÚqŒ© Ö=ÒBT€$œÿ Şª?¤$1ıKgãûi?¤#œÙlüm'â×¬=¯÷Ş§óJB¸„¤Jö3Ô­öŸßì¬`ò0SY	 ä“ãŠ¨>¹"ÉgşÚOÅ |¡!Ÿê[?çIø´Hu³Ô‡:’[eb÷3Ô­ğ3Œõâ¹W«<}IE”ì„2	+Bœ:œ`‚’çÃ‘ÔU¨ùBC?Ô¶Î“ñkå	ŒYlãş4‘ÿ –)÷f9ÍäÙˆfY8…§0C/ıÕÀ´ ‘€ õ
-Î*Ÿ(Hg¥–Ïø½'âÑô…†Oî[?çIøµÍRîpÿ ©­çNA 4JE êg©[‡zT¬#p'#Ÿ²Š¨¾°ş¥´~lŸ‹EKVfø÷÷GÍ9âÅş¤æÚÙí—uy¶¶{eÃİE4ÑZÚ´Õù÷^™ß<<’·›kg¶\=ÔQæÚÙí—uÓE´ÔkÓ;ç‡’VómlöË‡ºŠ<Û[=²áî¢šh£Vƒºzg|ğòJŞm­Ùp÷QG›kg¶\=ÔSMjĞwQ¯LïI[Íµ³Û.ê(ómlöË‡ºŠi¢Zê5éóÃÉ+y¶¶{eÃİEm­Ùp÷QM4Q«AİF½3¾xy%o6ÖÏl¸{¨¢šh£Vƒºzg|ğòEQOUQEP„QE!QEEQBEP„QE!ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:dd0143eb-212d-4f2d-930b-de23d00a33a3>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-yoUvkke3DYAEqITD-GMybkw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:526f1ba9-e9d5-4b38-b5cb-846b72ed524e>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:b371d34b09a535dcb8592e9d7cb07dad4b218973a9bb91418ab17f027acd4940
-Content-Length: 60
-
-GET /artworks-yoUvkke3DYAEqITD-GMybkw-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:dd0143eb-212d-4f2d-930b-de23d00a33a3>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-yoUvkke3DYAEqITD-GMybkw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:89a0599d-db38-4730-a3ad-2fda974ba7fc>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:a9e35c5ad760d159179710503193468b48b4e12bbabc613b7a30dde73558e441
-WARC-Block-Digest: sha256:a9e35c5ad760d159179710503193468b48b4e12bbabc613b7a30dde73558e441
-Content-Length: 384
-
-harEntryId: cddff93da7577149a01b8d7fcd7dfbd7
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 135
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":135,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 599
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-yoUvkke3DYAEqITD-GMybkw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:dd0143eb-212d-4f2d-930b-de23d00a33a3>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:e205170c48a9b4f4aca0ac87d53d37dab5e747b981ad6ae1f4f27d11714f486f
-WARC-Block-Digest: sha256:a913ec85b529389c66a95a334d9193a44722b7a21b9bec2d25ca42819b555089
-Content-Length: 5735
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135583
-cache-control: public,max-age=3628800
-connection: close
-content-length: 5119
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:00 GMT
-via: 1.1 bf2c1281bca673d86dec75a77f0790bc.cloudfront.net (CloudFront)
-x-amz-cf-id: Y5yBD00E6rANpFM73Fo9AFrjXgfkKPvHMDz5PeOelbbea3OKn3ST1Q==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-yoUvkke3DYAEqITD-GMybkw-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ              	ÿÄ E     !1Q"A#2ÒUaq”•£Ó6BCSV’Eu¡¢Rrsƒ‘³ÑÿÄ              ÿÄ 0        !1AQa"qR¡ğ#2‘±ÁÑBÿÚ   ? ò«F½›ŸÙ÷¦tëP(z]±gŠÎd·D¬G=¾©³Ùq’|Ïí×Å»£ºÅO%ÄØr
-¥Vˆ, œŒ>}oP}4›ÎY ğ¢n4—GÂñŸFŸş¬ìM©`ßWJ;FÓÚÔôÑÏ HÖÏ	@a€5ú;aÏögl‡îë¶êÌ"xJ­&Syc‘Ù&4è}°ÿ ¦vÇğx~î£ÖôÎØşİ×^hÏ„ªâ—ÅôI~9ÿ G¬?é¯ü» íëúgkÿ ‡îêy£>¤Rø¾‰0Ñ§Ï§[#l^÷ªŠåµv¼ÔóÕF®†ÏsPAø|°tË'F:liàºËÒ}ˆ›r¥"’*ÏpƒÆ1I'†“|,Ë~Ù`¬¯˜y³f
-.ªÎ&¼DÂñÛFë¦Ê†»yîj“¦´vjµDJİ£Nä+‚TrUïÜ7È`Û­6åÚòí›t•s[zOT#‘SÃ‹hÓIù ]NµWÒñ…3Ã¼®jÖ¿Ã/ÊJ´kÙ}¯ìÿ Òúıµi©¬éÖË–zŠd•Í’É™'qæ~Z4·Îéüäõ> ·uw‹åUS-ªdÂ²“2,…”ÃŸ„Œ“ö€qŸOA­Ê¬lÛ¬Ä†®Òè*äK‚º 1ø¢±ùß-Gj:•[%}=Lv-2ğ–¹][,§åÄÿ w×ç¬6îJÚººm¿3UWÎÍuN$ò-ğ®–?3¤ˆho¤§_‡%òáĞüÕ1Ô=³İ›²áq‹lnªA4òÙ¦€db>%Ocò$~F¿»‹åaÜÿ Àj>îšOÆµ^³ÍüI>î«¹:Ù½—©Ï$–è“cÄ$`†4“KQó_A921<@À>¶Ñw‰!¼„ıà¡+iÔ¸Ş2}ÿ ÕPšn#ÿ Üÿ Àj>îº+ö5eŞ¦½=E4”ÓÎ"4‘‚jãÉ¢óä™Q–²@ï¦>£Ú7Š¢:;TµK”‹œ„’lqœjŒ£»nxh(â[íQÓ¢Gª M*G'4ˆù©^ÜJŒ‘â19:ò*¿‡„ÆDàgøß>ÈZÖ6ô¿àœÏ”}s·øV¨ôÓpƒƒaİÿ Ô}İ‹MÃù‡sÿ ¨ûº´ºÓí	º,’Ø¢ÚÔ5;}«ê%I¤­£ñ<Q…ãÇÄŒydçºÓô›ÚKuÜ·muæW¿REE+ğ§¢XZIs&5'ƒİÇ}ËjÎ¡ã¯ğ£¬ìÛWÂ#??õG¶~ÔÜ_qĞİlîº±G2IàÇdL08ŒÛçÛM…× ¥«ofI’¦;³¯»C `à`/>*ÿ Bå‡a¨Êõ^¥À)·Ë+‚.qGûuÈê½P`~7cùÉ>î–›†>i¥6Òo[şiDŞ5QĞïİ2L=ækÌpxÄ·0C1ÜcC¸ÆCtÜ$®±Õ%B‚C©.ìTÙb<µbnÎšn«¶ì¼\(ìÊğVÕb¦‰Uï >`ü†´µŞ5T²Åø	ÄR¸k0´‰3¦tõ­ciŠ’>j—YS$¼³ÕìSÕ³²?ùm?ÿ ZèÔÇÔjËM–ßC%„ÈÔt±ÂÎ.9P3Œ~SÆŞ¨ğÇtZwY$WSÇn9å†ùü‡®ºigªšY–zo	c+ÁğØ“#¾21ÛÏ]íMâV§ÀwğüüùZâP°äË
-Ù\ ~Ã1ùÿ û¡K”ÓŠ*€Ÿ‹·/-F¬]fÛÛ£‚¢y.0MSOsŠZ¥§pK²c ç#`qóÀ|Õ¦Ú‚è»f¯Á’anÅ;€B‡1`¹cÃ\‡ ûŸ -Ï»î—*;Åw	Şp}ÖY^2qğG¯p~^Zi¦oŞ3àvÎG#Õ|*š`RlŸ¿nŠÓ—¯[2²Õw¶©†‚íSã4‘ÔÃÊ,˜ü€È,7s’5­êÎÓ¤Äv=Ï¸n·XÊšZwz4‰åïÇ›ğT0ˆ9åßP#ì¿s
-OÒ:B@Î?Mßşıg[zg´µê]u¢†¡š¦hKÓHWN\Ñ‘TÆp\2;g:uMºKçóI#`AÉ¶ÂR÷j›é¤#™±¾ëëï‰w½UéšÂ‹Zü­5-Ê¶·QÅĞHîÌŒèä@§ÙÃwté±z;¶®«uº[.—çB—8`A?»0"yK|°’3ä;ãUïRhvı’¦ËOl¿TŞè¢–U÷gEHg¨iOÄ8²¡ÀDàx°
-;wÖÊÓìÙxÜ{}sÜà§÷úu’EŠx%‰$<›88ômíM8ËÓn$A‰ L8ùª¬©ßµªaç0db@?Òc-ğH-TI*d§‹*U²Qú=F²€“;c<°Ş~ZøxUT	b
-‹ƒÈ§#ákå¤„°QŒİ¿—¬.ëS²ì(Ñ£pLä7sçé®$LsERé9û|†¾cÂV ·\“ü­vµ.Xes«#Ïÿ k^è+¢’j™„¾=9‡„…P_X¸ÈÈïé£]¾G»dŸ‡çü­÷
-ab<Èõ²R½#ªª«xŞ³èDXÈ>c:ŒïMı´:}WSøÉKmæÔÔÔUQQ™™&ÜŠL«€Èsú»ê^Ü\:Çw£Ğöï­äÚK¿+(­±PËS-®T¸“±Æ@"HÀÍæI'· õÑ¥¢ .ÙUX;‡ÑºÍ¯ê&Îü@şk¥­,’ZE2:Ô©Q(‹ì€# a#ãÈòÎµG~í>¢WµGMdzû]¶İ$õ2Q˜KLÎ[’eœ®	lwÕ6İ<;¾]±5}«²äÕÕq{Õ5;Œ,²øh%t˜æÜ»ùiÚ»zj­‘Sx~ı4·$OÊë$…qâ+œPşšª×B£¥QªòïÜYÄç©CQº«]à 1œÿ ^ÊB!Tø*{çAÿ ãêõZ^ºãÒ«Vß¨Ú›Êæ¶›õ,ÒG[ ±´òFÂflr	ƒ•ÀÈ9í‚5dáT1ãËÌı¥?°wÕ×ÊäØ›r}áCjf©İ5‘RQÍ$ª#C
-¸fdGäI|ÿ F‹°á/‚(ƒû•eÈ¨[èò9}ƒfuÿ ¡ûVª°½ş„5H¤Û¥
-“Ü·Èœ€2ubíYc­±QÔAÔÔÆj!gŒÇ#3'n	^ß,/=¹I×¸oö…/~¦§IÖz)ü8ÄEÂË,‡'8ò=Á9ÓĞİ©â‹Àì@‡ÕJ‘ö±Ø©ÿ ¦®ÔHÚÎdÏ²âÑ¯hƒÊû’±¯W‹V×ËpÜ«Z ¹¬U/:§†¾,RD…Ë*¨_Ó,Çæ{é=¼ûZÖ&û¾ÔB”“AÄ‹]ºšİÊªå|&À*ÈÀve$YÎptİî¿àÛo¶¼9jŞóĞFÌñ—'Âv.I`2	Ï¨€KĞ±5Î²â¨­¯»5<rµTj´U
-éPÄH{H^6"‚¦I€xàİ¥£XïÁŒO<Œûç·T·Xü\Óğ b0sß`#¿I‰…7S¶æé½[vİ®+Nò±Êòß­1[Ş/rãŠñ—xÔ¶HÆÎHôÎ¥N¥ƒ—+œ £ùz[¶0Ù7Ù.•6ªšC{†*5ñjc™•¢ËŒ‡$r¿j^ÒB‹È/löæ¸?õÒ‹·0Ô–òœĞ3~Â’G»ß?{ÿ /FKÈ±õ_O×£C+ÓJ$æ«#©R2D£ôß[ª»®}^¾ô:šßº¶ÌtU4²ÍÎ…ñ_Â.]LCÄ88d“ğöï«HÈÎVIƒ) g·‘ÿ 3ÓZúÍ£CÔzÊí¿¸jë`¶şI¤ŠPx¥¤eÃs
-üC<çDØ¹®ÓPzyóÂâ»ö´Áê¼Éü%·~’ÔŞ>^"79¥©’8©I‘·6†V$w ¨+•î¬Oš‡Û¢w×¹öİı¾m‡nµEÓÑZc‰)á6õ5-DiÉYPæ@3öù3*ŒÂ:³ìÉÒ>½91ÔÖİjÔÍ'¿GB2Jª1É'BDC«7¥×‹,ÖØ­Û>Áo·PÑÆ‹Cx8g—áòˆ¨(P¦w8>XÆµ:½FQ–º`‘$ûk7d(ÓÔ¨¸õ²	hœÈÄò÷ŒO%0¤…èŞg’ªYÕäwäîªNx®ÆíåªOyVT_/u»c¬Vêší™`¬£Y¶™eäÉ)‘Iƒ·!‚{c¹Õì®È¬^IˆÎsâÃıú^ı­k“¤9¿Ş»s]I–š8•©š8ŠÙW ˜Ê«3†íÛ#1eAÕË¨´Ç$n'˜èb`§·²)—I÷üÂÂ´nz^˜½uÛÙVÍYexuÕ÷´–zš†T#Éû,«İI0Vg ´RS\äF®ÕF)G‡â±,ü~°|<‹c·–4ûíÚ;÷X–ñ%Ş‘ŞÛ;Á%-:ÊÒ+$ârOŒ÷qìµÒÕPFÓÏ,²‚áœ¹Ë ì œ8<rpê¾şĞÙ±–åÅÜ?ôïÔzIç÷…FœKÙÄ\O-ÿ u¡êUòõµ¶œ×íšÔ²]ì«!ZÆñ#uºH
-‰	'ƒ±Çp;ëÛÕÿ wÙ"†ãlšK¤05´éXæ‰êš!\(2œ3ä·Ú?½©\´Æç]k¶OWS7*—†yU”·²`.½Ê r§¶uLoÑ`ÛT‘I½.·ÚZ*ûãÔP½½!’Z¨ŒœšIÉÁ1…‡=–Zh¯Õ˜)4fs±ålJöòêŞÙÁõƒŒà Gêëdu=Âl=ïÔ}İº…·©ŸG’ŠÅKb=º9"’IdYa@LŒ	“Ÿ<êÎ/ñÍÆ3‘ãæê!cj«eÏ]|Ò¥}J,)‰éÅ4d`½Õù*¢FP]ñç…”GñÕøõ9„!_Èç$‘†$ËòÇÈ|Î¹Õ¨¾…Ñ¦àtÀû*Í:¨­n*Lõİw{ÈäG'ì{ıgèÿ ÕÑ®}çƒ$¹Sƒõúÿ ÌÑ¥ÈØ\77ä¨e¤dñc#ééªç­›ëm¶ÔOÒAg¨yªV¦H©LN\d“É·ÔéOİİ@â·mR@îßƒß¿ıú?.ışá»S÷ş¦ÑÒ/i<=±#ºMWU³¨Â×N{+¡º?¶m45×MµrY}î‘aåºI%dH	,È AÁQƒğ’HÕĞM£Eµlop©'®ºJdTÉRB _s+“ğ¸'õş%ÕÔ[‚¢°Ô›5‚"Ã„T¢ü MğĞ¸Ğ{oo{]$t¶ûFÓ†ÇÂ¢†CçæI2d“ó'¹Ö‚ö‹ëéŒ·"jƒ¾7'„O`‚@##"WJ·Õj^Ták\Ø!²ép€$ ‚Ğçƒ¼’ÿ €è¿€IûØ·K¯V:;QåºnKp¨4Õ•Pá–¸…id*XÆ…Ï0FÇè©/Ë»şmÚŸ¸?õ5ƒ{öÑİÛ’Şô;ƒoì«Œ¬ĞTÚÚD%NAÁ0~zY¥Ù^ØÜ¶°Œn'’Ò^jw‹Ï,sVu“¥WşÕ†–:˜$‚*ˆÌUË8>" 8H$g¹ğwój­ÑÑÙÒšÍAïhi£Hã!Ù„CáROùâr}^¼ü°{]î«5DÛkjl+\µaVw¤³˜Ì|!ü‡¦¶ïíÓ¾ä`ÏiÚ,À`nbqşı®Ó½ÔîH¼„ÿ *­>òÒÚœ8Ë¹˜NwT6›ï=‡u´¨«j¹a-Fbv‰½áA1ü@vïØ÷ò'Qm¶M­l‹fX6¤µj•¸ûîá¼	"’1t0¬ò©?eÃ2à'bWãÆ–Ë»¨›¶¯îıMj¥öÅİUóVUXv„óÌT±–†G ®1€dÀò^=y£Ò½°©$Ş“íş*uJÖwHpç	ÂÙ˜÷ü¹ï¿ÁK=-]®
-z(j+¥9)Léñ0+Ù•
-,FygVQI21ã 3‘Å»úw^~Z½µ÷­’Ó[m;Z8K—âÔr?s™öì;k3òîêæİ«ûƒÿ S@ßé×·w¬èÏt]–¡imE´›8ìŸ^]È&\¯b0İ¾øtiü»·ÿ æÍ©ûƒÿ SFƒò;®ßº+Î­ºŸÙ.4hÖÉdQ£FE£FE£FE£FE£FE£FEÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:5ad15028-74a4-4fa1-b10f-8522370b5ffe>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-JFkiVOKkRgNdAmyM-t2qdSQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:fd911d75-bcea-4aa9-ac73-68b88dab21cf>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:dc33aa42d7cb66ce370420e09a809d1f9dcc325058b76e7bbd265a71e7e361c1
-Content-Length: 60
-
-GET /artworks-JFkiVOKkRgNdAmyM-t2qdSQ-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:5ad15028-74a4-4fa1-b10f-8522370b5ffe>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-JFkiVOKkRgNdAmyM-t2qdSQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:bc3c1224-9724-4f9b-b217-174060b46083>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:5db1699d16771f25017170e57a595f4914ac40e0e6bea8b9b7620be1214c156f
-WARC-Block-Digest: sha256:5db1699d16771f25017170e57a595f4914ac40e0e6bea8b9b7620be1214c156f
-Content-Length: 384
-
-harEntryId: 9d6b693a4a53c8114f2df6816ada3e19
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 136
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":136,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 599
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-JFkiVOKkRgNdAmyM-t2qdSQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:5ad15028-74a4-4fa1-b10f-8522370b5ffe>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:ccc326f2b9dbc56d3c61ccda286cf987b14905ed0a27dbd2d47b3246866905ae
-WARC-Block-Digest: sha256:7f5124956707bb61f4fc5a529e54392ef9cca07b981aed904f7664ccc7c0cf56
-Content-Length: 6123
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135582
-cache-control: public,max-age=3628800
-connection: close
-content-length: 5507
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:01 GMT
-via: 1.1 512a9cd52d1c7f67c1024cc6f45426f0.cloudfront.net (CloudFront)
-x-amz-cf-id: AqySBBQi6V-V9lkm79R1VrdJsF-I8UKCW0AJGDYiLyvp6f8A8b2DYg==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-JFkiVOKkRgNdAmyM-t2qdSQ-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ             	
-ÿÄ K 
-     !1"AQ–	#2WaBq“$T‘’±ÑÒÔ&'3CDGRSr‚”¡³µÁÿÄ             ÿÄ 4       !1AQaq‘"¡±ÁRÑ$Sáb’ğÿÚ   ? £±|*n”ÈÉ}›e¤¥Mz­AiÀ“Ø–ÔøXî8#:óÂÆèÔK‹_ÊSGÖLª¬8ÊÆ3y$ŒrÈ#‘«Oã—Äíµû¾ºVİVM…Ô†ãTWÂBÊVÚ•­Æ3ÓÇm*xñ}o.ïÕ){¡R‡[
-ˆj#æ¨Ì-"SÈShNr¡ƒ‘ÛQ©`6VÓ§û©Urê÷Š@á€uÎHç×J¨ŸE}ÓóÃ_’äösç¾Qã«ü¯›ÑÛŸµ¬Îğ­ºTøè}ëXºÓ‰*%V¯TrTCO(„€	$ğ $ëºšµ¿QTz<jSM´TBi^Y	#óTT8õxövÓ–-³J„ì§"ÁÙ˜®§€Gª£ĞOOa”€8çK‹¶“¡ğ?œ²ïR1t—“ÄÙ×§lóí•p9Ï	Û¨ÓÕ[”HJ+² Éõå]½˜Ö"øQİId%°eeeªĞ£(¨ãÉ={k¼‹f˜Ò[u¨L%ç%%eÎ€UŸ-IàœñÓêã¶4‰Y§S¦-öjQ\’©Œ”¼-±Ôçœtò9ã¾¢V6ĞRS“ÈiõÏ/^•÷¡)	×ŸÛ<»x®£ÂÎé94Åü•Z ·*QiXÆz]S¡
-ÆF@QÆG¼kÔ¯
-Û§D9j-Ìg©QêQ$%8 ¥6ê‚y#¹õİ)+‡.…"à)ùe§RÚœB2JD('«ßs¨İÅ©R¥»Ğé)rkªiä¦
-
-T  9±„$qîw†6ş ¥%”æAËÿ e5XãV¼ACmô˜z•ü×"]ğº­Gqãk´´´®•¥ªÔîèKåYü1x‹áStæFóÚ¶Ú ¦EbI¤‚…¼A#9×v¬Ê=>©E¥UåAŠ'¹I[ˆF:‚–AßY óœ¥‰V¥"s.e>3¥ÖÖÚ‚‘Æ®¥`{	W$N•9Š¡µ”(\{şiZ”$ß‰Ë.º×›ğ±ºN8´*Ôq’¹5Œ#ÆBÖèIã‚uê_…mÓƒ%¶µ+qIHSU(¶’£„õ8‡J“Àê#'v¢­:<ºÌä?QTcOœë-0Ûl„¶”,ãº	9ÇQÉ9':Ğ§È§S’i°+¯7ä„½èÿ RKi.)i ø}D{vÓö¬nm.ÎûõñüÔ­£Ï¼×á/uÇ]¹u ¡şSyõ5Ù6âSiüæµ% à­¶y$œ’ÖNI'õèÔ£¸Ü­|¨9?,Gõ\ÊùH™i­ñ\”8çSÏ¾•–È=%,Æ ÖyçJ_%Ú£¯+¡
-òz­gC‹s Ìˆïútîß_¬ï–öÔ(Öd¦­Xñ}2¯ Ìd¾\yóNœ%|8â×ÁÀÎ }øtğ±UØFDÊûwUHÊŒQ"1q¥õ‚áê#-RÊOgHY}²ÏºZàç÷4ªşşÌ2–Jà” ùJOo­_êm«J#íI€Ië@i´¥oß<oêÓ¯UŞ=Ø¨•š­Æ¨-tx%¤-l±ætÓ”áŞêêaäéÎwnQÿ G¬şÊ'ö´•Ë5dxÇ´¾ß±¶D%0zƒÓsÒ¥Z¤7&0„²P‡½r@#{?N¦Òg7&:Ğ”­-¶ Ÿ(•tœ§¹#İıd~ë’½¬V¿gûZÀİ¹CüÅköQ?µ¨Å™
-J‰L§LêÌRÂá
-I*FÆyÓ¿Ğ*>ÛGq×:p”GŞúlMÚ‘:tIÑª°c·O”¹¡ÃÔB–9J•ÇO9şk/wd¡%Jf°”¤d’ÜNó´Ì¡ná£V¿'^™P‡_sÍìUÄp¡ÁáÎ?Ú¹9Ók;›Ëep'cuË~„ÅP¶vÁ‚¢
-•0L‘ªT?ä}7Ò¬³M4z(eæäyãÍoì¯’r?—Jz„[İ³oÓ#²¦+M°ÂRËHmˆËR0”…(û€ÉÓwnüNÌ¿£JqÚÏGr)H[™‚T±Ğ° ‚•Œôàú«IÏ:Råº–á•¦NzıkDÖ.Ò˜.„+…1'(³I7ppn|ÿ _şG4È‹wR$]ïBjWT—‚†ü¥ŒÈkÎqÄgáç±ì”ë­=Ë¢µ"|¦ÚvD¥•¡çÙCˆPqd…'¨`á@ñÇ=ôÔŒ-8×*êmú"\K†[nüà‚D§¨uxó=¨Xíîk­Ùª-YC 'ÅZJÒ±Ç±ÎõÉÿ ƒÿ §F‘'Ş×IfLg‚DØãœŸ{š5qN¢u¯)×J´QL»ëUäÊ[«¬!¤@zÂ³“{~:Ùºî6­JÕ)®BZ[m¥¤, ­KZP 'êÏèJÃ¶£_)B¶²xx6eFë g)óSŸûk¤q®f>.õ”<d”úã*,Ï^ìC¸¤[1VÕ9ŠjYSÎ-N„¤)=)ú“Üpq­jîM¡Ü2¨Ò©|˜­!î¡-JĞ¼ã„‚=Ç¾ª¥ufm½r¿ù;XnÍu)D–T”¸Ú
-Ê
-‡–¬¤õ¨qŒ~ƒ§çªÜÒ*×ç—Mze^ŠëÑœ‰-·ÒâKˆ@ är}úulÃXr‹y¸7Û^¦4®kìŞ«”4¶ÏrOçíV¢Ê¼•vÓİ’ü@SR•Ióƒƒ¨%*€;…Öá—6£]²uyJµRS©ı)a…$äéİxJ[6MjCx&–ú†FyòÎ´¨ˆ'_¥sÜrÅ†qY`BBÊFùe§¸´ö®+2§ILÔG]Q±%²^SŠ	¾Y=9öug#Œöşß®Û÷›ªT¹tôÇut÷Ù[(a8H(*S£ì•6¤ô ¥Xî
-’51i1cF™¥µæ„¥°òOZ°8îu¹I´­ê]&\ªZ$¥U×¢?KRà–ı!n-À”¥Å%“æ¥ ÁÆ¬aØ×öZ‰Pr ÌlIĞs9ôŠİÜÿ OÓ`Ğ.>	‰ €	“ÈH©;zkè¥F¡tU=ÌsÍv2‰x#ËÁ#Ãc«*$wèOçV­{ªjï¸=½
-ªÛ­²äpÃA „!N6®rzÈ)Jz½©=ŠsÂ—hS+4“¹j­ÛóXpKù‰-çê¤0‚y)Qçİ¯¯Hµïæ£Nó‹6Û1ä=¹ƒJJ\uINJN¬%9èéähÒÛ,3ãïšy
-NÑŸ3·?J¹uìğ´ÂW†-ÙH…ñp™ÔmÅnûUŸz1÷Tä† ¸âùR–„’^²(tÕ S±§úµZ7ëvÖ¯Z06â¾òfĞv¢†™t/*!\8Sç’9ökkÃvàÔ®[şm5Êƒâ—©lÆ§}FÊšJù¤åG·ç“¦¯X¼Ó‹J´H™ç§óYGÙeÚY|CwQ¨ˆäÕùŠ›üBìıZ5½£T¤Ö7Ş/™¬ÚaoŒ:„Í¹œ(8ôöeöP†ñ%}”ò{{4ıµ Á“RZÜ*İô<RAñT*mRìªP¦ªø¤ª‹Q§¼•2ÃÍ8Ë€-J±q‚£‚8šj~ ¬Úå‰G¦Myqd±jG§âXl…<†ğq…Œã’3¦¿‰r”^Õ%e¤–XœJòJÉ(VH^023§=İáúÔ“cPªÔ9UztÅZ±êRU˜‰V€µ-iXPƒÂzG'ZÌ ¸DÏ‘×OJìŠ»rîÍ§ßTñ {d)dî•µR©¶ÛN¸Ş"qå‡e	’qßŒÀ~Ô…_šjaUyi--T©ZT@ÂÒ…%CùÉ8Ô[²Hj.Ö—"M’¼ÉJßvBÊB–Ù*R€À¨‘œÇ#?ÓM•rÚÏÁ„”.“%,¸ {©K{?8€{g<i"›mH
-g½c1›VË“ægm6îGæ¹»¾WuıÈ¨6‰¦\zrZŒÂ” ¥ ÷\û;¶ëtÜ´6®L¶¡5T¨·1M&CªZüŒà7ÖH9H Çéó_ÛŠÔ­¾ÍÑLšõBrúÔ´‰Ì©aSydŒã”v”(ûp;*új@ÛWjlª{N IRC]K)ÉH*Ê‚³œÆxÓ,ObÛmÒxÄLrbg¦Rkim6oTğp|ÄÆ`Ìòô­™Şúû_~qÅ†—œd.*â!I.+©)()$ç=YãØxu^Vn÷ÜA³Û§ÇCtô(¼íEèŞ`APWR[I''‘ÛÙøëÌİ£Î˜Ô¯ª›-¢ÂÙŸY«Ê)Nå¬!²¶Ó‚R¤ƒÇ)>Üğİ]ñYÙ[€"¥R£É¸Õ,Ô!îYqÅ¤„¨('ìgp1Î’{6«gÖİÚ[J¦R¡
-ìt{zÓ;œe7l-€©Z`öÏqö¥ë÷lçí%Ål®mNUúÍ)™­-Iy°ÉZÂÈÀY#$£Õì’ü-ÚKr¯pËêŠ»¢T©#ÒRãˆgÌ$¤ R“ê“‘’q“ÛP…Cu×¹—="UÕW‡-š4ÂiH…{@JxÉHÊ†IğÓçÂ,×*[]mÉtSQ,¼ùGÕ¶•­¤´¯y<{“§8Šx¸ÈWËœúıë9íBğ¥ Ï<ÎUoôhÑ¬ír:¥ß¾«k}ÏÕş4O÷=g÷Õmo¹ú¿Æ‰şç©‹e>I½°µíj{ÓqÉ¯Üµ­ˆÑ¤2õ>VMe·Ş	^JÛ
-`g:æŸ‰2ÚÛìº­=¾“:}*ÚœºræÌHB¤ÉkÕ}i@¡hZRp”Xç:Ò|+?´WBı6ÓücÅYÃÇÛ^óåË­mÎš†Ğï‘}¡8ï¦ë^/vÆ3-µm/è¨i°Øî	Ê@Æ	ù»8ız®¶…ïI¶í{š—V³è—Êìtµ
-©9n‡é
-`¸ÀB‚JPû@W¶pD³µ^#-ma[·6ÜÀ¯ÌmN1* ë-(ÈŠµ¼¾Y$õåå¬ğ1‚ ğNTÁR“ mSE§òŠmõŸ@UŸ³U©0\+LËÑ·JÑÒÒ€€F;}º_‰ò¥Yğ#7ÌÔ£Ge=-´Íà„!Ü!`Uº–îYÚïÓ-›4Ù+QÊL©¯²Ãë2}";Í¾‚¤q%ÔŒ/rTP2Ÿºí'qã]I™N†Ë·n%@¸škRÔo)hIHõzŠ<{¬c­aPªİ¥)š¨í›¨©hš°W_­¢½«NUîM†¬H©<Ò\†·	èåA „œ7#¨(c 3¥¨ÿ (öŞÂµcÛtí”«Ã£DŒc1‹ã§Ëh¤¤¤+Ñ:¹
-99Ï=õ\èûé@¦Ú6Õ!Û]‡¤R¨UŠdÉNÄŠèR¦2´4ò¦ù[kRW’A8ÆIõ´ë¡oÎÑÃ–ãcl#ERn3èmÔ¥rŸ}?d¨'Ê(l)©A°Çû(IHIĞiÒhÀ—M*\´şQ]º±i.S--–­Ó`º¤­l¢û+A´¶+ˆHõ‘Ç»ß¤™ş<öŞ¡:L·ö‚äJyN©"öd„•3 œdûõTw‹jèõˆ‘i6ŠëÔMFKì0üF™fJƒ‚¢…dõ‡£ºà*úßgHÓ?vîÍ¾«RìEm½<)TèåU¸â9HZºµ¸@.¤>¢£œy¸€1­YP‚jİºÕnáq’R£©çÒ§Æüvm»*êgi.vÕÛ)½Ùÿ _¥‹'åÛû<¦¨;]cÊyõ»z¶TâÔ¢¢IL““ÜóŒj«ïöß5>‹+o‘F‹Mº)•”S–_fKq• ¼Ó¥@õy‚BR2’±Ãt÷2Û¾-Š>‡m5L©Ñ\}.TĞËL*[+uÇT†ÀcÎ Àãx›F<(zWİÛîİ·îîTDÍ\ßUµ¾çêÿ 'ûs«F½øVh¥Ÿ¦Yÿ Œx¯Ğ­»N©]ô›|íİïíµîZr—Ê’[	Ó©Ì!²_mÅ”‡që¡iG–‡o?*®ùÀ{pçm"‹bÎ«À9pİ‘(L¢ êú¤Cµ #ºˆX'¨ à%]UvØñ•½¶m»:‡mnUÍ
-Eer
-d¾T}©}@ºŸùT5Ì˜ıB[ò§¾ô™R\S¯<òÊÖêÔr¥)G’I$’{êz½_-M9âNNÓÓè0¢"»‡R¨ÍLy3JZtÊj*z:H2Ô½åvç0¾Uú_ù5	“#ZQ]vm4&l†å&'£Bz0v8['ÊZ”ê\%8P(Æy'L;÷kwí»L¨ÄzåN$Õ…¼•ô#ù]'Ô©]-(« ıX9'QvQ£FQ£FQ£FQ£FTãô¢—÷e²EÑô¢—÷e²EÑ£_5`$r£éE/îËdş‹£éE/îËdş‹£FŠ8G*ÏÒŠ_İÉü	WïÃ½§`nVËZ×5Ñ´ûVåV­Ç$©‹Y†ĞJ^q	„5RíjJzM-M°’ƒvËcR7î5µt›eğÛ?ÕªAâËti»=¼“-»+k¶uª[0"¼„È²ã<¾·•zÇú4jG¥Á4¿}×.!j$FçµCŸJ)v['ğ$]J)v['ğ$]4Æµ|#•géE/îËdş‹¬}(åäÿ ‹“ø.+ÎÊ²<QË?êÇdş‹£Fçå_ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:2d519111-91eb-4816-b65d-c11cdafd4f0e>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-fdXeVZXyRVZBTyG6-ECkkOw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:a1bad1f6-969a-4101-b43e-6d170dbe60c3>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:effe045a1947bf9b6b413672362343deeb825dd32bc7611b932f67f0d9e5247d
-Content-Length: 60
-
-GET /artworks-fdXeVZXyRVZBTyG6-ECkkOw-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:2d519111-91eb-4816-b65d-c11cdafd4f0e>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-fdXeVZXyRVZBTyG6-ECkkOw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:8b0bc04e-0279-40e5-9011-3f18016d48c6>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:2228f4efbf007f46c402f32bf4e91b32a66d66cc884267a5d97f70ad34a595ae
-WARC-Block-Digest: sha256:2228f4efbf007f46c402f32bf4e91b32a66d66cc884267a5d97f70ad34a595ae
-Content-Length: 384
-
-harEntryId: 300fd241830589c9130aa584a98a15dd
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 138
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":138,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 599
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-fdXeVZXyRVZBTyG6-ECkkOw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:2d519111-91eb-4816-b65d-c11cdafd4f0e>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:a05a4485e8bc7e3639168f0a9dd833af17c5780a9aa9b3e558f59b5853fe08f5
-WARC-Block-Digest: sha256:afa054d18dd4ccde99a826d574f4ac9e904ddc75353e8bf57db2024652847131
-Content-Length: 3491
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135582
-cache-control: public,max-age=3628800
-connection: close
-content-length: 2875
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:01 GMT
-via: 1.1 0a817a6f6857cf3eedfb0006771e08f6.cloudfront.net (CloudFront)
-x-amz-cf-id: f_eXuDzBvQZNs3hOIB0uw513GlaDh-3zWs6VivFVdurp7sSqlsV3kA==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-fdXeVZXyRVZBTyG6-ECkkOw-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ              ÿÄ H      !1"AQÒ5aq”²#23STUrt‘’•±ÓBERd¡Ñ4bc„“£ÁÃÿÄ             ÿÄ 1        !1AQ’ÑTa‘q¡"2R±ÁğÿÚ   ? ø1M§i“
-©k{ı“	ÊÑs`Ùnmçj„ƒn»/B^RÖáÖõ™U»ÚAøO&Ş6	øÜÛ‚‘XÜ>ŒJ×™'q6%ª‡`@ªÊo~e©Šc•±Ô`ğŸ~d<—£Š·ªÄ*é…<t•2Åi!9AÒå‚ÿ ÕSñVîšEíG¨§ú—oÚĞ¹Ä+08e:<—§Ä˜.Úé‰ë~IœY¡¸­poS(|¤eG!c`ŒÇ° ;âœÆ<1_õ©}r¥Wz·âÛ[;zÔÙnÆ·C0 åÅ+pf+NI ]Ü~‰QK6HıÂk†Øû™H6ë^\x”Xü«+	Æ«a¹ü¶ƒš&g„ò#š°’2š¸ÊÉÑI”fï¢6ñö(¸=ˆQq“*•íÛ®«¤DòŸô“÷R©\DfÎpéu/)EØ~’’¨¸ê£+	ßI†ÕM]æş&ÍĞ¶B}P«”Ø|Uõ¨=IRnğ´pÊL«{JA ¸?”ï·5ßÅŸéì“ˆÎúª*9fË¼.•®-m®üÓšùÖ5¹ÜëxŞıd§k#1áôŒ$Ùgã‹z×Z¢‹×x«Ãí-XhS~a»|APTüL8É	qŠCIı %‰^„’ØBæ×e2¼®‰?¸óÚÙ0Duë3†¹­d—}…²uòySøÇ†+şµ/®T}ôŸ'ß)N¼Jo~c*X®&oê–e"x“3şŠn±J`uªSŒÆ«\Æ’è.@?0OS}'z¥FìGœÑP¥HI+wÂXe¥á­´SŒ±<7«×ÏWK]Nì†S	[iKüœUR±†76š­îËi(M¬àH÷x¸ÁW(¼CˆY ·¶¡~ö[€#vé~êM1³ÒBŒ…V!S"!¸=Iq {*'ü²¨iqÍ$@ˆöZà^È*ÕÁ¶¸e`')>…'|ÆË˜= µ×ƒÖ¥Ô¿>DEˆ2OÃÊÔÏ²çøÙ>òL³É0hšG¼2ùCí~6S¨üÁkãèÄZ¥”ƒ¿4óÒ sM¨{O¶Çe«)hâÃ(*Cè¡˜É,c1.mÏR˜±Ü§0É´4Mn¥Øe5¾ê§r÷1’İò²¬h²­l¯ «^U$¦İ‚á`Hö´‘ë6ìZœN6Á‰VE‘ÔHÖ€-`@\–H+iœì¤o™ÀøÂëØ¿†+şµ/®R·}RH¨»bô¨¹¾X‰Ÿñ/ğµ?•Ş©Uí‘»˜úm÷¿ÄŒ{£xtn-sxlBsÙsuK'Ú®ÓxiWpLpádSÍš8ÄDûiú9Céë@p!´_ı¢şÊtÕLæ9–BÇ‹9¹·×ÎiEÆI+6úè\×5CrÏ	Ÿ¼å?Ol†ía×­ ¡âì>T$¨ê;ıÏ8’Zf½¢ùw· 8›;†nˆ³xºúpKdn”O%,—ç`-Ôkbm~Ú9?Úš]¤ÚX©ñ‡4µ‘¹ñ9ÑÆÒ×‚-©ëşUY´[iíĞbtTSOkdo¸¿mµUüÖ†çÁB¡ªh†ş`'Ù[&Ëz\×·øeáÌG4”±½Ö&`ZI YÎàÁbMÎš[­f¹ËŸùÜ~!Õg³;k7ÑQãIK,„<>(Å¬	¿uuè¢“´iÔ©ºÎ»^æè«¯3#0¾Îx»šeË’lÇ t½¯c¨!Pí~>'¶øE40ÔÌd¢¤Â–-óõn¹[q˜ÚöW{µ,Ù­«ª¦Ãç&727ÜäÔ´_Pó+|ö›ÃqGOUT¬•‚HŸ“.íÁ¬"ÃB<Kg·ô“«Oôµ0
-—wTÃDƒX~cl6'À`¢ªÙÜr—ˆËª4­sÙM™Ç+òÖ'Dİ¶í#µş4İÖ/Zéßq:ª^vwœşÀÕ^Óìì¸¢¢§©£¦–W>XYZùÈi,¾n¶‹‹ñ7+›QŸ]Q’­âFTIît-±Ìuê¿_j›î)—ƒ¿OûåXÆ°›š)² üÑ$i¸˜¤p+@³Úe¤2±å¥Œœ8®µ‹o§Ë%¾	£÷æ—ÍP®R±ª-šŸ
-“–ÑÔÀş‹DN ¶Ú4Xq+9I›ãÿ ;ªN¬Ên,qÔ/?B…[Šb­6èyü-3â–!šSLÖ[8qn¿"ñ¥¥Ïkf¦s€iŒ	u7D©‹pâ³G”™]ï¤.àae‹Ş­¦×bx~±Ø&!„HÖI#ÚÆn‰Œ—t@¿¾JB«_.iĞoMô*RsXöêãûMSÆöÇÓÜôÆY3iö!c_Ê$7t¯'Åş!ê53‡\r[úNvf‚c#0Úé\[`%Ä×ˆ´z8¦ªy4Ùyæ|§Ä"ÎëäkZßµ©Ix%ºk¨?Õd‹ƒ ÊÜáS9[»¬¯5»1òSñ&ş’v—“M˜¥’Œ6¾\—èKˆ5Í:uÚÒç î»W­pp»u	yÎå	Ÿ	aGL‡­İÖn·“™­œÊì6¾"@Eˆ àø«œ7¦Áèihp¸e†’I”K>õä½×:†ÉLBpâƒUbÏÃxu¥fÖ¤ÒİÒçÄØå0O­`“vû–—e¸ ƒ¯d[É~ÌFC&CMìq&êZÔ™=áJR lºâ•õO6»Ip¡#MyÍgë¹>ÙœK)8e\9	¶æ¸6ü4ø3 ¶Š'5»1ò,Sñ&ş’ÖÚÜ™¸$Ì…I¾Âš 0õ¿ºÉsY³"Åoé©•[³5”ì„á5QˆÈ³â®q°·ß_ÚUûdkÉ<<KÁvŞàØ>Tü÷2„„p—AÈzİİe¹¬Ù‘bŸ‰7ôµˆQóÏí	şÂ¿aëwu‚çf„ÒëüÌİäs³Ckû_Ké3w—Bí´;’ùÆÓyêÖ{®ÁÎÍ	ıßKÇå3w9Y¡ÖØu/¤ÍŞ\}	íä–ÑyêÖîë°ó³BwÒúLİåç;4?7RzLİåÇĞ¡ÈÚ/=CúİİvÊÕÍô£ıÌİäv(H7 ¦Óù™»Ë¡-¡Ü‘´^z‡õ»ºììÑpö¾—Òfï#š›©}&núãèFĞäö›ÏPş·w]|r·B4u6ŸÌMß^ó³@xáôŞ‘7yqô'´»’6›ÏPş·w]ƒš›©½&nòB6‡r	m¡ıGº„*êB„!B„!B„!B„!B¿ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:eed4435f-f17d-4e3f-9710-41cf468671c3>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-EoGAZO3UCil8jy2W-um45yw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:e6864064-e13b-4e47-832a-647f67232557>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:132c2efe98a8d432e0b4079ebc7d5fb81c510da48556f337121c7453f2d7113a
-Content-Length: 60
-
-GET /artworks-EoGAZO3UCil8jy2W-um45yw-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:eed4435f-f17d-4e3f-9710-41cf468671c3>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-EoGAZO3UCil8jy2W-um45yw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:821e6b3a-faab-4785-a346-f7a0eeaa781b>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:67d0a152a480c7f398bd38d7ef1b9e8f7dc22d1d9efa8a488a8ee12c91de6b2d
-WARC-Block-Digest: sha256:67d0a152a480c7f398bd38d7ef1b9e8f7dc22d1d9efa8a488a8ee12c91de6b2d
-Content-Length: 384
-
-harEntryId: f38dc9d82a8ec756d66235d80afd6faa
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 139
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":139,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 599
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-EoGAZO3UCil8jy2W-um45yw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:eed4435f-f17d-4e3f-9710-41cf468671c3>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:690442e413630c99acf4e811eb9e9d2c83d8e3817e79c3ddb95ec3ef2f5e7d26
-WARC-Block-Digest: sha256:76cd04b8d0007f5738416981faa0c13872dd2539595a8b6deb560c9a53f077c1
-Content-Length: 2252
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135583
-cache-control: public,max-age=3628800
-connection: close
-content-length: 1636
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:00 GMT
-via: 1.1 1ebee81f497eb06c92039c3b1faacc38.cloudfront.net (CloudFront)
-x-amz-cf-id: CR5YPpQVryjB8bIh3Qhh6kKhrk8QNmscxnLMP_E55gLTJlLIQu4OSA==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-EoGAZO3UCil8jy2W-um45yw-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ              	ÿÄ 1       !1A"Qaq#2BRb¡ÁğÿÄ           ÿÄ #          !1A"QaqÁÿÚ   ? ùTˆˆˆ€ˆˆˆ€ˆˆˆ€ˆˆˆ€ˆˆˆ€ˆˆˆ€ˆˆˆ€ˆˆˆƒsÃp2r~QÅWòÿ üâ(üÄŸGÓ©ŞÃÿ wôS.uÀîp»·q<‚<SlÕ¬MÁ-!Àv$wÑï¢h®~3áäyßNB‹¬M;(K;ŞK:˜ç4Äã®Úº?R}€Z¶û{kÅ«Hæ9óéÛNõŠÌLr¦Cˆ¹>Kêp?‰T>gÎçíæ6m¬üŸ²‰Oà™ñL×2HÜZö¸h´Äì#7,ñô£—ä3àøö#Â+ùyZ’y;™Zíóq¾1òÎf.çZÓ½\JüçZêVØ×NübÖŠÌÌÄbmÄc>yõãŸM6›{ŞÑ«õùş<…~›¨[–¼º.‰Ú${ı×BËËÜnC#<ìikdwÊÓZÿ ¥ˆ¾½sÛòÁ©‹Ïo DDD@\±‘íksœt ÷+²­Y¯X½8¤y]Óq´¹Î?@ÚñÌ„<W“Ao7Œuã”¸Ó’O…ü­ş®Ç°v‰úA"³àç ÃÙªüİx  ù!,ºÃXÈƒßÒA']Ç¾·­û¯BğÌ‡ãÜ#™ñ%È­áìjAIö\Ébº^ÎÍ–;c­)og‚U=?êW5<yK‰ÄÊÛz0	˜d?üˆ=öØÒĞÓñÓ•Ö¯N™ºÆP¬ÖÅ$PAn– {´»§ccc¶–½®â4/İœÆ9M¢ÓLOÜ$Ø?eæØZÙüöVÄ9LÌò—Wò­hù¶ç8Û?ÛêGåX0goñÎ!CÃ~:“Ád±ÒËj›˜[#lJÑñ^ÉI!İMÎí½j¿ä>>ãò˜[ŒÃa,b37UîÃd‚IÓ»´4·~»ï¢°x__±ãÎF3YL‹çsÏ:×h?äk»³şëëk¡¹ÄjÆq1<ıÇ¿Û¶¤éÎqëşğº¼Vì´°·¯_§?É°ì÷²ÊŞäbµüGÀÌ
-+MçvJy[]Ğ†Ç<B8¦ÂzÔZßÏåE§ıGe#³j:˜Ú6qóÌç†_ò9® ¸°µ§°ĞÓ}R‹|‚!ıÄ]µ-_7æ2KR:¹ùºšÎ’¤kğ‰š9¬lçéò.GŸ¼ş"ö`±•_Eq’¹Ó<°9Ïù€ùµ£ôßº§¹Ÿwä·pÓZ†ä”^ù¡4¸´;÷í½~B–r?9z7¶˜‹ù%I5	¦d:Ö‰ë× ŞÁW÷nØÉ[–ÖBylÙİRÍ+Ëœóõ$÷%E±èt¢"DDÎˆÌfùE¼G¨eKËàpxgGH$’O`4¯á[&f£¡Å"w.âøË,µĞÉlÊÂ@¤JÓ·bvü*·…xƒ’àN·&>bãbhKŞÆíiØĞ=·Û¾‚Ôg3·¹&JKù‰Í‹2€ò ì€ vTxˆ¤ã;Är¼r½)òÕ]Dµå©®MÛî6>áiı‡À¼iÊpl-ÌKéÓÌQ˜n¼7GSk¿ê»Óõî ÙL”ùŒ…‹·K]=——¼µƒgè`>Á{8¨ˆ¼D@DDD@DD+ğ¯	S‘øƒ„Çå£øÕ,YşX÷®°vØëº"@³üiàÜ{aìÏ…ÄU©3åĞtnÉ¡ì:´¨TEwA" """ ""ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:83a99053-e167-416c-9e0d-6ce4f788706d>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-bvAUoFjZhG5yUFYl-0G8uIg-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:d19ce012-eef8-422d-a0de-d5cff25d8907>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:b4d753bb9695d27ba451fd826a99fc0be4f314f20991494f39a56901e1ac8903
-Content-Length: 60
-
-GET /artworks-bvAUoFjZhG5yUFYl-0G8uIg-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:83a99053-e167-416c-9e0d-6ce4f788706d>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-bvAUoFjZhG5yUFYl-0G8uIg-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:5662c889-59f8-4e92-8ff4-dce7cb40f4df>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:4eea7789644408613b0da73a0fcb9e146a605b67b895460ec7b7932d455e7f04
-WARC-Block-Digest: sha256:4eea7789644408613b0da73a0fcb9e146a605b67b895460ec7b7932d455e7f04
-Content-Length: 384
-
-harEntryId: 860fddb6f817723aaec82af638e2015d
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 140
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":140,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 599
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-bvAUoFjZhG5yUFYl-0G8uIg-large.jpg
-WARC-Date: 2022-08-03T18:32:43.334Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:83a99053-e167-416c-9e0d-6ce4f788706d>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:ce86173860d13af20d4d85ff473f417e43eead0c8ef0920dcaaaaccd25634e31
-WARC-Block-Digest: sha256:c261c4632ec51d9e2b1d6c2f0105f99a1956a00dae3836899e919a590ab69a87
-Content-Length: 5377
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135582
-cache-control: public,max-age=3628800
-connection: close
-content-length: 4761
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:01 GMT
-via: 1.1 0d83778457fb41198419fd5b267a3308.cloudfront.net (CloudFront)
-x-amz-cf-id: 0osw_Qe3cILZDyAxZIQwrIKU7qcfckuAfLrv7Fqjj0WGyA0K5rDfnw==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-bvAUoFjZhG5yUFYl-0G8uIg-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ             	ÿÄ E     !"1A2QWaq‘•Ô	#9Bw²Rbc±Á$3V–—¡ÄÑÓÿÄ              ÿÄ 2        !1AQ"2q‘aÑáSğB¡±ÁÿÚ   ? ªöQ€öêÛJqE±3®µœ%Jÿ l}º|aÄz~=ÊÓ‹äø¸Ç×ŸM)>lw®½Évg"ÌZD%:ã¼VB N}AWfZ•v•m2”Ï’Ìa#yÊÕözıºÎmy.`Öêi{^fFã„lãÑj¢ÚN¬-ä´?º‘ÈëhÅ³9¡o•jÿ a¯Í½q5r!ç  ˆÍ+€Zu+×ı?×[}R¸¼*š|Œ€â×š=–;Tè¬ã¥„ãüQíÇÜ«cgí	—5ÿ SG£ÂÀ[ªNTâÏÅm´ëYÇd¤útøÕñ%»üB6í—[÷M«rRØ›•TŒ$ÅK©ËN¥ÂÑİ´¨„¨ws>İUV­‘½¤çqÚ¨VÜ÷Æ¤»ÅrÃkM6–09":	ËÏ«û“ÜrRSYãì·H÷;Âuü,îV×.Œ^4ü¦sÃ×Œ›™p_‡¹µèV]&—kR§ÊCIRPz¾²OíVYH8Hö“uígˆ›Kz(õºÍŸ
-§"ƒD},=TzC8Êå…,¤Iâ Èï®WxÀğ_wøR¸›÷Åk®YU–š5u”Ÿ\ô_O£Oc¾=ê’p@›ø_ñ¸×=ÉlmŞÙÓ­ÊP&:)ÆOB8#¬úú‹)RÔIõOu(j|û2'4½Ÿ€ç³6t¢)A¿¦¥Äœ€ôºÀÅ>›U†Ì¦£$7%h<JÑ¨•â†í§ØZqQ¤s*£îî>İoÜ¸mËx-Ê†…v
-Ò¥cå	ŒÜ×Åã¥½mII'›.:ÈRÓÜrYâ}ĞN©a‰ÅãCºµø£ ?y­qoe‹¥¤Šêy’Úüªû3ëöj¶ßÙ›¶·Hõbù—ò„­$à|˜¾·q(“dHÃ½T£’ºƒN=IÔjó„º¡ZŒĞQ[ô÷’rxYCmn©h[m'5ÌG$§8ï£Z-àº$"ÃJl|?7W´íIF„Ê›YRd¸¤¶àeJAííR»ù¾I*æVêÉ–ì•‚§0ŸŠ;öö ¼é“—I›L\%QÔHìö«µ(«^ûş_‚ËnC[§ÒPJ†Uß×#8V¨ß¼Ùm¬»ÔÉlÅì`$õÿ ŸeíLÜÕĞ) Qi¬0Ÿ;¬¨¸£İGÉúueZnŠ+s8¡·Ò¢‡ÛO¢V>O ŒP
-âxÃ>^^¤{5 ·n¹V{ÏŠpiá$'šÉHí{ÜdqÉÂcÛl%Y´6DrÆLMñİú÷^Ş'<3Z›ş»N£}™å³å<ü–b9ÒT¸®$smKÁ)@ZZŠG.!a8$¯ÚŸTÛ
-Ø·!\Ô¾³ì˜¦›5ªUÂ»mÒOMèÅ¯0ë¤6¥•òÂµİ_vîÎWeJ¼*¬¿Sq°ÂiĞÛi*)l)<A ¸@'ÈÓ²âÂ¿!Ó^‡C§VXèÕ+r©X£´g&"’…%§´ó4¥$òŠiI'¹Ó6X0$İkH'K±Õ½+èG±^s¶1àÅÉ,4ç–ëGÊz_Øÿ …R^~(j™¶5t×l[ºrtš<kfç®¸ª•_Œ¯s$èhtUÏÌO%ñË#u^íg‡+wb*—Ö=>°ˆ·4â¨&¤:µ?±h(‘Ü«¿0
-înüSî£Ğw½¼Ù
-u¥I»¯Ìv]©ŠSå ï™•]\—²•( ÚV¥2t¹Í‹ŸyÃf|0‡&@[g¦] sS%Y6œ)%]±“GÇŸ"8Ÿ#äâ1Ïuxww@4Öèƒâ>nb‚vÉtx¹{Ïh/¯R.ık§EF·çN@)Ïq‚4ãWco)UÏ"…¤p[Cze>˜úµ];m;M’¶j€¥ÖÏtCôƒí•\oĞ±v„YMeáúÍ?ß&æ¥Ü-¤„%¿áşî5®–¶äÈyil!·V£ÓÎp³[µÀaÀM§ËéÚøí1©JQÅG<Õ¤l±´è)IÔİ´U[7Ú{İ’Ë¤´OnMé?v4iıkjíÉ°aŠ‘|ÈìÔóäüb¬}ê:4Œt)ŸÍ0·BÂUuÚv—-ÄU›öU™îÓôıôv‡×RàIFT”ÊÖ=rô›Z«.bÂoc	@ôú“ß×_p-ÖÔ¦áº°æRNB~¾ÚyfG˜óR@É-~‡­-ÃP"K•©Ì8ëJy„2ÑRÔT ”¡8ôäHH$“Ü#><÷³qv³têU™"Ç¥?©Q$õPì©Œ8ëK©*KiNyƒ•{4éQ.áCìÖc72—=¾”¨üFxúå'å¿ÿ D¨¿Œ“øWxo—R£4º†ámšÜz¼B]¨D!+Zä­ ?Íe@c‘‘ˆÒÉ)ÿ …Šø²]§ŒÑÂqkšßïÕr™V*•3N¨ÜaW”¥y Hâ’·Ô2\‚ç’xã‰O#‚°uÔûŠ×ƒ}¤ªP*(‹{Z%Ò[i	[¬°·¶ßNAè†mgéâ G0ûo®ànî‘ª«¥·S$Æ·î7&$$•c˜AÌµÇ¹ÈæmL¼ oÛ-ØeŠÌ„·Dº‡P[„´á?²tŸfpO¦~A«)šâÃ]Cg7çÂÙO€º‰´¢o‘'Ÿnt™O	–¥Ù|~‘á'qÓS+³Ú¨U[L·¨K%*m•!X	â¥¾•vÇ³·LhWdMÍ¨O¤Uh±İ§ÄäâqÎyRWÅ*OaÅ^¤)'#åÖ—bh‘¨6—+±š\Ë‰BB]àÕ,#—¯2àæŸn².jÅ:Å Ö¯z»,Sí»n+Õ	hdùl¬„¤`(€ÊHÕYÚø,á9›Ó9 ´j7EOcÚ•GÄ±æcf¶L_‡h5‘&Üsú*‡Ä‰[/ÂmÙkR/:¥R¡åmçW¶D©4ÆQ€‡T¾IR›Rò¿*N1¯’÷."vÕ}s¨µm»
-WAl—PrsÁ`(“ê?õ®~lå½[ı!-ê·nå%bŞ€´Ï©ÆB‰mˆhWĞ}XÁ=‰	q^§]ÜËyÉqfAiDu¤°m!)d¡ % AÄ øuÆxqã™¬ş¢5ì·
-O$“!ğêİjQP±êGĞ®Ú“Ø´ôUjJ’
-\fps•ŸŠ?ÔıšÓ½kµ&À‰T†ĞÙRÕ ‚hß23ö`}™ÖëhIb¨×ñ…¶¿³
-‰0o	Îiå¢ÖeÎ4˜4}éX|OÉ£_1£U‹-ar]Ÿ¶ó¥Äîì¨§Ğ.À¡¨}ÆF¤,xój#A¨›½ºì´=ŞÜP>àş—û¾6ÇÑè•)Dªån²Ûª¢NS¨ŒâË)Ï Ûjò¸ä‡%9è A<«ë‘ëUÛĞM¸Â™¹p©N8zÊëf:€#€3)ÎAÈô'zø"w™ ¬<›O:_<Î>®?tÔÔ¼bQ*Ïfî–ê—;åMíİ¾__?n³-¯°­¦9oîæíÆTöĞÜ€­¾¡8—‚¢B¤üjûõIîL…]&ç—·µ+‰r†UC‚ç¹B‹Î‚§æ@d4HR†¥aJXöB6ivµ åÜó­WÒ¹m\¸™jem©3:NšIJ½ÂÓ89sš{d¨…ƒ@Ğ’M¥™$|7ÊâŞÄšöXïSö
-CËuË£w9¸¢¥bÖ§’r{	¸ü{Ó°õ>îÿ Úôÿ Îë14ŠıOqÅÜ—7ë”4)¦ƒ*è7P1ÑÉ*=ˆ$sô'-ÿ -R²Ùn<·šûršmÅ%¶•%.¤  wîïÜt:(IóúA‰JMcx÷i0¢0Û´væ€x¡		HÏ_' ]jo?Ğ·ÊªÚW^înäË~µÇ}BgªÙ ”óD€¡’=„iÑ¨ß+ÅâğÆıUÖµÎ¯.œi7wwz®Œø|M»´;]TÜ-½®fß6À…sÌ‘*¥»PRè:Z[NtË]DŠ\!ÂA ó‡U<sF«Å\J†ïnÓì)@‘ıĞS’b0şF¢;mû²÷ùƒHş„i\µn%ZõQ51"Í5!LÈG$}¿X ,ñGEâ0]şÿ º™³¦?1rNce‹p³º;Ğ šúj87šƒI1áîÎïå
-n¨JJyg ’ÿ ·'Xt”ê®9Iİ½Üen§ŠÏöBVFsíuFmg‰C·65~ØŸkSëĞî)ë“'®øm	JÃaIJ8(r R¯D“’•`k÷~ÖİˆT­+Z=±QbD·êEŠÓL£q[i¶Ê0T#¬’ 2§@ˆ ‚Õƒ^z&»he‚à&qêuõÕ2?ÓóÇ»øêÿ ï£H^'Êãş˜ö\¾s#õ¹VÍváÚÕîBD·æ%:ÚqÃ.Së†hq|ÂºBJ ÈJÜî{kK¸Söîm«mº¥V)µìÈ]tK”^heyi“êÜ»=Fu Ñ©£&>£qøo¨Õ¥Ì6å×¹¢)1£8Zi¦Ç:á	ê•Ev*r®%8ÕiwU6â¡·tóhÑj´«Íu%.x\µ=¸ß´ÂäI>¬O˜°Iìu]èÑhWmäÙy–å.5ÓoÖ#Ïn¡—Ş€NdÔK²‹¨óì¨xÏ”%.€3Äê7IıA¹7˜5îh–D§d2ÃoN ´:N%‡VâÕ”§MjGa’5[hÑhLuYßğ+²¡±é•,©Í¦Tw¦ßBf °RJÁ!QÒâAÀÁRJ†{…æ¢Ìf&¼İ:BåÆB°Ûëk¤V>Rœœ}úÇÑ ”&ëm¿v^ğ0iĞ(ºn¶Û÷eïó‘ıÒ‹¥wD+ƒfwÎ•¶vÍV‰rZlİ*sZ¦_†ÚòŸ:jêÃ)
-% œã×;›Äà¶ê´Æ-©ğ=ñ¶İ£6Û5{>jæ¢ÒÒßKâ¶	a(Ïdzé¨¾Önm&Ì¢ÔiMÊÅ>§V§Ìy´ôÎ—ù·…¥@óSŒ¨CÒ ûŸ][ó·u{^µI¥X¶fÀr--rGŞ¢$Ô` ÷+à‰Í3æ=“*Âxµ	yÑ£F„#F4hB4hÑ¡Ñ£F„&ëm¿vVğ0iĞ(ºpvÎ—?FVî–ã¼ åùKyA<›BÉcåHÁÉô?&«}Ü-¹¶lNÜ¸MMx]Ğç?QQ-ÉPĞ‘ËÎµ„¤>OšH$,wmÎè…Û-Ã±­û14köİ~¬â®Î–¦"·Îd ÈIŠ.%l’±È( NppAÛÜÛ«·²é5Ví²¦ÄË^M.*¤RZÿ ’jª–ÃÍúÈ>çQ¥ä(c—˜5ír_›TlTûNŒà¬¹@…	>î¢0R™mŒ?%¹	_U*Z¹/
-åñÒ2š¨5Ñ£F„+ƒáæ“g¿‘ù˜¿4›=øÌèÑ¥²‘˜¿4›=øÌèøDÅù¤ÙïÀ¤~gFR£áæ“g¿‘ù˜¿4›=øÌèÑ¢ÊD|"büÒl÷àR?3£áæ“g¿‘ù4YJ™{Gw¤Ë§Ùñ·mˆ”zİ‡T®L£Fú!.\4NÏT€ §ÑYÊ²R‚•¤øŠŠ¢IÚMÉ9íB?ù4iÎ&’óáæ“g¿‘ù˜¿4›=øÌèÑ¦ÙJ„L_šMü
-GæthÑ¢ÊÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:2d92f8a1-8bf5-4ec9-9d86-50e5b2155e38>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-eh0RgebiFGvwW3RW-M5SDfw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:2ca87123-c31f-441b-88a8-67171e6cb12e>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:513a868500fdcda4ea379f0067c6cc7774cd8624bc65829224885b3374448715
-Content-Length: 60
-
-GET /artworks-eh0RgebiFGvwW3RW-M5SDfw-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:2d92f8a1-8bf5-4ec9-9d86-50e5b2155e38>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-eh0RgebiFGvwW3RW-M5SDfw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:ff60d802-3cc5-4248-88c2-b2aaba9912cc>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:98f55ae432230378a4eebe6e43d4525675c5a5709d880013e75992581d08dcec
-WARC-Block-Digest: sha256:98f55ae432230378a4eebe6e43d4525675c5a5709d880013e75992581d08dcec
-Content-Length: 384
-
-harEntryId: e0b97483c535de5f985a9d64ab3a267a
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 142
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":142,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 599
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-eh0RgebiFGvwW3RW-M5SDfw-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:2d92f8a1-8bf5-4ec9-9d86-50e5b2155e38>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:d716cecfa1681a0f10df41389c1622756fd3853b7b1fe6231604b8a009828b35
-WARC-Block-Digest: sha256:ee27ffd63e563e9f9fba7f3a15e8895607f2fc6bb0b1c16c46551f6ad1e2f026
-Content-Length: 6096
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135583
-cache-control: public,max-age=3628800
-connection: close
-content-length: 5480
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:00 GMT
-via: 1.1 ecb6880220cec19d7d48fb6d26bdb1f6.cloudfront.net (CloudFront)
-x-amz-cf-id: EkxhdBEVbMLBQo1OHM26DhA3f0U5vV-g8gHsP58kAjwJpKwYTW3QWA==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-eh0RgebiFGvwW3RW-M5SDfw-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ             	ÿÄ O     !1A"Q–#2TUWq‘ÑÓÔ&BRSa’•	3b“”£±³ÂÒ6EVc‚¡ÃäÿÄ              ÿÄ 4 	      !1QA‘ağ"2Tq±ÑBSÁRrÿÚ   ? ¬ºÈˆÎ¸ÊB¤ áDí0­*»N¬OEV³NšÓPšu…ñ:¬¨€r“ı:Ğ¥ÉQb¹D·Œis&KêÙ‹à¥$Èp÷óÏ5ï,aœiG3^÷¤iãRZA„ğ"bu@jÛjuiJ%GçĞâÓŠBÁ
-A ƒàF§©Ğè* Ò`.µ;!R	Zp”ä+ù¡@Ÿ˜ë“^‰d…Èƒ!´6ã’¤8è)æxÏ£„ƒ¦¼%a²AC§Ÿ1S±6ë‰öHAœş¹wğEG *8O2{µyöÃeíúşÛQåÎ.™“#%ÂìyŒrF.C}ªÑá5.¶"-
-FBT·‰Oš~|ãÔæÑßyÖ4!K¢Õ!·Ê’$ªBÖ®k %H-çšIÊŠF	:.0{´0Cn®GX‘óùšÖİb6—®'˜ÉRRQ9“·ÈeŸZ²„¥›9Qj‰Î<•Ú‡	,Â Î
-qŒøS-İµ%ZWåbôägĞ•8„e° AıcútôÛ½û‹hÜkbuV,»zCJJˆkmOIÂÔ”¶N
-–UÄp{³¥¾èŞ-îUjD©qr'!ÇÛí	Z€9 ;¹ã>:œ3SÎ6ê¸“‰èõòªöV6Éiöš(Q$uá‘™˜ÏN“&'µ‘æa/$¥E!@Ddj_RƒoµlGb3´ÿ eL‚²ğ“î«hq
-x±„Œd¯‹–<%¨‹
-˜´#«ÊòI (úŠ“ôêtá(È$möùé[”cí)ÄI£?–µîï×NŞƒ«_¥D·•{¡¥.ÇT R“ÌÉE$ƒË×iÛr#t•4ûID–Õî’JÎÌdc»?úÔº›L©î}RšrUS¸c´*qMELÏpZˆ8C)êÔx”8½ê¸ÉäuBîÕëGPHàP$ªO³dDFscL§8ÚaØ‹W‹% IIˆFyùúÔY6,:Û­*çóLª|y-CkşV3Ü´ş­cÒ6ª“Ù”.»ƒpYª6áeóeÜo*
-Ãxm‰†mN!(%*üÈxšçÄˆYábFû÷5Ô¤¥"9‰Ğê<4ªí%šŠéï÷%FZB[ÖëÁa-6PÛiY÷¸ øk—dYVı>Ü¥Öê‚Û»ûJU˜âDe¶•eÇ#ÏÂĞBR€<’¬`iäé[Ï´Ôº¥)öe³LK¨31I‚BÔZÂ@|yãÇ›V±Š®j5·\šÄ8JŠÛB[­-Ä’—]÷UùÇ%¾<^'XĞ»i’â‰ı¹ÌÕÔà[İ²ãm«ßÈi12’¢ ¸|d	˜ôİ&¨eFÜø1j2ã:¦(8–ÊÏ4(|ŞgçÎ¶]§Æ“D©Óä^±ÛÒ”¶ë)–’	*Ê@'–5-Ú‡Üó·u^m¡å"E:´Ò¥LZ
- K|ıêŠÕ…s÷‡‘äFF6éÓ¦ÃM:ëœb<¦“%ªüfĞ²<xTÆA‘äB†N3¨Â¯øÔPúÉPÏ1œˆÛc\»˜V‹•Ú‡´@$%¸$#¡~jJ~e?´öÄ(HO
-Iìã€Œ·œğ.gŸv<uÏ…M~$§TÄˆ˜s]eÉğÛ·¤!”Ø (úœ¬c»‹S&©?Üÿ ¿c}&¹?\ÿ ¿c}›ˆÅHJŞY È“¿Òšp|=%E*"b}–úiû:}ó¨„˜MÈ¦ÓYEó©tÙ½©/5B’Úô$¡8åÍ^?”u÷OL˜0\i[‰D§I–ıõ¯+Èï÷«Ê1ßyåKGF·øU*è#<À¯FÏùZĞ¸¶R›n3Ù*u×éN7ÇpÅ_Hà20PÉ':ÍNâÁAÎzÁ&FÑ¶±×Z_épâ£ÏºŞóÿ OM*+"~ÇüaÀvœß^cCvÜãQÔèÂÊAñ#—?Ÿ¿Y«tôT¥D“O¿Úƒ&<kENTr§ 9	åÏŞKíŞÔ+ŠŸ1+U?fËJBUA\gx‚P‡œêÆ	!Y$$$å`qcƒÑİulÊ‡O¸ß!lºİv?¨>õiË@àŒpÕ+K«µ¡MÛÜ(Œ¦ÔAÛ§‡Ë¡5aeÎ%•'T¶&ffsºëÖk>µ:%¤Ä¯@ºeG•×a½O~!šÓ`q¥n(äpÈRÓëjUlİ»o~øÚu;†]^[²!A¢Ü²xépĞñm¥2„¶ZShsùgpBy‚4 ªl#ü'W)wxˆÖ»=a‡$œ ”%•)Dú ×Cl¶Æõ¥RQ0î|ê“î¾ˆîÔJc4¥’ÚÚ€PP• ¤‚Tyzwvï]8 ‹ÇSs¦€¤ç±ŠBÉ‹V¸m`™œÂDö }cÂDåŠêè»&µqÔ'í>à^ôëbSåPØ­cµ¤5}`iÔ   0à3ÏF™ˆ·¯ÚOx(Kd¸·8R¢¥(©YR±çâtkDLÿ ÆÜ#™|
-ºÉvg¬ä3®Àzé™Í8z£¤r£éíiHië|!N;&”[=î©QGpÆO/@şkJª9¸v•ÁY¸İVÈM!J¨uN"9È)f9uJóx€<»Îµ4Y¥øËn©: ÇX³)—ë‰%`¡A$q/
-!\óïG/C«n®-¥‹ÑÚU&BÎ¶®ª‹™©ÕjÑ>BR¥:×
-@Q(âR…à ùøæNq¾qÆ—À ¥hfY“#]#Æ§ÁÑj¦¹©'™$p Iá#Ş5èåU›d§î5ûmØnZ”áGh!–dË-8
-R0”! ‘ÈŒ@gŸ~£u½ëÜÚEVU2£ATItÅ–_ešr€lƒüÔà\qÚzíîá[62<i‘LI)•ÔÖ¢Çu( °§°¬ûÜ€<ÒâÀÇwrwÏ¿ª¤.Bh-ÄŠYÓ+ ­%EA+Sn«Œ¥%¨¬œ$a:Ù”Ïd¨nH¼;w¥Œ	Úq)`ëûT7Î>UsÊp>/wûŸV(-Àø½ßìn}Zwõ'ÇÕ_ßcıú:‹Ïª¿¾ÇûõŸéßş_µs\æ¿“”î[†åFéÑ"¨àDQ6/V—	WB– á
-Ü0}MÊt{‚±oT%\õJtZœŠc;Á
-4–¡4æ¥²°¥9îCÏäRóyêAjÖh6¬µIµ®éq¤™z¶Øëpr|å/)$20¬¨Õ×t1VŒÏ†ìyÎĞëıªJNã—Œ”€œƒáŸÕª¸Q½7î5ˆ!<ˆöTJ‰œHNYuâ>ŞTÊ²ŠW"rÈ¹Î}«C¬ÚííÇY¯¢S÷ü*2#SéúÄtÇá‰ˆ`»—›ê)JÆxóŒ„ˆmÅ¹·’ó4Ë:[ÓÙDdHCğJ›˜êC¶ÚYóIqD' `u¥ZÖ»Œ-1£Qšp¤„-]™A'ÓÖ3ôë¥·–}¡oG’år¼ò¥ºx[TiÍF)FrRBP#8>ûÃ¸j[,ÚÉÅ8‡¸‰ ’‘ŸÌé2@Ş¬=x\IÌNC°úŸÅBZé¸%Ò¢F3ìb”¯§‡ZëßİÃh€í.BIüèNôéğÕ:È.5rÎA?ñ"¯£¬Î°8,wÈ/ÜU—uìÿ ¯RèïÚªóšş:LÆé5¹±FˆòOpì*8úS£N>¦Ãøú«ûğ¿Fµnz7dêÊÜmG2JI>&*Âq7 ş-ih5ûQú]:MæÎà9P
-§=:––)’¢a ´R
-œKüg‘@å#‡¼‰Å¯ÑJê‰Pvß®Û´úå×O¤=IºfD²d”¥Œq'­âãQ'
-8Âu
-›¿ó§Ë)új»L2LwĞJÚ9J²•”œ¥'#c[^S7¸E{´W}›J:´ÔMBOhJ0s<@`@ãôj+«6œT!ÀÖ«º›—€e9v®s2­*ÖtkèÃ`Öº:;gVèôjÙq9PŠ»@?2$fOVXYH)p ¶…p¤2x¸pª{tQj×«¥¨Õ[¡ÈSã¦]9*·C¯¡•€RÜ€OVòr“Ã€I88ßÒ6«O}çšP.Is¬yfSüN/ó”®òqé:İ›Ò‚¯6G^ºi©G¬98– <†I=ä“#6í
-X íWœ¹uHÓÚß ;tş©yä÷#á7'«jûmOr>rú¶¯¶ÔóÊ^¯ñyı•ıZ÷ÊZ¯ñyı•ıZ»Ë°ßïùªÜÛ¯1P4ô{ˆqJ¹@ñ"ÛQÿ í¬®ôxÃ@³>ê[)U¬R>¼ÿ †§¬t©5üµ!/|ıjÃXœé1U[ŠR)Ü	'’B\8ş’4¹vÓæÜùŠ€y=HøMÉêÚ¾Û@è÷#ÆMËêÚ¾ÛSß)j¿ÀOì/êÑå-Wø	ı…ıZ|»şÿ š\Û¯1Pfº=8¥áùw:éM²¥ó†½“ÑåHPfİ.§Êíu#úó¦zOÔU
-Q”KÃ¯Z¾RÕ€ÿ ‚ş­»	×Ïz|Û¯1P/'¹>n?Wöº5=ò˜«| ÿ V¿«FŸ.Ã¿æ—6çÌWÙm½òK7×÷]Ùu½òK3×÷]L:};s¨±.}ÿ ®Ô)¬È‰lÛ4äu/©…çoHP) ğœ¡°Tå)
-ÊBÛ§÷DûSg·Ö±ö:J©rİã´D¢ÁiÅ·*•ÕFijqÇZ’ê–áXhÂ¸Kò*¿©øÂ#µv}²ë{ä’g®îº=²ë{Çifúà~ëª‹m]”ë*…vĞn;*‹\ªU[ìÑê3Üt?EuiRÙPIVT3Äó}8!‰·ÛåbPìrÚ¾¬W‘Kš·æHPS ™
-
-I)â*W\Ò	Çtwò†[ØQê~ğˆíOolºİù%›ëû®½öË­ß’Y¾¸ùuS®ëŞÜºïô»b›oĞi©†ÓìGgİ$%h>§Jy,©iu@à9‚NUÍêÙŸÂ
-ši›Sm9u•-‡2˜åè½RâÜPâÃcÍË¼GÎ@Óä7°£ÔüáÚ›ÇøKmï’Y¾¸ŸºëÏl¶Şù%›ë‰û®‘×vùí¤è2´”J\µC’ÃPëĞ…¹-•¥jæ	":@Æ…9”«MæİíÕ®ËÛÛñk²`ñş®·8Çäút‹‚Sğ„Gjº¾Ùm½òK7×÷]{í–Ûß$³}q?uÕ<Ú«İ­¹¿©—ˆªœÄïaÃî¡m-<@õÌxi•QŞı¿«ÚnÄ¨íÄ7®Ávi-UIBq!¸Œ²$§‡Ïëã½g5sJOÈĞoaG©øÂ#µ>}²Û{ä–o®'îº=²Û{ä’o®'îºª[ºbÊ—Á	š´‰OÉ“1SÊqÈË`).-9Âx’ œã)ğ<ôÄÚíÎÚÈŒ[ô½Ä£¿6ŸQiOË§¡ÀòŞ–Ë­”¶‚rçT‡Z*Që2
-S 0Ùè(õ?øDv§_¶[nü’ÍõÀı×FªîìneµÜ1ª”+N=ˆA™m´”¾ê\p¥Ì  TZAåÌ ¨ó$èÖ_§kaG©øÂ#µ~ÏµiÜJ*Ô….SM½V§C©µ6%IÂéáãåP’NÒJp•q’’š­Òû~ê}çÔm	õøíŞ”çm¹o+¬rŸo-KŒ©%l%Ä†Ã˜ÂÕÕ`'«ppşzZÛë¸–<EÆ³ï[šÒ›Sc±ÔœiHB½òP r€qÏ„BåK~t—dNyÙY[®º²µ­G™$dŸNt”K–ôùoI˜â~CŠq×Şµ(ä“ó“§Ößt¦§ÚsoZİ¿¡Üqh2š´)O-]·ISJ$ÌœugóüÔ0bŠzQºLÃ£9Xr‹AŠì»i4jkĞ™a‡`/°®3¯†xœãqeòÇŒæ'BŞ‰TbsQ!$]òkŠª±t$¶$²¥ %Äg«*PWŸù`±\¹œ­ôhš)™´›—D³ª×}Zı¡³uK¬ÑÖÌ&%2Óˆ3)‡âÔ´ [KÀ©‹ÎÀ)Ï`@éIgB’]{elÉ,ÅCi}-á%µ=ÖçŒ…!Ô x©EgUÏF€bŠhî6ğÒ/ØmÁ‹fRh1rCù¦µ§œ¢¾©Jt0À°ØÀW#„ãéÒÔÃÂ,9Í¼¦Ø­s´¡a8x¨ÆB•Í##€r%}úçèĞLÑF4¨£F(«|Şïñ)Àl-¦óUø‰OôûzÀw…i¨%€›NP´Âl:w#ıVthÖè¶ª)5•[ÀRÓêÓe¾.ÄJ€Ïèµ•[·”œX{N	ÿ €”ş_İhÑ§ËFÔkáS¬eÛiÖ ¢2l:pÏĞÖ¾•¼0µ‹i²@üD§şv?E£F€Ú#JÆLÖGwoÜ×Ãaí:N±)Ü¾–µğ#!NX{L¥óø	OçıÖE´N”Á4+xHe
-ÓeKH?ˆ”ÿ côZöVî”ÇYnÄÚt(…œqôµ£F‚Ú6§5ì}ß.Fmk°¶˜©Iş"SşË_?ÇêãŸÀ-¦Ë„q~"SüROè´hÓ£j$ÖãlĞ[Mê%?ì´hÑ§ËFÔI¯ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:bf76dfee-17ba-4d7c-a535-1c7a29df11b4>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-sl0CLeY34hplVJyA-rPieVg-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:9a799ae8-ada4-4813-b27d-bb4b72780a5b>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:1eacf61f417f6800be866ac96d464d6c5c65be1cf71acf6aca6e7115c36f23b4
-Content-Length: 60
-
-GET /artworks-sl0CLeY34hplVJyA-rPieVg-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:bf76dfee-17ba-4d7c-a535-1c7a29df11b4>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-sl0CLeY34hplVJyA-rPieVg-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:52d79b13-dd27-4640-96fb-189eb1887d64>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:64195538c98e1fc0e1fe921786af13d8a5f9f4304c614613ed5dcfd51f13027e
-WARC-Block-Digest: sha256:64195538c98e1fc0e1fe921786af13d8a5f9f4304c614613ed5dcfd51f13027e
-Content-Length: 384
-
-harEntryId: 8fca57499a8ddf94efd36e20842ed6f7
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 147
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":147,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 605
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-sl0CLeY34hplVJyA-rPieVg-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:bf76dfee-17ba-4d7c-a535-1c7a29df11b4>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:033c2801fe57c66176bdfb8acb6a9dd82ee886500a04421f73d494b73616cdfc
-WARC-Block-Digest: sha256:16025e13e6ed5ed755e13155a3322962d23cc2d9ab3c4637d2cafaf7fb777b4f
-Content-Length: 6270
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 247804
-cache-control: public,max-age=3628800
-connection: close
-content-type: image/jpeg
-date: Sun, 31 Jul 2022 21:42:39 GMT
-transfer-encoding: chunked
-via: 1.1 ed63bc28ec03a429dffd93eedad2fd5e.cloudfront.net (CloudFront)
-x-amz-cf-id: ECswEPJeSJ-XNtHgmobBmuHs1G79EHMJAe4o238BkgkOuiNtZZGB7Q==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-sl0CLeY34hplVJyA-rPieVg-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ              	ÿÄ > 	    !1"AQ‘#2a$BRq’	SW•ÒÓ&CT±ÑÿÄ              ÿÄ =       !1AQa‘Ñ"2q¡±Ááğ#RST’3B‚¢ÒñÿÚ   ? ÇOàş8ŸÁı:ÒôşõDª~nÔ1{µI‡ø¡·#óàyÏ¯X>5KÌâ{0¤`}$S˜î'Üÿ €ñ·ß}¬`d‘é)ñu«ó9ü?_*Í\Oàş8ŸÁı:¾2]…ÊàòFnï¢şŸ4)‹´Ûö•‰·'b}†ÃßÏ]jv’Û\1½éD–Î0ö÷;¼ŸKïî>‘÷ßíÕ‹Xµ‹©
-mÉYåãM*ë) ş>ULñ?ƒútâôêæƒ´vä´ñÍzD„ÿ cÛÿ =ıàı¾ŸÎÿ mÍÚKbèoJ`ßc ÃÛßÛ}÷ô}¾ÛqßåÓ°´Í—='ÒÄOŸ•S<Oàş8ŸÁı:¹—´–Ó½(ƒ}½C‡·¿¶ûïèû}¿‡}öûo²Çi-ÇeRÒ<$€ÏûÙ#¾şˆğ>ş¸Ûï±ëLÙsÑéi‰óòªg‰üÓ§ø?§W3ö’ÚÛXÒì¦§“œ=¿¼Hm·¹ğ|{yéw´–á‘[ÒJ§nGö=Ã¶ço¹màûíç£Ö’•ì|üª™âôéÄşéÕéì^S7–†"ãJòFÎL˜«J6_p	‰@?ß¸Ø¾Û÷Zƒáƒ=€ÆÍ~ÆJªUª…ç’Z³U}Ê.ÇÏ¹ñùêØşËÉeÇ€Z¢3:N´êİ„Ï•g'ğN\ÏÛ\\eCkm>FõKÇpêHG‚¬¤b ‘Ó« ú%i§û¯å+Á^Uô;æçÿ /ùÏO›Ÿş4¿ç=Dµ5eW—ÍéºFÀã x«Ë~ÉI®^h"@wn@˜Ç¶Ì	Ü±Îı¡øÒNñë\V‰Õú.ş=C“‡÷à§„™D±H8)OÜ–·;'aíÃØoÙ¯_[¢å¦v¬¦s&BUş¢™˜tY¿`Dm­NûÑ«l_Ö©^éÛ.°®>|Ó¯fbÒw™˜+ú~Iİ> #…Ûœ¼ùş¥ÇgåÍem`ÄKjëÖFgeÖæ$¨HË*~m"xrFó‰ıOÌş©Ç^›WÍ¦éĞ›Gz•xpf¬Ğ¹´©´¢h‰XUw]Ø0%4Æ¬Çb_Zfğ:zK×ñXØá8e™ªÙØˆØÇfFeáè¹T,Hİ¸}ÈÒøE…¶l-R¬İ’·ØÓX>&²/WúKv"İV¥v†Ğ(¨“©<´ç•9DÕ“Bõ{“šÄÅ>¡½Z†2Tğ–î¼[XOœv',WĞÔF¹æ$Œû€ş"¿@÷.|@±¨¤©ŸÂIuÇô³ÄšÇ.?*„ş¦ûex˜?o±X|¾¤Ëá5wîŒE8Ş®%&hl[qémò–"ŒpbÄ°‹Ï·.ö=3¤›¸iıò’ã¢À-ÄÂ™Ymş•ù&›Â]¥õ9qô¸[}Fı(eC0GO•b÷o£¸YS)%.¡hO´Nï•wv/ĞNåÔÄIcQARl_›	×oéKÌ£±È/Ê²#Mên¢8İvâ¾r7iCÜ|&yµ>¶G=›ØZw^SÇêp´á‚úznKn8¤ßÓØ…küNª©`4òß††+×³‹’f{5_÷œë$¼ÈhYCH‘_M˜ï¶äqô~76µÇéíBù
-Øëtå°jÅ3OjBVR+Ã sÉe<öpHØË¹÷âØv¡Ë§Ê¦JÃœ¼ìÑÁìæˆ3Dm&#}Ì@5båïR¯®ô†6iõ"ÒÙ9N:ãÚ4|ŒBœÊx••Œûpdà>zÇÙ[¨§Ò×ğx¬şvYmÁO0“ ®¨)«9y‡ÆÁ¾¡ı¦ª²zkJQÖzOKW6¶C“5¹àdäÈ´åWnbrL`©;8qî
-[‚ø’ÑZW¥ğYËw´şFjIR¦;åÂŞ’^GÍdÜ”QÅ˜óÙ=ÏJ-¶Hn•L8§C 3¿Aáùš©ªQŸG÷OÑÈã³:k#’Šürbç¸Ö«Ïu‹¤ñÈ¯¨¬dŸ,ù4G¿ÚVw1q¸lN¢jZk-"ÓÎQXËÏ-rÁæh~°¼Ä+/ñöğØõrkİw‹ÖÄÇË‡†
-¶¢Ç\‰eµI^i£ôÓŒ°Ê€ªÒxÎÄ7Ø¾PîVªîÆ3%kø©lIˆfÊSÔU$ãÂ¸2‘³¬¼Ù¨ßaõ6ãÖµ~ÅOqí³öÎ´‚ÊT—"JJ–	@"	NœÂ„‚'Z}¥* gä*Âf’ïõZÚŸ)¬uv*Ôp­š™´õ!‡é¯)Ö'
- ôx˜*Ü¾®*ê¤;ÏÜ¼6X4fwS=)§6$52Ö`_REWò±•ñ(y»	$tr†"ƒ•@ä4ò©Ğ*ãĞ¿:ËCa²Ôr?³ÎÅÏÙ—®"J÷e±³¤å%ŒGA¸û»8'm£½¹Ïê{ùªZw@&G\ã±’Kc1øÙâ˜¬¬ïóug*±‡¿ÖîBï¸Ø}`«k3>yy;“û–¬Y<l7åä`vÇë×f„\x#h«ÖnJ^2œÄò õ®›	K…	ANR 	Û Hˆ ‘ÒK«9CÉB‚L‰m3ıÑ›áFÛiY³¹}™Çá)`lê±o;_*ÿ 'j¹²ğ%)Ê<ÊñaôŸL«räY„lNàõV÷/´˜WÒnà!ËËn;‚[Ò»Oà¨b“ğdŒDíÅvö_½æÖtuFcƒÓ×*Ş	míåd‚UC0‰£ŠAğÿ ½g#oûrD ³-W-^FˆØ•>ãñÖãN0¸Áx©ÍÒ¤$$­r•k"9JrÏ~»ÕN(ÚÊŠÎnDAÛHé·Ê²˜¦7ÓåĞÍL¹Z·fÍ”‰¢“˜!„d’Û(<®ÀgÍ>æsëâxÜ˜^h”(ùRÜƒ )'—ŠÀúúÖšŸNãµ…oCPW'ŒĞ»WwBÊÅYã*Ì¥£C±;n€ıº§{İ€Çb"ÓX*]¨/cî‰^µ™Ôğ¯ËÂ+£r.Àª¢ìNÊ©í÷‡ı§[ã·âÙ¶”Ú”“¦… :¬˜tDïW\<m…½­‚í’ë¡ÌÅJ$I’eD«İ	İ'C–`’f§½mcÉ»9–’|k$Qµ©¥È0u|¢DÁœòåÄ£3Æîyx!èI2˜‚Åj%¤­nä­jŠHÒ9å‰$!•Š°wÏ\fŞ<”x#g*$lq„M$ò›ÑÀÊñš›bÔ v+!;¼‡Jw#Û,ŒXš&‰lÕdOÚĞw+ŞºÀˆá¤.ìP)Ø™	Ù¿­´™¿w±C4—#B¢S¯B¬¦4Zõ¦8—‡6÷wHOf£ÙJÁrŒéNiÊIL ÅÉÛ®×bçÒ•òµ3†õ‰f4YrS$•â>ìŒÄ²òfrx‘¾ç}úï§í¶‘§Y'Š¡VÇşöº×ÉK$‘âO£ç’¹à¾Wbx¯àuíròz¶WÄê‰/Ë–«U¬L2h"·‰U$@6e!Ô«¯ƒ±Hß®ó¹úş=§g±M¡±“,©U•‡‘ÛpÀ?‚ßNäoãÇ\ÙÄ˜Ÿ7Å‹ÃƒÄ-KR…ûUAä’2@doXÓvì[´çhœÄ‚Hë®ÿ •TšÏâ;Úße²º7¶Á«%j^¤)±é£è¦Ww"8‡Ê§2 xô·ûmLv¯ãR÷æsG÷r]9nc4˜ì¶ ²z2G' ¬€óúß`»…oá wë]vú.îö‘×zîM'wSbÙr8K•ñ³IP>êQ‹FñçfAàÆû£º_ıİ¹À\Æækg3y…–xª×†•h^@7gÄ9ñóÄ@-¿[£à¶ıíı K²“Ÿ9qRA
-P0G-ùUgsám¶BS†²G/Ñ¬¡ÛM§ná&—TÑ¿ûAŞ»K,y)*úìÔë³HSm·.[r?ûß§_KsºW;f)ç”BÑÂ±6Øo·ºÿ =¿Ã§[eëÅ­Â¤¸ *•<M#V£ıÂ©ê¨„e¬k@›ñŠ´Ñ¢îwğ¡Àá×™;9È±mK–ÔYÒWƒù)%RŸÙÙ‰ñïã;õ>é× ¹Æ˜úÓ”İª>1ô§†j9ñRˆğ&*)aô}{x¼›Ç‚,eš¹qäi X£*Û…X™ˆ;€Û}úàC®òvµn{º‚ŠâpÑÕ’»a1©fÖ[æœIn’0pËûñâv y_nåa%’Ô™ÙôÅ°õ!šLeHì]¾í=‚±F­ŒU}7‘¶lºÀié'[jÉ-êÁT×¤—ó¸šMg4–rÀ°F"}İÄJÎŸà`yîO]Á<1„Ü`Œ]Ü²‡Zs)JÉ$õP< wrçSRÓh¡3FÇ¡ÛõfõuÎjM]‘ÅOªêØÅãèÃr+T10=Ì€”íxáô‰òälxğ'a¿ÓÕu¹ÖkŒÔ:£ÔÇÓÓ²ØŠı*‰÷‚yRQX–0E–”paÇ};ÊõÕTÒO½Ì¼Úµc0âkØ³©(Õ‚[Y*Òú+QGé6ó¿£°
-IàûóäAğš=ÿ ×ÉËjÔtÚÛ}Oh©iµ–Ò?Ò‹*ÂG^¾üqmav®öŒ[¶…Fá	]õT°Bÿ ‹¼ëïmİ\i{}‹]aWš–ÌtdÓ²L2s®Ù*ÕÇ:Í@§_1ÊF‰FÛìş€§Úm‹«¬0Xúš’ÕjsclÉG$28x¢õ„µ]
-êşıÂxúŞË÷ŸH<šö©]ZŒdÓ²ZSÍZµZ’‰+¼¤6²­#DÃ’í¶Áµİ$ókÌÃ«VS>6Ìõuú°Ck^[ÖXı%ÚdõÜ(*æ›pâ6´	L½ŞŸ-©KRò¬Bÿ ÌŞ;È×ŞÛòû¿;Y3Ù‰ñ)¤uÉK/^zÌuT6ñ™)cxÁóêó@ ädÛù˜Ş(5¦ªÅÓÔ¶+Ag5<Ã!&^˜ÇËMUC¼“Äª›«G») oä÷\‹ùİ_£ıR·…šz¬ÅH!³„‹O03lÊ$æ›¨ş1·¹uÒj=-KF'¨1v%w5V¬áæ‰ãıuh—xü$ËÉH>|yäÍ5†áî*=ÕˆÏ®€L~?MbbVv÷IuË¤©p´è`‚4“%R7åÿ ’ú}’ĞÙ9b«ÎN—½X½úQ×±ä¢hhd]Ê¾Äyş¯:?…í%E
-B&À*Ô…FÃì>Ÿt¿:ŠöWT¢ds3çÒ,}ÔGÈÒ5$}½4~£eo ìO’Å÷×;ı©b®›kWÊ¤%P“#Yt˜åLqEIg.½éùUGû3hŸş,ßå‹şÎZı:Ö¿¶8÷õkñ¥zšÇù3çXıê­ÿ -—ş¾ğu'»ş}WÒ‘j[½›µuVK‡:8ño
-Äz;€w6;¾rïSñküËÿ çSÌz²™M?cb‰RÕT­#EYVBˆª£êßğ£Ç·ßonºŠ×ìÇ‚ÊWÛÛcÙ…/~ÿ koÔÕ½ë7Amú*RDûY‰Ûº9ügá®›#?ñ¯«³ióõûA¨0÷V–kÕ²¨²4(sï*’ñ¿ÒFà}Àê´·ñÁoJêÜ½©ô]Ü^¢³/§”•r0$¤«#Ûå¶BLj¨`ˆõŸîw¿Td¢š,–^ÍÈ¬s2Çb´+3@`.AOãôI@Şá@ øq±İÜÍâóùlİK*ry¨6§—Z_¤l ÈB0â>¥ ÿ ?'«ì?	µÃíÓml
-P42ŒsÒI©Ê¶mD:wŸ:ÔÚ;â«Pj©óº¿IèyŞí8å2+™¬²”‡!TÖó#ÇQ·e^MûÍÿ ·íô¯µn²Ö7îé­’j:K:æDê*ŠÑóW‰—áëq^%ÇÕÏ—Ïœ÷ø»Öxª©Ô¯¦}¤1óÓu¸ª…±]ÉØ{«ìïrnêÍÌô®¶oLe”AJ(1şÊ°Ë«'Ùi)¥ù‰úT&Ù×Rqû$AKŠp“<ÁÆ’w="´“üm\¿­RÅ]³«<ãkXƒ#³±!âBÕÙ¥úÈW–á;¨êS›ø×)ÜHáÊö§R&´ÇÒ2Õ2Ù…§H	‘VP>WŒœLìü•ãè]±v>š5RšNlÀåĞó
-Uõ”®Äö#©™ïî¦¯”­“Ää¯ĞÈÕ‰á[QÈÌLêæ?«p’)Ø$yß¨e§ƒÉÊ}ˆ3©Ÿ¬GÇ_Æi±k]LLî©øïZfÇÄÆ²Ìgëäív»=g1§ì
-Õ¬Ú¹zò±¨ÀÖÎöˆ`v€}º‡g>9“1ÇÍ©4uœ•ì£åe»“‚f–D}Ÿú6Òq‚níı£½0~!µ{½·—&%{ó×±q¤ÆÕcfX8úO&ñıL8/“ï·úôÃ÷ëPáCxq0ÉXeÃTeøò-²í²€@ßóÒİmIl–Ä¨Q üN¾0i§ír¶¥4œÊÜµ Hˆ×XØr5¬ğÿ Y>Ûc(ê,–€\ÏÌã%±O/wVA+GZV„¼\Ö²·6tB#bNåÈP¦ú»ã«Vèm/_Pj>ÖR‡fÂ×ÓT«¹võ6ú;€}';ÿ wç¬aşÕ°€waíÿ §êÿ ÛÕ}ª5¬úÂõ›y…A-¹½ijñÂ¼¿Qà.°»Ãñ;Û³I1Ú¸~è„I²UİÊÖ«öÂ4Ğ…—	=¥#œ‘[Wıê¯ÿ -“ş¾ğtëoSñgõ^{şğ·ô¿ó_ıª_£·Ò¸ı:të;§iÓ§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ)Ó§NŠ+ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f871631d-2105-4baa-9af9-d44a1de8bba9>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-x8IeRUAqCuCqgQnF-a4VWTQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:897133f8-e813-4596-8198-69704708f5b7>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:510418a697377dd11a8518bbcdabe0be3be51467d855adcfbba2a56b198694f8
-Content-Length: 60
-
-GET /artworks-x8IeRUAqCuCqgQnF-a4VWTQ-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f871631d-2105-4baa-9af9-d44a1de8bba9>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-x8IeRUAqCuCqgQnF-a4VWTQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:0ca760a5-810d-48b6-839e-b333586205c7>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:1fc7e4d2e356702f208f65adcb54f3a0ea5c4444a7b6c69370428cc6c0b675f3
-WARC-Block-Digest: sha256:1fc7e4d2e356702f208f65adcb54f3a0ea5c4444a7b6c69370428cc6c0b675f3
-Content-Length: 384
-
-harEntryId: f9d4ff1d228c41ae7b904ecd10c3c16a
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 149
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":149,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 605
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-x8IeRUAqCuCqgQnF-a4VWTQ-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:f871631d-2105-4baa-9af9-d44a1de8bba9>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:6c89b83ac9d4d7d73884e593421b63f8be5f754735d5b84137aa1dc7e86616e9
-WARC-Block-Digest: sha256:7ca3f0ab3648e4b0def3d5d4dba46753a2b5079f1d1f79e9d17c6e9b7c2dfcc5
-Content-Length: 4603
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135583
-cache-control: public,max-age=3628800
-connection: close
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:00 GMT
-transfer-encoding: chunked
-via: 1.1 229236002d16f0c033cbeb40fc17e164.cloudfront.net (CloudFront)
-x-amz-cf-id: 1WmrbLrqnOoGTFupXEJ_kalYoR4hnhxXP-ytVJUqKzSnPj_9X3YRXw==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-x8IeRUAqCuCqgQnF-a4VWTQ-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ              	ÿÄ N      !1A"2BQRa#qÒ4C	$%3DTUVr‘’³Ñ5678Sbd–—ÓğtuÁÿÄ             ÿÄ B 
-      !1AQ"a‘¡ÑRq±Á3Bbr²Òáğñ#%246Scs‚¢ÂÿÚ   ? ä|‹Õ‹ZœN)Jåß˜jbm¹VËHœJÖ´Š\Î¤'0 YwŞ5¨ªÕ9ŠÕNj~¢¾RfmÒãŠÂç€ Ü  °Ç[4Ã	ê¤¤ŒÄ«áR¬fR‰IJ¦Ø6¹ıÆ9ï^eÖm¥¬+Ük‰ï°‡©¯S\rUÑb†y¤€“m¯l¢U€qôÎŸQTÍ:ah\Ô˜XG,¤\ æ±"Ê Øo´_´é©j…>Zn˜øš’xeb`  ;2•º(õG,D§cÇğ]@©h\Í6`§K£([‰IÌAÉÒµí¾Ñ/“õó&C¶çîÜzÆ· ©S9Â^dtµwß±×#¡OÓO±ëı/Æ_ú¹_Ş¹Á3ö9§ªbY;MyRRåR—Ú
-ÈVQZA \¤¨çÍ;ô´´¯•/)&à¥TDjoÅLEü5ÿ ³Õsÿ .O÷é‹Ò(ß†£ksà÷]!n(LÊ«*TlI: c9ÈŸæ9ò#ëzt€Â‰œJeÉ’¶˜Iq×‰Bõ³:©6Ÿ´ôT9Õ¼ ñRf¦“p&Ğ¥ò‰NE¤¡JP¸ßí;iˆl4ò’R­38‚‰›,­µ7t…"Ù”“ßìŠº>¢å(xï+,pùG~¡Õ¹×,³f›L*!çÇ {Ï^ÃLÎ6	è™4ÂğM!Kzu—RÓ‡*IE¹w:BúÖ;ín/û]R¶qsÊQs¤ç „Œ¶6!WşVˆvLÊ°æ®Ë!"EÜáæ”»tıíeûİ‡Ò¡’Ñš¦å*Ì¡Í—ª†>ò?î‘c+Yu‰vÛ	M‚S¿š3Æ".\¼  +VI(Œ¾ƒ…â‰ÚNO5bÀp6\AG(’•[I¹Q}ú÷ÁûVş°«¤×î[‚0UâİúJö˜ÑSÕÇ&Ò·J}‚:ëíB‰´ªå!QuÄr3% ØR[y³¡I&÷±İÂ(ñ±‰T¼VhªRUô|ñáo¯$kL™zŸ8‡d'W.á%l­h6<.èZÆ&¬›»P ¨\s§u…/+$ã`›üÓõß, ¯Õ+UYåM-Äãm-OD"—çf†y;['>{ÜßØÌ¿82µ²sç¿_R5‰«Ô]¨T?
-w¾ŒÕSùö¡ÖİÎİ‡µ6ß3Ù¿³İÜoê'¿Â.ï‚$ÄöÇ1õJbš¥&V£KS."NAêÁY%Z0råÔj±ìãoò€«~TÅßí»ü|øÂ¸§±=6í6·ˆÄÃh²WN©8ËˆIU¤‰ĞXyD—ãî8üãÚ?ú~üTT¹%+Px<†PE­ŠNÿ i^ßTULÊ©n“0ê‚¾k‹Hìñâù@U¿*bïöİÏ~)Ÿ…~ÑjûIÙƒT;ˆ&™˜©²ëÌÍa—hÉX@QÑàTN½‹kõE	ñ÷~qíı@¿~±>0ÅS”…šµw:†œAmU*ÂŞm
-&×	ÌNb	/Ir.ZQô¾¦Qdã‚Ze6í†¥…¤´êÊ®-wV¡~°p1˜ØÌºòò42ŞSsöóÆş]H&63,âR¡©²ÉçÏkåÔ…¯bZÀPû¹PşïpÜMX-]¨€ü)Ø¿T­7¥ú¡ØßÙÂ.*Şz{ü!æJ…-K’¥SŞ}úSrì-!¶çŠ-öËÇ[Ø«yá;'$€ß%XœX-¤“éMÆÛ·÷~¨mVœ¯´ÌôÄã/)ä“a×¥tˆ'ªxˆm«aäÒœe©•Ë•-¬÷AYf#»Ê˜§¼Îğ£d-ÕÊÊ4ñ®æê¸±±$’q¸ÊöÃhu®ìÒV¿Y›ŸzŒf–ú‘wyÛ¨Íd$n	 nï‚4¦Öª2’hjZ­8Ói½’‰‡ ÁÓ)$°¦…Î'¢zo	iš«-¥´8›$ 3Óh–hÑëßŞ„fFT½9.Ûn4Vã©JEÎ¤‘n¬³G—GM½ş1ôt†jÒ.:ãAÌ¶¥ã@/PœSÑ×Â.İQJS¡ÍœPå›²äÉÌ7=¿_d2r6wW¾nóßì‹Š½=/´MBRÁi:9çájï’İŠüc¾,êrr¬p	uq^÷Ä¶ˆòÏ)k ›‹•à
-T¥J±Qj¢ÓM¦Q÷…r¨%D¨ÂñB§ş&ÇìÇÌPS^©œÈ7˜Ü {
-‡Qº44Yv—*
-Ğ	Ç1}LAKŠòƒ©¾(ÿ Ü!ô?ñ6?f5Ä´9	L™™Yf˜\ñlº‰HJ_×¦.Nl Ø¸t•¼Û°ˆ“R–a2«)@½ƒhòmÅX æ±ìTWO4
-Ç¬o¨'Â< y¡Ğõ­}ìq?Â™é›]DöÇ„@ó&èé·÷´öÄ`”“ÒèÅÔKèõi	ZD›3Œ¶ãm¨)%+ñ¨ğOœ4b¹™z„Ü²äæq—ÊUÒçQâ<áÖMšé·ÔñóŒú¶ºmõOlxŒO~ û²â]I)Ùß\FD°JÂ¸µ'Moã
-eš”úÆøñ=şÈ –hò)é7Ç¶;àZ†ù&ğšY•rèÕÿ ¼OñŒK2®]­[ë¤O¶$;5Â­bı¡áºJ`ÈÉUjl±52›)L°MİXáDyÚ:áƒ°l#²iL4æÊé1Mf^j«5UzmeKF\ØŒ…—3.ÀæQÌ.E³/UXbu™E$ñ,ömÛc]WZa•rÍêßX}"{ı±ªÒpÊAV—u#ÿ ±»,8néaÚñéF¨Sh˜…X§f)”‰–)Î¤œÖÊN€ƒcc¡µ¡ê„Ğ”—çJuÔÛİé²ˆš˜-|"Ç¬="%û0l¦»R$¤ƒ!1k(Â»¡Øn„X4ÃŒ+oaa6(ÓO.LM¶–İ-²RH÷ÜwBoZá:FE)TÄ»@¶.*	½¼¯ª7Ô) ŠWÂI ¢5¶&3n´”UæJ¸€ßã‘¦.IVÏÛ×ô’·;ïˆ®¢c™:mcNSjxv¸…‰9†æÊ)H æJ,Q­Šˆµ÷5•bä•àÂlO¤•Æİ„BÅQš•-o´±ç€õÄyÅ$»/ÂoÓÓĞ¨®ŸeYÓª:‰úDøGœ/F¨Í²ËÒòéSkleW,Ö¨@ü»™Æƒ¨Ğğ8Òi4‰­ét©, R§Ğ7<	Œí>I©—”‡IHÎş¾±“/)¾/¿æ"P¦ÌHºÛShKnÊ]IĞ“ÜcÅÆUÉµÔêŸ¤OˆùÃÎ0O/Th°¦ÜH–@%$‹İ\oÎ0ç&Öƒª{CÄ|â,Ã	C®! 0¾ö#ªaÂ¶ÂŒ)–e\ŠuGØïöÁ³äS ãÚğD¦ÓĞ¡dã
-0µr­‰iRrt³Vzbm´‰:¦DÈÌ	Ft””Ü\\G"YŠ°}n_aêõf£Š±³µ9´ÎÔj’ï)¦Ş
-	äâ‰H !)(¹=m{Á$ûl¸Ê^mÆÖ•¤RFâÂj¡4¶›šzuÖ¹~W#‹Z“œÛ2¬t¹°¹ß¤e¦).=Pfi* #M÷í¸ììwœp!e9Ü,¡±Ç|ó±Ò3,èu»¶«qŠ¥rJSNÒÕ3ZDä½WœÕeR”*EÔ¡6—"İ2¾‘ÜºÀÌ»ÖîÓaØ=ñì—gP¦’•L„°æf€¿@ßxî‡jt÷&ÚJ€¹Îûa–Çóü¬Éae@ql~â=½Q*Ù*T©é‡Ëkm§–ØZrœ¥µZã‡³]ÄCFSŸÓ¦%Š[X}¥ ¥ÄæI¸µˆ„{2mi¯UâV3HÌj uè*Fá“Ì«ÉÉmÜN é©ìíŒÚOí'ˆóQí\7S$„ŒäÛLS¦©ò­¥‘&·åy±™aM¥hZ[¶‰ÊB®s ›¡v.B—€ŸI+AúŒ¡¤7l‰ÉÊ<…É°ò¹&Şf1‹’W€IQôš´ı”G¢GàTƒ.MøAï¹‡jÓ.LM2ë¦ê+ÿ ©Šééws'Õ«¨á=,éÉêÕÔ#Ë¹œz§:‰ìéw.ßªsïiìÆ)?½Ñ?T[^2ì»¹Z³jÑŞf%-µêÕ¢ñÃ²îekÕ9Ôğó’îrlú§:§°|FŒú'!îê‚ğåO¤NÌËËÊL:H*Cd‹Ş™àÖŠŠH<ºô"İĞFšN”ÛŒ!eV¸ŒÌÍeÆŞR ~1Š½¤4ÚÂ…9Ãoó#İ½¤4ÚÒ¡Npå üä{±‚9 ­N—Ü<#]Í&'Ú;HZT)Î¤œvå¬×ôs›ïó‘îÄ<³;ç÷9¤Å‡vÖ¼5PvnJ”[¨R
-\|)6Vñbt&şSOşmÒÿ e¿øâ’‚&3Êš³IàC¶E>b‘#0ç8ëAJµ®s°‹·å4ÿ æİ/ö[ÿ ±ÂìENL”Å‰vPç(%-5ÑB*8!Nr®®´”©ÜÍO„%ª%=¥‡È
-e…í!¥}à°ç#€·†í!¥å½9Á• |ä{±‚ ùjwÏîaÍ&'
-ÚCK	peM¾r5ÔŸœ
-ÚCjJ£œE¾r5ÔŸœAàƒËS¾pğƒ›LOZÚ{m $SVmşd{D
-X¯O`¾äøAÍ#h ‚¨‡ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚#ÿÙ
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f4f1e234-4615-471f-82fd-974061851d90>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-Zslz8sQ1b9V4zQE7-SAIsbA-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:950c7520-4e3e-4e73-909d-3e619fdc9d9a>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:ba2201307c38f974d7b06879044efa12a6f2b889cce8a8195a6f76d75328f3f4
-Content-Length: 60
-
-GET /artworks-Zslz8sQ1b9V4zQE7-SAIsbA-large.jpg HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f4f1e234-4615-471f-82fd-974061851d90>
-WARC-Target-URI: https://i1.sndcdn.com/artworks-Zslz8sQ1b9V4zQE7-SAIsbA-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:73f9088b-50ff-4552-a35a-37d7b24646df>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:cf488b4ab12e7fd57d8a7aec02ad5d7073aafdec5936d4e59fb5538923274a3b
-WARC-Block-Digest: sha256:cf488b4ab12e7fd57d8a7aec02ad5d7073aafdec5936d4e59fb5538923274a3b
-Content-Length: 384
-
-harEntryId: 3fb5150d6dba540ab257098799ac19ea
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-08-03T18:32:43.169Z
-time: 152
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":152,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 83
-warcRequestCookies: []
-warcResponseHeadersSize: 599
-warcResponseCookies: []
-responseDecoded: true
-warcResponseContentEncoding: base64
-
-
-WARC/1.1
-WARC-Target-URI: https://i1.sndcdn.com/artworks-Zslz8sQ1b9V4zQE7-SAIsbA-large.jpg
-WARC-Date: 2022-08-03T18:32:43.335Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:f4f1e234-4615-471f-82fd-974061851d90>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:fa0d218260932af697370227ae08f0f539a23fd93e7207ef3d448e1cc5417a58
-WARC-Block-Digest: sha256:d9c75bb83605c67cbd72eb5dd54199c041e90c9386e029690abe99997aaff752
-Content-Length: 5298
-
-HTTP/1.1 200 OK
-access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
-access-control-allow-methods: GET
-access-control-allow-origin: *
-age: 135583
-cache-control: public,max-age=3628800
-connection: close
-content-length: 4682
-content-type: image/jpeg
-date: Tue, 02 Aug 2022 04:53:00 GMT
-via: 1.1 5cd71a2ac63eabf2336afda85c353f66.cloudfront.net (CloudFront)
-x-amz-cf-id: UMSzmAgmnxk73OO5i4JTAJ45IMjy_f6LZQTtxbTh4ubWYkp0i1OX5Q==
-x-amz-cf-pop: LHR50-P5
-x-cache: Hit from cloudfront
-x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-Zslz8sQ1b9V4zQE7-SAIsbA-large.jpg
-
-ÿØÿà JFIF      ÿÛ C 	
-	
-	
-
-
-
-ÿÛ C
-ÿÀ  d d" ÿÄ              	ÿÄ D 
-     !1"ARaÑ	#2Qq‘“¡±%B7t³36Ubu’•²ÃÓáÿÄ            ÿÄ 7 	       !1AQa‘qÑ"2R¡±35rTb‚ÒÿÚ   ? Õfe÷õ"‰Jnm§šp‚ê$aşñd¤Œ(àà¸é­Œí‡gm^ÔÛ÷vãĞ-ze˜nM©Ê>”òÙI(AÏ‰Å+<†NzéN1ŒÒáTÆ¢¤–Ğ ’tJF¥DØs
-±MT³¤È—%S0¬×%D ÌjßF¶MÚ;miVşŞ.îØİ‹Ûqm6–ˆÕBäË”Ïv¨ÑÒàJÀ	*'+:Ã{4Ùt{âè§êÚ«›sÌ‡Z¦¹:i—#‹L%\ÈÆ
-”’8’uŸŸ¶+§ÃˆÔR-	KºJ‘ÁÙ‚ˆ~Nãxaı=/¤Oe¨9¾ön:iÏH‚ôki0¯.Å5q=É£;N·TÀ\äÓWÃ08´¡Ke²çz[l­kR‘Ä0N•·¶àì­Å	ˆ›'²VkR«mª=*}aÎõÅÍ*q	m[QÆ’‚®ğğúC))'Jè{C¨ª›“ÕSĞ9XB@p÷uğ¹ 8=£Ú¨²‡ïzùD£[=ÚıšÚëó±á|Ul+]:}2¶)µrÊ´°ÛÃ¯6Ú¸}*ÂJ@)
-ÀâZò°hô:«Ór>Ûk*iÇ~X'‹*8#¦zëA³›WOÎ«“*Z’ªuäS³É‰û±â"ôê”Tu~g…fR-HpÜ¤T–ô·à+BÒ”¤õæ@üuƒëUA£FA£FCou-8ĞıeNˆÌgãºáe!hW.`rÎqÏY}’ãØNƒYİË6ÖMUˆöıÃ-ö8ñmÁ!%X<Ôâ@ `§?[šª}ZÅv¥k—K«Ó“*:]VTÑJğëj>ÒJOâ5t|™CG­vd[¸hôZ¦Væ¸Ú¦@må¨%Ho„¨‚xAA>]tŸ§¥ËP^U%@¤²IÌAKÀ‹…ö<Ú<wŠJ}Ô»ı-«ıÛMyÑ¨Tˆ4­Õí-k×âÓb< ÄÅâ-%¶œRA åğ'˜#:gÊßí—µo[6MùeH§Á‹STvL•†šeÑ– ÉR¸VFsÄx‰'U=Fİµ)î¬&Å³äµ¾9f‡è‡Á “îï·Jİş¢[–Ûğjpm›jìY—D˜¦5”ûqc­¥SŒ¥\Á=9ëc=ŸÖb“Dêùó„… e„ŒÉ)|©H½õëhiGÉ§IL”¤?Äïv½ÉİÈ0å-­±Û>åù]¯_›ïb"’¥Êb›E¡Ê† ¤4Û«„3””,çŸyê›ÛìÙMŸ‡ÜØõ«ú¸K“¤\È’â’Úâ.)¢A(m ğàË^‹{²D›Š×¡U*;¸K~§J‰1ÃOSaO2‡
-R®çšAVŸ^ºğß“µ¬¦·p÷ È¡Ñ&ÔZhTô6µ±n%*Pg’INŸL¦ø¯f³1i}İ}bÖ†/º”°ä€—ãï9ˆ¨¶‘ª)M2IÕYŸìD%»ov¨¢nË7jmå^ØnÕV½*ŸC}Xu¤ñ¬¨§…#‡Œ ãNO>’Ö×ZpWoŠœøŒÊ“!Å÷}êÂR@ ys óÕWÚÔ§Êì“]­GM:-ï×fm¸´¹	€¤ñ$œX½ÚCm»”ú5ˆÕNéï2‘Mô—ĞÒ°§”µá¦’}¥úiğ‡¢”HÊ€IæIÔ“©'‰¼.ª«R§( IĞ;h4r[ñDZa™s7F®³L›£ÈÌX©eQÏ)äF9õÎ–U8F›R•d“å¶Ióá$j—³o+KrılÕ†õ¹*¥%=ğu2ÛAñ¬gˆÓT=ŸÙªÑ«ZÔZ…joK™62$¸å,©n©h
-$«¼'=qı4ÚdôËg„A´Ô¸,´. x°nQ­}ÚMK²İ°¦QN£Ûr²ÒVë¦ˆ¤ ¢9£„¹ü½3~íGı²¬pÛ‘-Š]>š‰#Ò&)yIw	QOæÇ]	“3&ø¥†m¥~"(%¤ç½ìEƒê,~‘;hÑ£SÆÆ)w)q"íôº|!İEbKÁ¦Ğ¢¯Ñ<Îq’Ñ>ülä¸"_cL8ãuz’qßñsqµ—cQêVí²ì;ÂOÇå4bCKè}L²ÚIR‚
-±’ï yøO–5{|’÷9§vu¼¢<•<ŠeâğŠÚF²¸Ì3÷§úi&4™¦&OÄ’<cÔ¥ËFc0²XÅ¡R¦³JáRËky×ÅJXGx¤œã„õúKı«6öfåÎ§^Ôºìúe>Ë¶+aø¿ôsK‘ÕÈÈƒÂR¯rFœ7Uv¤ú“.D|8]iÇ0<ºz_î}Ç!İ®½“Pdp®Û¨%=ËA$Æs$ë¦”²j• *c5Èkß—ÎN¬’TÒy3~^4„ŠÍA´%(5)H >  ÷sĞåb ëjC“¦-)*}Dz‚3ªõØÛÿ w*ûÛj|ıvÛ‹	*B›f3m¡y.ç*JB¼ëªvY½-êUB©>‹UTj|7Ÿw½‚”¥-¨•åŒg>íHfËvÌ"Êqü,“P‡á˜kiˆkOa»Â[„!¥^tæ[ÏU¯Ñb’Üu5®™]Ÿ<w‘’õµ’Ÿ1¹sÎÀûˆpv·°oİºìåNkp®U¨·İù
-¥GÜ¥>†Â`¼‘~²ÈÆú1Ë9Ò&ü£Tî[q˜vt9LJ{Ó!©ô0§šq©!e%X-`Ï˜òÕ:9½ê
-œöhdŠtÈHHñ>1ˆöv„ô­ÇwÕåE-Óe#‹„œ÷‰î‘?ßqÚDH©ƒˆÍ’Q´´’|Â@öÔKÙ3kèŠÕH°õU÷DÊ‚q.¦hç‰¶Ê ©O–‰8	yÅ¿ªõëu3µšôÌ­‘L“ğ$“şÇÉ?x5| ë·şWù£W®•Ùş‰ºÕFe]°ióı¬ERŞ’ÊĞ…T“İ¸yŒ^z†–bP¼Æ2;‹ÓaXªjª(Mnå¶Ñ­‹b‹ı…Mÿ ¨Oÿ İ£L½6Tv?ê~ş}ıGl®ÉJz"#Ç»-¯¼OuF qø°¢¾"8Õ×íóÀ×]#±-¯DŒZ§İ×ôbâ¸ßôJ¢K«Ç5¥¾¿¨Yé3xÇ·[C7âª?@‘økìwAXÂïmÉP÷×Aÿ Ç®§»Ûo´¶¼wm¸’•¡U¤ F ·ÌjÑ£Ò§|Ñ¶8÷÷JûyG–“NjJ…OŠV¦`Fn;eg*)BBA>üu×èÌ\t*•&rœLj¤Gb¼¦È
-q
- FpN9kİ£P9wŒè˜°¼àİİùÄïWìOlÖ`µußÉL\¢]QÂ€ÀRP¦ñÈrå}Æì–¦b-‰be%Å—ŞÑg‡* »á'…=?Lê…×æÄ¸é•WdÆ£Õ)ÒåÇ
-i™HqHPû@<¹ıº°™óZÆÑ®§Ûm¥HQ—R¢¤€[v¤Œ[k6¶¶±æ",åTêRøS*J’„§˜BP	á ¨d“g¦³½C{Aµõ[–è“Z¨\7%p)õ5(Æz9Qê%ï¤V–Ãd’¢HP	 ^­í-f¬İ)Ëv¥p!Šähòâ¡y·}ò7)Dr•3…:ç«XÍ¨”’æa,ùCöÔ<£MŠì']T©¾”&M!%Y‚’YNÊ ‹X§ÀGçkœkñ-Z¼zÌinÓ\šä$ÊRbªYãYk¯ù‚T>À <´›ŞKšå¤]±aZ5[jÜ„-ÉÖ)‚O‹¡ …u dû³÷jˆ–
-ˆ
-p7QŠFÍÏ^-3‡¾RÛÃ€Xî´?ğ~Ã£RT·pç4V»ßl¢@à“@)Qğƒ‘„\ñ÷ƒ£Q­R¢•*ã’¼£@Íñ% DÔu>QZhÔ¨Öîî“á’Šnİ úÂÅ\’œÁ×/øGÒ'™Àä¯eXànöé)	P¦íÖ¾šÜœç ôïúsúuû¦îGÌ:ˆ©ì'Å=GœUš5*/w·I´¸¥S¶ë¬¡X®I'8QäüÇ€óº{C<½»›¤Ç}ÇNÛ“Ü,¡|5Ù*Éñı\?âsÓí''t>aÔró`öâ£Ï‘éVJ®nŞé´§‚©ÛpK
-	WvJ²I#–ñtòÎƒ»{¦±êí¸Ëa$ÿ “üÅ céùıqœtçœpœ~	i:(u¼ÇQÆ°8˜Ô§¨çÏ‘èaï¼uÄÛûm]‘Ş¾Ë¯F1Ø[(R”sÂŸT}ªòü5%YràM»èMM®{)"3BCƒÄ0Ì
-¸A÷Èô/ûjmÁmô§.G Sg¥]ä†é½%‡šAC‰N]. ¢•  G"0GQ¤îÆv¿ìëİİ´jÅ·©^…-øél8¤º•¤ñ)ËJ>+Ã‘Ë«Ì2©2if 7½¿“Z:Ïgu^¤ÙüNl¢ µ|€"ÇCg*ŞxÃÖ‡c?FŞ)3˜-&œ"¾+KÏ:ä¥”¸—¥¤¤$%×88¸|C!:bÒ+"I”Å}ÇŞ¥.Èq¾”¢âàwÍ”¼#©Dä!J*Iáå¤=ÿ ¹—½ì—N´bZ² Åa)Ú½RC/)jl¸¬ êRF ™Àê@8÷ÎŞéq$z»nr´©Cøì‰ãÎ~Ÿ‘ú5`yå8Ïs±	™‚×”œ _€#™„¸'´Tê‰—.i\¹hy…ÎTèÌ A.V³E?J„Ôaâ·+Zœî ®ïˆä$¨ @À* Œ€!)v­ºn^”´¨ —â¼|Yòwÿ º÷Ûİ% (S¶ç*PÍvNp“ƒË¿ëö>£HÔ÷%ÕY¬Ûo^ÌZñ÷QBŸéAHSœDºK‹)^|<µN)DĞ
-ƒ—kÚ·‡Úì–Ê×JÆ}"£)Éb-˜°:Ü£é[‘ŒGô?FúkŞßé£MZ:çªäpŠç/’ùƒã£ç/°Ì ÅQğ>·ï®}hÿ µúŸ†1ãÕRa÷óØGæœx¾Â?0|t„õ¤kõ?´‘í~§ã¡Œª“¿œx˜úş`øè;ØGüãã¤­${_¿ÇG­${_¿ÇC=U&65ÙÎÿ ¦[n»Êº×yH T•Q˜ÊR.³öV´Ğ•™:yW;tÓwàÛ–|ëZM
-}a-Ô©’Şq.¥ò×‰Å#-¤¶Vœ+
-!Áœ s5v@¤5uì©Õ¢ÌÙĞèÂÓŞ ”¨E'¡O˜$yê€sn©Qªü¸õ™•-Ä©ŠzO\q‚ÚCEo»ÂÒˆ)-¤'!	$òTLÔ¥3EÌs	˜í.MŒQ/.e©læ÷N_tfÎÊ¶ŒbFß«¹ŠæMòRTbF_5Õ±ğÒ÷ç/°Ìx»bLr6õHK‰¾ÁÒCÖ’=¯ßã«RAîÄmö•3
-§YŞ„ş!ùóØGæ–{³_n¿R§¸ÀHÇRNªÖëGı¯ßã®—ä.J‚9 `j@!ôŠ	rVc«FõàÑ£Fˆ Ñ£Fˆ Ñ£Fˆ#b]…ÿ ¹¸¿ã%ÿ ˜Qã¨Ñ£HjYQò–Ù~ùUüæ5£Û/ûìşşÃ¤fs'ôÓHìÏìÔ¿Á?ˆ4hÑ©aä4hÑÿÙ
-
