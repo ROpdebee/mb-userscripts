@@ -80,6 +80,25 @@ describe('soundcloud provider', () => {
                 types: [ArtworkTypeIDs.Track],
                 comment: 'Track 2',
             }],
+        }, {
+            desc: 'set release with >5 track images',
+            url: 'https://soundcloud.com/schnozz/sets/berdlycore-chapter-2',
+            numImages: 14, // Front + 13 tracks
+            expectedImages: [{
+                index: 0,
+                urlPart: 'uUiTDTZGRAzFvDfK-IUPepQ',
+                types: [ArtworkTypeIDs.Front],
+            }, {
+                index: 1,
+                urlPart: 'yoUvkke3DYAEqITD-GMybkw',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 1',
+            }, {
+                index: 13,
+                urlPart: 'x8IeRUAqCuCqgQnF-a4VWTQ',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 13',
+            }],
         }];
 
         const extractionFailedCases = [{
