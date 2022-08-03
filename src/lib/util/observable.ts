@@ -1,3 +1,5 @@
+import { pFinally } from './async';
+
 interface ObservableSemaphoreCallbacks {
     onAcquired(): void;
     onReleased(): void;
@@ -96,8 +98,7 @@ export class ObservableSemaphore {
             if (result instanceof Promise) {
                 // If the function returned a promise, we shouldn't release the
                 // lock just yet, and instead wait until the promise has settled.
-                result
-                    .finally(() => { this.release(); })
+                pFinally(result, this.release.bind(this))
                     // Also need to catch this one to prevent uncaught exceptions,
                     // since this chain is "detached" from the one we return.
                     // The one we return will reject separately.

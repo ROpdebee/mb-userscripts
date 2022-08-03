@@ -38,3 +38,14 @@ export function logFailure(promise: Promise<unknown>, message = 'An error occurr
         LOGGER.error(message, err);
     });
 }
+
+/**
+ * Polyfill for Promise.prototype.finally.
+ */
+export async function pFinally<T>(promise: Promise<T>, onFinally: () => (void | Promise<void>)): Promise<T> {
+    try {
+        return await promise;
+    } finally {
+        await onFinally();
+    }
+}

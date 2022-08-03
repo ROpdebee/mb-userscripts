@@ -6,6 +6,7 @@ import { EditNote } from '@lib/MB/EditNote';
 import { getURLsForRelease } from '@lib/MB/URLs';
 import { enumerate } from '@lib/util/array';
 import { assertHasValue } from '@lib/util/assert';
+import { pFinally } from '@lib/util/async';
 import { qs } from '@lib/util/dom';
 import { ObservableSemaphore } from '@lib/util/observable';
 
@@ -118,13 +119,12 @@ export class App {
         // expects a synchronous function.
         // eslint-disable-next-line unicorn/consistent-function-scoping -- Requires access to `this`.
         const syncProcessURL = (url: URL): void => {
-            this.processURL(url)
-                .catch((err) => {
-                    LOGGER.error(`Failed to process URL ${url.href}`, err);
-                })
-                .finally(() => {
-                    this.clearLogLater();
-                });
+            void pFinally(
+                this.processURL(url)
+                    .catch((err) => {
+                        LOGGER.error(`Failed to process URL ${url.href}`, err);
+                    }),
+                this.clearLogLater.bind(this));
         };
 
         await Promise.all(supportedURLs.map((url) => {
