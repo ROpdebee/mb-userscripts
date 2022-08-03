@@ -1,8 +1,10 @@
+import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { filterNonNull } from '@lib/util/array';
 import { assert } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { urlBasename } from '@lib/util/urls';
+import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from '../types';
 import { ProviderWithTrackImages } from './base';
@@ -23,11 +25,23 @@ interface SCHydrationPlaylist extends SCHydration {
     hydratable: 'playlist';
     data: {
         artwork_url: string;
-        tracks: Array<{
-            artwork_url: string;
-        }>;
+        tracks: SCHydrationTrack[];
     };
 }
+
+interface LazyAPITrack {
+    artwork_url: undefined;
+    id: number;
+}
+
+interface LoadedAPITrack {
+    artwork_url: string;
+    id: number;
+}
+
+type SCHydrationTrack = LazyAPITrack | LoadedAPITrack;
+
+const SC_CLIENT_ID = 'S6H4wBXupPt9pXl3wpa8Yh2WOdMsoCby';  // TODO: Might change?
 
 export class SoundcloudProvider extends ProviderWithTrackImages {
     public readonly supportedDomains = ['soundcloud.com'];
@@ -120,9 +134,16 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         // Don't bother extracting track covers if they won't be used anyway
         if (onlyFront) return covers;
 
-        const trackCovers = filterNonNull(metadata.data.tracks
+        // Soundcloud only loads data for the first 5 tracks at first, need to
+        // load the rest of the tracks later.
+        const tracks = await this.lazyLoadTracks(metadata.data.tracks);
+
+        const trackCovers = filterNonNull(tracks
             .flatMap((track, trackNumber) => {
-                if (!track.artwork_url) return;
+                if (!track.artwork_url) {
+                    LOGGER.warn(`Track #${trackNumber} has no track image?`);
+                    return null;
+                }
                 return {
                     url: track.artwork_url,
                     trackNumber: (trackNumber + 1).toString(),
@@ -131,5 +152,45 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         const mergedTrackCovers = await this.mergeTrackImages(trackCovers, metadata.data.artwork_url, true);
 
         return [...covers, ...mergedTrackCovers];
+    }
+
+    private async lazyLoadTracks(tracks: SCHydrationTrack[]): Promise<SCHydrationTrack[]> {
+        const lazyTrackIDs = tracks
+            .filter((track) => typeof track.artwork_url === 'undefined')
+            .map((track) => track.id);
+        if (lazyTrackIDs.length === 0) return tracks;
+
+        LOGGER.info('Loading Soundcloud track data');
+
+        // TODO: Does this work still work if we pass a large list of IDs?
+        const params = new URLSearchParams({
+            ids: lazyTrackIDs.join(','),
+            client_id: SC_CLIENT_ID,
+        });
+        const trackDataResponse = await gmxhr(`https://api-v2.soundcloud.com/tracks?${params}`);
+        const trackData = safeParseJSON<LoadedAPITrack[]>(trackDataResponse.responseText);
+        if (!trackData) {
+            LOGGER.error('Could not parse Soundcloud track data, some track images may be missed');
+            // We'll still return the tracks that we couldn't load, otherwise
+            // the track indices will be wrong.
+            return tracks;
+        }
+
+        const trackIdToLoadedTrack = new Map(trackData
+            .map((track) => [track.id, track]));
+
+        // Need to take care to retain all tracks and retain their original
+        // order, since the order is used to infer track numbers.
+        return tracks.map((track) => {
+            // Was already loaded, no need in doing it again
+            if (typeof track.artwork_url !== 'undefined') return track;
+
+            const loadedTrack = trackIdToLoadedTrack.get(track.id);
+            if (!loadedTrack) {
+                LOGGER.error(`Could not load track data for track ${track.id}, some track images may be missed`);
+                return track;
+            }
+            return loadedTrack;
+        });
     }
 }
