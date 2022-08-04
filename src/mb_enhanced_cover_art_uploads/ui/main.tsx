@@ -3,7 +3,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { assertDefined } from '@lib/util/assert';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { insertStylesheet } from '@lib/util/css';
-import { qs } from '@lib/util/dom';
+import { parseDOM, qs, qsa } from '@lib/util/dom';
 
 import type { App } from '../App';
 import type { FetcherHooks } from '../fetch';
@@ -54,6 +54,23 @@ class ProgressElement {
     }
 }
 
+function parseHTMLURLs(htmlText: string): string[] {
+    LOGGER.debug(`Extracting URLs from ${htmlText}`);
+    const doc = parseDOM(htmlText, document.location.origin);
+    // Assume anchor hrefs and img sources are images/provider pages that need
+    // to be fetched.
+    const urls = new Set([
+        ...qsa<HTMLAnchorElement>('a', doc).map((anchor) => anchor.href),
+        ...qsa<HTMLImageElement>('img', doc).map((img) => img.src),
+    ]);
+    // Retain only http:, https:, or data: URLs, i.e. filter out javascript: etc.
+    return [...urls].filter((url) => /^(?:https?|data):/.test(url));
+}
+
+function parsePlainURLs(text: string): string[] {
+    return text.trim().split(/\s+/);
+}
+
 export class InputForm implements FetcherHooks {
     private readonly urlInput: HTMLInputElement;
     private readonly buttonContainer: HTMLDivElement;
@@ -75,18 +92,27 @@ export class InputForm implements FetcherHooks {
             size={47}
             id='ROpdebee_paste_url'
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onInput={async (evt): Promise<void> => {
-                // Early validation.
-                if (!evt.currentTarget.value) return;
-                const oldValue = evt.currentTarget.value;
-                // Prevent accidental double pasting, which could append to the
-                // existing URL.
-                evt.currentTarget.value = '';
+            onPaste={async (evt): Promise<void> => {
+                if (!evt.clipboardData) {
+                    LOGGER.warn('No clipboard data?');
+                    return;
+                }
+
+                // Get both HTML and plain text. If the user pastes just plain
+                // text, HTML will be empty.
+                const htmlText = evt.clipboardData.getData('text/html');
+                const plainText = evt.clipboardData.getData('text');
+
+                const urls = htmlText.length > 0 ? parseHTMLURLs(htmlText) : parsePlainURLs(plainText);
+
+                // Don't fill the input element so the user can immediately
+                // paste more URLs.
+                evt.preventDefault();
                 // Set the URL we'll process as the input's placeholder text as
                 // an "acknowledgement".
-                evt.currentTarget.placeholder = oldValue;
+                evt.currentTarget.placeholder = urls.join('\n');
 
-                for (const inputUrl of oldValue.trim().split(/\s+/)) {
+                for (const inputUrl of urls) {
                     let url: URL;
                     // Only use the try block to parse the URL, since we don't
                     // want to suppress errors in the image fetching.
@@ -101,7 +127,7 @@ export class InputForm implements FetcherHooks {
                 }
                 app.clearLogLater();
 
-                if (this.urlInput.placeholder === oldValue) {
+                if (this.urlInput.placeholder === urls.join('\n')) {
                     this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
                 }
             }}
