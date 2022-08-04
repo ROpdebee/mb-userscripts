@@ -305,12 +305,12 @@ describe('providers with track images', () => {
             expect(results[0].comment).toBeUndefined();
         });
 
-        describe('with custom comments', () => {
+        describe('with custom comment prefix', () => {
             it('uses singular prefix if only one track number exists', async () => {
                 const trackImages = [{
                     url: 'https://example.com/123',
                     trackNumber: '1',
-                    customComment: ['special track', 'special tracks'] as [string, string],
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
                 }];
                 const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
@@ -321,11 +321,11 @@ describe('providers with track images', () => {
                 const trackImages = [{
                     url: 'https://example.com/123',
                     trackNumber: '1',
-                    customComment: ['special track', 'special tracks'] as [string, string],
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
                 }, {
                     url: 'https://example.com/123',
                     trackNumber: '2',
-                    customComment: ['special track', 'special tracks'] as [string, string],
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
                 }];
                 const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
@@ -336,15 +336,15 @@ describe('providers with track images', () => {
                 const trackImages = [{
                     url: 'https://example.com/123',
                     trackNumber: '1',
-                    customComment: ['special track', 'special tracks'] as [string, string],
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
                 }, {
                     url: 'https://example.com/123',
                     trackNumber: '2',
-                    customComment: ['special track', 'special tracks'] as [string, string],
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
                 }, {
                     url: 'https://example.com/123',
                     trackNumber: '3',
-                    customComment: ['extra special track', 'extra special tracks'] as [string, string],
+                    customCommentPrefix: ['extra special track', 'extra special tracks'] as [string, string],
                 }];
                 const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 

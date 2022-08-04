@@ -150,8 +150,8 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         // Don't bother extracting track covers if they won't be used anyway
         if (onlyFront) return covers;
 
-        // Soundcloud only loads data for the first 5 tracks at first, need to
-        // load the rest of the tracks later.
+        // Soundcloud page only contains data for the first 5 tracks at first,
+        // we need to load the rest of the tracks.
         const tracks = await this.lazyLoadTracks(metadata.data.tracks);
 
         const trackCovers = filterNonNull(tracks
@@ -170,7 +170,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
                 trackImages.push(...visuals.map((visualUrl) => ({
                     url: visualUrl,
                     trackNumber: (trackNumber + 1).toString(),
-                    customComment: ['Soundcloud backdrop for track', 'Soundcloud backdrop for tracks'] as [string, string],
+                    customCommentPrefix: ['Soundcloud backdrop for track', 'Soundcloud backdrop for tracks'] as [string, string],
                 })));
 
                 return trackImages;

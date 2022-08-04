@@ -116,7 +116,7 @@ export abstract class CoverArtProvider {
 export interface ParsedTrackImage {
     url: string;
     trackNumber?: string;
-    customComment?: [string, string];  // singular, plural
+    customCommentPrefix?: [string, string];  // singular, plural
 }
 
 export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
@@ -244,9 +244,9 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         const definedTrackNumbers = tracks.filter((track) => Boolean(track.trackNumber));
         if (definedTrackNumbers.length === 0) return '';
 
-        const commentBins = groupBy(definedTrackNumbers, (track) => track.customComment?.[0] ?? 'Track', (track) => track);
+        const commentBins = groupBy(definedTrackNumbers, (track) => track.customCommentPrefix?.[0] ?? 'Track', (track) => track);
         const commentChunks = [...commentBins.values()].map((bin) => {
-            const prefixes = bin[0].customComment ?? ['Track', 'Tracks'];
+            const prefixes = bin[0].customCommentPrefix ?? ['Track', 'Tracks'];
             const prefix = prefixes[bin.length === 1 ? 0 : 1];
             const trackNumbers = bin.map((track) => track.trackNumber!);
             // Use a collated sort here to make sure we keep numeric ordering.
