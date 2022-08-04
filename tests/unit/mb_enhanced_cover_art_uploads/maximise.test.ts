@@ -152,7 +152,6 @@ describe('maximising Apple Music images', () => {
 
         expect(result).toMatchObject([{
             url: {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 href: expect.toEndWith('/source'),
             },
             likely_broken: true,
