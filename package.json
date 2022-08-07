@@ -63,7 +63,7 @@
     "eslint-plugin-disable": "2.0.3",
     "eslint-plugin-eslint-comments": "3.2.0",
     "eslint-plugin-html": "7.1.0",
-    "eslint-plugin-jest": "26.7.0",
+    "eslint-plugin-jest": "26.8.0",
     "eslint-plugin-jest-async": "1.0.3",
     "eslint-plugin-jest-formatting": "3.1.0",
     "eslint-plugin-json": "3.1.0",
