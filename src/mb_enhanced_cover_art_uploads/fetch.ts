@@ -213,10 +213,10 @@ export class ImageFetcher {
             LOGGER.warn(`Could not detect if URL ${url.href} caused a redirect`);
         }
         const fetchedUrl = new URL(resp.finalUrl || url);
-        const wasRedirected = resp.finalUrl !== url.href;
+        const wasRedirected = fetchedUrl.href !== url.href;
 
         if (wasRedirected) {
-            LOGGER.warn(`Followed redirect of ${url.href} -> ${resp.finalUrl} while fetching image contents`);
+            LOGGER.warn(`Followed redirect of ${url.href} -> ${fetchedUrl.href} while fetching image contents`);
         }
 
         const { mimeType, isImage } = await this.determineMimeType(resp);
