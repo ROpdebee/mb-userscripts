@@ -265,7 +265,10 @@ async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
 
     for (const maximisedResult of results) {
         // Filter out results that will definitely not work
-        if (maximisedResult.fake || maximisedResult.bad) continue;
+        // FIXME: We blanket-ban videos at the moment, even though in the future
+        // we may want videos (e.g. Apple Music front cover videos). Currently
+        // videos aren't supported though.
+        if (maximisedResult.fake || maximisedResult.bad || maximisedResult.video) continue;
         try {
             yield {
                 ...maximisedResult,
