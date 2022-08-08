@@ -131,6 +131,11 @@ export class InputForm implements FetcherHooks {
                     }
                 }));
 
+                if (inputUrls.length === 0) {
+                    LOGGER.info('No URLs found in input');
+                    return;
+                }
+
                 await app.processURLs(inputUrls);
                 app.clearLogLater();
 
