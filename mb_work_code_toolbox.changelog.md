@@ -1,0 +1,1 @@
+- **2022.8.8**: Internal changes: more TypeScript migration ([#499](https://github.com/ROpdebee/mb-userscripts/pull/499))
