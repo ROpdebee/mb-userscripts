@@ -57,14 +57,23 @@ class ProgressElement {
 function parseHTMLURLs(htmlText: string): string[] {
     LOGGER.debug(`Extracting URLs from ${htmlText}`);
     const doc = parseDOM(htmlText, document.location.origin);
-    // Assume anchor hrefs and img sources are images/provider pages that need
-    // to be fetched.
-    const urls = new Set([
-        ...qsa<HTMLAnchorElement>('a', doc).map((anchor) => anchor.href),
-        ...qsa<HTMLImageElement>('img', doc).map((img) => img.src),
-    ]);
-    // Retain only http:, https:, or data: URLs, i.e. filter out javascript: etc.
-    return [...urls].filter((url) => /^(?:https?|data):/.test(url));
+    // Get URLs from <img> sources
+    let urls = qsa<HTMLImageElement>('img', doc).map((img) => img.src);
+    // If there are no <img> elements in the pasted content, try getting URLs from <a> elements.
+    if (urls.length === 0) {
+        urls = qsa<HTMLAnchorElement>('a', doc).map((anchor) => anchor.href);
+    }
+    if (urls.length === 0) {
+        // If there aren't any <img> or <a> elements whatsoever, assume the user
+        // copied a list of plain-text URLs that happened to be on a HTML page
+        // and parse it as plain text
+        return parsePlainURLs(doc.textContent ?? '');
+    }
+
+    // Deduplicate URLs and retain only http:, https:, or data: URLs,
+    // i.e. filter out javascript: etc.
+    return [...new Set(urls)]
+        .filter((url) => /^(?:https?|data):/.test(url));
 }
 
 function parsePlainURLs(text: string): string[] {
