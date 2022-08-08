@@ -1,3 +1,4 @@
+- **2022.8.8.3**: Internal changes: more TypeScript migration ([#499](https://github.com/ROpdebee/mb-userscripts/pull/499))
 - **2022.8.8.2**: Internal changes: standardise 404 error messages for providers ([#549](https://github.com/ROpdebee/mb-userscripts/pull/549))
 - **2022.8.8**: New feature: add Bugs provider ([#548](https://github.com/ROpdebee/mb-userscripts/pull/548))
 - **2022.8.5**: New feature: extract Soundcloud backdrop images ([#543](https://github.com/ROpdebee/mb-userscripts/pull/543))
