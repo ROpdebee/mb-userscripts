@@ -96,11 +96,9 @@ describe('apple music provider', () => {
         const extractionFailedCases = [{
             desc: 'non-existent Apple Music release',
             url: 'https://music.apple.com/gb/album/123456789',
-            errorMessage: 'Apple Music release does not exist',
         }, {
             desc: 'non-existent iTunes release',
             url: 'https://itunes.apple.com/gb/album/id123456789',
-            errorMessage: 'Apple Music release does not exist',
         }];
 
         // eslint-disable-next-line jest/require-hook
