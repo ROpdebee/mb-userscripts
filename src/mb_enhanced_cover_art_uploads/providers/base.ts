@@ -134,8 +134,6 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
     }
 
     public async findImages(url: URL): Promise<CoverArt[]> {
-        // Find an image link from a HTML head meta property, maxurl will
-        // maximize it for us. Don't want to use the API because of OAuth.
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
         if (this.is404Page(respDocument)) {
             throw new Error(this.name + ' release does not exist');
