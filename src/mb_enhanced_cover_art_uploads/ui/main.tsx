@@ -1,5 +1,6 @@
 import type { FetchProgress } from '@lib/util/xhr';
 import { LOGGER } from '@lib/logging/logger';
+import { filterNonNull } from '@lib/util/array';
 import { assertDefined } from '@lib/util/assert';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { insertStylesheet } from '@lib/util/css';
@@ -121,19 +122,16 @@ export class InputForm implements FetcherHooks {
                 // an "acknowledgement".
                 evt.currentTarget.placeholder = urls.join('\n');
 
-                for (const inputUrl of urls) {
-                    let url: URL;
-                    // Only use the try block to parse the URL, since we don't
-                    // want to suppress errors in the image fetching.
+                const inputUrls = filterNonNull(urls.map((inputUrl) => {
                     try {
-                        url = new URL(inputUrl);
+                        return new URL(inputUrl);
                     } catch (err) {
                         LOGGER.error(`Invalid URL: ${inputUrl}`, err);
-                        continue;
+                        return null;
                     }
+                }));
 
-                    await app.processURL(url);
-                }
+                await app.processURLs(inputUrls);
                 app.clearLogLater();
 
                 if (this.urlInput.placeholder === urls.join('\n')) {

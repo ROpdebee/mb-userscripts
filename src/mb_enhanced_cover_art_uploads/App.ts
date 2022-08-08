@@ -47,8 +47,8 @@ export class App {
         this.fetcher = new ImageFetcher(this.ui);
     }
 
-    public async processURL(url: URL): Promise<void> {
-        return this._processURLs([{ url }]);
+    public async processURLs(urls: URL[]): Promise<void> {
+        return this._processURLs(urls.map((url) => ({ url })));
     }
 
     public clearLogLater(): void {
@@ -120,7 +120,7 @@ export class App {
         // eslint-disable-next-line unicorn/consistent-function-scoping -- Requires access to `this`.
         const syncProcessURL = (url: URL): void => {
             void pFinally(
-                this.processURL(url)
+                this.processURLs([url])
                     .catch((err) => {
                         LOGGER.error(`Failed to process URL ${url.href}`, err);
                     }),
