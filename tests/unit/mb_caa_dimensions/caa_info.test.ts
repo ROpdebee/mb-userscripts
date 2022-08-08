@@ -24,4 +24,12 @@ describe('getting CAA information', () => {
         await expect(getCAAInfo('mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0', 'test'))
             .rejects.toThrowWithMessage(Error, 'Could not find image "test" in IA manifest');
     });
+
+    it('returns number of pages for PDF', async () => {
+        const info = await getCAAInfo('mbid-32fc99ce-a5b5-48f9-88d3-5e59ac4cb747', '26538524366');
+
+        expect(info.size).toBe(42_248_956);
+        expect(info.fileType).toBe('Image Container PDF');
+        expect(info.pageCount).toBe(11);
+    });
 });

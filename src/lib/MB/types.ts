@@ -20,7 +20,9 @@ export interface ExternalLinks {
 
 export interface ReleaseEditor {
     externalLinks: {
-        current: ExternalLinks;
+        externalLinksEditorRef: {
+            current: ExternalLinks;
+        };
     };
 }
 
@@ -29,7 +31,9 @@ declare global {
         MB: {
             releaseEditor?: ReleaseEditor;
             sourceExternalLinksEditor?: {
-                current: ExternalLinks;
+                externalLinksEditorRef: {
+                    current: ExternalLinks;
+                };
             };
         };
 

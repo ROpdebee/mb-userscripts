@@ -1,6 +1,6 @@
 import { assertHasValue } from '@lib/util/assert';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { AmazonProvider } from './amazon';
 import { CoverArtProvider } from './base';
 

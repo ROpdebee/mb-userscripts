@@ -27,6 +27,9 @@ export function createFileInfoString(imageInfo: ImageInfo): string {
     if (typeof imageInfo.fileType !== 'undefined') {
         details.push(imageInfo.fileType);
     }
+    if (typeof imageInfo.pageCount !== 'undefined') {
+        details.push(imageInfo.pageCount.toString() + (imageInfo.pageCount === 1 ? ' page' : ' pages'));
+    }
 
     return details.join(', ');
 }

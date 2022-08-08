@@ -3,7 +3,7 @@ import { filterNonNull } from '@lib/util/array';
 import { assertDefined } from '@lib/util/assert';
 import { parseDOM, qsa } from '@lib/util/dom';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 // There's an API, but it requires an API key.

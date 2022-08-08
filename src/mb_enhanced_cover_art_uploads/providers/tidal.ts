@@ -3,7 +3,7 @@ import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { gmxhr } from '@lib/util/xhr';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 // Extracted from listen.tidal.com JS. There seem to be at least 10 different
@@ -59,7 +59,11 @@ export class TidalProvider extends CoverArtProvider {
             headers: {
                 'x-tidal-token': APP_ID,
             },
+            httpErrorMessages: {
+                404: 'Tidal release does not exist',
+            },
         });
+
         const metadata = safeParseJSON<AlbumMetadata>(resp.responseText, 'Invalid response from Tidal API');
         const albumMetadata = metadata.rows[0]?.modules?.[0]?.album;
         assertHasValue(albumMetadata, 'Tidal API returned no album, 404?');

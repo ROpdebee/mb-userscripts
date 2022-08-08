@@ -106,6 +106,13 @@ describe('bandcamp provider', () => {
             });
         });
 
+        it('skips grabbing square thumbnails if dimensions cannot be loaded', async () => {
+            mockGetImageDimensions.mockRejectedValueOnce(new Error('test'));
+            const coverUrls = await provider.findImages(new URL('https://level2three.bandcamp.com/track/the-bridge'));
+
+            expect(coverUrls).toBeArrayOfSize(1);
+        });
+
         it('considers redirect to different album to be unsafe', () => {
             // See https://github.com/ROpdebee/mb-userscripts/issues/79
             const originalUrl = new URL('https://tempelfanwolven.bandcamp.com/album/spell-of-the-driftless-forest');

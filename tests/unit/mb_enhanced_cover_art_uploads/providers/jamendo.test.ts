@@ -38,7 +38,7 @@ describe('jamendo provider', () => {
             numImages: 1,
             expectedImages: [{
                 index: 0,
-                urlPart: 'cid=1631882904',
+                urlPart: 'cid=1652438482',
                 types: [ArtworkTypeIDs.Front],
             }],
         }];

@@ -59,10 +59,9 @@ describe('7digital provider', () => {
             const cover = createCoverArt('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg');
             const fetchedImage = createFetchedImageFromCoverArt(cover);
 
-            const afterFetch = await provider.postprocessImages([fetchedImage]);
+            const afterFetch = await provider.postprocessImage(fetchedImage);
 
-            expect(afterFetch).toBeArrayOfSize(1);
-            expect(afterFetch[0]).toStrictEqual(fetchedImage);
+            expect(afterFetch).toStrictEqual(fetchedImage);
         });
 
         it('filters out placeholder images', async () => {
@@ -71,9 +70,9 @@ describe('7digital provider', () => {
                 fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/000/000/0000000016_800.jpg'),
             });
 
-            const afterFetch = await provider.postprocessImages([fetchedImage]);
+            const afterFetch = await provider.postprocessImage(fetchedImage);
 
-            expect(afterFetch).toBeEmpty();
+            expect(afterFetch).toBeNull();
         });
     });
 });

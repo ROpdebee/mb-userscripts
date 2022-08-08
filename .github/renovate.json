@@ -12,6 +12,7 @@
       "matchUpdateTypes": ["pin"],
       "automerge": true,
       "automergeType": "branch",
+      "recreateClosed": true,
       "schedule": ["at any time"]
     },
     {
@@ -19,6 +20,7 @@
       "matchUpdateTypes": ["lockFileMaintenance"],
       "automerge": true,
       "automergeType": "branch",
+      "recreateClosed": true,
       "schedule": ["on the first day of the month"]
     },
     {

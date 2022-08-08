@@ -1,6 +1,6 @@
 // Custom matchers for provider testing
 
-import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/types';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 
 export interface ExpectedCoverArt {

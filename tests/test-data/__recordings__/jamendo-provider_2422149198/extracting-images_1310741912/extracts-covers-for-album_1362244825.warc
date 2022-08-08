@@ -1,22 +1,22 @@
 WARC/1.1
 WARC-Filename: jamendo provider/extracting images/extracts covers for album
-WARC-Date: 2022-01-24T16:28:06.409Z
+WARC-Date: 2022-08-03T21:10:59.885Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:c6982f66-e373-4508-bdf5-baed7d09df30>
+WARC-Record-ID: <urn:uuid:7ab9a065-e8c0-4061-9744-5b3d2cf60c73>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f4dd854c-34f4-4616-93b4-14f0fc05c606>
+WARC-Concurrent-To: <urn:uuid:fd05647e-aee5-4bcc-8627-48c933a5b81c>
 WARC-Target-URI: https://www.jamendo.com/album/454973/to-aurora
-WARC-Date: 2022-01-24T16:28:06.410Z
+WARC-Date: 2022-08-03T21:10:59.886Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:5180298e-a34d-4600-a74c-03fab3906021>
+WARC-Record-ID: <urn:uuid:0db0bd46-fd0b-4afd-8e4a-751bce3b3c58>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:b88eba78b59ef0d457ed8660b7b83f84b9ad76028771c9fc2f1fb930242141a9
@@ -27,53 +27,53 @@ GET /album/454973/to-aurora HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f4dd854c-34f4-4616-93b4-14f0fc05c606>
+WARC-Concurrent-To: <urn:uuid:fd05647e-aee5-4bcc-8627-48c933a5b81c>
 WARC-Target-URI: https://www.jamendo.com/album/454973/to-aurora
-WARC-Date: 2022-01-24T16:28:06.411Z
+WARC-Date: 2022-08-03T21:10:59.887Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:1a4b3d92-2c20-49c3-abc7-b375f75671b7>
+WARC-Record-ID: <urn:uuid:250430a0-8251-42b5-a1cf-7c7e93a358d4>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:fa7d5ef4d72d769fd766360e3582a84cb90153a97c4e6faefc6a39a11c274f55
-WARC-Block-Digest: sha256:fa7d5ef4d72d769fd766360e3582a84cb90153a97c4e6faefc6a39a11c274f55
+WARC-Payload-Digest: sha256:deebd6872a6fcfa8a6f2dcc00ba98e7ad2dffe6880520900db52c6eb718eda5b
+WARC-Block-Digest: sha256:deebd6872a6fcfa8a6f2dcc00ba98e7ad2dffe6880520900db52c6eb718eda5b
 Content-Length: 483
 
 harEntryId: d23ad204dc9d73b03d9737b74e67a2a1
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-01-24T16:28:05.754Z
-time: 614
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":614,"receive":0,"ssl":-1}
+startedDateTime: 2022-08-03T21:10:59.433Z
+time: 406
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":406,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 65
 warcRequestCookies: []
-warcResponseHeadersSize: 1152
-warcResponseCookies: [{"name":"jammusiclang","value":"en","path":"/","expires":"2023-01-24T16:28:06.000Z","secure":true,"sameSite":"Strict","httpOnly":true}]
+warcResponseHeadersSize: 1168
+warcResponseCookies: [{"name":"jammusiclang","value":"en","path":"/","expires":"2023-08-03T21:10:59.000Z","secure":true,"sameSite":"Strict","httpOnly":true}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://www.jamendo.com/album/454973/to-aurora
-WARC-Date: 2022-01-24T16:28:06.409Z
+WARC-Date: 2022-08-03T21:10:59.886Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:f4dd854c-34f4-4616-93b4-14f0fc05c606>
+WARC-Record-ID: <urn:uuid:fd05647e-aee5-4bcc-8627-48c933a5b81c>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:b1225f040be810bdd4fc3057d7f37a599499e1f00c949438ef5db46344ccfefe
-WARC-Block-Digest: sha256:688a9b14c24f8bf727ddd5f0b5895a7dedbda46a78a993ded18c555ff581095d
-Content-Length: 34633
+WARC-Payload-Digest: sha256:9142d93df61d4936b0bdc7c9489f22d73d1136d9279f4cd5a9b4a9a161451168
+WARC-Block-Digest: sha256:b699a4edcc73b3fb6641c24b4e2d6a33764151a26b391f90cb7a54704883ec10
+Content-Length: 34589
 
 HTTP/1.1 200 OK
 access-control-allow-origin: *
 alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
 cf-cache-status: DYNAMIC
-cf-ray: 6d2aa20adb5bc4db-DUS
+cf-ray: 73520b0efa1698be-LUX
 connection: close
 content-encoding: br
 content-type: text/html; charset=utf-8
-date: Mon, 24 Jan 2022 16:28:06 GMT
+date: Wed, 03 Aug 2022 21:10:59 GMT
 expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
 nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
-report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=QUYWb3dWmgWt3oGrPm1nYkFBXo6oeOhq9ez2ZApG51fl0ayBZCevfYyg03cjHBeEwZ1kngrsrrGw9CFK7NijZJfOiNsO4t8yr8pM4jlvYqNusLHKOYFpnrtxjokYNDRwJQ%3D%3D"}],"group":"cf-nel","max_age":604800}
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=2H3Hdwm9Bk9SCv%2FYUypZRWVSMaWDuPf11MgtCMVteKCvV1gYyr4V9VHknzjB2h3PlefbH%2BWUe%2BLr19oEztBbHWcK70eEXACpGHBEzBhIN0%2F1%2BvbxYD12T8KWhx1Yw8Ux5A%3D%3D"}],"group":"cf-nel","max_age":604800}
 server: cloudflare
-set-cookie: jammusiclang=en; Path=/; Expires=Wed, 23 Feb 2022 16:28:06 GMT; Secure; SameSite=Strict, jammusicsession=s%3AG_Jk02mYqMQv2DGWX-Nc8G1zhcFQ9cN5.JsIhfa66CaPahmKPwppPZ%2FY4%2Bgk6hX86ZXBMjC9TbPo; Path=/; Expires=Tue, 24 Jan 2023 16:28:06 GMT; HttpOnly; Secure; SameSite=Strict
+set-cookie: jammusiclang=en; Path=/; Expires=Fri, 02 Sep 2022 21:10:59 GMT; Secure; SameSite=Strict, jammusicsession=s%3Az9axsdWT8FPHFUl1STeHO3wtDyBqEyMS.0kEDRNI%2F7i%2B0o6yZ3kriA%2FkWM5%2BgLOxDHFSOM%2FTEvtk; Path=/; Expires=Thu, 03 Aug 2023 21:10:59 GMT; HttpOnly; Secure; SameSite=Strict
 strict-transport-security: max-age=15552000
 transfer-encoding: chunked
 vary: Accept-Encoding
@@ -143,7 +143,7 @@ x-pollyjs-finalurl: https://www.jamendo.com/album/454973/to-aurora
 
 	
 		
-			<meta itemprop="image" content="https://usercontent.jamendo.com?cid=1631882904&type=album&id=454973&width=600&trackid=1885651">
+			<meta itemprop="image" content="https://usercontent.jamendo.com?cid=1652438482&type=album&id=454973&width=600&trackid=1885651">
 		
 		
 			<meta itemprop="name" content="to: Aurora">
@@ -186,7 +186,7 @@ x-pollyjs-finalurl: https://www.jamendo.com/album/454973/to-aurora
 		<meta property="og:type" content="music.album" />
 
 		
-			<meta property="og:image" content="https://usercontent.jamendo.com?cid=1631882904&type=album&id=454973&width=600&trackid=1885651" />
+			<meta property="og:image" content="https://usercontent.jamendo.com?cid=1652438482&type=album&id=454973&width=600&trackid=1885651" />
 		
 
 		<meta property="og:locale" content="en_US" />
@@ -221,7 +221,7 @@ x-pollyjs-finalurl: https://www.jamendo.com/album/454973/to-aurora
 		<meta name="twitter:app:id:googleplay" content="com.jamendo">
 		<meta name="twitter:title" content="Smoking With Poets - to: Aurora | Jamendo Music - Free music downloads">
 		<meta name="twitter:description" content=" ">
-		<meta name="twitter:image" content="https://usercontent.jamendo.com?cid=1631882904&type=album&id=454973&width=600&trackid=1885651">
+		<meta name="twitter:image" content="https://usercontent.jamendo.com?cid=1652438482&type=album&id=454973&width=600&trackid=1885651">
 	
 
 	<link href="https://plus.google.com/101430635827008446511/" rel="publisher">
@@ -236,32 +236,32 @@ x-pollyjs-finalurl: https://www.jamendo.com/album/454973/to-aurora
 
     
 
-		<link rel="stylesheet" async href="/Client/assets/toolkit/styles/toolkit.min.1642061143689.css">
+		<link rel="stylesheet" async href="/Client/assets/toolkit/styles/toolkit.min.4157134585.css">
 
-		<link rel="apple-touch-icon" sizes="57x57" href="/Client/assets/toolkit/images/icon/apple-touch-icon-57x57.1642061143689.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="/Client/assets/toolkit/images/icon/apple-touch-icon-60x60.1642061143689.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="/Client/assets/toolkit/images/icon/apple-touch-icon-72x72.1642061143689.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="/Client/assets/toolkit/images/icon/apple-touch-icon-76x76.1642061143689.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="/Client/assets/toolkit/images/icon/apple-touch-icon-114x114.1642061143689.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="/Client/assets/toolkit/images/icon/apple-touch-icon-120x120.1642061143689.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="/Client/assets/toolkit/images/icon/apple-touch-icon-144x144.1642061143689.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="/Client/assets/toolkit/images/icon/apple-touch-icon-152x152.1642061143689.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="/Client/assets/toolkit/images/icon/apple-touch-icon-180x180.1642061143689.png">
-		<link rel="icon" type="image/png" href="/Client/assets/toolkit/images/icon/favicon-32x32.1642061143689.png" sizes="32x32">
-		<link rel="icon" type="image/png" href="/Client/assets/toolkit/images/icon/android-chrome-192x192.1642061143689.png" sizes="192x192">
-		<link rel="icon" type="image/png" href="/Client/assets/toolkit/images/icon/favicon-96x96.1642061143689.png" sizes="96x96">
-		<link rel="icon" type="image/png" href="/Client/assets/toolkit/images/icon/favicon-16x16.1642061143689.png" sizes="16x16">
-		<link rel="manifest" href="/Client/manifest.1642061143689.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/Client/assets/toolkit/images/icon/apple-touch-icon-57x57.4157134585.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/Client/assets/toolkit/images/icon/apple-touch-icon-60x60.4157134585.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/Client/assets/toolkit/images/icon/apple-touch-icon-72x72.4157134585.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/Client/assets/toolkit/images/icon/apple-touch-icon-76x76.4157134585.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/Client/assets/toolkit/images/icon/apple-touch-icon-114x114.4157134585.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/Client/assets/toolkit/images/icon/apple-touch-icon-120x120.4157134585.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/Client/assets/toolkit/images/icon/apple-touch-icon-144x144.4157134585.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/Client/assets/toolkit/images/icon/apple-touch-icon-152x152.4157134585.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/Client/assets/toolkit/images/icon/apple-touch-icon-180x180.4157134585.png">
+		<link rel="icon" type="image/png" href="/Client/assets/toolkit/images/icon/favicon-32x32.4157134585.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/Client/assets/toolkit/images/icon/android-chrome-192x192.4157134585.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="/Client/assets/toolkit/images/icon/favicon-96x96.4157134585.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="/Client/assets/toolkit/images/icon/favicon-16x16.4157134585.png" sizes="16x16">
+		<link rel="manifest" href="/Client/manifest.4157134585.json">
 		<link rel="search" type="application/opensearchdescription+xml" href="/Client/opensearch.xml" title="Jamendo Music">
-		<link rel="shortcut icon" href="/Client/assets/toolkit/images/icon/favicon.1642061143689.ico">
+		<link rel="shortcut icon" href="/Client/assets/toolkit/images/icon/favicon.4157134585.ico">
 		<meta name="apple-mobile-web-app-title" content="Jamendo Music">
 		<meta name="application-name" content="Jamendo Music">
 		<meta name="msapplication-TileColor" content="#ff1f59">
-		<meta name="msapplication-TileImage" content="/Client/assets/toolkit/images/icon/mstile-144x144.1642061143689.png">
-		<meta name="msapplication-config" content="/Client/browserconfig.1642061143689.xml">
+		<meta name="msapplication-TileImage" content="/Client/assets/toolkit/images/icon/mstile-144x144.4157134585.png">
+		<meta name="msapplication-config" content="/Client/browserconfig.4157134585.xml">
 
-	    <script src="/Client/cordova.1642061143689.js" async data-host="/Client"></script>
-        <script async src="/Client/scripts/main-build.1642061143689.js"></script>
+	    <script src="/Client/cordova.4157134585.js" async data-host="/Client"></script>
+        <script async src="/Client/scripts/main-build.4157134585.js"></script>
 
 	
 	

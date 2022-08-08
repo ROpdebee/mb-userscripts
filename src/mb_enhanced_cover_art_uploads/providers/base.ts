@@ -6,7 +6,7 @@ import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';
 import { gmxhr } from '@lib/util/xhr';
 
-import type { FetchedImage } from '../fetch';
+import type { CoverArt, FetchedImage } from '../types';
 
 export abstract class CoverArtProvider {
     /**
@@ -50,12 +50,12 @@ export abstract class CoverArtProvider {
     public abstract findImages(url: URL, onlyFront: boolean): Promise<CoverArt[]>;
 
     /**
-     * Postprocess the fetched images. By default, does nothing, however,
-     * subclasses can override this to e.g. filter out or merge images after
-     * they've been fetched.
+     * Postprocess a fetched image. By default, does nothing, however,
+     * subclasses can override this to e.g. filter out an image after it has
+     * been fetched.
      */
-    public async postprocessImages(images: FetchedImage[]): Promise<FetchedImage[]> {
-        return images;
+    public postprocessImage(image: FetchedImage): Promise<FetchedImage | null> {
+        return Promise.resolve(image);
     }
 
     /**
@@ -102,8 +102,18 @@ export abstract class CoverArtProvider {
     }
 
     protected async fetchPage(url: URL, options?: GMXHROptions): Promise<string> {
-        const resp = await gmxhr(url, options);
-        if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
+        const resp = await gmxhr(url, {
+            // Standardise error messages for 404 pages, otherwise the HTTP error
+            // will be shown in the UI.
+            httpErrorMessages: {
+                404: `${this.name} release does not exist`,
+            },
+            ...options,
+        });
+
+        if (typeof resp.finalUrl === 'undefined') {
+            LOGGER.warn(`Could not detect if ${url.href} caused a redirect`);
+        } else if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
             throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${resp.finalUrl}, which may be a different release. If this redirected URL is correct, please retry with ${resp.finalUrl} directly.`);
         }
 
@@ -111,29 +121,10 @@ export abstract class CoverArtProvider {
     }
 }
 
-export interface CoverArt {
-    /**
-     * URL to fetch.
-     */
-    url: URL;
-    /**
-     * Artwork types to set. May be empty or undefined.
-     */
-    types?: ArtworkTypeIDs[];
-    /**
-     * Comment to set. May be empty or undefined.
-     */
-    comment?: string;
-    /**
-     * Whether maximisation should be skipped for this image. If undefined,
-     * interpreted as false.
-     */
-    skipMaximisation?: boolean;
-}
-
 export interface ParsedTrackImage {
     url: string;
     trackNumber?: string;
+    customCommentPrefix?: [string, string];  // singular, plural
 }
 
 export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
@@ -151,11 +142,9 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
     }
 
     public async findImages(url: URL): Promise<CoverArt[]> {
-        // Find an image link from a HTML head meta property, maxurl will
-        // maximize it for us. Don't want to use the API because of OAuth.
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
         if (this.is404Page(respDocument)) {
-            throw new Error(this.name + ' release does not exist');
+            throw new Error(`${this.name} release does not exist`);
         }
 
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
@@ -214,9 +203,14 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
             // Extend the track image with the track's unique digest. We compute
             // this digest once for each unique URL.
+            let numProcessed = 0;
             const tracksWithDigest = await Promise.all([...groupedImages.entries()]
                 .map(async ([coverUrl, trackImages]) => {
                     const digest = await this.urlToDigest(coverUrl);
+                    // Cannot use `map`'s index argument since this is asynchronous
+                    // and might resolve out of order.
+                    numProcessed++;
+                    LOGGER.info(`Deduplicating track images by content, this may take a while… (${numProcessed}/${groupedImages.size})`);
                     return trackImages.map((trackImage) => {
                         return {
                             ...trackImage,
@@ -245,21 +239,28 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
             results.push({
                 url: new URL(imgUrl),
                 types: [ArtworkTypeIDs.Track],
-                comment: this.createTrackImageComment(trackImages.map((trackImage) => trackImage.trackNumber)) || undefined,
+                comment: this.createTrackImageComment(trackImages) || undefined,
             });
         });
 
         return results;
     }
 
-    private createTrackImageComment(trackNumbers: Array<string | undefined>): string {
-        const definedTrackNumbers = filterNonNull(trackNumbers);
+    private createTrackImageComment(tracks: ParsedTrackImage[]): string {
+        const definedTrackNumbers = tracks.filter((track) => Boolean(track.trackNumber));
         if (definedTrackNumbers.length === 0) return '';
 
-        const prefix = definedTrackNumbers.length === 1 ? 'Track' : 'Tracks';
-        // Use a collated sort here to make sure we keep numeric ordering.
-        // We can't just parse track numbers to actual numbers here, as the
-        // tracks may reasonably be numbered as strings (e.g. Vinyl sides)
-        return `${prefix} ${collatedSort(definedTrackNumbers).join(', ')}`;
+        const commentBins = groupBy(definedTrackNumbers, (track) => track.customCommentPrefix?.[0] ?? 'Track', (track) => track);
+        const commentChunks = [...commentBins.values()].map((bin) => {
+            const prefixes = bin[0].customCommentPrefix ?? ['Track', 'Tracks'];
+            const prefix = prefixes[bin.length === 1 ? 0 : 1];
+            const trackNumbers = bin.map((track) => track.trackNumber!);
+            // Use a collated sort here to make sure we keep numeric ordering.
+            // We can't just parse track numbers to actual numbers here, as the
+            // tracks may reasonably be numbered as strings (e.g. Vinyl sides)
+            return `${prefix} ${collatedSort(trackNumbers).join(', ')}`;
+        });
+
+        return commentChunks.join('; ');
     }
 }

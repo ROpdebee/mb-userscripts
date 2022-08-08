@@ -1,5 +1,5 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { convertCaptions, mapJacketType, VGMdbProvider } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
+import { convertCaptions, VGMdbProvider } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
 import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
@@ -29,76 +29,45 @@ describe('vgmdb provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    describe('mapping jacket types', () => {
-        const simpleJacketCases: Array<[string, ArtworkTypeIDs]> = [
-            ['Front', ArtworkTypeIDs.Front],
-            ['Back', ArtworkTypeIDs.Back],
-            ['Spine', ArtworkTypeIDs.Spine],
-        ];
-
-        it.each(simpleJacketCases)('should map simple jacket type with %s', (caption, expected) => {
-            expect(mapJacketType(caption)).toStrictEqual({
-                type: [expected],
-                comment: '',
-            });
-        });
-
-        it('should map to full jacket when no caption is present', () => {
-            expect(mapJacketType('')).toStrictEqual({
-                type: [
-                    ArtworkTypeIDs.Front,
-                    ArtworkTypeIDs.Back,
-                    ArtworkTypeIDs.Spine,
-                ],
-                comment: '',
-            });
-        });
-
-        it('should include spine when front and back are present', () => {
-            expect(mapJacketType('Front, Back')).toStrictEqual({
-                type: [
-                    ArtworkTypeIDs.Front,
-                    ArtworkTypeIDs.Back,
-                    ArtworkTypeIDs.Spine,
-                ],
-                comment: '',
-            });
-        });
-
-        it('should retain other comments', () => {
-            expect(mapJacketType('Front and Back colorised')).toStrictEqual({
-                type: [
-                    ArtworkTypeIDs.Front,
-                    ArtworkTypeIDs.Back,
-                    ArtworkTypeIDs.Spine,
-                ],
-                comment: 'colorised',
-            });
-        });
-    });
-
     describe('caption type mapping', () => {
         const mappingCases: Array<[string, ArtworkTypeIDs[], string]> = [
             ['Front', [ArtworkTypeIDs.Front], ''],
             ['Back', [ArtworkTypeIDs.Back], ''],
+            ['Jacket', [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], ''],
             ['Jacket Front', [ArtworkTypeIDs.Front], ''],
             ['Jacket Front & Back', [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], ''],
-            ['Jacket Front & Back', [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], ''],
-            ['Disc 1', [ArtworkTypeIDs.Medium], '1'],
+            ['Jacket Front, Back', [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], ''],
+            ['Jacket Front & Back colorised', [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], 'colorised'],
+            ['Disc', [ArtworkTypeIDs.Medium], ''],
+            ['Disc 1', [ArtworkTypeIDs.Medium], 'Disc 1'],
+            ['DVD', [ArtworkTypeIDs.Medium], ''],
+            ['Disc (reverse)', [ArtworkTypeIDs.Matrix], ''],
+            ['Disc (Back)', [ArtworkTypeIDs.Matrix], ''],
+            ['Disc 1 (Back)', [ArtworkTypeIDs.Matrix], 'Disc 1'],
             ['Cassette Front', [ArtworkTypeIDs.Medium], 'Front'],
             ['Vinyl A-side', [ArtworkTypeIDs.Medium], 'A-side'],
             ['Tray', [ArtworkTypeIDs.Tray], ''],
             ['Back', [ArtworkTypeIDs.Back], ''],
             ['Obi', [ArtworkTypeIDs.Obi], ''],
-            ['Box', [ArtworkTypeIDs.Other], 'Box'],
-            ['Box Front', [ArtworkTypeIDs.Other], 'Box Front'],
+            ['Obi Front', [ArtworkTypeIDs.Obi], 'Front'],
+            ['Box', [ArtworkTypeIDs.Front], 'Box'],
+            ['Box Front', [ArtworkTypeIDs.Front], 'Box'],
             ['Card', [ArtworkTypeIDs.Other], 'Card'],
+            ['Card Front', [ArtworkTypeIDs.Other], 'Card Front'],
             ['Sticker', [ArtworkTypeIDs.Sticker], ''],
-            ['Slipcase', [ArtworkTypeIDs.Other], 'Slipcase'],
-            ['Digipack Outer Left', [ArtworkTypeIDs.Other], 'Digipack Outer Left'],
+            ['Slipcase', [ArtworkTypeIDs.Front], 'Slipcase'],
+            ['Slipcase Front', [ArtworkTypeIDs.Front], 'Slipcase'],
+            ['Slipcase Bottom', [ArtworkTypeIDs.Bottom], 'Slipcase'],
+            ['Digipack Outer Left', [ArtworkTypeIDs.Other], 'Digipak Outer Left'],
+            ['Digipack Front & Back', [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], 'Digipak'],
+            ['Digipack Interior', [ArtworkTypeIDs.Tray], 'Digipak'],
             ['Insert', [ArtworkTypeIDs.Other], 'Insert'],
-            ['Case', [ArtworkTypeIDs.Other], 'Case'],
+            ['Case', [ArtworkTypeIDs.Front], 'Case'],
+            ['Case: Back', [ArtworkTypeIDs.Back], 'Case'],
+            ['Case: Inside', [ArtworkTypeIDs.Tray], 'Case'],
             ['Contents', [ArtworkTypeIDs.Raw], ''],
+            [' Booklet Front & Back', [ArtworkTypeIDs.Booklet], 'Front & Back'],
+            ['Booklet: Interview', [ArtworkTypeIDs.Booklet], 'Interview'],
         ];
 
         it.each(mappingCases)('should map %s to the correct type', (caption, expectedTypes, expectedComment) => {
@@ -112,7 +81,7 @@ describe('vgmdb provider', () => {
                 });
         });
 
-        it('does not map types if there is no caption', async () => {
+        it('does not map types if there is no caption', () => {
             expect(convertCaptions({ url: 'https://example.com/', caption: '' }))
                 .toMatchObject({
                     url: {
@@ -121,11 +90,33 @@ describe('vgmdb provider', () => {
                 });
         });
 
-        it('does not map types if the caption type is unknown', async () => {
+        it('does not map types if the caption type is unknown', () => {
             // Cannot find a real-life example of this, so let's mock a fake one
             expect(convertCaptions({ url: 'https://example.com/', caption: 'not a correct caption' }))
                 .toMatchObject({
                     comment: 'not a correct caption',
+                    url: {
+                        href: 'https://example.com/',
+                    },
+                });
+        });
+
+        it('removes unnecessary parentheses', () => {
+            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc (CD1)'}))
+                .toMatchObject({
+                    types: [ArtworkTypeIDs.Medium],
+                    comment: 'CD1',
+                    url: {
+                        href: 'https://example.com/',
+                    },
+                });
+        });
+
+        it('removes unnecessary dashes', () => {
+            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc - CD1'}))
+                .toMatchObject({
+                    types: [ArtworkTypeIDs.Medium],
+                    comment: 'CD1',
                     url: {
                         href: 'https://example.com/',
                     },
@@ -162,6 +153,13 @@ describe('vgmdb provider', () => {
         }, {
             desc: 'release without any cover or picture',
             url: 'https://vgmdb.net/album/111880',
+            numImages: 0,
+            expectedImages: [],
+        }, {
+            // FIXME: This should actually be able to extract the NSFW image by
+            // sending a cookie.
+            desc: 'release with NSFW cover',
+            url: 'https://vgmdb.net/album/103079',
             numImages: 0,
             expectedImages: [],
         }];

@@ -1,7 +1,7 @@
 import { assertDefined } from '@lib/util/assert';
 import { parseDOM, qsa } from '@lib/util/dom';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 export class MusikSammlerProvider extends CoverArtProvider {

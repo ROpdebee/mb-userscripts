@@ -5,15 +5,9 @@ import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';
 import { qs, qsa } from '@lib/util/dom';
 
-import type { FetchedImage, FetchedImages } from './fetch';
+import type { FetchedImage, QueuedImage, QueuedImageBatch } from './types';
 
-export async function enqueueImages({ images }: FetchedImages, defaultTypes: ArtworkTypeIDs[] = [], defaultComment = ''): Promise<void> {
-    await Promise.all(images.map((image) => {
-        return enqueueImage(image, defaultTypes, defaultComment);
-    }));
-}
-
-async function enqueueImage(image: FetchedImage, defaultTypes: ArtworkTypeIDs[], defaultComment: string): Promise<void> {
+export async function enqueueImage(image: FetchedImage, defaultTypes: ArtworkTypeIDs[] = [], defaultComment = ''): Promise<void> {
     dropImage(image.content);
     await retryTimes(setImageParameters.bind(
         null,
@@ -65,7 +59,7 @@ function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], ima
     }
 }
 
-function fillEditNoteFragment(editNote: EditNote, images: FetchedImage[], containerUrl?: URL): void {
+function fillEditNoteFragment(editNote: EditNote, images: QueuedImage[], containerUrl?: URL): void {
     const prefix = containerUrl ? ' * ' : '';
 
     if (containerUrl) {
@@ -88,7 +82,7 @@ function fillEditNoteFragment(editNote: EditNote, images: FetchedImage[], contai
     }
 }
 
-export function fillEditNote(allFetchedImages: FetchedImages[], origin: string, editNote: EditNote): void {
+export function fillEditNote(allFetchedImages: QueuedImageBatch[], origin: string, editNote: EditNote): void {
     const totalNumImages = allFetchedImages.reduce((acc, fetched) => acc + fetched.images.length, 0);
     // Nothing enqueued => Skip edit note altogether
     if (!totalNumImages) return;

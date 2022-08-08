@@ -1,6 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 
-import type { CoverArt } from './base';
+import type { CoverArt } from '../types';
 import { HeadMetaPropertyProvider } from './base';
 
 export class DeezerProvider extends HeadMetaPropertyProvider {

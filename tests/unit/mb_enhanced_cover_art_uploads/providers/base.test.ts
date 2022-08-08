@@ -1,6 +1,7 @@
 import { when } from 'jest-when';
 
-import type { CoverArt, ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import type { ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
+import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/types';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { gmxhr } from '@lib/util/xhr';
 import { CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
@@ -166,11 +167,11 @@ describe('cover art providers', () => {
 
     describe('post-processing images', () => {
         it('does no post-processing by default', async () => {
-            const fetchedImages = [createFetchedImage(), createFetchedImage()];
+            const fetchedImage = createFetchedImage();
 
-            const results = await fakeProvider.postprocessImages(fetchedImages);
+            const result = await fakeProvider.postprocessImage(fetchedImage);
 
-            expect(results).toStrictEqual(fetchedImages);
+            expect(result).toStrictEqual(fetchedImage);
         });
     });
 });
@@ -302,6 +303,53 @@ describe('providers with track images', () => {
             const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
             expect(results[0].comment).toBeUndefined();
+        });
+
+        describe('with custom comment prefix', () => {
+            it('uses singular prefix if only one track number exists', async () => {
+                const trackImages = [{
+                    url: 'https://example.com/123',
+                    trackNumber: '1',
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
+                }];
+                const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+
+                expect(results[0].comment).toBe('special track 1');
+            });
+
+            it('uses plural prefix if multiple track numbers exists', async () => {
+                const trackImages = [{
+                    url: 'https://example.com/123',
+                    trackNumber: '1',
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
+                }, {
+                    url: 'https://example.com/123',
+                    trackNumber: '2',
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
+                }];
+                const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+
+                expect(results[0].comment).toBe('special tracks 1, 2');
+            });
+
+            it('merges multiple custom track comments', async () => {
+                const trackImages = [{
+                    url: 'https://example.com/123',
+                    trackNumber: '1',
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
+                }, {
+                    url: 'https://example.com/123',
+                    trackNumber: '2',
+                    customCommentPrefix: ['special track', 'special tracks'] as [string, string],
+                }, {
+                    url: 'https://example.com/123',
+                    trackNumber: '3',
+                    customCommentPrefix: ['extra special track', 'extra special tracks'] as [string, string],
+                }];
+                const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
+
+                expect(results[0].comment).toBe('special tracks 1, 2; extra special track 3');
+            });
         });
 
         describe('deduplicating by content', () => {

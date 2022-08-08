@@ -85,6 +85,13 @@ module.exports = {
         }],
         'simple-import-sort/exports': 'error',
 
+        // Restrict certain variable names.
+        'id-denylist': [
+            'error',
+            // Clashes with the `it` function used in tests.
+            'it',
+        ],
+
         'no-restricted-syntax': ['error', {
             // Require non-initialised variables to have a type annotation. Per
             // https://github.com/typescript-eslint/typescript-eslint/issues/4342#issuecomment-1000452796
@@ -198,6 +205,9 @@ module.exports = {
         // All places where this warned were either led to type errors or were
         // places where in my opinion, an explicit `undefined` reduced confusion.
         'unicorn/no-useless-undefined': 'off',
+
+        // Doesn't always work with transpiling into userscripts, ts-node, etc.
+        'unicorn/prefer-top-level-await': 'off',
 
         'unicorn/no-process-exit': 'off',
 

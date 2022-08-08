@@ -17,18 +17,23 @@ export const AtisketSeeder: Seeder = {
     insertSeedLinks(): void {
         addDimensionsToCovers();
 
-        const alreadyInMB = qsMaybe('.already-in-mb-item');
-        if (alreadyInMB === null) {
+        const alreadyInMBItems = qsa('.already-in-mb-item');
+        // If a-tisket doesn't report a release as already existing, we can't
+        // know a potential MBID and we can't add a seed link.
+        if (alreadyInMBItems.length === 0) {
             return;
         }
-        const mbid = encodeURIComponent(qs<HTMLAnchorElement>('a.mb', alreadyInMB).textContent?.trim() ?? '');
+
+        const mbids = alreadyInMBItems
+            .map((alreadyInMB) => encodeURIComponent(qs<HTMLAnchorElement>('a.mb', alreadyInMB).textContent?.trim() ?? ''))
+            .filter(Boolean);
 
         // Try to use the cached link as the origin instead of the page URL itself,
         // so that we link to the state at the time the image was submitted.
         // If the cached link doesn't exist on the page, we're probably already
         // on a cached page, so fall back on the page URL instead.
         const cachedAnchor = qsMaybe<HTMLAnchorElement>('#submit-button + div > a');
-        addSeedLinkToCovers(mbid, cachedAnchor?.href ?? document.location.href);
+        addSeedLinkToCovers(mbids, cachedAnchor?.href ?? document.location.href);
     },
 };
 
@@ -51,14 +56,14 @@ export const AtasketSeeder: Seeder = {
         // For atasket links, we'll also use the cached URL as origin for the
         // same reasons as above.
         const cachedUrl = document.location.origin + '/?cached=' + selfId;
-        addSeedLinkToCovers(mbid, cachedUrl);
+        addSeedLinkToCovers([mbid], cachedUrl);
     },
 };
 
-function addSeedLinkToCovers(mbid: string, origin: string): void {
+function addSeedLinkToCovers(mbids: string[], origin: string): void {
     const covers = qsa<HTMLElement>('figure.cover');
     for (const fig of covers) {
-        addSeedLinkToCover(fig, mbid, origin);
+        addSeedLinkToCover(fig, mbids, origin);
     }
 }
 
@@ -83,7 +88,7 @@ function tryExtractReleaseUrl(fig: HTMLElement): string | undefined {
     return RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
 }
 
-function addSeedLinkToCover(fig: HTMLElement, mbid: string, origin: string): void {
+function addSeedLinkToCover(fig: HTMLElement, mbids: string[], origin: string): void {
     const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
 
     // On atj's mirror, we'll seed the release URLs, instead of the images
@@ -96,16 +101,20 @@ function addSeedLinkToCover(fig: HTMLElement, mbid: string, origin: string): voi
     const params = new SeedParameters([{
         url: new URL(realUrl),
     }], origin);
-    const seedUrl = params.createSeedURL(mbid);
 
-    const seedLink = <a href={seedUrl} style={{ display: 'block' }}>
-        Add to release
-    </a>;
+    for (const mbid of mbids) {
+        const seedUrl = params.createSeedURL(mbid);
 
-    // The way in which we're adding the seed link here and the dimensions span
-    // below should lead to a consistent ordering of elements.
-    qs<HTMLElement>('figcaption', fig)
-        .insertAdjacentElement('beforeend', seedLink);
+        // Include part of the release ID if there are multiple.
+        const seedLink = <a href={seedUrl} style={{ display: 'block' }}>
+            Add to release {mbids.length > 1 ? mbid.split('-')[0] : ''}
+        </a>;
+
+        // The way in which we're adding the seed link here and the dimensions span
+        // below should lead to a consistent ordering of elements.
+        qs<HTMLElement>('figcaption', fig)
+            .insertAdjacentElement('beforeend', seedLink);
+    }
 }
 
 async function addDimensions(fig: HTMLElement): Promise<void> {

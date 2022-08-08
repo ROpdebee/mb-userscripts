@@ -66,7 +66,6 @@ describe('datpiff provider', () => {
             desc: 'non-existent release',
             // ID is probably long enough to last quite a while before this mixtape is created :)
             url: 'https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.1231412412435323.html',
-            errorMessage: 'DatPiff release does not exist',
         }];
 
         // eslint-disable-next-line jest/require-hook
@@ -79,10 +78,9 @@ describe('datpiff provider', () => {
             const fetchedImage = createFetchedImageFromCoverArt(cover);
             mockBlobToDigest.mockResolvedValueOnce('abcdefgh');
 
-            const afterFetch = await provider.postprocessImages([fetchedImage]);
+            const afterFetch = await provider.postprocessImage(fetchedImage);
 
-            expect(afterFetch).toBeArrayOfSize(1);
-            expect(afterFetch[0]).toStrictEqual(fetchedImage);
+            expect(afterFetch).toStrictEqual(fetchedImage);
         });
 
         it('filters out placeholder images', async () => {
@@ -90,9 +88,9 @@ describe('datpiff provider', () => {
             const fetchedImage = createFetchedImageFromCoverArt(cover);
             mockBlobToDigest.mockResolvedValueOnce('ef406a25c3ffd61150b0658f3fe4863898048b4e54b81289e0e53a0f00ad0ced');
 
-            const afterFetch = await provider.postprocessImages([fetchedImage]);
+            const afterFetch = await provider.postprocessImage(fetchedImage);
 
-            expect(afterFetch).toBeEmpty();
+            expect(afterFetch).toBeNull();
         });
     });
 });

@@ -80,6 +80,30 @@ describe('soundcloud provider', () => {
                 types: [ArtworkTypeIDs.Track],
                 comment: 'Track 2',
             }],
+        }, {
+            desc: 'set release with >5 track images and backdrop images',
+            url: 'https://soundcloud.com/schnozz/sets/berdlycore-chapter-2',
+            numImages: 26, // Front + 13 tracks + 12 backdrops (track 7 does not have a backdrop)
+            expectedImages: [{
+                index: 0,
+                urlPart: 'uUiTDTZGRAzFvDfK-IUPepQ',
+                types: [ArtworkTypeIDs.Front],
+            }, {
+                index: 1,
+                urlPart: 'yoUvkke3DYAEqITD-GMybkw',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 1',
+            }, {
+                index: 2,
+                urlPart: '0bdc3d44-7404-42df-9976-8c604fd056c1',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Soundcloud backdrop for track 1',
+            }, {
+                index: 24,
+                urlPart: 'x8IeRUAqCuCqgQnF-a4VWTQ',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 13',
+            }],
         }];
 
         const extractionFailedCases = [{

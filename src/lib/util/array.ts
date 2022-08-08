@@ -41,7 +41,7 @@ export function collatedSort(array: string[]): string[] {
     return array.sort(coll.compare.bind(coll));
 }
 
-export function enumerate<T>(array: T[]): Array<[T, number]> {
+export function enumerate<T>(array: readonly T[]): Array<[T, number]> {
     return array.map((el, idx) => [el, idx]);
 }
 
@@ -54,6 +54,10 @@ export function splitChunks<T>(arr: readonly T[], chunkSize: number): T[][] {
     return chunks;
 }
 
+function isFactory<T2>(maybeFactory: T2 | (() => T2)): maybeFactory is () => T2 {
+    return typeof maybeFactory === 'function';
+}
+
 /**
  * Create an array wherein a given element is inserted between every two
  * consecutive elements of the original array.
@@ -63,13 +67,13 @@ export function splitChunks<T>(arr: readonly T[], chunkSize: number): T[][] {
  *  insertBetween([1], 0)  // => [1]
  *
  * @param      {readonly T1[]}   arr         The original array.
- * @param      {T2}              newElement  The element to insert.
+ * @param      {T2}              newElement  The element to insert, or a factory creating these elements.
  * @return     {(Array<T1|T2>)}  Resulting array.
  */
-export function insertBetween<T1, T2>(arr: readonly T1[], newElement: T2): Array<T1 | T2> {
+export function insertBetween<T1, T2>(arr: readonly T1[], newElement: T2 | (() => T2)): Array<T1 | T2> {
     return [
         ...arr.slice(0, 1),
-        ...arr.slice(1).flatMap((elmt) => [newElement, elmt]),
+        ...arr.slice(1).flatMap((elmt) => [isFactory(newElement) ? newElement() : newElement, elmt]),
     ];
 }
 

@@ -110,7 +110,7 @@ describe('amazon provider', () => {
             numImages: 1,
             expectedImages: [{
                 index: 0,
-                urlPart: '917XxoD2LaL',
+                urlPart: '91WJ0q27ddL',
                 types: [ArtworkTypeIDs.Front],
             }],
         }, {
@@ -119,7 +119,7 @@ describe('amazon provider', () => {
             numImages: 1,
             expectedImages: [{
                 index: 0,
-                urlPart: '91lJmLAcjOL',
+                urlPart: '91zPf7ACV9L',
                 types: [ArtworkTypeIDs.Front],
             }],
         }];
