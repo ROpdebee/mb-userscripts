@@ -102,7 +102,16 @@ export abstract class CoverArtProvider {
     }
 
     protected async fetchPage(url: URL, options?: GMXHROptions): Promise<string> {
-        const resp = await gmxhr(url, options);
+        let resp: Awaited<ReturnType<typeof gmxhr>>;
+        try {
+            resp = await gmxhr(url, options);
+        } catch (err) {
+            LOGGER.debug(`Received error when fetching ${this.name} page: ${err}`);
+            // Standardise error messages for 404 pages, otherwise the HTTP error
+            // will be shown in the UI.
+            throw new Error(`${this.name} release does not exist`);
+        }
+
         if (typeof resp.finalUrl === 'undefined') {
             LOGGER.warn(`Could not detect if ${url.href} caused a redirect`);
         } else if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
@@ -136,7 +145,7 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
     public async findImages(url: URL): Promise<CoverArt[]> {
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
         if (this.is404Page(respDocument)) {
-            throw new Error(this.name + ' release does not exist');
+            throw new Error(`${this.name} release does not exist`);
         }
 
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);

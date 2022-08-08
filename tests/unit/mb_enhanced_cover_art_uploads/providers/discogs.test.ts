@@ -58,7 +58,6 @@ describe('discogs provider', () => {
         const extractionFailedCases = [{
             desc: 'non-existent release',
             url: 'https://www.discogs.com/release/32342343',
-            errorMessage: 'Discogs release does not exist',
         }];
 
         // eslint-disable-next-line jest/require-hook

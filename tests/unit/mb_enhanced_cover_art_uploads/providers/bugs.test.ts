@@ -47,7 +47,6 @@ describe('bugs provider', () => {
         const extractionFailedCases = [{
             desc: 'non-existent release',
             url: 'https://music.bugs.co.kr/album/abcd',
-            errorMessage: 'Bugs! release does not exist',
         }];
 
         // eslint-disable-next-line jest/require-hook

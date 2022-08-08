@@ -39,7 +39,6 @@ describe('melon provider', () => {
         const extractionFailedCases = [{
             desc: 'non-existent release',
             url: 'https://www.melon.com/album/detail.htm?albumId=0',
-            errorMessage: 'Melon release does not exist',
         }];
 
         // eslint-disable-next-line jest/require-hook
