@@ -102,15 +102,14 @@ export abstract class CoverArtProvider {
     }
 
     protected async fetchPage(url: URL, options?: GMXHROptions): Promise<string> {
-        let resp: Awaited<ReturnType<typeof gmxhr>>;
-        try {
-            resp = await gmxhr(url, options);
-        } catch (err) {
-            LOGGER.debug(`Received error when fetching ${this.name} page: ${err}`);
+        const resp = await gmxhr(url, {
             // Standardise error messages for 404 pages, otherwise the HTTP error
             // will be shown in the UI.
-            throw new Error(`${this.name} release does not exist`);
-        }
+            httpErrorMessages: {
+                404: `${this.name} release does not exist`,
+            },
+            ...options,
+        });
 
         if (typeof resp.finalUrl === 'undefined') {
             LOGGER.warn(`Could not detect if ${url.href} caused a redirect`);

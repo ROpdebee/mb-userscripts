@@ -59,7 +59,11 @@ export class TidalProvider extends CoverArtProvider {
             headers: {
                 'x-tidal-token': APP_ID,
             },
+            httpErrorMessages: {
+                404: 'Tidal release does not exist',
+            },
         });
+
         const metadata = safeParseJSON<AlbumMetadata>(resp.responseText, 'Invalid response from Tidal API');
         const albumMetadata = metadata.rows[0]?.modules?.[0]?.album;
         assertHasValue(albumMetadata, 'Tidal API returned no album, 404?');
