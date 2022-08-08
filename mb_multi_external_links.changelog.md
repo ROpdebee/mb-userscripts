@@ -1,3 +1,4 @@
+- **2022.8.8**: Internal changes: more TypeScript migration ([#499](https://github.com/ROpdebee/mb-userscripts/pull/499))
 - **2022.7.27.2**: Bug fix: submit all but last URL immediately ([#515](https://github.com/ROpdebee/mb-userscripts/pull/515))
 - **2022.7.27**: Internal changes: automatically insert logger boilerplate config ([#514](https://github.com/ROpdebee/mb-userscripts/pull/514))
 - **2022.7.5**: Bug fix: adjust links editor properties for new MBS version ([#512](https://github.com/ROpdebee/mb-userscripts/pull/512))
