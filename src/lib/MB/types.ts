@@ -31,9 +31,7 @@ declare global {
         MB: {
             releaseEditor?: ReleaseEditor;
             sourceExternalLinksEditor?: {
-                externalLinksEditorRef: {
-                    current: ExternalLinks;
-                };
+                current: ExternalLinks;
             };
         };
     }
