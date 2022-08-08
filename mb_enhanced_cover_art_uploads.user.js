@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.8.8.2
+// @version      2022.8.8.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -468,7 +468,7 @@
         });
       }), function (results) {
         return _continueIgnored(_forOf(results, function (maximisedResult) {
-          if (maximisedResult.fake || maximisedResult.bad) return;
+          if (maximisedResult.fake || maximisedResult.bad || maximisedResult.video) return;
           return _continueIgnored(_catchInGenerator(function () {
             return _generator2._yield(_objectSpread2(_objectSpread2({}, maximisedResult), {}, {
               url: new URL(maximisedResult.url)
@@ -2514,10 +2514,10 @@
           }
 
           const fetchedUrl = new URL(resp.finalUrl || url);
-          const wasRedirected = resp.finalUrl !== url.href;
+          const wasRedirected = fetchedUrl.href !== url.href;
 
           if (wasRedirected) {
-            LOGGER.warn("Followed redirect of ".concat(url.href, " -> ").concat(resp.finalUrl, " while fetching image contents"));
+            LOGGER.warn("Followed redirect of ".concat(url.href, " -> ").concat(fetchedUrl.href, " while fetching image contents"));
           }
 
           return _await(_this5.determineMimeType(resp), function (_ref4) {
