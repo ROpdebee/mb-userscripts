@@ -63,6 +63,14 @@ describe('maximising images', () => {
         expect(result).toBeEmpty();
     });
 
+    it('skips videos', async () => {
+        setIMUResult([{ video: true } as unknown as maxurlResult]);
+
+        const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://example.com/')));
+
+        expect(result).toBeEmpty();
+    });
+
     it('eventually returns all images', async () => {
         setIMUResult([{ url: 'https://example.com/max' }, { url: 'https://example.com/max2' }] as unknown as maxurlResult[]);
 
