@@ -1,3 +1,4 @@
+- **2022.8.8**: New feature: add Bugs provider ([#548](https://github.com/ROpdebee/mb-userscripts/pull/548))
 - **2022.8.5**: New feature: extract Soundcloud backdrop images ([#543](https://github.com/ROpdebee/mb-userscripts/pull/543))
 - **2022.8.3.2**: Bug fix: don't use Promise#finally. ([#542](https://github.com/ROpdebee/mb-userscripts/pull/542))
 - **2022.8.3**: Bug fix: warn when redirect cannot be detected ([#541](https://github.com/ROpdebee/mb-userscripts/pull/541))
