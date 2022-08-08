@@ -40,7 +40,8 @@ describe('vgmdb provider', () => {
             ['Jacket Front & Back colorised', [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back, ArtworkTypeIDs.Spine], 'colorised'],
             ['Disc', [ArtworkTypeIDs.Medium], ''],
             ['Disc 1', [ArtworkTypeIDs.Medium], 'Disc 1'],
-            ['DVD', [ArtworkTypeIDs.Medium], ''],
+            ['DVD', [ArtworkTypeIDs.Medium], 'DVD'],
+            ['CD', [ArtworkTypeIDs.Medium], 'CD'],
             ['Disc (reverse)', [ArtworkTypeIDs.Matrix], ''],
             ['Disc (Back)', [ArtworkTypeIDs.Matrix], ''],
             ['Disc 1 (Back)', [ArtworkTypeIDs.Matrix], 'Disc 1'],
@@ -68,6 +69,15 @@ describe('vgmdb provider', () => {
             ['Contents', [ArtworkTypeIDs.Raw], ''],
             [' Booklet Front & Back', [ArtworkTypeIDs.Booklet], 'Front & Back'],
             ['Booklet: Interview', [ArtworkTypeIDs.Booklet], 'Interview'],
+            // ['Back Tray', [ArtworkTypeIDs.Tray], 'Back'],  // FIXME
+            // ['Front Tray', [ArtworkTypeIDs.Tray], 'Front'],  // FIXME
+            ['Case Side', [ArtworkTypeIDs.Spine], 'Case'],
+            ['Box Side', [ArtworkTypeIDs.Spine], 'Box'],
+            ['Disc Front', [ArtworkTypeIDs.Medium], ''],
+            ['Blu-ray', [ArtworkTypeIDs.Medium], 'Blu‐ray'],
+            ['Sleeve Front', [ArtworkTypeIDs.Front], 'Sleeve'],
+            ['Sleeve Back', [ArtworkTypeIDs.Back], 'Sleeve'],
+            ['Sleeve Interior', [ArtworkTypeIDs.Tray], 'Sleeve'], // Might be wrong.
         ];
 
         it.each(mappingCases)('should map %s to the correct type', (caption, expectedTypes, expectedComment) => {
