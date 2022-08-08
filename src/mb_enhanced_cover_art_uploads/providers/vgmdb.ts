@@ -46,6 +46,7 @@ function mapPackagingType(packaging: string, caption: string): MappedArtwork {
         ['front', ArtworkTypeIDs.Front],
         ['back', ArtworkTypeIDs.Back],
         ['spine', ArtworkTypeIDs.Spine],
+        ['side', ArtworkTypeIDs.Spine],
         ['top', ArtworkTypeIDs.Top],
         ['bottom', ArtworkTypeIDs.Bottom],
         ['interior', ArtworkTypeIDs.Tray],
@@ -78,20 +79,21 @@ function mapPackagingType(packaging: string, caption: string): MappedArtwork {
 }
 
 function mapDiscType(mediumType: string, caption: string): MappedArtwork {
-    const keywords = caption.split(/,|\s/).filter(Boolean);
     const commentParts = [];
     let type = ArtworkTypeIDs.Medium;
+
+    const keywords = caption.split(/,|\s/).filter(Boolean);
     for (const keyword of keywords) {
         // As a regular expression because it might be surrounded in parentheses
         if (/reverse|back/i.test(keyword)) {
             type = ArtworkTypeIDs.Matrix;
-        } else {
+        } else if (!/front/i.test(keyword)) {  // Don't include "front" for e.g. "Disc Front"
             commentParts.push(keyword);
         }
     }
 
-    // If the comment starts with a sequence number, add the medium type
-    if (commentParts.length > 0 && /^\d+/.test(commentParts[0])) {
+    // If the comment starts with a sequence number or isn't just "Disc", add the medium type
+    if (commentParts.length > 0 && /^\d+/.test(commentParts[0]) || mediumType !== 'Disc') {
         commentParts.unshift(mediumType);
     }
 
@@ -112,6 +114,7 @@ const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) 
     cassette: ArtworkTypeIDs.Medium,
     vinyl: ArtworkTypeIDs.Medium,
     dvd: mapDiscType.bind(undefined, 'DVD'),
+    'blu-ray': mapDiscType.bind(undefined, 'Blu‐ray'),
     tray: ArtworkTypeIDs.Tray,
     back: ArtworkTypeIDs.Back,
     obi: ArtworkTypeIDs.Obi,
@@ -120,6 +123,7 @@ const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) 
     sticker: ArtworkTypeIDs.Sticker,
     slipcase: mapPackagingType.bind(undefined, 'Slipcase'),
     digipack: mapPackagingType.bind(undefined, 'Digipak'),
+    sleeve: mapPackagingType.bind(undefined, 'Sleeve'),
     insert: { type: ArtworkTypeIDs.Other, comment: 'Insert' }, // Or poster?
     inside: ArtworkTypeIDs.Tray,
     case: mapPackagingType.bind(undefined, 'Case'),
@@ -190,7 +194,7 @@ function cleanupCaption(captionRest: string): string {
 
 function convertCaption(caption: string): { types?: ArtworkTypeIDs[]; comment: string } {
     LOGGER.debug(`Found caption “${caption}”`);
-    const [captionType, ...captionRestParts] = caption.trim().split(/\b/);
+    const [captionType, ...captionRestParts] = caption.trim().split(/(?=[^a-zA-Z\d-])/);
     const captionRest = cleanupCaption(captionRestParts.join('').trim());
     const mapper = CAPTION_TYPE_MAPPING[captionType.toLowerCase()];
 
