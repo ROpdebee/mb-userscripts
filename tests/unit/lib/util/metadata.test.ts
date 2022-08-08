@@ -10,7 +10,9 @@ describe('creating MB regexes', () => {
         expect(pattern.test('https://musicbrainz.org/release/add?x=123')).toBeTrue();
         expect(pattern.test('https://musicbrainz.org/release/add?x=123#fragment')).toBeTrue();
         expect(pattern.test('https://musicbrainz.org/release/add#fragment')).toBeTrue();
+        // eslint-disable-next-line jest/max-expects -- FIXME.
         expect(pattern.test('https://musicbrainz.org/release/add/123')).toBeFalse();
+        // eslint-disable-next-line jest/max-expects -- FIXME.
         expect(pattern.test('https://musicbrainz.org/release/adda')).toBeFalse();
     });
 });
