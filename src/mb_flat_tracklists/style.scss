@@ -1,0 +1,15 @@
+#content.ROpdebee_flat {
+    .annotation {
+        display: none;
+    }
+
+    table.medium {
+        thead,  // Medium numbers and titles
+        tr.subh, // Headings ("title", "length", etc.)
+        .ars,  // Inline ARs + jesus2099's ISRCs, AcoustIDs
+        .small,  // Recording artist variations
+        {
+            display: none;
+        }
+    }
+}
