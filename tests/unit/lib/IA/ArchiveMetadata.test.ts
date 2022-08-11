@@ -1,16 +1,8 @@
-import NodeHttpAdapter from '@pollyjs/adapter-node-http';
-
 import { getItemMetadata } from '@lib/IA/ArchiveMetadata';
-import { mockFetch, setupPolly } from '@test-utils/pollyjs';
+import { setupPolly } from '@test-utils/pollyjs';
 
 // eslint-disable-next-line jest/require-hook
-setupPolly({
-    adapters: [NodeHttpAdapter],
-});
-
-beforeAll(() => {
-    mockFetch();
-});
+setupPolly();
 
 describe('getting image metadata', () => {
     it('fetches IA metadata', async () => {

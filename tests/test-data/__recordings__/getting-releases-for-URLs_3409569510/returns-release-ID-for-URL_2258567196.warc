@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting releases for URLs/returns release ID for URL
-WARC-Date: 2022-06-08T13:06:56.526Z
+WARC-Date: 2022-08-11T17:18:33.280Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:e9eb1cd7-dd1d-41e8-87e3-fabbbc9ad095>
+WARC-Record-ID: <urn:uuid:9b8e509b-3ac4-47c3-9797-5c7cae5e0cb6>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,31 +12,31 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:04573344-b874-47d5-89e2-dd06746e3d4c>
+WARC-Concurrent-To: <urn:uuid:4864688f-1d71-4896-893a-b941d219861f>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.527Z
+WARC-Date: 2022-08-11T17:18:33.280Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:25eb3d24-e649-4762-a7f5-7fa9fdbb7def>
+WARC-Record-ID: <urn:uuid:38fb8677-537f-49ce-ad03-acdad4152bca>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:0e725b8c47394ebb74004f0d9446518ad3ce1e1b6eae2693dd2b8c92fd080c9d
+WARC-Block-Digest: sha256:8a783db9fb0805563615f2faef5848e775c55e4a8b4752b84f3ce0cd21c20ac0
 Content-Length: 227
 
 GET /ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json HTTP/1.1
 accept: */*
 accept-encoding: gzip, deflate, br
 connection: close
-user-agent: node-fetch
 host: musicbrainz.org
+user-agent: node-fetch
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:04573344-b874-47d5-89e2-dd06746e3d4c>
+WARC-Concurrent-To: <urn:uuid:4864688f-1d71-4896-893a-b941d219861f>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.527Z
+WARC-Date: 2022-08-11T17:18:33.280Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:2d0499a4-e601-4a3a-8438-ba369cfc93f4>
+WARC-Record-ID: <urn:uuid:9921c57c-e55f-44b5-842c-48610343e5b0>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:ccc600e645c6aad28489c3cb234cc8d58b90e4134598d1ad17fc7945c6762818
 WARC-Block-Digest: sha256:ccc600e645c6aad28489c3cb234cc8d58b90e4134598d1ad17fc7945c6762818
@@ -58,28 +58,95 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.526Z
+WARC-Date: 2022-08-11T17:18:33.280Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:04573344-b874-47d5-89e2-dd06746e3d4c>
+WARC-Record-ID: <urn:uuid:4864688f-1d71-4896-893a-b941d219861f>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:b8f75beb56f34f01aa3a775958ff86944dd047492f54e3b57dbfc2527c1ca76b
-WARC-Block-Digest: sha256:7c4fc3447cc23ad238040315b1a8264203c9a915d7c994432f64a089b11ff96e
+WARC-Block-Digest: sha256:24eb970413496d4b200af15772fba7a8cc6c927849e4a0240ad86453a1268c22
 Content-Length: 1101
 
 HTTP/1.1 200 OK
-date: Wed, 08 Jun 2022 13:06:56 GMT
-content-type: application/json; charset=utf-8
-transfer-encoding: chunked
+access-control-allow-origin: *
 connection: close
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:56 GMT
+etag: W/"d6365382a1b6959b531767b56ffd2a2c"
+server: Plack::Handler::Starlet
+transfer-encoding: chunked
 vary: Accept-Encoding
+x-cache-status: STALE
 x-ratelimit-limit: 1200
 x-ratelimit-remaining: 947
 x-ratelimit-reset: 1654693617
-server: Plack::Handler::Starlet
-etag: W/"d6365382a1b6959b531767b56ffd2a2c"
-access-control-allow-origin: *
-x-cache-status: STALE
-content-encoding: gzip
 
 ["H4sIAAAAAAAAA21Sy27bMBD8lYBnbyyJpCT7nkOBfkCBIocluXaI6OGSVNzA0L93KSmG0fYmjji7M8O5Ce/EUWgyZFRZAiqrQB1IAkqqwEkrT43Syrat2IlAHSY/DlEcf94EDY6YfMIu0k4YOvtBHIep63YijlOwBDaQ84nnMzd9Xoi/nI92PMcNgGW7wqZtK2mhtFqCKpsaUJ8k6LaoatvUp8pYJmBKwZspUV7/uqghjDz0Ji5o35H3n5eBq4Y79gUsu4oarSR5AK1OBlRNBowqDByk0qZxFVbS8S6Wib3x52nxy7z0Rk9Tl3yPiZ6yqwzvhB2nIYVPvvDjhY8xYZriPYXl9CBpUwz0QUNaQ3Q8j9lVUbZQFlDobDQQZldxDAkG7POFlymMHODmoj1g3WhbAVtpQGomm5YDVGVr0OkDthr57t/cf1zleXEEWdY1lGBHt2Sbvbw+PNAqfn3A/D3P/Pd/wpNPXQa/9Tn4vNFgyFMZq4tK103dlFWdq/Rrws6nHNwwhh67zKbfCQJdAkWOZ5N4Ex0OLPicZxA/Jsdqg7/kVn3HNIh5ZiaGMyXYKvbVi11u6F39euWxkfc+sUm2fZsfoQ/sJtpQ5wPZLTHDrbpicGJeGrgWnfG3lC7xuN9fr9fnrePPduz3m5g9266KtijE/AfMS6NncwMAAA=="]
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:09bd3348-a6fa-419f-888a-c27991f1151e>
+WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.280Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:8a6f073a-0003-4766-8a42-925dbfd6596b>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:7016737335df0532a5238e5f645a349ecc308233bfc65be682db9ff0d9116b5f
+Content-Length: 112
+
+GET /ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:09bd3348-a6fa-419f-888a-c27991f1151e>
+WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.280Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:179e63b7-ffcc-46f8-80aa-a9456341ccf3>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:0bf9ceb937710562a5a5475a0483bafdd69a4625bd7e3601b269a7a1cd1e2498
+WARC-Block-Digest: sha256:0bf9ceb937710562a5a5475a0483bafdd69a4625bd7e3601b269a7a1cd1e2498
+Content-Length: 347
+
+harEntryId: 29f38b7dddb414c2e6e7c611714e3cd0
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T17:18:33.268Z
+time: 11
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":11,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 137
+warcRequestCookies: []
+warcResponseHeadersSize: 536
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.280Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:09bd3348-a6fa-419f-888a-c27991f1151e>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:064eb904f8f4778ed4c598d145203243807693cb608a4681a2b8887cd26a18de
+WARC-Block-Digest: sha256:c255fa9c650ac62dad2ad12a2c6e09b570714fc990e5d1887cc1fba3c743c636
+Content-Length: 1436
+
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+connection: close
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:56 GMT
+etag: W/"d6365382a1b6959b531767b56ffd2a2c"
+server: Plack::Handler::Starlet
+transfer-encoding: chunked
+vary: Accept-Encoding
+x-cache-status: STALE
+x-ratelimit-limit: 1200
+x-ratelimit-remaining: 947
+x-ratelimit-reset: 1654693617
+x-pollyjs-finalurl: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Frelease%2F12620800&inc=release-rels&fmt=json
+
+{"id":"5ebeb411-a4c4-49e3-a3e2-d3c3f7454c88","relations":[{"ended":false,"begin":null,"source-credit":"","type":"discogs","type-id":"4a78823c-1c53-4176-a5f3-58026c76f2bc","attributes":[],"release":{"packaging-id":null,"packaging":null,"id":"06ac3e39-54fb-46eb-b40b-9345b7d2a23d","disambiguation":"the ultimate edition","country":"XE","status":null,"status-id":null,"release-events":[{"date":"2018-10-05","area":{"sort-name":"Europe","id":"89a675c2-3e37-3518-b83c-418bad59a85a","name":"Europe","disambiguation":"","iso-3166-1-codes":["XE"],"type-id":null,"type":null}}],"date":"2018-10-05","title":"Imagine","barcode":"602567671268","quality":"normal","text-representation":{"language":"eng","script":"Latn"}},"target-type":"release","end":null,"target-credit":"","attribute-ids":{},"attribute-values":{},"direction":"backward"}],"resource":"https://www.discogs.com/release/12620800"}
 

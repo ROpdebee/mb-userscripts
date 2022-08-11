@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting releases for URLs/returns empty list when no release is attached to URL
-WARC-Date: 2022-06-08T13:06:56.406Z
+WARC-Date: 2022-08-11T17:18:33.263Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:d8b2fb6b-0266-4ea1-906f-4884e708b336>
+WARC-Record-ID: <urn:uuid:238b1d02-3cbf-4d0d-bf00-93288fdbc2f6>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,31 +12,31 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:bcd5009a-8a33-433e-b873-64c8cf178674>
+WARC-Concurrent-To: <urn:uuid:7928c619-4d8d-438e-84b5-ac18a41e83d9>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.407Z
+WARC-Date: 2022-08-11T17:18:33.264Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:5d3720dc-facb-4aaa-927e-37f1a768afb8>
+WARC-Record-ID: <urn:uuid:4e0eaa5d-a9c0-4387-8c5e-725c778fb4cc>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:8df36a9a72165f15e5e337770ce11c92a4ffa1ac97ce7d101118fb28b50d8e6b
+WARC-Block-Digest: sha256:05096668fa85f6438afcd0f62819c1734d75ca5dc7598ce6e5e68e4f4d1420a6
 Content-Length: 225
 
 GET /ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json HTTP/1.1
 accept: */*
 accept-encoding: gzip, deflate, br
 connection: close
-user-agent: node-fetch
 host: musicbrainz.org
+user-agent: node-fetch
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:bcd5009a-8a33-433e-b873-64c8cf178674>
+WARC-Concurrent-To: <urn:uuid:7928c619-4d8d-438e-84b5-ac18a41e83d9>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.407Z
+WARC-Date: 2022-08-11T17:18:33.264Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:8514b7f7-8bf1-469f-8314-f5b758ebb295>
+WARC-Record-ID: <urn:uuid:8540d07c-a944-4774-b758-dde6bf2926af>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:dcdbb2faf6ace1b9f1dbbeeb17194ab127c06f0eabe0ff7abaaea557753aea40
 WARC-Block-Digest: sha256:dcdbb2faf6ace1b9f1dbbeeb17194ab127c06f0eabe0ff7abaaea557753aea40
@@ -57,26 +57,91 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.406Z
+WARC-Date: 2022-08-11T17:18:33.263Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:bcd5009a-8a33-433e-b873-64c8cf178674>
+WARC-Record-ID: <urn:uuid:7928c619-4d8d-438e-84b5-ac18a41e83d9>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:38285b0b31d4660150ea146a41ea6b0c59a2d4cd3a020197231fadb7b0ad8751
-WARC-Block-Digest: sha256:d17c019e03b9fa130dedea72dd37612ee7e88e935d110b33b3cd9f9e798e4f66
+WARC-Block-Digest: sha256:35bcb515eb03afa523e7ae270219fa84418e19e9acc134161bccf58833487c61
 Content-Length: 469
 
 HTTP/1.1 200 OK
-date: Wed, 08 Jun 2022 13:06:56 GMT
-content-type: application/json; charset=utf-8
-content-length: 112
+access-control-allow-origin: *
 connection: close
+content-length: 112
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:56 GMT
+etag: "23ee07cc3319d41aa18f97e7683d5b97"
+server: Plack::Handler::Starlet
+x-cache-status: STALE
 x-ratelimit-limit: 1200
 x-ratelimit-remaining: 976
 x-ratelimit-reset: 1654693617
-server: Plack::Handler::Starlet
-etag: "23ee07cc3319d41aa18f97e7683d5b97"
+
+{"relations":[],"id":"b3853e43-d80f-48af-80a7-117021f04e30","resource":"https://www.discogs.com/artist/5788865"}
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:10b574bf-936b-4016-a8c5-80ea97c54962>
+WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.264Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:e77ef1fe-8d01-4f36-a832-e965b387335b>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:7edeeea32c059144ad0a2201d621c1d51b51e154a080357dbd90ed7156defe05
+Content-Length: 110
+
+GET /ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:10b574bf-936b-4016-a8c5-80ea97c54962>
+WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.264Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:75352596-3d4b-4b1d-a3fd-d49a646d7b17>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:e45977462c27161401458e15b58aeef9a6b13b9305ba172a13a6e48e90bf715c
+WARC-Block-Digest: sha256:e45977462c27161401458e15b58aeef9a6b13b9305ba172a13a6e48e90bf715c
+Content-Length: 347
+
+harEntryId: c8744cbb44a88de5d7f6195cf90abcdf
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T17:18:33.250Z
+time: 12
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":12,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 135
+warcRequestCookies: []
+warcResponseHeadersSize: 478
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.264Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:10b574bf-936b-4016-a8c5-80ea97c54962>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:38285b0b31d4660150ea146a41ea6b0c59a2d4cd3a020197231fadb7b0ad8751
+WARC-Block-Digest: sha256:f5847d5181dac323a40267f205b1103f2822f0d031f94ba039d7771c01ca25e5
+Content-Length: 607
+
+HTTP/1.1 200 OK
 access-control-allow-origin: *
+connection: close
+content-length: 112
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:56 GMT
+etag: "23ee07cc3319d41aa18f97e7683d5b97"
+server: Plack::Handler::Starlet
 x-cache-status: STALE
+x-ratelimit-limit: 1200
+x-ratelimit-remaining: 976
+x-ratelimit-reset: 1654693617
+x-pollyjs-finalurl: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fwww.discogs.com%2Fartist%2F5788865&inc=release-rels&fmt=json
 
 {"relations":[],"id":"b3853e43-d80f-48af-80a7-117021f04e30","resource":"https://www.discogs.com/artist/5788865"}
 

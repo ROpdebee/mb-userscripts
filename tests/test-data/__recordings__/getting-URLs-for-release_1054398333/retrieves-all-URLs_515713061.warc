@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting URLs for release/retrieves all URLs
-WARC-Date: 2022-06-08T13:06:55.866Z
+WARC-Date: 2022-08-11T17:18:33.129Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:48bb3d88-adcc-415b-a619-c26c29b8cc8b>
+WARC-Record-ID: <urn:uuid:b7144e43-cd56-48dc-9cf1-25380b482448>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,31 +12,31 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:a69ff554-1d06-4c84-8c75-5c053fe2574c>
+WARC-Concurrent-To: <urn:uuid:5fc7e249-3e1e-468e-865e-54a495e927a9>
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:55.871Z
+WARC-Date: 2022-08-11T17:18:33.131Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:62980529-cda2-4541-985c-5c1903f98abb>
+WARC-Record-ID: <urn:uuid:99a77737-3235-4d1f-9e63-7ca670a40199>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:3f8852bd3f4121f9a3bc1fed82231f6e1b66d2c89f4b05896c79b580c3e78291
+WARC-Block-Digest: sha256:4b76199f9e1c805d0c2081a78eb9bcf762cd3b2e54900acf21760986a3402c31
 Content-Length: 204
 
 GET /ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json HTTP/1.1
 accept: */*
 accept-encoding: gzip, deflate, br
 connection: close
-user-agent: node-fetch
 host: musicbrainz.org
+user-agent: node-fetch
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:a69ff554-1d06-4c84-8c75-5c053fe2574c>
+WARC-Concurrent-To: <urn:uuid:5fc7e249-3e1e-468e-865e-54a495e927a9>
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:55.872Z
+WARC-Date: 2022-08-11T17:18:33.131Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:344548be-872a-4a8c-afa3-b10440d187da>
+WARC-Record-ID: <urn:uuid:8368c413-ccff-4c02-a6ec-93ca8ca1501d>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:e03009078509c474798155898634e1ed1556d6bd60aa8496a7a06c83ac3e38f2
 WARC-Block-Digest: sha256:e03009078509c474798155898634e1ed1556d6bd60aa8496a7a06c83ac3e38f2
@@ -58,28 +58,95 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:55.867Z
+WARC-Date: 2022-08-11T17:18:33.130Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:a69ff554-1d06-4c84-8c75-5c053fe2574c>
+WARC-Record-ID: <urn:uuid:5fc7e249-3e1e-468e-865e-54a495e927a9>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:548d93289bfb6a01e888871d277e056b02e33acd06ff82bb81c67612f0282e42
-WARC-Block-Digest: sha256:9b334810790cb62112f1e9f45240608262bbaf8e64ea97b08fe1bcb1fb03aba4
+WARC-Block-Digest: sha256:0c7165c757b656e83ae62a86c6ed2381ba5b6642b0176425360120a7cf575334
 Content-Length: 1514
 
 HTTP/1.1 200 OK
-date: Wed, 08 Jun 2022 13:06:55 GMT
-content-type: application/json; charset=utf-8
-transfer-encoding: chunked
+access-control-allow-origin: *
 connection: close
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:55 GMT
+etag: W/"07b3dcaa14f2a1bcbece473c3caa7652"
+server: Plack::Handler::Starlet
+transfer-encoding: chunked
 vary: Accept-Encoding
+x-cache-status: STALE
 x-ratelimit-limit: 1200
 x-ratelimit-remaining: 1152
 x-ratelimit-reset: 1654693617
-server: Plack::Handler::Starlet
-etag: W/"07b3dcaa14f2a1bcbece473c3caa7652"
-access-control-allow-origin: *
-x-cache-status: STALE
-content-encoding: gzip
 
 ["H4sIAAAAAAAAA71VwY7bNhD9lYXOO7ukSEqkb20PSYGg7aHAFg32MCSHjrCy5FDUulvDQH+jv9cvKSmvnW3iBmgR5CYOh5z33jyO9tX7GfsuPVWrahjjBvvqukr0W4JI20gTDQlTNw7Val/1OKxnXFNOpWGd8yYXu23KyzeYhuqQAzl5nqDzOSZJMCl4A0I3HoRkBjDUBK3WqiVyygXKd0TqCScCesylpmr1dl95TKVGzXgNnAMXOQ0jYcHguwk3tss4jqiqvDfgpuS/vRtj73edp/scXDCoWnlJXIPwjIHgNmNQ2gJy2aDhjScdCo8xJrh4S3ra0kJnmPv+uDx9d9OYb2wa4OBGTwV69ctddX843F9fpJC61Jfga/rrjz+nq2/6/ur7q1djylsWY7kjb2otFeOaa6HKGTc+UgTM8HLGu+6RigYW3UO1CthPVCrFBxrInwNunIfcE35dhTiWrxRnKgKm3Rgfjstzq3LFH0PoXLf0HaduONHLfVkkPrYEU4qdndNC8/4kRK5AdDWl3JtNtzjirFfFtJTKuQCtNQakFBpMMAjBGnRcM2OotN/S+kPNaZyjI3CRfJeOvaXBv+A2x74IkH25ZOaUdyltp9Xt7bil4WbajqkLTzdu3Nxib+fNLaenu5+EfPi2fv8r/y6+Vm9e/bzZnuxhrLOhxWwPRjVIzRUY4wS0rWqcZoHVrC229l0k9+y3MMYdRl/UOmkCj9jPRZn94WW088+hhHFN6WNaZ08dd58VLQwP1/tLZy7c/Nlr/hvuf5d2t9vdeKLfKb4QtmGmZQ0/KVk3tQ6eEXDlLMjWSdC2RVAsNKJG57lhRckv5puPDflPn3zeVUXfr9zSTwF/YCxqhj7UDZgmIMj89MEwqYAHFUQdtBDOVmfpXqr2vx7PUpOjMlqgAESS2flOga4tgzyWLVekVW7ZMpw/ccNmnjp3g9ttT4sd5unZEarVvNFG5z6XCbjNQwozvPWRJOeGLLYNWCEFCGI1YG1qCPmVsUZKa00heT6Vj/wwDnTyV8EaapdnuMMWJDUEJg9vCK1kyMlqk/11ffHvsMzDWP5veTof/gb7tH4s8AYAAA=="]
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:346888a2-f68a-4f94-890c-8a8dd1556c14>
+WARC-Target-URI: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.131Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:c75a35b5-a1a9-4ebb-a593-4eafb56a6ba4>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:bf09fc7e49476ce1133eacb14804b13116b28ab434a2a0620c42b617969b0004
+Content-Length: 89
+
+GET /ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:346888a2-f68a-4f94-890c-8a8dd1556c14>
+WARC-Target-URI: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.131Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:0bad7459-d6d7-4994-b57e-6ac70e6f699f>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:e6301e975ec2655e57f0c791cee364662c0eb3b165916d2d2e6d64617fab07ab
+WARC-Block-Digest: sha256:e6301e975ec2655e57f0c791cee364662c0eb3b165916d2d2e6d64617fab07ab
+Content-Length: 349
+
+harEntryId: b16701e5223be282e6857b26bc40b576
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T17:18:33.010Z
+time: 109
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":109,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 114
+warcRequestCookies: []
+warcResponseHeadersSize: 514
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.131Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:346888a2-f68a-4f94-890c-8a8dd1556c14>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:11b652d289892c112bc5674a12a8c6f46c00ee0892fad9377bb70328858f44e1
+WARC-Block-Digest: sha256:5dc2b79f947fd5c7d905bae2eb575651d9f73769b7bddd0dc94cb5341c5e41fa
+Content-Length: 2307
+
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+connection: close
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:55 GMT
+etag: W/"07b3dcaa14f2a1bcbece473c3caa7652"
+server: Plack::Handler::Starlet
+transfer-encoding: chunked
+vary: Accept-Encoding
+x-cache-status: STALE
+x-ratelimit-limit: 1200
+x-ratelimit-remaining: 1152
+x-ratelimit-reset: 1654693617
+x-pollyjs-finalurl: https://musicbrainz.org/ws/2/release/83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990?inc=url-rels&fmt=json
+
+{"quality":"normal","text-representation":{"language":"eng","script":"Latn"},"status-id":"4e304316-386d-3409-af2e-78857eec5cfe","release-events":[{"date":"2012-11-13","area":{"disambiguation":"","name":"[Worldwide]","id":"525d4e18-3d00-31b9-a58b-a146a916de8f","sort-name":"[Worldwide]","type-id":null,"type":null,"iso-3166-1-codes":["XW"]}}],"date":"2012-11-13","title":"He’s All I Got","barcode":"884501818353","cover-art-archive":{"back":false,"darkened":false,"count":1,"front":true,"artwork":true},"status":"Official","asin":null,"relations":[{"attributes":[],"type":"free streaming","type-id":"08445ccf-7b99-4438-9f9a-fb9ac18099ee","begin":null,"source-credit":"","ended":false,"url":{"resource":"https://open.spotify.com/album/1eyWP34kB2qZ1CrH5LGTmp","id":"9bcbf7a8-30e2-4815-99c3-7756c80f0207"},"direction":"forward","attribute-values":{},"attribute-ids":{},"target-credit":"","end":null,"target-type":"url"},{"target-credit":"","attribute-ids":{},"end":null,"target-type":"url","direction":"forward","attribute-values":{},"url":{"resource":"https://www.deezer.com/album/6097061","id":"2628fd0e-15cb-47c4-8b7a-50f632acd190"},"type":"free streaming","type-id":"08445ccf-7b99-4438-9f9a-fb9ac18099ee","attributes":[],"ended":false,"begin":null,"source-credit":""},{"direction":"forward","attribute-values":{},"attribute-ids":{},"target-credit":"","end":null,"target-type":"url","attributes":[],"type-id":"320adf26-96fa-4183-9045-1f5f32f833cb","type":"streaming","begin":null,"source-credit":"","ended":false,"url":{"id":"1a5983a3-aae4-48c5-82b0-ec5b15e85acd","resource":"https://music.apple.com/us/album/578168980"}}],"packaging-id":"119eba76-b343-3e02-a292-f0f00644bb9b","packaging":"None","id":"83a3f2c0-3ca7-4e6e-9de8-f740a1eb8990","disambiguation":"","country":"XW"}
 

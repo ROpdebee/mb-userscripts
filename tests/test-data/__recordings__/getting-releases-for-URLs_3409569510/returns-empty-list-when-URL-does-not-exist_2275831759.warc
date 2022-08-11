@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting releases for URLs/returns empty list when URL does not exist
-WARC-Date: 2022-06-08T13:06:56.282Z
+WARC-Date: 2022-08-11T17:18:33.245Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:8d65e40c-d76f-4fdf-989c-c58e1271a33d>
+WARC-Record-ID: <urn:uuid:f8ee0a2c-7336-43d7-8b36-dc9caf18f912>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,31 +12,31 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:39cc83a1-7649-4051-9068-7ab0275e9f08>
+WARC-Concurrent-To: <urn:uuid:32ba9557-e1dd-416d-bb23-f4f45c495da6>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.282Z
+WARC-Date: 2022-08-11T17:18:33.246Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:1aaf0f08-4e73-4e73-807e-9ee5829a396d>
+WARC-Record-ID: <urn:uuid:4b023e74-66e0-4390-9974-54c1d01810fc>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:239a85bd5b31fdb2c4d71c5c223e89f957e920f249e9dac630837726973027e2
+WARC-Block-Digest: sha256:ce17f81f893dbf043a7ff6f0cc240e8bf8cf9dcdc7a81e9d694710769bbe1342
 Content-Length: 202
 
 GET /ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json HTTP/1.1
 accept: */*
 accept-encoding: gzip, deflate, br
 connection: close
-user-agent: node-fetch
 host: musicbrainz.org
+user-agent: node-fetch
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:39cc83a1-7649-4051-9068-7ab0275e9f08>
+WARC-Concurrent-To: <urn:uuid:32ba9557-e1dd-416d-bb23-f4f45c495da6>
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.282Z
+WARC-Date: 2022-08-11T17:18:33.246Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:e0cd9899-7c53-4395-9764-1d7ddf527d05>
+WARC-Record-ID: <urn:uuid:94415f70-2124-4306-b658-ed06ef7eb36e>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:5fb6b02229f1a45be231fab6f76685fa25a1a1ae50e54c228e7694b6c7751fd6
 WARC-Block-Digest: sha256:5fb6b02229f1a45be231fab6f76685fa25a1a1ae50e54c228e7694b6c7751fd6
@@ -57,25 +57,89 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.282Z
+WARC-Date: 2022-08-11T17:18:33.245Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:39cc83a1-7649-4051-9068-7ab0275e9f08>
+WARC-Record-ID: <urn:uuid:32ba9557-e1dd-416d-bb23-f4f45c495da6>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:a00943cd14c32cab2a0e3891907a7bf079ed608627ab75cff6dfd049ecd1c2fe
-WARC-Block-Digest: sha256:384bbd5ed5f1e9d14c586aa3c59f073fac2d8008909173f8bf47da6f6b5ee407
+WARC-Block-Digest: sha256:63cb2b4be5843cb5e0ed15c472118144005a3403e2b3778a44ceb7415aaccf49
 Content-Length: 434
 
 HTTP/1.1 404 Not Found
-date: Wed, 08 Jun 2022 13:06:56 GMT
-content-type: application/json; charset=utf-8
-content-length: 93
+access-control-allow-origin: *
 connection: close
+content-length: 93
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:56 GMT
+etag: "8b5a62e76b15ec04b7cbc0eb576f7f62"
+server: Plack::Handler::Starlet
 x-ratelimit-limit: 1200
 x-ratelimit-remaining: 1013
 x-ratelimit-reset: 1654693617
-server: Plack::Handler::Starlet
-etag: "8b5a62e76b15ec04b7cbc0eb576f7f62"
+
+{"help":"For usage, please see: https://musicbrainz.org/development/mmd","error":"Not Found"}
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:4a0ca3cd-e096-4301-b0b9-fb85bf42bb10>
+WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.246Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:ffa78576-8b9f-450f-80e3-2a251f0eb915>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:1a853a1a93df1f6381767925bb76af3a85d0ff0006141ed18f50dfe3485c3605
+Content-Length: 87
+
+GET /ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:4a0ca3cd-e096-4301-b0b9-fb85bf42bb10>
+WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.246Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:1f9ecfd9-fc8c-4e85-802b-014d2a63d0c7>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:d5805fb0704883863556416c5df87577b07d78860c1580ca96c7b5e887086aef
+WARC-Block-Digest: sha256:d5805fb0704883863556416c5df87577b07d78860c1580ca96c7b5e887086aef
+Content-Length: 347
+
+harEntryId: bc9d3f8bc703913fc572e19f07d287f9
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T17:18:33.185Z
+time: 43
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":43,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 112
+warcRequestCookies: []
+warcResponseHeadersSize: 432
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.246Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:4a0ca3cd-e096-4301-b0b9-fb85bf42bb10>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:a00943cd14c32cab2a0e3891907a7bf079ed608627ab75cff6dfd049ecd1c2fe
+WARC-Block-Digest: sha256:d1b3023cb44d834ebf4110f2ffd7c543cde62814cd3e9a81a7bb226e81529999
+Content-Length: 549
+
+HTTP/1.1 404 Not Found
 access-control-allow-origin: *
+connection: close
+content-length: 93
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:56 GMT
+etag: "8b5a62e76b15ec04b7cbc0eb576f7f62"
+server: Plack::Handler::Starlet
+x-ratelimit-limit: 1200
+x-ratelimit-remaining: 1013
+x-ratelimit-reset: 1654693617
+x-pollyjs-finalurl: https://musicbrainz.org/ws/2/url?resource=https%3A%2F%2Fexample.com&inc=release-rels&fmt=json
 
 {"help":"For usage, please see: https://musicbrainz.org/development/mmd","error":"Not Found"}
 
