@@ -113,7 +113,8 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
 
         if (response.encoding === 'base64') {
             const buffer = Buffer.from(response.body ?? '', 'base64');
-            const arrayBuffer = Uint8Array.from(buffer);
+            const arrayBuffer = new ArrayBuffer(buffer.byteLength);
+            new Uint8Array(arrayBuffer).set(buffer);
             if (responseType === 'blob') {
                 options.onload({
                     ...resp,
