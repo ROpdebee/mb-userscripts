@@ -1,0 +1,139 @@
+WARC/1.1
+WARC-Filename: request/frontend/does not reject if disabled by caller
+WARC-Date: 2022-08-11T18:16:32.742Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:602a1940-43eb-4b24-9fd8-a81ec51766dd>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:acfd984c-a3e7-4866-9c11-9a1184db949f>
+WARC-Target-URI: https://httpbin.org/status/404
+WARC-Date: 2022-08-11T18:16:32.742Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:203c807d-bb03-4d4c-b554-42eaa806eefa>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:a893948eb21d3dbec7e1a032e518fb041bef4fde63aee2f2753d9e8e107b9305
+Content-Length: 28
+
+GET /status/404 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:acfd984c-a3e7-4866-9c11-9a1184db949f>
+WARC-Target-URI: https://httpbin.org/status/404
+WARC-Date: 2022-08-11T18:16:32.742Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:d03623e3-9b32-4838-8c6c-89ec290dd488>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:50ea4925e7ef0b557ad4d1059006944b6fb87cb14b5c27007aedb9b2ebabfb25
+WARC-Block-Digest: sha256:50ea4925e7ef0b557ad4d1059006944b6fb87cb14b5c27007aedb9b2ebabfb25
+Content-Length: 348
+
+harEntryId: 55b7d2fddaf85f12d5cd082798fdf191
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T18:16:32.398Z
+time: 343
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":343,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 49
+warcRequestCookies: []
+warcResponseHeadersSize: 266
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://httpbin.org/status/404
+WARC-Date: 2022-08-11T18:16:32.742Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:acfd984c-a3e7-4866-9c11-9a1184db949f>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:16e535a56374897c7e77c761a39eab2fff76e6b02a50f16b138de4c4899e2fc3
+Content-Length: 290
+
+HTTP/1.1 404 Not Found
+access-control-allow-credentials: true
+access-control-allow-origin: *
+connection: close
+content-length: 0
+content-type: text/html; charset=utf-8
+date: Thu, 11 Aug 2022 18:16:32 GMT
+server: gunicorn/19.9.0
+x-pollyjs-finalurl: https://httpbin.org/status/404
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:44ef81c4-494c-4c32-80ee-1c59d40eaf6b>
+WARC-Target-URI: https://httpbin.org/status/404
+WARC-Date: 2022-08-11T18:16:32.742Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:14cf704b-fab6-4556-a335-c516e485c40e>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:5157e6b9b580a6c7e9cee7f2e3a20e2f13b8cdeee951b5e7473d56e9616b38d1
+Content-Length: 139
+
+GET /status/404 HTTP/1.1
+accept: */*
+accept-encoding: gzip, deflate, br
+connection: close
+user-agent: node-fetch
+host: httpbin.org
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:44ef81c4-494c-4c32-80ee-1c59d40eaf6b>
+WARC-Target-URI: https://httpbin.org/status/404
+WARC-Date: 2022-08-11T18:16:32.743Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:d77c6029-5997-420b-935f-8c02fca2f791>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:4a3c3941db11488b57fe8422ac6b5251a5667ad807c962846ebb8977732de944
+WARC-Block-Digest: sha256:4a3c3941db11488b57fe8422ac6b5251a5667ad807c962846ebb8977732de944
+Content-Length: 349
+
+harEntryId: a504acfefdddde0737bdc537a8462565
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T18:16:32.399Z
+time: 337
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":337,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 158
+warcRequestCookies: []
+warcResponseHeadersSize: 214
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://httpbin.org/status/404
+WARC-Date: 2022-08-11T18:16:32.742Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:44ef81c4-494c-4c32-80ee-1c59d40eaf6b>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:6d4910838f2c934093777fd591eb82f0bc8b982f2a2e65e9d1ded485384f5540
+Content-Length: 238
+
+HTTP/1.1 404 Not Found
+date: Thu, 11 Aug 2022 18:16:32 GMT
+content-type: text/html; charset=utf-8
+content-length: 0
+connection: close
+server: gunicorn/19.9.0
+access-control-allow-origin: *
+access-control-allow-credentials: true
+
+
+
