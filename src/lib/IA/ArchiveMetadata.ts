@@ -1,4 +1,5 @@
 import { safeParseJSON } from '@lib/util/json';
+import { request } from '@lib/util/request';
 
 // Incomplete.
 export interface ArchiveMetadata {
@@ -25,8 +26,8 @@ export interface ArchiveFileMetadata {
  *                                         taken down.
  */
 export async function getItemMetadata(itemId: string): Promise<ArchiveMetadata> {
-    const itemMetadataResp = await fetch(new URL(`https://archive.org/metadata/${itemId}`));
-    const itemMetadata = safeParseJSON<ArchiveMetadata>(await itemMetadataResp.text(), 'Could not parse IA metadata');
+    const itemMetadataResp = await request.get(new URL(`https://archive.org/metadata/${itemId}`));
+    const itemMetadata = safeParseJSON<ArchiveMetadata>(itemMetadataResp.text, 'Could not parse IA metadata');
 
     // IA's metadata API always returns a 200, even for items which don't
     // exist.

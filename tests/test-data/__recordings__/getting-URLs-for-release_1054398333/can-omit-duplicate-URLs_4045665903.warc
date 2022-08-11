@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: getting URLs for release/can omit duplicate URLs
-WARC-Date: 2022-06-08T13:06:56.152Z
+WARC-Date: 2022-08-11T17:18:33.179Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:e9c1c595-9e1b-4118-9387-5eb265d16b2a>
+WARC-Record-ID: <urn:uuid:40aaa04b-3b72-44fe-a259-0d2231184930>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,31 +12,31 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:9b14d665-f3a4-4b14-acd3-2a32490cc392>
+WARC-Concurrent-To: <urn:uuid:23c385e8-b071-4932-ad6d-0e592b76b285>
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/6393da26-1c2a-491c-8149-3ddaf5cc0d89?inc=url-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.152Z
+WARC-Date: 2022-08-11T17:18:33.179Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:676c13d1-3aa0-4a88-aec2-55d9a5df8ad4>
+WARC-Record-ID: <urn:uuid:bce0dec4-cd5a-4307-b4db-30be55b82fe0>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:420d19399c98f18686462590b5dd80680abffbb2e73f4a342775710b7f7d3f04
+WARC-Block-Digest: sha256:77f994427713807a2395fce5c3dcfe7b848eca8eb003063cfc4990f97cfb9954
 Content-Length: 204
 
 GET /ws/2/release/6393da26-1c2a-491c-8149-3ddaf5cc0d89?inc=url-rels&fmt=json HTTP/1.1
 accept: */*
 accept-encoding: gzip, deflate, br
 connection: close
-user-agent: node-fetch
 host: musicbrainz.org
+user-agent: node-fetch
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:9b14d665-f3a4-4b14-acd3-2a32490cc392>
+WARC-Concurrent-To: <urn:uuid:23c385e8-b071-4932-ad6d-0e592b76b285>
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/6393da26-1c2a-491c-8149-3ddaf5cc0d89?inc=url-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.153Z
+WARC-Date: 2022-08-11T17:18:33.179Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:e134b0fe-bd16-487d-8694-85b63cad1073>
+WARC-Record-ID: <urn:uuid:911c8da2-4c0d-45a5-a689-8df23c3864e2>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:e48d43a0484a192163c7ac4d65b6675138aaab92769b1d904612afd3b2f88e8c
 WARC-Block-Digest: sha256:e48d43a0484a192163c7ac4d65b6675138aaab92769b1d904612afd3b2f88e8c
@@ -58,28 +58,95 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://musicbrainz.org/ws/2/release/6393da26-1c2a-491c-8149-3ddaf5cc0d89?inc=url-rels&fmt=json
-WARC-Date: 2022-06-08T13:06:56.152Z
+WARC-Date: 2022-08-11T17:18:33.179Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:9b14d665-f3a4-4b14-acd3-2a32490cc392>
+WARC-Record-ID: <urn:uuid:23c385e8-b071-4932-ad6d-0e592b76b285>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:95063feab05a2bdd79428284617709315238f9e309fd9332f5ff3d8552634e8c
-WARC-Block-Digest: sha256:4fdee8cedda7ce0ccc420f019057b511271cc081349d9910bbeb45be1ecbdb68
+WARC-Block-Digest: sha256:e4c4777d6ce88f0bb2b5d8a702a2db6521a20a21449cc7c695edcd3902fbcf65
 Content-Length: 1354
 
 HTTP/1.1 200 OK
-date: Wed, 08 Jun 2022 13:06:56 GMT
-content-type: application/json; charset=utf-8
-transfer-encoding: chunked
+access-control-allow-origin: *
 connection: close
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:56 GMT
+etag: W/"ec8572602b9c9528c7b237ff8161034d"
+server: Plack::Handler::Starlet
+transfer-encoding: chunked
 vary: Accept-Encoding
+x-cache-status: STALE
 x-ratelimit-limit: 1200
 x-ratelimit-remaining: 1051
 x-ratelimit-reset: 1654693617
-server: Plack::Handler::Starlet
-etag: W/"ec8572602b9c9528c7b237ff8161034d"
-access-control-allow-origin: *
-x-cache-status: STALE
-content-encoding: gzip
 
 ["H4sIAAAAAAAAA61UwY7jKBD9lRbn1DTY2IF8w2pH2sus1OpDAeU0asdkMO7eVpR/3yJJZzKazGGlvRlTr+rx3oOD8GmZSv4QG/H3N7EShf4pkGmfaaapYIlpEpuDGHHaLrglLqNpy3Wzz3FfePkHlkkcVyLTSDgT0BvjZrF5OoiApQIa2SiQa1Ad4zAT1oZxTtCqvgcFPgWqgErgeSViYEzXdEGTMtAGKbnQWcDOOECle7SqD2QG7hbijDsXmdqZqKgn+Njz1GkZR2aZcoEJd5XG07eUx/AeAz1fqqCOOhfeqTkemUyJZawbf7FK4aFh4PcFx1iqXlPKOxx/w8KnN8qAPB6zf4lvVA/t0L+KzYDjTKuz8GKjGI/5lSYK1y2GvafMpSUvvBxyqpV1wULvuQluI7uwEX+miSqBO0Jfy06nFEpZcrjuwbW6hZZkA9jYBgY5SNlr7Zx1jHLMlu246scJWOZzB02t1GwZtKYP0GrJlgwNwdqYbk3kOz9ULjjH6RPOmThJco7DVXIhjdad9wOsnbWgdWvADhZhcBa9MtJaoquTfHyih7lwcHbxlL0lj6cI1VYWu8EZ24MMvgdtsAUztPyFAaXpTatUEJXJnJbsa7uXUvbz5vHRMUUq+5zSsKOZ076l/MXhFDzu9l982j2WzBo+5mo9NDXjWEqObimnuD7XeNWe4DOFWC7pw7ylAhfqlekNDN5wXCr4cNuMNbn8oukaSP68CYSj7Q9VLyNup4aYyV/CN6T8jjkw38OnUv/D6Vf/Qe7j1bo9T33hV+GBST2E9D6NCcPt7RPWkDS+kWA0R1KrnhvatYSu7SSHskdFWvyq/D2Z77hxX/mf1PxZ6BsH7vhzT+Y7fhw/X7G+tW3Ahh853yBoqzwYpS0/agEHvgAyGCs+bxnXfx2G6CO/Kcd/Abh62uaYBQAA"]
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:dbbedd31-ef84-4c11-89e5-f9ea9200cfa8>
+WARC-Target-URI: https://musicbrainz.org/ws/2/release/6393da26-1c2a-491c-8149-3ddaf5cc0d89?inc=url-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.180Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:9923a960-7484-4243-9506-d2e9c5f39ccb>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:f473f51a95de5c9aacf31693948da5fae1635c8f25384c71c2f5f83dac94cd14
+Content-Length: 89
+
+GET /ws/2/release/6393da26-1c2a-491c-8149-3ddaf5cc0d89?inc=url-rels&fmt=json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:dbbedd31-ef84-4c11-89e5-f9ea9200cfa8>
+WARC-Target-URI: https://musicbrainz.org/ws/2/release/6393da26-1c2a-491c-8149-3ddaf5cc0d89?inc=url-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.180Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:a18978ee-3d23-4144-90fb-6aaab7c05246>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:bc788d8a931fe98d3b828abbeaa25b44ac61025f7ee7e957d2b1dc882c04cd2e
+WARC-Block-Digest: sha256:bc788d8a931fe98d3b828abbeaa25b44ac61025f7ee7e957d2b1dc882c04cd2e
+Content-Length: 347
+
+harEntryId: b195acc784470bb7e4a67395274893fe
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T17:18:33.165Z
+time: 11
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":11,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 114
+warcRequestCookies: []
+warcResponseHeadersSize: 514
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://musicbrainz.org/ws/2/release/6393da26-1c2a-491c-8149-3ddaf5cc0d89?inc=url-rels&fmt=json
+WARC-Date: 2022-08-11T17:18:33.179Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:dbbedd31-ef84-4c11-89e5-f9ea9200cfa8>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:32a5ef12a3f3b25ee63d03093fbf734feb5980aceb8bbcf6b84c8137a79242b5
+WARC-Block-Digest: sha256:f6fbe770a33399f9263e1a7af876159f0facdaa2558330286ca8bc030db09fcc
+Content-Length: 1963
+
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+connection: close
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+date: Wed, 08 Jun 2022 13:06:56 GMT
+etag: W/"ec8572602b9c9528c7b237ff8161034d"
+server: Plack::Handler::Starlet
+transfer-encoding: chunked
+vary: Accept-Encoding
+x-cache-status: STALE
+x-ratelimit-limit: 1200
+x-ratelimit-remaining: 1051
+x-ratelimit-reset: 1654693617
+x-pollyjs-finalurl: https://musicbrainz.org/ws/2/release/6393da26-1c2a-491c-8149-3ddaf5cc0d89?inc=url-rels&fmt=json
+
+{"country":"XW","text-representation":{"language":"eng","script":"Latn"},"release-events":[{"date":"2021-07-15","area":{"iso-3166-1-codes":["XW"],"id":"525d4e18-3d00-31b9-a58b-a146a916de8f","disambiguation":"","type":null,"sort-name":"[Worldwide]","type-id":null,"name":"[Worldwide]"}}],"title":"Round 2","quality":"normal","disambiguation":"","cover-art-archive":{"back":false,"count":1,"darkened":false,"artwork":true,"front":true},"packaging":"None","date":"2021-07-15","packaging-id":"119eba76-b343-3e02-a292-f0f00644bb9b","barcode":null,"status-id":"4e304316-386d-3409-af2e-78857eec5cfe","asin":null,"relations":[{"type-id":"08445ccf-7b99-4438-9f9a-fb9ac18099ee","type":"free streaming","url":{"id":"9a5fb896-0dc6-48a3-8f36-4ada0868311d","resource":"https://bulletproofmessenger.bandcamp.com/track/round-2"},"attributes":[],"source-credit":"","target-type":"url","attribute-values":{},"attribute-ids":{},"end":null,"ended":false,"begin":null,"target-credit":"","direction":"forward"},{"url":{"resource":"https://bulletproofmessenger.bandcamp.com/track/round-2","id":"9a5fb896-0dc6-48a3-8f36-4ada0868311d"},"type":"purchase for download","type-id":"98e08c20-8402-4163-8970-53504bb6a1e4","attributes":[],"target-type":"url","source-credit":"","attribute-values":{},"begin":null,"ended":false,"end":null,"attribute-ids":{},"direction":"forward","target-credit":""}],"id":"6393da26-1c2a-491c-8149-3ddaf5cc0d89","status":"Official"}
 

@@ -1,19 +1,11 @@
-import HttpAdapter from '@pollyjs/adapter-node-http';
-
 import { getReleaseIDsForURL, getURLsForRelease } from '@lib/MB/URLs';
-import { mockFetch, setupPolly } from '@test-utils/pollyjs';
+import { setupPolly } from '@test-utils/pollyjs';
 
 // Using polly here so we don't have to manually save the MB output. This runs
 // the risk of the tests being flaky if the requests are being passed through
 // after an edit is made on MB, but on the other hand, if something changes in
 // the API, we'll know it too.
-const pollyContext = setupPolly({
-    adapters: [HttpAdapter],
-});
-
-beforeAll(() => {
-    mockFetch('https://musicbrainz.org');
-});
+const pollyContext = setupPolly();
 
 describe('getting URLs for release', () => {
     it('retrieves all URLs', async () => {
