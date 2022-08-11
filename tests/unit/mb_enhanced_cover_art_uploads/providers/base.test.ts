@@ -1,16 +1,18 @@
 import { when } from 'jest-when';
 
+import type { Response } from '@lib/util/request';
 import type { ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/types';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { gmxhr } from '@lib/util/xhr';
+import { request } from '@lib/util/request';
 import { CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
-import { createBlob, createFetchedImage, createXhrResponse } from '../test-utils/dummy-data';
+import { createBlob, createBlobResponse, createFetchedImage, createTextResponse } from '../test-utils/dummy-data';
 import { registerMatchers } from '../test-utils/matchers';
 
-jest.mock('@lib/util/xhr');
-const mockXhr = gmxhr as jest.MockedFunction<typeof gmxhr>;
+jest.mock('@lib/util/request');
+// eslint-disable-next-line jest/unbound-method
+const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [string | URL, unknown]>;
 
 const findImagesMock = jest.fn();
 
@@ -19,7 +21,7 @@ beforeAll(() => {
 });
 
 afterEach(() => {
-    mockXhr.mockReset();
+    mockRequestGet.mockReset();
 });
 
 describe('cover art providers', () => {
@@ -140,14 +142,14 @@ describe('cover art providers', () => {
     });
 
     describe('fetching page', () => {
-        const dummyResponse = createXhrResponse({
-            responseText: '1234',
+        const dummyResponse = createTextResponse({
+            text: '1234',
         });
 
         it('returns page content', async () => {
-            mockXhr.mockResolvedValueOnce({
+            mockRequestGet.mockResolvedValueOnce({
                 ...dummyResponse,
-                finalUrl: 'https://example.com/test',
+                url: 'https://example.com/test',
             });
 
             await expect(fakeProvider.fetchPage(new URL('https://example.com/test')))
@@ -155,9 +157,9 @@ describe('cover art providers', () => {
         });
 
         it('throws on unsafe redirects', async () => {
-            mockXhr.mockResolvedValueOnce({
+            mockRequestGet.mockResolvedValueOnce({
                 ...dummyResponse,
-                finalUrl: 'https://example.com/redirected',
+                url: 'https://example.com/redirected',
             });
 
             await expect(fakeProvider.fetchPage(new URL('https://example.com/redirect_me')))
@@ -354,17 +356,16 @@ describe('providers with track images', () => {
 
         describe('deduplicating by content', () => {
             it('deduplicates images with identical thumbnail content', async () => {
-                when(mockXhr)
+                when(mockRequestGet)
                     // Use specific blob for the main image
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                     .calledWith('https://example.com/x', expect.anything())
-                    .mockResolvedValue(createXhrResponse({
-                        response: createBlob(),
+                    .mockResolvedValue(createBlobResponse({
+                        blob: createBlob(),
                     }))
                     // Always use the same image for any other request, but this
                     // image is different from the previous one.
-                    .defaultResolvedValue(createXhrResponse({
-                        response: createBlob(),
+                    .defaultResolvedValue(createBlobResponse({
+                        blob: createBlob(),
                     }));
 
                 const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', true);
@@ -378,8 +379,8 @@ describe('providers with track images', () => {
             });
 
             it('removes track images which are identical to main image', async () => {
-                mockXhr.mockResolvedValue(createXhrResponse({
-                    response: createBlob(),
+                mockRequestGet.mockResolvedValue(createBlobResponse({
+                    blob: createBlob(),
                 }));
 
                 const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', true);
@@ -388,8 +389,8 @@ describe('providers with track images', () => {
             });
 
             it('allows main image to be empty', async () => {
-                mockXhr.mockResolvedValue(createXhrResponse({
-                    response: createBlob(),
+                mockRequestGet.mockResolvedValue(createBlobResponse({
+                    blob: createBlob(),
                 }));
 
                 const results = await fakeProvider.mergeTrackImages(trackImages, '', true);
@@ -405,24 +406,24 @@ describe('providers with track images', () => {
             it('does not deduplicate if there are no track images', async () => {
                 await fakeProvider.mergeTrackImages([], 'https://example.com/x', true);
 
-                expect(mockXhr).not.toHaveBeenCalled();
+                expect(mockRequestGet).not.toHaveBeenCalled();
             });
 
             it('does not deduplicate if there is one track image and no main image', async () => {
                 await fakeProvider.mergeTrackImages(trackImages.slice(0, 1), '', true);
 
-                expect(mockXhr).not.toHaveBeenCalled();
+                expect(mockRequestGet).not.toHaveBeenCalled();
             });
 
             it('deduplicates if there is one track image and one main image', async () => {
-                mockXhr.mockResolvedValue(createXhrResponse({
-                    response: createBlob(),
+                mockRequestGet.mockResolvedValue(createBlobResponse({
+                    blob: createBlob(),
                 }));
 
                 const results = await fakeProvider.mergeTrackImages(trackImages.slice(0, 1), 'https://example.com/x', true);
 
                 expect(results).toBeEmpty();
-                expect(mockXhr).toHaveBeenCalledTimes(2);
+                expect(mockRequestGet).toHaveBeenCalledTimes(2);
             });
         });
     });

@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { PollyConfig } from '@pollyjs/core';
 import type { RequestInfo, RequestInit, Response } from 'node-fetch';
 import type { Context } from 'setup-polly-jest';
+import NodeHttpAdapter from '@pollyjs/adapter-node-http';
 import fetch from 'node-fetch';
 import { setupPolly as realSetupPolly } from 'setup-polly-jest';
 
@@ -11,7 +12,7 @@ import { WarcPersister } from './warc-persister';
 
 export function setupPolly(overrideOptions?: PollyConfig): Context {
     return realSetupPolly({
-        adapters: [GMXHRAdapter],
+        adapters: [GMXHRAdapter, NodeHttpAdapter],
         recordIfMissing: true,
         persister: WarcPersister,
         persisterOptions: {

@@ -3,8 +3,8 @@ import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
+import { request } from '@lib/util/request';
 import { urlBasename } from '@lib/util/urls';
-import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
@@ -280,8 +280,8 @@ export class VGMdbProvider extends CoverArtProvider {
         const id = this.extractId(url);
         assertHasValue(id);
         const apiUrl = `https://vgmdb.info/album/${id}?format=json`;
-        const apiResp = await gmxhr(apiUrl);
-        const metadata = safeParseJSON<AlbumMetadata>(apiResp.responseText, 'Invalid JSON response from vgmdb.info API');
+        const apiResp = await request.get(apiUrl);
+        const metadata = safeParseJSON<AlbumMetadata>(apiResp.text, 'Invalid JSON response from vgmdb.info API');
 
         assert(metadata.link === 'album/' + id, `VGMdb.info returned wrong release: Requested album/${id}, got ${metadata.link}`);
 

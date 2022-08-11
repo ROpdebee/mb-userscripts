@@ -4,8 +4,8 @@ import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertDefined } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
+import { request } from '@lib/util/request';
 import { urlBasename, urlJoin } from '@lib/util/urls';
-import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
@@ -71,8 +71,8 @@ export class ArchiveProvider extends CoverArtProvider {
         // in the index.json isn't always up-to-date (see CAA-129, only a few
         // cases though).
         const caaIndexUrl = `https://archive.org/download/${itemId}/index.json`;
-        const caaIndexResp = await gmxhr(caaIndexUrl);
-        const caaIndex = safeParseJSON<CAAIndex>(caaIndexResp.responseText, 'Could not parse index.json');
+        const caaIndexResp = await request.get(caaIndexUrl);
+        const caaIndex = safeParseJSON<CAAIndex>(caaIndexResp.text, 'Could not parse index.json');
 
         return caaIndex.images.map((img) => {
             const imageFileName = urlBasename(img.image);

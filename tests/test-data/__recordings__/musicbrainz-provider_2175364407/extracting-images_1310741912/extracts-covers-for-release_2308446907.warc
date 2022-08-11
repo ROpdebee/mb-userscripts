@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: musicbrainz provider/extracting images/extracts covers for release
-WARC-Date: 2022-06-08T15:45:39.248Z
+WARC-Date: 2022-08-11T17:17:53.138Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:c3960626-f585-4ba5-ada1-fd173eaef64f>
+WARC-Record-ID: <urn:uuid:a415d53d-8824-4c15-b993-e7095bf9bb38>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,99 +12,31 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8b30dc03-1c91-45fd-8b56-de514595213a>
-WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
-WARC-Date: 2022-06-08T15:45:39.249Z
-WARC-Type: request
-WARC-Record-ID: <urn:uuid:506dfd56-d30b-458e-9161-31c42d135f21>
-Content-Type: application/http; msgtype=request
-WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:1c09b61e3888ad810fb45923521722e1c69310b980cb47f1259f095cbd1b7e01
-Content-Length: 79
-
-GET /download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json HTTP/1.1
-
-
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8b30dc03-1c91-45fd-8b56-de514595213a>
-WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
-WARC-Date: 2022-06-08T15:45:39.249Z
-WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:cfe05880-44c4-4162-8d48-194133b3a09e>
-Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:a35b8ad1a4fe2420131db076c8f0a06d19471d9b0766a837024c001f84db6d13
-WARC-Block-Digest: sha256:a35b8ad1a4fe2420131db076c8f0a06d19471d9b0766a837024c001f84db6d13
-Content-Length: 351
-
-harEntryId: e8c296d183df78d75c6d958d76bb5d98
-harEntryOrder: 0
-cache: {}
-startedDateTime: 2022-06-05T21:54:15.988Z
-time: 1282
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1282,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 100
-warcRequestCookies: []
-warcResponseHeadersSize: 674
-warcResponseCookies: []
-responseDecoded: false
-
-
-WARC/1.1
-WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
-WARC-Date: 2022-06-08T15:45:39.248Z
-WARC-Type: response
-WARC-Record-ID: <urn:uuid:8b30dc03-1c91-45fd-8b56-de514595213a>
-Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:2a55063ba1b884c3f17b01a67a74cb4afec7bb5ef02e3cc7b5479e6394577428
-WARC-Block-Digest: sha256:b48c1e0c0d418cd2ffe9c30ddf0a26d01c34713abf192dd73941db826f8bd16f
-Content-Length: 4647
-
-HTTP/1.1 200 OK
-accept-ranges: bytes
-access-control-allow-credentials: true
-access-control-allow-headers: Accept-Encoding,Accept-Language,DNT,Cache-Control,Pragma,Range,Content-Range,Content-Length,X-Requested-With
-access-control-allow-origin: *
-cache-control: max-age=21600
-connection: close
-content-length: 3956
-content-type: application/json
-date: Sun, 05 Jun 2022 21:54:17 GMT
-etag: "55c152b4-f74"
-expires: Mon, 06 Jun 2022 03:54:17 GMT
-last-modified: Wed, 05 Aug 2015 00:03:00 GMT
-server: nginx/1.18.0 (Ubuntu)
-strict-transport-security: max-age=15724800
-x-pollyjs-finalurl: https://ia601307.us.archive.org/0/items/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
-
-{"images":[{"types":["Front"],"front":true,"back":false,"edit":34293307,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162.jpg","comment":"","approved":true,"id":"11059679162","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162-250.jpg"}},{"types":["Back","Spine"],"front":false,"back":true,"edit":34293308,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252.jpg","comment":"","approved":true,"id":"11059681252","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252-250.jpg"}},{"types":["Tray"],"front":false,"back":false,"edit":34293309,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512.jpg","comment":"","approved":true,"id":"11059682512","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293311,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688.jpg","comment":"","approved":true,"id":"11059683688","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293316,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192.jpg","comment":"","approved":true,"id":"11059685192","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293319,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050.jpg","comment":"","approved":true,"id":"11059686050","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293321,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800.jpg","comment":"","approved":true,"id":"11059686800","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293322,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738.jpg","comment":"","approved":true,"id":"11059687738","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738-250.jpg"}},{"types":["Obi"],"front":false,"back":false,"edit":34293323,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534.jpg","comment":"","approved":true,"id":"11059689534","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534-250.jpg"}}],"release":"http://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687"}
-
-WARC/1.1
-WARC-Concurrent-To: <urn:uuid:dd6f7630-565c-472c-8480-94f88b98ec2f>
+WARC-Concurrent-To: <urn:uuid:1ae611b7-9a30-4ec9-8615-1fe7318a521c>
 WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
-WARC-Date: 2022-06-08T15:45:39.249Z
+WARC-Date: 2022-08-11T17:17:53.139Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:e88c4e4e-75a3-4216-9791-0812d8bf3268>
+WARC-Record-ID: <urn:uuid:97cc9c51-2796-457a-b998-dd8621e47595>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:a9c810753fd64d186bbce0a3bca62ad6f127946ac4c4c0e4e75751582a9232c8
+WARC-Block-Digest: sha256:8a5351a53f5c750c6b95ab14b1c358a0969070a683f4d1dc2660fe20eaeefc45
 Content-Length: 179
 
 GET /metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687 HTTP/1.1
 accept: */*
 accept-encoding: gzip, deflate, br
 connection: close
-user-agent: node-fetch
 host: archive.org
+user-agent: node-fetch
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:dd6f7630-565c-472c-8480-94f88b98ec2f>
+WARC-Concurrent-To: <urn:uuid:1ae611b7-9a30-4ec9-8615-1fe7318a521c>
 WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
-WARC-Date: 2022-06-08T15:45:39.249Z
+WARC-Date: 2022-08-11T17:17:53.139Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:788ed0af-b74f-4f47-8832-18926402cc0c>
+WARC-Record-ID: <urn:uuid:d486c79e-7a0c-46ec-991b-8e2b8e1b68b2>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:033f54a42428e0f83b356947295db6f9bfaca68fff2eeaac066bfb04d9f7ef59
 WARC-Block-Digest: sha256:033f54a42428e0f83b356947295db6f9bfaca68fff2eeaac066bfb04d9f7ef59
@@ -126,25 +58,157 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
-WARC-Date: 2022-06-08T15:45:39.249Z
+WARC-Date: 2022-08-11T17:17:53.138Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:dd6f7630-565c-472c-8480-94f88b98ec2f>
+WARC-Record-ID: <urn:uuid:1ae611b7-9a30-4ec9-8615-1fe7318a521c>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:026c41e672c1505a99259b379dd91301dbebb5058dd69e059c04177800d66277
-WARC-Block-Digest: sha256:1df59e796cf5652ae2d33f00017bf0e5fcf1f9fd0834f2d0251cf24ca1768031
+WARC-Block-Digest: sha256:010bc7d979dcf6ee1a2bace61c5679499a4a245fb4885d62c3c6a575d45d45c3
 Content-Length: 6291
 
 HTTP/1.1 200 OK
-server: nginx/1.18.0 (Ubuntu)
-date: Wed, 08 Jun 2022 15:45:39 GMT
-content-type: application/json
-transfer-encoding: chunked
-connection: close
 access-control-allow-origin: *
+connection: close
 content-encoding: gzip
-vary: Accept-Encoding
-strict-transport-security: max-age=15724800
+content-type: application/json
+date: Wed, 08 Jun 2022 15:45:39 GMT
 referrer-policy: no-referrer-when-downgrade
+server: nginx/1.18.0 (Ubuntu)
+strict-transport-security: max-age=15724800
+transfer-encoding: chunked
+vary: Accept-Encoding
 
 ["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"]
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e0c15476-0e70-40a9-b3e9-8e34dc614f7d>
+WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-08-11T17:17:53.139Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:6f2e8521-2205-4d1b-91ce-625459da162f>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:1c09b61e3888ad810fb45923521722e1c69310b980cb47f1259f095cbd1b7e01
+Content-Length: 79
+
+GET /download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e0c15476-0e70-40a9-b3e9-8e34dc614f7d>
+WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-08-11T17:17:53.139Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:0f63116f-712e-488e-a322-62d62146a25e>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:510993c9b4d4179c44841798142b602c06cd14caa349ae3c2bc8ca6f8ca08979
+WARC-Block-Digest: sha256:510993c9b4d4179c44841798142b602c06cd14caa349ae3c2bc8ca6f8ca08979
+Content-Length: 351
+
+harEntryId: e8c296d183df78d75c6d958d76bb5d98
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T16:24:38.586Z
+time: 1584
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1584,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 100
+warcRequestCookies: []
+warcResponseHeadersSize: 688
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/download/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+WARC-Date: 2022-08-11T17:17:53.139Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:e0c15476-0e70-40a9-b3e9-8e34dc614f7d>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:2a55063ba1b884c3f17b01a67a74cb4afec7bb5ef02e3cc7b5479e6394577428
+WARC-Block-Digest: sha256:f2c7e3003ea4f5866d33b2ec80f3981d5bcf2d2ee07a126ddf024cec5267d2dc
+Content-Length: 4661
+
+HTTP/1.1 200 OK
+accept-ranges: bytes
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,X-Requested-With
+access-control-allow-origin: *
+cache-control: max-age=21600
+connection: close
+content-length: 3956
+content-type: application/json
+date: Thu, 11 Aug 2022 16:24:40 GMT
+etag: "55c152b4-f74"
+expires: Thu, 11 Aug 2022 22:24:40 GMT
+last-modified: Wed, 05 Aug 2015 00:03:00 GMT
+server: nginx/1.18.0 (Ubuntu)
+strict-transport-security: max-age=15724800
+x-pollyjs-finalurl: https://ia601307.us.archive.org/0/items/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687/index.json
+
+{"images":[{"types":["Front"],"front":true,"back":false,"edit":34293307,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162.jpg","comment":"","approved":true,"id":"11059679162","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059679162-250.jpg"}},{"types":["Back","Spine"],"front":false,"back":true,"edit":34293308,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252.jpg","comment":"","approved":true,"id":"11059681252","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059681252-250.jpg"}},{"types":["Tray"],"front":false,"back":false,"edit":34293309,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512.jpg","comment":"","approved":true,"id":"11059682512","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059682512-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293311,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688.jpg","comment":"","approved":true,"id":"11059683688","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059683688-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293316,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192.jpg","comment":"","approved":true,"id":"11059685192","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059685192-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293319,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050.jpg","comment":"","approved":true,"id":"11059686050","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686050-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293321,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800.jpg","comment":"","approved":true,"id":"11059686800","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059686800-250.jpg"}},{"types":["Booklet"],"front":false,"back":false,"edit":34293322,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738.jpg","comment":"","approved":true,"id":"11059687738","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059687738-250.jpg"}},{"types":["Obi"],"front":false,"back":false,"edit":34293323,"image":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534.jpg","comment":"","approved":true,"id":"11059689534","thumbnails":{"large":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534-500.jpg","small":"http://coverartarchive.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687/11059689534-250.jpg"}}],"release":"http://musicbrainz.org/release/8dd38d9f-eae6-47a7-baa8-eaa467042687"}
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:1a7c1a12-7135-4ae4-900c-9de60fa2bfed>
+WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
+WARC-Date: 2022-08-11T17:17:53.140Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:984e4e2b-23f6-4005-b720-ba859c182841>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:968b0b34e3211a794c0038e196b89c7f3d78cbcdb0cac7db48707b0391d5030d
+Content-Length: 68
+
+GET /metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:1a7c1a12-7135-4ae4-900c-9de60fa2bfed>
+WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
+WARC-Date: 2022-08-11T17:17:53.140Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:65c111ae-0c5e-40f8-be51-8e16756621e1>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:f649904322be7fe4d32b4cee9fc4dd3f6bec82e23470672e1df7dc9a1a7cbf03
+WARC-Block-Digest: sha256:f649904322be7fe4d32b4cee9fc4dd3f6bec82e23470672e1df7dc9a1a7cbf03
+Content-Length: 346
+
+harEntryId: 792abe4e17f2d8a38ac8a023ac0c6cc4
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T17:17:52.981Z
+time: 98
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":98,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 89
+warcRequestCookies: []
+warcResponseHeadersSize: 410
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
+WARC-Date: 2022-08-11T17:17:53.139Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:1a7c1a12-7135-4ae4-900c-9de60fa2bfed>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:771f3752908ea8334a69917e6682690b0ff30fc6311b52d1d4bc98c0dd9f4b32
+WARC-Block-Digest: sha256:4fa38be899e1a1b020226f95eaf87530102e89f4628fab79389cc62d0acb46a9
+Content-Length: 18421
+
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+connection: close
+content-encoding: gzip
+content-type: application/json
+date: Wed, 08 Jun 2022 15:45:39 GMT
+referrer-policy: no-referrer-when-downgrade
+server: nginx/1.18.0 (Ubuntu)
+strict-transport-security: max-age=15724800
+transfer-encoding: chunked
+vary: Accept-Encoding
+x-pollyjs-finalurl: https://archive.org/metadata/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687
+
+{"created":1654702992,"d1":"ia601307.us.archive.org","d2":"ia801307.us.archive.org","dir":"/0/items/mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687","files":[{"name":"__ia_thumb.jpg","source":"original","mtime":"1618322697","size":"13900","md5":"df2ebd0441ff5b987e16367b46c8a0f4","crc32":"c2acb9be","sha1":"dd1eb87783bac8de04e36b044f5ff739e79d5a64","format":"Item Tile","rotation":"0"},{"name":"index.json","source":"original","mtime":"1438732980","size":"3956","format":"JSON","md5":"2f9e36760529da7763eacbb778d71a1f","crc32":"8af9958a","sha1":"019d37e23b4d7c93fab01a0722ee391349386557"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162.jpg","source":"original","mtime":"1438125702","size":"809896","md5":"524f2cf824423fe2cf9cbe78cd8ece42","crc32":"dbd5b2e0","sha1":"938d3d4a2783d487540b559bbadcab20653fe02f","format":"JPEG","rotation":"0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162_itemimage.jpg","source":"derivative","format":"Item Image","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162.jpg","mtime":"1618322650","size":"15325","md5":"70d68efa6e219acb18112bda44def727","crc32":"0f364129","sha1":"54509435a741122fcfd50670ad9989dc294dcf4e"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162.jpg","mtime":"1618322649","size":"15325","md5":"70d68efa6e219acb18112bda44def727","crc32":"0f364129","sha1":"54509435a741122fcfd50670ad9989dc294dcf4e"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162_thumb1200.jpg","source":"derivative","format":"JPEG 1200px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162.jpg","mtime":"1618322649","size":"379845","md5":"4ef8c7ad3ef5ffbc2f114a612e9a8790","crc32":"52012f73","sha1":"431acb260a2f6bc44611b85964d8777cbb0aa129"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162_thumb250.jpg","source":"derivative","format":"JPEG 250px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162.jpg","mtime":"1618322649","size":"23567","md5":"1cd398c76ace9906a10ce65995836714","crc32":"8d8164c8","sha1":"0f68e93c789796e13cdb091770e349a868f41f15"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162_thumb500.jpg","source":"derivative","format":"JPEG 500px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059679162.jpg","mtime":"1618322649","size":"75615","md5":"913fd53448b128d4f5692eca733a470a","crc32":"d12b5652","sha1":"69ca58df99ebdfa8d7f3a0c94b663bb6de278926"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059681252.jpg","source":"original","mtime":"1438125721","size":"406744","md5":"609bcdef52c8fc4025405a767e0cdcee","crc32":"f470a969","sha1":"11ffbdb236b243ace648a806c3cd639dbda785ab","format":"JPEG","rotation":"0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059681252_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059681252.jpg","mtime":"1618322653","size":"6976","md5":"6f7972cb8449132dd94d99012904a5bb","crc32":"df1617a0","sha1":"359ccbc102b76959b652b05999b2ac7f18181377"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059681252_thumb1200.jpg","source":"derivative","format":"JPEG 1200px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059681252.jpg","mtime":"1618322654","size":"139322","md5":"18091fd2151817bb303d0608ea037dd1","crc32":"966828c1","sha1":"27080af2661dddf782556e18583e72213344e34e"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059681252_thumb250.jpg","source":"derivative","format":"JPEG 250px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059681252.jpg","mtime":"1618322653","size":"10496","md5":"fe8aed49def65655f533bd313d29c6c8","crc32":"f4452a31","sha1":"e216553ac9e89acc3579ffb7cbd38c0bfa0f8bf7"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059681252_thumb500.jpg","source":"derivative","format":"JPEG 500px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059681252.jpg","mtime":"1618322653","size":"32768","md5":"65c7d8729a02a82e80f08348ea7fcd3e","crc32":"db904dfe","sha1":"a53c720830be595a2123bb849f9d89cd0aa3a329"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059682512.jpg","source":"original","mtime":"1438125735","size":"901617","md5":"f136fd61031bfb32aef2ef3657770e96","crc32":"e939dc86","sha1":"2957d261725f14d31f6eef8c4533841249ca858a","format":"JPEG","rotation":"0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059682512_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059682512.jpg","mtime":"1618322656","size":"10064","md5":"d4cd5f405ad93b0b8014bf49d4ebdd38","crc32":"e6127b4f","sha1":"c2945a056c473c5ed1d725c794010bcd08381954"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059682512_thumb1200.jpg","source":"derivative","format":"JPEG 1200px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059682512.jpg","mtime":"1618322657","size":"234858","md5":"cd6061c096880b06fe9ec0a605c39a5e","crc32":"ba157a72","sha1":"02a0a7096ef41794d916023588a71547fe403173"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059682512_thumb250.jpg","source":"derivative","format":"JPEG 250px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059682512.jpg","mtime":"1618322656","size":"15466","md5":"4395bca953ee4b1f55609fd82fc82a5b","crc32":"8a979e80","sha1":"cb34379ed7e4bbd20b9599f8ea546bdf0d233e4f"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059682512_thumb500.jpg","source":"derivative","format":"JPEG 500px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059682512.jpg","mtime":"1618322657","size":"46495","md5":"941b54aacfbf204923232162a9cded46","crc32":"80220f86","sha1":"c01619e5cbdcae6ae14e8d4b126d38f25632c8db"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059683688.jpg","source":"original","mtime":"1438125749","size":"1424478","md5":"88422006108a310b62806d09d1a9e7fe","crc32":"295d914c","sha1":"11bbc1a97f51303764bca392947acfc7d3ae38db","format":"JPEG","rotation":"0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059683688_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059683688.jpg","mtime":"1618322661","size":"6718","md5":"55e6348e52c95516fb87191d73d9800b","crc32":"19a9a3f8","sha1":"d1cb32b8007772d67f5bd54cd6bf2238073ddba8"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059683688_thumb1200.jpg","source":"derivative","format":"JPEG 1200px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059683688.jpg","mtime":"1618322662","size":"148014","md5":"bbce66713a6f91d3058bc4699d821b65","crc32":"8fe994b5","sha1":"7075b8de938c17b04bf375e7d0d16a67e338eab7"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059683688_thumb250.jpg","source":"derivative","format":"JPEG 250px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059683688.jpg","mtime":"1618322661","size":"10062","md5":"b7c27c69cc5f547df7ba4e4cd32d10b8","crc32":"ce63d495","sha1":"dc68b5bd942e696a7bed572f169903e06d8f38b0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059683688_thumb500.jpg","source":"derivative","format":"JPEG 500px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059683688.jpg","mtime":"1618322662","size":"31175","md5":"35a1a824e94b7d14c6850720eb88a603","crc32":"e3b51ea2","sha1":"698e3265aa12b7b59a2bb2e6254403fa2df4bc85"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059685192.jpg","source":"original","mtime":"1438125761","size":"587937","md5":"3faebdf3db994c91bb8ab474714bc87f","crc32":"53640ba6","sha1":"786f43fe20e7a2b780500885637ad96ddad3babe","format":"JPEG","rotation":"0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059685192_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059685192.jpg","mtime":"1618322665","size":"2864","md5":"dde48a00485435aeecdd9361d4a4b18b","crc32":"ae658c2f","sha1":"aaa5a6b019e226584c5a4109d6fbffe3ec3fc16d"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059685192_thumb1200.jpg","source":"derivative","format":"JPEG 1200px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059685192.jpg","mtime":"1618322665","size":"66413","md5":"0a586c4e6136f608d02c51614fad5195","crc32":"424ec469","sha1":"65f51fcb62389d5c6964bd2ca0b7de329553c802"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059685192_thumb250.jpg","source":"derivative","format":"JPEG 250px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059685192.jpg","mtime":"1618322665","size":"4391","md5":"f047a88d5b1ecb6fa23727cc9d2a83b8","crc32":"abd84d12","sha1":"dc587006cde97f9c738ecd9f53f998cc80606760"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059685192_thumb500.jpg","source":"derivative","format":"JPEG 500px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059685192.jpg","mtime":"1618322665","size":"12809","md5":"b785fdef34a19b0d1d6daf505fe6c917","crc32":"bda28091","sha1":"4767e7f14ac3c7c680964c88e1ec65a993bd2c07"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686050.jpg","source":"original","mtime":"1438125769","size":"674276","md5":"2f3c15d2157dfffb72664c1e44ea8616","crc32":"7c084f5b","sha1":"6d4ddb07b11cd8005121dcae7c000dd7a75232d2","format":"JPEG","rotation":"0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686050_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686050.jpg","mtime":"1618322668","size":"3346","md5":"86ad334f4e2cd5153a5c55248ee7d498","crc32":"9d718a31","sha1":"18d042d60afb8671137ad6e5a41de745bfc40486"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686050_thumb1200.jpg","source":"derivative","format":"JPEG 1200px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686050.jpg","mtime":"1618322669","size":"91756","md5":"257b0b02c05d8a40a02a72cda56c3551","crc32":"0e987e58","sha1":"595045ade6a3ed9e89716e6a83a1ad1f928b9908"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686050_thumb250.jpg","source":"derivative","format":"JPEG 250px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686050.jpg","mtime":"1618322669","size":"5151","md5":"49e64d4ddecc2e4814ae5879b0319449","crc32":"839b9380","sha1":"b51e4c124cca9206307fcc12eccb9575b7f35f3c"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686050_thumb500.jpg","source":"derivative","format":"JPEG 500px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686050.jpg","mtime":"1618322669","size":"17152","md5":"373b4a4e8a736af3fe4ba428ab8d1c35","crc32":"f2589ace","sha1":"1d8073d6eae6078c63c9589a19ac09671da071b9"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686800.jpg","source":"original","mtime":"1438125779","size":"1055724","md5":"e68da2f42d1d6829a2971fac097d5e08","crc32":"41c77fc8","sha1":"9bc2f55161fd0ca8744b6f6b9b939cfbf47d062a","format":"JPEG","rotation":"0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686800_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686800.jpg","mtime":"1618322672","size":"4733","md5":"fdea0dacee1543d83df4baecacfa3921","crc32":"124d5a26","sha1":"b44d3c2847e5eda3c3cd9e035885d91f835fc663"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686800_thumb1200.jpg","source":"derivative","format":"JPEG 1200px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686800.jpg","mtime":"1618322672","size":"112616","md5":"439d09960cd2aab2af23964e82fca0d9","crc32":"ab24e16e","sha1":"8ebd81dc8273ad180ff5507c657cb29f47531a8e"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686800_thumb250.jpg","source":"derivative","format":"JPEG 250px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686800.jpg","mtime":"1618322672","size":"7506","md5":"e11d50965d0f93383b02fe43eb37f66e","crc32":"f45e3062","sha1":"abc6e5b0d4b749a129fb3945bb7c6b6794eaa333"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686800_thumb500.jpg","source":"derivative","format":"JPEG 500px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059686800.jpg","mtime":"1618322672","size":"23863","md5":"d083ce02e4bb91623ca2abe62fd7a0bf","crc32":"2e630475","sha1":"9ef94c850365ba09d3033e04d9044b8eeb6dcf72"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059687738.jpg","source":"original","mtime":"1438125787","size":"863733","md5":"f62555b44b3b7560be03b43b60c854e7","crc32":"cc2f5b3c","sha1":"8e7c458d9613bdec563e566b929cef3d91d54f26","format":"JPEG","rotation":"0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059687738_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059687738.jpg","mtime":"1618322675","size":"5061","md5":"e3eb579f3e1b800065cc26afcd945396","crc32":"f40f8ae0","sha1":"d06b078271f34905bb353e0a64c5f03eae229cc6"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059687738_thumb1200.jpg","source":"derivative","format":"JPEG 1200px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059687738.jpg","mtime":"1618322677","size":"141843","md5":"d235958b7955b5c6a5334c16a4f0b301","crc32":"9a9ba1ef","sha1":"8a359e9b45a8e735ffe7edbbc04ab5b26c9cd629"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059687738_thumb250.jpg","source":"derivative","format":"JPEG 250px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059687738.jpg","mtime":"1618322675","size":"8568","md5":"440b6688628f717a9e2b9fd1123b086b","crc32":"16d266cd","sha1":"073b750ab53db040de3c3e85f11ec7fc4796f30d"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059687738_thumb500.jpg","source":"derivative","format":"JPEG 500px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059687738.jpg","mtime":"1618322676","size":"29449","md5":"3bd26c3f9baabf45b09cb108c4351186","crc32":"da2523f9","sha1":"7865d07370fd87b706ea94976b7c42e8efe8a94f"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534.jpg","source":"original","mtime":"1438125802","size":"155144","md5":"0d30bb2c9d1bc7136ab7f4b25990af83","crc32":"056dd970","sha1":"83db0b74a870f1df4303088a707baf6beed86751","format":"JPEG","rotation":"0"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534.jpg","mtime":"1618322680","size":"5093","md5":"12ffc061b8a92095dcb631c8730206da","crc32":"36cff563","sha1":"cac83e8c77e9ee930eecd2a6149f6a94763e9d4d"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534_thumb1200.jpg","source":"derivative","format":"JPEG 1200px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534.jpg","mtime":"1618322680","size":"90448","md5":"80bf09cbaca869ce424922e7e13ba16f","crc32":"79364c25","sha1":"cb78e2d501141fe276ab4235a7734cc0c1c7f2f4"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534_thumb250.jpg","source":"derivative","format":"JPEG 250px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534.jpg","mtime":"1618322680","size":"7078","md5":"3fa1513cb7980b27e90016cdd9ddb832","crc32":"c8ca7cb2","sha1":"8ce66386279eddd2dc8d55291fd199f1fdd5214b"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534_thumb500.jpg","source":"derivative","format":"JPEG 500px Thumb","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687-11059689534.jpg","mtime":"1618322680","size":"22853","md5":"f198d93b280fdefff01c5bc2e63bf65a","crc32":"27968f3e","sha1":"66d75ffc5a9ca7006c45943c59b4c56bf1a96591"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687_archive.torrent","source":"metadata","btih":"bdf28054bdc6c6a16ba5b45efda2cfa8692ddb37","mtime":"1484257181","size":"10626","md5":"5274817eb235aa0efcd33b9fdbacf19a","crc32":"f0e00445","sha1":"ef32da301a058ec1202cc6006f051dcaa743ab01","format":"Archive BitTorrent"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687_files.xml","source":"original","format":"Metadata","md5":"70a7fcc43d0a35af08ef0b20a3000fe4","summation":"md5"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687_mb_metadata.xml","source":"original","mtime":"1438732986","size":"1034","format":"MusicBrainz Metadata","md5":"7dc4724e164266f696835289d54fe23a","crc32":"2df95001","sha1":"97ca754433f79328808bf793ef4b889599d9083d"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687_meta.log","source":"derivative","format":"Metadata Log","original":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687_mb_metadata.xml","mtime":"1438733038","size":"751","md5":"eeca5e6651d733bdb7325688d3fee631","crc32":"4ef53978","sha1":"6ed7cd64308e02fab581b5644b19989ff49a2b3d"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687_meta.sqlite","source":"original","mtime":"1438732997","size":"23552","format":"Metadata","md5":"f2e998ff519226609c51262f0cb1811b","crc32":"96281bc7","sha1":"1989bdb5ba8b5bc80e3b8523476274457e3c9bed"},{"name":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687_meta.xml","source":"original","mtime":"1523999971","size":"881","format":"Metadata","md5":"7b2d3802e6aa078752eab38df3e579b8","crc32":"c56df37e","sha1":"c6f14841ea7c391b27f38535954989996f444ba9"}],"files_count":54,"item_last_updated":1618322697,"item_size":8799333,"metadata":{"identifier":"mbid-8dd38d9f-eae6-47a7-baa8-eaa467042687","collection":"coverartarchive","mediatype":"image","publicdate":"2015-07-28 23:21:45","title":"Solid State Survivor","uploader":"caa@musicbrainz.org","addeddate":"2015-07-28 23:21:45","creator":"Yellow Magic Orchestra","date":"2003-01-22","language":"jpn","external-identifier":["urn:mb_release_id:8dd38d9f-eae6-47a7-baa8-eaa467042687","urn:mb_artist_id:ac5af671-1df0-4312-8b7b-e61992ecc883","urn:upc:4562109401813","urn:asin:B00007KKZ3"],"backup_location":"ia905308_29","noindex":"true"},"server":"ia801307.us.archive.org","uniq":961326803,"workable_servers":["ia801307.us.archive.org","ia601307.us.archive.org"]}
 

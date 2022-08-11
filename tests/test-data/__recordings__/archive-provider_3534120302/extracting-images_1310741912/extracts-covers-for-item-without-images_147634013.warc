@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: archive provider/extracting images/extracts covers for item without images
-WARC-Date: 2022-06-08T15:45:41.690Z
+WARC-Date: 2022-08-11T16:21:47.151Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:a17ee929-4e71-46ef-8c35-5ccdf984a032>
+WARC-Record-ID: <urn:uuid:8dc00caf-4351-439c-b9f8-9b34cbbc31bd>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,31 +12,31 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:1973c34c-378d-4540-916e-5583b3236ee3>
+WARC-Concurrent-To: <urn:uuid:f9a2d8ba-e1d1-4b19-b1c3-6d5295bf4bef>
 WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
-WARC-Date: 2022-06-08T15:45:41.690Z
+WARC-Date: 2022-08-11T16:21:47.151Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:cdbf8780-64ba-4d44-9a83-2061497fc973>
+WARC-Record-ID: <urn:uuid:ee540841-0e58-4cdf-95b6-8d4227b2be48>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:a1e0bc6d05a65d2cbe665678e7e09561c230981869f8e9736dc8b1057a17c638
+WARC-Block-Digest: sha256:ed37fbe15764ff03a7eaef4f27c92bed357c35e4ee9022b3ce0f80683ae18331
 Content-Length: 168
 
 GET /metadata/coverartarchive_audit_20210419 HTTP/1.1
 accept: */*
 accept-encoding: gzip, deflate, br
 connection: close
-user-agent: node-fetch
 host: archive.org
+user-agent: node-fetch
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:1973c34c-378d-4540-916e-5583b3236ee3>
+WARC-Concurrent-To: <urn:uuid:f9a2d8ba-e1d1-4b19-b1c3-6d5295bf4bef>
 WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
-WARC-Date: 2022-06-08T15:45:41.690Z
+WARC-Date: 2022-08-11T16:21:47.151Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:1dc9af58-4e2a-4629-bb6b-abaef23f0e7e>
+WARC-Record-ID: <urn:uuid:3451b649-e446-4615-aee3-584d80b17048>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:548e21993bb14f74987d0781dd1d6ffa462399b69790bc2cbea3eee8687663d4
 WARC-Block-Digest: sha256:548e21993bb14f74987d0781dd1d6ffa462399b69790bc2cbea3eee8687663d4
@@ -58,25 +58,89 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
-WARC-Date: 2022-06-08T15:45:41.690Z
+WARC-Date: 2022-08-11T16:21:47.151Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:1973c34c-378d-4540-916e-5583b3236ee3>
+WARC-Record-ID: <urn:uuid:f9a2d8ba-e1d1-4b19-b1c3-6d5295bf4bef>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:3145b05fb096cac26c60e02366b29d5a910ec1af32c3086d58381f6eb9357e55
-WARC-Block-Digest: sha256:5a814656f6556cc461718037969ba27fbb37d7ff4db1f6dd675645d8a3519397
+WARC-Block-Digest: sha256:f636a36e527ee8719c8e3121d678374b8f3150df05a96bfc4559af38926b8841
 Content-Length: 2247
 
 HTTP/1.1 200 OK
-server: nginx/1.18.0 (Ubuntu)
-date: Wed, 08 Jun 2022 15:45:41 GMT
-content-type: application/json
-transfer-encoding: chunked
-connection: close
 access-control-allow-origin: *
+connection: close
 content-encoding: gzip
-vary: Accept-Encoding
-strict-transport-security: max-age=15724800
+content-type: application/json
+date: Wed, 08 Jun 2022 15:45:41 GMT
 referrer-policy: no-referrer-when-downgrade
+server: nginx/1.18.0 (Ubuntu)
+strict-transport-security: max-age=15724800
+transfer-encoding: chunked
+vary: Accept-Encoding
 
 ["H4sIAAAAAAAAA51X224bRwz9lYWeE3nuFyEw0gBF0YcCRdEiD4YhcGY48darXWUvdpwg/17OypLXTRwneVsNOSQPD8mhPq1ijzBiWm240coy4Z15sUp8tVnV4JlUTKynYQ19vKpvcN3171YkFrPYPSWue5Kf8bN6xN1wFrsb7KEf75W2MKV63AomOFPck36uGxxWm4tPqxZ2SFchjnXXQmhw2+MwNeOwptvrDx9JeeimPhalrq/f1S00dLYb6/keN9w5pbmzRbH+WM6kMcoYLopa0nRgDOPOm+S4yxCdYsEnHhhTSgBkG0gx9lEWiDwZspbK3eEKSk5kVgaMTAaCkB4cAeCoU0QEjUJJ44GFYIv/3PU7GOnOP+112922q88vHgA2zQnZ96ISzj2gEpIJqZRTJ1gKFNcOjJWMWeNlVCCU0paiUYIbv4AlKGwuonyA5YyP3ICHhNnFDNJGEy3XVgADSQBlDIJzfA7WzGyCEX6IL6HlAhkXxBj3/oExAQbJf4bsozJCCxN5yN4IwWxk3i2gOYw2CFgwpmziMXuhuHJG6oyScBEmLwNXImlBEkz6WcZmaD9TjUIvqlFx6x1bVKMMFJEXWmmPSXHJcwpcyoCYgtVZLrBF7nXIeUGbRhZSZrmgEtFTLTtMyapojfEuaR6E8dqkZ7B9u0G3x+Yeu77Hdlyi3uEIhW46C2N9VQCqrCSTybqMRqKKQljvJWXacJVEzjERlVE9ypNknHEaJYsqsDSMTknSUjkWICedVYpAHSy9FTZwwuuiXyZJQOacWb6o7awgMeu4cQGDFUlA0Dx77rhnzmbwzgk9N8gpSb8cIFdv6vHve9Tfn695nK0/7Jon6uPk5Y+H7B1wck+1yACsD8BUGVQJArfBRuFSCqX9hmlHl2k6luzTpe8Pq3C1Ht43NJS/r3ClMgtCGFGwCDSmoJyWkaNgSNlNOdJUNAgqJg8LQox2yYa46EiAGJRhLgmU9OIomUFzlnImQrJMIoB0KHP4aqp+EO/TLHyr+rjw/uG9AOvQh2whGW1Rs2h1tIqn7BlVz3L6WAteqXkgHYtPhyBDUlmjiZSu8hNL6aUUE0ZqCit5QvEc1rrdTz8zWc0SlRKaSJXmBA0weEAZtPYhIGPZUHNwRUzQq3l4M4/QNMNsc1r0lVXJ0StjUnmKaNgYXUZvzvSweuGVpHEkhdP6q8Pn8v7V38Zuouba+BersixsGxjG7bRPx5XkyM29+ICEJqr15NPQ8WkCbT6t6kSNWuca+2ero8CI0Laz6u/tiH2LY3Vs+z/vxquurZo6kIW7iq/9eq4HTDWMd/uSzPu+nfZNR4/m7PB2CvLf61t+fXP3utvD3ft17HakM9Zj83y9kuJ+Ck0dC/a54QR/ydRL7iuuN1xuRJmZkBJN+G9pxKk/zoeL+bvrL2+gqVP5er1Y1C7OjuKLYvDyGAinJ1Gzi7P58IIg7Cirl/EK4zWmiqisdtDcQo9k4F5Ydj4cYl/v7z2/SvXN+V+Hx7LqcgVtNaMt3+MVVv9LBf1uGpyXvhfVHvtSL+SLKHjAuH51VozOll+Fvjo7Xxx80R6bE5fkcZZWRVqN3ex/Dqbrlza/2F0emeim8WRj33dpihRfuHtkrHoLfVu37zbV27ppKvywhzYVj+e62tEJoavmoqezkTZAUq1KHirFfnvzZSiPd41H0RxE5X6P+64npeXtp5bnRyb23TASkIjDQEi+ZubRirqpfp3hDHMG8cM4IyHe2hHq9hDJA9uEfq6XYZGTc04oq6mlmtn3s9f1ksZSuacioP8Cq26P7WHCbee+mxV2u6mtx7vV5WfqX+xv5sZ7+o/IQWXYTi3cQN2UnKw2Yz8hNW5bvy8DhtYjy72jSXLb9ddz1u5vlSCeMn35+T+9pr6xOQ0AAA=="]
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:1cf42d1e-dbca-4939-ac90-099e393698bd>
+WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
+WARC-Date: 2022-08-11T16:21:47.151Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:efada937-cc0c-4746-987a-591a88a7d5de>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:df1a62ace4c2cd1be4030091ddbe1ca220601da4e187c4dd1078e2f0660056c3
+Content-Length: 57
+
+GET /metadata/coverartarchive_audit_20210419 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:1cf42d1e-dbca-4939-ac90-099e393698bd>
+WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
+WARC-Date: 2022-08-11T16:21:47.151Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:8c6c041e-c382-47aa-9d13-e3c56ca12a9d>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:21b71d2a6289b2b371df5092b09b04bc8bb02835b4849514bbd5005568185d3d
+WARC-Block-Digest: sha256:21b71d2a6289b2b371df5092b09b04bc8bb02835b4849514bbd5005568185d3d
+Content-Length: 346
+
+harEntryId: 569de8558b7b371c223276ef3b35b98e
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T16:21:47.139Z
+time: 10
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":10,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 78
+warcRequestCookies: []
+warcResponseHeadersSize: 399
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/metadata/coverartarchive_audit_20210419
+WARC-Date: 2022-08-11T16:21:47.151Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:1cf42d1e-dbca-4939-ac90-099e393698bd>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:0565ccddf1ab2b18968d691b1f86e0965fadf0cbba2613723210124f7e98e775
+WARC-Block-Digest: sha256:6d2e9fec260ff0d81000803e29581064a15acf8f305881012ffcc38586c8d254
+Content-Length: 3801
+
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+connection: close
+content-encoding: gzip
+content-type: application/json
+date: Wed, 08 Jun 2022 15:45:41 GMT
+referrer-policy: no-referrer-when-downgrade
+server: nginx/1.18.0 (Ubuntu)
+strict-transport-security: max-age=15724800
+transfer-encoding: chunked
+vary: Accept-Encoding
+x-pollyjs-finalurl: https://archive.org/metadata/coverartarchive_audit_20210419
+
+{"created":1654702986,"d1":"ia903402.us.archive.org","d2":"ia803402.us.archive.org","dir":"/1/items/coverartarchive_audit_20210419","files":[{"name":"actionable_results.tar.xz","source":"original","mtime":"1618845187","size":"36646612","md5":"6601896d818fac840b9d1b00442aaf7b","crc32":"1d6451d2","sha1":"3f46a63d6ab239a84191e5dceea5e24369a0bb77","format":"Unknown"},{"name":"all_results.xz","source":"original","mtime":"1618845288","size":"230234484","md5":"4a4158a673007693c4a24457bb742169","crc32":"284112c3","sha1":"869c16a9adef8cfa37c6c71572a0a3e5d3cb211e","format":"Unknown"},{"name":"audit_data.tar.xz","source":"original","mtime":"1618845253","size":"2126641992","md5":"2a6ecb2faf9c462526c1bf962207c098","crc32":"8ec7b2a2","sha1":"47d1cf924148635fe3715a3e93b142d52241ed57","format":"Unknown"},{"name":"audit_results.tar.xz","source":"original","mtime":"1618845257","size":"41798012","md5":"3bfe3925459ed4131fdb133beedb75f3","crc32":"c195bff3","sha1":"5e0bdf0f5fe32c98408edd74c76698d51b26956d","format":"Unknown"},{"name":"coverartarchive_audit_20210419_archive.torrent","source":"metadata","btih":"44f4303d78fe63e4c22799342d614d2ffcdcb2c4","mtime":"1630101402","size":"27547","md5":"53480bafd5f4dca66039727b108e8c93","crc32":"2af11071","sha1":"8f4ad078168beb72d2ab51f91819087fa9882569","format":"Archive BitTorrent"},{"name":"coverartarchive_audit_20210419_files.xml","source":"original","format":"Metadata","md5":"1941e0aa79ba046601dab17b7c28ddbe","summation":"md5"},{"name":"coverartarchive_audit_20210419_meta.sqlite","source":"original","mtime":"1618845346","size":"20480","md5":"19cdb4853c1e20e078dfc3d66ea4cd9a","crc32":"658d7bc2","sha1":"aacb4608d2e347043fa510dff819f3d2ba38e3fb","format":"Metadata"},{"name":"coverartarchive_audit_20210419_meta.xml","source":"original","mtime":"1630101402","size":"1299","md5":"6a78e9bf7ad657e50c75c741df907fa8","crc32":"77a94498","sha1":"85bb3bd4f5e6c53c5bb3e9181ddcdecd61731de2","format":"Metadata"},{"name":"input_data.tar.xz","source":"original","mtime":"1618845262","size":"142553436","md5":"aeb9ae3b559bbe00f6d2a14ff8366612","crc32":"50ef7fd1","sha1":"74d83c46d30238d565c7b2ffd819294398432855","format":"Unknown"}],"files_count":9,"item_last_updated":1630101402,"item_size":2577923862,"metadata":{"identifier":"coverartarchive_audit_20210419","scanner":"Internet Archive Python library 1.9.9","mediatype":"data","uploader":"cwub3jkw1kvy@opayq.com","title":"coverartarchive_audit_20210419","publicdate":"2021-04-19 15:13:24","addeddate":"2021-04-19 15:13:24","curation":"[curator]validator@archive.org[/curator][date]20210419152250[/date][comment]checked for malware[/comment]","description":"<div>Results of an audit of the coverartarchive collection, performed on 2021-04-19.</div><div><br /></div><div>input_data.tar.xz: Archive of input data to the auditor.</div><div>audit_data.tar.xz: Archive of output data produced by the auditor. Warning: Will expand to >5 million files totalling over 40GB.</div><div>audit_results.tar.xz: Archive of resulting reports.</div><div>actionable_results.tar.xz: Archive of postprocessed reports.</div><div>all_results.xz: Expands to text file containing results of all checks. Warning: >10GB uncompressed.<br /></div>","collection":["opensource_media","community"]},"server":"ia803402.us.archive.org","servers_unavailable":true,"uniq":1695671982,"workable_servers":["ia803402.us.archive.org"]}
 

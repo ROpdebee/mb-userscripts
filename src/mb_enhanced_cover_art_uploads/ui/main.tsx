@@ -1,4 +1,4 @@
-import type { FetchProgress } from '@lib/util/xhr';
+import type { ProgressEvent } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
 import { filterNonNull } from '@lib/util/array';
 import { assertDefined } from '@lib/util/assert';
@@ -228,7 +228,7 @@ export class InputForm implements FetcherHooks {
         this.progressElements.delete(id);
     }
 
-    public onFetchProgress(id: number, url: URL, progress: FetchProgress): void {
+    public onFetchProgress(id: number, url: URL, progress: ProgressEvent): void {
         const progressElement = this.progressElements.get(id);
         assertDefined(progressElement);
         progressElement.url = url;

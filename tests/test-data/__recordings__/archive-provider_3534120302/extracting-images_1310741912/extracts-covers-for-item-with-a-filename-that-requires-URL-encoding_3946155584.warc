@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: archive provider/extracting images/extracts covers for item with a filename that requires URL encoding
-WARC-Date: 2022-06-08T15:45:40.092Z
+WARC-Date: 2022-08-11T16:21:47.134Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:6934d2a6-4fd9-4ad9-ab65-d1607d0dba2b>
+WARC-Record-ID: <urn:uuid:879e28b8-1be0-4a1f-8298-9a6a6e94bfe4>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,31 +12,31 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:e97b8b1c-072f-45f3-9eab-5b0e2bf0f0a5>
+WARC-Concurrent-To: <urn:uuid:aa25a3c0-5919-4d0d-afc0-46dc47c29128>
 WARC-Target-URI: https://archive.org/metadata/skd815
-WARC-Date: 2022-06-08T15:45:40.092Z
+WARC-Date: 2022-08-11T16:21:47.135Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:52112cb9-67f2-4661-8c20-2a87fff8f0a8>
+WARC-Record-ID: <urn:uuid:5f894b23-153f-46dd-ab10-bb2afa148069>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:e5f0d05c9bea55b85bc146f2c3d5187f79eaaaed6d66342fc2e83fa4ecc821b7
+WARC-Block-Digest: sha256:45ec3eccc6188e124d74392c613b828fdf401474bfae8ceb64c239596032be4d
 Content-Length: 144
 
 GET /metadata/skd815 HTTP/1.1
 accept: */*
 accept-encoding: gzip, deflate, br
 connection: close
-user-agent: node-fetch
 host: archive.org
+user-agent: node-fetch
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:e97b8b1c-072f-45f3-9eab-5b0e2bf0f0a5>
+WARC-Concurrent-To: <urn:uuid:aa25a3c0-5919-4d0d-afc0-46dc47c29128>
 WARC-Target-URI: https://archive.org/metadata/skd815
-WARC-Date: 2022-06-08T15:45:40.092Z
+WARC-Date: 2022-08-11T16:21:47.135Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:813a1a28-fd6b-4aef-9b43-5be211c812aa>
+WARC-Record-ID: <urn:uuid:20885082-4d8e-4dd7-8c2b-22ba20f9b3f1>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:cc3a2fff9239c76c0899f419c3582ec83f57a7376f372b4dce7774d3c521ec7f
 WARC-Block-Digest: sha256:cc3a2fff9239c76c0899f419c3582ec83f57a7376f372b4dce7774d3c521ec7f
@@ -58,25 +58,89 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://archive.org/metadata/skd815
-WARC-Date: 2022-06-08T15:45:40.092Z
+WARC-Date: 2022-08-11T16:21:47.134Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:e97b8b1c-072f-45f3-9eab-5b0e2bf0f0a5>
+WARC-Record-ID: <urn:uuid:aa25a3c0-5919-4d0d-afc0-46dc47c29128>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:d9d79cef62a71dba5ebfe4d42ca41b9229647d8658dbf8d88a75b46d6d41cf32
-WARC-Block-Digest: sha256:36f7c5378d37237ebf01d8de02abc879cf61c890d0f83895f1e52fd2927b0f01
+WARC-Block-Digest: sha256:ce733a8e27d7fad75a2f75f8d6b6e614e661ebe8729342986b905aa3c4832f55
 Content-Length: 2919
 
 HTTP/1.1 200 OK
-server: nginx/1.18.0 (Ubuntu)
-date: Wed, 08 Jun 2022 15:45:40 GMT
-content-type: application/json
-transfer-encoding: chunked
-connection: close
 access-control-allow-origin: *
+connection: close
 content-encoding: gzip
-vary: Accept-Encoding
-strict-transport-security: max-age=15724800
+content-type: application/json
+date: Wed, 08 Jun 2022 15:45:40 GMT
 referrer-policy: no-referrer-when-downgrade
+server: nginx/1.18.0 (Ubuntu)
+strict-transport-security: max-age=15724800
+transfer-encoding: chunked
+vary: Accept-Encoding
 
 ["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"]
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:51540d71-c717-435c-a914-df8a83e69f79>
+WARC-Target-URI: https://archive.org/metadata/skd815
+WARC-Date: 2022-08-11T16:21:47.135Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:97f00b4a-e5f2-45bd-a315-7476c1e41d49>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:dc2ac81ff6202376ed7046f4427d43efbc2febb7742e526ca50d07e63074c897
+Content-Length: 33
+
+GET /metadata/skd815 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:51540d71-c717-435c-a914-df8a83e69f79>
+WARC-Target-URI: https://archive.org/metadata/skd815
+WARC-Date: 2022-08-11T16:21:47.135Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:7512b1f9-de61-4f95-be9d-5bcaf03a1279>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:941864a9eee5ad8b94ec4f21ec05fcf96070bd97d885b33494dd14b0f8fdcb7b
+WARC-Block-Digest: sha256:941864a9eee5ad8b94ec4f21ec05fcf96070bd97d885b33494dd14b0f8fdcb7b
+Content-Length: 346
+
+harEntryId: 3e3f07b0bf63463ce16bc5de60dfccba
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-11T16:21:47.122Z
+time: 10
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":10,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 54
+warcRequestCookies: []
+warcResponseHeadersSize: 375
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://archive.org/metadata/skd815
+WARC-Date: 2022-08-11T16:21:47.135Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:51540d71-c717-435c-a914-df8a83e69f79>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:9c13c373d9f5d69c690de1ea7e99107563313e20dc73cc083fc502afefcf9417
+WARC-Block-Digest: sha256:a6eb0ebd52b5699362c1411d6cb7f7f2212e901f94cb2e50366884a3dca5f2a8
+Content-Length: 5040
+
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+connection: close
+content-encoding: gzip
+content-type: application/json
+date: Wed, 08 Jun 2022 15:45:40 GMT
+referrer-policy: no-referrer-when-downgrade
+server: nginx/1.18.0 (Ubuntu)
+strict-transport-security: max-age=15724800
+transfer-encoding: chunked
+vary: Accept-Encoding
+x-pollyjs-finalurl: https://archive.org/metadata/skd815
+
+{"created":1654699184,"d1":"ia903101.us.archive.org","d2":"ia803101.us.archive.org","dir":"/33/items/skd815","files":[{"name":"#cover.jpg","source":"original","mtime":"1575322205","size":"460781","md5":"c79c5a7aae1dc3250b067a630032ffdf","crc32":"074ce461","sha1":"63e446a5639a8a2364d13f0c7787dd3185831dcc","format":"JPEG","rotation":"0"},{"name":"#cover_thumb.jpg","source":"derivative","format":"JPEG Thumb","original":"#cover.jpg","mtime":"1575322557","size":"11108","md5":"fd8ef258f552eee1b12f58e39081db36","crc32":"f02f0bd4","sha1":"1a642b3de8ec860350092c90a5f0e649b2372f6d"},{"name":"No-Joy - Rape on a Train - 01 Rape on a Train.afpk","source":"derivative","format":"Columbia Peaks","original":"No-Joy - Rape on a Train - 01 Rape on a Train.mp3","mtime":"1575322728","size":"954184","md5":"448846cae1106b1af0293528312fe54e","crc32":"ce9ece78","sha1":"700b6c5bbda92ee781b5c0f9378926c0e366ef99"},{"name":"No-Joy - Rape on a Train - 01 Rape on a Train.mp3","source":"original","mtime":"1575322311","size":"131821959","md5":"10ab44b56d3330c176a72c374adaf72b","crc32":"70701803","sha1":"0c7d0d612aaf160cdc2c70e1fb6a24a7145f1919","format":"VBR MP3","length":"3295.48","height":"700","width":"700","title":"Rape on a Train","creator":"No-Joy","album":"Rape on a Train","track":"1","artist":"No-Joy"},{"name":"No-Joy - Rape on a Train - 01 Rape on a Train.ogg","source":"derivative","format":"Ogg Vorbis","original":"No-Joy - Rape on a Train - 01 Rape on a Train.mp3","mtime":"1575322552","size":"70009822","md5":"783c5af1a8ef1e1a28b6d1ea94e8f25c","crc32":"4c1db9f5","sha1":"34d3992586c18f2fd3da1145e8977b81ada7ef30","length":"3295.45","height":"0","width":"0"},{"name":"No-Joy - Rape on a Train - 01 Rape on a Train.png","source":"derivative","format":"PNG","original":"No-Joy - Rape on a Train - 01 Rape on a Train.mp3","mtime":"1575322585","size":"22886","md5":"9dcd89620bbc45539fb2c2017f92444a","crc32":"1719ddda","sha1":"15e71e9447c0561da8d42017efc0259b65afe595"},{"name":"No-Joy - Rape on a Train - 01 Rape on a Train_spectrogram.png","source":"derivative","format":"Spectrogram","original":"No-Joy - Rape on a Train - 01 Rape on a Train.mp3","mtime":"1575322633","size":"170925","md5":"5fb90e44fb295d33e8fc134b4b629161","crc32":"7fd1746c","sha1":"0925d19562f4447b0cb0956bb7021a643ef5c50d"},{"name":"SKD815.zip","source":"original","mtime":"1575322189","size":"129224255","md5":"034c78975efd5cd2256e4fa02f3a02fd","crc32":"4631732f","sha1":"ebb24673353c8e1d7f3152592b8217a222fc8240","format":"ZIP"},{"name":"__ia_thumb.jpg","source":"original","mtime":"1603241823","size":"17495","md5":"3bfdd95d662bb21fd1c01c693dafda91","crc32":"2aa53257","sha1":"b995e76ef26585a3940bd4f6c7ae687228df1f89","format":"Item Tile","rotation":"0"},{"name":"skd815_archive.torrent","source":"metadata","btih":"54bbce2e78bbbc3b8b2fb34e7cfc41ed0c6e891b","mtime":"1607452190","size":"15785","md5":"b81c564dd4b830835d67307be2a98509","crc32":"c39755d9","sha1":"4efc79b333c450c03e340e10ffd70291c620329f","format":"Archive BitTorrent"},{"name":"skd815_files.xml","source":"original","format":"Metadata","md5":"070d12a8f482a71429097bfc66c43d13"},{"name":"skd815_meta.sqlite","source":"original","mtime":"1575322317","size":"17408","format":"Metadata","md5":"78a16ceb5e7115c41ffdfc41cf8f23e8","crc32":"aaf77216","sha1":"daa62d464d27058f7c2979b3473b87c44d6c3efa"},{"name":"skd815_meta.xml","source":"original","mtime":"1607452188","size":"1294","format":"Metadata","md5":"9618fa6c63058384b77f4a2b9f5c230d","crc32":"6420ceb7","sha1":"533770032909c9f37eb135549754b9ad894e922a"}],"files_count":13,"item_last_updated":1607452190,"item_size":332727902,"metadata":{"identifier":"skd815","mediatype":"audio","collection":["skulldungeon","netlabels"],"description":"<b>SKD815<br /><br />Uncompromising Harsh Noise Wall<br /></b><div><b><br /></b></div><div><b><a href=\"https://archive.org/download/skd815/SKD815.zip\" rel=\"nofollow\"><u>DOWNLOAD HERE</u></a><br /></b></div><div><b><br /></b></div><b>No-Joy: <a href=\"https://no-joy.bandcamp.com/\" rel=\"nofollow\">https://no-joy.bandcamp.com/</a></b><br /><br /><i><b>\"Hey you, are you molesting her? If you're going to do it, take out your cock properly.\"</b></i>","scanner":"Internet Archive HTML5 Uploader 1.6.4","subject":"harsh noise wall;harsh noise;noise;hentai nose wall;power electronics;power noise;rape noise;train rape","title":"No-Joy - Rape on a Train","publicdate":"2019-12-02 21:29:49","uploader":"sickie666@hotmail.it","addeddate":"2019-12-02 21:29:49","backup_location":"ia907007_34"},"server":"ia803101.us.archive.org","uniq":493662544,"workable_servers":["ia803101.us.archive.org","ia903101.us.archive.org"]}
 

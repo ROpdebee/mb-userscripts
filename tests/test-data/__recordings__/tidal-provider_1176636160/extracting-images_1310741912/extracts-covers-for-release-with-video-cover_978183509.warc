@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: tidal provider/extracting images/extracts covers for release with video cover
-WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Date: 2022-08-11T16:39:34.491Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:5ee09a05-eee2-479d-a41d-72dd41c402f1>
+WARC-Record-ID: <urn:uuid:d166b02d-9f75-45eb-861d-d08c7e7e50e4>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:aeb6d2cc-e0a5-41c3-9822-1683c5d459ad>
+WARC-Concurrent-To: <urn:uuid:b3f47ba4-5fe9-4270-b6c5-edd2acb312c3>
 WARC-Target-URI: https://listen.tidal.com/v1/ping
-WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Date: 2022-08-11T16:39:34.492Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:d31e7b9a-75b4-47a4-b466-ac67a61815a3>
+WARC-Record-ID: <urn:uuid:bcb3ade7-2f14-4374-8825-b47b4150f681>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:a4291b722c9f4e08c6aeac93fdb1c1506f4ab5f0e747a8ea7b6501609fe69d5f
@@ -27,22 +27,22 @@ GET /v1/ping HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:aeb6d2cc-e0a5-41c3-9822-1683c5d459ad>
+WARC-Concurrent-To: <urn:uuid:b3f47ba4-5fe9-4270-b6c5-edd2acb312c3>
 WARC-Target-URI: https://listen.tidal.com/v1/ping
-WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Date: 2022-08-11T16:39:34.492Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:0fe4d775-537f-4930-b646-b9ae07ea2e62>
+WARC-Record-ID: <urn:uuid:5a669be1-e8f3-4bed-b316-f8a66d373571>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:f76a6cb95081bff28df1493598ec553cab02393dbaf6ac174e647e24fe2253be
-WARC-Block-Digest: sha256:f76a6cb95081bff28df1493598ec553cab02393dbaf6ac174e647e24fe2253be
+WARC-Payload-Digest: sha256:bb2a8c5645ab10a02646f98ae6a90599a6afafac32b48db80a72db03f6909ea5
+WARC-Block-Digest: sha256:bb2a8c5645ab10a02646f98ae6a90599a6afafac32b48db80a72db03f6909ea5
 Content-Length: 348
 
 harEntryId: 47c39b1a5162a6c91ca5b413317109d4
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:46.769Z
-time: 306
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":306,"receive":0,"ssl":-1}
+startedDateTime: 2022-08-11T16:39:33.722Z
+time: 526
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":526,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 51
 warcRequestCookies: []
 warcResponseHeadersSize: 393
@@ -52,12 +52,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://listen.tidal.com/v1/ping
-WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Date: 2022-08-11T16:39:34.491Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:aeb6d2cc-e0a5-41c3-9822-1683c5d459ad>
+WARC-Record-ID: <urn:uuid:b3f47ba4-5fe9-4270-b6c5-edd2acb312c3>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3
-WARC-Block-Digest: sha256:c21feaff999aaf76fb487be55b34780b86d492189856baec8a6ea43a53c51796
+WARC-Block-Digest: sha256:4e328b79e67297fec2d9f5dbf0ef40877bbf0ae0c65e9ecfd8abf558992dd206
 Content-Length: 412
 
 HTTP/1.1 200 OK
@@ -65,22 +65,22 @@ cache-control: no-cache
 connection: close
 content-length: 2
 content-type: text/plain
-date: Sat, 11 Dec 2021 20:26:47 GMT
+date: Thu, 11 Aug 2022 16:39:34 GMT
 server: noyb
-via: 1.1 ffe6c29ca0993b4638edf6dcc08181b4.cloudfront.net (CloudFront)
-x-amz-cf-id: Y_tCpISuvEBW2nwqjqKm4WMB22tZi0n4GBUWeNvdlhCvpOOQyDkJtw==
-x-amz-cf-pop: CDG52-P1
+via: 1.1 9ddb4a7c37b01f2b5d90f99e9851b35c.cloudfront.net (CloudFront)
+x-amz-cf-id: ilpDHmzl9P3ZMCOcR8CFswDwaFnDCGBhCTHMToD3AhRhFdSdCk42Vg==
+x-amz-cf-pop: LHR61-C1
 x-cache: Miss from cloudfront
 x-pollyjs-finalurl: https://listen.tidal.com/v1/ping
 
 OK
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8f70e278-2fc8-4b15-b2fd-13dde5de59ce>
+WARC-Concurrent-To: <urn:uuid:88652167-e273-4db5-942e-b64208bc80a6>
 WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=171032759&countryCode=NL&deviceType=BROWSER
-WARC-Date: 2021-12-11T20:26:47.418Z
+WARC-Date: 2022-08-11T16:39:34.492Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:9260634c-9c09-4143-8fb1-b64539c92db0>
+WARC-Record-ID: <urn:uuid:9dd383e6-08ee-4947-a087-23aabc4082dc>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:c6cbf444eda4b7451acd2c90d10212761a67ec7b5a02f517096cb1450dc59664
@@ -92,53 +92,53 @@ x-tidal-token: CzET4vdadNUFQ5JU
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8f70e278-2fc8-4b15-b2fd-13dde5de59ce>
+WARC-Concurrent-To: <urn:uuid:88652167-e273-4db5-942e-b64208bc80a6>
 WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=171032759&countryCode=NL&deviceType=BROWSER
-WARC-Date: 2021-12-11T20:26:47.418Z
+WARC-Date: 2022-08-11T16:39:34.492Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:f1822dda-cd44-4d05-993c-3e3d66860cd7>
+WARC-Record-ID: <urn:uuid:6d09c12d-bd9b-46f8-9560-277a649e84c1>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:8809ef87b3e1aa98baab8dd6b74a7ac82bcdd7a37eed98a4b25727652264d93b
-WARC-Block-Digest: sha256:8809ef87b3e1aa98baab8dd6b74a7ac82bcdd7a37eed98a4b25727652264d93b
+WARC-Payload-Digest: sha256:ca1801ff70087b00e519ce39d71d254d116bd3ccfbff3a6c2e2bb7636d1c404b
+WARC-Block-Digest: sha256:ca1801ff70087b00e519ce39d71d254d116bd3ccfbff3a6c2e2bb7636d1c404b
 Content-Length: 349
 
 harEntryId: c77873e2c8d87b184c964c6c0445b419
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:47.077Z
-time: 337
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":337,"receive":0,"ssl":-1}
+startedDateTime: 2022-08-11T16:39:34.249Z
+time: 240
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":240,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 141
 warcRequestCookies: []
-warcResponseHeadersSize: 574
+warcResponseHeadersSize: 581
 warcResponseCookies: []
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=171032759&countryCode=NL&deviceType=BROWSER
-WARC-Date: 2021-12-11T20:26:47.417Z
+WARC-Date: 2022-08-11T16:39:34.492Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:8f70e278-2fc8-4b15-b2fd-13dde5de59ce>
+WARC-Record-ID: <urn:uuid:88652167-e273-4db5-942e-b64208bc80a6>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:9c73d4179ac9fdfc1b0eecd9af7c3f4dd3eeea1e16e9063f82d98c16445123ec
-WARC-Block-Digest: sha256:921c6bb1f6da92370d71cdf92b657b3e00c753b41f5a5969b96d697fdf6be962
-Content-Length: 4233
+WARC-Payload-Digest: sha256:8515520e06709d029e5864d93388088666b51cedef7d4c5d89247670bc36cf02
+WARC-Block-Digest: sha256:1efc25ad3d13ba491071d9dac0efbabf04e4d0c895791d851091ed56547d4d30
+Content-Length: 12378
 
 HTTP/1.1 200 OK
 cache-control: private, max-age=60, s-max-age=60,
 connection: close
-content-length: 3642
 content-type: application/json;charset=UTF-8
-date: Sat, 11 Dec 2021 20:26:47 GMT
-etag: "1286202799"
+date: Thu, 11 Aug 2022 16:39:34 GMT
+etag: "-1227690617"
 server: noyb
+transfer-encoding: chunked
 vary: x-tidal-sessionid,x-tidal-token,authorization
-via: 1.1 7d935e83126b0b85ded112b940f9c85d.cloudfront.net (CloudFront)
-x-amz-cf-id: PlseWJUjqx2xNEus43rKNN05OErMGPax2pizq6YENdLodUDRPt4MIg==
-x-amz-cf-pop: CDG52-P1
+via: 1.1 d5601700fc8f561e27a6c14284b0ddce.cloudfront.net (CloudFront)
+x-amz-cf-id: DXOpcMHkjY6ugOoTK-w78gwZppUTYnpn4kxmCZzbmfiMZ-jb-fKdrw==
+x-amz-cf-pop: LHR61-C1
 x-cache: Miss from cloudfront
 x-pollyjs-finalurl: https://listen.tidal.com/v1/pages/album?albumId=171032759&countryCode=NL&deviceType=BROWSER
 
-{"selfLink":null,"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzfQ==","title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","rows":[{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiOTg3YjJiZGUtMGE5MS00YzYxLWFkNGItNzllYzdkNGY5NmU0IiwibVYiOjEsIm1IIjoiYTRkNjQ0NWEifQ==","type":"ALBUM_HEADER","width":100,"title":"","description":"","preTitle":"","album":{"id":171032759,"title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","duration":193,"streamReady":true,"streamStartDate":"2021-02-12T00:00:00.000+0000","allowStreaming":true,"numberOfTracks":1,"numberOfVideos":0,"numberOfVolumes":1,"releaseDate":"2021-02-12","copyright":"(P) 2021 The Wild Children, LLC under exclusive license to Three Six Zero Recordings/Sony Music Entertainment","type":"SINGLE","version":null,"url":"http://www.tidal.com/album/171032759","cover":"72c1e674-70ca-4442-a530-0f00b0ef354a","videoCover":"9cc2842e-7430-4280-a7ba-4e06eec9ab3f","explicit":false,"popularity":0,"audioQuality":"HI_RES","audioModes":["STEREO"],"artists":[{"picture":"43d88a75-b76c-437f-8892-b8c7fe151fb3","name":"NEZ","id":20699717,"type":"MAIN"},{"picture":"4b9d0b7b-f972-435a-ac3e-639b407fe0bc","name":"ScHoolboy Q","id":3882537,"type":"FEATURED"}]},"review":{"text":null,"source":null},"credits":{"items":[]},"playbackControls":[{"shuffle":false,"playbackMode":"PLAY","title":"Play","icon":"play_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiZDk1N2I2ZjcifQ=="},{"shuffle":true,"playbackMode":"SHUFFLE","title":"Shuffle","icon":"shuffle_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiZDk1N2I2ZjcifQ=="}]}]},{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiZDk1N2I2ZjcifQ==","type":"ALBUM_ITEMS","width":100,"title":"","description":"","preTitle":null,"showMore":null,"supportsPaging":false,"quickPlay":false,"copyright":"(P) 2021 The Wild Children, LLC under exclusive license to Three Six Zero Recordings/Sony Music Entertainment","releaseDate":"2021-02-12","listFormat":"NUMBERS","pagedList":{"limit":9999,"offset":0,"totalNumberOfItems":1,"items":[{"item":{"duration":193,"version":null,"url":"https://tidal.com/browse/track/171032760","editable":false,"trackNumber":1,"volumeNumber":1,"title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","mixes":{"MASTER_TRACK_MIX":"0146c3e3ea420c3b8440c8d4845aa8","TRACK_MIX":"0011fb8ceb3f1ac3b3ad78d0b5e07e"},"audioModes":["STEREO"],"artists":[{"id":20699717,"name":"NEZ","type":"MAIN","picture":"43d88a75-b76c-437f-8892-b8c7fe151fb3"},{"id":3882537,"name":"ScHoolboy Q","type":"FEATURED","picture":"4b9d0b7b-f972-435a-ac3e-639b407fe0bc"}],"album":{"id":171032759,"title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","cover":"72c1e674-70ca-4442-a530-0f00b0ef354a","vibrantColor":"#FFFFFF","videoCover":"9cc2842e-7430-4280-a7ba-4e06eec9ab3f","url":"https://tidal.com/browse/album/171032759","releaseDate":"2021-02-12"},"audioQuality":"HI_RES","streamReady":true,"streamStartDate":"2021-02-12T00:00:00.000+0000","allowStreaming":true,"explicit":false,"popularity":1,"replayGain":-6.56,"id":171032760},"type":"track"}],"dataApiPath":"pages/data/2fbf68c2-dc58-49b1-b1be-6958e66383f3?albumId=171032759"},"playButton":true,"shuffleButton":true}]}]}
+{"selfLink":null,"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzfQ==","title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","rows":[{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiOTg3YjJiZGUtMGE5MS00YzYxLWFkNGItNzllYzdkNGY5NmU0IiwibVYiOjEsIm1IIjoiYTRkNjQ0NWEifQ==","type":"ALBUM_HEADER","width":100,"title":"","description":"","preTitle":"","album":{"id":171032759,"title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","duration":193,"streamReady":true,"streamStartDate":"2021-02-12T00:00:00.000+00:00","allowStreaming":true,"numberOfTracks":1,"numberOfVideos":0,"numberOfVolumes":1,"releaseDate":"2021-02-12","copyright":"(P) 2021 The Wild Children, LLC under exclusive license to Three Six Zero Recordings/Sony Music Entertainment","type":"SINGLE","version":null,"url":"http://www.tidal.com/album/171032759","cover":"72c1e674-70ca-4442-a530-0f00b0ef354a","videoCover":"9cc2842e-7430-4280-a7ba-4e06eec9ab3f","explicit":false,"popularity":0,"audioQuality":"HI_RES","audioModes":["STEREO"],"artists":[{"id":20699717,"name":"NEZ","type":"MAIN","picture":"43d88a75-b76c-437f-8892-b8c7fe151fb3"},{"id":3882537,"name":"ScHoolboy Q","type":"FEATURED","picture":"4b9d0b7b-f972-435a-ac3e-639b407fe0bc"}]},"review":{"text":null,"source":null},"credits":{"items":[]},"playbackControls":[{"shuffle":false,"playbackMode":"PLAY","title":"Play","icon":"play_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiZDk1N2I2ZjcifQ=="},{"shuffle":true,"playbackMode":"SHUFFLE","title":"Shuffle","icon":"shuffle_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiZDk1N2I2ZjcifQ=="}]}]},{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiZDk1N2I2ZjcifQ==","type":"ALBUM_ITEMS","width":100,"title":"","description":"","preTitle":null,"showMore":null,"supportsPaging":false,"quickPlay":false,"copyright":"(P) 2021 The Wild Children, LLC under exclusive license to Three Six Zero Recordings/Sony Music Entertainment","releaseDate":"2021-02-12","listFormat":"NUMBERS","pagedList":{"limit":9999,"offset":0,"totalNumberOfItems":1,"items":[{"item":{"id":171032760,"title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","duration":193,"version":null,"url":"https://tidal.com/browse/track/171032760","artists":[{"id":20699717,"name":"NEZ","type":"MAIN","picture":"43d88a75-b76c-437f-8892-b8c7fe151fb3"},{"id":3882537,"name":"ScHoolboy Q","type":"FEATURED","picture":"4b9d0b7b-f972-435a-ac3e-639b407fe0bc"}],"album":{"id":171032759,"title":"Wild Youngster (feat. ScHoolboy Q) (Jamie Jones' Wobble Remix)","cover":"72c1e674-70ca-4442-a530-0f00b0ef354a","vibrantColor":"#FFFFFF","videoCover":"9cc2842e-7430-4280-a7ba-4e06eec9ab3f","url":"https://tidal.com/browse/album/171032759","releaseDate":"2021-02-12"},"explicit":false,"volumeNumber":1,"trackNumber":1,"popularity":1,"allowStreaming":true,"streamReady":true,"streamStartDate":"2021-02-12T00:00:00.000+0000","editable":false,"replayGain":-6.56,"audioQuality":"HI_RES","audioModes":["STEREO"],"mixes":{"MASTER_TRACK_MIX":"0146c3e3ea420c3b8440c8d4845aa8","TRACK_MIX":"0011fb8ceb3f1ac3b3ad78d0b5e07e"}},"type":"track"}],"dataApiPath":"pages/data/2fbf68c2-dc58-49b1-b1be-6958e66383f3?albumId=171032759"},"playButton":true,"shuffleButton":true}]},{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiYzAyOTZlODQtM2E2ZC00NzVhLTllOGEtY2FmMzljMmExNGM0IiwibVYiOjEsIm1IIjoiOWZhOTU0MDMifQ==","type":"ARTIST_LIST","width":100,"title":"Related Artists","description":"","preTitle":null,"showMore":{"title":"View all","apiPath":"pages/single-module-page/e6e3ff1b-d6c4-4773-88d0-0cf97ccfcb59/13/c0296e84-3a6d-475a-9e8a-caf39c2a14c4/1?albumId=171032759"},"supportsPaging":true,"quickPlay":false,"scroll":"HORIZONTAL","pagedList":{"limit":20,"offset":0,"totalNumberOfItems":20,"items":[{"id":16761850,"name":"SIDEPIECE","picture":"55fdf034-85f8-4935-82e3-557c6935c493","artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Producer","categoryId":1},{"category":"Production team","categoryId":10},{"category":"Engineer","categoryId":3},{"category":"Performer","categoryId":11},{"category":"Songwriter","categoryId":2}],"mixes":{"MASTER_ARTIST_MIX":"01509e300c6b2baf95783da1c2c72f","ARTIST_MIX":"000ae0131952bf53eafe32abf2e398"}},{"id":30678477,"name":"Diplo & Mele","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1}],"mixes":{"ARTIST_MIX":"000aa3b30de6bd62540e3ce55f52d0"}},{"id":9735741,"name":"LP Giobbi","picture":"2ed81f35-e37a-4542-925f-d43d8bb45a94","artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Engineer","categoryId":3},{"category":"Producer","categoryId":1},{"category":"Production team","categoryId":10},{"category":"Performer","categoryId":11}],"mixes":{"MASTER_ARTIST_MIX":"0151eadd2464ecdd57c7b05d448a1a","ARTIST_MIX":"0003f05e291754f7f2c333727b4a87"}},{"id":4976587,"name":"Tita Lau","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Performer","categoryId":11},{"category":"Songwriter","categoryId":2},{"category":"Producer","categoryId":1},{"category":"Production team","categoryId":10},{"category":"Engineer","categoryId":3}],"mixes":{"MASTER_ARTIST_MIX":"015b984e5a77480f2e28ae84048399","ARTIST_MIX":"00011d807228a89d4168979ae95e2f"}},{"id":7472879,"name":"Bleu Clair","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Engineer","categoryId":3},{"category":"Producer","categoryId":1},{"category":"Songwriter","categoryId":2},{"category":"Production team","categoryId":10}],"mixes":{"MASTER_ARTIST_MIX":"015715d6634ed69300c570bdf41335","ARTIST_MIX":"0008a00ffad72a93dd8bf61ba01072"}},{"id":9476576,"name":"warner case","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Producer","categoryId":1},{"category":"Engineer","categoryId":3},{"category":"Performer","categoryId":11},{"category":"Production team","categoryId":10},{"category":"Songwriter","categoryId":2}],"mixes":{"ARTIST_MIX":"0009533a2743aefe1ce7d99a62e3b6"}},{"id":9223903,"name":"Channel Tres","picture":"b9de6a0a-339e-4f1b-a031-a05a4698691b","artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Performer","categoryId":11},{"category":"Producer","categoryId":1},{"category":"Production team","categoryId":10},{"category":"Engineer","categoryId":3},{"category":"Songwriter","categoryId":2}],"mixes":{"MASTER_ARTIST_MIX":"015cfbd9c80504bcf569379e16835a","ARTIST_MIX":"0009735e71ff92d50dbad0a58def7a"}},{"id":25771724,"name":"Diplo & Damian Lazarus","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1}],"mixes":{"ARTIST_MIX":"000f3ef8e6f4f950f087192286ee29"}},{"id":10107317,"name":"TSHA","picture":"12bc99b8-e21d-4e06-aad8-d034b8b48c7d","artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Producer","categoryId":1},{"category":"Engineer","categoryId":3},{"category":"Production team","categoryId":10},{"category":"Songwriter","categoryId":2},{"category":"Performer","categoryId":11}],"mixes":{"ARTIST_MIX":"000e7872989981fd93c35b1f482d8b"}},{"id":6668419,"name":"J. Worra","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Producer","categoryId":1},{"category":"Engineer","categoryId":3},{"category":"Production team","categoryId":10},{"category":"Songwriter","categoryId":2},{"category":"Performer","categoryId":11}],"mixes":{"MASTER_ARTIST_MIX":"015d3ccc0bcf410671a012dd94750c","ARTIST_MIX":"0000322c47a42e995d4f4604f185e6"}},{"id":11324730,"name":"Ashton Adams","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Songwriter","categoryId":2},{"category":"Producer","categoryId":1},{"category":"Production team","categoryId":10}],"mixes":{}},{"id":8595948,"name":"Jaden Thompson","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Songwriter","categoryId":2},{"category":"Producer","categoryId":1},{"category":"Engineer","categoryId":3}],"mixes":{"MASTER_ARTIST_MIX":"015a6e93623bfc5738e47f74d87607","ARTIST_MIX":"000ed85fda35630b7e6401ddc3e9d2"}},{"id":9059421,"name":"Miane","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Songwriter","categoryId":2},{"category":"Engineer","categoryId":3},{"category":"Producer","categoryId":1},{"category":"Production team","categoryId":10}],"mixes":{"MASTER_ARTIST_MIX":"0154f47b8ee128ca010d41519ff529","ARTIST_MIX":"000c3b573a21cb77314ec813d99d3a"}},{"id":8061731,"name":"VnssA","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Engineer","categoryId":3},{"category":"Producer","categoryId":1},{"category":"Songwriter","categoryId":2},{"category":"Performer","categoryId":11},{"category":"Production team","categoryId":10}],"mixes":{"ARTIST_MIX":"000ae96b26b7f87abefbb8055a799a"}},{"id":10055585,"name":"Mike Nasty","picture":"010f92ec-a85f-45bb-8634-016212527104","artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Producer","categoryId":1}],"mixes":{"ARTIST_MIX":"0005e59373cf1eda4173689232b5e8"}},{"id":3578953,"name":"Kito","picture":"451415fe-1bbf-498f-8231-08b4284d5412","artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Songwriter","categoryId":2},{"category":"Producer","categoryId":1},{"category":"Production team","categoryId":10},{"category":"Engineer","categoryId":3},{"category":"Performer","categoryId":11}],"mixes":{"MASTER_ARTIST_MIX":"0156033d1d47008287defab062b44a","ARTIST_MIX":"000662e122c15d1a012f8ff905d497"}},{"id":22959308,"name":"HoneyLuv","picture":null,"artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1}],"mixes":{"ARTIST_MIX":"000cf238c82904a087e18e762c2e84"}},{"id":4764382,"name":"Salute","picture":"f9ac8032-8960-4712-9031-d3156ac9d807","artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Engineer","categoryId":3},{"category":"Producer","categoryId":1},{"category":"Songwriter","categoryId":2},{"category":"Production team","categoryId":10}],"mixes":{"MASTER_ARTIST_MIX":"0156b92c324681c34a21d47f589729","ARTIST_MIX":"000eca9f10427b037ea90a50f751b9"}},{"id":7154576,"name":"Eden Prince","picture":"825011fd-8b30-44aa-98ca-844b5e9486b1","artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Engineer","categoryId":3},{"category":"Producer","categoryId":1},{"category":"Production team","categoryId":10},{"category":"Songwriter","categoryId":2}],"mixes":{"MASTER_ARTIST_MIX":"015dba1b43ff0424a8e07b9c1203a3","ARTIST_MIX":"000c4775da01491412275d01ca6014"}},{"id":8623544,"name":"John Summit","picture":"b3588f8a-23b7-4162-aaaf-10d54936777a","artistTypes":null,"artistRoles":[{"category":"Artist","categoryId":-1},{"category":"Producer","categoryId":1},{"category":"Engineer","categoryId":3},{"category":"Production team","categoryId":10},{"category":"Songwriter","categoryId":2},{"category":"Performer","categoryId":11}],"mixes":{"MASTER_ARTIST_MIX":"015f364e99b91e3cf3b7895bf26b2a","ARTIST_MIX":"0007179ec055512bde3a0f32724e6f"}}],"dataApiPath":"pages/data/13f97524-5f7b-466d-949e-f9c597a9e3bc?albumId=171032759"},"header":null,"layout":null}]}]}
 
