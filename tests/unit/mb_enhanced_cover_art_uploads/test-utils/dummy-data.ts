@@ -1,7 +1,8 @@
 // Abstractions to create dummy data
 
+import type { BlobResponse, Response, TextResponse } from '@lib/util/request';
 import type { CoverArt, FetchedImage } from '@src/mb_enhanced_cover_art_uploads/types';
-import { HTTPResponseError } from '@lib/util/xhr';
+import { HTTPResponseError } from '@lib/util/request';
 
 export interface DummyImageData {
     blob?: Blob;
@@ -76,31 +77,45 @@ export function createFetchedImageFromCoverArt(cover: CoverArt, data?: Partial<F
     });
 }
 
-export function createXhrResponse(response?: Partial<GM.Response<never>>): GM.Response<never> {
+function createResponse(response?: Partial<Response>): Omit<BlobResponse, 'blob'> {
     response = response ?? {};
     return {
-        context: response.context,
-        finalUrl: response.finalUrl ?? createRandomURL().href,
+        url: response.url ?? createRandomURL().href,
         statusText: response.statusText ?? 'OK',
         status: response.status ?? 200,
-        readyState: response.readyState ?? 4,
-        responseHeaders: response.responseHeaders ?? '',
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Target is also any
-        response: response.response ?? createBlob(),
-        responseText: response.responseText ?? '',
-        responseXML: response.responseXML ?? false,
+        headers: response.headers ?? new Headers(),
+        rawResponse: response.rawResponse ?? {},
     };
 }
 
-export function createHttpError(response?: Partial<GM.Response<never>>): HTTPResponseError {
-    const xhrResponse = createXhrResponse(response);
-    const err = new HTTPResponseError(xhrResponse.finalUrl, xhrResponse);
-    // If gmxhr is mocked, the HTTP errors are too, so we need to define these
-    // properties manually.
+export function createBlobResponse(response?: Partial<BlobResponse>): BlobResponse {
+    response = response ?? {};
+    return {
+        ...createResponse(response),
+        blob: response.blob ?? createBlob(),
+    };
+}
+
+export function createTextResponse(response?: Partial<TextResponse>): TextResponse {
+    response = response ?? {};
+    return {
+        ...createResponse(response),
+        text: response.text ?? '',
+        json(): unknown {
+            return JSON.parse(this.text);
+        },
+    };
+}
+
+export function createHttpError(response?: Partial<TextResponse>): HTTPResponseError {
+    const fakeResponse = createTextResponse(response);
+    const err = new HTTPResponseError(fakeResponse.url ?? createRandomURL(), fakeResponse);
+    // If request module is mocked, the HTTP errors are too, so we need to
+    // define these properties manually.
     Object.defineProperties(err, {
-        response: { value: xhrResponse },
-        statusCode: { value: xhrResponse.status },
-        statusText: { value: xhrResponse.statusText },
+        response: { value: fakeResponse },
+        statusCode: { value: fakeResponse.status },
+        statusText: { value: fakeResponse.statusText },
     });
     return err;
 }

@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: tidal provider/extracting images/throws on non-existent release
-WARC-Date: 2021-12-11T20:26:48.050Z
+WARC-Date: 2022-08-11T16:39:35.197Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:28a40e0b-1a1f-4316-9bab-bb977c0d8891>
+WARC-Record-ID: <urn:uuid:0131aabf-bfbf-4efb-81d7-9ac4865ff9b6>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:4540d5dc-d8cf-4184-a61f-a91acf551da6>
+WARC-Concurrent-To: <urn:uuid:eb26b4be-21ea-42e2-a741-384e6215aa0e>
 WARC-Target-URI: https://listen.tidal.com/v1/ping
-WARC-Date: 2021-12-11T20:26:48.051Z
+WARC-Date: 2022-08-11T16:39:35.197Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:2f77fa36-a08c-41ba-9f24-152ea33271bf>
+WARC-Record-ID: <urn:uuid:2aaed7e2-3ca7-4723-bf0f-933aa9bf5784>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:a4291b722c9f4e08c6aeac93fdb1c1506f4ab5f0e747a8ea7b6501609fe69d5f
@@ -27,22 +27,22 @@ GET /v1/ping HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:4540d5dc-d8cf-4184-a61f-a91acf551da6>
+WARC-Concurrent-To: <urn:uuid:eb26b4be-21ea-42e2-a741-384e6215aa0e>
 WARC-Target-URI: https://listen.tidal.com/v1/ping
-WARC-Date: 2021-12-11T20:26:48.051Z
+WARC-Date: 2022-08-11T16:39:35.197Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:62cb1b73-35b2-4e5a-a481-1a59aa1804f7>
+WARC-Record-ID: <urn:uuid:f804739a-42bd-48f2-b31a-82519244a4d1>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:2add204ab9b1ffafc2b8ec47f2ae1f1e70fc34e5d523d37ce859d8c460364761
-WARC-Block-Digest: sha256:2add204ab9b1ffafc2b8ec47f2ae1f1e70fc34e5d523d37ce859d8c460364761
+WARC-Payload-Digest: sha256:a7492143165e6f495d77af61e52dc5cae77478ae4c456cc8888f94fa5452282e
+WARC-Block-Digest: sha256:a7492143165e6f495d77af61e52dc5cae77478ae4c456cc8888f94fa5452282e
 Content-Length: 348
 
 harEntryId: 47c39b1a5162a6c91ca5b413317109d4
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:47.423Z
-time: 278
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":278,"receive":0,"ssl":-1}
+startedDateTime: 2022-08-11T16:39:34.495Z
+time: 344
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":344,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 51
 warcRequestCookies: []
 warcResponseHeadersSize: 393
@@ -52,12 +52,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://listen.tidal.com/v1/ping
-WARC-Date: 2021-12-11T20:26:48.050Z
+WARC-Date: 2022-08-11T16:39:35.197Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:4540d5dc-d8cf-4184-a61f-a91acf551da6>
+WARC-Record-ID: <urn:uuid:eb26b4be-21ea-42e2-a741-384e6215aa0e>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3
-WARC-Block-Digest: sha256:8bb79ca3a161b97271a8043900619265611f80f0edfa63af84724d7ef93ec20f
+WARC-Block-Digest: sha256:a9e0d075e5a447d886426ae4ef0d78695376fba4d84fff3f1f62e28135ac32bb
 Content-Length: 412
 
 HTTP/1.1 200 OK
@@ -65,22 +65,22 @@ cache-control: no-cache
 connection: close
 content-length: 2
 content-type: text/plain
-date: Sat, 11 Dec 2021 20:26:47 GMT
+date: Thu, 11 Aug 2022 16:39:34 GMT
 server: noyb
-via: 1.1 b3c499d6bb51c2f743813fea28eaaf30.cloudfront.net (CloudFront)
-x-amz-cf-id: JJKXffb_5u65-YPxaNUnu4-C02aNwn6_YHmJbf6a2T1hDW5rXZtbgg==
-x-amz-cf-pop: CDG52-P1
+via: 1.1 f082f6543392e25460f1119e4a1991fe.cloudfront.net (CloudFront)
+x-amz-cf-id: drTms5Q6VljhlZy19-5bDVvJkLnpv141LXC8otJph0PQx-4XyHoqCg==
+x-amz-cf-pop: LHR61-C1
 x-cache: Miss from cloudfront
 x-pollyjs-finalurl: https://listen.tidal.com/v1/ping
 
 OK
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:67b3b05a-c775-45f1-9beb-4b9ba39e612c>
+WARC-Concurrent-To: <urn:uuid:1ed6163a-3b4f-45b4-bc58-ab13e45ef9b1>
 WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=1&countryCode=NL&deviceType=BROWSER
-WARC-Date: 2021-12-11T20:26:48.051Z
+WARC-Date: 2022-08-11T16:39:35.197Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:9361bf9d-cb00-4317-93a8-37d771f2fc9c>
+WARC-Record-ID: <urn:uuid:bddcabb8-b8ed-404a-aabb-352a8ab5d0f6>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:55e99412e1d0ac0fb35ff6990836c39c7cd19b631306d6dc6bddd787ac8f2601
@@ -92,22 +92,22 @@ x-tidal-token: CzET4vdadNUFQ5JU
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:67b3b05a-c775-45f1-9beb-4b9ba39e612c>
+WARC-Concurrent-To: <urn:uuid:1ed6163a-3b4f-45b4-bc58-ab13e45ef9b1>
 WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=1&countryCode=NL&deviceType=BROWSER
-WARC-Date: 2021-12-11T20:26:48.051Z
+WARC-Date: 2022-08-11T16:39:35.197Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:bab2431f-4d52-45ff-b213-196675f81a1d>
+WARC-Record-ID: <urn:uuid:09eed8e6-9c30-40aa-b063-daaad45a464f>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:d309f13b8a86051330f03094b5c2945c40cea290b53d26dc3088b136ce1ec25f
-WARC-Block-Digest: sha256:d309f13b8a86051330f03094b5c2945c40cea290b53d26dc3088b136ce1ec25f
+WARC-Payload-Digest: sha256:d74cffd31eeb8bca56c22c8fb6f3db3f68aa25877974759668ee13149869f002
+WARC-Block-Digest: sha256:d74cffd31eeb8bca56c22c8fb6f3db3f68aa25877974759668ee13149869f002
 Content-Length: 349
 
 harEntryId: 8390b2b3587b3d0651e5863e04b030a3
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:47.705Z
-time: 343
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":343,"receive":0,"ssl":-1}
+startedDateTime: 2022-08-11T16:39:34.841Z
+time: 354
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":354,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 133
 warcRequestCookies: []
 warcResponseHeadersSize: 505
@@ -117,12 +117,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=1&countryCode=NL&deviceType=BROWSER
-WARC-Date: 2021-12-11T20:26:48.051Z
+WARC-Date: 2022-08-11T16:39:35.197Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:67b3b05a-c775-45f1-9beb-4b9ba39e612c>
+WARC-Record-ID: <urn:uuid:1ed6163a-3b4f-45b4-bc58-ab13e45ef9b1>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:a4ef321624cba823b888055a4c9de66b371bf63766e35d141a3fc631bcdce4f5
-WARC-Block-Digest: sha256:13f349e82c1d306d313e0a4da3c09b6031fee150f15ea3079b16dae055104515
+WARC-Block-Digest: sha256:1d26d65134f9958bc61b8e86bce64a5303866b37c97a5d4c024fbf7d69365968
 Content-Length: 586
 
 HTTP/1.1 404 Not Found
@@ -130,12 +130,12 @@ cache-control: no-cache
 connection: close
 content-length: 57
 content-type: application/json
-date: Sat, 11 Dec 2021 20:26:48 GMT
+date: Thu, 11 Aug 2022 16:39:35 GMT
 server: noyb
 vary: x-tidal-sessionid,x-tidal-token,authorization
-via: 1.1 32a3d8b90281de379fa6ae275a2021bc.cloudfront.net (CloudFront)
-x-amz-cf-id: ce8kiOnoyMpCD9MxXDNc0ddisAnlxRjM8gqTzRtS6yQvFdv0K6OtPw==
-x-amz-cf-pop: CDG52-P1
+via: 1.1 750c4cd5855cda8293959637bece163c.cloudfront.net (CloudFront)
+x-amz-cf-id: 0JfJ31x6BqI6t3xW5Lyrf8uD15Udsi1xq_0FH7K36l_B03BLu05tMg==
+x-amz-cf-pop: LHR61-C1
 x-cache: Error from cloudfront
 x-pollyjs-finalurl: https://listen.tidal.com/v1/pages/album?albumId=1&countryCode=NL&deviceType=BROWSER
 

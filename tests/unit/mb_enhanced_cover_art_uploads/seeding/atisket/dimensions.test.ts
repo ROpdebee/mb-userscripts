@@ -1,7 +1,7 @@
 import retry from 'retry';
 
 import type { CacheStore } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
-import * as xhr from '@lib/util/xhr';
+import { request } from '@lib/util/request';
 import { AtisketImage, CACHE_LOCALSTORAGE_KEY, localStorageCache, MAX_CACHED_IMAGES } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
 import { setupPolly } from '@test-utils/pollyjs';
 
@@ -284,11 +284,11 @@ describe('a-tisket images', () => {
         // underlying timeouts, so retries are done immediately and the tests don't
         // time out.
         const timeoutsSpy = jest.spyOn(retry, 'timeouts');
-        const xhrSpy = jest.spyOn(xhr, 'gmxhr');
+        const requestSpy = jest.spyOn(request, 'head');
 
         beforeEach(() => {
             timeoutsSpy.mockReturnValue([0, 0, 0, 0, 0]);
-            xhrSpy.mockClear();
+            requestSpy.mockClear();
         });
 
         it('retries on 429 errors', async () => {
@@ -300,7 +300,7 @@ describe('a-tisket images', () => {
             const image = new AtisketImage('https://example.com/test');
 
             await expect(image.getFileInfo()).resolves.toBeUndefined();
-            expect(xhrSpy).toHaveBeenCalledTimes(6); // First try + 5 retries
+            expect(requestSpy).toHaveBeenCalledTimes(6); // First try + 5 retries
         });
 
         it('does not retry on 404 errors', async () => {
@@ -312,7 +312,7 @@ describe('a-tisket images', () => {
             const image = new AtisketImage('https://example.com/test');
 
             await expect(image.getFileInfo()).resolves.toBeUndefined();
-            expect(xhrSpy).toHaveBeenCalledTimes(1);
+            expect(requestSpy).toHaveBeenCalledTimes(1);
         });
 
         it('retries on 503 errors', async () => {
@@ -324,7 +324,7 @@ describe('a-tisket images', () => {
             const image = new AtisketImage('https://example.com/test');
 
             await expect(image.getFileInfo()).resolves.toBeUndefined();
-            expect(xhrSpy).toHaveBeenCalledTimes(6);
+            expect(requestSpy).toHaveBeenCalledTimes(6);
         });
     });
 });

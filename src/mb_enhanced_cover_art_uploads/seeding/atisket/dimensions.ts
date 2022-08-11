@@ -3,7 +3,7 @@ import pRetry from 'p-retry';
 import type { Dimensions, FileInfo } from '@src/mb_caa_dimensions/ImageInfo';
 import { LOGGER } from '@lib/logging/logger';
 import { safeParseJSON } from '@lib/util/json';
-import { gmxhr, HTTPResponseError } from '@lib/util/xhr';
+import { HTTPResponseError, request } from '@lib/util/request';
 import { BaseImage } from '@src/mb_caa_dimensions/Image';
 
 // Use a multiple of 3, most a-tisket releases have 3 images.
@@ -100,9 +100,7 @@ export class AtisketImage extends BaseImage {
     }
 
     protected async loadFileInfo(): Promise<FileInfo> {
-        const resp = await pRetry(() => gmxhr(this.imgUrl, {
-            method: 'HEAD',
-        }), {
+        const resp = await pRetry(() => request.head(this.imgUrl), {
             retries: 5,
             onFailedAttempt: (err) => {
                 // Don't retry on 4xx status codes except for 429. Anything below 400 doesn't throw a HTTPResponseError.
@@ -114,8 +112,8 @@ export class AtisketImage extends BaseImage {
             },
         });
 
-        const fileSize = resp.responseHeaders.match(/content-length: (\d+)/i)?.[1];
-        const fileType = resp.responseHeaders.match(/content-type: \w+\/(\w+)/i)?.[1];
+        const fileSize = resp.headers.get('Content-Length')?.match(/\d+/)?.[0];
+        const fileType = resp.headers.get('Content-Type')?.match(/\w+\/(\w+)/)?.[1];
 
         return {
             fileType: fileType?.toUpperCase(),

@@ -1,24 +1,12 @@
-import HttpAdapter from '@pollyjs/adapter-node-http';
-
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { ArchiveProvider } from '@src/mb_enhanced_cover_art_uploads/providers/archive';
-import { mockFetch, setupPolly } from '@test-utils/pollyjs';
-import GMXHRAdapter from '@test-utils/pollyjs/gmxhr-adapter';
+import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 import { findImagesSpec } from './find_images_spec';
 import { urlMatchingSpec } from './url_matching_spec';
 
-const pollyContext = setupPolly({
-    // Need HttpAdapter for the `fetch` call for IA metadata, and the
-    // GMXHRAdapter for the `GMXHR` call to CAA index.json in the last test
-    // case.
-    adapters: [HttpAdapter, GMXHRAdapter],
-});
-
-beforeAll(() => {
-    mockFetch();
-});
+const pollyContext = setupPolly();
 
 describe('archive provider', () => {
     const provider = new ArchiveProvider();

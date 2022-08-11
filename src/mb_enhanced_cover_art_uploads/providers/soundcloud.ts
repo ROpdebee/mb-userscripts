@@ -3,8 +3,8 @@ import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { filterNonNull } from '@lib/util/array';
 import { assert } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
+import { request } from '@lib/util/request';
 import { urlBasename } from '@lib/util/urls';
-import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArt } from '../types';
 import { ProviderWithTrackImages } from './base';
@@ -195,8 +195,8 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             ids: lazyTrackIDs.join(','),
             client_id: SC_CLIENT_ID,
         });
-        const trackDataResponse = await gmxhr(`https://api-v2.soundcloud.com/tracks?${params}`);
-        const trackData = safeParseJSON<LoadedAPITrack[]>(trackDataResponse.responseText);
+        const trackDataResponse = await request.get(`https://api-v2.soundcloud.com/tracks?${params}`);
+        const trackData = safeParseJSON<LoadedAPITrack[]>(trackDataResponse.text);
         if (!trackData) {
             LOGGER.error('Could not parse Soundcloud track data, some track images may be missed');
             // We'll still return the tracks that we couldn't load, otherwise

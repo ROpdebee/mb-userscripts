@@ -1,10 +1,10 @@
-import type { GMXHROptions } from '@lib/util/xhr';
+import type { RequestOptions } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { collatedSort, filterNonNull, groupBy } from '@lib/util/array';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';
-import { gmxhr } from '@lib/util/xhr';
+import { request } from '@lib/util/request';
 
 import type { CoverArt, FetchedImage } from '../types';
 
@@ -101,8 +101,8 @@ export abstract class CoverArtProvider {
         return !!id && id === this.extractId(redirectedUrl);
     }
 
-    protected async fetchPage(url: URL, options?: GMXHROptions): Promise<string> {
-        const resp = await gmxhr(url, {
+    protected async fetchPage(url: URL, options?: RequestOptions): Promise<string> {
+        const resp = await request.get(url, {
             // Standardise error messages for 404 pages, otherwise the HTTP error
             // will be shown in the UI.
             httpErrorMessages: {
@@ -113,14 +113,13 @@ export abstract class CoverArtProvider {
             ...options,
         });
 
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (resp.finalUrl === undefined) {
+        if (resp.url === undefined) {
             LOGGER.warn(`Could not detect if ${url.href} caused a redirect`);
-        } else if (resp.finalUrl !== url.href && !this.isSafeRedirect(url, new URL(resp.finalUrl))) {
-            throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${resp.finalUrl}, which may be a different release. If this redirected URL is correct, please retry with ${resp.finalUrl} directly.`);
+        } else if (resp.url !== url.href && !this.isSafeRedirect(url, new URL(resp.url))) {
+            throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${resp.url}, which may be a different release. If this redirected URL is correct, please retry with ${resp.url} directly.`);
         }
 
-        return resp.responseText;
+        return resp.text;
     }
 }
 
@@ -176,11 +175,11 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
     }
 
     private async urlToDigest(imageUrl: string): Promise<string> {
-        const resp = await gmxhr(this.imageToThumbnailUrl(imageUrl), {
+        const resp = await request.get(this.imageToThumbnailUrl(imageUrl), {
             responseType: 'blob',
         });
 
-        return blobToDigest(resp.response as Blob);
+        return blobToDigest(resp.blob);
     }
 
     protected imageToThumbnailUrl(imageUrl: string): string {

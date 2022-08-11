@@ -2,7 +2,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
-import { gmxhr, HTTPResponseError } from '@lib/util/xhr';
+import { HTTPResponseError, request } from '@lib/util/request';
 
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
@@ -65,13 +65,13 @@ export class QobuzProvider extends CoverArtProvider {
     }
 
     private static async getMetadata(id: string): Promise<AlbumMetadata> {
-        const resp = await gmxhr(`https://www.qobuz.com/api.json/0.2/album/get?album_id=${id}&offset=0&limit=20`, {
+        const resp = await request.get(`https://www.qobuz.com/api.json/0.2/album/get?album_id=${id}&offset=0&limit=20`, {
             headers: {
                 'x-app-id': QobuzProvider.QOBUZ_APP_ID,
             },
         });
 
-        const metadata = safeParseJSON<AlbumMetadata>(resp.responseText, 'Invalid response from Qobuz API');
+        const metadata = safeParseJSON<AlbumMetadata>(resp.text, 'Invalid response from Qobuz API');
         assert(metadata.id.toString() === id, `Qobuz returned wrong release: Requested ${id}, got ${metadata.id}`);
 
         return metadata;
