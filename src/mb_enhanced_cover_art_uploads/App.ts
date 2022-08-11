@@ -1,5 +1,6 @@
 /* istanbul ignore file: Covered by E2E */
 
+import { CollectorSink } from '@lib/logging/collectorSink';
 import { GuiSink } from '@lib/logging/guiSink';
 import { LOGGER } from '@lib/logging/logger';
 import { EditNote } from '@lib/MB/EditNote';
@@ -23,12 +24,16 @@ export class App {
     private readonly ui: InputForm;
     private readonly urlsInProgress: Set<string>;
     private readonly loggingSink = new GuiSink();
+    private readonly collectorSink = new CollectorSink();
     private readonly fetchingSema: ObservableSemaphore;
     public onlyFront = false;
 
     public constructor() {
         this.note = EditNote.withFooterFromGMInfo();
         this.urlsInProgress = new Set();
+
+        // Set up log collector
+        LOGGER.addSink(this.collectorSink);
 
         // Set up logging banner
         LOGGER.addSink(this.loggingSink);
