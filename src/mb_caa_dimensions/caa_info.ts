@@ -4,6 +4,7 @@ import { getItemMetadata } from '@lib/IA/ArchiveMetadata';
 import { LOGGER } from '@lib/logging/logger';
 import { parseDOM, qs, qsa } from '@lib/util/dom';
 import { memoize } from '@lib/util/functions';
+import { request } from '@lib/util/request';
 
 import type { FileInfo } from './ImageInfo';
 
@@ -35,8 +36,8 @@ export async function getCAAInfo(itemId: string, imageId: string): Promise<FileI
 
 async function tryGetPDFPageCount(itemId: string, imageId: string): Promise<number> {
     const zipListingUrl = `https://archive.org/download/${itemId}/${itemId}-${imageId}_jp2.zip/`;
-    const zipListingResp = await fetch(zipListingUrl);
-    const page = parseDOM(await zipListingResp.text(), zipListingUrl);
+    const zipListingResp = await request.get(zipListingUrl);
+    const page = parseDOM(zipListingResp.text, zipListingUrl);
 
     // Grabbing tbody via `qs` separately so we throw an error in case we can't find it.
     const tbody = qs('tbody', page);
