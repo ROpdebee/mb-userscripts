@@ -63,6 +63,12 @@ export class AmazonProvider extends CoverArtProvider {
         const pageContent = await this.fetchPage(url);
         const pageDom = parseDOM(pageContent, url.href);
 
+        // Check for Amazon rate limiting
+        // istanbul ignore next: Difficult to exercise in tests.
+        if (qsMaybe('form[action="/errors/validateCaptcha"]', pageDom) !== null) {
+            throw new Error('Amazon served a captcha page');
+        }
+
         let finder: typeof this.findDigitalImages;
         /* eslint-disable @typescript-eslint/unbound-method -- Bound further down */
         if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
