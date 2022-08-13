@@ -186,4 +186,46 @@ describe('request', () => {
             expect(cb).toHaveBeenCalledWith('multiple,values', 'test2', resp.headers);
         });
     });
+
+    describe('observers', () => {
+        const fakeObserver = {
+            onStarted: jest.fn(),
+            onFailed: jest.fn(),
+            onSuccess: jest.fn(),
+        };
+
+        beforeAll(() => {
+            request.addObserver(fakeObserver);
+        });
+
+        beforeEach(() => {
+            fakeObserver.onStarted.mockReset();
+            fakeObserver.onFailed.mockReset();
+            fakeObserver.onSuccess.mockReset();
+        });
+
+        it('notifies onStarted', async () => {
+            await request.get('https://httpbin.org/status/200');
+
+            expect(fakeObserver.onStarted).toHaveBeenCalledOnce();
+        });
+
+        it('notifies onSuccess on success', async () => {
+            await request.get('https://httpbin.org/status/200');
+
+            expect(fakeObserver.onSuccess).toHaveBeenCalledOnce();
+            expect(fakeObserver.onFailed).not.toHaveBeenCalled();
+        });
+
+        it('notifies onFailure on errors', async () => {
+            pollyContext.polly.configure({
+                recordFailedRequests: true,
+            });
+
+            await expect(request.get('https://httpbin.org/status/404')).toReject();
+
+            expect(fakeObserver.onFailed).toHaveBeenCalledOnce();
+            expect(fakeObserver.onSuccess).not.toHaveBeenCalled();
+        });
+    });
 });
