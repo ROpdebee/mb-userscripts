@@ -1,6 +1,8 @@
 import NodeHttpAdapter from '@pollyjs/adapter-node-http';
 
+import { LOGGER } from '@lib/logging/logger';
 import { AbortedError, HTTPResponseError, NetworkError, request, RequestBackend, TimeoutError } from '@lib/util/request';
+import { loggingObserver } from '@lib/util/request/observers';
 import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
 import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 import GMXHRAdapter from '@test-utils/pollyjs/gmxhr-adapter';
@@ -252,6 +254,43 @@ describe('request', () => {
 
             expect(fakeObserver.onFailed).toHaveBeenCalledOnce();
             expect(fakeObserver.onSuccess).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('logging observer', () => {
+        const debugSpy = jest.spyOn(LOGGER, 'debug');
+
+        beforeAll(() => {
+            // This will remain attached after these tests are finished because
+            // we can't remove observers at this time. It's not a problem though.
+            request.addObserver(loggingObserver);
+        });
+
+        beforeEach(() => {
+            debugSpy.mockClear();
+        });
+
+        it('logs when request started', async () => {
+            await request.get('https://httpbin.org/status/200');
+
+            // Should've been called multiple times.
+            expect(debugSpy).toHaveBeenNthCalledWith(1, 'GET https://httpbin.org/status/200 - STARTED (backend: 2)');
+        });
+
+        it('notifies onSuccess on success', async () => {
+            await request.get('https://httpbin.org/status/200');
+
+            expect(debugSpy).toHaveBeenLastCalledWith('GET https://httpbin.org/status/200 - SUCCESS (code 200)');
+        });
+
+        it('notifies onFailure on errors', async () => {
+            pollyContext.polly.configure({
+                recordFailedRequests: true,
+            });
+
+            await expect(request.get('https://httpbin.org/status/404')).toReject();
+
+            expect(debugSpy).toHaveBeenLastCalledWith('GET https://httpbin.org/status/404 - FAILED (HTTPResponseError: HTTP error 404: Not Found)');
         });
     });
 });
