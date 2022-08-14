@@ -21,6 +21,32 @@ describe('request', () => {
         mockFetch();
     });
 
+    beforeEach(() => {
+        // Set up pollyjs so we reuse the same recordings for requests that
+        // we're making multiple times.
+        const server = pollyContext.polly.server;
+        server
+            .get(httpBinHelloWorldUrl)
+            // FIXME: We need to keep recordings for GMXHR contentType separate.
+            // The recordings for arraybuffer and blob are encoded as Base64,
+            // and the pollyjs GMXHR adapter needs that information to return
+            // the correct response. We should fix the adapter to not require
+            // a specific encoding. If we reuse the recordings for these, the
+            // adapter will return a response with `responseText` even though
+            // the `contentType` is set to `blob` or `arraybuffer`.
+            .filter((req) => !req.recordingName.includes('gmxhr backend/supports'))
+            .recordingName('request/hello world');
+        server
+            .get('https://httpbin.org/json')
+            .recordingName('request/json');
+        server
+            .get('https://httpbin.org/status/404')
+            .recordingName('request/status 404');
+        server
+            .get('https://httpbin.org/status/200')
+            .recordingName('request/status 200');
+    });
+
     describe.each([['fetch', RequestBackend.FETCH], ['gmxhr', RequestBackend.GMXHR]])('%s backend', (_1, backend) => {
         it.each(responseTypeCases)('supports %s responseType requests', async (responseType, property, expectedValue) => {
             const response = await request.get(httpBinHelloWorldUrl, {
