@@ -1,11 +1,11 @@
 import type { RequestBackend, RequestMethod, RequestOptions } from '../requestOptions';
 import type { ProgressEvent, Response } from '../response';
 
-interface BaseRequestEvent {
+export interface BaseRequestEvent {
     backend: RequestBackend;
     method: RequestMethod;
     url: URL | string;
-    options: RequestOptions | undefined;
+    options?: RequestOptions;
 }
 
 export interface RequestObserver {

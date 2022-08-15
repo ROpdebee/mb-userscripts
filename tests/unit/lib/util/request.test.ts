@@ -2,7 +2,7 @@ import NodeHttpAdapter from '@pollyjs/adapter-node-http';
 
 import { LOGGER } from '@lib/logging/logger';
 import { AbortedError, HTTPResponseError, NetworkError, request, RequestBackend, TimeoutError } from '@lib/util/request';
-import { loggingObserver } from '@lib/util/request/observers';
+import { loggingObserver, RecordingObserver } from '@lib/util/request/observers';
 import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
 import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 import GMXHRAdapter from '@test-utils/pollyjs/gmxhr-adapter';
@@ -291,6 +291,118 @@ describe('request', () => {
             await expect(request.get('https://httpbin.org/status/404')).toReject();
 
             expect(debugSpy).toHaveBeenLastCalledWith('GET https://httpbin.org/status/404 - FAILED (HTTPResponseError: HTTP error 404: Not Found)');
+        });
+    });
+
+    describe('recording observer', () => {
+        const observer = new RecordingObserver();
+
+        beforeAll(() => {
+            request.addObserver(observer);
+        });
+
+        beforeEach(() => {
+            while (observer['recordedResponses'].length > 0) {
+                observer['recordedResponses'].pop();
+            }
+        });
+
+        it('exports successful requests', async () => {
+            await request.get(httpBinHelloWorldUrl);
+
+            expect(observer.exportResponses()).toIncludeMultiple([
+                `GET ${httpBinHelloWorldUrl} (backend: 2)`,
+                `${httpBinHelloWorldUrl} 200: OK`,
+                'content-length: 11',
+                'hello world',
+            ]);
+        });
+
+        it('does not include onProgress callback in exported options', async () => {
+            await request.get(httpBinHelloWorldUrl, {
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                onProgress() {},
+            });
+
+            expect(observer.exportResponses()).toIncludeMultiple([
+                `GET ${httpBinHelloWorldUrl} (backend: 2)`,
+                'Options: {}',
+                `${httpBinHelloWorldUrl} 200: OK`,
+                'content-length: 11',
+                'hello world',
+            ]);
+        });
+
+        it('exports successful arraybuffer requests', async () => {
+            await request.get(httpBinHelloWorldUrl, {
+                responseType: 'arraybuffer',
+                backend: RequestBackend.FETCH,
+            });
+
+            expect(observer.exportResponses()).toIncludeMultiple([
+                `GET ${httpBinHelloWorldUrl} (backend: 1)`,
+                ('Options: {\n'
+                 + '  "responseType": "arraybuffer",\n'
+                 + '  "backend": 1\n'
+                 + '}'),
+                `${httpBinHelloWorldUrl} 200:`,
+                'content-length: 11',
+                '<ArrayBuffer, 11 bytes>',
+            ]);
+        });
+
+        it('exports successful blob requests', async () => {
+            await request.get(httpBinHelloWorldUrl, {
+                responseType: 'blob',
+                backend: RequestBackend.FETCH,
+            });
+
+            expect(observer.exportResponses()).toIncludeMultiple([
+                `GET ${httpBinHelloWorldUrl} (backend: 1)`,
+                ('Options: {\n'
+                 + '  "responseType": "blob",\n'
+                 + '  "backend": 1\n'
+                 + '}'),
+                `${httpBinHelloWorldUrl} 200:`,
+                'content-length: 11',
+                '<Blob, 20 bytes>', // Probably internally encoded as Base64?
+            ]);
+        });
+
+        it('exports failed requests', async () => {
+            await expect(request.get('https://httpbin.org/status/404')).toReject();
+
+            expect(observer.exportResponses()).toIncludeMultiple([
+                'GET https://httpbin.org/status/404 (backend: 2)',
+                'https://httpbin.org/status/404 404: Not Found',
+                'content-length: 0',
+            ]);
+        });
+
+        it('does not export requests that failed due to network errors', async () => {
+            // There's no response to export, so this shouldn't be exported at all.
+            mockGMxmlHttpRequest.mockImplementation((options) => options.onerror?.({} as GM.Response<never>));
+
+            await expect(request.get('https://httpbin.org/status/200', {
+                backend: RequestBackend.GMXHR,
+            })).toReject();
+
+            expect(observer.exportResponses()).toBeEmpty();
+        });
+
+        it('exports multiple requests', async () => {
+            await expect(request.get('https://httpbin.org/status/200')).toResolve();
+            await expect(request.get('https://httpbin.org/status/404')).toReject();
+
+            expect(observer.exportResponses()).toIncludeMultiple([
+                'GET https://httpbin.org/status/200 (backend: 2)',
+                'https://httpbin.org/status/200 200: OK',
+                'content-length: 0',
+                '=================',
+                'GET https://httpbin.org/status/404 (backend: 2)',
+                'https://httpbin.org/status/404 404: Not Found',
+                'content-length: 0',
+            ]);
         });
     });
 });
