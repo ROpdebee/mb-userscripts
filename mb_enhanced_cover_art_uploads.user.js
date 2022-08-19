@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.8.8.3
+// @version      2022.8.19
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -643,6 +643,11 @@
       return _call(function () {
         return _await(_this.fetchPage(url), function (pageContent) {
           const pageDom = parseDOM(pageContent, url.href);
+
+          if (qsMaybe('form[action="/errors/validateCaptcha"]', pageDom) !== null) {
+            throw new Error('Amazon served a captcha page');
+          }
+
           let finder;
 
           if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
