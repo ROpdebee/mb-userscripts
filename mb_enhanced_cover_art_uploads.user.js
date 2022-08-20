@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.8.19
+// @version      2022.8.20
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1918,7 +1918,7 @@
 
     const types = new Set();
     const keywords = caption.split(/,|\s|and|&/i);
-    const typeKeywordsToTypes = [['front', ArtworkTypeIDs.Front], ['back', ArtworkTypeIDs.Back], ['spine', ArtworkTypeIDs.Spine], ['top', ArtworkTypeIDs.Top], ['bottom', ArtworkTypeIDs.Bottom], ['interior', ArtworkTypeIDs.Tray], ['inside', ArtworkTypeIDs.Tray]];
+    const typeKeywordsToTypes = [['front', ArtworkTypeIDs.Front], ['back', ArtworkTypeIDs.Back], ['spine', ArtworkTypeIDs.Spine], ['side', ArtworkTypeIDs.Spine], ['top', ArtworkTypeIDs.Top], ['bottom', ArtworkTypeIDs.Bottom], ['interior', ArtworkTypeIDs.Tray], ['inside', ArtworkTypeIDs.Tray]];
 
     for (var _i = 0, _typeKeywordsToTypes = typeKeywordsToTypes; _i < _typeKeywordsToTypes.length; _i++) {
       const _typeKeywordsToTypes$ = _slicedToArray(_typeKeywordsToTypes[_i], 2),
@@ -1950,9 +1950,9 @@
   }
 
   function mapDiscType(mediumType, caption) {
-    const keywords = caption.split(/,|\s/).filter(Boolean);
     const commentParts = [];
     let type = ArtworkTypeIDs.Medium;
+    const keywords = caption.split(/,|\s/).filter(Boolean);
 
     var _iterator = _createForOfIteratorHelper(keywords),
         _step;
@@ -1963,7 +1963,7 @@
 
         if (/reverse|back/i.test(keyword)) {
           type = ArtworkTypeIDs.Matrix;
-        } else {
+        } else if (!/front/i.test(keyword)) {
           commentParts.push(keyword);
         }
       }
@@ -1973,7 +1973,7 @@
       _iterator.f();
     }
 
-    if (commentParts.length > 0 && /^\d+/.test(commentParts[0])) {
+    if (commentParts.length > 0 && /^\d+/.test(commentParts[0]) || mediumType !== 'Disc') {
       commentParts.unshift(mediumType);
     }
 
@@ -1992,6 +1992,7 @@
     cassette: ArtworkTypeIDs.Medium,
     vinyl: ArtworkTypeIDs.Medium,
     dvd: mapDiscType.bind(undefined, 'DVD'),
+    'blu-ray': mapDiscType.bind(undefined, 'Blu‐ray'),
     tray: ArtworkTypeIDs.Tray,
     back: ArtworkTypeIDs.Back,
     obi: ArtworkTypeIDs.Obi,
@@ -2003,6 +2004,7 @@
     sticker: ArtworkTypeIDs.Sticker,
     slipcase: mapPackagingType.bind(undefined, 'Slipcase'),
     digipack: mapPackagingType.bind(undefined, 'Digipak'),
+    sleeve: mapPackagingType.bind(undefined, 'Sleeve'),
     insert: {
       type: ArtworkTypeIDs.Other,
       comment: 'Insert'
@@ -2061,7 +2063,7 @@
   function convertCaption(caption) {
     LOGGER.debug("Found caption \u201C".concat(caption, "\u201D"));
 
-    const _caption$trim$split = caption.trim().split(/\b/),
+    const _caption$trim$split = caption.trim().split(/(?=[^a-zA-Z\d-])/),
           _caption$trim$split2 = _toArray(_caption$trim$split),
           captionType = _caption$trim$split2[0],
           captionRestParts = _caption$trim$split2.slice(1);
