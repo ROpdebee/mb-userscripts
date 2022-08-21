@@ -30,7 +30,7 @@ const DEFAULT_OPTIONS = {
     metadataOrder: [
         'name', 'description', 'version', 'author', 'license', 'namespace',
         'homepageURL', 'supportURL', 'downloadURL', 'updateURL',
-        'match', 'exclude', 'require', 'resource', 'run-at', 'grant', 'connect',
+        'include', 'exclude', 'require', 'resource', 'run-at', 'grant', 'connect',
     ],
 };
 

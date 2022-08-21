@@ -7,6 +7,9 @@
 // Declare v3 GM_* APIs, but not globally.
 declare function GM_xmlhttpRequest<T>(details: GM.Request<T>): void;
 declare function GM_getResourceURL(resourceName: string): string;
+declare function GM_getValue<TValue = GM.Value>(name: string): TValue;
+declare function GM_setValue(name: string, value: GM.Value): void;
+declare function GM_deleteValue(name: string): void;
 declare const GM_info: typeof GM.info;
 
 function existsInGM(name: string): boolean {
@@ -40,6 +43,29 @@ export function GMgetResourceUrl(resourceName: string): Promise<string> {
     } else {
         // eslint-disable-next-line sonarjs/no-use-of-empty-return-value -- False positive.
         return Promise.resolve(GM_getResourceURL(resourceName));
+    }
+}
+
+export function GMgetValue<TValue extends GM.Value>(name: string): Promise<TValue | undefined> {
+    // eslint-disable-next-line sonarjs/no-use-of-empty-return-value -- False positive.
+    return existsInGM('getValue') ? GM.getValue<TValue>(name) : Promise.resolve(GM_getValue<TValue>(name));
+}
+
+export function GMsetValue(name: string, value: GM.Value): Promise<void> {
+    if (existsInGM('setValue')) {
+        return GM.setValue(name, value);
+    } else {
+        GM_setValue(name, value);
+        return Promise.resolve();
+    }
+}
+
+export function GMdeleteValue(name: string): Promise<void> {
+    if (existsInGM('deleteValue')) {
+        return GM.deleteValue(name);
+    } else {
+        GM_deleteValue(name);
+        return Promise.resolve();
     }
 }
 

@@ -45,6 +45,15 @@ export function enumerate<T>(array: readonly T[]): Array<[T, number]> {
     return array.map((el, idx) => [el, idx]);
 }
 
+export function splitChunks<T>(arr: readonly T[], chunkSize: number): T[][] {
+    const chunks: T[][] = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+        chunks.push(arr.slice(i, i + chunkSize));
+    }
+
+    return chunks;
+}
+
 function isFactory<T2>(maybeFactory: T2 | (() => T2)): maybeFactory is () => T2 {
     return typeof maybeFactory === 'function';
 }
@@ -66,4 +75,19 @@ export function insertBetween<T1, T2>(arr: readonly T1[], newElement: T2 | (() =
         ...arr.slice(0, 1),
         ...arr.slice(1).flatMap((elmt) => [isFactory(newElement) ? newElement() : newElement, elmt]),
     ];
+}
+
+/**
+ * Intersect two arrays: Return array with elements common to both arrays.
+ */
+export function intersect<T>(arr1: readonly T[], arr2: readonly T[]): T[] {
+    return arr1.filter((el) => arr2.includes(el));
+}
+
+/**
+ * Take difference between two arrays: Return array with elements of first array
+ * that are not present in second.
+ */
+export function difference<T>(arr1: readonly T[], arr2: readonly T[]): T[] {
+    return arr1.filter((el) => !arr2.includes(el));
 }

@@ -1,23 +1,17 @@
 import type { UserscriptMetadata } from '@lib/util/metadata';
-import { transformMBMatchURL } from '@lib/util/metadata';
-
-const mbMatchedUrls = [
-    'release/*/add-cover-art',
-    'release/*/add-cover-art?*',
-    'release/*/cover-art',
-].map((url) => transformMBMatchURL(url));
+import { createMBRegex as mb, createURLRuleRegex, MBID_REGEX_PART as mbid } from '@lib/util/metadata';
 
 const metadata: UserscriptMetadata = {
     name: 'MB: Enhanced Cover Art Uploads',
     description: 'Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!',
     'run-at': 'document-end',
-    match: [
-        ...mbMatchedUrls,
-        '*://atisket.pulsewidth.org.uk/*',
-        '*://etc.marlonob.info/atisket/*',
-        '*://vgmdb.net/album/*',
+    include: [
+        mb`release/${mbid}/add-cover-art`,
+        mb`release/${mbid}/cover-art`,
+        createURLRuleRegex('atisket.pulsewidth.org.uk', /.*?/, { query: 'mandatory' }),
+        createURLRuleRegex('etc.marlonob.info', /atisket\/.*?/, { query: 'mandatory' }),
+        createURLRuleRegex('vgmdb.net', /album\/\d+/),
     ],
-    exclude: ['*://atisket.pulsewidth.org.uk/'],
     grant: [
         'GM.xmlhttpRequest',
         // Used for some favicons

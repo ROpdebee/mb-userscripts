@@ -10,12 +10,20 @@ import { gmxhr } from '@lib/util/xhr';
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
-interface CAAIndex {
+// TODO: This should probably be put in lib.
+export interface CAAIndex {
     images: Array<{
         comment: string;
         types: string[];
         id: string | number;  // Used to be string in the past, hasn't been applied retroactively yet, see CAA-129
         image: string;
+        thumbnails: {
+            '250': string;
+            '500': string;
+            '1200'?: string;
+            small: string;
+            large: string;
+        };
     }>;
 }
 

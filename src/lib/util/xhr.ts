@@ -32,10 +32,10 @@ export class HTTPResponseError extends ResponseError {
     public readonly statusCode: number;
     public readonly statusText: string;
     // eslint-disable-next-line no-restricted-globals
-    public readonly response: GM.Response<never>;
+    public readonly response: GM.Response<never> | Response;
 
     // eslint-disable-next-line no-restricted-globals
-    public constructor(url: string | URL, response: GM.Response<never>, errorMessage?: string) {
+    public constructor(url: string | URL, response: GM.Response<never> | Response, errorMessage?: string) {
         /* istanbul ignore else: Should not happen */
         if (errorMessage) {
             super(url, errorMessage);

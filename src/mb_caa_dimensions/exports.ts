@@ -2,33 +2,25 @@
 
 import { logFailure } from '@lib/util/async';
 
-import type { ImageInfo } from './ImageInfo';
+import type { Dimensions, ImageInfo } from './ImageInfo';
 import type { InfoCache } from './InfoCache';
 import { CAAImageWithFullSizeURL, displayInfoWhenInView } from './DisplayedImage';
 import { CAAImage } from './Image';
 
-interface LegacyImageInfo {
-    url: string;
-    width: number;
-    height: number;
-    size?: number;
-    format?: string;
-}
+export type ROpdebee_getDimensionsWhenInView = (imgElement: HTMLImageElement) => void;
+export type ROpdebee_getCAAImageInfo = (imgUrl: string) => Promise<ImageInfo>;
+export type ROpdebee_getImageDimensions = (imgUrl: string) => Promise<Dimensions | undefined>;
 
 declare global {
     interface Window {
-        ROpdebee_getDimensionsWhenInView: (imgElement: HTMLImageElement) => void;
-        ROpdebee_getCAAImageInfo: (imgUrl: string) => Promise<ImageInfo>;
-        ROpdebee_loadImageDimensions: (imgUrl: string) => Promise<LegacyImageInfo>;
+        ROpdebee_getDimensionsWhenInView: ROpdebee_getDimensionsWhenInView;
+        ROpdebee_getCAAImageInfo: ROpdebee_getCAAImageInfo;
+        ROpdebee_getImageDimensions: ROpdebee_getImageDimensions;
     }
 }
 
 export function setupExports(cachePromise: Promise<InfoCache>): void {
     async function getCAAImageInfo(imgUrl: string): Promise<ImageInfo> {
-        if (new URL(imgUrl).hostname !== 'archive.org') {
-            throw new Error('Unsupported URL: Need direct image URL');
-        }
-
         const cache = await cachePromise;
         const image = new CAAImage(imgUrl, cache);
         return image.getImageInfo();
@@ -41,19 +33,14 @@ export function setupExports(cachePromise: Promise<InfoCache>): void {
         }), `Something went wrong when attempting to load image info for ${imgElement.src}`);
     }
 
-    async function loadImageDimensions(imgUrl: string): Promise<LegacyImageInfo> {
-        const imageInfo = await getCAAImageInfo(imgUrl);
-        return {
-            url: imgUrl,
-            ...imageInfo.dimensions ?? { width: 0, height: 0 },
-            size: imageInfo.size,
-            format: imageInfo.fileType,
-        };
+    async function getImageDimensions(imgUrl: string): Promise<Dimensions | undefined> {
+        const cache = await cachePromise;
+        const image = new CAAImage(imgUrl, cache);
+        return image.getDimensions();
     }
 
     // Expose the function for use in other scripts that may load images.
     window.ROpdebee_getDimensionsWhenInView = getDimensionsWhenInView;
-    // Deprecated, use `ROpdebee_getImageInfo` instead.
-    window.ROpdebee_loadImageDimensions = loadImageDimensions;
+    window.ROpdebee_getImageDimensions = getImageDimensions;
     window.ROpdebee_getCAAImageInfo = getCAAImageInfo;
 }
