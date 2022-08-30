@@ -96,7 +96,7 @@
     "rollup-plugin-consts": "1.1.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-progress": "1.1.2",
-    "sass": "1.54.5",
+    "sass": "1.54.6",
     "setup-polly-jest": "0.11.0",
     "simple-git": "3.13.0",
     "terser": "5.15.0",
