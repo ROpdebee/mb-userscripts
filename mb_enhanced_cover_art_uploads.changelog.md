@@ -1,3 +1,4 @@
+- **2022.9.12**: Bug fix: update URL of Spotify favicon ([#566](https://github.com/ROpdebee/mb-userscripts/pull/566))
 - **2022.8.20**: Bug fix: more improvements to VGMdb type mappings ([#553](https://github.com/ROpdebee/mb-userscripts/pull/553))
 - **2022.8.19**: Bug fix: improve error message on Amazon captchas ([#555](https://github.com/ROpdebee/mb-userscripts/pull/555))
 - **2022.8.8.3**: Bug fix: skip maximised images which are actually videos ([#552](https://github.com/ROpdebee/mb-userscripts/pull/552))
