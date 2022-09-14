@@ -7,4 +7,4 @@ global.TextEncoder = TextEncoder;
 // Same for crypto
 import { webcrypto } from 'node:crypto';
 // @ts-expect-error: Some incompatibilities between node and web.
-global.crypto = webcrypto;
+crypto.subtle = webcrypto.subtle;
