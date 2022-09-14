@@ -62,7 +62,6 @@ type FetchImageContentsSpy = jest.SpyInstance<Promise<ImageContents>, [URL, stri
 
 function enableDummyFetch(mock: FetchImageContentsSpy): void {
     // Return dummy response for fetching images
-    // eslint-disable-next-line jest/prefer-mock-promise-shorthand
     mock.mockImplementation((url: URL, filename: string) =>
         Promise.resolve({
             fetchedUrl: url,
@@ -502,7 +501,6 @@ describe('fetching images from providers', () => {
         class PostprocessingProvider extends FakeProvider {
             public override postprocessImage = mockPostprocessor;
         }
-        // eslint-disable-next-line jest/prefer-mock-promise-shorthand
         mockPostprocessor.mockImplementation((image) => Promise.resolve(image));
         mockPostprocessor.mockResolvedValueOnce(null);
 
