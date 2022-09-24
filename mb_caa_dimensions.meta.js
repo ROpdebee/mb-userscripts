@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
 // @description  Displays the dimensions and size of images in the cover art archive.
-// @version      2022.7.27.2
+// @version      2022.9.24
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
