@@ -7,8 +7,8 @@
 // @namespace    https://github.com/ROpdebee/mb-userscripts
 // @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_supercharged_caa_edits.user.js
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_supercharged_caa_edits.user.js
-// @match        *://musicbrainz.org/*
 // @match        *://*.musicbrainz.org/*
+// @exclude-match *://*.musicbrainz.org/dialog*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js
 // @require      https://code.jquery.com/ui/1.12.1/jquery-ui.min.js
 // @require      https://github.com/rsmbl/Resemble.js/raw/v3.2.4/resemble.js
