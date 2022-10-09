@@ -149,7 +149,7 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
 
         const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
         return [{
-            url: new URL(coverElmt.content),
+            url: new URL(coverElmt.content, url),
             types: [ArtworkTypeIDs.Front],
         }];
     }
