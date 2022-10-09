@@ -69,7 +69,7 @@ async function buildTempUserscript(scriptName: string): Promise<string> {
         buildUserscript("${scriptName}", "0.0.0", "${path.resolve(outputDir)}")
             .catch((err) => {
                 console.error(err);
-                throw err;
+                process.exit(1);
             });
     `;
     await fs.writeFile('isolatedBuilder.ts', builderSource);

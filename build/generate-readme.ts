@@ -129,7 +129,7 @@ function generateSection(data: UserscriptData): string {
     `;
 }
 
-async function generateReadmeContent(): Promise<string> {
+export async function generateReadmeContent(): Promise<string> {
     const userscriptData = await getUserscriptData();
     userscriptData.push(...LEGACY_SCRIPT_DATA);
     userscriptData.sort((a, b) => a.name < b.name ? -1 : 1);
