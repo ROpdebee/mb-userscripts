@@ -14,6 +14,7 @@ const metadata: UserscriptMetadata = {
         '*/create',
         '*/create?*',
     ].map((path) => transformMBMatchURL(path)),
+    blurb: 'Paste multiple external links at once into the external link editor. Input is split on whitespace (newlines, tabs, spaces, etc.) and fed into the link editor separately.',
 };
 
 export default metadata;
