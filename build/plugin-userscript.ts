@@ -161,7 +161,7 @@ export class MetadataGenerator {
      *
      * @return     {Promise<UserscriptMetadata>}  The userscript's metadata.
      */
-    private async loadMetadata(): Promise<AllUserscriptMetadata> {
+    public async loadMetadata(): Promise<AllUserscriptMetadata> {
         const metadataFile = path.resolve('./src', this.options.userscriptName, 'meta.ts');
         // eslint-disable-next-line no-unsanitized/method -- Fine.
         const specificMetadata = (await import(metadataFile) as { default: UserscriptMetadata }).default;
@@ -205,6 +205,7 @@ export class MetadataGenerator {
      */
     private createMetadataBlock(metadata: Readonly<AllUserscriptMetadata>): string {
         const metadataLines = Object.entries<string | readonly string[]>(metadata)
+            .filter((entry) => this.options.metadataOrder.includes(entry[0]))
             .sort((a: readonly [string, unknown], b: readonly [string, unknown]) =>
                 this.options.metadataOrder.indexOf(a[0]) - this.options.metadataOrder.indexOf(b[0]))
             .flatMap(this.createMetadataLines.bind(this));
