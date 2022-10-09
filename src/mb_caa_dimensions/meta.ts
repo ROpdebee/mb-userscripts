@@ -15,6 +15,7 @@ const metadata: UserscriptMetadata = {
         transformMBMatchURL('release/*/edit-relationships'),
         transformMBMatchURL('release-group/*/edit'),
     ],
+    blurb: 'Loads and displays the image dimensions of images in the cover art archive.',
 };
 
 export default metadata;
