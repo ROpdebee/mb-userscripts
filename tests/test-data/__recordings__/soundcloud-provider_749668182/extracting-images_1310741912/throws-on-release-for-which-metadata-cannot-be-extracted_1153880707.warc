@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: soundcloud provider/extracting images/throws on release for which metadata cannot be extracted
-WARC-Date: 2022-08-03T18:32:43.970Z
+WARC-Date: 2022-10-09T08:06:44.499Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:4eaf54df-6343-44e4-b513-c94bc8a87321>
+WARC-Record-ID: <urn:uuid:77938f4f-68b8-4f5f-83ae-5e5f2e25f1ac>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:aa3d3d41-d10d-4fa9-8b2e-480346cabca9>
+WARC-Concurrent-To: <urn:uuid:32a02570-ca69-4aea-a2ab-762712e0aa8a>
 WARC-Target-URI: https://soundcloud.com/upload
-WARC-Date: 2022-08-03T18:32:43.970Z
+WARC-Date: 2022-10-09T08:06:44.499Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:281b5432-7d6a-422c-ab72-e5b367869292>
+WARC-Record-ID: <urn:uuid:7fe8c22d-5d6d-4b93-b32f-5e9704e5a840>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:91d9f6c47a5cd7c783532431804237857202745525172222d90f4f8a5617ba44
@@ -27,53 +27,53 @@ GET /upload HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:aa3d3d41-d10d-4fa9-8b2e-480346cabca9>
+WARC-Concurrent-To: <urn:uuid:32a02570-ca69-4aea-a2ab-762712e0aa8a>
 WARC-Target-URI: https://soundcloud.com/upload
-WARC-Date: 2022-08-03T18:32:43.970Z
+WARC-Date: 2022-10-09T08:06:44.499Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:2a6306bb-4574-4632-9632-0db565a35d25>
+WARC-Record-ID: <urn:uuid:6f2f25a0-0232-47f2-9571-2371d8086000>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:70ca0e09aad9f0d0392ad11def97f85a3a7a436bb44794088b2a9caae22b839c
-WARC-Block-Digest: sha256:70ca0e09aad9f0d0392ad11def97f85a3a7a436bb44794088b2a9caae22b839c
+WARC-Payload-Digest: sha256:000541e2c0a090f313ad531d6804c53079c7ede708b9d01e5db9b1dd63acc0c1
+WARC-Block-Digest: sha256:000541e2c0a090f313ad531d6804c53079c7ede708b9d01e5db9b1dd63acc0c1
 Content-Length: 348
 
 harEntryId: a12c60f5b8e78501fe25fa3197c8c624
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-08-03T18:32:43.796Z
-time: 173
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":173,"receive":0,"ssl":-1}
+startedDateTime: 2022-10-09T08:06:44.391Z
+time: 107
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":107,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 48
 warcRequestCookies: []
-warcResponseHeadersSize: 870
+warcResponseHeadersSize: 868
 warcResponseCookies: []
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://soundcloud.com/upload
-WARC-Date: 2022-08-03T18:32:43.970Z
+WARC-Date: 2022-10-09T08:06:44.499Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:aa3d3d41-d10d-4fa9-8b2e-480346cabca9>
+WARC-Record-ID: <urn:uuid:32a02570-ca69-4aea-a2ab-762712e0aa8a>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:baf86a51adb95b5ee4f567b6e091f3c5382241ea0a0d7c78bc167d31445852d2
-WARC-Block-Digest: sha256:7f096e6b44daef0e68ef88cd43be414d2eea57300ded040947ee6ee80437c21e
-Content-Length: 20750
+WARC-Payload-Digest: sha256:2283db2551294687a3f5451df2f7c1846ab90790e2bf7a8f7123bd6caea7c5bc
+WARC-Block-Digest: sha256:23c270cab61d7e0bee20180c30633dae2a4e3b5ccbd208837567433197dea099
+Content-Length: 20698
 
 HTTP/1.1 200 OK
 cache-control: private, max-age=0, no-cache, no-store
 connection: close
 content-encoding: gzip
 content-type: text/html
-date: Wed, 03 Aug 2022 18:32:44 GMT
+date: Sun, 09 Oct 2022 08:06:44 GMT
 server: am/2
-server-timing: enabledFeatures; dur=7.098368; desc="api-v2/enabledFeatures", experiments; dur=12.881126; desc="api-v2/experiments", geoip; dur=4.350285; desc="geoip/geoip", privacySettings; dur=15.389485; desc="api-v2/privacySettings"
+server-timing: enabledFeatures; dur=4.772706; desc="api-v2/enabledFeatures", experiments; dur=6.221222; desc="api-v2/experiments", geoip; dur=0.757975; desc="geoip/geoip", privacySettings; dur=6.457246; desc="api-v2/privacySettings"
 strict-transport-security: max-age=63072000; includeSubdomains; preload
 transfer-encoding: chunked
 vary: Accept-Encoding
-via: 1.1 cfd57c1039d68b4426a9a3580c0aa4f6.cloudfront.net (CloudFront)
-x-amz-cf-id: VUlTtO0rbqRsVC2FWVLbdGtB5qDFCXBpKEoMpyIq9NHIxlOMj5hx2w==
-x-amz-cf-pop: LHR50-P4
+via: 1.1 5330dca0fb4fc616e3711702aab777a8.cloudfront.net (CloudFront)
+x-amz-cf-id: eEA8qZo3q-zWuqTx5kx_9O326G4mt-fd7loid_RyZEqwcPSUiluASQ==
+x-amz-cf-pop: CDG50-P2
 x-cache: Miss from cloudfront
 x-frame-options: SAMEORIGIN
 x-pants: distant-towel
@@ -129,7 +129,7 @@ x-pollyjs-finalurl: https://soundcloud.com/upload
 <script>!function(){var o,a,r;function e(a){return a.test(o)}o=window.navigator.userAgent.toLowerCase();var i,t,n,s=void 0!==window.opera&&"[object Opera]"===window.opera.toString(),p=o.match(/\sopr\/([0-9]+)\./),d=e(/chrome/),c=e(/webkit/),m=!d&&e(/safari/),w=!s&&e(/msie|trident/),f=!c&&e(/gecko/);i=p?parseInt(p[1],10):(n=o.match(/(opera|chrome|safari|firefox|msie|rv:)\/?\s*(\.?\d+(\.\d+)*)/i))&&(t=o.match(/version\/([.\d]+)/i))?parseInt(t[1],10):n?parseInt(n[2],10):null;var h=e(/mobile|android|iphone|ipod|symbianos|nokia|s60|playbook|playstation/);f&&(r=(a=o.match(/(firefox)\/?\s*(\.?\d+(\.\d+)*)/i))&&a.length>1&&parseInt(a[2],10)>=41),i&&!h&&(d&&!p&&i<49||f&&!p&&!1===r||m&&i<8||w||s&&i<13||p&&i<27)&&(window.__sc_abortApp=!0)}()</script>
 <link rel="stylesheet" href="https://style.sndcdn.com/css/interstate-a86f07cf94ae5a496b24.css">
 
-<link rel="stylesheet" href="https://a-v2.sndcdn.com/assets/css/app-b9d42d732a14e0addbff.css">
+<link rel="stylesheet" href="https://a-v2.sndcdn.com/assets/css/app-da587f24b5ac4d7010fa.css">
 </head>
 <body class="ot-hide-banner sc-classic">
 
@@ -258,7 +258,7 @@ Please download one of our supported browsers.
 </p>
 </div>
 <script crossorigin src="https://a-v2.sndcdn.com/assets/53-aed4402d.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/51-a37b01b3.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/51-db625a70.js"></script>
 <script
   async
   src="https://cdn.cookielaw.org/consent/7e62c772-c97a-4d95-8d0a-f99bbeadcf61/otSDKStub.js"
@@ -306,18 +306,18 @@ Please download one of our supported browsers.
   }(window));
 </script>
 
-<script>window.__sc_version="1659536590"</script>
-<script>window.__sc_hydration = [{"hydratable":"anonymousId","data":"101347-328089-260301-865327"},{"hydratable":"features","data":{"features":["mobi_use_onetrust_gb","v2_enable_onetrust_user_id","v2_use_new_report_as_spam","v2_peace_ukraine_logo_takeover","v2_use_onetrust_tcfv2_eu1","v2_ie11_support_end","mobi_google_one_tap","v2_use_onetrust_eu2","mobi_enable_onetrust_tcfv2","mobi_use_onetrust_eu1","v2_use_onetrust_user_id_eu2","v2_enable_sourcepoint_tcfv2","mobi_peace_ukraine_logo_takeover","mobi_use_onetrust_tcfv2_eu2","checkout_send_segment_events_to_event_gateway","mobi_use_onetrust_user_id_eu1","mobi_enable_onetrust_user_id","mobi_use_onetrust_user_id_ex_us","mobi_use_onetrust_tcfv2_eu1","v2_post_with_caption","mobi_use_onetrust_eu4","featured_artists_banner","v2_repost_redirect_page","v2_use_onetrust_gb","mobi_use_onetrust_user_id_global","use_onetrust_async","v2_signals_collection","v2_track_level_distro_to_plan_picker","v2_direct_support_link","v2_hq_file_storage_release","mobi_use_onetrust_user_id_eu2","v2_use_onetrust_eu4","v2_stories_onboarding","v2_enable_onetrust","v2_import_playlist_experiment","v2_disable_sidebar_comments_count","v2_use_onetrust_us","checkout_use_recurly_with_paypal","v2_use_onetrust_tcfv2_ex_us","mobi_use_onetrust_eu3","mobi_use_onetrust_elsewhere","v2_use_onetrust_eu3","mobi_use_onetrust_us","v2_oscp_german_tax_fields_support","v2_use_onetrust_user_id_ex_us","v2_use_new_connect","v2_use_onetrust_tcfv2_eu2","v2_send_segment_events_to_event_gateway","v2_use_onetrust_eu1","v2_enable_sourcepoint","v2_repost_with_caption_graphql","mobi_use_onetrust_tcfv2_ex_us","v2_tags_recent_tracks","mobi_use_onetrust_eu2","v2_use_onetrust_elsewhere","v2_webauth_use_local_tracking","mobi_sign_in_experiment","mobi_enable_onetrust","v2_can_see_insights","mobi_trinity","v2_google_one_tap","v2_enable_pwa","mobi_use_hls_hack","v2_stories","v2_use_onetrust_user_id_eu1","v2_use_onetrust_user_id_global","use_recurly_checkout","v2_show_side_by_side_upsell_experience","v2_enable_onetrust_tcfv2","v2_enable_tcfv2_consent_string_cache","mobi_send_segment_events_to_event_gateway"]}},{"hydratable":"experiments","data":{"reco_listening":{"experiment_name":"hackedsounds","variant_id":2531,"variant_name":"uploads_first"}}},{"hydratable":"geoip","data":{"country_code":"LU","country_name":"Luxembourg","region":"LU","city":"Luxembourg","postal_code":"L-1661","latitude":49.6113,"longitude":6.1294}},{"hydratable":"privacySettings","data":{"allows_messages_from_unfollowed_users":false,"analytics_opt_in":true,"communications_opt_in":true,"targeted_advertising_opt_in":false,"legislation":[]}},{"hydratable":"trackingBrowserTabId","data":"47dd65"}];</script>
+<script>window.__sc_version="1665133451"</script>
+<script>window.__sc_hydration = [{"hydratable":"anonymousId","data":"212137-196898-738107-8027"},{"hydratable":"features","data":{"features":["mobi_use_onetrust_gb","v2_enable_onetrust_user_id","v2_peace_ukraine_logo_takeover","v2_use_onetrust_tcfv2_eu1","v2_ie11_support_end","v2_use_updated_alert_banner_quota_upsell","checkout_use_new_plan_picker","v2_use_onetrust_eu2","mobi_enable_onetrust_tcfv2","mobi_tracking_send_session_id","mobi_use_onetrust_eu1","v2_use_onetrust_user_id_eu2","v2_enable_sourcepoint_tcfv2","mobi_peace_ukraine_logo_takeover","mobi_use_onetrust_tcfv2_eu2","v2_test_feature_toggle","checkout_send_segment_events_to_event_gateway","mobi_use_onetrust_user_id_eu1","mobi_enable_onetrust_user_id","mobi_use_onetrust_user_id_ex_us","mobi_use_onetrust_tcfv2_eu1","v2_post_with_caption","mobi_use_onetrust_eu4","featured_artists_banner","v2_repost_redirect_page","v2_use_onetrust_gb","mobi_use_onetrust_user_id_global","use_onetrust_async","v2_signals_collection","v2_track_level_distro_to_plan_picker","v2_direct_support_link","v2_hq_file_storage_release","mobi_use_onetrust_user_id_eu2","v2_use_onetrust_eu4","v2_stories_onboarding","v2_enable_onetrust","v2_import_playlist_experiment","v2_disable_sidebar_comments_count","v2_use_onetrust_us","checkout_use_recurly_with_paypal","v2_use_onetrust_tcfv2_ex_us","mobi_use_onetrust_eu3","mobi_use_onetrust_elsewhere","v2_use_onetrust_eu3","mobi_use_onetrust_us","v2_oscp_german_tax_fields_support","v2_use_onetrust_user_id_ex_us","v2_use_new_connect","v2_use_onetrust_tcfv2_eu2","v2_send_segment_events_to_event_gateway","v2_use_onetrust_eu1","v2_enable_sourcepoint","v2_repost_with_caption_graphql","mobi_use_onetrust_tcfv2_ex_us","v2_tags_recent_tracks","mobi_use_onetrust_eu2","v2_use_onetrust_elsewhere","v2_webauth_use_local_tracking","mobi_sign_in_experiment","mobi_enable_onetrust","v2_can_see_insights","mobi_trinity","v2_google_one_tap","v2_enable_pwa","mobi_use_hls_hack","v2_stories","v2_use_onetrust_user_id_eu1","v2_use_onetrust_user_id_global","use_recurly_checkout","v2_show_side_by_side_upsell_experience","v2_enable_onetrust_tcfv2","v2_enable_tcfv2_consent_string_cache","mobi_send_segment_events_to_event_gateway","use_on_soundcloud_short_links"]}},{"hydratable":"experiments","data":{}},{"hydratable":"geoip","data":{"country_code":"FR","country_name":"France","latitude":48.8582,"longitude":2.3387}},{"hydratable":"privacySettings","data":{"allows_messages_from_unfollowed_users":false,"analytics_opt_in":true,"communications_opt_in":true,"targeted_advertising_opt_in":false,"legislation":[]}},{"hydratable":"trackingBrowserTabId","data":"cb006a"}];</script>
 
 
 
-<script src="https://a-v2.sndcdn.com/assets/44-f378462b.js" crossorigin></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/52-9bb26655.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/1-e603bba0.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/3-20d97df4.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/2-753b4828.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/0-4e399491.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/50-eecc0bf5.js"></script>
+<script src="https://a-v2.sndcdn.com/assets/44-f5d6811e.js" crossorigin></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/52-d44ff3af.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/1-aa0bd65e.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/3-2eacfa6b.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/2-62c87f09.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/0-e69720d7.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/50-2a1a5631.js"></script>
 </body>
 </html>
 
