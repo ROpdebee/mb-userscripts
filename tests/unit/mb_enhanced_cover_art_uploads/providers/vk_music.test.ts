@@ -34,11 +34,11 @@ describe('vk music provider', () => {
     describe('extracting images', () => {
         const extractionCases = [{
             desc: 'release',
-            url: 'https://vk.com/music/album/-2000547103_15547103',
+            url: 'https://vk.com/music/album/-2000027853_11027853',
             numImages: 1,
             expectedImages: [{
                 index: 0,
-                urlPart: 'ThyudaR9jDR-9XLOaT3UWR0fsB33uIptT4grvw/wCoF0dkXyOk.jpg',
+                urlPart: 'c858436/v858436087/232f2b/dIzw5aVzr1A.jpg',
                 types: [ArtworkTypeIDs.Front],
             }],
         }];
