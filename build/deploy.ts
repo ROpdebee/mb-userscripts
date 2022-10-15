@@ -91,9 +91,11 @@ async function scanAndPush(): Promise<void> {
             await gitDist.push();
         }
 
-        // Logging this message, it should get picked up by the Actions runner
-        // to set the step output.
-        console.log('::set-output name=deployment-info::' + encodeOutput({ scripts: updates }));
+        // Set the step's output
+        const stepOutput = `deployment-info<<EOF
+            ${encodeOutput({ scripts: updates })}
+        EOF`;
+        await fs.appendFile(process.env.GITHUB_OUTPUT!, stepOutput);
     }
 }
 
