@@ -15,6 +15,8 @@ import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
+import { deduplicateArray } from '@lib/util/array';
+
 import { parseChangelogEntries } from './changelog';
 import { consts } from './plugin-consts';
 import { logger } from './plugin-logger';
@@ -249,7 +251,7 @@ function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
             .slice(0, module.startsWith('@') ? 2 : 1)
             .join('/'));
 
-    const uniqueBundledModules = [...new Set(bundledModules)];
+    const uniqueBundledModules = deduplicateArray(bundledModules);
     if ('\u0000rollupPluginBabelHelpers.js' in chunk.modules) {
         uniqueBundledModules.unshift('babel helpers');
     }

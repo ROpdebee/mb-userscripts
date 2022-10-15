@@ -67,3 +67,7 @@ export function insertBetween<T1, T2>(arr: readonly T1[], newElement: T2 | (() =
         ...arr.slice(1).flatMap((elmt) => [isFactory(newElement) ? newElement() : newElement, elmt]),
     ];
 }
+
+export function deduplicateArray(arr: readonly string[]): string[] {
+    return [...new Set(arr)];
+}

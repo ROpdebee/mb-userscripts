@@ -1,3 +1,4 @@
+import { deduplicateArray } from '@lib/util/array';
 import { request } from '@lib/util/request';
 
 import type { ReleaseAdvRel, URLAdvRel } from './advanced-relationships';
@@ -21,7 +22,7 @@ export async function getURLsForRelease(releaseId: string, options?: { excludeEn
     }
     let urls = urlARs.map((ar) => ar.url.resource);
     if (excludeDuplicates) {
-        urls = [...new Set(urls)];
+        urls = deduplicateArray(urls);
     }
 
     return urls.flatMap((url) => {
