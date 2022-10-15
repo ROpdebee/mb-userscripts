@@ -10,6 +10,8 @@ import { assertHasValue } from '@lib/util/assert';
 import { pFinally } from '@lib/util/async';
 import { qs } from '@lib/util/dom';
 import { ObservableSemaphore } from '@lib/util/observable';
+import { request } from '@lib/util/request';
+import { loggingObserver, RecordingObserver } from '@lib/util/request/observers';
 
 import type { BareCoverArt, QueuedImageBatch } from './types';
 import { ImageFetcher } from './fetch';
@@ -25,6 +27,7 @@ export class App {
     private readonly urlsInProgress: Set<string>;
     private readonly loggingSink = new GuiSink();
     private readonly collectorSink = new CollectorSink();
+    private readonly requestRecorder = new RecordingObserver();
     private readonly fetchingSema: ObservableSemaphore;
     public onlyFront = false;
 
@@ -34,6 +37,10 @@ export class App {
 
         // Set up log collector
         LOGGER.addSink(this.collectorSink);
+
+        // Set up request recorder
+        request.addObserver(loggingObserver);
+        request.addObserver(this.requestRecorder);
 
         // Set up logging banner
         LOGGER.addSink(this.loggingSink);
@@ -137,5 +144,34 @@ export class App {
             assertHasValue(provider);
             return this.ui.addImportButton(syncProcessURL.bind(this, url), url.href, provider);
         }));
+    }
+
+    private confirmExportRequests(): boolean {
+        const msg = [
+            'Recorded requests contain responses from the following domains:\n',
+            this.requestRecorder.recordedDomains.join(', ') + '\n',
+            'Exporting the request responses may leak user credentials and keys if you are logged in to any of these domains! ',
+            'Do you want to include the responses in the exported debug content?',
+        ].join('');
+        return window.confirm(msg);
+    }
+
+    public exportDebugLogs(): void {
+        let exportedContent = this.collectorSink.dumpMessages();
+
+        if (this.requestRecorder.hasRecordings() && this.confirmExportRequests()) {
+            exportedContent += '\n\n==============================\n\n';
+            exportedContent += this.requestRecorder.exportResponses();
+        }
+
+        // Download the file by creating a fake anchor and clicking it.
+        const downloadAnchor = document.createElement('a');
+        const downloadUrl = URL.createObjectURL(new Blob([exportedContent], { type: 'text/plain' }));
+        downloadAnchor.download = `ECAU-debug-${Date.now()}.txt`;
+        downloadAnchor.href = downloadUrl;
+        downloadAnchor.click();
+        setTimeout(() => {
+            URL.revokeObjectURL(downloadUrl);
+        });
     }
 }

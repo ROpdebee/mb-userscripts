@@ -310,6 +310,7 @@ describe('request', () => {
         it('exports successful requests', async () => {
             await request.get(httpBinHelloWorldUrl);
 
+            expect(observer.hasRecordings()).toBeTrue();
             expect(observer.exportResponses()).toIncludeMultiple([
                 `GET ${httpBinHelloWorldUrl} (backend: 2)`,
                 `${httpBinHelloWorldUrl} 200: OK`,
@@ -324,6 +325,7 @@ describe('request', () => {
                 onProgress() {},
             });
 
+            expect(observer.hasRecordings()).toBeTrue();
             expect(observer.exportResponses()).toIncludeMultiple([
                 `GET ${httpBinHelloWorldUrl} (backend: 2)`,
                 'Options: {}',
@@ -339,6 +341,7 @@ describe('request', () => {
                 backend: RequestBackend.FETCH,
             });
 
+            expect(observer.hasRecordings()).toBeTrue();
             expect(observer.exportResponses()).toIncludeMultiple([
                 `GET ${httpBinHelloWorldUrl} (backend: 1)`,
                 ('Options: {\n'
@@ -357,6 +360,7 @@ describe('request', () => {
                 backend: RequestBackend.FETCH,
             });
 
+            expect(observer.hasRecordings()).toBeTrue();
             expect(observer.exportResponses()).toIncludeMultiple([
                 `GET ${httpBinHelloWorldUrl} (backend: 1)`,
                 ('Options: {\n'
@@ -372,6 +376,7 @@ describe('request', () => {
         it('exports failed requests', async () => {
             await expect(request.get('https://httpbin.org/status/404')).toReject();
 
+            expect(observer.hasRecordings()).toBeTrue();
             expect(observer.exportResponses()).toIncludeMultiple([
                 'GET https://httpbin.org/status/404 (backend: 2)',
                 'https://httpbin.org/status/404 404: Not Found',
@@ -383,6 +388,7 @@ describe('request', () => {
             // There's no response to export, so this shouldn't be exported at all.
             mockGMxmlHttpRequest.mockImplementation((options) => options.onerror?.({} as GM.Response<never>));
 
+            expect(observer.hasRecordings()).toBeFalse();
             await expect(request.get('https://httpbin.org/status/200', {
                 backend: RequestBackend.GMXHR,
             })).toReject();
@@ -394,6 +400,7 @@ describe('request', () => {
             await expect(request.get('https://httpbin.org/status/200')).toResolve();
             await expect(request.get('https://httpbin.org/status/404')).toReject();
 
+            expect(observer.hasRecordings()).toBeTrue();
             expect(observer.exportResponses()).toIncludeMultiple([
                 'GET https://httpbin.org/status/200 (backend: 2)',
                 'https://httpbin.org/status/200 200: OK',
@@ -403,6 +410,14 @@ describe('request', () => {
                 'https://httpbin.org/status/404 404: Not Found',
                 'content-length: 0',
             ]);
+        });
+
+        it('exports recorded domains', async () => {
+            await expect(request.get('https://httpbin.org/status/200')).toResolve();
+            await expect(request.get('https://example.com/index.html')).toResolve();
+
+            expect(observer.hasRecordings()).toBeTrue();
+            expect(observer.recordedDomains).toIncludeSameMembers(['httpbin.org', 'example.com']);
         });
     });
 });

@@ -1,0 +1,200 @@
+WARC/1.1
+WARC-Filename: request/recording observer/exports recorded domains
+WARC-Date: 2022-10-15T09:56:29.637Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:ad49a00b-9efa-4e45-bca1-4d6d9fd90fbe>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:84902abf-ea5d-4de5-9682-3656c4ed9967>
+WARC-Target-URI: https://example.com/index.html
+WARC-Date: 2022-10-15T09:56:29.638Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:0b643e30-0731-440b-a2ba-605d7d96aeb7>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:fe1741a1b062814f2da097ac360ee8d6dd6a3a7d27e2e42a1a03026ecdd1c62f
+Content-Length: 28
+
+GET /index.html HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:84902abf-ea5d-4de5-9682-3656c4ed9967>
+WARC-Target-URI: https://example.com/index.html
+WARC-Date: 2022-10-15T09:56:29.639Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:7fe42db0-34c3-4298-ae1a-9251fa1948e5>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:cc66e2341a8aaec97996c6c160ef21cff25a30d1164c8654e5026f6ea4c26f9d
+WARC-Block-Digest: sha256:cc66e2341a8aaec97996c6c160ef21cff25a30d1164c8654e5026f6ea4c26f9d
+Content-Length: 348
+
+harEntryId: d56e8038a43ca4ce986a9de3418509d6
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-10-15T09:56:29.121Z
+time: 512
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":512,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 49
+warcRequestCookies: []
+warcResponseHeadersSize: 428
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://example.com/index.html
+WARC-Date: 2022-10-15T09:56:29.638Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:84902abf-ea5d-4de5-9682-3656c4ed9967>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:ea8fac7c65fb589b0d53560f5251f74f9e9b243478dcb6b3ea79b5e36449c8d9
+WARC-Block-Digest: sha256:49cb67a2636bb264824e5d52feb9a0b6631f492c79904ba1c8304c01064ecd61
+Content-Length: 1701
+
+HTTP/1.1 200 OK
+accept-ranges: bytes
+age: 294646
+cache-control: max-age=604800
+connection: close
+content-encoding: gzip
+content-length: 648
+content-type: text/html; charset=UTF-8
+date: Sat, 15 Oct 2022 09:56:29 GMT
+etag: "3147526947"
+expires: Sat, 22 Oct 2022 09:56:29 GMT
+last-modified: Thu, 17 Oct 2019 07:18:26 GMT
+server: ECS (dcb/7F83)
+vary: Accept-Encoding
+x-cache: HIT
+x-pollyjs-finalurl: https://example.com/index.html
+
+<!doctype html>
+<html>
+<head>
+    <title>Example Domain</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css">
+    body {
+        background-color: #f0f0f2;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        
+    }
+    div {
+        width: 600px;
+        margin: 5em auto;
+        padding: 2em;
+        background-color: #fdfdff;
+        border-radius: 0.5em;
+        box-shadow: 2px 3px 7px 2px rgba(0,0,0,0.02);
+    }
+    a:link, a:visited {
+        color: #38488f;
+        text-decoration: none;
+    }
+    @media (max-width: 700px) {
+        div {
+            margin: 0 auto;
+            width: auto;
+        }
+    }
+    </style>    
+</head>
+
+<body>
+<div>
+    <h1>Example Domain</h1>
+    <p>This domain is for use in illustrative examples in documents. You may use this
+    domain in literature without prior coordination or asking for permission.</p>
+    <p><a href="https://www.iana.org/domains/example">More information...</a></p>
+</div>
+</body>
+</html>
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:4fc9745a-9ab5-4402-b303-fa3637f98c4a>
+WARC-Target-URI: https://example.com/index.html
+WARC-Date: 2022-10-15T09:56:29.639Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:eaec5683-9124-42fb-97f2-4f5eb6be0715>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:4c61d59769d26e708f47e3de8165b4984a5ab0531f075e41c09345d82f821257
+Content-Length: 139
+
+GET /index.html HTTP/1.1
+accept: */*
+accept-encoding: gzip, deflate, br
+connection: close
+user-agent: node-fetch
+host: example.com
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:4fc9745a-9ab5-4402-b303-fa3637f98c4a>
+WARC-Target-URI: https://example.com/index.html
+WARC-Date: 2022-10-15T09:56:29.639Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:fcc9641f-79cc-437c-b1de-e6b59d2096aa>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:19cdba96f862a96215914d3bc1e87ec580cea4ec985ff2707f86bcbbac61d174
+WARC-Block-Digest: sha256:19cdba96f862a96215914d3bc1e87ec580cea4ec985ff2707f86bcbbac61d174
+Content-Length: 386
+
+harEntryId: 1d5bfcd970ce7605a05dd93529b6311c
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-10-15T09:56:29.124Z
+time: 504
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":504,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 158
+warcRequestCookies: []
+warcResponseHeadersSize: 376
+warcResponseCookies: []
+responseDecoded: false
+warcResponseContentEncoding: base64
+
+
+WARC/1.1
+WARC-Target-URI: https://example.com/index.html
+WARC-Date: 2022-10-15T09:56:29.639Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:4fc9745a-9ab5-4402-b303-fa3637f98c4a>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:09de4599a1f79054f7e28b62b2e2d85d461fbf7abb37a7ff67804e7e959ff41f
+WARC-Block-Digest: sha256:a6b56f5fb0ff34056a79f00434c1587ce4ac737438f1e51336e3e7e1e70a803c
+Content-Length: 1261
+
+HTTP/1.1 200 OK
+content-encoding: gzip
+accept-ranges: bytes
+age: 294646
+cache-control: max-age=604800
+content-type: text/html; charset=UTF-8
+date: Sat, 15 Oct 2022 09:56:29 GMT
+etag: "3147526947"
+expires: Sat, 22 Oct 2022 09:56:29 GMT
+last-modified: Thu, 17 Oct 2019 07:18:26 GMT
+server: ECS (dcb/7F83)
+vary: Accept-Encoding
+x-cache: HIT
+content-length: 648
+connection: close
+
+["H4sIAAAAAAAA/31UTXPbIBC9+1ds1UsyIyQnaRqPLWn6mWkPaQ9pDz0SsbKYCFAByfZ08t+7Qo4jN5makYFdeLvvsZC9Eqb0uxah9qopZtljh1wUM6Bf5qVvsPi85aptED4ZxaXO0tE6G5co9BzKmluHPo86X7FFBGkxcdbetwx/d7LPo49Ge9SeDWEjKMdZHnnc+nQIvzpAvYSkucI86iVuWmP9ZP9GCl/nAntZIguTGKSWXvKGuZI3mJ89QTm/IzJDBvvApXPR6LszYgd/wjBMeXm/tqbTgpWmMXYJr6s5tfPVYYnidi31EuZPppYLIfX6yFZRpqziSja7JTDekpzM7ZxHFcPYs07G8KGR+v6Gl7fBdE2bYohucW0Qfn6NaPy9RQ23XLth8gWbHr0sOXzDDslyMMTw3hJ3wqalzKGV1VMuYfAQ/oXsJ3SDcEt4O5+32+cML1EB77x5geg5qtV/RRPUJhncGSvQMsuF7BzplFweAZgtczUXZkPI7RYu6Luibxjb9R0/mcehJfPz09WEDF8O6sXU99JJj2JC7TGTi8WbxWKSyXD+TGBpLPfSEEttNE5B3ykUksOJ4lu21+dq0Od0An6s4lFV/KPYROVjx8MkZJaGCi3CWWXpeB1n2VCbdDsp2L6O67NnN5NMo68tftTSgQh2oFFlLHQOYZg1Tef8QLhHwBHBDQ56DjpF98kl8Mt0RGIXtnhCGqtlj6ahIXkJoLNIdHxtOg+tlRSiNHS0Ugcxgebc3VOFhOgtWiWdI0eSpe0hz4weCItVHg3PhFum6WazSSTXPDF2nY4hXbpPMypujB1IEKAKQZKE0HgRELM0iJOle6nS8UH7CyjrfG/oBAAA"]
+

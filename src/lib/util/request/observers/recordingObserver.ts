@@ -1,3 +1,5 @@
+import { deduplicateArray } from '@lib/util/array';
+
 import type { ArrayBufferResponse, BlobResponse, Response, TextResponse } from '../response';
 import type { BaseRequestEvent, RequestObserver } from './types';
 import { HTTPResponseError } from '../errors';
@@ -40,6 +42,10 @@ function convertRequestInfo(requestInfo: BaseRequestEvent): BaseRequestEvent {
         method: requestInfo.method,
         options: requestInfo.options,
     };
+}
+
+function getURLHost(url: string | URL): string {
+    return new URL(url).host;
 }
 
 function exportRecordedResponse(recordedResponse: Recording): string {
@@ -88,5 +94,17 @@ export class RecordingObserver implements RequestObserver {
         return this.recordedResponses
             .map((recordedResponse) => exportRecordedResponse(recordedResponse))
             .join('\n\n==============================\n\n');
+    }
+
+    public hasRecordings(): boolean {
+        return this.recordedResponses.length > 0;
+    }
+
+    public get recordedDomains(): string[] {
+        return deduplicateArray(this.recordedResponses.flatMap((rec) => {
+            const domains = [getURLHost(rec.requestInfo.url)];
+            if (rec.response.url) domains.push(getURLHost(rec.response.url));
+            return domains;
+        }));
     }
 };

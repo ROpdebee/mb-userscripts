@@ -156,6 +156,7 @@ export class InputForm implements FetcherHooks {
         // Container element for the URL input and additional information
         const container = <div className='ROpdebee_paste_url_cont'>
             {this.urlInput}
+            <a href='#' onClick={app.exportDebugLogs.bind(app)}>Export debug logs</a>
             <a
                 href='https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md'
                 target='_blank'

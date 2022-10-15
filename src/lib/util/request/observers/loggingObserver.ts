@@ -16,6 +16,6 @@ export const loggingObserver: RequestObserver = {
     // istanbul ignore next: Unit tests don't have progress events.
     onProgress({ method, url, progressEvent }) {
         const { loaded, total } = progressEvent;
-        LOGGER.debug(`${method} ${url} - PROGRESS (${loaded}/${total}`);
+        LOGGER.debug(`${method} ${url} - PROGRESS (${loaded}/${total})`);
     },
 };
