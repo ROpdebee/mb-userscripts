@@ -13,6 +13,7 @@ export interface UserscriptCustomMetadata {
     grant?: readonly string[] | string;
     connect?: readonly string[] | string;
     resource?: readonly string[] | string;
+    blurb: string;
 }
 
 export interface UserscriptDefaultMetadata {

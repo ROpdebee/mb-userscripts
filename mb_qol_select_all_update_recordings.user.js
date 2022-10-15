@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         MB: QoL: Select All Update Recordings
-// @version      2021.10.24
+// @version      2022.10.14
 // @description  Add buttons to release editor to select all "Update recordings" checkboxes.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
-// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_select_all_update_recordings.user.js
-// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_select_all_update_recordings.user.js
+// @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_qol_select_all_update_recordings.user.js
+// @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_qol_select_all_update_recordings.meta.js
 // @match        *://*.musicbrainz.org/release/*/edit
 // @match        *://*.musicbrainz.org/release/add
 // @require      https://code.jquery.com/jquery-3.6.0.min.js

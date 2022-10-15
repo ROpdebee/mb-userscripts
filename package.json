@@ -8,7 +8,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.cjs --max-warnings=0",
     "typecheck": "ts-node -r tsconfig-paths/register build/check-tsconfig.ts && tsc -b",
     "deploy": "NODE_ENV=production ts-node -r tsconfig-paths/register build/deploy.ts",
-    "test": "NODE_NO_WARNINGS=1 jest --coverage"
+    "test": "NODE_NO_WARNINGS=1 jest --coverage",
+    "generate-readme": "ts-node -r tsconfig-paths/register build/generate-readme.ts"
   },
   "repository": {
     "type": "git",
@@ -100,6 +101,7 @@
     "setup-polly-jest": "0.11.0",
     "simple-git": "3.14.1",
     "terser": "5.15.1",
+    "ts-dedent": "2.2.0",
     "ts-jest": "29.0.3",
     "ts-node": "10.9.1",
     "tsconfig-paths": "4.1.0",
