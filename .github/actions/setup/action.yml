@@ -39,7 +39,7 @@ runs:
     - name: Get node version
       id: node-version
       run:
-        echo ::set-output name=node-version::`node --version`
+        echo "node-version=$(node --version)" >> $GITHUB_OUTPUT
       shell: bash
     # Cache node_modules specifically for this OS, specific node version, and
     # package-lock.json.
