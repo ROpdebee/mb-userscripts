@@ -1,3 +1,4 @@
+- **2022.10.18**: Bug fix: upstream provider fixes ([#579](https://github.com/ROpdebee/mb-userscripts/pull/579))
 - **2022.10.9**: Bug fix: handle relative URLs in og:image providers ([#581](https://github.com/ROpdebee/mb-userscripts/pull/581))
 - **2022.9.14**: Internal changes: update dependency ts-custom-error to v3.2.2 ([#559](https://github.com/ROpdebee/mb-userscripts/pull/559))
 - **2022.9.12**: Bug fix: update URL of Spotify favicon ([#566](https://github.com/ROpdebee/mb-userscripts/pull/566))

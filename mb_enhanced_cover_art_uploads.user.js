@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.10.9
+// @version      2022.10.18
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1630,7 +1630,7 @@
 
   }
 
-  const SC_CLIENT_ID = 'S6H4wBXupPt9pXl3wpa8Yh2WOdMsoCby';
+  const SC_CLIENT_ID = 'DwmXmuOkvCh3VuIiUo9NZIgArRpEXjU0';
   class SoundcloudProvider extends ProviderWithTrackImages {
     constructor() {
       super(...arguments);
