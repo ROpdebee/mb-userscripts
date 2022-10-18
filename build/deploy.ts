@@ -92,9 +92,13 @@ async function scanAndPush(): Promise<void> {
         }
 
         // Set the step's output
-        const stepOutput = `deployment-info<<EOF
-            ${encodeOutput({ scripts: updates })}
-        EOF`;
+        // Need to ensure that the trailing EOF always appears on its own line.
+        // https://github.com/orgs/community/discussions/25753
+        const stepOutput = [
+            'deployment-info<<EOF',
+            encodeOutput({ scripts: updates }),
+            'EOF\n',
+        ].join('\n');
         await fs.appendFile(process.env.GITHUB_OUTPUT!, stepOutput);
     }
 }
