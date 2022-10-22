@@ -36,7 +36,7 @@
     "@rollup/plugin-alias": "4.0.2",
     "@rollup/plugin-babel": "6.0.2",
     "@rollup/plugin-commonjs": "23.0.2",
-    "@rollup/plugin-node-resolve": "15.0.0",
+    "@rollup/plugin-node-resolve": "15.0.1",
     "@rollup/plugin-virtual": "3.0.0",
     "@rollup/pluginutils": "5.0.1",
     "@types/babel__core": "7.1.19",
