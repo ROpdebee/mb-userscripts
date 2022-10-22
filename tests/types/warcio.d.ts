@@ -34,7 +34,7 @@ interface StatusAndHeaders {
     toString(): string;
 }
 
-declare module 'warcio/src/warcrecord' {
+declare module 'warcio' {
     class WARCRecord {
         public static create(options: WARCRecordCreateOptions, reader?: AsyncIterable<Uint8Array>): WARCRecord;
         public static createWARCInfo(opts: { filename: string; warcVersion: string }, info: Record<string, string>): WARCRecord;
@@ -47,22 +47,14 @@ declare module 'warcio/src/warcrecord' {
         public get warcContentType(): string;
         public httpHeaders: StatusAndHeaders;
     }
-}
 
-declare module 'warcio/src/warcserializer' {
-    import type { WARCRecord } from 'warcio/src/warcrecord';
     class WARCSerializer {
         public static serialize(record: WARCRecord, opts?: WARCSerializerOptions): Promise<Uint8Array>;
     }
-}
 
-declare module 'warcio/src/warcparser' {
-    import type { WARCRecord } from 'warcio/src/warcrecord';
     class WARCParser {
         public static iterRecords(source: Iterable<Uint8Array>, options?: WARCParserOptions): AsyncIterable<WARCRecord>;
     }
-}
 
-declare module 'warcio/src/utils' {
     function concatChunks(chunks: Uint8Array[], size: number): Uint8Array;
 }

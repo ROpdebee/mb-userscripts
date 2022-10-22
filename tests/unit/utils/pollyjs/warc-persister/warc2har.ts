@@ -1,6 +1,6 @@
 import type { Har, HarEntry, HarLog, HarRequest, HarResponse } from '@pollyjs/persister';
-import type { WARCRecord } from 'warcio/src/warcrecord';
-import { WARCParser } from 'warcio/src/warcparser';
+import type { WARCRecord } from 'warcio';
+import { WARCParser } from 'warcio';
 
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
