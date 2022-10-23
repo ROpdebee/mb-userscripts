@@ -41,8 +41,11 @@ async function commitIfUpdated(scriptName: string): Promise<DeployedScript | und
     const isPreview = process.env.GITHUB_EVENT_NAME !== 'push';
     const payloadText = await fs.readFile(process.env.GITHUB_EVENT_PATH!, 'utf8');
     const payload = JSON.parse(payloadText) as unknown;
+    // The commit before the changes we want to deploy differs for previews and
+    // actual deployments. For previews, make sure we compare to the base branch's
+    // HEAD rather than the commit on which the PR is based, which may be outdated.
     const baseRef = isPreview
-        ? (payload as RepositoryDispatchEventPayload).client_payload.pull_request.base.sha
+        ? (payload as RepositoryDispatchEventPayload).client_payload.pull_request.base.ref
         : (payload as PushEventPayload).before;
 
     // For existing scripts, we need to check whether the newly pushed changes
