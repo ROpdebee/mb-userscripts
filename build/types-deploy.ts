@@ -26,7 +26,7 @@ export interface RepositoryDispatchEventPayload {
     client_payload: {
         pull_request: {
             base: {
-                sha: string;
+                ref: string;
             };
         };
     };

@@ -20,7 +20,7 @@ async function checkUserscriptsChanged(): Promise<void> {
             throw new Error('I encountered a userscript which has not been deployed yet!');
         }
 
-        // Check against the main branch's HEAD.
+        // Check against the main branch.
         if (await userscriptHasChanged(scriptName, 'main')) {
             throw new Error(`Userscript ${scriptName} would be changed`);
         }
