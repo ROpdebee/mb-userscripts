@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import simpleGit from 'simple-git';
 
-import type { DeployedScript, DeployInfo, PullRequestInfo } from './types-deploy';
+import type { DeployedScript, DeployInfo, PullRequestInfo, PushEventPayload, RepositoryDispatchEventPayload } from './types-deploy';
 import { updateChangelog } from './changelog';
 import { buildUserscript } from './rollup';
 import { getPreviousReleaseVersion, incrementVersion, userscriptHasChanged } from './versions';
@@ -21,7 +21,7 @@ if (!process.env.PR_INFO) {
 const prInfo = JSON.parse(process.env.PR_INFO) as PullRequestInfo;
 
 // We're using a separate clone of the same repo here. gitDist is checked out
-// to the `dist` branch of our repo. We're using the separate copy  so we can
+// to the `dist` branch of our repo. We're using the separate copy so we can
 // simultaneously build from the main branch into the dist branch, while also
 // committing to dist, without constantly having to change branches.
 const gitDist = simpleGit(distRepo);
@@ -29,12 +29,28 @@ const gitDist = simpleGit(distRepo);
 async function commitIfUpdated(scriptName: string): Promise<DeployedScript | undefined> {
     console.log(`Checking ${scriptName}…`);
     const previousVersion = await getPreviousReleaseVersion(scriptName, distRepo);
+    const isNewScript = !previousVersion;
     const nextVersion = incrementVersion(previousVersion);
 
-    if (!previousVersion) {
+    // Always deploy new scripts.
+    if (isNewScript) {
         console.log(`First release: ${nextVersion}`);
         return commitUpdate(scriptName, nextVersion);
-    } else if (await userscriptHasChanged(scriptName, previousVersion, distRepo)) {
+    }
+
+    const isPreview = process.env.GITHUB_EVENT_NAME !== 'push';
+    const payloadText = await fs.readFile(process.env.GITHUB_EVENT_PATH!, 'utf8');
+    const payload = JSON.parse(payloadText) as unknown;
+    const baseRef = isPreview
+        ? (payload as RepositoryDispatchEventPayload).client_payload.pull_request.base.sha
+        : (payload as PushEventPayload).before;
+
+    // For existing scripts, we need to check whether the newly pushed changes
+    // lead to a change in the compiled scripts. We don't check against the
+    // previously deployed version, since there may have been changes that were
+    // not deployed following a `skip cd` tag.
+    // See https://github.com/ROpdebee/mb-userscripts/issues/600
+    if (await userscriptHasChanged(scriptName, baseRef)) {
         console.log(`${previousVersion} -> ${nextVersion}`);
         return commitUpdate(scriptName, nextVersion);
     }
