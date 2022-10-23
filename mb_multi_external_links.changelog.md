@@ -1,3 +1,4 @@
+- **2022.10.23**: New feature: add ability to export debug logs and HTTP responses for bug reports ([#591](https://github.com/ROpdebee/mb-userscripts/pull/591))
 - **2022.8.13**: Bug fix: use correct ref on non-release pages ([#551](https://github.com/ROpdebee/mb-userscripts/pull/551))
 - **2022.7.27.2**: Bug fix: submit all but last URL immediately ([#515](https://github.com/ROpdebee/mb-userscripts/pull/515))
 - **2022.7.27**: Internal changes: automatically insert logger boilerplate config ([#514](https://github.com/ROpdebee/mb-userscripts/pull/514))
