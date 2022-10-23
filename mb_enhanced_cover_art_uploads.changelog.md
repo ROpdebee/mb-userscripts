@@ -1,3 +1,4 @@
+- **2022.10.23**: New feature: add ability to export debug logs and HTTP responses for bug reports ([#591](https://github.com/ROpdebee/mb-userscripts/pull/591))
 - **2022.10.18**: Bug fix: upstream provider fixes ([#579](https://github.com/ROpdebee/mb-userscripts/pull/579))
 - **2022.10.9**: Bug fix: handle relative URLs in og:image providers ([#581](https://github.com/ROpdebee/mb-userscripts/pull/581))
 - **2022.9.14**: Internal changes: update dependency ts-custom-error to v3.2.2 ([#559](https://github.com/ROpdebee/mb-userscripts/pull/559))
