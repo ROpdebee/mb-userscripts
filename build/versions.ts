@@ -56,14 +56,29 @@ export async function getPreviousReleaseVersion(userscriptName: string, buildDir
     return extractVersion(metaContent);
 }
 
-export async function userscriptHasChanged(scriptName: string, previousVersion: string, distRepo: string): Promise<boolean> {
-    // We'll check whether the userscript has changed by building the latest
-    // code and diffing it against the previous released version. If there's a
-    // diff, we assume it needs a new release. To prevent diffs caused solely
-    // by version bumps, we're building the script with the same version as
-    // before.
-    await buildUserscript(scriptName, previousVersion, distRepo);
-    const gitDist = simpleGit(distRepo);
-    const diffSummary = await gitDist.diffSummary();
-    return !!diffSummary.changed;
+async function buildTempUserscript(scriptName: string): Promise<string> {
+    const outputDir = await fs.mkdtemp(scriptName);
+    await buildUserscript(scriptName, '0.0.0', outputDir);
+    const content = fs.readFile(path.join(outputDir, `${scriptName}.user.js`), 'utf8');
+    await fs.rm(outputDir, { recursive: true });
+    return content;
+}
+
+export async function userscriptHasChanged(scriptName: string, compareToRef: string): Promise<boolean> {
+    // We'll check whether the userscript has changed by building both the
+    // latest code as well as the code at `baseRef`, then diffing them.
+    // If there's a diff, we assume it needs a new release.
+    const currentVersion = await buildTempUserscript(scriptName);
+
+    // Temporarily check out the base ref
+    const repo = simpleGit();
+    await repo.checkout(compareToRef);
+    let previousVersion: string;
+    try {
+        previousVersion = await buildTempUserscript(scriptName);
+    } finally {
+        await repo.checkout('-');
+    }
+
+    return currentVersion !== previousVersion;
 }
