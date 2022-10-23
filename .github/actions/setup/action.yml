@@ -5,7 +5,7 @@ inputs:
   node-version:
     description: Node version to install, defaults to v16
     required: false
-    default: '16'
+    default: '18'
 runs:
   using: composite
   steps:
