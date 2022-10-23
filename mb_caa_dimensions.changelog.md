@@ -1,3 +1,4 @@
+- **2022.10.23**: New feature: add ability to export debug logs and HTTP responses for bug reports ([#591](https://github.com/ROpdebee/mb-userscripts/pull/591))
 - **2022.9.24**: Internal changes: update dependency idb to v7.1.0 ([#570](https://github.com/ROpdebee/mb-userscripts/pull/570))
 - **2022.7.27.2**: Bug fix: separate cache key from full-size URL ([#518](https://github.com/ROpdebee/mb-userscripts/pull/518))
 - **2022.7.27**: Internal changes: automatically insert logger boilerplate config ([#514](https://github.com/ROpdebee/mb-userscripts/pull/514))
