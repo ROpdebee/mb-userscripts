@@ -49,7 +49,7 @@
     "@types/postcss-preset-env": "7.7.0",
     "@types/rollup__plugin-virtual": "2.0.1",
     "@types/rollup-plugin-progress": "1.1.1",
-    "@types/setup-polly-jest": "0.5.1",
+    "@types/setup-polly-jest": "0.5.2",
     "@typescript-eslint/eslint-plugin": "5.41.0",
     "@typescript-eslint/parser": "5.41.0",
     "babel-plugin-transform-async-to-promises": "0.8.16",
