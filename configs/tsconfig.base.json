@@ -44,10 +44,7 @@
         "paths": {
             "@lib/*": ["src/lib/*"],
             "@src/*": ["src/*"],
-        },
-
-        // For ts-jest, broken .d.ts
-        "skipLibCheck": true,
+        }
     },
     "ts-node": {
         // For ts-node, we need to set the compiled output to CommonJS because
