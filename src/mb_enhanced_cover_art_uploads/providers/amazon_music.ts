@@ -1,7 +1,4 @@
-import { assertHasValue } from '@lib/util/assert';
-
 import type { CoverArt } from '../types';
-import { AmazonProvider } from './amazon';
 import { CoverArtProvider } from './base';
 
 export class AmazonMusicProvider extends CoverArtProvider {
@@ -15,19 +12,9 @@ export class AmazonMusicProvider extends CoverArtProvider {
     public readonly name = 'Amazon Music';
     protected readonly urlRegex = /\/albums\/([A-Za-z\d]{10})(?:\/|$)/;
 
-    public async findImages(url: URL): Promise<CoverArt[]> {
-        // Translate Amazon Music to Amazon product links. The cover art should
-        // be the same, but extracting the cover art from Amazon Music requires
-        // complex API requests with CSRF tokens, whereas product pages are much
-        // easier. Besides, cover art on product pages tends to be larger.
-        // NOTE: I'm not 100% certain the images are always identical, or that
-        // the associated product always exists.
-        const asin = this.extractId(url);
-        assertHasValue(asin);
-        const productUrl = new URL(url.href);
-        productUrl.hostname = productUrl.hostname.replace(/^music\./, '');
-        productUrl.pathname = '/dp/' + asin;
-
-        return new AmazonProvider().findImages(productUrl);
+    public async findImages(): Promise<CoverArt[]> {
+        // Amazon made it really difficult to extract images from these sort
+        // of pages, so we don't support it for now.
+        throw new Error('Amazon Music releases are currently not supported. Please use a different provider or copy the image URL manually.');
     }
 }
