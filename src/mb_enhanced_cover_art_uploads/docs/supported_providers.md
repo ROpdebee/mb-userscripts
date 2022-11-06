@@ -7,8 +7,8 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Direct links to JPG/PNG/GIF/PDF | Partial (see [maxurl sites.txt](https://github.com/qsniyg/maxurl/blob/master/sites.txt)) | ❌ |
 | 7digital | ✔️ | ✔️ |
 | AllMusic | ✔️ | ❌ |
-| Amazon | ✔️ | Partial | Supports digital and physical music and audiobook products. Not all Amazon image types can be mapped to CAA cover art types. |
-| Amazon Music | ✔️ | ✔️ | Converted into main Amazon MP3/Streaming product links, these tend to give larger images. |
+| Amazon | ✔️ | Partial | Supports digital and physical music and audiobook products. Not all Amazon image types can be mapped to CAA cover art types. **Digital Music releases are currently not supported, see issue [#611](https://github.com/ROpdebee/mb-userscripts/issues/611).** |
+| Amazon Music | ✔️ | ✔️ | ~~Converted into main Amazon MP3/Streaming product links, these tend to give larger images.~~ Currently not supported, see issue [#611](https://github.com/ROpdebee/mb-userscripts/issues/611) |
 | Apple Music/iTunes | ✔️ | ✔️ | Maximised to the original source image. See issue [#80](https://github.com/ROpdebee/mb-userscripts/issues/80). |
 | Archive.org | ✔️ | ❌ |
 | Audiomack | ✔️ | ✔️ | Doesn't check for track images, these may be singles.
