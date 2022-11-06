@@ -1,4 +1,3 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { AmazonMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon_music';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
@@ -28,7 +27,7 @@ describe('amazon music provider', () => {
     });
 
     describe('extracting images', () => {
-        const extractionCases = [{
+        /*const extractionCases = [{
             desc: 'release using Amazon provider',
             url: 'https://music.amazon.com/albums/B08MCFCQD8',
             numImages: 1,
@@ -37,9 +36,14 @@ describe('amazon music provider', () => {
                 urlPart: '81NnKXVjJvL',
                 types: [ArtworkTypeIDs.Front],
             }],
+        }];*/
+        const extractionFailedCases = [{
+            desc: 'release using Amazon provider',
+            url: 'https://music.amazon.com/albums/B08MCFCQD8',
+            errorMessage: /Amazon Music releases are currently not supported/,
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases: [] });
+        itBehavesLike(findImagesSpec, { provider, extractionCases: [], extractionFailedCases });
     });
 });

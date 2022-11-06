@@ -60,14 +60,16 @@ describe('amazon provider', () => {
                 urlPart: '816dglIIJHL',
             }],
         };
-        const expectedDigital = {
+        // This was the expected result for the Amazon Music release, we may need
+        // this again in the future.
+        /* const expectedDigital = {
             numImages: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '819w7BrMFgL',
                 types: [ArtworkTypeIDs.Front],
             }],
-        };
+        };*/
 
         const extractionCases: ExtractionCase[] = [{
             desc: 'physical products from the embedded JS on dp URLs',
@@ -97,14 +99,6 @@ describe('amazon provider', () => {
                 urlPart: '812VSsX9rpL',
             }],
         }, {
-            desc: 'digital releases on dp URLs',
-            url: 'https://www.amazon.com/dp/B07R92TVWN',
-            ...expectedDigital,
-        }, {
-            desc: 'digital releases on gp URLs',
-            url: 'https://www.amazon.com/gp/product/B07R92TVWN',
-            ...expectedDigital,
-        }, {
             desc: 'Audible audiobooks',
             url: 'https://www.amazon.com/dp/B017WJ5PR4',
             numImages: 1,
@@ -127,6 +121,14 @@ describe('amazon provider', () => {
         const extractionFailedCases = [{
             desc: 'non-existent release',
             url: 'http://amazon.com/gp/product/B01NCKFNXH',
+        }, {
+            desc: 'digital releases on dp URLs',
+            url: 'https://www.amazon.com/dp/B07R92TVWN',
+            errorMessage: /Amazon Music releases are currently not supported/,
+        }, {
+            desc: 'digital releases on gp URLs',
+            url: 'https://www.amazon.com/gp/product/B07R92TVWN',
+            errorMessage: /Amazon Music releases are currently not supported/,
         }];
 
         // eslint-disable-next-line jest/require-hook
