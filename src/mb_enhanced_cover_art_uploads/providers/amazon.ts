@@ -36,7 +36,8 @@ const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
 
 // CSS queries to figure out which type of page we're on
 const AUDIBLE_PAGE_QUERY = '#audibleProductTitle';  // Product title with Audible logo on standard product pages
-const DIGITAL_PAGE_QUERY = '.DigitalMusicDetailPage';
+const DIGITAL_PAGE_QUERY = '.DigitalMusicDetailPage';  // TODO: Does this still exist?
+const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="DmusicRetailMp3Player"]';  // Dynamically loaded Amazon Music digital pages.
 const PHYSICAL_AUDIOBOOK_PAGE_QUERY = '#booksImageBlock_feature_div';
 
 // CSS queries to extract a front cover from a page
@@ -77,6 +78,10 @@ export class AmazonProvider extends CoverArtProvider {
         } else if (qsMaybe(DIGITAL_PAGE_QUERY, pageDom)) {
             LOGGER.debug('Searching for images in digital release page');
             finder = this.findDigitalImages;
+        } else if (qsMaybe(MUSIC_DIGITAL_PAGE_QUERY, pageDom)) {
+            // Amazon made it really difficult to extract images from these sort
+            // of pages, so we don't support it for now.
+            throw new Error('Amazon Music releases are currently not supported. Please use a different provider or copy the image URL manually.');
         } else if (qsMaybe(PHYSICAL_AUDIOBOOK_PAGE_QUERY, pageDom)) {
             LOGGER.debug('Searching for images in physical audiobook page');
             finder = this.findPhysicalAudiobookImages;
