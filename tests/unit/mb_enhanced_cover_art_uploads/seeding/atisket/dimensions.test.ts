@@ -23,8 +23,8 @@ describe('local storage cache', () => {
         size: 567,
     };
 
-    const lsSetItemSpy = jest.spyOn(window.Storage.prototype, 'setItem');
-    const lsGetItemSpy = jest.spyOn(window.Storage.prototype, 'getItem');
+    const lsSetItemSpy = jest.spyOn(window.Storage.prototype, 'setItem') as jest.SpiedFunction<Storage['setItem']>;
+    const lsGetItemSpy = jest.spyOn(window.Storage.prototype, 'getItem') as jest.SpiedFunction<Storage['getItem']>;
 
     function mockLocalStorage(fakeLocalStorage: Record<string, string | undefined>): void {
         lsGetItemSpy.mockImplementation((key) => {
