@@ -66,7 +66,7 @@ export class DiscogsProvider extends CoverArtProvider {
 
     private static getReleaseImages(releaseId: string): Promise<DiscogsImages> {
         let respProm = this.apiResponseCache.get(releaseId);
-        if (typeof respProm === 'undefined') {
+        if (respProm === undefined) {
             respProm = this.actuallyGetReleaseImages(releaseId);
             this.apiResponseCache.set(releaseId, respProm);
         }
@@ -103,7 +103,8 @@ export class DiscogsProvider extends CoverArtProvider {
         const metadata = safeParseJSON<DiscogsImages>(resp.responseText, 'Invalid response from Discogs API');
         assertHasValue(metadata.data.release, 'Discogs release does not exist');
         const responseId = metadata.data.release.discogsId.toString();
-        assert(typeof responseId === 'undefined' || responseId === releaseId, `Discogs returned wrong release: Requested ${releaseId}, got ${responseId}`);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        assert(responseId === undefined || responseId === releaseId, `Discogs returned wrong release: Requested ${releaseId}, got ${responseId}`);
 
         return metadata;
     }

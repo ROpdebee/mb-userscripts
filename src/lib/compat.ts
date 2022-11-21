@@ -10,7 +10,7 @@ declare function GM_getResourceURL(resourceName: string): string;
 declare const GM_info: typeof GM.info;
 
 function existsInGM(name: string): boolean {
-    return typeof GM !== 'undefined' && typeof (GM as Record<string, unknown>)[name] !== 'undefined';
+    return typeof GM !== 'undefined' && (GM as Record<string, unknown>)[name] !== undefined;
 }
 
 // We need to take care to ensure GM functions are properly bound. I'm not 100%
@@ -90,6 +90,7 @@ declare function cloneInto<T>(obj: T, targetScope: Window, options?: CloneIntoOp
  * object itself.
  */
 export function cloneIntoPageContext<T>(object: T): T {
+    // eslint-disable-next-line unicorn/no-typeof-undefined
     if (typeof cloneInto !== 'undefined' && typeof unsafeWindow !== 'undefined') {
         return cloneInto(object, unsafeWindow);
     }

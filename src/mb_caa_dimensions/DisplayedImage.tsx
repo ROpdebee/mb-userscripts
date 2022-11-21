@@ -14,20 +14,20 @@ export interface DisplayedImage {
 }
 
 export function createDimensionsString(imageInfo: ImageInfo): string {
-    return (typeof imageInfo.dimensions !== 'undefined'
+    return (imageInfo.dimensions !== undefined
         ? `${imageInfo.dimensions.width}x${imageInfo.dimensions.height}`
         : 'failed :(');
 }
 
 export function createFileInfoString(imageInfo: ImageInfo): string {
     const details: string[] = [];
-    if (typeof imageInfo.size !== 'undefined') {
+    if (imageInfo.size !== undefined) {
         details.push(formatFileSize(imageInfo.size));
     }
-    if (typeof imageInfo.fileType !== 'undefined') {
+    if (imageInfo.fileType !== undefined) {
         details.push(imageInfo.fileType);
     }
-    if (typeof imageInfo.pageCount !== 'undefined') {
+    if (imageInfo.pageCount !== undefined) {
         details.push(imageInfo.pageCount.toString() + (imageInfo.pageCount === 1 ? ' page' : ' pages'));
     }
 
@@ -100,7 +100,7 @@ abstract class DisplayedCAAImage extends BaseDisplayedImage {
         this.imgElement.setAttribute('ROpdebee_lazyDimensions', dimensionsString);
 
         this.dimensionsSpan.textContent = dimensionsString;
-        if (typeof fileInfoString !== 'undefined') {
+        if (fileInfoString !== undefined) {
             this.fileInfoSpan.textContent = fileInfoString;
         }
     }
