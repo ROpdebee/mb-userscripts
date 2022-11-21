@@ -114,7 +114,7 @@ export class DispatchMap<Leaf> {
             // Either no entry yet, or a bare entry -> Create a submap
             subMap = new DispatchMap();
             this._set(firstKey, subMap);
-            if (typeof existing !== 'undefined') {
+            if (existing !== undefined) {
                 // existing instanceof Leaf -> Add it to the new submap
                 subMap._set('', existing);
             }
@@ -136,7 +136,7 @@ export class DispatchMap<Leaf> {
         let child = this._get(key);
         if (child instanceof DispatchMap) {
             let newChild = child._get('');
-            if (typeof newChild === 'undefined') {
+            if (newChild === undefined) {
                 // Also match *.example.com to example.com
                 newChild = child._get('*');
             }

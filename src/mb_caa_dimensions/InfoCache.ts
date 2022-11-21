@@ -66,7 +66,8 @@ export interface InfoCache {
  * @return     {InfoCache}  The image information cache.
  */
 export async function createCache(): Promise<InfoCache> {
-    if (typeof window.indexedDB !== 'undefined') {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (window.indexedDB !== undefined) {
         try {
             // Need to await this to ensure we catch errors here and fall back
             // on the dummy cache.
@@ -209,7 +210,7 @@ class IndexedDBInfoCache {
     private async get<StoreName extends StoreNames<CacheDBSchema>>(storeName: StoreName, imageUrl: string): Promise<CacheDBSchema[StoreName]['value'] | undefined> {
         try {
             const cachedResult = await this.db.get(storeName, imageUrl);
-            if (typeof cachedResult !== 'undefined') {
+            if (cachedResult !== undefined) {
                 LOGGER.debug(`${imageUrl}: Cache hit`);
             } else {
                 LOGGER.debug(`${imageUrl}: Cache miss`);

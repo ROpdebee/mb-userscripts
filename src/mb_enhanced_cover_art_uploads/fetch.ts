@@ -209,7 +209,8 @@ export class ImageFetcher {
             headers: headers,
             progressCb: this.hooks.onFetchProgress?.bind(this.hooks, id, url),
         });
-        if (typeof resp.finalUrl === 'undefined') {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (resp.finalUrl === undefined) {
             LOGGER.warn(`Could not detect if URL ${url.href} caused a redirect`);
         }
         const fetchedUrl = new URL(resp.finalUrl || url);
@@ -231,8 +232,7 @@ export class ImageFetcher {
             // URLs in the top-level `fetchImages`, because the URL given there
             // could still point to an actual image.
             const candidateProvider = getProviderByDomain(url);
-            if (typeof candidateProvider !== 'undefined') {
-                // eslint-disable-next-line unicorn/prefer-type-error -- Not a type error.
+            if (candidateProvider !== undefined) {
                 throw new Error(`This page is not (yet) supported by the ${candidateProvider.name} provider, are you sure this page corresponds to a MusicBrainz release?`);
             }
 

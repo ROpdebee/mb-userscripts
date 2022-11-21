@@ -30,7 +30,7 @@ interface SpecArgs {
 }
 
 export const findImagesSpec = ({ provider, extractionCases, extractionFailedCases, pollyContext }: SpecArgs): void => {
-    if (typeof pollyContext === 'undefined') {
+    if (pollyContext === undefined) {
         pollyContext = setupPolly();
     }
 

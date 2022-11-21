@@ -20,8 +20,7 @@ export async function getCAAInfo(itemId: string, imageId: string): Promise<FileI
     const iaManifest = await fetchIAMetadata(itemId);
     const fileNameRegex = new RegExp(`mbid-[a-f0-9-]{36}-${imageId}\\.\\w+$`);
     const imgMetadata = iaManifest.files.find((fileMeta) => fileNameRegex.test(fileMeta.name));
-    if (typeof imgMetadata === 'undefined') {
-        // eslint-disable-next-line unicorn/prefer-type-error -- Not a type error.
+    if (imgMetadata === undefined) {
         throw new Error(`Could not find image "${imageId}" in IA manifest`);
     }
 

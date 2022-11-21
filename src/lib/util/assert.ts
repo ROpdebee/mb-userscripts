@@ -23,7 +23,7 @@ export function assert(condition: boolean, message?: string): asserts condition 
  * @param      {string}         message  The message
  */
 export function assertDefined<T>(value: T, message?: string): asserts value is Exclude<T, undefined> {
-    assert(typeof value !== 'undefined', message ?? 'Assertion failed: Expected value to be defined');
+    assert(value !== undefined, message ?? 'Assertion failed: Expected value to be defined');
 }
 
 /**
@@ -43,5 +43,5 @@ export function assertNonNull<T>(value: T, message?: string): asserts value is E
  * @param      {string}         message  The message
  */
 export function assertHasValue<T>(value: T, message?: string): asserts value is NonNullable<T> {
-    assert(typeof value !== 'undefined' && value !== null, message ?? 'Assertion failed: Expected value to be defined and non-null');
+    assert(value !== undefined && value !== null, message ?? 'Assertion failed: Expected value to be defined and non-null');
 }

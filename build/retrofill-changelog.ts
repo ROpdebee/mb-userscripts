@@ -18,7 +18,7 @@ async function iterCommits(repo: SimpleGit): Promise<void> {
         if (messageMatch === null) throw new Error(`Malformed commit? ${commit.message}`);
         const [scriptName, version] = messageMatch.slice(1);
         let entryList = changelogEntries.get(scriptName);
-        if (typeof entryList === 'undefined') {
+        if (entryList === undefined) {
             entryList = [];
             changelogEntries.set(scriptName, entryList);
         }

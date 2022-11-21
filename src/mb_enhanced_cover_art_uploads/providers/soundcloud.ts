@@ -182,7 +182,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
 
     private async lazyLoadTracks(tracks: SCHydrationTrack[]): Promise<SCHydrationTrack[]> {
         const lazyTrackIDs = tracks
-            .filter((track) => typeof track.artwork_url === 'undefined')
+            .filter((track) => track.artwork_url === undefined)
             .map((track) => track.id);
         if (lazyTrackIDs.length === 0) return tracks;
 
@@ -209,7 +209,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         // order, since the order is used to infer track numbers.
         return tracks.map((track) => {
             // Was already loaded, no need in doing it again
-            if (typeof track.artwork_url !== 'undefined') return track;
+            if (track.artwork_url !== undefined) return track;
 
             const loadedTrack = trackIdToLoadedTrack.get(track.id);
             if (!loadedTrack) {
