@@ -1,5 +1,5 @@
 import type { MaximisedImage } from '@src/mb_enhanced_cover_art_uploads/maximise';
-import type { ImageContents } from '@src/mb_enhanced_cover_art_uploads/types';
+import type { ImageContents, QueuedImage } from '@src/mb_enhanced_cover_art_uploads/types';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { gmxhr, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
@@ -604,7 +604,7 @@ describe('fetching images from providers', () => {
 
             await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, true))
                 .resolves.toMatchObject({
-                    images: expect.toBeArrayOfSize(2),
+                    images: expect.toBeArrayOfSize(2) as QueuedImage[],
                 });
             expect(mockFetchImageContents).toHaveBeenCalledTimes(2);
         });

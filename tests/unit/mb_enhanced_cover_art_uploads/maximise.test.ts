@@ -160,7 +160,7 @@ describe('maximising Apple Music images', () => {
 
         expect(result).toMatchObject([{
             url: {
-                href: expect.toEndWith('/source'),
+                href: expect.toEndWith('/source') as string,
             },
             likely_broken: true,
         }]);
