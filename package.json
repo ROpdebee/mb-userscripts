@@ -100,7 +100,7 @@
     "sass": "1.56.1",
     "setup-polly-jest": "0.11.0",
     "simple-git": "3.15.1",
-    "terser": "5.16.0",
+    "terser": "5.16.1",
     "ts-dedent": "2.2.0",
     "ts-jest": "29.0.3",
     "ts-node": "10.9.1",
