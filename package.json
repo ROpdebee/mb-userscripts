@@ -42,7 +42,7 @@
     "@rollup/pluginutils": "5.0.2",
     "@types/babel__core": "7.1.20",
     "@types/confusing-browser-globals": "1.0.0",
-    "@types/conventional-commits-parser": "3.0.2",
+    "@types/conventional-commits-parser": "3.0.3",
     "@types/glob": "8.0.0",
     "@types/greasemonkey": "4.0.4",
     "@types/jest": "29.2.4",
