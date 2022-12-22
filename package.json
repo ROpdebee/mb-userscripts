@@ -23,7 +23,7 @@
   "homepage": "https://github.com/ROpdebee/mb-userscripts#readme",
   "private": true,
   "devDependencies": {
-    "@babel/core": "7.20.5",
+    "@babel/core": "7.20.7",
     "@babel/plugin-syntax-jsx": "7.18.6",
     "@babel/plugin-transform-runtime": "7.19.6",
     "@babel/preset-env": "7.20.2",
