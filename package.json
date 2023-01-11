@@ -102,7 +102,7 @@
     "simple-git": "3.15.1",
     "terser": "5.16.1",
     "ts-dedent": "2.2.0",
-    "ts-jest": "29.0.3",
+    "ts-jest": "29.0.4",
     "ts-node": "10.9.1",
     "tsconfig-paths": "4.1.2",
     "type-fest": "3.5.1",
