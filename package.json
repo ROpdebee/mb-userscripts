@@ -105,7 +105,7 @@
     "ts-jest": "29.0.5",
     "ts-node": "10.9.1",
     "tsconfig-paths": "4.1.2",
-    "type-fest": "3.5.1",
+    "type-fest": "3.5.2",
     "typescript": "4.9.4",
     "warcio": "1.6.2"
   },
