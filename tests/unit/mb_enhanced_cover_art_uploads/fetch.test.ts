@@ -14,11 +14,9 @@ jest.mock('@lib/util/xhr');
 // We need to provide a mock factory, because for some reason, either jest or
 // rewire is not recognising the generator, leading to `getMaximisedCandidates`
 // being undefined in this test suite.
-jest.mock('@src/mb_enhanced_cover_art_uploads/maximise', () => {
-    return {
-        getMaximisedCandidates: jest.fn(),
-    };
-});
+jest.mock<{ getMaximisedCandidates: typeof getMaximisedCandidates }>('@src/mb_enhanced_cover_art_uploads/maximise', () => ({
+    getMaximisedCandidates: jest.fn(),
+}));
 jest.mock('@src/mb_enhanced_cover_art_uploads/providers');
 jest.mock('@src/mb_enhanced_cover_art_uploads/form');
 
