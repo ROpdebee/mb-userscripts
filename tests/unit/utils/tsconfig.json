@@ -1,7 +1,6 @@
 {
     "extends": "../../../configs/tsconfig.base-unit",
     "include": ["**/*"],
-    "files": ["../../types/warcio.d.ts"],
     "references": [
         { "path": "../../../src/lib" },
     ]
