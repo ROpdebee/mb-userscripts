@@ -1,5 +1,17 @@
 // ES modules which need to be transformed by babel for use in jest.
-const esModules = ['node-fetch', 'fetch-blob', 'p-throttle', 'p-retry', 'warcio', 'data-uri-to-buffer', 'formdata-polyfill'].join('|');
+const esModules = [
+    'node-fetch',
+    'p-throttle',
+    'p-retry',
+    'warcio',
+    // Imported by node-fetch
+    'fetch-blob',
+    'data-uri-to-buffer',
+    'formdata-polyfill',
+    // Imported by warcio
+    'to-data-view',
+    'base32-encode',
+].join('|');
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
