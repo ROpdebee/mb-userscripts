@@ -47,7 +47,7 @@ export default async function warc2har(warc: Uint8Array): Promise<Har> {
     };
 }
 
-function getOrCreateEntry(entryMap: Map<string, HarEntry>, warcRecordId: string | null): HarEntry {
+function getOrCreateEntry(entryMap: Map<string, HarEntry>, warcRecordId: string | null | undefined): HarEntry {
     assertHasValue(warcRecordId);
     if (!entryMap.has(warcRecordId)) {
         entryMap.set(warcRecordId, { cache: {}, request: {}, response: {} } as unknown as HarEntry);
@@ -99,7 +99,7 @@ async function populateEntryMetadata(record: WARCRecord, entry: HarEntry): Promi
 }
 
 function httpHeadersToKeyValue(record: WARCRecord): Array<{ name: string; value: string}> {
-    return [...record.httpHeaders.headers.entries()].map(([name, value]) => {
+    return [...record.httpHeaders!.headers.entries()].map(([name, value]) => {
         return { name, value };
     });
 }
@@ -112,13 +112,13 @@ function parseQueryString(path: string): Array<{ name: string; value: string}> {
 }
 
 async function populateEntryRequest(record: WARCRecord, entry: HarEntry): Promise<void> {
-    const [method, path, httpVersion] = record.httpHeaders.statusline.split(' ');
+    const [method, path, httpVersion] = record.httpHeaders!.statusline.split(' ');
     const request: HarRequest = {
         ...entry.request,
         httpVersion,
         method,
         bodySize: 0,
-        url: record.warcTargetURI,
+        url: record.warcTargetURI!,
         headers: httpHeadersToKeyValue(record),
         queryString: parseQueryString(path),
     };
@@ -127,7 +127,7 @@ async function populateEntryRequest(record: WARCRecord, entry: HarEntry): Promis
 }
 
 async function populateEntryResponse(record: WARCRecord, entry: HarEntry): Promise<void> {
-    const [httpVersion, status, ...statusTextParts] = record.httpHeaders.statusline.split(' ');
+    const [httpVersion, status, ...statusTextParts] = record.httpHeaders!.statusline.split(' ');
     const headers = httpHeadersToKeyValue(record);
     const bodyEncoded = await record.readFully();
     const response: HarResponse = {
@@ -140,7 +140,7 @@ async function populateEntryResponse(record: WARCRecord, entry: HarEntry): Promi
     };
 
 
-    const mimeType = record.httpHeaders.headers.get('content-type');
+    const mimeType = record.httpHeaders!.headers.get('content-type');
     assertHasValue(mimeType);
     response.content.mimeType = mimeType;
     response.content.size = bodyEncoded.length;

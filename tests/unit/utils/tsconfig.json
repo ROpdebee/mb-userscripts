@@ -3,5 +3,8 @@
     "include": ["**/*"],
     "references": [
         { "path": "../../../src/lib" },
-    ]
+    ],
+    "compilerOptions": {
+        "skipLibCheck": true
+    }
 }
