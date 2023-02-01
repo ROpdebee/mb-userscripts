@@ -11,12 +11,12 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import virtual from '@rollup/plugin-virtual';
 import postcssPresetEnv from 'postcss-preset-env';
 import { rollup } from 'rollup';
-import consts from 'rollup-plugin-consts';
 import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
 import { parseChangelogEntries } from './changelog';
+import { consts } from './plugin-consts';
 import { logger } from './plugin-logger';
 import { nativejsx } from './plugin-nativejsx';
 import { updateNotifications } from './plugin-update-notifications';
