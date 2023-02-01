@@ -115,7 +115,7 @@ export async function userscriptHasChanged(scriptName: string, compareToRef: str
         const newPath = path.join(tmpDir, 'new.js');
         await fs.writeFile(oldPath, previousVersion);
         await fs.writeFile(newPath, currentVersion);
-        diff = await repo.diff([oldPath, newPath]);
+        diff = await repo.diff(['--no-index', oldPath, newPath]);
         await fs.rm(tmpDir, { recursive: true });
     }
 
