@@ -1,6 +1,5 @@
 import fs from 'node:fs/promises';
 
-import { buildUserscript } from './rollup';
 import { getPreviousReleaseVersion, userscriptHasChanged } from './versions';
 
 if (!process.env.GITHUB_ACTIONS) {
@@ -12,6 +11,7 @@ const distRepo = process.argv[2];
 async function checkUserscriptsChanged(): Promise<void> {
     const srcContents = await fs.readdir('./src');
     const userscriptDirs = srcContents.filter((name) => name.startsWith('mb_'));
+    let anyScriptChanged = false;
 
     for (const scriptName of userscriptDirs) {
         console.log(`Checking ${scriptName}`);
@@ -22,12 +22,15 @@ async function checkUserscriptsChanged(): Promise<void> {
         }
 
         // Check against the main branch.
-        if (await userscriptHasChanged(scriptName, 'main')) {
-            // Build it again into the dist repo so that the changes can be
-            // displayed.
-            await buildUserscript(scriptName, previousVersion, distRepo);
-            throw new Error(`Userscript ${scriptName} would be changed`);
+        const { changed, diff } = await userscriptHasChanged(scriptName, 'main');
+        if (changed) {
+            anyScriptChanged = true;
+            console.log(diff);
         }
+    }
+
+    if (anyScriptChanged) {
+        throw new Error('Some userscripts would be changed');
     }
 }
 

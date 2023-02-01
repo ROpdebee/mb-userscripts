@@ -53,7 +53,8 @@ async function commitIfUpdated(scriptName: string): Promise<DeployedScript | und
     // previously deployed version, since there may have been changes that were
     // not deployed following a `skip cd` tag.
     // See https://github.com/ROpdebee/mb-userscripts/issues/600
-    if (await userscriptHasChanged(scriptName, baseRef)) {
+    const { changed: hasChanged } = await userscriptHasChanged(scriptName, baseRef);
+    if (hasChanged) {
         console.log(`${previousVersion} -> ${nextVersion}`);
         return commitUpdate(scriptName, nextVersion);
     }

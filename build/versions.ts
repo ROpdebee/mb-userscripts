@@ -83,7 +83,7 @@ async function buildTempUserscript(scriptName: string): Promise<string> {
     return content;
 }
 
-export async function userscriptHasChanged(scriptName: string, compareToRef: string): Promise<boolean> {
+export async function userscriptHasChanged(scriptName: string, compareToRef: string): Promise<{ changed: boolean; diff: string }> {
     // We'll check whether the userscript has changed by building both the
     // latest code as well as the code at `baseRef`, then diffing them.
     // If there's a diff, we assume it needs a new release.
@@ -103,5 +103,21 @@ export async function userscriptHasChanged(scriptName: string, compareToRef: str
 
     const currentVersion = await buildTempUserscript(scriptName);
 
-    return currentVersion !== previousVersion;
+    const changed = currentVersion !== previousVersion;
+    let diff = '';
+
+    // Generate diff for the two versions. We can't simply write the new version
+    // to the dist branch and perform a `git diff` on it, since this will also
+    // display differences from previous changes where CD was skipped.
+    if (changed) {
+        const tmpDir = await fs.mkdtemp(`${scriptName}-diff`);
+        const oldPath = path.join(tmpDir, 'old.js');
+        const newPath = path.join(tmpDir, 'new.js');
+        await fs.writeFile(oldPath, previousVersion);
+        await fs.writeFile(newPath, currentVersion);
+        diff = await repo.diff([oldPath, newPath]);
+        await fs.rm(tmpDir, { recursive: true });
+    }
+
+    return { changed, diff };
 }

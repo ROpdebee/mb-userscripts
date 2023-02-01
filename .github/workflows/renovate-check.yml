@@ -32,8 +32,3 @@ jobs:
         env:
           NODE_ENV: production  # Necessary to ensure we minify in the preview
         run: npx ts-node -r tsconfig-paths/register build/check-scripts-unchanged.ts repoDist
-
-      - name: Display changes that would be made
-        if: always()
-        run: git diff
-        working-directory: repoDist
