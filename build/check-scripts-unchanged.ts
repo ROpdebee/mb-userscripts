@@ -24,6 +24,7 @@ async function checkUserscriptsChanged(): Promise<void> {
         // Check against the main branch.
         const { changed, diff } = await userscriptHasChanged(scriptName, 'main');
         if (changed) {
+            console.log(`${scriptName} would be changed`);
             anyScriptChanged = true;
             console.log(diff);
         }
