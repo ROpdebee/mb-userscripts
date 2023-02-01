@@ -109,61 +109,67 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
             `${userscriptDir}.changelog.md`,
         );
 
+    const plugins = [
+        updateNotifications({
+            include: inputPath,
+        }),
+        logger({
+            include: inputPath,
+        }),
+        // To resolve some aliases, like @lib
+        alias({
+            entries: {
+                '@lib': path.resolve('./src/lib'),
+                '@src': path.resolve('./src'),
+            },
+        }),
+        consts({
+            'userscript-id': userscriptDir,
+            'userscript-feature-history': featureHistory,
+            'changelog-url': changelogUrl,
+            'debug-mode': process.env.NODE_ENV !== 'production',
+        }),
+        // To resolve node_modules imports
+        nodeResolve({
+            extensions: EXTENSIONS,
+        }),
+        // To import with CJS require() statements
+        commonjs(),
+        // Transpilation
+        babel(BABEL_OPTIONS),
+        // NativeJSX transformations. Must be run after babel to remove
+        // TypeScript syntax. Using NativeJSX instead of builtin babel
+        // transpilation with custom createElement pragmas because NativeJSX
+        // produces more natural code. However, it doesn't support all JSX
+        // features yet.
+        nativejsx({
+            prototypes: 'module',
+            acorn: {
+                ecmaVersion: 'latest',
+                sourceType: 'module',
+            },
+            include: '**/*.tsx',
+        }),
+        // To bundle and import CSS/SCSS etc
+        postcss({
+            inject: false,
+            minimize: true,
+            plugins: [
+                // Transpile CSS for older browsers
+                postcssPresetEnv,
+            ],
+            extensions: ['.css', '.scss', '.sass'],
+        }),
+    ];
+
+    // Progress in CI just leads to noisy logs.
+    if (!process.env.CI) {
+        plugins.unshift(progress() as Plugin);
+    }
+
     const bundle = await rollup({
         input: inputPath,
-        plugins: [
-            progress() as Plugin,
-            updateNotifications({
-                include: inputPath,
-            }),
-            logger({
-                include: inputPath,
-            }),
-            // To resolve some aliases, like @lib
-            alias({
-                entries: {
-                    '@lib': path.resolve('./src/lib'),
-                    '@src': path.resolve('./src'),
-                },
-            }),
-            consts({
-                'userscript-id': userscriptDir,
-                'userscript-feature-history': featureHistory,
-                'changelog-url': changelogUrl,
-                'debug-mode': process.env.NODE_ENV !== 'production',
-            }),
-            // To resolve node_modules imports
-            nodeResolve({
-                extensions: EXTENSIONS,
-            }),
-            // To import with CJS require() statements
-            commonjs(),
-            // Transpilation
-            babel(BABEL_OPTIONS),
-            // NativeJSX transformations. Must be run after babel to remove
-            // TypeScript syntax. Using NativeJSX instead of builtin babel
-            // transpilation with custom createElement pragmas because NativeJSX
-            // produces more natural code. However, it doesn't support all JSX
-            // features yet.
-            nativejsx({
-                prototypes: 'module',
-                acorn: {
-                    ecmaVersion: 'latest',
-                    sourceType: 'module',
-                },
-                include: '**/*.tsx',
-            }),
-            // To bundle and import CSS/SCSS etc
-            postcss({
-                inject: false,
-                minimize: true,
-                plugins: [
-                    // Transpile CSS for older browsers
-                    postcssPresetEnv,
-                ],
-                extensions: ['.css', '.scss', '.sass'],
-            }),
-        ],
+        plugins,
     });
 
     const output = await bundle.generate({
