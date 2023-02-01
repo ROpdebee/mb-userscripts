@@ -49,11 +49,14 @@ const SKIP_PACKAGES = new Set(['lib', 'types']);
 const MAX_FEATURE_HISTORY = 10;  // Include only the last 10 new features of the changelog
 
 export async function buildUserscripts(version: string, outputDir: string = OUTPUT_DIR): Promise<void> {
-    const userscriptDirs = await fs.promises.readdir('./src');
+    const sourceDirs = await fs.promises.readdir('./src');
+    const userscriptDirs = sourceDirs
+        .filter((name) => !SKIP_PACKAGES.has(name) && !name.startsWith('.') && fs.statSync(path.resolve('./src', name)).isDirectory());
 
-    await Promise.all(userscriptDirs
-        .filter((name) => !SKIP_PACKAGES.has(name) && !name.startsWith('.') && fs.statSync(path.resolve('./src', name)).isDirectory())
-        .map((userscriptName) => buildUserscript(userscriptName, version, outputDir)));
+    // Build sequentially, to prevent console output from mangling
+    for (const userscriptName of userscriptDirs) {
+        await buildUserscript(userscriptName, version, outputDir);
+    }
 }
 
 export async function buildUserscript(userscriptName: string, version: string, outputDir: string): Promise<void> {
