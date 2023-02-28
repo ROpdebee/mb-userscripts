@@ -1,6 +1,6 @@
 import retry from 'retry';
 
-import type { CacheStore} from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
+import type { CacheStore } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
 import * as xhr from '@lib/util/xhr';
 import { AtisketImage, CACHE_LOCALSTORAGE_KEY, localStorageCache, MAX_CACHED_IMAGES } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
 import { setupPolly } from '@test-utils/pollyjs';
