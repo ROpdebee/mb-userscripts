@@ -11,8 +11,8 @@ const PREAMBLE = dedent`
   -->
   # MB Userscripts
 
-  ![CI/CD Workflow Status](https://img.shields.io/github/actions/workflow/status/ROpdebee/mb-userscripts/CI.yml?branch=main&label=CI/CD)
-  ![Codecov](https://img.shields.io/codecov/c/gh/ROpdebee/mb-userscripts)
+  [![CI/CD Workflow Status](https://img.shields.io/github/actions/workflow/status/ROpdebee/mb-userscripts/CI.yml?branch=main&label=CI/CD)](https://github.com/ROpdebee/mb-userscripts/actions/workflows/CI.yml)
+  [![Codecov](https://img.shields.io/codecov/c/gh/ROpdebee/mb-userscripts)](https://app.codecov.io/gh/ROpdebee/mb-userscripts/)
   [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
   [![GitHub license](https://img.shields.io/github/license/ROpdebee/mb-userscripts)](https://github.com/ROpdebee/mb-userscripts/blob/main/LICENSE)
 
