@@ -22,7 +22,7 @@ module.exports = {
     ],
     plugins: [
         '@typescript-eslint',
-        '@delagen/deprecation',
+        'deprecation',
         'simple-import-sort',
         'disable',
     ],
@@ -61,7 +61,7 @@ module.exports = {
         'arrow-parens': ['error', 'always'],
         '@typescript-eslint/comma-dangle': ['warn', 'always-multiline'],
         'no-restricted-globals': ['error', 'origin'].concat(restrictedGlobals),
-        '@delagen/deprecation/deprecation': 'warn',
+        'deprecation/deprecation': 'warn',
         'eslint-comments/no-unused-disable': 'warn',
         'eslint-comments/disable-enable-pair': ['warn', {
             allowWholeFile: true

@@ -118,7 +118,7 @@ export class DiscogsProvider extends CoverArtProvider {
         const s3Url = urlParts.slice(firstFilenameIdx).join('');
 
         // Cut off the extension added by Discogs, this leads to decoding errors.
-        // eslint-disable-next-line @delagen/deprecation/deprecation -- Incorrect environment
+        // eslint-disable-next-line deprecation/deprecation -- Incorrect environment
         const s3UrlDecoded = atob(s3Url.slice(0, s3Url.indexOf('.')));
         return s3UrlDecoded.split('/').pop()!;
     }
