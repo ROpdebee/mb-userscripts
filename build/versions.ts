@@ -93,12 +93,12 @@ export async function userscriptHasChanged(scriptName: string, compareToRef: str
 
     // Temporarily check out the base ref
     const repo = simpleGit();
-    await repo.checkout(compareToRef);
+    await repo.checkout(['-f', compareToRef]);
     let previousVersion: string;
     try {
         previousVersion = await buildTempUserscript(scriptName);
     } finally {
-        await repo.checkout('-');
+        await repo.checkout(['-f', '-']);
     }
 
     const currentVersion = await buildTempUserscript(scriptName);
