@@ -22,6 +22,7 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Melon | ✔️ | ✔️ |
 | MusicBrainz/Cover Art Archive | ✔️ | ✔️ | To copy images from one release to another. |
 | Musik-Sammler | ✔️ | ❌ |
+| NetEase | ✔️ | ✔️ | A.k.a. music.163.com |
 | Qobuz | ✔️ | ✔️ | Goodies are grabbed whenever possible. Back covers might not be supported at this time, if you have a release with a back cover, please let me know. Maximised to original source image. |
 | QUB Musique | ✔️ | ✔️ | Dispatched to Qobuz provider. |
 | RateYourMusic | ✔️ | ✔️ | Requires being logged in to RYM. |
