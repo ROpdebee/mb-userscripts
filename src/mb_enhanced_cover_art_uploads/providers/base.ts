@@ -107,6 +107,8 @@ export abstract class CoverArtProvider {
             // will be shown in the UI.
             httpErrorMessages: {
                 404: `${this.name} release does not exist`,
+                // 410: Gone used on e.g. Juno Download
+                410: `${this.name} release does not exist`,
             },
             ...options,
         });
