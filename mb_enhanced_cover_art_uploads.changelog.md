@@ -1,3 +1,4 @@
+- **2023.4.22**: Bug fix: provider fixes for Soundcloud, Amazon Music ([#653](https://github.com/ROpdebee/mb-userscripts/pull/653))
 - **2022.11.6**: Bug fix: gracefully reject Amazon Music pages ([#612](https://github.com/ROpdebee/mb-userscripts/pull/612))
 - **2022.10.18**: Bug fix: upstream provider fixes ([#579](https://github.com/ROpdebee/mb-userscripts/pull/579))
 - **2022.10.9**: Bug fix: handle relative URLs in og:image providers ([#581](https://github.com/ROpdebee/mb-userscripts/pull/581))

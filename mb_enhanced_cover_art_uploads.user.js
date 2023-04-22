@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2022.11.6
+// @version      2023.4.22
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -32,10 +32,10 @@
   'use strict';
 
   /* minified: babel helpers, babel-plugin-transform-async-to-promises, nativejsx, ts-custom-error, p-throttle, retry, p-retry */
-  function ownKeys(t,r){var e=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);r&&(n=n.filter((function(r){return Object.getOwnPropertyDescriptor(t,r).enumerable}))),e.push.apply(e,n);}return e}function _objectSpread2(t){for(var r=1;r<arguments.length;r++){var e=null!=arguments[r]?arguments[r]:{};r%2?ownKeys(Object(e),!0).forEach((function(r){_defineProperty(t,r,e[r]);})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(e)):ownKeys(Object(e)).forEach((function(r){Object.defineProperty(t,r,Object.getOwnPropertyDescriptor(e,r));}));}return t}function _defineProperty(t,r,e){return r in t?Object.defineProperty(t,r,{value:e,enumerable:!0,configurable:!0,writable:!0}):t[r]=e,t}function _slicedToArray(t,r){return _arrayWithHoles(t)||_iterableToArrayLimit(t,r)||_unsupportedIterableToArray(t,r)||_nonIterableRest()}function _toArray(t){return _arrayWithHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableRest()}function _arrayWithHoles(t){if(Array.isArray(t))return t}function _iterableToArray(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}function _iterableToArrayLimit(t,r){var e=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=e){var n,o,i=[],a=!0,s=!1;try{for(e=e.call(t);!(a=(n=e.next()).done)&&(i.push(n.value),!r||i.length!==r);a=!0);}catch(u){s=!0,o=u;}finally{try{a||null==e.return||e.return();}finally{if(s)throw o}}return i}}function _unsupportedIterableToArray(t,r){if(t){if("string"==typeof t)return _arrayLikeToArray(t,r);var e=Object.prototype.toString.call(t).slice(8,-1);return "Object"===e&&t.constructor&&(e=t.constructor.name),"Map"===e||"Set"===e?Array.from(t):"Arguments"===e||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(e)?_arrayLikeToArray(t,r):void 0}}function _arrayLikeToArray(t,r){(null==r||r>t.length)&&(r=t.length);for(var e=0,n=new Array(r);e<r;e++)n[e]=t[e];return n}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _createForOfIteratorHelper(t,r){var e="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!e){if(Array.isArray(t)||(e=_unsupportedIterableToArray(t))||r&&t&&"number"==typeof t.length){e&&(t=e);var n=0,o=function(){};return {s:o,n:function(){return n>=t.length?{done:!0}:{done:!1,value:t[n++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,a=!0,s=!1;return {s:function(){e=e.call(t);},n:function(){var t=e.next();return a=t.done,t},e:function(t){s=!0,i=t;},f:function(){try{a||null==e.return||e.return();}finally{if(s)throw i}}}}const _Pact=function(){function t(){}return t.prototype.then=function(r,e){const n=new t,o=this.s;if(o){const t=1&o?r:e;if(t){try{_settle(n,1,t(this.v));}catch(i){_settle(n,2,i);}return n}return this}return this.o=function(t){try{const o=t.v;1&t.s?_settle(n,1,r?r(o):o):e?_settle(n,1,e(o)):_settle(n,2,o);}catch(i){_settle(n,2,i);}},n},t}();function _settle(t,r,e){if(!t.s){if(e instanceof _Pact){if(!e.s)return void(e.o=_settle.bind(null,t,r));1&r&&(r=e.s),e=e.v;}if(e&&e.then)return void e.then(_settle.bind(null,t,r),_settle.bind(null,t,2));t.s=r,t.v=e;const n=t.o;n&&n(t);}}function _isSettledPact(t){return t instanceof _Pact&&1&t.s}function _async(t){return function(){for(var r=[],e=0;e<arguments.length;e++)r[e]=arguments[e];try{return Promise.resolve(t.apply(this,r))}catch(n){return Promise.reject(n)}}}function _await(t,r,e){return e?r?r(t):t:(t&&t.then||(t=Promise.resolve(t)),r?t.then(r):t)}function _awaitIgnored(t,r){if(!r)return t&&t.then?t.then(_empty):Promise.resolve()}function _continue(t,r){return t&&t.then?t.then(r):r(t)}function _continueIgnored(t){if(t&&t.then)return t.then(_empty)}function _forTo(t,r,e){var n,o,i=-1;return function a(s){try{for(;++i<t.length&&(!e||!e());)if((s=r(i))&&s.then){if(!_isSettledPact(s))return void s.then(a,o||(o=_settle.bind(null,n=new _Pact,2)));s=s.v;}n?_settle(n,1,s):n=s;}catch(u){_settle(n||(n=new _Pact),2,u);}}(),n}const _iteratorSymbol="undefined"!=typeof Symbol?Symbol.iterator||(Symbol.iterator=Symbol("Symbol.iterator")):"@@iterator";function _forOf(t,r,e){if("function"==typeof t[_iteratorSymbol]){var n,o,i,a=t[_iteratorSymbol]();if(function t(s){try{for(;!((n=a.next()).done||e&&e());)if((s=r(n.value))&&s.then){if(!_isSettledPact(s))return void s.then(t,i||(i=_settle.bind(null,o=new _Pact,2)));s=s.v;}o?_settle(o,1,s):o=s;}catch(u){_settle(o||(o=new _Pact),2,u);}}(),a.return){var s=function(t){try{n.done||a.return();}catch(r){}return t};if(o&&o.then)return o.then(s,(function(t){throw s(t)}));s();}return o}if(!("length"in t))throw new TypeError("Object is not iterable");for(var u=[],c=0;c<t.length;c++)u.push(t[c]);return _forTo(u,(function(t){return r(u[t])}),e)}const _asyncIteratorSymbol="undefined"!=typeof Symbol?Symbol.asyncIterator||(Symbol.asyncIterator=Symbol("Symbol.asyncIterator")):"@@asyncIterator";function _forAwaitOf(t,r,e){if("function"==typeof t[_asyncIteratorSymbol]){var n=new _Pact,o=t[_asyncIteratorSymbol]();return o.next().then(a).then(void 0,s),n;function i(t){if(e&&e())return _settle(n,1,o.return?o.return().then((function(){return t})):t);o.next().then(a).then(void 0,s);}function a(t){t.done?_settle(n,1):Promise.resolve(r(t.value)).then(i).then(void 0,s);}function s(t){_settle(n,2,o.return?o.return().then((function(){return t})):t);}}return Promise.resolve(_forOf(t,(function(t){return Promise.resolve(t).then(r)}),e))}function _call(t,r,e){if(e)return r?r(t()):t();try{var n=Promise.resolve(t());return r?n.then(r):n}catch(o){return Promise.reject(o)}}function _invoke(t,r){var e=t();return e&&e.then?e.then(r):r(e)}function _invokeIgnored(t){var r=t();if(r&&r.then)return r.then(_empty)}function _catch(t,r){try{var e=t();}catch(n){return r(n)}return e&&e.then?e.then(void 0,r):e}function _finallyRethrows(t,r){try{var e=t();}catch(n){return r(!0,n)}return e&&e.then?e.then(r.bind(null,!1),r.bind(null,!0)):r(!1,e)}function _rethrow(t,r){if(t)throw r;return r}function _empty(){}const _earlyReturn={};function _catchInGenerator(t,r){return _catch(t,(function(t){if(t===_earlyReturn)throw t;return r(t)}))}const _AsyncGenerator=function(){function t(t){this._entry=t,this._pact=null,this._resolve=null,this._return=null,this._promise=null;}function r(t){return {value:t,done:!0}}function e(t){return {value:t,done:!1}}return t.prototype._yield=function(t){return this._resolve(t&&t.then?t.then(e):e(t)),this._pact=new _Pact},t.prototype.next=function(t){const e=this;return e._promise=new Promise((function(n){const o=e._pact;if(null===o){const s=e._entry;if(null===s)return n(e._promise);function i(t){e._resolve(t&&t.then?t.then(r):r(t)),e._pact=null,e._resolve=null;}e._entry=null,e._resolve=n;var a=s(e);a&&a.then?a.then(i,(function(t){if(t===_earlyReturn)i(e._return);else {const r=new _Pact;e._resolve(r),e._pact=null,e._resolve=null,_resolve(r,2,t);}})):i(a);}else e._pact=null,e._resolve=n,_settle(o,1,t);}))},t.prototype.return=function(t){const e=this;return e._promise=new Promise((function(n){const o=e._pact;if(null===o)return null===e._entry?n(e._promise):(e._entry=null,n(t&&t.then?t.then(r):r(t)));e._return=t,e._resolve=n,e._pact=null,_settle(o,2,_earlyReturn);}))},t.prototype.throw=function(t){const r=this;return r._promise=new Promise((function(e,n){const o=r._pact;if(null===o)return null===r._entry?e(r._promise):(r._entry=null,n(t));r._resolve=e,r._pact=null,_settle(o,2,t);}))},t.prototype[_asyncIteratorSymbol]=function(){return this},t}();var appendChildren=function(t,r){(r=Array.isArray(r)?r:[r]).forEach((function(r){r instanceof HTMLElement?t.appendChild(r):(r||"string"==typeof r)&&t.appendChild(document.createTextNode(r.toString()));}));},setStyles=function(t,r){for(const e in r)t.style[e]=r[e];};function fixProto(t,r){var e=Object.setPrototypeOf;e?e(t,r):t.__proto__=r;}function fixStack(t,r){void 0===r&&(r=t.constructor);var e=Error.captureStackTrace;e&&e(t,r);}var __extends=function(){var t=function(r,e){return t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,r){t.__proto__=r;}||function(t,r){for(var e in r)Object.prototype.hasOwnProperty.call(r,e)&&(t[e]=r[e]);},t(r,e)};return function(r,e){if("function"!=typeof e&&null!==e)throw new TypeError("Class extends value "+String(e)+" is not a constructor or null");function n(){this.constructor=r;}t(r,e),r.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n);}}(),CustomError=function(t){function r(r,e){var n=this.constructor,o=t.call(this,r,e)||this;return Object.defineProperty(o,"name",{value:n.name,enumerable:!1,configurable:!0}),fixProto(o,n.prototype),fixStack(o),o}return __extends(r,t),r}(Error);class AbortError$1 extends Error{constructor(){super("Throttled function aborted"),this.name="AbortError";}}function pThrottle(t){let r=t.limit,e=t.interval,n=t.strict;if(!Number.isFinite(r))throw new TypeError("Expected `limit` to be a finite number");if(!Number.isFinite(e))throw new TypeError("Expected `interval` to be a finite number");const o=new Map;let i=0,a=0;const s=[],u=n?function(){const t=Date.now();if(s.length<r)return s.push(t),0;const n=s.shift()+e;return t>=n?(s.push(t),0):(s.push(n),n-t)}:function(){const t=Date.now();return t-i>e?(a=1,i=t,0):(a<r?a++:(i+=e,a=1),i-t)};return t=>{const r=function r(){const e=this;for(var n=arguments.length,i=new Array(n),a=0;a<n;a++)i[a]=arguments[a];if(!r.isEnabled)return _async((function(){return t.apply(e,i)}))();let s;return new Promise(((r,e)=>{s=setTimeout((()=>{r(t.apply(this,i)),o.delete(s);}),u()),o.set(s,e);}))};return r.abort=()=>{var t,r=_createForOfIteratorHelper(o.keys());try{for(r.s();!(t=r.n()).done;){const r=t.value;clearTimeout(r),o.get(r)(new AbortError$1);}}catch(e){r.e(e);}finally{r.f();}o.clear(),s.splice(0,s.length);},r.isEnabled=!0,r}}function getDefaultExportFromCjs(t){return t&&t.__esModule&&Object.prototype.hasOwnProperty.call(t,"default")?t.default:t}var retry$2={exports:{}},retry$1={};function RetryOperation(t,r){"boolean"==typeof r&&(r={forever:r}),this._originalTimeouts=JSON.parse(JSON.stringify(t)),this._timeouts=t,this._options=r||{},this._maxRetryTime=r&&r.maxRetryTime||1/0,this._fn=null,this._errors=[],this._attempts=1,this._operationTimeout=null,this._operationTimeoutCb=null,this._timeout=null,this._operationStart=null,this._timer=null,this._options.forever&&(this._cachedTimeouts=this._timeouts.slice(0));}var retry_operation=RetryOperation;RetryOperation.prototype.reset=function(){this._attempts=1,this._timeouts=this._originalTimeouts.slice(0);},RetryOperation.prototype.stop=function(){this._timeout&&clearTimeout(this._timeout),this._timer&&clearTimeout(this._timer),this._timeouts=[],this._cachedTimeouts=null;},RetryOperation.prototype.retry=function(t){if(this._timeout&&clearTimeout(this._timeout),!t)return !1;var r=(new Date).getTime();if(t&&r-this._operationStart>=this._maxRetryTime)return this._errors.push(t),this._errors.unshift(new Error("RetryOperation timeout occurred")),!1;this._errors.push(t);var e=this._timeouts.shift();if(void 0===e){if(!this._cachedTimeouts)return !1;this._errors.splice(0,this._errors.length-1),e=this._cachedTimeouts.slice(-1);}var n=this;return this._timer=setTimeout((function(){n._attempts++,n._operationTimeoutCb&&(n._timeout=setTimeout((function(){n._operationTimeoutCb(n._attempts);}),n._operationTimeout),n._options.unref&&n._timeout.unref()),n._fn(n._attempts);}),e),this._options.unref&&this._timer.unref(),!0},RetryOperation.prototype.attempt=function(t,r){this._fn=t,r&&(r.timeout&&(this._operationTimeout=r.timeout),r.cb&&(this._operationTimeoutCb=r.cb));var e=this;this._operationTimeoutCb&&(this._timeout=setTimeout((function(){e._operationTimeoutCb();}),e._operationTimeout)),this._operationStart=(new Date).getTime(),this._fn(this._attempts);},RetryOperation.prototype.try=function(t){console.log("Using RetryOperation.try() is deprecated"),this.attempt(t);},RetryOperation.prototype.start=function(t){console.log("Using RetryOperation.start() is deprecated"),this.attempt(t);},RetryOperation.prototype.start=RetryOperation.prototype.try,RetryOperation.prototype.errors=function(){return this._errors},RetryOperation.prototype.attempts=function(){return this._attempts},RetryOperation.prototype.mainError=function(){if(0===this._errors.length)return null;for(var t={},r=null,e=0,n=0;n<this._errors.length;n++){var o=this._errors[n],i=o.message,a=(t[i]||0)+1;t[i]=a,a>=e&&(r=o,e=a);}return r},function(t){var r=retry_operation;t.operation=function(e){var n=t.timeouts(e);return new r(n,{forever:e&&(e.forever||e.retries===1/0),unref:e&&e.unref,maxRetryTime:e&&e.maxRetryTime})},t.timeouts=function(t){if(t instanceof Array)return [].concat(t);var r={retries:10,factor:2,minTimeout:1e3,maxTimeout:1/0,randomize:!1};for(var e in t)r[e]=t[e];if(r.minTimeout>r.maxTimeout)throw new Error("minTimeout is greater than maxTimeout");for(var n=[],o=0;o<r.retries;o++)n.push(this.createTimeout(o,r));return t&&t.forever&&!n.length&&n.push(this.createTimeout(o,r)),n.sort((function(t,r){return t-r})),n},t.createTimeout=function(t,r){var e=r.randomize?Math.random()+1:1,n=Math.round(e*Math.max(r.minTimeout,1)*Math.pow(r.factor,t));return Math.min(n,r.maxTimeout)},t.wrap=function(r,e,n){if(e instanceof Array&&(n=e,e=null),!n)for(var o in n=[],r)"function"==typeof r[o]&&n.push(o);for(var i=0;i<n.length;i++){var a=n[i],s=r[a];r[a]=function(n){var o=t.operation(e),i=Array.prototype.slice.call(arguments,1),a=i.pop();i.push((function(t){o.retry(t)||(t&&(arguments[0]=o.mainError()),a.apply(this,arguments));})),o.attempt((function(){n.apply(r,i);}));}.bind(r,s),r[a].options=e;}};}(retry$1),retry$2.exports=retry$1;var retry=getDefaultExportFromCjs(retry$2.exports);const pRetry=_async((function(t,r){return new Promise(((e,n)=>{r=_objectSpread2({onFailedAttempt(){},retries:10},r);const o=retry.operation(r);o.attempt(_async((function(i){return _catch((function(){return _await(t(i),(function(t){e(t);}))}),(function(t){let e=!1;if(t instanceof Error)return _invokeIgnored((function(){if(!(t instanceof AbortError))return _invokeIgnored((function(){if(!(t instanceof TypeError)||isNetworkError(t.message))return decorateErrorWithCounts(t,i,r),_continue(_catch((function(){return _awaitIgnored(r.onFailedAttempt(t))}),(function(t){n(t),e=!0;})),(function(r){if(e)return r;o.retry(t)||n(o.mainError());}));o.stop(),n(t);}));o.stop(),n(t.originalError);}));n(new TypeError('Non-error was thrown: "'.concat(t,'". You should only throw errors.')));}))}))),r.signal&&!r.signal.aborted&&r.signal.addEventListener("abort",(()=>{o.stop();const t=void 0===r.signal.reason?getDOMException("The operation was aborted."):r.signal.reason;n(t instanceof Error?t:getDOMException(t));}),{once:!0});}))})),networkErrorMsgs=new Set(["Failed to fetch","NetworkError when attempting to fetch resource.","The Internet connection appears to be offline.","Network request failed"]);class AbortError extends Error{constructor(t){super(),t instanceof Error?(this.originalError=t,t=t.message):(this.originalError=new Error(t),this.originalError.stack=this.stack),this.name="AbortError",this.message=t;}}const decorateErrorWithCounts=(t,r,e)=>{const n=e.retries-(r-1);return t.attemptNumber=r,t.retriesLeft=n,t},isNetworkError=t=>networkErrorMsgs.has(t),getDOMException=t=>void 0===globalThis.DOMException?new Error(t):new DOMException(t);
+  function _iterableToArrayLimit(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,i,a,s=[],u=!0,c=!1;try{if(i=(r=r.call(t)).next,0===e){if(Object(r)!==r)return;u=!1;}else for(;!(u=(n=i.call(r)).done)&&(s.push(n.value),s.length!==e);u=!0);}catch(l){c=!0,o=l;}finally{try{if(!u&&null!=r.return&&(a=r.return(),Object(a)!==a))return}finally{if(c)throw o}}return s}}function ownKeys(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n);}return r}function _objectSpread2(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?ownKeys(Object(r),!0).forEach((function(e){_defineProperty(t,e,r[e]);})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):ownKeys(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e));}));}return t}function _defineProperty(t,e,r){return (e=_toPropertyKey(e))in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function _slicedToArray(t,e){return _arrayWithHoles(t)||_iterableToArrayLimit(t,e)||_unsupportedIterableToArray(t,e)||_nonIterableRest()}function _toArray(t){return _arrayWithHoles(t)||_iterableToArray(t)||_unsupportedIterableToArray(t)||_nonIterableRest()}function _arrayWithHoles(t){if(Array.isArray(t))return t}function _iterableToArray(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}function _unsupportedIterableToArray(t,e){if(t){if("string"==typeof t)return _arrayLikeToArray(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return "Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?_arrayLikeToArray(t,e):void 0}}function _arrayLikeToArray(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _createForOfIteratorHelper(t,e){var r="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!r){if(Array.isArray(t)||(r=_unsupportedIterableToArray(t))||e&&t&&"number"==typeof t.length){r&&(t=r);var n=0,o=function(){};return {s:o,n:function(){return n>=t.length?{done:!0}:{done:!1,value:t[n++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,a=!0,s=!1;return {s:function(){r=r.call(t);},n:function(){var t=r.next();return a=t.done,t},e:function(t){s=!0,i=t;},f:function(){try{a||null==r.return||r.return();}finally{if(s)throw i}}}}function _toPrimitive(t,e){if("object"!=typeof t||null===t)return t;var r=t[Symbol.toPrimitive];if(void 0!==r){var n=r.call(t,e||"default");if("object"!=typeof n)return n;throw new TypeError("@@toPrimitive must return a primitive value.")}return ("string"===e?String:Number)(t)}function _toPropertyKey(t){var e=_toPrimitive(t,"string");return "symbol"==typeof e?e:String(e)}const _Pact=function(){function t(){}return t.prototype.then=function(e,r){const n=new t,o=this.s;if(o){const t=1&o?e:r;if(t){try{_settle(n,1,t(this.v));}catch(i){_settle(n,2,i);}return n}return this}return this.o=function(t){try{const o=t.v;1&t.s?_settle(n,1,e?e(o):o):r?_settle(n,1,r(o)):_settle(n,2,o);}catch(i){_settle(n,2,i);}},n},t}();function _settle(t,e,r){if(!t.s){if(r instanceof _Pact){if(!r.s)return void(r.o=_settle.bind(null,t,e));1&e&&(e=r.s),r=r.v;}if(r&&r.then)return void r.then(_settle.bind(null,t,e),_settle.bind(null,t,2));t.s=e,t.v=r;const n=t.o;n&&n(t);}}function _isSettledPact(t){return t instanceof _Pact&&1&t.s}function _async(t){return function(){for(var e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];try{return Promise.resolve(t.apply(this,e))}catch(n){return Promise.reject(n)}}}function _await(t,e,r){return r?e?e(t):t:(t&&t.then||(t=Promise.resolve(t)),e?t.then(e):t)}function _awaitIgnored(t,e){if(!e)return t&&t.then?t.then(_empty):Promise.resolve()}function _continue(t,e){return t&&t.then?t.then(e):e(t)}function _continueIgnored(t){if(t&&t.then)return t.then(_empty)}function _forTo(t,e,r){var n,o,i=-1;return function a(s){try{for(;++i<t.length&&(!r||!r());)if((s=e(i))&&s.then){if(!_isSettledPact(s))return void s.then(a,o||(o=_settle.bind(null,n=new _Pact,2)));s=s.v;}n?_settle(n,1,s):n=s;}catch(u){_settle(n||(n=new _Pact),2,u);}}(),n}const _iteratorSymbol="undefined"!=typeof Symbol?Symbol.iterator||(Symbol.iterator=Symbol("Symbol.iterator")):"@@iterator";function _forOf(t,e,r){if("function"==typeof t[_iteratorSymbol]){var n,o,i,a=t[_iteratorSymbol]();if(function t(s){try{for(;!((n=a.next()).done||r&&r());)if((s=e(n.value))&&s.then){if(!_isSettledPact(s))return void s.then(t,i||(i=_settle.bind(null,o=new _Pact,2)));s=s.v;}o?_settle(o,1,s):o=s;}catch(u){_settle(o||(o=new _Pact),2,u);}}(),a.return){var s=function(t){try{n.done||a.return();}catch(e){}return t};if(o&&o.then)return o.then(s,(function(t){throw s(t)}));s();}return o}if(!("length"in t))throw new TypeError("Object is not iterable");for(var u=[],c=0;c<t.length;c++)u.push(t[c]);return _forTo(u,(function(t){return e(u[t])}),r)}const _asyncIteratorSymbol="undefined"!=typeof Symbol?Symbol.asyncIterator||(Symbol.asyncIterator=Symbol("Symbol.asyncIterator")):"@@asyncIterator";function _forAwaitOf(t,e,r){if("function"==typeof t[_asyncIteratorSymbol]){var n=new _Pact,o=t[_asyncIteratorSymbol]();return o.next().then(a).then(void 0,s),n;function i(t){if(r&&r())return _settle(n,1,o.return?o.return().then((function(){return t})):t);o.next().then(a).then(void 0,s);}function a(t){t.done?_settle(n,1):Promise.resolve(e(t.value)).then(i).then(void 0,s);}function s(t){_settle(n,2,o.return?o.return().then((function(){return t})):t);}}return Promise.resolve(_forOf(t,(function(t){return Promise.resolve(t).then(e)}),r))}function _call(t,e,r){if(r)return e?e(t()):t();try{var n=Promise.resolve(t());return e?n.then(e):n}catch(o){return Promise.reject(o)}}function _invoke(t,e){var r=t();return r&&r.then?r.then(e):e(r)}function _invokeIgnored(t){var e=t();if(e&&e.then)return e.then(_empty)}function _catch(t,e){try{var r=t();}catch(n){return e(n)}return r&&r.then?r.then(void 0,e):r}function _finallyRethrows(t,e){try{var r=t();}catch(n){return e(!0,n)}return r&&r.then?r.then(e.bind(null,!1),e.bind(null,!0)):e(!1,r)}function _rethrow(t,e){if(t)throw e;return e}function _empty(){}const _earlyReturn={};function _catchInGenerator(t,e){return _catch(t,(function(t){if(t===_earlyReturn)throw t;return e(t)}))}const _AsyncGenerator=function(){function t(t){this._entry=t,this._pact=null,this._resolve=null,this._return=null,this._promise=null;}function e(t){return {value:t,done:!0}}function r(t){return {value:t,done:!1}}return t.prototype._yield=function(t){return this._resolve(t&&t.then?t.then(r):r(t)),this._pact=new _Pact},t.prototype.next=function(t){const r=this;return r._promise=new Promise((function(n){const o=r._pact;if(null===o){const s=r._entry;if(null===s)return n(r._promise);function i(t){r._resolve(t&&t.then?t.then(e):e(t)),r._pact=null,r._resolve=null;}r._entry=null,r._resolve=n;var a=s(r);a&&a.then?a.then(i,(function(t){if(t===_earlyReturn)i(r._return);else {const e=new _Pact;r._resolve(e),r._pact=null,r._resolve=null,_resolve(e,2,t);}})):i(a);}else r._pact=null,r._resolve=n,_settle(o,1,t);}))},t.prototype.return=function(t){const r=this;return r._promise=new Promise((function(n){const o=r._pact;if(null===o)return null===r._entry?n(r._promise):(r._entry=null,n(t&&t.then?t.then(e):e(t)));r._return=t,r._resolve=n,r._pact=null,_settle(o,2,_earlyReturn);}))},t.prototype.throw=function(t){const e=this;return e._promise=new Promise((function(r,n){const o=e._pact;if(null===o)return null===e._entry?r(e._promise):(e._entry=null,n(t));e._resolve=r,e._pact=null,_settle(o,2,t);}))},t.prototype[_asyncIteratorSymbol]=function(){return this},t}();function getDefaultExportFromCjs(t){return t&&t.__esModule&&Object.prototype.hasOwnProperty.call(t,"default")?t.default:t}var appendChildren=function(t,e){(e=Array.isArray(e)?e:[e]).forEach((function(e){e instanceof HTMLElement?t.appendChild(e):(e||"string"==typeof e)&&t.appendChild(document.createTextNode(e.toString()));}));},appendChildren$1=getDefaultExportFromCjs(appendChildren),setAttributes=function(t,e){if("[object Object]"!==Object.prototype.toString.call(e)||"function"!=typeof e.constructor||"[object Object]"!==Object.prototype.toString.call(e.constructor.prototype)||!Object.prototype.hasOwnProperty.call(e.constructor.prototype,"isPrototypeOf"))throw new DOMException("Failed to execute 'setAttributes' on 'Element': "+Object.prototype.toString.call(e)+" is not a plain object.");for(const r in e)t.setAttribute(r,e[r]);};getDefaultExportFromCjs(setAttributes);var setStyles=function(t,e){for(const r in e)t.style[r]=e[r];},setStyles$1=getDefaultExportFromCjs(setStyles);function fixProto(t,e){var r=Object.setPrototypeOf;r?r(t,e):t.__proto__=e;}function fixStack(t,e){void 0===e&&(e=t.constructor);var r=Error.captureStackTrace;r&&r(t,e);}var __extends=function(){var t=function(e,r){return t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e;}||function(t,e){for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r]);},t(e,r)};return function(e,r){if("function"!=typeof r&&null!==r)throw new TypeError("Class extends value "+String(r)+" is not a constructor or null");function n(){this.constructor=e;}t(e,r),e.prototype=null===r?Object.create(r):(n.prototype=r.prototype,new n);}}(),CustomError=function(t){function e(e,r){var n=this.constructor,o=t.call(this,e,r)||this;return Object.defineProperty(o,"name",{value:n.name,enumerable:!1,configurable:!0}),fixProto(o,n.prototype),fixStack(o),o}return __extends(e,t),e}(Error);let AbortError$1=class extends Error{constructor(){super("Throttled function aborted"),this.name="AbortError";}};function pThrottle(t){let e=t.limit,r=t.interval,n=t.strict;if(!Number.isFinite(e))throw new TypeError("Expected `limit` to be a finite number");if(!Number.isFinite(r))throw new TypeError("Expected `interval` to be a finite number");const o=new Map;let i=0,a=0;const s=[],u=n?function(){const t=Date.now();if(s.length<e)return s.push(t),0;const n=s.shift()+r;return t>=n?(s.push(t),0):(s.push(n),n-t)}:function(){const t=Date.now();return t-i>r?(a=1,i=t,0):(a<e?a++:(i+=r,a=1),i-t)};return t=>{const e=function e(){const r=this;for(var n=arguments.length,i=new Array(n),a=0;a<n;a++)i[a]=arguments[a];if(!e.isEnabled)return _async((function(){return t.apply(r,i)}))();let s;return new Promise(((e,r)=>{s=setTimeout((()=>{e(t.apply(this,i)),o.delete(s);}),u()),o.set(s,r);}))};return e.abort=()=>{var t,e=_createForOfIteratorHelper(o.keys());try{for(e.s();!(t=e.n()).done;){const e=t.value;clearTimeout(e),o.get(e)(new AbortError$1);}}catch(r){e.e(r);}finally{e.f();}o.clear(),s.splice(0,s.length);},e.isEnabled=!0,e}}var retry$2={};function RetryOperation(t,e){"boolean"==typeof e&&(e={forever:e}),this._originalTimeouts=JSON.parse(JSON.stringify(t)),this._timeouts=t,this._options=e||{},this._maxRetryTime=e&&e.maxRetryTime||1/0,this._fn=null,this._errors=[],this._attempts=1,this._operationTimeout=null,this._operationTimeoutCb=null,this._timeout=null,this._operationStart=null,this._timer=null,this._options.forever&&(this._cachedTimeouts=this._timeouts.slice(0));}var retry_operation=RetryOperation;RetryOperation.prototype.reset=function(){this._attempts=1,this._timeouts=this._originalTimeouts.slice(0);},RetryOperation.prototype.stop=function(){this._timeout&&clearTimeout(this._timeout),this._timer&&clearTimeout(this._timer),this._timeouts=[],this._cachedTimeouts=null;},RetryOperation.prototype.retry=function(t){if(this._timeout&&clearTimeout(this._timeout),!t)return !1;var e=(new Date).getTime();if(t&&e-this._operationStart>=this._maxRetryTime)return this._errors.push(t),this._errors.unshift(new Error("RetryOperation timeout occurred")),!1;this._errors.push(t);var r=this._timeouts.shift();if(void 0===r){if(!this._cachedTimeouts)return !1;this._errors.splice(0,this._errors.length-1),r=this._cachedTimeouts.slice(-1);}var n=this;return this._timer=setTimeout((function(){n._attempts++,n._operationTimeoutCb&&(n._timeout=setTimeout((function(){n._operationTimeoutCb(n._attempts);}),n._operationTimeout),n._options.unref&&n._timeout.unref()),n._fn(n._attempts);}),r),this._options.unref&&this._timer.unref(),!0},RetryOperation.prototype.attempt=function(t,e){this._fn=t,e&&(e.timeout&&(this._operationTimeout=e.timeout),e.cb&&(this._operationTimeoutCb=e.cb));var r=this;this._operationTimeoutCb&&(this._timeout=setTimeout((function(){r._operationTimeoutCb();}),r._operationTimeout)),this._operationStart=(new Date).getTime(),this._fn(this._attempts);},RetryOperation.prototype.try=function(t){console.log("Using RetryOperation.try() is deprecated"),this.attempt(t);},RetryOperation.prototype.start=function(t){console.log("Using RetryOperation.start() is deprecated"),this.attempt(t);},RetryOperation.prototype.start=RetryOperation.prototype.try,RetryOperation.prototype.errors=function(){return this._errors},RetryOperation.prototype.attempts=function(){return this._attempts},RetryOperation.prototype.mainError=function(){if(0===this._errors.length)return null;for(var t={},e=null,r=0,n=0;n<this._errors.length;n++){var o=this._errors[n],i=o.message,a=(t[i]||0)+1;t[i]=a,a>=r&&(e=o,r=a);}return e},getDefaultExportFromCjs(retry_operation),function(t){var e=retry_operation;t.operation=function(r){var n=t.timeouts(r);return new e(n,{forever:r&&(r.forever||r.retries===1/0),unref:r&&r.unref,maxRetryTime:r&&r.maxRetryTime})},t.timeouts=function(t){if(t instanceof Array)return [].concat(t);var e={retries:10,factor:2,minTimeout:1e3,maxTimeout:1/0,randomize:!1};for(var r in t)e[r]=t[r];if(e.minTimeout>e.maxTimeout)throw new Error("minTimeout is greater than maxTimeout");for(var n=[],o=0;o<e.retries;o++)n.push(this.createTimeout(o,e));return t&&t.forever&&!n.length&&n.push(this.createTimeout(o,e)),n.sort((function(t,e){return t-e})),n},t.createTimeout=function(t,e){var r=e.randomize?Math.random()+1:1,n=Math.round(r*Math.max(e.minTimeout,1)*Math.pow(e.factor,t));return Math.min(n,e.maxTimeout)},t.wrap=function(e,r,n){if(r instanceof Array&&(n=r,r=null),!n)for(var o in n=[],e)"function"==typeof e[o]&&n.push(o);for(var i=0;i<n.length;i++){var a=n[i],s=e[a];e[a]=function(n){var o=t.operation(r),i=Array.prototype.slice.call(arguments,1),a=i.pop();i.push((function(t){o.retry(t)||(t&&(arguments[0]=o.mainError()),a.apply(this,arguments));})),o.attempt((function(){n.apply(e,i);}));}.bind(e,s),e[a].options=r;}};}(retry$2),getDefaultExportFromCjs(retry$2);var retry=retry$2,retry$1=getDefaultExportFromCjs(retry);const pRetry=_async((function(t,e){return new Promise(((r,n)=>{e=_objectSpread2({onFailedAttempt(){},retries:10},e);const o=retry$1.operation(e);o.attempt(_async((function(i){return _catch((function(){return _await(t(i),(function(t){r(t);}))}),(function(t){let r=!1;if(t instanceof Error)return _invokeIgnored((function(){if(!(t instanceof AbortError))return _invokeIgnored((function(){if(!(t instanceof TypeError)||isNetworkError(t.message))return decorateErrorWithCounts(t,i,e),_continue(_catch((function(){return _awaitIgnored(e.onFailedAttempt(t))}),(function(t){n(t),r=!0;})),(function(e){if(r)return e;o.retry(t)||n(o.mainError());}));o.stop(),n(t);}));o.stop(),n(t.originalError);}));n(new TypeError('Non-error was thrown: "'.concat(t,'". You should only throw errors.')));}))}))),e.signal&&!e.signal.aborted&&e.signal.addEventListener("abort",(()=>{o.stop();const t=void 0===e.signal.reason?getDOMException("The operation was aborted."):e.signal.reason;n(t instanceof Error?t:getDOMException(t));}),{once:!0});}))})),networkErrorMsgs=new Set(["Failed to fetch","NetworkError when attempting to fetch resource.","The Internet connection appears to be offline.","Network request failed","fetch failed"]);class AbortError extends Error{constructor(t){super(),t instanceof Error?(this.originalError=t,t=t.message):(this.originalError=new Error(t),this.originalError.stack=this.stack),this.name="AbortError",this.message=t;}}const decorateErrorWithCounts=(t,e,r)=>{const n=r.retries-(e-1);return t.attemptNumber=e,t.retriesLeft=n,t},isNetworkError=t=>networkErrorMsgs.has(t),getDOMException=t=>void 0===globalThis.DOMException?new Error(t):new DOMException(t);
 
   /* minified: lib */
-  class ConsoleSink{constructor(e){_defineProperty(this,"scriptName",void 0),_defineProperty(this,"onSuccess",this.onInfo.bind(this)),this.scriptName=e;}formatMessage(e){return "[".concat(this.scriptName,"] ").concat(e)}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel;!function(e){e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR";}(LogLevel||(LogLevel={}));const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){_defineProperty(this,"_configuration",void 0),this._configuration=_objectSpread2(_objectSpread2({},DEFAULT_OPTIONS),e);}fireHandlers(e,t,r){e<this._configuration.logLevel||this._configuration.sinks.forEach((n=>{const s=n[HANDLER_NAMES[e]];s&&(r?s.call(n,t,r):s.call(n,t));}));}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";function filterNonNull(e){return e.filter((e=>!(null==e)))}function groupBy(e,t,r){const n=new Map;var s,o=_createForOfIteratorHelper(e);try{for(o.s();!(s=o.n()).done;){var a;const e=s.value,o=t(e),i=r(e);n.has(o)?null===(a=n.get(o))||void 0===a||a.push(i):n.set(o,[i]);}}catch(i){o.e(i);}finally{o.f();}return n}function collatedSort(e){const t=new Intl.Collator("en",{numeric:!0});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map(((e,t)=>[e,t]))}function isFactory(e){return "function"==typeof e}function insertBetween(e,t){return [...e.slice(0,1),...e.slice(1).flatMap((e=>[isFactory(t)?t():t,e]))]}class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(null!=t?t:"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,null!=t?t:"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,null!=t?t:"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,null!=t?t:"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (null!=t?t:document).querySelector(e)}function qsa(e,t){return [...(null!=t?t:document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){const e=r.createElement("base");e.href=t,r.head.insertAdjacentElement("beforeend",e);}return r}function insertStylesheet(e,t){if(void 0===t&&(t="ROpdebee_".concat(USERSCRIPT_ID,"_css")),null!==qsMaybe("style#".concat(t)))return;const r=function(){var r=document.createElement("style");return r.setAttribute("id",t),appendChildren(r,e),r}.call(this);document.head.insertAdjacentElement("beforeend",r);}var css_248z$1="#ROpdebee_log_container{margin:1.5rem auto;width:75%}#ROpdebee_log_container .msg{word-wrap:break-word;border:1px solid;border-radius:4px;display:block;font-weight:500;margin-bottom:.5rem;padding:.5rem .75rem;width:100%}#ROpdebee_log_container .msg.error{background-color:#f8d7da;border-color:#f5c6cb;color:#721c24;font-weight:600}#ROpdebee_log_container .msg.warning{background-color:#fff3cd;border-color:#ffeeba;color:#856404}#ROpdebee_log_container .msg.success{background-color:#d4edda;border-color:#c3e6cb;color:#155724}#ROpdebee_log_container .msg.info{background-color:#e2e3e5;border-color:#d6d8db;color:#383d41}";class GuiSink{constructor(){_defineProperty(this,"rootElement",void 0),_defineProperty(this,"persistentMessages",[]),_defineProperty(this,"transientMessages",[]),_defineProperty(this,"onInfo",this.onLog.bind(this)),insertStylesheet(css_248z$1,"ROpdebee_GUI_Logger"),this.rootElement=function(){var e=document.createElement("div");return e.setAttribute("id","ROpdebee_log_container"),setStyles(e,{display:"none"}),e}.call(this);}createMessage(e,t,r){const n=insertBetween((t+(r instanceof Error?": ".concat(r.message):"")).split(/(?=\/)/),(()=>function(){return document.createElement("wbr")}.call(this)));return function(){var t=document.createElement("span");return t.setAttribute("class","msg ".concat(e)),appendChildren(t,n),t}.call(this)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){this.transientMessages.forEach((e=>{e.remove();})),this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){_defineProperty(this,"footer",void 0),_defineProperty(this,"extraInfoLines",void 0),_defineProperty(this,"editNoteTextArea",void 0),this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map((e=>e.trimEnd())):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let t=this.editNoteTextArea.value.split(separator),r=_toArray(t),n=r[0],s=r.slice(1);n=(n+"\n"+e).trim(),this.editNoteTextArea.value=[n,...s].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter((e=>e.trim()!==this.footer));this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t="".concat(e.name," ").concat(e.version,"\n").concat(e.namespace);return new EditNote(t)}}const getReleaseIDsForURL=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/url?resource=".concat(encodeURIComponent(e),"&inc=release-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t,r;return null!==(t=null===(r=e.relations)||void 0===r?void 0:r.map((e=>e.release.id)))&&void 0!==t?t:[]}))}))})),getURLsForRelease=_async((function(e,t){const r=null!=t?t:{},n=r.excludeEnded,s=r.excludeDuplicates;return _await(getReleaseUrlARs(e),(function(e){n&&(e=e.filter((e=>!e.ended)));let t=e.map((e=>e.url.resource));return s&&(t=[...new Set(t)]),t.flatMap((e=>{try{return [new URL(e)]}catch(t){return console.warn("Found malformed URL linked to release: ".concat(e)),[]}}))}))})),getReleaseUrlARs=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/release/".concat(e,"?inc=url-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t;return null!==(t=e.relations)&&void 0!==t?t:[]}))}))})),pFinally=function(e,t){return _await(_finallyRethrows((function(){return _await(e)}),(function(e,r){return _call(t,(function(){return _rethrow(e,r)}))})))};function asyncSleep(e){return new Promise((t=>setTimeout(t,e)))}function retryTimes(e,t,r){const n=_async((function(t){return _catch(e,(function(e){if(t<=1)throw e;return asyncSleep(r).then((()=>n(t-1)))}))}));return t<=0?Promise.reject(new TypeError("Invalid number of retry times: ".concat(t))):n(t)}function logFailure(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"An error occurred";e.catch((e=>{LOGGER.error(t,e);}));}class ObservableSemaphore{constructor(e){let t=e.onAcquired,r=e.onReleased;_defineProperty(this,"onAcquired",void 0),_defineProperty(this,"onReleased",void 0),_defineProperty(this,"counter",0),this.onAcquired=t,this.onReleased=r;}acquire(){this.counter++,1===this.counter&&this.onAcquired();}release(){this.counter--,0===this.counter&&this.onReleased();}runInSection(e){let t;this.acquire();try{return t=e(),t}finally{t instanceof Promise?pFinally(t,this.release.bind(this)).catch((()=>{})):this.release();}}}let ArtworkTypeIDs;function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var r=arguments.length,n=new Array(r>1?r-1:0),s=1;s<r;s++)n[s-1]=arguments[s];for(var o=0,a=n;o<a.length;o++){const e=a[o];t=new URL(e,t);}return t}!function(e){e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e.Raw=14]="Raw",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark",e[e.Matrix=15]="Matrix",e[e.Top=48]="Top",e[e.Bottom=49]="Bottom";}(ArtworkTypeIDs||(ArtworkTypeIDs={}));const gmxhr=_async((function(e,t){return new Promise(((r,n)=>{GMxmlHttpRequest(_objectSpread2(_objectSpread2({method:"GET",url:e instanceof URL?e.href:e},t),{},{onload:s=>{var o;s.status>=400?n(new HTTPResponseError(e,s,null==t||null===(o=t.httpErrorMessages)||void 0===o?void 0:o[s.status])):r(s);},onerror:()=>{n(new NetworkError(e));},onabort:()=>{n(new AbortedError(e));},ontimeout:()=>{n(new TimeoutError(e));},onprogress:null==t?void 0:t.progressCb}));}))}));class ResponseError extends CustomError{constructor(e,t){super(t),_defineProperty(this,"url",void 0),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t,r){r?(super(e,r),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):t.statusText.trim()?(super(e,"HTTP error ".concat(t.status,": ").concat(t.statusText)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):(super(e,"HTTP error ".concat(t.status)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function splitDomain(e){const t=e.split(".");let r=-2;return ["org","co","com"].includes(t[t.length-2])&&(r=-3),[...t.slice(0,r),t.slice(r).join(".")]}class DispatchMap{constructor(){_defineProperty(this,"map",new Map);}set(e,t){const r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((e=>e.includes("*"))))throw new Error("Invalid pattern: "+e);return this.insert([...r].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const r=this._get(e);r?(assert(r instanceof DispatchMap&&!r.map.has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}insertInternal(e,t){const r=e[0],n=this._get(r);let s;n instanceof DispatchMap?s=n:(s=new DispatchMap,this._set(r,s),void 0!==n&&s._set("",n)),s.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);if(t instanceof DispatchMap){let e=t._get("");void 0===e&&(e=t._get("*")),t=e;}return t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){const t=1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e);return null!=t?t:this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error("".concat(t,": ").concat(r));return}}function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map((e=>e.toString(16).padStart(2,"0"))).join("")}function blobToDigest(e){const t=_async((function(e){var t,r,n,s;const o=e.result;return _await(null!==(t=null===(r=crypto)||void 0===r||null===(n=r.subtle)||void 0===n||null===(s=n.digest)||void 0===s?void 0:s.call(n,"SHA-256",o))&&void 0!==t?t:o,hexEncode)}));return new Promise(((r,n)=>{const s=new FileReader;s.addEventListener("error",n),s.addEventListener("load",(()=>{t(s).then(r).catch(n);})),s.readAsArrayBuffer(e);}))}const getItemMetadata=_async((function(e){return _await(fetch(new URL("https://archive.org/metadata/".concat(e))),(function(e){return _await(e.text(),(function(e){const t=safeParseJSON(e,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}))}))}));function memoize(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:e=>"".concat(e[0]);const r=new Map;return function(){for(var n=arguments.length,s=new Array(n),o=0;o<n;o++)s[o]=arguments[o];const a=t(s);if(!r.has(a)){const t=e(...s);r.set(a,t);}return r.get(a)}}function createPersistentCheckbox(e,t,r){return [function(){var t=document.createElement("input");return t.setAttribute("type","checkbox"),t.setAttribute("id",e),t.addEventListener("change",(t=>{t.currentTarget.checked?localStorage.setItem(e,"delete_to_disable"):localStorage.removeItem(e),r(t);})),t.setAttribute("defaultChecked",!!localStorage.getItem(e)),t}.call(this),function(){var r=document.createElement("label");return r.setAttribute("for",e),appendChildren(r,t),r}.call(this)]}function formatFileSize(e){const t=0===e?0:Math.floor(Math.log(e)/Math.log(1024)),r=Number((e/Math.pow(1024,t)).toFixed(2));return "".concat(r," ").concat(["B","kB","MB","GB","TB"][t])}function parseVersion(e){return e.split(".").map((e=>parseInt(e)))}function versionLessThan(e,t){let r=0;for(;r<e.length&&r<t.length;){if(e[r]<t[r])return !0;if(e[r]>t[r])return !1;r++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2022.8.8",description:"add Bugs provider"},{versionAdded:"2022.8.5",description:"extract Soundcloud backdrop images"},{versionAdded:"2022.7.27.5",description:"progress indicators"},{versionAdded:"2022.6.29.3",description:"add Yandex Music provider"},{versionAdded:"2022.6.29.2",description:"add Audiomack provider"},{versionAdded:"2022.6.29",description:"add VK Music provider"},{versionAdded:"2022.6.15",description:"file size and type on a-tisket images"},{versionAdded:"2022.6.11",description:"rockipedia.no provider"},{versionAdded:"2022.6.8",description:"update notifications"}],css_248z$2=".ROpdebee_feature_list{font-weight:300;margin:0 auto;width:-moz-fit-content;width:fit-content}.ROpdebee_feature_list ul{margin:6px 28px 0 0;text-align:left}";const LAST_DISPLAYED_KEY="ROpdebee_".concat(USERSCRIPT_ID,"_last_notified_update");function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const r=parseVersion(e),n=USERSCRIPT_FEATURE_HISTORY.filter((e=>versionLessThan(r,parseVersion(e.versionAdded))));0!==n.length&&showFeatureNotification(t.name,t.version,n.map((e=>e.description)));}function showFeatureNotification(e,t,r){insertStylesheet(css_248z$2,"ROpdebee_Update_Banner");const n=function(){var s=document.createElement("div");s.setAttribute("class","banner warning-header");var o=document.createElement("p");s.appendChild(o),appendChildren(o,"".concat(e," was updated to v").concat(t,"! "));var a=document.createElement("a");a.setAttribute("href",CHANGELOG_URL),o.appendChild(a);var i=document.createTextNode("See full changelog here");a.appendChild(i),appendChildren(o,". New features since last update:");var c=document.createElement("div");c.setAttribute("class","ROpdebee_feature_list"),s.appendChild(c);var l=document.createElement("ul");c.appendChild(l),appendChildren(l,r.map((e=>function(){var t=document.createElement("li");return appendChildren(t,e),t}.call(this))));var d=document.createElement("button");return d.setAttribute("class","dismiss-banner remove-item icon"),d.setAttribute("data-banner-name","alert"),d.setAttribute("type","button"),d.addEventListener("click",(()=>{n.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);})),s.appendChild(d),s}.call(this);qs("#page").insertAdjacentElement("beforebegin",n);}
+  class ConsoleSink{constructor(e){_defineProperty(this,"scriptName",void 0),_defineProperty(this,"onSuccess",this.onInfo.bind(this)),this.scriptName=e;}formatMessage(e){return "[".concat(this.scriptName,"] ").concat(e)}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel=function(e){return e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR",e}({});const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){_defineProperty(this,"_configuration",void 0),this._configuration=_objectSpread2(_objectSpread2({},DEFAULT_OPTIONS),e);}fireHandlers(e,t,r){e<this._configuration.logLevel||this._configuration.sinks.forEach((n=>{const s=n[HANDLER_NAMES[e]];s&&(r?s.call(n,t,r):s.call(n,t));}));}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";function filterNonNull(e){return e.filter((e=>!(null==e)))}function groupBy(e,t,r){const n=new Map;var s,o=_createForOfIteratorHelper(e);try{for(o.s();!(s=o.n()).done;){var a;const e=s.value,o=t(e),i=r(e);n.has(o)?null===(a=n.get(o))||void 0===a||a.push(i):n.set(o,[i]);}}catch(i){o.e(i);}finally{o.f();}return n}function collatedSort(e){const t=new Intl.Collator("en",{numeric:!0});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map(((e,t)=>[e,t]))}function isFactory(e){return "function"==typeof e}function insertBetween(e,t){return [...e.slice(0,1),...e.slice(1).flatMap((e=>[isFactory(t)?t():t,e]))]}class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(null!=t?t:"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,null!=t?t:"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,null!=t?t:"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,null!=t?t:"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (null!=t?t:document).querySelector(e)}function qsa(e,t){return [...(null!=t?t:document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){const e=r.createElement("base");e.href=t,r.head.insertAdjacentElement("beforeend",e);}return r}function insertStylesheet(e,t){if(void 0===t&&(t="ROpdebee_".concat(USERSCRIPT_ID,"_css")),null!==qsMaybe("style#".concat(t)))return;const r=function(){var r=document.createElement("style");return r.setAttribute("id",t),appendChildren$1(r,e),r}.call(this);document.head.insertAdjacentElement("beforeend",r);}var css_248z$1="#ROpdebee_log_container{margin:1.5rem auto;width:75%}#ROpdebee_log_container .msg{word-wrap:break-word;border:1px solid;border-radius:4px;display:block;font-weight:500;margin-bottom:.5rem;padding:.5rem .75rem;width:100%}#ROpdebee_log_container .msg.error{background-color:#f8d7da;border-color:#f5c6cb;color:#721c24;font-weight:600}#ROpdebee_log_container .msg.warning{background-color:#fff3cd;border-color:#ffeeba;color:#856404}#ROpdebee_log_container .msg.success{background-color:#d4edda;border-color:#c3e6cb;color:#155724}#ROpdebee_log_container .msg.info{background-color:#e2e3e5;border-color:#d6d8db;color:#383d41}";class GuiSink{constructor(){_defineProperty(this,"rootElement",void 0),_defineProperty(this,"persistentMessages",[]),_defineProperty(this,"transientMessages",[]),_defineProperty(this,"onInfo",this.onLog.bind(this)),insertStylesheet(css_248z$1,"ROpdebee_GUI_Logger"),this.rootElement=function(){var e=document.createElement("div");return e.setAttribute("id","ROpdebee_log_container"),setStyles$1(e,{display:"none"}),e}.call(this);}createMessage(e,t,r){const n=insertBetween((t+(r instanceof Error?": ".concat(r.message):"")).split(/(?=\/)/),(()=>function(){return document.createElement("wbr")}.call(this)));return function(){var t=document.createElement("span");return t.setAttribute("class","msg ".concat(e)),appendChildren$1(t,n),t}.call(this)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){this.transientMessages.forEach((e=>{e.remove();})),this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){_defineProperty(this,"footer",void 0),_defineProperty(this,"extraInfoLines",void 0),_defineProperty(this,"editNoteTextArea",void 0),this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map((e=>e.trimEnd())):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let t=this.editNoteTextArea.value.split(separator),r=_toArray(t),n=r[0],s=r.slice(1);n=(n+"\n"+e).trim(),this.editNoteTextArea.value=[n,...s].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter((e=>e.trim()!==this.footer));this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t="".concat(e.name," ").concat(e.version,"\n").concat(e.namespace);return new EditNote(t)}}const getReleaseIDsForURL=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/url?resource=".concat(encodeURIComponent(e),"&inc=release-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t,r;return null!==(t=null===(r=e.relations)||void 0===r?void 0:r.map((e=>e.release.id)))&&void 0!==t?t:[]}))}))})),getURLsForRelease=_async((function(e,t){const r=null!=t?t:{},n=r.excludeEnded,s=r.excludeDuplicates;return _await(getReleaseUrlARs(e),(function(e){n&&(e=e.filter((e=>!e.ended)));let t=e.map((e=>e.url.resource));return s&&(t=[...new Set(t)]),t.flatMap((e=>{try{return [new URL(e)]}catch(t){return console.warn("Found malformed URL linked to release: ".concat(e)),[]}}))}))})),getReleaseUrlARs=_async((function(e){return _await(fetch("https://musicbrainz.org/ws/2/release/".concat(e,"?inc=url-rels&fmt=json")),(function(e){return _await(e.json(),(function(e){var t;return null!==(t=e.relations)&&void 0!==t?t:[]}))}))})),pFinally=function(e,t){return _await(_finallyRethrows((function(){return _await(e)}),(function(e,r){return _call(t,(function(){return _rethrow(e,r)}))})))};function asyncSleep(e){return new Promise((t=>setTimeout(t,e)))}function retryTimes(e,t,r){const n=_async((function(t){return _catch(e,(function(e){if(t<=1)throw e;return asyncSleep(r).then((()=>n(t-1)))}))}));return t<=0?Promise.reject(new TypeError("Invalid number of retry times: ".concat(t))):n(t)}function logFailure(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"An error occurred";e.catch((e=>{LOGGER.error(t,e);}));}class ObservableSemaphore{constructor(e){let t=e.onAcquired,r=e.onReleased;_defineProperty(this,"onAcquired",void 0),_defineProperty(this,"onReleased",void 0),_defineProperty(this,"counter",0),this.onAcquired=t,this.onReleased=r;}acquire(){this.counter++,1===this.counter&&this.onAcquired();}release(){this.counter--,0===this.counter&&this.onReleased();}runInSection(e){let t;this.acquire();try{return t=e(),t}finally{t instanceof Promise?pFinally(t,this.release.bind(this)).catch((()=>{})):this.release();}}}let ArtworkTypeIDs=function(e){return e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e.Raw=14]="Raw",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark",e[e.Matrix=15]="Matrix",e[e.Top=48]="Top",e[e.Bottom=49]="Bottom",e}({});function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var r=arguments.length,n=new Array(r>1?r-1:0),s=1;s<r;s++)n[s-1]=arguments[s];for(var o=0,a=n;o<a.length;o++){const e=a[o];t=new URL(e,t);}return t}const gmxhr=_async((function(e,t){return new Promise(((r,n)=>{GMxmlHttpRequest(_objectSpread2(_objectSpread2({method:"GET",url:e instanceof URL?e.href:e},t),{},{onload:s=>{var o;s.status>=400?n(new HTTPResponseError(e,s,null==t||null===(o=t.httpErrorMessages)||void 0===o?void 0:o[s.status])):r(s);},onerror:()=>{n(new NetworkError(e));},onabort:()=>{n(new AbortedError(e));},ontimeout:()=>{n(new TimeoutError(e));},onprogress:null==t?void 0:t.progressCb}));}))}));class ResponseError extends CustomError{constructor(e,t){super(t),_defineProperty(this,"url",void 0),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t,r){r?(super(e,r),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):t.statusText.trim()?(super(e,"HTTP error ".concat(t.status,": ").concat(t.statusText)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):(super(e,"HTTP error ".concat(t.status)),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function splitDomain(e){const t=e.split(".");let r=-2;return ["org","co","com"].includes(t[t.length-2])&&(r=-3),[...t.slice(0,r),t.slice(r).join(".")]}class DispatchMap{constructor(){_defineProperty(this,"map",new Map);}set(e,t){const r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((e=>e.includes("*"))))throw new Error("Invalid pattern: "+e);return this.insert([...r].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const r=this._get(e);r?(assert(r instanceof DispatchMap&&!r.map.has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}insertInternal(e,t){const r=e[0],n=this._get(r);let s;n instanceof DispatchMap?s=n:(s=new DispatchMap,this._set(r,s),void 0!==n&&s._set("",n)),s.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);if(t instanceof DispatchMap){let e=t._get("");void 0===e&&(e=t._get("*")),t=e;}return t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){const t=1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e);return null!=t?t:this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error("".concat(t,": ").concat(r));return}}function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map((e=>e.toString(16).padStart(2,"0"))).join("")}function blobToDigest(e){const t=_async((function(e){var t,r,n,s;const o=e.result;return _await(null!==(t=null===(r=crypto)||void 0===r||null===(n=r.subtle)||void 0===n||null===(s=n.digest)||void 0===s?void 0:s.call(n,"SHA-256",o))&&void 0!==t?t:o,hexEncode)}));return new Promise(((r,n)=>{const s=new FileReader;s.addEventListener("error",n),s.addEventListener("load",(()=>{t(s).then(r).catch(n);})),s.readAsArrayBuffer(e);}))}const getItemMetadata=_async((function(e){return _await(fetch(new URL("https://archive.org/metadata/".concat(e))),(function(e){return _await(e.text(),(function(e){const t=safeParseJSON(e,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}))}))}));function memoize(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:e=>"".concat(e[0]);const r=new Map;return function(){for(var n=arguments.length,s=new Array(n),o=0;o<n;o++)s[o]=arguments[o];const a=t(s);if(!r.has(a)){const t=e(...s);r.set(a,t);}return r.get(a)}}function createPersistentCheckbox(e,t,r){return [function(){var t=document.createElement("input");return t.setAttribute("type","checkbox"),t.setAttribute("id",e),t.addEventListener("change",(t=>{t.currentTarget.checked?localStorage.setItem(e,"delete_to_disable"):localStorage.removeItem(e),r(t);})),t.setAttribute("defaultChecked",!!localStorage.getItem(e)),t}.call(this),function(){var r=document.createElement("label");return r.setAttribute("for",e),appendChildren$1(r,t),r}.call(this)]}function formatFileSize(e){const t=0===e?0:Math.floor(Math.log(e)/Math.log(1024)),r=Number((e/Math.pow(1024,t)).toFixed(2));return "".concat(r," ").concat(["B","kB","MB","GB","TB"][t])}function parseVersion(e){return e.split(".").map((e=>parseInt(e)))}function versionLessThan(e,t){let r=0;for(;r<e.length&&r<t.length;){if(e[r]<t[r])return !0;if(e[r]>t[r])return !1;r++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2022.8.8",description:"add Bugs provider"},{versionAdded:"2022.8.5",description:"extract Soundcloud backdrop images"},{versionAdded:"2022.7.27.5",description:"progress indicators"},{versionAdded:"2022.6.29.3",description:"add Yandex Music provider"},{versionAdded:"2022.6.29.2",description:"add Audiomack provider"},{versionAdded:"2022.6.29",description:"add VK Music provider"},{versionAdded:"2022.6.15",description:"file size and type on a-tisket images"},{versionAdded:"2022.6.11",description:"rockipedia.no provider"},{versionAdded:"2022.6.8",description:"update notifications"}],css_248z$2=".ROpdebee_feature_list{font-weight:300;margin:0 auto;width:-moz-fit-content;width:fit-content}.ROpdebee_feature_list ul{margin:6px 28px 0 0;text-align:left}";const LAST_DISPLAYED_KEY="ROpdebee_".concat(USERSCRIPT_ID,"_last_notified_update");function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const r=parseVersion(e),n=USERSCRIPT_FEATURE_HISTORY.filter((e=>versionLessThan(r,parseVersion(e.versionAdded))));0!==n.length&&showFeatureNotification(t.name,t.version,n.map((e=>e.description)));}function showFeatureNotification(e,t,r){insertStylesheet(css_248z$2,"ROpdebee_Update_Banner");const n=function(){var s=document.createElement("div");s.setAttribute("class","banner warning-header");var o=document.createElement("p");s.appendChild(o),appendChildren$1(o,"".concat(e," was updated to v").concat(t,"! "));var a=document.createElement("a");a.setAttribute("href",CHANGELOG_URL),o.appendChild(a);var i=document.createTextNode("See full changelog here");a.appendChild(i),appendChildren$1(o,". New features since last update:");var c=document.createElement("div");c.setAttribute("class","ROpdebee_feature_list"),s.appendChild(c);var l=document.createElement("ul");c.appendChild(l),appendChildren$1(l,r.map((e=>function(){var t=document.createElement("li");return appendChildren$1(t,e),t}.call(this))));var d=document.createElement("button");return d.setAttribute("class","dismiss-banner remove-item icon"),d.setAttribute("data-banner-name","alert"),d.setAttribute("type","button"),d.addEventListener("click",(()=>{n.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);})),s.appendChild(d),s}.call(this);qs("#page").insertAdjacentElement("beforebegin",n);}
 
   LOGGER.configure({
       logLevel: LogLevel.INFO,
@@ -52,7 +52,6 @@
   function dropImage(imageData) {
     const DataTransfer = getFromPageContext('DataTransfer');
     const dataTransfer = new DataTransfer();
-
     Object.defineProperty(dataTransfer, 'files', {
       value: cloneIntoPageContext([imageData])
     });
@@ -65,13 +64,11 @@
     const pendingUploadRows = qsa('tbody[data-bind="foreach: files_to_upload"] > tr');
     const fileRow = pendingUploadRows.find(row => qs('.file-info span[data-bind="text: name"]', row).textContent == imageName);
     assertDefined(fileRow, "Could not find image ".concat(imageName, " in queued uploads"));
-
     const checkboxesToCheck = qsa('ul.cover-art-type-checkboxes input[type="checkbox"]', fileRow).filter(cbox => imageTypes.includes(parseInt(cbox.value)));
     checkboxesToCheck.forEach(cbox => {
       cbox.checked = true;
       cbox.dispatchEvent(new Event('click'));
     });
-
     if (imageComment) {
       const commentInput = qs('div.comment > input.comment', fileRow);
       commentInput.value = imageComment;
@@ -109,7 +106,6 @@
   function fillEditNote(allFetchedImages, origin, editNote) {
     const totalNumImages = allFetchedImages.reduce((acc, fetched) => acc + fetched.images.length, 0);
     if (!totalNumImages) return;
-
     const maxFilled = 3;
     let numFilled = 0;
     var _iterator2 = _createForOfIteratorHelper(allFetchedImages),
@@ -148,18 +144,15 @@
     postprocessImage(image) {
       return Promise.resolve(image);
     }
-
     cleanUrl(url) {
       return url.host + url.pathname;
     }
-
     supportsUrl(url) {
       if (Array.isArray(this.urlRegex)) {
         return this.urlRegex.some(regex => regex.test(this.cleanUrl(url)));
       }
       return this.urlRegex.test(this.cleanUrl(url));
     }
-
     extractId(url) {
       if (!Array.isArray(this.urlRegex)) {
         var _this$cleanUrl$match;
@@ -168,9 +161,8 @@
       return this.urlRegex.map(regex => {
         var _this$cleanUrl$match2;
         return (_this$cleanUrl$match2 = this.cleanUrl(url).match(regex)) === null || _this$cleanUrl$match2 === void 0 ? void 0 : _this$cleanUrl$match2[1];
-      }).find(id => typeof id !== 'undefined');
+      }).find(id => id !== undefined);
     }
-
     isSafeRedirect(originalUrl, redirectedUrl) {
       const id = this.extractId(originalUrl);
       return !!id && id === this.extractId(redirectedUrl);
@@ -183,7 +175,7 @@
             404: "".concat(_this.name, " release does not exist")
           }
         }, options)), function (resp) {
-          if (typeof resp.finalUrl === 'undefined') {
+          if (resp.finalUrl === undefined) {
             LOGGER.warn("Could not detect if ".concat(url.href, " caused a redirect"));
           } else if (resp.finalUrl !== url.href && !_this.isSafeRedirect(url, new URL(resp.finalUrl))) {
             throw new Error("Refusing to extract images from ".concat(_this.name, " provider because the original URL redirected to ").concat(resp.finalUrl, ", which may be a different release. If this redirected URL is correct, please retry with ").concat(resp.finalUrl, " directly."));
@@ -194,7 +186,6 @@
     }
   }
   class HeadMetaPropertyProvider extends CoverArtProvider {
-
     is404Page(_document) {
       return false;
     }
@@ -216,7 +207,6 @@
     }
   }
   class ProviderWithTrackImages extends CoverArtProvider {
-
     groupIdenticalImages(images, getImageUniqueId, mainUniqueId) {
       const uniqueImages = images.filter(img => getImageUniqueId(img) !== mainUniqueId);
       return groupBy(uniqueImages, getImageUniqueId, img => img);
@@ -238,13 +228,10 @@
       const _this4 = this;
       return _call(function () {
         const allTrackImages = filterNonNull(parsedTrackImages);
-
         const groupedImages = _this4.groupIdenticalImages(allTrackImages, img => img.url, mainUrl);
-
         return _await(_invoke(function () {
           if (byContent && groupedImages.size > 0 && !(groupedImages.size === 1 && !mainUrl)) {
             LOGGER.info('Deduplicating track images by content, this may take a while…');
-
             return _await(mainUrl ? _this4.urlToDigest(mainUrl) : '', function (mainDigest) {
               let numProcessed = 0;
               return _await(Promise.all([...groupedImages.entries()].map(_async(function (_ref) {
@@ -335,11 +322,10 @@
     }
     static getReleaseImages(releaseId) {
       let respProm = this.apiResponseCache.get(releaseId);
-      if (typeof respProm === 'undefined') {
+      if (respProm === undefined) {
         respProm = this.actuallyGetReleaseImages(releaseId);
         this.apiResponseCache.set(releaseId, respProm);
       }
-
       respProm.catch(() => {
         if (this.apiResponseCache.get(releaseId) === respProm) {
           this.apiResponseCache.delete(releaseId);
@@ -366,7 +352,7 @@
           const metadata = safeParseJSON(resp.responseText, 'Invalid response from Discogs API');
           assertHasValue(metadata.data.release, 'Discogs release does not exist');
           const responseId = metadata.data.release.discogsId.toString();
-          assert(typeof responseId === 'undefined' || responseId === releaseId, "Discogs returned wrong release: Requested ".concat(releaseId, ", got ").concat(responseId));
+          assert(responseId === undefined || responseId === releaseId, "Discogs returned wrong release: Requested ".concat(releaseId, ", got ").concat(responseId));
           return metadata;
         });
       });
@@ -375,7 +361,6 @@
       const urlParts = url.pathname.split('/');
       const firstFilenameIdx = urlParts.slice(2).findIndex(urlPart => !/^\w+:/.test(urlPart)) + 2;
       const s3Url = urlParts.slice(firstFilenameIdx).join('');
-
       const s3UrlDecoded = atob(s3Url.slice(0, s3Url.indexOf('.')));
       return s3UrlDecoded.split('/').pop();
     }
@@ -385,10 +370,8 @@
         var _imageName$match;
         const imageName = _this2.getFilenameFromUrl(url);
         const releaseId = (_imageName$match = imageName.match(/^R-(\d+)/)) === null || _imageName$match === void 0 ? void 0 : _imageName$match[1];
-
         return releaseId ? _await(_this2.getReleaseImages(releaseId), function (releaseData) {
           const matchedImage = releaseData.data.release.images.edges.find(img => _this2.getFilenameFromUrl(new URL(img.node.fullsize.sourceUrl)) === imageName);
-
           return matchedImage ? new URL(matchedImage.node.fullsize.sourceUrl) : url;
         }) : _await(url);
       });
@@ -436,8 +419,7 @@
     fill_object: true,
     exclude_videos: true,
     filter(url) {
-      return !url.toLowerCase().endsWith('.webp')
-      && !/:format(webp)/.test(url.toLowerCase());
+      return !url.toLowerCase().endsWith('.webp') && !/:format(webp)/.test(url.toLowerCase());
     }
   };
   const IMU_EXCEPTIONS = new DispatchMap();
@@ -450,10 +432,8 @@
       }];
     });
   }));
-
   IMU_EXCEPTIONS.set('*.mzstatic.com', _async(function (smallurl) {
     var _smallurl$href$match;
-
     const results = [];
     const smallOriginalName = (_smallurl$href$match = smallurl.href.match(/(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/)) === null || _smallurl$href$match === void 0 ? void 0 : _smallurl$href$match[1];
     return _continue(_forAwaitOf(maximiseGeneric(smallurl), function (imgGeneric) {
@@ -533,24 +513,17 @@
     }
   }
 
-  const PLACEHOLDER_IMG_NAMES = ['01RmK+J4pJL',
-  '01QFb8SNuTL',
-  '01PkLIhTX3L',
-  '01MKUOLsA5L',
-  '31CTP6oiIBL'];
-
+  const PLACEHOLDER_IMG_NAMES = ['01RmK+J4pJL', '01QFb8SNuTL', '01PkLIhTX3L', '01MKUOLsA5L', '31CTP6oiIBL'];
   const VARIANT_TYPE_MAPPING = {
     MAIN: ArtworkTypeIDs.Front,
     FRNT: ArtworkTypeIDs.Front,
     BACK: ArtworkTypeIDs.Back,
     SIDE: ArtworkTypeIDs.Spine
   };
-
   const AUDIBLE_PAGE_QUERY = '#audibleProductTitle';
   const DIGITAL_PAGE_QUERY = '.DigitalMusicDetailPage';
-  const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="DmusicRetailMp3Player"]';
+  const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]';
   const PHYSICAL_AUDIOBOOK_PAGE_QUERY = '#booksImageBlock_feature_div';
-
   const AUDIBLE_FRONT_IMAGE_QUERY = '#mf_pdp_hero_widget_book_img img';
   const DIGITAL_FRONT_IMAGE_QUERY = '#digitalMusicProductImage_feature_div > img';
   class AmazonProvider extends CoverArtProvider {
@@ -568,7 +541,6 @@
       return _call(function () {
         return _await(_this.fetchPage(url), function (pageContent) {
           const pageDom = parseDOM(pageContent, url.href);
-
           if (qsMaybe('form[action="/errors/validateCaptcha"]', pageDom) !== null) {
             throw new Error('Amazon served a captcha page');
           }
@@ -613,7 +585,6 @@
       return _call(function () {
         const imgs = _this3.extractEmbeddedJSImages(pageContent, /\s*'imageGalleryData' : (.+),$/m);
         assertNonNull(imgs, 'Failed to extract images from embedded JS on physical audiobook page');
-
         return _await(imgs.map(img => ({
           url: new URL(img.mainUrl)
         })));
@@ -771,7 +742,6 @@
     }
     extractGenericImages(itemMetadata, baseDownloadUrl) {
       const originalImagePaths = itemMetadata.files.filter(file => file.source === 'original' && ArchiveProvider.IMAGE_FILE_FORMATS.includes(file.format)).map(file => encodeURIComponent(file.name).replaceAll('%2F', '/'));
-
       return originalImagePaths.map(path => {
         return {
           url: urlJoin(baseDownloadUrl, path)
@@ -783,8 +753,7 @@
     }
   }
   _defineProperty(ArchiveProvider, "CAA_ITEM_REGEX", /^mbid-[a-f\d-]+$/);
-  _defineProperty(ArchiveProvider, "IMAGE_FILE_FORMATS", ['JPEG', 'PNG', 'Text PDF',
-  'Animated GIF']);
+  _defineProperty(ArchiveProvider, "IMAGE_FILE_FORMATS", ['JPEG', 'PNG', 'Text PDF', 'Animated GIF']);
 
   class AudiomackProvider extends CoverArtProvider {
     constructor() {
@@ -808,7 +777,6 @@
           const initialState = safeParseJSON(initialStateText);
           const info = (_initialState$musicAl = initialState === null || initialState === void 0 ? void 0 : initialState.musicAlbum.info) !== null && _initialState$musicAl !== void 0 ? _initialState$musicAl : initialState === null || initialState === void 0 ? void 0 : initialState.musicSong.info;
           assertHasValue(info, 'Could not retrieve music information from state');
-
           return [{
             url: new URL(info.image),
             types: [ArtworkTypeIDs.Front]
@@ -830,7 +798,6 @@
           img.src = '';
         }
       }
-
       function dimensionsFailed(evt) {
         clearInterval(interval);
         if (!done) {
@@ -847,7 +814,6 @@
         });
       });
       img.addEventListener('error', dimensionsFailed);
-
       const interval = window.setInterval(() => {
         if (img.naturalHeight) {
           dimensionsLoaded({
@@ -856,7 +822,6 @@
           });
         }
       }, 50);
-
       img.src = url;
     });
   }
@@ -895,7 +860,6 @@
           } else {
             LOGGER.warn('Bandcamp release has no cover');
           }
-
           return _await(onlyFront ? [] : _this.findTrackImages(respDocument, albumCoverUrl), function (trackImages) {
             return _this.amendSquareThumbnails([...covers, ...trackImages]);
           }, onlyFront);
@@ -914,12 +878,10 @@
         const trackRows = qsa('#track_table .track_row_view', doc);
         if (trackRows.length === 0) return _await([]);
         LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
-
         const throttledFetchPage = pThrottle({
           interval: 1000,
           limit: 5
         })(_this2.fetchPage.bind(_this2));
-
         let numProcessed = 0;
         return _await(Promise.all(trackRows.map(_async(function (trackRow) {
           return _await(_this2.findTrackImage(trackRow, throttledFetchPage), function (trackImage) {
@@ -945,7 +907,6 @@
         var _trackRow$getAttribut, _trackRow$getAttribut2, _qsMaybe;
         const trackNum = (_trackRow$getAttribut = trackRow.getAttribute('rel')) === null || _trackRow$getAttribut === void 0 ? void 0 : (_trackRow$getAttribut2 = _trackRow$getAttribut.match(/tracknum=(\w+)/)) === null || _trackRow$getAttribut2 === void 0 ? void 0 : _trackRow$getAttribut2[1];
         const trackUrl = (_qsMaybe = qsMaybe('.title > a', trackRow)) === null || _qsMaybe === void 0 ? void 0 : _qsMaybe.href;
-
         if (!trackUrl) {
           LOGGER.warn("Could not check track ".concat(trackNum, " for track images"));
           return _await();
@@ -1092,9 +1053,7 @@
       });
     }
   }
-  _defineProperty(DatPiffProvider, "placeholderDigests", ['259b065660159922c881d242701aa64d4e02672deba437590a2014519e7caeec',
-  'ef406a25c3ffd61150b0658f3fe4863898048b4e54b81289e0e53a0f00ad0ced',
-  'a2691bde8f4a5ced9e5b066d4fab0675b0ceb80f1f0ab3c4d453228549560048']);
+  _defineProperty(DatPiffProvider, "placeholderDigests", ['259b065660159922c881d242701aa64d4e02672deba437590a2014519e7caeec', 'ef406a25c3ffd61150b0658f3fe4863898048b4e54b81289e0e53a0f00ad0ced', 'a2691bde8f4a5ced9e5b066d4fab0675b0ceb80f1f0ab3c4d453228549560048']);
 
   class DeezerProvider extends HeadMetaPropertyProvider {
     constructor() {
@@ -1165,7 +1124,6 @@
       });
     }
   }
-
   class CoverArtArchiveProvider extends MusicBrainzProvider {
     constructor() {
       super(...arguments);
@@ -1258,7 +1216,6 @@
             console.error(err);
             throw new Error('Bad request to Qobuz API, app ID invalid?');
           }
-
           if (err instanceof HTTPResponseError && err.statusCode == 404) {
             LOGGER.warn('Qobuz API returned 404, falling back on URL rewriting. Booklets may be missed.');
             const _temp = [{
@@ -1268,7 +1225,6 @@
             _exit = true;
             return _temp;
           }
-
           throw err;
         }), function (_result) {
           var _metadata$goodies;
@@ -1339,7 +1295,6 @@
         const imageBrowserUrl = new URL("https://www.rockipedia.no/?imagebrowser=true&t=album&id=".concat(id));
         return _await(_this.fetchPage(imageBrowserUrl), function (_this$fetchPage) {
           const imageBrowserDoc = parseDOM(_this$fetchPage, url.href);
-
           const coverElements = qsa('li.royalSlide', imageBrowserDoc);
           return filterNonNull(coverElements.map(coverElement => {
             const coverUrl = coverElement.dataset.src;
@@ -1356,8 +1311,7 @@
     }
   }
 
-  const SC_CLIENT_ID = 'DwmXmuOkvCh3VuIiUo9NZIgArRpEXjU0';
-
+  const SC_CLIENT_ID = 'JYcDe4vHGjmQkIdR2BB58tFXMBO8M888';
   class SoundcloudProvider extends ProviderWithTrackImages {
     constructor() {
       super(...arguments);
@@ -1367,14 +1321,11 @@
       _defineProperty(this, "urlRegex", []);
     }
     supportsUrl(url) {
-      const _url$pathname$trim$sl = url.pathname.trim()
-        .slice(1)
-        .replace(/\/$/, '').split('/'),
+      const _url$pathname$trim$sl = url.pathname.trim().slice(1).replace(/\/$/, '').split('/'),
         _url$pathname$trim$sl2 = _toArray(_url$pathname$trim$sl),
         artistId = _url$pathname$trim$sl2[0],
         pathParts = _url$pathname$trim$sl2.slice(1);
-      return pathParts.length > 0 && !SoundcloudProvider.badArtistIDs.has(artistId)
-      && !SoundcloudProvider.badSubpaths.has(urlBasename(url));
+      return pathParts.length > 0 && !SoundcloudProvider.badArtistIDs.has(artistId) && !SoundcloudProvider.badSubpaths.has(urlBasename(url));
     }
     extractId(url) {
       return url.pathname.slice(1);
@@ -1432,7 +1383,6 @@
             types: [ArtworkTypeIDs.Front]
           });
         }
-
         return onlyFront ? _await(covers) : _await(_this2.lazyLoadTracks(metadata.data.tracks), function (tracks) {
           const trackCovers = filterNonNull(tracks.flatMap((track, trackNumber) => {
             const trackImages = [];
@@ -1460,10 +1410,9 @@
     }
     lazyLoadTracks(tracks) {
       return _call(function () {
-        const lazyTrackIDs = tracks.filter(track => typeof track.artwork_url === 'undefined').map(track => track.id);
+        const lazyTrackIDs = tracks.filter(track => track.artwork_url === undefined).map(track => track.id);
         if (lazyTrackIDs.length === 0) return _await(tracks);
         LOGGER.info('Loading Soundcloud track data');
-
         const params = new URLSearchParams({
           ids: lazyTrackIDs.join(','),
           client_id: SC_CLIENT_ID
@@ -1475,9 +1424,8 @@
             return tracks;
           }
           const trackIdToLoadedTrack = new Map(trackData.map(track => [track.id, track]));
-
           return tracks.map(track => {
-            if (typeof track.artwork_url !== 'undefined') return track;
+            if (track.artwork_url !== undefined) return track;
             const loadedTrack = trackIdToLoadedTrack.get(track.id);
             if (!loadedTrack) {
               LOGGER.error("Could not load track data for track ".concat(track.id, ", some track images may be missed"));
@@ -1510,7 +1458,6 @@
   }
 
   const APP_ID = 'CzET4vdadNUFQ5JU';
-
   class TidalProvider extends CoverArtProvider {
     constructor() {
       super(...arguments);
@@ -1605,18 +1552,15 @@
         types.add(type);
       }
     }
-
     if (types.has(ArtworkTypeIDs.Front) && types.has(ArtworkTypeIDs.Back)) {
       types.add(ArtworkTypeIDs.Spine);
     }
-
     const typeKeywords = new Set(typeKeywordsToTypes.map(_ref => {
       let _ref2 = _slicedToArray(_ref, 1),
         typeKeyword = _ref2[0];
       return typeKeyword;
     }));
     const otherKeywords = keywords.filter(kw => !typeKeywords.has(kw.toLowerCase()));
-
     if (packaging !== 'Jacket') otherKeywords.unshift(packaging);
     const comment = otherKeywords.join(' ').trim();
     return {
@@ -1639,7 +1583,6 @@
           commentParts.push(keyword);
         }
       }
-
     } catch (err) {
       _iterator.e(err);
     } finally {
@@ -1653,7 +1596,6 @@
       comment: commentParts.join(' ')
     };
   }
-
   const __CAPTION_TYPE_MAPPING = {
     front: ArtworkTypeIDs.Front,
     booklet: ArtworkTypeIDs.Booklet,
@@ -1711,18 +1653,14 @@
         return convertMappingReturnValue(value(caption));
       }
       const retObj = convertMappingReturnValue(value);
-      if (retObj.comment && caption) retObj.comment += ' ' + caption;
-      else if (caption) retObj.comment = caption;
-
+      if (retObj.comment && caption) retObj.comment += ' ' + caption;else if (caption) retObj.comment = caption;
       return retObj;
     };
   }
   const PLACEHOLDER_URL = '/db/img/album-nocover-medium.gif';
   const NSFW_PLACEHOLDER_URL = '/db/img/album-nsfw-medium.gif';
   function cleanupCaption(captionRest) {
-    return captionRest
-    .replace(/^\((.+)\)$/, '$1').replace(/^\[(.+)]$/, '$1').replace(/^{(.+)}$/, '$1')
-    .replace(/^[-–:]\s*/, '');
+    return captionRest.replace(/^\((.+)\)$/, '$1').replace(/^\[(.+)]$/, '$1').replace(/^{(.+)}$/, '$1').replace(/^[-–:]\s*/, '');
   }
   function convertCaption(caption) {
     LOGGER.debug("Found caption \u201C".concat(caption, "\u201D"));
@@ -1770,7 +1708,6 @@
             throw new Error('VGMdb returned an error');
           }
           const pageDom = parseDOM(pageSrc, url.href);
-
           if (qsMaybe('#navmember', pageDom) === null) {
             LOGGER.warn('Heads up! VGMdb requires you to be logged in to view all images. Some images may have been missed. If you have an account, please log in to VGMdb to fetch all images.');
           }
@@ -1923,9 +1860,7 @@
   function getFilename(url) {
     return decodeURIComponent(urlBasename(url, 'image'));
   }
-
   class ImageFetcher {
-
     constructor(hooks) {
       _defineProperty(this, "doneImages", void 0);
       _defineProperty(this, "hooks", void 0);
@@ -2026,11 +1961,9 @@
         defaultComment = _ref.comment;
       return _call(function () {
         LOGGER.info("Searching for images in ".concat(provider.name, " release\u2026"));
-
         return _await(provider.findImages(url, onlyFront), function (images) {
           const finalImages = onlyFront ? _this4.retainOnlyFront(images) : images;
           const hasMoreImages = onlyFront && images.length !== finalImages.length;
-
           LOGGER.info("Found ".concat(finalImages.length || 'no', " image(s) in ").concat(provider.name, " release"));
           const queuedResults = [];
           return _continue(_forOf(enumerate(finalImages), function (_ref2) {
@@ -2099,7 +2032,7 @@
           headers: headers,
           progressCb: (_this5$hooks$onFetchP = _this5.hooks.onFetchProgress) === null || _this5$hooks$onFetchP === void 0 ? void 0 : _this5$hooks$onFetchP.bind(_this5.hooks, id, url)
         }), function (resp) {
-          if (typeof resp.finalUrl === 'undefined') {
+          if (resp.finalUrl === undefined) {
             LOGGER.warn("Could not detect if URL ".concat(url.href, " caused a redirect"));
           }
           const fetchedUrl = new URL(resp.finalUrl || url);
@@ -2114,9 +2047,8 @@
               if (!(mimeType !== null && mimeType !== void 0 && mimeType.startsWith('text/'))) {
                 throw new Error("Expected \"".concat(fileName, "\" to be an image, but received ").concat(mimeType !== null && mimeType !== void 0 ? mimeType : 'unknown file type', "."));
               }
-
               const candidateProvider = getProviderByDomain(url);
-              if (typeof candidateProvider !== 'undefined') {
+              if (candidateProvider !== undefined) {
                 throw new Error("This page is not (yet) supported by the ".concat(candidateProvider.name, " provider, are you sure this page corresponds to a MusicBrainz release?"));
               }
               throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
@@ -2252,7 +2184,6 @@
           LOGGER.error("Invalid image seeding param ".concat(key, "=").concat(value), err);
         }
       });
-
       images = images.filter((image, index) => {
         if (image.url) {
           return true;
@@ -2276,35 +2207,35 @@
           _defineProperty(this, 'rootElement', void 0);
           this.urlSpan = function () {
               var $$a = document.createElement('span');
-              appendChildren($$a, url.href);
+              appendChildren$1($$a, url.href);
               return $$a;
           }.call(this);
           this.progressbar = function () {
               var $$c = document.createElement('div');
               $$c.setAttribute('class', 'ui-progressbar-value ui-widget-header ui-corner-left');
-              setStyles($$c, {
+              setStyles$1($$c, {
                   backgroundColor: '#cce5ff',
                   width: '0%'
               });
-              appendChildren($$c, '\xA0');
+              appendChildren$1($$c, '\xA0');
               return $$c;
           }.call(this);
           this.rootElement = function () {
               var $$e = document.createElement('tr');
-              setStyles($$e, { display: 'flex' });
+              setStyles$1($$e, { display: 'flex' });
               var $$f = document.createElement('td');
               $$f.setAttribute('class', 'uploader-preview-column');
               $$e.appendChild($$f);
               var $$g = document.createElement('div');
               $$g.setAttribute('class', 'content-loading');
-              setStyles($$g, {
+              setStyles$1($$g, {
                   width: '120px',
                   height: '120px',
                   position: 'relative'
               });
               $$f.appendChild($$g);
               var $$h = document.createElement('td');
-              setStyles($$h, { width: '65%' });
+              setStyles$1($$h, { width: '65%' });
               $$e.appendChild($$h);
               var $$i = document.createElement('div');
               $$i.setAttribute('class', 'row');
@@ -2313,16 +2244,16 @@
               $$i.appendChild($$j);
               var $$k = document.createTextNode('URL:');
               $$j.appendChild($$k);
-              appendChildren($$i, this.urlSpan);
+              appendChildren$1($$i, this.urlSpan);
               var $$m = document.createElement('td');
-              setStyles($$m, { flexGrow: 1 });
+              setStyles$1($$m, { flexGrow: 1 });
               $$e.appendChild($$m);
               var $$n = document.createElement('div');
               $$n.setAttribute('class', 'ui-progressbar ui-widget ui-widget-content ui-corner-all');
               $$n.setAttribute('role', 'progressbar');
-              setStyles($$n, { width: '100%' });
+              setStyles$1($$n, { width: '100%' });
               $$m.appendChild($$n);
-              appendChildren($$n, this.progressbar);
+              appendChildren$1($$n, this.progressbar);
               return $$e;
           }.call(this);
       }
@@ -2382,15 +2313,15 @@
           const container = function () {
               var $$q = document.createElement('div');
               $$q.setAttribute('class', 'ROpdebee_paste_url_cont');
-              appendChildren($$q, this.urlInput);
+              appendChildren$1($$q, this.urlInput);
               var $$s = document.createElement('a');
               $$s.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md');
               $$s.setAttribute('target', '_blank');
               $$q.appendChild($$s);
               var $$t = document.createTextNode('\n                Supported providers\n            ');
               $$s.appendChild($$t);
-              appendChildren($$q, onlyFrontCheckbox);
-              appendChildren($$q, onlyFrontLabel);
+              appendChildren$1($$q, onlyFrontCheckbox);
+              appendChildren$1($$q, onlyFrontLabel);
               return $$q;
           }.call(this);
           this.buttonContainer = function () {
@@ -2400,7 +2331,7 @@
           }.call(this);
           this.orSpan = function () {
               var $$x = document.createElement('span');
-              setStyles($$x, { display: 'none' });
+              setStyles$1($$x, { display: 'none' });
               var $$y = document.createTextNode('or');
               $$x.appendChild($$y);
               return $$x;
@@ -2437,7 +2368,7 @@
                       $$bb.appendChild($$cc);
                       var $$dd = document.createElement('span');
                       $$bb.appendChild($$dd);
-                      appendChildren($$dd, 'Import from ' + provider.name);
+                      appendChildren$1($$dd, 'Import from ' + provider.name);
                       return $$bb;
                   }.call(this);
                   _this2.orSpan.style.display = '';
@@ -2484,7 +2415,6 @@
       _defineProperty(this, "onlyFront", false);
       this.note = EditNote.withFooterFromGMInfo();
       this.urlsInProgress = new Set();
-
       LOGGER.addSink(this.loggingSink);
       qs('.add-files').insertAdjacentElement('afterend', this.loggingSink.rootElement);
       this.fetchingSema = new ObservableSemaphore({
@@ -2572,7 +2502,6 @@
             return (_getProvider = getProvider(url)) === null || _getProvider === void 0 ? void 0 : _getProvider.allowButtons;
           });
           if (supportedURLs.length === 0) return;
-
           const syncProcessURL = url => {
             void pFinally(_this4.processURL(url).catch(err => {
               LOGGER.error("Failed to process URL ".concat(url.href), err);
@@ -2604,7 +2533,7 @@
         return _await(_continue(_catch(function () {
           var _this$cache;
           return _await((_this$cache = _this.cache) === null || _this$cache === void 0 ? void 0 : _this$cache.getDimensions(_this.cacheKey), function (cachedResult) {
-            if (typeof cachedResult !== 'undefined') {
+            if (cachedResult !== undefined) {
               _exit = true;
               return cachedResult;
             }
@@ -2637,7 +2566,7 @@
         return _await(_continue(_catch(function () {
           var _this2$cache;
           return _await((_this2$cache = _this2.cache) === null || _this2$cache === void 0 ? void 0 : _this2$cache.getFileInfo(_this2.cacheKey), function (cachedResult) {
-            if (typeof cachedResult !== 'undefined') {
+            if (cachedResult !== undefined) {
               _exit3 = true;
               return cachedResult;
             }
@@ -2811,7 +2740,7 @@
       const imageUrl = qs('a.icon', fig).href;
       const dimSpan = function () {
           var $$a = document.createElement('span');
-          setStyles($$a, { display: 'block' });
+          setStyles$1($$a, { display: 'block' });
           var $$b = document.createTextNode('\n        loading\u2026\n    ');
           $$a.appendChild($$b);
           return $$a;
@@ -2820,7 +2749,7 @@
       return _await(getImageInfo(imageUrl), function (imageInfo) {
           const infoStringParts = [
               imageInfo.dimensions ? ''.concat(imageInfo.dimensions.width, 'x').concat(imageInfo.dimensions.height) : '',
-              typeof imageInfo.size !== 'undefined' ? formatFileSize(imageInfo.size) : '',
+              imageInfo.size !== undefined ? formatFileSize(imageInfo.size) : '',
               imageInfo.fileType
           ];
           const infoString = infoStringParts.filter(Boolean).join(', ');
@@ -2927,10 +2856,10 @@
               const seedLink = function () {
                   var $$c = document.createElement('a');
                   $$c.setAttribute('href', seedUrl);
-                  setStyles($$c, { display: 'block' });
+                  setStyles$1($$c, { display: 'block' });
                   var $$d = document.createTextNode('\n            Add to release ');
                   $$c.appendChild($$d);
-                  appendChildren($$c, mbids.length > 1 ? mbid.split('-')[0] : '');
+                  appendChildren$1($$c, mbids.length > 1 ? mbid.split('-')[0] : '');
                   return $$c;
               }.call(this);
               qs('figcaption', fig).insertAdjacentElement('beforeend', seedLink);
@@ -2995,7 +2924,7 @@
                               $$a.appendChild($$b);
                               var $$c = document.createElement('span');
                               $$a.appendChild($$c);
-                              appendChildren($$c, 'Import from ' + provider.name);
+                              appendChildren$1($$c, 'Import from ' + provider.name);
                               return $$a;
                           }.call(this);
                       });
@@ -3071,8 +3000,8 @@
               $$a.setAttribute('href', seedParamsPrivate.createSeedURL(relId));
               $$a.setAttribute('target', '_blank');
               $$a.setAttribute('rel', 'noopener noreferrer');
-              setStyles($$a, { display: 'block' });
-              appendChildren($$a, 'Seed covers to ' + relId.split('-')[0]);
+              setStyles$1($$a, { display: 'block' });
+              appendChildren$1($$a, 'Seed covers to ' + relId.split('-')[0]);
               return $$a;
           }.call(this);
           return [
@@ -3097,7 +3026,7 @@
           var $$d = document.createElement('label');
           $$d.setAttribute('for', 'ROpdebee_incl_public_checkbox');
           $$d.setAttribute('title', 'Leave this unchecked to only seed covers which cannot be extracted by the VGMdb provider');
-          setStyles($$d, { cursor: 'help' });
+          setStyles$1($$d, { cursor: 'help' });
           var $$e = document.createTextNode('Include publicly accessible covers');
           $$d.appendChild($$e);
           return $$d;
@@ -3110,7 +3039,7 @@
       if (anchors.length === 0) {
           containedElements.push(function () {
               var $$f = document.createElement('span');
-              setStyles($$f, { display: 'block' });
+              setStyles$1($$f, { display: 'block' });
               var $$g = document.createTextNode('\n            This album is not linked to any MusicBrainz releases!\n        ');
               $$f.appendChild($$g);
               return $$f;
@@ -3118,11 +3047,11 @@
       }
       const container = function () {
           var $$h = document.createElement('div');
-          setStyles($$h, {
+          setStyles$1($$h, {
               padding: '8px 8px 0px 8px',
               fontSize: '8pt'
           });
-          appendChildren($$h, containedElements);
+          appendChildren$1($$h, containedElements);
           return $$h;
       }.call(this);
       (_coverHeading$nextEle = coverHeading.nextElementSibling) === null || _coverHeading$nextEle === void 0 ? void 0 : _coverHeading$nextEle.insertAdjacentElement('afterbegin', container);
