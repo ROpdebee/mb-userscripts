@@ -19,6 +19,7 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Deezer | ✔️ | ✔️ |
 | Discogs | Partial | ❌ | Images are limited to 600x600, see [qsniyg/maxurl#689](https://github.com/qsniyg/maxurl/issues/689) |
 | Jamendo | ✔️ | ✔️ |
+| Juno Download | ✔️ | ✔️ | Likely limited to 700x700. |
 | Melon | ✔️ | ✔️ |
 | MusicBrainz/Cover Art Archive | ✔️ | ✔️ | To copy images from one release to another. |
 | Musik-Sammler | ✔️ | ❌ |
