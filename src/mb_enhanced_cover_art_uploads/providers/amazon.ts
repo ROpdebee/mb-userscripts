@@ -37,7 +37,7 @@ const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
 // CSS queries to figure out which type of page we're on
 const AUDIBLE_PAGE_QUERY = '#audibleProductTitle';  // Product title with Audible logo on standard product pages
 const DIGITAL_PAGE_QUERY = '.DigitalMusicDetailPage';  // TODO: Does this still exist?
-const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="DmusicRetailMp3Player"]';  // Dynamically loaded Amazon Music digital pages.
+const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]';  // Dynamically loaded Amazon Music digital pages.
 const PHYSICAL_AUDIOBOOK_PAGE_QUERY = '#booksImageBlock_feature_div';
 
 // CSS queries to extract a front cover from a page
