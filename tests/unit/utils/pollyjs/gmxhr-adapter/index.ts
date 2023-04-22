@@ -14,6 +14,10 @@ import { CRLFHeaders, FetchHeaders, PollyHeaders } from '../headers';
 
 type RequestType<Context> = Request<GM.Request<Context>>;
 
+const FAKE_HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/113.0',
+};
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Context>> {
     public static override get id(): string {
@@ -52,6 +56,11 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
     public override async onFetchResponse(pollyRequest: RequestType<Context>): ReturnType<Adapter['onFetchResponse']> {
         const { responseType } = pollyRequest.requestArguments;
         const headers = FetchHeaders.fromPollyHeaders(pollyRequest.headers);
+        for (const [headerName, headerValue] of Object.entries(FAKE_HEADERS)) {
+            if (!headers.has(headerName)) {
+                headers.append(headerName, headerValue);
+            }
+        }
         const resp = await fetch(pollyRequest.url, {
             method: pollyRequest.method,
             headers: headers,
@@ -83,7 +92,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
 
         // Extract the final URL from the headers. We stored these in
         // the passthrough
-        const headers = {...response.headers};
+        const headers = { ...response.headers };
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         const finalUrl = headers['x-pollyjs-finalurl'] ?? options.url;
         delete headers['x-pollyjs-finalUrl'];
