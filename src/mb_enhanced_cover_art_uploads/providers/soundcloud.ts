@@ -45,7 +45,9 @@ interface LoadedAPITrack {
 
 type SCHydrationTrack = LazyAPITrack | LoadedAPITrack;
 
-const SC_CLIENT_ID = 'DwmXmuOkvCh3VuIiUo9NZIgArRpEXjU0';  // TODO: Might change?
+// NOTE: Already changed in the past, if it changes again we should write logic
+// to extract it automatically.
+const SC_CLIENT_ID = 'JYcDe4vHGjmQkIdR2BB58tFXMBO8M888';
 
 export class SoundcloudProvider extends ProviderWithTrackImages {
     public readonly supportedDomains = ['soundcloud.com'];
