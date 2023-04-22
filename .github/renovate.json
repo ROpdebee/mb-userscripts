@@ -1,7 +1,7 @@
 {
   "extends": [
     "config:base",
-    "schedule:weekends",
+    "schedule:monthly",
     ":semanticCommitTypeAll(build)",
     ":maintainLockFilesMonthly",
     ":label(dependencies)"
@@ -11,7 +11,9 @@
     "automerge": true,
     "automergeType": "branch",
     "recreateClosed": true,
-    "schedule": ["at any time"]
+    "schedule": [
+      "at any time"
+    ]
   },
   "lockFileMaintenance": {
     "automerge": true,
@@ -20,11 +22,19 @@
   "packageRules": [
     {
       "description": "Automatically merge patch and minor updates to dev dependencies",
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["patch", "minor"],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
       "automerge": true,
       "automergeType": "branch",
-      "schedule": ["at any time"]
+      "groupName": "dev dependencies (non-major)",
+      "excludePackageNames": [
+        "babel-plugin-transform-async-to-promises"
+      ]
     }
   ]
 }
