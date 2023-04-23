@@ -1,0 +1,611 @@
+WARC/1.1
+WARC-Filename: monstercat provider/extracting images/extracts covers for release
+WARC-Date: 2023-04-23T09:52:59.157Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:2aa5c92e-cf33-4715-80b5-2eb5b4591d3f>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:209f3969-b1c7-46d8-9042-3c28b0364800>
+WARC-Target-URI: https://www.monstercat.com/release/MCEP270
+WARC-Date: 2023-04-23T09:52:59.158Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:a3ac18b4-1b2f-4a4b-8316-288b534e9eb3>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:c11d009134bc0a0627d28415b5e69c1c974edfcfb3ebbff4526389aabfdfdde7
+Content-Length: 33
+
+GET /release/MCEP270 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:209f3969-b1c7-46d8-9042-3c28b0364800>
+WARC-Target-URI: https://www.monstercat.com/release/MCEP270
+WARC-Date: 2023-04-23T09:52:59.159Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:9fabb3c5-2b7d-46ce-b962-26454b8ad4aa>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:9d70b34d23b488981949bc9a6a656f85c240f4e86e75b439f8c2faa00a2faa6f
+WARC-Block-Digest: sha256:9d70b34d23b488981949bc9a6a656f85c240f4e86e75b439f8c2faa00a2faa6f
+Content-Length: 348
+
+harEntryId: 2ea4a4aeaa249f78968d0bfe2ed47a92
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2023-04-23T09:52:58.745Z
+time: 406
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":406,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 61
+warcRequestCookies: []
+warcResponseHeadersSize: 888
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.monstercat.com/release/MCEP270
+WARC-Date: 2023-04-23T09:52:59.158Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:209f3969-b1c7-46d8-9042-3c28b0364800>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:b30b3b994ebdd0d9102f8631c69431c102c30c2fed14653d45983b63a0cd2cb6
+WARC-Block-Digest: sha256:4e4effb241a3d388d0aeab1fde172c94a5888df1e402485b2a5f56ce7376f88d
+Content-Length: 37201
+
+HTTP/1.1 200 OK
+access-control-allow-credentials: true
+access-control-allow-headers: Origin, Authorization, Content-Type, Accepts
+access-control-allow-methods: POST, GET, OPTIONS
+access-control-allow-origin: 
+access-control-max-age: 50
+cache-control: max-age=0, no-cache
+cf-cache-status: DYNAMIC
+cf-ray: 7bc537810e41b912-AMS
+connection: close
+content-encoding: br
+content-type: text/html
+date: Sun, 23 Apr 2023 09:52:59 GMT
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=otpVNUZUrd3ccYJS7Cl3lJNcfrGjsCvtqvP%2B3jZs349sZXpL9mDjhDcIqXRgNzj2hY86sHSoUU%2F8OT4J11KG8gnBN9Z5VAJuYs%2FgBi%2BXR%2B3iGw0cGAF%2Fy6A1vulWoaS7vrjcUw%3D%3D"}],"group":"cf-nel","max_age":604800}
+server: cloudflare
+transfer-encoding: chunked
+via: 1.1 google
+x-pollyjs-finalurl: https://www.monstercat.com/release/MCEP270
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta property="og:title" content="In My Hands" />
+<meta property="og:type" content="music.album" />
+<meta property="og:url" content="https://www.monstercat.com/release/MCEP270" />
+<meta property="og:image" content="https://www.monstercat.com/release/MCEP270/cover" />
+<title>In My Hands - Monstercat</title>
+<meta name="description" content="Listen to In My Hands by Fløa. Explore Monstercat's latest releases, mixes, compilations and more." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="keywords" content="Monstercat, EDM, Music Release, Uncaged, Instinct, Monstercat Artist, Electronic Dance Music, Bass Music, Drum n Bass, DNB, Electronic Music, Silk Music, Dubstep, Monstercat Shows, Monstercat Events, Monstercat Live, Monstercat Concert, House Music, Catstep" />
+<link href="/third-party/radio-icons.css?-62135596800" rel="stylesheet" />
+<link href="/third-party/font-awesome-all.min.css?-62135596800" rel="stylesheet" />
+<link href="/css/styles.css?-62135596800" rel="stylesheet" />
+<link href="/css/layout.css?-62135596800" rel="stylesheet" />
+<link rel="icon" href="/favicon.ico?-62135596800" type="image/x-icon">
+<link rel="manifest" href="/manifest.json?-62135596800">
+<script src="/third-party/axios.min.js?-62135596800"></script>
+<script src="/third-party/toastify.js?-62135596800"></script>
+<script src="/third-party/connect-api.js?-62135596800"></script>
+<script type="module" src="/js/utils/date.js?-62135596800"></script>
+<script type="module" src="/js/utils/string.js?-62135596800"></script>
+<script type="module" src="/js/utils/copy.js?-62135596800"></script>
+<script type="module" src="/js/utils/comparison.js?-62135596800"></script>
+<script type="module" src="/js/utils/notifications.js?-62135596800"></script>
+<script type="module" src="/js/utils/bg-carousel.js?-62135596800"></script>
+<script type="module" src="/js/utils/collapsible-list.js?-62135596800"></script>
+<script type="module" src="/js/utils/rotating-carousel.js?-62135596800"></script>
+<script type="module" src="/js/utils/scrolling.js?-62135596800"></script>
+<script type="module" src="/js/utils/forms.js?-62135596800"></script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T6DJDRG');</script>
+</head>
+<meta property="og:title" content="In My Hands" />
+<meta property="og:type" content="music.album" />
+<meta property="og:url" content="https://www.monstercat.com/release/MCEP270" />
+<meta property="og:image" content="https://www.monstercat.com/release/MCEP270/cover" />
+<link rel="stylesheet" href="/css/music.css?-62135596800">
+</head>
+<body>
+<div class="background-page">
+<div class="background-poster background-dark" style="background-image: url('https://cdx.monstercat.com?encoding=webp&amp;url=https%3A%2F%2Fwww.monstercat.com%2Frelease%2FMCEP270%2Fcover%3F235a150d-e40c-419b-8855-6d6ff6270831&amp;width=1024')"></div>
+<div class="fade-block"></div>
+</div>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6DJDRG"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="silent-links">
+<div class="notice">
+<p class="alert alert-inverted fw-500 d-flex flex-row flex-justify-between flex-align-center flex-gap-small" id="cookie-notice">
+<span>
+This page places and reads third party cookies on your browser. Click <a href="/privacy-policy#cookies"> here</a> to read more.
+</span>
+<span>
+<Button id="cookie-notice-accept" class="btn-black btn-medium">Accept</Button>
+<Button id="cookie-notice-reject" class="btn-inverted btn-medium">Reject</Button>
+</span>
+</p>
+</div>
+<div id="header-bar">
+<div class="content">
+<a id="logo" href="/"><img src="https://cdn.monstercat.com/monstercat-logo.webp" alt="Monstercat Logo" title="Monstercat" width="50" height="50" /></a>
+<ul class="list-icon list-social list-social-header" id="monstercat-socials">
+<li><a href="https://www.instagram.com/monstercat" social="instagram" target="_BLANK" title="Monstercat on Instagram"><i class="fab fa-fw fa-instagram"></i></a></li>
+<li><a href="https://tiktok.com/@monstercat" target="_BLANK" title="Monstercat on TikTok"><i class="fab fa-fw fa-tiktok"></i></a></li>
+<li><a href="https://twitter.com/monstercat" social="twitter" target="_BLANK" title="Monstercat on Twitter"><i class="fab fa-fw fa-twitter"></i></a></li>
+<li><a href="https://www.twitch.tv/monstercat" target="_BLANK" title="Monstercat on Twitch"><i class="fab fa-fw fa-twitch"></i></a></li>
+<li><a href="https://www.facebook.com/monstercat" social="facebook" target="_BLANK" title="Monstercat on Facebook"><i class="fab fa-fw fa-facebook"></i></a></li>
+<li><a href="https://discord.com/invite/monstercat" target="_BLANK" title="Monstercat on Discord"><i class="fab fa-fw fa-discord"></i></a></li>
+<li><a href="/player" target="_blank" title="Monstercat Player" class="position-relative svg-icon">
+<svg class="position-relative" style="top: 3px;" width="22" xmlns="http://www.w3.org/2000/svg" viewBox="834 153 612.7 487">
+<path fill="#f1f1f1" d="M1446.4,445.6c-0.8-24.3-4.5-47.1-19.5-63c-14.1-15-34.3-22.6-57-21.6c-2.3,0.1-3.8,0.1-5.2-1.1
+                            c-3.6-62.8-16.1-147.6-32.4-187.1c-5.1-16.5-26.1-26.1-40.3-14.9c-25.8,14.9-57.2,38.6-83.1,61.9c-18.1-4.5-37.5-7.2-58.1-8
+                            c-0.8,0-1.6-0.1-2.4-0.1l-5.9-0.1v-0.1l-2.3,0.1l-2.3-0.1v0.1l-5.9,0.1c-0.8,0-1.6,0-2.4,0.1c-20.6,0.7-40,3.4-58.1,8
+                            c-25.9-23.3-57.4-47-83.1-61.9c-14.2-11.2-35.2-1.6-40.3,14.9C932,212.3,919.5,297,915.8,359.8c-1.4,1.2-2.9,1.2-5.1,1.1
+                            c-22.7-1-42.9,6.7-57,21.6c-14.9,15.8-18.7,38.7-19.5,63c-0.5,15.2-0.5,20.5,2.4,41c4.7,33.4,28.7,60.2,61.8,63.1
+                            c5.8,0.5,11.6,0.7,17.5,0.7c4.6,0,9.3-0.1,14-0.2c5-0.1,10.2-0.2,15.6-0.2c7.2,0,11.8-7.4,8.8-13.8c-4.5-9.5-8.2-18.9-11.3-28.2
+                            c-2.7-8.3-4.9-16.6-6.4-24.7c-0.2-0.9-0.3-1.8-0.5-2.7c-5.2-29.6-3-58.5,6.6-87.4c13.1-39.4,37.2-72.4,71.5-98.2
+                            c34.2-25.6,76.6-39.8,119.3-40h6.7h6.7c42.8,0.1,85.2,14.4,119.3,40c34.3,25.7,58.4,58.7,71.5,98.2c9.5,28.6,11.8,57.2,6.8,86.5
+                            c-0.4,2.5-0.9,4.9-1.4,7.4c-1.7,8.1-4,16.2-6.8,24.4c-2.8,8.2-6.2,16.5-10.2,24.9c-3,6.4,1.7,13.8,8.8,13.8c5.4,0,10.6,0.1,15.6,0.2
+                            c4.8,0.1,9.4,0.2,14,0.2c5.9,0,11.7-0.1,17.5-0.7c33-2.9,57-29.7,61.8-63.1C1446.9,466.1,1446.9,460.7,1446.4,445.6z" />
+<g>
+<path fill="#f1f1f1" d="M1140.4,277.9c-100,0-181.1,81.1-181.1,181.1c0,100,81.1,181.1,181.1,181.1c100,0,181.1-81.1,181.1-181.1
+                                C1321.5,359,1240.4,277.9,1140.4,277.9z M1188.6,476.5c-23.1,13.7-45.9,27.7-69.7,40c-5.8,3.1-16.5,3.3-21.5-0.2
+                                c-4-2.8-5.8-14.6-3.2-19.8c12.2-25.3,10.6-49.3-0.9-74.3c-6-13,1.3-23.2,16.6-23.3c1.4,0.5,5.3,1.5,8.7,3.4
+                                c23.5,13.7,46.9,27.5,70.2,41.6C1205.4,453.9,1205.2,466.6,1188.6,476.5z" />
+</g>
+</svg>
+</a></li>
+</ul>
+<button id="menu-toggle" onclick="toggleMenu()" class="btn-link fs-normal">
+<span class="d-none">Open Main Menu</span>
+<i class="fal fa-bars"></i>
+</button>
+</div>
+</div>
+<nav id="navigation" onclick="toggleMenu()">
+<div class="navigation-container" onclick="event.stopPropagation()">
+<div class="top">
+<a href="/">
+<img src="https://cdn.monstercat.com/monstercat-logo-white.svg" alt="Monstercat Logo" width="180" />
+</a>
+<button class="btn btn-link close-menu fs-largish" onclick="toggleMenu()" title="Close Menu">
+<i class="fal fa-times"></i>
+</button>
+</div>
+<div class="scroller">
+<ul class="ff-header text-uppercase ls-medium fs-xsmall fs-desktop-small">
+<li>
+<a href="/music">Music</a>
+<ul>
+<li><a href="/music">Our Music</a></li>
+<li><a href="/instinct">Instinct</a></li>
+<li><a href="/uncaged">Uncaged</a></li>
+<li><a href="/silk">Silk</a></li>
+</ul>
+</li>
+<li><a href="/artists">Artists</a></li>
+<li>
+<a href="">About</a>
+<ul>
+<li><a href="/about">About Monstercat</a></li>
+<li><a href="/diversity-and-inclusion">Diversity & Inclusion</a></li>
+<li><a href="/code-of-ethics">Code of Ethics</a></li>
+<li><a href="/environmental">Environmental</a></li>
+<li><a href="/contact-us">Contact Us</a></li>
+</ul>
+</li>
+<li><a href="/news">News</a></li>
+<li>
+<a href="/events">Events</a>
+<ul>
+<li><a href="/events">Monstercat Events Experience</a></li>
+<li><a href="/events/upcoming">Upcoming Events</a></li>
+</ul>
+</li>
+<li>
+<a href="/monstercat-tv">Programming</a>
+<ul>
+<li><a href="/monstercat-tv" class="text-standardcase">MonstercatTV</a></li>
+<li><a href="/call-of-the-wild">Call of the Wild</a></li>
+<li><a href="/silk-showcase">Silk Showcase</a></li>
+<li><a href="/monstercat-tv/upcoming">Upcoming Shows</a></li>
+</ul>
+</li>
+<li>
+<a href="/gold">Gold</a>
+</li>
+<li><a href="/partnerships">Partners</a></li>
+<li><a href="/press">Press</a></li>
+<li><a href="/player" target="_blank" title="Monstercat Player"> Player
+</a></li>
+<li><a href="https://shop.monstercat.com" target="_blank">Shop</a></li>
+<li><a href="/lost-civ">Lost Civilization</a></li>
+</div>
+<div class="bottom">
+<ul class="list-inline list-social list-icon" id="monstercat-socials">
+<li><a href="https://www.instagram.com/monstercat" social="instagram" target="_BLANK" title="Monstercat on Instagram"><i class="fab fa-fw fa-instagram"></i></a></li>
+<li><a href="https://tiktok.com/@monstercat" target="_BLANK" title="Monstercat on TikTok"><i class="fab fa-fw fa-tiktok"></i></a></li>
+<li><a href="https://twitter.com/monstercat" social="twitter" target="_BLANK" title="Monstercat on Twitter"><i class="fab fa-fw fa-twitter"></i></a></li>
+<li><a href="https://www.twitch.tv/monstercat" target="_BLANK" title="Monstercat on Twitch"><i class="fab fa-fw fa-twitch"></i></a></li>
+<li><a href="https://www.facebook.com/monstercat" social="facebook" target="_BLANK" title="Monstercat on Facebook"><i class="fab fa-fw fa-facebook"></i></a></li>
+<li><a href="https://discord.com/invite/monstercat" target="_BLANK" title="Monstercat on Discord"><i class="fab fa-fw fa-discord"></i></a></li>
+<li><a href="/player" target="_blank" title="Monstercat Player" class="position-relative svg-icon">
+<svg class="position-relative" style="top: 3px;" width="22" xmlns="http://www.w3.org/2000/svg" viewBox="834 153 612.7 487">
+<path fill="#f1f1f1" d="M1446.4,445.6c-0.8-24.3-4.5-47.1-19.5-63c-14.1-15-34.3-22.6-57-21.6c-2.3,0.1-3.8,0.1-5.2-1.1
+                            c-3.6-62.8-16.1-147.6-32.4-187.1c-5.1-16.5-26.1-26.1-40.3-14.9c-25.8,14.9-57.2,38.6-83.1,61.9c-18.1-4.5-37.5-7.2-58.1-8
+                            c-0.8,0-1.6-0.1-2.4-0.1l-5.9-0.1v-0.1l-2.3,0.1l-2.3-0.1v0.1l-5.9,0.1c-0.8,0-1.6,0-2.4,0.1c-20.6,0.7-40,3.4-58.1,8
+                            c-25.9-23.3-57.4-47-83.1-61.9c-14.2-11.2-35.2-1.6-40.3,14.9C932,212.3,919.5,297,915.8,359.8c-1.4,1.2-2.9,1.2-5.1,1.1
+                            c-22.7-1-42.9,6.7-57,21.6c-14.9,15.8-18.7,38.7-19.5,63c-0.5,15.2-0.5,20.5,2.4,41c4.7,33.4,28.7,60.2,61.8,63.1
+                            c5.8,0.5,11.6,0.7,17.5,0.7c4.6,0,9.3-0.1,14-0.2c5-0.1,10.2-0.2,15.6-0.2c7.2,0,11.8-7.4,8.8-13.8c-4.5-9.5-8.2-18.9-11.3-28.2
+                            c-2.7-8.3-4.9-16.6-6.4-24.7c-0.2-0.9-0.3-1.8-0.5-2.7c-5.2-29.6-3-58.5,6.6-87.4c13.1-39.4,37.2-72.4,71.5-98.2
+                            c34.2-25.6,76.6-39.8,119.3-40h6.7h6.7c42.8,0.1,85.2,14.4,119.3,40c34.3,25.7,58.4,58.7,71.5,98.2c9.5,28.6,11.8,57.2,6.8,86.5
+                            c-0.4,2.5-0.9,4.9-1.4,7.4c-1.7,8.1-4,16.2-6.8,24.4c-2.8,8.2-6.2,16.5-10.2,24.9c-3,6.4,1.7,13.8,8.8,13.8c5.4,0,10.6,0.1,15.6,0.2
+                            c4.8,0.1,9.4,0.2,14,0.2c5.9,0,11.7-0.1,17.5-0.7c33-2.9,57-29.7,61.8-63.1C1446.9,466.1,1446.9,460.7,1446.4,445.6z" />
+<g>
+<path fill="#f1f1f1" d="M1140.4,277.9c-100,0-181.1,81.1-181.1,181.1c0,100,81.1,181.1,181.1,181.1c100,0,181.1-81.1,181.1-181.1
+                                C1321.5,359,1240.4,277.9,1140.4,277.9z M1188.6,476.5c-23.1,13.7-45.9,27.7-69.7,40c-5.8,3.1-16.5,3.3-21.5-0.2
+                                c-4-2.8-5.8-14.6-3.2-19.8c12.2-25.3,10.6-49.3-0.9-74.3c-6-13,1.3-23.2,16.6-23.3c1.4,0.5,5.3,1.5,8.7,3.4
+                                c23.5,13.7,46.9,27.5,70.2,41.6C1205.4,453.9,1205.2,466.6,1188.6,476.5z" />
+</g>
+</svg>
+</a></li>
+</ul>
+<ul class="user-menu list-plain ff-header text-uppercase fs-xxsmall lh-medium">
+<li class="mt-medium">
+<a href="/sign-in" class="btn btn-small p-small fs-xxsmall">Sign In</a>
+<span class="ml-xsmall">or</span>
+<a href="/sign-up">Sign Up</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</header>
+<script>
+    
+    window.ShowTrackingPixels =  false 
+    window.GoogleAnalyticsId = "UA-35583568-1"
+</script>
+<script type="module" src="/js/templates/header.js"></script>
+<article id="content" class="content silent-links">
+<section class="mt-tablet-xxlarge mt-medium mb-large pt-large">
+<div class="grid-tablet-landscape-4 grid-desktop-gap-col-large grid-tablet-landscape-gap-col-normal grid-tablet-gap-col-medium">
+<div class="grid-col-tablet-landscape-1-3 mb-medium position-relative pl-tablet-smallish p-phone-none">
+<div class="position-absolute position-bottom-left font-italic vertical-text flipped fs-small d-none d-tablet-block" style="left: -5px">
+<span class="fw-600 tc-silk">Silk</span>
+&mdash; Released April 13, 2022
+</div>
+<img class="img-square d-block v-align-bottom" src="https://cdx.monstercat.com?encoding=webp&amp;url=https%3A%2F%2Fwww.monstercat.com%2Frelease%2FMCEP270%2Fcover%3F235a150d-e40c-419b-8855-6d6ff6270831&amp;width=600" alt="Album art of In My Hands" />
+</div>
+<div class="d-flex flex-column flex-justify-center grid-col-tablet-landscape-3-6">
+<p class="font-italic mb-medium d-tablet-none d-phone-block">
+<span class="fw-600 tc-silk">Silk</span>
+&mdash; Released April 13, 2022
+</p>
+<h1 class="header-page text-stroke mt-none mb-none fs-desktop-xxxlarge fs-tablet-large fs-medium">In My Hands</h1>
+<p class="h-normal text-uppercase mb-desktop-medium mb-smallish">Fløa</p>
+<ul class="list-inline list-plain list-artist mb-medium d-none d-tablet-block">
+<li class="mr-small">
+<a href="/artist/floa" title="Fløa" class="tooltip tooltip-top p-xsmall">
+<img class="width-xlarge img-circle" src="https://cdx.monstercat.com?encoding=webp&amp;url=https%3A%2F%2Fwww.monstercat.com%2Fartist%2Ffloa%2Fphoto%3Ftype%3Dprofile%26f7cc1b53-2dc8-4f4c-a364-717f9b796dc1&amp;width=256" alt="Fløa" />
+<span class="tooltip-text">
+Fløa
+</span>
+</a>
+</li>
+</ul>
+<div>
+<button id="btn-listen-now" class="btn-silk btn btn-medium v-align-top" data-release-id="c1df9c0c-6c08-4303-9c39-4b275a1e1692" data-track-id="758f77dc-26bf-4fb5-9edf-b9398dec3459">
+<i class="fal fa-play mr-xsmall"></i>
+Listen Now
+</button>
+<a id="share-release" class="btn btn-medium v-align-top ml-xxsmall">
+<i class="fal fa-share-alt mr-xsmall"></i>
+Share
+</a>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-normal mb-desktop-large">
+<h2 class="header-section">Stream it your way</h2>
+<div class="d-inline-flex flex-justify-between border fs-medium">
+<div class="p-xxsmall p-tablet-small  text-center d-flex flex-align-center">
+<a href="/player/release/MCEP270" class="position-relative svg-icon tooltip tooltip-top" id="stream-monstercat-player">
+<svg class="position-relative p-xxsmall p-tablet-none" style="top: 3px" width="100" viewBox="834 153 2279 487" xmlns="http://www.w3.org/2000/svg">
+<path fill="white" d="M1446.4,445.6c-0.8-24.3-4.5-47.1-19.5-63c-14.1-15-34.3-22.6-57-21.6c-2.3,0.1-3.8,0.1-5.2-1.1
+	c-3.6-62.8-16.1-147.6-32.4-187.1c-5.1-16.5-26.1-26.1-40.3-14.9c-25.8,14.9-57.2,38.6-83.1,61.9c-18.1-4.5-37.5-7.2-58.1-8
+	c-0.8,0-1.6-0.1-2.4-0.1l-5.9-0.1v-0.1l-2.3,0.1l-2.3-0.1v0.1l-5.9,0.1c-0.8,0-1.6,0-2.4,0.1c-20.6,0.7-40,3.4-58.1,8
+	c-25.9-23.3-57.4-47-83.1-61.9c-14.2-11.2-35.2-1.6-40.3,14.9C932,212.3,919.5,297,915.8,359.8c-1.4,1.2-2.9,1.2-5.1,1.1
+	c-22.7-1-42.9,6.7-57,21.6c-14.9,15.8-18.7,38.7-19.5,63c-0.5,15.2-0.5,20.5,2.4,41c4.7,33.4,28.7,60.2,61.8,63.1
+	c5.8,0.5,11.6,0.7,17.5,0.7c4.6,0,9.3-0.1,14-0.2c5-0.1,10.2-0.2,15.6-0.2c7.2,0,11.8-7.4,8.8-13.8c-4.5-9.5-8.2-18.9-11.3-28.2
+	c-2.7-8.3-4.9-16.6-6.4-24.7c-0.2-0.9-0.3-1.8-0.5-2.7c-5.2-29.6-3-58.5,6.6-87.4c13.1-39.4,37.2-72.4,71.5-98.2
+	c34.2-25.6,76.6-39.8,119.3-40h6.7h6.7c42.8,0.1,85.2,14.4,119.3,40c34.3,25.7,58.4,58.7,71.5,98.2c9.5,28.6,11.8,57.2,6.8,86.5
+	c-0.4,2.5-0.9,4.9-1.4,7.4c-1.7,8.1-4,16.2-6.8,24.4c-2.8,8.2-6.2,16.5-10.2,24.9c-3,6.4,1.7,13.8,8.8,13.8c5.4,0,10.6,0.1,15.6,0.2
+	c4.8,0.1,9.4,0.2,14,0.2c5.9,0,11.7-0.1,17.5-0.7c33-2.9,57-29.7,61.8-63.1C1446.9,466.1,1446.9,460.7,1446.4,445.6z" />
+<g>
+<path fill="white" d="M1140.4,277.9c-100,0-181.1,81.1-181.1,181.1c0,100,81.1,181.1,181.1,181.1c100,0,181.1-81.1,181.1-181.1
+		C1321.5,359,1240.4,277.9,1140.4,277.9z M1188.6,476.5c-23.1,13.7-45.9,27.7-69.7,40c-5.8,3.1-16.5,3.3-21.5-0.2
+		c-4-2.8-5.8-14.6-3.2-19.8c12.2-25.3,10.6-49.3-0.9-74.3c-6-13,1.3-23.2,16.6-23.3c1.4,0.5,5.3,1.5,8.7,3.4
+		c23.5,13.7,46.9,27.5,70.2,41.6C1205.4,453.9,1205.2,466.6,1188.6,476.5z" />
+</g>
+<path fill="white" d="M1746,290.2c19.2,0,35.8,3.2,50,9.7c14.1,6.3,25,15.3,32.7,27.2c7.7,11.7,11.5,25.5,11.5,41.5c0,15.9-3.8,29.8-11.5,41.5
+	c-7.7,11.7-18.6,20.8-32.7,27.2c-14.1,6.3-30.8,9.4-50,9.4h-27c-5.5,0-9.9,4.4-9.9,9.9v35.6c0,5.5-4.4,9.9-9.9,9.9H1659
+	c-5.5,0-9.9-4.4-9.9-9.9V300.1c0-5.5,4.4-9.9,9.9-9.9H1746z M1742.4,399.5c12.3,0,21.6-2.6,27.9-7.9c6.3-5.5,9.4-13.1,9.4-23
+	c0-9.9-3.1-17.6-9.4-23c-6.3-5.5-15.5-8.2-27.9-8.2h-23.4c-5.5,0-9.9,4.4-9.9,9.9v42.3c0,5.5,4.4,9.9,9.9,9.9H1742.4z" />
+<path fill="white" d="M1914.8,300.1c0-5.5,4.4-9.9,9.9-9.9h40.2c5.5,0,9.9,4.4,9.9,9.9v144.6c0,5.5,4.4,9.9,9.9,9.9h81.4c5.5,0,9.9,4.4,9.9,9.9
+	v27.7c0,5.5-4.4,9.9-9.9,9.9h-141.3c-5.5,0-9.9-4.4-9.9-9.9V300.1z" />
+<path fill="white" d="M2292,467.1c-1.5-3.7-5.1-6.2-9.2-6.2h-76.3c-4,0-7.7,2.4-9.2,6.2l-11.6,28.8c-1.5,3.7-5.1,6.2-9.2,6.2h-39.3
+	c-7.2,0-11.9-7.4-9.1-13.9l84.8-192.1c1.6-3.6,5.1-5.9,9.1-5.9h46.2c3.9,0,7.5,2.3,9.1,5.9l85.1,192.1c2.9,6.5-1.9,13.9-9.1,13.9
+	h-40.5c-4,0-7.7-2.4-9.2-6.2L2292,467.1z M2257.3,416.8c7,0,11.8-7.1,9.2-13.6l-12.6-31.4c-3.3-8.3-15.1-8.3-18.4,0l-12.6,31.4
+	c-2.6,6.5,2.2,13.6,9.2,13.6H2257.3z" />
+<path fill="white" d="M2532.6,423.8c-0.9,1.5-1.4,3.3-1.4,5.1v63.4c0,5.5-4.4,9.9-9.9,9.9h-40.2c-5.5,0-9.9-4.4-9.9-9.9V428
+	c0-1.8-0.5-3.6-1.4-5.1l-70.5-117.7c-3.9-6.6,0.8-15,8.5-15h40.2c3.5,0,6.7,1.8,8.5,4.8l38.9,65.1c3.8,6.4,13.2,6.4,17,0l38.9-65.1
+	c1.8-3,5-4.8,8.5-4.8h35.1c7.7,0,12.4,8.4,8.5,15L2532.6,423.8z" />
+<path fill="white" d="M2832.5,455.8c5.5,0,9.9,4.4,9.9,9.9v26.5c0,5.5-4.4,9.9-9.9,9.9h-150.4c-5.5,0-9.9-4.4-9.9-9.9V300.1
+	c0-5.5,4.4-9.9,9.9-9.9h146.5c5.5,0,9.9,4.4,9.9,9.9v26.5c0,5.5-4.4,9.9-9.9,9.9h-87.1c-5.5,0-9.9,4.4-9.9,9.9v15.9
+	c0,5.5,4.4,9.9,9.9,9.9h74.4c5.5,0,9.9,4.4,9.9,9.9v25c0,5.5-4.4,9.9-9.9,9.9h-74.4c-5.5,0-9.9,4.4-9.9,9.9v18.9
+	c0,5.5,4.4,9.9,9.9,9.9H2832.5z" />
+<path fill="white" d="M3016.7,450.1c-1.8-2.7-4.9-4.3-8.2-4.3h-17.6c-5.5,0-9.9,4.4-9.9,9.9v36.5c0,5.5-4.4,9.9-9.9,9.9H2931
+	c-5.5,0-9.9-4.4-9.9-9.9V300.1c0-5.5,4.4-9.9,9.9-9.9h87c19.2,0,35.8,3.2,50,9.7c14.1,6.3,25,15.3,32.7,27.2
+	c7.7,11.7,11.5,25.5,11.5,41.5c0,15.3-3.6,28.8-10.9,40.3c-5.2,8.3-12,15.3-20.6,21c-5.1,3.4-6.9,10.2-3.5,15.2l28.6,41.6
+	c4.5,6.6-0.2,15.5-8.2,15.5h-40.2c-3.3,0-6.3-1.6-8.2-4.3L3016.7,450.1z M3051.6,368.6c0-9.9-3.1-17.6-9.4-23
+	c-6.3-5.5-15.6-8.2-27.9-8.2h-23.4c-5.5,0-9.9,4.4-9.9,9.9v42.3c0,5.5,4.4,9.9,9.9,9.9h23.4c12.3,0,21.6-2.6,27.9-7.9
+	C3048.5,386.2,3051.6,378.5,3051.6,368.6z" />
+</svg>
+<span class="tooltip-text">
+Stream on Monstercat Player
+</span>
+</a>
+</div>
+<div class="p-xxsmall p-tablet-small fs-xsmall fs-tablet-small box-outline-left text-center">
+<a href="https://open.spotify.com/album/3U0Zx1JGLJF84QohhxArK6" target="_blank" class="tooltip tooltip-top p-xsmall btn-release-social" platform="Spotify">
+<i class="fab fa-fw fa-spotify"></i>
+<span class="tooltip-text">
+Stream on Spotify
+</span>
+</a>
+</div>
+<div class="p-xxsmall p-tablet-small fs-xsmall fs-tablet-small box-outline-left text-center">
+<a href="https://www.youtube.com/watch?v=M6Uw1I5wPDU&amp;list=UUX4sShAQf01LYjYQhG2ZgKg" target="_blank" class="tooltip tooltip-top p-xsmall btn-release-social" platform="YouTube">
+<i class="fab fa-fw fa-youtube"></i>
+<span class="tooltip-text">
+Stream on YouTube
+</span>
+</a>
+</div>
+<div class="p-xxsmall p-tablet-small fs-xsmall fs-tablet-small box-outline-left text-center">
+<a href="https://soundcloud.com/monstercat/sets/floa-in-my-hands" target="_blank" class="tooltip tooltip-top p-xsmall btn-release-social" platform="SoundCloud">
+<i class="fab fa-fw fa-soundcloud"></i>
+<span class="tooltip-text">
+Stream on SoundCloud
+</span>
+</a>
+</div>
+<div class="p-xxsmall p-tablet-small fs-xsmall fs-tablet-small box-outline-left text-center">
+<a href="https://monstercatmedia.bandcamp.com/album/in-my-hands" target="_blank" class="tooltip tooltip-top p-xsmall btn-release-social" platform="Bandcamp">
+<i class="fab fa-fw fa-bandcamp"></i>
+<span class="tooltip-text">
+Stream on Bandcamp
+</span>
+</a>
+</div>
+</div>
+</section>
+<section class="mb-normal mb-desktop-large">
+<h2 class="header-section">Track List</h2>
+<table class="table table-small">
+<tbody>
+<tr id="track-1">
+<td class="py-xsmall" width="30px">1</td>
+<td class="py-xsmall fw-600 d-flex flex-align-center">
+<a class="btn-play cursor-pointer mr-small" data-release-id="c1df9c0c-6c08-4303-9c39-4b275a1e1692" data-track-id="758f77dc-26bf-4fb5-9edf-b9398dec3459"><i class="fal fa-play"></i></a>
+<div class="d-inline-flex flex-column">
+In My Hands <span class="d-block fs-xxsmall">Fløa</span>
+</div>
+</td>
+<td class="width-auto text-center">4:14</td>
+<td class="width-auto">
+<a class="cursor-pointer btn-release-track share-track-btn" data-track-id="758f77dc-26bf-4fb5-9edf-b9398dec3459">
+<i class="fal fa-share-alt"></i>
+</a>
+</td>
+</tr>
+<tr id="track-2">
+<td class="py-xsmall" width="30px">2</td>
+<td class="py-xsmall fw-600 d-flex flex-align-center">
+<a class="btn-play cursor-pointer mr-small" data-release-id="c1df9c0c-6c08-4303-9c39-4b275a1e1692" data-track-id="51cf9349-8133-4054-a573-2885b405ad24"><i class="fal fa-play"></i></a>
+<div class="d-inline-flex flex-column">
+Overthinking <span class="d-block fs-xxsmall">Fløa &amp; Ra5im</span>
+</div>
+</td>
+<td class="width-auto text-center">4:04</td>
+<td class="width-auto">
+<a class="cursor-pointer btn-release-track share-track-btn" data-track-id="51cf9349-8133-4054-a573-2885b405ad24">
+<i class="fal fa-share-alt"></i>
+ </a>
+</td>
+</tr>
+<tr id="track-3">
+<td class="py-xsmall" width="30px">3</td>
+<td class="py-xsmall fw-600 d-flex flex-align-center">
+<a class="btn-play cursor-pointer mr-small" data-release-id="c1df9c0c-6c08-4303-9c39-4b275a1e1692" data-track-id="d9656108-8545-406e-92c7-00c97637145e"><i class="fal fa-play"></i></a>
+<div class="d-inline-flex flex-column">
+In My Hands (Extended Mix) <span class="d-block fs-xxsmall">Fløa</span>
+</div>
+</td>
+<td class="width-auto text-center">5:46</td>
+<td class="width-auto">
+<a class="cursor-pointer btn-release-track share-track-btn" data-track-id="d9656108-8545-406e-92c7-00c97637145e">
+<i class="fal fa-share-alt"></i>
+</a>
+</td>
+</tr>
+<tr id="track-4">
+<td class="py-xsmall" width="30px">4</td>
+<td class="py-xsmall fw-600 d-flex flex-align-center">
+<a class="btn-play cursor-pointer mr-small" data-release-id="c1df9c0c-6c08-4303-9c39-4b275a1e1692" data-track-id="51061fc6-a72b-45c8-9227-e79fa8938814"><i class="fal fa-play"></i></a>
+<div class="d-inline-flex flex-column">
+Overthinking (Extended Mix) <span class="d-block fs-xxsmall">Fløa &amp; Ra5im</span>
+</div>
+</td>
+<td class="width-auto text-center">5:56</td>
+<td class="width-auto">
+<a class="cursor-pointer btn-release-track share-track-btn" data-track-id="51061fc6-a72b-45c8-9227-e79fa8938814">
+<i class="fal fa-share-alt"></i>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="mb-normal mb-desktop-large">
+<h2 class="header-section">Music Video</h2>
+<div class="box-video">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/M6Uw1I5wPDU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</section>
+<section class="mb-normal mb-desktop-large">
+<h2 class="header-section">Other Releases Like This</h2>
+<ul class="list-plain grid-desktop-6 grid-2 grid-tablet-landscape-4 grid-desktop-gap-col-smallish grid-desktop-gap-row-medium grid-gap-col-small grid-gap-row-medium">
+<li>
+<a href=/release/MCEP319 class="aspect-1-1 d-block"><img class="width-100p" src=https://cdx.monstercat.com?encoding&#61;webp&amp;url&#61;https%3A%2F%2Fwww.monstercat.com%2Frelease%2FMCEP319%2Fcover&amp;width&#61;512 /></a>
+<a href=/release/MCEP319><div class="ff-header fs-xxsmall ls-largish text-uppercase lc-2 mt-small">Different</div></a>
+<div class="font-italic fw-300 fs-xxsmall lc-2 ">Fløa &amp; OAI</div>
+</li>
+<li>
+<a href=/release/MCEP300 class="aspect-1-1 d-block"><img class="width-100p" src=https://cdx.monstercat.com?encoding&#61;webp&amp;url&#61;https%3A%2F%2Fwww.monstercat.com%2Frelease%2FMCEP300%2Fcover&amp;width&#61;512 /></a>
+<a href=/release/MCEP300><div class="ff-header fs-xxsmall ls-largish text-uppercase lc-2 mt-small">Anna</div></a>
+<div class="font-italic fw-300 fs-xxsmall lc-2 ">Fløa &amp; Astroleaf</div>
+</li>
+<li>
+ <a href=/release/MCEP259 class="aspect-1-1 d-block"><img class="width-100p" src=https://cdx.monstercat.com?encoding&#61;webp&amp;url&#61;https%3A%2F%2Fwww.monstercat.com%2Frelease%2FMCEP259%2Fcover&amp;width&#61;512 /></a>
+<a href=/release/MCEP259><div class="ff-header fs-xxsmall ls-largish text-uppercase lc-2 mt-small">Running Faster</div></a>
+<div class="font-italic fw-300 fs-xxsmall lc-2 ">Seawayz &amp; Fløa</div>
+</li>
+<li>
+<a href=/release/MCS1326 class="aspect-1-1 d-block"><img class="width-100p" src=https://cdx.monstercat.com?encoding&#61;webp&amp;url&#61;https%3A%2F%2Fwww.monstercat.com%2Frelease%2FMCS1326%2Fcover&amp;width&#61;512 /></a>
+<a href=/release/MCS1326><div class="ff-header fs-xxsmall ls-largish text-uppercase lc-2 mt-small">Give Me A Second</div></a>
+<div class="font-italic fw-300 fs-xxsmall lc-2 ">Fløa &amp; Ra5im</div>
+</li>
+<li>
+<a href=/release/MCS1305 class="aspect-1-1 d-block"><img class="width-100p" src=https://cdx.monstercat.com?encoding&#61;webp&amp;url&#61;https%3A%2F%2Fwww.monstercat.com%2Frelease%2FMCS1305%2Fcover&amp;width&#61;512 /></a>
+<a href=/release/MCS1305><div class="ff-header fs-xxsmall ls-largish text-uppercase lc-2 mt-small">Find You</div></a>
+<div class="font-italic fw-300 fs-xxsmall lc-2 ">Fløa &amp; Lovlee</div>
+</li>
+<li>
+<a href=/release/MCS1265 class="aspect-1-1 d-block"><img class="width-100p" src=https://cdx.monstercat.com?encoding&#61;webp&amp;url&#61;https%3A%2F%2Fwww.monstercat.com%2Frelease%2FMCS1265%2Fcover&amp;width&#61;512 /></a>
+<a href=/release/MCS1265><div class="ff-header fs-xxsmall ls-largish text-uppercase lc-2 mt-small">Manautee</div></a>
+<div class="font-italic fw-300 fs-xxsmall lc-2 ">Fløa &amp; Forty Cats</div>
+</li>
+<li>
+<a href=/release/MCEP231 class="aspect-1-1 d-block"><img class="width-100p" src=https://cdx.monstercat.com?encoding&#61;webp&amp;url&#61;https%3A%2F%2Fwww.monstercat.com%2Frelease%2FMCEP231%2Fcover&amp;width&#61;512 /></a>
+<a href=/release/MCEP231><div class="ff-header fs-xxsmall ls-largish text-uppercase lc-2 mt-small">Goodbye</div></a>
+<div class="font-italic fw-300 fs-xxsmall lc-2 ">Fløa &amp; Spectorsonic</div>
+</li>
+<li>
+<a href=/release/SILKM269 class="aspect-1-1 d-block"><img class="width-100p" src=https://cdx.monstercat.com?encoding&#61;webp&amp;url&#61;https%3A%2F%2Fwww.monstercat.com%2Frelease%2FSILKM269%2Fcover&amp;width&#61;512 /></a>
+<a href=/release/SILKM269><div class="ff-header fs-xxsmall ls-largish text-uppercase lc-2 mt-small">Light Above Us</div></a>
+<div class="font-italic fw-300 fs-xxsmall lc-2 ">Fløa &amp; Idy Ramy</div>
+</li>
+</ul>
+</section>
+<hr class="mb-normal mt-xxlarge" />
+</article>
+<footer class="mb-large mt-medium silent-links">
+<div class="content">
+<nav class="grid-1 grid-tablet-3">
+<ul class="list-plain text-uppercase ff-header fs-xxsmall fs-tablet-small ls-largish lh-medium">
+<li><a href="/about">About Monstercat</a></li>
+<li><a href="/contact-us">Contact Us</a></li>
+<li><a href="/careers">Careers</a></li>
+<li><a href="/news">News</a></li>
+<li><a href="/press">Press</a></li>
+</ul>
+<ul class="list-plain text-uppercase ff-header fs-xxsmall fs-tablet-small ls-largish lh-medium">
+<li><a href="/terms-of-service">Terms of Service</a></li>
+<li><a href="/privacy-policy">Privacy Policy</a></li>
+</ul>
+<div class="mt-normal mt-tablet-none">
+<p class="ff-header fs-tablet-small fs-xxsmall ls-largish m-none tc-white-dark text-uppercase">Monstercat News</p>
+<p class="font-italic ls-largish fs-xxsmall fs-desktop-xsmall lh-medium">Don't miss a thing, stay up to date with the latest news from us.</p>
+<form class="signup-input mt-medium" id="newsletter-form">
+<input class="input-bordered transparent" placeholder="Enter email" name="email">
+<button type="submit" class="input-bordered transparent">
+<i class="fal fa-long-arrow-right"></i><Sign button>
+</form>
+</div>
+</nav>
+<hr class="mt-normal mb-smallish" />
+<div class="clearfix grid-1 grid-tablet-2">
+<p class="font-italic ls-largish fs-xxsmall fs-desktop-xsmall">2011 - 2023 &copy; Monstercat, All Rights Reserved</p>
+<div class="d-tablet-flex flex-align-center flex-justify-end">
+<ul class="list-inline list-social list-icon float-tablet-right">
+<li><a href="https://www.youtube.com/user/MonstercatMedia" target="_BLANK" title="Monstercat on YouTube"><i class="fab fa-fw fa-youtube"></i><a></li>
+<li><a href="https://www.instagram.com/monstercat" target="_BLANK" title="Monstercat on Instagram"><i class="fab fa-fw fa-instagram"></i></a><li>
+<li><a href="https://tiktok.com/@monstercat" target="_BLANK" title="Monstercat on TikTok"><i class="fab fa-fw fa-tiktok"></i></a><li>
+<li><a href="https://twitter.com/monstercat" target="_BLANK" title="Monstercat on Twitter"><i class="fab fa-fw fa-twitter"></i></a><li>
+<li><a href="https://open.spotify.com/user/monstercatmedia" target="_BLANK" title="Monstercat on Spotify"><i class="fab fa-fw fa-spotify"></i></a><li>
+<li><a href="https://music.apple.com/ca/curator/monstercat/1233905953" target="_BLANK" title="Monstercat on Apple Music"><i class="fab fa-fw fa-apple"></i></a></li>
+<li><a href="https://www.twitch.tv/monstercat" target="_BLANK" title="Monstercat on Twitch"><i class="fab fa-fw fa-twitch"></i></a><li>
+<li><a href="https://www.facebook.com/monstercat" target="_BLANK" title="Monstercat on Facebook"><i class="fab fa-fw fa-facebook"></i></a><li>
+<li><a href="https://discord.com/invite/monstercat" target="_BLANK" title="Monstercat on Discord"><i class="fab fa-fw fa-discord"></i></a><li>
+<li><a href="https://triller.co/@monstercat" target="_blank" title="Monstercat on Triller" class="position-relative svg-icon">
+<svg class="position-relative" style="top: 5px;" width="19" fill="none" viewBox="0 0 32 39">
+<path fill="#f1f1f1" d="M31.562 9.63l.438.253-3.675 6.387c-.106-.059-.202-.111-.296-.167-.169-.097-.169-.097-.265.067-.427.739-.85 1.477-1.274 2.215l-5.77 10.018c-.976 1.694-1.95 3.384-2.922 5.078-.053.09-.111.146-.225.158-.585.061-1.166.155-1.753.196-.52.038-1.043.047-1.563.02-1.794-.087-3.52-.477-5.172-1.186-.318-.138-.628-.29-.94-.44-.041-.02-.08-.043-.132-.073l14.93-25.933c2.901 1.89 4.923 4.454 6.118 7.741.841-1.456 1.668-2.886 2.5-4.333zM21.199 8.122c-.047.085-.091.161-.135.237-2.016 3.498-4.032 7-6.045 10.498-2.232 3.874-4.461 7.75-6.693 11.623-.252.434-.497.87-.754 1.301-.059.1-.044.147.055.197.114.055.22.125.345.199-1.227 2.133-2.448 4.251-3.675 6.387-.152-.088-.293-.167-.439-.252l2.437-4.24c-.143-.096-.277-.187-.409-.278-2.667-1.834-4.549-4.283-5.671-7.322-.032-.088-.03-.155.018-.24 2.232-3.873 4.461-7.75 6.693-11.623 1.499-2.602 2.998-5.204 4.488-7.809.105-.184.266-.167.415-.19.715-.117 1.437-.182 2.165-.193 2.498-.047 4.855.512 7.085 1.637.035.018.07.041.12.068zM.846 23.944C.683 23.346.507 22.75.361 22.15c-.17-.704-.277-1.419-.312-2.142-.027-.519-.062-1.038-.044-1.553.076-2.136.564-4.172 1.493-6.1.786-1.632 1.832-3.074 3.146-4.32 1.826-1.73 3.953-2.938 6.381-3.6.398-.108.804-.19 1.21-.278.105-.024.146-.094.19-.173L14.18.932l.482-.835C14.68.067 14.7.04 14.73 0l.432.249c-1.224 2.13-2.442 4.251-3.67 6.381-.119-.064-.236-.12-.341-.19-.094-.059-.14-.053-.199.05-1.145 1.998-2.296 3.996-3.444 5.992-1.786 3.088-3.559 6.167-5.332 9.247-.404.697-.804 1.394-1.204 2.092l-.073.117c-.02.003-.038.003-.053.006zM28.328 16.317c.669 1.849.96 3.738.876 5.678-.117 2.69-.885 5.186-2.332 7.46-1.434 2.253-3.345 3.993-5.709 5.236-1.332.697-2.737 1.18-4.248 1.453 3.81-6.622 7.605-13.214 11.413-19.827z" />
+</svg>
+</a></li>
+<li><a href="/player" target="_blank" title="Monstercat Player" class="position-relative svg-icon">
+<svg class="position-relative" style="top: 3px;" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="834 153 612.7 487">
+<path fill="#f1f1f1" d="M1446.4,445.6c-0.8-24.3-4.5-47.1-19.5-63c-14.1-15-34.3-22.6-57-21.6c-2.3,0.1-3.8,0.1-5.2-1.1
+                            c-3.6-62.8-16.1-147.6-32.4-187.1c-5.1-16.5-26.1-26.1-40.3-14.9c-25.8,14.9-57.2,38.6-83.1,61.9c-18.1-4.5-37.5-7.2-58.1-8
+                            c-0.8,0-1.6-0.1-2.4-0.1l-5.9-0.1v-0.1l-2.3,0.1l-2.3-0.1v0.1l-5.9,0.1c-0.8,0-1.6,0-2.4,0.1c-20.6,0.7-40,3.4-58.1,8
+                            c-25.9-23.3-57.4-47-83.1-61.9c-14.2-11.2-35.2-1.6-40.3,14.9C932,212.3,919.5,297,915.8,359.8c-1.4,1.2-2.9,1.2-5.1,1.1
+                            c-22.7-1-42.9,6.7-57,21.6c-14.9,15.8-18.7,38.7-19.5,63c-0.5,15.2-0.5,20.5,2.4,41c4.7,33.4,28.7,60.2,61.8,63.1
+                            c5.8,0.5,11.6,0.7,17.5,0.7c4.6,0,9.3-0.1,14-0.2c5-0.1,10.2-0.2,15.6-0.2c7.2,0,11.8-7.4,8.8-13.8c-4.5-9.5-8.2-18.9-11.3-28.2
+                            c-2.7-8.3-4.9-16.6-6.4-24.7c-0.2-0.9-0.3-1.8-0.5-2.7c-5.2-29.6-3-58.5,6.6-87.4c13.1-39.4,37.2-72.4,71.5-98.2
+                            c34.2-25.6,76.6-39.8,119.3-40h6.7h6.7c42.8,0.1,85.2,14.4,119.3,40c34.3,25.7,58.4,58.7,71.5,98.2c9.5,28.6,11.8,57.2,6.8,86.5
+                            c-0.4,2.5-0.9,4.9-1.4,7.4c-1.7,8.1-4,16.2-6.8,24.4c-2.8,8.2-6.2,16.5-10.2,24.9c-3,6.4,1.7,13.8,8.8,13.8c5.4,0,10.6,0.1,15.6,0.2
+                            c4.8,0.1,9.4,0.2,14,0.2c5.9,0,11.7-0.1,17.5-0.7c33-2.9,57-29.7,61.8-63.1C1446.9,466.1,1446.9,460.7,1446.4,445.6z" />
+<g>
+<path fill="#f1f1f1" d="M1140.4,277.9c-100,0-181.1,81.1-181.1,181.1c0,100,81.1,181.1,181.1,181.1c100,0,181.1-81.1,181.1-181.1
+                                C1321.5,359,1240.4,277.9,1140.4,277.9z M1188.6,476.5c-23.1,13.7-45.9,27.7-69.7,40c-5.8,3.1-16.5,3.3-21.5-0.2
+                                c-4-2.8-5.8-14.6-3.2-19.8c12.2-25.3,10.6-49.3-0.9-74.3c-6-13,1.3-23.2,16.6-23.3c1.4,0.5,5.3,1.5,8.7,3.4
+                                c23.5,13.7,46.9,27.5,70.2,41.6C1205.4,453.9,1205.2,466.6,1188.6,476.5z" />
+</g>
+</svg>
+</a></li>
+</ul>
+</div>
+</div>
+<p class="fs-xxsmall text-center pt-largish width-desktop-60p width-100p m-auto font-italic fc-white-dark"><small>We acknowledge with gratitude the traditional, ancestral and unceded land of the Coast Salish peoples, including the territories of the Sḵwx̱wú7mesh (Squamish), Stó:lō and Səl̓ílwətaʔ/Selilwitulh (Tsleil-Waututh) and xʷməθkʷəy̓əm (Musqueam) Nations, on which Monstercat's Vancouver HQ stands.</small></p>
+<p class="fs-xxsmall text-center pt-small width-desktop-60p width-100p m-auto font-italic fc-white-dark"><small>We acknowledge the unceded and ancestral territories of the Gabrielino/Tongva peoples on which our LA team live and work.</small></p>
+</div>
+</footer>
+<script src="/js/templates/image-loader.js" type="module"></script>
+<script src="/js/templates/newsletter.js" type="module"></script>
+<script src="/js/templates/close-modal.js" type="module"></script>
+<script>
+    window.releaseId = "c1df9c0c-6c08-4303-9c39-4b275a1e1692"
+</script>
+<script type="module" src="/js/release.js"></script>
+</body>
+</html>
+
