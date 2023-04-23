@@ -14,7 +14,7 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Audiomack | ✔️ | ✔️ | Doesn't check for track images, these may be singles.
 | Bandcamp | ✔️ | ✔️ | Grabs custom track images. For non-square covers, a square thumbnail will be added too. Custom domains currently not supported. |
 | Beatport | ✔️ | ✔️ | Beware of upscales. 1400x1400 on older releases is probably upscaled. |
-| Booth | ✔ | ❌ | Types only filled for the first image. |
+| Booth | ✔ | ❌ | Types only filled for the first image. Note that Booth also contains products that aren't music albums (comics, stickers, etc.). |
 | Bugs! | ✔️ | ✔️ |
 | DatPiff | ✔️ | ✔️ |
 | Deezer | ✔️ | ✔️ |
