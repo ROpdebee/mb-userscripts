@@ -15,7 +15,7 @@ interface BoothAPIInformation {
 }
 
 export class BoothProvider extends CoverArtProvider {
-    public readonly supportedDomains = ['booth.pm'];
+    public readonly supportedDomains = ['*.booth.pm'];
     public readonly favicon = 'https://booth.pm/static-images/pwa/icon_size_96.png';
     public readonly name = 'Booth';
     protected readonly urlRegex = /items\/(\d+)/;

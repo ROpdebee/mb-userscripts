@@ -17,6 +17,10 @@ describe('booth provider', () => {
             desc: 'item URLs in English',
             url: 'https://booth.pm/en/items/2969400',
             id: '2969400',
+        }, {
+            desc: 'item URLs with shop subdomain',
+            url: 'https://iosys.booth.pm/items/4182601',
+            id: '4182601',
         }];
 
         const unsupportedUrls = [{
@@ -25,6 +29,9 @@ describe('booth provider', () => {
         }, {
             desc: 'items URLs without item ID',
             url: 'https://booth.pm/en/items?sort=new',
+        }, {
+            desc: 'shop subdomains without item',
+            url: 'https://iosys.booth.pm/',
         }];
 
         // eslint-disable-next-line jest/require-hook
@@ -59,6 +66,18 @@ describe('booth provider', () => {
             url: 'https://booth.pm/en/items/4710069',
             numImages: 0,
             expectedImages: [],
+        }, {
+            desc: 'item on custom shop domain',
+            url: 'https://iosys.booth.pm/items/4182601',
+            numImages: 2,
+            expectedImages: [{
+                index: 0,
+                urlPart: 'f03d93f8-0b45-4848-a23b-53d5320fb2d1',
+                types: [ArtworkTypeIDs.Front],
+            }, {
+                index: 1,
+                urlPart: '6131c0c0-aaa1-4351-9cbf-352abe945f83',
+            }],
         }];
 
         const extractionFailedCases = [{
