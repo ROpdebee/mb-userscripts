@@ -1,0 +1,149 @@
+WARC/1.1
+WARC-Filename: booth provider/extracting images/throws on non-existent release
+WARC-Date: 2023-04-23T08:03:10.625Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:2d74143a-1e44-47ab-baae-b29dfc9c7446>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:b4a79a07-e220-48ca-a050-af18979cba91>
+WARC-Target-URI: https://booth.pm/en/items/404.json
+WARC-Date: 2023-04-23T08:03:10.625Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:c21fc21c-7c1a-4bb8-9602-c73de36847bd>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:263d2746ded6adaeb4d1721e012c1799ac7535a828fbf0c7aa405a4c4739e794
+Content-Length: 35
+
+GET /en/items/404.json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:b4a79a07-e220-48ca-a050-af18979cba91>
+WARC-Target-URI: https://booth.pm/en/items/404.json
+WARC-Date: 2023-04-23T08:03:10.625Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:d35014c1-0e6f-4eb5-a09e-635b6c72af5a>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:575963f11be9ea7eb76947ec0de63b10b8e1535f33ed915894aeaedf5bb8bf5a
+WARC-Block-Digest: sha256:575963f11be9ea7eb76947ec0de63b10b8e1535f33ed915894aeaedf5bb8bf5a
+Content-Length: 1127
+
+harEntryId: 8206210ef0062222bb5383e6c14581f6
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2023-04-23T08:03:09.591Z
+time: 1033
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1033,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 53
+warcRequestCookies: []
+warcResponseHeadersSize: 2719
+warcResponseCookies: [{"name":"_plaza_session_nktz7u","value":"Et5kv59WvWh4DqcJpmK4apeYVAkQK4Fl4shwoqy2AO8dEZMxRhaUaBiHSJx+6wbqM6qgMGDFpUp/o0otuo31F6336TFq498UW7i9J2veHff/18HRNCAIgbir2zmWCFsH6sBNEFMFnYE1sccBvUldHasX8xXbQ5CeBHonWYLDtzmFaP4225VwHHoPBBfR70e1w6ONeOKhmV39Qaxt1DZ47q7DvwwSpUC+NjwznYQQF/6q19SHZ7O904mhedP4IQV7HdGTZ73opeCIsFBFVGdUCmmeuqRQGHSindEVMzLI7n75RX9r1U1d8cfk19lSwxToH4BYDU67IHwqv8YqmS8dRi9YqRtZFo0GQGl+5EIK42CJLvMvztd3bpK5DjiuN/kTmtdsI1IKoPGEh7tpTO1+--COpP+UPH3OydQKse--QytlYBUG+o/VAyZnC9aYuw==","domain":".booth.pm","path":"/","expires":"2023-04-23T08:33:10.000Z","secure":true,"httponly, __cf_bm":"Afrmz4PVyjyUSg7NLcsh2db0Sk_rU8e2PJuuclmeHxg-1682236990-0-AYDh+GtOMa5a+RkvCx/+Zr4yCaIYa8y2TYfuiLcjlaoaA8oIYoW+k1Ir8TvZruVl5qW4mVdDSW4ArlKPHbTXvH4=","httpOnly":true,"sameSite":"None"}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://booth.pm/en/items/404.json
+WARC-Date: 2023-04-23T08:03:10.625Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:b4a79a07-e220-48ca-a050-af18979cba91>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:8af37e1560e2d1d5f2f1d983b7d4efeeab1d6457df4cbc61589aa447fd692f77
+WARC-Block-Digest: sha256:15c6639423c9acf7be6ae4e52b18b5f8d7d71bc2a8bbad66bf8302c444289929
+Content-Length: 4470
+
+HTTP/1.1 404 Not Found
+alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+cache-control: no-cache
+cf-cache-status: DYNAMIC
+cf-ray: 7bc496a1ef3db89a-AMS
+connection: close
+content-encoding: gzip
+content-security-policy: script-src 'strict-dynamic' 'unsafe-eval' 'unsafe-inline' https: 'report-sample' 'nonce-dPJKM7qcUXG23wkc+v1GqMza2Su5La1dkLX1xwNJsdE='; object-src 'none'; base-uri 'self'; frame-src player.vimeo.com w.soundcloud.com www.slideshare.net www.youtube.com bandcamp.com sketchfab.com *.google.com *.facebook.com *.facebook.net *.twitter.com social-plugins.line.me *.g.doubleclick.net www.googletagmanager.com booth.karakuri.ai manage-booth.karakuri.ai point.widget.rakuten.co.jp hub.vroid.com ext.nicovideo.jp www.recaptcha.net https://booth.pm https://*.booth.pm https://factory.pixiv.net https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com; connect-src 'self' data: *.pixiv.net *.pawoo.net www.google-analytics.com analytics.google.com www.facebook.com connect.facebook.net www.googletagmanager.com www.googleadservices.com www.google.co.jp b92.yahoo.co.jp *.buyee.jp d.line-scdn.net stats.g.doubleclick.net ekr.zdassets.com *.zendesk.com errortrace.dev https://booth.pm https://*.booth.pm https://factory.pixiv.net https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com
+content-type: text/html; charset=utf-8
+date: Sun, 23 Apr 2023 08:03:10 GMT
+referrer-policy: strict-origin-when-cross-origin
+server: cloudflare
+set-cookie: _plaza_session_nktz7u=Et5kv59WvWh4DqcJpmK4apeYVAkQK4Fl4shwoqy2AO8dEZMxRhaUaBiHSJx%2B6wbqM6qgMGDFpUp%2Fo0otuo31F6336TFq498UW7i9J2veHff%2F18HRNCAIgbir2zmWCFsH6sBNEFMFnYE1sccBvUldHasX8xXbQ5CeBHonWYLDtzmFaP4225VwHHoPBBfR70e1w6ONeOKhmV39Qaxt1DZ47q7DvwwSpUC%2BNjwznYQQF%2F6q19SHZ7O904mhedP4IQV7HdGTZ73opeCIsFBFVGdUCmmeuqRQGHSindEVMzLI7n75RX9r1U1d8cfk19lSwxToH4BYDU67IHwqv8YqmS8dRi9YqRtZFo0GQGl%2B5EIK42CJLvMvztd3bpK5DjiuN%2FkTmtdsI1IKoPGEh7tpTO1%2B--COpP%2BUPH3OydQKse--QytlYBUG%2Bo%2FVAyZnC9aYuw%3D%3D; domain=.booth.pm; path=/; expires=Tue, 23 Apr 2024 08:03:10 GMT; secure; HttpOnly, __cf_bm=Afrmz4PVyjyUSg7NLcsh2db0Sk_rU8e2PJuuclmeHxg-1682236990-0-AYDh+GtOMa5a+RkvCx/+Zr4yCaIYa8y2TYfuiLcjlaoaA8oIYoW+k1Ir8TvZruVl5qW4mVdDSW4ArlKPHbTXvH4=; path=/; expires=Sun, 23-Apr-23 08:33:10 GMT; domain=.booth.pm; HttpOnly; Secure; SameSite=None
+strict-transport-security: max-age=63072000; includeSubDomains
+transfer-encoding: chunked
+vary: Origin
+x-content-type-options: nosniff
+x-download-options: noopen
+x-frame-options: SAMEORIGIN
+x-permitted-cross-domain-policies: none
+x-request-id: 87dbbe6e-da2b-4335-92fc-f284b3edf31d
+x-runtime: 0.009637
+x-xss-protection: 1; mode=block
+x-pollyjs-finalurl: https://booth.pm/en/items/404.json
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>BOOTH | お探しの商品が見つかりませんでした… (404)</title>
+<meta http-equiv="refresh" content="5;URL=/">
+
+<style>
+  body {
+    margin: 0;
+    color: #2E2F30;
+    text-align: center;
+    font-family: arial, sans-serif;
+  }
+
+  .not_found_girl {
+    display: block;
+    width: 160px;
+    height: 206px;
+    margin: 0 auto 10px auto;
+    background: url('/static-images/error/not_found_girl.png') no-repeat;
+    text-indent: -9999pt;
+  }
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi) {
+    .not_found_girl {
+      background: url('/static-images/error/not_found_girl@2x.png') no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .not_found_logo {
+    display: block;
+    width: 400px;
+    height: 87px;
+    margin: 0 auto 24px auto;
+    background: url('/static-images/error/not_found_logo.png') no-repeat;
+    text-indent: -9999pt;
+  }
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi) {
+    .not_found_logo {
+      background: url('/static-images/error/not_found_logo@2x.png') no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .dialog {
+      height: 300px;
+      padding: 10px 0 248px 0;
+      background: #FFF;
+  }
+</style>
+
+<div class="dialog">
+  <span class="not_found_girl" title=""></span>
+  <a href="/" class="not_found_logo" title="Jump to BOOTH TOP">BOOTH</a>
+  <h1>お探しの商品が見つかりませんでした…</h1>
+  <p>誠に申し訳ございません。</p>
+  <p>お探しの商品は削除されたか、移動された可能性があります。</p>
+  <p>5秒後に<a href="/">BOOTH</a>に移動します。</p>
+</div>
+
+
