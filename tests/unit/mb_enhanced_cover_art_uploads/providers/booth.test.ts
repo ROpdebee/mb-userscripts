@@ -53,6 +53,12 @@ describe('booth provider', () => {
                 index: 1,
                 urlPart: '0cb0b6fa-647d-4300-9c04-35a78c3c9fce.jpg',
             }],
+        }, {
+            desc: 'item with no images',
+            // Not really an album
+            url: 'https://booth.pm/en/items/4710069',
+            numImages: 0,
+            expectedImages: [],
         }];
 
         const extractionFailedCases = [{
