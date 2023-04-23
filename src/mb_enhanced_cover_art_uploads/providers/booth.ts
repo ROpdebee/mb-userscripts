@@ -1,9 +1,18 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { filterNonNull } from '@lib/util/array';
-import { parseDOM, qsa } from '@lib/util/dom';
+import { assertDefined } from '@lib/util/assert';
+import { safeParseJSON } from '@lib/util/json';
 
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
+
+interface BoothAPIInformation {
+    id: number;
+    images: Array<{
+        original: string;
+        resized: string;
+        caption: string | null; // TODO: Can we do something with this?
+    }>;
+}
 
 export class BoothProvider extends CoverArtProvider {
     public readonly supportedDomains = ['booth.pm'];
@@ -11,24 +20,22 @@ export class BoothProvider extends CoverArtProvider {
     public readonly name = 'Booth';
     protected readonly urlRegex = /items\/(\d+)/;
 
-    // The JS on the page renders the images into .slick-slide and may also insert
-    // clones which shouldn't be matched. However, since we're not executing the JS,
-    // we don't have to account for that.
-    private static readonly IMG_QUERY = '.primary-image-area img.market-item-detail-item-image';
-
     public async findImages(url: URL): Promise<CoverArt[]> {
-        const respDocument = parseDOM(await this.fetchPage(url), url.href);
-        const imageElements = qsa<HTMLImageElement>(BoothProvider.IMG_QUERY, respDocument);
+        const itemId = this.extractId(url);
+        assertDefined(itemId);
+        const apiJson = await this.fetchPage(this.createApiUrl(itemId));
+        const apiData = safeParseJSON<BoothAPIInformation>(apiJson, 'Failed to parse Booth API response');
+        const covers: CoverArt[] = apiData.images.map((img) => ({ url: new URL(img.original) }));
 
-        // Placeholder images don't have the data-origin attribute, so they're removed here.
-        const coverUrls = filterNonNull(imageElements.map((img) => img.dataset.origin));
-
-        const covers: CoverArt[] = coverUrls.map((coverUrl) => ({ url: new URL(coverUrl) }));
         if (covers.length > 0) {
             // Assume first image is front cover.
             covers[0].types = [ArtworkTypeIDs.Front];
         }
 
         return covers;
+    }
+
+    private createApiUrl(itemId: string): URL {
+        return new URL(`https://booth.pm/en/items/${itemId}.json`);
     }
 }

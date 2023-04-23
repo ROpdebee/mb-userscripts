@@ -38,7 +38,7 @@ describe('booth provider', () => {
             numImages: 1,
             expectedImages: [{
                 index: 0,
-                urlPart: 'cb2b3f79-e5d1-4186-811f-229bc4a8cdad.jpg',
+                urlPart: 'cb2b3f79-e5d1-4186-811f-229bc4a8cdad',
                 types: [ArtworkTypeIDs.Front],
             }],
         }, {
@@ -47,11 +47,11 @@ describe('booth provider', () => {
             numImages: 2,
             expectedImages: [{
                 index: 0,
-                urlPart: '80eef6e0-2ac9-4e0a-95ce-47163efe9717.jpg',
+                urlPart: '80eef6e0-2ac9-4e0a-95ce-47163efe9717',
                 types: [ArtworkTypeIDs.Front],
             }, {
                 index: 1,
-                urlPart: '0cb0b6fa-647d-4300-9c04-35a78c3c9fce.jpg',
+                urlPart: '0cb0b6fa-647d-4300-9c04-35a78c3c9fce',
             }],
         }, {
             desc: 'item with no images',
