@@ -1,3 +1,4 @@
+- **2023.4.23.5**: New feature: rich copy-paste of webpage images and links ([#546](https://github.com/ROpdebee/mb-userscripts/pull/546))
 - **2023.4.23.4**: New feature: add Monstercat provider ([#664](https://github.com/ROpdebee/mb-userscripts/pull/664))
 - **2023.4.23.3**: New feature: add Booth.pm provider ([#663](https://github.com/ROpdebee/mb-userscripts/pull/663))
 - **2023.4.23.2**: New feature: add Juno Download provider ([#662](https://github.com/ROpdebee/mb-userscripts/pull/662))
