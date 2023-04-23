@@ -27,7 +27,7 @@ export class GuiSink implements LoggingSink {
         // the long URLs tend to be put on their own line.
         // Need to use a factory for insertBetween, otherwise the same <wbr>
         // element will be reused and it'll only be placed at the last slash.
-        const children = insertBetween(content.split(/(?=\/)/), () => <wbr/>);
+        const children = insertBetween(content.split(/(?=\/|\?|&|%)/), () => <wbr />);
 
         return <span className={`msg ${className}`}>{children}</span>;
     }
