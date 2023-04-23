@@ -1,5 +1,5 @@
 import type { MaximisedImage } from '@src/mb_enhanced_cover_art_uploads/maximise';
-import type { ImageContents } from '@src/mb_enhanced_cover_art_uploads/types';
+import type { ImageContents, QueuedImage } from '@src/mb_enhanced_cover_art_uploads/types';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { gmxhr, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
@@ -14,11 +14,9 @@ jest.mock('@lib/util/xhr');
 // We need to provide a mock factory, because for some reason, either jest or
 // rewire is not recognising the generator, leading to `getMaximisedCandidates`
 // being undefined in this test suite.
-jest.mock('@src/mb_enhanced_cover_art_uploads/maximise', () => {
-    return {
-        getMaximisedCandidates: jest.fn(),
-    };
-});
+jest.mock<{ getMaximisedCandidates: typeof getMaximisedCandidates }>('@src/mb_enhanced_cover_art_uploads/maximise', () => ({
+    getMaximisedCandidates: jest.fn(),
+}));
 jest.mock('@src/mb_enhanced_cover_art_uploads/providers');
 jest.mock('@src/mb_enhanced_cover_art_uploads/form');
 
@@ -62,7 +60,6 @@ type FetchImageContentsSpy = jest.SpyInstance<Promise<ImageContents>, [URL, stri
 
 function enableDummyFetch(mock: FetchImageContentsSpy): void {
     // Return dummy response for fetching images
-    // eslint-disable-next-line jest/prefer-mock-promise-shorthand
     mock.mockImplementation((url: URL, filename: string) =>
         Promise.resolve({
             fetchedUrl: url,
@@ -502,7 +499,6 @@ describe('fetching images from providers', () => {
         class PostprocessingProvider extends FakeProvider {
             public override postprocessImage = mockPostprocessor;
         }
-        // eslint-disable-next-line jest/prefer-mock-promise-shorthand
         mockPostprocessor.mockImplementation((image) => Promise.resolve(image));
         mockPostprocessor.mockResolvedValueOnce(null);
 
@@ -606,8 +602,7 @@ describe('fetching images from providers', () => {
 
             await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, true))
                 .resolves.toMatchObject({
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    images: expect.toBeArrayOfSize(2),
+                    images: expect.toBeArrayOfSize(2) as QueuedImage[],
                 });
             expect(mockFetchImageContents).toHaveBeenCalledTimes(2);
         });

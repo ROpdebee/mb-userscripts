@@ -1,0 +1,86 @@
+WARC/1.1
+WARC-Filename: monstercat provider/extracting images/extracts covers for player release
+WARC-Date: 2023-04-23T10:03:17.484Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:2db67966-b143-4708-a517-5279c4473210>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:152ed324-caea-47af-8927-6b5153b976ab>
+WARC-Target-URI: https://player.monstercat.app/api/catalog/release/742779546449
+WARC-Date: 2023-04-23T10:03:17.485Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:a533d619-3ef3-49dd-b302-e2124fe27d3c>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:78eb603c7b0edd3902ba2bae8f36ef7f4db51bd37091fe6d5b383901f9c76659
+Content-Length: 50
+
+GET /api/catalog/release/742779546449 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:152ed324-caea-47af-8927-6b5153b976ab>
+WARC-Target-URI: https://player.monstercat.app/api/catalog/release/742779546449
+WARC-Date: 2023-04-23T10:03:17.486Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:93eb79a8-c962-4a9e-a78b-59d6a1af1e2a>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:5908e10845c0d8c794d7e437dade455ff9a9cc5a15a153c92156df98904007e4
+WARC-Block-Digest: sha256:5908e10845c0d8c794d7e437dade455ff9a9cc5a15a153c92156df98904007e4
+Content-Length: 348
+
+harEntryId: d52e2afc2f64e4a463fa320996f8b544
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2023-04-23T10:03:17.113Z
+time: 369
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":369,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 81
+warcRequestCookies: []
+warcResponseHeadersSize: 992
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://player.monstercat.app/api/catalog/release/742779546449
+WARC-Date: 2023-04-23T10:03:17.485Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:152ed324-caea-47af-8927-6b5153b976ab>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:b51ca2cf61e06aa868ab38d40f61ae17a7fc6379844b36869a18d8daa4bf4843
+WARC-Block-Digest: sha256:2c0a7a6e73a8899eeadad292a16c7a8499a66ccab1aed006a25d8738b6f1b336
+Content-Length: 2891
+
+HTTP/1.1 200 OK
+access-control-allow-credentials: true
+access-control-allow-headers: Origin, Authorization, Content-Type, Accepts
+access-control-allow-methods: POST, GET, OPTIONS
+access-control-allow-origin: 
+access-control-max-age: 50
+alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+cf-cache-status: DYNAMIC
+cf-ray: 7bc5469a1bcefa50-AMS
+connection: close
+content-encoding: br
+content-type: application/json
+date: Sun, 23 Apr 2023 10:03:17 GMT
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=fmuGoOEi72qe6JuxoxX%2FCHrnK%2F3RMuQXzSVI58nBIC1%2BjvWlMx94SyrzadZV%2FLzIh8IHtIdMpuiUCFOnqAQxYKzjFQnSQJW2hFroEw6Uo%2FNGdZjRsQ6xFPIvvnndeTwxmiqaP%2BMbI1M%3D"}],"group":"cf-nel","max_age":604800}
+server: cloudflare
+transfer-encoding: chunked
+via: 1.1 google
+x-cloud-trace-context: e1991a9d352a7c2cf12a1bc7b1257dfd
+x-pollyjs-finalurl: https://player.monstercat.app/api/catalog/release/742779546449
+
+{"Release":{"CacheTime":"2022-12-03T01:40:10.937253Z","CacheStatus":"Success","CacheStatusDetail":"","AlbumNotes":"","ArtistsTitle":"F.O.O.L","BrandId":1,"BrandTitle":"Uncaged","CatalogId":"742779546449","CopyrightPLine":"Monstercat","CoverFileId":"0841e6e8-da3a-4efd-831f-f42f18ffb93e","Description":"","FeaturedArtistsTitle":"","GRid":"A10443ZI6E4H3FT1UX","GenrePrimary":"Dance","GenreSecondary":"Synthwave","Id":"6db68005-3e21-434f-acbf-5e088c6fab3b","PrereleaseDate":null,"PresaveDate":null,"ReleaseDate":"2022-12-08T08:00:00.706Z","ReleaseDateTimezone":"America/Vancouver","SpotifyId":null,"Tags":["nocontentid"],"Title":"Duality","Version":"","Type":"Single","UPC":"742779546449","YouTubeUrl":"","Artists":[{"ReleaseId":"6db68005-3e21-434f-acbf-5e088c6fab3b","ArtistId":"8ffb460f-b88b-4a64-b2f2-72689605e024","ArtistNumber":1,"URI":"fool","Name":"F.O.O.L","ProfileFileId":"e0753ee0-bd22-48fd-804e-595b311be171","SquareFileId":null,"Public":true,"Role":"Primary","Platform":""}],"Tracks":null,"Links":null,"Downloadable":false,"InEarlyAccess":false,"Streamable":true},"Tracks":[{"ArtistsTitle":"F.O.O.L","Brand":"Uncaged","BrandId":1,"BPM":104,"CreatorFriendly":true,"DebutDate":"2022-12-08T08:00:00Z","Duration":210,"Explicit":false,"GenrePrimary":"Dance","GenreSecondary":"Synthwave","Id":"1c0afcf4-5b66-4250-bb18-b22219c2a153","ISRC":"CA6D22200638","LockStatus":"Approved","Public":true,"Title":"Duality","TrackNumber":1,"Tags":["rocketleague","nocontentid","rocketleagueexclusive"],"Version":"","Release":{"ArtistsTitle":"F.O.O.L","CatalogId":"742779546449","Id":"6db68005-3e21-434f-acbf-5e088c6fab3b","Tags":["nocontentid"],"Title":"Duality","Type":"Single","ReleaseDate":"2022-12-08T08:00:00.706Z","ReleaseDateTimezone":"America/Vancouver","Version":"","UPC":"742779546449","Description":""},"Artists":null,"Downloadable":false,"InEarlyAccess":false,"Streamable":true}]}
+
+

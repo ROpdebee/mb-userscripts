@@ -11,6 +11,7 @@ const distRepo = process.argv[2];
 async function checkUserscriptsChanged(): Promise<void> {
     const srcContents = await fs.readdir('./src');
     const userscriptDirs = srcContents.filter((name) => name.startsWith('mb_'));
+    let anyScriptChanged = false;
 
     for (const scriptName of userscriptDirs) {
         console.log(`Checking ${scriptName}`);
@@ -20,9 +21,17 @@ async function checkUserscriptsChanged(): Promise<void> {
             throw new Error('I encountered a userscript which has not been deployed yet!');
         }
 
-        if (await userscriptHasChanged(scriptName, previousVersion, distRepo)) {
-            throw new Error(`Userscript ${scriptName} would be changed`);
+        // Check against the main branch.
+        const { changed, diff } = await userscriptHasChanged(scriptName, 'main');
+        if (changed) {
+            console.log(`${scriptName} would be changed`);
+            anyScriptChanged = true;
+            console.log(diff);
         }
+    }
+
+    if (anyScriptChanged) {
+        throw new Error('Some userscripts would be changed');
     }
 }
 

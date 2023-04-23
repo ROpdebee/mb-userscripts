@@ -4,7 +4,7 @@ import { HeadMetaPropertyProvider } from './base';
 
 export class SpotifyProvider extends HeadMetaPropertyProvider {
     public readonly supportedDomains = ['open.spotify.com'];
-    public readonly favicon = 'https://open.scdn.co/cdn/images/favicon32.8e66b099.png';
+    public readonly favicon = 'https://open.spotifycdn.com/cdn/images/favicon32.8e66b099.png';
     public readonly name = 'Spotify';
     protected readonly urlRegex = /\/album\/(\w+)/;
 

@@ -22,7 +22,7 @@ module.exports = {
     ],
     plugins: [
         '@typescript-eslint',
-        '@delagen/deprecation',
+        'deprecation',
         'simple-import-sort',
         'disable',
     ],
@@ -34,6 +34,10 @@ module.exports = {
             // Too many false positives
             'security',
             'no-secrets',
+            'pii',
+            'xss',
+            // Seems broken and unmaintained?
+            'const-case',
         ],
     },
     parserOptions: {
@@ -57,7 +61,7 @@ module.exports = {
         'arrow-parens': ['error', 'always'],
         '@typescript-eslint/comma-dangle': ['warn', 'always-multiline'],
         'no-restricted-globals': ['error', 'origin'].concat(restrictedGlobals),
-        '@delagen/deprecation/deprecation': 'warn',
+        'deprecation/deprecation': 'warn',
         'eslint-comments/no-unused-disable': 'warn',
         'eslint-comments/disable-enable-pair': ['warn', {
             allowWholeFile: true
@@ -92,18 +96,19 @@ module.exports = {
             'it',
         ],
 
-        'no-restricted-syntax': ['error', {
-            // Require non-initialised variables to have a type annotation. Per
-            // https://github.com/typescript-eslint/typescript-eslint/issues/4342#issuecomment-1000452796
-            selector: ':not(ForOfStatement) > VariableDeclaration > VariableDeclarator[init = null] > Identifier.id:not([typeAnnotation])',
-            message: 'Variable declaration without initialiser requires a type annotation'
-        }, {
-            // Disallow ES private (#) field and method declarations in favour
-            // of TypeScript access modifiers. ES modifiers need to be
-            // transpiled, TS modifiers only exist at compile time.
-            selector: ':matches(MethodDefinition, PropertyDefinition) > PrivateIdentifier',
-            message: 'Use TypeScript `private` instead.'
-        }],
+        'no-restricted-syntax': [
+            'error', {
+                // Require non-initialised variables to have a type annotation. Per
+                // https://github.com/typescript-eslint/typescript-eslint/issues/4342#issuecomment-1000452796
+                selector: ':not(ForOfStatement) > VariableDeclaration > VariableDeclarator[init = null] > Identifier.id:not([typeAnnotation])',
+                message: 'Variable declaration without initialiser requires a type annotation'
+            }, {
+                // Disallow ES private (#) field and method declarations in favour
+                // of TypeScript access modifiers. ES modifiers need to be
+                // transpiled, TS modifiers only exist at compile time.
+                selector: ':matches(MethodDefinition, PropertyDefinition) > PrivateIdentifier',
+                message: 'Use TypeScript `private` instead.'
+            }],
 
         // TypeScript-specific linting rules as the default, since 99% of the
         // linted files are TS.
@@ -209,43 +214,49 @@ module.exports = {
         // Doesn't always work with transpiling into userscripts, ts-node, etc.
         'unicorn/prefer-top-level-await': 'off',
 
+        'unicorn/no-negated-condition': 'off',
         'unicorn/no-process-exit': 'off',
+        // Clashes with switch-case/no-case-curly
+        'unicorn/switch-case-braces': 'off',
 
         // Already included in unicorn/better-regex and doesn't allow disabling the sorting
         'optimize-regex/optimize-regex': 'off',
     },
     overrides: [{
-            // Override per eslint-plugin-jest documentation.
-            files: ['tests/**'],
-            plugins: ['jest'],
-            extends: [
-                'plugin:jest/all',
-                'plugin:jest-formatting/strict',
+        // Override per eslint-plugin-jest documentation.
+        files: ['tests/**'],
+        plugins: ['jest'],
+        extends: [
+            'plugin:jest/all',
+            'plugin:jest-formatting/strict',
+        ],
+        settings: {
+            'disable/plugins': [
+                'no-unsanitized',
+                'scanjs-rules',
+                'security',
+                'no-secrets',
+                'pii',
+                'xss',
+                'const-case',
             ],
-            settings: {
-                'disable/plugins': [
-                    'no-unsanitized',
-                    'scanjs-rules',
-                    'security',
-                    'no-secrets',
-                ],
-            },
-            rules: {
-                '@typescript-eslint/unbound-method': 'off',
-                'jest/unbound-method': 'error',
-                'jest/prefer-expect-assertions': 'off',
-                'jest/no-hooks': 'off',
-                'jest/require-top-level-describe': 'off',
-                'jest/no-conditional-in-test': 'off',
-                // Allow shadowing in tests as we sometimes use it to define
-                // common data, but refine the data in some specific test cases
-                '@typescript-eslint/no-shadow': 'off',
-            },
-        }, {
-            files: ['*.d.ts'],
-            rules: {
-                '@typescript-eslint/init-declarations': 'off',
-                'unicorn/no-static-only-class': 'off',
-            },
-        }],
+        },
+        rules: {
+            '@typescript-eslint/unbound-method': 'off',
+            'jest/unbound-method': 'error',
+            'jest/prefer-expect-assertions': 'off',
+            'jest/no-hooks': 'off',
+            'jest/require-top-level-describe': 'off',
+            'jest/no-conditional-in-test': 'off',
+            // Allow shadowing in tests as we sometimes use it to define
+            // common data, but refine the data in some specific test cases
+            '@typescript-eslint/no-shadow': 'off',
+        },
+    }, {
+        files: ['*.d.ts'],
+        rules: {
+            '@typescript-eslint/init-declarations': 'off',
+            'unicorn/no-static-only-class': 'off',
+        },
+    }],
 };

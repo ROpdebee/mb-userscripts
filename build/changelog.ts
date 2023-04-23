@@ -32,7 +32,8 @@ export function parsePullRequestTitle(prInfo: PullRequestInfo): Promise<ChangeIn
         ccParser.on('readable', () => {
             const ccInfo = ccParser.read() as CCInfo;
 
-            if (ccInfo.type === null || typeof ccInfo.type === 'undefined') {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (ccInfo.type === null || ccInfo.type === undefined) {
                 reject(new Error('Could not parse pull request title'));
             } else {
                 resolve({

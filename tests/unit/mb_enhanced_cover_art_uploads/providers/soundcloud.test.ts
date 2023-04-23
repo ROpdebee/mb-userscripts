@@ -80,6 +80,30 @@ describe('soundcloud provider', () => {
                 types: [ArtworkTypeIDs.Track],
                 comment: 'Track 2',
             }],
+        }, {
+            desc: 'set release with >5 track images and backdrop images',
+            // This one is not really an album, but there are albums with separate
+            // backdrops. They're just hard to find.
+            url: 'https://soundcloud.com/soundcloud/sets/i-am-other-vol-2',
+            // Front
+            // 17 track images (tracks 5, 7, 17 have no track images, the images displayed on the page are artist images)
+            // 2 backdrop images
+            numImages: 20,
+            expectedImages: [{
+                index: 0,
+                urlPart: 'waWa9GoBmtNTbqo1-pwoMvA',
+                types: [ArtworkTypeIDs.Front],
+            }, {
+                index: 1,
+                urlPart: 'yKWEoE0xZS11dixW-tVPxNA',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Track 1',
+            }, {
+                index: 3,
+                urlPart: '9b0d4395-cc72-4aa9-84e1-17b807264e2f',
+                types: [ArtworkTypeIDs.Track],
+                comment: 'Soundcloud backdrop for tracks 2, 4, 6, 8, 10, 18, 20',
+            }],
         }];
 
         const extractionFailedCases = [{

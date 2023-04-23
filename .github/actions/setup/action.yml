@@ -5,7 +5,7 @@ inputs:
   node-version:
     description: Node version to install, defaults to v16
     required: false
-    default: '16'
+    default: '18'
 runs:
   using: composite
   steps:
@@ -25,21 +25,39 @@ runs:
     # we restored node_modules, we'll skip the npm install step.
     # Inspired by https://www.voorhoede.nl/en/blog/super-fast-npm-install-on-github-actions/
 
+    # Cache key formats:
+    # <OS>-node-<node major version>-<year>-<month>-<package-lock.json hash>
+    # modules-<OS>-<node full version>-<year>-<month>-<package-lock.json hash>
+    #
+    # We include the year and month so that the cache gets "invalidated"/"cleared"
+    # on a monthly basis. Otherwise, since npm's cache is incremental, it'll grow
+    # indefinitely on each package upgrade. Because the cache key changes each
+    # month, the cache will be fully rebuilt and the package downloads cache
+    # will no longer contain package versions that we haven't used since the
+    # month before.
+
+    - name: Retrieve current date
+      id: curr-date
+      run:
+        echo "date=$(date +%Y-%m)" >> $GITHUB_OUTPUT
+      shell: bash
+
     - name: Cache npm package downloads
       uses: actions/cache@v3
       with:
         path: '~/.npm'
-        key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ hashFiles('package-lock.json') }}
-        # Allow restoring the download cache if package-lock.json has changed.
+        key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ steps.curr-date.outputs.date }}-${{ hashFiles('package-lock.json') }}
+        # Allow restoring the download cache if package-lock.json has changed, but only in the same month.
+        # In a different month, the cache should be rebuilt from scratch in the beginning.
         restore-keys: |
-          ${{ runner.os }}-node-${{ inputs.node-version }}
+          ${{ runner.os }}-node-${{ inputs.node-version }}-${{ steps.curr-date.outputs.date }}
 
     # Need the exact node version to prevent reusing an old node version's
     # node_modules cache.
     - name: Get node version
       id: node-version
       run:
-        echo ::set-output name=node-version::`node --version`
+        echo "node-version=$(node --version)" >> $GITHUB_OUTPUT
       shell: bash
     # Cache node_modules specifically for this OS, specific node version, and
     # package-lock.json.
@@ -48,7 +66,7 @@ runs:
       uses: actions/cache@v3
       with:
         path: ./node_modules
-        key: modules-${{ runner.os }}-node-${{ steps.node-version.outputs.node-version }}-${{ hashFiles('package-lock.json') }}
+        key: modules-${{ runner.os }}-node-${{ steps.node-version.outputs.node-version }}-${{ steps.curr-date.outputs.date }}-${{ hashFiles('package-lock.json') }}
         # No restore_keys here to prevent reusing node_modules if lock file has
         # changed.
 

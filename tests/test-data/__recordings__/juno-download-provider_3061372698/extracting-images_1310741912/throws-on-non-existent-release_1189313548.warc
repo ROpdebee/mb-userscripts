@@ -1,0 +1,496 @@
+WARC/1.1
+WARC-Filename: juno download provider/extracting images/throws on non-existent release
+WARC-Date: 2023-04-22T19:19:04.935Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:adfbbd07-bc52-44dc-88da-e3a580d6f8a5>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:2a93d1de-0bf8-4509-8468-1f87d67b3fa0>
+WARC-Target-URI: https://www.junodownload.com/products/404-02/
+WARC-Date: 2023-04-22T19:19:04.936Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:630aed8d-63c5-4839-aa66-b06804962300>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:74dc4249de08b2b04e5d484e322cb2677cfc92bbc8fabb30df36646d06df1af4
+Content-Length: 34
+
+GET /products/404-02/ HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:2a93d1de-0bf8-4509-8468-1f87d67b3fa0>
+WARC-Target-URI: https://www.junodownload.com/products/404-02/
+WARC-Date: 2023-04-22T19:19:04.936Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:857a7981-07c9-4cef-8b21-7de2e9714a25>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:b56a8c4db44e8cd517bf23c8db7e65fe770b01f40771345e3250eaa43f29b2e3
+WARC-Block-Digest: sha256:b56a8c4db44e8cd517bf23c8db7e65fe770b01f40771345e3250eaa43f29b2e3
+Content-Length: 563
+
+harEntryId: 3a83fb21bbfccbc33957a19c4dae9afe
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2023-04-22T19:19:04.711Z
+time: 223
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":223,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 64
+warcRequestCookies: []
+warcResponseHeadersSize: 1149
+warcResponseCookies: [{"name":"rgisanonymous","value":"false","expires":"2023-07-06T19:19:04.000Z","maxAge":6480000,"path":"/","domain":"junodownload.com","secure, quickcart":"%7B%22itemCount%22%3A0%2C%22lastUpdated%22%3A1682191144%7D"}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.junodownload.com/products/404-02/
+WARC-Date: 2023-04-22T19:19:04.935Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:2a93d1de-0bf8-4509-8468-1f87d67b3fa0>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:1a680ed7d13b83d49eed46eac7412f34c6ae97916ce36da9d11f0480d4709ef5
+WARC-Block-Digest: sha256:798e99479f01cda5f8be268f052b9606cc19a2534bdeb2270f9937b0d5a693f9
+Content-Length: 70761
+
+HTTP/1.1 410 Gone
+cache-control: private
+connection: close
+content-encoding: gzip
+content-length: 11839
+content-type: text/html; charset=UTF-8
+date: Sat, 22 Apr 2023 19:19:05 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+last-modified: Sat, 22 Apr 2023 19:19:04 GMT
+pragma: no-cache
+server: nginx
+set-cookie: rgisanonymous=false; expires=Mon, 22-May-2023 19:19:04 GMT; Max-Age=2592000; path=/, rguserid=961be1d6-b044-43aa-b355-c2ae5bd3bd2c; expires=Mon, 22-May-2023 19:19:04 GMT; Max-Age=2592000; path=/, rguuid=true; expires=Mon, 22-May-2023 19:19:04 GMT; Max-Age=2592000; path=/, rgisanonymous=true; expires=Mon, 22-May-2023 19:19:04 GMT; Max-Age=2592000; path=/, PHPSESSID=d0ca5b1d5905c21fbfb5c91a8950e239; expires=Fri, 21-Jul-2023 19:19:04 GMT; Max-Age=7776000; path=/; domain=junodownload.com; secure, quickCart=%7B%22itemCount%22%3A0%2C%22lastUpdated%22%3A1682191144%7D; expires=Thu, 06-Jul-2023 19:19:04 GMT; Max-Age=6480000; path=/; domain=junodownload.com
+strict-transport-security: max-age=63072000; includeSubdomains; preload
+vary: Accept-Encoding
+x-frame-options: SAMEORIGIN
+x-pollyjs-finalurl: https://www.junodownload.com/products/404-02/
+
+<!DOCTYPE html>
+<html lang="en" prefix="fb: http://www.facebook.com/2008/fbml" prefix="og: http://ogp.me/ns#">
+	<head>
+		<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+				<title>Page Not Found</title>
+		<meta name="description" content="" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#252525">
+				<meta property="fb:app_id" content="267039006043" />
+		<meta property="og:url" content="https://www.junodownload.com/products/404-02/" />
+		<meta property="og:site_name" content="Juno Download" />
+		<meta property="og:title" content="Buy Page Not Found" />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="https://wwwcdn.junodownload.com/14000200/images/digital/facebook_jd.png" />
+		<meta property="og:description" content="" />
+				<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@junodownload">
+		<meta name="twitter:title" content="Buy Page Not Found">
+		<meta name="twitter:description" content="">
+		<meta name="twitter:image" content="https://wwwcdn.junodownload.com/14000200/images/digital/facebook_jd.png">
+				        				<link rel="preload" href="https://wwwcdn.junodownload.com/14000200/styles/fonts/junoicons.woff" as="font" crossorigin>
+		<link rel="preload" href="https://wwwcdn.junodownload.com/14000200/styles/fonts/Roboto-BlackItalic.woff" as="font" crossorigin>
+		<link rel="preload" href="https://wwwcdn.junodownload.com/14000200/images/digital/jd-sprite-global.svg" as="image">
+		<link rel="preconnect" href="https://imagescdn.junodownload.com">
+		
+		<link href="https://wwwcdn.junodownload.com/14000200/styles/css-common-downloads.css" rel="stylesheet" type="text/css" data-turbo-track="reload" />
+	
+			
+		<link rel="apple-touch-icon" sizes="180x180" href="https://wwwcdn.junodownload.com/14000200/images/digital/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="https://wwwcdn.junodownload.com/14000200/images/digital/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="https://wwwcdn.junodownload.com/14000200/images/digital/icons/favicon-16x16.png">
+
+		
+						<script type="text/javascript" data-turbo-eval="false">
+			var static_server_base_uri = 'https://wwwcdn.junodownload.com/14000200';
+            var product_images_server = 'https://imagescdn.junodownload.com';
+            var cms_images_base_uri = 'https://cmscdn.junodownload.com/cms';
+			var url_secure = 'https://www.junodownload.com';
+			var domain = 'junodownload.com';
+			//document.domain = domain;
+			window.name = 'JunoMain';
+			var imgpath = 'digital/';
+			var language = 'en';
+			var mp3_url = "https://www.junodownload.com/MP3/";
+			var use_miniplayer = 1;
+			var use_ultraplayer = true;
+			var loginSoftCookie = 'li_soft';
+			var loginStrictCookie = 'li_strict';
+			var pageLoadedViaTurbo = false;
+		</script>
+				
+		<script data-turbo-eval="false">window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) }; ga.l =+ new Date;ga('create', 'UA-431128-2','auto');ga('set', 'transport', 'beacon');ga('send', 'pageview');</script><script async src="https://www.google-analytics.com/analytics.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NMXT6CN0RN"></script><script data-turbo-eval="false">window.dataLayer = window.dataLayer || [];function gtag() { dataLayer.push(arguments); }gtag('js', new Date());gtag('config', 'G-NMXT6CN0RN');                        window.dataLayer.push = function(event) {
+                event['eventCallback'] = function() { };
+                if (event['gtm.element']) {
+                    event['gtm.element'] = event['gtm.element'].cloneNode(true); // in case the element is important
+                }
+                return Array.prototype.push.apply(this, arguments);
+            }
+            </script>				<script type="text/javascript" src="https://wwwcdn.junodownload.com/14000200/javascript/javascript-common-download.js" data-turbo-track="reload"></script>
+        
+							<meta name="turbo-cache-control" content="no-cache"> 			<script type="module">
+				import * as Turbo from "https://wwwcdn.junodownload.com/14000200/javascript/turbo.es2017-esm.min.js";
+				// The following patch allows defining a custom container instead of Turbo replacing the entire body. From: https://github.com/hotwired/turbo/issues/499
+				// In future versions of Turbo, such functionality may be included, see: https://github.com/hotwired/turbo/pull/711
+				Object.assign(Turbo.PageRenderer.prototype, {
+					assignNewBody() {
+						const container = document.querySelector("#juno-app");
+						const newContainer = this.newElement.querySelector("#juno-app");
+						container && newContainer ? container.replaceWith(newContainer) : document.body.replaceWith(this.newElement);
+					}
+				});
+			</script>
+		
+							<script data-turbo-eval="false">
+				(function(h,o,t,j,a,r) {
+					h.hj=h.hj||function() { (h.hj.q=h.hj.q||[]).push(arguments) };
+					h._hjSettings= { hjid:1615769,hjsv:6 };
+					a=o.getElementsByTagName('head')[0];
+					r=o.createElement('script');r.async=1;
+					r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+					a.appendChild(r);
+				})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+			</script>
+			</head>
+	<body id="juno-main">
+		<div id="juno-app">
+				<script type="text/javascript">
+			var ua_page = '';
+			var junoPageInitsBelowTheFold = [];
+			var turboEnabled = true;
+		</script>
+				<div class="header"><div class="container-fluid header-bar"><button type="button" class="btn btn-nav-mobile touch-toggle d-block d-lg-none" aria-label="Menu"><span class="glyphicon glyphicon-menu" aria-hidden="true"></span></button><div class="header-logo"><a href="https://www.junodownload.com" title="Juno Download"><svg><use xlink:href="#logo-juno" /></svg></a></div><div id="nav" class="nav" data-ua_location="navigation"><div class="nav-menu-item touch-hover th-delay" id="genres"><div class="nav-menu-btn" aria-haspopup="true"><span>GENRES</span><div class="glyphicon glyphicon-chevron-right nav-arrow" aria-hidden="true" onclick="this.parentNode.parentNode.classList.remove('open');"></div></div><div class="nav-menu-dd touch-dd"><div class="row"><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/all/">All genres</a><a class="nav-item" href="https://www.junodownload.com/downtempo/">Balearic/Downtempo</a><a class="nav-item" href="https://www.junodownload.com/bass/">Bass</a><a class="nav-item" href="https://www.junodownload.com/breakbeat/">Breakbeat</a><a class="nav-item" href="https://www.junodownload.com/disco/">Disco/Nu-Disco</a><a class="nav-item" href="https://www.junodownload.com/dj-tools/">DJ Tools</a><a class="nav-item" href="https://www.junodownload.com/drumandbass/">Drum & Bass / Jungle</a><a class="nav-item" href="https://www.junodownload.com/dubstep/">Dubstep</a><a class="nav-item ni-sub" href="https://www.junodownload.com/deep-dubstep/">Deep Dubstep</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dirty-heavy-dubstep/">Dirty Dubstep/Trap/Grime</a><a class="nav-item" href="https://www.junodownload.com/electro/">Electro</a><a class="nav-item" href="https://www.junodownload.com/dance-pop/">Euro Dance/Pop Dance</a><a class="nav-item" href="https://www.junodownload.com/footwork-juke/">Footwork/Juke</a></div><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/funk-soul-jazz/">Funk Soul & Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/broken-beat/">Broken Beat/Nu Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/funk-reissues/">Funk</a><a class="nav-item ni-sub" href="https://www.junodownload.com/international/">International</a><a class="nav-item ni-sub" href="https://www.junodownload.com/jazz/">Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/soul/">Soul</a><a class="nav-item" href="https://www.junodownload.com/hardcore/">Hardcore/style</a><a class="nav-item ni-sub" href="https://www.junodownload.com/gabba/">Gabba</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hardstyle/">Hardstyle</a><a class="nav-item ni-sub" href="https://www.junodownload.com/uk-hardcore/">UK Hardcore</a><a class="nav-item" href="https://www.junodownload.com/hip-hop/">Hip Hop/R&B</a><a class="nav-item" href="https://www.junodownload.com/house/">House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/deep-house/">Deep House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/electro-house/">Electro House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/funky-club-house/">Funky/Club House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-house/">Hard House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/minimal-tech-house/">Minimal/Tech House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/progressive-house/">Progressive House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/scouse-house/">Scouse House</a><a class="nav-item" href="https://www.junodownload.com/leftfield/">Leftfield</a><a class="nav-item ni-sub" href="https://www.junodownload.com/ambient-drone/">Ambient/Drone</a><a class="nav-item ni-sub" href="https://www.junodownload.com/coldwave-synth/">Coldwave/Synth</a><a class="nav-item ni-sub" href="https://www.junodownload.com/experimental-electronic/">Experimental/Electronic</a><a class="nav-item ni-sub" href="https://www.junodownload.com/industrial-noise/">Industrial/Noise</a><a class="nav-item ni-sub" href="https://www.junodownload.com/soundtrack/">Soundtracks</a></div><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/pop/">Pop</a><a class="nav-item" href="https://www.junodownload.com/reggae/">Reggae</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dancehall-reggae/">Dancehall/Ragga</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dub-reggae/">Dub</a><a class="nav-item ni-sub" href="https://www.junodownload.com/reggae-classics/">Reggae Classics/Ska</a><a class="nav-item ni-sub" href="https://www.junodownload.com/roots-reggae/">Roots/Lovers Rock</a><a class="nav-item" href="https://www.junodownload.com/sample-packs/">Sample Packs</a><a class="nav-item" href="https://www.junodownload.com/rock-music/">Rock (All)</a><a class="nav-item ni-sub" href="https://www.junodownload.com/50s-60s-rocknroll-rhythmandblues/">50s/60s</a><a class="nav-item ni-sub" href="https://www.junodownload.com/indie/">Indie/Alternative</a><a class="nav-item ni-sub" href="https://www.junodownload.com/rock/">Rock</a><a class="nav-item" href="https://www.junodownload.com/techno/">Techno (All)</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-techno/">Hard Techno</a><a class="nav-item ni-sub" href="https://www.junodownload.com/techno-music/">Techno</a><a class="nav-item" href="https://www.junodownload.com/trance-music/">Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-trance/">Hard Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/pop-trance/">Pop Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/psy-goa-trance/">Psy/Goa Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/uplifting-trance/">Uplifting Trance</a><a class="nav-item" href="https://www.junodownload.com/4x4-garage/">UK Garage</a></div></div></div></div><div class="nav-menu-item touch-hover th-delay" id="new-releases"><div class="nav-menu-btn" aria-haspopup="true"><a href="https://www.junodownload.com/all/this-week/releases/" data-ua_action="click main nav tab: new-releases" onclick="uaAddEvent(event);">NEW RELEASES</a><div class="glyphicon glyphicon-chevron-right nav-arrow" aria-hidden="true" onclick="this.parentNode.parentNode.classList.remove('open');"></div></div><div class="nav-menu-dd touch-dd"><div class="row"><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/all/this-week/releases/" rel="nofollow">All genres</a><a class="nav-item" href="https://www.junodownload.com/downtempo/this-week/releases/" rel="nofollow">Balearic/Downtempo</a><a class="nav-item" href="https://www.junodownload.com/bass/this-week/releases/" rel="nofollow">Bass</a><a class="nav-item" href="https://www.junodownload.com/breakbeat/this-week/releases/" rel="nofollow">Breakbeat</a><a class="nav-item" href="https://www.junodownload.com/disco/this-week/releases/" rel="nofollow">Disco/Nu-Disco</a><a class="nav-item" href="https://www.junodownload.com/dj-tools/this-week/releases/" rel="nofollow">DJ Tools</a><a class="nav-item" href="https://www.junodownload.com/drumandbass/this-week/releases/" rel="nofollow">Drum & Bass / Jungle</a><a class="nav-item" href="https://www.junodownload.com/dubstep/this-week/releases/" rel="nofollow">Dubstep</a><a class="nav-item ni-sub" href="https://www.junodownload.com/deep-dubstep/this-week/releases/" rel="nofollow">Deep Dubstep</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dirty-heavy-dubstep/this-week/releases/" rel="nofollow">Dirty Dubstep/Trap/Grime</a><a class="nav-item" href="https://www.junodownload.com/electro/this-week/releases/" rel="nofollow">Electro</a><a class="nav-item" href="https://www.junodownload.com/dance-pop/this-week/releases/" rel="nofollow">Euro Dance/Pop Dance</a><a class="nav-item" href="https://www.junodownload.com/footwork-juke/this-week/releases/" rel="nofollow">Footwork/Juke</a></div><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/funk-soul-jazz/this-week/releases/" rel="nofollow">Funk Soul & Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/broken-beat/this-week/releases/" rel="nofollow">Broken Beat/Nu Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/funk-reissues/this-week/releases/" rel="nofollow">Funk</a><a class="nav-item ni-sub" href="https://www.junodownload.com/international/this-week/releases/" rel="nofollow">International</a><a class="nav-item ni-sub" href="https://www.junodownload.com/jazz/this-week/releases/" rel="nofollow">Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/soul/this-week/releases/" rel="nofollow">Soul</a><a class="nav-item" href="https://www.junodownload.com/hardcore/this-week/releases/" rel="nofollow">Hardcore/style</a><a class="nav-item ni-sub" href="https://www.junodownload.com/gabba/this-week/releases/" rel="nofollow">Gabba</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hardstyle/this-week/releases/" rel="nofollow">Hardstyle</a><a class="nav-item ni-sub" href="https://www.junodownload.com/uk-hardcore/this-week/releases/" rel="nofollow">UK Hardcore</a><a class="nav-item" href="https://www.junodownload.com/hip-hop/this-week/releases/" rel="nofollow">Hip Hop/R&B</a><a class="nav-item" href="https://www.junodownload.com/house/this-week/releases/" rel="nofollow">House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/deep-house/this-week/releases/" rel="nofollow">Deep House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/electro-house/this-week/releases/" rel="nofollow">Electro House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/funky-club-house/this-week/releases/" rel="nofollow">Funky/Club House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-house/this-week/releases/" rel="nofollow">Hard House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/minimal-tech-house/this-week/releases/" rel="nofollow">Minimal/Tech House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/progressive-house/this-week/releases/" rel="nofollow">Progressive House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/scouse-house/this-week/releases/" rel="nofollow">Scouse House</a><a class="nav-item" href="https://www.junodownload.com/leftfield/this-week/releases/" rel="nofollow">Leftfield</a><a class="nav-item ni-sub" href="https://www.junodownload.com/ambient-drone/this-week/releases/" rel="nofollow">Ambient/Drone</a><a class="nav-item ni-sub" href="https://www.junodownload.com/coldwave-synth/this-week/releases/" rel="nofollow">Coldwave/Synth</a><a class="nav-item ni-sub" href="https://www.junodownload.com/experimental-electronic/this-week/releases/" rel="nofollow">Experimental/Electronic</a><a class="nav-item ni-sub" href="https://www.junodownload.com/industrial-noise/this-week/releases/" rel="nofollow">Industrial/Noise</a><a class="nav-item ni-sub" href="https://www.junodownload.com/soundtrack/this-week/releases/" rel="nofollow">Soundtracks</a></div><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/pop/this-week/releases/" rel="nofollow">Pop</a><a class="nav-item" href="https://www.junodownload.com/reggae/this-week/releases/" rel="nofollow">Reggae</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dancehall-reggae/this-week/releases/" rel="nofollow">Dancehall/Ragga</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dub-reggae/this-week/releases/" rel="nofollow">Dub</a><a class="nav-item ni-sub" href="https://www.junodownload.com/reggae-classics/this-week/releases/" rel="nofollow">Reggae Classics/Ska</a><a class="nav-item ni-sub" href="https://www.junodownload.com/roots-reggae/this-week/releases/" rel="nofollow">Roots/Lovers Rock</a><a class="nav-item" href="https://www.junodownload.com/all/four-weeks/releases/?music_product_type=producer-pack" rel="nofollow">Sample Packs</a><a class="nav-item" href="https://www.junodownload.com/rock-music/this-week/releases/" rel="nofollow">Rock (All)</a><a class="nav-item ni-sub" href="https://www.junodownload.com/50s-60s-rocknroll-rhythmandblues/this-week/releases/" rel="nofollow">50s/60s</a><a class="nav-item ni-sub" href="https://www.junodownload.com/indie/this-week/releases/" rel="nofollow">Indie/Alternative</a><a class="nav-item ni-sub" href="https://www.junodownload.com/rock/this-week/releases/" rel="nofollow">Rock</a><a class="nav-item" href="https://www.junodownload.com/techno/this-week/releases/" rel="nofollow">Techno (All)</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-techno/this-week/releases/" rel="nofollow">Hard Techno</a><a class="nav-item ni-sub" href="https://www.junodownload.com/techno-music/this-week/releases/" rel="nofollow">Techno</a><a class="nav-item" href="https://www.junodownload.com/trance-music/this-week/releases/" rel="nofollow">Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-trance/this-week/releases/" rel="nofollow">Hard Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/pop-trance/this-week/releases/" rel="nofollow">Pop Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/psy-goa-trance/this-week/releases/" rel="nofollow">Psy/Goa Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/uplifting-trance/this-week/releases/" rel="nofollow">Uplifting Trance</a><a class="nav-item" href="https://www.junodownload.com/4x4-garage/this-week/releases/" rel="nofollow">UK Garage</a></div></div></div></div><div class="nav-menu-item touch-hover th-delay" id="bestsellers"><div class="nav-menu-btn" aria-haspopup="true"><a href="https://www.junodownload.com/all/charts/bestsellers/this-week/releases/" data-ua_action="click main nav tab: bestsellers" onclick="uaAddEvent(event);">BESTSELLERS</a><div class="glyphicon glyphicon-chevron-right nav-arrow" aria-hidden="true" onclick="this.parentNode.parentNode.classList.remove('open');"></div></div><div class="nav-menu-dd touch-dd"><div class="row"><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/all/charts/bestsellers/this-week/releases/" rel="nofollow">All genres</a><a class="nav-item" href="https://www.junodownload.com/downtempo/charts/bestsellers/this-week/releases/" rel="nofollow">Balearic/Downtempo</a><a class="nav-item" href="https://www.junodownload.com/bass/charts/bestsellers/this-week/releases/" rel="nofollow">Bass</a><a class="nav-item" href="https://www.junodownload.com/breakbeat/charts/bestsellers/this-week/releases/" rel="nofollow">Breakbeat</a><a class="nav-item" href="https://www.junodownload.com/disco/charts/bestsellers/this-week/releases/" rel="nofollow">Disco/Nu-Disco</a><a class="nav-item" href="https://www.junodownload.com/dj-tools/charts/bestsellers/this-week/releases/" rel="nofollow">DJ Tools</a><a class="nav-item" href="https://www.junodownload.com/drumandbass/charts/bestsellers/this-week/releases/" rel="nofollow">Drum & Bass / Jungle</a><a class="nav-item" href="https://www.junodownload.com/dubstep/charts/bestsellers/this-week/releases/" rel="nofollow">Dubstep</a><a class="nav-item ni-sub" href="https://www.junodownload.com/deep-dubstep/charts/bestsellers/this-week/releases/" rel="nofollow">Deep Dubstep</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dirty-heavy-dubstep/charts/bestsellers/this-week/releases/" rel="nofollow">Dirty Dubstep/Trap/Grime</a><a class="nav-item" href="https://www.junodownload.com/electro/charts/bestsellers/this-week/releases/" rel="nofollow">Electro</a><a class="nav-item" href="https://www.junodownload.com/dance-pop/charts/bestsellers/this-week/releases/" rel="nofollow">Euro Dance/Pop Dance</a><a class="nav-item" href="https://www.junodownload.com/footwork-juke/charts/bestsellers/this-week/releases/" rel="nofollow">Footwork/Juke</a></div><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/funk-soul-jazz/charts/bestsellers/this-week/releases/" rel="nofollow">Funk Soul & Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/broken-beat/charts/bestsellers/this-week/releases/" rel="nofollow">Broken Beat/Nu Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/funk-reissues/charts/bestsellers/this-week/releases/" rel="nofollow">Funk</a><a class="nav-item ni-sub" href="https://www.junodownload.com/international/charts/bestsellers/this-week/releases/" rel="nofollow">International</a><a class="nav-item ni-sub" href="https://www.junodownload.com/jazz/charts/bestsellers/this-week/releases/" rel="nofollow">Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/soul/charts/bestsellers/this-week/releases/" rel="nofollow">Soul</a><a class="nav-item" href="https://www.junodownload.com/hardcore/charts/bestsellers/this-week/releases/" rel="nofollow">Hardcore/style</a><a class="nav-item ni-sub" href="https://www.junodownload.com/gabba/charts/bestsellers/this-week/releases/" rel="nofollow">Gabba</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hardstyle/charts/bestsellers/this-week/releases/" rel="nofollow">Hardstyle</a><a class="nav-item ni-sub" href="https://www.junodownload.com/uk-hardcore/charts/bestsellers/this-week/releases/" rel="nofollow">UK Hardcore</a><a class="nav-item" href="https://www.junodownload.com/hip-hop/charts/bestsellers/this-week/releases/" rel="nofollow">Hip Hop/R&B</a><a class="nav-item" href="https://www.junodownload.com/house/charts/bestsellers/this-week/releases/" rel="nofollow">House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/deep-house/charts/bestsellers/this-week/releases/" rel="nofollow">Deep House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/electro-house/charts/bestsellers/this-week/releases/" rel="nofollow">Electro House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/funky-club-house/charts/bestsellers/this-week/releases/" rel="nofollow">Funky/Club House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-house/charts/bestsellers/this-week/releases/" rel="nofollow">Hard House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/minimal-tech-house/charts/bestsellers/this-week/releases/" rel="nofollow">Minimal/Tech House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/progressive-house/charts/bestsellers/this-week/releases/" rel="nofollow">Progressive House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/scouse-house/charts/bestsellers/this-week/releases/" rel="nofollow">Scouse House</a><a class="nav-item" href="https://www.junodownload.com/leftfield/charts/bestsellers/this-week/releases/" rel="nofollow">Leftfield</a><a class="nav-item ni-sub" href="https://www.junodownload.com/ambient-drone/charts/bestsellers/this-week/releases/" rel="nofollow">Ambient/Drone</a><a class="nav-item ni-sub" href="https://www.junodownload.com/coldwave-synth/charts/bestsellers/this-week/releases/" rel="nofollow">Coldwave/Synth</a><a class="nav-item ni-sub" href="https://www.junodownload.com/experimental-electronic/charts/bestsellers/this-week/releases/" rel="nofollow">Experimental/Electronic</a><a class="nav-item ni-sub" href="https://www.junodownload.com/industrial-noise/charts/bestsellers/this-week/releases/" rel="nofollow">Industrial/Noise</a><a class="nav-item ni-sub" href="https://www.junodownload.com/soundtrack/charts/bestsellers/this-week/releases/" rel="nofollow">Soundtracks</a></div><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/pop/charts/bestsellers/this-week/releases/" rel="nofollow">Pop</a><a class="nav-item" href="https://www.junodownload.com/reggae/charts/bestsellers/this-week/releases/" rel="nofollow">Reggae</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dancehall-reggae/charts/bestsellers/this-week/releases/" rel="nofollow">Dancehall/Ragga</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dub-reggae/charts/bestsellers/this-week/releases/" rel="nofollow">Dub</a><a class="nav-item ni-sub" href="https://www.junodownload.com/reggae-classics/charts/bestsellers/this-week/releases/" rel="nofollow">Reggae Classics/Ska</a><a class="nav-item ni-sub" href="https://www.junodownload.com/roots-reggae/charts/bestsellers/this-week/releases/" rel="nofollow">Roots/Lovers Rock</a><a class="nav-item" href="https://www.junodownload.com/all/charts/bestsellers/six-months/releases/?music_product_type=producer-pack" rel="nofollow">Sample Packs</a><a class="nav-item" href="https://www.junodownload.com/rock-music/charts/bestsellers/this-week/releases/" rel="nofollow">Rock (All)</a><a class="nav-item ni-sub" href="https://www.junodownload.com/50s-60s-rocknroll-rhythmandblues/charts/bestsellers/this-week/releases/" rel="nofollow">50s/60s</a><a class="nav-item ni-sub" href="https://www.junodownload.com/indie/charts/bestsellers/this-week/releases/" rel="nofollow">Indie/Alternative</a><a class="nav-item ni-sub" href="https://www.junodownload.com/rock/charts/bestsellers/this-week/releases/" rel="nofollow">Rock</a><a class="nav-item" href="https://www.junodownload.com/techno/charts/bestsellers/this-week/releases/" rel="nofollow">Techno (All)</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-techno/charts/bestsellers/this-week/releases/" rel="nofollow">Hard Techno</a><a class="nav-item ni-sub" href="https://www.junodownload.com/techno-music/charts/bestsellers/this-week/releases/" rel="nofollow">Techno</a><a class="nav-item" href="https://www.junodownload.com/trance-music/charts/bestsellers/this-week/releases/" rel="nofollow">Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-trance/charts/bestsellers/this-week/releases/" rel="nofollow">Hard Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/pop-trance/charts/bestsellers/this-week/releases/" rel="nofollow">Pop Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/psy-goa-trance/charts/bestsellers/this-week/releases/" rel="nofollow">Psy/Goa Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/uplifting-trance/charts/bestsellers/this-week/releases/" rel="nofollow">Uplifting Trance</a><a class="nav-item" href="https://www.junodownload.com/4x4-garage/charts/bestsellers/this-week/releases/" rel="nofollow">UK Garage</a></div></div></div></div><div class="nav-menu-item touch-hover th-delay" id="dj-charts"><div class="nav-menu-btn" aria-haspopup="true"><a href="https://www.junodownload.com/all/top_dj_charts/" data-ua_action="click main nav tab: dj-charts" onclick="uaAddEvent(event);"><span class="d-lg-none d-xl-inline">DJ </span>CHARTS</a><div class="glyphicon glyphicon-chevron-right nav-arrow" aria-hidden="true" onclick="this.parentNode.parentNode.classList.remove('open');"></div></div><div class="nav-menu-dd touch-dd"><div class="row"><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/all/top_dj_charts/" rel="nofollow">All genres</a><a class="nav-item" href="https://www.junodownload.com/downtempo/top_dj_charts/" rel="nofollow">Balearic/Downtempo</a><a class="nav-item" href="https://www.junodownload.com/bass/top_dj_charts/" rel="nofollow">Bass</a><a class="nav-item" href="https://www.junodownload.com/breakbeat/top_dj_charts/" rel="nofollow">Breakbeat</a><a class="nav-item" href="https://www.junodownload.com/disco/top_dj_charts/" rel="nofollow">Disco/Nu-Disco</a><a class="nav-item" href="https://www.junodownload.com/dj-tools/top_dj_charts/" rel="nofollow">DJ Tools</a><a class="nav-item" href="https://www.junodownload.com/drumandbass/top_dj_charts/" rel="nofollow">Drum & Bass / Jungle</a><a class="nav-item" href="https://www.junodownload.com/dubstep/top_dj_charts/" rel="nofollow">Dubstep</a><a class="nav-item ni-sub" href="https://www.junodownload.com/deep-dubstep/top_dj_charts/" rel="nofollow">Deep Dubstep</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dirty-heavy-dubstep/top_dj_charts/" rel="nofollow">Dirty Dubstep/Trap/Grime</a><a class="nav-item" href="https://www.junodownload.com/electro/top_dj_charts/" rel="nofollow">Electro</a><a class="nav-item" href="https://www.junodownload.com/dance-pop/top_dj_charts/" rel="nofollow">Euro Dance/Pop Dance</a><a class="nav-item" href="https://www.junodownload.com/footwork-juke/top_dj_charts/" rel="nofollow">Footwork/Juke</a></div><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/funk-soul-jazz/top_dj_charts/" rel="nofollow">Funk Soul & Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/broken-beat/top_dj_charts/" rel="nofollow">Broken Beat/Nu Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/funk-reissues/top_dj_charts/" rel="nofollow">Funk</a><a class="nav-item ni-sub" href="https://www.junodownload.com/international/top_dj_charts/" rel="nofollow">International</a><a class="nav-item ni-sub" href="https://www.junodownload.com/jazz/top_dj_charts/" rel="nofollow">Jazz</a><a class="nav-item ni-sub" href="https://www.junodownload.com/soul/top_dj_charts/" rel="nofollow">Soul</a><a class="nav-item" href="https://www.junodownload.com/hardcore/top_dj_charts/" rel="nofollow">Hardcore/style</a><a class="nav-item ni-sub" href="https://www.junodownload.com/gabba/top_dj_charts/" rel="nofollow">Gabba</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hardstyle/top_dj_charts/" rel="nofollow">Hardstyle</a><a class="nav-item ni-sub" href="https://www.junodownload.com/uk-hardcore/top_dj_charts/" rel="nofollow">UK Hardcore</a><a class="nav-item" href="https://www.junodownload.com/hip-hop/top_dj_charts/" rel="nofollow">Hip Hop/R&B</a><a class="nav-item" href="https://www.junodownload.com/house/top_dj_charts/" rel="nofollow">House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/deep-house/top_dj_charts/" rel="nofollow">Deep House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/electro-house/top_dj_charts/" rel="nofollow">Electro House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/funky-club-house/top_dj_charts/" rel="nofollow">Funky/Club House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-house/top_dj_charts/" rel="nofollow">Hard House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/minimal-tech-house/top_dj_charts/" rel="nofollow">Minimal/Tech House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/progressive-house/top_dj_charts/" rel="nofollow">Progressive House</a><a class="nav-item ni-sub" href="https://www.junodownload.com/scouse-house/top_dj_charts/" rel="nofollow">Scouse House</a><a class="nav-item" href="https://www.junodownload.com/leftfield/top_dj_charts/" rel="nofollow">Leftfield</a><a class="nav-item ni-sub" href="https://www.junodownload.com/ambient-drone/top_dj_charts/" rel="nofollow">Ambient/Drone</a><a class="nav-item ni-sub" href="https://www.junodownload.com/coldwave-synth/top_dj_charts/" rel="nofollow">Coldwave/Synth</a><a class="nav-item ni-sub" href="https://www.junodownload.com/experimental-electronic/top_dj_charts/" rel="nofollow">Experimental/Electronic</a><a class="nav-item ni-sub" href="https://www.junodownload.com/industrial-noise/top_dj_charts/" rel="nofollow">Industrial/Noise</a><a class="nav-item ni-sub" href="https://www.junodownload.com/soundtrack/top_dj_charts/" rel="nofollow">Soundtracks</a></div><div class="col-12 col-lg-4"><a class="nav-item" href="https://www.junodownload.com/pop/top_dj_charts/" rel="nofollow">Pop</a><a class="nav-item" href="https://www.junodownload.com/reggae/top_dj_charts/" rel="nofollow">Reggae</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dancehall-reggae/top_dj_charts/" rel="nofollow">Dancehall/Ragga</a><a class="nav-item ni-sub" href="https://www.junodownload.com/dub-reggae/top_dj_charts/" rel="nofollow">Dub</a><a class="nav-item ni-sub" href="https://www.junodownload.com/reggae-classics/top_dj_charts/" rel="nofollow">Reggae Classics/Ska</a><a class="nav-item ni-sub" href="https://www.junodownload.com/roots-reggae/top_dj_charts/" rel="nofollow">Roots/Lovers Rock</a><a class="nav-item" href="https://www.junodownload.com/rock-music/top_dj_charts/" rel="nofollow">Rock (All)</a><a class="nav-item ni-sub" href="https://www.junodownload.com/50s-60s-rocknroll-rhythmandblues/top_dj_charts/" rel="nofollow">50s/60s</a><a class="nav-item ni-sub" href="https://www.junodownload.com/indie/top_dj_charts/" rel="nofollow">Indie/Alternative</a><a class="nav-item ni-sub" href="https://www.junodownload.com/rock/top_dj_charts/" rel="nofollow">Rock</a><a class="nav-item" href="https://www.junodownload.com/techno/top_dj_charts/" rel="nofollow">Techno (All)</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-techno/top_dj_charts/" rel="nofollow">Hard Techno</a><a class="nav-item ni-sub" href="https://www.junodownload.com/techno-music/top_dj_charts/" rel="nofollow">Techno</a><a class="nav-item" href="https://www.junodownload.com/trance-music/top_dj_charts/" rel="nofollow">Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/hard-trance/top_dj_charts/" rel="nofollow">Hard Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/pop-trance/top_dj_charts/" rel="nofollow">Pop Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/psy-goa-trance/top_dj_charts/" rel="nofollow">Psy/Goa Trance</a><a class="nav-item ni-sub" href="https://www.junodownload.com/uplifting-trance/top_dj_charts/" rel="nofollow">Uplifting Trance</a><a class="nav-item" href="https://www.junodownload.com/4x4-garage/top_dj_charts/" rel="nofollow">UK Garage</a></div></div></div></div><div class="nav-menu-item touch-hover th-delay" id="more"><div class="nav-menu-btn" aria-haspopup="true"><span>MORE</span><div class="glyphicon glyphicon-chevron-right nav-arrow" aria-hidden="true" onclick="this.parentNode.parentNode.classList.remove('open');"></div></div><div class="nav-menu-dd touch-dd"><div class="row"><div class="col-12"><a class="nav-item" href="/news/" rel="nofollow">News</a><a class="nav-item" href="/all/juno-recommends/" rel="nofollow">Juno Recommends</a><a class="nav-item" href="/all/preorders/" rel="nofollow">Preorders</a><a class="nav-item" href="/all/sample-packs/" rel="nofollow">Sample Packs</a><a class="nav-item" href="/all/stems/releases/" rel="nofollow">Stems</a></div></div></div></div></div>
+<div class="header-search d-none d-sm-block"><form action="/search/" id="search-term-main" class="juno-search"><div id="query-main-container"><input type="text" id="query-main" name="q[all][]" class="form-control search-input" placeholder="Search Juno..." autocomplete="off" /></div><button type="submit" id="search-submit" title="Search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></form>
+<script>
+    $(document).ready(function() {
+        junoHeader.initialiseSearch();    
+    });
+</script>
+</div><div class="header-toolbar"><div class="ht-item ht-mobile-search touch-toggle th-delay d-block d-md-none"><a class="ht-btn" aria-haspopup="true"><span class="glyphicon glyphicon-search" aria-hidden="true" title="Search"></span></a><div class="ht-dd touch-dd mobile-search"></div></div><div class="ht-item ht-help touch-toggle th-delay d-none d-md-block"><a class="ht-btn" onclick="ga('send', 'event','Masthead', 'Click', 'Help');" href="https://www.junodownload.com/help/"aria-haspopup="true"><span class="glyphicon glyphicon-help" aria-hidden="true" title="Help"></span></a><div class="ht-dd touch-dd help"><a class="ht-dd-item" href="https://www.junodownload.com/help/ordering/">Ordering</a><a class="ht-dd-item" href="https://www.junodownload.com/help/ordering-problems/">Ordering Problems</a><a class="ht-dd-item" href="https://www.junodownload.com/help/faq/">FAQ</a><a class="ht-dd-item" href="https://www.junodownload.com/contact-juno/">Contact Us (Customers)</a><a class="ht-dd-item" href="https://www.junodownload.com/supplier-contact-form/">Contact Us (Suppliers)</a><a class="ht-dd-item" href="https://www.junodownload.com/gift/">Gift certificates</a><a class="ht-dd-item" href="https://www.junodownload.com/help/about/">About Juno</a><a class="ht-dd-item" href="https://www.junodownload.com/account/">Manage account</a><a class="ht-dd-item" href="https://www.junodownload.com/help/my-charts/">My Charts</a><a class="ht-dd-item" href="https://www.junodownload.com/feedback/">Feedback</a><a class="ht-dd-item" href="https://www.junodownload.com/help/privacy-policy/">Privacy Policy</a><a class="ht-dd-item" href="https://www.junodownload.com/help/terms-and-conditions/">Terms and Conditions</a><a class="ht-dd-item" href="https://www.junodownload.com/help/marketing/">Juno Marketing and PR department</a><a class="ht-dd-item" href="https://www.junodownload.com/profile-form/">Artist / Label Profile Submission</a><a class="ht-dd-item" href="https://www.junodownload.com/promote/">Promote your label / releases</a><a class="ht-dd-item" href="https://www.junodownload.com/help/download-via-dropbox/">How do I download via Dropbox?</a></div></div><div class="ht-item ht-my-juno touch-toggle th-delay"><a class="ht-btn login-soft" onclick="ga('send', 'event','Masthead', 'Click', 'Login');" href="https://www.junodownload.com/login/"data-redir="https%3A%2F%2Fwww.junodownload.com%2Fproducts%2F404-02%2F"rel="nofollow"aria-haspopup="true"><span class="glyphicon glyphicon-person" aria-hidden="true" title="My Juno"></span></a><div class="ht-dd touch-dd my-juno"><div class="ht-login"><a class="btn btn-block btn-primary login-soft" onclick="ga('send', 'event','Masthead', 'Click', 'Login');" href="https://www.junodownload.com/login/"data-redir="https%3A%2F%2Fwww.junodownload.com%2Fproducts%2F404-02%2F"rel="nofollow">Log In/Register</a></div><a onclick="ga('send', 'event','Masthead', 'Click', 'MyJuno - My artists and labels');"class="ht-dd-item login-soft"href="https://www.junodownload.com/account/subscriptions/#subs-artist-label"data-redir="https://www.junodownload.com/account/subscriptions/#subs-artist-label">My artists and labels</a><a onclick="ga('send', 'event','Masthead', 'Click', 'MyJuno - My Wishlist');"class="ht-dd-item login-soft"href="https://www.junodownload.com/wishlist/"data-redir="https://www.junodownload.com/wishlist/">My Wishlist</a><a onclick="ga('send', 'event','Masthead', 'Click', 'MyJuno - My New Release E-mails');"class="ht-dd-item login-soft"href="https://www.junodownload.com/account/subscriptions/"data-redir="https://www.junodownload.com/account/subscriptions/">My New Release E-mails</a><a onclick="ga('send', 'event','Masthead', 'Click', 'MyJuno - My Coming Soon Alerts');"class="ht-dd-item login-soft"href="https://www.junodownload.com/account/subscriptions/#subs-coming-soon"data-redir="https://www.junodownload.com/account/subscriptions/#subs-coming-soon">My Coming Soon Alerts</a><a onclick="ga('send', 'event','Masthead', 'Click', 'MyJuno - My Charts');"class="ht-dd-item login-soft ip5-hide"href="https://www.junodownload.com/charts/charteditor/"data-redir="https://www.junodownload.com/charts/charteditor/">My Charts</a><a onclick="ga('send', 'event','Masthead', 'Click', 'MyJuno - My Account');"class="ht-dd-item login-soft"href="https://www.junodownload.com/account/"data-redir="https://www.junodownload.com/account/">My Account</a><a onclick="ga('send', 'event','Masthead', 'Click', 'MyJuno - My Downloads');"class="ht-dd-item login-soft"href="https://www.junodownload.com/account/downloads/"data-redir="https://www.junodownload.com/account/downloads/">My Downloads</a><a onclick="ga('send', 'event','Masthead', 'Click', 'MyJuno - My Order History');"class="ht-dd-item login-soft"href="https://www.junodownload.com/account/order-history/"data-redir="https://www.junodownload.com/account/order-history/">My Order History</a><div class="ht-help-mobile d-block d-md-none"><a class="ht-dd-item" href="https://www.junodownload.com/help/" onclick="ga('send', 'event','Masthead', 'Click', 'Help');">Help</a></div><div class="ht-currency-mobile"><div class="dropdown"><button type="button" class="btn btn-block btn-outline-light dropdown-toggle" id="ht-dd-currency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Currency: EUR</button><div class="dropdown-menu" aria-labelledby="ht-dd-currency"><button type="button" class="dropdown-item">AED</button><button type="button" class="dropdown-item">ARS</button><button type="button" class="dropdown-item">AUD</button><button type="button" class="dropdown-item">BRL</button><button type="button" class="dropdown-item">BYN</button><button type="button" class="dropdown-item">CAD</button><button type="button" class="dropdown-item">CHF</button><button type="button" class="dropdown-item">CLP</button><button type="button" class="dropdown-item">CNY</button><button type="button" class="dropdown-item">CZK</button><button type="button" class="dropdown-item">DKK</button><button type="button" class="dropdown-item">GBP</button><button type="button" class="dropdown-item">GEL</button><button type="button" class="dropdown-item">HKD</button><button type="button" class="dropdown-item">IDR</button><button type="button" class="dropdown-item">ILS</button><button type="button" class="dropdown-item">INR</button><button type="button" class="dropdown-item">ISK</button><button type="button" class="dropdown-item">JPY</button><button type="button" class="dropdown-item">KRW</button><button type="button" class="dropdown-item">KZT</button><button type="button" class="dropdown-item">LBP</button><button type="button" class="dropdown-item">MKD</button><button type="button" class="dropdown-item">MXN</button><button type="button" class="dropdown-item">MYR</button><button type="button" class="dropdown-item">NOK</button><button type="button" class="dropdown-item">NZD</button><button type="button" class="dropdown-item">PEN</button><button type="button" class="dropdown-item">PHP</button><button type="button" class="dropdown-item">PLN</button><button type="button" class="dropdown-item">RSD</button><button type="button" class="dropdown-item">RUB</button><button type="button" class="dropdown-item">SEK</button><button type="button" class="dropdown-item">SGD</button><button type="button" class="dropdown-item">THB</button><button type="button" class="dropdown-item">TRY</button><button type="button" class="dropdown-item">TWD</button><button type="button" class="dropdown-item">USD</button><button type="button" class="dropdown-item">UYU</button><button type="button" class="dropdown-item">ZAR</button></div></div></div></div></div><div class="ht-item ht-wishlist touch-toggle th-delay"><a class="ht-btn login-soft" onclick="ga('send', 'event','Masthead', 'Click', 'Wishlist');" href="https://www.junodownload.com/wishlist/"data-redir="/wishlist/"rel="nofollow"aria-haspopup="true"><span class="glyphicon glyphicon-w" aria-hidden="true" title="Wishlist"></span></a><div class="ht-dd touch-dd wishlist"><div class="wishlist-login mb-md">Log in to view your wishlist</div><div class="wishlist-empty mb-md">Your wishlist is empty</div><div class="wishlist-status mb-md" data-ua_location="quick_wishlist"><div class="mb-sm">Items in wishlist: <span class="ws-item-count text-white"></span></div><div class="mb-sm">Recently added:</div><div class="ws-recent-items"></div></div><div class="quick-loading"><img src="https://wwwcdn.junodownload.com/14000200/images/progress-med-header-jd.gif" alt="Loading..."></div><a class="btn btn-block btn-primary login-soft" onclick="ga('send', 'event','Masthead', 'Click', 'Wishlist');" href="https://www.junodownload.com/wishlist/"data-redir="/wishlist/"rel="nofollow">View wishlist</a></div></div><div class="ht-item ht-cart touch-toggle th-delay"><a onclick="ga('send', 'event','Masthead', 'Click', 'Cart');" href="https://www.junodownload.com/cart/"rel="nofollow" class="ht-btn" aria-haspopup="true"><div class="glyphicon glyphicon-cart" aria-hidden="true" title="Cart"><span class="ht-cart-count">0</span></div></a><div class="ht-dd touch-dd cart"><div class="cart-empty mb-md">Your cart is empty</div><div class="cart-status mb-md" data-ua_location="quick_cart"><div class="mb-sm">Items in cart: <span class="cs-item-count text-white"></span></div><div class="mb-md">Subtotal: <span class="cs-subtotal text-white"></span></div><div class="mb-sm">Recently added:</div><div class="cs-recent-items"></div></div><div class="quick-loading"><img src="https://wwwcdn.junodownload.com/14000200/images/progress-med-header-jd.gif" alt="Loading..."></div><a class="btn btn-block btn-primary" onclick="ga('send', 'event','Masthead', 'Click', 'Cart');" href="https://www.junodownload.com/cart/" rel="nofollow">View cart</a></div></div></div></div><script type="text/javascript">
+        $(document).ready(function() {
+            junoHeader.initialiseTouchHover();
+            
+            $('#query-main').one('focus', junoHeader.initialiseSearchAutocomplete);
+    
+            $('.ht-cart .ht-btn').on('mouseenter touchstart', junoHeader.updateQuickCart);
+            $('.ht-wishlist .ht-btn').on('mouseenter touchstart', junoHeader.updateQuickWishlist);
+            $('#nav a, .header-toolbar a').on('click', junoHeader.closeNavDropdown);
+            $('.ht-currency .dropdown-item, .ht-currency-mobile .dropdown-item').on('click', function() {
+                JUNO_API.Currency.set($(this).text());
+            });
+        });
+    
+        junoPageInitsBelowTheFold.push(function () {
+            if ($('.ht-dd.cart').css("visibility") == "visible") junoHeader.updateQuickCart();
+            if ($('.ht-dd.wishlist').css("visibility") == "visible") junoHeader.updateQuickWishlist();
+            junoHeader.initialiseQuickCartCount();
+        });
+    </script></div><div class="header-ph"></div>								<script type="text/javascript">
+					var aPromoBar = [{"href":"\/","src":"1527\/13651\/1_2.png","alt":"DJ-Friendly Full-Length Tracks, DRM Free, Plays on any MP3 Player, No Lossless Upgrades, Secure Shopping"}];
+			</script>
+    <div class="container-fluid d-none d-md-block">
+		<a id="sale_img_anchor"><div id="sale_img"><img id="img-nav-banner" src="data:image/gif;base64,R0lGODlhAQABAIAAANvf7wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="></div></a>
+	</div>
+<div class="container-fluid d-none d-md-block"><div id="topbar_bread" itemscope itemtype="https://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="https://www.junodownload.com/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></span>&nbsp;<span class="bread-chevron">&#x203A;</span>&nbsp;<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/charts/dj_charts/" itemprop="item"><span itemprop="name">DJ charts</span></a><meta itemprop="position" content="2" /></span>&nbsp;<span class="bread-chevron">&#x203A;</span>&nbsp;<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/charts/dj/583004-WMC_2009_27th_March_Miami_Beach/" itemprop="item"><span itemprop="name">WMC_2009_27th_March_Miami_Beach</span></a><meta itemprop="position" content="3" /></span>&nbsp;<span class="bread-chevron">&#x203A;</span>&nbsp;<h1 itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">Page Not Found</span><meta itemprop="position" content="4" /></h1><div class="clearfix"></div></div></div>
+<div class="container-fluid">
+    <div id="p404_head">The page you requested could not be found on our server.</div>
+    <div id="p404_body">This most often occurs when an address is mis-spelled. If you are sure the address you are trying to reach is correct, then the page you want may no longer exist.</div>
+    <div id="p404_body">Please use the navigation above or our search facility to proceed.</div>
+</div>
+
+    <script type="text/javascript" data-turbo-eval="false">
+        // Contents of this script tag run only on the initial page load. Turbo navigation calls will not trigger this.
+        $(document).ready(function() {
+            initialiseSvgSpriteJd();        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('body').on('click', '.dialog-close', function() {
+                close_dialog();
+            });
+
+			$('.login-soft').on('click', function() {
+				return check_login(this, 'soft', true);
+			});
+			$('.login-strict').on('click', function() {
+				return check_login(this, 'strict', true);
+			});
+
+            if ($.cookie('dialog_action') != undefined) $.removeCookie('dialog_action', { path: '/', domain: domain } );
+            
+            if ($('#sale_img').length) show_next_banner();
+
+                                                });
+        
+        $(document).one('turbo:load', function() {
+            process_playlist_or_mp3_links();
+
+            while (junoPageInitsBelowTheFold.length) {
+                var fn = junoPageInitsBelowTheFold.shift();
+                fn();
+            }
+            junoPageInitsBelowTheFold = [];
+        });
+
+                    $(document).one('turbo:load', function() {
+                if (pageLoadedViaTurbo) { // Only after the first load
+                    // Fire any other 3rd party events here e.g. tracking and such.
+
+                                                                // UA only.
+                        ga('set', 'page', document.location.pathname);
+                                                ga('send', 'pageview');
+
+                        // GA4. GA4 supports automatically tracking pageview from history changes.
+                        gtag('config', 'G-NMXT6CN0RN');
+                                                
+                        // UET (Bing thing)
+                        window.uetq = window.uetq || [];
+                        window.uetq.push('event', 'page_view', { page_path: window.location.pathname + window.location.search });
+                        
+                        // Criteo
+                                                                
+                    if (window.olark && window.junoChat && !junoChat.isUserTyping) junoChat.hideWindow();
+                }
+            });
+
+            $(document).one('turbo:before-fetch-response', function() {
+                pageLoadedViaTurbo = true;
+                destroyUponTurboNavigation();
+            });
+
+            function destroyUponTurboNavigation() {
+                junoClearAllTimeouts();
+
+                if (window.Trustpilot) { 
+                    for (var i = 0; i < window.Trustpilot.Modules.WidgetManagement.widgets.length; i++) {
+                        window.Trustpilot.Modules.WidgetManagement.widgets[i].container = null;
+                        window.Trustpilot.Modules.WidgetManagement.widgets[i].dataset = null;
+                        window.Trustpilot.Modules.WidgetManagement.widgets[i].iframes.main = null;
+                        window.Trustpilot.Modules.WidgetManagement.widgets[i].tracking.isTrustBoxVisible = function() {};
+                        window.Trustpilot.Modules.WidgetManagement.widgets[i].tracking.sendMessage = null;
+                    }
+                }
+
+                $(document).off('mousemove'); // prevent jquery.menu-aim.js memory leak
+
+                // Widgets
+                $(window).off('resize');
+                $(window).off('scroll');
+                $(document).off('visibilitychange');
+
+                // JQUI Datepickers, facet dialog
+                $('#datepicker-start, #datepicker-end, #datepicker-start-dlg, #datepicker-end-dlg').datepicker('destroy');
+                if (window.facetsDialog) window.facetsDialog = 'undefined';
+
+                if (window.productPlayer) window.productPlayer.destroy(); // product page player
+                if (window.junoTags) window.junoTags.$addTagsModal = 'undefined'; // Juno Tags Management UI
+                $('#cartForm').off(); // Cart page
+
+                $('.ui-dialog:visible').find('.ui-dialog-content').dialog('close'); // JQUI dialogs
+                $('.modal').modal('hide'); // BS Modal backdrop
+
+                if (window.junoHeader) {
+                    junoHeader.resetQuickWlAndCart();
+                    junoHeader.destroyTouchHover();
+                }
+
+                // Anything that needs destroying upon Turbo navigation should go here
+                // Please consider avoiding the need to do so in the first place
+            }
+            </script>
+
+    <div class="footer"><div class="container-fluid"><div class="row"><div class="col-12 col-sm-6 col-lg-3"><h5>Help & Information</h5><a href="https://www.junodownload.com/help/ordering/">Ordering</a><a href="https://www.junodownload.com/help/ordering-problems/">Ordering Problems</a><a href="https://www.junodownload.com/help/faq/">FAQ</a><a href="https://www.junodownload.com/contact-juno/">Contact Us (Customers)</a><a href="https://www.junodownload.com/supplier-contact-form/">Contact Us (Suppliers)</a><a href="https://www.junodownload.com/gift/">Gift certificates</a><a href="https://www.junodownload.com/help/about/">About Juno</a><a href="https://www.junodownload.com/account/">Manage account</a><a href="https://www.junodownload.com/help/my-charts/">My Charts</a><a href="https://www.junodownload.com/feedback/">Feedback</a><a href="https://www.junodownload.com/help/privacy-policy/">Privacy Policy</a><a href="https://www.junodownload.com/help/terms-and-conditions/">Terms and Conditions</a><a href="https://www.junodownload.com/help/marketing/">Juno Marketing and PR department</a><a href="https://www.junodownload.com/profile-form/">Artist / Label Profile Submission</a><a href="https://www.junodownload.com/promote/">Promote your label / releases</a><a href="https://www.junodownload.com/help/download-via-dropbox/">How do I download via Dropbox?</a></div><div class="col-12 col-sm-6 col-lg-3"><h5>Departments</h5><a href="/news/">News</a><a href="/all/">Back Catalogue</a><a href="/coming_soon/all/">Coming soon</a><a href="/all/charts/bestsellers/this-week/">Charts</a><a href="/this-week/">New Releases</a><a href="/today/">Today</a><a href="/this-week/">This Week</a><a href="/eight-weeks/">Last 8 Weeks</a><a href="/all/top_labels/">Top Labels</a><a href="/all/labels/">Full label list</a><a href="/help/my-charts/">Create a chart</a></div><div class="col-12 col-sm-6 col-lg-3"><h5>My Juno</h5><a class="login-soft" data-redir="https://www.junodownload.com/account/subscriptions/#subs-artist-label" href="https://www.junodownload.com/account/subscriptions/#subs-artist-label">My artists and labels</a><a class="login-soft" data-redir="https://www.junodownload.com/account/" href="https://www.junodownload.com/account/">My Account</a><a class="login-soft" data-redir="https://www.junodownload.com/wishlist/" href="https://www.junodownload.com/wishlist/">My Wishlist</a><a class="login-soft" data-redir="https://www.junodownload.com/account/downloads/" href="https://www.junodownload.com/account/downloads/">My Downloads</a><a class="login-soft" data-redir="https://www.junodownload.com/charts/charteditor/" href="https://www.junodownload.com/charts/charteditor/">My Charts</a><a class="login-soft" data-redir="https://www.junodownload.com/account/subscriptions/" href="https://www.junodownload.com/account/subscriptions/">My New Release E-mails</a><a class="login-soft" data-redir="https://www.junodownload.com/account/order-history/" href="https://www.junodownload.com/account/order-history/">My Order History</a><a class="login-soft" data-redir="https://www.junodownload.com/account/subscriptions/#subs-coming-soon" href="https://www.junodownload.com/account/subscriptions/#subs-coming-soon">My Coming Soon Alerts</a></div><div class="col-12 col-sm-6 col-lg-3"><h5><svg class="icon-secure mr-1"><use xlink:href="#icon-secure" /></svg> 100% Secure Shopping</h5><div class="payment-options"><svg class="logo-visa mr-1"><use xlink:href="#logo-visa" /></svg><svg class="logo-mastercard mr-1"><use xlink:href="#logo-mastercard" /></svg><svg class="logo-maestro mr-1"><use xlink:href="#logo-maestro" /></svg><!-- <svg class="logo-jcb mr-1"><use xlink:href="#logo-jcb" /></svg> --><svg class="logo-paypal"><use xlink:href="#logo-paypal" /></svg></div><br><div class="trustpilot mt-3"><div><svg class="logo-trustpilot"><use xlink:href="#logo-trustpilot" /></svg></div><svg class="icon-trustpilot-star mr-1"><use xlink:href="#icon-trustpilot-star" /></svg><svg class="icon-trustpilot-star mr-1"><use xlink:href="#icon-trustpilot-star" /></svg><svg class="icon-trustpilot-star mr-1"><use xlink:href="#icon-trustpilot-star" /></svg><svg class="icon-trustpilot-star mr-1"><use xlink:href="#icon-trustpilot-star" /></svg><svg class="icon-trustpilot-star"><use xlink:href="#icon-trustpilot-star" /></svg></div><h5>DJ Mag Best Of British</h5><p class="dj-mag">Best Music Store: 5 time winners</p><p>© 2006 - 2023 Juno Download</p><p><em>All image and audio content is used by permission of the copyright holders or their agents, and/or according to fair dealing as per the UK Copyright, Designs and Patents Act 1988.</em></p></div></div></div></div>    <div class="footer-social"><div class="container-fluid"><div class="row"><div class="col-12 col-lg-auto text-center text-lg-left social"><a href="https://www.facebook.com/junodownload/" title="Join us on Facebook"><span aria-hidden="true" class="glyphicon glyphicon-facebook"></span></a><a href="https://www.twitter.com/junodownload/" title="Join us on Twitter"><span aria-hidden="true" class="glyphicon glyphicon-twitter"></span></a><a href="https://www.instagram.com/junodownload/" title="Join us on Instagram"><span aria-hidden="true" class="glyphicon glyphicon-instagram"></span></a></div><div class="col-12 col-lg text-center text-lg-right"><div class="feedback mt-3 mt-lg-2"><span aria-hidden="true" class="glyphicon glyphicon-email mr-2"></span>We are always looking for ways of improving Juno Download - if you have any ideas about how we can make it better, please <a href="/feedback/">let us know</a>.</div></div></div></div></div>    <script type="text/html" id="jw_item_template">
+	
+	<div class="<%=cssClasses%> jw-item jw-item-md touch-hover th-delay">
+        <div class="jw-image">
+            <% if (!empty(image_url)) { %>
+                <a onclick="uaAddEvent(event);" href="<%=link%>" data-ua_action="ln_product" <% if (inPopup) { %>target="_blank"<% } %>>
+                    <img class="img-fluid" data-lazy-done="<% if (lazyLoadImage) { %>false<% } else { %>true<% } %>" src="<% if (lazyLoadImage) { %>data:image/gif;base64,R0lGODlhAQABAIAAANvf7wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==<% } else { %><%=image_url%><% } %>" data-src="<%=image_url%>" alt="<%=title_full%>">
+                    <% if (is_exclusive) { %><div class="jw-special">EXCLUSIVE</div><% } %>
+                </a>
+            <% } %>
+            <div class="jw-actions">
+                <% if (!empty(mp3_l)) { %>
+                    <a class="btn btn-xs btn-secondary ultraplayer_play" href="<%=mp3_l%>" title="Listen" data-ua_action="play">
+                        <span class="glyphicon glyphicon-listen" aria-hidden="true"></span>
+                    </a>
+                    <button type="button" class="btn btn-xs btn-secondary ultraplayer_cue" data-href="<%=mp3_l%>" title="Cue" data-ua_action="cue">
+                        <span class="glyphicon glyphicon-cue" aria-hidden="true"></span>
+                    </button>
+                <% } %>
+                <% if (is_forthcoming) { %>
+                    <button type="button" 
+                            class="btn btn-xs btn-secondary" 
+                            data-redir="/api/1.2/?method=alerts.add&output_type=html&alert_type=4&param1=<%=title_id%>&param2=<%=product_id%>" 
+                            callback="login_callback" 
+                            onclick="uaAddEvent(event);if(check_login(this,'soft')){modal_dialog($(this).attr('data-redir'),'#alert_dialog_container',{height:'505',request_type:'POST'})}" 
+                            data-ua_action="alert newrelease"
+                            title="Receive an e-mail alert when this title is released">
+                        <span class="glyphicon glyphicon-email" aria-hidden="true"></span>
+                    </button>
+                <% } else { %>
+                    <button type="button"
+                            class="btn btn-xs btn-secondary" 
+                            onclick="uaAddCartEvent(event);addToCartPopup(<%=title_id%>, <%=product_id%>, <%=track_id%>);"
+                            data-ua_action="add to cart" 
+                            title="Add to cart">
+                        <span class="glyphicon glyphicon-cart-add text-cta" aria-hidden="true"></span>
+                    </button>
+                <% } %>
+            </div>
+        </div>
+        <div class="jw-info">
+            <% if (!is_equipment) { %>
+                <div class="jw-artist" title="<%=artist%>"><%=artist_l%></div>
+            <% } %>
+            <a class="jw-title" data-ua_action="ln_product" onclick="uaAddEvent(event);" href="<%=link%>" title="<%=title_full%>" <% if (inPopup) { %>target="_blank"<% } %>><%=title_full%></a>
+            <a class="jw-label" data-ua_action="ln_label" onclick="uaAddEvent(event);" href="/labels/<%=label_l%>" title="<%=label%>" <% if (inPopup) { %>target="_blank"<% } %>><%=label%></a>              
+        </div>
+	</div>
+	
+</script>    <div id="cart-slider-bg" onclick="junoUi.closeCartSlider();">
+    <div id="cart-slider-close"><span class="glyphicon glyphicon-x-thin" aria-hidden="true"></span></div>
+</div>
+<div id="cart-slider" class="p-3 p-md-4">
+    <div id="cart-slider-content">
+        <div id="cart-slider-header">
+            <div class="row gutters-sm">
+                <div class="col">
+                    <h6 class="h-new mb-1">Cart subtotal: <span id="cart-slider-total" class="text-cta"></span></h6>
+                    <div id="cart-slider-count" class="text-lg text-primary"></div>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-lg btn-cta" href="/cart/" onclick="junoUi.closeCartSlider();"><span class="glyphicon glyphicon-cart" aria-hidden="true"></span> View cart</a>
+                </div>
+            </div>
+        </div>
+        <div id="cart-slider-messages" class="mt-3 text-sm"></div>
+        <div id="cart-slider-artists" class="mt-3 text-sm" data-ua_location="inline cart related artists"></div>
+        <div id="cart-slider-labels" class="mt-2 text-sm" data-ua_location="inline cart related labels"></div>
+        <div id="cart-slider-brands" class="mt-2 text-sm" data-ua_location="inline cart related brands"></div>
+        <div id="cart-slider-widgets"></div>
+    </div>
+</div>
+<script>
+if (junoUtils.isTouchSupported()) {
+    junoPageInitsBelowTheFold.push(function() {
+        var cartSliderHammer = new Hammer($('#cart-slider')[0]);
+        cartSliderHammer.on('swiperight', function(event) { 
+            if (!$(event.target).closest($('.jw')).length) junoUi.closeCartSlider();
+        });
+    });
+}
+</script>    <script data-turbo-eval="false">
+    window.addEventListener('load', function() {
+        $.cookie('cookieconsent_status') !== 'dismiss' ? $('#juno-cookie-consent').addClass('show') : $('#juno-cookie-consent').remove();
+    });
+    function closeCookieConsent() {
+        $('#juno-cookie-consent').removeClass('show');
+        $.cookie('cookieconsent_status', 'dismiss', { path: '/', domain: domain });
+    }
+</script><div id="juno-cookie-consent">This website uses cookies to ensure you get the best experience.<a class="text-muted pl-2 pr-3 text-nowrap" href="/help/cookie-policy/">View options</a><button type="button" class="btn btn-sm btn-primary" onclick="closeCookieConsent();">Got it!</button></div>
+    <script type="text/javascript">
+        if (window.PostAffTracker) {
+            papTrackingFunction();
+        }
+        else {
+            var papScriptHeader = document.createElement('script');
+            papScriptHeader.setAttribute('id','pap_x2s6df8d');
+            papScriptHeader.onload = papTrackingFunction;
+            papScriptHeader.src = 'https://affiliate.juno.co.uk/scripts/trackjs.js';
+            document.head.appendChild(papScriptHeader);
+        }
+        function papTrackingFunction() {
+            var rs = this.readyState; if (rs && (rs != 'complete') && (rs != 'loaded')) return;
+            try { PostAffTracker.disableTrackingMethod('F'); PostAffTracker.track();  } catch (e) { }
+                    }
+    </script>
+
+
+                            <div class="modal fade" id="modal-discount-2021" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body" style="padding: 0;">
+                <img class="img-fluid-fill" src="https://imagescdn.junodownload.com/c/t/2021/modal-discount-20.jpg" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cta mr-1" id="btn-add-discount" onclick="addDiscount2021('NL');">Add discount to my cart</button>
+                <button type="button" class="btn btn-secondary" id="btn-discount-no-thanks" data-dismiss="modal">No thanks</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-discount-2021-msg" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-primary h-new" id="modalLabel">ADD DISCOUNT</h3>
+            </div>
+            <div class="modal-body" id="modal-discount-2021-msg-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="if(document.location.href.search('cart') != -1 || document.location.href.search('account') != -1) turboEnabled ? Turbo.visit(document.location.href) : document.location.reload();">Continue shopping</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function initDiscountModal2021() {
+    if (!$.cookie('discount-2021-seen') && location.href.search('place-order') == -1) {
+        $('#modal-discount-2021').modal('show').on('hidden.bs.modal', function() {
+            $.cookie('discount-2021-seen', true, { expires: 1, path: '/' }); 
+        });
+    }
+}
+
+function addDiscount2021(iso) {
+    var voucher = '';
+    switch(iso) {
+        case 'US':
+            voucher = 'THIEQGF3GQ5PC6J';
+            break;
+        case 'ES':
+            voucher = '8AC14U7RO974J2B';
+            break;
+        case 'ZA':
+            voucher = 'IN334VYSWLP75OW';
+            break;
+        case 'FR':
+            voucher = 'FMFGO7NA972COFU';
+            break;
+        case 'DE':
+        	voucher = 'QW5E3B71T6PJFO7';
+        	break;
+    }
+
+    $('#btn-add-discount').addClass('loading').attr('disabled', 'disabled');
+    $('#btn-discount-no-thanks').attr('disabled', 'disabled');
+    $.ajax({
+        url: '/api/1.2/voucher/redeem/?output_type=json&c=' + voucher,
+        success: function(response) {
+            $('#modal-discount-2021').modal('hide');
+            $('#modal-discount-2021-msg-body').text(response.message);
+            $('#modal-discount-2021-msg').modal('show');
+        }
+    });
+
+}
+</script>
+</div> 
+    <img src="https://wwwcdn.junodownload.com/14000200/images/digital/jd-sprite-global.svg" class="d-none">
+<div id="juno-sprite-svg" class="d-none"></div>
+
+
+</body>
+</html>
+
+

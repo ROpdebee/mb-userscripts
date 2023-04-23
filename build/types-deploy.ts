@@ -18,6 +18,20 @@ export interface PullRequestInfo {
     labels: string[];
 }
 
+export interface PushEventPayload {
+    before: string;
+}
+
+export interface RepositoryDispatchEventPayload {
+    client_payload: {
+        pull_request: {
+            base: {
+                ref: string;
+            };
+        };
+    };
+}
+
 /*
  * Type declarations extracted from @octokit/rest. We could just add it as a
  * dev dependency, but we're currently only using it for GitHub Actions

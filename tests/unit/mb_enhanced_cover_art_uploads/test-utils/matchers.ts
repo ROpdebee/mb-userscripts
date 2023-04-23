@@ -44,7 +44,7 @@ export function registerMatchers(): void {
                 );
             }
             if (passComment === this.isNot) {
-                if (typeof expected.comment === 'undefined') {
+                if (expected.comment === undefined) {
                     messageLines.push('Expected comment ' + notString + 'to be undefined');
                 } else {
                     messageLines.push(

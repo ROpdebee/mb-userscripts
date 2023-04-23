@@ -16,6 +16,10 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          # Fetch the whole repository history, as we need to check out an old
+          # ref to compare compiled scripts from before and after the change.
+          fetch-depth: 0
       - name: Set up environment
         uses: ./.github/actions/setup
       - name: Checkout second dist copy
@@ -28,8 +32,3 @@ jobs:
         env:
           NODE_ENV: production  # Necessary to ensure we minify in the preview
         run: npx ts-node -r tsconfig-paths/register build/check-scripts-unchanged.ts repoDist
-      
-      - name: Display changes that would be made
-        if: always()
-        run: git diff
-        working-directory: repoDist

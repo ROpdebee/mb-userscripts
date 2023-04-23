@@ -30,7 +30,7 @@ interface SpecArgs {
 }
 
 export const findImagesSpec = ({ provider, extractionCases, extractionFailedCases, pollyContext }: SpecArgs): void => {
-    if (typeof pollyContext === 'undefined') {
+    if (pollyContext === undefined) {
         pollyContext = setupPolly();
     }
 
@@ -57,7 +57,7 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
             });
 
             await expect(provider.findImages(new URL(extractionFailedCase.url), false))
-                .rejects.toThrowWithMessage(Error, extractionFailedCase.errorMessage ?? 'HTTP error 404: Not Found');
+                .rejects.toThrowWithMessage(Error, extractionFailedCase.errorMessage ?? `${provider.name} release does not exist`);
         });
     }
 };

@@ -65,7 +65,7 @@ describe('observable semaphores', () => {
         it('should run the runnable', () => {
             const runnable = jest.fn();
             const sema = new ObservableSemaphore(callbacks);
-            sema.runInSection(runnable);
+            void sema.runInSection(runnable);
 
             expect(runnable).toHaveBeenCalledOnce();
         });

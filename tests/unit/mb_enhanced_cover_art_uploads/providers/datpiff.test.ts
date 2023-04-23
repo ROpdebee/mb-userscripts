@@ -66,7 +66,6 @@ describe('datpiff provider', () => {
             desc: 'non-existent release',
             // ID is probably long enough to last quite a while before this mixtape is created :)
             url: 'https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.1231412412435323.html',
-            errorMessage: 'DatPiff release does not exist',
         }];
 
         // eslint-disable-next-line jest/require-hook

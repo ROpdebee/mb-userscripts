@@ -10,7 +10,7 @@ import { onAddEntityDialogLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/
 
 function getExternalLinksEditor(mbInstance: typeof window.MB): ExternalLinks {
     // Can be found in the MB object, but exact property depends on actual page.
-    const editor = (mbInstance.releaseEditor?.externalLinks ?? mbInstance.sourceExternalLinksEditor)?.externalLinksEditorRef.current;
+    const editor = (mbInstance.releaseEditor?.externalLinks.externalLinksEditorRef ?? mbInstance.sourceExternalLinksEditor)?.current;
     assertHasValue(editor, 'Cannot find external links editor object');
     return editor;
 }

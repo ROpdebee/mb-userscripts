@@ -5,7 +5,7 @@ import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 
 // Need to mock out `memoize` because otherwise the results in the tests will
 // be cached, which we don't want to happen.
-jest.mock('@lib/util/functions', () => ({
+jest.mock<{ memoize: typeof mockMemoize }>('@lib/util/functions', () => ({
     memoize: ((fn) => fn) as typeof mockMemoize,
 }));
 

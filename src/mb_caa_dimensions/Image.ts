@@ -28,7 +28,7 @@ export abstract class BaseImage {
     public async getDimensions(): Promise<Dimensions | undefined> {
         try {
             const cachedResult = await this.cache?.getDimensions(this.cacheKey);
-            if (typeof cachedResult !== 'undefined') {
+            if (cachedResult !== undefined) {
                 return cachedResult;
             }
         } catch (err) {
@@ -49,7 +49,7 @@ export abstract class BaseImage {
     public async getFileInfo(): Promise<FileInfo | undefined> {
         try {
             const cachedResult = await this.cache?.getFileInfo(this.cacheKey);
-            if (typeof cachedResult !== 'undefined') {
+            if (cachedResult !== undefined) {
                 return cachedResult;
             }
         } catch (err) {

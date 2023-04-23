@@ -1,11 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { promisify } from 'node:util';
 
 import type { TsConfigJson } from 'type-fest';
-import globCb from 'glob';
+import { glob } from 'glob';
 
-const glob = promisify(globCb);
 
 // Assumes that comments start on their own line.
 function stripComments(jsonContent: string): string {

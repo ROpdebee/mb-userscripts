@@ -7,7 +7,7 @@
 
 export function filterNonNull<T>(array: Array<T | null | undefined>): T[] {
     return array.filter((element) =>
-        !(element === null || typeof element === 'undefined')) as T[];
+        !(element === null || element === undefined)) as T[];
 }
 
 

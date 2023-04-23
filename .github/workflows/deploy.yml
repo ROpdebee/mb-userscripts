@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          # Fetch the whole repository history, as we need to check out an old
+          # ref to compare compiled scripts from before and after the change.
+          fetch-depth: 0
       - name: Set up environment
         uses: ./.github/actions/setup
 

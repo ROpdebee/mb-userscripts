@@ -1,9 +1,9 @@
+import { exec } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { promisify } from 'node:util';
 
 import simpleGit from 'simple-git';
-
-import { buildUserscript } from './rollup';
 
 export function getVersionForToday(): string {
     const today = new Date();
@@ -56,14 +56,68 @@ export async function getPreviousReleaseVersion(userscriptName: string, buildDir
     return extractVersion(metaContent);
 }
 
-export async function userscriptHasChanged(scriptName: string, previousVersion: string, distRepo: string): Promise<boolean> {
-    // We'll check whether the userscript has changed by building the latest
-    // code and diffing it against the previous released version. If there's a
-    // diff, we assume it needs a new release. To prevent diffs caused solely
-    // by version bumps, we're building the script with the same version as
-    // before.
-    await buildUserscript(scriptName, previousVersion, distRepo);
-    const gitDist = simpleGit(distRepo);
-    const diffSummary = await gitDist.diffSummary();
-    return !!diffSummary.changed;
+async function buildTempUserscript(scriptName: string): Promise<string> {
+    const outputDir = await fs.mkdtemp(scriptName);
+
+    // Need to run this in its own process because we may need to change the
+    // versions of dependencies and ensure the node process uses the correct
+    // version. We also can't just change the `build.ts` script to accept
+    // arguments because we may need to compare to a version in which the script
+    // hadn't been changed yet.
+    const builderSource = `
+        import { buildUserscript } from "build/rollup";
+        buildUserscript("${scriptName}", "0.0.0", "${path.resolve(outputDir)}")
+            .catch((err) => {
+                console.error(err);
+                process.exit(1);
+            });
+    `;
+    await fs.writeFile('isolatedBuilder.ts', builderSource);
+    const command = 'npm i --no-audit --production=false && npx ts-node -r tsconfig-paths/register isolatedBuilder.ts';
+    const { stderr, stdout } = await promisify(exec)(command);
+    if (stderr) console.error(stderr);
+    if (stdout) console.log(stdout);
+
+    const content = fs.readFile(path.join(outputDir, `${scriptName}.user.js`), 'utf8');
+    await fs.rm(outputDir, { recursive: true });
+    return content;
+}
+
+export async function userscriptHasChanged(scriptName: string, compareToRef: string): Promise<{ changed: boolean; diff: string }> {
+    // We'll check whether the userscript has changed by building both the
+    // latest code as well as the code at `baseRef`, then diffing them.
+    // If there's a diff, we assume it needs a new release.
+
+    // Build previous version before current version so that the current
+    // dependency versions are installed after everything is finished.
+
+    // Temporarily check out the base ref
+    const repo = simpleGit();
+    await repo.checkout(['-f', compareToRef]);
+    let previousVersion: string;
+    try {
+        previousVersion = await buildTempUserscript(scriptName);
+    } finally {
+        await repo.checkout(['-f', '-']);
+    }
+
+    const currentVersion = await buildTempUserscript(scriptName);
+
+    const changed = currentVersion !== previousVersion;
+    let diff = '';
+
+    // Generate diff for the two versions. We can't simply write the new version
+    // to the dist branch and perform a `git diff` on it, since this will also
+    // display differences from previous changes where CD was skipped.
+    if (changed) {
+        const tmpDir = await fs.mkdtemp(`${scriptName}-diff`);
+        const oldPath = path.join(tmpDir, 'old.js');
+        const newPath = path.join(tmpDir, 'new.js');
+        await fs.writeFile(oldPath, previousVersion);
+        await fs.writeFile(newPath, currentVersion);
+        diff = await repo.diff(['--no-index', oldPath, newPath]);
+        await fs.rm(tmpDir, { recursive: true });
+    }
+
+    return { changed, diff };
 }
