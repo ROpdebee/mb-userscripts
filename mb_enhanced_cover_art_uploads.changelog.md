@@ -1,3 +1,4 @@
+- **2023.4.23.2**: New feature: add Juno Download provider ([#662](https://github.com/ROpdebee/mb-userscripts/pull/662))
 - **2023.4.23**: New feature: add NetEase/163.com provider ([#661](https://github.com/ROpdebee/mb-userscripts/pull/661))
 - **2023.4.22**: Bug fix: provider fixes for Soundcloud, Amazon Music ([#653](https://github.com/ROpdebee/mb-userscripts/pull/653))
 - **2022.11.6**: Bug fix: gracefully reject Amazon Music pages ([#612](https://github.com/ROpdebee/mb-userscripts/pull/612))
