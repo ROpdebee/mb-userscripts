@@ -1,4 +1,4 @@
-import { filterNonNull, findRight, groupBy } from '@lib/util/array';
+import { filterNonNull, findRight, groupBy, insertBetween } from '@lib/util/array';
 
 describe('filtering null values', () => {
     it('retains non-null values', () => {
@@ -55,5 +55,57 @@ describe('group by', () => {
         const expected = new Map([['a', ['a', 'b', 'c']]]);
 
         expect(result).toStrictEqual(expected);
+    });
+});
+
+describe('insert between', () => {
+    describe('with literal element', () => {
+        it('does not insert elements in empty array', () => {
+            const result = insertBetween([], 0);
+
+            expect(result).toBeArrayOfSize(0);
+        });
+
+        it('does not insert elements in array of one element', () => {
+            const result = insertBetween([1], 0);
+
+            expect(result).toStrictEqual([1]);
+        });
+
+        it('does inserts elements in array of more than one element', () => {
+            const result = insertBetween([1, 2, 3], 0);
+
+            expect(result).toStrictEqual([1, 0, 2, 0, 3]);
+        });
+    });
+
+    describe('with factory', () => {
+        let counter: number;
+
+        function factory(): number {
+            return counter++;
+        }
+
+        beforeEach(() => {
+            counter = 0;
+        });
+
+        it('does not insert elements in empty array', () => {
+            const result = insertBetween([], factory);
+
+            expect(result).toBeArrayOfSize(0);
+        });
+
+        it('does not insert elements in array of one element', () => {
+            const result = insertBetween([1], factory);
+
+            expect(result).toStrictEqual([1]);
+        });
+
+        it('does inserts elements in array of more than one element', () => {
+            const result = insertBetween([1, 2, 3], factory);
+
+            expect(result).toStrictEqual([1, 0, 2, 1, 3]);
+        });
     });
 });
