@@ -1,6 +1,7 @@
 // Abstractions to create dummy data
 
 import type { CoverArt, FetchedImage } from '@src/mb_enhanced_cover_art_uploads/types';
+import { HTTPResponseError } from '@lib/util/xhr';
 
 export interface DummyImageData {
     blob?: Blob;
@@ -89,4 +90,17 @@ export function createXhrResponse(response?: Partial<GM.Response<never>>): GM.Re
         responseText: response.responseText ?? '',
         responseXML: response.responseXML ?? false,
     };
+}
+
+export function createHttpError(response?: Partial<GM.Response<never>>): HTTPResponseError {
+    const xhrResponse = createXhrResponse(response);
+    const err = new HTTPResponseError(xhrResponse.finalUrl, xhrResponse);
+    // If gmxhr is mocked, the HTTP errors are too, so we need to define these
+    // properties manually.
+    Object.defineProperties(err, {
+        response: { value: xhrResponse },
+        statusCode: { value: xhrResponse.status },
+        statusText: { value: xhrResponse.statusText },
+    });
+    return err;
 }
