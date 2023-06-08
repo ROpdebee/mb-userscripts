@@ -1,3 +1,4 @@
+- **2023.6.8.2**: Bug fix: retry loading image contents on certain HTTP errors ([#669](https://github.com/ROpdebee/mb-userscripts/pull/669))
 - **2023.6.8**: UNKNOWN CHANGE TYPE: fix(ecau)!: drop support for QUB Musique ([#670](https://github.com/ROpdebee/mb-userscripts/pull/670))
 - **2023.4.23.5**: New feature: rich copy-paste of webpage images and links ([#546](https://github.com/ROpdebee/mb-userscripts/pull/546))
 - **2023.4.23.4**: New feature: add Monstercat provider ([#664](https://github.com/ROpdebee/mb-userscripts/pull/664))
