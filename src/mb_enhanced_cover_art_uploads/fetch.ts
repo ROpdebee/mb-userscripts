@@ -1,9 +1,12 @@
-import type { FetchProgress} from '@lib/util/xhr';
+import pRetry from 'p-retry';
+
+import type { FetchProgress } from '@lib/util/xhr';
 import { getFromPageContext } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { enumerate } from '@lib/util/array';
 import { urlBasename } from '@lib/util/urls';
+import { HTTPResponseError } from '@lib/util/xhr';
 import { gmxhr } from '@lib/util/xhr';
 
 import type { CoverArtProvider } from './providers/base';
@@ -204,11 +207,27 @@ export class ImageFetcher {
     }
 
     private async fetchImageContents(url: URL, fileName: string, id: number, headers: Record<string, string>): Promise<ImageContents> {
-        const resp = await gmxhr(url, {
+        const xhrOptions = {
             responseType: 'blob',
             headers: headers,
             progressCb: this.hooks.onFetchProgress?.bind(this.hooks, id, url),
+        } as const;
+
+        // Need to retry image loading because some services, like Discogs, may
+        // return 429 HTTP errors.
+        // TODO: Copied from seeding/atisket/dimensions.ts, should be put in lib.
+        const resp = await pRetry(() => gmxhr(url, xhrOptions), {
+            retries: 10,
+            onFailedAttempt: (err) => {
+                // Don't retry on 4xx status codes except for 429. Anything below 400 doesn't throw a HTTPResponseError.
+                if (!(err instanceof HTTPResponseError) || err.statusCode < 500 || err.statusCode !== 429) {
+                    throw err;
+                }
+
+                LOGGER.info(`Failed to retrieve image contents after ${err.attemptNumber} attempt(s): ${err.message}. Retrying (${err.retriesLeft} attempt(s) left)…`);
+            },
         });
+
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (resp.finalUrl === undefined) {
             LOGGER.warn(`Could not detect if URL ${url.href} caused a redirect`);
