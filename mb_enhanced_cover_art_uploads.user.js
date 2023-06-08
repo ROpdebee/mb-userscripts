@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2023.4.23.5
+// @version      2023.6.8
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1340,16 +1340,6 @@
     }
   }
 
-  class QubMusiqueProvider extends QobuzProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['qub.ca']);
-      _defineProperty(this, "favicon", 'https://www.qub.ca/assets/favicons/apple-touch-icon.png');
-      _defineProperty(this, "name", 'QUB Musique');
-      _defineProperty(this, "urlRegex", [/musique\/album\/[\w-]*-([A-Za-z\d]+)(?:\/|$)/]);
-    }
-  }
-
   class RateYourMusicProvider extends CoverArtProvider {
     constructor() {
       super(...arguments);
@@ -1940,7 +1930,6 @@
   addProvider(new MusikSammlerProvider());
   addProvider(new NetEaseProvider());
   addProvider(new QobuzProvider());
-  addProvider(new QubMusiqueProvider());
   addProvider(new RateYourMusicProvider());
   addProvider(new RockipediaProvider());
   addProvider(new SevenDigitalProvider());
