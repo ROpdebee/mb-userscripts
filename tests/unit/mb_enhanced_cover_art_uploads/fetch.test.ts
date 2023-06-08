@@ -1,15 +1,19 @@
+import type { FailedAttemptError } from 'p-retry';
+import pRetry from 'p-retry';
+
 import type { MaximisedImage } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import type { ImageContents, QueuedImage } from '@src/mb_enhanced_cover_art_uploads/types';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { gmxhr, NetworkError } from '@lib/util/xhr';
+import { gmxhr, HTTPResponseError, NetworkError } from '@lib/util/xhr';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import { enqueueImage } from '@src/mb_enhanced_cover_art_uploads/form';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import { getProvider, getProviderByDomain } from '@src/mb_enhanced_cover_art_uploads/providers';
 import { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
-import { createCoverArt, createImageFile, createXhrResponse } from './test-utils/dummy-data';
+import { createCoverArt, createHttpError, createImageFile, createXhrResponse } from './test-utils/dummy-data';
 
+jest.mock('p-retry');
 jest.mock('@lib/util/xhr');
 // We need to provide a mock factory, because for some reason, either jest or
 // rewire is not recognising the generator, leading to `getMaximisedCandidates`
@@ -20,6 +24,7 @@ jest.mock<{ getMaximisedCandidates: typeof getMaximisedCandidates }>('@src/mb_en
 jest.mock('@src/mb_enhanced_cover_art_uploads/providers');
 jest.mock('@src/mb_enhanced_cover_art_uploads/form');
 
+const mockpRetry = pRetry as jest.MockedFunction<typeof pRetry>;
 const mockXhr = gmxhr as jest.MockedFunction<typeof gmxhr>;
 const mockGetMaximisedCandidates = getMaximisedCandidates as jest.MockedFunction<typeof getMaximisedCandidates>;
 const mockGetProvider = getProvider as jest.MockedFunction<typeof getProvider>;
@@ -77,6 +82,11 @@ function disableDummyFetch(mock: FetchImageContentsSpy): void {
     mock.mockRestore();
 }
 
+beforeAll(() => {
+    // Mock p-retry so that it doesn't retry on image content fetching failure.
+    mockpRetry.mockImplementation(((fn) => (fn(0))) as typeof pRetry);
+});
+
 beforeEach(() => {
     mockEnqueueImage.mockClear();
     mockFindImages.mockReset();
@@ -88,17 +98,54 @@ beforeEach(() => {
 
 describe('fetching image contents', () => {
     let fetchImageContents: typeof ImageFetcher.prototype['fetchImageContents'];
+    // Used to register when a retry occurs in the p-retry mock, so we can verify in the tests.
+    const onRetry = jest.fn();
+
+    beforeAll(() => {
+        // Mock retrying behaviour so we can test it.
+        mockpRetry.mockImplementation(async (fn, options) => {
+            try {
+                // eslint-disable-next-line @typescript-eslint/return-await
+                return await fn(0);
+            } catch (err) {
+                Object.defineProperties(err, {
+                    attemptNumber: { value: 1, writable: false },
+                    retriesLeft: { value: 1, writable: false },
+                });
+                await options?.onFailedAttempt?.(err as FailedAttemptError);
+                // Call the onRetry mock so we can verify when a retry would've
+                // occurred.
+                onRetry();
+                return fn(1);
+            }
+        });
+    });
 
     beforeEach(() => {
         const fetcher = new ImageFetcher(hooks);
         fetchImageContents = fetcher['fetchImageContents'].bind(fetcher);
+        onRetry.mockClear();
     });
 
-    it('rejects on HTTP error', async () => {
+    afterAll(() => {
+        mockpRetry.mockImplementation((fn) => Promise.resolve(fn(0)));
+    });
+
+    it('rejects on network error', async () => {
         mockXhr.mockRejectedValueOnce(new NetworkError(new URL('https://example.com')));
 
         await expect(fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', 0, {}))
             .rejects.toBeInstanceOf(NetworkError);
+        expect(onRetry).not.toHaveBeenCalled();
+    });
+
+    it('rejects on HTTP 404 error', async () => {
+        mockXhr.mockRejectedValue(createHttpError(createXhrResponse({ status: 404 })));
+
+        const result = fetchImageContents(new URL('https://example.com/broken'), 'test.jpg', 0, {});
+
+        await expect(result).rejects.toBeInstanceOf(HTTPResponseError);
+        expect(onRetry).not.toHaveBeenCalled();
     });
 
     it('rejects on text response', async () => {
@@ -165,6 +212,45 @@ describe('fetching image contents', () => {
                 },
                 wasRedirected: false,
             });
+    });
+
+    it('retries on 429 response', async () => {
+        mockXhr.mockRejectedValueOnce(createHttpError(createXhrResponse({
+            status: 429,
+        })));
+        mockXhr.mockResolvedValueOnce(createXhrResponse({
+            finalUrl: 'https://example.com/working',
+            response: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
+        }));
+
+        await expect(fetchImageContents(new URL('https://example.com/working'), 'test.jpg', 0, {}))
+            .resolves.toMatchObject({
+                file: {
+                    type: 'image/png',
+                    name: 'test.0.png',
+                },
+                requestedUrl: {
+                    href: 'https://example.com/working',
+                },
+                fetchedUrl: {
+                    href: 'https://example.com/working',
+                },
+                wasRedirected: false,
+            });
+        expect(onRetry).toHaveBeenCalledOnce();
+    });
+
+    it('rejects on too many 429 responses', async () => {
+        mockXhr.mockRejectedValueOnce(createHttpError(createXhrResponse({
+            status: 429,
+        })));
+        mockXhr.mockRejectedValueOnce(createHttpError(createXhrResponse({
+            status: 429,
+        })));
+
+        await expect(fetchImageContents(new URL('https://example.com/working'), 'test.jpg', 0, {}))
+            .rejects.toBeInstanceOf(HTTPResponseError);
+        expect(onRetry).toHaveBeenCalledOnce();
     });
 
     it('retains redirection information', async () => {

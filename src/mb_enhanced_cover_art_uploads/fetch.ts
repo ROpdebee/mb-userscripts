@@ -220,7 +220,7 @@ export class ImageFetcher {
             retries: 10,
             onFailedAttempt: (err) => {
                 // Don't retry on 4xx status codes except for 429. Anything below 400 doesn't throw a HTTPResponseError.
-                if (!(err instanceof HTTPResponseError) || err.statusCode < 500 || err.statusCode !== 429) {
+                if (!(err instanceof HTTPResponseError) || (err.statusCode < 500 && err.statusCode !== 429)) {
                     throw err;
                 }
 
