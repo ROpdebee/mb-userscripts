@@ -17,13 +17,55 @@ interface RequestFunc {
     <RequestOptionsT extends RequestOptions>(method: RequestMethod, url: string | URL, options: RequestOptionsT): Promise<ResponseFor<RequestOptionsT>>;
     (method: RequestMethod, url: string | URL): Promise<TextResponse>;
 
+    /**
+     * Perform a HTTP GET request.
+     *
+     * @param      {(URL|string)}       url      The URL to request.
+     * @param      {RequestOptionsT}    options  Request options.
+     * @return     {Promise<Response>}  The requests' response. Type depends on
+     *                                  requested type in options.
+     */
     get<RequestOptionsT extends RequestOptions>(url: string | URL, options: RequestOptionsT): Promise<ResponseFor<RequestOptionsT>>;
+    /**
+     * Perform a HTTP GET request, expecting a text response.
+     *
+     * @param      {(URL|string)}           url     The URL to request.
+     * @return     {Promise<TextResponse>}  The request's response.
+     */
     get(url: string | URL): Promise<TextResponse>;
 
+    /**
+     * Perform a HTTP POST request.
+     *
+     * @param      {(URL|string)}       url      The URL to request.
+     * @param      {RequestOptionsT}    options  Request options.
+     * @return     {Promise<Response>}  The requests' response. Type depends on
+     *                                  requested type in options.
+     */
     post<RequestOptionsT extends RequestOptions>(url: string | URL, options: RequestOptionsT): Promise<ResponseFor<RequestOptionsT>>;
+    /**
+     * Perform a HTTP POST request, expecting a text response.
+     *
+     * @param      {(URL|string)}           url     The URL to request.
+     * @return     {Promise<TextResponse>}  The request's response.
+     */
     post(url: string | URL): Promise<TextResponse>;
 
+    /**
+     * Perform a HTTP HEAD request.
+     *
+     * @param      {(URL|string)}       url      The URL to request.
+     * @param      {RequestOptionsT}    options  Request options.
+     * @return     {Promise<Response>}  The requests' response. Type depends on
+     *                                  requested type in options.
+     */
     head<RequestOptionsT extends RequestOptions>(url: string | URL, options: RequestOptionsT): Promise<ResponseFor<RequestOptionsT>>;
+    /**
+     * Perform a HTTP HEAD request, expecting a text response.
+     *
+     * @param      {(URL|string)}           url     The URL to request.
+     * @return     {Promise<TextResponse>}  The request's response.
+     */
     head(url: string | URL): Promise<TextResponse>;
 }
 

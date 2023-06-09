@@ -2,13 +2,17 @@
  * Assertion helpers.
  */
 
+
+/**
+ * Error raised on an assertion failure.
+ */
 export class AssertionError extends Error {}
 
 /**
  * Assert a condition.
  *
- * @param      {boolean}            condition  The condition
- * @param      {string}             message    The message
+ * @param      {boolean}    condition   The condition
+ * @param      {string}     message     The message to use when assertion fails.
  */
 export function assert(condition: boolean, message?: string): asserts condition {
     if (!condition) {

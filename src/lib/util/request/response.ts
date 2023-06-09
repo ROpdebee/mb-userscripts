@@ -59,8 +59,8 @@ export interface BaseResponse {
     readonly status: number;
     readonly statusText: string;
     /**
-     * The final URL obtained after following all redirects. Potentially undefined
-     * in edge cases.
+     * The final URL obtained after following all redirects. Potentially
+     * undefined in edge cases.
      */
     readonly url?: string;
 
@@ -91,9 +91,16 @@ export type ResponseFor<T extends RequestOptions> = (
     : T['responseType'] extends 'blob' ? BlobResponse
     : TextResponse);
 
+
+/**
+ * Event containing request progress.
+ */
 export interface ProgressEvent {
+    /** Whether the final length of the request is computable. */
     lengthComputable: boolean;
+    /** Number of bytes already loaded. */
     loaded: number;
+    /** Number of bytes to load in total. */
     total: number;
 }
 

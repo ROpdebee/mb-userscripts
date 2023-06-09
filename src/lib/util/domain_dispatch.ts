@@ -1,5 +1,21 @@
+/**
+ * Utilities to dispatch based on a domain name.
+ */
+
 import { assert } from './assert';
 
+/**
+ * Split a domain name into subdomains.
+ *
+ * @example
+ *  splitDomain('itunes.apple.com'); // => ['itunes', 'apple.com']
+ *  splitDomain('a.b.c.d'); // => ['a', 'b', 'c.d']
+ *
+ * @param      {string}    domain  The domain to split.
+ * @return     {string[]}  Split domain as an array. First elements are each
+ *                         level of subdomains, the last element is the root
+ *                         domain. See examples.
+ */
 function splitDomain(domain: string): string[] {
     // Split e.g. 'itunes.apple.com' into ['itunes', 'apple.com'], 'a.b.c.d'
     // into ['a', 'b', 'c.d'].
@@ -19,6 +35,9 @@ function splitDomain(domain: string): string[] {
     ];
 }
 
+/**
+ * Map used to relate (sub)domains to arbitrary values.
+ */
 export class DispatchMap<Leaf> {
     /*
     Tree structure to implement mapping domain name patterns to arbitrary
@@ -62,6 +81,16 @@ export class DispatchMap<Leaf> {
     // different from that of a standard map
     private readonly map: Map<string, Leaf | DispatchMap<Leaf>> = new Map();
 
+    /**
+     * Set a value for a given domain pattern.
+     *
+     * Valid domain patterns include any normal domain name, as well as deepest
+     * wildcard subdomains (e.g. `*.test.com`, but not `a.*.test.com`).
+     *
+     * @param      {string}  domainPattern  The domain pattern.
+     * @param      {Leaf}    leaf           The value to relate to this pattern.
+     * @return     {this}    The current instance for chaining.
+     */
     public set(domainPattern: string, leaf: Leaf): this {
         // Don't allow e.g. sub*.domain.com or *.com or domain.* or a.*.c.com.
         const domainParts = splitDomain(domainPattern);
@@ -75,6 +104,13 @@ export class DispatchMap<Leaf> {
         return this;
     }
 
+    /**
+     * Get a leaf node for the specified domain, matching wildcard patterns.
+     *
+     * @param      {string}            domain  The domain.
+     * @return     {(Leaf|undefined)}  Value for matching pattern, or `null` if
+     *                                 no leaf node present.
+     */
     public get(domain: string): Leaf | undefined {
         return this.retrieve([...splitDomain(domain)].reverse());
     }

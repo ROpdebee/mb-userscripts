@@ -11,6 +11,9 @@ abstract class ResponseError extends CustomError {
     }
 }
 
+/**
+ * Error thrown on a HTTP response error.
+ */
 export class HTTPResponseError extends ResponseError {
     public readonly statusCode: number;
     public readonly statusText: string;
@@ -32,18 +35,29 @@ export class HTTPResponseError extends ResponseError {
     }
 }
 
+/**
+ * Error raised on a request timeout.
+ */
 export class TimeoutError extends ResponseError {
     public constructor(url: string | URL) {
         super(url, 'Request timed out');
     }
 }
 
+
+/**
+ * Error raised when the request is aborted.
+ */
 export class AbortedError extends ResponseError {
     public constructor(url: string | URL) {
         super(url, 'Request aborted');
     }
 }
 
+
+/**
+ * Error raised when a network error caused a request to fail.
+ */
 export class NetworkError extends ResponseError {
     public constructor(url: string | URL) {
         super(url, 'Network error');

@@ -7,8 +7,8 @@
  * which old application can be reused.
  *
  * @param      {(...args:T)=>V}       fn      The function to memoize.
- * @param      {(...args:T)=>string}  keyFn   Function to extract a
- *                                              memoization key.
+ * @param      {(...args:T)=>string}  keyFn   Function to extract a memoization
+ *                                            key.
  * @return     {(...args:T)=>V}       Memoized version of `fn`.
  */
 export function memoize<T extends unknown[], V>(fn: (...args: T) => V, keyFn: (args: T) => string = (args): string => `${args[0]}`): (...args: T) => V {
