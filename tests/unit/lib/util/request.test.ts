@@ -138,4 +138,52 @@ describe('request', () => {
             await expect(resp).toResolve();
         });
     });
+
+    describe.each([['fetch', RequestBackend.FETCH], ['gmxhr', RequestBackend.GMXHR]])('%s backend response headers', (_1, backend) => {
+        beforeEach(() => {
+            // Mock response headers to ease testing.
+            pollyContext.polly.server.any('https://fake.com/headers').intercept((_req, res) => {
+                res.setHeader('test', 'test header');
+                res.setHeader('test2', ['multiple', 'values']);
+                res.sendStatus(200);
+            });
+        });
+
+        it('gets single-valued header correctly', async () => {
+            const resp = await request.get('https://fake.com/headers', { backend });
+
+            expect(resp.headers.get('test')).toBe('test header');
+        });
+
+        it('gets multi-valued header correctly', async () => {
+            const resp = await request.get('https://fake.com/headers', { backend });
+
+            expect(resp.headers.get('test2')).toBe('multiple,values');
+        });
+
+        it('returns null for non-existant header', async () => {
+            const resp = await request.get('https://fake.com/headers', { backend });
+
+            expect(resp.headers.get('test3')).toBeNull();
+        });
+
+        it.each(['test', 'test2'])('contains header %s', async (headerName) => {
+            const resp = await request.get('https://fake.com/headers', { backend });
+
+            expect(resp.headers.has(headerName)).toBeTrue();
+        });
+
+        it('calls forEach callback function for each header', async () => {
+            const resp = await request.get('https://fake.com/headers', { backend });
+            const cb = jest.fn();
+
+            // eslint-disable-next-line unicorn/no-array-callback-reference
+            resp.headers.forEach(cb);
+
+            // Called 3 times because there's also a content-type header.
+            expect(cb).toHaveBeenCalledTimes(3);
+            expect(cb).toHaveBeenCalledWith('test header', 'test', resp.headers);
+            expect(cb).toHaveBeenCalledWith('multiple,values', 'test2', resp.headers);
+        });
+    });
 });

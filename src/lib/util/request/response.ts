@@ -23,13 +23,13 @@ export class ResponseHeadersImpl {
                     const [name, ...value] = header.split(':');
                     return [name.toLowerCase().trim(), value.join(':').trim()];
                 })
-            : /* istanbul ignore next: Shouldn't happen in practice. */ [];
+            : /* istanbul ignore next: Shouldn't happen in practice. */[];
 
         const headerMultimap = groupBy(headerList, ([name]) => name, ([, value]) => value);
         // Can't construct a Headers instance because these may contain protected
         // headers.
         this.map = new Map([...headerMultimap.entries()]
-            .map(([name, values]) => [name, values.join(', ')] as [string, string]));
+            .map(([name, values]) => [name, values.join(',')] as [string, string]));
 
         this.entries = this.map.entries.bind(this.map);
         this.keys = this.map.keys.bind(this.map);
