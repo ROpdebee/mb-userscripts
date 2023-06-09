@@ -4,6 +4,7 @@ import pRetry from 'p-retry';
 import type { Response } from '@lib/util/request';
 import type { MaximisedImage } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import type { ImageContents, QueuedImage } from '@src/mb_enhanced_cover_art_uploads/types';
+import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { HTTPResponseError } from '@lib/util/request';
 import { NetworkError, request } from '@lib/util/request';
@@ -16,6 +17,7 @@ import { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/b
 import { createBlobResponse, createCoverArt, createHttpError, createImageFile } from './test-utils/dummy-data';
 
 jest.mock('p-retry');
+jest.mock('@lib/logging/logger');
 jest.mock('@lib/util/request');
 // We need to provide a mock factory, because for some reason, either jest or
 // rewire is not recognising the generator, leading to `getMaximisedCandidates`
@@ -30,6 +32,8 @@ jest.mock('@src/mb_enhanced_cover_art_uploads/form');
 const mockpRetry = pRetry as jest.MockedFunction<typeof pRetry>;
 // eslint-disable-next-line jest/unbound-method
 const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [string | URL, unknown]>;
+// eslint-disable-next-line jest/unbound-method
+const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
 const mockGetMaximisedCandidates = getMaximisedCandidates as jest.MockedFunction<typeof getMaximisedCandidates>;
 const mockGetProvider = getProvider as jest.MockedFunction<typeof getProvider>;
 const mockGetProviderByDomain = getProviderByDomain as jest.MockedFunction<typeof getProvider>;
@@ -98,6 +102,7 @@ beforeEach(() => {
     hooks.onFetchFinished.mockClear();
     hooks.onFetchProgress.mockClear();
     hooks.onFetchStarted.mockClear();
+    mockLoggerWarn.mockReset();
 });
 
 describe('fetching image contents', () => {
@@ -273,6 +278,20 @@ describe('fetching image contents', () => {
                 },
                 wasRedirected: true,
             });
+    });
+
+    it('warns when redirect could not be determined', async () => {
+        const response = createBlobResponse({
+            blob: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
+        });
+        // Need to set explicitly because `createBlobResponse` creates a random
+        // URL if we provide it `undefined`.
+        Object.defineProperty(response, 'url', { value: undefined });
+        mockRequestGet.mockResolvedValueOnce(response);
+
+        await expect(fetchImageContents(new URL('https://example.com/working'), 'test.jpg', 0, {}))
+            .toResolve();
+        expect(mockLoggerWarn).toHaveBeenCalledWith(expect.stringContaining('redirect'));
     });
 
     it('assigns unique ID to each file name', async () => {

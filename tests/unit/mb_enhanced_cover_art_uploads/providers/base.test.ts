@@ -3,6 +3,7 @@ import { when } from 'jest-when';
 import type { Response } from '@lib/util/request';
 import type { ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/types';
+import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { request } from '@lib/util/request';
 import { CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
@@ -11,8 +12,11 @@ import { createBlob, createBlobResponse, createFetchedImage, createTextResponse 
 import { registerMatchers } from '../test-utils/matchers';
 
 jest.mock('@lib/util/request');
+jest.mock('@lib/logging/logger');
 // eslint-disable-next-line jest/unbound-method
 const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [string | URL, unknown]>;
+// eslint-disable-next-line jest/unbound-method
+const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
 
 const findImagesMock = jest.fn();
 
@@ -22,6 +26,7 @@ beforeAll(() => {
 
 afterEach(() => {
     mockRequestGet.mockReset();
+    mockLoggerWarn.mockReset();
 });
 
 describe('cover art providers', () => {
@@ -164,6 +169,17 @@ describe('cover art providers', () => {
 
             await expect(fakeProvider.fetchPage(new URL('https://example.com/redirect_me')))
                 .rejects.toThrowWithMessage(Error, /different release/);
+        });
+
+        it('warns when redirect cannot be determined', async () => {
+            mockRequestGet.mockResolvedValueOnce({
+                ...dummyResponse,
+                url: undefined,
+            });
+
+            await expect(fakeProvider.fetchPage(new URL('https://example.com/test')))
+                .resolves.toBe('1234');
+            expect(mockLoggerWarn).toHaveBeenCalledWith(expect.stringContaining('redirect'));
         });
     });
 
