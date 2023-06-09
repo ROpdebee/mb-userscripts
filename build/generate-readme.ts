@@ -6,7 +6,7 @@ import fs from 'node:fs/promises';
 
 import dedent from 'ts-dedent';
 
-import { MetadataGenerator } from './rollup-plugins/userscript';
+import { MetadataGenerator } from './userscript-metadata';
 
 const PREAMBLE = dedent`
   <!--

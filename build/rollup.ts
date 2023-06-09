@@ -24,7 +24,8 @@ import { consts } from './rollup-plugins/consts';
 import { logger } from './rollup-plugins/logger';
 import { nativejsx } from './rollup-plugins/nativejsx';
 import { updateNotifications } from './rollup-plugins/update-notifications';
-import { MetadataGenerator, userscript } from './rollup-plugins/userscript';
+import { userscript } from './rollup-plugins/userscript';
+import { MetadataGenerator } from './userscript-metadata';
 
 /** Default output directory for the compiled scripts. */
 const OUTPUT_DIR = 'dist';
