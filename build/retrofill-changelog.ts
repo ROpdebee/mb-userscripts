@@ -1,4 +1,7 @@
-// Script to retroactively generate a changelog for scripts in the dist branch
+/**
+ * Script to retroactively generate a changelog for scripts in the `dist` branch.
+ */
+
 import fs from 'node:fs/promises';
 
 import type { SimpleGit } from 'simple-git';
@@ -6,6 +9,12 @@ import simpleGit from 'simple-git';
 
 import { generateChangelogEntry } from './changelog';
 
+/**
+ * Iterate over the commits in a repository, parse the deployment commits, generate a changelog from
+ * these commits and write the changelog.
+ *
+ * @param      {SimpleGit}      repo    The repository, checked out on the distribution branch.
+ */
 async function iterCommits(repo: SimpleGit): Promise<void> {
     const commits = await repo.log();
     const changelogEntries: Map<string, string[]> = new Map();
@@ -51,6 +60,12 @@ async function iterCommits(repo: SimpleGit): Promise<void> {
     }
 }
 
+/**
+ * Run the script in the current repository.
+ *
+ * Check out the `dist` branch, make sure it's up-to-date, generate and write the changelog for the
+ * branch, and switch back to the original branch.
+ */
 async function run(): Promise<void> {
     const repo = simpleGit('.');
     await repo.checkout('dist');

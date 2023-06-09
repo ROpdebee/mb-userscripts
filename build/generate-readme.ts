@@ -1,3 +1,7 @@
+/**
+ * Script to generate the `README.md` file content.
+ */
+
 import fs from 'node:fs/promises';
 
 import dedent from 'ts-dedent';
@@ -27,18 +31,30 @@ const PREAMBLE = dedent`
   _Note: Although we aim to support all browsers and userscript add-ons, we currently cannot guarantee universal compatibility. If you discover a compatibility problem, please [submit an issue](https://github.com/ROpdebee/mb-userscripts/issues/new) and state your browser and userscript engine versions._
 `;
 
+/**
+ * Information about userscripts.
+ */
 interface UserscriptData {
+    /** Shorthand identifier. */
     id: string;
+    /** Full name. */
     name: string;
+    /** Brief description. */
     blurb: string;
+    /** URLs for the userscript. */
     urls?: {
+        /** URL to structured script metadata (JSON). */
         metadata: string;
+        /** URL where script can be installed from, i.e., compiled `.user.js` file. */
         install: string;
+        /** URL to script source files. */
         source: string;
+        /** URL to script changelog. */
         changelog: string;
     };
 }
 
+/** Script data of userscript which have not yet been ported to TypeScript or the new build system. */
 const LEGACY_SCRIPT_DATA: UserscriptData[] = [
     {
         id: 'mb_blind_votes',
@@ -77,6 +93,11 @@ const LEGACY_SCRIPT_DATA: UserscriptData[] = [
     },
 ];
 
+/**
+ * Retrieve userscript information from the new-style userscripts.
+ *
+ * @return     {Promise<UserscriptData[]>}  The userscript data.
+ */
 async function getUserscriptData(): Promise<UserscriptData[]> {
     const srcDirs = await fs.readdir('./src');
     const userscriptIds = srcDirs
@@ -105,6 +126,12 @@ async function getUserscriptData(): Promise<UserscriptData[]> {
         }));
 }
 
+/**
+ * Generate a userscript-specific section in the `README.md` file.
+ *
+ * @param      {UserscriptData}  data    Data on the userscript in this section.
+ * @return     {string}          Rendered section content.
+ */
 function generateSection(data: UserscriptData): string {
     const badgeBase = 'https://img.shields.io/badge';
     const installBadge = data.urls
@@ -132,6 +159,11 @@ function generateSection(data: UserscriptData): string {
     `;
 }
 
+/**
+ * Generate the content of the `README.md` file.
+ *
+ * @return     {Promise<string>}  File content.
+ */
 export async function generateReadmeContent(): Promise<string> {
     const userscriptData = await getUserscriptData();
     userscriptData.push(...LEGACY_SCRIPT_DATA);
@@ -144,6 +176,9 @@ export async function generateReadmeContent(): Promise<string> {
     `;
 }
 
+/**
+ * Generate and write `README.md` file.
+ */
 async function generateReadme(): Promise<void> {
     await fs.writeFile('README.md', await generateReadmeContent());
 }

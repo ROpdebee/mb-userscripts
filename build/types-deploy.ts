@@ -1,27 +1,43 @@
-// Type defs used in deployment. Factored into separate file because some are
-// used in JS code.
+/**
+ * Type definitions used in deployment.
+ *
+ * Factored into separate file because some are used in JS code.
+ */
 
+/** Information about a deployed script. */
 export interface DeployedScript {
+    /** Script name. */
     name: string;
+    /** Deployed version. */
     version: string;
+    /** Commit in which script is deployed. */
     commit: string;
 }
 
+/** Information about multiple deployed scripts. */
 export interface DeployInfo {
+    /** Array of deployment information of multiple scripts. */
     scripts: DeployedScript[];
 }
 
+/** Information about pull requests. */
 export interface PullRequestInfo {
+    /** PR number. */
     number: number;
+    /** PR title. */
     title: string;
+    /** URL to the PR. */
     url: string;
+    /** Labels applied to the PR. */
     labels: string[];
 }
 
+/** Payload of a GitHub push event (incomplete). */
 export interface PushEventPayload {
     before: string;
 }
 
+/** Payload of a GitHub repository dispatch event (incomplete). */
 export interface RepositoryDispatchEventPayload {
     client_payload: {
         pull_request: {

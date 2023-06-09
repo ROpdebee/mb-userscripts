@@ -1,3 +1,14 @@
+/**
+ * Script to check whether changes to the compiled userscripts would be made following a dependabot
+ * or renovatebot dependency update. If such changes are made, this script will cause CI to fail and
+ * prevent the PR from being merged automatically.
+ *
+ * Expects one argument: the path to a directory containing the latest released compiled
+ * userscripts.
+ *
+ * Can only be run inside of the CI environment.
+ */
+
 import fs from 'node:fs/promises';
 
 import { getPreviousReleaseVersion, userscriptHasChanged } from './versions';
@@ -8,6 +19,12 @@ if (!process.env.GITHUB_ACTIONS) {
 
 const distRepo = process.argv[2];
 
+/**
+ * Check whether any of the deployed userscripts have changed, throw an error in case they have.
+ *
+ * This is intended to be used in CI to verify whether changes that shouldn't change the
+ * userscripts, indeed don't change the userscripts.
+ */
 async function checkUserscriptsChanged(): Promise<void> {
     const srcContents = await fs.readdir('./src');
     const userscriptDirs = srcContents.filter((name) => name.startsWith('mb_'));

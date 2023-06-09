@@ -1,3 +1,7 @@
+/**
+ * Rollup plugin to transform JSX into native code using browser APIs, building upon nativejsx.
+ */
+
 import type { FilterPattern } from '@rollup/pluginutils';
 import type { JSXOptions } from 'nativejsx';
 import type { Plugin } from 'rollup';
@@ -19,9 +23,8 @@ interface NativeJSXPluginOptions extends Partial<JSXOptions> {
 /**
  * NativeJSX transformer plugin.
  *
- * Options are identical to nativejsx, except for 'prototypes', whose default
- * is 'module'. When 'module' is specified, nativejsx helpers will be added
- * as static imports.
+ * Options are identical to nativejsx, except for `prototypes`, whose default is `module`. When
+ * `module` is specified, nativejsx helpers will be added as static imports.
  *
  * @param      {Readonly<NativeJSXOptions>}  options  The options
  * @return     {Plugin}                      The plugin.
@@ -38,8 +41,7 @@ export function nativejsx(options?: Readonly<NativeJSXPluginOptions>): Plugin {
         name: 'NativeJSXPlugin',
 
         /**
-         * Transform hook for the plugin. Transforms included files with
-         * nativejsx.
+         * Transform hook for the plugin. Transforms included files with nativejsx.
          *
          * @param      {string}                       code    The code
          * @param      {string}                       id      The identifier

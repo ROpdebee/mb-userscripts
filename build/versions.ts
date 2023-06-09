@@ -1,3 +1,7 @@
+/**
+ * Utilities for userscript version numbers.
+ */
+
 import { exec } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -5,11 +9,22 @@ import { promisify } from 'node:util';
 
 import simpleGit from 'simple-git';
 
+/**
+ * Generate a version number that corresponds to today's date.
+ *
+ * @return     {string}  The version number.
+ */
 export function getVersionForToday(): string {
     const today = new Date();
     return `${today.getUTCFullYear()}.${today.getUTCMonth() + 1}.${today.getUTCDate()}`;
 }
 
+/**
+ * Extract the version number from a userscript file.
+ *
+ * @param      {string}  fileContent  The userscript file content.
+ * @return     {string}  The version number specified in the userscript.
+ */
 export function extractVersion(fileContent: string): string {
     const version = fileContent.match(/\/\/\s*@version\s+(\S+)/)?.[1];
     if (!version) {
@@ -18,6 +33,22 @@ export function extractVersion(fileContent: string): string {
     return version;
 }
 
+/**
+ * Increment the given version number. Provides a version number for today, and suffixes that
+ * version number in case of a conflict.
+ *
+ * Note that it is assumed that `lastVersion` is a date-based version number that is before
+ * today.
+ *
+ * @example
+ * // Assuming today is 2021.10.1
+ * incrementVersion('2021.9.30') // => 2021.10.1
+ * incrementVersion('2021.10.1') // => 2021.10.1.2
+ * incrementVersion('2021.10.1.2') // => 2021.10.1.3
+ *
+ * @param      {(string|undefined)}  lastVersion  The version number that needs to be incremented.
+ * @return     {string}              Incremented version number.
+ */
 export function incrementVersion(lastVersion: string | undefined): string {
     const nextVersion = getVersionForToday();
 
@@ -56,6 +87,12 @@ export async function getPreviousReleaseVersion(userscriptName: string, buildDir
     return extractVersion(metaContent);
 }
 
+/**
+ * Build a temporary userscript with an empty version.
+ *
+ * @param      {string}           scriptName  Name of the userscript to build.
+ * @return     {Promise<string>}  The built userscript content.
+ */
 async function buildTempUserscript(scriptName: string): Promise<string> {
     const outputDir = await fs.mkdtemp(scriptName);
 
@@ -83,10 +120,25 @@ async function buildTempUserscript(scriptName: string): Promise<string> {
     return content;
 }
 
+/**
+ * Check whether a userscript has changed between commits.
+ *
+ * Compares the current version of the userscript in the repository against the version built from a
+ * previous ref.
+ *
+ * @param      {string}   scriptName    The script name.
+ * @param      {string}   compareToRef  The git ref to compare to.
+ * @return     {Promise}  Object with property `changed` indicating whether there was a change, and
+ *                        `diff` containing the actual differences.
+ */
 export async function userscriptHasChanged(scriptName: string, compareToRef: string): Promise<{ changed: boolean; diff: string }> {
     // We'll check whether the userscript has changed by building both the
     // latest code as well as the code at `baseRef`, then diffing them.
     // If there's a diff, we assume it needs a new release.
+    // We can't simply check against the previously deployed version, since there
+    // may have been skipped deployments (via `skip cd`) which would cause a
+    // difference, even though there is no difference between this build and the
+    // one at the previous ref.
 
     // Build previous version before current version so that the current
     // dependency versions are installed after everything is finished.

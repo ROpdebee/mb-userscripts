@@ -1,3 +1,9 @@
+/**
+ * Script to check whether all TypeScript subprojects are referenced in the main `tsconfig.json`
+ * file. The latter is used as an entrypoint for the TS type checker, so if any project is not
+ * referenced, it will not be type-checked.
+ */
+
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -5,7 +11,14 @@ import type { TsConfigJson } from 'type-fest';
 import { glob } from 'glob';
 
 
-// Assumes that comments start on their own line.
+/**
+ * Strip comments from JSON content.
+ *
+ * Assumes that comments start on their own line.
+ *
+ * @param      {string}  jsonContent  The JSON file content.
+ * @return     {string}  `jsonContent` with comments stripped.
+ */
 function stripComments(jsonContent: string): string {
     return jsonContent
         .split('\n')
@@ -13,6 +26,10 @@ function stripComments(jsonContent: string): string {
         .join('\n');
 }
 
+
+/**
+ * Ensure all subprojects are referenced in the glue `tsconfig.json` file. Throws error if not.
+ */
 async function check(): Promise<void> {
     // Ensure all subprojects are referenced in the glue tsconfig.json.
 

@@ -1,3 +1,7 @@
+/**
+ * Rollup plugin to inject update notifications into compiled scripts.
+ */
+
 import type { FilterPattern } from '@rollup/pluginutils';
 import type { Plugin } from 'rollup';
 import { createFilter } from '@rollup/pluginutils';
@@ -21,7 +25,7 @@ export const UPDATE_NOTIFICATIONS_SOURCE_ID = '_UpdateNotifications_virtualSourc
  * Transformer plugin to automatically inject the update notifications.
  *
  * @param      {Readonly<PluginOptions>}  options  The options
- * @return     {Plugin}  The plugin.
+ * @return     {Plugin}                   The plugin.
  */
 export function updateNotifications(options?: Readonly<PluginOptions>): Plugin {
     const { include, exclude } = options ?? {};

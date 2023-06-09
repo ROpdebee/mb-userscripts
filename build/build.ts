@@ -1,9 +1,17 @@
+/**
+ * Script to build all userscripts.
+ */
+
 import fs from 'node:fs/promises';
 
 import { generateReadmeContent } from './generate-readme';
 import { buildUserscripts } from './rollup';
 import { getVersionForToday } from './versions';
 
+/**
+ * Check whether the content of the `README.md` file is up-to-date, throw error if not.
+ */
+// TODO: This doesn't really belong here.
 async function checkReadmeContent(): Promise<void> {
     const actualContent = await fs.readFile('README.md', 'utf8');
     const expectedContent = await generateReadmeContent();

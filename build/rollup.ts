@@ -1,3 +1,7 @@
+/**
+ * Main build module.
+ */
+
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -22,12 +26,17 @@ import { nativejsx } from './plugin-nativejsx';
 import { updateNotifications } from './plugin-update-notifications';
 import { MetadataGenerator, userscript } from './plugin-userscript';
 
+/** Default output directory for the compiled scripts. */
 const OUTPUT_DIR = 'dist';
+/** Intermediate chunk name for 3rd party dependencies. Will be merged into the main file at the end. */
 const VENDOR_CHUNK_NAME = 'vendor';
+/** Intermediate chunk name for 1st party common code. Will be merged into the main file at the end. */
 const BUILTIN_LIB_CHUNK_NAME = 'lib';
 
+/** Supported JavaScript source extensions. */
 const EXTENSIONS = ['.js', '.ts', '.jsx', '.tsx'];
 
+/** Options for the babel transpiler. */
 const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
     babelHelpers: 'bundled',
     exclude: 'node_modules/core-js*/**',
@@ -35,6 +44,7 @@ const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
     extensions: EXTENSIONS,
 };
 
+/** Options for the terser minification tool. */
 const TERSER_OPTIONS: MinifyOptions = {
     ecma: 5,
     safari10: true,  // Supported by MB
@@ -45,9 +55,20 @@ const TERSER_OPTIONS: MinifyOptions = {
     module: false,
 };
 
+/** Packages to skip compiling, i.e., those that are not userscripts. */
 const SKIP_PACKAGES = new Set(['lib', 'types']);
-const MAX_FEATURE_HISTORY = 10;  // Include only the last 10 new features of the changelog
+/**
+ * Maximum number of new features to include in the embedded changelog that is injected into the
+ * userscripts.
+ */
+const MAX_FEATURE_HISTORY = 10;
 
+/**
+ * Scan the source directory and build all userscripts, injecting a given version number.
+ *
+ * @param      {string}         version    The version number to use.
+ * @param      {string}         outputDir  The output directory.
+ */
 export async function buildUserscripts(version: string, outputDir: string = OUTPUT_DIR): Promise<void> {
     const sourceDirs = await fs.promises.readdir('./src');
     const userscriptDirs = sourceDirs
@@ -59,6 +80,13 @@ export async function buildUserscripts(version: string, outputDir: string = OUTP
     }
 }
 
+/**
+ * Build a given userscript, injecting a given version number.
+ *
+ * @param      {string}         userscriptName  Name of the userscript to build.
+ * @param      {string}         version         The version number to use.
+ * @param      {string}         outputDir       The output directory.
+ */
 export async function buildUserscript(userscriptName: string, version: string, outputDir: string): Promise<void> {
     console.log(`Building ${userscriptName}`);
     const userscriptMetaGenerator = await MetadataGenerator.create({
@@ -71,30 +99,34 @@ export async function buildUserscript(userscriptName: string, version: string, o
 }
 
 /**
- * Builds the first pass of a userscript.
+ * Build the first pass of a userscript.
  *
- * Generates the userscript into two bundles, the first containing the main
- * userscript code, the second containing a minified bundle of all external
- * dependencies which aren't present as a @require. Note that userscript
- * metadata isn't embedded yet.
+ * Generate the userscript into three chunks:
+ *  - Chunk containing the main userscript code, transpiled and without comments.
+ *  - Chunk containing used first-party common library code, transpiled and minified.
+ *  - Chunk containing all used external dependencies which aren't present as a `@require`,
+ *    transpiled and minified.
  *
- * @param      {String}   userscriptDir  The userscript directory.
- * @return     {Promise}  Promise that resolves to the output as described
- *                        above.
+ * Note that userscript metadata isn't embedded yet.
+ *
+ * @param      {String}             userscriptName           The name of the userscript.
+ * @param      {MetadataGenerator}  userscriptMetaGenerator  The userscript metadata generator.
+ * @param      {string}             outputDir                The output directory.
+ * @return     {Promise}            The output chunks as described above.
  */
-async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<RollupOutput> {
+async function buildUserscriptPassOne(userscriptName: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<RollupOutput> {
     let inputPath: string;
     try {
         inputPath = await Promise.any(EXTENSIONS.map(async (ext) => {
-            const filePath = path.resolve('./src', userscriptDir, 'index' + ext);
+            const filePath = path.resolve('./src', userscriptName, 'index' + ext);
             return fs.promises.stat(filePath)
                 .then(() => filePath);
         }));
     } catch {
-        throw new Error(`No top-level file found in ${userscriptDir}`);
+        throw new Error(`No top-level file found in ${userscriptName}`);
     }
 
-    const changelogEntries = await parseChangelogEntries(path.join(outputDir, `${userscriptDir}.changelog.md`));
+    const changelogEntries = await parseChangelogEntries(path.join(outputDir, `${userscriptName}.changelog.md`));
     const featureHistory = changelogEntries
         .filter((entry) => entry.title === 'New feature')
         .map((entry) => ({
@@ -106,7 +138,7 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
     const changelogUrl = userscriptMetaGenerator.gitURLs
         .constructBlobURL(
             userscriptMetaGenerator.options.branchName,
-            `${userscriptDir}.changelog.md`,
+            `${userscriptName}.changelog.md`,
         );
 
     const plugins = [
@@ -124,7 +156,7 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
             },
         }),
         consts({
-            'userscript-id': userscriptDir,
+            'userscript-id': userscriptName,
             'userscript-feature-history': featureHistory,
             'changelog-url': changelogUrl,
             'debug-mode': process.env.NODE_ENV !== 'production',
@@ -187,18 +219,17 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
 }
 
 /**
- * Builds the second pass of a userscript.
+ * Build the second pass of a userscript.
  *
- * Bundles the userscript and the external dependencies into one IIFE, prepends
- * the userscript header, and writes a .user.js and .meta.js file to the output
- * directory.
+ * Bundle the userscript and the minified chunks into one IIFE. Prepend the userscript header, and
+ * write a `.user.js` and `.meta.js` file to the output directory.
  *
- * @param      {?}        passOneResult   The result of the first build pass.
- * @param      {String}   userscriptDir  The userscript directory.
- * @return     {Promise}  Promise that resolves once the files have been
- *                        written.
+ * @param      {RollupOutput}       passOneResult            The result of the first build pass.
+ * @param      {String}             userscriptName           The name of the userscript.
+ * @param      {MetadataGenerator}  userscriptMetaGenerator  The userscript metadata generator.
+ * @param      {string}             outputDir                The output directory.
  */
-async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<void> {
+async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptName: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<void> {
     const fileMapping: Record<string, string> = {};
     for (const outputChunk of passOneResult.output) {
         if (outputChunk.type === 'chunk') {
@@ -219,12 +250,18 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
 
     await bundle.write({
         format: 'iife',
-        file: path.resolve(outputDir, `${userscriptDir}.user.js`),
+        file: path.resolve(outputDir, `${userscriptName}.user.js`),
     });
 
     await bundle.close();
 }
 
+/**
+ * Determine whether a module is an external library by checking its path.
+ *
+ * @param      {string}   modulePath  The module path.
+ * @return     {boolean}  `true` if external library, `false` otherwise.
+ */
 function isExternalLibrary(modulePath: string): boolean {
     const relPath = path.relative('.', modulePath);
     // Don't mark `consts:...` modules are external libraries. They're fake
@@ -234,10 +271,22 @@ function isExternalLibrary(modulePath: string): boolean {
     return !(relPath.startsWith('src') || relPath.startsWith('consts:') || modulePath.endsWith('_virtualSource_'));
 }
 
+/**
+ * Determine whether a module is a built-in library by checking its path.
+ *
+ * @param      {string}   modulePath  The module path.
+ * @return     {boolean}  `true` if built-in library, `false` otherwise.
+ */
 function isBuiltinLib(modulePath: string): boolean {
     return path.relative('.', modulePath).startsWith(['src', 'lib'].join(path.sep));
 }
 
+/**
+ * Get the code comment explaining the minified contents of a chunk.
+ *
+ * @param      {Readonly<RenderedChunk>}  chunk   The chunk.
+ * @return     {string}                   Code comment explaining chunk comments.
+ */
 function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
     if (chunk.name === BUILTIN_LIB_CHUNK_NAME) return '/* minified: lib */';
 
@@ -259,6 +308,7 @@ function getVendorMinifiedPreamble(chunk: Readonly<RenderedChunk>): string {
     return `/* minified: ${uniqueBundledModules.join(', ')} */`;
 }
 
+/** Rollup plugin to minify third-party and first-party library chunks. */
 const minifyPlugin: OutputPlugin = {
     name: 'customMinifier',
     async renderChunk(

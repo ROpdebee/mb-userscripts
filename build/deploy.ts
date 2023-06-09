@@ -1,3 +1,19 @@
+/**
+ * Script to build, deploy, and optionally release userscripts.
+ *
+ * Expects one argument: the path to a directory containing the latest released compiled
+ * userscripts. This directory is expected to be a git repository.
+ *
+ * Also expects an environment variable `PR_INFO` to be present, which contains a JSON
+ * representation containing information on the pull request which caused this deployment (either
+ * because it was merged, or because a maintainer requested a deployment preview).
+ *
+ * If the `SKIP_PUSH` environment variable is set, this script will refrain from pushing the updated
+ * userscripts to the repository.
+ *
+ * Can only be run inside of the CI environment.
+ */
+
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -26,6 +42,15 @@ const prInfo = JSON.parse(process.env.PR_INFO) as PullRequestInfo;
 // committing to dist, without constantly having to change branches.
 const gitDist = simpleGit(distRepo);
 
+/**
+ * Compile a script, check whether it has changed from the previously-deployed version, and commit
+ * the updated script if it has.
+ *
+ * @param      {string}                               scriptName  Name of the userscript.
+ * @return     {(Promise<DeployedScript|undefined>)}  Information on the deployed script, or
+ *                                                    undefined if the script was not deployed
+ *                                                    because no changes were made.
+ */
 async function commitIfUpdated(scriptName: string): Promise<DeployedScript | undefined> {
     console.log(`Checking ${scriptName}…`);
     const previousVersion = await getPreviousReleaseVersion(scriptName, distRepo);
@@ -63,6 +88,17 @@ async function commitIfUpdated(scriptName: string): Promise<DeployedScript | und
     return undefined;
 }
 
+
+/**
+ * Commit an updated script.
+ *
+ * Write the compiled script into the distribution repository, update related metadata (changelog,
+ * version file, ...), and create a git commit for the updated script.
+ *
+ * @param      {string}                   scriptName  The script name.
+ * @param      {string}                   version     The version number of the new release.
+ * @return     {Promise<DeployedScript>}  Information on the deployed script.
+ */
 async function commitUpdate(scriptName: string, version: string): Promise<DeployedScript> {
     // Update the changelog
     await updateChangelog(scriptName, version, distRepo, prInfo);
@@ -83,6 +119,13 @@ async function commitUpdate(scriptName: string, version: string): Promise<Deploy
     };
 }
 
+/**
+ * Encode the deployment information into a JSON representation that can be used to set GitHub
+ * Actions results.
+ *
+ * @param      {DeployInfo}  output  The output to be encoded.
+ * @return     {string}      The encoded output.
+ */
 function encodeOutput(output: DeployInfo): string {
     return JSON.stringify(output)
         .replaceAll('%', '%25')
@@ -90,6 +133,13 @@ function encodeOutput(output: DeployInfo): string {
         .replaceAll('\r', '%0D');
 }
 
+/**
+ * Scan the source repository for userscripts, deploy updates if necessary, and push the updates to
+ * the distribution repository.
+ *
+ * If the pull request that triggered this deployment has the `skip cd` label set, the deployment
+ * will be skipped.
+ */
 async function scanAndPush(): Promise<void> {
     if (prInfo.labels.includes('skip cd')) {
         console.log('`skip cd` label set on PR, skipping...');

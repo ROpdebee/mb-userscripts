@@ -1,3 +1,8 @@
+/**
+ * Functions to report the status of deployments and deployment previews via the GitHub API.
+ * Can only be run from within GitHub Actions.
+ */
+
 /* eslint-disable @typescript-eslint/no-unsafe-assignment -- Cannot fix this in JS code. */
 /* eslint-disable @typescript-eslint/explicit-function-return-type -- These are present in JSDoc comments. */
 /* eslint-disable unicorn/prefer-module -- Not supported in @actions/github-script. */
@@ -11,8 +16,15 @@
  */
 
 /**
- * @return { Promise<void> }
- * @param { { github: Octokit; context: GithubActionsContext } } args
+ * Report the status of a deployment of updated userscript versions.
+ *
+ * Add labels to PR indicating deployment status. Leave a comment on the PR if the deployment failed
+ * or when a new userscript was released.
+ *
+ * @param      {Object}                arg1          Object provided by GitHub Actions.
+ * @param      {Octokit}               arg1.github   The GitHub Octokit API.
+ * @param      {GithubActionsContext}  arg1.context  The GitHub Actions context.
+ * @return     {Promise<void>}         Nothing.
  */
 async function reportDeploy({ github, context }) {
     const { TEST_RESULT, DEPLOY_RESULT, PR_INFO, DEPLOY_INFO } = process.env;
@@ -78,8 +90,15 @@ async function reportDeploy({ github, context }) {
 }
 
 /**
- * @return { Promise<void> }
- * @param { { github: Octokit; context: GithubActionsContext } } args
+ * Report the status of a preview deployment.
+ *
+ * If no scripts are updated, leave a comment stating so. Otherwise, comment the URLs to the
+ * deployed preview versions.
+ *
+ * @param      {Object}                arg1          Object provided by GitHub Actions.
+ * @param      {Octokit}               arg1.github   The GitHub Octokit API.
+ * @param      {GithubActionsContext}  arg1.context  The GitHub Actions context.
+ * @return     {Promise<void>}         Nothing.
  */
 async function reportPreview({ github, context }) {
     if (!process.env.PR_INFO) {

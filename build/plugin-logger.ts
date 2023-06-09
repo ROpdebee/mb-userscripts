@@ -1,3 +1,7 @@
+/**
+ * Rollup plugin to inject logging boilerplate into all compiled userscripts.
+ */
+
 import type { FilterPattern } from '@rollup/pluginutils';
 import type { Plugin } from 'rollup';
 import { createFilter } from '@rollup/pluginutils';
@@ -26,8 +30,8 @@ export const LOGGER_SOURCE_ID = '_LOGGER_virtualSource_';
 /**
  * Transformer plugin to automatically inject the logger boilerplate setup.
  *
- * @param      {Readonly<PluginOptions>}  options  The options
- * @return     {Plugin}  The plugin.
+ * @param      {Readonly<PluginOptions>}  options  The plugin options.
+ * @return     {Plugin}                   The plugin.
  */
 export function logger(options?: Readonly<PluginOptions>): Plugin {
     // Another option would've been to put the boilerplate configuration into

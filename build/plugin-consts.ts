@@ -1,5 +1,9 @@
-// Adapted from https://github.com/NotWoods/rollup-plugin-consts/ for Rollup 3.
-// Licensed under Apache 2.0, see https://github.com/NotWoods/rollup-plugin-consts/blob/main/LICENSE
+/**
+ * Rollup plugin to inject constants into compiled scripts.
+ *
+ * Adapted from https://github.com/NotWoods/rollup-plugin-consts/ for Rollup 3. Licensed under
+ * Apache 2.0, see https://github.com/NotWoods/rollup-plugin-consts/blob/main/LICENSE
+ */
 
 import type { Plugin } from 'rollup';
 import type { Primitive } from 'type-fest';
@@ -9,6 +13,12 @@ type AllowedValue = PrimitiveNoSymbol | AllowedValue[] | { [key: string | number
 
 const moduleStart = 'consts:';
 
+/**
+ * Rollup plugin to inject constants into compiled scripts.
+ *
+ * @param      {Record<string, AllowedValue>}  constValues    The constant values to inject.
+ * @return     {Plugin}                        The rollup plugin.
+ */
 export function consts(constValues: Record<string, AllowedValue>): Plugin {
     return {
         name: 'consts-plugin',
@@ -22,7 +32,6 @@ export function consts(constValues: Record<string, AllowedValue>): Plugin {
 
             if (!(key in constValues)) {
                 this.error(`Cannot find const: ${key}`);
-                return;
             }
 
             return `export default ${JSON.stringify(constValues[key])}`;
