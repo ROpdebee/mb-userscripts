@@ -12,11 +12,8 @@ import { createBlob, createBlobResponse, createFetchedImage, createTextResponse 
 import { registerMatchers } from '../test-utils/matchers';
 
 jest.mock('@lib/util/request');
-jest.mock('@lib/logging/logger');
 // eslint-disable-next-line jest/unbound-method
 const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [string | URL, unknown]>;
-// eslint-disable-next-line jest/unbound-method
-const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
 
 const findImagesMock = jest.fn();
 
@@ -26,7 +23,6 @@ beforeAll(() => {
 
 afterEach(() => {
     mockRequestGet.mockReset();
-    mockLoggerWarn.mockReset();
 });
 
 describe('cover art providers', () => {
@@ -176,10 +172,11 @@ describe('cover art providers', () => {
                 ...dummyResponse,
                 url: undefined,
             });
+            const loggerWarnSpy = jest.spyOn(LOGGER, 'warn');
 
             await expect(fakeProvider.fetchPage(new URL('https://example.com/test')))
                 .resolves.toBe('1234');
-            expect(mockLoggerWarn).toHaveBeenCalledWith(expect.stringContaining('redirect'));
+            expect(loggerWarnSpy).toHaveBeenCalledWith(expect.stringContaining('redirect'));
         });
     });
 
