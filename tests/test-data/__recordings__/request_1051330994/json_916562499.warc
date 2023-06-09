@@ -1,0 +1,181 @@
+WARC/1.1
+WARC-Filename: request/json
+WARC-Date: 2022-08-14T10:22:20.670Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:82589cd1-fae5-4294-a98e-bf0e4abe2d84>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:7f84e634-4f81-4308-af2e-5ad06e0f1db1>
+WARC-Target-URI: https://httpbin.org/json
+WARC-Date: 2022-08-14T10:22:20.670Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:ba1272fc-a5e3-476c-8958-893288679240>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:07ff13073caf8794bb9f68e87cafb66638b2222d4b44953b6d77862c5002f82d
+Content-Length: 133
+
+GET /json HTTP/1.1
+accept: */*
+accept-encoding: gzip, deflate, br
+connection: close
+host: httpbin.org
+user-agent: node-fetch
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:7f84e634-4f81-4308-af2e-5ad06e0f1db1>
+WARC-Target-URI: https://httpbin.org/json
+WARC-Date: 2022-08-14T10:22:20.670Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:b041bc95-d63c-4a0d-bd26-41286ea1fcd4>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:7b1c997fca6b9490d0fdb30cba5686f2ffea1c66c8ba044863eaea02a2b096dc
+WARC-Block-Digest: sha256:7b1c997fca6b9490d0fdb30cba5686f2ffea1c66c8ba044863eaea02a2b096dc
+Content-Length: 349
+
+harEntryId: 934cef95e7505987bec5a0f4e6519d90
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-14T10:22:20.130Z
+time: 475
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":475,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 152
+warcRequestCookies: []
+warcResponseHeadersSize: 208
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://httpbin.org/json
+WARC-Date: 2022-08-14T10:22:20.670Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:7f84e634-4f81-4308-af2e-5ad06e0f1db1>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:bab3dfd2a6c992e4bf589eee05fc9650cc9d6988660b947a7a87b99420d108f9
+WARC-Block-Digest: sha256:078e22dc1f009e93d154f7258ca60e2a2657ac0de196127e3ad679a17dd30214
+Content-Length: 654
+
+HTTP/1.1 200 OK
+access-control-allow-credentials: true
+access-control-allow-origin: *
+connection: close
+content-length: 429
+content-type: application/json
+date: Sun, 14 Aug 2022 10:22:20 GMT
+server: gunicorn/19.9.0
+
+{
+  "slideshow": {
+    "author": "Yours Truly", 
+    "date": "date of publication", 
+    "slides": [
+      {
+        "title": "Wake up to WonderWidgets!", 
+        "type": "all"
+      }, 
+      {
+        "items": [
+          "Why <em>WonderWidgets</em> are great", 
+          "Who <em>buys</em> WonderWidgets"
+        ], 
+        "title": "Overview", 
+        "type": "all"
+      }
+    ], 
+    "title": "Sample Slide Show"
+  }
+}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:7490760a-153a-45ed-b1c4-dcac9e7ba468>
+WARC-Target-URI: https://httpbin.org/json
+WARC-Date: 2022-08-14T10:22:20.670Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:7df07379-e1d5-4d9a-b08a-85aa9fac9e21>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:bb6cedb3133323a1aacedc533310ae0e9889e6c35ae1a02976d411b5e52a1fcb
+Content-Length: 22
+
+GET /json HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:7490760a-153a-45ed-b1c4-dcac9e7ba468>
+WARC-Target-URI: https://httpbin.org/json
+WARC-Date: 2022-08-14T10:22:20.670Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:f2c0a1e0-aa65-4d19-914a-f7fcf47a479d>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:e712150393df07f11348b088770df1f74ce0db31d4c9f35810a511373209ea29
+WARC-Block-Digest: sha256:e712150393df07f11348b088770df1f74ce0db31d4c9f35810a511373209ea29
+Content-Length: 344
+
+harEntryId: deeba439e3d4986011f830ebdd3be4c6
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2022-08-14T10:22:20.662Z
+time: 7
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":7,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 43
+warcRequestCookies: []
+warcResponseHeadersSize: 254
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://httpbin.org/json
+WARC-Date: 2022-08-14T10:22:20.670Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:7490760a-153a-45ed-b1c4-dcac9e7ba468>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:bab3dfd2a6c992e4bf589eee05fc9650cc9d6988660b947a7a87b99420d108f9
+WARC-Block-Digest: sha256:d8e2bed98c62ce1dd2093d38da23b278017a868bb2d26c76593e0cf900add9fb
+Content-Length: 700
+
+HTTP/1.1 200 OK
+access-control-allow-credentials: true
+access-control-allow-origin: *
+connection: close
+content-length: 429
+content-type: application/json
+date: Sun, 14 Aug 2022 10:22:20 GMT
+server: gunicorn/19.9.0
+x-pollyjs-finalurl: https://httpbin.org/json
+
+{
+  "slideshow": {
+    "author": "Yours Truly", 
+    "date": "date of publication", 
+    "slides": [
+      {
+        "title": "Wake up to WonderWidgets!", 
+        "type": "all"
+      }, 
+      {
+        "items": [
+          "Why <em>WonderWidgets</em> are great", 
+          "Who <em>buys</em> WonderWidgets"
+        ], 
+        "title": "Overview", 
+        "type": "all"
+      }
+    ], 
+    "title": "Sample Slide Show"
+  }
+}
+
+

@@ -6,14 +6,14 @@ interface LoggerOptions {
     sinks: LoggingSink[];
 }
 
-const HANDLER_NAMES: Record<LogLevel, keyof LoggingSink> = {
+const HANDLER_NAMES = {
     [LogLevel.DEBUG]: 'onDebug',
     [LogLevel.LOG]: 'onLog',
     [LogLevel.INFO]: 'onInfo',
     [LogLevel.SUCCESS]: 'onSuccess',
     [LogLevel.WARNING]: 'onWarn',
     [LogLevel.ERROR]: 'onError',
-};
+} as const;
 
 const DEFAULT_OPTIONS = {
     logLevel: LogLevel.INFO,
@@ -31,10 +31,11 @@ export class Logger {
     }
 
     private fireHandlers(level: LogLevel, message: string, exception?: unknown): void {
-        if (level < this._configuration.logLevel) return;
-
         this._configuration.sinks
             .forEach((sink) => {
+                const minLevel = sink.minimumLevel ?? this.configuration.logLevel;
+                if (level < minLevel) return;
+
                 const handler = sink[HANDLER_NAMES[level]];
                 if (!handler) return;
 

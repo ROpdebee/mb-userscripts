@@ -14,11 +14,12 @@ class FakeSink implements LoggingSink {
     public readonly onWarn = jest.fn();
 }
 
-const handlerNames: Array<keyof LoggingSink> = ['onDebug', 'onLog', 'onWarn', 'onError', 'onInfo', 'onSuccess'];
-type LoggerMethodName = 'debug' | 'log' | 'warn' | 'error' | 'info' | 'success';
-const loggerMethodNames: LoggerMethodName[] = ['debug', 'log', 'info', 'success', 'warn', 'error'];
+const loggerMethodNames = ['debug', 'log', 'info', 'success', 'warn', 'error'] as const;
+const handlerNames = ['onDebug', 'onLog', 'onWarn', 'onError', 'onInfo', 'onSuccess'] as const;
+type LoggerMethodName = typeof loggerMethodNames[number];
+type LogHandlerName = typeof handlerNames[number];
 const loggerToHandlerNames = Object.fromEntries(loggerMethodNames
-    .map((name) => [name, 'on' + name[0].toUpperCase() + name.slice(1) as keyof LoggingSink]));
+    .map((name) => [name, 'on' + name[0].toUpperCase() + name.slice(1) as LogHandlerName]));
 
 describe('logger', () => {
     describe('configuring', () => {
@@ -200,5 +201,18 @@ describe('logger', () => {
             expect(sink[loggerToHandlerNames[level]])
                 .toHaveBeenCalledTimes(shouldCall ? 1 : 0);
         });
+    });
+
+    it('allows sink to override logging level', () => {
+        const sink = new FakeSink() as LoggingSink;
+        sink.minimumLevel = LogLevel.DEBUG;
+        const logger = new Logger({
+            logLevel: LogLevel.INFO,
+            sinks: [sink],
+        });
+
+        logger.debug('test message');
+
+        expect(sink.onDebug).toHaveBeenCalledOnce();
     });
 });

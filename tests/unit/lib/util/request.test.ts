@@ -1,6 +1,8 @@
 import NodeHttpAdapter from '@pollyjs/adapter-node-http';
 
+import { LOGGER } from '@lib/logging/logger';
 import { AbortedError, HTTPResponseError, NetworkError, request, RequestBackend, TimeoutError } from '@lib/util/request';
+import { loggingObserver, RecordingObserver } from '@lib/util/request/observers';
 import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
 import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 import GMXHRAdapter from '@test-utils/pollyjs/gmxhr-adapter';
@@ -19,6 +21,32 @@ describe('request', () => {
 
     beforeAll(() => {
         mockFetch();
+    });
+
+    beforeEach(() => {
+        // Set up pollyjs so we reuse the same recordings for requests that
+        // we're making multiple times.
+        const server = pollyContext.polly.server;
+        server
+            .get(httpBinHelloWorldUrl)
+            // FIXME: We need to keep recordings for GMXHR contentType separate.
+            // The recordings for arraybuffer and blob are encoded as Base64,
+            // and the pollyjs GMXHR adapter needs that information to return
+            // the correct response. We should fix the adapter to not require
+            // a specific encoding. If we reuse the recordings for these, the
+            // adapter will return a response with `responseText` even though
+            // the `contentType` is set to `blob` or `arraybuffer`.
+            .filter((req) => !req.recordingName.includes('gmxhr backend/supports'))
+            .recordingName('request/hello world');
+        server
+            .get('https://httpbin.org/json')
+            .recordingName('request/json');
+        server
+            .get('https://httpbin.org/status/404')
+            .recordingName('request/status 404');
+        server
+            .get('https://httpbin.org/status/200')
+            .recordingName('request/status 200');
     });
 
     describe.each([['fetch', RequestBackend.FETCH], ['gmxhr', RequestBackend.GMXHR]])('%s backend', (_1, backend) => {
@@ -184,6 +212,212 @@ describe('request', () => {
             expect(cb).toHaveBeenCalledTimes(3);
             expect(cb).toHaveBeenCalledWith('test header', 'test', resp.headers);
             expect(cb).toHaveBeenCalledWith('multiple,values', 'test2', resp.headers);
+        });
+    });
+
+    describe('observers', () => {
+        const fakeObserver = {
+            onStarted: jest.fn(),
+            onFailed: jest.fn(),
+            onSuccess: jest.fn(),
+        };
+
+        beforeAll(() => {
+            request.addObserver(fakeObserver);
+        });
+
+        beforeEach(() => {
+            fakeObserver.onStarted.mockReset();
+            fakeObserver.onFailed.mockReset();
+            fakeObserver.onSuccess.mockReset();
+        });
+
+        it('notifies onStarted', async () => {
+            await request.get('https://httpbin.org/status/200');
+
+            expect(fakeObserver.onStarted).toHaveBeenCalledOnce();
+        });
+
+        it('notifies onSuccess on success', async () => {
+            await request.get('https://httpbin.org/status/200');
+
+            expect(fakeObserver.onSuccess).toHaveBeenCalledOnce();
+            expect(fakeObserver.onFailed).not.toHaveBeenCalled();
+        });
+
+        it('notifies onFailure on errors', async () => {
+            pollyContext.polly.configure({
+                recordFailedRequests: true,
+            });
+
+            await expect(request.get('https://httpbin.org/status/404')).toReject();
+
+            expect(fakeObserver.onFailed).toHaveBeenCalledOnce();
+            expect(fakeObserver.onSuccess).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('logging observer', () => {
+        const debugSpy = jest.spyOn(LOGGER, 'debug');
+
+        beforeAll(() => {
+            // This will remain attached after these tests are finished because
+            // we can't remove observers at this time. It's not a problem though.
+            request.addObserver(loggingObserver);
+        });
+
+        beforeEach(() => {
+            debugSpy.mockClear();
+        });
+
+        it('logs when request started', async () => {
+            await request.get('https://httpbin.org/status/200');
+
+            // Should've been called multiple times.
+            expect(debugSpy).toHaveBeenNthCalledWith(1, 'GET https://httpbin.org/status/200 - STARTED (backend: 2)');
+        });
+
+        it('notifies onSuccess on success', async () => {
+            await request.get('https://httpbin.org/status/200');
+
+            expect(debugSpy).toHaveBeenLastCalledWith('GET https://httpbin.org/status/200 - SUCCESS (code 200)');
+        });
+
+        it('notifies onFailure on errors', async () => {
+            pollyContext.polly.configure({
+                recordFailedRequests: true,
+            });
+
+            await expect(request.get('https://httpbin.org/status/404')).toReject();
+
+            expect(debugSpy).toHaveBeenLastCalledWith('GET https://httpbin.org/status/404 - FAILED (HTTPResponseError: HTTP error 404: Not Found)');
+        });
+    });
+
+    describe('recording observer', () => {
+        const observer = new RecordingObserver();
+
+        beforeAll(() => {
+            request.addObserver(observer);
+        });
+
+        beforeEach(() => {
+            while (observer['recordedResponses'].length > 0) {
+                observer['recordedResponses'].pop();
+            }
+        });
+
+        it('exports successful requests', async () => {
+            await request.get(httpBinHelloWorldUrl);
+
+            expect(observer.hasRecordings()).toBeTrue();
+            expect(observer.exportResponses()).toIncludeMultiple([
+                `GET ${httpBinHelloWorldUrl} (backend: 2)`,
+                `${httpBinHelloWorldUrl} 200: OK`,
+                'content-length: 11',
+                'hello world',
+            ]);
+        });
+
+        it('does not include onProgress callback in exported options', async () => {
+            await request.get(httpBinHelloWorldUrl, {
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                onProgress() {},
+            });
+
+            expect(observer.hasRecordings()).toBeTrue();
+            expect(observer.exportResponses()).toIncludeMultiple([
+                `GET ${httpBinHelloWorldUrl} (backend: 2)`,
+                'Options: {}',
+                `${httpBinHelloWorldUrl} 200: OK`,
+                'content-length: 11',
+                'hello world',
+            ]);
+        });
+
+        it('exports successful arraybuffer requests', async () => {
+            await request.get(httpBinHelloWorldUrl, {
+                responseType: 'arraybuffer',
+                backend: RequestBackend.FETCH,
+            });
+
+            expect(observer.hasRecordings()).toBeTrue();
+            expect(observer.exportResponses()).toIncludeMultiple([
+                `GET ${httpBinHelloWorldUrl} (backend: 1)`,
+                ('Options: {\n'
+                 + '  "responseType": "arraybuffer",\n'
+                 + '  "backend": 1\n'
+                 + '}'),
+                `${httpBinHelloWorldUrl} 200:`,
+                'content-length: 11',
+                '<ArrayBuffer, 11 bytes>',
+            ]);
+        });
+
+        it('exports successful blob requests', async () => {
+            await request.get(httpBinHelloWorldUrl, {
+                responseType: 'blob',
+                backend: RequestBackend.FETCH,
+            });
+
+            expect(observer.hasRecordings()).toBeTrue();
+            expect(observer.exportResponses()).toIncludeMultiple([
+                `GET ${httpBinHelloWorldUrl} (backend: 1)`,
+                ('Options: {\n'
+                 + '  "responseType": "blob",\n'
+                 + '  "backend": 1\n'
+                 + '}'),
+                `${httpBinHelloWorldUrl} 200:`,
+                'content-length: 11',
+                '<Blob, 20 bytes>', // Probably internally encoded as Base64?
+            ]);
+        });
+
+        it('exports failed requests', async () => {
+            await expect(request.get('https://httpbin.org/status/404')).toReject();
+
+            expect(observer.hasRecordings()).toBeTrue();
+            expect(observer.exportResponses()).toIncludeMultiple([
+                'GET https://httpbin.org/status/404 (backend: 2)',
+                'https://httpbin.org/status/404 404: Not Found',
+                'content-length: 0',
+            ]);
+        });
+
+        it('does not export requests that failed due to network errors', async () => {
+            // There's no response to export, so this shouldn't be exported at all.
+            mockGMxmlHttpRequest.mockImplementation((options) => options.onerror?.({} as GM.Response<never>));
+
+            expect(observer.hasRecordings()).toBeFalse();
+            await expect(request.get('https://httpbin.org/status/200', {
+                backend: RequestBackend.GMXHR,
+            })).toReject();
+
+            expect(observer.exportResponses()).toBeEmpty();
+        });
+
+        it('exports multiple requests', async () => {
+            await expect(request.get('https://httpbin.org/status/200')).toResolve();
+            await expect(request.get('https://httpbin.org/status/404')).toReject();
+
+            expect(observer.hasRecordings()).toBeTrue();
+            expect(observer.exportResponses()).toIncludeMultiple([
+                'GET https://httpbin.org/status/200 (backend: 2)',
+                'https://httpbin.org/status/200 200: OK',
+                'content-length: 0',
+                '=================',
+                'GET https://httpbin.org/status/404 (backend: 2)',
+                'https://httpbin.org/status/404 404: Not Found',
+                'content-length: 0',
+            ]);
+        });
+
+        it('exports recorded domains', async () => {
+            await expect(request.get('https://httpbin.org/status/200')).toResolve();
+            await expect(request.get('https://example.com/index.html')).toResolve();
+
+            expect(observer.hasRecordings()).toBeTrue();
+            expect(observer.recordedDomains).toIncludeSameMembers(['httpbin.org', 'example.com']);
         });
     });
 });
