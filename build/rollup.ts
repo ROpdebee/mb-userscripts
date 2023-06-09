@@ -20,11 +20,11 @@ import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
 import { parseChangelogEntries } from './changelog';
-import { consts } from './plugin-consts';
-import { logger } from './plugin-logger';
-import { nativejsx } from './plugin-nativejsx';
-import { updateNotifications } from './plugin-update-notifications';
-import { MetadataGenerator, userscript } from './plugin-userscript';
+import { consts } from './rollup-plugins/consts';
+import { logger } from './rollup-plugins/logger';
+import { nativejsx } from './rollup-plugins/nativejsx';
+import { updateNotifications } from './rollup-plugins/update-notifications';
+import { MetadataGenerator, userscript } from './rollup-plugins/userscript';
 
 /** Default output directory for the compiled scripts. */
 const OUTPUT_DIR = 'dist';
