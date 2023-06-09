@@ -29,7 +29,7 @@ export class CollectorSink implements LoggingSink {
             .flatMap(({ level, message, timestamp, exception }) => {
                 const dateStr = new Date(timestamp).toISOString();
                 const lines = [`[${dateStr} - ${level}] ${message}`];
-                if (typeof exception !== 'undefined') lines.push(`${exception}`);
+                if (exception !== undefined) lines.push(`${exception}`);
                 return lines;
             })
             .join('\n');

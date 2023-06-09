@@ -10,7 +10,6 @@ export const loggingObserver: RequestObserver = {
         LOGGER.debug(`${method} ${url} - SUCCESS (code ${response.status})`);
     },
     onFailed({ method, url, error }) {
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         LOGGER.debug(`${method} ${url} - FAILED (${error})`);
     },
     // istanbul ignore next: Unit tests don't have progress events.

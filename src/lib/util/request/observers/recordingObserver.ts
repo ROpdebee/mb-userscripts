@@ -107,4 +107,4 @@ export class RecordingObserver implements RequestObserver {
             return domains;
         }));
     }
-};
+}
