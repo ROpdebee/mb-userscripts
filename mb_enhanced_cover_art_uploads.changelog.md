@@ -1,3 +1,4 @@
+- **2023.6.9**: Internal changes: use unified request interface ([#672](https://github.com/ROpdebee/mb-userscripts/pull/672))
 - **2023.6.8.2**: Bug fix: retry loading image contents on certain HTTP errors ([#669](https://github.com/ROpdebee/mb-userscripts/pull/669))
 - **2023.6.8**: UNKNOWN CHANGE TYPE: fix(ecau)!: drop support for QUB Musique ([#670](https://github.com/ROpdebee/mb-userscripts/pull/670))
 - **2023.4.23.5**: New feature: rich copy-paste of webpage images and links ([#546](https://github.com/ROpdebee/mb-userscripts/pull/546))
