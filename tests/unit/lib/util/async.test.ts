@@ -1,4 +1,5 @@
-import { asyncSleep, pFinally, retryTimes } from '@lib/util/async';
+import { LOGGER } from '@lib/logging/logger';
+import { asyncSleep, logFailure, pFinally, retryTimes } from '@lib/util/async';
 
 afterEach(() => {
     jest.useRealTimers();
@@ -112,6 +113,43 @@ describe('retryTimes', () => {
 
             await expect(prom).toReject();
         });
+});
+
+describe('logging failures', () => {
+    const loggerErrorSpy = jest.spyOn(LOGGER, 'error');
+
+    beforeEach(() => {
+        loggerErrorSpy.mockReset();
+    });
+
+    it('does not log on resolving promise', async () => {
+        const prom = Promise.resolve();
+
+        logFailure(prom);
+
+        await expect(prom).toResolve();
+        expect(loggerErrorSpy).not.toHaveBeenCalled();
+    });
+
+    it('logs on rejecting promise', async () => {
+        const err = new Error('test');
+        const prom = Promise.reject(err);
+
+        logFailure(prom);
+
+        await expect(prom).toReject();
+        expect(loggerErrorSpy).toHaveBeenCalledWith(expect.any(String), err);
+    });
+
+    it('logs with custom message on rejecting promise', async () => {
+        const err = new Error('test');
+        const prom = Promise.reject(err);
+
+        logFailure(prom, 'custom error');
+
+        await expect(prom).toReject();
+        expect(loggerErrorSpy).toHaveBeenCalledWith('custom error', err);
+    });
 });
 
 describe('promise finally polyfill', () => {

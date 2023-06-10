@@ -1,5 +1,5 @@
 import { AssertionError } from '@lib/util/assert';
-import { onDocumentLoaded, onWindowLoaded, parseDOM, qs, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
+import { onAddEntityDialogLoaded, onDocumentLoaded, onWindowLoaded, parseDOM, qs, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
 describe('qs', () => {
     it('selects from the document by default', () => {
@@ -95,9 +95,14 @@ describe('parsing DOM', () => {
 });
 
 describe('callback on document loaded', () => {
+    const cb = jest.fn();
+
+    afterEach(() => {
+        cb.mockReset();
+    });
+
     it('does not fire if the document is not loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
-        const cb = jest.fn();
         onDocumentLoaded(cb);
 
         expect(cb).not.toHaveBeenCalled();
@@ -105,7 +110,6 @@ describe('callback on document loaded', () => {
 
     it('fires if the document was already loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
-        const cb = jest.fn();
         onDocumentLoaded(cb);
 
         expect(cb).toHaveBeenCalledOnce();
@@ -113,7 +117,6 @@ describe('callback on document loaded', () => {
 
     it('fires after the document was loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
-        const cb = jest.fn();
         onDocumentLoaded(cb);
 
         expect(cb).not.toHaveBeenCalled();
@@ -133,7 +136,6 @@ describe('callback on window loaded', () => {
 
     it('does not fire if the window is not loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('interactive');
-        const cb = jest.fn();
         onWindowLoaded(cb);
 
         expect(cb).not.toHaveBeenCalled();
@@ -141,7 +143,6 @@ describe('callback on window loaded', () => {
 
     it('fires if the window was already loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
-        const cb = jest.fn();
         onWindowLoaded(cb);
 
         expect(cb).toHaveBeenCalledOnce();
@@ -149,12 +150,60 @@ describe('callback on window loaded', () => {
 
     it('fires after the window was loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('interactive');
-        const cb = jest.fn();
         onWindowLoaded(cb);
 
         expect(cb).not.toHaveBeenCalled();
 
         window.dispatchEvent(new Event('load'));
+
+        expect(cb).toHaveBeenCalledOnce();
+    });
+});
+
+describe('callback on add entity dialog loaded', () => {
+    const cb = jest.fn();
+    let dialog: HTMLIFrameElement;
+    let dialogParent: HTMLElement;
+
+    beforeEach(() => {
+        // Set up fake page
+        dialogParent = document.createElement('div');
+        dialog = document.createElement('iframe');
+
+        // Provide the parent if requested.
+        jest.spyOn(dialog, 'parentElement', 'get').mockReturnValue(dialogParent);
+    });
+
+    afterEach(() => {
+        cb.mockReset();
+    });
+
+    it('does not fire if the dialog is still loading', () => {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.classList.add('content-loading');
+        dialogParent.append(loadingDiv);
+
+        onAddEntityDialogLoaded(dialog, cb);
+
+        expect(cb).not.toHaveBeenCalled();
+    });
+
+    it('fires if the dialog was already loaded', () => {
+        onAddEntityDialogLoaded(dialog, cb);
+
+        expect(cb).toHaveBeenCalledOnce();
+    });
+
+    it('fires after the dialog is loaded', () => {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.classList.add('content-loading');
+        dialogParent.append(loadingDiv);
+
+        onAddEntityDialogLoaded(dialog, cb);
+
+        expect(cb).not.toHaveBeenCalled();
+
+        dialog.dispatchEvent(new Event('load'));
 
         expect(cb).toHaveBeenCalledOnce();
     });

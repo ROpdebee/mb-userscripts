@@ -1,4 +1,4 @@
-import { filterNonNull, findRight, groupBy, insertBetween } from '@lib/util/array';
+import { collatedSort, enumerate, filterNonNull, findRight, groupBy, insertBetween } from '@lib/util/array';
 
 describe('filtering null values', () => {
     it('retains non-null values', () => {
@@ -55,6 +55,42 @@ describe('group by', () => {
         const expected = new Map([['a', ['a', 'b', 'c']]]);
 
         expect(result).toStrictEqual(expected);
+    });
+});
+
+describe('collated sort', () => {
+    it('does not sort empty array', () => {
+        expect(collatedSort([])).toStrictEqual([]);
+    });
+
+    it('sorts array of one element', () => {
+        expect(collatedSort(['1'])).toStrictEqual(['1']);
+    });
+
+    it('sorts array of multiple text elements', () => {
+        expect(collatedSort(['world', 'hello', 'test'])).toStrictEqual(['hello', 'test', 'world']);
+    });
+
+    it('properly sorts numeric text values', () => {
+        expect(collatedSort(['1', '10', '2', '1001'])).toStrictEqual(['1', '2', '10', '1001']);
+    });
+
+    it('properly sorts text and numeric values', () => {
+        expect(collatedSort(['B3', 'A2', 'A1', '1'])).toStrictEqual(['1', 'A1', 'A2', 'B3']);
+    });
+});
+
+describe('enumerate', () => {
+    it('handles empty arrays', () => {
+        expect(enumerate([])).toStrictEqual([]);
+    });
+
+    it('handles arrays of one element', () => {
+        expect(enumerate(['abc'])).toStrictEqual([['abc', 0]]);
+    });
+
+    it('handles arrays of multiple elements', () => {
+        expect(enumerate(['abc', 'def', 'ghi'])).toStrictEqual([['abc', 0], ['def', 1], ['ghi', 2]]);
     });
 });
 

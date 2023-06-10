@@ -6,7 +6,7 @@
  * Extract the basename from a URL's path.
  *
  * @example
- * urlBasename('https://example/some/path?x=123') // => "some"
+ * urlBasename('https://example.com/some/path?x=123') // => "some"
  *
  * @param      {(URL|string)}  url              The URL.
  * @param      {string}        defaultBasename  Value to fall back to if
@@ -14,7 +14,7 @@
  * @return     {string}        Basename of the URL's path.
  */
 export function urlBasename(url: string | URL, defaultBasename = ''): string {
-    if (typeof url !== 'string') url = url.pathname;
+    url = typeof url !== 'string' ? url.pathname : url.match(/(.+?)(?:\?|#|$)/)![1];
     // We don't need nullish coalescing here, since the array will always have
     // at least one element, but the last element may be the empty string.
     return url.split('/').pop()! || defaultBasename;
