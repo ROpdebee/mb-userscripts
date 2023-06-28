@@ -1,0 +1,1287 @@
+WARC/1.1
+WARC-Filename: traxsource provider/extracting images/throws on non-existent release
+WARC-Date: 2023-06-28T18:59:11.799Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:9962f6ff-5d40-4165-a8bc-24684bc61369>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:bcba85ec-82d8-4d7c-ad39-ff7089b4aef2>
+WARC-Target-URI: https://www.traxsource.com/title/404
+WARC-Date: 2023-06-28T18:59:11.799Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:aa27c379-00ea-4e9e-bb88-f344b7b7293f>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:8bf9a5a9928f102dcf5ea5b1e962c5169676f7c3507ad22992d6d8426fcd102b
+Content-Length: 27
+
+GET /title/404 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:bcba85ec-82d8-4d7c-ad39-ff7089b4aef2>
+WARC-Target-URI: https://www.traxsource.com/title/404
+WARC-Date: 2023-06-28T18:59:11.799Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:d8ef556a-a770-4ecd-94fa-3d209293c279>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:7d7a8b315dec65aa26e6378eee2fd832a9a07f3aa67f80f2ec3d6b8b7976f752
+WARC-Block-Digest: sha256:7d7a8b315dec65aa26e6378eee2fd832a9a07f3aa67f80f2ec3d6b8b7976f752
+Content-Length: 516
+
+harEntryId: acc70d0506ed04574c04f6c374675353
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2023-06-28T18:59:11.329Z
+time: 468
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":468,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 55
+warcRequestCookies: []
+warcResponseHeadersSize: 546
+warcResponseCookies: [{"name":"PHPSESSID","value":"a9g8khosc18b859lcjg1d1gus0","path":"/","secure":true,"httponly,bitrate":"1","expires":"2024-06-27T18:59:11.000Z","domain":"traxsource.com"}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.traxsource.com/title/404
+WARC-Date: 2023-06-28T18:59:11.799Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:bcba85ec-82d8-4d7c-ad39-ff7089b4aef2>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:9f7f62d7e8848a1ffb4b12248c68afe7a40375b518e0a987a5b6e17a7d720ec9
+WARC-Block-Digest: sha256:f5eefded8a03aa28f2a2ffde975d5b9a0587a7d4a772ac8e74ce3f60627eec69
+Content-Length: 28402
+
+HTTP/1.1 404 Not Found
+cache-control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+connection: close
+content-type: text/html; charset=UTF-8
+date: Wed, 28 Jun 2023 18:59:11 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+pragma: no-cache
+server: Apache
+set-cookie: PHPSESSID=a9g8khosc18b859lcjg1d1gus0; path=/; secure; HttpOnly,bitrate=1; expires=Thu, 27-Jun-2024 18:59:11 GMT; path=/; domain=traxsource.com; secure
+strict-transport-security: max-age=31536000
+transfer-encoding: chunked
+x-pollyjs-finalurl: https://www.traxsource.com/title/404
+
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Not Found :: Traxsource</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="description" content="Download Real House and Electronic Music in AIFF, WAV and MP3 format">
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://geo-static.traxsource.com/img/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://geo-static.traxsource.com/img/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="https://geo-static.traxsource.com/img/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://geo-static.traxsource.com/img/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="https://geo-static.traxsource.com/img/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://geo-static.traxsource.com/img/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://geo-static.traxsource.com/img/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="https://geo-static.traxsource.com/img/apple-touch-icon-57x57.png">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://geo-static.traxsource.com/img/fav_icon.png">
+
+  <link rel="icon" sizes="196x196" href="https://geo-static.traxsource.com/img/favicon-196x196.png">
+  <link rel="icon" sizes="128x128" href="https://geo-static.traxsource.com/img/favicon-128x128.png">
+
+  <meta name="msapplication-TileImage" content="https://geo-static.traxsource.com/img/apple-touch-icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#262626">
+
+
+
+  <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1493153700">
+  <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/scripts/src.php/1671052402/css/ts_index.min.css">
+
+  <link href='https://fonts.googleapis.com/css?family=Oswald:700,400' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Noto+Sans:700,400' rel='stylesheet' type='text/css'>
+
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/ts_plugs.min.js?ts=1495471120"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/playlist.ts.v2.min.js?ts=1507308865"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/scripts/src.php/1664289950/js/traxsource.global.min.js"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tsmain.min.js?ts=1664289974"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tspage.min.js?ts=1670352358"></script>
+
+  <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="wtvqrvq57ffh13q"></script>
+
+  <!-- Start of traxsource Zendesk Widget script -->
+    <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="traxsource.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();/*]]>*/</script>
+  </head>
+
+<body class="v-">
+
+  <header>
+<div id="headerBay">
+  <div class="header-div logo-bay v-">
+    <a href="/">
+      <svg class="logo-svg">
+        <use xlink:href="/img/vects.v2.svg#logo-full"></use>
+      </svg>
+      <svg class="logo-svg head">
+        <use xlink:href="/img/vects.v2.svg#head"></use>
+      </svg>
+    </a>
+  </div><div class="header-div search-bay v-">
+    <form id="mainSearch" method="GET" action="/search">
+      <!--<svg class="search-il-svg sbtn">
+        <use xlink:href="/img/vects.v2.svg#search"></use>
+      </svg>--><a href="javascript:void(0)" id="searHelpBtnUB"><img src="/img/search_help.svg" class="search-help" alt="Search Help"></a><input type="text" name="term" value="" placeholder="NEW SEARCH..." class="search-input" />
+    </form>
+  </div><div class="header-div s-form srch-cancel v-"><a href="javascript:void(0)" class="hdrlnk">CANCEL</a>
+  </div><div class="header-div search-btn v-"><a href="javascript:void(0)" class="hdrlnk alt-btn">
+      <svg class="search-svg sbtn">
+        <use xlink:href="/img/vects.v2.svg#search"></use>
+      </svg>
+    </a>
+  </div><div class="header-div header-login v-"><a href="javascript:void(0)" id="loginLnk" class="hdrlnk">LOG IN</a>
+  </div><div class="header-div header-signup v-"><a href="/signup" id="signupLnk" class="hdrlnk">SIGN UP</a>
+  </div><div class="header-div header-menu v-">
+    <a href="javascript:void(0)" class="hdrlnk menu-btn">
+      <svg class="menu-svg sbtn">
+        <use xlink:href="/img/vects.v2.svg#menu"></use>
+      </svg>
+    </a>
+  </div>
+</div>
+</header>
+
+  <div id="playerBay" class="v-">
+    <div class="player-center">
+      <div class="player-cont">
+
+        <div id="playerMask"></div>
+
+        <div id="tsjp1" class="jp-jplayer"></div>
+
+        <div id="tsjpcont1" class="jp-audio">
+          <div class="jp-type-single">
+            <div class="jp-gui jp-interface">
+              <div class="jp-controls">
+                <a href="javascript:void(0);" class="jp-play plapau" tabindex="1">
+                  <svg class="play-svg pl-svg"><use xlink:href="/img/vects.v2.svg#play"></use></svg>
+                </a>
+                <a href="javascript:void(0);" class="jp-pause plapau" tabindex="1">
+                  <svg class="pause-svg pl-svg"><use xlink:href="/img/vects.v2.svg#pause"></use></svg>
+                </a>
+                <div class="pl-loader"><svg class="loading-svg pl-svg"><use xlink:href="/img/vects.v2.svg#refresh"></use></svg></div>
+                <a href="javascript:void(0);" class="jp-previous prenex" tabindex="1">
+                  <svg class="prev-svg skip-svg"><use xlink:href="/img/vects.v2.svg#skip-prev"></use></svg>
+                </a>
+                <a href="javascript:void(0);" class="jp-next prenex" tabindex="1">
+                  <svg class="next-svg skip-svg"><use xlink:href="/img/vects.v2.svg#skip-next"></use></svg>
+                </a>
+              </div><div id="v1WfInfoCont"></div><div class="jp-progress" id="PWFCont">
+                <div class="key-bpm" id="plrsKeyBPM"></div>
+                <div class="jp-seek-bar"></div>
+              </div><div class="right-controls">
+                <div id="volumeButton" title="Volume">
+                  <svg class="vol-svg pl-rt-svg"><use xlink:href="/img/vects.v2.svg#speaker"></use></svg>
+                </div>
+                <div id="playerShareButton">
+                  <svg class="vol-svg pl-rt-svg"><use xlink:href="/img/vects.v2.svg#down-sm"></use></svg>
+                </div>
+                <div class="ttl-drop-menu com-drop-menu">
+                  <a href="javascript:void(0)" class="com-close sm"></a>
+                  <div class="sharebox-inline">
+                    <a href="javascript:void(0)" class="share fbook">
+                    </a><a href="javascript:void(0)" class="share twitter">
+                    </a><a href="javascript:void(0)" class="share embed"></a>
+                  </div><br />
+                  <div class="com-drop-hdr fol-hdr">follow:</div>
+                  <div id="plrsFollows"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div id="nowPlayCont" class="v-">
+          <div id="npPrev" class="np-prenex"></div>
+
+          <div id="nowPlayTtl" class="v-">
+            <div class="np-div np-img">
+              <a href="javascript:void(0)" class="now-play-img-lnk"><span id="plrnpImg"></span><img src="https://geo-w-static.traxsource.com/img/promo_large.png" class="promo" /><img src="https://geo-w-static.traxsource.com/img/pre-order.png" class="pre-ord-img" /><img src="https://geo-w-static.traxsource.com/img/pre-order-promo.png" class="pre-ord-promo-img" /></a>
+            </div><div class="np-div np-info">
+              <div class="t-cont ellip plinkable">
+                <span id="plrnpTitle"><a href="">&nbsp;</a></span><br />
+                <span id="plrnpArtists">&nbsp;</span><br />
+                <span id="plrnpLabel">&nbsp;</span>
+              </div>
+
+              <div class="sub-info ellip plinkable">
+                <span class="no-compact-inf">
+                  <span id="pltnpCatnum">&nbsp;</span>
+                  <span id="plrnpRelDate">&nbsp;</span>
+                  <span id="plrnpDur">&nbsp;</span>
+                </span>
+                <span id="plrnpKeyBPM">&nbsp;</span>
+                <a href="javascript:void(0)" id="plrnpGenre">&nbsp;</a><br />
+              </div>
+
+              <div class="alb-only">Album Only</div>
+              <div class="buy-cont">
+                <a href="javascript:void(0);" class="com-buy" id="plrnpBuy" data-cart="" title="Add to Cart"><span id="plrnpPrice">&nbsp;</span>
+                </a><a href="javascript:void(0)" class="cart-alt player"></a>
+              </div>
+
+              <a href="javascript:void(0)" id="npFollowBtn" class="com-follow sm compact-btn">
+                <svg class="foll-svg" style="top: 1px;"><use xlink:href="/img/vects.v2.svg#follow"></use></svg>
+              </a>
+              <div id="compactFollCont" class="com-drop-menu">
+                <a href="javascript:void(0)" class="com-close"></a>
+                <div class="com-drop-hdr fol-hdr">
+                  <svg class="foll-svg"><use xlink:href="/img/vects.v2.svg#follow"></use></svg>&nbsp;
+                  follow:
+                </div>
+              </div>
+
+              <a href="javascript:void(0)" id="npBtnsMenuBtn" class="compact-btn">Options</a>
+              <div class="np-btns">
+                <a href="javascript:void(0)" class="com-close"></a>
+                <!--<a href="javascript:void(0)" class="npb pl-wl-btn compact-btn com-wl added " title="Add to Wishlist"></a>-->
+                <a href="javascript:void(0)" class="npb pl-remove-btn compact-btn red" title="Remove from playlist"></a>
+                <div id="npUtl" class="np-br">
+                  <a href="javascript:void(0)" class="add-to-utl-btn compact-btn np-br">Add to My Chart</a>
+                  <div class="utl-drop-cont"></div>
+                </div>
+                <div class="sharebox-inline">
+                      <a href="javascript:void(0)" class="share fbook">
+                  </a><a href="javascript:void(0)" class="share twitter">
+                  </a><a href="javascript:void(0)" class="share embed"></a>
+                </div>
+              </div>
+
+              <div class="goto plinkable">
+                <!--<a href="javascript:void(0)" id="plrnpTrkUrl">go to this track <span class="link-arrow">&nbsp;&nbsp;</span></a><br />-->
+                <a href="javascript:void(0)" id="plrnpTtlUrl">go to this release <span class="link-arrow">&nbsp;&nbsp;</span></a>
+              </div>
+            </div>
+          </div>
+
+          <div id="npNext" class="np-prenex"></div>
+
+
+          <div id="playlistCont" class="v-">
+            <div class="playlist-item hdr">
+              <div class="thumb">&nbsp;
+              </div><div class="tk-title">TITLE
+              </div><div class="tk-artist">ARTIST
+              </div><div class="label">LABEL
+              </div><div class="r-date">RELEASED
+              </div><div class="utils">&nbsp;</div>
+            </div>
+
+            <div class="jp-playlist">
+              <ul>
+              </ul>
+            </div>
+            <div id="plControl">
+              <span id="plCount"></span> Tracks in Playlist
+              <a href="javascript:void(0)" id="plyrClrPlBtn" class="clear-pl-btn compact-btn red">Clear Playlist</a>
+              <a href="javascript:void(0)" id="plyrPl2UchBtn" class="save-as-utl-btn compact-btn orange np-br">Save Playlist as a Chart</a>
+            </div>
+          </div>
+        </div>
+
+          <!--VOLUME-->
+          <div id="volumeBarCont">
+            <div id="volumeBar"></div>
+          </div>
+        </div>
+
+        <!--PLAYER TITLE INFO-->
+        <div id="playerTitleInfo" class="v-">
+          <div class="img-cont"><a href="javascript:void(0)" id="plrsImgLink">&nbsp;<img src="https://geo-w-static.traxsource.com/img/promo_large.png" class="promo" /><img src="https://geo-w-static.traxsource.com/img/pre-order.png" class="pre-ord-img" /><img src="https://geo-w-static.traxsource.com/img/pre-order-promo.png" class="pre-ord-promo-img" /></a>
+          </div><div id="PlTtlInfo" class="ellip">
+            <a href="javascript:void(0)" class="com-title" id="plrsTitle">&nbsp;</a><span id="artitBr"><br /></span>
+            <span class="com-artist" id="plrsArtists">&nbsp;</span><br />
+            <div class="sub-info ellip">
+              <span id="plrsLabel">&nbsp;</span>
+              <span id="plrsRelDate">&nbsp;</span>
+              <span id="plrsDur">&nbsp;</span>
+              <a href="#" id="plrsGenre">&nbsp;</a>
+            </div>
+          </div><div class="buy-fly">
+            <div class="alb-only">Album Only</div>
+            <div class="buy-cont">
+              <a href="javascript:void(0);" class="com-buy" id="plrsBuy" data-cart="" title="Add to Cart"><span class="price" id="plrsPrice"></span>
+              </a><a href="javascript:void(0)" class="cart-alt player"></a>
+            </div>
+          </div><div class="player-util-btns">
+            <div id="playerKeyLegendBtn">
+              <svg class="pl-exp-svg pl-util-svg"><use xlink:href="/img/vects.v2.svg#keys"></use></svg>
+            </div>
+            <div id="playlistExpand" class="pl-col-exp">
+              <svg class="pl-exp-svg pl-util-svg"><use xlink:href="/img/vects.v2.svg#down"></use></svg>
+            </div>
+            <div id="playlistCollapse" class="pl-col-exp">
+              <svg class="pl-col-svg pl-util-svg"><use xlink:href="/img/vects.v2.svg#up"></use></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--<div id="debugInfo"></div>-->
+
+  <div id="mainBay">
+
+    <div id="loginFormCont">
+      <div class="com-close"></div>
+      <iframe id="loginFrame" scrolling="no" class="v-">Your browser is incompatible*</iframe>
+    </div>
+
+    <div id="menuBay"><ul class="menu-cont v-">
+  <li id="menuLiTop">
+    <a id="menuBtnTop" href="/top/tracks">TOP 100</a>
+    <div id="menuDivTop" class="menu-floater top">
+      <a href="/top/tracks" class="flt">Tracks</a>
+      <a href="/top/singles" class="flt">Singles</a>
+      <a href="/top/albums" class="flt">Albums</a>
+      <a href="/top/preorder-tracks" class="flt">Pre-orders</a>
+      <a href="/top/djtop" class="flt">Dj TOP 10s</a>
+    </div>
+  </li><li id="menuLiDjTop">
+    <a id="menuBtnDjTop" href="/dj-top-10s">DJ TOP 10s</a>
+  </li><li id="menuLiGenres">
+    <a id="menuBtnGenres" href="javascript:void(0);">GENRES</a>
+    <div id="menuDivGenres" class="menu-floater genr">
+      <div class="mn-split">
+        
+        <a href="/genre/4/house" class="flt">House</a>
+        
+        <a href="/genre/13/deep-house" class="flt">Deep House</a>
+        
+        <a href="/genre/24/soulful-house" class="flt">Soulful House</a>
+        
+        <a href="/genre/29/garage" class="flt">Garage</a>
+        
+        <a href="/genre/27/afro-house" class="flt">Afro House</a>
+        
+        <a href="/genre/17/nu-disco-indie-dance" class="flt">Nu Disco / Indie Dance</a>
+        
+        <a href="/genre/15/jackin-house" class="flt">Jackin House</a>
+        
+        <a href="/genre/18/tech-house" class="flt">Tech House</a>
+        
+        <a href="/genre/20/techno" class="flt">Techno</a>
+        
+        <a href="/genre/12/classic-house" class="flt">Classic House</a>
+        
+        <a href="/genre/3/soul-funk-disco" class="flt">Soul / Funk / Disco</a>
+        
+        <a href="/genre/1/lounge-chill-out" class="flt">Lounge / Chill Out</a>
+        
+        <a href="/genre/23/afro-latin-brazilian" class="flt">Afro / Latin / Brazilian</a>
+        
+      </div><div class="mn-split">
+        
+        <a href="/genre/2/broken-beat-nu-jazz" class="flt">Broken Beat / Nu-Jazz</a>
+        
+        <a href="/genre/19/progressive-house" class="flt">Progressive House</a>
+        
+        <a href="/genre/11/electro-house" class="flt">Electro House</a>
+        
+        <a href="/genre/16/minimal-deep-tech" class="flt">Minimal / Deep Tech</a>
+        
+        <a href="/genre/5/electronica" class="flt">Electronica</a>
+        
+        <a href="/genre/14/leftfield" class="flt">Leftfield</a>
+        
+        <a href="/genre/6/r-and-b-hip-hop" class="flt">R&amp;B / Hip Hop</a>
+        
+        <a href="/genre/28/stems" class="flt">STEMS</a>
+        
+        <a href="/genre/21/sounds-samples-and-loops" class="flt">Sounds, Samples &amp; Loops</a>
+        
+        <a href="/genre/8/dj-tools" class="flt">DJ Tools</a>
+        
+        <a href="/genre/7/acapella" class="flt">Acapella</a>
+        
+        <a href="/genre/9/beats" class="flt">Beats</a>
+        
+        <a href="/genre/10/efx" class="flt">Efx</a>
+        
+      </div>
+    </div>
+  </li><li id="menuLiFeat">
+    <a id="menuBtnFeat" href="javascript:void(0);">FEATURED</a>
+    <div id="menuDivFeat" class="menu-floater feat">
+      
+      <a href="/list/35/whats-hot" class="flt">What's Hot</a>
+      
+      <a href="/list/1/upfront-promos" class="flt">Upfront Promos</a>
+      
+      <a href="/list/2/new-releases" class="flt">New Releases</a>
+      
+      <a href="/list/3/compilations" class="flt">Compilations</a>
+      
+      <a href="/list/6/essentials" class="flt">Essentials</a>
+      
+      <a href="/list/69/hidden-gems" class="flt">Hidden Gems</a>
+      
+      <a href="/list/143/best-of-2023-so-far" class="flt">Best Of 2023 So Far</a>
+      
+      <a href="/label/34118/traxsource-weekend-weapons" class="flt">Weekend Weapons</a>
+      <a href="/label/4040/traxsource-hype-chart" class="flt">Hype Chart</a>
+      <a href="/preorders" class="flt">Pre-Orders</a>
+      <a href="/best-of-2022" class="flt">Best of 2022</a>
+    </div>
+  </li><li id="menuLiSpot">
+    <a id="menuBtnSpot" href="javascript:void(0);">SPOTLIGHTS</a>
+    <div id="menuDivSpot" class="menu-floater spot">
+      
+      <a href="/spotlight/46/reel-people-music-celebrates-100-releases" class="flt">Reel People Music Celebrates 100 Releases...</a>
+      
+      <a href="/spotlight/45/gogo-music-celebrates-20-years" class="flt">Gogo Music Celebrates 20 Years</a>
+      
+      <a href="/spotlight/13/nervous-records-celebrates-30-years" class="flt">Nervous Records Celebrates 30 Years</a>
+      
+      <a href="/spotlight/44/this-is-snatch-records" class="flt">This Is Snatch! Records</a>
+      
+      <a href="/spotlight/43/basement-boys-celebrate-100-releases" class="flt">Basement Boys Celebrate 100 Releases</a>
+      
+      <a href="/spotlight/42/masters-at-work-the-relaunch" class="flt">Masters At Work - The Relaunch</a>
+      
+      <a href="/spotlight/38/a-tribute-to-phil-asher" class="flt">A Tribute To Phil Asher</a>
+      
+      <a href="/spotlight/37/de-la-groove-spotlight" class="flt">De La Groove Spotlight</a>
+      
+      <a href="/spotlight/35/foliage-records-in-the-spotlight" class="flt">Foliage Records In The Spotlight...</a>
+      
+      <a href="/spotlight/34/fred-everythings-lazy-days" class="flt">Fred Everything's Lazy Days....</a>
+      
+      <a href="/spotlight/33/heist-recordings-spotlight" class="flt">Heist Recordings Spotlight</a>
+      
+      <a href="/spotlight/29/keinemusik-crue-spotlight" class="flt">Keinemusik Crue Spotlight</a>
+      
+      <a href="/spotlight/30/20-years-of-poker-flat-recordings" class="flt">20 Years Of Poker Flat Recordings</a>
+      
+      <a href="/spotlight/28/louies-vega-records-in-the-spotlight" class="flt">Louie's Vega Records In The Spotlight....</a>
+      
+      <a href="/spotlight/26/local-talk-spotlight" class="flt">Local Talk Spotlight</a>
+      
+      <a href="/spotlight/9/the-new-french-wave" class="flt">The New French Wave…</a>
+      
+      <a href="/spotlight/23/todd-terry-spotlight-inhouse-freeze-terminator-records" class="flt">Todd Terry Spotlight - Inhouse / Freeze / Terminator Records</a>
+      
+    </div>
+  </li><li>
+    <a id="menuBtnJA" href="/just-added">JUST ADDED</a>
+  </li><li id="menuLiMts">
+    <a id="menuBtnMTS" href="/my-traxsource/my-tracks">MY TRAXSOURCE</a>
+    <div id="menuDivMts" class="menu-floater mts">
+      
+      <a href="/my-traxsource/my-tracks" class="flt">My Tracks</a>
+      
+      <a href="/my-traxsource/my-labels" class="flt">My Labels</a>
+      
+      <a href="/my-traxsource/my-artists" class="flt">My Artists</a>
+      
+      <a href="/my-traxsource/my-charts" class="flt">My Charts</a>
+      
+    </div>
+  </li>
+</ul>
+
+</div>
+
+    <div id="bodyBay" class="v-" data-init_cpo="">
+<div id="e404" class="error-404 v-">
+
+  <div class="e-img e-ib"><img src="https://geo-w-static.traxsource.com/img/404.png" alt="Error 404">
+  </div><div class="e-msg e-ib">
+    <h1>We're sorry for the trouble...</h1>
+    <h2>The Page you are looking for does not exist or has moved.</h2>
+  </div>
+  
+  <div class="e-sep"></div>
+  
+  <h2>Some alternatives:</h2>
+  <ul>
+    <li>Try to search Traxsource using the Search box above.</li>
+    <li>If you followed a link to get here, please tell us where it came from and what you wanted to find so we can attempt to resolve it.</li>
+    <li>Visit our <a href="http://support.traxsource.com" target="_blank">support page</a>.</li>
+  </ul>
+</div>
+</div>
+
+    <div id="bodyMask" class="v-"></div>
+
+    <!-- TTL POPUP -->
+    <div id="titlePopup" class="v-">
+      <div id="ttlPuInner">
+        <div id="ttlPuClose" class="com-close"></div>
+        <div id="ttlPuPrev" class="ttl-pu-nav" title="Previous Release"></div>
+        <div id="ttlPuCont"></div>
+        <div id="ttlPuNext" class="ttl-pu-nav" title="Next Release"></div>
+      </div>
+    </div>
+
+    <!--MSG PU-->
+    <div id="messagePopup" class="com-popup">
+      <div class="mspu-hdr"></div>
+      <a href="javascript:void(0)" class="com-close mspu-close"></a>
+      <div class="mspu-cont">
+        <div class="mspu-txt"></div>
+        <div class="err-txt"></div>
+      </div>
+      <div class="mspu-inp-cont">
+        <p><input type="text" class="mspu-input" maxlength="" /></p>
+        <p class="mspu-cart-def-p"><input type="checkbox" class="mspu-cart-def-cb">Make Default</p>
+        <a href="javascript:void(0)" class="submit-button compact-btn green">Save</a>
+      </div>
+      <div class="mspu-buttons">
+        <a href="javascript:void(0)" class="com-yes compact-btn">Yes</a>
+        <a href="javascript:void(0)" class="com-no compact-btn">No</a>
+      </div>
+    </div>
+
+    <!--EMBED PU-->
+    <div id="embedPopup" class="com-popup">
+      <a href="javascript:void(0)" class="com-close embed-close"></a>
+      <div class="embed-hdr">Embed a player for <span id="eTitle"></span></div>
+      <textarea id="embedCodeBox"></textarea>
+      <div class="instr">
+        Copy the above code and paste it into your website or blog.
+      </div>
+    </div>
+
+    <div id="fullImgCont" class="full-img-cont v-"></div>
+
+    <div id="keyComCont" class="com-popup keys">
+      <a href="javascript:void(0)" class="com-close kc-close"></a>
+      <div id="keyComImg"></div>
+    </div>
+
+  </div>
+
+  <div id="bottomBay">
+<div class="bottom-Separator"></div>
+<div id="bottomCont" class="v-">
+  <div class="sect">
+    <span class="sect-hdr">INFO</span>
+    <a href="https://traxsource.zendesk.com/hc/en-us/sections/115000664263-Getting-Started" target="_blank" rel="noreferrer" class="ext">Getting Started</a><br />
+    <a href="/gift-certificates">Gift Codes</a><br />
+    <a href="/upgrade">Upgrade Your Tracks</a><br />
+    <a href="javascript:void(0)" id="currConvert">Currency Converter</a><br /> 
+    <a href="http://news.traxsource.com/about/" target="_blank" class="ext">About Traxsource</a><br />
+    <a href="https://traxsource.zendesk.com/hc/en-us/sections/115000671843-User-Charts" target="_blank" rel="noreferrer" class="ext">Create and Share Charts</a><br />
+    <a href="https://traxsource.zendesk.com/hc/en-us/categories/115000518003-Customer-Knowledge-Base" target="_blank" rel="noreferrer" class="ext">Help and Support</a><br />
+  </div><div class="sect">
+    <span class="sect-hdr">CONNECT</span>
+    <a href="http://news.traxsource.com" target="_blank" class="ext">Traxsource News</a><br />
+    <a href="https://itunes.apple.com/us/app/traxsource/id492664129" target="_blank" rel="noreferrer" class="ext">Traxsource on iPhone</a><br />
+    <a href="https://play.google.com/store/apps/details?id=traxsource.com.traxsource" target="_blank" rel="noreferrer" class="ext">Traxsource on Android</a><br />
+    <a href="http://downloader.traxsource.com" target="_blank" class="ext">Traxsource Downloader</a><br />
+    <a href="/logos-and-images" target="_blank" class="ext">Traxsource Logos</a>
+      
+    <div class="soc-rel">
+      <a href="https://www.facebook.com/traxsource" target="_blank" rel="noreferrer" class="social facebook ext"></a>
+      <a href="https://www.twitter.com/@traxsource" target="_blank" rel="noreferrer" class="social twitter ext"></a>
+      <!--<a href="https://google.com/+traxsource" target="_blank" rel="noreferrer" class="social gplus ext"></a>-->
+      <a href="https://instagram.com/traxsource" target="_blank" rel="noreferrer" class="social instagram ext"></a>
+      <a href="https://soundcloud.com/traxsource" target="_blank" rel="noreferrer" class="social soundcloud ext"></a>
+    </div>
+    
+  </div><div class="sect">
+    <span class="sect-hdr">LEGAL</span>
+    <a href="/terms-of-service">Terms of Service</a><br />
+    <a href="/privacy">Privacy Policy</a><br />
+    <a href="/copyright-and-trademark">Copyright And Trademark</a><br />
+    <a href="/gdpr">GDPR</a><br />
+    <a href="/dmca">DMCA Policy</a>
+  </div><div class="sect co">
+      &copy; 2002-2023 Traxsource, Inc.
+      
+      <p style="padding-top: 5px;">
+        <a href="https://www.associationforelectronicmusic.org/afem-approved-dj-download-sites/" target="_blank" rel="noreferrer" class="ext">
+          <!--<img src="https://static.traxsource.com/img/afem-seal-new.png" alt="afem-approved" style="width: 125px;" />-->
+        </a>
+      </p>
+  </div>
+</div>
+
+</div>
+
+  <!--BOTTOM PU-->
+  <div id="bottomBarPopup">
+    <div id="bottomBarBody"></div>
+    <a href="javascript:void(0)" class="com-close bbp-close"></a>
+  </div>
+
+  <!--CART-ALT-POPUP-->
+  <div id="cartAltCont" class="v-">
+    <div id="cartAltClose" class="com-close sm"></div>
+    <div class="cart-alt-hdr"></div>
+    <div class="cart-alt-list"></div>
+    <div class="new-cart-cont">
+      <a href="javascript:void(0)">
+        <svg class="plus-svg"><use xlink:href="/img/vects.v2.svg#plus"></use></svg>
+        Add New Cart
+      </a>
+    </div>
+  </div>
+
+    <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/ga.js"></script>
+  
+
+</body>
+</html>
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:4a4e6573-ab84-4573-9932-09e9ea9c6d9a>
+WARC-Target-URI: https://www.traxsource.com/title/404
+WARC-Date: 2023-06-28T18:59:11.800Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:96fda56e-9fc6-4e71-8a69-699ef8ea4625>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:ac83f7668531efaad04fc10a1ee1d71cae01ec2940decc8f55758d4c784376c7
+Content-Length: 219
+
+GET /title/404 HTTP/1.1
+accept: */*
+accept-encoding: gzip, deflate, br
+connection: close
+user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/113.0
+host: www.traxsource.com
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:4a4e6573-ab84-4573-9932-09e9ea9c6d9a>
+WARC-Target-URI: https://www.traxsource.com/title/404
+WARC-Date: 2023-06-28T18:59:11.800Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:7f6b55e2-b0b3-4145-a899-c33569924f87>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:d52240f15cbcfd53c15a920928625839c917d91f18b234e8530d9067120c23ed
+WARC-Block-Digest: sha256:d52240f15cbcfd53c15a920928625839c917d91f18b234e8530d9067120c23ed
+Content-Length: 566
+
+harEntryId: e0c0cd46d807c375dfc22da5170e3b8c
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2023-06-28T18:59:11.331Z
+time: 462
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":462,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 245
+warcRequestCookies: []
+warcResponseHeadersSize: 501
+warcResponseCookies: [{"name":"PHPSESSID","value":"a9g8khosc18b859lcjg1d1gus0","path":"/","secure":true,"httpOnly":true},{"name":"bitrate","value":"1","expires":"2024-06-27T18:59:11.000Z","path":"/","domain":"traxsource.com","secure":true}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.traxsource.com/title/404
+WARC-Date: 2023-06-28T18:59:11.800Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:4a4e6573-ab84-4573-9932-09e9ea9c6d9a>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:9f7f62d7e8848a1ffb4b12248c68afe7a40375b518e0a987a5b6e17a7d720ec9
+WARC-Block-Digest: sha256:d37f47c4bfb8e6ca4c642abb0ea35c492c9261db13358ed81fe436248293a3eb
+Content-Length: 28281
+
+HTTP/1.1 404 Not Found
+date: Wed, 28 Jun 2023 18:59:11 GMT
+server: Apache
+set-cookie: bitrate=1; expires=Thu, 27-Jun-2024 18:59:11 GMT; path=/; domain=traxsource.com; secure
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+cache-control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+pragma: no-cache
+connection: close
+transfer-encoding: chunked
+content-type: text/html; charset=UTF-8
+strict-transport-security: max-age=31536000
+
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Not Found :: Traxsource</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="description" content="Download Real House and Electronic Music in AIFF, WAV and MP3 format">
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://geo-static.traxsource.com/img/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://geo-static.traxsource.com/img/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="https://geo-static.traxsource.com/img/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://geo-static.traxsource.com/img/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="https://geo-static.traxsource.com/img/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://geo-static.traxsource.com/img/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://geo-static.traxsource.com/img/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="https://geo-static.traxsource.com/img/apple-touch-icon-57x57.png">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://geo-static.traxsource.com/img/fav_icon.png">
+
+  <link rel="icon" sizes="196x196" href="https://geo-static.traxsource.com/img/favicon-196x196.png">
+  <link rel="icon" sizes="128x128" href="https://geo-static.traxsource.com/img/favicon-128x128.png">
+
+  <meta name="msapplication-TileImage" content="https://geo-static.traxsource.com/img/apple-touch-icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#262626">
+
+
+
+  <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1493153700">
+  <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/scripts/src.php/1671052402/css/ts_index.min.css">
+
+  <link href='https://fonts.googleapis.com/css?family=Oswald:700,400' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Noto+Sans:700,400' rel='stylesheet' type='text/css'>
+
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/ts_plugs.min.js?ts=1495471120"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/playlist.ts.v2.min.js?ts=1507308865"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/scripts/src.php/1664289950/js/traxsource.global.min.js"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tsmain.min.js?ts=1664289974"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tspage.min.js?ts=1670352358"></script>
+
+  <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="wtvqrvq57ffh13q"></script>
+
+  <!-- Start of traxsource Zendesk Widget script -->
+    <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="traxsource.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();/*]]>*/</script>
+  </head>
+
+<body class="v-">
+
+  <header>
+<div id="headerBay">
+  <div class="header-div logo-bay v-">
+    <a href="/">
+      <svg class="logo-svg">
+        <use xlink:href="/img/vects.v2.svg#logo-full"></use>
+      </svg>
+      <svg class="logo-svg head">
+        <use xlink:href="/img/vects.v2.svg#head"></use>
+      </svg>
+    </a>
+  </div><div class="header-div search-bay v-">
+    <form id="mainSearch" method="GET" action="/search">
+      <!--<svg class="search-il-svg sbtn">
+        <use xlink:href="/img/vects.v2.svg#search"></use>
+      </svg>--><a href="javascript:void(0)" id="searHelpBtnUB"><img src="/img/search_help.svg" class="search-help" alt="Search Help"></a><input type="text" name="term" value="" placeholder="NEW SEARCH..." class="search-input" />
+    </form>
+  </div><div class="header-div s-form srch-cancel v-"><a href="javascript:void(0)" class="hdrlnk">CANCEL</a>
+  </div><div class="header-div search-btn v-"><a href="javascript:void(0)" class="hdrlnk alt-btn">
+      <svg class="search-svg sbtn">
+        <use xlink:href="/img/vects.v2.svg#search"></use>
+      </svg>
+    </a>
+  </div><div class="header-div header-login v-"><a href="javascript:void(0)" id="loginLnk" class="hdrlnk">LOG IN</a>
+  </div><div class="header-div header-signup v-"><a href="/signup" id="signupLnk" class="hdrlnk">SIGN UP</a>
+  </div><div class="header-div header-menu v-">
+    <a href="javascript:void(0)" class="hdrlnk menu-btn">
+      <svg class="menu-svg sbtn">
+        <use xlink:href="/img/vects.v2.svg#menu"></use>
+      </svg>
+    </a>
+  </div>
+</div>
+</header>
+
+  <div id="playerBay" class="v-">
+    <div class="player-center">
+      <div class="player-cont">
+
+        <div id="playerMask"></div>
+
+        <div id="tsjp1" class="jp-jplayer"></div>
+
+        <div id="tsjpcont1" class="jp-audio">
+          <div class="jp-type-single">
+            <div class="jp-gui jp-interface">
+              <div class="jp-controls">
+                <a href="javascript:void(0);" class="jp-play plapau" tabindex="1">
+                  <svg class="play-svg pl-svg"><use xlink:href="/img/vects.v2.svg#play"></use></svg>
+                </a>
+                <a href="javascript:void(0);" class="jp-pause plapau" tabindex="1">
+                  <svg class="pause-svg pl-svg"><use xlink:href="/img/vects.v2.svg#pause"></use></svg>
+                </a>
+                <div class="pl-loader"><svg class="loading-svg pl-svg"><use xlink:href="/img/vects.v2.svg#refresh"></use></svg></div>
+                <a href="javascript:void(0);" class="jp-previous prenex" tabindex="1">
+                  <svg class="prev-svg skip-svg"><use xlink:href="/img/vects.v2.svg#skip-prev"></use></svg>
+                </a>
+                <a href="javascript:void(0);" class="jp-next prenex" tabindex="1">
+                  <svg class="next-svg skip-svg"><use xlink:href="/img/vects.v2.svg#skip-next"></use></svg>
+                </a>
+              </div><div id="v1WfInfoCont"></div><div class="jp-progress" id="PWFCont">
+                <div class="key-bpm" id="plrsKeyBPM"></div>
+                <div class="jp-seek-bar"></div>
+              </div><div class="right-controls">
+                <div id="volumeButton" title="Volume">
+                  <svg class="vol-svg pl-rt-svg"><use xlink:href="/img/vects.v2.svg#speaker"></use></svg>
+                </div>
+                <div id="playerShareButton">
+                  <svg class="vol-svg pl-rt-svg"><use xlink:href="/img/vects.v2.svg#down-sm"></use></svg>
+                </div>
+                <div class="ttl-drop-menu com-drop-menu">
+                  <a href="javascript:void(0)" class="com-close sm"></a>
+                  <div class="sharebox-inline">
+                    <a href="javascript:void(0)" class="share fbook">
+                    </a><a href="javascript:void(0)" class="share twitter">
+                    </a><a href="javascript:void(0)" class="share embed"></a>
+                  </div><br />
+                  <div class="com-drop-hdr fol-hdr">follow:</div>
+                  <div id="plrsFollows"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div id="nowPlayCont" class="v-">
+          <div id="npPrev" class="np-prenex"></div>
+
+          <div id="nowPlayTtl" class="v-">
+            <div class="np-div np-img">
+              <a href="javascript:void(0)" class="now-play-img-lnk"><span id="plrnpImg"></span><img src="https://geo-w-static.traxsource.com/img/promo_large.png" class="promo" /><img src="https://geo-w-static.traxsource.com/img/pre-order.png" class="pre-ord-img" /><img src="https://geo-w-static.traxsource.com/img/pre-order-promo.png" class="pre-ord-promo-img" /></a>
+            </div><div class="np-div np-info">
+              <div class="t-cont ellip plinkable">
+                <span id="plrnpTitle"><a href="">&nbsp;</a></span><br />
+                <span id="plrnpArtists">&nbsp;</span><br />
+                <span id="plrnpLabel">&nbsp;</span>
+              </div>
+
+              <div class="sub-info ellip plinkable">
+                <span class="no-compact-inf">
+                  <span id="pltnpCatnum">&nbsp;</span>
+                  <span id="plrnpRelDate">&nbsp;</span>
+                  <span id="plrnpDur">&nbsp;</span>
+                </span>
+                <span id="plrnpKeyBPM">&nbsp;</span>
+                <a href="javascript:void(0)" id="plrnpGenre">&nbsp;</a><br />
+              </div>
+
+              <div class="alb-only">Album Only</div>
+              <div class="buy-cont">
+                <a href="javascript:void(0);" class="com-buy" id="plrnpBuy" data-cart="" title="Add to Cart"><span id="plrnpPrice">&nbsp;</span>
+                </a><a href="javascript:void(0)" class="cart-alt player"></a>
+              </div>
+
+              <a href="javascript:void(0)" id="npFollowBtn" class="com-follow sm compact-btn">
+                <svg class="foll-svg" style="top: 1px;"><use xlink:href="/img/vects.v2.svg#follow"></use></svg>
+              </a>
+              <div id="compactFollCont" class="com-drop-menu">
+                <a href="javascript:void(0)" class="com-close"></a>
+                <div class="com-drop-hdr fol-hdr">
+                  <svg class="foll-svg"><use xlink:href="/img/vects.v2.svg#follow"></use></svg>&nbsp;
+                  follow:
+                </div>
+              </div>
+
+              <a href="javascript:void(0)" id="npBtnsMenuBtn" class="compact-btn">Options</a>
+              <div class="np-btns">
+                <a href="javascript:void(0)" class="com-close"></a>
+                <!--<a href="javascript:void(0)" class="npb pl-wl-btn compact-btn com-wl added " title="Add to Wishlist"></a>-->
+                <a href="javascript:void(0)" class="npb pl-remove-btn compact-btn red" title="Remove from playlist"></a>
+                <div id="npUtl" class="np-br">
+                  <a href="javascript:void(0)" class="add-to-utl-btn compact-btn np-br">Add to My Chart</a>
+                  <div class="utl-drop-cont"></div>
+                </div>
+                <div class="sharebox-inline">
+                      <a href="javascript:void(0)" class="share fbook">
+                  </a><a href="javascript:void(0)" class="share twitter">
+                  </a><a href="javascript:void(0)" class="share embed"></a>
+                </div>
+              </div>
+
+              <div class="goto plinkable">
+                <!--<a href="javascript:void(0)" id="plrnpTrkUrl">go to this track <span class="link-arrow">&nbsp;&nbsp;</span></a><br />-->
+                <a href="javascript:void(0)" id="plrnpTtlUrl">go to this release <span class="link-arrow">&nbsp;&nbsp;</span></a>
+              </div>
+            </div>
+          </div>
+
+          <div id="npNext" class="np-prenex"></div>
+
+
+          <div id="playlistCont" class="v-">
+            <div class="playlist-item hdr">
+              <div class="thumb">&nbsp;
+              </div><div class="tk-title">TITLE
+              </div><div class="tk-artist">ARTIST
+              </div><div class="label">LABEL
+              </div><div class="r-date">RELEASED
+              </div><div class="utils">&nbsp;</div>
+            </div>
+
+            <div class="jp-playlist">
+              <ul>
+              </ul>
+            </div>
+            <div id="plControl">
+              <span id="plCount"></span> Tracks in Playlist
+              <a href="javascript:void(0)" id="plyrClrPlBtn" class="clear-pl-btn compact-btn red">Clear Playlist</a>
+              <a href="javascript:void(0)" id="plyrPl2UchBtn" class="save-as-utl-btn compact-btn orange np-br">Save Playlist as a Chart</a>
+            </div>
+          </div>
+        </div>
+
+          <!--VOLUME-->
+          <div id="volumeBarCont">
+            <div id="volumeBar"></div>
+          </div>
+        </div>
+
+        <!--PLAYER TITLE INFO-->
+        <div id="playerTitleInfo" class="v-">
+          <div class="img-cont"><a href="javascript:void(0)" id="plrsImgLink">&nbsp;<img src="https://geo-w-static.traxsource.com/img/promo_large.png" class="promo" /><img src="https://geo-w-static.traxsource.com/img/pre-order.png" class="pre-ord-img" /><img src="https://geo-w-static.traxsource.com/img/pre-order-promo.png" class="pre-ord-promo-img" /></a>
+          </div><div id="PlTtlInfo" class="ellip">
+            <a href="javascript:void(0)" class="com-title" id="plrsTitle">&nbsp;</a><span id="artitBr"><br /></span>
+            <span class="com-artist" id="plrsArtists">&nbsp;</span><br />
+            <div class="sub-info ellip">
+              <span id="plrsLabel">&nbsp;</span>
+              <span id="plrsRelDate">&nbsp;</span>
+              <span id="plrsDur">&nbsp;</span>
+              <a href="#" id="plrsGenre">&nbsp;</a>
+            </div>
+          </div><div class="buy-fly">
+            <div class="alb-only">Album Only</div>
+            <div class="buy-cont">
+              <a href="javascript:void(0);" class="com-buy" id="plrsBuy" data-cart="" title="Add to Cart"><span class="price" id="plrsPrice"></span>
+              </a><a href="javascript:void(0)" class="cart-alt player"></a>
+            </div>
+          </div><div class="player-util-btns">
+            <div id="playerKeyLegendBtn">
+              <svg class="pl-exp-svg pl-util-svg"><use xlink:href="/img/vects.v2.svg#keys"></use></svg>
+            </div>
+            <div id="playlistExpand" class="pl-col-exp">
+              <svg class="pl-exp-svg pl-util-svg"><use xlink:href="/img/vects.v2.svg#down"></use></svg>
+            </div>
+            <div id="playlistCollapse" class="pl-col-exp">
+              <svg class="pl-col-svg pl-util-svg"><use xlink:href="/img/vects.v2.svg#up"></use></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--<div id="debugInfo"></div>-->
+
+  <div id="mainBay">
+
+    <div id="loginFormCont">
+      <div class="com-close"></div>
+      <iframe id="loginFrame" scrolling="no" class="v-">Your browser is incompatible*</iframe>
+    </div>
+
+    <div id="menuBay"><ul class="menu-cont v-">
+  <li id="menuLiTop">
+    <a id="menuBtnTop" href="/top/tracks">TOP 100</a>
+    <div id="menuDivTop" class="menu-floater top">
+      <a href="/top/tracks" class="flt">Tracks</a>
+      <a href="/top/singles" class="flt">Singles</a>
+      <a href="/top/albums" class="flt">Albums</a>
+      <a href="/top/preorder-tracks" class="flt">Pre-orders</a>
+      <a href="/top/djtop" class="flt">Dj TOP 10s</a>
+    </div>
+  </li><li id="menuLiDjTop">
+    <a id="menuBtnDjTop" href="/dj-top-10s">DJ TOP 10s</a>
+  </li><li id="menuLiGenres">
+    <a id="menuBtnGenres" href="javascript:void(0);">GENRES</a>
+    <div id="menuDivGenres" class="menu-floater genr">
+      <div class="mn-split">
+        
+        <a href="/genre/4/house" class="flt">House</a>
+        
+        <a href="/genre/13/deep-house" class="flt">Deep House</a>
+        
+        <a href="/genre/24/soulful-house" class="flt">Soulful House</a>
+        
+        <a href="/genre/29/garage" class="flt">Garage</a>
+        
+        <a href="/genre/27/afro-house" class="flt">Afro House</a>
+        
+        <a href="/genre/17/nu-disco-indie-dance" class="flt">Nu Disco / Indie Dance</a>
+        
+        <a href="/genre/15/jackin-house" class="flt">Jackin House</a>
+        
+        <a href="/genre/18/tech-house" class="flt">Tech House</a>
+        
+        <a href="/genre/20/techno" class="flt">Techno</a>
+        
+        <a href="/genre/12/classic-house" class="flt">Classic House</a>
+        
+        <a href="/genre/3/soul-funk-disco" class="flt">Soul / Funk / Disco</a>
+        
+        <a href="/genre/1/lounge-chill-out" class="flt">Lounge / Chill Out</a>
+        
+        <a href="/genre/23/afro-latin-brazilian" class="flt">Afro / Latin / Brazilian</a>
+        
+      </div><div class="mn-split">
+        
+        <a href="/genre/2/broken-beat-nu-jazz" class="flt">Broken Beat / Nu-Jazz</a>
+        
+        <a href="/genre/19/progressive-house" class="flt">Progressive House</a>
+        
+        <a href="/genre/11/electro-house" class="flt">Electro House</a>
+        
+        <a href="/genre/16/minimal-deep-tech" class="flt">Minimal / Deep Tech</a>
+        
+        <a href="/genre/5/electronica" class="flt">Electronica</a>
+        
+        <a href="/genre/14/leftfield" class="flt">Leftfield</a>
+        
+        <a href="/genre/6/r-and-b-hip-hop" class="flt">R&amp;B / Hip Hop</a>
+        
+        <a href="/genre/28/stems" class="flt">STEMS</a>
+        
+        <a href="/genre/21/sounds-samples-and-loops" class="flt">Sounds, Samples &amp; Loops</a>
+        
+        <a href="/genre/8/dj-tools" class="flt">DJ Tools</a>
+        
+        <a href="/genre/7/acapella" class="flt">Acapella</a>
+        
+        <a href="/genre/9/beats" class="flt">Beats</a>
+        
+        <a href="/genre/10/efx" class="flt">Efx</a>
+        
+      </div>
+    </div>
+  </li><li id="menuLiFeat">
+    <a id="menuBtnFeat" href="javascript:void(0);">FEATURED</a>
+    <div id="menuDivFeat" class="menu-floater feat">
+      
+      <a href="/list/35/whats-hot" class="flt">What's Hot</a>
+      
+      <a href="/list/1/upfront-promos" class="flt">Upfront Promos</a>
+      
+      <a href="/list/2/new-releases" class="flt">New Releases</a>
+      
+      <a href="/list/3/compilations" class="flt">Compilations</a>
+      
+      <a href="/list/6/essentials" class="flt">Essentials</a>
+      
+      <a href="/list/69/hidden-gems" class="flt">Hidden Gems</a>
+      
+      <a href="/list/143/best-of-2023-so-far" class="flt">Best Of 2023 So Far</a>
+      
+      <a href="/label/34118/traxsource-weekend-weapons" class="flt">Weekend Weapons</a>
+      <a href="/label/4040/traxsource-hype-chart" class="flt">Hype Chart</a>
+      <a href="/preorders" class="flt">Pre-Orders</a>
+      <a href="/best-of-2022" class="flt">Best of 2022</a>
+    </div>
+  </li><li id="menuLiSpot">
+    <a id="menuBtnSpot" href="javascript:void(0);">SPOTLIGHTS</a>
+    <div id="menuDivSpot" class="menu-floater spot">
+      
+      <a href="/spotlight/46/reel-people-music-celebrates-100-releases" class="flt">Reel People Music Celebrates 100 Releases...</a>
+      
+      <a href="/spotlight/45/gogo-music-celebrates-20-years" class="flt">Gogo Music Celebrates 20 Years</a>
+      
+      <a href="/spotlight/13/nervous-records-celebrates-30-years" class="flt">Nervous Records Celebrates 30 Years</a>
+      
+      <a href="/spotlight/44/this-is-snatch-records" class="flt">This Is Snatch! Records</a>
+      
+      <a href="/spotlight/43/basement-boys-celebrate-100-releases" class="flt">Basement Boys Celebrate 100 Releases</a>
+      
+      <a href="/spotlight/42/masters-at-work-the-relaunch" class="flt">Masters At Work - The Relaunch</a>
+      
+      <a href="/spotlight/38/a-tribute-to-phil-asher" class="flt">A Tribute To Phil Asher</a>
+      
+      <a href="/spotlight/37/de-la-groove-spotlight" class="flt">De La Groove Spotlight</a>
+      
+      <a href="/spotlight/35/foliage-records-in-the-spotlight" class="flt">Foliage Records In The Spotlight...</a>
+      
+      <a href="/spotlight/34/fred-everythings-lazy-days" class="flt">Fred Everything's Lazy Days....</a>
+      
+      <a href="/spotlight/33/heist-recordings-spotlight" class="flt">Heist Recordings Spotlight</a>
+      
+      <a href="/spotlight/29/keinemusik-crue-spotlight" class="flt">Keinemusik Crue Spotlight</a>
+      
+      <a href="/spotlight/30/20-years-of-poker-flat-recordings" class="flt">20 Years Of Poker Flat Recordings</a>
+      
+      <a href="/spotlight/28/louies-vega-records-in-the-spotlight" class="flt">Louie's Vega Records In The Spotlight....</a>
+      
+      <a href="/spotlight/26/local-talk-spotlight" class="flt">Local Talk Spotlight</a>
+      
+      <a href="/spotlight/9/the-new-french-wave" class="flt">The New French Wave…</a>
+      
+      <a href="/spotlight/23/todd-terry-spotlight-inhouse-freeze-terminator-records" class="flt">Todd Terry Spotlight - Inhouse / Freeze / Terminator Records</a>
+      
+    </div>
+  </li><li>
+    <a id="menuBtnJA" href="/just-added">JUST ADDED</a>
+  </li><li id="menuLiMts">
+    <a id="menuBtnMTS" href="/my-traxsource/my-tracks">MY TRAXSOURCE</a>
+    <div id="menuDivMts" class="menu-floater mts">
+      
+      <a href="/my-traxsource/my-tracks" class="flt">My Tracks</a>
+      
+      <a href="/my-traxsource/my-labels" class="flt">My Labels</a>
+      
+      <a href="/my-traxsource/my-artists" class="flt">My Artists</a>
+      
+      <a href="/my-traxsource/my-charts" class="flt">My Charts</a>
+      
+    </div>
+  </li>
+</ul>
+
+</div>
+
+    <div id="bodyBay" class="v-" data-init_cpo="">
+<div id="e404" class="error-404 v-">
+
+  <div class="e-img e-ib"><img src="https://geo-w-static.traxsource.com/img/404.png" alt="Error 404">
+  </div><div class="e-msg e-ib">
+    <h1>We're sorry for the trouble...</h1>
+    <h2>The Page you are looking for does not exist or has moved.</h2>
+  </div>
+  
+  <div class="e-sep"></div>
+  
+  <h2>Some alternatives:</h2>
+  <ul>
+    <li>Try to search Traxsource using the Search box above.</li>
+    <li>If you followed a link to get here, please tell us where it came from and what you wanted to find so we can attempt to resolve it.</li>
+    <li>Visit our <a href="http://support.traxsource.com" target="_blank">support page</a>.</li>
+  </ul>
+</div>
+</div>
+
+    <div id="bodyMask" class="v-"></div>
+
+    <!-- TTL POPUP -->
+    <div id="titlePopup" class="v-">
+      <div id="ttlPuInner">
+        <div id="ttlPuClose" class="com-close"></div>
+        <div id="ttlPuPrev" class="ttl-pu-nav" title="Previous Release"></div>
+        <div id="ttlPuCont"></div>
+        <div id="ttlPuNext" class="ttl-pu-nav" title="Next Release"></div>
+      </div>
+    </div>
+
+    <!--MSG PU-->
+    <div id="messagePopup" class="com-popup">
+      <div class="mspu-hdr"></div>
+      <a href="javascript:void(0)" class="com-close mspu-close"></a>
+      <div class="mspu-cont">
+        <div class="mspu-txt"></div>
+        <div class="err-txt"></div>
+      </div>
+      <div class="mspu-inp-cont">
+        <p><input type="text" class="mspu-input" maxlength="" /></p>
+        <p class="mspu-cart-def-p"><input type="checkbox" class="mspu-cart-def-cb">Make Default</p>
+        <a href="javascript:void(0)" class="submit-button compact-btn green">Save</a>
+      </div>
+      <div class="mspu-buttons">
+        <a href="javascript:void(0)" class="com-yes compact-btn">Yes</a>
+        <a href="javascript:void(0)" class="com-no compact-btn">No</a>
+      </div>
+    </div>
+
+    <!--EMBED PU-->
+    <div id="embedPopup" class="com-popup">
+      <a href="javascript:void(0)" class="com-close embed-close"></a>
+      <div class="embed-hdr">Embed a player for <span id="eTitle"></span></div>
+      <textarea id="embedCodeBox"></textarea>
+      <div class="instr">
+        Copy the above code and paste it into your website or blog.
+      </div>
+    </div>
+
+    <div id="fullImgCont" class="full-img-cont v-"></div>
+
+    <div id="keyComCont" class="com-popup keys">
+      <a href="javascript:void(0)" class="com-close kc-close"></a>
+      <div id="keyComImg"></div>
+    </div>
+
+  </div>
+
+  <div id="bottomBay">
+<div class="bottom-Separator"></div>
+<div id="bottomCont" class="v-">
+  <div class="sect">
+    <span class="sect-hdr">INFO</span>
+    <a href="https://traxsource.zendesk.com/hc/en-us/sections/115000664263-Getting-Started" target="_blank" rel="noreferrer" class="ext">Getting Started</a><br />
+    <a href="/gift-certificates">Gift Codes</a><br />
+    <a href="/upgrade">Upgrade Your Tracks</a><br />
+    <a href="javascript:void(0)" id="currConvert">Currency Converter</a><br /> 
+    <a href="http://news.traxsource.com/about/" target="_blank" class="ext">About Traxsource</a><br />
+    <a href="https://traxsource.zendesk.com/hc/en-us/sections/115000671843-User-Charts" target="_blank" rel="noreferrer" class="ext">Create and Share Charts</a><br />
+    <a href="https://traxsource.zendesk.com/hc/en-us/categories/115000518003-Customer-Knowledge-Base" target="_blank" rel="noreferrer" class="ext">Help and Support</a><br />
+  </div><div class="sect">
+    <span class="sect-hdr">CONNECT</span>
+    <a href="http://news.traxsource.com" target="_blank" class="ext">Traxsource News</a><br />
+    <a href="https://itunes.apple.com/us/app/traxsource/id492664129" target="_blank" rel="noreferrer" class="ext">Traxsource on iPhone</a><br />
+    <a href="https://play.google.com/store/apps/details?id=traxsource.com.traxsource" target="_blank" rel="noreferrer" class="ext">Traxsource on Android</a><br />
+    <a href="http://downloader.traxsource.com" target="_blank" class="ext">Traxsource Downloader</a><br />
+    <a href="/logos-and-images" target="_blank" class="ext">Traxsource Logos</a>
+      
+    <div class="soc-rel">
+      <a href="https://www.facebook.com/traxsource" target="_blank" rel="noreferrer" class="social facebook ext"></a>
+      <a href="https://www.twitter.com/@traxsource" target="_blank" rel="noreferrer" class="social twitter ext"></a>
+      <!--<a href="https://google.com/+traxsource" target="_blank" rel="noreferrer" class="social gplus ext"></a>-->
+      <a href="https://instagram.com/traxsource" target="_blank" rel="noreferrer" class="social instagram ext"></a>
+      <a href="https://soundcloud.com/traxsource" target="_blank" rel="noreferrer" class="social soundcloud ext"></a>
+    </div>
+    
+  </div><div class="sect">
+    <span class="sect-hdr">LEGAL</span>
+    <a href="/terms-of-service">Terms of Service</a><br />
+    <a href="/privacy">Privacy Policy</a><br />
+    <a href="/copyright-and-trademark">Copyright And Trademark</a><br />
+    <a href="/gdpr">GDPR</a><br />
+    <a href="/dmca">DMCA Policy</a>
+  </div><div class="sect co">
+      &copy; 2002-2023 Traxsource, Inc.
+      
+      <p style="padding-top: 5px;">
+        <a href="https://www.associationforelectronicmusic.org/afem-approved-dj-download-sites/" target="_blank" rel="noreferrer" class="ext">
+          <!--<img src="https://static.traxsource.com/img/afem-seal-new.png" alt="afem-approved" style="width: 125px;" />-->
+        </a>
+      </p>
+  </div>
+</div>
+
+</div>
+
+  <!--BOTTOM PU-->
+  <div id="bottomBarPopup">
+    <div id="bottomBarBody"></div>
+    <a href="javascript:void(0)" class="com-close bbp-close"></a>
+  </div>
+
+  <!--CART-ALT-POPUP-->
+  <div id="cartAltCont" class="v-">
+    <div id="cartAltClose" class="com-close sm"></div>
+    <div class="cart-alt-hdr"></div>
+    <div class="cart-alt-list"></div>
+    <div class="new-cart-cont">
+      <a href="javascript:void(0)">
+        <svg class="plus-svg"><use xlink:href="/img/vects.v2.svg#plus"></use></svg>
+        Add New Cart
+      </a>
+    </div>
+  </div>
+
+    <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/ga.js"></script>
+  
+
+</body>
+</html>
+
+
