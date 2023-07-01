@@ -1,10 +1,12 @@
 {
   "extends": [
     "config:base",
-    "schedule:monthly",
     ":semanticCommitTypeAll(build)",
     ":maintainLockFilesMonthly",
     ":label(dependencies)"
+  ],
+  "schedule": [
+    "on the first day of the month"
   ],
   "pin": {
     "enabled": true,
