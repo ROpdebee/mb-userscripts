@@ -211,6 +211,11 @@ module.exports = {
         // places where in my opinion, an explicit `undefined` reduced confusion.
         'unicorn/no-useless-undefined': 'off',
 
+        // Not available in browsers, and too expensive to polyfill.
+        'unicorn/prefer-at': 'off',
+        'unicorn/prefer-blob-reading-methods': 'off',
+        'unicorn/prefer-string-replace-all': 'off',
+
         // Doesn't always work with transpiling into userscripts, ts-node, etc.
         'unicorn/prefer-top-level-await': 'off',
 
