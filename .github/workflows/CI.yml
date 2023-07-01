@@ -10,11 +10,12 @@ on:
   # Periodically run CI for CodeQL security advisories etc, in case new checks
   # are added.
   schedule:
-    - cron: '39 12 * * 0'
+    - cron: "39 12 * * 0"
 
 jobs:
   build-and-test:
     name: Build and test
+    if: "!startsWith(github.head_ref, 'renovate/')" # Already covered by renovate-check.
     uses: ROpdebee/mb-userscripts/.github/workflows/build-and-test.yml@main
 
   codeql:
