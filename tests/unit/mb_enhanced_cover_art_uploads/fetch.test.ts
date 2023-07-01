@@ -637,8 +637,7 @@ describe('fetching images from providers', () => {
         ]);
         await fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false);
 
-        expect(mockEnqueueImage).toHaveBeenCalledOnce();
-        expect(mockEnqueueImage).toHaveBeenCalledWith(expect.objectContaining({
+        expect(mockEnqueueImage).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Bad type defs.
             content: expect.objectContaining({
                 name: '1.0.jpg',
@@ -921,8 +920,7 @@ describe('fetching images', () => {
     it('enqueues the image', async () => {
         await fetcher.fetchImages({ url: new URL('https://example.com/1'), types: [ArtworkTypeIDs.Medium], comment: 'comment' }, false);
 
-        expect(mockEnqueueImage).toHaveBeenCalledOnce();
-        expect(mockEnqueueImage).toHaveBeenCalledWith(expect.objectContaining({
+        expect(mockEnqueueImage).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Bad type defs.
             content: expect.objectContaining({
                 name: '1.0.jpg',

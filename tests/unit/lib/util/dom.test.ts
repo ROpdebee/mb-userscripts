@@ -181,8 +181,7 @@ describe('setting input value', () => {
         input.addEventListener('input', handler);
         setInputValue(input, 'test123', true);
 
-        expect(handler).toHaveBeenCalledOnce();
-        expect(handler).toHaveBeenCalledWith(expect.objectContaining({
+        expect(handler).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
             target: input,
         }));
     });
