@@ -93,8 +93,7 @@ describe('logger', () => {
             const handlerName = loggerToHandlerNames[level];
             const notCalledNames = handlerNames.filter((name) => name !== handlerName);
 
-            expect(sink[handlerName]).toHaveBeenCalledOnce();
-            expect(sink[handlerName]).toHaveBeenCalledWith('test message');
+            expect(sink[handlerName]).toHaveBeenCalledExactlyOnceWith('test message');
 
             notCalledNames.forEach((name) => {
                 expect(sink[name]).not.toHaveBeenCalled();
@@ -104,8 +103,7 @@ describe('logger', () => {
         it('calls the error handler with an exception if provided', () => {
             logger.error('test message', new Error('test error'));
 
-            expect(sink.onError).toHaveBeenCalledOnce();
-            expect(sink.onError).toHaveBeenCalledWith('test message', new Error('test error'));
+            expect(sink.onError).toHaveBeenCalledExactlyOnceWith('test message', new Error('test error'));
         });
 
         it('calls no handler if no sink is attached', () => {
@@ -153,8 +151,7 @@ describe('logger', () => {
             const notCalledNames = handlerNames.filter((name) => name !== handlerName);
 
             sinks.forEach((sink) => {
-                expect(sink[handlerName]).toHaveBeenCalledOnce();
-                expect(sink[handlerName]).toHaveBeenCalledWith('test message');
+                expect(sink[handlerName]).toHaveBeenCalledExactlyOnceWith('test message');
 
                 notCalledNames.forEach((name) => {
                     expect(sink[name]).not.toHaveBeenCalled();

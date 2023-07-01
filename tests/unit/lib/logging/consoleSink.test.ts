@@ -17,8 +17,7 @@ describe('console logging sink', () => {
         const consoleMethod = jest.spyOn(console, levelName).mockImplementationOnce(() => {});
         logger[levelName]('test');
 
-        expect(consoleMethod).toHaveBeenCalledOnce();
-        expect(consoleMethod).toHaveBeenCalledWith('[test script] test');
+        expect(consoleMethod).toHaveBeenCalledExactlyOnceWith('[test script] test');
 
         consoleMethod.mockReset();
     });
@@ -28,8 +27,7 @@ describe('console logging sink', () => {
         jest.spyOn(console, 'info').mockImplementationOnce(() => {});
         logger.success('test');
 
-        expect(console.info).toHaveBeenCalledOnce();
-        expect(console.info).toHaveBeenCalledWith('[test script] test');
+        expect(console.info).toHaveBeenCalledExactlyOnceWith('[test script] test');
     });
 
     it.each(levelsWithExceptions)('provides error to console.%s', (levelName) => {
@@ -37,7 +35,6 @@ describe('console logging sink', () => {
         const consoleMethod = jest.spyOn(console, levelName).mockImplementationOnce(() => {});
         logger[levelName]('test', new Error('error'));
 
-        expect(consoleMethod).toHaveBeenCalledOnce();
-        expect(consoleMethod).toHaveBeenCalledWith('[test script] test', new Error('error'));
+        expect(consoleMethod).toHaveBeenCalledExactlyOnceWith('[test script] test', new Error('error'));
     });
 });

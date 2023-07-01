@@ -38,10 +38,8 @@ describe('caa image', () => {
             const image = new CAAImage(dummyDirectFullSizeURL, mockCache);
 
             await expect(image.getDimensions()).resolves.toStrictEqual(dummyDimensions);
-            expect(mockGetImageDimensions).toHaveBeenCalledOnce();
-            expect(mockGetImageDimensions).toHaveBeenCalledWith(dummyDirectFullSizeURL);
-            expect(mockCache.putDimensions).toHaveBeenCalledOnce();
-            expect(mockCache.putDimensions).toHaveBeenCalledWith(dummyDirectFullSizeURL, dummyDimensions);
+            expect(mockGetImageDimensions).toHaveBeenCalledExactlyOnceWith(dummyDirectFullSizeURL);
+            expect(mockCache.putDimensions).toHaveBeenCalledExactlyOnceWith(dummyDirectFullSizeURL, dummyDimensions);
         });
 
         it('loads on cache error', async () => {
@@ -50,10 +48,8 @@ describe('caa image', () => {
             const image = new CAAImage(dummyDirectFullSizeURL, mockCache);
 
             await expect(image.getDimensions()).resolves.toStrictEqual(dummyDimensions);
-            expect(mockGetImageDimensions).toHaveBeenCalledOnce();
-            expect(mockGetImageDimensions).toHaveBeenCalledWith(dummyDirectFullSizeURL);
-            expect(mockCache.putDimensions).toHaveBeenCalledOnce();
-            expect(mockCache.putDimensions).toHaveBeenCalledWith(dummyDirectFullSizeURL, dummyDimensions);
+            expect(mockGetImageDimensions).toHaveBeenCalledExactlyOnceWith(dummyDirectFullSizeURL);
+            expect(mockCache.putDimensions).toHaveBeenCalledExactlyOnceWith(dummyDirectFullSizeURL, dummyDimensions);
         });
 
         it('returns undefined when live loading fails', async () => {
@@ -62,8 +58,7 @@ describe('caa image', () => {
             const image = new CAAImage(dummyDirectFullSizeURL, mockCache);
 
             await expect(image.getDimensions()).resolves.toBeUndefined();
-            expect(mockGetImageDimensions).toHaveBeenCalledOnce();
-            expect(mockGetImageDimensions).toHaveBeenCalledWith(dummyDirectFullSizeURL);
+            expect(mockGetImageDimensions).toHaveBeenCalledExactlyOnceWith(dummyDirectFullSizeURL);
             expect(mockCache.putDimensions).not.toHaveBeenCalled();
         });
 
@@ -91,8 +86,7 @@ describe('caa image', () => {
             const image = new CAAImage(dummyDirectFullSizeURL, mockCache);
 
             await expect(image.getFileInfo()).resolves.toStrictEqual(dummyFileInfo);
-            expect(mockGetCAAInfo).toHaveBeenCalledOnce();
-            expect(mockGetCAAInfo).toHaveBeenCalledWith(dummyCAAItemID, dummyImageID);
+            expect(mockGetCAAInfo).toHaveBeenCalledExactlyOnceWith(dummyCAAItemID, dummyImageID);
             expect(mockCache.putFileInfo).toHaveBeenCalledWith(dummyDirectFullSizeURL, dummyFileInfo);
         });
 
@@ -102,8 +96,7 @@ describe('caa image', () => {
             const image = new CAAImage(dummyDirectFullSizeURL, mockCache);
 
             await expect(image.getFileInfo()).resolves.toStrictEqual(dummyFileInfo);
-            expect(mockGetCAAInfo).toHaveBeenCalledOnce();
-            expect(mockGetCAAInfo).toHaveBeenCalledWith(dummyCAAItemID, dummyImageID);
+            expect(mockGetCAAInfo).toHaveBeenCalledExactlyOnceWith(dummyCAAItemID, dummyImageID);
             expect(mockCache.putFileInfo).toHaveBeenCalledWith(dummyDirectFullSizeURL, dummyFileInfo);
         });
 
@@ -113,8 +106,7 @@ describe('caa image', () => {
             const image = new CAAImage(dummyDirectFullSizeURL, mockCache);
 
             await expect(image.getFileInfo()).resolves.toBeUndefined();
-            expect(mockGetCAAInfo).toHaveBeenCalledOnce();
-            expect(mockGetCAAInfo).toHaveBeenCalledWith(dummyCAAItemID, dummyImageID);
+            expect(mockGetCAAInfo).toHaveBeenCalledExactlyOnceWith(dummyCAAItemID, dummyImageID);
             expect(mockCache.putFileInfo).not.toHaveBeenCalled();
         });
     });
@@ -273,8 +265,7 @@ describe('queued upload image', () => {
         img.dispatchEvent(new Event('load'));
 
         await expect(dimProm).toResolve();
-        expect(onResolved).toHaveBeenCalledOnce();
-        expect(onResolved).toHaveBeenCalledWith({
+        expect(onResolved).toHaveBeenCalledExactlyOnceWith({
             height: 100,
             width: 200,
         });
