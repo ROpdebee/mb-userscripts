@@ -33,7 +33,7 @@
       ],
       "automerge": true,
       "automergeType": "branch",
-      "groupName": "dev dependencies (non-major)",
+      "groupName": "dev dependencies non-major",
       "excludePackageNames": [
         "babel-plugin-transform-async-to-promises"
       ]
