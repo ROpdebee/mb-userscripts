@@ -44,7 +44,10 @@
         "paths": {
             "@lib/*": ["src/lib/*"],
             "@src/*": ["src/*"],
-        }
+        },
+
+        // Dependencies often ship broken .d.ts files.
+        "skipLibCheck": true,
     },
     "ts-node": {
         // For ts-node, we need to set the compiled output to CommonJS because
