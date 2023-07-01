@@ -19,7 +19,10 @@
   },
   "lockFileMaintenance": {
     "automerge": true,
-    "automergeType": "branch"
+    "automergeType": "branch",
+    "schedule": [
+      "before 11am on the first day of the month"
+    ]
   },
   "packageRules": [
     {
