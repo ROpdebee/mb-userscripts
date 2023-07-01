@@ -1,3 +1,4 @@
+- **2023.7.1**: Bug fix: bump IMU to latest version ([#676](https://github.com/ROpdebee/mb-userscripts/pull/676))
 - **2023.6.28**: New feature: add Traxsource provider ([#673](https://github.com/ROpdebee/mb-userscripts/pull/673))
 - **2023.6.9**: Internal changes: use unified request interface ([#672](https://github.com/ROpdebee/mb-userscripts/pull/672))
 - **2023.6.8.2**: Bug fix: retry loading image contents on certain HTTP errors ([#669](https://github.com/ROpdebee/mb-userscripts/pull/669))
