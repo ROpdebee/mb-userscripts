@@ -1,3 +1,4 @@
+- **2023.7.2**: New feature: add bulk URL copy buttons to a-tisket ([#686](https://github.com/ROpdebee/mb-userscripts/pull/686))
 - **2022.8.13**: Bug fix: use correct ref on non-release pages ([#551](https://github.com/ROpdebee/mb-userscripts/pull/551))
 - **2022.7.27.2**: Bug fix: submit all but last URL immediately ([#515](https://github.com/ROpdebee/mb-userscripts/pull/515))
 - **2022.7.27**: Internal changes: automatically insert logger boilerplate config ([#514](https://github.com/ROpdebee/mb-userscripts/pull/514))
