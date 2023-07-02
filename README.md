@@ -72,7 +72,7 @@ Display all tracks and releases on which a recording appears from the release pa
 
 ## MB: QoL: Paste multiple external links at once
 
-Paste multiple external links at once into the external link editor. Input is split on whitespace (newlines, tabs, spaces, etc.) and fed into the link editor separately.
+Paste multiple external links at once into the external link editor. Input is split on whitespace (newlines, tabs, spaces, etc.) and fed into the link editor separately. Additionally adds handy bulk Copy buttons to a-tisket release and artist URLs.
 
 [![Install](https://img.shields.io/badge/dynamic/json?label=install&query=%24.version&url=https%3A%2F%2Fraw.github.com%2FROpdebee%2Fmb-userscripts%2Fdist%2Fmb_multi_external_links.metadata.json&logo=tampermonkey&style=for-the-badge&color=informational)](https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_multi_external_links.user.js)
 [![Source](https://img.shields.io/badge/source-grey?style=for-the-badge&logo=github)](src/mb_multi_external_links)
