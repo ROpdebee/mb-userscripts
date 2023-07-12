@@ -11,7 +11,7 @@ import { assertNonNull } from './assert';
  */
 export function qs<T extends Element>(query: string, element?: Document | Element): T {
     const queryResult = qsMaybe<T>(query, element);
-    assertNonNull(queryResult, 'Could not find required element');
+    assertNonNull(queryResult, `Could not find required element for query "${query}"`);
     return queryResult;
 }
 
