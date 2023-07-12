@@ -5,6 +5,7 @@ import { getFromPageContext } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { enumerate } from '@lib/util/array';
+import { blobToBuffer } from '@lib/util/blob';
 import { HTTPResponseError, request } from '@lib/util/request';
 import { urlBasename } from '@lib/util/urls';
 
@@ -257,12 +258,17 @@ export class ImageFetcher {
             throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
         }
 
+        // Convert and copy the response blob to a buffer.
+        // We copy the content to make sure the contents do not get unloaded
+        // before the image is uploaded. See https://github.com/ROpdebee/mb-userscripts/issues/582
+        const contentBuffer = await blobToBuffer(resp.blob);
+
         return {
             requestedUrl: url,
             fetchedUrl,
             wasRedirected,
             file: new File(
-                [resp.blob],
+                [contentBuffer],
                 this.createUniqueFilename(fileName, id, mimeType),
                 { type: mimeType }),
         };
