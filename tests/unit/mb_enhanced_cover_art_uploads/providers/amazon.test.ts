@@ -86,6 +86,7 @@ describe('amazon provider', () => {
             expectedImages: [{
                 index: 0,
                 urlPart: '91OEsuYoClL',
+                types: [ArtworkTypeIDs.Front],
             }, {
                 index: 1,
                 urlPart: '91NVbKDHCWL',
