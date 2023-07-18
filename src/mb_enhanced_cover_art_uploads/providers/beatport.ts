@@ -1,8 +1,21 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { parseDOM, qs } from '@lib/util/dom';
+import { safeParseJSON } from '@lib/util/json';
 
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
+
+interface HydratedData {
+    props: {
+        pageProps: {
+            release: {
+                image: {
+                    uri: string;
+                };
+            };
+        };
+    };
+}
 
 export class BeatportProvider extends CoverArtProvider {
     public readonly supportedDomains = ['beatport.com'];
@@ -11,12 +24,13 @@ export class BeatportProvider extends CoverArtProvider {
     protected readonly urlRegex = /release\/[^/]+\/(\d+)(?:\/|$)/;
 
     public async findImages(url: URL): Promise<CoverArt[]> {
-        // Like the implementation of HeadMetaPropertyProvider, but Beatport
-        // uses <meta name="og:image" ...> instead of <meta property="og:image" ...>
         const respDocument = parseDOM(await this.fetchPage(url), url.href);
-        const coverElmt = qs<HTMLMetaElement>('head > meta[name="og:image"]', respDocument);
+        const releaseDataText = qs<HTMLScriptElement>('script#__NEXT_DATA__', respDocument).textContent!;
+        const releaseData = safeParseJSON<HydratedData>(releaseDataText, 'Failed to parse Beatport release data');
+        const cover = releaseData.props.pageProps.release.image;
+
         return [{
-            url: new URL(coverElmt.content),
+            url: new URL(cover.uri),
             types: [ArtworkTypeIDs.Front],
         }];
     }
