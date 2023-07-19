@@ -1,5 +1,6 @@
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { SoundcloudProvider } from '@src/mb_enhanced_cover_art_uploads/providers/soundcloud';
+import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared_behaviour';
 
 import { findImagesSpec } from './find_images_spec';
@@ -7,6 +8,7 @@ import { urlMatchingSpec } from './url_matching_spec';
 
 describe('soundcloud provider', () => {
     const provider = new SoundcloudProvider();
+    const pollyContext = setupPolly();
 
     describe('url matching', () => {
         const supportedUrls = [{
@@ -122,7 +124,7 @@ describe('soundcloud provider', () => {
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
 
         it('grabs no track images if they will not be used', async () => {
             const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/isolationep'), true);
@@ -145,6 +147,17 @@ describe('soundcloud provider', () => {
             const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/keep-going-remix-contest-ep-winners'));
 
             expect(covers).toBeArrayOfSize(1);
+        });
+
+        it('attempts to refresh client ID', async () => {
+            pollyContext.polly.configure({
+                recordFailedRequests: true,
+            });
+            localStorage.setItem('ROpdebee_ECAU_SC_ID', 'invalid!');
+
+            const covers = await provider.findImages(new URL('https://soundcloud.com/soundcloud/sets/i-am-other-vol-2'));
+
+            expect(covers).toBeArrayOfSize(20);
         });
     });
 });

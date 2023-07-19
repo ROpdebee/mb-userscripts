@@ -16,7 +16,7 @@ export default async function warc2har(warc: Uint8Array): Promise<Har> {
 
     for await (const record of WARCParser.iterRecords([warc])) {
         let entry: HarEntry;
-        switch(record.warcType) {
+        switch (record.warcType) {
         case 'warcinfo':
             await populateHarLogInfo(record, harLog);
             break;
@@ -98,13 +98,13 @@ async function populateEntryMetadata(record: WARCRecord, entry: HarEntry): Promi
     }
 }
 
-function httpHeadersToKeyValue(record: WARCRecord): Array<{ name: string; value: string}> {
+function httpHeadersToKeyValue(record: WARCRecord): Array<{ name: string; value: string }> {
     return [...record.httpHeaders!.headers.entries()].map(([name, value]) => {
         return { name, value };
     });
 }
 
-function parseQueryString(path: string): Array<{ name: string; value: string}> {
+function parseQueryString(path: string): Array<{ name: string; value: string }> {
     return [...new URLSearchParams(path.split('?')[1]).entries()]
         .map(([name, value]) => {
             return { name, value };
@@ -140,8 +140,7 @@ async function populateEntryResponse(record: WARCRecord, entry: HarEntry): Promi
     };
 
 
-    const mimeType = record.httpHeaders!.headers.get('content-type');
-    assertHasValue(mimeType);
+    const mimeType = record.httpHeaders!.headers.get('content-type') ?? 'text/plain';
     response.content.mimeType = mimeType;
     response.content.size = bodyEncoded.length;
 
