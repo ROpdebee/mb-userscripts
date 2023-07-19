@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2023.7.18
+// @version      2023.7.19
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -979,9 +979,11 @@
       return _call(function () {
         return _await(_this.fetchPage(url), function (_this$fetchPage) {
           var respDocument = parseDOM(_this$fetchPage, url.href);
-          var coverElmt = qs('head > meta[name="og:image"]', respDocument);
+          var releaseDataText = qs('script#__NEXT_DATA__', respDocument).textContent;
+          var releaseData = safeParseJSON(releaseDataText, 'Failed to parse Beatport release data');
+          var cover = releaseData.props.pageProps.release.image;
           return [{
-            url: new URL(coverElmt.content),
+            url: new URL(cover.uri),
             types: [ArtworkTypeIDs.Front]
           }];
         });
@@ -1401,7 +1403,9 @@
     }
   }
 
-  var SC_CLIENT_ID = 'JYcDe4vHGjmQkIdR2BB58tFXMBO8M888';
+  var SC_CLIENT_ID_REGEX = /client_id\s*:\s*"([a-zA-Z\d]{32})"/;
+  var SC_CLIENT_ID_CACHE_KEY = 'ROpdebee_ECAU_SC_ID';
+  var SC_HOMEPAGE = 'https://soundcloud.com/';
   class SoundcloudProvider extends ProviderWithTrackImages {
     constructor() {
       super(...arguments);
@@ -1409,6 +1413,53 @@
       _defineProperty(this, "favicon", 'https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico');
       _defineProperty(this, "name", 'Soundcloud');
       _defineProperty(this, "urlRegex", []);
+    }
+    static loadClientID() {
+      return _call(function () {
+        return _await(request.get(SC_HOMEPAGE), function (pageResp) {
+          var _exit = false;
+          var pageDom = parseDOM(pageResp.text, SC_HOMEPAGE);
+          var scriptUrls = qsa('script', pageDom).map(script => script.src).filter(src => src.startsWith('https://a-v2.sndcdn.com/assets/'));
+          collatedSort(scriptUrls);
+          return _continue(_forOf(scriptUrls, function (scriptUrl) {
+            return _await(request.get(scriptUrl), function (contentResponse) {
+              var content = contentResponse.text;
+              var clientId = content.match(SC_CLIENT_ID_REGEX);
+              if (clientId !== null && clientId !== void 0 && clientId[1]) {
+                var _clientId$ = clientId[1];
+                _exit = true;
+                return _clientId$;
+              }
+            });
+          }, function () {
+            return _exit;
+          }), function (_result) {
+            if (_exit) return _result;
+            throw new Error('Could not extract Soundcloud Client ID');
+          });
+        });
+      });
+    }
+    static getClientID() {
+      var _this = this;
+      return _call(function () {
+        var cachedID = localStorage.getItem(SC_CLIENT_ID_CACHE_KEY);
+        return cachedID ? _await(cachedID) : _await(_this.loadClientID(), function (newID) {
+          localStorage.setItem(SC_CLIENT_ID_CACHE_KEY, newID);
+          return newID;
+        });
+      });
+    }
+    static refreshClientID() {
+      var _this2 = this;
+      return _call(function () {
+        return _await(_this2.getClientID(), function (oldId) {
+          return _await(_this2.loadClientID(), function (newId) {
+            assert(oldId !== newId, 'Attempted to refresh Soundcloud Client ID but retrieved the same one.');
+            localStorage.setItem(SC_CLIENT_ID_CACHE_KEY, newId);
+          });
+        });
+      });
     }
     supportsUrl(url) {
       var _url$pathname$trim$sl = url.pathname.trim().slice(1).replace(/\/$/, '').split('/'),
@@ -1421,20 +1472,20 @@
       return url.pathname.slice(1);
     }
     findImages(url) {
-      var _this = this;
+      var _this3 = this;
       var onlyFront = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       return _call(function () {
-        return _await(_this.fetchPage(url), function (pageContent) {
-          var _this$extractMetadata;
-          var metadata = (_this$extractMetadata = _this.extractMetadataFromJS(pageContent)) === null || _this$extractMetadata === void 0 ? void 0 : _this$extractMetadata.find(data => ['sound', 'playlist'].includes(data.hydratable));
+        return _await(_this3.fetchPage(url), function (pageContent) {
+          var _this3$extractMetadat;
+          var metadata = (_this3$extractMetadat = _this3.extractMetadataFromJS(pageContent)) === null || _this3$extractMetadat === void 0 ? void 0 : _this3$extractMetadat.find(data => ['sound', 'playlist'].includes(data.hydratable));
           if (!metadata) {
             throw new Error('Could not extract metadata from Soundcloud page. The release may have been removed.');
           }
           if (metadata.hydratable === 'sound') {
-            return _this.extractCoverFromTrackMetadata(metadata, onlyFront);
+            return _this3.extractCoverFromTrackMetadata(metadata, onlyFront);
           } else {
             assert(metadata.hydratable === 'playlist');
-            return _this.extractCoversFromSetMetadata(metadata, onlyFront);
+            return _this3.extractCoversFromSetMetadata(metadata, onlyFront);
           }
         });
       });
@@ -1464,7 +1515,7 @@
       return covers;
     }
     extractCoversFromSetMetadata(metadata, onlyFront) {
-      var _this2 = this;
+      var _this4 = this;
       return _call(function () {
         var covers = [];
         if (metadata.data.artwork_url) {
@@ -1473,7 +1524,7 @@
             types: [ArtworkTypeIDs.Front]
           });
         }
-        return onlyFront ? _await(covers) : _await(_this2.lazyLoadTracks(metadata.data.tracks), function (tracks) {
+        return onlyFront ? _await(covers) : _await(_this4.lazyLoadTracks(metadata.data.tracks), function (tracks) {
           var trackCovers = filterNonNull(tracks.flatMap((track, trackNumber) => {
             var trackImages = [];
             if (!track.artwork_url) {
@@ -1484,7 +1535,7 @@
                 trackNumber: (trackNumber + 1).toString()
               });
             }
-            var visuals = _this2.extractVisuals(track);
+            var visuals = _this4.extractVisuals(track);
             trackImages.push(...visuals.map(visualUrl => ({
               url: visualUrl,
               trackNumber: (trackNumber + 1).toString(),
@@ -1492,27 +1543,29 @@
             })));
             return trackImages;
           }));
-          return _await(_this2.mergeTrackImages(trackCovers, metadata.data.artwork_url, true), function (mergedTrackCovers) {
+          return _await(_this4.mergeTrackImages(trackCovers, metadata.data.artwork_url, true), function (mergedTrackCovers) {
             return [...covers, ...mergedTrackCovers];
           });
         });
       });
     }
     lazyLoadTracks(tracks) {
+      var _this5 = this;
       return _call(function () {
+        var _exit2 = false;
         var lazyTrackIDs = tracks.filter(track => track.artwork_url === undefined).map(track => track.id);
         if (lazyTrackIDs.length === 0) return _await(tracks);
-        LOGGER.info('Loading Soundcloud track data');
-        var params = new URLSearchParams({
-          ids: lazyTrackIDs.join(','),
-          client_id: SC_CLIENT_ID
-        });
-        return _await(request.get("https://api-v2.soundcloud.com/tracks?".concat(params)), function (trackDataResponse) {
-          var trackData = safeParseJSON(trackDataResponse.text);
-          if (!trackData) {
-            LOGGER.error('Could not parse Soundcloud track data, some track images may be missed');
-            return tracks;
-          }
+        var trackData;
+        return _await(_continue(_catch(function () {
+          return _await(_this5.getTrackData(lazyTrackIDs), function (_this5$getTrackData) {
+            trackData = _this5$getTrackData;
+          });
+        }, function (err) {
+          LOGGER.error('Failed to load Soundcloud track data, some track images may be missed', err);
+          _exit2 = true;
+          return tracks;
+        }), function (_result2) {
+          if (_exit2) return _result2;
           var trackIdToLoadedTrack = new Map(trackData.map(track => [track.id, track]));
           return tracks.map(track => {
             if (track.artwork_url !== undefined) return track;
@@ -1522,6 +1575,38 @@
               return track;
             }
             return loadedTrack;
+          });
+        }));
+      });
+    }
+    getTrackData(lazyTrackIDs) {
+      var _this6 = this;
+      var firstTry = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      return _call(function () {
+        LOGGER.info('Loading Soundcloud track data');
+        return _await(SoundcloudProvider.getClientID(), function (clientId) {
+          var _exit3 = false;
+          var params = new URLSearchParams({
+            ids: lazyTrackIDs.join(','),
+            client_id: clientId
+          });
+          var trackDataResponse;
+          return _continue(_catch(function () {
+            return _await(request.get("https://api-v2.soundcloud.com/tracks?".concat(params)), function (_request$get) {
+              trackDataResponse = _request$get;
+            });
+          }, function (err) {
+            if (!(firstTry && err instanceof HTTPResponseError && err.statusCode === 401)) {
+              throw err;
+            }
+            LOGGER.debug('Attempting to refresh client ID');
+            return _await(SoundcloudProvider.refreshClientID(), function () {
+              var _this6$getTrackData = _this6.getTrackData(lazyTrackIDs, firstTry = false);
+              _exit3 = true;
+              return _this6$getTrackData;
+            });
+          }), function (_result3) {
+            return _exit3 ? _result3 : safeParseJSON(trackDataResponse.text, 'Failed to parse Soundcloud API response');
           });
         });
       });
