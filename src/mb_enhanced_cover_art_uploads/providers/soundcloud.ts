@@ -1,9 +1,11 @@
+import type { TextResponse } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { filterNonNull } from '@lib/util/array';
+import { collatedSort, filterNonNull } from '@lib/util/array';
 import { assert } from '@lib/util/assert';
+import { parseDOM, qsa } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
-import { request } from '@lib/util/request';
+import { HTTPResponseError, request } from '@lib/util/request';
 import { urlBasename } from '@lib/util/urls';
 
 import type { CoverArt } from '../types';
@@ -45,9 +47,9 @@ interface LoadedAPITrack {
 
 type SCHydrationTrack = LazyAPITrack | LoadedAPITrack;
 
-// NOTE: Already changed in the past, if it changes again we should write logic
-// to extract it automatically.
-const SC_CLIENT_ID = 'JYcDe4vHGjmQkIdR2BB58tFXMBO8M888';
+const SC_CLIENT_ID_REGEX = /client_id\s*:\s*"([a-zA-Z\d]{32})"/;
+const SC_CLIENT_ID_CACHE_KEY = 'ROpdebee_ECAU_SC_ID';
+const SC_HOMEPAGE = 'https://soundcloud.com/';
 
 export class SoundcloudProvider extends ProviderWithTrackImages {
     public readonly supportedDomains = ['soundcloud.com'];
@@ -66,6 +68,47 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         'likes', 'followers', 'following', 'reposts', 'albums', 'tracks',
         'popular-tracks', 'comments', 'sets', 'recommended',
     ]);
+
+    private static async loadClientID(): Promise<string> {
+        const pageResp = await request.get(SC_HOMEPAGE);
+        const pageDom = parseDOM(pageResp.text, SC_HOMEPAGE);
+
+        const scriptUrls = qsa<HTMLScriptElement>('script', pageDom)
+            .map((script) => script.src)
+            .filter((src) => src.startsWith('https://a-v2.sndcdn.com/assets/'));
+        collatedSort(scriptUrls);
+
+        for (const scriptUrl of scriptUrls) {
+            const contentResponse = await request.get(scriptUrl);
+            const content = contentResponse.text;
+            const clientId = content.match(SC_CLIENT_ID_REGEX);
+
+            if (clientId?.[1]) {
+                return clientId[1];
+            }
+        }
+
+        throw new Error('Could not extract Soundcloud Client ID');
+    }
+
+    private static async getClientID(): Promise<string> {
+        const cachedID = localStorage.getItem(SC_CLIENT_ID_CACHE_KEY);
+        if (cachedID) {
+            return cachedID;
+        }
+
+        const newID = await this.loadClientID();
+        localStorage.setItem(SC_CLIENT_ID_CACHE_KEY, newID);
+        return newID;
+    }
+
+    private static async refreshClientID(): Promise<void> {
+        const oldId = await this.getClientID();
+        const newId = await this.loadClientID();
+
+        assert(oldId !== newId, 'Attempted to refresh Soundcloud Client ID but retrieved the same one.');
+        localStorage.setItem(SC_CLIENT_ID_CACHE_KEY, newId);
+    }
 
     public override supportsUrl(url: URL): boolean {
         const [artistId, ...pathParts] = url.pathname
@@ -188,17 +231,11 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             .map((track) => track.id);
         if (lazyTrackIDs.length === 0) return tracks;
 
-        LOGGER.info('Loading Soundcloud track data');
-
-        // TODO: Does this work still work if we pass a large list of IDs?
-        const params = new URLSearchParams({
-            ids: lazyTrackIDs.join(','),
-            client_id: SC_CLIENT_ID,
-        });
-        const trackDataResponse = await request.get(`https://api-v2.soundcloud.com/tracks?${params}`);
-        const trackData = safeParseJSON<LoadedAPITrack[]>(trackDataResponse.text);
-        if (!trackData) {
-            LOGGER.error('Could not parse Soundcloud track data, some track images may be missed');
+        let trackData: SCHydrationTrack[] | undefined;
+        try {
+            trackData = await this.getTrackData(lazyTrackIDs);
+        } catch (err) {
+            LOGGER.error('Failed to load Soundcloud track data, some track images may be missed', err);
             // We'll still return the tracks that we couldn't load, otherwise
             // the track indices will be wrong.
             return tracks;
@@ -220,6 +257,32 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             }
             return loadedTrack;
         });
+    }
+
+    private async getTrackData(lazyTrackIDs: number[], firstTry = true): Promise<SCHydrationTrack[]> {
+        LOGGER.info('Loading Soundcloud track data');
+        const clientId = await SoundcloudProvider.getClientID();
+
+        // TODO: Does this work still work if we pass a large list of IDs?
+        const params = new URLSearchParams({
+            ids: lazyTrackIDs.join(','),
+            client_id: clientId,
+        });
+
+        let trackDataResponse: TextResponse;
+        try {
+            trackDataResponse = await request.get(`https://api-v2.soundcloud.com/tracks?${params}`);
+        } catch (err) {
+            if (!(firstTry && err instanceof HTTPResponseError && err.statusCode === 401)) {
+                throw err;
+            }
+
+            LOGGER.debug('Attempting to refresh client ID');
+            await SoundcloudProvider.refreshClientID();
+            return this.getTrackData(lazyTrackIDs, firstTry = false);
+        }
+
+        return safeParseJSON<LoadedAPITrack[]>(trackDataResponse.text, 'Failed to parse Soundcloud API response');
     }
 
     private extractVisuals(track: SCHydrationTrack): string[] {
