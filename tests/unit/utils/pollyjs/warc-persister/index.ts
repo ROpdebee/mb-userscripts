@@ -15,9 +15,7 @@ interface Options extends Polly {
 }
 
 export class WarcPersister extends Persister<Options> {
-    public static override get id(): string {
-        return 'fs-warc';
-    }
+    public static override readonly id = 'fs-warc';
 
     public override async onFindRecording(recordingId: string): Promise<Har | null> {
         const searchPath = this.filenameFor(recordingId);

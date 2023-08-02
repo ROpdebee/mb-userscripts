@@ -60,7 +60,7 @@ export class DispatchMap<Leaf> {
 
     // Using composition over inheritance because our interface is semantically
     // different from that of a standard map
-    private readonly map: Map<string, Leaf | DispatchMap<Leaf>> = new Map();
+    private readonly map = new Map<string, Leaf | DispatchMap<Leaf>>();
 
     public set(domainPattern: string, leaf: Leaf): this {
         // Don't allow e.g. sub*.domain.com or *.com or domain.* or a.*.c.com.

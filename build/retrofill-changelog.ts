@@ -8,7 +8,7 @@ import { generateChangelogEntry } from './changelog';
 
 async function iterCommits(repo: SimpleGit): Promise<void> {
     const commits = await repo.log();
-    const changelogEntries: Map<string, string[]> = new Map();
+    const changelogEntries = new Map<string, string[]>();
 
     for (const commit of commits.all) {
         // Skip commits which aren't deployments by the bot

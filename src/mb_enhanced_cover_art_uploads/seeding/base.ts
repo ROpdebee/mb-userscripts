@@ -9,7 +9,7 @@ export function seederSupportsURL(seeder: Seeder, url: URL | Location): boolean 
         && seeder.supportedRegexes.some((rgx) => rgx.test(url.href));
 }
 
-const SEEDER_DISPATCH_MAP: Map<string, Seeder[]> = new Map();
+const SEEDER_DISPATCH_MAP = new Map<string, Seeder[]>();
 
 export function registerSeeder(seeder: Seeder): void {
     seeder.supportedDomains.forEach((domain) => {

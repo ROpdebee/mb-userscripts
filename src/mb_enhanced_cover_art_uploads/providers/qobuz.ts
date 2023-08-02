@@ -51,7 +51,7 @@ export class QobuzProvider extends CoverArtProvider {
     // Assuming this doesn't change often. If it does, we might have to extract it
     // from the JS code loaded on open.qobuz.com, but for simplicity's sake, let's
     // just use a constant app ID first.
-    // Static getter instead of property so that we can spy on it in the tests.
+    // eslint-disable-next-line @typescript-eslint/class-literal-property-style -- Static getter instead of property so that we can spy on it in the tests.
     private static get QOBUZ_APP_ID(): string {
         return '712109809';
     }
