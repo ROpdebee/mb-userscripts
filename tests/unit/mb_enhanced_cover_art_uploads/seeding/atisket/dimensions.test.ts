@@ -1,6 +1,6 @@
 import retry from 'retry';
 
-import type { CacheStore } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
+import type { CacheEntry } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
 import { request } from '@lib/util/request';
 import { AtisketImage, CACHE_LOCALSTORAGE_KEY, localStorageCache, MAX_CACHED_IMAGES } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
 import { setupPolly } from '@test-utils/pollyjs';
@@ -201,7 +201,7 @@ describe('local storage cache', () => {
 
     describe('with full cache', () => {
         beforeEach(() => {
-            const store: CacheStore = {};
+            const store: Record<string, CacheEntry> = {};
             let i = MAX_CACHED_IMAGES;
             while (i--) {
                 store[`https://example.com/${i}`] = {
