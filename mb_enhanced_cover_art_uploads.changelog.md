@@ -1,3 +1,4 @@
+- **2023.8.2**: Internal changes: update typescript-eslint monorepo to v6 (major) ([#695](https://github.com/ROpdebee/mb-userscripts/pull/695))
 - **2023.7.19**: Bug fix: upstream provider fixes ([#689](https://github.com/ROpdebee/mb-userscripts/pull/689))
 - **2023.7.18**: Bug fix: prevent image blob from unloading before upload ([#687](https://github.com/ROpdebee/mb-userscripts/pull/687))
 - **2023.7.1**: Bug fix: bump IMU to latest version ([#676](https://github.com/ROpdebee/mb-userscripts/pull/676))
