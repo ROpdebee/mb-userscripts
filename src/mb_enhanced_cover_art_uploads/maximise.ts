@@ -81,112 +81,112 @@ interface maxurlOptions {
 }
 
 export interface maxurlResult {
-  /** The URL of the image. */
-  url: string;
+    /** The URL of the image. */
+    url: string;
 
-  /** Whether or not this URL is a video. */
-  video: boolean;
+    /** Whether or not this URL is a video. */
+    video: boolean;
 
-  /**
-   * Whether it's expected that it will always work or not.
-   *
-   * Don't rely on this value if you don't have to.
-   */
-  always_ok: boolean;
+    /**
+     * Whether it's expected that it will always work or not.
+     *
+     * Don't rely on this value if you don't have to.
+     */
+    always_ok: boolean;
 
-  /** Whether or not the URL is likely to work. */
-  likely_broken: boolean;
+    /** Whether or not the URL is likely to work. */
+    likely_broken: boolean;
 
-  /** Whether or not the server supports a HEAD request. */
-  can_head: boolean;
+    /** Whether or not the server supports a HEAD request. */
+    can_head: boolean;
 
-  /** HEAD errors that can be ignored. */
-  head_ok_errors: number[];
+    /** HEAD errors that can be ignored. */
+    head_ok_errors: number[];
 
-  /** Whether or not the server might return the wrong Content-Type header in the HEAD request. */
-  head_wrong_contenttype: boolean;
+    /** Whether or not the server might return the wrong Content-Type header in the HEAD request. */
+    head_wrong_contenttype: boolean;
 
-  /** Whether or not the server might return the wrong Content-Length header in the HEAD request. */
-  head_wrong_contentlength: boolean;
+    /** Whether or not the server might return the wrong Content-Length header in the HEAD request. */
+    head_wrong_contentlength: boolean;
 
-  /**
-   * This is used in the return value of the exported function.
-   * If you're using a callback (as shown in the code example above),
-   * this value will always be false.
-   */
-  waiting: boolean;
+    /**
+     * This is used in the return value of the exported function.
+     * If you're using a callback (as shown in the code example above),
+     * this value will always be false.
+     */
+    waiting: boolean;
 
-  /** Whether or not the returned URL is expected to redirect to another URL. */
-  redirects: boolean;
+    /** Whether or not the returned URL is expected to redirect to another URL. */
+    redirects: boolean;
 
-  /** Whether or not the URL is temporary/only works on the current IP (such as a generated download link). */
-  is_private: boolean;
+    /** Whether or not the URL is temporary/only works on the current IP (such as a generated download link). */
+    is_private: boolean;
 
-  /** Whether or not the URL is expected to be the original image stored on the website's servers. */
-  is_original: boolean;
+    /** Whether or not the URL is expected to be the original image stored on the website's servers. */
+    is_original: boolean;
 
-  /** If this is true, you shouldn't input this URL again into IMU. */
-  norecurse: boolean;
+    /** If this is true, you shouldn't input this URL again into IMU. */
+    norecurse: boolean;
 
-  /**
-   * Whether or not this URL should be used.
-   * If `true`, treat this like a 404.
-   * If `"mask"`, this image is an overlayed mask.
-   */
-  bad: boolean | 'mask';
+    /**
+     * Whether or not this URL should be used.
+     * If `true`, treat this like a 404.
+     * If `"mask"`, this image is an overlayed mask.
+     */
+    bad: boolean | 'mask';
 
-  /**
-   * Same as above, but contains a list of objects, e.g.:
-   * ```javascript
-   * [{
-   *    headers: {"Content-Length": "1000"},
-   *    status: 301
-   * }]
-   * ```
-   *
-   * If one of the objects matches the response, it's a bad image.
-   * You can use `maximage.check_bad_if(bad_if, resp)` to check.
-   * (`resp` is expected to be an XHR-like object).
-   */
-  bad_if: Array<Record<string, unknown>>;
+    /**
+     * Same as above, but contains a list of objects, e.g.:
+     * ```javascript
+     * [{
+     *    headers: {"Content-Length": "1000"},
+     *    status: 301
+     * }]
+     * ```
+     *
+     * If one of the objects matches the response, it's a bad image.
+     * You can use `maximage.check_bad_if(bad_if, resp)` to check.
+     * (`resp` is expected to be an XHR-like object).
+     */
+    bad_if: Array<Record<string, unknown>>;
 
-  /**
-   * Whether or not this URL is a "fake" URL that was used internally (i.e. if true, don't use this).
-   */
-  fake: boolean;
+    /**
+     * Whether or not this URL is a "fake" URL that was used internally (i.e. if true, don't use this).
+     */
+    fake: boolean;
 
-  /**
-   * Headers required to view the returned URL.
-   * If a header is `null`, don't include that header.
-   */
-  headers: Record<string, string>;
+    /**
+     * Headers required to view the returned URL.
+     * If a header is `null`, don't include that header.
+     */
+    headers: Record<string, string>;
 
-  /** Additional properties that could be useful. */
-  extra: {
-    /** The original page where this image was hosted. */
-    page?: string;
+    /** Additional properties that could be useful. */
+    extra: {
+        /** The original page where this image was hosted. */
+        page?: string;
 
-    /** The title/caption attached to the image. */
-    caption?: string;
-  };
+        /** The title/caption attached to the image. */
+        caption?: string;
+    };
 
-  /** If set, this is a more descriptive filename for the image. */
-  filename: string;
+    /** If set, this is a more descriptive filename for the image. */
+    filename: string;
 
-  /** A list of problems with this image. Use `exclude_problems` to exclude images with specific problems. */
-  problems: {
-    /** If true, the image is likely larger than the one inputted, but it also has a watermark (when the inputted one doesn't). */
-    watermark: boolean;
+    /** A list of problems with this image. Use `exclude_problems` to exclude images with specific problems. */
+    problems: {
+        /** If true, the image is likely larger than the one inputted, but it also has a watermark (when the inputted one doesn't). */
+        watermark: boolean;
 
-    /** If true, the image is likely smaller than the one inputted, but it has no watermark. */
-    smaller: boolean;
+        /** If true, the image is likely smaller than the one inputted, but it has no watermark. */
+        smaller: boolean;
 
-    /** If true, the image might be entirely different from the one inputted. */
-    possibly_different: boolean;
+        /** If true, the image might be entirely different from the one inputted. */
+        possibly_different: boolean;
 
-    /** If true, the image might be broken (such as GIFs on Tumblr). */
-    possibly_broken: boolean;
-  };
+        /** If true, the image might be broken (such as GIFs on Tumblr). */
+        possibly_broken: boolean;
+    };
 }
 
 export interface maxurlInterface {
@@ -229,7 +229,7 @@ const options: maxurlOptions = {
 };
 
 type ExceptionFn = (smallurl: URL) => Promise<MaximisedImage[]>;
-const IMU_EXCEPTIONS: DispatchMap<ExceptionFn> = new DispatchMap();
+const IMU_EXCEPTIONS = new DispatchMap<ExceptionFn>();
 
 export interface MaximisedImage {
     url: URL;

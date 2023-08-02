@@ -256,6 +256,9 @@ module.exports = {
             // Allow shadowing in tests as we sometimes use it to define
             // common data, but refine the data in some specific test cases
             '@typescript-eslint/no-shadow': 'off',
+            // Turn off this stylistic rule because we need the ["key"] notation
+            // to access private object properties.
+            '@typescript-eslint/dot-notation': 'off',
         },
     }, {
         files: ['*.d.ts'],

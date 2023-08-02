@@ -182,6 +182,7 @@ describe('logger', () => {
             level: LoggerMethodName;
         }
         const cases: Case[] = loggerMethodNames.map((level, levelIdx) => {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
             const shouldCall = levelIdx >= minLogLevel;
             return {
                 desc: shouldCall ? 'calls' : 'does not call',

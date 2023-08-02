@@ -34,6 +34,7 @@ describe('cover art providers', () => {
         public readonly name = 'fake';
         public readonly favicon = '';
         public readonly supportedDomains = ['example.com'];
+        // eslint-disable-next-line @typescript-eslint/class-literal-property-style -- Needed for spying/mocking.
         public get urlRegex(): RegExp | RegExp[] {
             return /example\.com\/(.+)/;
         }

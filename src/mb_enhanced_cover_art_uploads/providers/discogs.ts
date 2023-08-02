@@ -49,7 +49,7 @@ export class DiscogsProvider extends CoverArtProvider {
     // We're using promises so we can make an entry as soon as we create a
     // request to the API, to prevent multiple concurrent requests in async
     // code.
-    private static readonly apiResponseCache: Map<string, Promise<DiscogsImages>> = new Map();
+    private static readonly apiResponseCache = new Map<string, Promise<DiscogsImages>>();
 
     public async findImages(url: URL): Promise<CoverArt[]> {
         // Loading the full HTML and parsing the metadata JSON embedded within

@@ -89,7 +89,7 @@ export class InputForm implements FetcherHooks {
     private readonly fakeSubmitButton: HTMLButtonElement;
     private readonly realSubmitButton: HTMLButtonElement;
 
-    private readonly progressElements: Map<number, ProgressElement> = new Map();
+    private readonly progressElements = new Map<number, ProgressElement>();
 
     public constructor(app: App) {
         // Inject our custom CSS
@@ -166,7 +166,7 @@ export class InputForm implements FetcherHooks {
             {onlyFrontLabel}
         </div>;
 
-        this.buttonContainer = <div className='ROpdebee_import_url_buttons buttons'/> as HTMLDivElement;
+        this.buttonContainer = <div className='ROpdebee_import_url_buttons buttons' /> as HTMLDivElement;
 
         // If we inline this into the function call below, nativejsx crashes.
         // It might have something to do with the optional chaining on the

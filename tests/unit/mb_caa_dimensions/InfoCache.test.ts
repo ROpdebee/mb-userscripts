@@ -23,7 +23,7 @@ describe('creating InfoCache instances', () => {
     it('uses dummy cache when IndexedDB is not available', async () => {
         // Make sure the fake IDB is undefined
         // @ts-expect-error: Mocking
-        delete window['indexedDB'];
+        delete window.indexedDB;
 
         const cache = await createCache();
 
