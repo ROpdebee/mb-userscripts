@@ -17,7 +17,7 @@ export interface CacheEntry {
     fileInfo?: FileInfo;
     addedDatetime: number;
 }
-export type CacheStore = Record<string, CacheEntry>;
+export type CacheStore = Map<string, CacheEntry>;
 
 // Simple local storage-backed info cache. We want to cache a image information
 // for a limited number of images to prevent reloading information that we
@@ -28,54 +28,66 @@ export type CacheStore = Record<string, CacheEntry>;
 // We cannot use session storage since that's not shared between tabs and the
 // submission button opens a new tab.
 export /* for tests */ const localStorageCache = {
-    getStore: function(): CacheStore {
-        const store = safeParseJSON<CacheStore>(localStorage.getItem(CACHE_LOCALSTORAGE_KEY) ?? '{}');
+    getStore: function (): CacheStore {
+        const rawStore = localStorage.getItem(CACHE_LOCALSTORAGE_KEY) ?? '{}';
+        let store = this.deserializeStore(rawStore);
         if (!store) {
             LOGGER.warn('Cache was malformed, resetting');
-            this.putStore({});
-            return {};
+            store = this.createEmptyStore();
+            this.putStore(store);
         }
         return store;
     },
 
-    putStore: function(store: CacheStore): void {
-        localStorage.setItem(CACHE_LOCALSTORAGE_KEY, JSON.stringify(store));
+    putStore: function (store: CacheStore): void {
+        localStorage.setItem(CACHE_LOCALSTORAGE_KEY, this.serializeStore(store));
     },
 
-    getInfo: function(imageUrl: string): CacheEntry | undefined {
-        return this.getStore()[imageUrl];
+    createEmptyStore: function (): CacheStore {
+        return new Map();
     },
 
-    putInfo: function(imageUrl: string, cacheEntry: Omit<CacheEntry, 'addedDatetime'>): void {
-        const prevStore = this.getStore();
-        if (Object.keys(prevStore).length >= MAX_CACHED_IMAGES) {
-            const entries = Object.entries(prevStore);
+    serializeStore: function (store: CacheStore): string {
+        return JSON.stringify(Object.fromEntries(store.entries()));
+    },
+
+    deserializeStore: function (rawStore: string): CacheStore | undefined {
+        const rawObject = safeParseJSON<Record<string, CacheEntry>>(rawStore);
+        return rawObject && new Map(Object.entries(rawObject));
+    },
+
+    getInfo: function (imageUrl: string): CacheEntry | undefined {
+        return this.getStore().get(imageUrl);
+    },
+
+    putInfo: function (imageUrl: string, cacheEntry: Omit<CacheEntry, 'addedDatetime'>): void {
+        const store = this.getStore();
+        if (store.size >= MAX_CACHED_IMAGES) {
+            const entries = [...store.entries()];
             entries.sort(([, info1], [, info2]) => info2.addedDatetime - info1.addedDatetime);
             // Cannot use Object.fromEntries, it's not available in all browser versions that we support and a-tisket doesn't polyfill it.
             // So we can't just create a new object and assign it. Instead, just delete the entries we need to delete.
             for (const [url] of entries.slice(MAX_CACHED_IMAGES - 1)) {
-                delete prevStore[url];
+                store.delete(url);
             }
         }
 
-        this.putStore({
-            ...prevStore,
-            [imageUrl]: {
-                ...cacheEntry,
-                addedDatetime: Date.now(),
-            },
+        store.set(imageUrl, {
+            ...cacheEntry,
+            addedDatetime: Date.now(),
         });
+        this.putStore(store);
     },
 
-    getDimensions: function(imageUrl: string): Promise<Dimensions | undefined> {
+    getDimensions: function (imageUrl: string): Promise<Dimensions | undefined> {
         return Promise.resolve(this.getInfo(imageUrl)?.dimensions);
     },
 
-    getFileInfo: function(imageUrl: string): Promise<FileInfo | undefined> {
+    getFileInfo: function (imageUrl: string): Promise<FileInfo | undefined> {
         return Promise.resolve(this.getInfo(imageUrl)?.fileInfo);
     },
 
-    putDimensions: function(imageUrl: string, dimensions: Dimensions): Promise<void> {
+    putDimensions: function (imageUrl: string, dimensions: Dimensions): Promise<void> {
         const prevEntry = this.getInfo(imageUrl);
         this.putInfo(imageUrl, {
             ...prevEntry,
@@ -84,7 +96,7 @@ export /* for tests */ const localStorageCache = {
         return Promise.resolve();
     },
 
-    putFileInfo: function(imageUrl: string, fileInfo: FileInfo): Promise<void> {
+    putFileInfo: function (imageUrl: string, fileInfo: FileInfo): Promise<void> {
         const prevEntry = this.getInfo(imageUrl);
         this.putInfo(imageUrl, {
             ...prevEntry,
