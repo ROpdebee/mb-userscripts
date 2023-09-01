@@ -54,7 +54,7 @@
     "@typescript-eslint/parser": "6.2.1",
     "babel-plugin-transform-async-to-promises": "0.8.16",
     "confusing-browser-globals": "1.0.11",
-    "conventional-commits-parser": "4.0.0",
+    "conventional-commits-parser": "5.0.0",
     "core-js": "3.32.0",
     "eslint": "8.46.0",
     "eslint-config-adjunct": "4.12.2",
