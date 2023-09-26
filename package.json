@@ -113,7 +113,7 @@
   },
   "dependencies": {
     "idb": "7.1.1",
-    "p-retry": "5.1.2",
+    "p-retry": "6.1.0",
     "p-throttle": "5.1.0",
     "ts-custom-error": "3.3.1"
   }
