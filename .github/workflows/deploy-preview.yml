@@ -12,7 +12,7 @@ jobs:
     name: Generate deployment preview
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: refs/pull/${{ github.event.client_payload.pull_request.number }}/merge
           # Fetch the whole repository history, as we need to check out an old
@@ -36,7 +36,7 @@ jobs:
             };
 
       - name: Checkout second dist copy
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: repoDist
           ref: dist
