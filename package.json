@@ -94,7 +94,7 @@
     "license-checker": "25.0.1",
     "nativejsx": "github:ROpdebee/nativejsx",
     "node-fetch": "3.3.2",
-    "postcss": "8.4.27",
+    "postcss": "8.4.31",
     "postcss-preset-env": "9.1.0",
     "rollup": "3.27.0",
     "rollup-plugin-postcss": "4.0.2",
