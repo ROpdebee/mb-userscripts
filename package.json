@@ -58,7 +58,7 @@
     "core-js": "3.32.0",
     "eslint": "8.46.0",
     "eslint-config-adjunct": "4.12.2",
-    "eslint-config-prettier": "8.9.0",
+    "eslint-config-prettier": "9.0.0",
     "eslint-plugin-array-func": "4.0.0",
     "eslint-plugin-const-case": "1.2.2",
     "eslint-plugin-deprecation": "1.5.0",
