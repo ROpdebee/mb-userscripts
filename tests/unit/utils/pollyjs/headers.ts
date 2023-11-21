@@ -1,6 +1,6 @@
 import type { Headers as PollyHeadersT } from '@pollyjs/core';
+import { Headers as FetchHeadersT } from 'node-fetch';
 
-export type FetchHeadersT = Headers;
 export type CRLFHeadersT = string;
 
 export const PollyHeaders = {
@@ -19,7 +19,7 @@ export const FetchHeaders = {
         Object.entries(pollyHeaders).forEach(([k, v]) => {
             headersInit[k] = Array.isArray(v) ? v[0] : v;
         });
-        return new Headers(headersInit);
+        return new FetchHeadersT(headersInit);
     },
 };
 
