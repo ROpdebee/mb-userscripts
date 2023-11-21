@@ -8,6 +8,8 @@ const esModules = [
     'fetch-blob',
     'data-uri-to-buffer',
     'formdata-polyfill',
+    // Imported by p-retry
+    'is-network-error',
     // Imported by warcio
     'to-data-view',
     'base32-encode',
