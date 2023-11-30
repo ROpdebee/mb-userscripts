@@ -1,80 +1,80 @@
 WARC/1.1
 WARC-Filename: booth provider/extracting images/extracts covers for item with no images
-WARC-Date: 2023-04-23T08:03:09.586Z
+WARC-Date: 2023-11-30T11:19:28.123Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:4c5b6106-5872-4726-b440-8f1fb6371862>
+WARC-Record-ID: <urn:uuid:fb9748d1-5d5f-429b-a412-33c53f88ecf6>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:410d569a-e5dc-4b6a-9a7f-88e0f5d015f4>
-WARC-Target-URI: https://booth.pm/en/items/4710069.json
-WARC-Date: 2023-04-23T08:03:09.586Z
+WARC-Concurrent-To: <urn:uuid:fbb29216-a7f5-4fd3-b12e-437202ba8b08>
+WARC-Target-URI: https://booth.pm/en/items/4129879.json
+WARC-Date: 2023-11-30T11:19:28.124Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:25d7d02c-3510-4bb7-8831-5143ed0222ba>
+WARC-Record-ID: <urn:uuid:1f9a61fb-5241-4d1e-9da5-722fcc34d42f>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:2646bae935ce2499c3b70e2835b7ab34f950846a74e97c0413459e6837bd1f09
+WARC-Block-Digest: sha256:583a4b065b8dcd267e3aea6ef2a584800ea6c8f12d52c21adc7806f7102c4dbf
 Content-Length: 39
 
-GET /en/items/4710069.json HTTP/1.1
+GET /en/items/4129879.json HTTP/1.1
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:410d569a-e5dc-4b6a-9a7f-88e0f5d015f4>
-WARC-Target-URI: https://booth.pm/en/items/4710069.json
-WARC-Date: 2023-04-23T08:03:09.586Z
+WARC-Concurrent-To: <urn:uuid:fbb29216-a7f5-4fd3-b12e-437202ba8b08>
+WARC-Target-URI: https://booth.pm/en/items/4129879.json
+WARC-Date: 2023-11-30T11:19:28.124Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:5e87801a-c00c-463f-8628-e98eb2fce008>
+WARC-Record-ID: <urn:uuid:ccbd96ed-661e-456c-96f1-9320d298a94f>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:b329c70bae8769218014efd935b006c80fbdc73657a5354dddb242f7221dc3e0
-WARC-Block-Digest: sha256:b329c70bae8769218014efd935b006c80fbdc73657a5354dddb242f7221dc3e0
-Content-Length: 1186
+WARC-Payload-Digest: sha256:448b40598ce07ef884a688f8d7ae7a1c1cb1f023a5e7a8246f88da0c14eb82c8
+WARC-Block-Digest: sha256:448b40598ce07ef884a688f8d7ae7a1c1cb1f023a5e7a8246f88da0c14eb82c8
+Content-Length: 1178
 
-harEntryId: c88394e0e0085d1680141a1dae87e988
+harEntryId: b8fb9bc6d5e7b486cdb59a62de2e125f
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2023-04-23T08:03:08.480Z
-time: 1105
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1105,"receive":0,"ssl":-1}
+startedDateTime: 2023-11-30T11:19:27.688Z
+time: 434
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":434,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 57
 warcRequestCookies: []
-warcResponseHeadersSize: 2918
-warcResponseCookies: [{"name":"recent_items","value":"4710069","domain":".booth.pm","path":"/","expires":"2023-04-23T08:33:09.000Z","secure, _plaza_session_nktz7u":"g8qOmMSYG%2BH1OHUCc4otcBnkuhHaz05byfKCq71nkWRnSRg39Y2HSZQhjs12rMHec%2BsZnBfmXwbWkgK9unhK9ff2ssPpL7ZPdH1wSlPhPCGcnTpkxdfxrpn1g49bLPVYeWeDv4NB5kJltapCpZQcjMH%2BtdYXFFTbGYY0kLG%2BVr86ymU7aiVOM5lHRJvDepX%2BPK9a4EXSeJsc8hzWQtn03agbq3jN99rC67PN3DJtbUs8ppwytFqMTFLKg0nUCK5h0YdCKI19TQwu7uhqOAp2FlDlYI%2F%2BjoHBvQi2UMsdp%2BVH91Nl2x%2FhvM4HTkddnbvBZSeyNiFtGJHsRMsA7ttEeLiaIwmavUjwTLiwMQzWpjbcQEwNtOeXHa8KlOy8usMeD8BOchA1fDvm%2BTPqsfIS--8BWnWrF%2Bdv5n7RBB--tgmt460Q0GGby6to6OqaPg%3D%3D","secure":true,"httponly, __cf_bm":"fr4n.LaTL.V2s9j32a8TwbnmDg2NlkUI1B1Qzr.F34o-1682236989-0-AczmBQh7EbPebRT68nCmmaTPa03xI+ol8RUjdYK5kH+7t99iBmXFExxp7yw9Qn4G3/zEcpUMAHsBKbO1yvulHZY=","httpOnly":true,"sameSite":"None"}]
+warcResponseHeadersSize: 2895
+warcResponseCookies: [{"name":"recent_items","value":"4129879","domain":".booth.pm","path":"/","expires":"2023-11-30T11:49:28.000Z","secure, _plaza_session_nktz7u":"afTRsjVmDpqLIWUMJjjFSKeEaLqDtt3FzsuUIJE5fRt4vzV8xIJncixkQgc0E4ob7fy8csfD1XCC3tOKCXqBWRVwsINCyjX2mGUdKWngt77n1t58VIkdYqVj4WwlMcthk9jo%2BL%2BAKidufGqcGBaKWZ9Z8PscDlqG1D8rF5XsEdtQDi2ao%2Bqh0wGffziCr00TB7%2BiODKvuibinOd0T8lLekySV4GhUlJ6TmUrrN4%2BUP7jRxRDIz5NuMFfv6cqnBGH8%2B2VyRvwHPFwPV1fhJxsJGuY3q4mBBZbm9E5laG%2FqCoEYxlzjuwR36gfPBIZFY8g4MDi9dLJuhuaMLdEWtrnVX2kVm%2FxX7vQFRpRFatS62f3VLHJp73dHA6Arajq0xQoORj51XTWQYqPdS4bAU8W--g4OlXs8hk15aBeDe--ovJncuJCJnvM5yEbQhNJog%3D%3D","secure":true,"httponly, __cf_bm":"uNMzcPMhhKcm8xbdQwD9gGw7FaYVr78p_kL85zY4vZI-1701343168-0-AacZglAPEf0BLFCfSZ2iKnNf9/gr9rVBQEloqZBdm0Nuy8gMNd0rRAuFqjyJepQbrbRm+zsrkI0/zsSxDznAqss=","httpOnly":true,"sameSite":"None"}]
 responseDecoded: false
 
 
 WARC/1.1
-WARC-Target-URI: https://booth.pm/en/items/4710069.json
-WARC-Date: 2023-04-23T08:03:09.586Z
+WARC-Target-URI: https://booth.pm/en/items/4129879.json
+WARC-Date: 2023-11-30T11:19:28.123Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:410d569a-e5dc-4b6a-9a7f-88e0f5d015f4>
+WARC-Record-ID: <urn:uuid:fbb29216-a7f5-4fd3-b12e-437202ba8b08>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:09ff8cd2a78187adb36f199d2cb6b04138a6c62216c8e1a2792f329a5278a209
-WARC-Block-Digest: sha256:f2e65a34a5a350d01b65758c8cd4a25a8ad745e80cb5dfdca15bcf267bb3d293
-Content-Length: 4535
+WARC-Payload-Digest: sha256:9755ac5b076adf7d5cd2e6bc7314fa99723ef8b62376c5ec8279a1ba2624ca9f
+WARC-Block-Digest: sha256:70e2b42439c0e977a8f9dd4f87e25604a4ceaa52be3e3e3d18dfc24ec56b2e1b
+Content-Length: 7375
 
 HTTP/1.1 200 OK
-alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+alt-svc: h3=":443"; ma=86400
 cache-control: max-age=0, private, must-revalidate
 cf-cache-status: DYNAMIC
-cf-ray: 7bc4969afbb62868-AMS
-connection: close
+cf-ray: 82e2b20e8dfeb7ba-AMS
+connection: keep-alive
 content-encoding: gzip
 content-language: en
-content-security-policy: script-src 'strict-dynamic' 'unsafe-eval' 'unsafe-inline' https: 'report-sample' 'nonce-8ptSwv12HkENnpgjWOVdMPaA42TrjztYckpJzPI30pA='; object-src 'none'; base-uri 'self'; frame-src player.vimeo.com w.soundcloud.com www.slideshare.net www.youtube.com bandcamp.com sketchfab.com *.google.com *.facebook.com *.facebook.net *.twitter.com social-plugins.line.me *.g.doubleclick.net www.googletagmanager.com booth.karakuri.ai manage-booth.karakuri.ai point.widget.rakuten.co.jp hub.vroid.com ext.nicovideo.jp www.recaptcha.net https://booth.pm https://*.booth.pm https://factory.pixiv.net https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com; connect-src 'self' data: *.pixiv.net *.pawoo.net www.google-analytics.com analytics.google.com www.facebook.com connect.facebook.net www.googletagmanager.com www.googleadservices.com www.google.co.jp b92.yahoo.co.jp *.buyee.jp d.line-scdn.net stats.g.doubleclick.net ekr.zdassets.com *.zendesk.com errortrace.dev https://booth.pm https://*.booth.pm https://factory.pixiv.net https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com
+content-security-policy: script-src 'strict-dynamic' 'unsafe-eval' 'unsafe-inline' https: 'report-sample' 'nonce-pqJpTXYJm5YxLtotukzjhYkx5ELYi4o1TA7Z8L3Ywdg='; object-src 'none'; base-uri 'self'; frame-src player.vimeo.com w.soundcloud.com www.slideshare.net www.youtube.com bandcamp.com sketchfab.com *.google.com *.facebook.com *.facebook.net *.twitter.com social-plugins.line.me *.g.doubleclick.net www.googletagmanager.com booth.karakuri.ai manage-booth.karakuri.ai point.widget.rakuten.co.jp hub.vroid.com ext.nicovideo.jp www.recaptcha.net https://booth.pm https://*.booth.pm https://*.fanbox.cc https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com; connect-src 'self' data: *.pixiv.net *.pawoo.net www.google-analytics.com analytics.google.com www.facebook.com connect.facebook.net www.googletagmanager.com www.googleadservices.com www.google.co.jp b92.yahoo.co.jp *.buyee.jp d.line-scdn.net stats.g.doubleclick.net ekr.zdassets.com *.zendesk.com errortrace.dev onesignal.com https://booth.pm https://*.booth.pm https://*.fanbox.cc https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com
 content-type: application/json; charset=utf-8
-date: Sun, 23 Apr 2023 08:03:09 GMT
-etag: W/"09ff8cd2a78187adb36f199d2cb6b041"
+date: Thu, 30 Nov 2023 11:19:28 GMT
+etag: W/"9755ac5b076adf7d5cd2e6bc7314fa99"
 referrer-policy: strict-origin-when-cross-origin
 server: cloudflare
-set-cookie: recent_items=4710069; domain=.booth.pm; path=/; expires=Thu, 23 Apr 2043 08:03:09 GMT; secure, _plaza_session_nktz7u=g8qOmMSYG%2BH1OHUCc4otcBnkuhHaz05byfKCq71nkWRnSRg39Y2HSZQhjs12rMHec%2BsZnBfmXwbWkgK9unhK9ff2ssPpL7ZPdH1wSlPhPCGcnTpkxdfxrpn1g49bLPVYeWeDv4NB5kJltapCpZQcjMH%2BtdYXFFTbGYY0kLG%2BVr86ymU7aiVOM5lHRJvDepX%2BPK9a4EXSeJsc8hzWQtn03agbq3jN99rC67PN3DJtbUs8ppwytFqMTFLKg0nUCK5h0YdCKI19TQwu7uhqOAp2FlDlYI%2F%2BjoHBvQi2UMsdp%2BVH91Nl2x%2FhvM4HTkddnbvBZSeyNiFtGJHsRMsA7ttEeLiaIwmavUjwTLiwMQzWpjbcQEwNtOeXHa8KlOy8usMeD8BOchA1fDvm%2BTPqsfIS--8BWnWrF%2Bdv5n7RBB--tgmt460Q0GGby6to6OqaPg%3D%3D; domain=.booth.pm; path=/; expires=Tue, 23 Apr 2024 08:03:09 GMT; secure; HttpOnly, __cf_bm=fr4n.LaTL.V2s9j32a8TwbnmDg2NlkUI1B1Qzr.F34o-1682236989-0-AczmBQh7EbPebRT68nCmmaTPa03xI+ol8RUjdYK5kH+7t99iBmXFExxp7yw9Qn4G3/zEcpUMAHsBKbO1yvulHZY=; path=/; expires=Sun, 23-Apr-23 08:33:09 GMT; domain=.booth.pm; HttpOnly; Secure; SameSite=None
+set-cookie: recent_items=4129879; domain=.booth.pm; path=/; expires=Mon, 30 Nov 2043 11:19:27 GMT; secure, _plaza_session_nktz7u=afTRsjVmDpqLIWUMJjjFSKeEaLqDtt3FzsuUIJE5fRt4vzV8xIJncixkQgc0E4ob7fy8csfD1XCC3tOKCXqBWRVwsINCyjX2mGUdKWngt77n1t58VIkdYqVj4WwlMcthk9jo%2BL%2BAKidufGqcGBaKWZ9Z8PscDlqG1D8rF5XsEdtQDi2ao%2Bqh0wGffziCr00TB7%2BiODKvuibinOd0T8lLekySV4GhUlJ6TmUrrN4%2BUP7jRxRDIz5NuMFfv6cqnBGH8%2B2VyRvwHPFwPV1fhJxsJGuY3q4mBBZbm9E5laG%2FqCoEYxlzjuwR36gfPBIZFY8g4MDi9dLJuhuaMLdEWtrnVX2kVm%2FxX7vQFRpRFatS62f3VLHJp73dHA6Arajq0xQoORj51XTWQYqPdS4bAU8W--g4OlXs8hk15aBeDe--ovJncuJCJnvM5yEbQhNJog%3D%3D; domain=.booth.pm; path=/; expires=Sat, 30 Nov 2024 11:19:28 GMT; secure; HttpOnly, __cf_bm=uNMzcPMhhKcm8xbdQwD9gGw7FaYVr78p_kL85zY4vZI-1701343168-0-AacZglAPEf0BLFCfSZ2iKnNf9/gr9rVBQEloqZBdm0Nuy8gMNd0rRAuFqjyJepQbrbRm+zsrkI0/zsSxDznAqss=; path=/; expires=Thu, 30-Nov-23 11:49:28 GMT; domain=.booth.pm; HttpOnly; Secure; SameSite=None
 strict-transport-security: max-age=63072000; includeSubDomains
 transfer-encoding: chunked
 vary: Origin
@@ -82,10 +82,10 @@ x-content-type-options: nosniff
 x-download-options: noopen
 x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
-x-request-id: 0ad01cf2-a984-4861-b382-d59d270101da
-x-runtime: 0.098859
+x-request-id: 468f1a59-9ac5-4814-b0bd-1e26d57dc7af
+x-runtime: 0.160928
 x-xss-protection: 1; mode=block
-x-pollyjs-finalurl: https://booth.pm/en/items/4710069.json
+x-pollyjs-finalurl: https://booth.pm/en/items/4129879.json
 
-{"description":"アクスタ 1000円\n缶バッジ 500円\n難ありセット 500円\n☆4特典のクリアファイル\nの2000円になります。送料もかかります。","factory_description":null,"id":4710069,"is_adult":false,"is_buyee_possible":false,"is_end_of_sale":false,"is_placeholder":false,"is_sold_out":false,"name":"シクロさん","price":"2,000 JPY","purchase_limit":null,"shipping_info":"Ships within 60 days","small_stock":1,"url":"https://kyoraishi.booth.pm/items/4710069","wish_list_url":"https://booth.pm/items/4710069/wish_list","wish_lists_count":0,"wished":false,"buyee_variations":[],"category":{"id":181,"name":"Acrylic Figure","parent":{"name":"Goods","url":"https://booth.pm/en/browse/Goods"},"url":"https://booth.pm/en/browse/Acrylic%20Figure"},"embeds":[],"images":[],"order":null,"share":{"hashtags":["booth_pm"],"text":"シクロさん | こまーと"},"shop":{"name":"こまーと","subdomain":"kyoraishi","thumbnail_url":"https://booth.pximg.net/c/48x48/users/10285041/icon_image/ea5f97fb-b0d1-4a93-92ce-76b4aba8415b_base_resized.jpg","url":"https://kyoraishi.booth.pm/","verified":false},"sound":null,"tags":[],"tag_banners":[],"tag_combination":null,"tracks":null,"variations":[{"buyee_html":null,"downloadable":null,"factory_image_url":null,"has_download_code":false,"id":7896690,"is_anshin_booth_pack":true,"is_empty_allocatable_stock_with_preorder":false,"is_empty_stock":false,"is_factory_item":false,"is_mailbin":false,"is_waiting_on_arrival":false,"name":null,"order_url":null,"price":2000,"small_stock":1,"status":"addable_to_cart","type":"direct"}]}
+{"description":"音感持ちをムズムズさせる系のオルゴール曲です。自分のTRPGセッション用に制作しました。\nなんだか不穏で悲しくて、物憂げな時に使うとバえます。\nループ対応してます。\n\n◾️収録データ\n44.1kHz / 16bit / mp3\n\n\n＜NG＞\n・楽曲データをそのまま販売すること\n\n著作権は放棄しておりません！万が一上記の違反行為が見られた場合、厳重注意や法的処置を取る場合があります。\n\n\n＜OK＞\n・ココフォリア等TRPGセッションでの使用(クレジットいらないです)\n・金銭の関わらない動画制作等での使用(可能であればクレジットの記載をお願いします)\n・その他、金銭の発生しない個人利用（鑑賞など）\n\n\n＜TwitterにDMください＞\n・金銭の発生する作品にこの楽曲を使用するとき\n・この楽曲をアレンジするとき\n・MIDIデータが欲しいとき\n\nTwitter：@TaraLever_","factory_description":null,"id":4129879,"is_adult":false,"is_buyee_possible":false,"is_end_of_sale":false,"is_placeholder":false,"is_sold_out":false,"name":"【不安なオルゴール楽曲】歪な子守歌【無料BGM】","price":"0 JPY","purchase_limit":null,"shipping_info":"Ships within 7 days","small_stock":null,"url":"https://taralever.booth.pm/items/4129879","wish_list_url":"https://booth.pm/items/4129879/wish_list","wish_lists_count":1052,"wished":false,"buyee_variations":[],"category":{"id":34,"name":"Game Music","parent":{"name":"Music","url":"https://booth.pm/en/browse/Music"},"url":"https://booth.pm/en/browse/Game%20Music"},"embeds":[],"images":[],"order":null,"gift":null,"report_url":"https://taralever.booth.pm/items/4129879/report","share":{"hashtags":["booth_pm"],"text":"【不安なオルゴール楽曲】歪な子守歌【無料BGM】 | 鱈の臓物直売店"},"shop":{"name":"鱈の臓物直売店","subdomain":"taralever","thumbnail_url":"https://booth.pximg.net/c/48x48/users/10770468/icon_image/a38e15d5-be99-44cc-8792-b2e0bd7ccd31_base_resized.jpg","url":"https://taralever.booth.pm/","verified":false},"sound":{"full_url":"https://s2.booth.pm/43da0282-6c80-4c08-9b7c-4737aaea3be4/s/4129879/full/0eb9a3d4-7b07-4d50-86a3-92461b0f615c.mp3","short_url":"https://s2.booth.pm/43da0282-6c80-4c08-9b7c-4737aaea3be4/s/4129879/short/291ffd9c-5a54-4922-9171-faf79a68e85e.mp3"},"tags":[{"name":"TRPG","url":"https://booth.pm/en/items?tags%5B%5D=TRPG"},{"name":"音楽素材","url":"https://booth.pm/en/items?tags%5B%5D=%E9%9F%B3%E6%A5%BD%E7%B4%A0%E6%9D%90"},{"name":"BGM素材","url":"https://booth.pm/en/items?tags%5B%5D=BGM%E7%B4%A0%E6%9D%90"},{"name":"TRPG素材","url":"https://booth.pm/en/items?tags%5B%5D=TRPG%E7%B4%A0%E6%9D%90"}],"tag_banners":[{"image_url":"https://booth.pximg.net/c/150x150/01ea5951-9804-4cb3-9679-ff1d2ccf14d5/i/1715406/20f5b4d6-7255-4f38-b85e-05a604e8b0cd_base_resized.jpg","name":"TRPG","url":"https://booth.pm/en/items?tags%5B%5D=TRPG"},{"image_url":"https://booth.pximg.net/c/150x150/f87acd19-9977-47ed-8576-5ca606ae2ffb/i/3088053/fc24d617-aa65-4176-af34-88389250af69_base_resized.jpg","name":"音楽素材","url":"https://booth.pm/en/items?tags%5B%5D=%E9%9F%B3%E6%A5%BD%E7%B4%A0%E6%9D%90"},{"image_url":"https://booth.pximg.net/c/150x150/f87acd19-9977-47ed-8576-5ca606ae2ffb/i/3088053/fc24d617-aa65-4176-af34-88389250af69_base_resized.jpg","name":"BGM素材","url":"https://booth.pm/en/items?tags%5B%5D=BGM%E7%B4%A0%E6%9D%90"},{"image_url":"https://booth.pximg.net/c/150x150/ac4b263c-2a8a-4c86-993c-6f1297ae3c57/i/4186217/cb10672e-be53-4de3-ad7e-8db8a66688ca_base_resized.jpg","name":"TRPG素材","url":"https://booth.pm/en/items?tags%5B%5D=TRPG%E7%B4%A0%E6%9D%90"}],"tag_combination":{"category":"Game Music","tag":"TRPG","url":"https://booth.pm/en/browse/Game%20Music?tags%5B%5D=TRPG"},"tracks":null,"variations":[{"buyee_html":null,"downloadable":{"musics":[],"no_musics":[{"file_name":"歪な子守歌","file_extension":".mp3","file_size":"819 KB","name":"歪な子守歌.mp3","url":"https://booth.pm/downloadables/2735217"}]},"factory_image_url":null,"has_download_code":false,"id":6908493,"is_anshin_booth_pack":false,"is_empty_allocatable_stock_with_preorder":false,"is_empty_stock":false,"is_factory_item":false,"is_mailbin":false,"is_waiting_on_arrival":false,"name":null,"order_url":null,"price":0,"small_stock":null,"status":"free_download","type":"digital"}]}
 
