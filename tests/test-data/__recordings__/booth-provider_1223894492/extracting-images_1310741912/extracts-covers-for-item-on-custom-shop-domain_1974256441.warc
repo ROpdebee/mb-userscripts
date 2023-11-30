@@ -1,22 +1,22 @@
 WARC/1.1
 WARC-Filename: booth provider/extracting images/extracts covers for item on custom shop domain
-WARC-Date: 2023-04-23T08:11:29.153Z
+WARC-Date: 2023-11-30T11:19:28.569Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:6aad65dc-8594-437d-998b-15de0a0ccc05>
+WARC-Record-ID: <urn:uuid:8ba6f652-366e-4b4f-9a63-f2743d184efb>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:463d07e2-0c42-4184-be09-d45bf4ed37b1>
+WARC-Concurrent-To: <urn:uuid:2bc6dccd-8a10-41ea-b9d1-9c1618ceefb0>
 WARC-Target-URI: https://booth.pm/en/items/4182601.json
-WARC-Date: 2023-04-23T08:11:29.155Z
+WARC-Date: 2023-11-30T11:19:28.569Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:7e6ad5ee-0d95-4c12-8c63-ba9e891751ae>
+WARC-Record-ID: <urn:uuid:44eaa2b2-3bb9-415d-a359-0245aa13d74d>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:fe1a3f523eee283906477fcedf10a48ab6b6fb35d6f304a43eacfa231c3f0d1e
@@ -27,54 +27,54 @@ GET /en/items/4182601.json HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:463d07e2-0c42-4184-be09-d45bf4ed37b1>
+WARC-Concurrent-To: <urn:uuid:2bc6dccd-8a10-41ea-b9d1-9c1618ceefb0>
 WARC-Target-URI: https://booth.pm/en/items/4182601.json
-WARC-Date: 2023-04-23T08:11:29.155Z
+WARC-Date: 2023-11-30T11:19:28.569Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:842d5464-1921-4e36-a8ab-8efab2386400>
+WARC-Record-ID: <urn:uuid:b730a432-5460-4f06-9027-75c69df63e8c>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:af64e2639d6dc572a4da640d2c5759e062283fb4c679d8e77d2b1e8b240e0348
-WARC-Block-Digest: sha256:af64e2639d6dc572a4da640d2c5759e062283fb4c679d8e77d2b1e8b240e0348
-Content-Length: 1190
+WARC-Payload-Digest: sha256:083d6bb43aaf730081c950ca263a71dbcfcd567f82dcb29eb390ee0eb6671217
+WARC-Block-Digest: sha256:083d6bb43aaf730081c950ca263a71dbcfcd567f82dcb29eb390ee0eb6671217
+Content-Length: 1186
 
 harEntryId: da5508ba5d648e613b402e50b697599b
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2023-04-23T08:11:27.917Z
-time: 1232
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1232,"receive":0,"ssl":-1}
+startedDateTime: 2023-11-30T11:19:28.127Z
+time: 440
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":440,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 57
 warcRequestCookies: []
-warcResponseHeadersSize: 2922
-warcResponseCookies: [{"name":"recent_items","value":"4182601","domain":".booth.pm","path":"/","expires":"2023-04-23T08:41:29.000Z","secure, _plaza_session_nktz7u":"QYzICUJiLm9y9sJ%2BDL1Vn3JAux0psc%2BWi36fNERhesBJ%2FYHHA2HxGPMDyObJi558Ws7YAjjwqdnEfzCdVigVXNmIe5iZY%2B9lATxRSGtIhEwfaVyLIhgvKPkVCxTtX4S6DlnyD8aw4jUORU97IS7O1Z9Rj3hMMpOK%2FHCfPVg%2BIM4VjXcH3htbu4GdvcA1IiFqZeWVeF88A7%2FsJku8klHzmh%2FQfbpHLqXV9meBbdyVxscdAqPJmmHe70TDPxtd5vOrc6sSSB3a2%2BmLrRr1HfK2EVHvQZrO36Gxe6KzgIW2MlFQE24cmVveUuO1%2Fgq5FZ836luDc1Y%2BZuc9HJ7fpHo3LG70MqLsr3ZeMuEv9Q5r32QklaTWKOvo4QCbaOyypyyImW4FqTtPWTmnO1fAPlhd--oH6qFOPbXkNdP%2FAq--f4LooQlWTWOZU%2Fbh8x8WmA%3D%3D","secure":true,"httponly, __cf_bm":"nnB_JqukBWaRh_9g50DQXSaQKvCJSutefqi6osKruyE-1682237489-0-ARFXysLrrvVHoIu7JmiIkvQnMbhRctKDnPgJAlCOV1FMJ56qidpKYiA3vPJJChoOZF7NH8UaHpzncBioSI8YwOU=","httpOnly":true,"sameSite":"None"}]
+warcResponseHeadersSize: 2903
+warcResponseCookies: [{"name":"recent_items","value":"4182601","domain":".booth.pm","path":"/","expires":"2023-11-30T11:49:28.000Z","secure, _plaza_session_nktz7u":"aCm9gPhq%2FHUpZ37HuZZNHL70XhN5Wn221uX75QvKx1RXkGdX8it%2BqbGhTa6UlhS%2FX0jhSteVJFxoKVXyKnGoAH4BM63vCjo8yWFqQ0SxSaIsxHt9OKbFO9mOfdYD8e5hjurymHq9dBx3hCMFMfPggXQJhjlP1P0a%2FGNkh4O351Y1KkdVYWEdOPaEYDOK6AmWUKK0AqEQV5iYFQGcCu%2FastEvcVfQYU3v6c5dN%2F4eb5kLCx%2B2RyvYsurTsOUtLV8ohFzgbiGzvA2v%2B7AEDNavH8EDa7orbSgb0jkh3bwsQ5TzwGIYX0Uh4Fsq%2FjssKmTjvta%2F%2FmFNni3k9dArnnsumNWlsG187i9yNU6HfLHdYm%2FOOzUqTWB9z1KUeTtkKZCK1ogX3tnJ0R3aRRzSWwYq--2tGNWs25Nk33vzfs--w6g0bBnN2Gpi6qzNoxK9Zw%3D%3D","secure":true,"httponly, __cf_bm":"YiIMn7JAr20UOklFhf6AifhDXx8hmObEIdDLcCpBtkI-1701343168-0-ARLl3XgWy/r9icN9wszfqjcPmA3A6QqICh/yOGchycflyDB2bP6KEnglHOF/cfN9pb0D2EotaeKy3uP7RbP+Dac=","httpOnly":true,"sameSite":"None"}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://booth.pm/en/items/4182601.json
-WARC-Date: 2023-04-23T08:11:29.154Z
+WARC-Date: 2023-11-30T11:19:28.569Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:463d07e2-0c42-4184-be09-d45bf4ed37b1>
+WARC-Record-ID: <urn:uuid:2bc6dccd-8a10-41ea-b9d1-9c1618ceefb0>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:94e8c0ad6720539ed71166409480f296f8fa68cd25bbde4da5a04bd83f5f9a58
-WARC-Block-Digest: sha256:4c0f49cf1768ede2461dd0e5cc5e018f00cc52cd597ec40f734983887b212b04
-Content-Length: 9913
+WARC-Payload-Digest: sha256:71050c3bf6b75eed2540d935005413708190d3c02456e68ce8036465fc13034f
+WARC-Block-Digest: sha256:aab30cda47e94e5f0fe9d2bc3e101635baa76b8e24e0f25a49d335accbc3cdd6
+Content-Length: 10829
 
 HTTP/1.1 200 OK
-alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+alt-svc: h3=":443"; ma=86400
 cache-control: max-age=0, private, must-revalidate
 cf-cache-status: DYNAMIC
-cf-ray: 7bc4a2ccfa77b74e-AMS
-connection: close
+cf-ray: 82e2b211486bb7ba-AMS
+connection: keep-alive
 content-encoding: gzip
 content-language: en
-content-security-policy: script-src 'strict-dynamic' 'unsafe-eval' 'unsafe-inline' https: 'report-sample' 'nonce-fau8YF9gCL//oqXdFrWYtNLo4GzOrdICIR1plW7z6Dc='; object-src 'none'; base-uri 'self'; frame-src player.vimeo.com w.soundcloud.com www.slideshare.net www.youtube.com bandcamp.com sketchfab.com *.google.com *.facebook.com *.facebook.net *.twitter.com social-plugins.line.me *.g.doubleclick.net www.googletagmanager.com booth.karakuri.ai manage-booth.karakuri.ai point.widget.rakuten.co.jp hub.vroid.com ext.nicovideo.jp www.recaptcha.net https://booth.pm https://*.booth.pm https://factory.pixiv.net https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com; connect-src 'self' data: *.pixiv.net *.pawoo.net www.google-analytics.com analytics.google.com www.facebook.com connect.facebook.net www.googletagmanager.com www.googleadservices.com www.google.co.jp b92.yahoo.co.jp *.buyee.jp d.line-scdn.net stats.g.doubleclick.net ekr.zdassets.com *.zendesk.com errortrace.dev https://booth.pm https://*.booth.pm https://factory.pixiv.net https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com
+content-security-policy: script-src 'strict-dynamic' 'unsafe-eval' 'unsafe-inline' https: 'report-sample' 'nonce-ysq+fgFgo6ov4MisxA9t2KR7Zi+DK0BgX7YaeswHe5c='; object-src 'none'; base-uri 'self'; frame-src player.vimeo.com w.soundcloud.com www.slideshare.net www.youtube.com bandcamp.com sketchfab.com *.google.com *.facebook.com *.facebook.net *.twitter.com social-plugins.line.me *.g.doubleclick.net www.googletagmanager.com booth.karakuri.ai manage-booth.karakuri.ai point.widget.rakuten.co.jp hub.vroid.com ext.nicovideo.jp www.recaptcha.net https://booth.pm https://*.booth.pm https://*.fanbox.cc https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com; connect-src 'self' data: *.pixiv.net *.pawoo.net www.google-analytics.com analytics.google.com www.facebook.com connect.facebook.net www.googletagmanager.com www.googleadservices.com www.google.co.jp b92.yahoo.co.jp *.buyee.jp d.line-scdn.net stats.g.doubleclick.net ekr.zdassets.com *.zendesk.com errortrace.dev onesignal.com https://booth.pm https://*.booth.pm https://*.fanbox.cc https://booth.pximg.net https://connect.buyee.jp https://www.googletagmanager.com
 content-type: application/json; charset=utf-8
-date: Sun, 23 Apr 2023 08:11:29 GMT
-etag: W/"94e8c0ad6720539ed71166409480f296"
+date: Thu, 30 Nov 2023 11:19:28 GMT
+etag: W/"71050c3bf6b75eed2540d93500541370"
 referrer-policy: strict-origin-when-cross-origin
 server: cloudflare
-set-cookie: recent_items=4182601; domain=.booth.pm; path=/; expires=Thu, 23 Apr 2043 08:11:29 GMT; secure, _plaza_session_nktz7u=QYzICUJiLm9y9sJ%2BDL1Vn3JAux0psc%2BWi36fNERhesBJ%2FYHHA2HxGPMDyObJi558Ws7YAjjwqdnEfzCdVigVXNmIe5iZY%2B9lATxRSGtIhEwfaVyLIhgvKPkVCxTtX4S6DlnyD8aw4jUORU97IS7O1Z9Rj3hMMpOK%2FHCfPVg%2BIM4VjXcH3htbu4GdvcA1IiFqZeWVeF88A7%2FsJku8klHzmh%2FQfbpHLqXV9meBbdyVxscdAqPJmmHe70TDPxtd5vOrc6sSSB3a2%2BmLrRr1HfK2EVHvQZrO36Gxe6KzgIW2MlFQE24cmVveUuO1%2Fgq5FZ836luDc1Y%2BZuc9HJ7fpHo3LG70MqLsr3ZeMuEv9Q5r32QklaTWKOvo4QCbaOyypyyImW4FqTtPWTmnO1fAPlhd--oH6qFOPbXkNdP%2FAq--f4LooQlWTWOZU%2Fbh8x8WmA%3D%3D; domain=.booth.pm; path=/; expires=Tue, 23 Apr 2024 08:11:29 GMT; secure; HttpOnly, __cf_bm=nnB_JqukBWaRh_9g50DQXSaQKvCJSutefqi6osKruyE-1682237489-0-ARFXysLrrvVHoIu7JmiIkvQnMbhRctKDnPgJAlCOV1FMJ56qidpKYiA3vPJJChoOZF7NH8UaHpzncBioSI8YwOU=; path=/; expires=Sun, 23-Apr-23 08:41:29 GMT; domain=.booth.pm; HttpOnly; Secure; SameSite=None
+set-cookie: recent_items=4182601; domain=.booth.pm; path=/; expires=Mon, 30 Nov 2043 11:19:28 GMT; secure, _plaza_session_nktz7u=aCm9gPhq%2FHUpZ37HuZZNHL70XhN5Wn221uX75QvKx1RXkGdX8it%2BqbGhTa6UlhS%2FX0jhSteVJFxoKVXyKnGoAH4BM63vCjo8yWFqQ0SxSaIsxHt9OKbFO9mOfdYD8e5hjurymHq9dBx3hCMFMfPggXQJhjlP1P0a%2FGNkh4O351Y1KkdVYWEdOPaEYDOK6AmWUKK0AqEQV5iYFQGcCu%2FastEvcVfQYU3v6c5dN%2F4eb5kLCx%2B2RyvYsurTsOUtLV8ohFzgbiGzvA2v%2B7AEDNavH8EDa7orbSgb0jkh3bwsQ5TzwGIYX0Uh4Fsq%2FjssKmTjvta%2F%2FmFNni3k9dArnnsumNWlsG187i9yNU6HfLHdYm%2FOOzUqTWB9z1KUeTtkKZCK1ogX3tnJ0R3aRRzSWwYq--2tGNWs25Nk33vzfs--w6g0bBnN2Gpi6qzNoxK9Zw%3D%3D; domain=.booth.pm; path=/; expires=Sat, 30 Nov 2024 11:19:28 GMT; secure; HttpOnly, __cf_bm=YiIMn7JAr20UOklFhf6AifhDXx8hmObEIdDLcCpBtkI-1701343168-0-ARLl3XgWy/r9icN9wszfqjcPmA3A6QqICh/yOGchycflyDB2bP6KEnglHOF/cfN9pb0D2EotaeKy3uP7RbP+Dac=; path=/; expires=Thu, 30-Nov-23 11:49:28 GMT; domain=.booth.pm; HttpOnly; Secure; SameSite=None
 strict-transport-security: max-age=63072000; includeSubDomains
 transfer-encoding: chunked
 vary: Origin
@@ -82,10 +82,10 @@ x-content-type-options: nosniff
 x-download-options: noopen
 x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
-x-request-id: 00f31d17-1f44-4236-a640-9654ae25a6a6
-x-runtime: 0.129163
+x-request-id: e78fe531-02fb-40e7-a1cb-eee81d008ffb
+x-runtime: 0.176394
 x-xss-protection: 1; mode=block
 x-pollyjs-finalurl: https://booth.pm/en/items/4182601.json
 
-{"description":"イオシスが手がける、最新型東方クラブミュージックアレンジシリーズ！\n\n「唯一無二の【現場主義】スタイル」をテーマに贈る東方クラブアレンジ・コンピレーション第5弾！\n　あらゆるサウンドを現場でキャッチアップする本格派プロデューサー陣による書き下ろし曲を今回もコンパイルしました。\n　徐々にですが、街では夜のイベントも息を吹き返してきている昨今。\n「久しぶりに、朝まで東方でしっかり踊りてえ...」\n　そんな感じ、最近あったりしませんか？","factory_description":null,"id":4182601,"is_adult":false,"is_buyee_possible":false,"is_end_of_sale":false,"is_placeholder":false,"is_sold_out":false,"name":"IO-0334_TOHO BOOTLEGS 5","price":"1,500 JPY","purchase_limit":null,"shipping_info":"Ships within 15 days","small_stock":null,"url":"https://iosys.booth.pm/items/4182601","wish_list_url":"https://booth.pm/items/4182601/wish_list","wish_lists_count":8,"wished":false,"buyee_variations":[],"category":{"id":34,"name":"Game Music","parent":{"name":"Music","url":"https://booth.pm/en/browse/Music"},"url":"https://booth.pm/en/browse/Game%20Music"},"embeds":["\u003ciframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/C__zbt8CYAM\" frameborder=\"0\" allowfullscreen sandbox=\"allow-scripts allow-same-origin allow-popups allow-presentation\" class=\"wide-content\"\u003e\u003c/iframe\u003e"],"images":[{"caption":null,"original":"https://booth.pximg.net/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/4182601/f03d93f8-0b45-4848-a23b-53d5320fb2d1_base_resized.jpg","resized":"https://booth.pximg.net/c/72x72_a2_g5/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/4182601/f03d93f8-0b45-4848-a23b-53d5320fb2d1_base_resized.jpg"},{"caption":null,"original":"https://booth.pximg.net/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/4182601/6131c0c0-aaa1-4351-9cbf-352abe945f83_base_resized.jpg","resized":"https://booth.pximg.net/c/72x72_a2_g5/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/4182601/6131c0c0-aaa1-4351-9cbf-352abe945f83_base_resized.jpg"}],"order":null,"share":{"hashtags":["booth_pm"],"text":"IO-0334_TOHO BOOTLEGS 5 | イオシスショップ"},"shop":{"name":"イオシスショップ","subdomain":"iosys","thumbnail_url":"https://booth.pximg.net/c/48x48/users/1150414/icon_image/508163b0-0457-406d-b29c-c8390e25814d_base_resized.jpg","url":"https://iosys.booth.pm/","verified":false},"sound":null,"tags":[{"name":"Touhou","url":"https://booth.pm/en/items?tags%5B%5D=Touhou"},{"name":"IOSYS","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS"},{"name":"D.watt","url":"https://booth.pm/en/items?tags%5B%5D=D.watt"},{"name":"IOSYS_東方アレンジ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9%E3%82%A2%E3%83%AC%E3%83%B3%E3%82%B8"},{"name":"Tomoyuki Sakakida","url":"https://booth.pm/en/items?tags%5B%5D=Tomoyuki+Sakakida"},{"name":"IOSYS_東方_クラブアレンジシリーズ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9_%E3%82%AF%E3%83%A9%E3%83%96%E3%82%A2%E3%83%AC%E3%83%B3%E3%82%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA"},{"name":"uno","url":"https://booth.pm/en/items?tags%5B%5D=uno"},{"name":"IOSYS_CD","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_CD"},{"name":"IOSYS_東方_BOOTLEGSシリーズ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9_BOOTLEGS%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA"},{"name":"だてるーにゃん","url":"https://booth.pm/en/items?tags%5B%5D=%E3%81%A0%E3%81%A6%E3%82%8B%E3%83%BC%E3%81%AB%E3%82%83%E3%82%93"},{"name":"The Herb Shop","url":"https://booth.pm/en/items?tags%5B%5D=The+Herb+Shop"},{"name":"ハナカミリュウ","url":"https://booth.pm/en/items?tags%5B%5D=%E3%83%8F%E3%83%8A%E3%82%AB%E3%83%9F%E3%83%AA%E3%83%A5%E3%82%A6"},{"name":"monolith slip","url":"https://booth.pm/en/items?tags%5B%5D=monolith+slip"},{"name":"DC Mizey","url":"https://booth.pm/en/items?tags%5B%5D=DC+Mizey"},{"name":"NiesoX","url":"https://booth.pm/en/items?tags%5B%5D=NiesoX"}],"tag_banners":[{"image_url":"https://booth.pximg.net/c/150x150/13546184-06a2-41c8-beaa-702f67e3a76d/i/1727554/aadc8081-b6e7-4e3e-aa04-cd51d32f4bcf_base_resized.jpg","name":"Touhou","url":"https://booth.pm/en/items?tags%5B%5D=Touhou"},{"image_url":"https://booth.pximg.net/c/150x150/ce868886-9202-4025-927e-224895a4f49c/i/3834387/64e9f2ff-bd8f-4b76-b9f5-2a40630fbd84_base_resized.jpg","name":"IOSYS","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS"},{"image_url":null,"name":"D.watt","url":"https://booth.pm/en/items?tags%5B%5D=D.watt"},{"image_url":"https://booth.pximg.net/c/150x150/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/3785899/1184b83c-e250-425c-810d-1e94e9164d7f_base_resized.jpg","name":"IOSYS_東方アレンジ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9%E3%82%A2%E3%83%AC%E3%83%B3%E3%82%B8"},{"image_url":null,"name":"Tomoyuki Sakakida","url":"https://booth.pm/en/items?tags%5B%5D=Tomoyuki+Sakakida"},{"image_url":null,"name":"IOSYS_東方_クラブアレンジシリーズ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9_%E3%82%AF%E3%83%A9%E3%83%96%E3%82%A2%E3%83%AC%E3%83%B3%E3%82%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA"},{"image_url":null,"name":"uno","url":"https://booth.pm/en/items?tags%5B%5D=uno"},{"image_url":"https://booth.pximg.net/c/150x150/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/3785899/1184b83c-e250-425c-810d-1e94e9164d7f_base_resized.jpg","name":"IOSYS_CD","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_CD"},{"image_url":null,"name":"IOSYS_東方_BOOTLEGSシリーズ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9_BOOTLEGS%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA"},{"image_url":null,"name":"だてるーにゃん","url":"https://booth.pm/en/items?tags%5B%5D=%E3%81%A0%E3%81%A6%E3%82%8B%E3%83%BC%E3%81%AB%E3%82%83%E3%82%93"},{"image_url":null,"name":"The Herb Shop","url":"https://booth.pm/en/items?tags%5B%5D=The+Herb+Shop"},{"image_url":null,"name":"ハナカミリュウ","url":"https://booth.pm/en/items?tags%5B%5D=%E3%83%8F%E3%83%8A%E3%82%AB%E3%83%9F%E3%83%AA%E3%83%A5%E3%82%A6"},{"image_url":null,"name":"monolith slip","url":"https://booth.pm/en/items?tags%5B%5D=monolith+slip"},{"image_url":null,"name":"DC Mizey","url":"https://booth.pm/en/items?tags%5B%5D=DC+Mizey"},{"image_url":null,"name":"NiesoX","url":"https://booth.pm/en/items?tags%5B%5D=NiesoX"}],"tag_combination":{"category":"Game Music","tag":"Touhou","url":"https://booth.pm/en/browse/Game%20Music?tags%5B%5D=Touhou"},"tracks":null,"variations":[{"buyee_html":null,"downloadable":null,"factory_image_url":null,"has_download_code":false,"id":6998173,"is_anshin_booth_pack":false,"is_empty_allocatable_stock_with_preorder":false,"is_empty_stock":false,"is_factory_item":false,"is_mailbin":false,"is_waiting_on_arrival":false,"name":null,"order_url":null,"price":1500,"small_stock":null,"status":"addable_to_cart","type":"direct"}]}
+{"description":"イオシスが手がける、最新型東方クラブミュージックアレンジシリーズ！\n\n「唯一無二の【現場主義】スタイル」をテーマに贈る東方クラブアレンジ・コンピレーション第5弾！\n　あらゆるサウンドを現場でキャッチアップする本格派プロデューサー陣による書き下ろし曲を今回もコンパイルしました。\n　徐々にですが、街では夜のイベントも息を吹き返してきている昨今。\n「久しぶりに、朝まで東方でしっかり踊りてえ...」\n　そんな感じ、最近あったりしませんか？","factory_description":null,"id":4182601,"is_adult":false,"is_buyee_possible":false,"is_end_of_sale":false,"is_placeholder":false,"is_sold_out":false,"name":"IO-0334_TOHO BOOTLEGS 5","price":"1,500 JPY","purchase_limit":null,"shipping_info":"Ships within 15 days","small_stock":null,"url":"https://iosys.booth.pm/items/4182601","wish_list_url":"https://booth.pm/items/4182601/wish_list","wish_lists_count":10,"wished":false,"buyee_variations":[],"category":{"id":34,"name":"Game Music","parent":{"name":"Music","url":"https://booth.pm/en/browse/Music"},"url":"https://booth.pm/en/browse/Game%20Music"},"embeds":["\u003ciframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/C__zbt8CYAM\" frameborder=\"0\" allowfullscreen sandbox=\"allow-scripts allow-same-origin allow-popups allow-presentation\" class=\"wide-content\"\u003e\u003c/iframe\u003e"],"images":[{"caption":null,"original":"https://booth.pximg.net/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/4182601/f03d93f8-0b45-4848-a23b-53d5320fb2d1_base_resized.jpg","resized":"https://booth.pximg.net/c/72x72_a2_g5/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/4182601/f03d93f8-0b45-4848-a23b-53d5320fb2d1_base_resized.jpg"},{"caption":null,"original":"https://booth.pximg.net/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/4182601/6131c0c0-aaa1-4351-9cbf-352abe945f83_base_resized.jpg","resized":"https://booth.pximg.net/c/72x72_a2_g5/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/4182601/6131c0c0-aaa1-4351-9cbf-352abe945f83_base_resized.jpg"}],"order":null,"gift":null,"report_url":"https://iosys.booth.pm/items/4182601/report","share":{"hashtags":["booth_pm"],"text":"IO-0334_TOHO BOOTLEGS 5 | イオシスショップ"},"shop":{"name":"イオシスショップ","subdomain":"iosys","thumbnail_url":"https://booth.pximg.net/c/48x48/users/1150414/icon_image/508163b0-0457-406d-b29c-c8390e25814d_base_resized.jpg","url":"https://iosys.booth.pm/","verified":false},"sound":null,"tags":[{"name":"Touhou","url":"https://booth.pm/en/items?tags%5B%5D=Touhou"},{"name":"博麗神社秋季例大祭","url":"https://booth.pm/en/items?tags%5B%5D=%E5%8D%9A%E9%BA%97%E7%A5%9E%E7%A4%BE%E7%A7%8B%E5%AD%A3%E4%BE%8B%E5%A4%A7%E7%A5%AD"},{"name":"IOSYS","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS"},{"name":"東方紅楼夢","url":"https://booth.pm/en/items?tags%5B%5D=%E6%9D%B1%E6%96%B9%E7%B4%85%E6%A5%BC%E5%A4%A2"},{"name":"D.watt","url":"https://booth.pm/en/items?tags%5B%5D=D.watt"},{"name":"IOSYS_東方アレンジ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9%E3%82%A2%E3%83%AC%E3%83%B3%E3%82%B8"},{"name":"Tomoyuki Sakakida","url":"https://booth.pm/en/items?tags%5B%5D=Tomoyuki+Sakakida"},{"name":"IOSYS_東方_クラブアレンジシリーズ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9_%E3%82%AF%E3%83%A9%E3%83%96%E3%82%A2%E3%83%AC%E3%83%B3%E3%82%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA"},{"name":"uno","url":"https://booth.pm/en/items?tags%5B%5D=uno"},{"name":"IOSYS_CD","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_CD"},{"name":"IOSYS_東方_BOOTLEGSシリーズ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9_BOOTLEGS%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA"},{"name":"だてるーにゃん","url":"https://booth.pm/en/items?tags%5B%5D=%E3%81%A0%E3%81%A6%E3%82%8B%E3%83%BC%E3%81%AB%E3%82%83%E3%82%93"},{"name":"The Herb Shop","url":"https://booth.pm/en/items?tags%5B%5D=The+Herb+Shop"},{"name":"monolith slip","url":"https://booth.pm/en/items?tags%5B%5D=monolith+slip"},{"name":"DC Mizey","url":"https://booth.pm/en/items?tags%5B%5D=DC+Mizey"},{"name":"NiesoX","url":"https://booth.pm/en/items?tags%5B%5D=NiesoX"},{"name":"ハナカミリユウ","url":"https://booth.pm/en/items?tags%5B%5D=%E3%83%8F%E3%83%8A%E3%82%AB%E3%83%9F%E3%83%AA%E3%83%A6%E3%82%A6"}],"tag_banners":[{"image_url":"https://booth.pximg.net/c/150x150/177b5742-fdf9-45d5-9f72-b6da90db0e54/i/5260914/f2a75e9e-93d2-43ae-955a-663c536a00a9_base_resized.jpg","name":"Touhou","url":"https://booth.pm/en/items?tags%5B%5D=Touhou"},{"image_url":"https://booth.pximg.net/c/150x150/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/643966/20d66b9c-3838-46bd-a547-a31a7a7e46e7_base_resized.jpg","name":"博麗神社秋季例大祭","url":"https://booth.pm/en/items?tags%5B%5D=%E5%8D%9A%E9%BA%97%E7%A5%9E%E7%A4%BE%E7%A7%8B%E5%AD%A3%E4%BE%8B%E5%A4%A7%E7%A5%AD"},{"image_url":"https://booth.pximg.net/c/150x150/ce868886-9202-4025-927e-224895a4f49c/i/3834387/64e9f2ff-bd8f-4b76-b9f5-2a40630fbd84_base_resized.jpg","name":"IOSYS","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS"},{"image_url":"https://booth.pximg.net/c/150x150/4587b609-a959-4625-80aa-d97790f3af2c/i/3299460/c68c9a3e-7d5f-4967-82ff-16b8e2242136_base_resized.jpg","name":"東方紅楼夢","url":"https://booth.pm/en/items?tags%5B%5D=%E6%9D%B1%E6%96%B9%E7%B4%85%E6%A5%BC%E5%A4%A2"},{"image_url":null,"name":"D.watt","url":"https://booth.pm/en/items?tags%5B%5D=D.watt"},{"image_url":"https://booth.pximg.net/c/150x150/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/643961/0eb2494b-5377-48b4-a9c1-c4098518f815_base_resized.jpg","name":"IOSYS_東方アレンジ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9%E3%82%A2%E3%83%AC%E3%83%B3%E3%82%B8"},{"image_url":null,"name":"Tomoyuki Sakakida","url":"https://booth.pm/en/items?tags%5B%5D=Tomoyuki+Sakakida"},{"image_url":null,"name":"IOSYS_東方_クラブアレンジシリーズ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9_%E3%82%AF%E3%83%A9%E3%83%96%E3%82%A2%E3%83%AC%E3%83%B3%E3%82%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA"},{"image_url":null,"name":"uno","url":"https://booth.pm/en/items?tags%5B%5D=uno"},{"image_url":"https://booth.pximg.net/c/150x150/917a258c-3e6d-4c0e-90bf-0f56db689da6/i/643961/0eb2494b-5377-48b4-a9c1-c4098518f815_base_resized.jpg","name":"IOSYS_CD","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_CD"},{"image_url":null,"name":"IOSYS_東方_BOOTLEGSシリーズ","url":"https://booth.pm/en/items?tags%5B%5D=IOSYS_%E6%9D%B1%E6%96%B9_BOOTLEGS%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA"},{"image_url":null,"name":"だてるーにゃん","url":"https://booth.pm/en/items?tags%5B%5D=%E3%81%A0%E3%81%A6%E3%82%8B%E3%83%BC%E3%81%AB%E3%82%83%E3%82%93"},{"image_url":null,"name":"The Herb Shop","url":"https://booth.pm/en/items?tags%5B%5D=The+Herb+Shop"},{"image_url":null,"name":"monolith slip","url":"https://booth.pm/en/items?tags%5B%5D=monolith+slip"},{"image_url":null,"name":"DC Mizey","url":"https://booth.pm/en/items?tags%5B%5D=DC+Mizey"},{"image_url":null,"name":"NiesoX","url":"https://booth.pm/en/items?tags%5B%5D=NiesoX"},{"image_url":null,"name":"ハナカミリユウ","url":"https://booth.pm/en/items?tags%5B%5D=%E3%83%8F%E3%83%8A%E3%82%AB%E3%83%9F%E3%83%AA%E3%83%A6%E3%82%A6"}],"tag_combination":{"category":"Game Music","tag":"Touhou","url":"https://booth.pm/en/browse/Game%20Music?tags%5B%5D=Touhou"},"tracks":null,"variations":[{"buyee_html":null,"downloadable":null,"factory_image_url":null,"has_download_code":false,"id":6998173,"is_anshin_booth_pack":false,"is_empty_allocatable_stock_with_preorder":false,"is_empty_stock":false,"is_factory_item":false,"is_mailbin":false,"is_waiting_on_arrival":false,"name":null,"order_url":null,"price":1500,"small_stock":null,"status":"addable_to_cart","type":"direct"}]}
 

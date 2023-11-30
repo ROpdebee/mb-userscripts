@@ -50,20 +50,19 @@ describe('booth provider', () => {
             }],
         }, {
             desc: 'album with multiple images and YouTube embedded video',
-            url: 'https://booth.pm/ja/items/1973472',
-            numImages: 2,
+            url: 'https://booth.pm/en/items/5211347',
+            numImages: 4,
             expectedImages: [{
                 index: 0,
-                urlPart: '80eef6e0-2ac9-4e0a-95ce-47163efe9717',
+                urlPart: '32585695-9750-4d03-a352-a28b5758c0b0',
                 types: [ArtworkTypeIDs.Front],
             }, {
                 index: 1,
-                urlPart: '0cb0b6fa-647d-4300-9c04-35a78c3c9fce',
+                urlPart: 'fcd03dd8-8b0b-43b2-8e48-2e653ee29983',
             }],
         }, {
             desc: 'item with no images',
-            // Not really an album
-            url: 'https://booth.pm/en/items/4710069',
+            url: 'https://booth.pm/en/items/4129879',
             numImages: 0,
             expectedImages: [],
         }, {
