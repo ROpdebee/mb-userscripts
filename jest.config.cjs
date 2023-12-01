@@ -17,7 +17,7 @@ const esModules = [
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-    testEnvironment: 'setup-polly-jest/jest-environment-jsdom',
+    testEnvironment: './tests/unit/utils/extended-jsdom-env.ts',
     moduleNameMapper: {
         '^@lib/(.*)$': '<rootDir>/src/lib/$1',
         '^@test-utils/(.*)$': '<rootDir>/tests/unit/utils/$1',
@@ -26,7 +26,6 @@ module.exports = {
     setupFilesAfterEnv: [
         'jest-extended/all',
         './tests/unit/utils/setup-gm-mocks.ts',
-        './tests/unit/utils/fix-jsdom-env.ts',
     ],
     collectCoverageFrom: [
         'src/**/*.{js,ts}',

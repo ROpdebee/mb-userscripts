@@ -4,6 +4,9 @@
     "references": [
         { "path": "../../../src/lib" },
     ],
+    "files": [
+        "../../types/setup-polly-jest.d.ts"
+    ],
     "compilerOptions": {
         "skipLibCheck": true
     }
