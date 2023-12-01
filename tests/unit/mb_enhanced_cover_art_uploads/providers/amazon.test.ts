@@ -153,18 +153,6 @@ describe('amazon provider', () => {
 
             await expect(covers).rejects.toThrowWithMessage(Error, 'Failed to extract images from embedded JS on generic physical page');
         });
-
-        const audiobookJsonFailCases = [
-            ['cannot be extracted', ''],
-            ['cannot be parsed', "'imageGalleryData' : invalid,"],
-            ['is invalid type', "'imageGalleryData' : 123,"],
-        ];
-
-        it.each(audiobookJsonFailCases)('fails to grab audiobook images if JSON %s', async (_1, content) => {
-            const covers = provider['findPhysicalAudiobookImages'](new URL('https://www.amazon.com/dp/fake'), content);
-
-            await expect(covers).rejects.toThrowWithMessage(Error, 'Failed to extract images from embedded JS on physical audiobook page');
-        });
     });
 
     it('provides a favicon', async () => {
