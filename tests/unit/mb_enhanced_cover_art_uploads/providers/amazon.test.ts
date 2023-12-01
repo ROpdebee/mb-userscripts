@@ -98,6 +98,7 @@ describe('amazon provider', () => {
             expectedImages: [{
                 index: 0,
                 urlPart: '812VSsX9rpL',
+                types: [ArtworkTypeIDs.Front],
             }],
         }, {
             desc: 'Audible audiobooks',
