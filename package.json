@@ -84,7 +84,7 @@
     "eslint-plugin-switch-case": "1.1.2",
     "eslint-plugin-unicorn": "49.0.0",
     "eslint-plugin-xss": "0.1.12",
-    "fake-indexeddb": "4.0.2",
+    "fake-indexeddb": "5.0.1",
     "glob": "10.3.10",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
