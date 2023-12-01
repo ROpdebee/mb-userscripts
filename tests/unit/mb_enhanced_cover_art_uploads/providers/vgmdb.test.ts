@@ -42,9 +42,9 @@ describe('vgmdb provider', () => {
             ['Disc 1', [ArtworkTypeIDs.Medium], 'Disc 1'],
             ['DVD', [ArtworkTypeIDs.Medium], 'DVD'],
             ['CD', [ArtworkTypeIDs.Medium], 'CD'],
-            ['Disc (reverse)', [ArtworkTypeIDs.Matrix], ''],
-            ['Disc (Back)', [ArtworkTypeIDs.Matrix], ''],
-            ['Disc 1 (Back)', [ArtworkTypeIDs.Matrix], 'Disc 1'],
+            ['Disc (reverse)', [ArtworkTypeIDs['Matrix/Runout']], ''],
+            ['Disc (Back)', [ArtworkTypeIDs['Matrix/Runout']], ''],
+            ['Disc 1 (Back)', [ArtworkTypeIDs['Matrix/Runout']], 'Disc 1'],
             ['Cassette Front', [ArtworkTypeIDs.Medium], 'Front'],
             ['Vinyl A-side', [ArtworkTypeIDs.Medium], 'A-side'],
             ['Tray', [ArtworkTypeIDs.Tray], ''],
@@ -66,7 +66,7 @@ describe('vgmdb provider', () => {
             ['Case', [ArtworkTypeIDs.Front], 'Case'],
             ['Case: Back', [ArtworkTypeIDs.Back], 'Case'],
             ['Case: Inside', [ArtworkTypeIDs.Tray], 'Case'],
-            ['Contents', [ArtworkTypeIDs.Raw], ''],
+            ['Contents', [ArtworkTypeIDs['Raw/Unedited']], ''],
             [' Booklet Front & Back', [ArtworkTypeIDs.Booklet], 'Front & Back'],
             ['Booklet: Interview', [ArtworkTypeIDs.Booklet], 'Interview'],
             // ['Back Tray', [ArtworkTypeIDs.Tray], 'Back'],  // FIXME
@@ -112,7 +112,7 @@ describe('vgmdb provider', () => {
         });
 
         it('removes unnecessary parentheses', () => {
-            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc (CD1)'}))
+            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc (CD1)' }))
                 .toMatchObject({
                     types: [ArtworkTypeIDs.Medium],
                     comment: 'CD1',
@@ -123,7 +123,7 @@ describe('vgmdb provider', () => {
         });
 
         it('removes unnecessary dashes', () => {
-            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc - CD1'}))
+            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc - CD1' }))
                 .toMatchObject({
                     types: [ArtworkTypeIDs.Medium],
                     comment: 'CD1',
