@@ -1,3 +1,4 @@
+/* eslint-disable jest/prefer-strict-equal -- Need to use toEqual because fake-indexeddb uses structuredClone, see https://github.com/jestjs/jest/issues/14011 */
 import 'fake-indexeddb/auto';
 
 import type { IDBPDatabase, OpenDBCallbacks } from 'idb';
@@ -84,7 +85,7 @@ describe('indexedDB-backed info cache', () => {
             mockDateNow.mockReturnValueOnce(123);
             await cache.putDimensions('test', dummyDimensions);
 
-            await expect(cache.getDimensions('test')).resolves.toStrictEqual({
+            await expect(cache.getDimensions('test')).resolves.toEqual({
                 ...dummyDimensions,
                 addedDatetime: 123,
             });
@@ -114,7 +115,7 @@ describe('indexedDB-backed info cache', () => {
             mockDateNow.mockReturnValueOnce(123);
             await cache.putFileInfo('test', dummyFileInfo);
 
-            await expect(cache.getFileInfo('test')).resolves.toStrictEqual({
+            await expect(cache.getFileInfo('test')).resolves.toEqual({
                 ...dummyFileInfo,
                 addedDatetime: 123,
             });
@@ -201,19 +202,19 @@ describe('database migrations', () => {
         it('should retain all old entries', async () => {
             const cache = await createCache();
 
-            await expect(cache.getDimensions('test')).resolves.toStrictEqual({
+            await expect(cache.getDimensions('test')).resolves.toEqual({
                 ...dummyDimensions,
                 addedDatetime: 123,
             });
-            await expect(cache.getDimensions('test2')).resolves.toStrictEqual({
+            await expect(cache.getDimensions('test2')).resolves.toEqual({
                 ...dummyDimensions,
                 addedDatetime: 456,
             });
-            await expect(cache.getFileInfo('test')).resolves.toStrictEqual({
+            await expect(cache.getFileInfo('test')).resolves.toEqual({
                 ...dummyFileInfo,
                 addedDatetime: 123,
             });
-            await expect(cache.getFileInfo('test2')).resolves.toStrictEqual({
+            await expect(cache.getFileInfo('test2')).resolves.toEqual({
                 ...dummyFileInfo,
                 addedDatetime: 456,
             });
@@ -225,11 +226,11 @@ describe('database migrations', () => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const db: IDBPDatabase = cache['db'];
 
-            await expect(db.getFromIndex('dimensionsStore', 'addedDatetimeIdx', IDBKeyRange.upperBound(200))).resolves.toStrictEqual({
+            await expect(db.getFromIndex('dimensionsStore', 'addedDatetimeIdx', IDBKeyRange.upperBound(200))).resolves.toEqual({
                 ...dummyDimensions,
                 addedDatetime: 123,
             });
-            await expect(db.getFromIndex('fileInfoStore', 'addedDatetimeIdx', IDBKeyRange.upperBound(200))).resolves.toStrictEqual({
+            await expect(db.getFromIndex('fileInfoStore', 'addedDatetimeIdx', IDBKeyRange.upperBound(200))).resolves.toEqual({
                 ...dummyFileInfo,
                 addedDatetime: 123,
             });

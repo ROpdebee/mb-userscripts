@@ -9,6 +9,7 @@ export default class ExtendedJSDOMEnvironment extends JSDOMEnvironment {
 
         this.patchTextEncoder();
         this.patchCrypto();
+        this.patchStructuredClone();
     }
 
     private patchTextEncoder(): void {
@@ -26,5 +27,10 @@ export default class ExtendedJSDOMEnvironment extends JSDOMEnvironment {
         this.global.ArrayBuffer = ArrayBuffer;
         // @ts-expect-error: Some incompatibilities between node and web.
         this.global.crypto.subtle = webcrypto.subtle;
+    }
+
+    private patchStructuredClone(): void {
+        // JSDOM also removes structuredClone, which is needed by fake-indexeddb.
+        this.global.structuredClone = structuredClone;
     }
 }
