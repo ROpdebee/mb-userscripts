@@ -169,6 +169,7 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
 
     const bundle = await rollup({
         input: inputPath,
+        strictDeprecations: true,
         plugins,
     });
 
@@ -208,6 +209,7 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
 
     const bundle = await rollup({
         input: 'index.js',
+        strictDeprecations: true,
         plugins: [
             // Feed the code of the previous pass as virtual files
             virtual(fileMapping),
