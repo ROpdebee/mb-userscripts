@@ -4,7 +4,6 @@ import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
 import { assertNonNull } from '@lib/util/assert';
 import { parseDOM, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
-import { urlJoin } from '@lib/util/urls';
 
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
@@ -40,7 +39,7 @@ const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-
 const PHYSICAL_AUDIOBOOK_PAGE_QUERY = '#booksImageBlock_feature_div';
 
 // CSS queries to extract a front cover from a page
-const AUDIBLE_FRONT_IMAGE_QUERY = '#mf_pdp_hero_widget_book_img img';  // Only for /hz/audible/mlp/mfpdp pages.
+const AUDIBLE_FRONT_IMAGE_QUERY = '#audibleimageblock_feature_div #main-image';  // Only for page which have Audible releases.
 
 export class AmazonProvider extends CoverArtProvider {
     public readonly supportedDomains = [
@@ -109,17 +108,7 @@ export class AmazonProvider extends CoverArtProvider {
         return imgs.map((img) => ({ url: new URL(img.mainUrl) }));
     }
 
-    private async findAudibleImages(url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
-        // We can only extract 500px images from standard product pages. Prefer
-        // /hz/audible/mlp/mfpdp pages which should have the same image in its
-        // full resolution.
-        if (/\/(?:gp\/product|dp)\//.test(url.pathname)) {
-            const audibleUrl = urlJoin(url.origin, '/hz/audible/mlp/mfpdp/', this.extractId(url)!);
-            const audibleContent = await this.fetchPage(audibleUrl);
-            const audibleDom = parseDOM(audibleContent, audibleUrl.href);
-            return this.findAudibleImages(audibleUrl, audibleContent, audibleDom);
-        }
-
+    private async findAudibleImages(_url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
         return this.extractFrontCover(pageDom, AUDIBLE_FRONT_IMAGE_QUERY);
     }
 
