@@ -52,7 +52,27 @@ jobs:
 
       - name: Run jest
         run: npm run test
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: ./coverage/lcov.info
+          retention-days: 7
+
+  upload-coverage:
+    needs: [test]
+    runs-on: ubuntu-latest
+    name: Upload coverage data
+    steps:
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage
+
       - name: Upload coverage data
         uses: codecov/codecov-action@v3
         with:
           files: ./coverage/lcov.info
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
