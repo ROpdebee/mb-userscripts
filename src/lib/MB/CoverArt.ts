@@ -7,13 +7,13 @@ export enum ArtworkTypeIDs {
     Obi = 5,
     Other = 8,
     Poster = 11,
-    Raw = 14,  // Raw/Unedited
+    'Raw/Unedited' = 14,
     Spine = 6,
     Sticker = 10,
     Track = 7,
     Tray = 9,
     Watermark = 13,
-    Matrix = 15,  // Matrix/Runout
+    'Matrix/Runout' = 15,
     Top = 48,
     Bottom = 49,
 }

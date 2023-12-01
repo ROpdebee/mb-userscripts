@@ -86,7 +86,7 @@ function mapDiscType(mediumType: string, caption: string): MappedArtwork {
     for (const keyword of keywords) {
         // As a regular expression because it might be surrounded in parentheses
         if (/reverse|back/i.test(keyword)) {
-            type = ArtworkTypeIDs.Matrix;
+            type = ArtworkTypeIDs['Matrix/Runout'];
         } else if (!/front/i.test(keyword)) {  // Don't include "front" for e.g. "Disc Front"
             commentParts.push(keyword);
         }
@@ -127,7 +127,7 @@ const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) 
     insert: { type: ArtworkTypeIDs.Other, comment: 'Insert' }, // Or poster?
     inside: ArtworkTypeIDs.Tray,
     case: mapPackagingType.bind(undefined, 'Case'),
-    contents: ArtworkTypeIDs.Raw,
+    contents: ArtworkTypeIDs['Raw/Unedited'],
 };
 
 function convertMappingReturnValue(ret: MappedArtwork): { types: ArtworkTypeIDs[]; comment: string } {
