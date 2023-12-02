@@ -79,7 +79,6 @@ export class DispatchMap<Leaf> {
         return this.retrieve([...splitDomain(domain)].reverse());
     }
 
-    // Workaround for https://github.com/babel/babel/issues/13875
     private _get(domainPart: '' | '*'): Leaf | undefined;
     private _get(domainPart: string): Leaf | DispatchMap<Leaf> | undefined;
     private _get(domainPart: string): Leaf | DispatchMap<Leaf> | undefined {
