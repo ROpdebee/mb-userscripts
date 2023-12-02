@@ -1,3 +1,4 @@
+- **2023.12.2**: Bug fix: copy MusicBrainz complex artwork types ([#716](https://github.com/ROpdebee/mb-userscripts/pull/716))
 - **2023.12.1**: Bug fix: upstream provider fixes ([#711](https://github.com/ROpdebee/mb-userscripts/pull/711))
 - **2023.11.30**: Bug fix: update Discogs GraphQL query hash ([#710](https://github.com/ROpdebee/mb-userscripts/pull/710))
 - **2023.8.2**: Internal changes: update typescript-eslint monorepo to v6 (major) ([#695](https://github.com/ROpdebee/mb-userscripts/pull/695))
