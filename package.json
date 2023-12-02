@@ -112,7 +112,7 @@
     "warcio": "2.2.1"
   },
   "dependencies": {
-    "idb": "7.1.1",
+    "idb": "8.0.0",
     "p-retry": "6.1.0",
     "p-throttle": "6.0.0",
     "ts-custom-error": "3.3.1"
