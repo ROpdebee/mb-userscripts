@@ -59,24 +59,3 @@ jobs:
           name: coverage
           path: ./coverage/lcov.info
           retention-days: 7
-
-  upload-coverage:
-    needs: [test]
-    runs-on: ubuntu-latest
-    name: Upload coverage data
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Download coverage artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: coverage
-          path: ./coverage
-
-      - name: Upload coverage data
-        uses: codecov/codecov-action@v3
-        with:
-          files: lcov.info
-          fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
