@@ -1,3 +1,4 @@
+- **2023.12.3**: Internal changes: update minimum required versions of browsers ([#719](https://github.com/ROpdebee/mb-userscripts/pull/719))
 - **2023.12.2**: Bug fix: copy MusicBrainz complex artwork types ([#716](https://github.com/ROpdebee/mb-userscripts/pull/716))
 - **2023.12.1**: Bug fix: upstream provider fixes ([#711](https://github.com/ROpdebee/mb-userscripts/pull/711))
 - **2023.11.30**: Bug fix: update Discogs GraphQL query hash ([#710](https://github.com/ROpdebee/mb-userscripts/pull/710))
