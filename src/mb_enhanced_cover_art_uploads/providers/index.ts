@@ -32,6 +32,7 @@ import { TraxsourceProvider } from './traxsource';
 import { VGMdbProvider } from './vgmdb';
 import { VKMusicProvider } from './vk_music';
 import { YandexMusicProvider } from './yandex_music';
+import { YoutubeProvider } from './youtube';
 import { YoutubeMusicProvider } from './youtube_music';
 
 const PROVIDER_DISPATCH = new DispatchMap<CoverArtProvider>();
@@ -74,6 +75,7 @@ addProvider(new VGMdbProvider());
 addProvider(new VKMusicProvider());
 addProvider(new YandexMusicProvider());
 addProvider(new YoutubeMusicProvider());
+addProvider(new YoutubeProvider());
 
 function extractDomain(url: URL): string {
     return url.hostname.replace(/^www\./, '');
