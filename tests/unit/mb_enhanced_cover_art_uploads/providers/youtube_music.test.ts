@@ -17,14 +17,15 @@ describe('youtube music provider', () => {
             desc: 'album browse URLs',
             url: 'https://music.youtube.com/browse/MPREb_CYhkf9U6tXI',
             id: 'MPREb_CYhkf9U6tXI',
+        }, {
+            desc: 'watch URLs',
+            url: 'https://music.youtube.com/watch?v=CX3BKKxYTYw&list=RDAMVMCX3BKKxYTYw',
+            id: 'CX3BKKxYTYw',
         }];
 
         const unsupportedUrls = [{
             desc: 'artist URLs',
             url: 'https://music.youtube.com/channel/UC-GWJZkyivsS-0yMjKMH0AA',
-        }, {
-            desc: 'watch URLs',
-            url: 'https://music.youtube.com/watch?v=CX3BKKxYTYw&list=RDAMVMCX3BKKxYTYw',
         }];
 
         // eslint-disable-next-line jest/require-hook
@@ -48,6 +49,15 @@ describe('youtube music provider', () => {
             expectedImages: [{
                 index: 0,
                 urlPart: 'yGlJPuWzIYUD_t82oj4ks6Vd2sh8BEmSC1yLhf1rmtV7_e-X8DNBr0hnj_hhi1lyRsIr9OE8RUNC9GA',
+                types: [ArtworkTypeIDs.Front],
+            }],
+        }, {
+            desc: 'music video URL',
+            url: 'https://music.youtube.com/watch?v=Py21QCndbxc',
+            numImages: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: 'Py21QCndbxc/maxresdefault',
                 types: [ArtworkTypeIDs.Front],
             }],
         }];

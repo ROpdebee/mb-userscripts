@@ -4,6 +4,7 @@ import { safeParseJSON } from '@lib/util/json';
 
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
+import { YoutubeProvider } from './youtube';
 
 interface YTMusicPageParams {
     browseId: string;
@@ -52,7 +53,7 @@ export class YoutubeMusicProvider extends CoverArtProvider {
     // playlist.
     // The redirect seems to be implemented in JS, and not server-side, so we
     // do not need to change the `isSafeRedirect` function.
-    protected readonly urlRegex = /\/(?:playlist\?list=|browse\/)(\w+)/;
+    protected readonly urlRegex = /\/(?:playlist\?list=|browse\/|watch\?v=)(\w+)/;
 
     protected override cleanUrl(url: URL): string {
         // Album ID is sometimes in the query params, base `cleanUrl` strips those away.
@@ -60,6 +61,13 @@ export class YoutubeMusicProvider extends CoverArtProvider {
     }
 
     public async findImages(url: URL): Promise<CoverArt[]> {
+        if (url.pathname === '/watch') {
+            // Dispatch to the main YouTube page for the video.
+            const ytUrl = new URL(url.toString());
+            ytUrl.host = 'www.youtube.com';
+            return new YoutubeProvider().findImages(ytUrl);
+        }
+
         const respDocument = await this.fetchPage(url);
         const pageInfo = this.extractPageInfo(respDocument);
 
