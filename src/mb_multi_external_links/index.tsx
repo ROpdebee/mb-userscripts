@@ -110,7 +110,7 @@ function insertCheckboxElements(editor: ExternalLinks, checkboxElmt: HTMLInputEl
     checkboxElmt.style.marginLeft = `${marginLeft}px`;
 }
 
-async function run(windowInstance: Window): Promise<void> {
+async function initSplitter(windowInstance: Window): Promise<void> {
     // This element should be present even before React is initialized. Checking
     // for its existence enables us to skip attempting to find the link input on
     // edit pages that don't have external links, without having to exclude
@@ -136,7 +136,7 @@ function onIframeAdded(iframe: HTMLIFrameElement): void {
     LOGGER.debug(`Initialising on iframe ${iframe.src}`);
 
     onAddEntityDialogLoaded(iframe, () => {
-        logFailure(run(iframe.contentWindow!));
+        logFailure(initSplitter(iframe.contentWindow!));
     });
 }
 
@@ -162,6 +162,46 @@ function listenForIframes(): void {
     });
 }
 
-logFailure(run(window));
+function attachLinkSplitter(): void {
+    logFailure(initSplitter(window));
+    listenForIframes();
+}
 
-listenForIframes();
+const insertAtisketCopyButtons = ((): (() => void) => {
+    function createButton(textGetter: () => string): HTMLButtonElement {
+        const btn = <button
+            type="button"
+            onClick={(): void => {
+                logFailure(navigator.clipboard.writeText(textGetter()));
+                btn.textContent = '(copied)';
+                setTimeout(() => btn.textContent = 'Copy', 1500);
+            }}
+            style={{
+                marginLeft: '1ex',
+            }}
+        >Copy</button> as HTMLButtonElement;
+        return btn;
+    }
+
+    function getArtistLinks(): string {
+        const urls = qsa<HTMLAnchorElement>('.prop.artists a:not(.mb)').map((a) => a.href);
+        return urls.join('\n');
+    }
+
+    function getReleaseLinks(): string {
+        const urls = qsa<HTMLAnchorElement>('section#mba-links a').map((a) => a.href);
+        return urls.join('\n');
+    }
+
+    return (): void => {
+        qsMaybe('.prop.artists div')?.prepend(createButton(getArtistLinks));
+        qsMaybe('section#mba-links > h2')?.append(createButton(getReleaseLinks));
+    };
+})();
+
+
+if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
+    attachLinkSplitter();
+} else if (document.location.hostname === 'atisket.pulsewidth.org.uk' || document.location.hostname === 'etc.marlonob.info') {
+    insertAtisketCopyButtons();
+}
