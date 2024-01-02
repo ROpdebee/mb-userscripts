@@ -187,9 +187,9 @@ class IndexedDBInfoCache {
                     // This will only be called after the DB was created successfully,
                     // so this variable will have been initialised.
                     LOGGER.warn('Closing DB for schema change in other tab');
-                    logFailure(dbPromise.then((db) => {
+                    dbPromise.then((db) => {
                         db.close();
-                    }), 'Failed to close database');
+                    }).catch(logFailure('Failed to close database'));
                 },
             });
 
@@ -303,7 +303,7 @@ type Migrator = (db: IDBPDatabase<CacheDBSchema>, tx: IDBPTransaction<CacheDBSch
 const DbMigrations: Record<number, Migrator> = {
 
     // JS version to TS version
-    1: async function(db, tx) {
+    1: async function (db, tx) {
         // Retrieve all existing values, drop and recreate the store, and reinsert all.
         // We can't update the values in-place since v1 uses a keypath and expects
         // the URL in the values, whereas v2 does not support that.

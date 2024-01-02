@@ -174,6 +174,9 @@ const baseJsConfig = {
         'promise/catch-or-return': ['warn', {
             allowFinally: true,
         }],
+        'promise/always-return': ['error', {
+            ignoreLastCallback: true,
+        }],
 
         // Disable some recommended rules
 
@@ -189,9 +192,6 @@ const baseJsConfig = {
         // We want this one to be enabled, but it'll produce a lot of warnings,
         // so leaving it as a placeholder to enable at the end.
         '@typescript-eslint/prefer-readonly-parameter-types': 'off',
-
-        // I don't agree with this.
-        'promise/always-return': 'off',
 
         // All places where this warned were either led to type errors or were
         // places where in my opinion, an explicit `undefined` reduced confusion.

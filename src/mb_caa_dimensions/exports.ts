@@ -35,10 +35,10 @@ export function setupExports(cachePromise: Promise<InfoCache>): void {
     }
 
     function getDimensionsWhenInView(imgElement: HTMLImageElement): void {
-        logFailure(cachePromise.then((cache) => {
+        cachePromise.then((cache) => {
             const image = new CAAImageWithFullSizeURL(imgElement, cache);
             displayInfoWhenInView(image);
-        }), `Something went wrong when attempting to load image info for ${imgElement.src}`);
+        }).catch(logFailure(`Something went wrong when attempting to load image info for ${imgElement.src}`));
     }
 
     async function loadImageDimensions(imgUrl: string): Promise<LegacyImageInfo> {

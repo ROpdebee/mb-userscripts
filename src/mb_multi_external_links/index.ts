@@ -65,15 +65,15 @@ class LinkSplitter {
             const lastUrl = splitUrls[splitUrls.length - 1];
             const firstUrls = splitUrls.slice(0, -1);
             // Submit all but the last URL.
-            logFailure(submitUrls(editor, firstUrls)
+            submitUrls(editor, firstUrls)
                 // Afterwards, enter the last URL, but don't submit it.
                 .then(() => {
                     const lastInput = getLastInput(this.editor);
                     LOGGER.debug(`Submitting URL ${lastUrl}`);
                     setInputValue(lastInput, lastUrl);
                     lastInput.focus();
-                }),
-            'Something went wrong. onUrlBlur signature change?');
+                })
+                .catch(logFailure('Something went wrong. onUrlBlur signature change?'));
         };
     }
 
@@ -136,7 +136,7 @@ function onIframeAdded(iframe: HTMLIFrameElement): void {
     LOGGER.debug(`Initialising on iframe ${iframe.src}`);
 
     onAddEntityDialogLoaded(iframe, () => {
-        logFailure(run(iframe.contentWindow!));
+        run(iframe.contentWindow!).catch(logFailure());
     });
 }
 
@@ -162,6 +162,6 @@ function listenForIframes(): void {
     });
 }
 
-logFailure(run(window));
+run(window).catch(logFailure());
 
 listenForIframes();

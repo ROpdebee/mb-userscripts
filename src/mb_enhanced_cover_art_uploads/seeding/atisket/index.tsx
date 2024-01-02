@@ -70,7 +70,7 @@ function addSeedLinkToCovers(mbids: string[], origin: string): void {
 function addDimensionsToCovers(): void {
     const covers = qsa<HTMLElement>('figure.cover');
     for (const fig of covers) {
-        logFailure(addDimensions(fig), 'Failed to insert image information');
+        addDimensions(fig).catch(logFailure('Failed to insert image information'));
     }
 }
 

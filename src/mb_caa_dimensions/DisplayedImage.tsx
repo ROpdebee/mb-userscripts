@@ -211,7 +211,7 @@ export const displayInfoWhenInView = ((): ((image: DisplayedImage) => void) => {
             .filter((entry) => entry.intersectionRatio > 0)
             .forEach((entry) => {
                 const image = imageMap.get(entry.target as HTMLImageElement)!;
-                logFailure(image.loadAndDisplay(), 'Failed to process image');
+                image.loadAndDisplay().catch(logFailure('Failed to process image'));
             });
     }
     const observer = new IntersectionObserver(inViewCb, {

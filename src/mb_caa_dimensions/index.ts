@@ -81,7 +81,7 @@ setupExports(cachePromise);
 onDocumentLoaded(() => {
     insertStylesheet(css);
 
-    logFailure(cachePromise.then((cache) => {
+    cachePromise.then((cache) => {
         detectAndObserveImages(cache);
-    }));
+    }).catch(logFailure());
 });
