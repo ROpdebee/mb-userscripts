@@ -2,11 +2,6 @@ const restrictedGlobals = require('confusing-browser-globals');
 // For eslint-plugin-simple-import-sort
 const builtinModulesJoined = require('module').builtinModules.join('|');
 
-// eslint-config-adjunct is logging stuff to the console, which is breaking
-// LSP-eslint in my IDE. This turns off the logging. Need to do it here since
-// the LSP plugin doesn't support setting env variables for the command, it seems.
-process.env.NO_LOGS = 'true';
-
 module.exports = {
     env: {
         node: true,
@@ -18,28 +13,24 @@ module.exports = {
         'plugin:@typescript-eslint/strict-type-checked',
         'plugin:@typescript-eslint/stylistic-type-checked',
         'plugin:eslint-comments/recommended',
-        'adjunct',
+        'plugin:sonarjs/recommended',
+        'plugin:unicorn/recommended',
+        'plugin:json/recommended-with-comments',
+        'plugin:markdown/recommended',
+        'plugin:array-func/recommended',
+        'plugin:promise/recommended',
+        'plugin:no-unsanitized/DOM',
     ],
     plugins: [
         '@typescript-eslint',
         'deprecation',
         'simple-import-sort',
         'disable',
+        'html',
+        'no-constructor-bind',
+        'no-use-extend-native',
     ],
     processor: 'disable/disable',
-    settings: {
-        'disable/plugins': [
-            // scanjs-rules is deprecated and its warnings are a bit stupid.
-            'scanjs-rules',
-            // Too many false positives
-            'security',
-            'no-secrets',
-            'pii',
-            'xss',
-            // Seems broken and unmaintained?
-            'const-case',
-        ],
-    },
     parserOptions: {
         ecmaVersion: 12,
         sourceType: 'module',
@@ -55,6 +46,10 @@ module.exports = {
         'newline-per-chained-call': 'warn',
         'padded-blocks': ['warn', 'never'],
         'no-multiple-empty-lines': 'warn',
+
+        'no-constructor-bind/no-constructor-bind': 'error',
+        'no-constructor-bind/no-constructor-state': 'error',
+        'no-use-extend-native/no-use-extend-native': 'error',
 
         '@typescript-eslint/semi': ['error', 'always'],
         '@typescript-eslint/comma-spacing': 'error',
@@ -221,11 +216,22 @@ module.exports = {
 
         'unicorn/no-negated-condition': 'off',
         'unicorn/no-process-exit': 'off',
-        // Clashes with switch-case/no-case-curly
-        'unicorn/switch-case-braces': 'off',
 
-        // Already included in unicorn/better-regex and doesn't allow disabling the sorting
-        'optimize-regex/optimize-regex': 'off',
+        // Enforce braces on non-trivial switch cases.
+        'unicorn/switch-case-braces': ['error', 'avoid'],
+
+        // These rules were explicitly disabled by ESLint-Adjunct.
+        // TODO: Revisit these.
+        'unicorn/filename-case': 0,
+        'unicorn/no-array-for-each': 0,
+        'unicorn/no-null': 0,
+        'unicorn/prefer-number-properties': 0,
+        'unicorn/prefer-optional-catch-binding': 0,
+        'unicorn/prevent-abbreviations': 0,
+        'sonarjs/no-duplicate-string': 'off',
+        'array-func/prefer-array-from': 'off',
+        'array-func/prefer-flat': 0,
+        'array-func/prefer-flat-map': 0,
     },
     overrides: [{
         // Override per eslint-plugin-jest documentation.
@@ -238,12 +244,6 @@ module.exports = {
         settings: {
             'disable/plugins': [
                 'no-unsanitized',
-                'scanjs-rules',
-                'security',
-                'no-secrets',
-                'pii',
-                'xss',
-                'const-case',
             ],
         },
         rules: {
