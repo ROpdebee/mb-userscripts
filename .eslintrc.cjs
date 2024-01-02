@@ -23,11 +23,9 @@ const baseJsConfig = {
         '@typescript-eslint',
         'deprecation',
         'simple-import-sort',
-        'disable',
         'no-constructor-bind',
         'no-use-extend-native',
     ],
-    processor: 'disable/disable',
     parserOptions: {
         ecmaVersion: 12,
         sourceType: 'module',
@@ -252,11 +250,6 @@ module.exports = {
             'plugin:jest/all',
             'plugin:jest-formatting/strict',
         ],
-        settings: {
-            'disable/plugins': [
-                'no-unsanitized',
-            ],
-        },
         rules: {
             ...baseJsConfig.rules,
             '@typescript-eslint/unbound-method': 'off',
@@ -271,6 +264,10 @@ module.exports = {
             // Turn off this stylistic rule because we need the ["key"] notation
             // to access private object properties.
             '@typescript-eslint/dot-notation': 'off',
+            // Turn off the warnings emitted by the `no-unsanitized` plugin.
+            // These are non-issues in tests.
+            'no-unsanitized/method': 'off',
+            'no-unsanitized/property': 'off',
         },
     }, {
         files: ['**/*.d.ts'],
