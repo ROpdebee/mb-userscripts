@@ -5,7 +5,7 @@ import type { Plugin } from 'rollup';
 import type { Primitive } from 'type-fest';
 
 type PrimitiveNoSymbol = Exclude<Primitive, symbol>;
-type AllowedValue = PrimitiveNoSymbol | AllowedValue[] | { [key: string | number]: AllowedValue };
+type AllowedValue = AllowedValue[] | PrimitiveNoSymbol | { [key: number | string]: AllowedValue };
 
 const moduleStart = 'consts:';
 

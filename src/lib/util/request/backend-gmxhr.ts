@@ -36,7 +36,7 @@ function createGMXHRResponse(options: RequestOptions | undefined, rawResponse: G
     }
 }
 
-export function performGMXHRRequest(method: RequestMethod, url: string | URL, options?: RequestOptions): Promise<Response> {
+export function performGMXHRRequest(method: RequestMethod, url: URL | string, options?: RequestOptions): Promise<Response> {
     return new Promise((resolve, reject) => {
         GMxmlHttpRequest({
             method,

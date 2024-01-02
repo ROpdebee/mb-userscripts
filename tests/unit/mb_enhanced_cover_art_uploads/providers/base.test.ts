@@ -14,7 +14,7 @@ import { registerMatchers } from '../test-utils/matchers';
 jest.mock('@lib/util/request');
 jest.mock('@lib/logging/logger');
 // eslint-disable-next-line jest/unbound-method
-const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [string | URL, unknown]>;
+const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [URL | string, unknown]>;
 // eslint-disable-next-line jest/unbound-method
 const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
 

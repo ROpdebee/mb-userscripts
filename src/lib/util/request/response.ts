@@ -84,7 +84,7 @@ export interface ArrayBufferResponse extends BaseResponse {
     readonly arrayBuffer: ArrayBuffer;
 }
 
-export type Response = TextResponse | BlobResponse | ArrayBufferResponse;
+export type Response = ArrayBufferResponse | BlobResponse | TextResponse;
 
 export type ResponseFor<T extends RequestOptions> = (
     T['responseType'] extends 'arraybuffer' ? ArrayBufferResponse

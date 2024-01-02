@@ -42,7 +42,7 @@ async function createFetchResponse(options: RequestOptions | undefined, rawRespo
     }
 }
 
-export async function performFetchRequest(method: RequestMethod, url: string | URL, options?: RequestOptions): Promise<Response> {
+export async function performFetchRequest(method: RequestMethod, url: URL | string, options?: RequestOptions): Promise<Response> {
     const rawResponse = await fetch(new URL(url), convertFetchOptions(method, options));
     return createFetchResponse(options, rawResponse);
 }

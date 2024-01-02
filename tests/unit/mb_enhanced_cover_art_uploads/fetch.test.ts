@@ -30,7 +30,7 @@ jest.mock('@src/mb_enhanced_cover_art_uploads/form');
 
 const mockpRetry = pRetry as jest.MockedFunction<typeof pRetry>;
 // eslint-disable-next-line jest/unbound-method
-const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [string | URL, unknown]>;
+const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [URL | string, unknown]>;
 // eslint-disable-next-line jest/unbound-method
 const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
 const mockGetMaximisedCandidates = getMaximisedCandidates as jest.MockedFunction<typeof getMaximisedCandidates>;

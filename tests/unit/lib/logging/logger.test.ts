@@ -15,7 +15,7 @@ class FakeSink implements LoggingSink {
 }
 
 const handlerNames: Array<keyof LoggingSink> = ['onDebug', 'onLog', 'onWarn', 'onError', 'onInfo', 'onSuccess'];
-type LoggerMethodName = 'debug' | 'log' | 'warn' | 'error' | 'info' | 'success';
+type LoggerMethodName = 'debug' | 'error' | 'info' | 'log' | 'success' | 'warn';
 const loggerMethodNames: LoggerMethodName[] = ['debug', 'log', 'info', 'success', 'warn', 'error'];
 const loggerToHandlerNames = Object.fromEntries(loggerMethodNames
     .map((name) => [name, 'on' + name[0].toUpperCase() + name.slice(1) as keyof LoggingSink]));

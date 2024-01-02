@@ -60,7 +60,7 @@ export class DispatchMap<Leaf> {
 
     // Using composition over inheritance because our interface is semantically
     // different from that of a standard map
-    private readonly map = new Map<string, Leaf | DispatchMap<Leaf>>();
+    private readonly map = new Map<string, DispatchMap<Leaf> | Leaf>();
 
     public set(domainPattern: string, leaf: Leaf): this {
         // Don't allow e.g. sub*.domain.com or *.com or domain.* or a.*.c.com.
@@ -80,14 +80,14 @@ export class DispatchMap<Leaf> {
     }
 
     private _get(domainPart: '' | '*'): Leaf | undefined;
-    private _get(domainPart: string): Leaf | DispatchMap<Leaf> | undefined;
-    private _get(domainPart: string): Leaf | DispatchMap<Leaf> | undefined {
+    private _get(domainPart: string): DispatchMap<Leaf> | Leaf | undefined;
+    private _get(domainPart: string): DispatchMap<Leaf> | Leaf | undefined {
         return this.map.get(domainPart);
     }
 
     private _set(domainPart: '' | '*', value: Leaf): this;
-    private _set(domainPart: string, value: Leaf | DispatchMap<Leaf>): this;
-    private _set(domainPart: string, value: Leaf | DispatchMap<Leaf>): this {
+    private _set(domainPart: string, value: DispatchMap<Leaf> | Leaf): this;
+    private _set(domainPart: string, value: DispatchMap<Leaf> | Leaf): this {
         this.map.set(domainPart, value);
         return this;
     }

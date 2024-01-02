@@ -8,7 +8,7 @@ describe('console logging sink', () => {
         sinks: [new ConsoleSink('test script')],
     });
 
-    type LogLevel = 'debug' | 'log' | 'info' | 'warn' | 'error';
+    type LogLevel = 'debug' | 'error' | 'info' | 'log' | 'warn';
     const allLevels: LogLevel[] = ['debug', 'log', 'info', 'warn', 'error'];
     const levelsWithExceptions: LogLevel[] = ['error', 'warn'];
 

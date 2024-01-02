@@ -3,10 +3,10 @@ import { request } from '@lib/util/request';
 import type { ReleaseAdvancedRelationship, URLAdvancedRelationship } from './advanced-relationships';
 
 interface ReleaseMetadataWithARs {
-    relations?: Array<URLAdvancedRelationship & ReleaseAdvancedRelationship>;
+    relations?: Array<ReleaseAdvancedRelationship & URLAdvancedRelationship>;
 }
 
-export async function getReleaseUrlARs(releaseId: string): Promise<Array<URLAdvancedRelationship & ReleaseAdvancedRelationship>> {
+export async function getReleaseUrlARs(releaseId: string): Promise<Array<ReleaseAdvancedRelationship & URLAdvancedRelationship>> {
     // TODO: Interacting with the ws/ endpoint should probably be factored out
     const response = await request.get(`https://musicbrainz.org/ws/2/release/${releaseId}?inc=url-rels&fmt=json`);
     const metadata = await response.json() as ReleaseMetadataWithARs;

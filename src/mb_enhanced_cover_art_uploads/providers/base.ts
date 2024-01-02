@@ -25,7 +25,7 @@ export abstract class CoverArtProvider {
     /**
      * URL of the provider's favicon, for use in import buttons.
      */
-    public abstract get favicon(): string | Promise<string>;
+    public abstract get favicon(): Promise<string> | string;
     /**
      * Provider name, used in import buttons.
      */

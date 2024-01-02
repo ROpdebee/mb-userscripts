@@ -14,7 +14,7 @@ interface CAAIndex {
     images: Array<{
         comment: string;
         types: string[];
-        id: string | number; // Used to be string in the past, hasn't been applied retroactively yet, see CAA-129
+        id: number | string; // Used to be string in the past, hasn't been applied retroactively yet, see CAA-129
         image: string;
     }>;
 }

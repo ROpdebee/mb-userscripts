@@ -5,7 +5,7 @@ export enum RequestBackend {
 
 // eslint-disable-next-line no-restricted-globals
 export type RequestMethod = GM.Request['method'];
-export type ResponseType = 'text' | 'blob' | 'arraybuffer';
+export type ResponseType = 'arraybuffer' | 'blob' | 'text';
 export type ProgressCallback = (progressEvent: ProgressEvent) => void;
 
 export interface RequestOptions {

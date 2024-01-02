@@ -274,7 +274,7 @@ export class ImageFetcher {
         };
     }
 
-    private async determineMimeType(response: BlobResponse): Promise<{ mimeType: string; isImage: true } | { mimeType: string | undefined; isImage: false }> {
+    private async determineMimeType(response: BlobResponse): Promise<{ isImage: false; mimeType: string | undefined } | { isImage: true; mimeType: string }> {
         const rawFile = new File([response.blob], 'image');
         return new Promise((resolve) => {
             // Adapted from https://github.com/metabrainz/musicbrainz-server/blob/2b00b844f3fe4293fc4ccb9de1c30e3c2ddc95c1/root/static/scripts/edit/MB/CoverArt.js#L139

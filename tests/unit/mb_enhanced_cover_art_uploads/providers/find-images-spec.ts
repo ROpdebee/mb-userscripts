@@ -19,7 +19,7 @@ export interface ExtractionCase {
 export interface ExtractionFailedCase {
     description: string;
     url: string;
-    errorMessage?: string | RegExp;
+    errorMessage?: RegExp | string;
 }
 
 interface SpecificationArguments {

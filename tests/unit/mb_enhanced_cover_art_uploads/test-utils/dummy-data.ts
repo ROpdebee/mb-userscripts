@@ -48,7 +48,7 @@ export function createFetchedImage(data?: Partial<FetchedImage>): FetchedImage {
     };
 }
 
-export function createCoverArt(data?: Partial<CoverArt> | string | URL): CoverArt {
+export function createCoverArt(data?: Partial<CoverArt> | URL | string): CoverArt {
     if (data instanceof URL) {
         data = {
             url: data,

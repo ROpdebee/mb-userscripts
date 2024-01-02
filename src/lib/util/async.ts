@@ -6,7 +6,7 @@ export function asyncSleep(ms?: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function retryTimes<T>(function_: () => T | Promise<T>, times: number, retryWait: number): Promise<T> {
+export function retryTimes<T>(function_: () => Promise<T> | T, times: number, retryWait: number): Promise<T> {
     if (times <= 0) {
         return Promise.reject(new TypeError(`Invalid number of retry times: ${times}`));
     }
@@ -40,7 +40,7 @@ export function logFailure(message = 'An error occurred'): ((error: Error) => vo
 /**
  * Polyfill for Promise.prototype.finally.
  */
-export async function pFinally<T>(promise: Promise<T>, onFinally: () => (void | Promise<void>)): Promise<T> {
+export async function pFinally<T>(promise: Promise<T>, onFinally: () => (Promise<void> | void)): Promise<T> {
     try {
         return await promise;
     } finally {

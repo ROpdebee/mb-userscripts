@@ -87,9 +87,9 @@ export class ObservableSemaphore {
      */
     public runInSection<T>(runnable: () => Promise<T>): Promise<T>;
     public runInSection<T>(runnable: () => T): T;
-    public runInSection<T>(runnable: () => T | Promise<T>): T | Promise<T> {
+    public runInSection<T>(runnable: () => Promise<T> | T): Promise<T> | T {
         this.acquire();
-        let result: T | Promise<T> | undefined;
+        let result: Promise<T> | T | undefined;
 
         try {
             result = runnable();
