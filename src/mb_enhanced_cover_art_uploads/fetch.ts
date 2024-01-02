@@ -291,23 +291,23 @@ export class ImageFetcher {
                     resolve({ mimeType: 'image/jpeg', isImage: true });
                 } else {
                     switch (uint32view[0]) {
-                    case 0x38464947:
-                        resolve({ mimeType: 'image/gif', isImage: true });
-                        break;
+                        case 0x38464947:
+                            resolve({ mimeType: 'image/gif', isImage: true });
+                            break;
 
-                    case 0x474E5089:
-                        resolve({ mimeType: 'image/png', isImage: true });
-                        break;
+                        case 0x474E5089:
+                            resolve({ mimeType: 'image/png', isImage: true });
+                            break;
 
-                    case 0x46445025:
-                        resolve({ mimeType: 'application/pdf', isImage: true });
-                        break;
+                        case 0x46445025:
+                            resolve({ mimeType: 'application/pdf', isImage: true });
+                            break;
 
-                    default:
-                        resolve({
-                            mimeType: response.headers.get('Content-Type')?.match(/[^;\s]+/)?.[0],
-                            isImage: false,
-                        });
+                        default:
+                            resolve({
+                                mimeType: response.headers.get('Content-Type')?.match(/[^;\s]+/)?.[0],
+                                isImage: false,
+                            });
                     }
                 }
             });

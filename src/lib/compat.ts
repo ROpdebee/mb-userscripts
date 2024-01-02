@@ -1,7 +1,6 @@
 // Compatibility wrappers
 // istanbul ignore file: Covered by E2E
 
-
 /* eslint-disable no-restricted-globals */
 
 // Declare v3 GM_* APIs, but not globally.

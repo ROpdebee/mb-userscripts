@@ -128,7 +128,7 @@ export abstract class CoverArtProvider {
 export interface ParsedTrackImage {
     url: string;
     trackNumber?: string;
-    customCommentPrefix?: [string, string];  // singular, plural
+    customCommentPrefix?: [string, string]; // singular, plural
 }
 
 export abstract class HeadMetaPropertyProvider extends CoverArtProvider {

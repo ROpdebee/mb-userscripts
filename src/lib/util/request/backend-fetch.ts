@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-globals */
 
 import type { RequestMethod, RequestOptions } from './request-options';
-import type { Response} from './response';
-import { createTextResponse} from './response';
+import type { Response } from './response';
+import { createTextResponse } from './response';
 
 function convertFetchOptions(method: RequestMethod, options?: RequestOptions): RequestInit | undefined {
     // istanbul ignore next: We always need to pass options to test the fetch backend, since it'll always default to GMXHR in the tests.
@@ -25,20 +25,20 @@ async function createFetchResponse(options: RequestOptions | undefined, rawRespo
     };
 
     switch (responseType) {
-    case 'text':
-        return createTextResponse(baseResponse, await rawResponse.text());
+        case 'text':
+            return createTextResponse(baseResponse, await rawResponse.text());
 
-    case 'blob':
-        return {
-            ...baseResponse,
-            blob: await rawResponse.blob(),
-        };
+        case 'blob':
+            return {
+                ...baseResponse,
+                blob: await rawResponse.blob(),
+            };
 
-    case 'arraybuffer':
-        return {
-            ...baseResponse,
-            arrayBuffer: await rawResponse.arrayBuffer(),
-        };
+        case 'arraybuffer':
+            return {
+                ...baseResponse,
+                arrayBuffer: await rawResponse.arrayBuffer(),
+            };
     }
 }
 

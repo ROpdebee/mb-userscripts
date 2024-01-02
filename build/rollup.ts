@@ -37,7 +37,7 @@ const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
 
 const TERSER_OPTIONS: MinifyOptions = {
     ecma: 5,
-    safari10: true,  // Supported by MB
+    safari10: true, // Supported by MB
     compress: {
         passes: 4,
     },
@@ -46,7 +46,7 @@ const TERSER_OPTIONS: MinifyOptions = {
 };
 
 const SKIP_PACKAGES = new Set(['lib', 'types']);
-const MAX_FEATURE_HISTORY = 10;  // Include only the last 10 new features of the changelog
+const MAX_FEATURE_HISTORY = 10; // Include only the last 10 new features of the changelog
 
 export async function buildUserscripts(version: string, outputDirectory: string = OUTPUT_DIR): Promise<void> {
     const sourceDirectories = await fs.promises.readdir('./src');

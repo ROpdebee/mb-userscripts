@@ -202,7 +202,6 @@ export interface maxurlInterface {
 
 declare const $$IMU_EXPORT$$: maxurlInterface;
 
-
 // IMU does its initialisation synchronously, and it's loaded before the
 // userscript is executed, so $$IMU_EXPORT$$ should already exist now. However,
 // it does not exist in tests, and we can't straightforwardly inject this variable
@@ -242,7 +241,7 @@ export interface MaximisedImage {
 export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<MaximisedImage, void, undefined> {
     const exceptionFunction = IMU_EXCEPTIONS.get(smallurl.hostname);
     const iterable = await (exceptionFunction ?? maximiseGeneric)(smallurl);
-    yield* iterable;
+    yield * iterable;
 }
 
 async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {

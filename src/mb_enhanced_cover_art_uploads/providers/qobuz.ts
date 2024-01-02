@@ -20,7 +20,7 @@ interface Goodie {
 interface AlbumMetadata {
     id: number;
     image: {
-        large: string;  // Note: Not the original
+        large: string; // Note: Not the original
         small: string;
         thumbnail: string;
         // TODO: What's the format of these? I tried a bunch of well-known

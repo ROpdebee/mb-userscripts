@@ -10,25 +10,25 @@ const mbMatchedUrls = [
 ].map((url) => transformMBMatchURL(url));
 
 const metadata: UserscriptMetadata = {
-    name: 'MB: Enhanced Cover Art Uploads',
-    description: 'Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!',
+    'name': 'MB: Enhanced Cover Art Uploads',
+    'description': 'Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!',
     'run-at': 'document-end',
-    match: [
+    'match': [
         ...mbMatchedUrls,
         '*://atisket.pulsewidth.org.uk/*',
         '*://etc.marlonob.info/atisket/*',
         '*://vgmdb.net/album/*',
     ],
-    exclude: ['*://atisket.pulsewidth.org.uk/'],
-    grant: [
+    'exclude': ['*://atisket.pulsewidth.org.uk/'],
+    'grant': [
         'GM.xmlhttpRequest',
         // Used for some favicons
         'GM.getResourceURL',
     ],
-    connect: '*',
-    require: ['https://github.com/qsniyg/maxurl/blob/87bbca876f8d6ae9bdc4b4d3f85bbbc36b238d23/userscript.user.js?raw=true'],
-    resource: ['amazonFavicon https://www.amazon.com/favicon.ico'],
-    blurb: dedent`
+    'connect': '*',
+    'require': ['https://github.com/qsniyg/maxurl/blob/87bbca876f8d6ae9bdc4b4d3f85bbbc36b238d23/userscript.user.js?raw=true'],
+    'resource': ['amazonFavicon https://www.amazon.com/favicon.ico'],
+    'blurb': dedent`
       Enhance the cover art uploader!
 
       In a nutshell:

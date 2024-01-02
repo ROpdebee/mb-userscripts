@@ -12,7 +12,6 @@ export type { RequestMethod, RequestOptions } from './request-options';
 export { RequestBackend } from './request-options';
 export type { ArrayBufferResponse, BlobResponse, ProgressEvent, Response, TextResponse } from './response';
 
-
 interface RequestFunction {
     <RequestOptionsT extends RequestOptions>(method: RequestMethod, url: string | URL, options: RequestOptionsT): Promise<ResponseFor<RequestOptionsT>>;
     (method: RequestMethod, url: string | URL): Promise<TextResponse>;
@@ -52,10 +51,10 @@ request.head = request.bind(undefined, 'HEAD');
 
 function performRequest(backend: RequestBackend, method: RequestMethod, url: string | URL, options?: RequestOptions): Promise<Response> {
     switch (backend) {
-    case RequestBackend.FETCH:
-        return performFetchRequest(method, url, options);
+        case RequestBackend.FETCH:
+            return performFetchRequest(method, url, options);
 
-    case RequestBackend.GMXHR:
-        return performGMXHRRequest(method, url, options);
+        case RequestBackend.GMXHR:
+            return performGMXHRRequest(method, url, options);
     }
 }

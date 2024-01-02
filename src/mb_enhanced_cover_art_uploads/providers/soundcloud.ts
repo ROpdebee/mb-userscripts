@@ -133,7 +133,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         // https://soundcloud.com/jonnypalding/sets/talk-21/s-Oeb9wlaKWyl
         // Not sure what the last path component means, but it's required to
         // open that set. Perhaps because it's private?
-        return url.pathname.slice(1);  // Remove leading slash
+        return url.pathname.slice(1); // Remove leading slash
     }
 
     public async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {

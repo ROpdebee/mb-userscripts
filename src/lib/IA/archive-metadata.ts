@@ -10,10 +10,10 @@ export interface ArchiveMetadata {
 }
 
 export interface ArchiveFileMetadata {
-    name: string;  // For files in subdirectories, this will contain the full path including directory paths.
+    name: string; // For files in subdirectories, this will contain the full path including directory paths.
     source: 'original' | 'derivative';
     format: string;
-    size: string;  // String, for some reason
+    size: string; // String, for some reason
 }
 
 /**

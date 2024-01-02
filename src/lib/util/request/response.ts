@@ -88,8 +88,8 @@ export type Response = TextResponse | BlobResponse | ArrayBufferResponse;
 
 export type ResponseFor<T extends RequestOptions> = (
     T['responseType'] extends 'arraybuffer' ? ArrayBufferResponse
-    : T['responseType'] extends 'blob' ? BlobResponse
-    : TextResponse);
+        : T['responseType'] extends 'blob' ? BlobResponse
+            : TextResponse);
 
 export interface ProgressEvent {
     lengthComputable: boolean;

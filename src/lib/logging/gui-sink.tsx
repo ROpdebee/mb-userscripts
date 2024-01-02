@@ -15,7 +15,7 @@ export class GuiSink implements LoggingSink {
         // Inject our custom CSS
         insertStylesheet(css, 'ROpdebee_GUI_Logger');
 
-        this.rootElement = <div id='ROpdebee_log_container' style={{ display: 'none' }} />;
+        this.rootElement = <div id="ROpdebee_log_container" style={{ display: 'none' }} />;
     }
 
     private createMessage(className: string, message: string, exception?: unknown): HTMLSpanElement {

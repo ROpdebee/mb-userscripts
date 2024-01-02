@@ -147,7 +147,6 @@ function urlToDirectImageUrl(url: string): string {
     return urlObject.href;
 }
 
-
 /**
  * Parse IDs from CAA URLs.
  *
@@ -177,7 +176,6 @@ function parseCAAIDs(url: string): [string, string] {
     return [itemId, imageId];
 }
 
-
 export class CAAImage extends BaseImage {
     private readonly itemId: string;
     private readonly imageId: string;
@@ -194,7 +192,6 @@ export class CAAImage extends BaseImage {
         return getCAAInfo(this.itemId, this.imageId);
     }
 }
-
 
 export class QueuedUploadImage implements Image {
     private readonly imageElement: HTMLImageElement;

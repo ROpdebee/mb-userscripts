@@ -52,7 +52,7 @@ abstract class BaseDisplayedImage implements DisplayedImage {
         if (this._dimensionsSpan !== null) return this._dimensionsSpan;
 
         // First time accessing the dimensions, add it now.
-        this._dimensionsSpan = <span className={'ROpdebee_dimensions'}></span>;
+        this._dimensionsSpan = <span className="ROpdebee_dimensions"></span>;
         this.imageElement.insertAdjacentElement('afterend', this._dimensionsSpan);
         return this._dimensionsSpan;
     }
@@ -63,7 +63,7 @@ abstract class BaseDisplayedImage implements DisplayedImage {
         this._fileInfoSpan = qsMaybe<HTMLSpanElement>('span.ROpdebee_fileInfo', this.imageElement.parentElement!);
         if (this._fileInfoSpan !== null) return this._fileInfoSpan;
 
-        this._fileInfoSpan = <span className={'ROpdebee_fileInfo'}></span>;
+        this._fileInfoSpan = <span className="ROpdebee_fileInfo"></span>;
         this.dimensionsSpan.insertAdjacentElement('afterend', this._fileInfoSpan);
         return this._fileInfoSpan;
     }
@@ -188,9 +188,9 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
 
 export function displayedCoverArtFactory(image: HTMLImageElement, cache: InfoCache): DisplayedImage | undefined {
     try {
-        if (image.closest('.artwork-cont') !== null) {  // Release cover art tab
+        if (image.closest('.artwork-cont') !== null) { // Release cover art tab
             return new CoverArtTabCAAImage(image, cache);
-        } else if (image.closest('.thumb-position') !== null || image.closest('form#set-cover-art') !== null) {  // Add cover art page, existing images; set-cover-art pages for RG
+        } else if (image.closest('.thumb-position') !== null || image.closest('form#set-cover-art') !== null) { // Add cover art page, existing images; set-cover-art pages for RG
             return new ThumbnailCAAImage(image, cache);
         } else {
             return new ArtworkImageAnchorCAAImage(image, cache);

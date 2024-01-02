@@ -10,7 +10,7 @@ export type ProgressCallback = (progressEvent: ProgressEvent) => void;
 
 export interface RequestOptions {
     headers?: Record<string, string>;
-    body?: string;  // TODO: Support at least FormData as well.
+    body?: string; // TODO: Support at least FormData as well.
 
     /**
      * Expected response type for the request. Defaults to text.

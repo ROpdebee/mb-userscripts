@@ -61,7 +61,9 @@ export function onAddEntityDialogLoaded(dialog: HTMLIFrameElement, listener: () 
     if (qsMaybe('.content-loading', dialog.parentElement!) === null) {
         listener();
     } else {
-        dialog.addEventListener('load', () => { listener(); });
+        dialog.addEventListener('load', () => {
+            listener();
+        });
     }
 }
 
@@ -80,7 +82,7 @@ export function parseDOM(html: string, baseUrl: string): Document {
     return document_;
 }
 
-const inputValueDescriptor = /*#__PURE__*/ Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+const inputValueDescriptor = /* #__PURE__ */ Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
 
 // https://stackoverflow.com/a/46012210
 // Via kellnerd, https://github.com/kellnerd/musicbrainz-bookmarklets/blob/730ed0f96a81ef9bb239ed564f247bd68f84bee3/utils/dom/react.js

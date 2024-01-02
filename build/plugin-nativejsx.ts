@@ -10,7 +10,6 @@ import appendChildren from 'nativejsx/source/prototypal-helpers/appendChildren';
 import setAttributes from 'nativejsx/source/prototypal-helpers/setAttributes';
 import setStyles from 'nativejsx/source/prototypal-helpers/setStyles';`;
 
-
 interface NativeJSXPluginOptions extends Partial<JSXOptions> {
     include?: FilterPattern;
     exclude?: FilterPattern;

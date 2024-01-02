@@ -10,7 +10,6 @@ export function filterNonNull<T>(array: Array<T | null | undefined>): T[] {
         !(element === null || element === undefined)) as T[];
 }
 
-
 export function findRight<T>(array: T[], predicate: (element: T) => boolean): T | null {
     for (let index = array.length - 1; index >= 0; index--) {
         if (predicate(array[index])) return array[index];

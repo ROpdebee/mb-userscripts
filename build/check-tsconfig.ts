@@ -4,7 +4,6 @@ import path from 'node:path';
 import type { TsConfigJson } from 'type-fest';
 import { glob } from 'glob';
 
-
 // Assumes that comments start on their own line.
 function stripComments(jsonContent: string): string {
     return jsonContent

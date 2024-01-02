@@ -139,7 +139,6 @@ async function reportPreview({ github, context }) {
     }
 }
 
-
 module.exports = {
     reportDeploy,
     reportPreview,

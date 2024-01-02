@@ -5,7 +5,6 @@ import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
-
 export class RateYourMusicProvider extends CoverArtProvider {
     public readonly supportedDomains = ['rateyourmusic.com'];
     public readonly favicon = 'https://e.snmc.io/2.5/img/sonemic.png';

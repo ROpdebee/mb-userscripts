@@ -3,9 +3,9 @@
 import { GMxmlHttpRequest } from '@lib/compat';
 
 import type { RequestMethod, RequestOptions } from './request-options';
-import type { Response} from './response';
+import type { Response } from './response';
 import { AbortedError, NetworkError, TimeoutError } from './errors';
-import { createTextResponse} from './response';
+import { createTextResponse } from './response';
 import { ResponseHeadersImpl } from './response';
 
 function createGMXHRResponse(options: RequestOptions | undefined, rawResponse: GM.Response<never>): Response {
@@ -19,20 +19,20 @@ function createGMXHRResponse(options: RequestOptions | undefined, rawResponse: G
     };
 
     switch (responseType) {
-    case 'text':
-        return createTextResponse(baseResponse, rawResponse.responseText);
+        case 'text':
+            return createTextResponse(baseResponse, rawResponse.responseText);
 
-    case 'blob':
-        return {
-            ...baseResponse,
-            blob: rawResponse.response as Blob,
-        };
+        case 'blob':
+            return {
+                ...baseResponse,
+                blob: rawResponse.response as Blob,
+            };
 
-    case 'arraybuffer':
-        return {
-            ...baseResponse,
-            arrayBuffer: rawResponse.response as ArrayBuffer,
-        };
+        case 'arraybuffer':
+            return {
+                ...baseResponse,
+                arrayBuffer: rawResponse.response as ArrayBuffer,
+            };
     }
 }
 

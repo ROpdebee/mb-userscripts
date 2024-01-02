@@ -87,13 +87,13 @@ function mapDiscType(mediumType: string, caption: string): MappedArtwork {
         // As a regular expression because it might be surrounded in parentheses
         if (/reverse|back/i.test(keyword)) {
             type = ArtworkTypeIDs['Matrix/Runout'];
-        } else if (!/front/i.test(keyword)) {  // Don't include "front" for e.g. "Disc Front"
+        } else if (!/front/i.test(keyword)) { // Don't include "front" for e.g. "Disc Front"
             commentParts.push(keyword);
         }
     }
 
     // If the comment starts with a sequence number or isn't just "Disc", add the medium type
-    if (commentParts.length > 0 && /^\d+/.test(commentParts[0]) || mediumType !== 'Disc') {
+    if ((commentParts.length > 0 && /^\d+/.test(commentParts[0])) || mediumType !== 'Disc') {
         commentParts.unshift(mediumType);
     }
 
@@ -106,28 +106,28 @@ function mapDiscType(mediumType: string, caption: string): MappedArtwork {
 // Keys: First word of the VGMdb caption (mostly structured), lower-cased
 // Values: Either MappedArtwork or a callable taking the remainder of the caption and returning MappedArtwork
 const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) => MappedArtwork)> = {
-    front: ArtworkTypeIDs.Front,
-    booklet: ArtworkTypeIDs.Booklet,
-    jacket: mapPackagingType.bind(undefined, 'Jacket'), // DVD jacket
-    disc: mapDiscType.bind(undefined, 'Disc'),
-    cd: mapDiscType.bind(undefined, 'CD'),
-    cassette: ArtworkTypeIDs.Medium,
-    vinyl: ArtworkTypeIDs.Medium,
-    dvd: mapDiscType.bind(undefined, 'DVD'),
+    'front': ArtworkTypeIDs.Front,
+    'booklet': ArtworkTypeIDs.Booklet,
+    'jacket': mapPackagingType.bind(undefined, 'Jacket'), // DVD jacket
+    'disc': mapDiscType.bind(undefined, 'Disc'),
+    'cd': mapDiscType.bind(undefined, 'CD'),
+    'cassette': ArtworkTypeIDs.Medium,
+    'vinyl': ArtworkTypeIDs.Medium,
+    'dvd': mapDiscType.bind(undefined, 'DVD'),
     'blu-ray': mapDiscType.bind(undefined, 'Blu‐ray'),
-    tray: ArtworkTypeIDs.Tray,
-    back: ArtworkTypeIDs.Back,
-    obi: ArtworkTypeIDs.Obi,
-    box: mapPackagingType.bind(undefined, 'Box'),
-    card: { type: ArtworkTypeIDs.Other, comment: 'Card' },
-    sticker: ArtworkTypeIDs.Sticker,
-    slipcase: mapPackagingType.bind(undefined, 'Slipcase'),
-    digipack: mapPackagingType.bind(undefined, 'Digipak'),
-    sleeve: mapPackagingType.bind(undefined, 'Sleeve'),
-    insert: { type: ArtworkTypeIDs.Other, comment: 'Insert' }, // Or poster?
-    inside: ArtworkTypeIDs.Tray,
-    case: mapPackagingType.bind(undefined, 'Case'),
-    contents: ArtworkTypeIDs['Raw/Unedited'],
+    'tray': ArtworkTypeIDs.Tray,
+    'back': ArtworkTypeIDs.Back,
+    'obi': ArtworkTypeIDs.Obi,
+    'box': mapPackagingType.bind(undefined, 'Box'),
+    'card': { type: ArtworkTypeIDs.Other, comment: 'Card' },
+    'sticker': ArtworkTypeIDs.Sticker,
+    'slipcase': mapPackagingType.bind(undefined, 'Slipcase'),
+    'digipack': mapPackagingType.bind(undefined, 'Digipak'),
+    'sleeve': mapPackagingType.bind(undefined, 'Sleeve'),
+    'insert': { type: ArtworkTypeIDs.Other, comment: 'Insert' }, // Or poster?
+    'inside': ArtworkTypeIDs.Tray,
+    'case': mapPackagingType.bind(undefined, 'Case'),
+    'contents': ArtworkTypeIDs['Raw/Unedited'],
 };
 
 function convertMappingReturnValue(returnValue: MappedArtwork): { types: ArtworkTypeIDs[]; comment: string } {

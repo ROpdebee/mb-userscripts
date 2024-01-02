@@ -25,12 +25,12 @@ const CACHE_TIMESTAMP_NAME = 'ROpdebee_Last_Cache_Prune_Check';
 /**
  * Minimum amount of time (in seconds) between two cache cleanup checks.
  */
-const CACHE_CHECK_INTERVAL: number = 24 * 60 * 60 * 1000;   // Daily
+const CACHE_CHECK_INTERVAL: number = 24 * 60 * 60 * 1000; // Daily
 
 /**
  * Time until a cache entry is marked as stale and deleted.
  */
-const CACHE_STALE_TIME: number = 14 * 24 * 60 * 60 * 1000;  // 2 weeks
+const CACHE_STALE_TIME: number = 14 * 24 * 60 * 60 * 1000; // 2 weeks
 
 interface CacheDBSchema extends DBSchema {
     [CACHE_DIMENSIONS_STORE_NAME]: {
@@ -279,8 +279,7 @@ async function maybePruneDatabase(database: IDBPDatabase<CacheDBSchema>): Promis
     localStorage.setItem(CACHE_TIMESTAMP_NAME, Date.now().toString());
 }
 
-
-//// Legacy stuff
+// Legacy stuff
 
 interface CacheDBSchemaV1 extends DBSchema {
     'cacheStore': {

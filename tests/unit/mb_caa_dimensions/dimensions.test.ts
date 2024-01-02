@@ -85,7 +85,6 @@ describe('retrieving image dimensions', () => {
         mockImageDimensions(imageElement, 100, 200);
         imageElement.dispatchEvent(new Event('load'));
 
-
         await expect(dimsProm)
             .resolves.toMatchObject({
                 height: 1200,

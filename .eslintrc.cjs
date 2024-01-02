@@ -1,6 +1,30 @@
 const restrictedGlobals = require('confusing-browser-globals');
 // For eslint-plugin-simple-import-sort
 const builtinModulesJoined = require('module').builtinModules.join('|');
+const stylistic = require('@stylistic/eslint-plugin');
+
+const stylisticCustom = stylistic.configs.customize({
+    flat: false,
+    indent: 4,
+    quotes: 'single',
+    semi: true,
+    braceStyle: '1tbs',
+    jsx: true,
+    arrowParens: true,
+});
+
+const stylisticRules = {
+    ...stylisticCustom.rules,
+    // @stylistic sets an override to forbid semicolons in multiline interfaces.
+    // We want them anyway.
+    '@stylistic/member-delimiter-style': ['error', {
+        overrides: {}
+    }],
+    // @stylistic sets `avoidEscape` to false.
+    '@stylistic/quotes': ['error', 'single', {
+        avoidEscape: true,
+    }],
+}
 
 const baseJsConfig = {
     env: {
@@ -21,6 +45,7 @@ const baseJsConfig = {
     ],
     plugins: [
         '@typescript-eslint',
+        '@stylistic',
         'deprecation',
         'simple-import-sort',
         'no-constructor-bind',
@@ -32,23 +57,10 @@ const baseJsConfig = {
         project: 'configs/tsconfig.glue-eslint.json',
     },
     rules: {
-        'indent': ['error', 4],
-        'linebreak-style': ['error', 'unix'],
-        'quotes': ['error', 'single', {
-            avoidEscape: true
-        }],
-        'newline-per-chained-call': 'warn',
-        'padded-blocks': ['warn', 'never'],
-        'no-multiple-empty-lines': 'warn',
-
         'no-constructor-bind/no-constructor-bind': 'error',
         'no-constructor-bind/no-constructor-state': 'error',
         'no-use-extend-native/no-use-extend-native': 'error',
 
-        '@typescript-eslint/semi': ['error', 'always'],
-        '@typescript-eslint/comma-spacing': 'error',
-        'arrow-parens': ['error', 'always'],
-        '@typescript-eslint/comma-dangle': ['warn', 'always-multiline'],
         'no-restricted-globals': ['error', 'origin'].concat(restrictedGlobals),
         'deprecation/deprecation': 'warn',
         'eslint-comments/no-unused-disable': 'warn',
@@ -116,10 +128,6 @@ const baseJsConfig = {
         }],
         '@typescript-eslint/explicit-function-return-type': 'error',
         '@typescript-eslint/explicit-member-accessibility': 'error',
-        '@typescript-eslint/lines-between-class-members': ['warn', 'always', {
-            exceptAfterSingleLine: true,
-        }],
-        '@typescript-eslint/member-delimiter-style': 'error',
         '@typescript-eslint/no-base-to-string': 'error',
         '@typescript-eslint/no-confusing-void-expression': 'error',
         '@typescript-eslint/no-floating-promises': 'error',
@@ -155,7 +163,6 @@ const baseJsConfig = {
         '@typescript-eslint/restrict-plus-operands': 'error',
         '@typescript-eslint/return-await': 'error',
         '@typescript-eslint/switch-exhaustiveness-check': 'error',
-        '@typescript-eslint/type-annotation-spacing': 'error',
         '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
         '@typescript-eslint/unified-signatures': 'error',
 
@@ -236,6 +243,8 @@ const baseJsConfig = {
         'array-func/prefer-array-from': 'off',
         'array-func/prefer-flat': 'error',
         'array-func/prefer-flat-map': 'error',
+
+        ...stylisticRules,
     },
 };
 

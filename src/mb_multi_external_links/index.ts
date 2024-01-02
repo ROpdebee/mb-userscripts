@@ -7,7 +7,6 @@ import { asyncSleep, logFailure, retryTimes } from '@lib/util/async';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { onAddEntityDialogLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
-
 function getExternalLinksEditor(mbInstance: typeof window.MB): ExternalLinks {
     // Can be found in the MB object, but exact property depends on actual page.
     const editor = (mbInstance.releaseEditor?.externalLinks.externalLinksEditorRef ?? mbInstance.sourceExternalLinksEditor)?.current;

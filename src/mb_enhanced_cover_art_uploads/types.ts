@@ -54,7 +54,7 @@ export interface FetchedImage extends BaseFetchedImage {
     // will be replaced by the default, if any. If defined but empty, the
     // default will not be used.
     types?: ArtworkTypeIDs[];
-    comment?: string;  // Can be empty string
+    comment?: string; // Can be empty string
 }
 
 /** Image that was fetched and queued. */

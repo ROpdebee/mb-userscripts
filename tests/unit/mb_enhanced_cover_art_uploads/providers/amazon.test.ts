@@ -62,14 +62,16 @@ describe('amazon provider', () => {
         };
         // This was the expected result for the Amazon Music release, we may need
         // this again in the future.
-        /* const expectedDigital = {
+        /*
+        const expectedDigital = {
             imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '819w7BrMFgL',
                 types: [ArtworkTypeIDs.Front],
             }],
-        };*/
+        };
+        */
 
         const extractionCases: ExtractionCase[] = [{
             description: 'physical products from the embedded JS on dp URLs',

@@ -14,7 +14,7 @@ interface CAAIndex {
     images: Array<{
         comment: string;
         types: string[];
-        id: string | number;  // Used to be string in the past, hasn't been applied retroactively yet, see CAA-129
+        id: string | number; // Used to be string in the past, hasn't been applied retroactively yet, see CAA-129
         image: string;
     }>;
 }
@@ -29,8 +29,8 @@ export class ArchiveProvider extends CoverArtProvider {
     private static readonly IMAGE_FILE_FORMATS = [
         'JPEG',
         'PNG',
-        'Text PDF',  // TODO: Is there a non-text variant?
-        'Animated GIF',  // TODO: Is there a non-animated variant?
+        'Text PDF', // TODO: Is there a non-text variant?
+        'Animated GIF', // TODO: Is there a non-animated variant?
     ];
 
     public async findImages(url: URL): Promise<CoverArt[]> {

@@ -11,11 +11,11 @@ import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 const PLACEHOLDER_IMG_NAMES = [
-    '01RmK+J4pJL',  // .com via B000Q3KSMQ
-    '01QFb8SNuTL',  // .de via B08F6QNPJ4
-    '01PkLIhTX3L',  // .fr via B08F6QNPJ4
-    '01MKUOLsA5L',  // .co.jp via B003XZRSAE
-    '31CTP6oiIBL',  // Found on .pl and .es, e.g. B00E6GJAE6
+    '01RmK+J4pJL', // .com via B000Q3KSMQ
+    '01QFb8SNuTL', // .de via B08F6QNPJ4
+    '01PkLIhTX3L', // .fr via B08F6QNPJ4
+    '01MKUOLsA5L', // .co.jp via B003XZRSAE
+    '31CTP6oiIBL', // Found on .pl and .es, e.g. B00E6GJAE6
 ];
 
 // Incomplete, only what we need
@@ -36,11 +36,11 @@ const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
 };
 
 // CSS queries to figure out which type of page we're on
-const AUDIBLE_PAGE_QUERY = '#audibleProductTitle';  // Product title with Audible logo on standard product pages
-const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]';  // Dynamically loaded Amazon Music digital pages.
+const AUDIBLE_PAGE_QUERY = '#audibleProductTitle'; // Product title with Audible logo on standard product pages
+const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]'; // Dynamically loaded Amazon Music digital pages.
 
 // CSS queries to extract a front cover from a page
-const AUDIBLE_FRONT_IMAGE_QUERY = '#audibleimageblock_feature_div #main-image';  // Only for page which have Audible releases.
+const AUDIBLE_FRONT_IMAGE_QUERY = '#audibleimageblock_feature_div #main-image'; // Only for page which have Audible releases.
 
 export class AmazonProvider extends CoverArtProvider {
     public readonly supportedDomains = [

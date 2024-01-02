@@ -24,26 +24,30 @@ class ProgressElement {
         // Need to insert a nbsp, otherwise it'll have a height of 0. For some
         // reason just adding &nbsp; doesn't work (NativeJSX removing it?), but
         // this does.
-        this.progressbar = <div className='ui-progressbar-value ui-widget-header ui-corner-left' style={{ backgroundColor: '#cce5ff', width: '0%' }}>
-            {'\u00A0'}
-        </div>;
+        this.progressbar = (
+            <div className="ui-progressbar-value ui-widget-header ui-corner-left" style={{ backgroundColor: '#cce5ff', width: '0%' }}>
+                {'\u00A0'}
+            </div>
+        );
 
-        this.rootElement = <tr style={{ display: 'flex' }}>
-            <td className='uploader-preview-column'>
-                <div className='content-loading' style={{ width: '120px', height: '120px', position: 'relative' }} />
-            </td>
-            <td style={{ width: '65%' }}>
-                <div className='row'>
-                    <label>URL:</label>
-                    {this.urlSpan}
-                </div>
-            </td>
-            <td style={{ flexGrow: 1 }}>
-                <div className='ui-progressbar ui-widget ui-widget-content ui-corner-all' role='progressbar' style={{ width: '100%' }}>
-                    {this.progressbar}
-                </div>
-            </td>
-        </tr>;
+        this.rootElement = (
+            <tr style={{ display: 'flex' }}>
+                <td className="uploader-preview-column">
+                    <div className="content-loading" style={{ width: '120px', height: '120px', position: 'relative' }} />
+                </td>
+                <td style={{ width: '65%' }}>
+                    <div className="row">
+                        <label>URL:</label>
+                        {this.urlSpan}
+                    </div>
+                </td>
+                <td style={{ flexGrow: 1 }}>
+                    <div className="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" style={{ width: '100%' }}>
+                        {this.progressbar}
+                    </div>
+                </td>
+            </tr>
+        );
     }
 
     public set url(url: URL) {
@@ -96,54 +100,55 @@ export class InputForm implements FetcherHooks {
         insertStylesheet(css);
 
         // The input element into which URLs will be pasted.
-        this.urlInput = <input
-            type='url'
-            placeholder={INPUT_PLACEHOLDER_TEXT}
-            size={47}
-            id='ROpdebee_paste_url'
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onPaste={async (event_): Promise<void> => {
-                if (!event_.clipboardData) {
-                    LOGGER.warn('No clipboard data?');
-                    return;
-                }
-
-                // Get both HTML and plain text. If the user pastes just plain
-                // text, HTML will be empty.
-                const htmlText = event_.clipboardData.getData('text/html');
-                const plainText = event_.clipboardData.getData('text');
-
-                const urls = htmlText.length > 0 ? parseHTMLURLs(htmlText) : parsePlainURLs(plainText);
-
-                // Don't fill the input element so the user can immediately
-                // paste more URLs.
-                event_.preventDefault();
-                // Set the URL we'll process as the input's placeholder text as
-                // an "acknowledgement".
-                event_.currentTarget.placeholder = urls.join('\n');
-
-                const inputUrls = filterNonNull(urls.map((inputUrl) => {
-                    try {
-                        return new URL(inputUrl);
-                    } catch (error) {
-                        LOGGER.error(`Invalid URL: ${inputUrl}`, error);
-                        return null;
+        this.urlInput = (
+            <input
+                type="url"
+                placeholder={INPUT_PLACEHOLDER_TEXT}
+                size={47}
+                id="ROpdebee_paste_url"
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onPaste={async (event_): Promise<void> => {
+                    if (!event_.clipboardData) {
+                        LOGGER.warn('No clipboard data?');
+                        return;
                     }
-                }));
 
-                if (inputUrls.length === 0) {
-                    LOGGER.info('No URLs found in input');
-                    return;
-                }
+                    // Get both HTML and plain text. If the user pastes just plain
+                    // text, HTML will be empty.
+                    const htmlText = event_.clipboardData.getData('text/html');
+                    const plainText = event_.clipboardData.getData('text');
 
-                await app.processURLs(inputUrls);
-                app.clearLogLater();
+                    const urls = htmlText.length > 0 ? parseHTMLURLs(htmlText) : parsePlainURLs(plainText);
 
-                if (this.urlInput.placeholder === urls.join('\n')) {
-                    this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
-                }
-            }}
-        /> as HTMLInputElement;
+                    // Don't fill the input element so the user can immediately
+                    // paste more URLs.
+                    event_.preventDefault();
+                    // Set the URL we'll process as the input's placeholder text as
+                    // an "acknowledgement".
+                    event_.currentTarget.placeholder = urls.join('\n');
+
+                    const inputUrls = filterNonNull(urls.map((inputUrl) => {
+                        try {
+                            return new URL(inputUrl);
+                        } catch (error) {
+                            LOGGER.error(`Invalid URL: ${inputUrl}`, error);
+                            return null;
+                        }
+                    }));
+
+                    if (inputUrls.length === 0) {
+                        LOGGER.info('No URLs found in input');
+                        return;
+                    }
+
+                    await app.processURLs(inputUrls);
+                    app.clearLogLater();
+
+                    if (this.urlInput.placeholder === urls.join('\n')) {
+                        this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
+                    }
+                }}
+            />) as HTMLInputElement;
 
         const [onlyFrontCheckbox, onlyFrontLabel] = createPersistentCheckbox(
             'ROpdebee_paste_front_only',
@@ -154,19 +159,21 @@ export class InputForm implements FetcherHooks {
         app.onlyFront = onlyFrontCheckbox.checked;
 
         // Container element for the URL input and additional information
-        const container = <div className='ROpdebee_paste_url_cont'>
-            {this.urlInput}
-            <a
-                href='https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md'
-                target='_blank'
-            >
-                Supported providers
-            </a>
-            {onlyFrontCheckbox}
-            {onlyFrontLabel}
-        </div>;
+        const container = (
+            <div className="ROpdebee_paste_url_cont">
+                {this.urlInput}
+                <a
+                    href="https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md"
+                    target="_blank"
+                >
+                    Supported providers
+                </a>
+                {onlyFrontCheckbox}
+                {onlyFrontLabel}
+            </div>
+        );
 
-        this.buttonContainer = <div className='ROpdebee_import_url_buttons buttons' /> as HTMLDivElement;
+        this.buttonContainer = <div className="ROpdebee_import_url_buttons buttons" /> as HTMLDivElement;
 
         // If we inline this into the function call below, nativejsx crashes.
         // It might have something to do with the optional chaining on the
@@ -179,22 +186,28 @@ export class InputForm implements FetcherHooks {
             ?.insertAdjacentElement('afterend', this.buttonContainer);
 
         this.realSubmitButton = qs<HTMLButtonElement>('button#add-cover-art-submit');
-        this.fakeSubmitButton = <button type='button' className='submit positive' disabled={true} hidden={true}>
-            Enter edit
-        </button> as HTMLButtonElement;
+        this.fakeSubmitButton = (
+            <button type="button" className="submit positive" disabled={true} hidden={true}>
+                Enter edit
+            </button>) as HTMLButtonElement;
         qs('form > .buttons').append(this.fakeSubmitButton);
     }
 
     public async addImportButton(onClickCallback: () => void, url: string, provider: CoverArtProvider): Promise<void> {
         const favicon = await provider.favicon;
-        const button = <button
-            type='button'
-            title={url}
-            onClick={(event_): void => { event_.preventDefault(); onClickCallback(); }}
-        >
-            <img src={favicon} alt={provider.name} />
-            <span>{'Import from ' + provider.name}</span>
-        </button>;
+        const button = (
+            <button
+                type="button"
+                title={url}
+                onClick={(event_): void => {
+                    event_.preventDefault();
+                    onClickCallback();
+                }}
+            >
+                <img src={favicon} alt={provider.name} />
+                <span>{'Import from ' + provider.name}</span>
+            </button>
+        );
 
         this.orSpan.style.display = '';
         this.buttonContainer.insertAdjacentElement('beforeend', button);

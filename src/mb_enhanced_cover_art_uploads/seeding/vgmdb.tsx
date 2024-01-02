@@ -74,46 +74,56 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
     const seedParametersAll = new SeedParameters(covers.allCovers, document.location.href);
 
     const releaseIdToAnchors = new Map(releaseIds.map((releaseId) => {
-        const a = <a
-            href={seedParametersPrivate.createSeedURL(releaseId)}
-            target='_blank'
-            rel='noopener noreferrer'
-            style={{ display: 'block' }}
-        >
-            {'Seed covers to ' + releaseId.split('-')[0]}
-        </a> as HTMLAnchorElement;
+        const a = (
+            <a
+                href={seedParametersPrivate.createSeedURL(releaseId)}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'block' }}
+            >
+                {'Seed covers to ' + releaseId.split('-')[0]}
+            </a>) as HTMLAnchorElement;
         return [releaseId, a];
     }));
     const anchors = [...releaseIdToAnchors.values()];
 
-    const inclPublicCheckbox = <input
-        type='checkbox'
-        id='ROpdebee_incl_public_checkbox'
-        onChange={(event_): void => {
-            for (const [releaseId, a] of releaseIdToAnchors.entries()) {
-                const seedParameters = event_.currentTarget.checked ? seedParametersAll : seedParametersPrivate;
-                a.href = seedParameters.createSeedURL(releaseId);
-            }
-        }}
-    />;
-    const inclPublicLabel = <label
-        htmlFor='ROpdebee_incl_public_checkbox'
-        title='Leave this unchecked to only seed covers which cannot be extracted by the VGMdb provider'
-        style={{ cursor: 'help' }}
-    >Include publicly accessible covers</label>;
+    const inclPublicCheckbox = (
+        <input
+            type="checkbox"
+            id="ROpdebee_incl_public_checkbox"
+            onChange={(event_): void => {
+                for (const [releaseId, a] of releaseIdToAnchors.entries()) {
+                    const seedParameters = event_.currentTarget.checked ? seedParametersAll : seedParametersPrivate;
+                    a.href = seedParameters.createSeedURL(releaseId);
+                }
+            }}
+        />
+    );
+    const inclPublicLabel = (
+        <label
+            htmlFor="ROpdebee_incl_public_checkbox"
+            title="Leave this unchecked to only seed covers which cannot be extracted by the VGMdb provider"
+            style={{ cursor: 'help' }}
+        >
+            Include publicly accessible covers
+        </label>
+    );
 
     const containedElements = [inclPublicCheckbox, inclPublicLabel, ...anchors];
     if (anchors.length === 0) {
-        containedElements.push(<span style={{ display: 'block' }}>
-            This album is not linked to any MusicBrainz releases!
-        </span>);
+        containedElements.push(
+            <span style={{ display: 'block' }}>
+                This album is not linked to any MusicBrainz releases!
+            </span>);
     }
 
-    const container = <div
-        style={{ padding: '8px 8px 0px 8px', fontSize: '8pt' }}
-    >
-        {containedElements}
-    </div>;
+    const container = (
+        <div
+            style={{ padding: '8px 8px 0px 8px', fontSize: '8pt' }}
+        >
+            {containedElements}
+        </div>
+    );
 
     coverHeading.nextElementSibling?.insertAdjacentElement('afterbegin', container);
 }

@@ -14,7 +14,7 @@ describe('domain dispatcher', () => {
         'sub*.domain.com',
         '*.com',
         'sub.*.com',
-        '*.co.uk',  // .co.uk is a TLD
+        '*.co.uk', // .co.uk is a TLD
     ];
 
     it.each(invalidPatterns)('rejects invalid patterns like %s', (pattern) => {

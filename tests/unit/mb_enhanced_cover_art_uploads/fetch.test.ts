@@ -28,7 +28,6 @@ jest.mock<{ getMaximisedCandidates: typeof getMaximisedCandidates }>('@src/mb_en
 jest.mock('@src/mb_enhanced_cover_art_uploads/providers');
 jest.mock('@src/mb_enhanced_cover_art_uploads/form');
 
-
 const mockpRetry = pRetry as jest.MockedFunction<typeof pRetry>;
 // eslint-disable-next-line jest/unbound-method
 const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [string | URL, unknown]>;

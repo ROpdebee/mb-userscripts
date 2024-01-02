@@ -8,9 +8,9 @@ import { filterNonNull } from '@lib/util/array';
 import type { PullRequestInfo } from './types-deploy';
 
 const CC_TYPE_TO_TITLE: Record<string, string | undefined> = {
-    'feat': 'New feature',
-    'fix': 'Bug fix',
-    'perf': 'Performance improvements',
+    feat: 'New feature',
+    fix: 'Bug fix',
+    perf: 'Performance improvements',
     // We'll call the rest 'Internal changes'
 };
 

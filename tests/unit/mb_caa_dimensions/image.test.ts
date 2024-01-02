@@ -8,7 +8,6 @@ jest.mock('@src/mb_caa_dimensions/info-cache');
 jest.mock('@src/mb_caa_dimensions/caa-info');
 jest.mock('@src/mb_caa_dimensions/dimensions');
 
-
 const mockGetImageDimensions = getImageDimensions as jest.MockedFunction<typeof getImageDimensions>;
 const mockGetCAAInfo = getCAAInfo as jest.MockedFunction<typeof getCAAInfo>;
 
@@ -231,7 +230,6 @@ describe('caa image', () => {
         });
     });
 });
-
 
 describe('queued upload image', () => {
     let image: HTMLImageElement;

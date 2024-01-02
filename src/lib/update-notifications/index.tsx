@@ -38,28 +38,30 @@ export function maybeDisplayNewFeatures(): void {
 function showFeatureNotification(scriptName: string, newVersion: string, newFeatures: string[]): void {
     insertStylesheet(bannerStyle, 'ROpdebee_Update_Banner');
 
-    const banner = <div className={'banner warning-header'}>
-        <p>
-            {`${scriptName} was updated to v${newVersion}! `}
-            <a href={CHANGELOG_URL}>See full changelog here</a>
-            {'. New features since last update:'}
-        </p>
-        <div className={'ROpdebee_feature_list'}>
-            <ul>
-                {newFeatures.map((feat) => <li>{feat}</li>)}
-            </ul>
+    const banner = (
+        <div className="banner warning-header">
+            <p>
+                {`${scriptName} was updated to v${newVersion}! `}
+                <a href={CHANGELOG_URL}>See full changelog here</a>
+                . New features since last update:
+            </p>
+            <div className="ROpdebee_feature_list">
+                <ul>
+                    {newFeatures.map((feat) => <li>{feat}</li>)}
+                </ul>
+            </div>
+            <button
+                className="dismiss-banner remove-item icon"
+                data-banner-name="alert"
+                type="button"
+                onClick={(): void => {
+                    banner.remove();
+                    // eslint-disable-next-line no-restricted-globals
+                    localStorage.setItem(LAST_DISPLAYED_KEY, GM.info.script.version);
+                }}
+            />
         </div>
-        <button
-            className='dismiss-banner remove-item icon'
-            data-banner-name='alert'
-            type='button'
-            onClick={(): void => {
-                banner.remove();
-                // eslint-disable-next-line no-restricted-globals
-                localStorage.setItem(LAST_DISPLAYED_KEY, GM.info.script.version);
-            }}
-        />
-    </div>;
+    );
 
     qs('#page').insertAdjacentElement('beforebegin', banner);
 }

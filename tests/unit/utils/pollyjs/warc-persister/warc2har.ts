@@ -17,27 +17,27 @@ export default async function warc2har(warc: Uint8Array): Promise<Har> {
     for await (const record of WARCParser.iterRecords([warc])) {
         let entry: HarEntry;
         switch (record.warcType) {
-        case 'warcinfo':
-            await populateHarLogInfo(record, harLog);
-            break;
+            case 'warcinfo':
+                await populateHarLogInfo(record, harLog);
+                break;
 
-        case 'request':
-            entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
-            populateEntryRequest(record, entry);
-            break;
+            case 'request':
+                entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
+                populateEntryRequest(record, entry);
+                break;
 
-        case 'response':
-            entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Record-ID'));
-            await populateEntryResponse(record, entry);
-            break;
+            case 'response':
+                entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Record-ID'));
+                await populateEntryResponse(record, entry);
+                break;
 
-        case 'metadata':
-            entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
-            await populateEntryMetadata(record, entry);
-            break;
+            case 'metadata':
+                entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
+                await populateEntryMetadata(record, entry);
+                break;
 
-        default:
-            console.log(`Unsupported WARC entry type: ${record.warcType}`);
+            default:
+                console.log(`Unsupported WARC entry type: ${record.warcType}`);
         }
     }
 
@@ -138,7 +138,6 @@ async function populateEntryResponse(record: WARCRecord, entry: HarEntry): Promi
         status: Number.parseInt(status),
         statusText: statusTextParts.join(' '),
     };
-
 
     const mimeType = record.httpHeaders!.headers.get('content-type') ?? 'text/plain';
     response.content.mimeType = mimeType;

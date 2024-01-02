@@ -8,7 +8,6 @@ import { urlMatchingSpec } from './url-matching-spec';
 
 const pollyContext = setupPolly();
 
-
 describe('musicbrainz provider', () => {
     const provider = new MusicBrainzProvider();
 

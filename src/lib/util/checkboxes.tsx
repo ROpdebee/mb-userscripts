@@ -8,22 +8,26 @@
  * @return     {[HTMLInputElement, HTMLLabelElement]}  Checkbox and its label.
  */
 export function createPersistentCheckbox(id: string, label: string, changedCallback: EventListener): [HTMLInputElement, HTMLLabelElement] {
-    const checkbox = <input
-        type='checkbox'
-        id={id}
-        onChange={(event_): void => {
-            if (event_.currentTarget.checked) {
-                localStorage.setItem(id, 'delete_to_disable');
-            } else {
-                localStorage.removeItem(id);
-            }
-            changedCallback(event_);
-        }}
-        defaultChecked={!!localStorage.getItem(id)}
-    /> as HTMLInputElement;
-    const labelElement = <label
-        htmlFor={id}
-    >{label}</label> as HTMLLabelElement;
+    const checkbox = (
+        <input
+            type="checkbox"
+            id={id}
+            onChange={(event_): void => {
+                if (event_.currentTarget.checked) {
+                    localStorage.setItem(id, 'delete_to_disable');
+                } else {
+                    localStorage.removeItem(id);
+                }
+                changedCallback(event_);
+            }}
+            defaultChecked={!!localStorage.getItem(id)}
+        />) as HTMLInputElement;
+
+    const labelElement = (
+        <label htmlFor={id}>
+            {label}
+        </label>
+    ) as HTMLLabelElement;
 
     return [checkbox, labelElement];
 }

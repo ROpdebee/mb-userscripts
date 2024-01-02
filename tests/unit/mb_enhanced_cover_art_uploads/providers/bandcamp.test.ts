@@ -57,7 +57,7 @@ describe('bandcamp provider', () => {
         }, {
             description: 'release with track images',
             url: 'https://nyokee.bandcamp.com/album/quarantine-pixel-party',
-            imageCount: 8,  // Last track image is same as front cover
+            imageCount: 8, // Last track image is same as front cover
             expectedImages: [{
                 index: 0,
                 urlPart: 'a1225644503_',

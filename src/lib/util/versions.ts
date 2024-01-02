@@ -18,4 +18,3 @@ export function versionLessThan(v1: Version, v2: Version): boolean {
     // Same prefix. If v1 has less parts than v2, v2 is newer.
     return v1.length < v2.length;
 }
-

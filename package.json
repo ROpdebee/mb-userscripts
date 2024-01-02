@@ -39,6 +39,7 @@
     "@rollup/plugin-node-resolve": "15.2.3",
     "@rollup/plugin-virtual": "3.0.2",
     "@rollup/pluginutils": "5.1.0",
+    "@stylistic/eslint-plugin": "1.5.3",
     "@types/babel__core": "7.20.5",
     "@types/confusing-browser-globals": "1.0.3",
     "@types/conventional-commits-parser": "3.0.6",

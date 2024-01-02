@@ -64,7 +64,6 @@ describe('adding extra info', () => {
     });
 });
 
-
 describe('adding footer', () => {
     it('adds the footer, prefixed with empty line', () => {
         const editNote = new EditNote('footer');

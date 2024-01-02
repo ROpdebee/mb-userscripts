@@ -106,9 +106,13 @@ function addSeedLinkToCover(fig: HTMLElement, mbids: string[], origin: string): 
         const seedUrl = parameters.createSeedURL(mbid);
 
         // Include part of the release ID if there are multiple.
-        const seedLink = <a href={seedUrl} style={{ display: 'block' }}>
-            Add to release {mbids.length > 1 ? mbid.split('-')[0] : ''}
-        </a>;
+        const seedLink = (
+            <a href={seedUrl} style={{ display: 'block' }}>
+                Add to release
+                {' '}
+                {mbids.length > 1 ? mbid.split('-')[0] : ''}
+            </a>
+        );
 
         // The way in which we're adding the seed link here and the dimensions span
         // below should lead to a consistent ordering of elements.
@@ -119,9 +123,11 @@ function addSeedLinkToCover(fig: HTMLElement, mbids: string[], origin: string): 
 
 async function addDimensions(fig: HTMLElement): Promise<void> {
     const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
-    const dimSpan = <span style={{ display: 'block' }}>
-        loading…
-    </span>;
+    const dimSpan = (
+        <span style={{ display: 'block' }}>
+            loading…
+        </span>
+    );
     qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
 
     const imageInfo = await getImageInfo(imageUrl);

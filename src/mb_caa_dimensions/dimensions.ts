@@ -14,11 +14,11 @@ function _getImageDimensions(url: string): Promise<Dimensions> {
         function dimensionsLoaded(dimensions: Dimensions): void {
             // Make sure we don't poll again, it's not necessary.
             clearInterval(interval);
-            if (!done) {  // Prevent resolving twice.
+            if (!done) { // Prevent resolving twice.
                 resolve(dimensions);
                 done = true;
                 // eslint-disable-next-line unicorn/prevent-abbreviations
-                image.src = '';  // Cancel loading the image
+                image.src = ''; // Cancel loading the image
             }
         }
 

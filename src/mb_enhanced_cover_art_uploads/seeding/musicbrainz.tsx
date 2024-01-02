@@ -30,13 +30,15 @@ export const MusicBrainzSeeder: Seeder = {
                     url,
                 }]).createSeedURL(mbid, window.location.host);
 
-                return <a
-                    title={url.href}
-                    href={seedUrl}
-                >
-                    <img src={favicon} alt={provider.name} />
-                    <span>{'Import from ' + provider.name}</span>
-                </a>;
+                return (
+                    <a
+                        title={url.href}
+                        href={seedUrl}
+                    >
+                        <img src={favicon} alt={provider.name} />
+                        <span>{'Import from ' + provider.name}</span>
+                    </a>
+                );
             }));
 
         const buttonRow = qs('#content > .buttons');

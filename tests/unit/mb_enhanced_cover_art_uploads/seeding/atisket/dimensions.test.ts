@@ -255,7 +255,7 @@ describe('a-tisket images', () => {
         const image = new AtisketImage('https://a1.mzstatic.com/us/r1000/063/Music126/v4/48/4f/49/484f49a5-fb52-37b3-f3c6-244e20f74b7c/5052075509815.png');
 
         await expect(image.getFileInfo()).resolves.toStrictEqual({
-            size: 23_803_429,  // I'm glad we're just getting headers, this is huge!
+            size: 23_803_429, // I'm glad we're just getting headers, this is huge!
             fileType: 'PNG',
         });
     });

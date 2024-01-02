@@ -239,7 +239,7 @@ describe('database migrations', () => {
 });
 
 describe('pruning cache', () => {
-    const CACHE_STALE_TIME: number = 14 * 24 * 60 * 60 * 1000;  // 2 weeks
+    const CACHE_STALE_TIME: number = 14 * 24 * 60 * 60 * 1000; // 2 weeks
 
     beforeEach(async () => {
         const cache = await createCache();
