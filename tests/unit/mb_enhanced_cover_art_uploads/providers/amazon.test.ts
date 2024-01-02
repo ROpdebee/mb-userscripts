@@ -1,11 +1,11 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { AmazonProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon';
-import { mockGMgetResourceURL } from '@test-utils/gm_mocks';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { mockGMgetResourceURL } from '@test-utils/gm-mocks';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import type { ExtractionCase } from './find_images_spec';
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import type { ExtractionCase } from './find-images-spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('amazon provider', () => {
     const provider = new AmazonProvider();

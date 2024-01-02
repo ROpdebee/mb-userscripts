@@ -1,15 +1,15 @@
 /* eslint-disable no-restricted-globals */
 
-import type { RequestMethod, RequestOptions } from './requestOptions';
+import type { RequestMethod, RequestOptions } from './request-options';
 import type { Response, ResponseFor, TextResponse } from './response';
-import { performFetchRequest } from './backendFetch';
-import { performGMXHRRequest } from './backendGMXHR';
+import { performFetchRequest } from './backend-fetch';
+import { performGMXHRRequest } from './backend-gmxhr';
 import { HTTPResponseError } from './errors';
-import { RequestBackend } from './requestOptions';
+import { RequestBackend } from './request-options';
 
 export { AbortedError, HTTPResponseError, NetworkError, TimeoutError } from './errors';
-export type { RequestMethod, RequestOptions } from './requestOptions';
-export { RequestBackend } from './requestOptions';
+export type { RequestMethod, RequestOptions } from './request-options';
+export { RequestBackend } from './request-options';
 export type { ArrayBufferResponse, BlobResponse, ProgressEvent, Response, TextResponse } from './response';
 
 

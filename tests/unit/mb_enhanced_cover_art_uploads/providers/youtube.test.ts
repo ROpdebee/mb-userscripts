@@ -1,9 +1,9 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { YoutubeProvider } from '@src/mb_enhanced_cover_art_uploads/providers/youtube';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('youtube provider', () => {
     const provider = new YoutubeProvider();

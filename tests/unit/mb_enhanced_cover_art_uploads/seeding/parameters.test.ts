@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { SeedParameters } from '@src/mb_enhanced_cover_art_uploads/seeding/parameters';
 
 describe('seed parameters', () => {

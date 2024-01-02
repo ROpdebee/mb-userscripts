@@ -1,10 +1,10 @@
 import pRetry from 'p-retry';
 
-import type { Dimensions, FileInfo } from '@src/mb_caa_dimensions/ImageInfo';
+import type { Dimensions, FileInfo } from '@src/mb_caa_dimensions/image-info';
 import { LOGGER } from '@lib/logging/logger';
 import { safeParseJSON } from '@lib/util/json';
 import { HTTPResponseError, request } from '@lib/util/request';
-import { BaseImage } from '@src/mb_caa_dimensions/Image';
+import { BaseImage } from '@src/mb_caa_dimensions/image';
 
 // Use a multiple of 3, most a-tisket releases have 3 images.
 // Currently set to 30, should allow 10 releases open in parallel.

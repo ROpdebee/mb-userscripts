@@ -2,7 +2,7 @@
 
 import { GMxmlHttpRequest } from '@lib/compat';
 
-import type { RequestMethod, RequestOptions } from './requestOptions';
+import type { RequestMethod, RequestOptions } from './request-options';
 import type { Response} from './response';
 import { AbortedError, NetworkError, TimeoutError } from './errors';
 import { createTextResponse} from './response';

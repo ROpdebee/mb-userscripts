@@ -1,8 +1,8 @@
 import { AllMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/allmusic';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('allmusic provider', () => {
     const provider = new AllMusicProvider();

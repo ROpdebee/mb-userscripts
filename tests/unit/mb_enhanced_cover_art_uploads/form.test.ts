@@ -1,8 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { EditNote } from '@lib/MB/EditNote';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import { EditNote } from '@lib/MB/edit-note';
 import { qs } from '@lib/util/dom';
 import { enqueueImage, fillEditNote } from '@src/mb_enhanced_cover_art_uploads/form';
 

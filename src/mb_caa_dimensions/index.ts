@@ -4,10 +4,10 @@ import { logFailure } from '@lib/util/async';
 import { insertStylesheet } from '@lib/util/css';
 import { onDocumentLoaded, qs, qsa, qsMaybe } from '@lib/util/dom';
 
-import type { InfoCache } from './InfoCache';
-import { displayedCoverArtFactory, DisplayedQueuedUploadImage, displayInfoWhenInView } from './DisplayedImage';
+import type { InfoCache } from './info-cache';
+import { displayedCoverArtFactory, DisplayedQueuedUploadImage, displayInfoWhenInView } from './displayed-image';
 import { setupExports } from './exports';
-import { createCache } from './InfoCache';
+import { createCache } from './info-cache';
 
 import css from './style.scss';
 

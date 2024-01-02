@@ -1,9 +1,9 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { AppleMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/apple_music';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import { AppleMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/apple-music';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('apple music provider', () => {
     const provider = new AppleMusicProvider();

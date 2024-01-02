@@ -3,7 +3,7 @@ import { insertStylesheet } from '@lib/util/css';
 
 import type { LoggingSink } from './sink';
 
-import css from './guiSink.scss';
+import css from './gui-sink.scss';
 
 export class GuiSink implements LoggingSink {
     // public so that users of the GUI sink can add the container to the page.

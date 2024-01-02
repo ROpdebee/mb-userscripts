@@ -1,6 +1,6 @@
 import type { TextResponse } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { collatedSort, filterNonNull } from '@lib/util/array';
 import { assert } from '@lib/util/assert';
 import { parseDOM, qsa } from '@lib/util/dom';

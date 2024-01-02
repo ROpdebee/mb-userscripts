@@ -1,4 +1,4 @@
-import { EditNote } from '@lib/MB/EditNote';
+import { EditNote } from '@lib/MB/edit-note';
 
 let textarea: HTMLTextAreaElement;
 

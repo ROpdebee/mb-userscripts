@@ -1,8 +1,8 @@
 import pThrottle from 'p-throttle';
 
-import type { Dimensions } from '@src/mb_caa_dimensions/ImageInfo';
+import type { Dimensions } from '@src/mb_caa_dimensions/image-info';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { filterNonNull } from '@lib/util/array';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';

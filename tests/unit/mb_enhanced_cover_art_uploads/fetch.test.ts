@@ -5,7 +5,7 @@ import type { Response } from '@lib/util/request';
 import type { MaximisedImage } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import type { ImageContents, QueuedImage } from '@src/mb_enhanced_cover_art_uploads/types';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { HTTPResponseError } from '@lib/util/request';
 import { NetworkError, request } from '@lib/util/request';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';

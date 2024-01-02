@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { parseDOM, qs } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
 

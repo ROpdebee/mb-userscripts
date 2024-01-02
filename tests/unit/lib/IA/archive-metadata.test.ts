@@ -1,4 +1,4 @@
-import { getItemMetadata } from '@lib/IA/ArchiveMetadata';
+import { getItemMetadata } from '@lib/IA/archive-metadata';
 import { setupPolly } from '@test-utils/pollyjs';
 
 // eslint-disable-next-line jest/require-hook

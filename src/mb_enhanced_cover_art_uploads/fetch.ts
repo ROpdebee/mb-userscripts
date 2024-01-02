@@ -3,7 +3,7 @@ import pRetry from 'p-retry';
 import type { BlobResponse, ProgressEvent } from '@lib/util/request';
 import { getFromPageContext } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { enumerate } from '@lib/util/array';
 import { blobToBuffer } from '@lib/util/blob';
 import { HTTPResponseError, request } from '@lib/util/request';

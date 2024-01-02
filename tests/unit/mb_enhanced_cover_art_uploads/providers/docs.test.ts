@@ -3,9 +3,9 @@ import '@src/mb_enhanced_cover_art_uploads/providers';
 import fs from 'node:fs/promises';
 
 import type { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
-import { DispatchMap } from '@lib/util/domain_dispatch';
+import { DispatchMap } from '@lib/util/domain-dispatch';
 
-jest.mock('@lib/util/domain_dispatch');
+jest.mock('@lib/util/domain-dispatch');
 
 // eslint-disable-next-line jest/unbound-method
 const spyDispatchMapSet = DispatchMap.prototype.set as jest.MockedFunction<DispatchMap<CoverArtProvider>['set']>;

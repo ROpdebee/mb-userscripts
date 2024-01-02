@@ -1,4 +1,4 @@
-import { getCAAInfo } from '@src/mb_caa_dimensions/caa_info';
+import { getCAAInfo } from '@src/mb_caa_dimensions/caa-info';
 import { setupPolly } from '@test-utils/pollyjs';
 
 // eslint-disable-next-line jest/require-hook

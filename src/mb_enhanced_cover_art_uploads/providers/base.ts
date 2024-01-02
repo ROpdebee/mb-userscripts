@@ -2,7 +2,7 @@ import type { Promisable } from 'type-fest';
 
 import type { RequestOptions } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { collatedSort, filterNonNull, groupBy } from '@lib/util/array';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';

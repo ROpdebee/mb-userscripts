@@ -4,7 +4,7 @@ import { openDB } from 'idb';
 import { LOGGER } from '@lib/logging/logger';
 import { logFailure } from '@lib/util/async';
 
-import type { Dimensions, FileInfo } from './ImageInfo';
+import type { Dimensions, FileInfo } from './image-info';
 
 const CACHE_DB_NAME = 'ROpdebee_CAA_Dimensions_Cache';
 const CACHE_DIMENSIONS_STORE_NAME = 'dimensionsStore';

@@ -1,7 +1,7 @@
 import NodeHttpAdapter from '@pollyjs/adapter-node-http';
 
 import { AbortedError, HTTPResponseError, NetworkError, request, RequestBackend, TimeoutError } from '@lib/util/request';
-import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
+import { mockGMxmlHttpRequest } from '@test-utils/gm-mocks';
 import { mockFetch, setupPolly } from '@test-utils/pollyjs';
 import GMXHRAdapter from '@test-utils/pollyjs/gmxhr-adapter';
 

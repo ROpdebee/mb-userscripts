@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertHasValue } from '@lib/util/assert';
 import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 

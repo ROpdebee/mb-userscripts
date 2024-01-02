@@ -3,7 +3,7 @@ import pRetry from 'p-retry';
 import { LOGGER } from '@lib/logging/logger';
 import { memoize } from '@lib/util/functions';
 
-import type { Dimensions } from './ImageInfo';
+import type { Dimensions } from './image-info';
 
 function _getImageDimensions(url: string): Promise<Dimensions> {
     LOGGER.info(`Getting image dimensions for ${url}`);

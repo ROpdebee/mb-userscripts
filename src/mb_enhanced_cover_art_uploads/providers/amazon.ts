@@ -2,7 +2,7 @@ import type { Promisable } from 'type-fest';
 
 import { GMgetResourceUrl } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertNonNull } from '@lib/util/assert';
 import { parseDOM, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';

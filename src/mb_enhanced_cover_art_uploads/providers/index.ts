@@ -1,11 +1,11 @@
-import { DispatchMap } from '@lib/util/domain_dispatch';
+import { DispatchMap } from '@lib/util/domain-dispatch';
 
 import type { CoverArtProvider } from './base';
 import { SevenDigitalProvider } from './7digital';
 import { AllMusicProvider } from './allmusic';
 import { AmazonProvider } from './amazon';
-import { AmazonMusicProvider } from './amazon_music';
-import { AppleMusicProvider } from './apple_music';
+import { AmazonMusicProvider } from './amazon-music';
+import { AppleMusicProvider } from './apple-music';
 import { ArchiveProvider } from './archive';
 import { AudiomackProvider } from './audiomack';
 import { BandcampProvider } from './bandcamp';
@@ -20,7 +20,7 @@ import { JunoDownloadProvider } from './junodownload';
 import { MelonProvider } from './melon';
 import { MonstercatProvider } from './monstercat';
 import { CoverArtArchiveProvider, MusicBrainzProvider } from './musicbrainz';
-import { MusikSammlerProvider } from './musik_sammler';
+import { MusikSammlerProvider } from './musik-sammler';
 import { NetEaseProvider } from './netease';
 import { QobuzProvider } from './qobuz';
 import { RateYourMusicProvider } from './rateyourmusic';
@@ -30,10 +30,10 @@ import { SpotifyProvider } from './spotify';
 import { TidalProvider } from './tidal';
 import { TraxsourceProvider } from './traxsource';
 import { VGMdbProvider } from './vgmdb';
-import { VKMusicProvider } from './vk_music';
-import { YandexMusicProvider } from './yandex_music';
+import { VKMusicProvider } from './vk-music';
+import { YandexMusicProvider } from './yandex-music';
 import { YoutubeProvider } from './youtube';
-import { YoutubeMusicProvider } from './youtube_music';
+import { YoutubeMusicProvider } from './youtube-music';
 
 const PROVIDER_DISPATCH = new DispatchMap<CoverArtProvider>();
 

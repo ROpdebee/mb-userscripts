@@ -1,12 +1,12 @@
 import pRetry from 'p-retry';
 
-import { getItemMetadata } from '@lib/IA/ArchiveMetadata';
+import { getItemMetadata } from '@lib/IA/archive-metadata';
 import { LOGGER } from '@lib/logging/logger';
 import { parseDOM, qs, qsa } from '@lib/util/dom';
 import { memoize } from '@lib/util/functions';
 import { request } from '@lib/util/request';
 
-import type { FileInfo } from './ImageInfo';
+import type { FileInfo } from './image-info';
 
 // Use memoized fetch so that a single page can reuse the same metadata.
 // Don't cache metadata across page loads, as it might change.

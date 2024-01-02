@@ -1,14 +1,14 @@
 import { RockipediaProvider } from '@src/mb_enhanced_cover_art_uploads/providers/rockipedia';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('rockipedia provider', () => {
     const provider = new RockipediaProvider();
 
     describe('url matching', () => {
-        const supportedUrls = [ {
+        const supportedUrls = [{
             desc: 'release URLs',
             url: 'https://www.rockipedia.no/utgivelser/jaktprat_-_super_ss_rally_gt_fastback_ha-36860/',
             id: '36860',

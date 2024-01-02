@@ -1,5 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
-import { getReleaseIDsForURL } from '@lib/MB/URLs';
+import { getReleaseIDsForURL } from '@lib/MB/urls';
 import { qs, qsMaybe } from '@lib/util/dom';
 
 import type { CoverArt } from '../types';

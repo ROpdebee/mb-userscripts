@@ -8,7 +8,7 @@ interface PluginOptions {
 }
 
 const LOGGER_CODE = `
-import { ConsoleSink } from '@lib/logging/consoleSink';
+import { ConsoleSink } from '@lib/logging/console-sink';
 import { LogLevel } from '@lib/logging/levels';
 import { LOGGER } from '@lib/logging/logger';
 

@@ -1,4 +1,4 @@
-import { ConsoleSink } from '@lib/logging/consoleSink';
+import { ConsoleSink } from '@lib/logging/console-sink';
 import { LogLevel } from '@lib/logging/levels';
 import { Logger } from '@lib/logging/logger';
 

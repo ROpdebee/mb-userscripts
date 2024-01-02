@@ -1,9 +1,9 @@
 /* istanbul ignore file: Covered by E2E */
 
-import { GuiSink } from '@lib/logging/guiSink';
+import { GuiSink } from '@lib/logging/gui-sink';
 import { LOGGER } from '@lib/logging/logger';
-import { EditNote } from '@lib/MB/EditNote';
-import { getURLsForRelease } from '@lib/MB/URLs';
+import { EditNote } from '@lib/MB/edit-note';
+import { getURLsForRelease } from '@lib/MB/urls';
 import { enumerate } from '@lib/util/array';
 import { assertHasValue } from '@lib/util/assert';
 import { pFinally } from '@lib/util/async';

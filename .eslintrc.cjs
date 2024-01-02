@@ -177,6 +177,7 @@ const baseJsConfig = {
         'promise/always-return': ['error', {
             ignoreLastCallback: true,
         }],
+        'unicorn/switch-case-braces': ['error', 'avoid'],
 
         // Disable some recommended rules
 
@@ -199,7 +200,7 @@ const baseJsConfig = {
 
         // Not available in browsers, and too expensive to polyfill.
         'unicorn/prefer-at': 'off',
-        'unicorn/prefer-blob-reading-methods': 'off',
+        'unicorn/prefer-blob-reading-methods': 'off',  // Actually not available in jsdom, used in tests.
         'unicorn/prefer-string-replace-all': 'off',
 
         // Doesn't always work with transpiling into userscripts, ts-node, etc.
@@ -208,12 +209,9 @@ const baseJsConfig = {
         'unicorn/no-negated-condition': 'off',
         'unicorn/no-process-exit': 'off',
 
-        // Enforce braces on non-trivial switch cases.
-        'unicorn/switch-case-braces': ['error', 'avoid'],
-
         // These rules were explicitly disabled by ESLint-Adjunct.
         // TODO: Revisit these.
-        'unicorn/filename-case': 0,
+        'unicorn/filename-case': 'error',
         'unicorn/no-array-for-each': 0,
         'unicorn/no-null': 0,
         'unicorn/prefer-number-properties': 0,

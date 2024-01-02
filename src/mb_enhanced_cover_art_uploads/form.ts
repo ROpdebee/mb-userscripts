@@ -1,5 +1,5 @@
-import type { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import type { EditNote } from '@lib/MB/EditNote';
+import type { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import type { EditNote } from '@lib/MB/edit-note';
 import { cloneIntoPageContext, getFromPageContext } from '@lib/compat';
 import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';

@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 
-import type { RequestMethod, RequestOptions } from './requestOptions';
+import type { RequestMethod, RequestOptions } from './request-options';
 import type { Response} from './response';
 import { createTextResponse} from './response';
 

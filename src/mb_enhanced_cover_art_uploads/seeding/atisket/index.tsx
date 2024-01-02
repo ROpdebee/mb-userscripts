@@ -1,4 +1,4 @@
-import type { ImageInfo } from '@src/mb_caa_dimensions/ImageInfo';
+import type { ImageInfo } from '@src/mb_caa_dimensions/image-info';
 import { LOGGER } from '@lib/logging/logger';
 import { logFailure } from '@lib/util/async';
 import { qs, qsa, qsMaybe } from '@lib/util/dom';

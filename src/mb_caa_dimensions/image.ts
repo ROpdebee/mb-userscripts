@@ -1,9 +1,9 @@
 import { LOGGER } from '@lib/logging/logger';
 import { assertDefined } from '@lib/util/assert';
 
-import type { Dimensions, FileInfo, ImageInfo } from './ImageInfo';
-import type { InfoCache } from './InfoCache';
-import { getCAAInfo } from './caa_info';
+import type { Dimensions, FileInfo, ImageInfo } from './image-info';
+import type { InfoCache } from './info-cache';
+import { getCAAInfo } from './caa-info';
 import { getImageDimensions } from './dimensions';
 
 const CAA_ID_REGEX = /(mbid-[a-f\d-]{36})\/mbid-[a-f\d-]{36}-(\d+)/;

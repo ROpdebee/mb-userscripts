@@ -6,7 +6,7 @@ import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { insertStylesheet } from '@lib/util/css';
 import { parseDOM, qs, qsa } from '@lib/util/dom';
 
-import type { App } from '../App';
+import type { App } from '../app';
 import type { FetcherHooks } from '../fetch';
 import type { CoverArtProvider } from '../providers/base';
 

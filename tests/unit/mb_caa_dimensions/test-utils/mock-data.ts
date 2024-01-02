@@ -1,4 +1,4 @@
-import type { InfoCache } from '@src/mb_caa_dimensions/InfoCache';
+import type { InfoCache } from '@src/mb_caa_dimensions/info-cache';
 
 export const dummyDimensions = {
     width: 100,

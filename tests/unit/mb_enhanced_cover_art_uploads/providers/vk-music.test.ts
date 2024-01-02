@@ -1,9 +1,9 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { VKMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/vk_music';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import { VKMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/vk-music';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('vk music provider', () => {
     const provider = new VKMusicProvider();

@@ -5,7 +5,7 @@ import type { IDBPDatabase, OpenDBCallbacks } from 'idb';
 import FDBFactory from 'fake-indexeddb/lib/FDBFactory';
 import { openDB } from 'idb';
 
-import { createCache } from '@src/mb_caa_dimensions/InfoCache';
+import { createCache } from '@src/mb_caa_dimensions/info-cache';
 
 import { dummyDimensions, dummyFileInfo } from './test-utils/mock-data';
 

@@ -4,9 +4,9 @@ import { logFailure } from '@lib/util/async';
 import { qs, qsMaybe } from '@lib/util/dom';
 import { formatFileSize } from '@lib/util/format';
 
-import type { ImageInfo } from './ImageInfo';
-import type { InfoCache } from './InfoCache';
-import { CAAImage, QueuedUploadImage } from './Image';
+import type { ImageInfo } from './image-info';
+import type { InfoCache } from './info-cache';
+import { CAAImage, QueuedUploadImage } from './image';
 
 export interface DisplayedImage {
     readonly imgElement: HTMLImageElement;

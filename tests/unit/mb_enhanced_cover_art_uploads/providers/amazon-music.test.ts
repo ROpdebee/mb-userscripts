@@ -1,8 +1,8 @@
-import { AmazonMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon_music';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { AmazonMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/amazon-music';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('amazon music provider', () => {
     const provider = new AmazonMusicProvider();

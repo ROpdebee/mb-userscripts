@@ -8,7 +8,7 @@ import Adapter from '@pollyjs/adapter';
 import fetch from 'node-fetch';
 
 import { assertDefined } from '@lib/util/assert';
-import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
+import { mockGMxmlHttpRequest } from '@test-utils/gm-mocks';
 
 import { CRLFHeaders, FetchHeaders, PollyHeaders } from '../headers';
 

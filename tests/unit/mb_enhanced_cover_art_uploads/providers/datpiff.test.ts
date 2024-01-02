@@ -1,11 +1,11 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { blobToDigest } from '@lib/util/blob';
 import { DatPiffProvider } from '@src/mb_enhanced_cover_art_uploads/providers/datpiff';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
 import { createCoverArt, createFetchedImageFromCoverArt } from '../test-utils/dummy-data';
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 jest.mock('@lib/util/blob');
 

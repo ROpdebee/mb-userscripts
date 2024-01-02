@@ -4,7 +4,7 @@ import type { Promisable } from 'type-fest';
 import type { GMxmlHttpRequest } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { retryTimes } from '@lib/util/async';
-import { DispatchMap } from '@lib/util/domain_dispatch';
+import { DispatchMap } from '@lib/util/domain-dispatch';
 import { urlBasename } from '@lib/util/urls';
 
 import { DiscogsProvider } from './providers/discogs';

@@ -1,6 +1,6 @@
 // Common type definitions
 
-import type { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import type { ArtworkTypeIDs } from '@lib/MB/cover-art';
 
 export interface CoverArtOptions {
     /**

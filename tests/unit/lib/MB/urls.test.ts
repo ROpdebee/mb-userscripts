@@ -1,4 +1,4 @@
-import { getReleaseIDsForURL, getURLsForRelease } from '@lib/MB/URLs';
+import { getReleaseIDsForURL, getURLsForRelease } from '@lib/MB/urls';
 import { setupPolly } from '@test-utils/pollyjs';
 
 // Using polly here so we don't have to manually save the MB output. This runs

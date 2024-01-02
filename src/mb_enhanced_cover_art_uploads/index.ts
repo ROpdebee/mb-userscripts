@@ -2,7 +2,7 @@
 
 import { LOGGER } from '@lib/logging/logger';
 
-import { App } from './App';
+import { App } from './app';
 import { seederFactory } from './seeding';
 
 const seeder = seederFactory(document.location);

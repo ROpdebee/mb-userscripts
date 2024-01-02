@@ -1,9 +1,9 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import { YoutubeMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/youtube_music';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import { YoutubeMusicProvider } from '@src/mb_enhanced_cover_art_uploads/providers/youtube-music';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('youtube music provider', () => {
     const provider = new YoutubeMusicProvider();

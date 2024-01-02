@@ -1,4 +1,4 @@
-import { DispatchMap } from '@lib/util/domain_dispatch';
+import { DispatchMap } from '@lib/util/domain-dispatch';
 
 describe('domain dispatcher', () => {
     let dispatcher: DispatchMap<number>;

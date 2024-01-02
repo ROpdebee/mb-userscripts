@@ -1,5 +1,5 @@
 // Seeder for provider buttons on /cover-art pages
-import { getURLsForRelease } from '@lib/MB/URLs';
+import { getURLsForRelease } from '@lib/MB/urls';
 import { filterNonNull } from '@lib/util/array';
 import { assertHasValue } from '@lib/util/assert';
 import { qs } from '@lib/util/dom';

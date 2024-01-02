@@ -1,10 +1,10 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 import { BandcampProvider } from '@src/mb_enhanced_cover_art_uploads/providers/bandcamp';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 // We need to mock getImageDimensions since jsdom doesn't actually load images.
 // See also tests/mb_caa_dimensions/dimensions.test.ts

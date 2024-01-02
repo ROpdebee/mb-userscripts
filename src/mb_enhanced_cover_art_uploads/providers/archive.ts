@@ -1,7 +1,7 @@
-import type { ArchiveMetadata } from '@lib/IA/ArchiveMetadata';
-import { getItemMetadata } from '@lib/IA/ArchiveMetadata';
+import type { ArchiveMetadata } from '@lib/IA/archive-metadata';
+import { getItemMetadata } from '@lib/IA/archive-metadata';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertDefined } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { request } from '@lib/util/request';

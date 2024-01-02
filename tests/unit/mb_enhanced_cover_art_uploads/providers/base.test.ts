@@ -4,7 +4,7 @@ import type { Response } from '@lib/util/request';
 import type { ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/types';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { request } from '@lib/util/request';
 import { CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 

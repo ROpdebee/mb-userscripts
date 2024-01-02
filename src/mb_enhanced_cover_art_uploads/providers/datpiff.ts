@@ -1,5 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertDefined } from '@lib/util/assert';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs, qsMaybe } from '@lib/util/dom';

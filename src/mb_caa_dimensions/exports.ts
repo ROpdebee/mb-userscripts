@@ -2,10 +2,10 @@
 
 import { logFailure } from '@lib/util/async';
 
-import type { ImageInfo } from './ImageInfo';
-import type { InfoCache } from './InfoCache';
-import { CAAImageWithFullSizeURL, displayInfoWhenInView } from './DisplayedImage';
-import { CAAImage } from './Image';
+import type { ImageInfo } from './image-info';
+import type { InfoCache } from './info-cache';
+import { CAAImageWithFullSizeURL, displayInfoWhenInView } from './displayed-image';
+import { CAAImage } from './image';
 
 interface LegacyImageInfo {
     url: string;

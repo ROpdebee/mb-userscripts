@@ -1,11 +1,11 @@
-import { getCAAInfo } from '@src/mb_caa_dimensions/caa_info';
+import { getCAAInfo } from '@src/mb_caa_dimensions/caa-info';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
-import { CAAImage, QueuedUploadImage } from '@src/mb_caa_dimensions/Image';
+import { CAAImage, QueuedUploadImage } from '@src/mb_caa_dimensions/image';
 
 import { dummyCAAItemID, dummyCAAReleaseFullSizeURL, dummyCAAReleaseGroupURL, dummyCAAReleasePDFURL, dummyCAAReleaseThumbnailURL, dummyDimensions, dummyDirectFullSizeURL, dummyDirectPDFURL, dummyDirectThumbnailURL, dummyFileInfo, dummyImageID, dummyImageInfo, dummyPDFJP2URL, dummyReleaseID, mockCache } from './test-utils/mock-data';
 
-jest.mock('@src/mb_caa_dimensions/InfoCache');
-jest.mock('@src/mb_caa_dimensions/caa_info');
+jest.mock('@src/mb_caa_dimensions/info-cache');
+jest.mock('@src/mb_caa_dimensions/caa-info');
 jest.mock('@src/mb_caa_dimensions/dimensions');
 
 

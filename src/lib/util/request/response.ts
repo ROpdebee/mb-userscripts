@@ -1,4 +1,4 @@
-import type { RequestOptions } from './requestOptions';
+import type { RequestOptions } from './request-options';
 import { groupBy } from '../array';
 
 // Like `fetch`'s Headers, but without modification operations. We need a custom
