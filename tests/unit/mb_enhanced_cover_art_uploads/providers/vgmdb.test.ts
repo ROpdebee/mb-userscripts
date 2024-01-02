@@ -12,16 +12,16 @@ describe('vgmdb provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'album URLs',
+            description: 'album URLs',
             url: 'https://vgmdb.net/album/79',
             id: '79',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://vgmdb.net/artist/77',
         }, {
-            desc: 'organisation URLs',
+            description: 'organisation URLs',
             url: 'https://vgmdb.net/org/186',
         }];
 
@@ -136,9 +136,9 @@ describe('vgmdb provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release where all images are public',
+            description: 'release where all images are public',
             url: 'https://vgmdb.net/album/96418',
-            numImages: 2,
+            imageCount: 2,
             expectedImages: [{
                 index: 0,
                 urlPart: '/albums/81/96418/96418-1581893265.jpg',
@@ -151,9 +151,9 @@ describe('vgmdb provider', () => {
                 comment: '',
             }],
         }, {
-            desc: 'release without cover, but with picture',
+            description: 'release without cover, but with picture',
             url: 'https://vgmdb.net/album/90871',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '/albums/17/90871/90871-1569448344.jpg',
@@ -161,21 +161,21 @@ describe('vgmdb provider', () => {
                 comment: '',
             }],
         }, {
-            desc: 'release without any cover or picture',
+            description: 'release without any cover or picture',
             url: 'https://vgmdb.net/album/111880',
-            numImages: 0,
+            imageCount: 0,
             expectedImages: [],
         }, {
             // FIXME: This should actually be able to extract the NSFW image by
             // sending a cookie.
-            desc: 'release with NSFW cover',
+            description: 'release with NSFW cover',
             url: 'https://vgmdb.net/album/103079',
-            numImages: 0,
+            imageCount: 0,
             expectedImages: [],
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://vgmdb.net/album/44324252',
             errorMessage: 'VGMdb returned an error',
         }];

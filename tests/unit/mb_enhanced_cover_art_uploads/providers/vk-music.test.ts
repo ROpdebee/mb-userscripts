@@ -10,20 +10,20 @@ describe('vk music provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'album URLs',
+            description: 'album URLs',
             url: 'https://vk.com/music/album/-2000547103_15547103',
             id: '2000547103_15547103',
         }, {
-            desc: 'mobile album URLs',
+            description: 'mobile album URLs',
             url: 'https://m.vk.com/audio?act=audio_playlist-2000547103_15547103',
             id: '2000547103_15547103',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://vk.com/artist/shortparis',
         }, {
-            desc: 'video URLs',
+            description: 'video URLs',
             url: 'https://vk.com/video-55721573_456239715',
         }];
 
@@ -33,9 +33,9 @@ describe('vk music provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://vk.com/music/album/-2000027853_11027853',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'c858436/v858436087/232f2b/dIzw5aVzr1A.jpg',
@@ -44,7 +44,7 @@ describe('vk music provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://vk.com/music/album/-20547120_15547120',
             errorMessage: /./, // Error message is incorrect because in the tests, we're getting redirected to the mobile site.
         }];

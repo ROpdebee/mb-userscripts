@@ -206,8 +206,6 @@ const baseJsConfig = {
         'unicorn/no-negated-condition': 'off',
         'unicorn/no-process-exit': 'off',
 
-        // These rules were explicitly disabled by ESLint-Adjunct.
-        // TODO: Revisit these.
         'unicorn/filename-case': 'error',
         'unicorn/no-array-for-each': 'error',
         'unicorn/no-null': 'off',
@@ -229,7 +227,9 @@ const baseJsConfig = {
                 'resp': {
                     'response': true,
                 }
-            }
+            },
+            checkShorthandProperties: true,
+            checkProperties: true,
         }],
         'sonarjs/no-duplicate-string': 'error',
         // Conflicts with unicorn/prefer-spread

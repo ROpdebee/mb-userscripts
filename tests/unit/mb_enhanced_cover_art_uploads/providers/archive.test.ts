@@ -13,25 +13,25 @@ describe('archive provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'item details URLs',
+            description: 'item details URLs',
             url: 'https://archive.org/details/20010917Fantmas-MagicStickDetroitMIUSA',
             id: '20010917Fantmas-MagicStickDetroitMIUSA',
         }, {
-            desc: 'item metadata URLs',
+            description: 'item metadata URLs',
             url: 'https://archive.org/metadata/20010917Fantmas-MagicStickDetroitMIUSA',
             id: '20010917Fantmas-MagicStickDetroitMIUSA',
         }, {
-            desc: 'item file metadata URLs',
+            description: 'item file metadata URLs',
             url: 'https://archive.org/metadata/20010917Fantmas-MagicStickDetroitMIUSA/files',
             id: '20010917Fantmas-MagicStickDetroitMIUSA',
         }, {
-            desc: 'item download URLs',
+            description: 'item download URLs',
             url: 'https://archive.org/download/20010917Fantmas-MagicStickDetroitMIUSA',
             id: '20010917Fantmas-MagicStickDetroitMIUSA',
         }];
 
         const unsupportedUrls = [{
-            desc: 'search URLs',
+            description: 'search URLs',
             url: 'https://archive.org/search.php?query=subject%3A%22Fantomas%22',
         }];
 
@@ -41,30 +41,30 @@ describe('archive provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'item',
+            description: 'item',
             url: 'https://archive.org/details/20010917Fantmas-MagicStickDetroitMIUSA',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '/items/20010917Fantmas-MagicStickDetroitMIUSA/Front.jpg',
             }],
         }, {
-            desc: 'item with a filename that requires URL encoding',
+            description: 'item with a filename that requires URL encoding',
             url: 'https://archive.org/details/skd815',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '/items/skd815/%23cover.jpg',
             }],
         }, {
-            desc: 'item without images',
+            description: 'item without images',
             url: 'https://archive.org/details/coverartarchive_audit_20210419',
-            numImages: 0,
+            imageCount: 0,
             expectedImages: [],
         }, {
-            desc: 'CAA item',
+            description: 'CAA item',
             url: 'https://archive.org/details/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '/items/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0/mbid-e276296d-0e1a-40bb-ac14-7a95f1ca7ff0-31558457789.jpg',
@@ -74,11 +74,11 @@ describe('archive provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://archive.org/details/e3e23e23r32r32',
             errorMessage: 'Empty IA metadata, item might not exist',
         }, {
-            desc: 'darkened release',
+            description: 'darkened release',
             url: 'https://archive.org/details/mbid-3c556c47-110d-4782-a607-c93e486bccf8',
             errorMessage: 'Cannot access IA metadata: This item is darkened',
         }];

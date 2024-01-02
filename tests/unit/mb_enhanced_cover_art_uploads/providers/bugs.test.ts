@@ -10,20 +10,20 @@ describe('bugs provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'release URLs',
+            description: 'release URLs',
             url: 'https://music.bugs.co.kr/album/4078166',
             id: '4078166',
         }, {
-            desc: 'dirty release URLs',
+            description: 'dirty release URLs',
             url: 'https://music.bugs.co.kr/album/4078166?wl_ref=list_ab_03_ar',
             id: '4078166',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://music.bugs.co.kr/artist/80373333',
         }, {
-            desc: 'track URLs',
+            description: 'track URLs',
             url: 'https://music.bugs.co.kr/track/6170522',
         }];
 
@@ -33,9 +33,9 @@ describe('bugs provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://music.bugs.co.kr/album/4078166',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '40781/4078166',
@@ -45,7 +45,7 @@ describe('bugs provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://music.bugs.co.kr/album/abcd',
         }];
 

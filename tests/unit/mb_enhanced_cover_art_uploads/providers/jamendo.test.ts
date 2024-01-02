@@ -10,20 +10,20 @@ describe('jamendo provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'album URL without album name',
+            description: 'album URL without album name',
             url: 'https://www.jamendo.com/album/454973',
             id: '454973',
         }, {
-            desc: 'album URL with album name',
+            description: 'album URL with album name',
             url: 'https://www.jamendo.com/album/454973/to-aurora',
             id: '454973',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URL',
+            description: 'artist URL',
             url: 'https://www.jamendo.com/artist/535912/smoking-with-poets',
         }, {
-            desc: 'track URL',
+            description: 'track URL',
             url: 'https://www.jamendo.com/track/1885651/to-aurora',
         }];
 
@@ -33,9 +33,9 @@ describe('jamendo provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'album',
+            description: 'album',
             url: 'https://www.jamendo.com/album/454973/to-aurora',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'cid=1652438482',
@@ -44,7 +44,7 @@ describe('jamendo provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://www.jamendo.com/album/abcdef',
         }];
 

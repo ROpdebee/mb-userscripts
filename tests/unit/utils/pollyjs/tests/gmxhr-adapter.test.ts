@@ -14,7 +14,7 @@ describe('gmxhr adapter', () => {
         persister: WarcPersister,
         persisterOptions: {
             'fs-warc': {
-                recordingsDir: path.resolve('.', 'tests', 'test-data', '__recordings__'),
+                recordingsDirectory: path.resolve('.', 'tests', 'test-data', '__recordings__'),
             },
         },
     });

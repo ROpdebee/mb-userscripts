@@ -10,16 +10,16 @@ describe('beatport provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'album URLs',
+            description: 'album URLs',
             url: 'https://www.beatport.com/release/osa-ep/1778814',
             id: '1778814',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://www.beatport.com/artist/mark-storie/27940',
         }, {
-            desc: 'label URLs',
+            description: 'label URLs',
             url: 'https://www.beatport.com/label/20-20-ldn-recordings/51248',
         }];
 
@@ -29,9 +29,9 @@ describe('beatport provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://www.beatport.com/release/osa-ep/1778814',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'e638a042-973b-4822-8478-7470d30064d5',
@@ -40,7 +40,7 @@ describe('beatport provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://www.beatport.com/release/osa-ep/1778',
         }];
 

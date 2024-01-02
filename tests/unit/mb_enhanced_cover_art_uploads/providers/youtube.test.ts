@@ -10,13 +10,13 @@ describe('youtube provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'video URLs',
+            description: 'video URLs',
             url: 'https://www.youtube.com/watch?v=Py21QCndbxc',
             id: 'Py21QCndbxc',
         }];
 
         const unsupportedUrls = [{
-            desc: 'channel URLs',
+            description: 'channel URLs',
             url: 'https://www.youtube.com/@NanashiMumei',
         }];
 
@@ -26,9 +26,9 @@ describe('youtube provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'music video',
+            description: 'music video',
             url: 'https://www.youtube.com/watch?v=Py21QCndbxc',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'Py21QCndbxc/maxresdefault',
@@ -40,7 +40,7 @@ describe('youtube provider', () => {
         // to a consent page on missing releases, which blocks the test.
         /*
         const extractionFailedCases = [{
-            desc: 'non-existent video',
+            description: 'non-existent video',
             url: 'https://www.youtube.com/watch?v=py21QCndbXc',
         }];
         */

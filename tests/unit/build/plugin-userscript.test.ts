@@ -27,7 +27,7 @@ describe('git URLs', () => {
         });
 
         it('should construct from repo object', () => {
-            const gitUrls = GitURLs.fromPackageJson({ repository: { type: 'git', url: 'https://github.com/ROpdebee/mb-userscripts' }});
+            const gitUrls = GitURLs.fromPackageJson({ repository: { type: 'git', url: 'https://github.com/ROpdebee/mb-userscripts' } });
 
             expect(gitUrls.homepageURL)
                 .toBe('https://github.com/ROpdebee/mb-userscripts');
@@ -35,8 +35,8 @@ describe('git URLs', () => {
     });
 
     describe('constructing URLs', () => {
-        const gitUrls = GitURLs.fromPackageJson({ repository: 'https://github.com/ROpdebee/mb-userscripts'});
-        const gitUrlsWithGitExtension = GitURLs.fromPackageJson({ repository: 'https://github.com/ROpdebee/mb-userscripts.git'});
+        const gitUrls = GitURLs.fromPackageJson({ repository: 'https://github.com/ROpdebee/mb-userscripts' });
+        const gitUrlsWithGitExtension = GitURLs.fromPackageJson({ repository: 'https://github.com/ROpdebee/mb-userscripts.git' });
 
         describe('homepage URL', () => {
             it('use owner and repo name', () => {
@@ -87,7 +87,7 @@ describe('metadata generator', () => {
     const options = {
         userscriptName: 'test',
         version: '1.0.0',
-        outputDir: 'dist',
+        outputDirectory: 'dist',
         include: /.+/,
         branchName: 'branch',
         metadataOrder: ['name', 'namespace', 'version'],
@@ -195,7 +195,7 @@ describe('metadata generator', () => {
         });
 
         it('uses author object in package.json', () => {
-            const metaGen = new MetadataGenerator(options, { ...basePackageJson, author: { name: 'ROpdebee' }});
+            const metaGen = new MetadataGenerator(options, { ...basePackageJson, author: { name: 'ROpdebee' } });
 
             expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ author: 'ROpdebee' });
@@ -237,7 +237,7 @@ describe('metadata generator', () => {
         });
 
         it('inserts issues URL from package.json bugs object', () => {
-            const metaGen = new MetadataGenerator(options, { ...packageJsonWithAuthor, bugs: { url: 'test URL' }});
+            const metaGen = new MetadataGenerator(options, { ...packageJsonWithAuthor, bugs: { url: 'test URL' } });
 
             expect(metaGen['insertDefaultMetadata'](defaultMeta))
                 .toMatchObject({ supportURL: 'test URL' });

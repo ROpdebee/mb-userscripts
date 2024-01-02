@@ -12,34 +12,34 @@ describe('qobuz provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'www URLs with language',
+            description: 'www URLs with language',
             url: 'https://www.qobuz.com/gb-en/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770',
             id: '0060075354770',
         }, {
-            desc: 'www URLs without language',
+            description: 'www URLs without language',
             url: 'https://www.qobuz.com/album/crime-of-the-century-2014-hd-remaster-supertramp/0060075354770',
             id: '0060075354770',
         }, {
-            desc: 'open URLs',
+            description: 'open URLs',
             url: 'https://open.qobuz.com/album/0074643811224',
             id: '0074643811224',
         }, {
-            desc: 'open URLs with additional path component',
+            description: 'open URLs with additional path component',
             url: 'https://open.qobuz.com/album/1234567890/related',
             id: '1234567890',
         }];
 
         const unsupportedUrls = [{
-            desc: 'label URLs',
+            description: 'label URLs',
             url: 'https://www.qobuz.com/gb-en/label/universal-music-group-international/download-streaming-albums',
         }, {
-            desc: 'label URLs with ID',
+            description: 'label URLs with ID',
             url: 'https://www.qobuz.com/nl-nl/label/universal-music-group-international/download-streaming-albums/92570',
         }, {
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://www.qobuz.com/nl-nl/interpreter/supertramp/download-streaming-albums',
         }, {
-            desc: 'open artist URLs',
+            description: 'open artist URLs',
             url: 'https://open.qobuz.com/artist/50195',
         }];
 
@@ -49,18 +49,18 @@ describe('qobuz provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release without booklet',
+            description: 'release without booklet',
             url: 'https://open.qobuz.com/album/0060075330437',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '/images/covers/37/04/0060075330437_org.jpg',
                 types: [ArtworkTypeIDs.Front],
             }],
         }, {
-            desc: 'release with booklet',
+            description: 'release with booklet',
             url: 'https://open.qobuz.com/album/0825646089178',
-            numImages: 2,
+            imageCount: 2,
             expectedImages: [{
                 index: 0,
                 urlPart: '/images/covers/78/91/0825646089178_org.jpg',

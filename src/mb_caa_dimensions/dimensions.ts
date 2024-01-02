@@ -17,6 +17,7 @@ function _getImageDimensions(url: string): Promise<Dimensions> {
             if (!done) {  // Prevent resolving twice.
                 resolve(dimensions);
                 done = true;
+                // eslint-disable-next-line unicorn/prevent-abbreviations
                 image.src = '';  // Cancel loading the image
             }
         }
@@ -53,6 +54,7 @@ function _getImageDimensions(url: string): Promise<Dimensions> {
         }, 50);
 
         // Start loading the image
+        // eslint-disable-next-line unicorn/prevent-abbreviations
         image.src = url;
     });
 }

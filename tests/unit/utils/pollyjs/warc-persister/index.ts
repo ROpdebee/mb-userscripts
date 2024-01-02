@@ -11,7 +11,7 @@ import har2warc from './har2warc';
 import warc2har from './warc2har';
 
 interface Options extends Polly {
-    recordingsDir: string;
+    recordingsDirectory: string;
 }
 
 export class WarcPersister extends Persister<Options> {
@@ -46,7 +46,7 @@ export class WarcPersister extends Persister<Options> {
     }
 
     private filenameFor(recordingId: string): string {
-        assertHasValue(this.options.recordingsDir);
-        return path.join(this.options.recordingsDir, recordingId + '.warc');
+        assertHasValue(this.options.recordingsDirectory);
+        return path.join(this.options.recordingsDirectory, recordingId + '.warc');
     }
 }

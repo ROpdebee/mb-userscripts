@@ -9,23 +9,23 @@ describe('rockipedia provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'release URLs',
+            description: 'release URLs',
             url: 'https://www.rockipedia.no/utgivelser/jaktprat_-_super_ss_rally_gt_fastback_ha-36860/',
             id: '36860',
         }, {
-            desc: 'release URLs with special characters',
+            description: 'release URLs with special characters',
             url: 'https://www.rockipedia.no/utgivelser/good_man_good_girl__(radio_edit)-25786/',
             id: '25786',
         }];
 
         const unsupportedUrls = [{
-            desc: 'label URLs',
+            description: 'label URLs',
             url: 'https://www.rockipedia.no/plateselskap/cbs-1251/',
         }, {
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://www.rockipedia.no/artister/oystein_sunde-63460/',
         }, {
-            desc: 'release overview URL',
+            description: 'release overview URL',
             url: 'https://www.rockipedia.no/utgivelser/',
         }];
 
@@ -35,17 +35,17 @@ describe('rockipedia provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release with one image',
+            description: 'release with one image',
             url: 'https://www.rockipedia.no/utgivelser/dette_forandrer_alt-4580/',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '?image=3224_original.jpg',
             }],
         }, {
-            desc: 'releases with multiple images',
+            description: 'releases with multiple images',
             url: 'https://www.rockipedia.no/utgivelser/jaktprat_-_super_ss_rally_gt_fastback_ha-36860/',
-            numImages: 4,
+            imageCount: 4,
             expectedImages: [{
                 index: 0,
                 urlPart: '?image=43782_original.jpg',
@@ -60,9 +60,9 @@ describe('rockipedia provider', () => {
                 urlPart: '?image=43785_original.jpg',
             }],
         }, {
-            desc: 'releases with no images',
+            description: 'releases with no images',
             url: 'https://www.rockipedia.no/utgivelser/hei_verden_-_sorte_tyr-36295/',
-            numImages: 0,
+            imageCount: 0,
             expectedImages: [],
         }];
 

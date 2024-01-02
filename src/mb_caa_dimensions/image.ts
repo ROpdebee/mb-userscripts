@@ -15,12 +15,12 @@ export interface Image {
 }
 
 export abstract class BaseImage {
-    protected readonly imgUrl: string;
+    protected readonly imageUrl: string;
     protected readonly cacheKey: string;
     private readonly cache?: InfoCache;
 
     public constructor(imageUrl: string, cache?: InfoCache, cacheKey?: string) {
-        this.imgUrl = imageUrl;
+        this.imageUrl = imageUrl;
         this.cacheKey = cacheKey ?? imageUrl;
         this.cache = cache;
     }
@@ -36,7 +36,7 @@ export abstract class BaseImage {
         }
 
         try {
-            const liveResult = await getImageDimensions(this.imgUrl);
+            const liveResult = await getImageDimensions(this.imageUrl);
             await this.cache?.putDimensions(this.cacheKey, liveResult);
             return liveResult;
         } catch (error) {
@@ -197,10 +197,10 @@ export class CAAImage extends BaseImage {
 
 
 export class QueuedUploadImage implements Image {
-    private readonly imgElement: HTMLImageElement;
+    private readonly imageElement: HTMLImageElement;
 
     public constructor(imageElement: HTMLImageElement) {
-        this.imgElement = imageElement;
+        this.imageElement = imageElement;
     }
 
     public getFileInfo(): Promise<undefined> {
@@ -213,17 +213,17 @@ export class QueuedUploadImage implements Image {
         return new Promise((resolve) => {
             const onLoad = (): void => {
                 resolve({
-                    width: this.imgElement.naturalWidth,
-                    height: this.imgElement.naturalHeight,
+                    width: this.imageElement.naturalWidth,
+                    height: this.imageElement.naturalHeight,
                 });
             };
 
             // Adding the event listener and then checking the state to make
             // sure that we don't miss the event in between the check and the
             // adding of the listener.
-            this.imgElement.addEventListener('load', onLoad);
-            if (this.imgElement.complete) {
-                this.imgElement.removeEventListener('load', onLoad);
+            this.imageElement.addEventListener('load', onLoad);
+            if (this.imageElement.complete) {
+                this.imageElement.removeEventListener('load', onLoad);
                 onLoad();
             }
         });

@@ -10,13 +10,13 @@ describe('melon provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'release URLs',
+            description: 'release URLs',
             url: 'https://www.melon.com/album/detail.htm?albumId=10749882',
             id: '10749882',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://www.melon.com/artist/timeline.htm?artistId=561051',
         }];
 
@@ -26,9 +26,9 @@ describe('melon provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://www.melon.com/album/detail.htm?albumId=10749882',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '10749882_20211022144758',
@@ -37,7 +37,7 @@ describe('melon provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://www.melon.com/album/detail.htm?albumId=0',
         }];
 

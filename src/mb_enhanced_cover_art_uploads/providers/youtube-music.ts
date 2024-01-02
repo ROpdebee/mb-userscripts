@@ -36,7 +36,7 @@ interface YTMusicPageData {
 }
 
 interface YTMusicPageInfo {
-    params: YTMusicPageParameters;
+    parameters: YTMusicPageParameters;
     data: YTMusicPageData;
 }
 
@@ -83,7 +83,7 @@ export class YoutubeMusicProvider extends CoverArtProvider {
         const [stringParameters, stringData] = documentMatch.slice(1).map((string_) => this.unescapeJson(string_));
 
         return {
-            params: safeParseJSON<YTMusicPageParameters>(stringParameters, 'Failed to parse `params` JSON data'),
+            parameters: safeParseJSON<YTMusicPageParameters>(stringParameters, 'Failed to parse `params` JSON data'),
             data: safeParseJSON<YTMusicPageData>(stringData, 'Failed to parse `data` JSON data'),
         };
     }
@@ -107,7 +107,7 @@ export class YoutubeMusicProvider extends CoverArtProvider {
      * Check if the YT Music page is indeed an album, and raise an error otherwise.
      */
     private checkAlbumPage(pageInfo: YTMusicPageInfo): void {
-        const config = safeParseJSON<YTMusicBrowseEndpointContextSupportedConfigs>(pageInfo.params.browseEndpointContextSupportedConfigs)!;
+        const config = safeParseJSON<YTMusicBrowseEndpointContextSupportedConfigs>(pageInfo.parameters.browseEndpointContextSupportedConfigs)!;
         const pageType = config.browseEndpointContextMusicConfig.pageType;
         const pageTypeReadable = pageType.match(/_([A-Z]+)$/)?.[1].toLowerCase() ?? /* istanbul ignore next: Should not happen */ pageType;
         assert(pageType === 'MUSIC_PAGE_TYPE_ALBUM', `Expected an album, got ${pageTypeReadable} instead`);

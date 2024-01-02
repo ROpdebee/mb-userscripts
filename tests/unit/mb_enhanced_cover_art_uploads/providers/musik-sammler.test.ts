@@ -9,20 +9,20 @@ describe('musik-sammler provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'release URLs',
+            description: 'release URLs',
             url: 'https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/',
             id: '1539691',
         }, {
-            desc: 'short release URLs',
+            description: 'short release URLs',
             url: 'https://www.musik-sammler.de/release/1539691/',
             id: '1539691',
         }];
 
         const unsupportedUrls = [{
-            desc: 'album URLs',
+            description: 'album URLs',
             url: 'https://www.musik-sammler.de/album/vanilla-fudge-vanilla-fudge-995842/',
         }, {
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://www.musik-sammler.de/artist/vanilla-fudge/',
         }];
 
@@ -32,9 +32,9 @@ describe('musik-sammler provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539691/',
-            numImages: 3,
+            imageCount: 3,
             expectedImages: [{
                 index: 0,
                 urlPart: '1539691_1635313476.jpg',
@@ -48,7 +48,7 @@ describe('musik-sammler provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://www.musik-sammler.de/release/vanilla-fudge-vanilla-fudge-cd-1539/',
         }];
 

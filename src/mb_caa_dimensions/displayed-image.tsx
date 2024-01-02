@@ -9,7 +9,7 @@ import type { InfoCache } from './info-cache';
 import { CAAImage, QueuedUploadImage } from './image';
 
 export interface DisplayedImage {
-    readonly imgElement: HTMLImageElement;
+    readonly imageElement: HTMLImageElement;
     loadAndDisplay(): Promise<void>;
 }
 
@@ -35,12 +35,12 @@ export function createFileInfoString(imageInfo: ImageInfo): string {
 }
 
 abstract class BaseDisplayedImage implements DisplayedImage {
-    public readonly imgElement: HTMLImageElement;
+    public readonly imageElement: HTMLImageElement;
     private _dimensionsSpan: HTMLSpanElement | null = null;
     private _fileInfoSpan: HTMLSpanElement | null = null;
 
     public constructor(imageElement: HTMLImageElement) {
-        this.imgElement = imageElement;
+        this.imageElement = imageElement;
     }
 
     protected get dimensionsSpan(): HTMLSpanElement {
@@ -48,19 +48,19 @@ abstract class BaseDisplayedImage implements DisplayedImage {
 
         // Possibly already added previously. Shouldn't happen within this script,
         // but can happen in Supercharged CAA Edits.
-        this._dimensionsSpan = qsMaybe<HTMLSpanElement>('span.ROpdebee_dimensions', this.imgElement.parentElement!);
+        this._dimensionsSpan = qsMaybe<HTMLSpanElement>('span.ROpdebee_dimensions', this.imageElement.parentElement!);
         if (this._dimensionsSpan !== null) return this._dimensionsSpan;
 
         // First time accessing the dimensions, add it now.
         this._dimensionsSpan = <span className={'ROpdebee_dimensions'}></span>;
-        this.imgElement.insertAdjacentElement('afterend', this._dimensionsSpan);
+        this.imageElement.insertAdjacentElement('afterend', this._dimensionsSpan);
         return this._dimensionsSpan;
     }
 
     protected get fileInfoSpan(): HTMLSpanElement {
         if (this._fileInfoSpan !== null) return this._fileInfoSpan;
 
-        this._fileInfoSpan = qsMaybe<HTMLSpanElement>('span.ROpdebee_fileInfo', this.imgElement.parentElement!);
+        this._fileInfoSpan = qsMaybe<HTMLSpanElement>('span.ROpdebee_fileInfo', this.imageElement.parentElement!);
         if (this._fileInfoSpan !== null) return this._fileInfoSpan;
 
         this._fileInfoSpan = <span className={'ROpdebee_fileInfo'}></span>;
@@ -81,7 +81,7 @@ abstract class DisplayedCAAImage extends BaseDisplayedImage {
 
     public async loadAndDisplay(): Promise<void> {
         // Don't load dimensions if it's already loaded/currently being loaded
-        if (this.imgElement.getAttribute('ROpdebee_lazyDimensions')) {
+        if (this.imageElement.getAttribute('ROpdebee_lazyDimensions')) {
             return;
         }
 
@@ -97,7 +97,7 @@ abstract class DisplayedCAAImage extends BaseDisplayedImage {
     }
 
     protected displayInfo(dimensionsString: string, fileInfoString?: string): void {
-        this.imgElement.setAttribute('ROpdebee_lazyDimensions', dimensionsString);
+        this.imageElement.setAttribute('ROpdebee_lazyDimensions', dimensionsString);
 
         this.dimensionsSpan.textContent = dimensionsString;
         if (fileInfoString !== undefined) {
@@ -178,7 +178,7 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
 
     public async loadAndDisplay(): Promise<void> {
         // Don't display on PDF images
-        if (this.imgElement.src.endsWith('/static/images/icons/pdf-icon.png')) return;
+        if (this.imageElement.src.endsWith('/static/images/icons/pdf-icon.png')) return;
 
         const dimensions = await this.image.getDimensions();
         const infoString = `${dimensions.width}x${dimensions.height}`;
@@ -218,11 +218,11 @@ export const displayInfoWhenInView = ((): ((image: DisplayedImage) => void) => {
     });
 
     return (image) => {
-        if (imageMap.has(image.imgElement)) {
+        if (imageMap.has(image.imageElement)) {
             // Already observing
             return;
         }
-        imageMap.set(image.imgElement, image);
-        observer.observe(image.imgElement);
+        imageMap.set(image.imageElement, image);
+        observer.observe(image.imageElement);
     };
 })();

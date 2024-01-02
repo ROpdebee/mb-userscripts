@@ -112,7 +112,7 @@ export class AtisketImage extends BaseImage {
     }
 
     protected async loadFileInfo(): Promise<FileInfo> {
-        const response = await pRetry(() => request.head(this.imgUrl), {
+        const response = await pRetry(() => request.head(this.imageUrl), {
             retries: 5,
             onFailedAttempt: (error) => {
                 // Don't retry on 4xx status codes except for 429. Anything below 400 doesn't throw a HTTPResponseError.

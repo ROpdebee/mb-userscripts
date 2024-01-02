@@ -12,25 +12,25 @@ describe('amazon provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'dirty product URLs',
+            description: 'dirty product URLs',
             url: 'https://www.amazon.com/Pattern-Seeking-Animals/dp/B07RZ2T9F1/ref=tmm_acd_swatch_0?_encoding=UTF8&qid=&sr=',
             id: 'B07RZ2T9F1',
         }, {
-            desc: 'dirty product URLs without trailing slash',
+            description: 'dirty product URLs without trailing slash',
             url: 'https://www.amazon.com/Chronicles-Narnia-Collectors-Radio-Theatre/dp/1624053661?qsid=145-0543367-7486236',
             id: '1624053661',
         }, {
-            desc: 'dp URLs',
+            description: 'dp URLs',
             url: 'https://www.amazon.com/dp/B07RZ2T9F1',
             id: 'B07RZ2T9F1',
         }, {
-            desc: 'gp URLs',
+            description: 'gp URLs',
             url: 'https://www.amazon.com/gp/product/B07RZ2T9F1',
             id: 'B07RZ2T9F1',
         }];
 
         const unsupportedUrls = [{
-            desc: 'search URLs',
+            description: 'search URLs',
             url: 'https://www.amazon.com/s/ref=dp_byline_sr_music_1?ie=UTF8&field-artist=Pattern-Seeking+Animals&search-alias=music',
         }];
 
@@ -40,7 +40,7 @@ describe('amazon provider', () => {
 
     describe('extracting images', () => {
         const expectedPhysical = {
-            numImages: 5,
+            imageCount: 5,
             expectedImages: [{
                 index: 0,
                 urlPart: '81bqssuW6LL',
@@ -63,7 +63,7 @@ describe('amazon provider', () => {
         // This was the expected result for the Amazon Music release, we may need
         // this again in the future.
         /* const expectedDigital = {
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '819w7BrMFgL',
@@ -72,17 +72,17 @@ describe('amazon provider', () => {
         };*/
 
         const extractionCases: ExtractionCase[] = [{
-            desc: 'physical products from the embedded JS on dp URLs',
+            description: 'physical products from the embedded JS on dp URLs',
             url: 'https://www.amazon.com/dp/B07QWNQT8X',
             ...expectedPhysical,
         }, {
-            desc: 'physical products from the embedded JS on gp URLs',
+            description: 'physical products from the embedded JS on gp URLs',
             url: 'https://www.amazon.com/gp/product/B07QWNQT8X',
             ...expectedPhysical,
         }, {
-            desc: 'physical audiobooks from the embedded JS',
+            description: 'physical audiobooks from the embedded JS',
             url: 'https://www.amazon.com/dp/0563504196',
-            numImages: 2,
+            imageCount: 2,
             expectedImages: [{
                 index: 0,
                 urlPart: '91OEsuYoClL',
@@ -92,27 +92,27 @@ describe('amazon provider', () => {
                 urlPart: '91NVbKDHCWL',
             }],
         }, {
-            desc: 'physical audiobooks where Audible version is also available',
+            description: 'physical audiobooks where Audible version is also available',
             url: 'https://www.amazon.com/gp/product/207055998X',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '812VSsX9rpL',
                 types: [ArtworkTypeIDs.Front],
             }],
         }, {
-            desc: 'Audible audiobooks',
+            description: 'Audible audiobooks',
             url: 'https://www.amazon.com/dp/B017WJ5PR4',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '61yMjtQzKcL',
                 types: [ArtworkTypeIDs.Front],
             }],
         }, {
-            desc: 'Audible audiobooks with dirty URL',
+            description: 'Audible audiobooks with dirty URL',
             url: 'https://www.amazon.com/Harry-Potter-%C3%A0-l%C3%89cole-Sorciers/dp/B06Y65ZVWV',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '51tYQFOBhOL',
@@ -121,14 +121,14 @@ describe('amazon provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'http://amazon.com/gp/product/B01NCKFNXH',
         }, {
-            desc: 'digital releases on dp URLs',
+            description: 'digital releases on dp URLs',
             url: 'https://www.amazon.com/dp/B07R92TVWN',
             errorMessage: /Amazon Music releases are currently not supported/,
         }, {
-            desc: 'digital releases on gp URLs',
+            description: 'digital releases on gp URLs',
             url: 'https://www.amazon.com/gp/product/B07R92TVWN',
             errorMessage: /Amazon Music releases are currently not supported/,
         }];

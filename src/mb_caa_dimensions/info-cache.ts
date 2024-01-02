@@ -108,10 +108,10 @@ class NoInfoCache implements InfoCache {
  * Image information cache backed by an IndexedDB instance.
  */
 class IndexedDBInfoCache {
-    private readonly db: IDBPDatabase<CacheDBSchema>;
+    private readonly database: IDBPDatabase<CacheDBSchema>;
 
     private constructor(database: IDBPDatabase<CacheDBSchema>) {
-        this.db = database;
+        this.database = database;
     }
 
     public static async create(): Promise<IndexedDBInfoCache> {
@@ -209,7 +209,7 @@ class IndexedDBInfoCache {
 
     private async get<StoreName extends StoreNames<CacheDBSchema>>(storeName: StoreName, imageUrl: string): Promise<CacheDBSchema[StoreName]['value'] | undefined> {
         try {
-            const cachedResult = await this.db.get(storeName, imageUrl);
+            const cachedResult = await this.database.get(storeName, imageUrl);
             if (cachedResult !== undefined) {
                 LOGGER.debug(`${imageUrl}: Cache hit`);
             } else {
@@ -225,7 +225,7 @@ class IndexedDBInfoCache {
 
     private async put<StoreName extends StoreNames<CacheDBSchema>>(storeName: StoreName, imageUrl: string, value: Omit<CacheDBSchema[StoreName]['value'], 'addedDatetime'>): Promise<void> {
         try {
-            await this.db.put(storeName, {
+            await this.database.put(storeName, {
                 ...value,
                 addedDatetime: Date.now(),
             }, imageUrl);

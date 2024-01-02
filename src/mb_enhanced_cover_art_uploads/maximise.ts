@@ -249,6 +249,7 @@ async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
     const results = await new Promise<maxurlResult[]>((resolve) => {
         maxurl(smallurl.href, {
             ...options,
+            // eslint-disable-next-line unicorn/prevent-abbreviations -- 3rd party code
             cb: resolve,
         }).catch((error) => {
             LOGGER.error('Could not maximise image, maxurl unavailable?', error);

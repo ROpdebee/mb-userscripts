@@ -224,7 +224,7 @@ describe('database migrations', () => {
             const cache = await createCache();
             // @ts-expect-error: X-raying private things
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            const database: IDBPDatabase = cache['db'];
+            const database: IDBPDatabase = cache['database'];
 
             await expect(database.getFromIndex('dimensionsStore', 'addedDatetimeIdx', IDBKeyRange.upperBound(200))).resolves.toEqual({
                 ...dummyDimensions,
@@ -255,7 +255,7 @@ describe('pruning cache', () => {
 
         // @ts-expect-error: X-raying private things
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const database: IDBDatabase = cache['db'];
+        const database: IDBDatabase = cache['database'];
         database.close();
     });
 

@@ -9,16 +9,16 @@ describe('amazon music provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'album URLs',
+            description: 'album URLs',
             url: 'https://music.amazon.com/albums/B08Y99SFVJ',
             id: 'B08Y99SFVJ',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://music.amazon.com/artists/B08YC6GFB7/hannapeles',
         }, {
-            desc: 'playlist URLs',
+            description: 'playlist URLs',
             url: 'https://music.amazon.com/playlists/B07H8NWNNF',
         }];
 
@@ -28,9 +28,9 @@ describe('amazon music provider', () => {
 
     describe('extracting images', () => {
         /*const extractionCases = [{
-            desc: 'release using Amazon provider',
+            description: 'release using Amazon provider',
             url: 'https://music.amazon.com/albums/B08MCFCQD8',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '81NnKXVjJvL',
@@ -38,7 +38,7 @@ describe('amazon music provider', () => {
             }],
         }];*/
         const extractionFailedCases = [{
-            desc: 'release using Amazon provider',
+            description: 'release using Amazon provider',
             url: 'https://music.amazon.com/albums/B08MCFCQD8',
             errorMessage: /Amazon Music releases are currently not supported/,
         }];

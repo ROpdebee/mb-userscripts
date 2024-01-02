@@ -11,23 +11,23 @@ describe('discogs provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'short release URLs',
+            description: 'short release URLs',
             url: 'https://www.discogs.com/release/9892912/',
             id: '9892912',
         }, {
-            desc: 'long release URLs',
+            description: 'long release URLs',
             url: 'https://www.discogs.com/release/9892912-Wayne-King-And-His-Orchestra-A-Million-Dreams-Ago-One-Look-At-You',
             id: '9892912',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://www.discogs.com/artist/881122-Wayne-King-And-His-Orchestra',
         }, {
-            desc: 'release master URLs',
+            description: 'release master URLs',
             url: 'https://www.discogs.com/master/1746505',
         }, {
-            desc: 'label URLs',
+            description: 'label URLs',
             url: 'https://www.discogs.com/label/61808-Victor',
         }];
 
@@ -37,9 +37,9 @@ describe('discogs provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://www.discogs.com/release/9892912',
-            numImages: 3,
+            imageCount: 3,
             expectedImages: [{
                 index: 0,
                 urlPart: '/MPDZnLHLvqDXD9VgXjG6EuxI5mrTCMqjoysNLPs7n9g/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4OTI5/MTItMTU3OTQ1Njcw/Ny0yMzIwLmpwZWc.jpeg',
@@ -56,7 +56,7 @@ describe('discogs provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://www.discogs.com/release/32342343',
         }];
 

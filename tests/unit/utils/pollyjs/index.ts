@@ -16,7 +16,7 @@ export function setupPolly(overrideOptions?: PollyConfig): Context {
         persister: WarcPersister,
         persisterOptions: {
             'fs-warc': {
-                recordingsDir: path.resolve('.', 'tests', 'test-data', '__recordings__'),
+                recordingsDirectory: path.resolve('.', 'tests', 'test-data', '__recordings__'),
             },
         },
         ...overrideOptions,

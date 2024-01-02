@@ -11,20 +11,20 @@ describe('7digital provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'release URLs',
+            description: 'release URLs',
             url: 'https://ca.7digital.com/artist/green-day/release/oh-yeah-10901051',
             id: '10901051',
         }, {
-            desc: 'release URLs with special characters',
+            description: 'release URLs with special characters',
             url: 'https://de.7digital.com/artist/tu-ves-ovnis/release/curva-al-final-del-t%C3%BAnel-14385941',
             id: '14385941',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://de.7digital.com/artist/tu-ves-ovnis',
         }, {
-            desc: 'feature URLs',
+            description: 'feature URLs',
             url: 'https://de.7digital.com/features/VGoltyoAAKgA0eUV/highlights-der-woche',
         }];
 
@@ -34,9 +34,9 @@ describe('7digital provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://de.7digital.com/artist/mnek/release/language-explicit-8354116',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: '0008354116',
@@ -46,7 +46,7 @@ describe('7digital provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://de.7digital.com/artist/mnek/release/language-elicit-83546',
         }];
 

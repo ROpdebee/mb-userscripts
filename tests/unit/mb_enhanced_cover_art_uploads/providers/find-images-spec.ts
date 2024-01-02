@@ -9,15 +9,15 @@ import type { ExpectedCoverArt } from '../test-utils/matchers';
 import { registerMatchers } from '../test-utils/matchers';
 
 export interface ExtractionCase {
-    desc: string;
+    description: string;
     url: string;
-    numImages: number;
+    imageCount: number;
     expectedImages: Array<ExpectedCoverArt & { index: number }>;
 }
 
 // Arguments for the "throws on 404 releases" spec
 export interface ExtractionFailedCase {
-    desc: string;
+    description: string;
     url: string;
     errorMessage?: string | RegExp;
 }
@@ -39,10 +39,10 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
     });
 
     if (extractionCases.length > 0) {
-        it.each(extractionCases)('extracts covers for $desc', async (extractionCase) => {
+        it.each(extractionCases)('extracts covers for $description', async (extractionCase) => {
             const covers = await provider.findImages(new URL(extractionCase.url), false);
 
-            expect(covers).toBeArrayOfSize(extractionCase.numImages);
+            expect(covers).toBeArrayOfSize(extractionCase.imageCount);
 
             for (const expectedImage of extractionCase.expectedImages) {
                 expect(covers[expectedImage.index]).toMatchCoverArt(expectedImage);
@@ -51,7 +51,7 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
     }
 
     if (extractionFailedCases.length > 0) {
-        it.each(extractionFailedCases)('throws on $desc', async (extractionFailedCase) => {
+        it.each(extractionFailedCases)('throws on $description', async (extractionFailedCase) => {
             pollyContext!.polly.configure({
                 recordFailedRequests: true,
             });

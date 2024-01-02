@@ -10,28 +10,28 @@ describe('monstercat provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'release URLs with catalog number',
+            description: 'release URLs with catalog number',
             url: 'https://www.monstercat.com/release/MCEP270',
             id: 'MCEP270',
         }, {
-            desc: 'release URLs with EAN',
+            description: 'release URLs with EAN',
             url: 'https://www.monstercat.com/release/742779546449',
             id: '742779546449',
         }, {
-            desc: 'player URLs with catalog number',
+            description: 'player URLs with catalog number',
             url: 'https://player.monstercat.app/release/MCEP270',
             id: 'MCEP270',
         }, {
-            desc: 'player URLs with EAN',
+            description: 'player URLs with EAN',
             url: 'https://player.monstercat.app/release/742779546449',
             id: '742779546449',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://www.monstercat.com/artist/lewis-thompson',
         }, {
-            desc: 'player artist URLs',
+            description: 'player artist URLs',
             url: 'https://player.monstercat.app/artist/godlands',
         }];
 
@@ -41,18 +41,18 @@ describe('monstercat provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://www.monstercat.com/release/MCEP270',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'https://www.monstercat.com/release/MCEP270/cover',
                 types: [ArtworkTypeIDs.Front],
             }],
         }, {
-            desc: 'player release',
+            description: 'player release',
             url: 'https://player.monstercat.app/release/742779546449',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'https://www.monstercat.com/release/742779546449/cover',
@@ -61,10 +61,10 @@ describe('monstercat provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://www.monstercat.com/release/BLABLA270',
         }, {
-            desc: 'non-existent player release',
+            description: 'non-existent player release',
             url: 'https://player.monstercat.app/release/3342342757272',
         }];
 

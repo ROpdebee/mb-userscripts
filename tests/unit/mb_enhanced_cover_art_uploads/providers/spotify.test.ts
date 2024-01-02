@@ -10,23 +10,23 @@ describe('spotify provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'clean album URLs',
+            description: 'clean album URLs',
             url: 'https://open.spotify.com/album/3hVr04Z3d9HgUCYOjXQHQL',
             id: '3hVr04Z3d9HgUCYOjXQHQL',
         }, {
-            desc: 'dirty album URLs',
+            description: 'dirty album URLs',
             url: 'https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURl?si=oXJ7iNcXTqSkcIk8jYBqFQ&dl_branch=1',
             id: '5Lj94YpHLkmjM7JZ8wuURl',
         }];
 
         const unsupportedUrls = [{
-            desc: 'track URLs',
+            description: 'track URLs',
             url: 'https://open.spotify.com/track/49tMnLt1iXNT6QBOsepFyg?si=61de9abff5f94f51',
         }, {
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://open.spotify.com/artist/5Igpc9iLZ3YGtKeYfSrrOE?si=a31abf58e12948fd',
         }, {
-            desc: 'playlist URLs',
+            description: 'playlist URLs',
             url: 'https://open.spotify.com/playlist/2yNg6AGxM4liENyBAE8Wyr',
         }];
 
@@ -36,9 +36,9 @@ describe('spotify provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURl',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: /image\/ab67616d0000b273bebe715d1d624070951a795a$/,
@@ -47,7 +47,7 @@ describe('spotify provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://open.spotify.com/album/5Lj94YpHLkmjM7JZ8wuURi',
         }];
 

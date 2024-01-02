@@ -13,25 +13,25 @@ describe('rateyourmusic provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'album URLs',
+            description: 'album URLs',
             url: 'https://rateyourmusic.com/release/album/fishmans/long-season.p/',
             id: 'album/fishmans/long-season.p',
         }, {
-            desc: 'album buy URLs',
+            description: 'album buy URLs',
             url: 'https://rateyourmusic.com/release/album/fishmans/long-season.p/buy/',
             id: 'album/fishmans/long-season.p',
         }, {
-            desc: 'single URLs',
+            description: 'single URLs',
             url: 'https://rateyourmusic.com/release/single/hot_dad/undertale/',
             id: 'single/hot_dad/undertale',
         }, {
-            desc: 'single buy URLs',
+            description: 'single buy URLs',
             url: 'https://rateyourmusic.com/release/single/hot_dad/undertale/buy',
             id: 'single/hot_dad/undertale',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://rateyourmusic.com/artist/fishmans',
         }];
 
@@ -41,10 +41,10 @@ describe('rateyourmusic provider', () => {
 
     describe('extracting images', () => {
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://rateyourmusic.com/release/album/fishmans/long/',
         }, {
-            desc: 'release when not logged in',
+            description: 'release when not logged in',
             url: 'https://rateyourmusic.com/release/album/fishmans/long-season.p/',
             errorMessage: /requires being logged in/,
         }];
