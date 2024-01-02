@@ -1,3 +1,5 @@
+import type { Promisable } from 'type-fest';
+
 import type { RequestOptions } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
@@ -47,14 +49,14 @@ export abstract class CoverArtProvider {
      * @param      {boolean}    onlyFront     True if we'll only enqueue the front image, can be used to skip expensive lookups. Providers can still return all images, they'll be filtered later.
      * @return     {Promise<CoverArt[]>}  List of cover arts that should be imported.
      */
-    public abstract findImages(url: URL, onlyFront: boolean): Promise<CoverArt[]>;
+    public abstract findImages(url: URL, onlyFront: boolean): Promisable<CoverArt[]>;
 
     /**
      * Postprocess a fetched image. By default, does nothing, however,
      * subclasses can override this to e.g. filter out an image after it has
      * been fetched.
      */
-    public postprocessImage(image: FetchedImage): Promise<FetchedImage | null> {
+    public postprocessImage(image: FetchedImage): Promisable<FetchedImage | null> {
         return Promise.resolve(image);
     }
 

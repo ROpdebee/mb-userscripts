@@ -1,3 +1,5 @@
+import type { Promisable } from 'type-fest';
+
 import { GMgetResourceUrl } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
@@ -66,7 +68,7 @@ export class AmazonProvider extends CoverArtProvider {
             throw new Error('Amazon served a captcha page');
         }
 
-        let finder: (url: URL, pageContent: string, pageDom: Document) => Promise<CoverArt[]>;
+        let finder: (url: URL, pageContent: string, pageDom: Document) => Promisable<CoverArt[]>;
 
         /* eslint-disable @typescript-eslint/unbound-method -- Bound further down */
         if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
@@ -86,7 +88,7 @@ export class AmazonProvider extends CoverArtProvider {
         return covers.filter((img) => !PLACEHOLDER_IMG_NAMES.some((name) => decodeURIComponent(img.url.pathname).includes(name)));
     }
 
-    private async findGenericPhysicalImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
+    private findGenericPhysicalImages(_url: URL, pageContent: string): CoverArt[] {
         const imgs = this.extractEmbeddedJSImages(pageContent, /\s*'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
         assertNonNull(imgs, 'Failed to extract images from embedded JS on generic physical page');
 
@@ -96,7 +98,7 @@ export class AmazonProvider extends CoverArtProvider {
         });
     }
 
-    private async findAudibleImages(_url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
+    private findAudibleImages(_url: URL, _pageContent: string, pageDom: Document): CoverArt[] {
         return this.extractFrontCover(pageDom, AUDIBLE_FRONT_IMAGE_QUERY);
     }
 

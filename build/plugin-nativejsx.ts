@@ -38,14 +38,13 @@ export function nativejsx(options?: Readonly<NativeJSXPluginOptions>): Plugin {
         name: 'NativeJSXPlugin',
 
         /**
-         * Transform hook for the plugin. Transforms included files with
-         * nativejsx.
+         * Transform hook for the plugin. Transforms included files with nativejsx.
          *
-         * @param      {string}                       code    The code
-         * @param      {string}                       id      The identifier
-         * @return     {Promise<undefined | string>}  The transformed result.
+         * @param      {string}              code    The code
+         * @param      {string}              id      The identifier
+         * @return     {string | undefined}  The transformed result.
          */
-        async transform(code: string, id: string): Promise<undefined | string> {
+        transform(code: string, id: string): string | undefined {
             if (!filter(id)) return;
 
             const transpiled = transpile(code, nativejsxOptions);

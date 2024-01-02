@@ -80,6 +80,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
         };
     }
 
+    // eslint-disable-next-line @typescript-eslint/require-await
     public override async onRespond(pollyRequest: RequestType<Context>, error?: Error): Promise<void> {
         if (error) throw error;
 

@@ -11,7 +11,7 @@ import { createCache } from './InfoCache';
 
 import css from './style.scss';
 
-async function processPageChange(mutations: MutationRecord[], cache: InfoCache): Promise<void> {
+function processPageChange(mutations: MutationRecord[], cache: InfoCache): void {
     mutations.flatMap((mutation) => [...mutation.addedNodes])
         .filter((addedNode) => addedNode instanceof HTMLImageElement)
         .forEach((addedImage) => {
@@ -46,7 +46,7 @@ function detectAndObserveImages(cache: InfoCache): void {
     // to insert the <img> elements. So we'll use a mutation observer and
     // process the image whenever it gets added.
     const imageLoadObserver = new MutationObserver((mutations) => {
-        logFailure(processPageChange(mutations, cache));
+        processPageChange(mutations, cache);
     });
 
     qsa('.cover-art-image').forEach((container) => {

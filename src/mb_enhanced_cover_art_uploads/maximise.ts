@@ -1,4 +1,5 @@
 // Interface to maxurl
+import type { Promisable } from 'type-fest';
 
 import type { GMxmlHttpRequest } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
@@ -228,7 +229,7 @@ const options: maxurlOptions = {
     },
 };
 
-type ExceptionFn = (smallurl: URL) => Promise<MaximisedImage[]>;
+type ExceptionFn = (smallurl: URL) => Promisable<MaximisedImage[]>;
 const IMU_EXCEPTIONS = new DispatchMap<ExceptionFn>();
 
 export interface MaximisedImage {
@@ -306,7 +307,7 @@ IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
     return results;
 });
 
-IMU_EXCEPTIONS.set('usercontent.jamendo.com', async (smallurl) => {
+IMU_EXCEPTIONS.set('usercontent.jamendo.com', (smallurl) => {
     return [{
         url: new URL(smallurl.href.replace(/([&?])width=\d+/, '$1width=0')),
         filename: '',
@@ -314,7 +315,7 @@ IMU_EXCEPTIONS.set('usercontent.jamendo.com', async (smallurl) => {
     }];
 });
 
-IMU_EXCEPTIONS.set('hw-img.datpiff.com', async (smallurl) => {
+IMU_EXCEPTIONS.set('hw-img.datpiff.com', (smallurl) => {
     // Some sizes may be missing, so try '-large' and '-medium' first, but fall
     // back to smallest (no suffix) if neither exist.
     const urlNoSuffix = smallurl.href.replace(/-(?:large|medium)(\.\w+$)/, '$1');

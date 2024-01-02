@@ -148,10 +148,11 @@ describe('amazon provider', () => {
             ['is invalid type', "'colorImages': { 'initial': 123 },"],
         ];
 
-        it.each(physicalJsonFailCases)('fails to grab generic images if JSON %s', async (_1, content) => {
-            const covers = provider['findGenericPhysicalImages'](new URL('https://www.amazon.com/dp/fake'), content);
+        it.each(physicalJsonFailCases)('fails to grab generic images if JSON %s', (_1, content) => {
+            const url = new URL('https://www.amazon.com/dp/fake');
 
-            await expect(covers).rejects.toThrowWithMessage(Error, 'Failed to extract images from embedded JS on generic physical page');
+            expect(() => provider['findGenericPhysicalImages'](url, content))
+                .toThrowWithMessage(Error, 'Failed to extract images from embedded JS on generic physical page');
         });
     });
 

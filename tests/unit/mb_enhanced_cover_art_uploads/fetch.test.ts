@@ -54,7 +54,7 @@ const fakeProvider = new FakeProvider();
 
 // Utility setup functions
 function disableMaximisation(): void {
-    // eslint-disable-next-line require-yield
+    // eslint-disable-next-line require-yield, @typescript-eslint/require-await
     mockGetMaximisedCandidates.mockImplementation(async function* (): AsyncGenerator<MaximisedImage, undefined, undefined> {
         return;
     });
@@ -380,7 +380,7 @@ describe('fetching image from URL', () => {
     describe('with maximisation', () => {
         beforeAll(() => {
             // Return 2 maximised candidates
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/require-await
             mockGetMaximisedCandidates.mockImplementation(async function* (_smallurl) {
                 // One with and one without filename to test extraction of file
                 // names in maximised images too.
@@ -544,6 +544,7 @@ describe('fetching images from providers', () => {
         // Mocking the maximisation to return the same maximised URL for both
         // images. This should lead to the first URL being added and the second
         // one being skipped.
+        // eslint-disable-next-line @typescript-eslint/require-await
         async function* mockedImplementation(): ReturnType<typeof getMaximisedCandidates> {
             yield {
                 url: new URL('https://example.com/3'),
@@ -904,6 +905,7 @@ describe('fetching images', () => {
         await fetcher.fetchImages({ url: new URL('https://example.com/1') }, false);
 
         // Simulate 1 being maximal version of 2
+        // eslint-disable-next-line @typescript-eslint/require-await
         mockGetMaximisedCandidates.mockImplementationOnce(async function* () {
             yield {
                 url: new URL('https://example.com/1'),

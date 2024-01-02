@@ -180,9 +180,6 @@ const baseJsConfig = {
         // Disabled because we rarely use non-null assertions, and if we do,
         // it's only to fix TS false positives.
         '@typescript-eslint/no-non-null-assertion': 'off',
-        // Disabled because otherwise we have to unnecessarily insert
-        // Promise.resolve everywhere.
-        '@typescript-eslint/require-await': 'off',
         // Disabled because we explicitly use template literals to convert to
         // strings.
         '@typescript-eslint/restrict-template-expressions': 'off',

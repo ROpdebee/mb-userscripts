@@ -23,7 +23,7 @@ export default async function warc2har(warc: Uint8Array): Promise<Har> {
 
         case 'request':
             entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
-            await populateEntryRequest(record, entry);
+            populateEntryRequest(record, entry);
             break;
 
         case 'response':
@@ -111,7 +111,7 @@ function parseQueryString(path: string): Array<{ name: string; value: string }> 
         });
 }
 
-async function populateEntryRequest(record: WARCRecord, entry: HarEntry): Promise<void> {
+function populateEntryRequest(record: WARCRecord, entry: HarEntry): void {
     const [method, path, httpVersion] = record.httpHeaders!.statusline.split(' ');
     const request: HarRequest = {
         ...entry.request,

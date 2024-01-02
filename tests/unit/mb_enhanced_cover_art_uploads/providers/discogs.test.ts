@@ -73,7 +73,7 @@ describe('discogs provider', () => {
     });
 
     describe('extracting filename from URL', () => {
-        it('extracts the correct filename', async () => {
+        it('extracts the correct filename', () => {
             const filename = DiscogsProvider.getFilenameFromUrl(new URL('https://i.discogs.com/MPDZnLHLvqDXD9VgXjG6EuxI5mrTCMqjoysNLPs7n9g/rs:fit/g:sm/q:90/h:600/w:576/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4OTI5/MTItMTU3OTQ1Njcw/Ny0yMzIwLmpwZWc.jpeg'));
 
             expect(filename).toBe('R-9892912-1579456707-2320.jpeg');

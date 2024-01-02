@@ -55,7 +55,7 @@ function getMBReleases(): Promise<string[]> {
 }
 
 async function extractCovers(): Promise<VGMdbCovers> {
-    const covers = await VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery'));
+    const covers = VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery'));
 
     // Split the extracted covers into public and private, to provide the option
     // to seed only private covers.
@@ -75,12 +75,12 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
 
     const relIdToAnchors = new Map(releaseIds.map((relId) => {
         const a = <a
-            href={ seedParamsPrivate.createSeedURL(relId) }
+            href={seedParamsPrivate.createSeedURL(relId)}
             target='_blank'
             rel='noopener noreferrer'
             style={{ display: 'block' }}
         >
-            { 'Seed covers to ' + relId.split('-')[0] }
+            {'Seed covers to ' + relId.split('-')[0]}
         </a> as HTMLAnchorElement;
         return [relId, a];
     }));
@@ -104,7 +104,7 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
 
     const containedElements = [inclPublicCheckbox, inclPublicLabel, ...anchors];
     if (anchors.length === 0) {
-        containedElements.push(<span style={{ display: 'block'}}>
+        containedElements.push(<span style={{ display: 'block' }}>
             This album is not linked to any MusicBrainz releases!
         </span>);
     }

@@ -12,9 +12,9 @@ export class AmazonMusicProvider extends CoverArtProvider {
     public readonly name = 'Amazon Music';
     protected readonly urlRegex = /\/albums\/([A-Za-z\d]{10})(?:\/|$)/;
 
-    public async findImages(): Promise<CoverArt[]> {
+    public findImages(): Promise<CoverArt[]> {
         // Amazon made it really difficult to extract images from these sort
         // of pages, so we don't support it for now.
-        throw new Error('Amazon Music releases are currently not supported. Please use a different provider or copy the image URL manually.');
+        return Promise.reject(new Error('Amazon Music releases are currently not supported. Please use a different provider or copy the image URL manually.'));
     }
 }

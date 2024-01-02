@@ -132,7 +132,7 @@ const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) 
 
 function convertMappingReturnValue(ret: MappedArtwork): { types: ArtworkTypeIDs[]; comment: string } {
     if (Object.prototype.hasOwnProperty.call(ret, 'type')
-            && Object.prototype.hasOwnProperty.call(ret, 'comment')) {
+        && Object.prototype.hasOwnProperty.call(ret, 'comment')) {
         const retObj = ret as { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
         return {
             types: Array.isArray(retObj.type) ? retObj.type : [retObj.type],
@@ -241,7 +241,7 @@ export class VGMdbProvider extends CoverArtProvider {
         }
 
         const coverGallery = qsMaybe('#cover_gallery', pageDom);
-        const galleryCovers = coverGallery ? await VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [];
+        const galleryCovers = coverGallery ? VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [];
 
         // Add the main cover if it's not in the gallery
         const mainCoverUrl = qsMaybe<HTMLDivElement>('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)?.[1];
@@ -263,7 +263,7 @@ export class VGMdbProvider extends CoverArtProvider {
         return galleryCovers;
     }
 
-    public static async extractCoversFromDOMGallery(coverGallery: Element): Promise<CoverArt[]> {
+    public static extractCoversFromDOMGallery(coverGallery: Element): CoverArt[] {
         const coverElements = qsa<HTMLAnchorElement>('a[id*="thumb_"]', coverGallery);
         return coverElements.map(this.extractCoverFromAnchor.bind(this));
     }
@@ -293,7 +293,7 @@ export class VGMdbProvider extends CoverArtProvider {
             return { url: cover.full, caption: cover.name };
         });
         if (metadata.picture_full
-                && !covers.some((cover) => cover.url === metadata.picture_full)) {
+            && !covers.some((cover) => cover.url === metadata.picture_full)) {
             // Assuming the main picture is the front cover
             covers.unshift({ url: metadata.picture_full, caption: 'Front' });
         }
