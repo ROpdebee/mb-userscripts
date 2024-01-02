@@ -35,8 +35,8 @@ export class EditNote {
         // already been partially filled. Search any previous content and
         // remove it
         this.removePreviousFooter();
-        const prevNote = this.editNoteTextArea.value;
-        this.editNoteTextArea.value = [prevNote, separator, this.footer].join('');
+        const previousNote = this.editNoteTextArea.value;
+        this.editNoteTextArea.value = [previousNote, separator, this.footer].join('');
     }
 
     private removePreviousFooter(): void {

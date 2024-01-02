@@ -21,8 +21,8 @@ beforeAll(() => {
     class DragEvent {
         public readonly dataTransfer: DataTransfer;
 
-        public constructor(type: string, initOpts: { dataTransfer: DataTransfer }) {
-            this.dataTransfer = initOpts.dataTransfer;
+        public constructor(_type: string, initializationOptions: { dataTransfer: DataTransfer }) {
+            this.dataTransfer = initializationOptions.dataTransfer;
         }
     }
 
@@ -30,8 +30,8 @@ beforeAll(() => {
     global.DragEvent = DragEvent as unknown as typeof window.DragEvent;
 });
 
-async function insertFileRows(evt: DragEvent): Promise<void> {
-    const files = evt.dataTransfer?.files;
+async function insertFileRows(event: DragEvent): Promise<void> {
+    const files = event.dataTransfer?.files;
     if (!files) return;
 
     const fileRowPath = path.resolve('.', 'tests', 'test-data', 'mb_enhanced_cover_art_uploads', 'form-row.html');
@@ -58,8 +58,8 @@ describe('enqueuing images', () => {
 
     beforeEach(() => {
         document.body.innerHTML = mockHtml;
-        jest.spyOn(qs<HTMLElement>('#drop-zone'), 'dispatchEvent').mockImplementation((evt) => {
-            void insertFileRows(evt as unknown as DragEvent);
+        jest.spyOn(qs<HTMLElement>('#drop-zone'), 'dispatchEvent').mockImplementation((event) => {
+            void insertFileRows(event as unknown as DragEvent);
             return true;
         });
     });
@@ -129,13 +129,13 @@ describe('filling edit notes', () => {
         editNote = new EditNote('test footer');
     });
 
-    interface SharedSpecArgs {
+    interface SharedSpecificationArguments {
         containerUrl?: URL;
         prefix: string;
     }
 
-    const sharedSpec = (args: SharedSpecArgs): void => {
-        const baseExpectedLines = args.containerUrl ? [args.containerUrl.href] : [];
+    const sharedSpec = (arguments_: SharedSpecificationArguments): void => {
+        const baseExpectedLines = arguments_.containerUrl ? [arguments_.containerUrl.href] : [];
 
         function createExpectedContent(expectedLines: string[]): string {
             const allExpectedLines = [...baseExpectedLines, ...expectedLines, '–', 'test footer'];
@@ -144,7 +144,7 @@ describe('filling edit notes', () => {
 
         it('does not fill an edit note if no images were queued', () => {
             const fetchedImages = {
-                containerUrl: args.containerUrl,
+                containerUrl: arguments_.containerUrl,
                 images: [],
             };
 
@@ -156,10 +156,10 @@ describe('filling edit notes', () => {
         it('fills information for non-maximised URL', () => {
             const image = createFetchedImage();
             const fetchedImages = {
-                containerUrl: args.containerUrl,
+                containerUrl: arguments_.containerUrl,
                 images: [image],
             };
-            const expectedLines = [args.prefix + image.originalUrl.href];
+            const expectedLines = [arguments_.prefix + image.originalUrl.href];
 
             fillEditNote([fetchedImages], '', editNote);
 
@@ -171,12 +171,12 @@ describe('filling edit notes', () => {
                 wasMaximised: true,
             });
             const fetchedImages = {
-                containerUrl: args.containerUrl,
+                containerUrl: arguments_.containerUrl,
                 images: [image],
             };
             const expectedLines = [
-                args.prefix + image.originalUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Maximised to ' + image.maximisedUrl.href,
+                arguments_.prefix + image.originalUrl.href,
+                ' '.repeat(arguments_.prefix.length) + '→ Maximised to ' + image.maximisedUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -189,12 +189,12 @@ describe('filling edit notes', () => {
                 wasRedirected: true,
             });
             const fetchedImages = {
-                containerUrl: args.containerUrl,
+                containerUrl: arguments_.containerUrl,
                 images: [image],
             };
             const expectedLines = [
-                args.prefix + image.originalUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Redirected to ' + image.fetchedUrl.href,
+                arguments_.prefix + image.originalUrl.href,
+                ' '.repeat(arguments_.prefix.length) + '→ Redirected to ' + image.fetchedUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -208,13 +208,13 @@ describe('filling edit notes', () => {
                 wasRedirected: true,
             });
             const fetchedImages = {
-                containerUrl: args.containerUrl,
+                containerUrl: arguments_.containerUrl,
                 images: [image],
             };
             const expectedLines = [
-                args.prefix + image.originalUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Maximised to ' + image.maximisedUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Redirected to ' + image.fetchedUrl.href,
+                arguments_.prefix + image.originalUrl.href,
+                ' '.repeat(arguments_.prefix.length) + '→ Maximised to ' + image.maximisedUrl.href,
+                ' '.repeat(arguments_.prefix.length) + '→ Redirected to ' + image.fetchedUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -227,11 +227,11 @@ describe('filling edit notes', () => {
                 originalUrl: new URL('data:testtesttest'),
             });
             const fetchedImages = {
-                containerUrl: args.containerUrl,
+                containerUrl: arguments_.containerUrl,
                 images: [image],
             };
             const expectedLines = [
-                args.prefix + 'Uploaded from data URL',
+                arguments_.prefix + 'Uploaded from data URL',
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -249,14 +249,14 @@ describe('filling edit notes', () => {
                 }),
             ];
             const fetchedImages = {
-                containerUrl: args.containerUrl,
+                containerUrl: arguments_.containerUrl,
                 images,
             };
             const expectedLines = [
-                args.prefix + images[0].originalUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Maximised to ' + images[0].maximisedUrl.href,
-                args.prefix + images[1].originalUrl.href,
-                ' '.repeat(args.prefix.length) + '→ Maximised to ' + images[1].maximisedUrl.href,
+                arguments_.prefix + images[0].originalUrl.href,
+                ' '.repeat(arguments_.prefix.length) + '→ Maximised to ' + images[0].maximisedUrl.href,
+                arguments_.prefix + images[1].originalUrl.href,
+                ' '.repeat(arguments_.prefix.length) + '→ Maximised to ' + images[1].maximisedUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -272,13 +272,13 @@ describe('filling edit notes', () => {
                 createFetchedImage(),
             ];
             const fetchedImages = {
-                containerUrl: args.containerUrl,
+                containerUrl: arguments_.containerUrl,
                 images,
             };
             const expectedLines = [
-                args.prefix + images[0].originalUrl.href,
-                args.prefix + images[1].originalUrl.href,
-                args.prefix + images[2].originalUrl.href,
+                arguments_.prefix + images[0].originalUrl.href,
+                arguments_.prefix + images[1].originalUrl.href,
+                arguments_.prefix + images[2].originalUrl.href,
                 '…and 1 additional image(s)',
             ];
 
@@ -294,17 +294,17 @@ describe('filling edit notes', () => {
                 createFetchedImage(),
                 createFetchedImage(),
             ];
-            const fetchedImages = images.map((img) => {
+            const fetchedImages = images.map((image) => {
                 return {
-                    containerUrl: args.containerUrl,
-                    images: [img],
+                    containerUrl: arguments_.containerUrl,
+                    images: [image],
                 };
             });
             // The edit note filler removes the duplicate container URL.
             const expectedLines = [
-                args.prefix + images[0].originalUrl.href,
-                args.prefix + images[1].originalUrl.href,
-                args.prefix + images[2].originalUrl.href,
+                arguments_.prefix + images[0].originalUrl.href,
+                arguments_.prefix + images[1].originalUrl.href,
+                arguments_.prefix + images[2].originalUrl.href,
                 '…and 1 additional image(s)',
             ];
 
@@ -316,11 +316,11 @@ describe('filling edit notes', () => {
         it('includes seeding origin if provided', () => {
             const image = createFetchedImage();
             const fetchedImages = {
-                containerUrl: args.containerUrl,
+                containerUrl: arguments_.containerUrl,
                 images: [image],
             };
             const expectedLines = [
-                args.prefix + image.originalUrl.href,
+                arguments_.prefix + image.originalUrl.href,
                 'Seeded from seeding-origin',
             ];
 

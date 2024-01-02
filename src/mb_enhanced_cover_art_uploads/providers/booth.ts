@@ -25,7 +25,7 @@ export class BoothProvider extends CoverArtProvider {
         assertDefined(itemId);
         const apiJson = await this.fetchPage(this.createApiUrl(itemId));
         const apiData = safeParseJSON<BoothAPIInformation>(apiJson, 'Failed to parse Booth API response');
-        const covers: CoverArt[] = apiData.images.map((img) => ({ url: new URL(img.original) }));
+        const covers: CoverArt[] = apiData.images.map((image) => ({ url: new URL(image.original) }));
 
         if (covers.length > 0) {
             // Assume first image is front cover.

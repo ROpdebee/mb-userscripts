@@ -22,14 +22,14 @@ export interface ExtractionFailedCase {
     errorMessage?: string | RegExp;
 }
 
-interface SpecArgs {
+interface SpecificationArguments {
     provider: CoverArtProvider;
     extractionCases: ExtractionCase[];
     extractionFailedCases: ExtractionFailedCase[];
     pollyContext?: Context;
 }
 
-export const findImagesSpec = ({ provider, extractionCases, extractionFailedCases, pollyContext }: SpecArgs): void => {
+export const findImagesSpec = ({ provider, extractionCases, extractionFailedCases, pollyContext }: SpecificationArguments): void => {
     if (pollyContext === undefined) {
         pollyContext = setupPolly();
     }

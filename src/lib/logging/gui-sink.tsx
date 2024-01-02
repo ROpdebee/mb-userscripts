@@ -32,27 +32,27 @@ export class GuiSink implements LoggingSink {
         return <span className={`msg ${className}`}>{children}</span>;
     }
 
-    private addMessage(el: HTMLSpanElement): void {
+    private addMessage(element: HTMLSpanElement): void {
         this.removeTransientMessages();
-        this.rootElement.append(el);
+        this.rootElement.append(element);
         this.rootElement.style.display = 'block';
     }
 
     private removeTransientMessages(): void {
-        for (const el of this.transientMessages) {
-            el.remove();
+        for (const element of this.transientMessages) {
+            element.remove();
         }
         this.transientMessages = [];
     }
 
-    private addPersistentMessage(el: HTMLSpanElement): void {
-        this.addMessage(el);
-        this.persistentMessages.push(el);
+    private addPersistentMessage(element: HTMLSpanElement): void {
+        this.addMessage(element);
+        this.persistentMessages.push(element);
     }
 
-    private addTransientMessage(el: HTMLSpanElement): void {
-        this.addMessage(el);
-        this.transientMessages.push(el);
+    private addTransientMessage(element: HTMLSpanElement): void {
+        this.addMessage(element);
+        this.transientMessages.push(element);
     }
 
     public onLog(message: string): void {

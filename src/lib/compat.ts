@@ -82,7 +82,7 @@ interface CloneIntoOptions {
  * @param {CloneIntoOptions | undefined } options   Options
  * @returns {T} A reference to the cloned object.
  */
-declare function cloneInto<T>(obj: T, targetScope: Window, options?: CloneIntoOptions): T;
+declare function cloneInto<T>(object: T, targetScope: Window, options?: CloneIntoOptions): T;
 
 /**
  * Clone an object to be usable in the page context (`unsafeWindow`).

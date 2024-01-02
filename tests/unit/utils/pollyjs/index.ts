@@ -32,15 +32,15 @@ export function mockFetch(baseOrigin?: string): void {
 
     // Adapt the URLs passed to node-fetch. We can use URLs without a domain
     // in the browser, but that's not possible in node.
-    function makeAbsoluteURLAndFetch(info: RequestInfo, init?: RequestInit): Promise<Response> {
+    function makeAbsoluteURLAndFetch(info: RequestInfo, initialization?: RequestInit): Promise<Response> {
         if (typeof info === 'string') {
-            return fetch(new URL(info, baseOrigin).href, init);
+            return fetch(new URL(info, baseOrigin).href, initialization);
         }
 
         if (new URL(info.url, baseOrigin).href !== info.url) {
             console.warn('Fetched URL may have wrong origin, but cannot be adapted automatically.');
         }
-        return fetch(info, init);
+        return fetch(info, initialization);
     }
 
     // @ts-expect-error Mocking

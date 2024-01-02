@@ -12,11 +12,11 @@ function setIMUResult(results: maxurlResult[]): void {
 }
 
 async function asyncIteratorToArray<T>(iter: AsyncIterable<T>): Promise<T[]> {
-    const arr = [];
-    for await (const elmt of iter) {
-        arr.push(elmt);
+    const array = [];
+    for await (const element of iter) {
+        array.push(element);
     }
-    return arr;
+    return array;
 }
 
 beforeAll(() => {

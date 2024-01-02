@@ -91,7 +91,7 @@ describe('retryTimes', () => {
         // Need to continuously run the timers because we're mixing async code
         // with timeouts. Just running it once will only advance the timer for
         // the first failure.
-        for (let i = 0; i <= 5; i++) {
+        for (let index = 0; index <= 5; index++) {
             jest.runAllTimers();
             // Give the async code a chance to run
             await new Promise<void>((resolve) => {
@@ -116,36 +116,36 @@ describe('retryTimes', () => {
 
 describe('promise finally polyfill', () => {
     it('runs the finally handler when promise resolves', async () => {
-        const cb = jest.fn();
-        await pFinally(Promise.resolve(1), cb);
+        const callback = jest.fn();
+        await pFinally(Promise.resolve(1), callback);
 
-        expect(cb).toHaveBeenCalledOnce();
+        expect(callback).toHaveBeenCalledOnce();
     });
 
     it('runs the finally handler when promise rejects', async () => {
-        const cb = jest.fn();
+        const callback = jest.fn();
 
-        await expect(pFinally(Promise.reject(123), cb)).toReject();
-        expect(cb).toHaveBeenCalledOnce();
+        await expect(pFinally(Promise.reject(123), callback)).toReject();
+        expect(callback).toHaveBeenCalledOnce();
     });
 
     it('rejects the promise if the finally handler throws', async () => {
-        const cb = jest.fn().mockImplementation(() => {
+        const callback = jest.fn().mockImplementation(() => {
             throw new Error('123');
         });
 
-        await expect(pFinally(Promise.resolve(1), cb)).rejects.toThrowWithMessage(Error, '123');
+        await expect(pFinally(Promise.resolve(1), callback)).rejects.toThrowWithMessage(Error, '123');
     });
 
     it('rejects the promise if the finally handler returns a rejected promise', async () => {
-        const cb = jest.fn().mockRejectedValue(123);
+        const callback = jest.fn().mockRejectedValue(123);
 
-        await expect(pFinally(Promise.resolve(1), cb)).rejects.toBe(123);
+        await expect(pFinally(Promise.resolve(1), callback)).rejects.toBe(123);
     });
 
     it('rejects the promise with the value of the rejected finally handler', async () => {
-        const cb = jest.fn().mockRejectedValue(123);
+        const callback = jest.fn().mockRejectedValue(123);
 
-        await expect(pFinally(Promise.reject(1), cb)).rejects.toBe(123);
+        await expect(pFinally(Promise.reject(1), callback)).rejects.toBe(123);
     });
 });

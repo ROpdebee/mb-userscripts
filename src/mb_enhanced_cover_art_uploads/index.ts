@@ -8,8 +8,8 @@ import { seederFactory } from './seeding';
 const seeder = seederFactory(document.location);
 if (seeder) {
     Promise.resolve(seeder.insertSeedLinks())
-        .catch((err) => {
-            LOGGER.error('Failed to add seeding links', err);
+        .catch((error) => {
+            LOGGER.error('Failed to add seeding links', error);
         });
 } else if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
     // Initialise the app, which will start listening for pasted URLs.
@@ -19,12 +19,12 @@ if (seeder) {
     const app = new App();
 
     app.processSeedingParameters()
-        .catch((err) => {
-            LOGGER.error('Failed to process seeded cover art parameters', err);
+        .catch((error) => {
+            LOGGER.error('Failed to process seeded cover art parameters', error);
         });
     app.addImportButtons()
-        .catch((err) => {
-            LOGGER.error('Failed to add some provider import buttons', err);
+        .catch((error) => {
+            LOGGER.error('Failed to add some provider import buttons', error);
         });
 } else {
     LOGGER.error('Somehow I am running on a page I do not support…');

@@ -162,9 +162,6 @@ const baseJsConfig = {
         'unicorn/better-regex': ['warn', {
             sortCharacterClasses: false,
         }],
-        'unicorn/catch-error-name': ['warn', {
-            name: 'err',
-        }],
         'unicorn/numeric-separators-style': ['warn', {
             hexadecimal: {
                 minimumDigits: 0,
@@ -216,11 +213,29 @@ const baseJsConfig = {
         'unicorn/no-null': 'off',
         'unicorn/prefer-number-properties': 'error',
         'unicorn/prefer-optional-catch-binding': 'error',
-        'unicorn/prevent-abbreviations': 0,
-        'sonarjs/no-duplicate-string': 'off',
+        'unicorn/prevent-abbreviations': ['error', {
+            replacements: {
+                'elmt': {
+                    'element': true,
+                },
+                'init': {
+                    'initial': true,
+                    'initialize': true,
+                    'initialization': true,
+                },
+                'img': {
+                    'image': true,
+                },
+                'resp': {
+                    'response': true,
+                }
+            }
+        }],
+        'sonarjs/no-duplicate-string': 'error',
+        // Conflicts with unicorn/prefer-spread
         'array-func/prefer-array-from': 'off',
-        'array-func/prefer-flat': 0,
-        'array-func/prefer-flat-map': 0,
+        'array-func/prefer-flat': 'error',
+        'array-func/prefer-flat-map': 'error',
     },
 };
 
@@ -263,6 +278,8 @@ module.exports = {
             // These are non-issues in tests.
             'no-unsanitized/method': 'off',
             'no-unsanitized/property': 'off',
+            // Strings are often repeated in test code, which is not a big problem.
+            'sonarjs/no-duplicate-string': 'off',
         },
     }, {
         files: ['**/*.d.ts'],

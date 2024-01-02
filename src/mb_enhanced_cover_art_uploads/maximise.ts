@@ -193,7 +193,7 @@ export interface maxurlResult {
 export interface maxurlInterface {
     (url: string, options: maxurlOptions): void;
 
-    check_bad_if(badif: Array<Record<string, unknown>>, resp: XMLHttpRequestResponseType): boolean;
+    check_bad_if(badif: Array<Record<string, unknown>>, response: XMLHttpRequestResponseType): boolean;
     default_options: maxurlOptions;
     is_internet_url(url: string): boolean;
     clear_caches(): void;
@@ -229,8 +229,8 @@ const options: maxurlOptions = {
     },
 };
 
-type ExceptionFn = (smallurl: URL) => Promisable<MaximisedImage[]>;
-const IMU_EXCEPTIONS = new DispatchMap<ExceptionFn>();
+type ExceptionFunction = (smallurl: URL) => Promisable<MaximisedImage[]>;
+const IMU_EXCEPTIONS = new DispatchMap<ExceptionFunction>();
 
 export interface MaximisedImage {
     url: URL;
@@ -240,8 +240,8 @@ export interface MaximisedImage {
 }
 
 export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<MaximisedImage, void, undefined> {
-    const exceptionFn = IMU_EXCEPTIONS.get(smallurl.hostname);
-    const iterable = await (exceptionFn ?? maximiseGeneric)(smallurl);
+    const exceptionFunction = IMU_EXCEPTIONS.get(smallurl.hostname);
+    const iterable = await (exceptionFunction ?? maximiseGeneric)(smallurl);
     yield* iterable;
 }
 
@@ -250,8 +250,8 @@ async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
         maxurl(smallurl.href, {
             ...options,
             cb: resolve,
-        }).catch((err) => {
-            LOGGER.error('Could not maximise image, maxurl unavailable?', err);
+        }).catch((error) => {
+            LOGGER.error('Could not maximise image, maxurl unavailable?', error);
             // Just return no maximised candidates and proceed as usual.
             resolve([]);
         });
@@ -295,13 +295,13 @@ IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
     const results: MaximisedImage[] = [];
     const smallOriginalName = smallurl.href.match(/(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/)?.[1];
 
-    for await (const imgGeneric of maximiseGeneric(smallurl)) {
-        if (urlBasename(imgGeneric.url) === 'source' && smallOriginalName !== 'source') {
+    for await (const imageGeneric of maximiseGeneric(smallurl)) {
+        if (urlBasename(imageGeneric.url) === 'source' && smallOriginalName !== 'source') {
             // Mark the `/source` image as likely broken if the alleged original
             // name isn't "source", but instead e.g. "20UMGIM63158.rgb.jpg".
-            imgGeneric.likely_broken = true;
+            imageGeneric.likely_broken = true;
         }
-        results.push(imgGeneric);
+        results.push(imageGeneric);
     }
 
     return results;

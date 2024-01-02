@@ -30,9 +30,9 @@ function observeQueuedUploads(queuedUploadTable: HTMLTableElement): void {
         for (const addedNode of addedNodes) {
             if (!(addedNode instanceof HTMLTableRowElement)) continue;
 
-            const img = qsMaybe<HTMLImageElement>('img', addedNode);
-            if (img !== null) {
-                displayInfoWhenInView(new DisplayedQueuedUploadImage(img));
+            const image = qsMaybe<HTMLImageElement>('img', addedNode);
+            if (image !== null) {
+                displayInfoWhenInView(new DisplayedQueuedUploadImage(image));
             }
         }
     });
@@ -52,15 +52,15 @@ function detectAndObserveImages(cache: InfoCache): void {
 
     for (const container of qsa('.cover-art-image')) {
         // Seems to cover all possible cover art images except for queued upload thumbnails
-        const imgElement = qsMaybe<HTMLImageElement>('img', container);
+        const imageElement = qsMaybe<HTMLImageElement>('img', container);
 
         // Cover art not available or not loaded by react yet.
-        if (imgElement === null) {
+        if (imageElement === null) {
             imageLoadObserver.observe(container, {
                 childList: true,
             });
         } else {
-            const displayedImage = displayedCoverArtFactory(imgElement, cache);
+            const displayedImage = displayedCoverArtFactory(imageElement, cache);
             if (!displayedImage) continue;
             displayInfoWhenInView(displayedImage);
         }

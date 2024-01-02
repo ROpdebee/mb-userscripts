@@ -234,19 +234,19 @@ describe('caa image', () => {
 
 
 describe('queued upload image', () => {
-    let img: HTMLImageElement;
+    let image: HTMLImageElement;
     let mockGetComplete: jest.SpiedFunction<() => boolean>;
 
     beforeEach(() => {
-        img = document.createElement('img');
-        jest.spyOn(img, 'naturalHeight', 'get').mockReturnValue(100);
-        jest.spyOn(img, 'naturalWidth', 'get').mockReturnValue(200);
-        mockGetComplete = jest.spyOn(img, 'complete', 'get');
+        image = document.createElement('img');
+        jest.spyOn(image, 'naturalHeight', 'get').mockReturnValue(100);
+        jest.spyOn(image, 'naturalWidth', 'get').mockReturnValue(200);
+        mockGetComplete = jest.spyOn(image, 'complete', 'get');
         mockGetComplete.mockReturnValue(true);
     });
 
     it('loads dimensions', async () => {
-        const queuedImage = new QueuedUploadImage(img);
+        const queuedImage = new QueuedUploadImage(image);
 
         await expect(queuedImage.getDimensions()).resolves.toStrictEqual({
             height: 100,
@@ -257,12 +257,12 @@ describe('queued upload image', () => {
     it('waits until image is loaded', async () => {
         mockGetComplete.mockReturnValue(false);
         const onResolved = jest.fn();
-        const queuedImage = new QueuedUploadImage(img);
+        const queuedImage = new QueuedUploadImage(image);
         const dimProm = queuedImage.getDimensions().then(onResolved);
 
         expect(onResolved).not.toHaveBeenCalled();
 
-        img.dispatchEvent(new Event('load'));
+        image.dispatchEvent(new Event('load'));
 
         await expect(dimProm).toResolve();
         expect(onResolved).toHaveBeenCalledExactlyOnceWith({
@@ -272,7 +272,7 @@ describe('queued upload image', () => {
     });
 
     it('has no file info', async () => {
-        const queuedImage = new QueuedUploadImage(img);
+        const queuedImage = new QueuedUploadImage(image);
 
         await expect(queuedImage.getFileInfo()).resolves.toBeUndefined();
     });

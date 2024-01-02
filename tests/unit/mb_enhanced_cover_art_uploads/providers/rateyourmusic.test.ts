@@ -56,8 +56,8 @@ describe('rateyourmusic provider', () => {
             // Patch the actual response to mock being logged in.
             pollyContext.polly.server
                 .get('https://rateyourmusic.com/release/album/fishmans/long-season.p/buy')
-                .on('beforeResponse', (req, res) => {
-                    res.body = res.body
+                .on('beforeResponse', (_request, response) => {
+                    response.body = response.body
                         ?.replace(
                             '<div class="qq">You must be logged in to view the full-size cover art.</div>',
                             '<div class="qq"><b><a href="//e.snmc.io/i/fullres/w/dd6dc758bde2ed6dfeb5db2b486d97c1/7461038">View cover art</a></b></div><img id="amazon_img" alt="Fishmans - Long Season - album cover" src="//e.snmc.io/i/300/w/20903ab46ee429155c8aecb5d168f428/7461038" />')

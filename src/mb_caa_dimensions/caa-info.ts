@@ -12,32 +12,32 @@ import type { FileInfo } from './image-info';
 // Don't cache metadata across page loads, as it might change.
 const fetchIAMetadata = memoize((itemId: string) => pRetry(() => getItemMetadata(itemId), {
     retries: 5,
-    onFailedAttempt: /* istanbul ignore next: Difficult to cover */ (err) => {
-        LOGGER.warn(`Failed to retrieve IA metadata: ${err.cause}. Retrying…`);
+    onFailedAttempt: /* istanbul ignore next: Difficult to cover */ (error) => {
+        LOGGER.warn(`Failed to retrieve IA metadata: ${error.cause}. Retrying…`);
     },
 }));
 
 export async function getCAAInfo(itemId: string, imageId: string): Promise<FileInfo> {
     const iaManifest = await fetchIAMetadata(itemId);
     const fileNameRegex = new RegExp(`mbid-[a-f0-9-]{36}-${imageId}\\.\\w+$`);
-    const imgMetadata = iaManifest.files.find((fileMeta) => fileNameRegex.test(fileMeta.name));
-    if (imgMetadata === undefined) {
+    const imageMetadata = iaManifest.files.find((fileMeta) => fileNameRegex.test(fileMeta.name));
+    if (imageMetadata === undefined) {
         throw new Error(`Could not find image "${imageId}" in IA manifest`);
     }
 
-    const pageCount = imgMetadata.format.endsWith('PDF') ? await tryGetPDFPageCount(itemId, imageId) : undefined;
+    const pageCount = imageMetadata.format.endsWith('PDF') ? await tryGetPDFPageCount(itemId, imageId) : undefined;
 
     return {
-        fileType: imgMetadata.format,
-        size: Number.parseInt(imgMetadata.size),
+        fileType: imageMetadata.format,
+        size: Number.parseInt(imageMetadata.size),
         pageCount,
     };
 }
 
 async function tryGetPDFPageCount(itemId: string, imageId: string): Promise<number> {
     const zipListingUrl = `https://archive.org/download/${itemId}/${itemId}-${imageId}_jp2.zip/`;
-    const zipListingResp = await request.get(zipListingUrl);
-    const page = parseDOM(zipListingResp.text, zipListingUrl);
+    const zipListingResponse = await request.get(zipListingUrl);
+    const page = parseDOM(zipListingResponse.text, zipListingUrl);
 
     // Grabbing tbody via `qs` separately so we throw an error in case we can't find it.
     const tbody = qs('tbody', page);

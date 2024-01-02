@@ -14,10 +14,10 @@ export class MusikSammlerProvider extends CoverArtProvider {
         const page = parseDOM(await this.fetchPage(url), url.href);
         const coverElements = qsa<HTMLLIElement>('#imageGallery > li', page);
         return coverElements.map((coverLi) => {
-            const coverSrc = coverLi.dataset.src;
-            assertDefined(coverSrc, 'Musik-Sammler image without source?');
+            const coverSource = coverLi.dataset.src;
+            assertDefined(coverSource, 'Musik-Sammler image without source?');
             return {
-                url: new URL(coverSrc, 'https://www.musik-sammler.de/'),
+                url: new URL(coverSource, 'https://www.musik-sammler.de/'),
             };
         });
     }

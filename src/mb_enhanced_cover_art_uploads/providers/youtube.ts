@@ -12,8 +12,8 @@ export class YoutubeProvider extends HeadMetaPropertyProvider {
         return super.cleanUrl(url) + url.search;
     }
 
-    protected override is404Page(doc: Document): boolean {
-        return doc.body.innerHTML.includes("This video isn't available anymore");
+    protected override is404Page(document_: Document): boolean {
+        return document_.body.innerHTML.includes("This video isn't available anymore");
     }
 
     protected override fetchPage(url: URL, options?: RequestOptions | undefined): Promise<string> {

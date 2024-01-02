@@ -202,12 +202,12 @@ describe('local storage cache', () => {
     describe('with full cache', () => {
         beforeEach(() => {
             const store: Record<string, CacheEntry> = {};
-            let i = MAX_CACHED_IMAGES;
-            while (i--) {
-                store[`https://example.com/${i}`] = {
+            let index = MAX_CACHED_IMAGES;
+            while (index--) {
+                store[`https://example.com/${index}`] = {
                     dimensions: dummyDimensions,
                     fileInfo: dummyFileInfo,
-                    addedDatetime: i,
+                    addedDatetime: index,
                 };
             }
 
@@ -294,8 +294,8 @@ describe('a-tisket images', () => {
         it('retries on 429 errors', async () => {
             pollyContext.polly.server
                 .any()
-                .intercept((_req, res) => {
-                    res.sendStatus(429);
+                .intercept((_request, response) => {
+                    response.sendStatus(429);
                 });
             const image = new AtisketImage('https://example.com/test');
 
@@ -306,8 +306,8 @@ describe('a-tisket images', () => {
         it('does not retry on 404 errors', async () => {
             pollyContext.polly.server
                 .any()
-                .intercept((_req, res) => {
-                    res.sendStatus(404);
+                .intercept((_request, response) => {
+                    response.sendStatus(404);
                 });
             const image = new AtisketImage('https://example.com/test');
 
@@ -318,8 +318,8 @@ describe('a-tisket images', () => {
         it('retries on 503 errors', async () => {
             pollyContext.polly.server
                 .any()
-                .intercept((_req, res) => {
-                    res.sendStatus(503);
+                .intercept((_request, response) => {
+                    response.sendStatus(503);
                 });
             const image = new AtisketImage('https://example.com/test');
 

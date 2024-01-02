@@ -97,66 +97,66 @@ describe('parsing DOM', () => {
 describe('callback on document loaded', () => {
     it('does not fire if the document is not loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
-        const cb = jest.fn();
-        onDocumentLoaded(cb);
+        const callback = jest.fn();
+        onDocumentLoaded(callback);
 
-        expect(cb).not.toHaveBeenCalled();
+        expect(callback).not.toHaveBeenCalled();
     });
 
     it('fires if the document was already loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
-        const cb = jest.fn();
-        onDocumentLoaded(cb);
+        const callback = jest.fn();
+        onDocumentLoaded(callback);
 
-        expect(cb).toHaveBeenCalledOnce();
+        expect(callback).toHaveBeenCalledOnce();
     });
 
     it('fires after the document was loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
-        const cb = jest.fn();
-        onDocumentLoaded(cb);
+        const callback = jest.fn();
+        onDocumentLoaded(callback);
 
-        expect(cb).not.toHaveBeenCalled();
+        expect(callback).not.toHaveBeenCalled();
 
         document.dispatchEvent(new Event('DOMContentLoaded'));
 
-        expect(cb).toHaveBeenCalledOnce();
+        expect(callback).toHaveBeenCalledOnce();
     });
 });
 
 describe('callback on window loaded', () => {
-    const cb = jest.fn();
+    const callback = jest.fn();
 
     afterEach(() => {
-        cb.mockReset();
+        callback.mockReset();
     });
 
     it('does not fire if the window is not loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('interactive');
-        const cb = jest.fn();
-        onWindowLoaded(cb);
+        const callback = jest.fn();
+        onWindowLoaded(callback);
 
-        expect(cb).not.toHaveBeenCalled();
+        expect(callback).not.toHaveBeenCalled();
     });
 
     it('fires if the window was already loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
-        const cb = jest.fn();
-        onWindowLoaded(cb);
+        const callback = jest.fn();
+        onWindowLoaded(callback);
 
-        expect(cb).toHaveBeenCalledOnce();
+        expect(callback).toHaveBeenCalledOnce();
     });
 
     it('fires after the window was loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('interactive');
-        const cb = jest.fn();
-        onWindowLoaded(cb);
+        const callback = jest.fn();
+        onWindowLoaded(callback);
 
-        expect(cb).not.toHaveBeenCalled();
+        expect(callback).not.toHaveBeenCalled();
 
         window.dispatchEvent(new Event('load'));
 
-        expect(cb).toHaveBeenCalledOnce();
+        expect(callback).toHaveBeenCalledOnce();
     });
 });
 

@@ -24,15 +24,15 @@ describe('filtering null values', () => {
 
 describe('finding from right', () => {
     it('finds rightmost element matching predicate', () => {
-        expect(findRight([1, 2, 3], (i) => i < 5)).toBe(3);
+        expect(findRight([1, 2, 3], (index) => index < 5)).toBe(3);
     });
 
     it('finds rightmost element matching predicate, if it is first element', () => {
-        expect(findRight([1, 2, 3], (i) => i <= 1)).toBe(1);
+        expect(findRight([1, 2, 3], (index) => index <= 1)).toBe(1);
     });
 
     it('returns null when no item matches', () => {
-        expect(findRight([1, 2, 3], (i) => i > 5)).toBeNull();
+        expect(findRight([1, 2, 3], (index) => index > 5)).toBeNull();
     });
 });
 
@@ -42,16 +42,16 @@ describe('group by', () => {
     });
 
     it('groups by key', () => {
-        const arr = ['aa', 'ba', 'ca'];
-        const result = groupBy(arr, (el) => el[0], (el) => el[1]);
+        const array = ['aa', 'ba', 'ca'];
+        const result = groupBy(array, (element) => element[0], (element) => element[1]);
         const expected = new Map([['a', ['a']], ['b', ['a']], ['c', ['a']]]);
 
         expect(result).toStrictEqual(expected);
     });
 
     it('groups multiple values', () => {
-        const arr = ['aa', 'ba', 'ca'];
-        const result = groupBy(arr, (el) => el[1], (el) => el[0]);
+        const array = ['aa', 'ba', 'ca'];
+        const result = groupBy(array, (element) => element[1], (element) => element[0]);
         const expected = new Map([['a', ['a', 'b', 'c']]]);
 
         expect(result).toStrictEqual(expected);

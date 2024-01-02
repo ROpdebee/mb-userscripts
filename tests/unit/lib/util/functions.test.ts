@@ -1,35 +1,35 @@
 import { memoize } from '@lib/util/functions';
 
 describe('memoization', () => {
-    const fn = jest.fn((a: string, b: string): string => a + ' ' + b);
+    const function_ = jest.fn((a: string, b: string): string => a + ' ' + b);
 
     afterEach(() => {
-        fn.mockClear();
+        function_.mockClear();
     });
 
     it('performs first evaluation', () => {
-        const memoizedFn = memoize(fn);
+        const memoizedFunction = memoize(function_);
 
-        expect(memoizedFn('hello', 'world')).toBe('hello world');
+        expect(memoizedFunction('hello', 'world')).toBe('hello world');
 
-        expect(fn).toHaveBeenCalledTimes(1);
+        expect(function_).toHaveBeenCalledTimes(1);
     });
 
     it('does not perform subsequent evaluation', () => {
-        const memoizedFn = memoize(fn);
-        memoizedFn('hello', 'universe');
+        const memoizedFunction = memoize(function_);
+        memoizedFunction('hello', 'universe');
 
-        expect(memoizedFn('hello', 'universe')).toBe('hello universe');
+        expect(memoizedFunction('hello', 'universe')).toBe('hello universe');
 
-        expect(fn).toHaveBeenCalledTimes(1);
+        expect(function_).toHaveBeenCalledTimes(1);
     });
 
     it('allows custom key functions', () => {
-        const memoizedFn = memoize(fn, (args) => args[0] + args[1]);
+        const memoizedFunction = memoize(function_, (arguments_) => arguments_[0] + arguments_[1]);
 
-        expect(memoizedFn('hello', 'world')).toBe('hello world');
-        expect(memoizedFn('hello', 'universe')).toBe('hello universe');
+        expect(memoizedFunction('hello', 'world')).toBe('hello world');
+        expect(memoizedFunction('hello', 'universe')).toBe('hello universe');
 
-        expect(fn).toHaveBeenCalledTimes(2);
+        expect(function_).toHaveBeenCalledTimes(2);
     });
 });

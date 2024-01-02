@@ -63,7 +63,7 @@ export class App {
         const batches = await this.fetchingSema.runInSection(async () => {
             const fetchedBatches: QueuedImageBatch[] = [];
 
-            for (const [coverArt, idx] of enumerate(coverArts)) {
+            for (const [coverArt, index] of enumerate(coverArts)) {
                 // Don't process a URL if we're already doing so, e.g. a user
                 // clicked a button that was already processing via a seed param.
                 if (this.urlsInProgress.has(coverArt.url.href)) {
@@ -72,7 +72,7 @@ export class App {
 
                 this.urlsInProgress.add(coverArt.url.href);
                 if (coverArts.length > 1) {
-                    LOGGER.info(`Fetching ${coverArt.url} (${idx + 1}/${coverArts.length})`);
+                    LOGGER.info(`Fetching ${coverArt.url} (${index + 1}/${coverArts.length})`);
                 } else {
                     // Don't specify progress if there's just one image to process.
                     LOGGER.info(`Fetching ${coverArt.url}`);
@@ -80,8 +80,8 @@ export class App {
                 try {
                     const fetchResult = await this.fetcher.fetchImages(coverArt, this.onlyFront);
                     fetchedBatches.push(fetchResult);
-                } catch (err) {
-                    LOGGER.error('Failed to fetch or enqueue images', err);
+                } catch (error) {
+                    LOGGER.error('Failed to fetch or enqueue images', error);
                 }
 
                 this.urlsInProgress.delete(coverArt.url.href);
@@ -91,15 +91,15 @@ export class App {
         });
 
         fillEditNote(batches, origin ?? '', this.note);
-        const totalNumImages = batches.reduce((acc, batch) => acc + batch.images.length, 0);
-        if (totalNumImages > 0) {
-            LOGGER.success(`Successfully added ${totalNumImages} image(s)`);
+        const totalNumberImages = batches.reduce((accumulator, batch) => accumulator + batch.images.length, 0);
+        if (totalNumberImages > 0) {
+            LOGGER.success(`Successfully added ${totalNumberImages} image(s)`);
         }
     }
 
     public async processSeedingParameters(): Promise<void> {
-        const params = SeedParameters.decode(new URLSearchParams(document.location.search));
-        await this._processURLs(params.images, params.origin);
+        const parameters = SeedParameters.decode(new URLSearchParams(document.location.search));
+        await this._processURLs(parameters.images, parameters.origin);
         this.clearLogLater();
     }
 
@@ -121,8 +121,8 @@ export class App {
         const syncProcessURL = (url: URL): void => {
             void pFinally(
                 this.processURLs([url])
-                    .catch((err) => {
-                        LOGGER.error(`Failed to process URL ${url.href}`, err);
+                    .catch((error) => {
+                        LOGGER.error(`Failed to process URL ${url.href}`, error);
                     }),
                 this.clearLogLater.bind(this));
         };

@@ -8,7 +8,7 @@ export class AppleMusicProvider extends HeadMetaPropertyProvider {
     public readonly name = 'Apple Music';
     protected readonly urlRegex = /\w{2}\/album\/(?:.+\/)?(?:id)?(\d+)/;
 
-    protected override is404Page(doc: Document): boolean {
-        return qsMaybe('head > title', doc) === null;
+    protected override is404Page(document_: Document): boolean {
+        return qsMaybe('head > title', document_) === null;
     }
 }

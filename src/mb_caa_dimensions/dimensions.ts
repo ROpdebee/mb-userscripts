@@ -17,49 +17,49 @@ function _getImageDimensions(url: string): Promise<Dimensions> {
             if (!done) {  // Prevent resolving twice.
                 resolve(dimensions);
                 done = true;
-                img.src = '';  // Cancel loading the image
+                image.src = '';  // Cancel loading the image
             }
         }
 
-        function dimensionsFailed(evt: ErrorEvent): void {
+        function dimensionsFailed(event_: ErrorEvent): void {
             clearInterval(interval);
             if (!done) {
                 done = true;
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- Firefox doesn't have a message property.
-                reject(new Error(evt.message ?? 'Image failed to load for unknown reason'));
+                reject(new Error(event_.message ?? 'Image failed to load for unknown reason'));
             }
         }
 
-        const img = document.createElement('img');
-        img.addEventListener('load', () => {
+        const image = document.createElement('img');
+        image.addEventListener('load', () => {
             dimensionsLoaded({
-                height: img.naturalHeight,
-                width: img.naturalWidth,
+                height: image.naturalHeight,
+                width: image.naturalWidth,
             });
         });
-        img.addEventListener('error', dimensionsFailed);
+        image.addEventListener('error', dimensionsFailed);
 
         // onload and onerror are asynchronous, so this interval should have
         // already been set before they are called.
         const interval = window.setInterval(() => {
-            if (img.naturalHeight) {
+            if (image.naturalHeight) {
                 // naturalHeight will be non-zero as soon as enough of the image
                 // is loaded to determine its dimensions.
                 dimensionsLoaded({
-                    height: img.naturalHeight,
-                    width: img.naturalWidth,
+                    height: image.naturalHeight,
+                    width: image.naturalWidth,
                 });
             }
         }, 50);
 
         // Start loading the image
-        img.src = url;
+        image.src = url;
     });
 }
 
 export const getImageDimensions = memoize((url: string) => pRetry(() => _getImageDimensions(url), {
     retries: 5,
-    onFailedAttempt: /* istanbul ignore next: Difficult to cover */ (err) => {
-        LOGGER.warn(`Failed to retrieve image dimensions: ${err.message}. Retrying…`);
+    onFailedAttempt: /* istanbul ignore next: Difficult to cover */ (error) => {
+        LOGGER.warn(`Failed to retrieve image dimensions: ${error.message}. Retrying…`);
     },
 }));

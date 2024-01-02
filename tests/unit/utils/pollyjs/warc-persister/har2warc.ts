@@ -15,7 +15,7 @@ export default async function har2warc(har: Har): Promise<Uint8Array> {
 
     const allRecords = [infoRecord, ...payloadRecords];
     const serialisedRecords = await Promise.all(allRecords.map((record) => WARCSerializer.serialize(record)));
-    return concatChunks(serialisedRecords, serialisedRecords.reduce((acc, curr) => acc + curr.length, 0));
+    return concatChunks(serialisedRecords, serialisedRecords.reduce((accumulator, current) => accumulator + current.length, 0));
 }
 
 function createWarcInfoRecord(har: Har): WARCRecord {

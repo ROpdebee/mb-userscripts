@@ -11,19 +11,19 @@ export function filterNonNull<T>(array: Array<T | null | undefined>): T[] {
 }
 
 
-export function findRight<T>(array: T[], predicate: (elmt: T) => boolean): T | null {
-    for (let i = array.length - 1; i >= 0; i--) {
-        if (predicate(array[i])) return array[i];
+export function findRight<T>(array: T[], predicate: (element: T) => boolean): T | null {
+    for (let index = array.length - 1; index >= 0; index--) {
+        if (predicate(array[index])) return array[index];
     }
 
     return null;
 }
 
-export function groupBy<T, K, V>(array: T[], keyFn: (el: T) => K, valTransform: (el: T) => V): Map<K, V[]> {
+export function groupBy<T, K, V>(array: T[], keyFunction: (element: T) => K, valueTransform: (element: T) => V): Map<K, V[]> {
     const map = new Map<K, V[]>();
-    for (const el of array) {
-        const k = keyFn(el);
-        const v = valTransform(el);
+    for (const element of array) {
+        const k = keyFunction(element);
+        const v = valueTransform(element);
 
         if (map.has(k)) map.get(k)?.push(v);
         else (map.set(k, [v]));
@@ -42,7 +42,7 @@ export function collatedSort(array: string[]): string[] {
 }
 
 export function enumerate<T>(array: readonly T[]): Array<[T, number]> {
-    return array.map((el, idx) => [el, idx]);
+    return array.map((element, index) => [element, index]);
 }
 
 function isFactory<T2>(maybeFactory: T2 | (() => T2)): maybeFactory is () => T2 {
@@ -61,9 +61,9 @@ function isFactory<T2>(maybeFactory: T2 | (() => T2)): maybeFactory is () => T2 
  * @param      {T2}              newElement  The element to insert, or a factory creating these elements.
  * @return     {(Array<T1|T2>)}  Resulting array.
  */
-export function insertBetween<T1, T2>(arr: readonly T1[], newElement: T2 | (() => T2)): Array<T1 | T2> {
+export function insertBetween<T1, T2>(array: readonly T1[], newElement: T2 | (() => T2)): Array<T1 | T2> {
     return [
-        ...arr.slice(0, 1),
-        ...arr.slice(1).flatMap((elmt) => [isFactory(newElement) ? newElement() : newElement, elmt]),
+        ...array.slice(0, 1),
+        ...array.slice(1).flatMap((element) => [isFactory(newElement) ? newElement() : newElement, element]),
     ];
 }

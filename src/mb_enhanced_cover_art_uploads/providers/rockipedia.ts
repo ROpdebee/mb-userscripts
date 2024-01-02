@@ -17,11 +17,11 @@ export class RockipediaProvider extends CoverArtProvider {
         const id = this.extractId(url);
         assertDefined(id);
         const imageBrowserUrl = new URL(`https://www.rockipedia.no/?imagebrowser=true&t=album&id=${id}`);
-        const imageBrowserDoc = parseDOM(await this.fetchPage(imageBrowserUrl), url.href);
+        const imageBrowserDocument = parseDOM(await this.fetchPage(imageBrowserUrl), url.href);
 
         // No failure case, even for wrong IDs it still returns an empty gallery.
 
-        const coverElements = qsa<HTMLLIElement>('li.royalSlide', imageBrowserDoc);
+        const coverElements = qsa<HTMLLIElement>('li.royalSlide', imageBrowserDocument);
         return filterNonNull(coverElements.map((coverElement) => {
             const coverUrl = coverElement.dataset.src;
             // istanbul ignore if: Should not happen

@@ -70,12 +70,12 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
     ]);
 
     private static async loadClientID(): Promise<string> {
-        const pageResp = await request.get(SC_HOMEPAGE);
-        const pageDom = parseDOM(pageResp.text, SC_HOMEPAGE);
+        const pageResponse = await request.get(SC_HOMEPAGE);
+        const pageDom = parseDOM(pageResponse.text, SC_HOMEPAGE);
 
         const scriptUrls = qsa<HTMLScriptElement>('script', pageDom)
             .map((script) => script.src)
-            .filter((src) => src.startsWith('https://a-v2.sndcdn.com/assets/'));
+            .filter((source) => source.startsWith('https://a-v2.sndcdn.com/assets/'));
         collatedSort(scriptUrls);
 
         for (const scriptUrl of scriptUrls) {
@@ -234,8 +234,8 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         let trackData: SCHydrationTrack[] | undefined;
         try {
             trackData = await this.getTrackData(lazyTrackIDs);
-        } catch (err) {
-            LOGGER.error('Failed to load Soundcloud track data, some track images may be missed', err);
+        } catch (error) {
+            LOGGER.error('Failed to load Soundcloud track data, some track images may be missed', error);
             // We'll still return the tracks that we couldn't load, otherwise
             // the track indices will be wrong.
             return tracks;
@@ -264,17 +264,17 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         const clientId = await SoundcloudProvider.getClientID();
 
         // TODO: Does this work still work if we pass a large list of IDs?
-        const params = new URLSearchParams({
+        const parameters = new URLSearchParams({
             ids: lazyTrackIDs.join(','),
             client_id: clientId,
         });
 
         let trackDataResponse: TextResponse;
         try {
-            trackDataResponse = await request.get(`https://api-v2.soundcloud.com/tracks?${params}`);
-        } catch (err) {
-            if (!(firstTry && err instanceof HTTPResponseError && err.statusCode === 401)) {
-                throw err;
+            trackDataResponse = await request.get(`https://api-v2.soundcloud.com/tracks?${parameters}`);
+        } catch (error) {
+            if (!(firstTry && error instanceof HTTPResponseError && error.statusCode === 401)) {
+                throw error;
             }
 
             LOGGER.debug('Attempting to refresh client ID');

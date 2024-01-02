@@ -19,9 +19,9 @@ export abstract class BaseImage {
     protected readonly cacheKey: string;
     private readonly cache?: InfoCache;
 
-    public constructor(imgUrl: string, cache?: InfoCache, cacheKey?: string) {
-        this.imgUrl = imgUrl;
-        this.cacheKey = cacheKey ?? imgUrl;
+    public constructor(imageUrl: string, cache?: InfoCache, cacheKey?: string) {
+        this.imgUrl = imageUrl;
+        this.cacheKey = cacheKey ?? imageUrl;
         this.cache = cache;
     }
 
@@ -31,16 +31,16 @@ export abstract class BaseImage {
             if (cachedResult !== undefined) {
                 return cachedResult;
             }
-        } catch (err) {
-            LOGGER.warn('Failed to retrieve image dimensions from cache', err);
+        } catch (error) {
+            LOGGER.warn('Failed to retrieve image dimensions from cache', error);
         }
 
         try {
             const liveResult = await getImageDimensions(this.imgUrl);
             await this.cache?.putDimensions(this.cacheKey, liveResult);
             return liveResult;
-        } catch (err) {
-            LOGGER.error('Failed to retrieve image dimensions', err);
+        } catch (error) {
+            LOGGER.error('Failed to retrieve image dimensions', error);
         }
 
         return undefined;
@@ -52,16 +52,16 @@ export abstract class BaseImage {
             if (cachedResult !== undefined) {
                 return cachedResult;
             }
-        } catch (err) {
-            LOGGER.warn('Failed to retrieve image file info from cache', err);
+        } catch (error) {
+            LOGGER.warn('Failed to retrieve image file info from cache', error);
         }
 
         try {
             const liveResult = await this.loadFileInfo();
             await this.cache?.putFileInfo(this.cacheKey, liveResult);
             return liveResult;
-        } catch (err) {
-            LOGGER.error('Failed to retrieve image file info', err);
+        } catch (error) {
+            LOGGER.error('Failed to retrieve image file info', error);
         }
 
         return undefined;
@@ -82,13 +82,13 @@ export abstract class BaseImage {
     protected abstract loadFileInfo(): Promise<FileInfo>;
 }
 
-function caaUrlToDirectUrl(urlObj: URL): URL {
-    if (urlObj.host === CAA_DOMAIN && urlObj.pathname.startsWith('/release/')) {
-        const [releaseId, imageName] = urlObj.pathname.split('/').slice(2);
-        urlObj.href = `https://archive.org/download/mbid-${releaseId}/mbid-${releaseId}-${imageName}`;
+function caaUrlToDirectUrl(urlObject: URL): URL {
+    if (urlObject.host === CAA_DOMAIN && urlObject.pathname.startsWith('/release/')) {
+        const [releaseId, imageName] = urlObject.pathname.split('/').slice(2);
+        urlObject.href = `https://archive.org/download/mbid-${releaseId}/mbid-${releaseId}-${imageName}`;
     }
 
-    return urlObj;
+    return urlObject;
 }
 
 /**
@@ -102,7 +102,7 @@ function caaUrlToDirectUrl(urlObj: URL): URL {
  * @return     {string}  Cache key.
  */
 function urlToCacheKey(fullSizeUrl: string, thumbnailUrl?: string): string {
-    const urlObj = new URL(fullSizeUrl);
+    const urlObject = new URL(fullSizeUrl);
 
     // Use thumbnail URL as cache key for release group images. If the release group cover
     // is changed, the URL will remain the same, so using the full size URL as the cache
@@ -110,7 +110,7 @@ function urlToCacheKey(fullSizeUrl: string, thumbnailUrl?: string): string {
     // Ideally, the cache key for RG covers would be the full size URL of the release cover,
     // but we unfortunately cannot get the original image's extension here, so we cannot construct
     // it.
-    if (urlObj.host === CAA_DOMAIN && urlObj.pathname.startsWith('/release-group/')) {
+    if (urlObject.host === CAA_DOMAIN && urlObject.pathname.startsWith('/release-group/')) {
         assertDefined(thumbnailUrl, 'Release group image requires a thumbnail URL');
         return thumbnailUrl;
     }
@@ -118,7 +118,7 @@ function urlToCacheKey(fullSizeUrl: string, thumbnailUrl?: string): string {
     // For other types of images, we'll use the actual full-size URL rather than
     // the coverartarchive.org redirect, to maximise the ability for caching.
     // For PDFs, we'll also use that URL instead of the derived JP2 image.
-    return caaUrlToDirectUrl(urlObj).href;
+    return caaUrlToDirectUrl(urlObject).href;
 }
 
 /**
@@ -128,23 +128,23 @@ function urlToCacheKey(fullSizeUrl: string, thumbnailUrl?: string): string {
  * @return     {string}  Direct URL to the image to retrieve dimensions from.
  */
 function urlToDirectImageUrl(url: string): string {
-    let urlObj = new URL(url);
+    let urlObject = new URL(url);
 
     // Transform CAA redirect
-    urlObj = caaUrlToDirectUrl(urlObj);
+    urlObject = caaUrlToDirectUrl(urlObject);
 
     // For PDF URLs, since we cannot get dimensions of a PDF directly, we'll use
     // a JPEG derived by IA. These are accessible in the derived JP2 ZIP, which
     // we can access transparently. These JPEGs (should) have the same dimensions
     // as the PDF pages. We're only using the first page for now.
-    if (urlObj.pathname.endsWith('.pdf')) {
-        const [imageName] = urlObj.pathname.split('/').slice(3);
+    if (urlObject.pathname.endsWith('.pdf')) {
+        const [imageName] = urlObject.pathname.split('/').slice(3);
         const imageBasename = imageName.replace(/\.pdf$/, '');
-        urlObj.pathname = urlObj.pathname.replace(/\.pdf$/, `_jp2.zip/${imageBasename}_jp2%2F${imageBasename}_0000.jp2`);
-        urlObj.search = '?ext=jpg';
+        urlObject.pathname = urlObject.pathname.replace(/\.pdf$/, `_jp2.zip/${imageBasename}_jp2%2F${imageBasename}_0000.jp2`);
+        urlObject.search = '?ext=jpg';
     }
 
-    return urlObj.href;
+    return urlObject.href;
 }
 
 
@@ -155,20 +155,20 @@ function urlToDirectImageUrl(url: string): string {
  * @return     {[string, string]}  IA item ID and image ID.
  */
 function parseCAAIDs(url: string): [string, string] {
-    const urlObj = new URL(url);
+    const urlObject = new URL(url);
 
-    if (urlObj.host === CAA_DOMAIN && urlObj.pathname.startsWith('/release/')) {
-        const [releaseId, thumbName] = urlObj.pathname.split('/').slice(2);
+    if (urlObject.host === CAA_DOMAIN && urlObject.pathname.startsWith('/release/')) {
+        const [releaseId, thumbName] = urlObject.pathname.split('/').slice(2);
         const imageId = thumbName.match(/^(\d+)/)?.[0];
         assertDefined(imageId, 'Malformed URL');
         return [`mbid-${releaseId}`, imageId];
     }
 
-    if (urlObj.host !== 'archive.org') {
+    if (urlObject.host !== 'archive.org') {
         throw new Error('Unsupported URL');
     }
 
-    const matchGroups = urlObj.pathname.match(CAA_ID_REGEX);
+    const matchGroups = urlObject.pathname.match(CAA_ID_REGEX);
     if (matchGroups === null) {
         LOGGER.error(`Failed to extract image ID from URL ${url}`);
         throw new Error('Invalid URL');
@@ -199,8 +199,8 @@ export class CAAImage extends BaseImage {
 export class QueuedUploadImage implements Image {
     private readonly imgElement: HTMLImageElement;
 
-    public constructor(imgElement: HTMLImageElement) {
-        this.imgElement = imgElement;
+    public constructor(imageElement: HTMLImageElement) {
+        this.imgElement = imageElement;
     }
 
     public getFileInfo(): Promise<undefined> {

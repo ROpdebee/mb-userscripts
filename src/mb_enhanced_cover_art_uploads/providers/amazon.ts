@@ -85,16 +85,16 @@ export class AmazonProvider extends CoverArtProvider {
         /* eslint-enable @typescript-eslint/unbound-method */
 
         const covers = await finder.bind(this)(url, pageContent, pageDom);
-        return covers.filter((img) => !PLACEHOLDER_IMG_NAMES.some((name) => decodeURIComponent(img.url.pathname).includes(name)));
+        return covers.filter((image) => !PLACEHOLDER_IMG_NAMES.some((name) => decodeURIComponent(image.url.pathname).includes(name)));
     }
 
     private findGenericPhysicalImages(_url: URL, pageContent: string): CoverArt[] {
         const imgs = this.extractEmbeddedJSImages(pageContent, /\s*'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
         assertNonNull(imgs, 'Failed to extract images from embedded JS on generic physical page');
 
-        return imgs.map((img) => {
+        return imgs.map((image) => {
             // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
-            return this.convertVariant({ url: img.hiRes ?? img.large, variant: img.variant });
+            return this.convertVariant({ url: image.hiRes ?? image.large, variant: image.variant });
         });
     }
 

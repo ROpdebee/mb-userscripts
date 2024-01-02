@@ -23,12 +23,12 @@ export class WarcPersister extends Persister<Options> {
         try {
             const warcContent = await fs.readFile(searchPath);
             return await warc2har(warcContent);
-        } catch (err) {
-            if (Object.prototype.hasOwnProperty.call(err, 'errno')
-                && (err as NodeJS.ErrnoException).code === 'ENOENT') {
+        } catch (error) {
+            if (Object.prototype.hasOwnProperty.call(error, 'errno')
+                && (error as NodeJS.ErrnoException).code === 'ENOENT') {
                 return null;
             }
-            throw err;
+            throw error;
         }
     }
 

@@ -14,13 +14,13 @@ interface UnsupportedURL {
     url: string;
 }
 
-interface SpecArgs {
+interface SpecificationArguments {
     provider: CoverArtProvider;
     supportedUrls: SupportedURL[];
     unsupportedUrls: UnsupportedURL[];
 }
 
-export const urlMatchingSpec = ({ provider, supportedUrls, unsupportedUrls }: SpecArgs): void => {
+export const urlMatchingSpec = ({ provider, supportedUrls, unsupportedUrls }: SpecificationArguments): void => {
     it.each(supportedUrls)('supports $desc', ({ url }) => {
         expect(provider.supportsUrl(new URL(url)))
             .toBeTrue();

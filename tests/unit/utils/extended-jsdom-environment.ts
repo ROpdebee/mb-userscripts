@@ -4,8 +4,8 @@ import { TextDecoder, TextEncoder } from 'node:util';
 import JSDOMEnvironment from 'setup-polly-jest/jest-environment-jsdom';
 
 export default class ExtendedJSDOMEnvironment extends JSDOMEnvironment {
-    public constructor(...args: ConstructorParameters<typeof JSDOMEnvironment>) {
-        super(...args);
+    public constructor(...arguments_: ConstructorParameters<typeof JSDOMEnvironment>) {
+        super(...arguments_);
 
         this.patchTextEncoder();
         this.patchCrypto();

@@ -57,18 +57,18 @@ class ProgressElement {
 
 function parseHTMLURLs(htmlText: string): string[] {
     LOGGER.debug(`Extracting URLs from ${htmlText}`);
-    const doc = parseDOM(htmlText, document.location.origin);
+    const document_ = parseDOM(htmlText, document.location.origin);
     // Get URLs from <img> sources
-    let urls = qsa<HTMLImageElement>('img', doc).map((img) => img.src);
+    let urls = qsa<HTMLImageElement>('img', document_).map((image) => image.src);
     // If there are no <img> elements in the pasted content, try getting URLs from <a> elements.
     if (urls.length === 0) {
-        urls = qsa<HTMLAnchorElement>('a', doc).map((anchor) => anchor.href);
+        urls = qsa<HTMLAnchorElement>('a', document_).map((anchor) => anchor.href);
     }
     if (urls.length === 0) {
         // If there aren't any <img> or <a> elements whatsoever, assume the user
         // copied a list of plain-text URLs that happened to be on a HTML page
         // and parse it as plain text
-        return parsePlainURLs(doc.textContent ?? '');
+        return parsePlainURLs(document_.textContent ?? '');
     }
 
     // Deduplicate URLs and retain only http:, https:, or data: URLs,
@@ -102,31 +102,31 @@ export class InputForm implements FetcherHooks {
             size={47}
             id='ROpdebee_paste_url'
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onPaste={async (evt): Promise<void> => {
-                if (!evt.clipboardData) {
+            onPaste={async (event_): Promise<void> => {
+                if (!event_.clipboardData) {
                     LOGGER.warn('No clipboard data?');
                     return;
                 }
 
                 // Get both HTML and plain text. If the user pastes just plain
                 // text, HTML will be empty.
-                const htmlText = evt.clipboardData.getData('text/html');
-                const plainText = evt.clipboardData.getData('text');
+                const htmlText = event_.clipboardData.getData('text/html');
+                const plainText = event_.clipboardData.getData('text');
 
                 const urls = htmlText.length > 0 ? parseHTMLURLs(htmlText) : parsePlainURLs(plainText);
 
                 // Don't fill the input element so the user can immediately
                 // paste more URLs.
-                evt.preventDefault();
+                event_.preventDefault();
                 // Set the URL we'll process as the input's placeholder text as
                 // an "acknowledgement".
-                evt.currentTarget.placeholder = urls.join('\n');
+                event_.currentTarget.placeholder = urls.join('\n');
 
                 const inputUrls = filterNonNull(urls.map((inputUrl) => {
                     try {
                         return new URL(inputUrl);
-                    } catch (err) {
-                        LOGGER.error(`Invalid URL: ${inputUrl}`, err);
+                    } catch (error) {
+                        LOGGER.error(`Invalid URL: ${inputUrl}`, error);
                         return null;
                     }
                 }));
@@ -148,8 +148,8 @@ export class InputForm implements FetcherHooks {
         const [onlyFrontCheckbox, onlyFrontLabel] = createPersistentCheckbox(
             'ROpdebee_paste_front_only',
             'Fetch front image only',
-            (evt) => {
-                app.onlyFront = (evt.currentTarget as HTMLInputElement | undefined)?.checked ?? false;
+            (event_) => {
+                app.onlyFront = (event_.currentTarget as HTMLInputElement | undefined)?.checked ?? false;
             });
         app.onlyFront = onlyFrontCheckbox.checked;
 
@@ -190,7 +190,7 @@ export class InputForm implements FetcherHooks {
         const button = <button
             type='button'
             title={url}
-            onClick={(evt): void => { evt.preventDefault(); onClickCallback(); }}
+            onClick={(event_): void => { event_.preventDefault(); onClickCallback(); }}
         >
             <img src={favicon} alt={provider.name} />
             <span>{'Import from ' + provider.name}</span>

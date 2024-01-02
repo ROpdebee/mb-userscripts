@@ -15,11 +15,11 @@ export const PollyHeaders = {
 
 export const FetchHeaders = {
     fromPollyHeaders(pollyHeaders: PollyHeadersT): FetchHeadersT {
-        const headersInit: Record<string, string> = {};
+        const headersInitializer: Record<string, string> = {};
         for (const [k, v] of Object.entries(pollyHeaders)) {
-            headersInit[k] = Array.isArray(v) ? v[0] : v;
+            headersInitializer[k] = Array.isArray(v) ? v[0] : v;
         }
-        return new FetchHeadersT(headersInit);
+        return new FetchHeadersT(headersInitializer);
     },
 };
 

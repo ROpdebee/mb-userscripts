@@ -39,8 +39,8 @@ abstract class BaseDisplayedImage implements DisplayedImage {
     private _dimensionsSpan: HTMLSpanElement | null = null;
     private _fileInfoSpan: HTMLSpanElement | null = null;
 
-    public constructor(imgElement: HTMLImageElement) {
-        this.imgElement = imgElement;
+    public constructor(imageElement: HTMLImageElement) {
+        this.imgElement = imageElement;
     }
 
     protected get dimensionsSpan(): HTMLSpanElement {
@@ -74,8 +74,8 @@ abstract class BaseDisplayedImage implements DisplayedImage {
 abstract class DisplayedCAAImage extends BaseDisplayedImage {
     private readonly image: CAAImage;
 
-    public constructor(imgElement: HTMLImageElement, image: CAAImage) {
-        super(imgElement);
+    public constructor(imageElement: HTMLImageElement, image: CAAImage) {
+        super(imageElement);
         this.image = image;
     }
 
@@ -90,8 +90,8 @@ abstract class DisplayedCAAImage extends BaseDisplayedImage {
         try {
             const imageInfo = await this.image.getImageInfo();
             this.displayInfo(this.createDimensionsString(imageInfo), this.createFileInfoString(imageInfo));
-        } catch (err) {
-            LOGGER.error('Failed to load image information', err);
+        } catch (error) {
+            LOGGER.error('Failed to load image information', error);
             this.displayInfo('failed :(');
         }
     }
@@ -124,10 +124,10 @@ abstract class DisplayedCAAImage extends BaseDisplayedImage {
  * The full-size URL is the `href` of that anchor.
  */
 export class ArtworkImageAnchorCAAImage extends DisplayedCAAImage {
-    public constructor(imgElement: HTMLImageElement, cache: InfoCache) {
-        const fullSizeUrl = imgElement.closest<HTMLAnchorElement>('a.artwork-image, a.artwork-pdf')?.href;
+    public constructor(imageElement: HTMLImageElement, cache: InfoCache) {
+        const fullSizeUrl = imageElement.closest<HTMLAnchorElement>('a.artwork-image, a.artwork-pdf')?.href;
         assertDefined(fullSizeUrl);
-        super(imgElement, new CAAImage(fullSizeUrl, cache, imgElement.src));
+        super(imageElement, new CAAImage(fullSizeUrl, cache, imageElement.src));
     }
 }
 
@@ -137,11 +137,11 @@ export class ArtworkImageAnchorCAAImage extends DisplayedCAAImage {
  * Full-size URL needs to be retrieved from the anchors below the image.
  */
 export class CoverArtTabCAAImage extends DisplayedCAAImage {
-    public constructor(imgElement: HTMLImageElement, cache: InfoCache) {
-        const container = imgElement.closest('div.artwork-cont');
+    public constructor(imageElement: HTMLImageElement, cache: InfoCache) {
+        const container = imageElement.closest('div.artwork-cont');
         assertNonNull(container);
         const fullSizeUrl = qs<HTMLAnchorElement>('p.small > a:last-of-type', container).href;
-        super(imgElement, new CAAImage(fullSizeUrl, cache));
+        super(imageElement, new CAAImage(fullSizeUrl, cache));
     }
 }
 
@@ -151,10 +151,10 @@ export class CoverArtTabCAAImage extends DisplayedCAAImage {
  * Intended for backward compatibility with other scripts.
  */
 export class CAAImageWithFullSizeURL extends DisplayedCAAImage {
-    public constructor(imgElement: HTMLImageElement, cache: InfoCache) {
-        const fullSizeUrl = imgElement.getAttribute('fullSizeURL');
+    public constructor(imageElement: HTMLImageElement, cache: InfoCache) {
+        const fullSizeUrl = imageElement.getAttribute('fullSizeURL');
         assertNonNull(fullSizeUrl);
-        super(imgElement, new CAAImage(fullSizeUrl, cache));
+        super(imageElement, new CAAImage(fullSizeUrl, cache));
     }
 }
 
@@ -171,9 +171,9 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
     private readonly image: QueuedUploadImage;
 
     // No cache, unnecessary to cache.
-    public constructor(imgElement: HTMLImageElement) {
-        super(imgElement);
-        this.image = new QueuedUploadImage(imgElement);
+    public constructor(imageElement: HTMLImageElement) {
+        super(imageElement);
+        this.image = new QueuedUploadImage(imageElement);
     }
 
     public async loadAndDisplay(): Promise<void> {
@@ -186,17 +186,17 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
     }
 }
 
-export function displayedCoverArtFactory(img: HTMLImageElement, cache: InfoCache): DisplayedImage | undefined {
+export function displayedCoverArtFactory(image: HTMLImageElement, cache: InfoCache): DisplayedImage | undefined {
     try {
-        if (img.closest('.artwork-cont') !== null) {  // Release cover art tab
-            return new CoverArtTabCAAImage(img, cache);
-        } else if (img.closest('.thumb-position') !== null || img.closest('form#set-cover-art') !== null) {  // Add cover art page, existing images; set-cover-art pages for RG
-            return new ThumbnailCAAImage(img, cache);
+        if (image.closest('.artwork-cont') !== null) {  // Release cover art tab
+            return new CoverArtTabCAAImage(image, cache);
+        } else if (image.closest('.thumb-position') !== null || image.closest('form#set-cover-art') !== null) {  // Add cover art page, existing images; set-cover-art pages for RG
+            return new ThumbnailCAAImage(image, cache);
         } else {
-            return new ArtworkImageAnchorCAAImage(img, cache);
+            return new ArtworkImageAnchorCAAImage(image, cache);
         }
-    } catch (err) {
-        LOGGER.error('Failed to process image', err);
+    } catch (error) {
+        LOGGER.error('Failed to process image', error);
         return undefined;
     }
 }
@@ -206,14 +206,14 @@ export const displayInfoWhenInView = ((): ((image: DisplayedImage) => void) => {
     // when the image scrolls into view.
     const imageMap = new Map<HTMLImageElement, DisplayedImage>();
 
-    function inViewCb(entries: IntersectionObserverEntry[]): void {
+    function inViewCallback(entries: IntersectionObserverEntry[]): void {
         for (const entry of entries) {
             if (entry.intersectionRatio <= 0) continue;
             const image = imageMap.get(entry.target as HTMLImageElement)!;
             image.loadAndDisplay().catch(logFailure('Failed to process image'));
         }
     }
-    const observer = new IntersectionObserver(inViewCb, {
+    const observer = new IntersectionObserver(inViewCallback, {
         root: document,
     });
 

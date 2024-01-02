@@ -78,8 +78,8 @@ const LEGACY_SCRIPT_DATA: UserscriptData[] = [
 ];
 
 async function getUserscriptData(): Promise<UserscriptData[]> {
-    const srcDirs = await fs.readdir('./src');
-    const userscriptIds = srcDirs
+    const sourceDirectories = await fs.readdir('./src');
+    const userscriptIds = sourceDirectories
         .filter((name) => name.startsWith('mb'));
 
     return Promise.all(userscriptIds

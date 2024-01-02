@@ -48,8 +48,8 @@ describe('creating InfoCache instances', () => {
         // the script version when we've defined a newer version of the cache
         // schema in the up-to-date script.
         const newerDB = await openDB('ROpdebee_CAA_Dimensions_Cache', 3, {
-            upgrade(db) {
-                db.createObjectStore('testStore');
+            upgrade(database) {
+                database.createObjectStore('testStore');
             },
         });
         newerDB.close();
@@ -123,8 +123,8 @@ describe('indexedDB-backed info cache', () => {
     });
 });
 
-function oldDBCreateSchema(db: IDBPDatabase): void {
-    const store = db.createObjectStore('cacheStore', { keyPath: 'url' });
+function oldDBCreateSchema(database: IDBPDatabase): void {
+    const store = database.createObjectStore('cacheStore', { keyPath: 'url' });
     store.createIndex('added_datetime', 'added_datetime');
 }
 
@@ -224,13 +224,13 @@ describe('database migrations', () => {
             const cache = await createCache();
             // @ts-expect-error: X-raying private things
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            const db: IDBPDatabase = cache['db'];
+            const database: IDBPDatabase = cache['db'];
 
-            await expect(db.getFromIndex('dimensionsStore', 'addedDatetimeIdx', IDBKeyRange.upperBound(200))).resolves.toEqual({
+            await expect(database.getFromIndex('dimensionsStore', 'addedDatetimeIdx', IDBKeyRange.upperBound(200))).resolves.toEqual({
                 ...dummyDimensions,
                 addedDatetime: 123,
             });
-            await expect(db.getFromIndex('fileInfoStore', 'addedDatetimeIdx', IDBKeyRange.upperBound(200))).resolves.toEqual({
+            await expect(database.getFromIndex('fileInfoStore', 'addedDatetimeIdx', IDBKeyRange.upperBound(200))).resolves.toEqual({
                 ...dummyFileInfo,
                 addedDatetime: 123,
             });
@@ -255,8 +255,8 @@ describe('pruning cache', () => {
 
         // @ts-expect-error: X-raying private things
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const db: IDBDatabase = cache['db'];
-        db.close();
+        const database: IDBDatabase = cache['db'];
+        database.close();
     });
 
     afterEach(() => {

@@ -45,9 +45,9 @@ export const AtasketSeeder: Seeder = {
     insertSeedLinks(): void {
         addDimensionsToCovers();
 
-        const urlParams = new URLSearchParams(document.location.search);
-        const mbid = urlParams.get('release_mbid');
-        const selfId = urlParams.get('self_id');
+        const urlParameters = new URLSearchParams(document.location.search);
+        const mbid = urlParameters.get('release_mbid');
+        const selfId = urlParameters.get('self_id');
         if (!mbid || !selfId) {
             LOGGER.error('Cannot extract IDs! Seeding is disabled :(');
             return;
@@ -98,12 +98,12 @@ function addSeedLinkToCover(fig: HTMLElement, mbids: string[], origin: string): 
     // is not necessarily present.
     const realUrl = tryExtractReleaseUrl(fig) ?? imageUrl;
 
-    const params = new SeedParameters([{
+    const parameters = new SeedParameters([{
         url: new URL(realUrl),
     }], origin);
 
     for (const mbid of mbids) {
-        const seedUrl = params.createSeedURL(mbid);
+        const seedUrl = parameters.createSeedURL(mbid);
 
         // Include part of the release ID if there are multiple.
         const seedLink = <a href={seedUrl} style={{ display: 'block' }}>

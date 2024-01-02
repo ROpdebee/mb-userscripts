@@ -21,21 +21,21 @@ function getAllProviderNamesInSource(): Set<string> {
 }
 
 describe('cover art provider documentation', () => {
-    const providerNamesInDocs = new Set<string>();
+    const providerNamesInDocumentation = new Set<string>();
 
     beforeAll(async () => {
-        const docsContent = await fs.readFile('./src/mb_enhanced_cover_art_uploads/docs/supported_providers.md', {
+        const documentationContent = await fs.readFile('./src/mb_enhanced_cover_art_uploads/docs/supported_providers.md', {
             encoding: 'utf8',
         });
 
-        for (const providerNameMatch of docsContent.matchAll(/^\|([^|]+)\|/gm)) {
+        for (const providerNameMatch of documentationContent.matchAll(/^\|([^|]+)\|/gm)) {
             for (const providerName of providerNameMatch[1].split('/')) {
-                providerNamesInDocs.add(providerName.trim());
+                providerNamesInDocumentation.add(providerName.trim());
             }
         }
     });
 
     it.each([...getAllProviderNamesInSource()])('has an entry for %s', (providerName) => {
-        expect(providerNamesInDocs.has(providerName)).toBeTrue();
+        expect(providerNamesInDocumentation.has(providerName)).toBeTrue();
     });
 });

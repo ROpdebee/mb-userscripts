@@ -70,11 +70,11 @@ describe('domain dispatcher', () => {
         [['*.sub.example.com', '*.example.com'], 'sub.example.com', 0],
     ];
 
-    it.each(matchConflictsCases)('uses most specific match if multiple are available', (patterns, target, expectedIdx) => {
-        for (const [idx, pattern] of patterns.entries()) {
-            dispatcher.set(pattern, idx);
+    it.each(matchConflictsCases)('uses most specific match if multiple are available', (patterns, target, expectedIndex) => {
+        for (const [index, pattern] of patterns.entries()) {
+            dispatcher.set(pattern, index);
         }
 
-        expect(dispatcher.get(target)).toBe(expectedIdx);
+        expect(dispatcher.get(target)).toBe(expectedIndex);
     });
 });

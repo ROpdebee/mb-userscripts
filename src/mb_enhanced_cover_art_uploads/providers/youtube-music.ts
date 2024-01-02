@@ -6,7 +6,7 @@ import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 import { YoutubeProvider } from './youtube';
 
-interface YTMusicPageParams {
+interface YTMusicPageParameters {
     browseId: string;
     browseEndpointContextSupportedConfigs: string;
 }
@@ -36,7 +36,7 @@ interface YTMusicPageData {
 }
 
 interface YTMusicPageInfo {
-    params: YTMusicPageParams;
+    params: YTMusicPageParameters;
     data: YTMusicPageData;
 }
 
@@ -68,23 +68,23 @@ export class YoutubeMusicProvider extends CoverArtProvider {
             return new YoutubeProvider().findImages(ytUrl);
         }
 
-        const respDocument = await this.fetchPage(url);
-        const pageInfo = this.extractPageInfo(respDocument);
+        const responseDocument = await this.fetchPage(url);
+        const pageInfo = this.extractPageInfo(responseDocument);
 
         this.checkAlbumPage(pageInfo);
 
         return this.extractImages(pageInfo);
     }
 
-    private extractPageInfo(doc: string): YTMusicPageInfo {
-        const docMatch = doc.match(YOUTUBE_MUSIC_DATA_REGEXP);
-        assertHasValue(docMatch, 'Failed to extract page information, non-existent release?');
+    private extractPageInfo(document_: string): YTMusicPageInfo {
+        const documentMatch = document_.match(YOUTUBE_MUSIC_DATA_REGEXP);
+        assertHasValue(documentMatch, 'Failed to extract page information, non-existent release?');
 
-        const [strParams, strData] = docMatch.slice(1).map((str) => this.unescapeJson(str));
+        const [stringParameters, stringData] = documentMatch.slice(1).map((string_) => this.unescapeJson(string_));
 
         return {
-            params: safeParseJSON<YTMusicPageParams>(strParams, 'Failed to parse `params` JSON data'),
-            data: safeParseJSON<YTMusicPageData>(strData, 'Failed to parse `data` JSON data'),
+            params: safeParseJSON<YTMusicPageParameters>(stringParameters, 'Failed to parse `params` JSON data'),
+            data: safeParseJSON<YTMusicPageData>(stringData, 'Failed to parse `data` JSON data'),
         };
     }
 
@@ -94,11 +94,11 @@ export class YoutubeMusicProvider extends CoverArtProvider {
      * JSON data is escaped with hexadecimal escapes, e.g., \x22 for '{'. This
      * function unescapes it to a string readable by the JSON parser.
      */
-    private unescapeJson(str: string): string {
+    private unescapeJson(string_: string): string {
         // Transform hex escapes to Unicode escapes. These can be parsed by the JSON parser,
         // which we'll use to parse the entire string.
         // See https://stackoverflow.com/a/4209128
-        const unicodeEscaped = str.replaceAll('\\x', '\\u00');
+        const unicodeEscaped = string_.replaceAll('\\x', '\\u00');
         const stringified = `"${unicodeEscaped}"`;
         return safeParseJSON<string>(stringified, 'Could not decode YT Music JSON data');
     }

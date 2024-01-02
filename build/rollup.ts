@@ -48,26 +48,26 @@ const TERSER_OPTIONS: MinifyOptions = {
 const SKIP_PACKAGES = new Set(['lib', 'types']);
 const MAX_FEATURE_HISTORY = 10;  // Include only the last 10 new features of the changelog
 
-export async function buildUserscripts(version: string, outputDir: string = OUTPUT_DIR): Promise<void> {
-    const sourceDirs = await fs.promises.readdir('./src');
-    const userscriptDirs = sourceDirs
+export async function buildUserscripts(version: string, outputDirectory: string = OUTPUT_DIR): Promise<void> {
+    const sourceDirectories = await fs.promises.readdir('./src');
+    const userscriptDirectories = sourceDirectories
         .filter((name) => !SKIP_PACKAGES.has(name) && !name.startsWith('.') && fs.statSync(path.resolve('./src', name)).isDirectory());
 
     // Build sequentially, to prevent console output from mangling
-    for (const userscriptName of userscriptDirs) {
-        await buildUserscript(userscriptName, version, outputDir);
+    for (const userscriptName of userscriptDirectories) {
+        await buildUserscript(userscriptName, version, outputDirectory);
     }
 }
 
-export async function buildUserscript(userscriptName: string, version: string, outputDir: string): Promise<void> {
+export async function buildUserscript(userscriptName: string, version: string, outputDirectory: string): Promise<void> {
     console.log(`Building ${userscriptName}`);
     const userscriptMetaGenerator = await MetadataGenerator.create({
         userscriptName,
         version,
         branchName: 'dist',
     });
-    const passOneOutput = await buildUserscriptPassOne(userscriptName, userscriptMetaGenerator, outputDir);
-    await buildUserscriptPassTwo(passOneOutput, userscriptName, userscriptMetaGenerator, outputDir);
+    const passOneOutput = await buildUserscriptPassOne(userscriptName, userscriptMetaGenerator, outputDirectory);
+    await buildUserscriptPassTwo(passOneOutput, userscriptName, userscriptMetaGenerator, outputDirectory);
 }
 
 /**
@@ -78,23 +78,23 @@ export async function buildUserscript(userscriptName: string, version: string, o
  * dependencies which aren't present as a @require. Note that userscript
  * metadata isn't embedded yet.
  *
- * @param      {String}   userscriptDir  The userscript directory.
+ * @param      {String}   userscriptDirectory  The userscript directory.
  * @return     {Promise}  Promise that resolves to the output as described
  *                        above.
  */
-async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<RollupOutput> {
+async function buildUserscriptPassOne(userscriptDirectory: string, userscriptMetaGenerator: MetadataGenerator, outputDirectory: string): Promise<RollupOutput> {
     let inputPath: string;
     try {
-        inputPath = await Promise.any(EXTENSIONS.map(async (ext) => {
-            const filePath = path.resolve('./src', userscriptDir, 'index' + ext);
+        inputPath = await Promise.any(EXTENSIONS.map(async (extension) => {
+            const filePath = path.resolve('./src', userscriptDirectory, 'index' + extension);
             return fs.promises.stat(filePath)
                 .then(() => filePath);
         }));
     } catch {
-        throw new Error(`No top-level file found in ${userscriptDir}`);
+        throw new Error(`No top-level file found in ${userscriptDirectory}`);
     }
 
-    const changelogEntries = await parseChangelogEntries(path.join(outputDir, `${userscriptDir}.changelog.md`));
+    const changelogEntries = await parseChangelogEntries(path.join(outputDirectory, `${userscriptDirectory}.changelog.md`));
     const featureHistory = changelogEntries
         .filter((entry) => entry.title === 'New feature')
         .map((entry) => ({
@@ -106,7 +106,7 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
     const changelogUrl = userscriptMetaGenerator.gitURLs
         .constructBlobURL(
             userscriptMetaGenerator.options.branchName,
-            `${userscriptDir}.changelog.md`,
+            `${userscriptDirectory}.changelog.md`,
         );
 
     const plugins = [
@@ -124,7 +124,7 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
             },
         }),
         consts({
-            'userscript-id': userscriptDir,
+            'userscript-id': userscriptDirectory,
             'userscript-feature-history': featureHistory,
             'changelog-url': changelogUrl,
             'debug-mode': process.env.NODE_ENV !== 'production',
@@ -177,7 +177,7 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
         format: 'es',
         manualChunks: (modulePath) => {
             if (isExternalLibrary(modulePath)) return VENDOR_CHUNK_NAME;
-            if (isBuiltinLib(modulePath)) return BUILTIN_LIB_CHUNK_NAME;
+            if (isBuiltinLibrary(modulePath)) return BUILTIN_LIB_CHUNK_NAME;
             return null;
         },
         plugins: process.env.NODE_ENV == 'production' ? [minifyPlugin] : [],
@@ -195,11 +195,11 @@ async function buildUserscriptPassOne(userscriptDir: string, userscriptMetaGener
  * directory.
  *
  * @param      {?}        passOneResult   The result of the first build pass.
- * @param      {String}   userscriptDir  The userscript directory.
+ * @param      {String}   userscriptDirectory  The userscript directory.
  * @return     {Promise}  Promise that resolves once the files have been
  *                        written.
  */
-async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDir: string, userscriptMetaGenerator: MetadataGenerator, outputDir: string): Promise<void> {
+async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, userscriptDirectory: string, userscriptMetaGenerator: MetadataGenerator, outputDirectory: string): Promise<void> {
     const fileMapping: Record<string, string> = {};
     for (const outputChunk of passOneResult.output) {
         if (outputChunk.type === 'chunk') {
@@ -221,22 +221,22 @@ async function buildUserscriptPassTwo(passOneResult: Readonly<RollupOutput>, use
 
     await bundle.write({
         format: 'iife',
-        file: path.resolve(outputDir, `${userscriptDir}.user.js`),
+        file: path.resolve(outputDirectory, `${userscriptDirectory}.user.js`),
     });
 
     await bundle.close();
 }
 
 function isExternalLibrary(modulePath: string): boolean {
-    const relPath = path.relative('.', modulePath);
+    const relativePath = path.relative('.', modulePath);
     // Don't mark `consts:...` modules are external libraries. They're fake
     // modules whose default exports get replaced by constants by the `consts`
     // plugin. Also don't consider any first party code we inject as 3rd party
     // (marked with the _virtualSource_ suffix).
-    return !(relPath.startsWith('src') || relPath.startsWith('consts:') || modulePath.endsWith('_virtualSource_'));
+    return !(relativePath.startsWith('src') || relativePath.startsWith('consts:') || modulePath.endsWith('_virtualSource_'));
 }
 
-function isBuiltinLib(modulePath: string): boolean {
+function isBuiltinLibrary(modulePath: string): boolean {
     return path.relative('.', modulePath).startsWith(['src', 'lib'].join(path.sep));
 }
 

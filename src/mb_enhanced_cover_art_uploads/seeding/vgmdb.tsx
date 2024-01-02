@@ -37,8 +37,8 @@ export const VGMdbSeeder: Seeder = {
         try {
             const [releaseIds, covers] = await Promise.all([releaseIdsProm, coversProm]);
             insertSeedButtons(coverHeading, releaseIds, covers);
-        } catch (err) {
-            LOGGER.error('Failed to insert seed links', err);
+        } catch (error) {
+            LOGGER.error('Failed to insert seed links', error);
         }
     },
 };
@@ -70,29 +70,29 @@ async function extractCovers(): Promise<VGMdbCovers> {
 }
 
 function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: VGMdbCovers): void {
-    const seedParamsPrivate = new SeedParameters(covers.privateCovers, document.location.href);
-    const seedParamsAll = new SeedParameters(covers.allCovers, document.location.href);
+    const seedParametersPrivate = new SeedParameters(covers.privateCovers, document.location.href);
+    const seedParametersAll = new SeedParameters(covers.allCovers, document.location.href);
 
-    const relIdToAnchors = new Map(releaseIds.map((relId) => {
+    const releaseIdToAnchors = new Map(releaseIds.map((releaseId) => {
         const a = <a
-            href={seedParamsPrivate.createSeedURL(relId)}
+            href={seedParametersPrivate.createSeedURL(releaseId)}
             target='_blank'
             rel='noopener noreferrer'
             style={{ display: 'block' }}
         >
-            {'Seed covers to ' + relId.split('-')[0]}
+            {'Seed covers to ' + releaseId.split('-')[0]}
         </a> as HTMLAnchorElement;
-        return [relId, a];
+        return [releaseId, a];
     }));
-    const anchors = [...relIdToAnchors.values()];
+    const anchors = [...releaseIdToAnchors.values()];
 
     const inclPublicCheckbox = <input
         type='checkbox'
         id='ROpdebee_incl_public_checkbox'
-        onChange={(evt): void => {
-            for (const [relId, a] of relIdToAnchors.entries()) {
-                const seedParams = evt.currentTarget.checked ? seedParamsAll : seedParamsPrivate;
-                a.href = seedParams.createSeedURL(relId);
+        onChange={(event_): void => {
+            for (const [releaseId, a] of releaseIdToAnchors.entries()) {
+                const seedParameters = event_.currentTarget.checked ? seedParametersAll : seedParametersPrivate;
+                a.href = seedParameters.createSeedURL(releaseId);
             }
         }}
     />;

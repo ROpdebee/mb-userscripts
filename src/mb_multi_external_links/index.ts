@@ -48,17 +48,17 @@ class LinkSplitter {
 
         // Accepting and passing arguments as array to prevent potential problems
         // when the signature of the patched methods change.
-        this.patchedOnChange = (...args): void => {
+        this.patchedOnChange = (...arguments_): void => {
             // Split the URLs and submit all but the last URL into the actual
             // handlers separately. The last URL will be entered, but not
             // blurred.
-            const rawUrl = args[2];
+            const rawUrl = arguments_[2];
             LOGGER.debug(`onchange received URLs ${rawUrl}`);
             const splitUrls = rawUrl.trim().split(/\s+/);
 
             // No links to split, just use the standard handlers.
             if (splitUrls.length <= 1) {
-                this.originalOnChange(...args);
+                this.originalOnChange(...arguments_);
                 return;
             }
 
@@ -100,14 +100,14 @@ class LinkSplitter {
     }
 }
 
-function insertCheckboxElements(editor: ExternalLinks, checkboxElmt: HTMLInputElement, labelElmt: HTMLLabelElement): void {
+function insertCheckboxElements(editor: ExternalLinks, checkboxElement: HTMLInputElement, labelElement: HTMLLabelElement): void {
     // Adding the checkbox beneath the last input element would require constantly
     // removing and reinserting while react re-renders the link editor. Instead,
     // let's just add it outside of the table and align it with JS.
-    editor.tableRef.current.after(checkboxElmt, labelElmt);
+    editor.tableRef.current.after(checkboxElement, labelElement);
     const lastInput = getLastInput(editor);
     const marginLeft = lastInput.offsetLeft + (lastInput.parentElement?.offsetLeft ?? 0);
-    checkboxElmt.style.marginLeft = `${marginLeft}px`;
+    checkboxElement.style.marginLeft = `${marginLeft}px`;
 }
 
 async function run(windowInstance: Window): Promise<void> {
@@ -125,11 +125,11 @@ async function run(windowInstance: Window): Promise<void> {
     // functionality as soon as possible without waiting for the whole page to load.
     const editor = await retryTimes(() => getExternalLinksEditor(windowInstance.MB), 100, 50);
     const splitter = new LinkSplitter(editor);
-    const [checkboxElmt, labelElmt] = createPersistentCheckbox('ROpdebee_multi_links_no_split', "Don't split links", () => {
+    const [checkboxElement, labelElement] = createPersistentCheckbox('ROpdebee_multi_links_no_split', "Don't split links", () => {
         splitter.toggle();
     });
-    splitter.setEnabled(!checkboxElmt.checked);
-    insertCheckboxElements(editor, checkboxElmt, labelElmt);
+    splitter.setEnabled(!checkboxElement.checked);
+    insertCheckboxElements(editor, checkboxElement, labelElement);
 }
 
 function onIframeAdded(iframe: HTMLIFrameElement): void {

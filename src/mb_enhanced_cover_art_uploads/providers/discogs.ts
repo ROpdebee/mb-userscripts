@@ -65,27 +65,27 @@ export class DiscogsProvider extends CoverArtProvider {
     }
 
     private static getReleaseImages(releaseId: string): Promise<DiscogsImages> {
-        let respProm = this.apiResponseCache.get(releaseId);
-        if (respProm === undefined) {
-            respProm = this.actuallyGetReleaseImages(releaseId);
-            this.apiResponseCache.set(releaseId, respProm);
+        let responseProm = this.apiResponseCache.get(releaseId);
+        if (responseProm === undefined) {
+            responseProm = this.actuallyGetReleaseImages(releaseId);
+            this.apiResponseCache.set(releaseId, responseProm);
         }
 
         // Evict the promise from the cache if it rejects, so that we can retry
         // later. If we don't evict it, later retries will reuse the failing
         // promise. Only remove if it hasn't been replaced yet. It may have
         // already been replaced by another call, since this is asynchronous code
-        respProm.catch(() => {
-            if (this.apiResponseCache.get(releaseId) === respProm) {
+        responseProm.catch(() => {
+            if (this.apiResponseCache.get(releaseId) === responseProm) {
                 this.apiResponseCache.delete(releaseId);
             }
         });
 
-        return respProm;
+        return responseProm;
     }
 
     private static async actuallyGetReleaseImages(releaseId: string): Promise<DiscogsImages> {
-        const graphqlParams = new URLSearchParams({
+        const graphqlParameters = new URLSearchParams({
             operationName: 'ReleaseAllImages',
             variables: JSON.stringify({
                 discogsId: Number.parseInt(releaseId),
@@ -98,9 +98,9 @@ export class DiscogsProvider extends CoverArtProvider {
                 },
             }),
         });
-        const resp = await request.get(`https://www.discogs.com/internal/release-page/api/graphql?${graphqlParams}`);
+        const response = await request.get(`https://www.discogs.com/internal/release-page/api/graphql?${graphqlParameters}`);
 
-        const metadata = safeParseJSON<DiscogsImages>(resp.text, 'Invalid response from Discogs API');
+        const metadata = safeParseJSON<DiscogsImages>(response.text, 'Invalid response from Discogs API');
         assertHasValue(metadata.data.release, 'Discogs release does not exist');
         const responseId = metadata.data.release.discogsId.toString();
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -114,8 +114,8 @@ export class DiscogsProvider extends CoverArtProvider {
         // First part is signature, everything following containing colon is param.
         // Last part is base64-encoded S3 URL, split with slashes.
         const urlParts = url.pathname.split('/');
-        const firstFilenameIdx = urlParts.slice(2).findIndex((urlPart) => !/^\w+:/.test(urlPart)) + 2;
-        const s3Url = urlParts.slice(firstFilenameIdx).join('');
+        const firstFilenameIndex = urlParts.slice(2).findIndex((urlPart) => !/^\w+:/.test(urlPart)) + 2;
+        const s3Url = urlParts.slice(firstFilenameIndex).join('');
 
         // Cut off the extension added by Discogs, this leads to decoding errors.
         const s3UrlDecoded = atob(s3Url.slice(0, s3Url.indexOf('.')));
@@ -132,7 +132,7 @@ export class DiscogsProvider extends CoverArtProvider {
         if (!releaseId) return url;
         const releaseData = await this.getReleaseImages(releaseId);
         const matchedImage = releaseData.data.release.images.edges
-            .find((img) => this.getFilenameFromUrl(new URL(img.node.fullsize.sourceUrl)) === imageName);
+            .find((image) => this.getFilenameFromUrl(new URL(image.node.fullsize.sourceUrl)) === imageName);
 
         /* istanbul ignore if: Should never happen on valid image */
         if (!matchedImage) return url;

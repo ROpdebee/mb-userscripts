@@ -26,8 +26,8 @@ export interface ArchiveFileMetadata {
  *                                         taken down.
  */
 export async function getItemMetadata(itemId: string): Promise<ArchiveMetadata> {
-    const itemMetadataResp = await request.get(new URL(`https://archive.org/metadata/${itemId}`));
-    const itemMetadata = safeParseJSON<ArchiveMetadata>(itemMetadataResp.text, 'Could not parse IA metadata');
+    const itemMetadataResponse = await request.get(new URL(`https://archive.org/metadata/${itemId}`));
+    const itemMetadata = safeParseJSON<ArchiveMetadata>(itemMetadataResponse.text, 'Could not parse IA metadata');
 
     // IA's metadata API always returns a 200, even for items which don't
     // exist.

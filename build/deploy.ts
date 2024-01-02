@@ -12,7 +12,7 @@ if (!process.env.GITHUB_ACTIONS) {
     throw new Error('Refusing to run outside of CI, sorry :(');
 }
 
-const distRepo = process.argv[2];
+const distributionRepo = process.argv[2];
 
 if (!process.env.PR_INFO) {
     throw new Error('Missing PR info');
@@ -24,11 +24,11 @@ const prInfo = JSON.parse(process.env.PR_INFO) as PullRequestInfo;
 // to the `dist` branch of our repo. We're using the separate copy so we can
 // simultaneously build from the main branch into the dist branch, while also
 // committing to dist, without constantly having to change branches.
-const gitDist = simpleGit(distRepo);
+const gitDistribution = simpleGit(distributionRepo);
 
 async function commitIfUpdated(scriptName: string): Promise<DeployedScript | undefined> {
     console.log(`Checking ${scriptName}…`);
-    const previousVersion = await getPreviousReleaseVersion(scriptName, distRepo);
+    const previousVersion = await getPreviousReleaseVersion(scriptName, distributionRepo);
     const isNewScript = !previousVersion;
     const nextVersion = incrementVersion(previousVersion);
 
@@ -44,7 +44,7 @@ async function commitIfUpdated(scriptName: string): Promise<DeployedScript | und
     // The commit before the changes we want to deploy differs for previews and
     // actual deployments. For previews, make sure we compare to the base branch's
     // HEAD rather than the commit on which the PR is based, which may be outdated.
-    const baseRef = isPreview
+    const baseReference = isPreview
         ? (payload as RepositoryDispatchEventPayload).client_payload.pull_request.base.ref
         : (payload as PushEventPayload).before;
 
@@ -53,7 +53,7 @@ async function commitIfUpdated(scriptName: string): Promise<DeployedScript | und
     // previously deployed version, since there may have been changes that were
     // not deployed following a `skip cd` tag.
     // See https://github.com/ROpdebee/mb-userscripts/issues/600
-    const { changed: hasChanged } = await userscriptHasChanged(scriptName, baseRef);
+    const { changed: hasChanged } = await userscriptHasChanged(scriptName, baseReference);
     if (hasChanged) {
         console.log(`${previousVersion} -> ${nextVersion}`);
         return commitUpdate(scriptName, nextVersion);
@@ -65,15 +65,15 @@ async function commitIfUpdated(scriptName: string): Promise<DeployedScript | und
 
 async function commitUpdate(scriptName: string, version: string): Promise<DeployedScript> {
     // Update the changelog
-    await updateChangelog(scriptName, version, distRepo, prInfo);
+    await updateChangelog(scriptName, version, distributionRepo, prInfo);
     // Build the userscripts with the new version into the dist repository.
-    await buildUserscript(scriptName, version, distRepo);
+    await buildUserscript(scriptName, version, distributionRepo);
     // Update the version.json file, which we'll use to dynamically create badges
-    await fs.writeFile(path.join(distRepo, scriptName + '.metadata.json'), JSON.stringify({
+    await fs.writeFile(path.join(distributionRepo, scriptName + '.metadata.json'), JSON.stringify({
         version,
     }));
     // Create the commit.
-    const commitResult = await gitDist
+    const commitResult = await gitDistribution
         .add([`${scriptName}.*`])
         .commit(`🤖 ${scriptName} ${version}\n\n${prInfo.title} (#${prInfo.number})`);
     return {
@@ -96,11 +96,11 @@ async function scanAndPush(): Promise<void> {
         return;
     }
 
-    const srcContents = await fs.readdir('./src');
-    const userscriptDirs = srcContents.filter((name) => name.startsWith('mb_'));
+    const sourceContents = await fs.readdir('./src');
+    const userscriptDirectories = sourceContents.filter((name) => name.startsWith('mb_'));
 
     const updates: DeployedScript[] = [];
-    for (const scriptName of userscriptDirs) {
+    for (const scriptName of userscriptDirectories) {
         const update = await commitIfUpdated(scriptName);
         if (update) updates.push(update);
     }
@@ -108,7 +108,7 @@ async function scanAndPush(): Promise<void> {
     if (updates.length > 0) {
         if (!process.env.SKIP_PUSH) {
             console.log('Pushing…');
-            await gitDist.push();
+            await gitDistribution.push();
         }
 
         // Set the step's output
@@ -123,7 +123,7 @@ async function scanAndPush(): Promise<void> {
     }
 }
 
-scanAndPush().catch((err) => {
-    console.error(err);
+scanAndPush().catch((error) => {
+    console.error(error);
     process.exit(1);
 });

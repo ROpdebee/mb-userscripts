@@ -13,7 +13,7 @@ export class MelonProvider extends HeadMetaPropertyProvider {
         return super.cleanUrl(url) + url.search;
     }
 
-    protected override is404Page(doc: Document): boolean {
-        return qsMaybe('body > input#returnUrl', doc) !== null;
+    protected override is404Page(document_: Document): boolean {
+        return qsMaybe('body > input#returnUrl', document_) !== null;
     }
 }

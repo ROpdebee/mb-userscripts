@@ -15,7 +15,7 @@ export class BugsProvider extends HeadMetaPropertyProvider {
         return redirectedUrl.pathname === '/noMusic' || super.isSafeRedirect(originalUrl, redirectedUrl);
     }
 
-    protected override is404Page(doc: Document): boolean {
-        return qsMaybe('.pgNoMusic', doc) !== null;
+    protected override is404Page(document_: Document): boolean {
+        return qsMaybe('.pgNoMusic', document_) !== null;
     }
 }

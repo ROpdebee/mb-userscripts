@@ -92,7 +92,7 @@ function disableDummyFetch(mock: FetchImageContentsSpy): void {
 
 beforeAll(() => {
     // Mock p-retry so that it doesn't retry on image content fetching failure.
-    mockpRetry.mockImplementation(((fn) => (fn(0))) as typeof pRetry);
+    mockpRetry.mockImplementation(((function_) => (function_(0))) as typeof pRetry);
 });
 
 beforeEach(() => {
@@ -112,20 +112,20 @@ describe('fetching image contents', () => {
 
     beforeAll(() => {
         // Mock retrying behaviour so we can test it.
-        mockpRetry.mockImplementation(async (fn, options) => {
+        mockpRetry.mockImplementation(async (function_, options) => {
             try {
                 // eslint-disable-next-line @typescript-eslint/return-await
-                return await fn(0);
-            } catch (err) {
-                Object.defineProperties(err, {
+                return await function_(0);
+            } catch (error) {
+                Object.defineProperties(error, {
                     attemptNumber: { value: 1, writable: false },
                     retriesLeft: { value: 1, writable: false },
                 });
-                await options?.onFailedAttempt?.(err as FailedAttemptError);
+                await options?.onFailedAttempt?.(error as FailedAttemptError);
                 // Call the onRetry mock so we can verify when a retry would've
                 // occurred.
                 onRetry();
-                return fn(1);
+                return function_(1);
             }
         });
     });
@@ -137,7 +137,7 @@ describe('fetching image contents', () => {
     });
 
     afterAll(() => {
-        mockpRetry.mockImplementation((fn) => Promise.resolve(fn(0)));
+        mockpRetry.mockImplementation((function_) => Promise.resolve(function_(0)));
     });
 
     it('rejects on network error', async () => {

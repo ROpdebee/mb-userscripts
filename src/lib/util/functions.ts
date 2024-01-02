@@ -11,15 +11,15 @@
  *                                              memoization key.
  * @return     {(...args:T)=>V}       Memoized version of `fn`.
  */
-export function memoize<T extends unknown[], V>(fn: (...args: T) => V, keyFn: (args: T) => string = (args): string => `${args[0]}`): (...args: T) => V {
+export function memoize<T extends unknown[], V>(function_: (...arguments_: T) => V, keyFunction: (arguments_: T) => string = (arguments_): string => `${arguments_[0]}`): (...arguments_: T) => V {
     const memoMap = new Map<string, V>();
 
-    return (...args: T): V => {
+    return (...arguments_: T): V => {
         // We're requiring the memoization key to be a string to ensure proper
         // equality checks. Not the best solution, but it works.
-        const key = keyFn(args);
+        const key = keyFunction(arguments_);
         if (!memoMap.has(key)) {
-            const result = fn(...args);
+            const result = function_(...arguments_);
             memoMap.set(key, result);
         }
         return memoMap.get(key)!;

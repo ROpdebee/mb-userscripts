@@ -41,7 +41,7 @@ export default async function warc2har(warc: Uint8Array): Promise<Har> {
         }
     }
 
-    harLog.entries = [...entryMap.values()].sort((e1, e2) => e1._order - e2._order);
+    harLog.entries = [...entryMap.values()].sort((entry1, entry2) => entry1._order - entry2._order);
     return {
         log: harLog,
     };

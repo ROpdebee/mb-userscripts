@@ -130,17 +130,17 @@ const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) 
     contents: ArtworkTypeIDs['Raw/Unedited'],
 };
 
-function convertMappingReturnValue(ret: MappedArtwork): { types: ArtworkTypeIDs[]; comment: string } {
-    if (Object.prototype.hasOwnProperty.call(ret, 'type')
-        && Object.prototype.hasOwnProperty.call(ret, 'comment')) {
-        const retObj = ret as { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
+function convertMappingReturnValue(returnValue: MappedArtwork): { types: ArtworkTypeIDs[]; comment: string } {
+    if (Object.prototype.hasOwnProperty.call(returnValue, 'type')
+        && Object.prototype.hasOwnProperty.call(returnValue, 'comment')) {
+        const returnValueObject = returnValue as { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
         return {
-            types: Array.isArray(retObj.type) ? retObj.type : [retObj.type],
-            comment: retObj.comment,
+            types: Array.isArray(returnValueObject.type) ? returnValueObject.type : [returnValueObject.type],
+            comment: returnValueObject.comment,
         };
     }
 
-    let types = ret as ArtworkTypeIDs | ArtworkTypeIDs[];
+    let types = returnValue as ArtworkTypeIDs | ArtworkTypeIDs[];
     /* istanbul ignore next: No mapper generates this currently */
     if (!Array.isArray(types)) {
         types = [types];
@@ -166,15 +166,15 @@ for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
             return convertMappingReturnValue(value(caption));
         }
 
-        const retObj = convertMappingReturnValue(value);
+        const returnValueObject = convertMappingReturnValue(value);
         // Add remainder of the caption to the comment returned by the mapping
-        if (retObj.comment && caption) retObj.comment += ' ' + caption;
+        if (returnValueObject.comment && caption) returnValueObject.comment += ' ' + caption;
         // If there's a caption but no comment, set the comment to the caption
-        else if (caption) retObj.comment = caption;
+        else if (caption) returnValueObject.comment = caption;
         // Otherwise there's a comment set by the mapper but no caption => keep,
         // or neither a comment nor a caption => nothing needs to be done.
 
-        return retObj;
+        return returnValueObject;
     };
 }
 
@@ -228,12 +228,12 @@ export class VGMdbProvider extends CoverArtProvider {
     protected readonly urlRegex = /\/album\/(\d+)(?:\/|$)/;
 
     public async findImages(url: URL): Promise<CoverArt[]> {
-        const pageSrc = await this.fetchPage(url);
-        if (pageSrc.includes('/db/img/banner-error.gif')) {
+        const pageSource = await this.fetchPage(url);
+        if (pageSource.includes('/db/img/banner-error.gif')) {
             throw new Error('VGMdb returned an error');
         }
 
-        const pageDom = parseDOM(pageSrc, url.href);
+        const pageDom = parseDOM(pageSource, url.href);
 
         // istanbul ignore else: Tests are not logged in
         if (qsMaybe('#navmember', pageDom) === null) {
@@ -280,8 +280,8 @@ export class VGMdbProvider extends CoverArtProvider {
         const id = this.extractId(url);
         assertHasValue(id);
         const apiUrl = `https://vgmdb.info/album/${id}?format=json`;
-        const apiResp = await request.get(apiUrl);
-        const metadata = safeParseJSON<AlbumMetadata>(apiResp.text, 'Invalid JSON response from vgmdb.info API');
+        const apiResponse = await request.get(apiUrl);
+        const metadata = safeParseJSON<AlbumMetadata>(apiResponse.text, 'Invalid JSON response from vgmdb.info API');
 
         assert(metadata.link === 'album/' + id, `VGMdb.info returned wrong release: Requested album/${id}, got ${metadata.link}`);
 

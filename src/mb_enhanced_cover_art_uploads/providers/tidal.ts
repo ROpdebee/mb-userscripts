@@ -37,12 +37,12 @@ export class TidalProvider extends CoverArtProvider {
 
     private async getCountryCode(): Promise<string> {
         if (!this.countryCode) {
-            const resp = await request.get('https://listen.tidal.com/v1/country/context?countryCode=WW&locale=en_US&deviceType=BROWSER', {
+            const response = await request.get('https://listen.tidal.com/v1/country/context?countryCode=WW&locale=en_US&deviceType=BROWSER', {
                 headers: {
                     'x-tidal-token': APP_ID,
                 },
             });
-            const codeResponse = safeParseJSON<{ countryCode: string }>(resp.text, 'Invalid JSON response from Tidal API for country code');
+            const codeResponse = safeParseJSON<{ countryCode: string }>(response.text, 'Invalid JSON response from Tidal API for country code');
             this.countryCode = codeResponse.countryCode;
         }
         assertHasValue(this.countryCode, 'Cannot determine Tidal country');
@@ -55,7 +55,7 @@ export class TidalProvider extends CoverArtProvider {
         // the browser as much as we can to avoid getting accidentally blocked.
         await request.get('https://listen.tidal.com/v1/ping');
         const apiUrl = `https://listen.tidal.com/v1/pages/album?albumId=${albumId}&countryCode=${countryCode}&deviceType=BROWSER`;
-        const resp = await request.get(apiUrl, {
+        const response = await request.get(apiUrl, {
             headers: {
                 'x-tidal-token': APP_ID,
             },
@@ -64,7 +64,7 @@ export class TidalProvider extends CoverArtProvider {
             },
         });
 
-        const metadata = safeParseJSON<AlbumMetadata>(resp.text, 'Invalid response from Tidal API');
+        const metadata = safeParseJSON<AlbumMetadata>(response.text, 'Invalid response from Tidal API');
         const albumMetadata = metadata.rows[0]?.modules?.[0]?.album;
         assertHasValue(albumMetadata, 'Tidal API returned no album, 404?');
         assert(albumMetadata.id.toString() === albumId, `Tidal returned wrong release: Requested ${albumId}, got ${albumMetadata.id}`);

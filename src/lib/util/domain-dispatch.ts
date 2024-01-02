@@ -5,17 +5,17 @@ function splitDomain(domain: string): string[] {
     // into ['a', 'b', 'c.d'].
     // We keep base and TLD together to avoid unnecessary common lookups.
     const parts = domain.split('.');
-    let splitIdx = -2;
+    let splitIndex = -2;
     // Watch out for e.g. amazon.co.uk or amazon.com.au. Our handling of this is
     // pretty naive (co.be is a valid site for example), but it works well enough.
     if (['org', 'co', 'com'].includes(parts[parts.length - 2])) {
-        splitIdx = -3;
+        splitIndex = -3;
     }
     return [
         // ['sub', 'domain']
-        ...parts.slice(0, splitIdx),
+        ...parts.slice(0, splitIndex),
         // 'site.com'
-        parts.slice(splitIdx).join('.'),
+        parts.slice(splitIndex).join('.'),
     ];
 }
 

@@ -21,8 +21,8 @@ export class VKMusicProvider extends CoverArtProvider {
     public async findImages(url: URL): Promise<CoverArt[]> {
         const page = parseDOM(await this.fetchPage(url), url.href);
         // AudioPlaylistSnippet: Browser site; audioPlaylist: mobile site.
-        const coverElem = qs('.AudioPlaylistSnippet__cover, .audioPlaylist__cover', page);
-        const coverUrl = coverElem.getAttribute('style')?.match(/background-image:\s*url\('(.+)'\);/)?.[1];
+        const coverElement = qs('.AudioPlaylistSnippet__cover, .audioPlaylist__cover', page);
+        const coverUrl = coverElement.getAttribute('style')?.match(/background-image:\s*url\('(.+)'\);/)?.[1];
 
         assertHasValue(coverUrl, 'Could not extract cover URL');
 

@@ -11,27 +11,27 @@ function encodeValue(value: unknown): string {
 
 function decodeSingleKeyValue(key: string, value: string, images: BareCoverArt[]): void {
     const keyName = key.split('.').pop()!;
-    const imageIdxString = key.match(/x_seed\.image\.(\d+)\./)?.[1];
-    if (!imageIdxString || !['url', 'types', 'comment'].includes(keyName)) {
+    const imageIndexString = key.match(/x_seed\.image\.(\d+)\./)?.[1];
+    if (!imageIndexString || !['url', 'types', 'comment'].includes(keyName)) {
         throw new Error(`Unsupported seeded key: ${key}`);
     }
 
-    const imageIdx = Number.parseInt(imageIdxString);
+    const imageIndex = Number.parseInt(imageIndexString);
 
-    if (!images[imageIdx]) {
-        images[imageIdx] = {} as unknown as BareCoverArt;
+    if (!images[imageIndex]) {
+        images[imageIndex] = {} as unknown as BareCoverArt;
     }
 
     if (keyName === 'url') {
-        images[imageIdx].url = new URL(value);
+        images[imageIndex].url = new URL(value);
     } else if (keyName === 'types') {
         const types = safeParseJSON(value);
         if (!Array.isArray(types) || types.some((type) => typeof type !== 'number')) {
             throw new Error(`Invalid 'types' parameter: ${value}`);
         }
-        images[imageIdx].types = types;
+        images[imageIndex].types = types;
     } else {
-        images[imageIdx].comment = value;
+        images[imageIndex].comment = value;
     }
 }
 
@@ -53,31 +53,31 @@ export class SeedParameters {
     }
 
     public encode(): URLSearchParams {
-        const seedParams = new URLSearchParams(this.images.flatMap((image, index) =>
+        const seedParameters = new URLSearchParams(this.images.flatMap((image, index) =>
             Object.entries(image).map(([key, value]) => [`x_seed.image.${index}.${key}`, encodeValue(value)]),
         ));
 
         if (this.origin) {
-            seedParams.append('x_seed.origin', this.origin);
+            seedParameters.append('x_seed.origin', this.origin);
         }
 
-        return seedParams;
+        return seedParameters;
     }
 
     public createSeedURL(releaseId: string, domain = 'musicbrainz.org'): string {
         return `https://${domain}/release/${releaseId}/add-cover-art?${this.encode()}`;
     }
 
-    public static decode(seedParams: URLSearchParams): SeedParameters {
+    public static decode(seedParameters: URLSearchParams): SeedParameters {
         let images: BareCoverArt[] = [];
-        for (const [key, value] of seedParams.entries()) {
+        for (const [key, value] of seedParameters.entries()) {
             // only image parameters can be decoded to cover art images
             if (!key.startsWith('x_seed.image.')) continue;
 
             try {
                 decodeSingleKeyValue(key, value, images);
-            } catch (err) {
-                LOGGER.error(`Invalid image seeding param ${key}=${value}`, err);
+            } catch (error) {
+                LOGGER.error(`Invalid image seeding param ${key}=${value}`, error);
             }
         }
 
@@ -95,7 +95,7 @@ export class SeedParameters {
             }
         });
 
-        const origin = seedParams.get('x_seed.origin') ?? undefined;
+        const origin = seedParameters.get('x_seed.origin') ?? undefined;
 
         return new SeedParameters(images, origin);
     }

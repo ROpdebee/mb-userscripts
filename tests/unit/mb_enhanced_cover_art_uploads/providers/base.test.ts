@@ -291,7 +291,7 @@ describe('providers with track images', () => {
         it('sets all track numbers in comment', async () => {
             const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
-            expect(results.find((img) => img.url.pathname === '/123')?.comment)
+            expect(results.find((image) => image.url.pathname === '/123')?.comment)
                 .toBe('Tracks 1, 3');
         });
 
@@ -311,7 +311,7 @@ describe('providers with track images', () => {
             }];
             const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
-            expect(results.find((img) => img.url.pathname === '/123')?.comment)
+            expect(results.find((image) => image.url.pathname === '/123')?.comment)
                 .toBe('Tracks 1, 2, 3, 10');
         });
 

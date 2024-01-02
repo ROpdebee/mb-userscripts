@@ -53,15 +53,15 @@ export async function generateChangelogEntry(scriptVersion: string, prInfo: Pull
         const changeInfo = await parsePullRequestTitle(prInfo);
         const changelogTitle = CC_TYPE_TO_TITLE[changeInfo.type] ?? 'Internal changes';
         return `- **${scriptVersion}**: ${changelogTitle}: ${changeInfo.subject} ([#${prInfo.number}](${prInfo.url}))`;
-    } catch (err) {
-        console.error(err);
+    } catch (error) {
+        console.error(error);
         return `- **${scriptVersion}**: UNKNOWN CHANGE TYPE: ${prInfo.title} ([#${prInfo.number}](${prInfo.url}))`;
     }
 }
 
-export async function updateChangelog(scriptName: string, version: string, distRepo: string, prInfo: PullRequestInfo): Promise<void> {
+export async function updateChangelog(scriptName: string, version: string, distributionRepo: string, prInfo: PullRequestInfo): Promise<void> {
     const changelogEntry = await generateChangelogEntry(version, prInfo);
-    const changelogPath = path.join(distRepo, scriptName + '.changelog.md');
+    const changelogPath = path.join(distributionRepo, scriptName + '.changelog.md');
     await fs.writeFile(changelogPath, await renderChangelog(changelogPath, changelogEntry));
 }
 

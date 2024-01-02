@@ -104,7 +104,7 @@ export abstract class CoverArtProvider {
     }
 
     protected async fetchPage(url: URL, options?: RequestOptions): Promise<string> {
-        const resp = await request.get(url, {
+        const response = await request.get(url, {
             // Standardise error messages for 404 pages, otherwise the HTTP error
             // will be shown in the UI.
             httpErrorMessages: {
@@ -115,13 +115,13 @@ export abstract class CoverArtProvider {
             ...options,
         });
 
-        if (resp.url === undefined) {
+        if (response.url === undefined) {
             LOGGER.warn(`Could not detect if ${url.href} caused a redirect`);
-        } else if (resp.url !== url.href && !this.isSafeRedirect(url, new URL(resp.url))) {
-            throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${resp.url}, which may be a different release. If this redirected URL is correct, please retry with ${resp.url} directly.`);
+        } else if (response.url !== url.href && !this.isSafeRedirect(url, new URL(response.url))) {
+            throw new Error(`Refusing to extract images from ${this.name} provider because the original URL redirected to ${response.url}, which may be a different release. If this redirected URL is correct, please retry with ${response.url} directly.`);
         }
 
-        return resp.text;
+        return response.text;
     }
 }
 
@@ -146,14 +146,14 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
     }
 
     public async findImages(url: URL): Promise<CoverArt[]> {
-        const respDocument = parseDOM(await this.fetchPage(url), url.href);
-        if (this.is404Page(respDocument)) {
+        const responseDocument = parseDOM(await this.fetchPage(url), url.href);
+        if (this.is404Page(responseDocument)) {
             throw new Error(`${this.name} release does not exist`);
         }
 
-        const coverElmt = qs<HTMLMetaElement>('head > meta[property="og:image"]', respDocument);
+        const coverElement = qs<HTMLMetaElement>('head > meta[property="og:image"]', responseDocument);
         return [{
-            url: new URL(coverElmt.content, url),
+            url: new URL(coverElement.content, url),
             types: [ArtworkTypeIDs.Front],
         }];
     }
@@ -171,17 +171,17 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
     // payload is identical if the source images are identical, so then we don't
     // have to load the full image.
 
-    private groupIdenticalImages<T>(images: T[], getImageUniqueId: (img: T) => string, mainUniqueId?: string): Map<string, T[]> {
-        const uniqueImages = images.filter((img) => getImageUniqueId(img) !== mainUniqueId);
-        return groupBy(uniqueImages, getImageUniqueId, (img) => img);
+    private groupIdenticalImages<T>(images: T[], getImageUniqueId: (image: T) => string, mainUniqueId?: string): Map<string, T[]> {
+        const uniqueImages = images.filter((image) => getImageUniqueId(image) !== mainUniqueId);
+        return groupBy(uniqueImages, getImageUniqueId, (image) => image);
     }
 
     private async urlToDigest(imageUrl: string): Promise<string> {
-        const resp = await request.get(this.imageToThumbnailUrl(imageUrl), {
+        const response = await request.get(this.imageToThumbnailUrl(imageUrl), {
             responseType: 'blob',
         });
 
-        return blobToDigest(resp.blob);
+        return blobToDigest(response.blob);
     }
 
     protected imageToThumbnailUrl(imageUrl: string): string {
@@ -193,7 +193,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
         const allTrackImages = filterNonNull(parsedTrackImages);
 
         // First pass: URL only
-        const groupedImages = this.groupIdenticalImages(allTrackImages, (img) => img.url, mainUrl);
+        const groupedImages = this.groupIdenticalImages(allTrackImages, (image) => image.url, mainUrl);
 
         // Second pass: Thumbnail content
         // We do not need to deduplicate by content if there's only one track
@@ -207,14 +207,14 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
             // Extend the track image with the track's unique digest. We compute
             // this digest once for each unique URL.
-            let numProcessed = 0;
+            let numberProcessed = 0;
             const tracksWithDigest = await Promise.all([...groupedImages.entries()]
                 .map(async ([coverUrl, trackImages]) => {
                     const digest = await this.urlToDigest(coverUrl);
                     // Cannot use `map`'s index argument since this is asynchronous
                     // and might resolve out of order.
-                    numProcessed++;
-                    LOGGER.info(`Deduplicating track images by content, this may take a while… (${numProcessed}/${groupedImages.size})`);
+                    numberProcessed++;
+                    LOGGER.info(`Deduplicating track images by content, this may take a while… (${numberProcessed}/${groupedImages.size})`);
                     return trackImages.map((trackImage) => {
                         return {
                             ...trackImage,
@@ -238,8 +238,8 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
         // Queue one item for each group of track images. We'll create a comment
         // to indicate which tracks this image belongs to.
-        return [...groupedImages.entries()].map(([imgUrl, trackImages]) => ({
-            url: new URL(imgUrl),
+        return [...groupedImages.entries()].map(([imageUrl, trackImages]) => ({
+            url: new URL(imageUrl),
             types: [ArtworkTypeIDs.Track],
             comment: this.createTrackImageComment(trackImages) || undefined,
         }));

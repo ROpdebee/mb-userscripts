@@ -72,8 +72,8 @@ export async function createCache(): Promise<InfoCache> {
             // Need to await this to ensure we catch errors here and fall back
             // on the dummy cache.
             return await IndexedDBInfoCache.create();
-        } catch (err) {
-            LOGGER.error('Failed to create IndexedDB-backed image information cache, repeated lookups will be slow!', err);
+        } catch (error) {
+            LOGGER.error('Failed to create IndexedDB-backed image information cache, repeated lookups will be slow!', error);
             // fall through and create a dummy cache
         }
     } else {
@@ -110,15 +110,15 @@ class NoInfoCache implements InfoCache {
 class IndexedDBInfoCache {
     private readonly db: IDBPDatabase<CacheDBSchema>;
 
-    private constructor(db: IDBPDatabase<CacheDBSchema>) {
-        this.db = db;
+    private constructor(database: IDBPDatabase<CacheDBSchema>) {
+        this.db = database;
     }
 
     public static async create(): Promise<IndexedDBInfoCache> {
         return new Promise((resolve, reject) => {
             let wasBlocked = false;
 
-            const dbPromise = openDB(CACHE_DB_NAME, CACHE_DB_VERSION, {
+            const databasePromise = openDB(CACHE_DB_NAME, CACHE_DB_VERSION, {
                 async upgrade(database: IDBPDatabase<CacheDBSchema>, oldVersion: number, newVersion: number, tx: IDBPTransaction<CacheDBSchema, Array<StoreNames<CacheDBSchema>>, 'versionchange'>): Promise<void> {
                     LOGGER.info(`Creating or upgrading IndexedDB cache version ${newVersion}`);
                     if (oldVersion < 1) {
@@ -132,7 +132,7 @@ class IndexedDBInfoCache {
 
                     while (oldVersion < newVersion) {
                         LOGGER.info(`Upgrading IndexedDB cache from version ${oldVersion} to ${oldVersion + 1}`);
-                        const migrator = DbMigrations[oldVersion];
+                        const migrator = DatabaseMigrations[oldVersion];
                         await migrator(database, tx);
                         oldVersion++;
                     }
@@ -187,21 +187,21 @@ class IndexedDBInfoCache {
                     // This will only be called after the DB was created successfully,
                     // so this variable will have been initialised.
                     LOGGER.warn('Closing DB for schema change in other tab');
-                    dbPromise.then((db) => {
-                        db.close();
+                    databasePromise.then((database) => {
+                        database.close();
                     }).catch(logFailure('Failed to close database'));
                 },
             });
 
             // When database opened successfully, return it if we didn't already
             // reject before.
-            dbPromise.then(async (db) => {
+            databasePromise.then(async (database) => {
                 LOGGER.debug('Successfully opened IndexedDB cache');
 
-                await maybePruneDb(db);
+                await maybePruneDatabase(database);
 
                 if (!wasBlocked) {
-                    resolve(new IndexedDBInfoCache(db));
+                    resolve(new IndexedDBInfoCache(database));
                 }
             }).catch(reject);
         });
@@ -217,9 +217,9 @@ class IndexedDBInfoCache {
             }
 
             return cachedResult;
-        } catch (err) /* istanbul ignore next: Difficult to cover */ {
-            LOGGER.error(`Failed to load ${imageUrl} from cache`, err);
-            throw err;
+        } catch (error) /* istanbul ignore next: Difficult to cover */ {
+            LOGGER.error(`Failed to load ${imageUrl} from cache`, error);
+            throw error;
         }
     }
 
@@ -230,8 +230,8 @@ class IndexedDBInfoCache {
                 addedDatetime: Date.now(),
             }, imageUrl);
             LOGGER.debug(`Successfully stored ${imageUrl} in cache`);
-        } catch (err) /* istanbul ignore next: Difficult to cover */ {
-            LOGGER.error(`Failed to store ${imageUrl} in cache`, err);
+        } catch (error) /* istanbul ignore next: Difficult to cover */ {
+            LOGGER.error(`Failed to store ${imageUrl} in cache`, error);
         }
     }
 
@@ -252,7 +252,7 @@ class IndexedDBInfoCache {
     }
 }
 
-async function maybePruneDb(db: IDBPDatabase<CacheDBSchema>): Promise<void> {
+async function maybePruneDatabase(database: IDBPDatabase<CacheDBSchema>): Promise<void> {
     const lastPruneTimestamp = Number.parseInt(localStorage.getItem(CACHE_TIMESTAMP_NAME) ?? '0');
     const timeSinceLastPrune = Date.now() - lastPruneTimestamp;
     if (timeSinceLastPrune < CACHE_CHECK_INTERVAL) {
@@ -264,7 +264,7 @@ async function maybePruneDb(db: IDBPDatabase<CacheDBSchema>): Promise<void> {
     const pruneRange = IDBKeyRange.upperBound(Date.now() - CACHE_STALE_TIME);
 
     async function iterateAndPrune(storeName: StoreNames<CacheDBSchema>): Promise<void> {
-        let cursor = await db.transaction(storeName, 'readwrite').store.index(CACHE_ADDED_TIMESTAMP_INDEX).openCursor(pruneRange);
+        let cursor = await database.transaction(storeName, 'readwrite').store.index(CACHE_ADDED_TIMESTAMP_INDEX).openCursor(pruneRange);
         while (cursor !== null) {
             LOGGER.debug(`Removing ${cursor.key} (added at ${new Date(cursor.value.addedDatetime)})`);
             await cursor.delete();
@@ -296,25 +296,25 @@ interface CacheDBSchemaV1 extends DBSchema {
     };
 }
 
-type Migrator = (db: IDBPDatabase<CacheDBSchema>, tx: IDBPTransaction<CacheDBSchema, Array<StoreNames<CacheDBSchema>>, 'versionchange'>) => Promise<void>;
+type Migrator = (database: IDBPDatabase<CacheDBSchema>, tx: IDBPTransaction<CacheDBSchema, Array<StoreNames<CacheDBSchema>>, 'versionchange'>) => Promise<void>;
 /**
  * Map of database migrations, indexed by current version.
  */
-const DbMigrations: Record<number, Migrator> = {
+const DatabaseMigrations: Record<number, Migrator> = {
 
     // JS version to TS version
-    1: async function (db, tx) {
+    1: async function (database, tx) {
         // Retrieve all existing values, drop and recreate the store, and reinsert all.
         // We can't update the values in-place since v1 uses a keypath and expects
         // the URL in the values, whereas v2 does not support that.
         const txV1 = tx as unknown as IDBPTransaction<CacheDBSchemaV1, ['cacheStore'], 'versionchange'>;
-        const dbV1 = db as unknown as IDBPDatabase<CacheDBSchemaV1>;
+        const databaseV1 = database as unknown as IDBPDatabase<CacheDBSchemaV1>;
         const oldRecords = await (txV1.objectStore('cacheStore')).getAll();
-        dbV1.deleteObjectStore('cacheStore');
+        databaseV1.deleteObjectStore('cacheStore');
 
         // Create new stores and indices
-        const newDimensionsStore = db.createObjectStore(CACHE_DIMENSIONS_STORE_NAME);
-        const newFileInfoStore = db.createObjectStore(CACHE_FILE_INFO_STORE_NAME);
+        const newDimensionsStore = database.createObjectStore(CACHE_DIMENSIONS_STORE_NAME);
+        const newFileInfoStore = database.createObjectStore(CACHE_FILE_INFO_STORE_NAME);
         newDimensionsStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
         newFileInfoStore.createIndex(CACHE_ADDED_TIMESTAMP_INDEX, 'addedDatetime');
 

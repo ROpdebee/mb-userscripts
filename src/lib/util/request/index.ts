@@ -13,7 +13,7 @@ export { RequestBackend } from './request-options';
 export type { ArrayBufferResponse, BlobResponse, ProgressEvent, Response, TextResponse } from './response';
 
 
-interface RequestFunc {
+interface RequestFunction {
     <RequestOptionsT extends RequestOptions>(method: RequestMethod, url: string | URL, options: RequestOptionsT): Promise<ResponseFor<RequestOptionsT>>;
     (method: RequestMethod, url: string | URL): Promise<TextResponse>;
 
@@ -33,7 +33,7 @@ const hasGMXHR = (
     // eslint-disable-next-line @typescript-eslint/prefer-optional-chain, @typescript-eslint/no-unnecessary-condition -- Might be using GMv3 API.
     || (typeof GM !== 'undefined' && GM.xmlHttpRequest !== undefined));
 
-export const request: RequestFunc = async function (method: RequestMethod, url: string | URL, options?: RequestOptions) {
+export const request: RequestFunction = async function (method: RequestMethod, url: string | URL, options?: RequestOptions) {
     // istanbul ignore next: Difficult to test.
     const backend = options?.backend ?? (hasGMXHR ? RequestBackend.GMXHR : RequestBackend.FETCH);
     const response = await performRequest(backend, method, url, options);
@@ -44,7 +44,7 @@ export const request: RequestFunc = async function (method: RequestMethod, url: 
     }
 
     return response;
-} as RequestFunc;
+} as RequestFunction;
 
 request.get = request.bind(undefined, 'GET');
 request.post = request.bind(undefined, 'POST');

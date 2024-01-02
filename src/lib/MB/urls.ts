@@ -1,16 +1,16 @@
 import { request } from '@lib/util/request';
 
-import type { ReleaseAdvRel, URLAdvRel } from './advanced-relationships';
+import type { ReleaseAdvancedRelationship, URLAdvancedRelationship } from './advanced-relationships';
 
 interface ReleaseMetadataWithARs {
-    relations?: Array<URLAdvRel & ReleaseAdvRel>;
+    relations?: Array<URLAdvancedRelationship & ReleaseAdvancedRelationship>;
 }
 
-export async function getReleaseUrlARs(releaseId: string): Promise<Array<URLAdvRel & ReleaseAdvRel>> {
+export async function getReleaseUrlARs(releaseId: string): Promise<Array<URLAdvancedRelationship & ReleaseAdvancedRelationship>> {
     // TODO: Interacting with the ws/ endpoint should probably be factored out
-    const resp = await request.get(`https://musicbrainz.org/ws/2/release/${releaseId}?inc=url-rels&fmt=json`);
-    const metadata = await resp.json() as ReleaseMetadataWithARs;
-    return metadata.relations ?? /* istanbul ignore next: Likely won't happen */ [];
+    const response = await request.get(`https://musicbrainz.org/ws/2/release/${releaseId}?inc=url-rels&fmt=json`);
+    const metadata = await response.json() as ReleaseMetadataWithARs;
+    return metadata.relations ?? /* istanbul ignore next: Likely won't happen */[];
 }
 
 export async function getURLsForRelease(releaseId: string, options?: { excludeEnded?: boolean; excludeDuplicates?: boolean }): Promise<URL[]> {
@@ -36,9 +36,9 @@ export async function getURLsForRelease(releaseId: string, options?: { excludeEn
 }
 
 export async function getReleaseIDsForURL(url: string): Promise<string[]> {
-    const resp = await request.get(`https://musicbrainz.org/ws/2/url?resource=${encodeURIComponent(url)}&inc=release-rels&fmt=json`, {
+    const response = await request.get(`https://musicbrainz.org/ws/2/url?resource=${encodeURIComponent(url)}&inc=release-rels&fmt=json`, {
         throwForStatus: false,
     });
-    const metadata = await resp.json() as ReleaseMetadataWithARs;
-    return metadata.relations?.map((rel) => rel.release.id) ?? [];
+    const metadata = await response.json() as ReleaseMetadataWithARs;
+    return metadata.relations?.map((relationship) => relationship.release.id) ?? [];
 }
