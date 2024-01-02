@@ -18,7 +18,7 @@
         "../mb_*.user.js",
         "../dist/**",
         "../lib/**",
-        "../coverage/**",
+        "../coverage/**"
     ],
     "compilerOptions": {
         // All path aliases set up in the composite projects need to be merged
@@ -33,7 +33,7 @@
         "typeRoots": [
             "../node_modules/@types",
             "../src/types",
-            "../tests/types",
+            "../tests/types"
         ]
     }
 }
