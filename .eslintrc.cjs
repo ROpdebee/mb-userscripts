@@ -2,7 +2,7 @@ const restrictedGlobals = require('confusing-browser-globals');
 // For eslint-plugin-simple-import-sort
 const builtinModulesJoined = require('module').builtinModules.join('|');
 
-module.exports = {
+const baseJsConfig = {
     env: {
         node: true,
         es2021: true,
@@ -15,7 +15,6 @@ module.exports = {
         'plugin:eslint-comments/recommended',
         'plugin:sonarjs/recommended',
         'plugin:unicorn/recommended',
-        'plugin:json/recommended-with-comments',
         'plugin:array-func/recommended',
         'plugin:promise/recommended',
         'plugin:no-unsanitized/DOM',
@@ -33,7 +32,6 @@ module.exports = {
         ecmaVersion: 12,
         sourceType: 'module',
         project: 'configs/tsconfig.glue-eslint.json',
-        extraFileExtensions: ['.cjs'],
     },
     rules: {
         'indent': ['error', 4],
@@ -231,11 +229,26 @@ module.exports = {
         'array-func/prefer-flat': 0,
         'array-func/prefer-flat-map': 0,
     },
+};
+
+const JAVASCRIPT_EXTENSIONS = ['ts', 'js', 'cjs', 'mjs', 'tsx', 'jsx'];
+const JAVASCRIPT_EXTENSIONS_PATTERN = `{${JAVASCRIPT_EXTENSIONS.join(',')}}`;
+
+
+module.exports = {
     overrides: [{
+        files: [`**/*.${JAVASCRIPT_EXTENSIONS_PATTERN}`],
+        ...baseJsConfig,
+    }, {
         // Override per eslint-plugin-jest documentation.
-        files: ['tests/**'],
-        plugins: ['jest'],
+        files: [`tests/**/*.${JAVASCRIPT_EXTENSIONS_PATTERN}`],
+        ...baseJsConfig,
+        plugins: [
+            ...baseJsConfig.plugins,
+            'jest',
+        ],
         extends: [
+            ...baseJsConfig.extends,
             'plugin:jest/all',
             'plugin:jest-formatting/strict',
         ],
@@ -245,6 +258,7 @@ module.exports = {
             ],
         },
         rules: {
+            ...baseJsConfig.rules,
             '@typescript-eslint/unbound-method': 'off',
             'jest/unbound-method': 'error',
             'jest/prefer-expect-assertions': 'off',
@@ -259,10 +273,18 @@ module.exports = {
             '@typescript-eslint/dot-notation': 'off',
         },
     }, {
-        files: ['*.d.ts'],
+        files: ['**/*.d.ts'],
+        ...baseJsConfig,
         rules: {
+            ...baseJsConfig.rules,
             '@typescript-eslint/init-declarations': 'off',
             'unicorn/no-static-only-class': 'off',
         },
+    }, {
+        files: ['**/*.json'],
+        extends: ["plugin:json/recommended"],
+    }, {
+        files: ['**/tsconfig*.json'],
+        extends: ["plugin:json/recommended-with-comments"],
     }],
 };
