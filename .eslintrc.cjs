@@ -215,7 +215,7 @@ const baseJsConfig = {
         'unicorn/no-array-for-each': 'error',
         'unicorn/no-null': 'off',
         'unicorn/prefer-number-properties': 'error',
-        'unicorn/prefer-optional-catch-binding': 0,
+        'unicorn/prefer-optional-catch-binding': 'error',
         'unicorn/prevent-abbreviations': 0,
         'sonarjs/no-duplicate-string': 'off',
         'array-func/prefer-array-from': 'off',

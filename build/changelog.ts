@@ -75,7 +75,7 @@ async function readChangelog(changelogPath: string): Promise<string> {
         return await fs.readFile(changelogPath, {
             encoding: 'utf8',
         });
-    } catch (err) {
+    } catch {
         // Changelog doesn't exist yet
         return '';
     }
