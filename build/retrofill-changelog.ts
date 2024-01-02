@@ -34,7 +34,7 @@ async function iterCommits(repo: SimpleGit): Promise<void> {
         try {
             const changelogEntry = await generateChangelogEntry(version, {
                 title: title,
-                number: parseInt(prNumber),
+                number: Number.parseInt(prNumber),
                 labels: [],
                 url: `https://github.com/ROpdebee/mb-userscripts/pull/${prNumber}`,
             });

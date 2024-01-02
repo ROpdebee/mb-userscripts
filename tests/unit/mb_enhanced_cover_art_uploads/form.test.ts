@@ -46,7 +46,7 @@ async function insertFileRows(evt: DragEvent): Promise<void> {
 function getSelectedTypes(row: HTMLTableRowElement | null): ArtworkTypeIDs[] {
     return [...row?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]') ?? []]
         .filter((input) => input.checked)
-        .map((input) => parseInt(input.value));
+        .map((input) => Number.parseInt(input.value));
 }
 
 function getComment(row: HTMLTableRowElement | null): string | undefined {

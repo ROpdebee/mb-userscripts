@@ -129,7 +129,7 @@ export class AtisketImage extends BaseImage {
 
         return {
             fileType: fileType?.toUpperCase(),
-            size: fileSize ? parseInt(fileSize) : /* istanbul ignore next: Probably won't happen */ undefined,
+            size: fileSize ? Number.parseInt(fileSize) : /* istanbul ignore next: Probably won't happen */ undefined,
         };
     }
 }

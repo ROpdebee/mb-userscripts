@@ -35,7 +35,7 @@ export function incrementVersion(lastVersion: string | undefined): string {
 
     // We already released at least twice today, current version already is
     // e.g. 2021.10.17.*. Increment it.
-    const currSuffix = parseInt(lastVersion.split('.')[3]);
+    const currSuffix = Number.parseInt(lastVersion.split('.')[3]);
     return `${nextVersion}.${currSuffix + 1}`;
 }
 

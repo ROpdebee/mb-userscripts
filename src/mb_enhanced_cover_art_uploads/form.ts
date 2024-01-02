@@ -45,7 +45,7 @@ function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], ima
 
     // Set image types
     const checkboxesToCheck = qsa<HTMLInputElement>('ul.cover-art-type-checkboxes input[type="checkbox"]', fileRow)
-        .filter((cbox) => imageTypes.includes(parseInt(cbox.value)));
+        .filter((cbox) => imageTypes.includes(Number.parseInt(cbox.value)));
     for (const cbox of checkboxesToCheck) {
         cbox.checked = true;
         cbox.dispatchEvent(new Event('click'));

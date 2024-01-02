@@ -3,7 +3,7 @@ type Version = number[];
 export function parseVersion(vString: string): Version {
     // Can't use a bare function reference because parseInt will interpret the
     // index as the base.
-    return vString.split('.').map((i) => parseInt(i));
+    return vString.split('.').map((i) => Number.parseInt(i));
 }
 
 export function versionLessThan(v1: Version, v2: Version): boolean {

@@ -16,7 +16,7 @@ function decodeSingleKeyValue(key: string, value: string, images: BareCoverArt[]
         throw new Error(`Unsupported seeded key: ${key}`);
     }
 
-    const imageIdx = parseInt(imageIdxString);
+    const imageIdx = Number.parseInt(imageIdxString);
 
     if (!images[imageIdx]) {
         images[imageIdx] = {} as unknown as BareCoverArt;

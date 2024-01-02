@@ -104,6 +104,6 @@ function parseChangelogEntry(line: string): ChangelogEntry | null {
         version: match[1],
         title: match[2],
         subject: match[3],
-        prNumber: parseInt(match[4]),
+        prNumber: Number.parseInt(match[4]),
     };
 }

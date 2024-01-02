@@ -29,7 +29,7 @@ export async function getCAAInfo(itemId: string, imageId: string): Promise<FileI
 
     return {
         fileType: imgMetadata.format,
-        size: parseInt(imgMetadata.size),
+        size: Number.parseInt(imgMetadata.size),
         pageCount,
     };
 }

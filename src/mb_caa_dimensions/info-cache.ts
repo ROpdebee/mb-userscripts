@@ -253,7 +253,7 @@ class IndexedDBInfoCache {
 }
 
 async function maybePruneDb(db: IDBPDatabase<CacheDBSchema>): Promise<void> {
-    const lastPruneTimestamp = parseInt(localStorage.getItem(CACHE_TIMESTAMP_NAME) ?? '0');
+    const lastPruneTimestamp = Number.parseInt(localStorage.getItem(CACHE_TIMESTAMP_NAME) ?? '0');
     const timeSinceLastPrune = Date.now() - lastPruneTimestamp;
     if (timeSinceLastPrune < CACHE_CHECK_INTERVAL) {
         LOGGER.debug(`Cache was last pruned at ${new Date(lastPruneTimestamp)}, pruning is unnecessary`);

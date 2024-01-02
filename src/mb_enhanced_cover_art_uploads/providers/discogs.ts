@@ -88,7 +88,7 @@ export class DiscogsProvider extends CoverArtProvider {
         const graphqlParams = new URLSearchParams({
             operationName: 'ReleaseAllImages',
             variables: JSON.stringify({
-                discogsId: parseInt(releaseId),
+                discogsId: Number.parseInt(releaseId),
                 count: 500,
             }),
             extensions: JSON.stringify({

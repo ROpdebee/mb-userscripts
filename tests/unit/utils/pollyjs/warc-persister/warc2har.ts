@@ -77,20 +77,20 @@ async function populateEntryMetadata(record: WARCRecord, entry: HarEntry): Promi
     const metadata = await parseWARCFields<WARCRecordMetadataFields>(record);
 
     entry._id = metadata.harEntryId;
-    entry._order = parseInt(metadata.harEntryOrder);
+    entry._order = Number.parseInt(metadata.harEntryOrder);
     entry.cache = safeParseJSON<HarEntry['cache']>(metadata.cache, 'Malformed WARC record: Missing `cache` field');
     entry.startedDateTime = metadata.startedDateTime;
-    entry.time = parseInt(metadata.time);
+    entry.time = Number.parseInt(metadata.time);
     entry.timings = safeParseJSON<HarEntry['timings']>(metadata.timings, 'Malformed WARC record: Missing `timings` field');
     // @ts-expect-error hack
     entry.responseShouldBeEncoded = safeParseJSON<boolean>(metadata.responseDecoded, 'Malformed WARC record: Missing `responseShouldBeEncoded` field');
 
     const request: HarRequest = entry.request;
-    request.headersSize = parseInt(metadata.warcRequestHeadersSize);
+    request.headersSize = Number.parseInt(metadata.warcRequestHeadersSize);
     request.cookies = safeParseJSON<HarRequest['cookies']>(metadata.warcRequestCookies, 'Malformed WARC record: Missing `cookies` field on request');
 
     entry.response.cookies = safeParseJSON<HarResponse['cookies']>(metadata.warcResponseCookies, 'Malformed WARC record: Missing `cookies` field on response');
-    entry.response.headersSize = parseInt(metadata.warcResponseHeadersSize);
+    entry.response.headersSize = Number.parseInt(metadata.warcResponseHeadersSize);
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     entry.response.content = {} as { mimeType: string };
     if (metadata.warcResponseContentEncoding) {
@@ -135,7 +135,7 @@ async function populateEntryResponse(record: WARCRecord, entry: HarEntry): Promi
         bodySize: bodyEncoded.length,
         headers,
         httpVersion,
-        status: parseInt(status),
+        status: Number.parseInt(status),
         statusText: statusTextParts.join(' '),
     };
 
