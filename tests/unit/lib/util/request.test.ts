@@ -177,7 +177,7 @@ describe('request', () => {
             const resp = await request.get('https://fake.com/headers', { backend });
             const cb = jest.fn();
 
-            // eslint-disable-next-line unicorn/no-array-callback-reference
+            // eslint-disable-next-line unicorn/no-array-callback-reference, unicorn/no-array-for-each
             resp.headers.forEach(cb);
 
             // Called 3 times because there's also a content-type header.

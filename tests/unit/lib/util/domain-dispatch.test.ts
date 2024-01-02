@@ -71,7 +71,9 @@ describe('domain dispatcher', () => {
     ];
 
     it.each(matchConflictsCases)('uses most specific match if multiple are available', (patterns, target, expectedIdx) => {
-        patterns.forEach((pattern, idx) => dispatcher.set(pattern, idx));
+        for (const [idx, pattern] of patterns.entries()) {
+            dispatcher.set(pattern, idx);
+        }
 
         expect(dispatcher.get(target)).toBe(expectedIdx);
     });

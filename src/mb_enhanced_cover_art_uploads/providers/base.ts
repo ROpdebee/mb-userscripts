@@ -238,16 +238,11 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
         // Queue one item for each group of track images. We'll create a comment
         // to indicate which tracks this image belongs to.
-        const results: CoverArt[] = [];
-        groupedImages.forEach((trackImages, imgUrl) => {
-            results.push({
-                url: new URL(imgUrl),
-                types: [ArtworkTypeIDs.Track],
-                comment: this.createTrackImageComment(trackImages) || undefined,
-            });
-        });
-
-        return results;
+        return [...groupedImages.entries()].map(([imgUrl, trackImages]) => ({
+            url: new URL(imgUrl),
+            types: [ArtworkTypeIDs.Track],
+            comment: this.createTrackImageComment(trackImages) || undefined,
+        }));
     }
 
     private createTrackImageComment(tracks: ParsedTrackImage[]): string {

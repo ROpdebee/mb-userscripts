@@ -6,9 +6,9 @@ export type CRLFHeadersT = string;
 export const PollyHeaders = {
     fromFetchHeaders(fetchHeaders: FetchHeadersT): PollyHeadersT {
         const pollyHeaders: Record<string, string> = {};
-        fetchHeaders.forEach((v, k) => {
+        for (const [k, v] of fetchHeaders.entries()) {
             pollyHeaders[k] = v;
-        });
+        }
         return pollyHeaders;
     },
 };
@@ -16,9 +16,9 @@ export const PollyHeaders = {
 export const FetchHeaders = {
     fromPollyHeaders(pollyHeaders: PollyHeadersT): FetchHeadersT {
         const headersInit: Record<string, string> = {};
-        Object.entries(pollyHeaders).forEach(([k, v]) => {
+        for (const [k, v] of Object.entries(pollyHeaders)) {
             headersInit[k] = Array.isArray(v) ? v[0] : v;
-        });
+        }
         return new FetchHeadersT(headersInit);
     },
 };

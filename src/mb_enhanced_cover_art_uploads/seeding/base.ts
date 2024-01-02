@@ -12,13 +12,13 @@ export function seederSupportsURL(seeder: Seeder, url: URL | Location): boolean 
 const SEEDER_DISPATCH_MAP = new Map<string, Seeder[]>();
 
 export function registerSeeder(seeder: Seeder): void {
-    seeder.supportedDomains.forEach((domain) => {
+    for (const domain of seeder.supportedDomains) {
         if (!SEEDER_DISPATCH_MAP.has(domain)) {
             SEEDER_DISPATCH_MAP.set(domain, []);
         }
 
         SEEDER_DISPATCH_MAP.get(domain)!.push(seeder);
-    });
+    }
 }
 
 export function seederFactory(url: URL | Location): Seeder | undefined {

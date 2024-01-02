@@ -70,16 +70,16 @@ export class SeedParameters {
 
     public static decode(seedParams: URLSearchParams): SeedParameters {
         let images: BareCoverArt[] = [];
-        seedParams.forEach((value, key) => {
+        for (const [key, value] of seedParams.entries()) {
             // only image parameters can be decoded to cover art images
-            if (!key.startsWith('x_seed.image.')) return;
+            if (!key.startsWith('x_seed.image.')) continue;
 
             try {
                 decodeSingleKeyValue(key, value, images);
             } catch (err) {
                 LOGGER.error(`Invalid image seeding param ${key}=${value}`, err);
             }
-        });
+        }
 
         // Sanity checks: Make sure all images have at least a URL, and condense
         // the array in case indices are missing.

@@ -212,7 +212,7 @@ const baseJsConfig = {
         // These rules were explicitly disabled by ESLint-Adjunct.
         // TODO: Revisit these.
         'unicorn/filename-case': 'error',
-        'unicorn/no-array-for-each': 0,
+        'unicorn/no-array-for-each': 'error',
         'unicorn/no-null': 0,
         'unicorn/prefer-number-properties': 0,
         'unicorn/prefer-optional-catch-binding': 0,

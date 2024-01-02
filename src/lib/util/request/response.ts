@@ -46,9 +46,9 @@ export class ResponseHeadersImpl {
     }
 
     public forEach(callbackfn: (value: string, key: string, parent: ResponseHeaders) => void): void {
-        this.map.forEach((values, key) => {
+        for (const [key, values] of this.map.entries()) {
             callbackfn(values, key, this);
-        });
+        }
     }
 }
 

@@ -38,8 +38,9 @@ import { YoutubeMusicProvider } from './youtube-music';
 const PROVIDER_DISPATCH = new DispatchMap<CoverArtProvider>();
 
 function addProvider(provider: CoverArtProvider): void {
-    provider.supportedDomains
-        .forEach((domain) => PROVIDER_DISPATCH.set(domain, provider));
+    for (const domain of provider.supportedDomains) {
+        PROVIDER_DISPATCH.set(domain, provider);
+    }
 }
 
 addProvider(new AllMusicProvider());

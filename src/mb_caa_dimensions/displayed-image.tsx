@@ -207,12 +207,11 @@ export const displayInfoWhenInView = ((): ((image: DisplayedImage) => void) => {
     const imageMap = new Map<HTMLImageElement, DisplayedImage>();
 
     function inViewCb(entries: IntersectionObserverEntry[]): void {
-        entries
-            .filter((entry) => entry.intersectionRatio > 0)
-            .forEach((entry) => {
-                const image = imageMap.get(entry.target as HTMLImageElement)!;
-                image.loadAndDisplay().catch(logFailure('Failed to process image'));
-            });
+        for (const entry of entries) {
+            if (entry.intersectionRatio <= 0) continue;
+            const image = imageMap.get(entry.target as HTMLImageElement)!;
+            image.loadAndDisplay().catch(logFailure('Failed to process image'));
+        }
     }
     const observer = new IntersectionObserver(inViewCb, {
         root: document,

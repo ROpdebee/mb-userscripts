@@ -39,9 +39,9 @@ export class GuiSink implements LoggingSink {
     }
 
     private removeTransientMessages(): void {
-        this.transientMessages.forEach((el) => {
+        for (const el of this.transientMessages) {
             el.remove();
-        });
+        }
         this.transientMessages = [];
     }
 

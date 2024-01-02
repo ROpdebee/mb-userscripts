@@ -40,6 +40,8 @@ export const MusicBrainzSeeder: Seeder = {
             }));
 
         const buttonRow = qs('#content > .buttons');
-        filterNonNull(buttons).forEach(buttonRow.appendChild.bind(buttonRow));
+        for (const button of filterNonNull(buttons)) {
+            buttonRow.append(button);
+        }
     },
 };

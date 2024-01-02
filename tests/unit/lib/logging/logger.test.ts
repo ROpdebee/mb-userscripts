@@ -83,9 +83,9 @@ describe('logger', () => {
 
         beforeEach(() => {
             // Reset all mock functions on each test
-            handlerNames.forEach((name) => {
+            for (const name of handlerNames) {
                 sink[name].mockReset();
-            });
+            }
         });
 
         it.each(loggerMethodNames)('calls the %s handler', (level) => {
@@ -95,9 +95,9 @@ describe('logger', () => {
 
             expect(sink[handlerName]).toHaveBeenCalledExactlyOnceWith('test message');
 
-            notCalledNames.forEach((name) => {
+            for (const name of notCalledNames) {
                 expect(sink[name]).not.toHaveBeenCalled();
-            });
+            }
         });
 
         it('calls the error handler with an exception if provided', () => {
@@ -138,11 +138,11 @@ describe('logger', () => {
 
         beforeEach(() => {
             // Reset all mock functions on each test
-            handlerNames.forEach((name) => {
-                sinks.forEach((sink) => {
+            for (const name of handlerNames) {
+                for (const sink of sinks) {
                     sink[name].mockReset();
-                });
-            });
+                }
+            }
         });
 
         it.each(loggerMethodNames)('calls %s handlers of all sinks if multiple are attached', (level) => {
@@ -150,13 +150,13 @@ describe('logger', () => {
             const handlerName = loggerToHandlerNames[level];
             const notCalledNames = handlerNames.filter((name) => name !== handlerName);
 
-            sinks.forEach((sink) => {
+            for (const sink of sinks) {
                 expect(sink[handlerName]).toHaveBeenCalledExactlyOnceWith('test message');
 
-                notCalledNames.forEach((name) => {
+                for (const name of notCalledNames) {
                     expect(sink[name]).not.toHaveBeenCalled();
-                });
-            });
+                }
+            }
         });
     });
 
@@ -171,9 +171,9 @@ describe('logger', () => {
 
         beforeEach(() => {
             // Reset all mock functions on each test
-            handlerNames.forEach((name) => {
+            for (const name of handlerNames) {
                 sink[name].mockReset();
-            });
+            }
         });
 
         interface Case {
