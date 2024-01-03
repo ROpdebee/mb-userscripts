@@ -7,7 +7,10 @@
     "extends": "./tsconfig.base",
     // Explicitly include all files in the whole project so the tool using this
     // configuration can use all of them.
-    "include": ["../**/*"],
+    "include": [
+        "../**/*",
+        "../.eslintrc.cjs"
+    ],
     // Specifically include jest-extended types, otherwise `@typescript-eslint`
     // will think every extension matcher is `any`. We can't set these in the
     // `compilerOptions.types` as then we'd need to include all of them there.

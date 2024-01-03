@@ -1,4 +1,5 @@
 const baseEslintConfig = {
+    // eslint-disable-next-line unicorn/prevent-abbreviations
     env: {
         node: true,
         es2021: true,
@@ -28,7 +29,6 @@ const baseEslintConfig = {
 const JAVASCRIPT_EXTENSIONS = ['ts', 'js', 'cjs', 'mjs', 'tsx', 'jsx'];
 const JAVASCRIPT_EXTENSIONS_PATTERN = `{${JAVASCRIPT_EXTENSIONS.join(',')}}`;
 
-
 module.exports = {
     overrides: [{
         files: [`**/*.${JAVASCRIPT_EXTENSIONS_PATTERN}`],
@@ -37,6 +37,7 @@ module.exports = {
         // Specialised configuration for userscript source files.
         files: [`src/**/*.${JAVASCRIPT_EXTENSIONS_PATTERN}`],
         ...baseEslintConfig,
+        // eslint-disable-next-line unicorn/prevent-abbreviations
         env: {
             browser: true,
             es2021: true,
@@ -63,9 +64,9 @@ module.exports = {
         },
     }, {
         files: ['**/*.json'],
-        extends: ["plugin:json/recommended"],
+        extends: ['plugin:json/recommended'],
     }, {
         files: ['**/tsconfig*.json'],
-        extends: ["plugin:json/recommended-with-comments"],
+        extends: ['plugin:json/recommended-with-comments'],
     }],
 };
