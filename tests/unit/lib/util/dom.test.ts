@@ -1,5 +1,5 @@
 import { AssertionError } from '@lib/util/assert';
-import { onDocumentLoaded, onWindowLoaded, parseDOM, qs, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
+import { onAddEntityDialogLoaded, onDocumentLoaded, onWindowLoaded, parseDOM, qs, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
 describe('qs', () => {
     it('selects from the document by default', () => {
@@ -155,6 +155,52 @@ describe('callback on window loaded', () => {
         expect(callback).not.toHaveBeenCalled();
 
         window.dispatchEvent(new Event('load'));
+
+        expect(callback).toHaveBeenCalledOnce();
+    });
+});
+
+describe('callback on entity dialog added', () => {
+    const callback = jest.fn();
+    let dialog: HTMLIFrameElement;
+
+    beforeEach(() => {
+        dialog = document.createElement('iframe');
+        document.body.append(dialog);
+    });
+
+    afterEach(() => {
+        callback.mockReset();
+    });
+
+    it('fires if the dialog is already loaded', () => {
+        // No .content-loading element in the dialog.
+
+        onAddEntityDialogLoaded(dialog, callback);
+
+        expect(callback).toHaveBeenCalledOnce();
+    });
+
+    it('does not fire if the dialog never loads', () => {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.classList.add('content-loading');
+        dialog.append(loadingDiv);
+
+        onAddEntityDialogLoaded(dialog, callback);
+
+        expect(callback).not.toHaveBeenCalled();
+    });
+
+    it('fires after the dialog finishes loading', () => {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.classList.add('content-loading');
+        dialog.append(loadingDiv);
+
+        onAddEntityDialogLoaded(dialog, callback);
+
+        expect(callback).not.toHaveBeenCalled();
+
+        dialog.dispatchEvent(new Event('load'));
 
         expect(callback).toHaveBeenCalledOnce();
     });

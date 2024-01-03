@@ -1,3 +1,4 @@
+import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { SoundcloudProvider } from '@src/mb_enhanced_cover_art_uploads/providers/soundcloud';
 import { setupPolly } from '@test-utils/pollyjs';
@@ -5,6 +6,14 @@ import { itBehavesLike } from '@test-utils/shared-behaviour';
 
 import { findImagesSpec } from './find-images-spec';
 import { urlMatchingSpec } from './url-matching-spec';
+
+jest.mock('@lib/logging/logger');
+// eslint-disable-next-line jest/unbound-method
+const mockLoggerError = LOGGER.error as unknown as jest.Mock<void, [string, unknown]>;
+
+afterEach(() => {
+    mockLoggerError.mockReset();
+});
 
 describe('soundcloud provider', () => {
     const provider = new SoundcloudProvider();
@@ -147,6 +156,19 @@ describe('soundcloud provider', () => {
             const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/keep-going-remix-contest-ep-winners'));
 
             expect(covers).toBeArrayOfSize(1);
+        });
+
+        it('does not load all track images if some could not be loaded', async () => {
+            pollyContext.polly.server
+                .get('https://api-v2.soundcloud.com/tracks')
+                .intercept((_request, response) => {
+                    response.sendStatus(500);
+                });
+
+            const covers = await provider.findImages(new URL('https://soundcloud.com/soundcloud/sets/i-am-other-vol-2'));
+
+            expect(covers).toBeArrayOfSize(6);
+            expect(mockLoggerError).toHaveBeenCalledWith('Failed to load Soundcloud track data, some track images may be missed', expect.any(Error));
         });
 
         it('attempts to refresh client ID', async () => {
