@@ -71,7 +71,7 @@ export class TidalProvider extends CoverArtProvider {
 
         const coverId = albumMetadata.cover;
         assertHasValue(coverId, 'Could not find cover in Tidal metadata');
-        return `https://resources.tidal.com/images/${coverId.replace(/-/g, '/')}/origin.jpg`;
+        return `https://resources.tidal.com/images/${coverId.replaceAll('-', '/')}/origin.jpg`;
     }
 
     public async findImages(url: URL): Promise<CoverArt[]> {

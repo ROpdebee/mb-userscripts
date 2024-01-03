@@ -66,3 +66,7 @@ sources with one tool invocation.
   simply includes all files in the compilation, without isolating the
   subprojects.
 
+## ESLint
+
+The `eslint/` directory contains several configuration files that consolidate
+settings for individual plugins. They are separated for organisation purposes.
