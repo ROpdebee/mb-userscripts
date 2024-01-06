@@ -56,6 +56,9 @@ export class QobuzProvider extends CoverArtProvider {
         return '712109809';
     }
 
+    // Status codes returned by API for which we should fall back on URL rewriting
+    private static readonly apiFallbackStatusCodes: readonly number[] = [403, 404];
+
     private static idToCoverUrl(id: string): URL {
         const d1 = id.slice(-2);
         const d2 = id.slice(-4, -2);
@@ -111,10 +114,10 @@ export class QobuzProvider extends CoverArtProvider {
             }
 
             // istanbul ignore else: Difficult to cover
-            if (err instanceof HTTPResponseError && err.statusCode == 404) {
+            if (err instanceof HTTPResponseError && QobuzProvider.apiFallbackStatusCodes.includes(err.statusCode)) {
                 // Qobuz API may occasionally throw a 404 for releases which
                 // actually exist. Fall back to URL rewriting for these.
-                LOGGER.warn('Qobuz API returned 404, falling back on URL rewriting. Booklets may be missed.');
+                LOGGER.warn(`Qobuz API returned ${err.statusCode}, falling back on URL rewriting. Booklets may be missed.`);
                 return [{
                     url: QobuzProvider.idToCoverUrl(id),
                     types: [ArtworkTypeIDs.Front],
