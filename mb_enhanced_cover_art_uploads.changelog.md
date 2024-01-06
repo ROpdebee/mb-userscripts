@@ -1,3 +1,4 @@
+- **2024.1.6**: Bug fix: fall back on URL rewriting when Qobuz API returns 403 ([#737](https://github.com/ROpdebee/mb-userscripts/pull/737))
 - **2023.12.22**: New feature: add YouTube and YouTube Music provider ([#724](https://github.com/ROpdebee/mb-userscripts/pull/724))
 - **2023.12.3**: Internal changes: update minimum required versions of browsers ([#719](https://github.com/ROpdebee/mb-userscripts/pull/719))
 - **2023.12.2**: Bug fix: copy MusicBrainz complex artwork types ([#716](https://github.com/ROpdebee/mb-userscripts/pull/716))
