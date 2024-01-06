@@ -48,14 +48,6 @@
 
         // Dependencies often ship broken .d.ts files.
         "skipLibCheck": true
-    },
-    "ts-node": {
-        // For ts-node, we need to set the compiled output to CommonJS because
-        // we're running the code in node. Although node has ESM support, it's
-        // unstable and prone to internal changes.
-        "compilerOptions": {
-            "module": "CommonJS"
-        }
     }
 
     // We don't set any "include", "files", or "exclude" options here, as each

@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
+import { pathToFileURL } from 'node:url';
 
-import dedent from 'ts-dedent';
+import { dedent } from 'ts-dedent';
 
 import { MetadataGenerator } from './plugin-userscript';
 
@@ -148,8 +149,7 @@ async function generateReadme(): Promise<void> {
     await fs.writeFile('README.md', await generateReadmeContent());
 }
 
-// eslint-disable-next-line unicorn/prefer-module
-if (require.main === module) {
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     generateReadme()
         .catch(console.error);
 }

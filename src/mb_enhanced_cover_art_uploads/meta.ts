@@ -1,4 +1,4 @@
-import dedent from 'ts-dedent';
+import { dedent } from 'ts-dedent';
 
 import type { UserscriptMetadata } from '@lib/util/metadata';
 import { transformMBMatchURL } from '@lib/util/metadata';

@@ -73,7 +73,7 @@ async function buildTemporaryUserscript(scriptName: string): Promise<string> {
             });
     `;
     await fs.writeFile('isolatedBuilder.ts', builderSource);
-    const command = 'npm i --no-audit --production=false && npx ts-node -r tsconfig-paths/register isolatedBuilder.ts';
+    const command = 'npm i --no-audit --production=false && npx tsx isolatedBuilder.ts';
     const { stderr, stdout } = await promisify(exec)(command);
     if (stderr) console.error(stderr);
     if (stdout) console.log(stdout);

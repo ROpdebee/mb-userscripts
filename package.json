@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "Build package for MB userscripts",
   "scripts": {
-    "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build/build.ts",
-    "build-dev": "ts-node -r tsconfig-paths/register build/build.ts",
+    "build": "NODE_ENV=production tsx build/build.ts",
+    "build-dev": "tsx build/build.ts",
     "lint": "eslint . --max-warnings=0",
-    "typecheck": "ts-node -r tsconfig-paths/register build/check-tsconfig.ts && tsc -b",
-    "deploy": "NODE_ENV=production ts-node -r tsconfig-paths/register build/deploy.ts",
+    "typecheck": "tsx build/check-tsconfig.ts && tsc -b",
+    "deploy": "NODE_ENV=production tsx build/deploy.ts",
     "test": "NODE_NO_WARNINGS=1 jest --coverage",
-    "generate-readme": "ts-node -r tsconfig-paths/register build/generate-readme.ts"
+    "generate-readme": "tsx build/generate-readme.ts"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ROpdebee/mb-userscripts.git"
@@ -92,8 +93,7 @@
     "terser": "5.26.0",
     "ts-dedent": "2.2.0",
     "ts-jest": "29.1.1",
-    "ts-node": "10.9.2",
-    "tsconfig-paths": "4.2.0",
+    "tsx": "4.7.0",
     "type-fest": "4.9.0",
     "typescript": "5.3.3",
     "warcio": "2.2.1"
