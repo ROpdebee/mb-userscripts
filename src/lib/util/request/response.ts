@@ -1,4 +1,4 @@
-import type { RequestOptions } from './requestOptions';
+import type { RequestOptions } from './request-options';
 import { groupBy } from '../array';
 
 // Like `fetch`'s Headers, but without modification operations. We need a custom
@@ -46,9 +46,9 @@ export class ResponseHeadersImpl {
     }
 
     public forEach(callbackfn: (value: string, key: string, parent: ResponseHeaders) => void): void {
-        this.map.forEach((values, key) => {
+        for (const [key, values] of this.map.entries()) {
             callbackfn(values, key, this);
-        });
+        }
     }
 }
 
@@ -84,12 +84,12 @@ export interface ArrayBufferResponse extends BaseResponse {
     readonly arrayBuffer: ArrayBuffer;
 }
 
-export type Response = TextResponse | BlobResponse | ArrayBufferResponse;
+export type Response = ArrayBufferResponse | BlobResponse | TextResponse;
 
 export type ResponseFor<T extends RequestOptions> = (
     T['responseType'] extends 'arraybuffer' ? ArrayBufferResponse
-    : T['responseType'] extends 'blob' ? BlobResponse
-    : TextResponse);
+        : T['responseType'] extends 'blob' ? BlobResponse
+            : TextResponse);
 
 export interface ProgressEvent {
     lengthComputable: boolean;

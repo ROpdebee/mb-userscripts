@@ -8,8 +8,7 @@
     "files": [
         "./babel.config.cjs",
         "./jest.config.cjs",
-        "./.eslintrc.cjs",
-        "./src/.eslintrc.cjs"
+        "./.eslintrc.cjs"
     ],
     "include": [],
     // Specific compiler options necessary for `tsconfig-paths`. It expects the

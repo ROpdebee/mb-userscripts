@@ -1,3 +1,5 @@
+import type { Promisable } from 'type-fest';
+
 import { LOGGER } from '@lib/logging/logger';
 
 import type { FetchedImage } from '../types';
@@ -12,7 +14,7 @@ export class SevenDigitalProvider extends HeadMetaPropertyProvider {
     public readonly name = '7digital';
     protected readonly urlRegex = /release\/.*-(\d+)(?:\/|$)/;
 
-    public override async postprocessImage(image: FetchedImage): Promise<FetchedImage | null> {
+    public override postprocessImage(image: FetchedImage): Promisable<FetchedImage | null> {
         // Filter out images that either are, or were redirected to the cover
         // with ID 0000000016. This is a placeholder image.
         if (/\/0{8}16_\d+/.test(image.fetchedUrl.pathname)) {

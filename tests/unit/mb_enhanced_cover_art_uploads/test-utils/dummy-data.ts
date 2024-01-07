@@ -48,7 +48,7 @@ export function createFetchedImage(data?: Partial<FetchedImage>): FetchedImage {
     };
 }
 
-export function createCoverArt(data?: Partial<CoverArt> | string | URL): CoverArt {
+export function createCoverArt(data?: Partial<CoverArt> | URL | string): CoverArt {
     if (data instanceof URL) {
         data = {
             url: data,
@@ -109,13 +109,13 @@ export function createTextResponse(response?: Partial<TextResponse>): TextRespon
 
 export function createHttpError(response?: Partial<TextResponse>): HTTPResponseError {
     const fakeResponse = createTextResponse(response);
-    const err = new HTTPResponseError(fakeResponse.url ?? createRandomURL(), fakeResponse);
+    const error = new HTTPResponseError(fakeResponse.url ?? createRandomURL(), fakeResponse);
     // If request module is mocked, the HTTP errors are too, so we need to
     // define these properties manually.
-    Object.defineProperties(err, {
+    Object.defineProperties(error, {
         response: { value: fakeResponse },
         statusCode: { value: fakeResponse.status },
         statusText: { value: fakeResponse.statusText },
     });
-    return err;
+    return error;
 }

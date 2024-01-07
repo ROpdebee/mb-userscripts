@@ -15,7 +15,7 @@ export default async function har2warc(har: Har): Promise<Uint8Array> {
 
     const allRecords = [infoRecord, ...payloadRecords];
     const serialisedRecords = await Promise.all(allRecords.map((record) => WARCSerializer.serialize(record)));
-    return concatChunks(serialisedRecords, serialisedRecords.reduce((acc, curr) => acc + curr.length, 0));
+    return concatChunks(serialisedRecords, serialisedRecords.reduce((accumulator, current) => accumulator + current.length, 0));
 }
 
 function createWarcInfoRecord(har: Har): WARCRecord {
@@ -65,7 +65,7 @@ function createWarcResponseRecord(url: string, response: HarResponse): WARCRecor
     } else {
         content = Buffer.from(response.content.text, shouldDecodeResponse(response) ? 'base64' : 'utf8');
     }
-    async function* chunker(): AsyncIterable<Uint8Array> {
+    function* chunker(): Iterable<Uint8Array> {
         yield content;
     }
 
@@ -118,7 +118,7 @@ function createWarcMetadataRecord(url: string, entry: HarEntry, responseId: stri
         requestMetadata.warcResponseContentEncoding = entry.response.content.encoding;
     }
 
-    async function* chunker(): AsyncIterable<Uint8Array> {
+    function* chunker(): Iterable<Uint8Array> {
         for (const [name, value] of Object.entries(requestMetadata)) {
             yield ENCODER.encode(`${name}: ${value}\r\n`);
         }

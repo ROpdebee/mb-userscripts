@@ -8,9 +8,9 @@ import { filterNonNull } from '@lib/util/array';
 import type { PullRequestInfo } from './types-deploy';
 
 const CC_TYPE_TO_TITLE: Record<string, string | undefined> = {
-    'feat': 'New feature',
-    'fix': 'Bug fix',
-    'perf': 'Performance improvements',
+    feat: 'New feature',
+    fix: 'Bug fix',
+    perf: 'Performance improvements',
     // We'll call the rest 'Internal changes'
 };
 
@@ -53,15 +53,15 @@ export async function generateChangelogEntry(scriptVersion: string, prInfo: Pull
         const changeInfo = await parsePullRequestTitle(prInfo);
         const changelogTitle = CC_TYPE_TO_TITLE[changeInfo.type] ?? 'Internal changes';
         return `- **${scriptVersion}**: ${changelogTitle}: ${changeInfo.subject} ([#${prInfo.number}](${prInfo.url}))`;
-    } catch (err) {
-        console.error(err);
+    } catch (error) {
+        console.error(error);
         return `- **${scriptVersion}**: UNKNOWN CHANGE TYPE: ${prInfo.title} ([#${prInfo.number}](${prInfo.url}))`;
     }
 }
 
-export async function updateChangelog(scriptName: string, version: string, distRepo: string, prInfo: PullRequestInfo): Promise<void> {
+export async function updateChangelog(scriptName: string, version: string, distributionRepo: string, prInfo: PullRequestInfo): Promise<void> {
     const changelogEntry = await generateChangelogEntry(version, prInfo);
-    const changelogPath = path.join(distRepo, scriptName + '.changelog.md');
+    const changelogPath = path.join(distributionRepo, scriptName + '.changelog.md');
     await fs.writeFile(changelogPath, await renderChangelog(changelogPath, changelogEntry));
 }
 
@@ -75,7 +75,7 @@ async function readChangelog(changelogPath: string): Promise<string> {
         return await fs.readFile(changelogPath, {
             encoding: 'utf8',
         });
-    } catch (err) {
+    } catch {
         // Changelog doesn't exist yet
         return '';
     }
@@ -104,6 +104,6 @@ function parseChangelogEntry(line: string): ChangelogEntry | null {
         version: match[1],
         title: match[2],
         subject: match[3],
-        prNumber: parseInt(match[4]),
+        prNumber: Number.parseInt(match[4]),
     };
 }

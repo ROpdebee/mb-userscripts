@@ -1,5 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
-import { getReleaseIDsForURL } from '@lib/MB/URLs';
+import { getReleaseIDsForURL } from '@lib/MB/urls';
 import { qs, qsMaybe } from '@lib/util/dom';
 
 import type { CoverArt } from '../types';
@@ -37,8 +37,8 @@ export const VGMdbSeeder: Seeder = {
         try {
             const [releaseIds, covers] = await Promise.all([releaseIdsProm, coversProm]);
             insertSeedButtons(coverHeading, releaseIds, covers);
-        } catch (err) {
-            LOGGER.error('Failed to insert seed links', err);
+        } catch (error) {
+            LOGGER.error('Failed to insert seed links', error);
         }
     },
 };
@@ -55,7 +55,7 @@ function getMBReleases(): Promise<string[]> {
 }
 
 async function extractCovers(): Promise<VGMdbCovers> {
-    const covers = await VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery'));
+    const covers = VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery'));
 
     // Split the extracted covers into public and private, to provide the option
     // to seed only private covers.
@@ -70,50 +70,60 @@ async function extractCovers(): Promise<VGMdbCovers> {
 }
 
 function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: VGMdbCovers): void {
-    const seedParamsPrivate = new SeedParameters(covers.privateCovers, document.location.href);
-    const seedParamsAll = new SeedParameters(covers.allCovers, document.location.href);
+    const seedParametersPrivate = new SeedParameters(covers.privateCovers, document.location.href);
+    const seedParametersAll = new SeedParameters(covers.allCovers, document.location.href);
 
-    const relIdToAnchors = new Map(releaseIds.map((relId) => {
-        const a = <a
-            href={ seedParamsPrivate.createSeedURL(relId) }
-            target='_blank'
-            rel='noopener noreferrer'
-            style={{ display: 'block' }}
-        >
-            { 'Seed covers to ' + relId.split('-')[0] }
-        </a> as HTMLAnchorElement;
-        return [relId, a];
+    const releaseIdToAnchors = new Map(releaseIds.map((releaseId) => {
+        const a = (
+            <a
+                href={seedParametersPrivate.createSeedURL(releaseId)}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'block' }}
+            >
+                {'Seed covers to ' + releaseId.split('-')[0]}
+            </a>) as HTMLAnchorElement;
+        return [releaseId, a];
     }));
-    const anchors = [...relIdToAnchors.values()];
+    const anchors = [...releaseIdToAnchors.values()];
 
-    const inclPublicCheckbox = <input
-        type='checkbox'
-        id='ROpdebee_incl_public_checkbox'
-        onChange={(evt): void => {
-            relIdToAnchors.forEach((a, relId) => {
-                const seedParams = evt.currentTarget.checked ? seedParamsAll : seedParamsPrivate;
-                a.href = seedParams.createSeedURL(relId);
-            });
-        }}
-    />;
-    const inclPublicLabel = <label
-        htmlFor='ROpdebee_incl_public_checkbox'
-        title='Leave this unchecked to only seed covers which cannot be extracted by the VGMdb provider'
-        style={{ cursor: 'help' }}
-    >Include publicly accessible covers</label>;
+    const inclPublicCheckbox = (
+        <input
+            type="checkbox"
+            id="ROpdebee_incl_public_checkbox"
+            onChange={(event_): void => {
+                for (const [releaseId, a] of releaseIdToAnchors.entries()) {
+                    const seedParameters = event_.currentTarget.checked ? seedParametersAll : seedParametersPrivate;
+                    a.href = seedParameters.createSeedURL(releaseId);
+                }
+            }}
+        />
+    );
+    const inclPublicLabel = (
+        <label
+            htmlFor="ROpdebee_incl_public_checkbox"
+            title="Leave this unchecked to only seed covers which cannot be extracted by the VGMdb provider"
+            style={{ cursor: 'help' }}
+        >
+            Include publicly accessible covers
+        </label>
+    );
 
     const containedElements = [inclPublicCheckbox, inclPublicLabel, ...anchors];
     if (anchors.length === 0) {
-        containedElements.push(<span style={{ display: 'block'}}>
-            This album is not linked to any MusicBrainz releases!
-        </span>);
+        containedElements.push(
+            <span style={{ display: 'block' }}>
+                This album is not linked to any MusicBrainz releases!
+            </span>);
     }
 
-    const container = <div
-        style={{ padding: '8px 8px 0px 8px', fontSize: '8pt' }}
-    >
-        {containedElements}
-    </div>;
+    const container = (
+        <div
+            style={{ padding: '8px 8px 0px 8px', fontSize: '8pt' }}
+        >
+            {containedElements}
+        </div>
+    );
 
     coverHeading.nextElementSibling?.insertAdjacentElement('afterbegin', container);
 }

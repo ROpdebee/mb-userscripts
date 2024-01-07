@@ -1,5 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { HTTPResponseError, request } from '@lib/util/request';
@@ -20,7 +20,7 @@ interface Goodie {
 interface AlbumMetadata {
     id: number;
     image: {
-        large: string;  // Note: Not the original
+        large: string; // Note: Not the original
         small: string;
         thumbnail: string;
         // TODO: What's the format of these? I tried a bunch of well-known
@@ -63,18 +63,18 @@ export class QobuzProvider extends CoverArtProvider {
         const d1 = id.slice(-2);
         const d2 = id.slice(-4, -2);
         // Is this always .jpg?
-        const imgUrl = `https://static.qobuz.com/images/covers/${d1}/${d2}/${id}_org.jpg`;
-        return new URL(imgUrl);
+        const imageUrl = `https://static.qobuz.com/images/covers/${d1}/${d2}/${id}_org.jpg`;
+        return new URL(imageUrl);
     }
 
     private static async getMetadata(id: string): Promise<AlbumMetadata> {
-        const resp = await request.get(`https://www.qobuz.com/api.json/0.2/album/get?album_id=${id}&offset=0&limit=20`, {
+        const response = await request.get(`https://www.qobuz.com/api.json/0.2/album/get?album_id=${id}&offset=0&limit=20`, {
             headers: {
                 'x-app-id': QobuzProvider.QOBUZ_APP_ID,
             },
         });
 
-        const metadata = safeParseJSON<AlbumMetadata>(resp.text, 'Invalid response from Qobuz API');
+        const metadata = safeParseJSON<AlbumMetadata>(response.text, 'Invalid response from Qobuz API');
         assert(metadata.id.toString() === id, `Qobuz returned wrong release: Requested ${id}, got ${metadata.id}`);
 
         return metadata;
@@ -101,23 +101,23 @@ export class QobuzProvider extends CoverArtProvider {
         let metadata: AlbumMetadata;
         try {
             metadata = await QobuzProvider.getMetadata(id);
-        } catch (err) {
+        } catch (error) {
             // We could use the URL rewriting technique to still get the cover,
             // but if we do that, we'd have to swallow this error. It's better
             // to just throw here, IMO, so we could fix any error.
-            if (err instanceof HTTPResponseError && err.statusCode == 400) {
+            if (error instanceof HTTPResponseError && error.statusCode == 400) {
                 // Bad request, likely invalid app ID.
                 // Log the original error silently to the console, and throw
                 // a more user friendly one for displaying in the UI
-                console.error(err);
+                console.error(error);
                 throw new Error('Bad request to Qobuz API, app ID invalid?');
             }
 
             // istanbul ignore else: Difficult to cover
-            if (err instanceof HTTPResponseError && QobuzProvider.apiFallbackStatusCodes.includes(err.statusCode)) {
+            if (error instanceof HTTPResponseError && QobuzProvider.apiFallbackStatusCodes.includes(error.statusCode)) {
                 // Qobuz API may occasionally throw a 404 for releases which
                 // actually exist. Fall back to URL rewriting for these.
-                LOGGER.warn(`Qobuz API returned ${err.statusCode}, falling back on URL rewriting. Booklets may be missed.`);
+                LOGGER.warn(`Qobuz API returned ${error.statusCode}, falling back on URL rewriting. Booklets may be missed.`);
                 return [{
                     url: QobuzProvider.idToCoverUrl(id),
                     types: [ArtworkTypeIDs.Front],
@@ -125,7 +125,7 @@ export class QobuzProvider extends CoverArtProvider {
             }
 
             // istanbul ignore next: Difficult to cover
-            throw err;
+            throw error;
         }
 
         const goodies = QobuzProvider.extractGoodies(metadata.goodies ?? []);

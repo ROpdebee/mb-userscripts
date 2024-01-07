@@ -1,10 +1,10 @@
 import pRetry from 'p-retry';
 
-import type { Dimensions, FileInfo } from '@src/mb_caa_dimensions/ImageInfo';
+import type { Dimensions, FileInfo } from '@src/mb_caa_dimensions/image-info';
 import { LOGGER } from '@lib/logging/logger';
 import { safeParseJSON } from '@lib/util/json';
 import { HTTPResponseError, request } from '@lib/util/request';
-import { BaseImage } from '@src/mb_caa_dimensions/Image';
+import { BaseImage } from '@src/mb_caa_dimensions/image';
 
 // Use a multiple of 3, most a-tisket releases have 3 images.
 // Currently set to 30, should allow 10 releases open in parallel.
@@ -88,18 +88,18 @@ export /* for tests */ const localStorageCache = {
     },
 
     putDimensions: function (imageUrl: string, dimensions: Dimensions): Promise<void> {
-        const prevEntry = this.getInfo(imageUrl);
+        const previousEntry = this.getInfo(imageUrl);
         this.putInfo(imageUrl, {
-            ...prevEntry,
+            ...previousEntry,
             dimensions,
         });
         return Promise.resolve();
     },
 
     putFileInfo: function (imageUrl: string, fileInfo: FileInfo): Promise<void> {
-        const prevEntry = this.getInfo(imageUrl);
+        const previousEntry = this.getInfo(imageUrl);
         this.putInfo(imageUrl, {
-            ...prevEntry,
+            ...previousEntry,
             fileInfo,
         });
         return Promise.resolve();
@@ -107,29 +107,29 @@ export /* for tests */ const localStorageCache = {
 };
 
 export class AtisketImage extends BaseImage {
-    public constructor(imgUrl: string) {
-        super(imgUrl, localStorageCache);
+    public constructor(imageUrl: string) {
+        super(imageUrl, localStorageCache);
     }
 
     protected async loadFileInfo(): Promise<FileInfo> {
-        const resp = await pRetry(() => request.head(this.imgUrl), {
+        const response = await pRetry(() => request.head(this.imageUrl), {
             retries: 5,
-            onFailedAttempt: (err) => {
+            onFailedAttempt: (error) => {
                 // Don't retry on 4xx status codes except for 429. Anything below 400 doesn't throw a HTTPResponseError.
-                if (err instanceof HTTPResponseError && err.statusCode < 500 && err.statusCode !== 429) {
-                    throw err;
+                if (error instanceof HTTPResponseError && error.statusCode < 500 && error.statusCode !== 429) {
+                    throw error;
                 }
 
-                LOGGER.warn(`Failed to retrieve image file info: ${err.message}. Retrying…`);
+                LOGGER.warn(`Failed to retrieve image file info: ${error.message}. Retrying…`);
             },
         });
 
-        const fileSize = resp.headers.get('Content-Length')?.match(/\d+/)?.[0];
-        const fileType = resp.headers.get('Content-Type')?.match(/\w+\/(\w+)/)?.[1];
+        const fileSize = response.headers.get('Content-Length')?.match(/\d+/)?.[0];
+        const fileType = response.headers.get('Content-Type')?.match(/\w+\/(\w+)/)?.[1];
 
         return {
             fileType: fileType?.toUpperCase(),
-            size: fileSize ? parseInt(fileSize) : /* istanbul ignore next: Probably won't happen */ undefined,
+            size: fileSize ? Number.parseInt(fileSize) : /* istanbul ignore next: Probably won't happen */ undefined,
         };
     }
 }

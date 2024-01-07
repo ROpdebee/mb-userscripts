@@ -33,20 +33,19 @@ export class Logger {
     private fireHandlers(level: LogLevel, message: string, exception?: unknown): void {
         if (level < this._configuration.logLevel) return;
 
-        this._configuration.sinks
-            .forEach((sink) => {
-                const handler = sink[HANDLER_NAMES[level]];
-                if (!handler) return;
+        for (const sink of this._configuration.sinks) {
+            const handler = sink[HANDLER_NAMES[level]];
+            if (!handler) continue;
 
-                if (exception) {
-                    handler.call(sink, message, exception);
-                } else {
-                    // Still using a conditional here, otherwise it will call
-                    // the handler with undefined as 2nd arg instead of with
-                    // just 1 arg, which might lead to bad output.
-                    handler.call(sink, message);
-                }
-            });
+            if (exception) {
+                handler.call(sink, message, exception);
+            } else {
+                // Still using a conditional here, otherwise it will call
+                // the handler with undefined as 2nd arg instead of with
+                // just 1 arg, which might lead to bad output.
+                handler.call(sink, message);
+            }
+        }
     }
 
     public debug(message: string): void {

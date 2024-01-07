@@ -1,5 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertDefined } from '@lib/util/assert';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
@@ -24,15 +24,15 @@ export class DatPiffProvider extends CoverArtProvider {
     ];
 
     public async findImages(url: URL): Promise<CoverArt[]> {
-        const respDocument = parseDOM(await this.fetchPage(url), url.href);
+        const responseDocument = parseDOM(await this.fetchPage(url), url.href);
 
         // DatPiff does not return 404 on non-existent releases, but a 200 page
         // with an error banner.
-        if (respDocument.title === 'Mixtape Not Found') {
+        if (responseDocument.title === 'Mixtape Not Found') {
             throw new Error(this.name + ' release does not exist');
         }
 
-        const coverCont = qs<HTMLDivElement>('.tapeBG', respDocument);
+        const coverCont = qs<HTMLDivElement>('.tapeBG', responseDocument);
         const frontCoverUrl = coverCont.dataset.front;
         const backCoverUrl = coverCont.dataset.back;
         // If there's no back cover, this element won't be present but the

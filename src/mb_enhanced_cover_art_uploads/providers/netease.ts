@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertDefined } from '@lib/util/assert';
 import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 
@@ -29,15 +29,15 @@ export class NetEaseProvider extends CoverArtProvider {
         // The hash-based URL loads the cover data dynamically, the normal URL
         // already has the necessary information available.
         const staticUrl = new URL(`https://music.163.com/album?id=${releaseId}`);
-        const respDocument = parseDOM(await this.fetchPage(staticUrl), url.href);
+        const responseDocument = parseDOM(await this.fetchPage(staticUrl), url.href);
 
         // Returns HTTP 200 on 404 errors. :facepalm:
-        if (qsMaybe(ERROR_404_QUERY, respDocument) !== null) {
+        if (qsMaybe(ERROR_404_QUERY, responseDocument) !== null) {
             throw new Error('NetEase release does not exist');
         }
 
-        const imgElement = qs<HTMLImageElement>(COVER_IMG_QUERY, respDocument);
-        const coverUrl = imgElement.dataset.src;
+        const imageElement = qs<HTMLImageElement>(COVER_IMG_QUERY, responseDocument);
+        const coverUrl = imageElement.dataset.src;
         assertDefined(coverUrl, 'No image found in NetEase release');
 
         return [{

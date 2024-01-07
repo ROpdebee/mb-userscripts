@@ -8,7 +8,7 @@ export class SpotifyProvider extends HeadMetaPropertyProvider {
     public readonly name = 'Spotify';
     protected readonly urlRegex = /\/album\/(\w+)/;
 
-    protected override is404Page(doc: Document): boolean {
-        return qsMaybe('head > meta[property="og:title"]', doc) === null;
+    protected override is404Page(document_: Document): boolean {
+        return qsMaybe('head > meta[property="og:title"]', document_) === null;
     }
 }

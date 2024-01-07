@@ -5,7 +5,7 @@ describe('safe JSON parsing', () => {
         const jsonText = '{"hello": ["world", "test"]}';
         const result = safeParseJSON<Record<string, string[]>>(jsonText);
 
-        expect(result).toStrictEqual({'hello': ['world', 'test']});
+        expect(result).toStrictEqual({ hello: ['world', 'test'] });
     });
 
     it('returns undefined on invalid JSON', () => {

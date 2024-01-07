@@ -17,31 +17,31 @@ export default async function warc2har(warc: Uint8Array): Promise<Har> {
     for await (const record of WARCParser.iterRecords([warc])) {
         let entry: HarEntry;
         switch (record.warcType) {
-        case 'warcinfo':
-            await populateHarLogInfo(record, harLog);
-            break;
+            case 'warcinfo':
+                await populateHarLogInfo(record, harLog);
+                break;
 
-        case 'request':
-            entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
-            await populateEntryRequest(record, entry);
-            break;
+            case 'request':
+                entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
+                populateEntryRequest(record, entry);
+                break;
 
-        case 'response':
-            entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Record-ID'));
-            await populateEntryResponse(record, entry);
-            break;
+            case 'response':
+                entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Record-ID'));
+                await populateEntryResponse(record, entry);
+                break;
 
-        case 'metadata':
-            entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
-            await populateEntryMetadata(record, entry);
-            break;
+            case 'metadata':
+                entry = getOrCreateEntry(entryMap, record.warcHeader('WARC-Concurrent-To'));
+                await populateEntryMetadata(record, entry);
+                break;
 
-        default:
-            console.log(`Unsupported WARC entry type: ${record.warcType}`);
+            default:
+                console.log(`Unsupported WARC entry type: ${record.warcType}`);
         }
     }
 
-    harLog.entries = [...entryMap.values()].sort((e1, e2) => e1._order - e2._order);
+    harLog.entries = [...entryMap.values()].sort((entry1, entry2) => entry1._order - entry2._order);
     return {
         log: harLog,
     };
@@ -77,20 +77,20 @@ async function populateEntryMetadata(record: WARCRecord, entry: HarEntry): Promi
     const metadata = await parseWARCFields<WARCRecordMetadataFields>(record);
 
     entry._id = metadata.harEntryId;
-    entry._order = parseInt(metadata.harEntryOrder);
+    entry._order = Number.parseInt(metadata.harEntryOrder);
     entry.cache = safeParseJSON<HarEntry['cache']>(metadata.cache, 'Malformed WARC record: Missing `cache` field');
     entry.startedDateTime = metadata.startedDateTime;
-    entry.time = parseInt(metadata.time);
+    entry.time = Number.parseInt(metadata.time);
     entry.timings = safeParseJSON<HarEntry['timings']>(metadata.timings, 'Malformed WARC record: Missing `timings` field');
     // @ts-expect-error hack
     entry.responseShouldBeEncoded = safeParseJSON<boolean>(metadata.responseDecoded, 'Malformed WARC record: Missing `responseShouldBeEncoded` field');
 
     const request: HarRequest = entry.request;
-    request.headersSize = parseInt(metadata.warcRequestHeadersSize);
+    request.headersSize = Number.parseInt(metadata.warcRequestHeadersSize);
     request.cookies = safeParseJSON<HarRequest['cookies']>(metadata.warcRequestCookies, 'Malformed WARC record: Missing `cookies` field on request');
 
     entry.response.cookies = safeParseJSON<HarResponse['cookies']>(metadata.warcResponseCookies, 'Malformed WARC record: Missing `cookies` field on response');
-    entry.response.headersSize = parseInt(metadata.warcResponseHeadersSize);
+    entry.response.headersSize = Number.parseInt(metadata.warcResponseHeadersSize);
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     entry.response.content = {} as { mimeType: string };
     if (metadata.warcResponseContentEncoding) {
@@ -111,7 +111,7 @@ function parseQueryString(path: string): Array<{ name: string; value: string }> 
         });
 }
 
-async function populateEntryRequest(record: WARCRecord, entry: HarEntry): Promise<void> {
+function populateEntryRequest(record: WARCRecord, entry: HarEntry): void {
     const [method, path, httpVersion] = record.httpHeaders!.statusline.split(' ');
     const request: HarRequest = {
         ...entry.request,
@@ -135,10 +135,9 @@ async function populateEntryResponse(record: WARCRecord, entry: HarEntry): Promi
         bodySize: bodyEncoded.length,
         headers,
         httpVersion,
-        status: parseInt(status),
+        status: Number.parseInt(status),
         statusText: statusTextParts.join(' '),
     };
-
 
     const mimeType = record.httpHeaders!.headers.get('content-type') ?? 'text/plain';
     response.content.mimeType = mimeType;

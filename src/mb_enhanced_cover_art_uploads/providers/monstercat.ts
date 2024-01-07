@@ -1,4 +1,4 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertDefined } from '@lib/util/assert';
 
 import type { CoverArt } from '../types';

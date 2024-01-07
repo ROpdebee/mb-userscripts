@@ -1,29 +1,29 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { JunoDownloadProvider } from '@src/mb_enhanced_cover_art_uploads/providers/junodownload';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('juno download provider', () => {
     const provider = new JunoDownloadProvider();
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'product URLs with album name',
+            description: 'product URLs with album name',
             url: 'https://www.junodownload.com/products/david-bowie-lets-dance-40th-anniversary-remix-e/6024697-02/',
             id: '6024697-02',
         }, {
-            desc: 'product URLs without album name',
+            description: 'product URLs without album name',
             url: 'https://www.junodownload.com/products/6024697-02',
             id: '6024697-02',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://www.junodownload.com/artists/David+Bowie/releases/',
         }, {
-            desc: 'label URLs',
+            description: 'label URLs',
             url: 'https://www.junodownload.com/labels/Rhino/',
         }];
 
@@ -33,9 +33,9 @@ describe('juno download provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://www.junodownload.com/products/david-bowie-lets-dance-40th-anniversary-remix-e/6024697-02',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'CS6024697-02A-BIG.jpg',
@@ -44,7 +44,7 @@ describe('juno download provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://www.junodownload.com/products/404-02/',
         }];
 

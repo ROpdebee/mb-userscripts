@@ -1,4 +1,4 @@
-import type { ImageInfo } from '@src/mb_caa_dimensions/ImageInfo';
+import type { ImageInfo } from '@src/mb_caa_dimensions/image-info';
 import { LOGGER } from '@lib/logging/logger';
 import { logFailure } from '@lib/util/async';
 import { qs, qsa, qsMaybe } from '@lib/util/dom';
@@ -45,9 +45,9 @@ export const AtasketSeeder: Seeder = {
     insertSeedLinks(): void {
         addDimensionsToCovers();
 
-        const urlParams = new URLSearchParams(document.location.search);
-        const mbid = urlParams.get('release_mbid');
-        const selfId = urlParams.get('self_id');
+        const urlParameters = new URLSearchParams(document.location.search);
+        const mbid = urlParameters.get('release_mbid');
+        const selfId = urlParameters.get('self_id');
         if (!mbid || !selfId) {
             LOGGER.error('Cannot extract IDs! Seeding is disabled :(');
             return;
@@ -70,7 +70,7 @@ function addSeedLinkToCovers(mbids: string[], origin: string): void {
 function addDimensionsToCovers(): void {
     const covers = qsa<HTMLElement>('figure.cover');
     for (const fig of covers) {
-        logFailure(addDimensions(fig), 'Failed to insert image information');
+        addDimensions(fig).catch(logFailure('Failed to insert image information'));
     }
 }
 
@@ -98,17 +98,21 @@ function addSeedLinkToCover(fig: HTMLElement, mbids: string[], origin: string): 
     // is not necessarily present.
     const realUrl = tryExtractReleaseUrl(fig) ?? imageUrl;
 
-    const params = new SeedParameters([{
+    const parameters = new SeedParameters([{
         url: new URL(realUrl),
     }], origin);
 
     for (const mbid of mbids) {
-        const seedUrl = params.createSeedURL(mbid);
+        const seedUrl = parameters.createSeedURL(mbid);
 
         // Include part of the release ID if there are multiple.
-        const seedLink = <a href={seedUrl} style={{ display: 'block' }}>
-            Add to release {mbids.length > 1 ? mbid.split('-')[0] : ''}
-        </a>;
+        const seedLink = (
+            <a href={seedUrl} style={{ display: 'block' }}>
+                Add to release
+                {' '}
+                {mbids.length > 1 ? mbid.split('-')[0] : ''}
+            </a>
+        );
 
         // The way in which we're adding the seed link here and the dimensions span
         // below should lead to a consistent ordering of elements.
@@ -119,9 +123,11 @@ function addSeedLinkToCover(fig: HTMLElement, mbids: string[], origin: string): 
 
 async function addDimensions(fig: HTMLElement): Promise<void> {
     const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
-    const dimSpan = <span style={{ display: 'block' }}>
-        loading…
-    </span>;
+    const dimSpan = (
+        <span style={{ display: 'block' }}>
+            loading…
+        </span>
+    );
     qs<HTMLElement>('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
 
     const imageInfo = await getImageInfo(imageUrl);

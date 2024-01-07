@@ -1,10 +1,10 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 import { BandcampProvider } from '@src/mb_enhanced_cover_art_uploads/providers/bandcamp';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 // We need to mock getImageDimensions since jsdom doesn't actually load images.
 // See also tests/mb_caa_dimensions/dimensions.test.ts
@@ -23,20 +23,20 @@ describe('bandcamp provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'track URLs',
+            description: 'track URLs',
             url: 'https://happysadportable.bandcamp.com/track/again-and-again',
             id: 'happysadportable/track/again-and-again',
         }, {
-            desc: 'album URLs',
+            description: 'album URLs',
             url: 'https://powergameheavy.bandcamp.com/album/the-lockdown-tapes',
             id: 'powergameheavy/album/the-lockdown-tapes',
         }];
 
         const unsupportedUrls = [{
-            desc: 'root URLs',
+            description: 'root URLs',
             url: 'https://powergameheavy.bandcamp.com/',
         }, {
-            desc: 'discography URLs',
+            description: 'discography URLs',
             url: 'https://powergameheavy.bandcamp.com/music',
         }];
 
@@ -46,18 +46,18 @@ describe('bandcamp provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'release',
+            description: 'release',
             url: 'https://powergameheavy.bandcamp.com/album/the-lockdown-tapes',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'a3886966548_',
                 types: [ArtworkTypeIDs.Front],
             }],
         }, {
-            desc: 'release with track images',
+            description: 'release with track images',
             url: 'https://nyokee.bandcamp.com/album/quarantine-pixel-party',
-            numImages: 8,  // Last track image is same as front cover
+            imageCount: 8, // Last track image is same as front cover
             expectedImages: [{
                 index: 0,
                 urlPart: 'a1225644503_',
@@ -74,10 +74,10 @@ describe('bandcamp provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://powergameheavy.bandcamp.com/album/404',
         }, {
-            desc: 'release that redirects',
+            description: 'release that redirects',
             url: 'https://tempelfanwolven.bandcamp.com/album/spell-of-the-driftless-forest',
             errorMessage: /different release/,
         }];

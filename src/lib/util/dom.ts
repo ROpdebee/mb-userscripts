@@ -61,26 +61,28 @@ export function onAddEntityDialogLoaded(dialog: HTMLIFrameElement, listener: () 
     if (qsMaybe('.content-loading', dialog.parentElement!) === null) {
         listener();
     } else {
-        dialog.addEventListener('load', () => { listener(); });
+        dialog.addEventListener('load', () => {
+            listener();
+        });
     }
 }
 
 export function parseDOM(html: string, baseUrl: string): Document {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const document_ = new DOMParser().parseFromString(html, 'text/html');
 
     // We need to set the base URL in the <head> element to properly resolve
     // relative links. If we don't, it'll resolve the hrefs relative to the
     // page on which the document is parsed, which is not always what we want.
-    if (!qsMaybe('base', doc.head)) {
-        const baseElem = doc.createElement('base');
-        baseElem.href = baseUrl;
-        doc.head.insertAdjacentElement('beforeend', baseElem);
+    if (!qsMaybe('base', document_.head)) {
+        const baseElement = document_.createElement('base');
+        baseElement.href = baseUrl;
+        document_.head.insertAdjacentElement('beforeend', baseElement);
     }
 
-    return doc;
+    return document_;
 }
 
-const inputValueDescriptor = /*#__PURE__*/ Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+const inputValueDescriptor = /* #__PURE__ */ Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
 
 // https://stackoverflow.com/a/46012210
 // Via kellnerd, https://github.com/kellnerd/musicbrainz-bookmarklets/blob/730ed0f96a81ef9bb239ed564f247bd68f84bee3/utils/dom/react.js

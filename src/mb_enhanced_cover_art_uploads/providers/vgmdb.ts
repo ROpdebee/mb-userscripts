@@ -1,5 +1,5 @@
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
@@ -87,13 +87,13 @@ function mapDiscType(mediumType: string, caption: string): MappedArtwork {
         // As a regular expression because it might be surrounded in parentheses
         if (/reverse|back/i.test(keyword)) {
             type = ArtworkTypeIDs['Matrix/Runout'];
-        } else if (!/front/i.test(keyword)) {  // Don't include "front" for e.g. "Disc Front"
+        } else if (!/front/i.test(keyword)) { // Don't include "front" for e.g. "Disc Front"
             commentParts.push(keyword);
         }
     }
 
     // If the comment starts with a sequence number or isn't just "Disc", add the medium type
-    if (commentParts.length > 0 && /^\d+/.test(commentParts[0]) || mediumType !== 'Disc') {
+    if ((commentParts.length > 0 && /^\d+/.test(commentParts[0])) || mediumType !== 'Disc') {
         commentParts.unshift(mediumType);
     }
 
@@ -106,41 +106,41 @@ function mapDiscType(mediumType: string, caption: string): MappedArtwork {
 // Keys: First word of the VGMdb caption (mostly structured), lower-cased
 // Values: Either MappedArtwork or a callable taking the remainder of the caption and returning MappedArtwork
 const __CAPTION_TYPE_MAPPING: Record<string, MappedArtwork | ((caption: string) => MappedArtwork)> = {
-    front: ArtworkTypeIDs.Front,
-    booklet: ArtworkTypeIDs.Booklet,
-    jacket: mapPackagingType.bind(undefined, 'Jacket'), // DVD jacket
-    disc: mapDiscType.bind(undefined, 'Disc'),
-    cd: mapDiscType.bind(undefined, 'CD'),
-    cassette: ArtworkTypeIDs.Medium,
-    vinyl: ArtworkTypeIDs.Medium,
-    dvd: mapDiscType.bind(undefined, 'DVD'),
+    'front': ArtworkTypeIDs.Front,
+    'booklet': ArtworkTypeIDs.Booklet,
+    'jacket': mapPackagingType.bind(undefined, 'Jacket'), // DVD jacket
+    'disc': mapDiscType.bind(undefined, 'Disc'),
+    'cd': mapDiscType.bind(undefined, 'CD'),
+    'cassette': ArtworkTypeIDs.Medium,
+    'vinyl': ArtworkTypeIDs.Medium,
+    'dvd': mapDiscType.bind(undefined, 'DVD'),
     'blu-ray': mapDiscType.bind(undefined, 'Blu‐ray'),
-    tray: ArtworkTypeIDs.Tray,
-    back: ArtworkTypeIDs.Back,
-    obi: ArtworkTypeIDs.Obi,
-    box: mapPackagingType.bind(undefined, 'Box'),
-    card: { type: ArtworkTypeIDs.Other, comment: 'Card' },
-    sticker: ArtworkTypeIDs.Sticker,
-    slipcase: mapPackagingType.bind(undefined, 'Slipcase'),
-    digipack: mapPackagingType.bind(undefined, 'Digipak'),
-    sleeve: mapPackagingType.bind(undefined, 'Sleeve'),
-    insert: { type: ArtworkTypeIDs.Other, comment: 'Insert' }, // Or poster?
-    inside: ArtworkTypeIDs.Tray,
-    case: mapPackagingType.bind(undefined, 'Case'),
-    contents: ArtworkTypeIDs['Raw/Unedited'],
+    'tray': ArtworkTypeIDs.Tray,
+    'back': ArtworkTypeIDs.Back,
+    'obi': ArtworkTypeIDs.Obi,
+    'box': mapPackagingType.bind(undefined, 'Box'),
+    'card': { type: ArtworkTypeIDs.Other, comment: 'Card' },
+    'sticker': ArtworkTypeIDs.Sticker,
+    'slipcase': mapPackagingType.bind(undefined, 'Slipcase'),
+    'digipack': mapPackagingType.bind(undefined, 'Digipak'),
+    'sleeve': mapPackagingType.bind(undefined, 'Sleeve'),
+    'insert': { type: ArtworkTypeIDs.Other, comment: 'Insert' }, // Or poster?
+    'inside': ArtworkTypeIDs.Tray,
+    'case': mapPackagingType.bind(undefined, 'Case'),
+    'contents': ArtworkTypeIDs['Raw/Unedited'],
 };
 
-function convertMappingReturnValue(ret: MappedArtwork): { types: ArtworkTypeIDs[]; comment: string } {
-    if (Object.prototype.hasOwnProperty.call(ret, 'type')
-            && Object.prototype.hasOwnProperty.call(ret, 'comment')) {
-        const retObj = ret as { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
+function convertMappingReturnValue(returnValue: MappedArtwork): { types: ArtworkTypeIDs[]; comment: string } {
+    if (Object.prototype.hasOwnProperty.call(returnValue, 'type')
+        && Object.prototype.hasOwnProperty.call(returnValue, 'comment')) {
+        const returnValueObject = returnValue as { type: ArtworkTypeIDs | ArtworkTypeIDs[]; comment: string };
         return {
-            types: Array.isArray(retObj.type) ? retObj.type : [retObj.type],
-            comment: retObj.comment,
+            types: Array.isArray(returnValueObject.type) ? returnValueObject.type : [returnValueObject.type],
+            comment: returnValueObject.comment,
         };
     }
 
-    let types = ret as ArtworkTypeIDs | ArtworkTypeIDs[];
+    let types = returnValue as ArtworkTypeIDs | ArtworkTypeIDs[];
     /* istanbul ignore next: No mapper generates this currently */
     if (!Array.isArray(types)) {
         types = [types];
@@ -166,15 +166,15 @@ for (const [key, value] of Object.entries(__CAPTION_TYPE_MAPPING)) {
             return convertMappingReturnValue(value(caption));
         }
 
-        const retObj = convertMappingReturnValue(value);
+        const returnValueObject = convertMappingReturnValue(value);
         // Add remainder of the caption to the comment returned by the mapping
-        if (retObj.comment && caption) retObj.comment += ' ' + caption;
+        if (returnValueObject.comment && caption) returnValueObject.comment += ' ' + caption;
         // If there's a caption but no comment, set the comment to the caption
-        else if (caption) retObj.comment = caption;
+        else if (caption) returnValueObject.comment = caption;
         // Otherwise there's a comment set by the mapper but no caption => keep,
         // or neither a comment nor a caption => nothing needs to be done.
 
-        return retObj;
+        return returnValueObject;
     };
 }
 
@@ -228,12 +228,12 @@ export class VGMdbProvider extends CoverArtProvider {
     protected readonly urlRegex = /\/album\/(\d+)(?:\/|$)/;
 
     public async findImages(url: URL): Promise<CoverArt[]> {
-        const pageSrc = await this.fetchPage(url);
-        if (pageSrc.includes('/db/img/banner-error.gif')) {
+        const pageSource = await this.fetchPage(url);
+        if (pageSource.includes('/db/img/banner-error.gif')) {
             throw new Error('VGMdb returned an error');
         }
 
-        const pageDom = parseDOM(pageSrc, url.href);
+        const pageDom = parseDOM(pageSource, url.href);
 
         // istanbul ignore else: Tests are not logged in
         if (qsMaybe('#navmember', pageDom) === null) {
@@ -241,7 +241,7 @@ export class VGMdbProvider extends CoverArtProvider {
         }
 
         const coverGallery = qsMaybe('#cover_gallery', pageDom);
-        const galleryCovers = coverGallery ? await VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [];
+        const galleryCovers = coverGallery ? VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [];
 
         // Add the main cover if it's not in the gallery
         const mainCoverUrl = qsMaybe<HTMLDivElement>('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)?.[1];
@@ -263,7 +263,7 @@ export class VGMdbProvider extends CoverArtProvider {
         return galleryCovers;
     }
 
-    public static async extractCoversFromDOMGallery(coverGallery: Element): Promise<CoverArt[]> {
+    public static extractCoversFromDOMGallery(coverGallery: Element): CoverArt[] {
         const coverElements = qsa<HTMLAnchorElement>('a[id*="thumb_"]', coverGallery);
         return coverElements.map(this.extractCoverFromAnchor.bind(this));
     }
@@ -280,8 +280,8 @@ export class VGMdbProvider extends CoverArtProvider {
         const id = this.extractId(url);
         assertHasValue(id);
         const apiUrl = `https://vgmdb.info/album/${id}?format=json`;
-        const apiResp = await request.get(apiUrl);
-        const metadata = safeParseJSON<AlbumMetadata>(apiResp.text, 'Invalid JSON response from vgmdb.info API');
+        const apiResponse = await request.get(apiUrl);
+        const metadata = safeParseJSON<AlbumMetadata>(apiResponse.text, 'Invalid JSON response from vgmdb.info API');
 
         assert(metadata.link === 'album/' + id, `VGMdb.info returned wrong release: Requested album/${id}, got ${metadata.link}`);
 
@@ -293,7 +293,7 @@ export class VGMdbProvider extends CoverArtProvider {
             return { url: cover.full, caption: cover.name };
         });
         if (metadata.picture_full
-                && !covers.some((cover) => cover.url === metadata.picture_full)) {
+            && !covers.some((cover) => cover.url === metadata.picture_full)) {
             // Assuming the main picture is the front cover
             covers.unshift({ url: metadata.picture_full, caption: 'Front' });
         }

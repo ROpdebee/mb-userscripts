@@ -1,7 +1,7 @@
-import type { ArchiveMetadata } from '@lib/IA/ArchiveMetadata';
-import { getItemMetadata } from '@lib/IA/ArchiveMetadata';
+import type { ArchiveMetadata } from '@lib/IA/archive-metadata';
+import { getItemMetadata } from '@lib/IA/archive-metadata';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertDefined } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { request } from '@lib/util/request';
@@ -14,7 +14,7 @@ interface CAAIndex {
     images: Array<{
         comment: string;
         types: string[];
-        id: string | number;  // Used to be string in the past, hasn't been applied retroactively yet, see CAA-129
+        id: number | string; // Used to be string in the past, hasn't been applied retroactively yet, see CAA-129
         image: string;
     }>;
 }
@@ -29,8 +29,8 @@ export class ArchiveProvider extends CoverArtProvider {
     private static readonly IMAGE_FILE_FORMATS = [
         'JPEG',
         'PNG',
-        'Text PDF',  // TODO: Is there a non-text variant?
-        'Animated GIF',  // TODO: Is there a non-animated variant?
+        'Text PDF', // TODO: Is there a non-text variant?
+        'Animated GIF', // TODO: Is there a non-animated variant?
     ];
 
     public async findImages(url: URL): Promise<CoverArt[]> {
@@ -71,15 +71,15 @@ export class ArchiveProvider extends CoverArtProvider {
         // in the index.json isn't always up-to-date (see CAA-129, only a few
         // cases though).
         const caaIndexUrl = `https://archive.org/download/${itemId}/index.json`;
-        const caaIndexResp = await request.get(caaIndexUrl);
-        const caaIndex = safeParseJSON<CAAIndex>(caaIndexResp.text, 'Could not parse index.json');
+        const caaIndexResponse = await request.get(caaIndexUrl);
+        const caaIndex = safeParseJSON<CAAIndex>(caaIndexResponse.text, 'Could not parse index.json');
 
-        return caaIndex.images.map((img) => {
-            const imageFileName = urlBasename(img.image);
+        return caaIndex.images.map((image) => {
+            const imageFileName = urlBasename(image.image);
             return {
                 url: urlJoin(baseDownloadUrl, `${itemId}-${imageFileName}`),
-                comment: img.comment,
-                types: img.types.map((type) => ArtworkTypeIDs[type as keyof typeof ArtworkTypeIDs]),
+                comment: image.comment,
+                types: image.types.map((type) => ArtworkTypeIDs[type as keyof typeof ArtworkTypeIDs]),
             };
         });
     }

@@ -7,7 +7,6 @@ import { asyncSleep, logFailure, retryTimes } from '@lib/util/async';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { onAddEntityDialogLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
-
 function getExternalLinksEditor(mbInstance: typeof window.MB): ExternalLinks {
     // Can be found in the MB object, but exact property depends on actual page.
     const editor = (mbInstance.releaseEditor?.externalLinks.externalLinksEditorRef ?? mbInstance.sourceExternalLinksEditor)?.current;
@@ -48,32 +47,32 @@ class LinkSplitter {
 
         // Accepting and passing arguments as array to prevent potential problems
         // when the signature of the patched methods change.
-        this.patchedOnChange = (...args): void => {
+        this.patchedOnChange = (...arguments_): void => {
             // Split the URLs and submit all but the last URL into the actual
             // handlers separately. The last URL will be entered, but not
             // blurred.
-            const rawUrl = args[2];
+            const rawUrl = arguments_[2];
             LOGGER.debug(`onchange received URLs ${rawUrl}`);
             const splitUrls = rawUrl.trim().split(/\s+/);
 
             // No links to split, just use the standard handlers.
             if (splitUrls.length <= 1) {
-                this.originalOnChange(...args);
+                this.originalOnChange(...arguments_);
                 return;
             }
 
             const lastUrl = splitUrls[splitUrls.length - 1];
             const firstUrls = splitUrls.slice(0, -1);
             // Submit all but the last URL.
-            logFailure(submitUrls(editor, firstUrls)
+            submitUrls(editor, firstUrls)
                 // Afterwards, enter the last URL, but don't submit it.
                 .then(() => {
                     const lastInput = getLastInput(this.editor);
                     LOGGER.debug(`Submitting URL ${lastUrl}`);
                     setInputValue(lastInput, lastUrl);
                     lastInput.focus();
-                }),
-            'Something went wrong. onUrlBlur signature change?');
+                })
+                .catch(logFailure('Something went wrong. onUrlBlur signature change?'));
         };
     }
 
@@ -100,14 +99,14 @@ class LinkSplitter {
     }
 }
 
-function insertCheckboxElements(editor: ExternalLinks, checkboxElmt: HTMLInputElement, labelElmt: HTMLLabelElement): void {
+function insertCheckboxElements(editor: ExternalLinks, checkboxElement: HTMLInputElement, labelElement: HTMLLabelElement): void {
     // Adding the checkbox beneath the last input element would require constantly
     // removing and reinserting while react re-renders the link editor. Instead,
     // let's just add it outside of the table and align it with JS.
-    editor.tableRef.current.after(checkboxElmt, labelElmt);
+    editor.tableRef.current.after(checkboxElement, labelElement);
     const lastInput = getLastInput(editor);
     const marginLeft = lastInput.offsetLeft + (lastInput.parentElement?.offsetLeft ?? 0);
-    checkboxElmt.style.marginLeft = `${marginLeft}px`;
+    checkboxElement.style.marginLeft = `${marginLeft}px`;
 }
 
 async function run(windowInstance: Window): Promise<void> {
@@ -125,18 +124,18 @@ async function run(windowInstance: Window): Promise<void> {
     // functionality as soon as possible without waiting for the whole page to load.
     const editor = await retryTimes(() => getExternalLinksEditor(windowInstance.MB), 100, 50);
     const splitter = new LinkSplitter(editor);
-    const [checkboxElmt, labelElmt] = createPersistentCheckbox('ROpdebee_multi_links_no_split', "Don't split links", () => {
+    const [checkboxElement, labelElement] = createPersistentCheckbox('ROpdebee_multi_links_no_split', "Don't split links", () => {
         splitter.toggle();
     });
-    splitter.setEnabled(!checkboxElmt.checked);
-    insertCheckboxElements(editor, checkboxElmt, labelElmt);
+    splitter.setEnabled(!checkboxElement.checked);
+    insertCheckboxElements(editor, checkboxElement, labelElement);
 }
 
 function onIframeAdded(iframe: HTMLIFrameElement): void {
     LOGGER.debug(`Initialising on iframe ${iframe.src}`);
 
     onAddEntityDialogLoaded(iframe, () => {
-        logFailure(run(iframe.contentWindow!));
+        run(iframe.contentWindow!).catch(logFailure());
     });
 }
 
@@ -162,6 +161,6 @@ function listenForIframes(): void {
     });
 }
 
-logFailure(run(window));
+run(window).catch(logFailure());
 
 listenForIframes();

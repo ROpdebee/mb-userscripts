@@ -40,7 +40,7 @@ export interface RepositoryDispatchEventPayload {
  * here.
  */
 
-interface BasicRepoParams {
+interface BasicRepoParameters {
     owner: string;
     repo: string;
 }
@@ -53,10 +53,10 @@ interface IssueComment {
 }
 
 interface IssuesEndpointMethods {
-    addLabels(params: BasicRepoParams & { issue_number: number; labels: string[] }): Promise<unknown>;
-    createComment(params: BasicRepoParams & { issue_number: number; body: string }): Promise<unknown>;
-    updateComment(params: BasicRepoParams & { comment_id: number; body: string }): Promise<unknown>;
-    listComments(params: BasicRepoParams & { issue_number: number; per_page: number }): Promise<{ data: IssueComment[] }>;
+    addLabels(parameters: BasicRepoParameters & { issue_number: number; labels: string[] }): Promise<unknown>;
+    createComment(parameters: BasicRepoParameters & { issue_number: number; body: string }): Promise<unknown>;
+    updateComment(parameters: BasicRepoParameters & { comment_id: number; body: string }): Promise<unknown>;
+    listComments(parameters: BasicRepoParameters & { issue_number: number; per_page: number }): Promise<{ data: IssueComment[] }>;
 }
 
 export interface Octokit {

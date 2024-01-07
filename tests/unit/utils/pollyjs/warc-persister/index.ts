@@ -11,7 +11,7 @@ import har2warc from './har2warc';
 import warc2har from './warc2har';
 
 interface Options extends Polly {
-    recordingsDir: string;
+    recordingsDirectory: string;
 }
 
 export class WarcPersister extends Persister<Options> {
@@ -23,12 +23,12 @@ export class WarcPersister extends Persister<Options> {
         try {
             const warcContent = await fs.readFile(searchPath);
             return await warc2har(warcContent);
-        } catch (err) {
-            if (Object.prototype.hasOwnProperty.call(err, 'errno')
-                && (err as NodeJS.ErrnoException).code === 'ENOENT') {
+        } catch (error) {
+            if (Object.prototype.hasOwnProperty.call(error, 'errno')
+                && (error as NodeJS.ErrnoException).code === 'ENOENT') {
                 return null;
             }
-            throw err;
+            throw error;
         }
     }
 
@@ -46,7 +46,7 @@ export class WarcPersister extends Persister<Options> {
     }
 
     private filenameFor(recordingId: string): string {
-        assertHasValue(this.options.recordingsDir);
-        return path.join(this.options.recordingsDir, recordingId + '.warc');
+        assertHasValue(this.options.recordingsDirectory);
+        return path.join(this.options.recordingsDirectory, recordingId + '.warc');
     }
 }

@@ -4,36 +4,37 @@ import { logFailure } from '@lib/util/async';
 import { insertStylesheet } from '@lib/util/css';
 import { onDocumentLoaded, qs, qsa, qsMaybe } from '@lib/util/dom';
 
-import type { InfoCache } from './InfoCache';
-import { displayedCoverArtFactory, DisplayedQueuedUploadImage, displayInfoWhenInView } from './DisplayedImage';
+import type { InfoCache } from './info-cache';
+import { displayedCoverArtFactory, DisplayedQueuedUploadImage, displayInfoWhenInView } from './displayed-image';
 import { setupExports } from './exports';
-import { createCache } from './InfoCache';
+import { createCache } from './info-cache';
 
 import css from './style.scss';
 
-async function processPageChange(mutations: MutationRecord[], cache: InfoCache): Promise<void> {
-    mutations.flatMap((mutation) => [...mutation.addedNodes])
-        .filter((addedNode) => addedNode instanceof HTMLImageElement)
-        .forEach((addedImage) => {
-            const displayedImage = displayedCoverArtFactory(addedImage as HTMLImageElement, cache);
-            if (!displayedImage) return;
+function processPageChange(mutations: MutationRecord[], cache: InfoCache): void {
+    const addedNodes = mutations.flatMap((mutation) => [...mutation.addedNodes]);
+    for (const addedNode of addedNodes) {
+        if (!(addedNode instanceof HTMLImageElement)) continue;
+
+        const displayedImage = displayedCoverArtFactory(addedNode, cache);
+        if (displayedImage !== undefined) {
             displayInfoWhenInView(displayedImage);
-        });
+        }
+    }
 }
 
 function observeQueuedUploads(queuedUploadTable: HTMLTableElement): void {
     const queuedUploadObserver = new MutationObserver((mutations) => {
+        const addedNodes = mutations.flatMap((mutation) => [...mutation.addedNodes]);
         // Looking for additions of table rows, this indicates a newly queued upload.
-        mutations.forEach((mutation) => {
-            [...mutation.addedNodes]
-                .filter((addedNode) => addedNode instanceof HTMLTableRowElement)
-                .forEach((addedRow) => {
-                    const img = qsMaybe<HTMLImageElement>('img', addedRow as HTMLTableRowElement);
-                    if (img !== null) {
-                        displayInfoWhenInView(new DisplayedQueuedUploadImage(img));
-                    }
-                });
-        });
+        for (const addedNode of addedNodes) {
+            if (!(addedNode instanceof HTMLTableRowElement)) continue;
+
+            const image = qsMaybe<HTMLImageElement>('img', addedNode);
+            if (image !== null) {
+                displayInfoWhenInView(new DisplayedQueuedUploadImage(image));
+            }
+        }
     });
 
     queuedUploadObserver.observe(qs('tbody', queuedUploadTable), {
@@ -46,24 +47,24 @@ function detectAndObserveImages(cache: InfoCache): void {
     // to insert the <img> elements. So we'll use a mutation observer and
     // process the image whenever it gets added.
     const imageLoadObserver = new MutationObserver((mutations) => {
-        logFailure(processPageChange(mutations, cache));
+        processPageChange(mutations, cache);
     });
 
-    qsa('.cover-art-image').forEach((container) => {
+    for (const container of qsa('.cover-art-image')) {
         // Seems to cover all possible cover art images except for queued upload thumbnails
-        const imgElement = qsMaybe<HTMLImageElement>('img', container);
+        const imageElement = qsMaybe<HTMLImageElement>('img', container);
 
         // Cover art not available or not loaded by react yet.
-        if (imgElement === null) {
+        if (imageElement === null) {
             imageLoadObserver.observe(container, {
                 childList: true,
             });
         } else {
-            const displayedImage = displayedCoverArtFactory(imgElement, cache);
-            if (!displayedImage) return;
+            const displayedImage = displayedCoverArtFactory(imageElement, cache);
+            if (!displayedImage) continue;
             displayInfoWhenInView(displayedImage);
         }
-    });
+    }
 
     // Listen for new queued uploads on "add cover art" pages
     const queuedUploadTable = qsMaybe<HTMLTableElement>('#add-cover-art > table');
@@ -81,7 +82,7 @@ setupExports(cachePromise);
 onDocumentLoaded(() => {
     insertStylesheet(css);
 
-    logFailure(cachePromise.then((cache) => {
+    cachePromise.then((cache) => {
         detectAndObserveImages(cache);
-    }));
+    }).catch(logFailure());
 });

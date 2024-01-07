@@ -1,22 +1,22 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { YoutubeProvider } from '@src/mb_enhanced_cover_art_uploads/providers/youtube';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('youtube provider', () => {
     const provider = new YoutubeProvider();
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'video URLs',
+            description: 'video URLs',
             url: 'https://www.youtube.com/watch?v=Py21QCndbxc',
             id: 'Py21QCndbxc',
         }];
 
         const unsupportedUrls = [{
-            desc: 'channel URLs',
+            description: 'channel URLs',
             url: 'https://www.youtube.com/@NanashiMumei',
         }];
 
@@ -26,9 +26,9 @@ describe('youtube provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'music video',
+            description: 'music video',
             url: 'https://www.youtube.com/watch?v=Py21QCndbxc',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'Py21QCndbxc/maxresdefault',
@@ -40,7 +40,7 @@ describe('youtube provider', () => {
         // to a consent page on missing releases, which blocks the test.
         /*
         const extractionFailedCases = [{
-            desc: 'non-existent video',
+            description: 'non-existent video',
             url: 'https://www.youtube.com/watch?v=py21QCndbXc',
         }];
         */

@@ -3,13 +3,13 @@ export interface AdvancedRelationship {
     ended: boolean;
 }
 
-export interface URLAdvRel extends AdvancedRelationship {
+export interface URLAdvancedRelationship extends AdvancedRelationship {
     url: {
         resource: string;
     };
 }
 
-export interface ReleaseAdvRel extends AdvancedRelationship {
+export interface ReleaseAdvancedRelationship extends AdvancedRelationship {
     release: {
         id: string;
     };

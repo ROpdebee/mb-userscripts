@@ -34,12 +34,12 @@ async function iterCommits(repo: SimpleGit): Promise<void> {
         try {
             const changelogEntry = await generateChangelogEntry(version, {
                 title: title,
-                number: parseInt(prNumber),
+                number: Number.parseInt(prNumber),
                 labels: [],
                 url: `https://github.com/ROpdebee/mb-userscripts/pull/${prNumber}`,
             });
             entryList.push(changelogEntry);
-        } catch (err) {
+        } catch {
             // Fix manually, probably not adhering to conventional commits
             entryList.push(`- **${version}**: FAILED!!! ${commit.body.trim()}`);
         }

@@ -1,10 +1,9 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertHasValue } from '@lib/util/assert';
 import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 
 import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
-
 
 export class RateYourMusicProvider extends CoverArtProvider {
     public readonly supportedDomains = ['rateyourmusic.com'];
@@ -23,15 +22,15 @@ export class RateYourMusicProvider extends CoverArtProvider {
         // thumbnails in case the user is not logged in, since they're served
         // as WebP, which isn't supported by CAA (yet).
         const buyUrl = `https://rateyourmusic.com/release/${releaseId}/buy`;
-        const buyDoc = parseDOM(await this.fetchPage(new URL(buyUrl)), buyUrl);
+        const buyDocument = parseDOM(await this.fetchPage(new URL(buyUrl)), buyUrl);
 
-        if (qsMaybe('.header_profile_logged_in', buyDoc) === null) {
+        if (qsMaybe('.header_profile_logged_in', buyDocument) === null) {
             throw new Error('Extracting covers from RYM requires being logged in to an RYM account.');
         }
 
-        const fullResUrl = qs<HTMLAnchorElement>('.qq a', buyDoc).href;
+        const fullResolutionUrl = qs<HTMLAnchorElement>('.qq a', buyDocument).href;
         return [{
-            url: new URL(fullResUrl),
+            url: new URL(fullResolutionUrl),
             types: [ArtworkTypeIDs.Front],
         }];
     }

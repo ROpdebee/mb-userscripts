@@ -8,7 +8,7 @@ import Adapter from '@pollyjs/adapter';
 import fetch from 'node-fetch';
 
 import { assertDefined } from '@lib/util/assert';
-import { mockGMxmlHttpRequest } from '@test-utils/gm_mocks';
+import { mockGMxmlHttpRequest } from '@test-utils/gm-mocks';
 
 import { CRLFHeaders, FetchHeaders, PollyHeaders } from '../headers';
 
@@ -30,11 +30,11 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
                 headers: options.headers ?? {},
                 body: options.data,
                 requestArguments: options,
-            }).catch((err) => {
-                const resp: GM.Response<Context> = {
+            }).catch((error) => {
+                const response: GM.Response<Context> = {
                     readyState: 4,
                     status: 0,
-                    statusText: `${err}`,
+                    statusText: `${error}`,
                     responseHeaders: '',
                     finalUrl: options.url,
                     context: options.context,
@@ -42,7 +42,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
                     responseText: '',
                     response: null,
                 };
-                options.onerror?.(resp);
+                options.onerror?.(response);
             });
         });
     }
@@ -59,27 +59,28 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
                 headers.append(headerName, headerValue);
             }
         }
-        const resp = await fetch(pollyRequest.url, {
+        const response = await fetch(pollyRequest.url, {
             method: pollyRequest.method,
             headers: headers,
             body: pollyRequest.body,
         });
 
-        const pollyHeaders = PollyHeaders.fromFetchHeaders(resp.headers);
+        const pollyHeaders = PollyHeaders.fromFetchHeaders(response.headers);
         // Storing the final URL after redirect, see `passthroughRealGMXHR`.
-        pollyHeaders['x-pollyjs-finalurl'] = resp.url;
+        pollyHeaders['x-pollyjs-finalurl'] = response.url;
 
-        const arrayBuffer = await resp.arrayBuffer();
+        const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         const isBinary = responseType && responseType !== 'text';
         return {
-            statusCode: resp.status,
+            statusCode: response.status,
             headers: pollyHeaders,
             body: buffer.toString(isBinary ? 'base64' : 'utf8'),
             encoding: isBinary ? 'base64' : undefined,
         };
     }
 
+    // eslint-disable-next-line @typescript-eslint/require-await
     public override async onRespond(pollyRequest: RequestType<Context>, error?: Error): Promise<void> {
         if (error) throw error;
 
@@ -95,7 +96,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
         const finalUrl = headers['x-pollyjs-finalurl'] ?? options.url;
         delete headers['x-pollyjs-finalUrl'];
 
-        const resp: GM.Response<Context> = {
+        const response_: GM.Response<Context> = {
             readyState: 4,
             responseHeaders: CRLFHeaders.fromPollyHeaders(headers),
             status: response.statusCode,
@@ -114,12 +115,12 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
             const arrayBuffer = Uint8Array.from(buffer).buffer;
             if (responseType === 'blob') {
                 options.onload({
-                    ...resp,
+                    ...response_,
                     response: new Blob([arrayBuffer]),
                 });
             } else if (responseType === 'arraybuffer') {
                 options.onload({
-                    ...resp,
+                    ...response_,
                     response: arrayBuffer,
                 });
             } else {
@@ -127,7 +128,7 @@ export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Conte
             }
         } else {
             options.onload({
-                ...resp,
+                ...response_,
                 responseText: response.body ?? '',
             });
         }

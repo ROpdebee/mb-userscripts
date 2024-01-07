@@ -1,5 +1,5 @@
 import { AssertionError } from '@lib/util/assert';
-import { onDocumentLoaded, onWindowLoaded, parseDOM, qs, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
+import { onAddEntityDialogLoaded, onDocumentLoaded, onWindowLoaded, parseDOM, qs, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
 describe('qs', () => {
     it('selects from the document by default', () => {
@@ -97,66 +97,112 @@ describe('parsing DOM', () => {
 describe('callback on document loaded', () => {
     it('does not fire if the document is not loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
-        const cb = jest.fn();
-        onDocumentLoaded(cb);
+        const callback = jest.fn();
+        onDocumentLoaded(callback);
 
-        expect(cb).not.toHaveBeenCalled();
+        expect(callback).not.toHaveBeenCalled();
     });
 
     it('fires if the document was already loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
-        const cb = jest.fn();
-        onDocumentLoaded(cb);
+        const callback = jest.fn();
+        onDocumentLoaded(callback);
 
-        expect(cb).toHaveBeenCalledOnce();
+        expect(callback).toHaveBeenCalledOnce();
     });
 
     it('fires after the document was loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
-        const cb = jest.fn();
-        onDocumentLoaded(cb);
+        const callback = jest.fn();
+        onDocumentLoaded(callback);
 
-        expect(cb).not.toHaveBeenCalled();
+        expect(callback).not.toHaveBeenCalled();
 
         document.dispatchEvent(new Event('DOMContentLoaded'));
 
-        expect(cb).toHaveBeenCalledOnce();
+        expect(callback).toHaveBeenCalledOnce();
     });
 });
 
 describe('callback on window loaded', () => {
-    const cb = jest.fn();
+    const callback = jest.fn();
 
     afterEach(() => {
-        cb.mockReset();
+        callback.mockReset();
     });
 
     it('does not fire if the window is not loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('interactive');
-        const cb = jest.fn();
-        onWindowLoaded(cb);
+        const callback = jest.fn();
+        onWindowLoaded(callback);
 
-        expect(cb).not.toHaveBeenCalled();
+        expect(callback).not.toHaveBeenCalled();
     });
 
     it('fires if the window was already loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('complete');
-        const cb = jest.fn();
-        onWindowLoaded(cb);
+        const callback = jest.fn();
+        onWindowLoaded(callback);
 
-        expect(cb).toHaveBeenCalledOnce();
+        expect(callback).toHaveBeenCalledOnce();
     });
 
     it('fires after the window was loaded', () => {
         jest.spyOn(document, 'readyState', 'get').mockReturnValue('interactive');
-        const cb = jest.fn();
-        onWindowLoaded(cb);
+        const callback = jest.fn();
+        onWindowLoaded(callback);
 
-        expect(cb).not.toHaveBeenCalled();
+        expect(callback).not.toHaveBeenCalled();
 
         window.dispatchEvent(new Event('load'));
 
-        expect(cb).toHaveBeenCalledOnce();
+        expect(callback).toHaveBeenCalledOnce();
+    });
+});
+
+describe('callback on entity dialog added', () => {
+    const callback = jest.fn();
+    let dialog: HTMLIFrameElement;
+
+    beforeEach(() => {
+        dialog = document.createElement('iframe');
+        document.body.append(dialog);
+    });
+
+    afterEach(() => {
+        callback.mockReset();
+    });
+
+    it('fires if the dialog is already loaded', () => {
+        // No .content-loading element in the dialog.
+
+        onAddEntityDialogLoaded(dialog, callback);
+
+        expect(callback).toHaveBeenCalledOnce();
+    });
+
+    it('does not fire if the dialog never loads', () => {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.classList.add('content-loading');
+        dialog.append(loadingDiv);
+
+        onAddEntityDialogLoaded(dialog, callback);
+
+        expect(callback).not.toHaveBeenCalled();
+    });
+
+    it('fires after the dialog finishes loading', () => {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.classList.add('content-loading');
+        dialog.append(loadingDiv);
+
+        onAddEntityDialogLoaded(dialog, callback);
+
+        expect(callback).not.toHaveBeenCalled();
+
+        dialog.dispatchEvent(new Event('load'));
+
+        expect(callback).toHaveBeenCalledOnce();
     });
 });
 

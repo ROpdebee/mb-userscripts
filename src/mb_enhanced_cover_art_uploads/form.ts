@@ -1,5 +1,5 @@
-import type { ArtworkTypeIDs } from '@lib/MB/CoverArt';
-import type { EditNote } from '@lib/MB/EditNote';
+import type { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import type { EditNote } from '@lib/MB/edit-note';
 import { cloneIntoPageContext, getFromPageContext } from '@lib/compat';
 import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';
@@ -45,11 +45,11 @@ function setImageParameters(imageName: string, imageTypes: ArtworkTypeIDs[], ima
 
     // Set image types
     const checkboxesToCheck = qsa<HTMLInputElement>('ul.cover-art-type-checkboxes input[type="checkbox"]', fileRow)
-        .filter((cbox) => imageTypes.includes(parseInt(cbox.value)));
-    checkboxesToCheck.forEach((cbox) => {
+        .filter((cbox) => imageTypes.includes(Number.parseInt(cbox.value)));
+    for (const cbox of checkboxesToCheck) {
         cbox.checked = true;
         cbox.dispatchEvent(new Event('click'));
-    });
+    }
 
     // Set comment if we should
     if (imageComment) {
@@ -83,23 +83,23 @@ function fillEditNoteFragment(editNote: EditNote, images: QueuedImage[], contain
 }
 
 export function fillEditNote(allFetchedImages: QueuedImageBatch[], origin: string, editNote: EditNote): void {
-    const totalNumImages = allFetchedImages.reduce((acc, fetched) => acc + fetched.images.length, 0);
+    const totalNumberImages = allFetchedImages.reduce((accumulator, fetched) => accumulator + fetched.images.length, 0);
     // Nothing enqueued => Skip edit note altogether
-    if (!totalNumImages) return;
+    if (!totalNumberImages) return;
 
     // Limiting to 3 URLs to reduce noise
     const maxFilled = 3;
-    let numFilled = 0;
+    let numberFilled = 0;
     for (const { containerUrl, images } of allFetchedImages) {
-        const imagesToFill = images.slice(0, maxFilled - numFilled);
+        const imagesToFill = images.slice(0, maxFilled - numberFilled);
         fillEditNoteFragment(editNote, imagesToFill, containerUrl);
 
-        numFilled += imagesToFill.length;
-        if (numFilled >= maxFilled) break;
+        numberFilled += imagesToFill.length;
+        if (numberFilled >= maxFilled) break;
     }
 
-    if (totalNumImages > maxFilled) {
-        editNote.addExtraInfo(`…and ${totalNumImages - maxFilled} additional image(s)`);
+    if (totalNumberImages > maxFilled) {
+        editNote.addExtraInfo(`…and ${totalNumberImages - maxFilled} additional image(s)`);
     }
 
     if (origin) {

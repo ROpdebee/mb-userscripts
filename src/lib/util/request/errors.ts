@@ -3,9 +3,9 @@ import { CustomError } from 'ts-custom-error';
 import type { Response } from './response';
 
 abstract class ResponseError extends CustomError {
-    public readonly url: string | URL;
+    public readonly url: URL | string;
 
-    protected constructor(url: string | URL, extraMessage: string) {
+    protected constructor(url: URL | string, extraMessage: string) {
         super(extraMessage);
         this.url = url;
     }
@@ -16,7 +16,7 @@ export class HTTPResponseError extends ResponseError {
     public readonly statusText: string;
     public readonly response: Response;
 
-    public constructor(url: string | URL, response: Response, errorMessage?: string) {
+    public constructor(url: URL | string, response: Response, errorMessage?: string) {
         /* istanbul ignore else: Should not happen */
         if (errorMessage) {
             super(url, errorMessage);
@@ -33,19 +33,19 @@ export class HTTPResponseError extends ResponseError {
 }
 
 export class TimeoutError extends ResponseError {
-    public constructor(url: string | URL) {
+    public constructor(url: URL | string) {
         super(url, 'Request timed out');
     }
 }
 
 export class AbortedError extends ResponseError {
-    public constructor(url: string | URL) {
+    public constructor(url: URL | string) {
         super(url, 'Request aborted');
     }
 }
 
 export class NetworkError extends ResponseError {
-    public constructor(url: string | URL) {
+    public constructor(url: URL | string) {
         super(url, 'Network error');
     }
 }

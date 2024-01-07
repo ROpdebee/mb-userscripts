@@ -8,7 +8,7 @@ interface PluginOptions {
 }
 
 const LOGGER_CODE = `
-import { ConsoleSink } from '@lib/logging/consoleSink';
+import { ConsoleSink } from '@lib/logging/console-sink';
 import { LogLevel } from '@lib/logging/levels';
 import { LOGGER } from '@lib/logging/logger';
 
@@ -60,11 +60,11 @@ export function logger(options?: Readonly<PluginOptions>): Plugin {
          *
          * Injects the logger boilerplate setup.
          *
-         * @param      {string}                       code    The code
-         * @param      {string}                       id      The identifier
-         * @return     {Promise<undefined | string>}  The transformed result.
+         * @param      {string}              code    The code
+         * @param      {string}              id      The identifier
+         * @return     {string | undefined}  The transformed result.
          */
-        async transform(code: string, id: string): Promise<undefined | string> {
+        transform(code: string, id: string): string | undefined {
             if (!filter(id)) return;
 
             // Insert logger code first, so it gets configured before anything

@@ -1,29 +1,29 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { AudiomackProvider } from '@src/mb_enhanced_cover_art_uploads/providers/audiomack';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 describe('audiomack provider', () => {
     const provider = new AudiomackProvider();
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'album URLs',
+            description: 'album URLs',
             url: 'https://audiomack.com/key-glock/album/yellow-tape-2-deluxe',
             id: 'key-glock/album/yellow-tape-2-deluxe',
         }, {
-            desc: 'song URLs',
+            description: 'song URLs',
             url: 'https://audiomack.com/key-glock/song/pain-killers-clean',
             id: 'key-glock/song/pain-killers-clean',
         }];
 
         const unsupportedUrls = [{
-            desc: 'artist URLs',
+            description: 'artist URLs',
             url: 'https://audiomack.com/key-glock',
         }, {
-            desc: 'playlist URLs',
+            description: 'playlist URLs',
             url: 'https://audiomack.com/joevango/playlist/verified-hh',
         }];
 
@@ -33,18 +33,18 @@ describe('audiomack provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'album',
+            description: 'album',
             url: 'https://audiomack.com/key-glock/album/yellow-tape-2-deluxe',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'f879a0938375da775a061d710d7bc8d94e7909f52502fa3d00d5d6337c543b59.jpeg',
                 types: [ArtworkTypeIDs.Front],
             }],
         }, {
-            desc: 'song',
+            description: 'song',
             url: 'https://audiomack.com/key-glock/song/pain-killers',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'fbc4f33e8133ea04d0fc56abbdee067c117a78ab2f151708346e822d2a1e91aa.jpeg',
@@ -53,7 +53,7 @@ describe('audiomack provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             url: 'https://audiomack.com/key-glock/song/pain-killers-test123',
         }];
 

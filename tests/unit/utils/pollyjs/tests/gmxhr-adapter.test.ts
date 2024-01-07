@@ -14,13 +14,13 @@ describe('gmxhr adapter', () => {
         persister: WarcPersister,
         persisterOptions: {
             'fs-warc': {
-                recordingsDir: path.resolve('.', 'tests', 'test-data', '__recordings__'),
+                recordingsDirectory: path.resolve('.', 'tests', 'test-data', '__recordings__'),
             },
         },
     });
 
     it('should work', async () => {
-        const resp = await new Promise<GM.Response<never>>((resolve) => {
+        const response = await new Promise<GM.Response<never>>((resolve) => {
             GM.xmlHttpRequest({
                 url: 'https://jsonplaceholder.typicode.com/posts/1',
                 method: 'GET',
@@ -28,8 +28,8 @@ describe('gmxhr adapter', () => {
             } as GM.Request<never>);
         });
 
-        expect(resp.status).toBe(200);
+        expect(response.status).toBe(200);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        expect(JSON.parse(resp.responseText).id).toBe(1);
+        expect(JSON.parse(response.responseText).id).toBe(1);
     });
 });

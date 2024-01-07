@@ -23,6 +23,6 @@
         // Set the root dir here so the compiled output keeps its original
         // directory structure. This prevents `tsc` complaining that it will
         // overwrite files.
-        "rootDir": "../",
+        "rootDir": "../"
     }
 }

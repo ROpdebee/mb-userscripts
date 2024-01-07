@@ -50,11 +50,11 @@ export function updateNotifications(options?: Readonly<PluginOptions>): Plugin {
          *
          * Injects the update notification helpers.
          *
-         * @param      {string}                       code    The code
-         * @param      {string}                       id      The identifier
-         * @return     {Promise<undefined | string>}  The transformed result.
+         * @param      {string}              code    The code
+         * @param      {string}              id      The identifier
+         * @return     {string | undefined}  The transformed result.
          */
-        async transform(code: string, id: string): Promise<undefined | string> {
+        transform(code: string, id: string): string | undefined {
             if (!filter(id)) return;
 
             return [code, `import "${UPDATE_NOTIFICATIONS_SOURCE_ID}";`].join('\n\n');

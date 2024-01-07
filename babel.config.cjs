@@ -7,7 +7,7 @@ const testConfig = {
     ],
 };
 
-const prodConfig = {
+const productionConfig = {
     presets: [
         ['@babel/preset-typescript', {
             isTSX: true,
@@ -29,4 +29,4 @@ const prodConfig = {
     comments: false,
 };
 
-module.exports = (process.env.NODE_ENV === 'test' ? testConfig : prodConfig);
+module.exports = (process.env.NODE_ENV === 'test' ? testConfig : productionConfig);

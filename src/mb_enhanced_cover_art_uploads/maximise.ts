@@ -1,9 +1,10 @@
 // Interface to maxurl
+import type { Promisable } from 'type-fest';
 
 import type { GMxmlHttpRequest } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { retryTimes } from '@lib/util/async';
-import { DispatchMap } from '@lib/util/domain_dispatch';
+import { DispatchMap } from '@lib/util/domain-dispatch';
 import { urlBasename } from '@lib/util/urls';
 
 import { DiscogsProvider } from './providers/discogs';
@@ -192,7 +193,7 @@ export interface maxurlResult {
 export interface maxurlInterface {
     (url: string, options: maxurlOptions): void;
 
-    check_bad_if(badif: Array<Record<string, unknown>>, resp: XMLHttpRequestResponseType): boolean;
+    check_bad_if(badif: Array<Record<string, unknown>>, response: XMLHttpRequestResponseType): boolean;
     default_options: maxurlOptions;
     is_internet_url(url: string): boolean;
     clear_caches(): void;
@@ -200,7 +201,6 @@ export interface maxurlInterface {
 }
 
 declare const $$IMU_EXPORT$$: maxurlInterface;
-
 
 // IMU does its initialisation synchronously, and it's loaded before the
 // userscript is executed, so $$IMU_EXPORT$$ should already exist now. However,
@@ -228,8 +228,8 @@ const options: maxurlOptions = {
     },
 };
 
-type ExceptionFn = (smallurl: URL) => Promise<MaximisedImage[]>;
-const IMU_EXCEPTIONS = new DispatchMap<ExceptionFn>();
+type ExceptionFunction = (smallurl: URL) => Promisable<MaximisedImage[]>;
+const IMU_EXCEPTIONS = new DispatchMap<ExceptionFunction>();
 
 export interface MaximisedImage {
     url: URL;
@@ -239,18 +239,19 @@ export interface MaximisedImage {
 }
 
 export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<MaximisedImage, void, undefined> {
-    const exceptionFn = IMU_EXCEPTIONS.get(smallurl.hostname);
-    const iterable = await (exceptionFn ?? maximiseGeneric)(smallurl);
-    yield* iterable;
+    const exceptionFunction = IMU_EXCEPTIONS.get(smallurl.hostname);
+    const iterable = await (exceptionFunction ?? maximiseGeneric)(smallurl);
+    yield * iterable;
 }
 
 async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
     const results = await new Promise<maxurlResult[]>((resolve) => {
         maxurl(smallurl.href, {
             ...options,
+            // eslint-disable-next-line unicorn/prevent-abbreviations -- 3rd party code
             cb: resolve,
-        }).catch((err) => {
-            LOGGER.error('Could not maximise image, maxurl unavailable?', err);
+        }).catch((error) => {
+            LOGGER.error('Could not maximise image, maxurl unavailable?', error);
             // Just return no maximised candidates and proceed as usual.
             resolve([]);
         });
@@ -294,19 +295,19 @@ IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
     const results: MaximisedImage[] = [];
     const smallOriginalName = smallurl.href.match(/(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/)?.[1];
 
-    for await (const imgGeneric of maximiseGeneric(smallurl)) {
-        if (urlBasename(imgGeneric.url) === 'source' && smallOriginalName !== 'source') {
+    for await (const imageGeneric of maximiseGeneric(smallurl)) {
+        if (urlBasename(imageGeneric.url) === 'source' && smallOriginalName !== 'source') {
             // Mark the `/source` image as likely broken if the alleged original
             // name isn't "source", but instead e.g. "20UMGIM63158.rgb.jpg".
-            imgGeneric.likely_broken = true;
+            imageGeneric.likely_broken = true;
         }
-        results.push(imgGeneric);
+        results.push(imageGeneric);
     }
 
     return results;
 });
 
-IMU_EXCEPTIONS.set('usercontent.jamendo.com', async (smallurl) => {
+IMU_EXCEPTIONS.set('usercontent.jamendo.com', (smallurl) => {
     return [{
         url: new URL(smallurl.href.replace(/([&?])width=\d+/, '$1width=0')),
         filename: '',
@@ -314,7 +315,7 @@ IMU_EXCEPTIONS.set('usercontent.jamendo.com', async (smallurl) => {
     }];
 });
 
-IMU_EXCEPTIONS.set('hw-img.datpiff.com', async (smallurl) => {
+IMU_EXCEPTIONS.set('hw-img.datpiff.com', (smallurl) => {
     // Some sizes may be missing, so try '-large' and '-medium' first, but fall
     // back to smallest (no suffix) if neither exist.
     const urlNoSuffix = smallurl.href.replace(/-(?:large|medium)(\.\w+$)/, '$1');

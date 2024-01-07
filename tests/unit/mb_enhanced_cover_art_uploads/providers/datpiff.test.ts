@@ -1,11 +1,11 @@
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { blobToDigest } from '@lib/util/blob';
 import { DatPiffProvider } from '@src/mb_enhanced_cover_art_uploads/providers/datpiff';
-import { itBehavesLike } from '@test-utils/shared_behaviour';
+import { itBehavesLike } from '@test-utils/shared-behaviour';
 
 import { createCoverArt, createFetchedImageFromCoverArt } from '../test-utils/dummy-data';
-import { findImagesSpec } from './find_images_spec';
-import { urlMatchingSpec } from './url_matching_spec';
+import { findImagesSpec } from './find-images-spec';
+import { urlMatchingSpec } from './url-matching-spec';
 
 jest.mock('@lib/util/blob');
 
@@ -16,20 +16,20 @@ describe('datpiff provider', () => {
 
     describe('url matching', () => {
         const supportedUrls = [{
-            desc: 'mixtape URLs',
+            description: 'mixtape URLs',
             url: 'https://www.datpiff.com/Ni-Pr-Pia-Ni-Ll-2022-mixtape.1017532.html',
             id: '1017532',
         }, {
-            desc: 'mixtape URLs with capitals',
+            description: 'mixtape URLs with capitals',
             url: 'https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.438559.html',
             id: '438559',
         }];
 
         const unsupportedUrls = [{
-            desc: 'browse URLs',
+            description: 'browse URLs',
             url: 'https://www.datpiff.com/mixtapes-top',
         }, {
-            desc: 'profile URLs',
+            description: 'profile URLs',
             url: 'https://www.datpiff.com/profile/Tecg',
         }];
 
@@ -39,9 +39,9 @@ describe('datpiff provider', () => {
 
     describe('extracting images', () => {
         const extractionCases = [{
-            desc: 'mixtape with front and back cover',
+            description: 'mixtape with front and back cover',
             url: 'https://www.datpiff.com/B-unique-Stay-Sharp-2-mixtape.1018133.html',
-            numImages: 2,
+            imageCount: 2,
             expectedImages: [{
                 index: 0,
                 urlPart: 'md09671e/B_unique_Stay_Sharp_2-front',
@@ -52,9 +52,9 @@ describe('datpiff provider', () => {
                 types: [ArtworkTypeIDs.Back],
             }],
         }, {
-            desc: 'mixtape without back cover',
+            description: 'mixtape without back cover',
             url: 'https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.438559.html',
-            numImages: 1,
+            imageCount: 1,
             expectedImages: [{
                 index: 0,
                 urlPart: 'mc561281/CHIPDACHIPCHIPERISH_LIL_FREDDIE_Crazy_The_Mixtap-front',
@@ -63,7 +63,7 @@ describe('datpiff provider', () => {
         }];
 
         const extractionFailedCases = [{
-            desc: 'non-existent release',
+            description: 'non-existent release',
             // ID is probably long enough to last quite a while before this mixtape is created :)
             url: 'https://www.datpiff.com/Deno-Blue-Crazy-The-Mixtape.1231412412435323.html',
         }];

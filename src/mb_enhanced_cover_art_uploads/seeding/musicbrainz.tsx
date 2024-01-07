@@ -1,5 +1,5 @@
 // Seeder for provider buttons on /cover-art pages
-import { getURLsForRelease } from '@lib/MB/URLs';
+import { getURLsForRelease } from '@lib/MB/urls';
 import { filterNonNull } from '@lib/util/array';
 import { assertHasValue } from '@lib/util/assert';
 import { qs } from '@lib/util/dom';
@@ -30,16 +30,20 @@ export const MusicBrainzSeeder: Seeder = {
                     url,
                 }]).createSeedURL(mbid, window.location.host);
 
-                return <a
-                    title={url.href}
-                    href={seedUrl}
-                >
-                    <img src={favicon} alt={provider.name} />
-                    <span>{'Import from ' + provider.name}</span>
-                </a>;
+                return (
+                    <a
+                        title={url.href}
+                        href={seedUrl}
+                    >
+                        <img src={favicon} alt={provider.name} />
+                        <span>{'Import from ' + provider.name}</span>
+                    </a>
+                );
             }));
 
         const buttonRow = qs('#content > .buttons');
-        filterNonNull(buttons).forEach(buttonRow.appendChild.bind(buttonRow));
+        for (const button of filterNonNull(buttons)) {
+            buttonRow.append(button);
+        }
     },
 };

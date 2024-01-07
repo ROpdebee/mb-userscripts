@@ -2,10 +2,10 @@
 
 import { logFailure } from '@lib/util/async';
 
-import type { ImageInfo } from './ImageInfo';
-import type { InfoCache } from './InfoCache';
-import { CAAImageWithFullSizeURL, displayInfoWhenInView } from './DisplayedImage';
-import { CAAImage } from './Image';
+import type { ImageInfo } from './image-info';
+import type { InfoCache } from './info-cache';
+import { CAAImageWithFullSizeURL, displayInfoWhenInView } from './displayed-image';
+import { CAAImage } from './image';
 
 interface LegacyImageInfo {
     url: string;
@@ -17,34 +17,34 @@ interface LegacyImageInfo {
 
 declare global {
     interface Window {
-        ROpdebee_getDimensionsWhenInView: (imgElement: HTMLImageElement) => void;
-        ROpdebee_getCAAImageInfo: (imgUrl: string) => Promise<ImageInfo>;
-        ROpdebee_loadImageDimensions: (imgUrl: string) => Promise<LegacyImageInfo>;
+        ROpdebee_getDimensionsWhenInView: (imageElement: HTMLImageElement) => void;
+        ROpdebee_getCAAImageInfo: (imageUrl: string) => Promise<ImageInfo>;
+        ROpdebee_loadImageDimensions: (imageUrl: string) => Promise<LegacyImageInfo>;
     }
 }
 
 export function setupExports(cachePromise: Promise<InfoCache>): void {
-    async function getCAAImageInfo(imgUrl: string): Promise<ImageInfo> {
-        if (new URL(imgUrl).hostname !== 'archive.org') {
+    async function getCAAImageInfo(imageUrl: string): Promise<ImageInfo> {
+        if (new URL(imageUrl).hostname !== 'archive.org') {
             throw new Error('Unsupported URL: Need direct image URL');
         }
 
         const cache = await cachePromise;
-        const image = new CAAImage(imgUrl, cache);
+        const image = new CAAImage(imageUrl, cache);
         return image.getImageInfo();
     }
 
-    function getDimensionsWhenInView(imgElement: HTMLImageElement): void {
-        logFailure(cachePromise.then((cache) => {
-            const image = new CAAImageWithFullSizeURL(imgElement, cache);
+    function getDimensionsWhenInView(imageElement: HTMLImageElement): void {
+        cachePromise.then((cache) => {
+            const image = new CAAImageWithFullSizeURL(imageElement, cache);
             displayInfoWhenInView(image);
-        }), `Something went wrong when attempting to load image info for ${imgElement.src}`);
+        }).catch(logFailure(`Something went wrong when attempting to load image info for ${imageElement.src}`));
     }
 
-    async function loadImageDimensions(imgUrl: string): Promise<LegacyImageInfo> {
-        const imageInfo = await getCAAImageInfo(imgUrl);
+    async function loadImageDimensions(imageUrl: string): Promise<LegacyImageInfo> {
+        const imageInfo = await getCAAImageInfo(imageUrl);
         return {
-            url: imgUrl,
+            url: imageUrl,
             ...imageInfo.dimensions ?? { width: 0, height: 0 },
             size: imageInfo.size,
             format: imageInfo.fileType,

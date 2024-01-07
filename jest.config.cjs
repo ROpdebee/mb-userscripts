@@ -17,7 +17,7 @@ const esModules = [
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-    testEnvironment: './tests/unit/utils/extended-jsdom-env.ts',
+    testEnvironment: './tests/unit/utils/extended-jsdom-environment.ts',
     moduleNameMapper: {
         '^@lib/(.*)$': '<rootDir>/src/lib/$1',
         '^@test-utils/(.*)$': '<rootDir>/tests/unit/utils/$1',

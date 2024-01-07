@@ -15,7 +15,7 @@ class FakeSink implements LoggingSink {
 }
 
 const handlerNames: Array<keyof LoggingSink> = ['onDebug', 'onLog', 'onWarn', 'onError', 'onInfo', 'onSuccess'];
-type LoggerMethodName = 'debug' | 'log' | 'warn' | 'error' | 'info' | 'success';
+type LoggerMethodName = 'debug' | 'error' | 'info' | 'log' | 'success' | 'warn';
 const loggerMethodNames: LoggerMethodName[] = ['debug', 'log', 'info', 'success', 'warn', 'error'];
 const loggerToHandlerNames = Object.fromEntries(loggerMethodNames
     .map((name) => [name, 'on' + name[0].toUpperCase() + name.slice(1) as keyof LoggingSink]));
@@ -83,9 +83,9 @@ describe('logger', () => {
 
         beforeEach(() => {
             // Reset all mock functions on each test
-            handlerNames.forEach((name) => {
+            for (const name of handlerNames) {
                 sink[name].mockReset();
-            });
+            }
         });
 
         it.each(loggerMethodNames)('calls the %s handler', (level) => {
@@ -95,9 +95,9 @@ describe('logger', () => {
 
             expect(sink[handlerName]).toHaveBeenCalledExactlyOnceWith('test message');
 
-            notCalledNames.forEach((name) => {
+            for (const name of notCalledNames) {
                 expect(sink[name]).not.toHaveBeenCalled();
-            });
+            }
         });
 
         it('calls the error handler with an exception if provided', () => {
@@ -138,11 +138,11 @@ describe('logger', () => {
 
         beforeEach(() => {
             // Reset all mock functions on each test
-            handlerNames.forEach((name) => {
-                sinks.forEach((sink) => {
+            for (const name of handlerNames) {
+                for (const sink of sinks) {
                     sink[name].mockReset();
-                });
-            });
+                }
+            }
         });
 
         it.each(loggerMethodNames)('calls %s handlers of all sinks if multiple are attached', (level) => {
@@ -150,13 +150,13 @@ describe('logger', () => {
             const handlerName = loggerToHandlerNames[level];
             const notCalledNames = handlerNames.filter((name) => name !== handlerName);
 
-            sinks.forEach((sink) => {
+            for (const sink of sinks) {
                 expect(sink[handlerName]).toHaveBeenCalledExactlyOnceWith('test message');
 
-                notCalledNames.forEach((name) => {
+                for (const name of notCalledNames) {
                     expect(sink[name]).not.toHaveBeenCalled();
-                });
-            });
+                }
+            }
         });
     });
 
@@ -171,9 +171,9 @@ describe('logger', () => {
 
         beforeEach(() => {
             // Reset all mock functions on each test
-            handlerNames.forEach((name) => {
+            for (const name of handlerNames) {
                 sink[name].mockReset();
-            });
+            }
         });
 
         interface Case {
@@ -181,9 +181,9 @@ describe('logger', () => {
             desc: string;
             level: LoggerMethodName;
         }
-        const cases: Case[] = loggerMethodNames.map((level, levelIdx) => {
+        const cases: Case[] = loggerMethodNames.map((level, levelIndex) => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-            const shouldCall = levelIdx >= minLogLevel;
+            const shouldCall = levelIndex >= minLogLevel;
             return {
                 desc: shouldCall ? 'calls' : 'does not call',
                 shouldCall,

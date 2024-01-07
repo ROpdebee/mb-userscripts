@@ -3,7 +3,7 @@ import pRetry from 'p-retry';
 import type { BlobResponse, ProgressEvent } from '@lib/util/request';
 import { getFromPageContext } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { enumerate } from '@lib/util/array';
 import { blobToBuffer } from '@lib/util/blob';
 import { HTTPResponseError, request } from '@lib/util/request';
@@ -86,10 +86,10 @@ export class ImageFetcher {
                     LOGGER.info(`Maximised ${url.href} to ${maxCandidate.url.href}`);
                 }
                 return result;
-            } catch (err) {
+            } catch (error) {
                 // istanbul ignore if: Fine.
                 if (maxCandidate.likely_broken) continue;
-                LOGGER.warn(`Skipping maximised candidate ${maxCandidate.url}`, err);
+                LOGGER.warn(`Skipping maximised candidate ${maxCandidate.url}`, error);
             }
         }
 
@@ -146,22 +146,22 @@ export class ImageFetcher {
         // against any previously fetched images, to avoid adding duplicates.
         // Fetching in parallel would lead to race conditions.
         const queuedResults: QueuedImage[] = [];
-        for (const [img, idx] of enumerate(finalImages)) {
-            if (this.urlAlreadyAdded(img.url)) {
-                LOGGER.warn(`${img.url} has already been added`);
+        for (const [image, index] of enumerate(finalImages)) {
+            if (this.urlAlreadyAdded(image.url)) {
+                LOGGER.warn(`${image.url} has already been added`);
                 continue;
             }
 
-            LOGGER.info(`Fetching ${img.url} (${idx + 1}/${finalImages.length})`);
+            LOGGER.info(`Fetching ${image.url} (${index + 1}/${finalImages.length})`);
             try {
-                const result = await this.fetchImageFromURL(img.url, img.skipMaximisation);
+                const result = await this.fetchImageFromURL(image.url, image.skipMaximisation);
                 // Maximised image already added
                 if (!result) continue;
 
                 const fetchedImage = {
                     ...result,
-                    types: img.types,
-                    comment: img.comment,
+                    types: image.types,
+                    comment: image.comment,
                 };
 
                 const postprocessedImage = await provider.postprocessImage(fetchedImage);
@@ -169,8 +169,8 @@ export class ImageFetcher {
                     await enqueueImage(fetchedImage, defaultTypes, defaultComment);
                     queuedResults.push(postprocessedImage);
                 }
-            } catch (err) {
-                LOGGER.warn(`Skipping ${img.url}`, err);
+            } catch (error) {
+                LOGGER.warn(`Skipping ${image.url}`, error);
             }
         }
 
@@ -193,7 +193,7 @@ export class ImageFetcher {
         // in the array, assume the first image is the front one. If there are
         // multiple front images, return them all (e.g. Bandcamp original and
         // square crop).
-        const filtered = images.filter((img) => img.types?.includes(ArtworkTypeIDs.Front));
+        const filtered = images.filter((image) => image.types?.includes(ArtworkTypeIDs.Front));
         return filtered.length > 0 ? filtered : images.slice(0, 1);
     }
 
@@ -202,8 +202,8 @@ export class ImageFetcher {
     }
 
     private createUniqueFilename(filename: string, id: number, mimeType: string): string {
-        const filenameWithoutExt = filename.replace(/\.(?:png|jpe?g|gif|pdf)$/i, '');
-        return `${filenameWithoutExt}.${id}.${mimeType.split('/')[1]}`;
+        const filenameWithoutExtension = filename.replace(/\.(?:png|jpe?g|gif|pdf)$/i, '');
+        return `${filenameWithoutExtension}.${id}.${mimeType.split('/')[1]}`;
     }
 
     private async fetchImageContents(url: URL, fileName: string, id: number, headers: Record<string, string>): Promise<ImageContents> {
@@ -216,30 +216,30 @@ export class ImageFetcher {
         // Need to retry image loading because some services, like Discogs, may
         // return 429 HTTP errors.
         // TODO: Copied from seeding/atisket/dimensions.ts, should be put in lib.
-        const resp = await pRetry(() => request.get(url, xhrOptions), {
+        const response = await pRetry(() => request.get(url, xhrOptions), {
             retries: 10,
-            onFailedAttempt: (err) => {
+            onFailedAttempt: (error) => {
                 // Don't retry on 4xx status codes except for 429. Anything below 400 doesn't throw a HTTPResponseError.
-                if (!(err instanceof HTTPResponseError) || (err.statusCode < 500 && err.statusCode !== 429)) {
-                    throw err;
+                if (!(error instanceof HTTPResponseError) || (error.statusCode < 500 && error.statusCode !== 429)) {
+                    throw error;
                 }
 
-                LOGGER.info(`Failed to retrieve image contents after ${err.attemptNumber} attempt(s): ${err.message}. Retrying (${err.retriesLeft} attempt(s) left)…`);
+                LOGGER.info(`Failed to retrieve image contents after ${error.attemptNumber} attempt(s): ${error.message}. Retrying (${error.retriesLeft} attempt(s) left)…`);
             },
         });
 
-        if (resp.url === undefined) {
+        if (response.url === undefined) {
             LOGGER.warn(`Could not detect if URL ${url.href} caused a redirect`);
         }
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- Could be empty string.
-        const fetchedUrl = new URL(resp.url || url);
+        const fetchedUrl = new URL(response.url || url);
         const wasRedirected = fetchedUrl.href !== url.href;
 
         if (wasRedirected) {
             LOGGER.warn(`Followed redirect of ${url.href} -> ${fetchedUrl.href} while fetching image contents`);
         }
 
-        const { mimeType, isImage } = await this.determineMimeType(resp);
+        const { mimeType, isImage } = await this.determineMimeType(response);
 
         if (!isImage) {
             if (!mimeType?.startsWith('text/')) {
@@ -261,7 +261,7 @@ export class ImageFetcher {
         // Convert and copy the response blob to a buffer.
         // We copy the content to make sure the contents do not get unloaded
         // before the image is uploaded. See https://github.com/ROpdebee/mb-userscripts/issues/582
-        const contentBuffer = await blobToBuffer(resp.blob);
+        const contentBuffer = await blobToBuffer(response.blob);
 
         return {
             requestedUrl: url,
@@ -274,8 +274,8 @@ export class ImageFetcher {
         };
     }
 
-    private async determineMimeType(resp: BlobResponse): Promise<{ mimeType: string; isImage: true } | { mimeType: string | undefined; isImage: false }> {
-        const rawFile = new File([resp.blob], 'image');
+    private async determineMimeType(response: BlobResponse): Promise<{ isImage: false; mimeType: string | undefined } | { isImage: true; mimeType: string }> {
+        const rawFile = new File([response.blob], 'image');
         return new Promise((resolve) => {
             // Adapted from https://github.com/metabrainz/musicbrainz-server/blob/2b00b844f3fe4293fc4ccb9de1c30e3c2ddc95c1/root/static/scripts/edit/MB/CoverArt.js#L139
             // We can't use MB.CoverArt.validate_file since it's not available
@@ -291,23 +291,23 @@ export class ImageFetcher {
                     resolve({ mimeType: 'image/jpeg', isImage: true });
                 } else {
                     switch (uint32view[0]) {
-                    case 0x38464947:
-                        resolve({ mimeType: 'image/gif', isImage: true });
-                        break;
+                        case 0x38464947:
+                            resolve({ mimeType: 'image/gif', isImage: true });
+                            break;
 
-                    case 0x474E5089:
-                        resolve({ mimeType: 'image/png', isImage: true });
-                        break;
+                        case 0x474E5089:
+                            resolve({ mimeType: 'image/png', isImage: true });
+                            break;
 
-                    case 0x46445025:
-                        resolve({ mimeType: 'application/pdf', isImage: true });
-                        break;
+                        case 0x46445025:
+                            resolve({ mimeType: 'application/pdf', isImage: true });
+                            break;
 
-                    default:
-                        resolve({
-                            mimeType: resp.headers.get('Content-Type')?.match(/[^;\s]+/)?.[0],
-                            isImage: false,
-                        });
+                        default:
+                            resolve({
+                                mimeType: response.headers.get('Content-Type')?.match(/[^;\s]+/)?.[0],
+                                isImage: false,
+                            });
                     }
                 }
             });

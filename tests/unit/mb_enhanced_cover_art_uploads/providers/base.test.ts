@@ -4,7 +4,7 @@ import type { Response } from '@lib/util/request';
 import type { ParsedTrackImage } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 import type { CoverArt } from '@src/mb_enhanced_cover_art_uploads/types';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { request } from '@lib/util/request';
 import { CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
@@ -14,7 +14,7 @@ import { registerMatchers } from '../test-utils/matchers';
 jest.mock('@lib/util/request');
 jest.mock('@lib/logging/logger');
 // eslint-disable-next-line jest/unbound-method
-const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [string | URL, unknown]>;
+const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [URL | string, unknown]>;
 // eslint-disable-next-line jest/unbound-method
 const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
 
@@ -291,7 +291,7 @@ describe('providers with track images', () => {
         it('sets all track numbers in comment', async () => {
             const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
-            expect(results.find((img) => img.url.pathname === '/123')?.comment)
+            expect(results.find((image) => image.url.pathname === '/123')?.comment)
                 .toBe('Tracks 1, 3');
         });
 
@@ -311,7 +311,7 @@ describe('providers with track images', () => {
             }];
             const results = await fakeProvider.mergeTrackImages(trackImages, 'https://example.com/x', false);
 
-            expect(results.find((img) => img.url.pathname === '/123')?.comment)
+            expect(results.find((image) => image.url.pathname === '/123')?.comment)
                 .toBe('Tracks 1, 2, 3, 10');
         });
 

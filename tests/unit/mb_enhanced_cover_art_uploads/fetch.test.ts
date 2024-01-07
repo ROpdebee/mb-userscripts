@@ -5,7 +5,7 @@ import type { Response } from '@lib/util/request';
 import type { MaximisedImage } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import type { ImageContents, QueuedImage } from '@src/mb_enhanced_cover_art_uploads/types';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { HTTPResponseError } from '@lib/util/request';
 import { NetworkError, request } from '@lib/util/request';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
@@ -28,10 +28,9 @@ jest.mock<{ getMaximisedCandidates: typeof getMaximisedCandidates }>('@src/mb_en
 jest.mock('@src/mb_enhanced_cover_art_uploads/providers');
 jest.mock('@src/mb_enhanced_cover_art_uploads/form');
 
-
 const mockpRetry = pRetry as jest.MockedFunction<typeof pRetry>;
 // eslint-disable-next-line jest/unbound-method
-const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [string | URL, unknown]>;
+const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [URL | string, unknown]>;
 // eslint-disable-next-line jest/unbound-method
 const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
 const mockGetMaximisedCandidates = getMaximisedCandidates as jest.MockedFunction<typeof getMaximisedCandidates>;
@@ -54,7 +53,7 @@ const fakeProvider = new FakeProvider();
 
 // Utility setup functions
 function disableMaximisation(): void {
-    // eslint-disable-next-line require-yield
+    // eslint-disable-next-line require-yield, @typescript-eslint/require-await
     mockGetMaximisedCandidates.mockImplementation(async function* (): AsyncGenerator<MaximisedImage, undefined, undefined> {
         return;
     });
@@ -92,7 +91,7 @@ function disableDummyFetch(mock: FetchImageContentsSpy): void {
 
 beforeAll(() => {
     // Mock p-retry so that it doesn't retry on image content fetching failure.
-    mockpRetry.mockImplementation(((fn) => (fn(0))) as typeof pRetry);
+    mockpRetry.mockImplementation(((function_) => (function_(0))) as typeof pRetry);
 });
 
 beforeEach(() => {
@@ -112,20 +111,20 @@ describe('fetching image contents', () => {
 
     beforeAll(() => {
         // Mock retrying behaviour so we can test it.
-        mockpRetry.mockImplementation(async (fn, options) => {
+        mockpRetry.mockImplementation(async (function_, options) => {
             try {
                 // eslint-disable-next-line @typescript-eslint/return-await
-                return await fn(0);
-            } catch (err) {
-                Object.defineProperties(err, {
+                return await function_(0);
+            } catch (error) {
+                Object.defineProperties(error, {
                     attemptNumber: { value: 1, writable: false },
                     retriesLeft: { value: 1, writable: false },
                 });
-                await options?.onFailedAttempt?.(err as FailedAttemptError);
+                await options?.onFailedAttempt?.(error as FailedAttemptError);
                 // Call the onRetry mock so we can verify when a retry would've
                 // occurred.
                 onRetry();
-                return fn(1);
+                return function_(1);
             }
         });
     });
@@ -137,7 +136,7 @@ describe('fetching image contents', () => {
     });
 
     afterAll(() => {
-        mockpRetry.mockImplementation((fn) => Promise.resolve(fn(0)));
+        mockpRetry.mockImplementation((function_) => Promise.resolve(function_(0)));
     });
 
     it('rejects on network error', async () => {
@@ -380,7 +379,7 @@ describe('fetching image from URL', () => {
     describe('with maximisation', () => {
         beforeAll(() => {
             // Return 2 maximised candidates
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/require-await
             mockGetMaximisedCandidates.mockImplementation(async function* (_smallurl) {
                 // One with and one without filename to test extraction of file
                 // names in maximised images too.
@@ -544,6 +543,7 @@ describe('fetching images from providers', () => {
         // Mocking the maximisation to return the same maximised URL for both
         // images. This should lead to the first URL being added and the second
         // one being skipped.
+        // eslint-disable-next-line @typescript-eslint/require-await
         async function* mockedImplementation(): ReturnType<typeof getMaximisedCandidates> {
             yield {
                 url: new URL('https://example.com/3'),
@@ -904,6 +904,7 @@ describe('fetching images', () => {
         await fetcher.fetchImages({ url: new URL('https://example.com/1') }, false);
 
         // Simulate 1 being maximal version of 2
+        // eslint-disable-next-line @typescript-eslint/require-await
         mockGetMaximisedCandidates.mockImplementationOnce(async function* () {
             yield {
                 url: new URL('https://example.com/1'),

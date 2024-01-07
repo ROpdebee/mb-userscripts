@@ -1,8 +1,8 @@
 import pThrottle from 'p-throttle';
 
-import type { Dimensions } from '@src/mb_caa_dimensions/ImageInfo';
+import type { Dimensions } from '@src/mb_caa_dimensions/image-info';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { filterNonNull } from '@lib/util/array';
 import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
@@ -25,8 +25,8 @@ export class BandcampProvider extends ProviderWithTrackImages {
     }
 
     public async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
-        const respDocument = parseDOM(await this.fetchPage(url), url.href);
-        const albumCoverUrl = this.extractCover(respDocument);
+        const responseDocument = parseDOM(await this.fetchPage(url), url.href);
+        const albumCoverUrl = this.extractCover(responseDocument);
 
         const covers: CoverArt[] = [];
         if (albumCoverUrl) {
@@ -40,21 +40,21 @@ export class BandcampProvider extends ProviderWithTrackImages {
         }
 
         // Don't bother extracting track images if we only need the front cover
-        const trackImages = onlyFront ? [] : await this.findTrackImages(respDocument, albumCoverUrl);
+        const trackImages = onlyFront ? [] : await this.findTrackImages(responseDocument, albumCoverUrl);
 
         return this.amendSquareThumbnails([...covers, ...trackImages]);
     }
 
-    private extractCover(doc: Document): string | undefined {
-        if (qsMaybe('#missing-tralbum-art', doc) !== null) {
+    private extractCover(document_: Document): string | undefined {
+        if (qsMaybe('#missing-tralbum-art', document_) !== null) {
             // No images
             return;
         }
 
-        return qs<HTMLAnchorElement>('#tralbumArt > .popupImage', doc).href;
+        return qs<HTMLAnchorElement>('#tralbumArt > .popupImage', document_).href;
     }
 
-    private async findTrackImages(doc: Document, mainUrl?: string): Promise<CoverArt[]> {
+    private async findTrackImages(document_: Document, mainUrl?: string): Promise<CoverArt[]> {
         // Unfortunately it doesn't seem like they can be extracted from the
         // album page itself, so we have to load each of the tracks separately.
         // Deliberately throttling these requests as to not flood Bandcamp and
@@ -62,7 +62,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // It appears that they used to have an API which returned all track
         // images in one request, but that API has been locked down :(
         // https://michaelherger.github.io/Bandcamp-API/#/Albums/get_api_album_2_info
-        const trackRows = qsa<HTMLTableRowElement>('#track_table .track_row_view', doc);
+        const trackRows = qsa<HTMLTableRowElement>('#track_table .track_row_view', document_);
         if (trackRows.length === 0) return [];
         LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
 
@@ -76,14 +76,14 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // before it even returns the main album cover. Although fixable by
         // e.g. using an async generator, it might lead to issues with users
         // submitting the upload form before all track images are fetched...
-        let numProcessed = 0;
+        let numberProcessed = 0;
         const trackImages = await Promise.all(trackRows
             .map(async (trackRow) => {
                 const trackImage = await this.findTrackImage(trackRow, throttledFetchPage);
                 // Cannot use `map`'s index argument since this is asynchronous
                 // and might resolve out of order.
-                numProcessed++;
-                LOGGER.info(`Checking for Bandcamp track images, this may take a few seconds… (${numProcessed}/${trackRows.length})`);
+                numberProcessed++;
+                LOGGER.info(`Checking for Bandcamp track images, this may take a few seconds… (${numberProcessed}/${trackRows.length})`);
                 return trackImage;
             }));
         const mergedTrackImages = await this.mergeTrackImages(trackImages, mainUrl, true);
@@ -98,12 +98,12 @@ export class BandcampProvider extends ProviderWithTrackImages {
 
     private async findTrackImage(trackRow: HTMLTableRowElement, fetchPage: (url: URL) => Promise<string>): Promise<ParsedTrackImage | undefined> {
         // Account for alphabetical track numbers too
-        const trackNum = trackRow.getAttribute('rel')?.match(/tracknum=(\w+)/)?.[1];
+        const trackNumber = trackRow.getAttribute('rel')?.match(/tracknum=(\w+)/)?.[1];
         const trackUrl = qsMaybe<HTMLAnchorElement>('.title > a', trackRow)?.href;
 
         /* istanbul ignore if: Cannot immediately find a release where a track is not linked */
         if (!trackUrl) {
-            LOGGER.warn(`Could not check track ${trackNum} for track images`);
+            LOGGER.warn(`Could not check track ${trackNumber} for track images`);
             return;
         }
 
@@ -118,10 +118,10 @@ export class BandcampProvider extends ProviderWithTrackImages {
 
             return {
                 url: imageUrl,
-                trackNumber: trackNum,
+                trackNumber: trackNumber,
             };
-        } catch (err) /* istanbul ignore next: Difficult to test */ {
-            LOGGER.error(`Could not check track ${trackNum} for track images`, err);
+        } catch (error) /* istanbul ignore next: Difficult to test */ {
+            LOGGER.error(`Could not check track ${trackNumber} for track images`, error);
             return;
         }
     }
@@ -139,8 +139,8 @@ export class BandcampProvider extends ProviderWithTrackImages {
             let coverDims: Dimensions;
             try {
                 coverDims = await getImageDimensions(cover.url.href.replace(/_\d+\.(\w+)$/, '_0.$1'));
-            } catch (err) {
-                LOGGER.warn(`Could not retrieve image dimensions for ${cover.url}, square thumbnail will not be added`, err);
+            } catch (error) {
+                LOGGER.warn(`Could not retrieve image dimensions for ${cover.url}, square thumbnail will not be added`, error);
                 return [cover];
             }
 

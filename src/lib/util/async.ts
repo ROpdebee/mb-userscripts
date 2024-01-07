@@ -6,7 +6,7 @@ export function asyncSleep(ms?: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function retryTimes<T>(fn: () => T | Promise<T>, times: number, retryWait: number): Promise<T> {
+export function retryTimes<T>(function_: () => Promise<T> | T, times: number, retryWait: number): Promise<T> {
     if (times <= 0) {
         return Promise.reject(new TypeError(`Invalid number of retry times: ${times}`));
     }
@@ -16,10 +16,10 @@ export function retryTimes<T>(fn: () => T | Promise<T>, times: number, retryWait
             // Need to await if the provided function returns a promise, we
             // want to catch if the promise fails. If it doesn't return a
             // promise, await does nothing.
-            return await fn();
-        } catch (err) {
+            return await function_();
+        } catch (error) {
             // If we failed the last attempt, the whole thing fails.
-            if (triesLeft <= 1) throw err;
+            if (triesLeft <= 1) throw error;
 
             // Return a new promise after sleeping. Because of chaining, the
             // state of our current promise will be the state of this new
@@ -33,16 +33,14 @@ export function retryTimes<T>(fn: () => T | Promise<T>, times: number, retryWait
 }
 
 // istanbul ignore next: Fine.
-export function logFailure(promise: Promise<unknown>, message = 'An error occurred'): void {
-    promise.catch((err) => {
-        LOGGER.error(message, err);
-    });
+export function logFailure(message = 'An error occurred'): ((error: Error) => void) {
+    return LOGGER.error.bind(LOGGER, message);
 }
 
 /**
  * Polyfill for Promise.prototype.finally.
  */
-export async function pFinally<T>(promise: Promise<T>, onFinally: () => (void | Promise<void>)): Promise<T> {
+export async function pFinally<T>(promise: Promise<T>, onFinally: () => (Promise<void> | void)): Promise<T> {
     try {
         return await promise;
     } finally {

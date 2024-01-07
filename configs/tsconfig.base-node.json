@@ -5,6 +5,6 @@
         "types": ["node"],
         // Override "lib" to ensure "DOM" isn't included, as DOM isn't
         // available in a standard node runtime.
-        "lib": ["ESNext"],
+        "lib": ["ESNext"]
     }
 }

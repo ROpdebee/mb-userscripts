@@ -4,7 +4,6 @@ import path from 'node:path';
 import type { TsConfigJson } from 'type-fest';
 import { glob } from 'glob';
 
-
 // Assumes that comments start on their own line.
 function stripComments(jsonContent: string): string {
     return jsonContent
@@ -27,7 +26,7 @@ async function check(): Promise<void> {
     });
     const rootConfig = JSON.parse(stripComments(rootConfigContent)) as TsConfigJson;
 
-    const referencedProjects = new Set(rootConfig.references?.map((ref) => path.resolve(ref.path)));
+    const referencedProjects = new Set(rootConfig.references?.map((reference) => path.resolve(reference.path)));
 
     for (const subprojectConfig of subprojectConfigs) {
         const subproject = path.parse(path.resolve(subprojectConfig)).dir;
@@ -38,7 +37,7 @@ async function check(): Promise<void> {
 }
 
 check()
-    .catch((err) => {
-        console.error(err);
+    .catch((error) => {
+        console.error(error);
         process.exit(1);
     });

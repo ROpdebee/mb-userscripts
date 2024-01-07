@@ -63,7 +63,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git config user.name 'GitHub Actions'
           git config push.default current
-      
+
       # Skip the remainder of these steps if we're not in a PR
       - name: Delete preview branch, if any
         if: steps.active-pr.outputs.result
@@ -89,5 +89,5 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const script = require('./build/report-deploy.js');
-            await script.reportDeploy({ github, context });
+            const { reportDeploy } = await import('${{ github.workspace }}/build/report-deploy.js');
+            await reportDeploy({ github, context });

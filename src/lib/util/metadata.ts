@@ -5,14 +5,14 @@
 export interface UserscriptCustomMetadata {
     name: string;
     description: string;
-    match: readonly string[] | string;
-    exclude?: readonly string[] | string;
-    require?: readonly string[] | string;
+    match: string | readonly string[];
+    exclude?: string | readonly string[];
+    require?: string | readonly string[];
     // https://wiki.greasespot.net/Metadata_Block#.40run-at
-    'run-at'?: 'document-start' | 'document-end' | 'document-idle';
-    grant?: readonly string[] | string;
-    connect?: readonly string[] | string;
-    resource?: readonly string[] | string;
+    'run-at'?: 'document-end' | 'document-idle' | 'document-start';
+    grant?: string | readonly string[];
+    connect?: string | readonly string[];
+    resource?: string | readonly string[];
     blurb: string;
 }
 
@@ -26,9 +26,8 @@ export interface UserscriptDefaultMetadata {
     updateURL: string;
 }
 
-export type UserscriptMetadata = UserscriptCustomMetadata & Partial<UserscriptDefaultMetadata>;
+export type UserscriptMetadata = Partial<UserscriptDefaultMetadata> & UserscriptCustomMetadata;
 export type AllUserscriptMetadata = UserscriptCustomMetadata & UserscriptDefaultMetadata & { version: string };
-
 
 export function transformMBMatchURL(requireString: string): string {
     return `*://*.musicbrainz.org/${requireString}`;

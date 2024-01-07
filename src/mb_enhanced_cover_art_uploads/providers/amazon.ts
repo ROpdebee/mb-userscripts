@@ -1,6 +1,8 @@
+import type { Promisable } from 'type-fest';
+
 import { GMgetResourceUrl } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/CoverArt';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assertNonNull } from '@lib/util/assert';
 import { parseDOM, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
@@ -9,11 +11,11 @@ import type { CoverArt } from '../types';
 import { CoverArtProvider } from './base';
 
 const PLACEHOLDER_IMG_NAMES = [
-    '01RmK+J4pJL',  // .com via B000Q3KSMQ
-    '01QFb8SNuTL',  // .de via B08F6QNPJ4
-    '01PkLIhTX3L',  // .fr via B08F6QNPJ4
-    '01MKUOLsA5L',  // .co.jp via B003XZRSAE
-    '31CTP6oiIBL',  // Found on .pl and .es, e.g. B00E6GJAE6
+    '01RmK+J4pJL', // .com via B000Q3KSMQ
+    '01QFb8SNuTL', // .de via B08F6QNPJ4
+    '01PkLIhTX3L', // .fr via B08F6QNPJ4
+    '01MKUOLsA5L', // .co.jp via B003XZRSAE
+    '31CTP6oiIBL', // Found on .pl and .es, e.g. B00E6GJAE6
 ];
 
 // Incomplete, only what we need
@@ -34,11 +36,11 @@ const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
 };
 
 // CSS queries to figure out which type of page we're on
-const AUDIBLE_PAGE_QUERY = '#audibleProductTitle';  // Product title with Audible logo on standard product pages
-const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]';  // Dynamically loaded Amazon Music digital pages.
+const AUDIBLE_PAGE_QUERY = '#audibleProductTitle'; // Product title with Audible logo on standard product pages
+const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]'; // Dynamically loaded Amazon Music digital pages.
 
 // CSS queries to extract a front cover from a page
-const AUDIBLE_FRONT_IMAGE_QUERY = '#audibleimageblock_feature_div #main-image';  // Only for page which have Audible releases.
+const AUDIBLE_FRONT_IMAGE_QUERY = '#audibleimageblock_feature_div #main-image'; // Only for page which have Audible releases.
 
 export class AmazonProvider extends CoverArtProvider {
     public readonly supportedDomains = [
@@ -66,7 +68,7 @@ export class AmazonProvider extends CoverArtProvider {
             throw new Error('Amazon served a captcha page');
         }
 
-        let finder: (url: URL, pageContent: string, pageDom: Document) => Promise<CoverArt[]>;
+        let finder: (url: URL, pageContent: string, pageDom: Document) => Promisable<CoverArt[]>;
 
         /* eslint-disable @typescript-eslint/unbound-method -- Bound further down */
         if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
@@ -83,20 +85,20 @@ export class AmazonProvider extends CoverArtProvider {
         /* eslint-enable @typescript-eslint/unbound-method */
 
         const covers = await finder.bind(this)(url, pageContent, pageDom);
-        return covers.filter((img) => !PLACEHOLDER_IMG_NAMES.some((name) => decodeURIComponent(img.url.pathname).includes(name)));
+        return covers.filter((image) => !PLACEHOLDER_IMG_NAMES.some((name) => decodeURIComponent(image.url.pathname).includes(name)));
     }
 
-    private async findGenericPhysicalImages(_url: URL, pageContent: string): Promise<CoverArt[]> {
+    private findGenericPhysicalImages(_url: URL, pageContent: string): CoverArt[] {
         const imgs = this.extractEmbeddedJSImages(pageContent, /\s*'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
         assertNonNull(imgs, 'Failed to extract images from embedded JS on generic physical page');
 
-        return imgs.map((img) => {
+        return imgs.map((image) => {
             // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
-            return this.convertVariant({ url: img.hiRes ?? img.large, variant: img.variant });
+            return this.convertVariant({ url: image.hiRes ?? image.large, variant: image.variant });
         });
     }
 
-    private async findAudibleImages(_url: URL, _pageContent: string, pageDom: Document): Promise<CoverArt[]> {
+    private findAudibleImages(_url: URL, _pageContent: string, pageDom: Document): CoverArt[] {
         return this.extractFrontCover(pageDom, AUDIBLE_FRONT_IMAGE_QUERY);
     }
 

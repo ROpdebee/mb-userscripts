@@ -97,4 +97,3 @@ describe('assertHasValue', () => {
         }).toThrow(new AssertionError('message'));
     });
 });
-

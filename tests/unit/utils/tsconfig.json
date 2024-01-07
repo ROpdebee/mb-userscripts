@@ -2,7 +2,7 @@
     "extends": "../../../configs/tsconfig.base-unit",
     "include": ["**/*"],
     "references": [
-        { "path": "../../../src/lib" },
+        { "path": "../../../src/lib" }
     ],
     "files": [
         "../../types/setup-polly-jest.d.ts"
