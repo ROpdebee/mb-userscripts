@@ -46,7 +46,7 @@
     "@types/conventional-commits-parser": "3.0.6",
     "@types/glob": "8.1.0",
     "@types/greasemonkey": "4.0.7",
-    "@types/jest": "29.5.11",
+    "@types/jest": "29.5.12",
     "@types/jest-when": "3.5.5",
     "@types/postcss-preset-env": "7.7.0",
     "@types/rollup__plugin-virtual": "2.0.4",
