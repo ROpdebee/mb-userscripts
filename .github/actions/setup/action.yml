@@ -43,7 +43,7 @@ runs:
       shell: bash
 
     - name: Cache npm package downloads
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: '~/.npm'
         key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ steps.curr-date.outputs.date }}-${{ hashFiles('package-lock.json') }}
@@ -63,7 +63,7 @@ runs:
     # package-lock.json.
     - name: Cache node_modules
       id: cache-node-modules
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ./node_modules
         key: modules-${{ runner.os }}-node-${{ steps.node-version.outputs.node-version }}-${{ steps.curr-date.outputs.date }}-${{ hashFiles('package-lock.json') }}
