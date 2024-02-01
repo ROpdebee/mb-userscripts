@@ -133,7 +133,7 @@ describe('observable semaphores', () => {
                 expect(callbacks.onAcquired).toHaveBeenCalledOnce();
                 expect(callbacks.onReleased).not.toHaveBeenCalled();
 
-                return Promise.reject('test');
+                return Promise.reject(new Error('test'));
             })).toReject();
             expect(callbacks.onReleased).toHaveBeenCalledOnce();
         });
