@@ -21,7 +21,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
         return this.cleanUrl(url)
             .match(this.urlRegex)
             ?.slice(1)
-            ?.join('/');
+            .join('/');
     }
 
     public async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {

@@ -125,7 +125,7 @@ describe('promise finally polyfill', () => {
     it('runs the finally handler when promise rejects', async () => {
         const callback = jest.fn();
 
-        await expect(pFinally(Promise.reject(123), callback)).toReject();
+        await expect(pFinally(Promise.reject(new Error('test')), callback)).toReject();
         expect(callback).toHaveBeenCalledOnce();
     });
 
@@ -144,8 +144,9 @@ describe('promise finally polyfill', () => {
     });
 
     it('rejects the promise with the value of the rejected finally handler', async () => {
-        const callback = jest.fn().mockRejectedValue(123);
+        const error = new Error('test');
+        const callback = jest.fn().mockRejectedValue(error);
 
-        await expect(pFinally(Promise.reject(1), callback)).rejects.toBe(123);
+        await expect(pFinally(Promise.reject(new Error('different error')), callback)).rejects.toBe(error);
     });
 });
