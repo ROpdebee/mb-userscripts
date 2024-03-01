@@ -43,7 +43,7 @@
     "@stylistic/eslint-plugin": "1.5.4",
     "@types/babel__core": "7.20.5",
     "@types/confusing-browser-globals": "1.0.3",
-    "@types/conventional-commits-parser": "3.0.6",
+    "@types/conventional-commits-parser": "5.0.0",
     "@types/glob": "8.1.0",
     "@types/greasemonkey": "4.0.7",
     "@types/jest": "29.5.12",
