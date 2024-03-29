@@ -19,7 +19,7 @@ interface HydratedData {
 
 export class BeatportProvider extends CoverArtProvider {
     public readonly supportedDomains = ['beatport.com'];
-    public readonly favicon = 'https://geo-pro.beatport.com/static/ea225b5168059ba412818496089481eb.png';
+    public readonly favicon = 'https://www.beatport.com/images/favicon-48x48.png';
     public readonly name = 'Beatport';
     protected readonly urlRegex = /release\/[^/]+\/(\d+)(?:\/|$)/;
 
