@@ -48,7 +48,7 @@
     "@types/greasemonkey": "4.0.7",
     "@types/jest": "29.5.12",
     "@types/jest-when": "3.5.5",
-    "@types/postcss-preset-env": "7.7.0",
+    "@types/postcss-preset-env": "8.0.0",
     "@types/rollup__plugin-virtual": "2.0.4",
     "@types/rollup-plugin-progress": "1.1.4",
     "@types/setup-polly-jest": "0.5.5",
