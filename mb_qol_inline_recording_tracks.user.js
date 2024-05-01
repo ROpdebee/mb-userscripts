@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2024.5.1
+// @version      2024.5.2
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -94,7 +94,7 @@ function insertRows(recordingTd, recordingInfo) {
 }
 
 function loadAndInsert() {
-    let recAnchors = document.querySelectorAll('table.medium td > a[href^="/recording/"]:first-child, table.medium td > span:first-child > a[href^="/recording/"]:first-child');
+    let recAnchors = document.querySelectorAll('table.medium td > a[href^="/recording/"]:first-child, table.medium td > span:first-child > a[href^="/recording/"]:first-child, table.medium td > span:first-child > span:first-child > a[href^="/recording/"]:first-child');
     let todo = [...recAnchors]
         .map((a) => [a.closest('td'), a.href.split('/recording/')[1]])
         .filter(([td]) => !td.querySelector('div.ars.ROpdebee_inline_tracks'));
