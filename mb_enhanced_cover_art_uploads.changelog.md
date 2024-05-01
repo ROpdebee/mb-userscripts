@@ -1,3 +1,4 @@
+- **2024.5.1**: Bug fix: hotfix for Discogs query SHA ([#762](https://github.com/ROpdebee/mb-userscripts/pull/762))
 - **2024.3.29**: Bug fix: update Beatport favicon ([#753](https://github.com/ROpdebee/mb-userscripts/pull/753))
 - **2024.1.6**: Bug fix: fall back on URL rewriting when Qobuz API returns 403 ([#737](https://github.com/ROpdebee/mb-userscripts/pull/737))
 - **2023.12.22**: New feature: add YouTube and YouTube Music provider ([#724](https://github.com/ROpdebee/mb-userscripts/pull/724))
