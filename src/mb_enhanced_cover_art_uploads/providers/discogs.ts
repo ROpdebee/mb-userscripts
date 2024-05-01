@@ -7,7 +7,7 @@ import { CoverArtProvider } from './base';
 
 // Not sure if this changes often. If it does, we might have to parse it from the
 // JS sources somehow.
-const QUERY_SHA256 = 'cd0fe8a7199e97a9027f676838dd25bf88346435f7096fddd79b055d68ea98c8';
+const QUERY_SHA256 = '7ccbbc8e37ee1d321d9dc70f18a6c25c33c809c03aa8e13953d328ecd5f5ad8a';
 
 interface ImageInfo {
     sourceUrl: string;
