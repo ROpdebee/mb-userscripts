@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2022.6.14
+// @version      2024.5.1
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -84,8 +84,13 @@ function insertRows(recordingTd, recordingInfo) {
         .map(formatRow)
         .map(row => '<dl class="ars"><dt>appears on:</dt><dd>' + row + '</dd></dl>')
         .join('\n');
-    recordingTd.querySelector('div.ars')
-        .insertAdjacentHTML('beforebegin', '<div class="ars ROpdebee_inline_tracks">' + rowElements + '</div>');
+    rowElements = '<div class="ars ROpdebee_inline_tracks">' + rowElements + '</div>';
+    let existingArs = recordingTd.querySelector('div.ars');
+    if (existingArs) {
+        existingArs.insertAdjacentHTML('beforebegin', rowElements);
+    } else {
+        recordingTd.insertAdjacentHTML('beforeend', rowElements);
+    }
 }
 
 function loadAndInsert() {
