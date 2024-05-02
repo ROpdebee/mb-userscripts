@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2024.5.2
+// @version      2024.5.3
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -72,7 +72,8 @@ function getTrackIndices(media) {
 }
 
 function getReleaseName(release) {
-    return `<a href="/release/${release.id}">${release.title}</a>`;
+    let releaseComment = release.disambiguation || "";
+    return `<!-- order by: ${release.date || "????"} ${release.title} ${releaseComment} --><a href="/release/${release.id}" ` + (release.date ? `title="${release.date}"` : '') + `>${release.title}</a>` + (releaseComment ? ` <span class="comment">(${releaseComment})</span>` : '');
 }
 
 function formatRow(release) {
@@ -82,6 +83,7 @@ function formatRow(release) {
 function insertRows(recordingTd, recordingInfo) {
     let rowElements = recordingInfo.releases
         .map(formatRow)
+        .sort()
         .map(row => '<dl class="ars"><dt>appears on:</dt><dd>' + row + '</dd></dl>')
         .join('\n');
     rowElements = '<div class="ars ROpdebee_inline_tracks">' + rowElements + '</div>';
