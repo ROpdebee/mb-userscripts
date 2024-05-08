@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2024.5.3
+// @version      2024.5.8
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -61,19 +61,19 @@ async function loadRecordingInfo(rids) {
     return perRecId;
 }
 
-function getTrackIndex(track, mediumPosition) {
-    return `<a href="/track/${track.id}">#${mediumPosition}.${track.number}</a>`;
+function getTrackIndex(track, mediumPosition, mediumTrackCount) {
+    return `<a href="/track/${track.id}" title="track ${track.number} of ${mediumTrackCount}">#${mediumPosition}.${track.number}</a>`;
 }
 
 function getTrackIndices(media) {
     return media.flatMap((medium) =>
-            medium.track.map((track) => getTrackIndex(track, medium.position)))
+            medium.track.map((track) => getTrackIndex(track, medium.position, medium['track-count'])))
         .join(', ');
 }
 
 function getReleaseName(release) {
-    let releaseComment = release.disambiguation || "";
-    return `<!-- order by: ${release.date || "????"} ${release.title} ${releaseComment} --><a href="/release/${release.id}" ` + (release.date ? `title="${release.date}"` : '') + `>${release.title}</a>` + (releaseComment ? ` <span class="comment">(${releaseComment})</span>` : '');
+    let releaseComment = release.disambiguation || '';
+    return `<!-- order by: [${release.date || ''}] ${release.title} ${releaseComment} ${release.media[0].position}.${release.media[0].track[0].number} --><a href="/release/${release.id}" ` + (release.date ? `title="released on ${release.date}"` : '') + `>${release.title}</a>` + (releaseComment ? ` <span class="comment">(${releaseComment})</span>` : '');
 }
 
 function formatRow(release) {
