@@ -51,11 +51,11 @@ const SC_CLIENT_ID_REGEX = /client_id\s*:\s*"([a-zA-Z\d]{32})"/;
 const SC_CLIENT_ID_CACHE_KEY = 'ROpdebee_ECAU_SC_ID';
 const SC_HOMEPAGE = 'https://soundcloud.com/';
 
-export class SoundcloudProvider extends ProviderWithTrackImages {
+export class SoundCloudProvider extends ProviderWithTrackImages {
     public readonly supportedDomains = ['soundcloud.com'];
     public readonly favicon = 'https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico';
-    public readonly name = 'Soundcloud';
-    // Soundcloud's URL scheme is a bit complicated, so instead of creating overly
+    public readonly name = 'SoundCloud';
+    // SoundCloud's URL scheme is a bit complicated, so instead of creating overly
     // complex regular expressions, we'll match URLs programmatically. However,
     // we still need to define this field, even though it'll never be used.
     protected readonly urlRegex = [];
@@ -88,7 +88,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             }
         }
 
-        throw new Error('Could not extract Soundcloud Client ID');
+        throw new Error('Could not extract SoundCloud Client ID');
     }
 
     private static async getClientID(): Promise<string> {
@@ -106,7 +106,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         const oldId = await this.getClientID();
         const newId = await this.loadClientID();
 
-        assert(oldId !== newId, 'Attempted to refresh Soundcloud Client ID but retrieved the same one.');
+        assert(oldId !== newId, 'Attempted to refresh SoundCloud Client ID but retrieved the same one.');
         localStorage.setItem(SC_CLIENT_ID_CACHE_KEY, newId);
     }
 
@@ -120,10 +120,10 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             .split('/');
 
         return (pathParts.length > 0
-            && !SoundcloudProvider.badArtistIDs.has(artistId)
+            && !SoundCloudProvider.badArtistIDs.has(artistId)
             // artist/likes, artist/track/recommended, artist/sets, ...
             // but not artist/sets/setname!
-            && !SoundcloudProvider.badSubpaths.has(urlBasename(url)));
+            && !SoundCloudProvider.badSubpaths.has(urlBasename(url)));
     }
 
     public override extractId(url: URL): string | undefined {
@@ -141,7 +141,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         const metadata = this.extractMetadataFromJS(pageContent)
             ?.find((data) => ['sound', 'playlist'].includes(data.hydratable));
         if (!metadata) {
-            throw new Error('Could not extract metadata from Soundcloud page. The release may have been removed.');
+            throw new Error('Could not extract metadata from SoundCloud page. The release may have been removed.');
         }
 
         if (metadata.hydratable === 'sound') {
@@ -175,7 +175,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             covers.push(...backdrops.map((backdropUrl) => ({
                 url: new URL(backdropUrl),
                 types: [ArtworkTypeIDs.Other],
-                comment: 'Soundcloud backdrop',
+                comment: 'SoundCloud backdrop',
             })));
         }
 
@@ -195,7 +195,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         // Don't bother extracting track covers if they won't be used anyway
         if (onlyFront) return covers;
 
-        // Soundcloud page only contains data for the first 5 tracks at first,
+        // SoundCloud page only contains data for the first 5 tracks at first,
         // we need to load the rest of the tracks.
         const tracks = await this.lazyLoadTracks(metadata.data.tracks);
 
@@ -215,7 +215,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
                 trackImages.push(...visuals.map((visualUrl) => ({
                     url: visualUrl,
                     trackNumber: (trackNumber + 1).toString(),
-                    customCommentPrefix: ['Soundcloud backdrop for track', 'Soundcloud backdrop for tracks'] as [string, string],
+                    customCommentPrefix: ['SoundCloud backdrop for track', 'SoundCloud backdrop for tracks'] as [string, string],
                 })));
 
                 return trackImages;
@@ -235,7 +235,7 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
         try {
             trackData = await this.getTrackData(lazyTrackIDs);
         } catch (error) {
-            LOGGER.error('Failed to load Soundcloud track data, some track images may be missed', error);
+            LOGGER.error('Failed to load SoundCloud track data, some track images may be missed', error);
             // We'll still return the tracks that we couldn't load, otherwise
             // the track indices will be wrong.
             return tracks;
@@ -260,8 +260,8 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
     }
 
     private async getTrackData(lazyTrackIDs: number[], firstTry = true): Promise<SCHydrationTrack[]> {
-        LOGGER.info('Loading Soundcloud track data');
-        const clientId = await SoundcloudProvider.getClientID();
+        LOGGER.info('Loading SoundCloud track data');
+        const clientId = await SoundCloudProvider.getClientID();
 
         // TODO: Does this work still work if we pass a large list of IDs?
         const parameters = new URLSearchParams({
@@ -278,11 +278,11 @@ export class SoundcloudProvider extends ProviderWithTrackImages {
             }
 
             LOGGER.debug('Attempting to refresh client ID');
-            await SoundcloudProvider.refreshClientID();
+            await SoundCloudProvider.refreshClientID();
             return this.getTrackData(lazyTrackIDs, firstTry = false);
         }
 
-        return safeParseJSON<LoadedAPITrack[]>(trackDataResponse.text, 'Failed to parse Soundcloud API response');
+        return safeParseJSON<LoadedAPITrack[]>(trackDataResponse.text, 'Failed to parse SoundCloud API response');
     }
 
     private extractVisuals(track: SCHydrationTrack): string[] {

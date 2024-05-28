@@ -163,7 +163,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
     // Providers that provide track images which need to be deduplicated. The
     // base class supports deduping by URL and thumbnail content.
     //
-    // Some providers, like Soundcloud and sometimes Bandcamp, use unique URLs
+    // Some providers, like SoundCloud and sometimes Bandcamp, use unique URLs
     // for each track image, so deduplicating based on URL won't work. They may
     // also not return any headers that uniquely identify the image (like a
     // Digest or an ETag), so we need to load the image and compare its data
