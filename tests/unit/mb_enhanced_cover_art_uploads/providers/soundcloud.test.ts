@@ -1,6 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
-import { SoundcloudProvider } from '@src/mb_enhanced_cover_art_uploads/providers/soundcloud';
+import { SoundCloudProvider } from '@src/mb_enhanced_cover_art_uploads/providers/soundcloud';
 import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared-behaviour';
 
@@ -16,7 +16,7 @@ afterEach(() => {
 });
 
 describe('soundcloud provider', () => {
-    const provider = new SoundcloudProvider();
+    const provider = new SoundCloudProvider();
     const pollyContext = setupPolly();
 
     describe('url matching', () => {
@@ -113,7 +113,7 @@ describe('soundcloud provider', () => {
                 index: 3,
                 urlPart: '9b0d4395-cc72-4aa9-84e1-17b807264e2f',
                 types: [ArtworkTypeIDs.Track],
-                comment: 'Soundcloud backdrop for tracks 2, 4, 6, 8, 10, 18, 20',
+                comment: 'SoundCloud backdrop for tracks 2, 4, 6, 8, 10, 18, 20',
             }],
         }];
 
@@ -168,7 +168,7 @@ describe('soundcloud provider', () => {
             const covers = await provider.findImages(new URL('https://soundcloud.com/soundcloud/sets/i-am-other-vol-2'));
 
             expect(covers).toBeArrayOfSize(6);
-            expect(mockLoggerError).toHaveBeenCalledWith('Failed to load Soundcloud track data, some track images may be missed', expect.any(Error));
+            expect(mockLoggerError).toHaveBeenCalledWith('Failed to load SoundCloud track data, some track images may be missed', expect.any(Error));
         });
 
         it('attempts to refresh client ID', async () => {

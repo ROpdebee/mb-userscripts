@@ -29,7 +29,7 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Qobuz | ✔️ | ✔️ | Goodies are grabbed whenever possible. Back covers might not be supported at this time, if you have a release with a back cover, please let me know. Maximised to original source image. |
 | RateYourMusic | ✔️ | ✔️ | Requires being logged in to RYM. |
 | Rockipedia | ✔️ | ❌ |
-| Soundcloud | ✔️ | ✔️ | Grabs custom track images. |
+| SoundCloud | ✔️ | ✔️ | Grabs custom track images. |
 | Spotify | ✔️ | ✔️ |
 | Tidal | ✔️ | ✔️ | listen.tidal.com/store.tidal.com are converted to tidal.com prior to fetching |
 | Traxsource | ✔️ | ✔️ | Limited to 600x600. |
