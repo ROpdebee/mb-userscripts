@@ -7,9 +7,10 @@
 // @namespace    https://github.com/ROpdebee/mb-userscripts
 // @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_inline_recording_tracks.user.js
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_inline_recording_tracks.user.js
+// @match        *://*.musicbrainz.eu/release/*
 // @match        *://*.musicbrainz.org/release/*
-// @exclude      *://*.musicbrainz.org/release/add
-// @exclude      *://*.musicbrainz.org/release/*/edit*
+// @exclude      */release/*/*
+// @exclude      */release/add
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
@@ -61,18 +62,19 @@ async function loadRecordingInfo(rids) {
     return perRecId;
 }
 
-function getTrackIndex(track, mediumPosition) {
-    return `<a href="/track/${track.id}">#${mediumPosition}.${track.number}</a>`;
+function getTrackIndex(track, mediumPosition, mediumTrackCount) {
+    return `<a href="/track/${track.id}" title="track ${track.number} of ${mediumTrackCount}">#${mediumPosition}.${track.number}</a>`;
 }
 
 function getTrackIndices(media) {
     return media.flatMap((medium) =>
-            medium.track.map((track) => getTrackIndex(track, medium.position)))
+            medium.track.map((track) => getTrackIndex(track, medium.position, medium['track-count'])))
         .join(', ');
 }
 
 function getReleaseName(release) {
-    return `<a href="/release/${release.id}">${release.title}</a>`;
+    let releaseComment = release.disambiguation || '';
+    return `<!-- order by: [${release.date || ''}] ${release.title} ${releaseComment} ${release.media[0].position}.${release.media[0].track[0].number} --><a href="/release/${release.id}" ` + (release.date ? `title="released on ${release.date}"` : '') + `>${release.title}</a>` + (releaseComment ? ` <span class="comment">(${releaseComment})</span>` : '');
 }
 
 function formatRow(release) {
@@ -82,6 +84,7 @@ function formatRow(release) {
 function insertRows(recordingTd, recordingInfo) {
     let rowElements = recordingInfo.releases
         .map(formatRow)
+        .sort()
         .map(row => '<dl class="ars"><dt>appears on:</dt><dd>' + row + '</dd></dl>')
         .join('\n');
     rowElements = '<div class="ars ROpdebee_inline_tracks">' + rowElements + '</div>';
