@@ -29,7 +29,9 @@ div.thumb-position {
 }
 
 // Styling of the info spans
-span.cover-art-image {
+// TODO: beta.MBS of May 24 2024 changed the classname from "cover-art-image" to "artwork-image".
+//       Change this when new class name lands in production MBS.
+span.cover-art-image, span.artwork-image {
     display: inline-block;
 }
 span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
