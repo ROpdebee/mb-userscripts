@@ -11,6 +11,11 @@ import { createCache } from './info-cache';
 
 import css from './style.scss';
 
+// Query for the span element containing the cover art image.
+// Old class name is "cover-art-image", new (since beta.MBS of May 24 2024) is "artwork-image".
+// TODO: Change this when new class name lands in production MBS.
+const ARTWORK_QUERY = '.cover-art-image, .artwork-image';
+
 function processPageChange(mutations: MutationRecord[], cache: InfoCache): void {
     const addedNodes = mutations.flatMap((mutation) => [...mutation.addedNodes]);
     for (const addedNode of addedNodes) {
@@ -50,7 +55,7 @@ function detectAndObserveImages(cache: InfoCache): void {
         processPageChange(mutations, cache);
     });
 
-    for (const container of qsa('.cover-art-image')) {
+    for (const container of qsa(ARTWORK_QUERY)) {
         // Seems to cover all possible cover art images except for queued upload thumbnails
         const imageElement = qsMaybe<HTMLImageElement>('img', container);
 
