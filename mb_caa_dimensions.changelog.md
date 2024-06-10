@@ -1,3 +1,4 @@
+- **2024.6.10**: Bug fix: compatibility with new beta.MBS ([#770](https://github.com/ROpdebee/mb-userscripts/pull/770))
 - **2023.12.3**: Internal changes: update minimum required versions of browsers ([#719](https://github.com/ROpdebee/mb-userscripts/pull/719))
 - **2023.6.9**: Internal changes: use unified request interface ([#672](https://github.com/ROpdebee/mb-userscripts/pull/672))
 - **2022.9.24**: Internal changes: update dependency idb to v7.1.0 ([#570](https://github.com/ROpdebee/mb-userscripts/pull/570))
