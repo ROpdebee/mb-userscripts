@@ -7,9 +7,10 @@
 // @namespace    https://github.com/ROpdebee/mb-userscripts
 // @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_inline_recording_tracks.user.js
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_qol_inline_recording_tracks.user.js
+// @match        *://*.musicbrainz.eu/release/*
 // @match        *://*.musicbrainz.org/release/*
-// @exclude      *://*.musicbrainz.org/release/add
-// @exclude      *://*.musicbrainz.org/release/*/edit*
+// @exclude      */release/*/*
+// @exclude      */release/add
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
