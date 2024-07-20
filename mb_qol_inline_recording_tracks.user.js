@@ -94,7 +94,7 @@ function insertRows(recordingTd, recordingInfo) {
 }
 
 function loadAndInsert() {
-    let recAnchors = document.querySelectorAll('table.medium td > a[href^="/recording/"]:first-child, table.medium td > span:first-child > a[href^="/recording/"]:first-child, table.medium td > span:first-child > span:first-child > a[href^="/recording/"]:first-child');
+    let recAnchors = document.querySelectorAll('table.medium td > a[href^="/recording/"], table.medium td > span > a[href^="/recording/"], table.medium td > span > span > a[href^="/recording/"]');
     let todo = [...recAnchors]
         .map((a) => [a.closest('td'), a.href.split('/recording/')[1]])
         .filter(([td]) => !td.querySelector('div.ars.ROpdebee_inline_tracks'));
