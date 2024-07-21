@@ -83,7 +83,7 @@ export abstract class BaseImage {
 }
 
 function caaUrlToDirectUrl(urlObject: URL): URL {
-    if (urlObject.host.match(AA_DOMAINS) && urlObject.pathname.match(/^\/(event|release)\//)) {
+    if (AA_DOMAINS.test(urlObject.host) && /^\/(event|release)\//.test(urlObject.pathname)) {
         const [releaseId, imageName] = urlObject.pathname.split('/').slice(2);
         urlObject.href = `https://archive.org/download/mbid-${releaseId}/mbid-${releaseId}-${imageName}`;
     }
@@ -110,7 +110,7 @@ function urlToCacheKey(fullSizeUrl: string, thumbnailUrl?: string): string {
     // Ideally, the cache key for RG covers would be the full size URL of the release cover,
     // but we unfortunately cannot get the original image's extension here, so we cannot construct
     // it.
-    if (urlObject.host.match(AA_DOMAINS) && urlObject.pathname.startsWith('/release-group/')) {
+    if (AA_DOMAINS.test(urlObject.host) && urlObject.pathname.startsWith('/release-group/')) {
         assertDefined(thumbnailUrl, 'Release group image requires a thumbnail URL');
         return thumbnailUrl;
     }
@@ -156,7 +156,7 @@ function urlToDirectImageUrl(url: string): string {
 function parseCAAIDs(url: string): [string, string] {
     const urlObject = new URL(url);
 
-    if (urlObject.host.match(AA_DOMAINS) && urlObject.pathname.match(/^\/(event|release)\//)) {
+    if (AA_DOMAINS.test(urlObject.host) && /^\/(event|release)\//.test(urlObject.pathname)) {
         const [releaseId, thumbName] = urlObject.pathname.split('/').slice(2);
         const imageId = thumbName.match(/^(\d+)/)?.[0];
         assertDefined(imageId, 'Malformed URL');
