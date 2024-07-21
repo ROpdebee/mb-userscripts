@@ -7,7 +7,8 @@ import { getCAAInfo } from './caa-info';
 import { getImageDimensions } from './dimensions';
 
 const CAA_ID_REGEX = /(mbid-[a-f\d-]{36})\/mbid-[a-f\d-]{36}-(\d+)/;
-const AA_DOMAINS = /^(cover|event)artarchive\.org$/;
+const CAA_DOMAIN = 'coverartarchive.org';
+const IMG_DOMAINS = /^(cover|event)artarchive\.org$/;
 
 export interface Image {
     getDimensions(): Promise<Dimensions | undefined>;
@@ -83,7 +84,7 @@ export abstract class BaseImage {
 }
 
 function caaUrlToDirectUrl(urlObject: URL): URL {
-    if (AA_DOMAINS.test(urlObject.host) && /^\/(event|release)\//.test(urlObject.pathname)) {
+    if (IMG_DOMAINS.test(urlObject.host) && /^\/(event|release)\//.test(urlObject.pathname)) {
         const [releaseId, imageName] = urlObject.pathname.split('/').slice(2);
         urlObject.href = `https://archive.org/download/mbid-${releaseId}/mbid-${releaseId}-${imageName}`;
     }
@@ -110,7 +111,7 @@ function urlToCacheKey(fullSizeUrl: string, thumbnailUrl?: string): string {
     // Ideally, the cache key for RG covers would be the full size URL of the release cover,
     // but we unfortunately cannot get the original image's extension here, so we cannot construct
     // it.
-    if (AA_DOMAINS.test(urlObject.host) && urlObject.pathname.startsWith('/release-group/')) {
+    if (urlObject.host === CAA_DOMAIN && urlObject.pathname.startsWith('/release-group/')) {
         assertDefined(thumbnailUrl, 'Release group image requires a thumbnail URL');
         return thumbnailUrl;
     }
@@ -156,7 +157,7 @@ function urlToDirectImageUrl(url: string): string {
 function parseCAAIDs(url: string): [string, string] {
     const urlObject = new URL(url);
 
-    if (AA_DOMAINS.test(urlObject.host) && /^\/(event|release)\//.test(urlObject.pathname)) {
+    if (IMG_DOMAINS.test(urlObject.host) && /^\/(event|release)\//.test(urlObject.pathname)) {
         const [releaseId, thumbName] = urlObject.pathname.split('/').slice(2);
         const imageId = thumbName.match(/^(\d+)/)?.[0];
         assertDefined(imageId, 'Malformed URL');
