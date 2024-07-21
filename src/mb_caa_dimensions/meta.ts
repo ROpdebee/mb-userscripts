@@ -6,11 +6,13 @@ const metadata: UserscriptMetadata = {
     'description': 'Displays the dimensions and size of images in the cover art archive.',
     'run-at': 'document-start',
     'match': [
+        'event/*',
         'release/*',
         'release-group/*',
         ...MB_EDIT_PAGE_PATHS,
     ].map((path) => transformMBMatchURL(path)),
     'exclude': [
+        transformMBMatchURL('event/*/edit'),
         transformMBMatchURL('release/*/edit'),
         transformMBMatchURL('release/*/edit-relationships'),
         transformMBMatchURL('release-group/*/edit'),
