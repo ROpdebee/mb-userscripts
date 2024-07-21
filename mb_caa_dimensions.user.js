@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
 // @description  Displays the dimensions and size of images in the cover art archive.
-// @version      2024.6.10
+// @version      2024.7.21
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -9,12 +9,14 @@
 // @supportURL   https://github.com/ROpdebee/mb-userscripts/issues
 // @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_caa_dimensions.user.js
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/dist/mb_caa_dimensions.meta.js
+// @match        *://*.musicbrainz.org/event/*
 // @match        *://*.musicbrainz.org/release/*
 // @match        *://*.musicbrainz.org/release-group/*
 // @match        *://*.musicbrainz.org/edit/*
 // @match        *://*.musicbrainz.org/*/edits*
 // @match        *://*.musicbrainz.org/user/*/votes
 // @match        *://*.musicbrainz.org/*/open_edits
+// @exclude      *://*.musicbrainz.org/event/*/edit
 // @exclude      *://*.musicbrainz.org/release/*/edit
 // @exclude      *://*.musicbrainz.org/release/*/edit-relationships
 // @exclude      *://*.musicbrainz.org/release-group/*/edit
@@ -111,7 +113,7 @@
   }));
 
   const CAA_ID_REGEX = /(mbid-[a-f\d-]{36})\/mbid-[a-f\d-]{36}-(\d+)/;
-  const CAA_DOMAIN = 'coverartarchive.org';
+  const AA_DOMAINS = /^(cover|event)artarchive\.org$/;
   class BaseImage {
     constructor(imageUrl, cache, cacheKey) {
       _defineProperty(this, "imageUrl", void 0);
@@ -174,7 +176,7 @@
     }
   }
   function caaUrlToDirectUrl(urlObject) {
-    if (urlObject.host === CAA_DOMAIN && urlObject.pathname.startsWith('/release/')) {
+    if (urlObject.host.match(AA_DOMAINS) && urlObject.pathname.match(/^\/(event|release)\//)) {
       const [releaseId, imageName] = urlObject.pathname.split('/').slice(2);
       urlObject.href = `https://archive.org/download/mbid-${releaseId}/mbid-${releaseId}-${imageName}`;
     }
@@ -182,7 +184,7 @@
   }
   function urlToCacheKey(fullSizeUrl, thumbnailUrl) {
     const urlObject = new URL(fullSizeUrl);
-    if (urlObject.host === CAA_DOMAIN && urlObject.pathname.startsWith('/release-group/')) {
+    if (urlObject.host.match(AA_DOMAINS) && urlObject.pathname.startsWith('/release-group/')) {
       assertDefined(thumbnailUrl, 'Release group image requires a thumbnail URL');
       return thumbnailUrl;
     }
@@ -201,7 +203,7 @@
   }
   function parseCAAIDs(url) {
     const urlObject = new URL(url);
-    if (urlObject.host === CAA_DOMAIN && urlObject.pathname.startsWith('/release/')) {
+    if (urlObject.host.match(AA_DOMAINS) && urlObject.pathname.match(/^\/(event|release)\//)) {
       var _thumbName$match;
       const [releaseId, thumbName] = urlObject.pathname.split('/').slice(2);
       const imageId = (_thumbName$match = thumbName.match(/^(\d+)/)) === null || _thumbName$match === void 0 ? void 0 : _thumbName$match[0];

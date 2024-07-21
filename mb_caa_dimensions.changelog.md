@@ -1,3 +1,4 @@
+- **2024.7.21**: New feature: add support for new event art archive (EAA) [vzell request](https://community.metabrainz.org/t/ropdebees-userscripts-support-thread/551947/182)
 - **2024.6.10**: Bug fix: compatibility with new beta.MBS ([#770](https://github.com/ROpdebee/mb-userscripts/pull/770))
 - **2023.12.3**: Internal changes: update minimum required versions of browsers ([#719](https://github.com/ROpdebee/mb-userscripts/pull/719))
 - **2023.6.9**: Internal changes: use unified request interface ([#672](https://github.com/ROpdebee/mb-userscripts/pull/672))
