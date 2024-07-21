@@ -46,7 +46,7 @@ a.artwork-image, a.artwork-pdf {
 // In edit pages, the container is very wide and the text wouldn't be centered nicely,
 // so add a max width to be the same as the image it's labelling.
 // Not sure why the container is so wide though.
-td.edit-cover-art {
+td.edit-cover-art, td.edit-event-art {
     span.ROpdebee_dimensions, span.ROpdebee_fileInfo {
         max-width: 250px;
     }
