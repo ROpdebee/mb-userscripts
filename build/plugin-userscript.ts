@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34960
-import { URL } from 'node:url';
+import { pathToFileURL, URL } from 'node:url';
 
 import type { Plugin } from 'rollup';
 import type { PackageJson } from 'type-fest';
@@ -162,7 +162,8 @@ export class MetadataGenerator {
      * @return     {Promise<UserscriptMetadata>}  The userscript's metadata.
      */
     public async loadMetadata(): Promise<AllUserscriptMetadata> {
-        const metadataFile = path.resolve('./src', this.options.userscriptName, 'meta.ts');
+        // Use file URLs for compatibility with Windows, otherwise drive letters are recognized as an invalid protocol.
+        const metadataFile = pathToFileURL(path.resolve('./src', this.options.userscriptName, 'meta.ts')).href;
         // eslint-disable-next-line no-unsanitized/method -- Fine.
         const specificMetadata = (await import(metadataFile) as { default: UserscriptMetadata }).default;
         return this.insertDefaultMetadata(specificMetadata);
