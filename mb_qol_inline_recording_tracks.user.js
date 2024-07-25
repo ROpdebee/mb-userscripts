@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2024.5.8
+// @version      2024.7.25
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -72,8 +72,7 @@ function getTrackIndices(media) {
 }
 
 function getReleaseName(release) {
-    let releaseComment = release.disambiguation || '';
-    return `<!-- order by: [${release.date || ''}] ${release.title} ${releaseComment} ${release.media[0].position}.${release.media[0].track[0].number} --><a href="/release/${release.id}" ` + (release.date ? `title="released on ${release.date}"` : '') + `>${release.title}</a>` + (releaseComment ? ` <span class="comment">(${releaseComment})</span>` : '');
+    return `<a href="/release/${release.id}" title="` + (release.date ? `released on ${release.date}` : 'unknown release date') + `">${release.title}</a>` + (release.disambiguation ? ` <span class="comment">(${release.disambiguation})</span>` : '');
 }
 
 function formatRow(release) {
@@ -82,8 +81,8 @@ function formatRow(release) {
 
 function insertRows(recordingTd, recordingInfo) {
     let rowElements = recordingInfo.releases
+        .sort(compareReleases)
         .map(formatRow)
-        .sort()
         .map(row => '<dl class="ars"><dt>appears on:</dt><dd>' + row + '</dd></dl>')
         .join('\n');
     rowElements = '<div class="ars ROpdebee_inline_tracks">' + rowElements + '</div>';
@@ -93,6 +92,18 @@ function insertRows(recordingTd, recordingInfo) {
     } else {
         recordingTd.insertAdjacentHTML('beforeend', rowElements);
     }
+}
+
+function compareReleases(a, b) {
+    if (releaseOrderingString(a) < releaseOrderingString(b)) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+function releaseOrderingString(release) {
+    return `[${release.date || ''}] ${release.title} ${release.disambiguation || ''} ${release.media[0].position.toString().padStart(4, '0')}.${release.media[0].track[0].number.toString().padStart(10, '0')}`;
 }
 
 function loadAndInsert() {
