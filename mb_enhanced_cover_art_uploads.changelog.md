@@ -1,3 +1,4 @@
+- **2024.7.26**: Bug fix: fix SoundCloud capitalization ([#766](https://github.com/ROpdebee/mb-userscripts/pull/766))
 - **2024.5.1**: Bug fix: hotfix for Discogs query SHA ([#762](https://github.com/ROpdebee/mb-userscripts/pull/762))
 - **2024.3.29**: Bug fix: update Beatport favicon ([#753](https://github.com/ROpdebee/mb-userscripts/pull/753))
 - **2024.1.6**: Bug fix: fall back on URL rewriting when Qobuz API returns 403 ([#737](https://github.com/ROpdebee/mb-userscripts/pull/737))

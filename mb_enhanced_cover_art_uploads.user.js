@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2024.5.1
+// @version      2024.7.26
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -1156,12 +1156,12 @@
   const SC_CLIENT_ID_REGEX = /client_id\s*:\s*"([a-zA-Z\d]{32})"/;
   const SC_CLIENT_ID_CACHE_KEY = 'ROpdebee_ECAU_SC_ID';
   const SC_HOMEPAGE = 'https://soundcloud.com/';
-  class SoundcloudProvider extends ProviderWithTrackImages {
+  class SoundCloudProvider extends ProviderWithTrackImages {
     constructor() {
       super(...arguments);
       _defineProperty(this, "supportedDomains", ['soundcloud.com']);
       _defineProperty(this, "favicon", 'https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico');
-      _defineProperty(this, "name", 'Soundcloud');
+      _defineProperty(this, "name", 'SoundCloud');
       _defineProperty(this, "urlRegex", []);
     }
     static async loadClientID() {
@@ -1177,7 +1177,7 @@
           return clientId[1];
         }
       }
-      throw new Error('Could not extract Soundcloud Client ID');
+      throw new Error('Could not extract SoundCloud Client ID');
     }
     static async getClientID() {
       const cachedID = localStorage.getItem(SC_CLIENT_ID_CACHE_KEY);
@@ -1191,12 +1191,12 @@
     static async refreshClientID() {
       const oldId = await this.getClientID();
       const newId = await this.loadClientID();
-      assert(oldId !== newId, 'Attempted to refresh Soundcloud Client ID but retrieved the same one.');
+      assert(oldId !== newId, 'Attempted to refresh SoundCloud Client ID but retrieved the same one.');
       localStorage.setItem(SC_CLIENT_ID_CACHE_KEY, newId);
     }
     supportsUrl(url) {
       const [artistId, ...pathParts] = url.pathname.trim().slice(1).replace(/\/$/, '').split('/');
-      return pathParts.length > 0 && !SoundcloudProvider.badArtistIDs.has(artistId) && !SoundcloudProvider.badSubpaths.has(urlBasename(url));
+      return pathParts.length > 0 && !SoundCloudProvider.badArtistIDs.has(artistId) && !SoundCloudProvider.badSubpaths.has(urlBasename(url));
     }
     extractId(url) {
       return url.pathname.slice(1);
@@ -1207,7 +1207,7 @@
       const pageContent = await this.fetchPage(url);
       const metadata = (_this$extractMetadata = this.extractMetadataFromJS(pageContent)) === null || _this$extractMetadata === void 0 ? void 0 : _this$extractMetadata.find(data => ['sound', 'playlist'].includes(data.hydratable));
       if (!metadata) {
-        throw new Error('Could not extract metadata from Soundcloud page. The release may have been removed.');
+        throw new Error('Could not extract metadata from SoundCloud page. The release may have been removed.');
       }
       if (metadata.hydratable === 'sound') {
         return this.extractCoverFromTrackMetadata(metadata, onlyFront);
@@ -1235,7 +1235,7 @@
         covers.push(...backdrops.map(backdropUrl => ({
           url: new URL(backdropUrl),
           types: [ArtworkTypeIDs.Other],
-          comment: 'Soundcloud backdrop'
+          comment: 'SoundCloud backdrop'
         })));
       }
       return covers;
@@ -1264,7 +1264,7 @@
         trackImages.push(...visuals.map(visualUrl => ({
           url: visualUrl,
           trackNumber: (trackNumber + 1).toString(),
-          customCommentPrefix: ['Soundcloud backdrop for track', 'Soundcloud backdrop for tracks']
+          customCommentPrefix: ['SoundCloud backdrop for track', 'SoundCloud backdrop for tracks']
         })));
         return trackImages;
       }));
@@ -1278,7 +1278,7 @@
       try {
         trackData = await this.getTrackData(lazyTrackIDs);
       } catch (error) {
-        LOGGER.error('Failed to load Soundcloud track data, some track images may be missed', error);
+        LOGGER.error('Failed to load SoundCloud track data, some track images may be missed', error);
         return tracks;
       }
       const trackIdToLoadedTrack = new Map(trackData.map(track => [track.id, track]));
@@ -1294,8 +1294,8 @@
     }
     async getTrackData(lazyTrackIDs) {
       let firstTry = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      LOGGER.info('Loading Soundcloud track data');
-      const clientId = await SoundcloudProvider.getClientID();
+      LOGGER.info('Loading SoundCloud track data');
+      const clientId = await SoundCloudProvider.getClientID();
       const parameters = new URLSearchParams({
         ids: lazyTrackIDs.join(','),
         client_id: clientId
@@ -1308,18 +1308,18 @@
           throw error;
         }
         LOGGER.debug('Attempting to refresh client ID');
-        await SoundcloudProvider.refreshClientID();
+        await SoundCloudProvider.refreshClientID();
         return this.getTrackData(lazyTrackIDs, firstTry = false);
       }
-      return safeParseJSON(trackDataResponse.text, 'Failed to parse Soundcloud API response');
+      return safeParseJSON(trackDataResponse.text, 'Failed to parse SoundCloud API response');
     }
     extractVisuals(track) {
       var _track$visuals;
       return ((_track$visuals = track.visuals) === null || _track$visuals === void 0 ? void 0 : _track$visuals.visuals.map(visual => visual.visual_url)) ?? [];
     }
   }
-  _defineProperty(SoundcloudProvider, "badArtistIDs", new Set(['you', 'discover', 'stream', 'upload', 'search']));
-  _defineProperty(SoundcloudProvider, "badSubpaths", new Set(['likes', 'followers', 'following', 'reposts', 'albums', 'tracks', 'popular-tracks', 'comments', 'sets', 'recommended']));
+  _defineProperty(SoundCloudProvider, "badArtistIDs", new Set(['you', 'discover', 'stream', 'upload', 'search']));
+  _defineProperty(SoundCloudProvider, "badSubpaths", new Set(['likes', 'followers', 'following', 'reposts', 'albums', 'tracks', 'popular-tracks', 'comments', 'sets', 'recommended']));
 
   class SpotifyProvider extends HeadMetaPropertyProvider {
     constructor() {
@@ -1758,7 +1758,7 @@
   addProvider(new RateYourMusicProvider());
   addProvider(new RockipediaProvider());
   addProvider(new SevenDigitalProvider());
-  addProvider(new SoundcloudProvider());
+  addProvider(new SoundCloudProvider());
   addProvider(new SpotifyProvider());
   addProvider(new TidalProvider());
   addProvider(new TraxsourceProvider());
