@@ -1,3 +1,4 @@
+- **2024.7.26**: Bug fix: remove extraneous spacing in JSX-transpiled HTML ([#781](https://github.com/ROpdebee/mb-userscripts/pull/781))
 - **2023.12.3**: Internal changes: update minimum required versions of browsers ([#719](https://github.com/ROpdebee/mb-userscripts/pull/719))
 - **2022.8.13**: Bug fix: use correct ref on non-release pages ([#551](https://github.com/ROpdebee/mb-userscripts/pull/551))
 - **2022.7.27.2**: Bug fix: submit all but last URL immediately ([#515](https://github.com/ROpdebee/mb-userscripts/pull/515))
