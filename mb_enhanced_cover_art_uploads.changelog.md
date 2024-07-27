@@ -1,3 +1,4 @@
+- **2024.7.27**: Bug fix: fix seed parameters not iterable error ([#784](https://github.com/ROpdebee/mb-userscripts/pull/784))
 - **2024.7.26.2**: Bug fix: remove extraneous spacing in JSX-transpiled HTML ([#781](https://github.com/ROpdebee/mb-userscripts/pull/781))
 - **2024.7.26**: Bug fix: fix SoundCloud capitalization ([#766](https://github.com/ROpdebee/mb-userscripts/pull/766))
 - **2024.5.1**: Bug fix: hotfix for Discogs query SHA ([#762](https://github.com/ROpdebee/mb-userscripts/pull/762))

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2024.7.26.2
+// @version      2024.7.27
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2075,7 +2075,7 @@
     }
     static decode(seedParameters) {
       let images = [];
-      for (const [key, value] of seedParameters.entries()) {
+      for (const [key, value] of seedParameters) {
         if (!key.startsWith('x_seed.image.')) continue;
         try {
           decodeSingleKeyValue(key, value, images);
