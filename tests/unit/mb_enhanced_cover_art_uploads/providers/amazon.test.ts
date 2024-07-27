@@ -40,46 +40,24 @@ describe('amazon provider', () => {
 
     describe('extracting images', () => {
         const expectedPhysical = {
-            imageCount: 5,
+            imageCount: 2,
             expectedImages: [{
                 index: 0,
-                urlPart: '81bqssuW6LL',
+                urlPart: '51f7hRG0IrL',
                 types: [ArtworkTypeIDs.Front],
             }, {
                 index: 1,
-                urlPart: '61jZYB6BJYL',
-                types: [ArtworkTypeIDs.Back],
-            }, {
-                index: 2,
-                urlPart: '71TLgC33KgL',
-            }, {
-                index: 3,
-                urlPart: '81JCfIAZ71L',
-            }, {
-                index: 4,
-                urlPart: '816dglIIJHL',
+                urlPart: '61YPk7xRUSL',
             }],
         };
-        // This was the expected result for the Amazon Music release, we may need
-        // this again in the future.
-        /*
-        const expectedDigital = {
-            imageCount: 1,
-            expectedImages: [{
-                index: 0,
-                urlPart: '819w7BrMFgL',
-                types: [ArtworkTypeIDs.Front],
-            }],
-        };
-        */
 
         const extractionCases: ExtractionCase[] = [{
             description: 'physical products from the embedded JS on dp URLs',
-            url: 'https://www.amazon.com/dp/B07QWNQT8X',
+            url: 'https://www.amazon.com/dp/B0D2JLXK38',
             ...expectedPhysical,
         }, {
             description: 'physical products from the embedded JS on gp URLs',
-            url: 'https://www.amazon.com/gp/product/B07QWNQT8X',
+            url: 'https://www.amazon.com/gp/product/B0D2JLXK38',
             ...expectedPhysical,
         }, {
             description: 'physical audiobooks from the embedded JS',
@@ -108,7 +86,7 @@ describe('amazon provider', () => {
             imageCount: 1,
             expectedImages: [{
                 index: 0,
-                urlPart: '61yMjtQzKcL',
+                urlPart: '91WJ0q27ddL',
                 types: [ArtworkTypeIDs.Front],
             }],
         }, {
@@ -117,7 +95,7 @@ describe('amazon provider', () => {
             imageCount: 1,
             expectedImages: [{
                 index: 0,
-                urlPart: '51tYQFOBhOL',
+                urlPart: '91zPf7ACV9L',
                 types: [ArtworkTypeIDs.Front],
             }],
         }];

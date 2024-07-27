@@ -1,22 +1,22 @@
 WARC/1.1
 WARC-Filename: amazon provider/extracting images/throws on non-existent release
-WARC-Date: 2023-07-18T22:55:36.074Z
+WARC-Date: 2024-07-27T19:12:38.777Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:7a0f5fff-f564-407c-9925-4b1eea5e2da0>
+WARC-Record-ID: <urn:uuid:0f303bd1-17ad-43c2-9e68-02ebe2c42f99>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:0db3d4de-12b8-4f0c-84d5-e5a2f1fb82de>
+WARC-Concurrent-To: <urn:uuid:32e077fb-451b-4ee5-ba63-f2cad3762ad7>
 WARC-Target-URI: http://amazon.com/gp/product/B01NCKFNXH
-WARC-Date: 2023-07-18T22:55:36.074Z
+WARC-Date: 2024-07-27T19:12:38.778Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:0117be62-5d42-4f9d-ba31-0f8d3e06ad39>
+WARC-Record-ID: <urn:uuid:158645d7-61d5-4e31-8e1e-4401af2aa892>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:e949af39d7cdef7092b766c1e0ad5e829d3f519c7bbb15ac8704a129d86639e5
@@ -27,55 +27,59 @@ GET /gp/product/B01NCKFNXH HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:0db3d4de-12b8-4f0c-84d5-e5a2f1fb82de>
+WARC-Concurrent-To: <urn:uuid:32e077fb-451b-4ee5-ba63-f2cad3762ad7>
 WARC-Target-URI: http://amazon.com/gp/product/B01NCKFNXH
-WARC-Date: 2023-07-18T22:55:36.074Z
+WARC-Date: 2024-07-27T19:12:38.779Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:e507c553-976b-4447-b674-eb8862b71bf0>
+WARC-Record-ID: <urn:uuid:24c52457-b2ba-46f7-a9f6-8b6d0d1779e4>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:281d5d643da895906385a62ff0795f757ac3d1a4cdecfffa2a49872c977d653b
-WARC-Block-Digest: sha256:281d5d643da895906385a62ff0795f757ac3d1a4cdecfffa2a49872c977d653b
-Content-Length: 540
+WARC-Payload-Digest: sha256:263676b4fca20414ffd08c347d96b376bee70e733d7e49c0a4e214f898157dfd
+WARC-Block-Digest: sha256:263676b4fca20414ffd08c347d96b376bee70e733d7e49c0a4e214f898157dfd
+Content-Length: 600
 
 harEntryId: 21ab56b0267a51c83dc0404e7d1e2051
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2023-07-18T22:55:34.441Z
-time: 1631
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1631,"receive":0,"ssl":-1}
+startedDateTime: 2024-07-27T19:12:37.896Z
+time: 866
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":866,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 58
 warcRequestCookies: []
-warcResponseHeadersSize: 1334
-warcResponseCookies: [{"name":"session-id","value":"135-7612745-6342456","domain":".amazon.com","expires":"2024-07-17T22:55:35.000Z","path":"/","secure, session-id-time":"2082787201l","secure, i18n-prefs":"USD"}]
+warcResponseHeadersSize: 1543
+warcResponseCookies: [{"name":"session-id","value":"137-5589571-8376446","domain":".amazon.com","expires":"2025-07-27T19:12:38.000Z","path":"/","secure, session-id-time":"2082787201l","secure, i18n-prefs":"USD","version":"1","maxAge":31536000,"secure":true,"httpOnly":true}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: http://amazon.com/gp/product/B01NCKFNXH
-WARC-Date: 2023-07-18T22:55:36.074Z
+WARC-Date: 2024-07-27T19:12:38.777Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:0db3d4de-12b8-4f0c-84d5-e5a2f1fb82de>
+WARC-Record-ID: <urn:uuid:32e077fb-451b-4ee5-ba63-f2cad3762ad7>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:608ace39565e07773dd3de0b4b78cccb74933760e9f02d3811a6e0dc162a2ca4
-WARC-Block-Digest: sha256:cf951d190d35eb18cf151aa47519e3326af4a67281909e2dcbfe992d2e2c5016
-Content-Length: 3656
+WARC-Block-Digest: sha256:daa849f5ed87f6cc3bea12b87e978a232352fa8b369fb8de78305e8e4d5e8878
+Content-Length: 3865
 
 HTTP/1.1 404 Not Found
 accept-ch: ect,rtt,downlink,device-memory,sec-ch-device-memory,viewport-width,sec-ch-viewport-width,dpr,sec-ch-dpr
 accept-ch-lifetime: 86400
-connection: close
+alt-svc: h3=":443"; ma=86400
+connection: keep-alive
 content-encoding: gzip
-content-length: 1149
 content-security-policy: upgrade-insecure-requests;report-uri https://metrics.media-amazon.com/
 content-security-policy-report-only: default-src 'self' blob: https: data: mediastream: 'unsafe-eval' 'unsafe-inline';report-uri https://metrics.media-amazon.com/
 content-type: text/html;charset=UTF-8
-date: Tue, 18 Jul 2023 22:55:35 GMT
-p3p: policyref="https://www.amazon.com/w3c/p3p.xml",CP="CAO DSP LAW CUR ADM IVAo IVDo CONo OTPo OUR DELi PUBi OTRi BUS PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA HEA PRE LOC GOV OTC "
+date: Sat, 27 Jul 2024 19:12:38 GMT
 server: Server
-set-cookie: session-id=135-7612745-6342456; Domain=.amazon.com; Expires=Wed, 17-Jul-2024 22:55:35 GMT; Path=/; Secure, session-id-time=2082787201l; Domain=.amazon.com; Expires=Wed, 17-Jul-2024 22:55:35 GMT; Path=/; Secure, i18n-prefs=USD; Domain=.amazon.com; Expires=Wed, 17-Jul-2024 22:55:35 GMT; Path=/
+set-cookie: session-id=137-5589571-8376446; Domain=.amazon.com; Expires=Sun, 27-Jul-2025 19:12:38 GMT; Path=/; Secure, session-id-time=2082787201l; Domain=.amazon.com; Expires=Sun, 27-Jul-2025 19:12:38 GMT; Path=/; Secure, i18n-prefs=USD; Domain=.amazon.com; Expires=Sun, 27-Jul-2025 19:12:38 GMT; Path=/, sp-cdn="L5Z9:BE"; Version=1; Domain=.amazon.com; Max-Age=31536000; Expires=Sun, 27-Jul-2025 19:12:38 GMT; Path=/; Secure; HttpOnly
 strict-transport-security: max-age=47474747; includeSubDomains; preload
-vary: Accept-Encoding
-x-amz-rid: BS4S2SNM5G951SMXBW6C
+transfer-encoding: chunked
+vary: Content-Type,Accept-Encoding,User-Agent
+via: 1.1 5db4f6b1c04035a37ba6548e89b362be.cloudfront.net (CloudFront)
+x-amz-cf-id: DJJ7DITGoJaHQrdjUtaf_unWEaYew26EfwT5qT6pbdqcm-3--8lddg==
+x-amz-cf-pop: DUS51-P2
+x-amz-rid: 5KQXD3TBJTSCQ7605QAJ
+x-cache: Error from cloudfront
 x-content-type-options: nosniff
 x-frame-options: SAMEORIGIN
 x-xss-protection: 1;
