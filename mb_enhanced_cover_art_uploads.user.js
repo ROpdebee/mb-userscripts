@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2024.7.27.2
+// @version      2024.7.27.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -447,9 +447,7 @@
     BACK: ArtworkTypeIDs.Back,
     SIDE: ArtworkTypeIDs.Spine
   };
-  const AUDIBLE_PAGE_QUERY = '#audibleProductTitle';
   const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]';
-  const AUDIBLE_FRONT_IMAGE_QUERY = '#audibleimageblock_feature_div #main-image';
   class AmazonProvider extends CoverArtProvider {
     constructor() {
       super(...arguments);
@@ -466,17 +464,10 @@
       if (qsMaybe('form[action="/errors/validateCaptcha"]', pageDom) !== null) {
         throw new Error('Amazon served a captcha page');
       }
-      let finder;
-      if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
-        LOGGER.debug('Searching for images in Audible page');
-        finder = this.findAudibleImages;
-      } else if (qsMaybe(MUSIC_DIGITAL_PAGE_QUERY, pageDom)) {
+      if (qsMaybe(MUSIC_DIGITAL_PAGE_QUERY, pageDom)) {
         throw new Error('Amazon Music releases are currently not supported. Please use a different provider or copy the image URL manually.');
-      } else {
-        LOGGER.debug('Searching for images in generic physical page');
-        finder = this.findGenericPhysicalImages;
       }
-      const covers = await finder.bind(this)(url, pageContent, pageDom);
+      const covers = this.findGenericPhysicalImages(url, pageContent);
       return covers.filter(image => !PLACEHOLDER_IMG_NAMES.some(name => decodeURIComponent(image.url.pathname).includes(name)));
     }
     findGenericPhysicalImages(_url, pageContent) {
@@ -488,17 +479,6 @@
           variant: image.variant
         });
       });
-    }
-    findAudibleImages(_url, _pageContent, pageDom) {
-      return this.extractFrontCover(pageDom, AUDIBLE_FRONT_IMAGE_QUERY);
-    }
-    extractFrontCover(pageDom, selector) {
-      const productImage = qsMaybe(selector, pageDom);
-      assertNonNull(productImage, 'Could not find front image on Amazon page');
-      return [{
-        url: new URL(productImage.src),
-        types: [ArtworkTypeIDs.Front]
-      }];
     }
     extractEmbeddedJSImages(pageContent, jsonRegex) {
       var _pageContent$match;
@@ -1718,7 +1698,7 @@
       assert(pageType === 'MUSIC_PAGE_TYPE_ALBUM', `Expected an album, got ${pageTypeReadable} instead`);
     }
     extractImages(pageInfo) {
-      const thumbnails = pageInfo.data.header.musicDetailHeaderRenderer.thumbnail.croppedSquareThumbnailRenderer.thumbnail.thumbnails;
+      const thumbnails = pageInfo.data.background.musicThumbnailRenderer.thumbnail.thumbnails;
       const thumbnailUrl = thumbnails[thumbnails.length - 1].url;
       return [{
         url: new URL(thumbnailUrl),
