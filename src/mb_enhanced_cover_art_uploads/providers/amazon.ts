@@ -1,5 +1,3 @@
-import type { Promisable } from 'type-fest';
-
 import { GMgetResourceUrl } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
@@ -36,11 +34,7 @@ const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
 };
 
 // CSS queries to figure out which type of page we're on
-const AUDIBLE_PAGE_QUERY = '#audibleProductTitle'; // Product title with Audible logo on standard product pages
 const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]'; // Dynamically loaded Amazon Music digital pages.
-
-// CSS queries to extract a front cover from a page
-const AUDIBLE_FRONT_IMAGE_QUERY = '#audibleimageblock_feature_div #main-image'; // Only for page which have Audible releases.
 
 export class AmazonProvider extends CoverArtProvider {
     public readonly supportedDomains = [
@@ -68,23 +62,13 @@ export class AmazonProvider extends CoverArtProvider {
             throw new Error('Amazon served a captcha page');
         }
 
-        let finder: (url: URL, pageContent: string, pageDom: Document) => Promisable<CoverArt[]>;
-
-        /* eslint-disable @typescript-eslint/unbound-method -- Bound further down */
-        if (qsMaybe(AUDIBLE_PAGE_QUERY, pageDom)) {
-            LOGGER.debug('Searching for images in Audible page');
-            finder = this.findAudibleImages;
-        } else if (qsMaybe(MUSIC_DIGITAL_PAGE_QUERY, pageDom)) {
-            // Amazon made it really difficult to extract images from these sort
-            // of pages, so we don't support it for now.
+        // Amazon made it really difficult to extract images from these sort
+        // of pages, so we don't support it for now.
+        if (qsMaybe(MUSIC_DIGITAL_PAGE_QUERY, pageDom)) {
             throw new Error('Amazon Music releases are currently not supported. Please use a different provider or copy the image URL manually.');
-        } else {
-            LOGGER.debug('Searching for images in generic physical page');
-            finder = this.findGenericPhysicalImages;
         }
-        /* eslint-enable @typescript-eslint/unbound-method */
 
-        const covers = await finder.bind(this)(url, pageContent, pageDom);
+        const covers = this.findGenericPhysicalImages(url, pageContent);
         return covers.filter((image) => !PLACEHOLDER_IMG_NAMES.some((name) => decodeURIComponent(image.url.pathname).includes(name)));
     }
 
@@ -96,20 +80,6 @@ export class AmazonProvider extends CoverArtProvider {
             // `img.hiRes` is probably only `null` when `img.large` is the placeholder image?
             return this.convertVariant({ url: image.hiRes ?? image.large, variant: image.variant });
         });
-    }
-
-    private findAudibleImages(_url: URL, _pageContent: string, pageDom: Document): CoverArt[] {
-        return this.extractFrontCover(pageDom, AUDIBLE_FRONT_IMAGE_QUERY);
-    }
-
-    private extractFrontCover(pageDom: Document, selector: string): CoverArt[] {
-        const productImage = qsMaybe<HTMLImageElement>(selector, pageDom);
-        assertNonNull(productImage, 'Could not find front image on Amazon page');
-        return [{
-            // Only returning the thumbnail, IMU will maximise
-            url: new URL(productImage.src),
-            types: [ArtworkTypeIDs.Front],
-        }];
     }
 
     private extractEmbeddedJSImages(pageContent: string, jsonRegex: RegExp): object[] | null {
