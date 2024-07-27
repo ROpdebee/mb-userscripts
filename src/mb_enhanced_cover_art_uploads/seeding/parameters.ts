@@ -70,7 +70,7 @@ export class SeedParameters {
 
     public static decode(seedParameters: URLSearchParams): SeedParameters {
         let images: BareCoverArt[] = [];
-        for (const [key, value] of seedParameters.entries()) {
+        for (const [key, value] of seedParameters) {
             // only image parameters can be decoded to cover art images
             if (!key.startsWith('x_seed.image.')) continue;
 
