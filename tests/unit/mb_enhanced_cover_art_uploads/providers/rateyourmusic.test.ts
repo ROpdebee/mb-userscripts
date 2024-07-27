@@ -28,6 +28,22 @@ describe('rateyourmusic provider', () => {
             description: 'single buy URLs',
             url: 'https://rateyourmusic.com/release/single/hot_dad/undertale/buy',
             id: 'single/hot_dad/undertale',
+        }, {
+            description: 'EP URLs',
+            url: 'https://rateyourmusic.com/release/ep/the-atlas-moth-ken-mode/the-atlas-moth-ken-mode/',
+            id: 'ep/the-atlas-moth-ken-mode/the-atlas-moth-ken-mode',
+        }, {
+            description: 'music video URLs',
+            url: 'https://rateyourmusic.com/release/musicvideo/ken-mode/the-terror-pulse/',
+            id: 'musicvideo/ken-mode/the-terror-pulse',
+        }, {
+            description: 'additional release URLs',
+            url: 'https://rateyourmusic.com/release/additional/ken-mode/daytrotter-session/',
+            id: 'additional/ken-mode/daytrotter-session',
+        }, {
+            description: 'compilation URLs',
+            url: 'https://rateyourmusic.com/release/comp/various-artists/killed-by-canada/',
+            id: 'comp/various-artists/killed-by-canada',
         }];
 
         const unsupportedUrls = [{
