@@ -18,18 +18,14 @@ interface YTMusicBrowseEndpointContextSupportedConfigs {
 }
 
 interface YTMusicPageData {
-    header: {
-        musicDetailHeaderRenderer: {
+    background: {
+        musicThumbnailRenderer: {
             thumbnail: {
-                croppedSquareThumbnailRenderer: {
-                    thumbnail: {
-                        thumbnails: Array<{
-                            url: string;
-                            width: number;
-                            height: number;
-                        }>;
-                    };
-                };
+                thumbnails: Array<{
+                    url: string;
+                    width: number;
+                    height: number;
+                }>;
             };
         };
     };
@@ -114,7 +110,7 @@ export class YoutubeMusicProvider extends CoverArtProvider {
     }
 
     private extractImages(pageInfo: YTMusicPageInfo): CoverArt[] {
-        const thumbnails = pageInfo.data.header.musicDetailHeaderRenderer.thumbnail.croppedSquareThumbnailRenderer.thumbnail.thumbnails;
+        const thumbnails = pageInfo.data.background.musicThumbnailRenderer.thumbnail.thumbnails;
         const thumbnailUrl = thumbnails[thumbnails.length - 1].url;
 
         return [{
