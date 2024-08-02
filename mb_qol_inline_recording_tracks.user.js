@@ -15,6 +15,11 @@
 // @grant        none
 // ==/UserScript==
 
+let releaseMbid = location.pathname.match(/\/release\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/);
+if (releaseMbid) {
+    releaseMbid = releaseMbid[1];
+}
+
 function splitChunks(arr, chunkSize) {
     let chunks = [];
     for (let i = 0; i < arr.length; i += chunkSize) {
@@ -77,14 +82,17 @@ function getReleaseName(release) {
 }
 
 function formatRow(release) {
-    return `${getReleaseName(release)} (${getTrackIndices(release.media)}) <span class="comment">${humanReadableTime(release.media[0].track[0].length)}</span>`;
+    let rowHead = '<dl class="ars"';
+    if (releaseMbid === release.id) {
+        rowHead = rowHead + ' style="opacity: .6; filter: contrast(.2);" title="current release"';
+    }
+    return `${rowHead}><dt>appears on:</dt><dd>${getReleaseName(release)} (${getTrackIndices(release.media)}) <span class="comment">${humanReadableTime(release.media[0].track[0].length)}</span></dd></dl>`;
 }
 
 function insertRows(recordingTd, recordingInfo) {
     let rowElements = recordingInfo.releases
         .sort(compareReleases)
         .map(formatRow)
-        .map(row => '<dl class="ars"><dt>appears on:</dt><dd>' + row + '</dd></dl>')
         .join('\n');
     rowElements = '<div class="ars ROpdebee_inline_tracks">' + rowElements + '</div>';
     let existingArs = recordingTd.querySelector('div.ars');
