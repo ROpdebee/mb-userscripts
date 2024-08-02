@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2024.7.25
+// @version      2024.8.2
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -77,7 +77,7 @@ function getReleaseName(release) {
 }
 
 function formatRow(release) {
-    return `${getReleaseName(release)} (${getTrackIndices(release.media)})`;
+    return `${getReleaseName(release)} (${getTrackIndices(release.media)}) <span class="comment">${humanReadableTime(release.media[0].track[0].length)}</span>`;
 }
 
 function insertRows(recordingTd, recordingInfo) {
@@ -151,3 +151,12 @@ onReactHydrated(document.querySelector('.tracklist-and-credits'), () => {
     document.querySelector('span#medium-toolbox')
         .firstChild.before(button, ' | ');
 });
+
+function humanReadableTime(_ms) {
+    var ms = typeof _ms == "string" ? parseInt(_ms, 10) : _ms;
+    if (ms > 0) {
+        var d = new Date(ms);
+        return (d.getUTCHours() > 0 ? d.getUTCHours() + ":" + (d.getUTCMinutes() / 100).toFixed(2).slice(2) : d.getUTCMinutes()) + ":" + (d.getUTCSeconds() / 100).toFixed(2).slice(2) + (d.getUTCMilliseconds() > 0 ? "." + (d.getUTCMilliseconds() / 1000).toFixed(3).slice(2) : "");
+    }
+    return "?:??";
+}
