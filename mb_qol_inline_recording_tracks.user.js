@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: QoL: Inline all recording's tracks on releases
-// @version      2024.7.25
+// @version      2024.8.2
 // @description  Display all tracks and releases on which a recording appears from the release page.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -14,6 +14,11 @@
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
+
+let releaseMbid = location.pathname.match(/\/release\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/);
+if (releaseMbid) {
+    releaseMbid = releaseMbid[1];
+}
 
 function splitChunks(arr, chunkSize) {
     let chunks = [];
@@ -77,14 +82,17 @@ function getReleaseName(release) {
 }
 
 function formatRow(release) {
-    return `${getReleaseName(release)} (${getTrackIndices(release.media)})`;
+    let rowHead = '<dl class="ars"';
+    if (releaseMbid === release.id) {
+        rowHead = rowHead + ' style="opacity: .6; filter: contrast(.2);" title="current release"';
+    }
+    return `${rowHead}><dt>appears on:</dt><dd>${getReleaseName(release)} (${getTrackIndices(release.media)}) <span class="comment">${humanReadableTime(release.media[0].track[0].length)}</span></dd></dl>`;
 }
 
 function insertRows(recordingTd, recordingInfo) {
     let rowElements = recordingInfo.releases
         .sort(compareReleases)
         .map(formatRow)
-        .map(row => '<dl class="ars"><dt>appears on:</dt><dd>' + row + '</dd></dl>')
         .join('\n');
     rowElements = '<div class="ars ROpdebee_inline_tracks">' + rowElements + '</div>';
     let existingArs = recordingTd.querySelector('div.ars');
@@ -151,3 +159,12 @@ onReactHydrated(document.querySelector('.tracklist-and-credits'), () => {
     document.querySelector('span#medium-toolbox')
         .firstChild.before(button, ' | ');
 });
+
+function humanReadableTime(_ms) {
+    var ms = typeof _ms == "string" ? parseInt(_ms, 10) : _ms;
+    if (ms > 0) {
+        var d = new Date(ms);
+        return (d.getUTCHours() > 0 ? d.getUTCHours() + ":" + (d.getUTCMinutes() / 100).toFixed(2).slice(2) : d.getUTCMinutes()) + ":" + (d.getUTCSeconds() / 100).toFixed(2).slice(2) + (d.getUTCMilliseconds() > 0 ? "." + (d.getUTCMilliseconds() / 1000).toFixed(3).slice(2) : "");
+    }
+    return "?:??";
+}
