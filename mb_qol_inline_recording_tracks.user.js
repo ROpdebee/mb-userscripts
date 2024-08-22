@@ -86,7 +86,7 @@ function formatRow(release) {
     if (releaseMbid === release.id) {
         rowHead = rowHead + ' style="opacity: .6; filter: contrast(.2);" title="current release"';
     }
-    return `${rowHead}><dt>appears on:</dt><dd>${getReleaseName(release)} (${getTrackIndices(release.media)}) <span class="comment">${humanReadableTime(release.media[0].track[0].length)}</span></dd></dl>`;
+    return `${rowHead}><dt>appears on:</dt><dd>${getReleaseName(release)} (${getTrackIndices(release.media)}) <span class="comment">${toIntelligibleTime(release.media[0].track[0].length)}</span></dd></dl>`;
 }
 
 function insertRows(recordingTd, recordingInfo) {
@@ -160,11 +160,11 @@ onReactHydrated(document.querySelector('.tracklist-and-credits'), () => {
         .firstChild.before(button, ' | ');
 });
 
-function humanReadableTime(_ms) {
+function toIntelligibleTime(_ms) {
     var ms = typeof _ms == "string" ? parseInt(_ms, 10) : _ms;
     if (ms > 0) {
         var d = new Date(ms);
-        return (d.getUTCHours() > 0 ? d.getUTCHours() + ":" + (d.getUTCMinutes() / 100).toFixed(2).slice(2) : d.getUTCMinutes()) + ":" + (d.getUTCSeconds() / 100).toFixed(2).slice(2) + (d.getUTCMilliseconds() > 0 ? "." + (d.getUTCMilliseconds() / 1000).toFixed(3).slice(2) : "");
+        return (d.getUTCHours() > 0 ? d.getUTCHours() + ":" + d.getUTCMinutes().toString().padStart(2, "0") : d.getUTCMinutes()) + ":" + d.getUTCSeconds().toString().padStart(2, "0") + (d.getUTCMilliseconds() > 0 ? "." + d.getUTCMilliseconds().toString().padStart(3, "0") : "");
     }
     return "?:??";
 }
