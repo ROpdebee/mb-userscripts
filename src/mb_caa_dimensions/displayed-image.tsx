@@ -36,10 +36,12 @@ export function createFileInfoString(imageInfo: ImageInfo): string {
 
 abstract class BaseDisplayedImage implements DisplayedImage {
     public readonly imageElement: HTMLImageElement;
+    private readonly _labelPlacementAnchor: Element;
     private _dimensionsSpan: HTMLSpanElement | null = null;
     private _fileInfoSpan: HTMLSpanElement | null = null;
 
-    public constructor(imageElement: HTMLImageElement) {
+    public constructor(imageElement: HTMLImageElement, labelPlacementAnchor?: Element | null) {
+        this._labelPlacementAnchor = labelPlacementAnchor ?? imageElement;
         this.imageElement = imageElement;
     }
 
@@ -53,7 +55,7 @@ abstract class BaseDisplayedImage implements DisplayedImage {
 
         // First time accessing the dimensions, add it now.
         this._dimensionsSpan = <span className="ROpdebee_dimensions"></span>;
-        this.imageElement.insertAdjacentElement('afterend', this._dimensionsSpan);
+        this._labelPlacementAnchor.insertAdjacentElement('afterend', this._dimensionsSpan);
         return this._dimensionsSpan;
     }
 
@@ -172,7 +174,7 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
 
     // No cache, unnecessary to cache.
     public constructor(imageElement: HTMLImageElement) {
-        super(imageElement);
+        super(imageElement, imageElement.parentElement?.lastElementChild);
         this.image = new QueuedUploadImage(imageElement);
     }
 
