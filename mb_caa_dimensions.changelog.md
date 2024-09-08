@@ -1,3 +1,4 @@
+- **2024.9.8**: Bug fix: don't displace arrows on queued uploads ([#795](https://github.com/ROpdebee/mb-userscripts/pull/795))
 - **2024.7.26**: Bug fix: remove extraneous spacing in JSX-transpiled HTML ([#781](https://github.com/ROpdebee/mb-userscripts/pull/781))
 - **2024.7.25**: New feature: add support for new event art archive (EAA) ([#779](https://github.com/ROpdebee/mb-userscripts/pull/779))
 - **2024.6.10**: Bug fix: compatibility with new beta.MBS ([#770](https://github.com/ROpdebee/mb-userscripts/pull/770))

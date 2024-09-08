@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
 // @description  Displays the dimensions and size of images in the cover art archive.
-// @version      2024.7.26
+// @version      2024.9.8
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -277,10 +277,12 @@
       return details.join(', ');
   }
   class BaseDisplayedImage {
-      constructor(imageElement) {
+      constructor(imageElement, labelPlacementAnchor) {
           _defineProperty(this, 'imageElement', void 0);
+          _defineProperty(this, '_labelPlacementAnchor', void 0);
           _defineProperty(this, '_dimensionsSpan', null);
           _defineProperty(this, '_fileInfoSpan', null);
+          this._labelPlacementAnchor = labelPlacementAnchor ?? imageElement;
           this.imageElement = imageElement;
       }
       get dimensionsSpan() {
@@ -294,7 +296,7 @@
               $$a.setAttribute('class', 'ROpdebee_dimensions');
               return $$a;
           }.call(this);
-          this.imageElement.insertAdjacentElement('afterend', this._dimensionsSpan);
+          this._labelPlacementAnchor.insertAdjacentElement('afterend', this._dimensionsSpan);
           return this._dimensionsSpan;
       }
       get fileInfoSpan() {
@@ -379,7 +381,8 @@
   }
   class DisplayedQueuedUploadImage extends BaseDisplayedImage {
       constructor(imageElement) {
-          super(imageElement);
+          var _imageElement$parentE;
+          super(imageElement, (_imageElement$parentE = imageElement.parentElement) === null || _imageElement$parentE === void 0 ? void 0 : _imageElement$parentE.lastElementChild);
           _defineProperty(this, 'image', void 0);
           this.image = new QueuedUploadImage(imageElement);
       }
