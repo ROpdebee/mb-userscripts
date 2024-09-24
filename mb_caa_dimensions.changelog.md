@@ -1,3 +1,4 @@
+- **2024.9.24**: Internal changes: bump rollup from 4.9.6 to 4.22.4 ([#796](https://github.com/ROpdebee/mb-userscripts/pull/796))
 - **2024.9.8**: Bug fix: don't displace arrows on queued uploads ([#795](https://github.com/ROpdebee/mb-userscripts/pull/795))
 - **2024.7.26**: Bug fix: remove extraneous spacing in JSX-transpiled HTML ([#781](https://github.com/ROpdebee/mb-userscripts/pull/781))
 - **2024.7.25**: New feature: add support for new event art archive (EAA) ([#779](https://github.com/ROpdebee/mb-userscripts/pull/779))
