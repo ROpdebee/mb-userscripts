@@ -1,3 +1,4 @@
+- **2024.9.24**: Internal changes: bump rollup from 4.9.6 to 4.22.4 ([#796](https://github.com/ROpdebee/mb-userscripts/pull/796))
 - **2024.7.26**: Bug fix: remove extraneous spacing in JSX-transpiled HTML ([#781](https://github.com/ROpdebee/mb-userscripts/pull/781))
 - **2023.12.3**: Internal changes: update minimum required versions of browsers ([#719](https://github.com/ROpdebee/mb-userscripts/pull/719))
 - **2022.8.13**: Bug fix: use correct ref on non-release pages ([#551](https://github.com/ROpdebee/mb-userscripts/pull/551))

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: QoL: Paste multiple external links at once
 // @description  Enables pasting multiple links, separated by whitespace, into the external link editor.
-// @version      2024.7.26
+// @version      2024.9.24
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
