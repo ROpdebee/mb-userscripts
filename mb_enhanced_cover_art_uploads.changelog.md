@@ -1,3 +1,4 @@
+- **2024.10.14**: Bug fix: update Discogs query hash again ([#799](https://github.com/ROpdebee/mb-userscripts/pull/799))
 - **2024.8.27**: New feature: update Image Max URL to maximise Spotify covers ([#791](https://github.com/ROpdebee/mb-userscripts/pull/791))
 - **2024.7.27.3**: Bug fix: upstream provider fixes ([#786](https://github.com/ROpdebee/mb-userscripts/pull/786))
 - **2024.7.27.2**: Bug fix: support more RateYourMusic release types ([#785](https://github.com/ROpdebee/mb-userscripts/pull/785))
