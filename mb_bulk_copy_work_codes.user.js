@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2025.2.14
+// @version      2025.3.10
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -15,7 +15,7 @@
 // @match        *://*.musicbrainz.org/release/*/edit-relationships
 // @match        *://musicbrainz.org/*/create
 // @match        *://*.musicbrainz.org/*/create
-// @require      https://raw.github.com/ROpdebee/mb-userscripts/main/lib/work_identifiers.js?v=2023.12.07
+// @require      https://raw.github.com/ROpdebee/mb-userscripts/main/lib/work_identifiers.js?v=2025.03.09
 // @run-at       document-end
 // @grant        GM_getValue
 // @grant        GM_setValue
