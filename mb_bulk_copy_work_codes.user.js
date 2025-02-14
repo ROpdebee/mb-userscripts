@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2023.12.07
+// @version      2025.2.14
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -623,7 +623,7 @@ let translateStrings = (function() {
         AGENCY_WORK_CODE_FIELD: 'Agency Work Code',
         ARCHIVED_ISWCS: 'Archived ISWCs',
         ORIGINAL_TITLE_FIELD: 'Original Title',
-        PREFERRED_ISWC_FIELD: 'Preferred ISWC',
+        ISWC_FIELD: 'ISWC',
     };
 
     return function(text) {
@@ -665,7 +665,7 @@ function handleISWCNet() {
     }
 
     function findIswcs(table) {
-        iswcs = [table.querySelector(`td[id="${translateStrings('PREFERRED_ISWC_FIELD')}:"]`).innerText];
+        iswcs = [table.querySelector(`td[id="${translateStrings('ISWC_FIELD')}:"]`).innerText];
         findDivByText(table, translateStrings('ARCHIVED_ISWCS')).forEach(archivedTitle => {
             let archivedISWCsDiv = archivedTitle.nextSibling;
             iswcs = iswcs.concat(archivedISWCsDiv.childNodes[0].textContent.split(', '));
