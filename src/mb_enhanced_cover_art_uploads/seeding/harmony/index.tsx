@@ -9,7 +9,7 @@ import { SeedParameters } from '../parameters';
 
 export const HarmonySeeder: Seeder = {
     supportedDomains: ['harmony.pulsewidth.org.uk'],
-    supportedRegexes: [/\/release\/actions\?release_mbid=([a-f\d-]{36})/],
+    supportedRegexes: [/\/release\/actions.*release_mbid=([a-f\d-]{36})/],
 
     insertSeedLinks(): void {
         // Extract the MBID from the URL parameters
