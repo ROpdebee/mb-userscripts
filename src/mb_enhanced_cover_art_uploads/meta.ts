@@ -18,7 +18,7 @@ const metadata: UserscriptMetadata = {
         '*://atisket.pulsewidth.org.uk/*',
         '*://etc.marlonob.info/atisket/*',
         '*://vgmdb.net/album/*',
-        '*://harmony.pulsewidth.org.uk/*',
+        '*://harmony.pulsewidth.org.uk/release/actions*',
     ],
     'exclude': ['*://atisket.pulsewidth.org.uk/'],
     'grant': [

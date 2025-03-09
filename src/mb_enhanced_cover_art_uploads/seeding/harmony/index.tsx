@@ -1,8 +1,6 @@
-// src/mb_enhanced_cover_art_uploads/seeding/harmony/index.tsx
-
 import { LOGGER } from '@lib/logging/logger';
-import { logFailure } from '@lib/util/async';
-import { qs, qsa, qsMaybe } from '@lib/util/dom';
+import { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import { qs, qsa } from '@lib/util/dom';
 
 import type { Seeder } from '../base';
 import { SeedParameters } from '../parameters';
@@ -12,63 +10,50 @@ export const HarmonySeeder: Seeder = {
     supportedRegexes: [/\/release\/actions.*release_mbid=([a-f\d-]{36})/],
 
     insertSeedLinks(): void {
+        const originUrl = new URL(document.location.href);
+
         // Extract the MBID from the URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const mbid = urlParams.get('release_mbid');
+        const mbid = originUrl.searchParams.get('release_mbid');
         if (!mbid) {
-            LOGGER.error("Release MBID not found in URL.");
+            LOGGER.error('Release MBID not found in URL.');
             return;
         }
 
-        addSeedLinksToCovers([mbid], document.location.href);
-    }
+        addSeedLinksToCovers(mbid, originUrl.href);
+    },
 };
 
-function addSeedLinksToCovers(mbids: string[], origin: string): void {
+function addSeedLinksToCovers(mbid: string, origin: string): void {
     // Find cover image elements on the page
     const covers = qsa<HTMLElement>('figure.cover-image');
-    
+
     if (covers.length === 0) {
-        LOGGER.warn("No cover images found on the page.");
+        LOGGER.warn('No cover images found on the page.');
         return;
     }
 
     for (const coverElement of covers) {
-        addSeedLinkToCover(coverElement, mbids, origin);
+        addSeedLinkToCover(coverElement, mbid, origin);
     }
 }
 
-function addSeedLinkToCover(coverElement: HTMLElement, mbids: string[], origin: string): void {
-    const img = qs<HTMLImageElement>('img', coverElement);
-    const imgUrl = img.src.replace(/\/250x250bb\.jpg/, '/1000x1000bb.jpg'); // Get high-quality image URL
+function addSeedLinkToCover(coverElement: HTMLElement, mbid: string, origin: string): void {
+    const imageUrl = qs<HTMLImageElement>('img', coverElement).src;
 
     const parameters = new SeedParameters([{
-        url: new URL(imgUrl),
-        // Set Front type
-        types: [1]
+        url: new URL(imageUrl),
+        types: [ArtworkTypeIDs.Front],
     }], origin);
 
-    for (const mbid of mbids) {
-        const seedUrl = parameters.createSeedURL(mbid);
+    const seedUrl = parameters.createSeedURL(mbid);
 
-        // Create the link element
-        const link = (
-            <span className="label add-cover-art-link" onClick={() => window.open(seedUrl, '_blank')}>
-                + Add Cover Art
-            </span>
-        );
+    const seedLink = (
+        <a className="label" href={seedUrl}>
+            + Add Cover Art
+        </a>
+    );
 
-        // Add CSS for the link
-        const style = document.createElement('style');
-        style.textContent = `
-            .add-cover-art-link {
-                min-height: 1.2em;
-                cursor: pointer;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Append the link to the cover container
-        coverElement.childNodes[1].appendChild(link);
-    }
+    // Append the link to the cover container
+    qs<HTMLElement>('figcaption', coverElement)
+        .insertAdjacentElement('beforeend', seedLink);
 }
