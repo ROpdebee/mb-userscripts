@@ -19,6 +19,13 @@ export const HarmonySeeder: Seeder = {
             return;
         }
 
+        // Use a cached link as the origin instead of the page URL itself,
+        // so that we link to the state at the time the image was submitted.
+        if (!originUrl.searchParams.has('ts')) {
+            // It is safe to use the current time if we don't have a permalink already.
+            const cacheTimestamp = Math.floor(Date.now() / 1000);
+            originUrl.searchParams.set('ts', cacheTimestamp.toString());
+        }
         addSeedLinksToCovers(mbid, originUrl.href);
     },
 };
