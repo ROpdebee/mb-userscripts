@@ -1,6 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
-import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { qs, qsa } from '@lib/util/dom';
+import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
 
 import type { Seeder } from '../base';
 import { SeedParameters } from '../parameters';
@@ -30,6 +30,9 @@ export const HarmonySeeder: Seeder = {
     },
 };
 
+/** Mapping of Harmony provider names to provider release URLs. */
+let providerReleaseUrlMap: Record<string, string | undefined>;
+
 function addSeedLinksToCovers(mbid: string, origin: string): void {
     // Find cover image elements on the page
     const covers = qsa<HTMLElement>('figure.cover-image');
@@ -39,17 +42,31 @@ function addSeedLinksToCovers(mbid: string, origin: string): void {
         return;
     }
 
+    // Populate mapping with provider names from data attributes and release URLs.
+    providerReleaseUrlMap = Object.fromEntries(qsa<HTMLElement>('ul.provider-list > li').map((li) => [
+        li.dataset.provider!,
+        qs<HTMLAnchorElement>('a.provider-id', li).href,
+    ]));
+
     for (const coverElement of covers) {
         addSeedLinkToCover(coverElement, mbid, origin);
     }
 }
 
 function addSeedLinkToCover(coverElement: HTMLElement, mbid: string, origin: string): void {
-    const imageUrl = qs<HTMLImageElement>('img', coverElement).src;
+    let coverUrl = qs<HTMLImageElement>('img', coverElement).src;
+
+    // Prefer seeding the release URL over the image URL for supported providers.
+    const providerName = coverElement.dataset.provider;
+    if (providerName) {
+        const releaseUrl = providerReleaseUrlMap[providerName];
+        if (releaseUrl && getProvider(new URL(releaseUrl))) {
+            coverUrl = releaseUrl;
+        }
+    }
 
     const parameters = new SeedParameters([{
-        url: new URL(imageUrl),
-        types: [ArtworkTypeIDs.Front],
+        url: new URL(coverUrl),
     }], origin);
 
     const seedUrl = parameters.createSeedURL(mbid);
