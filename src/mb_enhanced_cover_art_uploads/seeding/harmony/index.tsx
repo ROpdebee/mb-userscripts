@@ -1,8 +1,11 @@
 import { LOGGER } from '@lib/logging/logger';
+import { logFailure } from '@lib/util/async';
 import { qs, qsa } from '@lib/util/dom';
+import { formatFileSize } from '@lib/util/format';
 import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
 
 import type { Seeder } from '../base';
+import { getImageInfo } from '../dimensions';
 import { SeedParameters } from '../parameters';
 
 export const HarmonySeeder: Seeder = {
@@ -18,6 +21,8 @@ export const HarmonySeeder: Seeder = {
             LOGGER.error('Release MBID not found in URL.');
             return;
         }
+
+        addDimensionsToCovers();
 
         // Use a cached link as the origin instead of the page URL itself,
         // so that we link to the state at the time the image was submitted.
@@ -53,6 +58,13 @@ function addSeedLinksToCovers(mbid: string, origin: string): void {
     }
 }
 
+function addDimensionsToCovers(): void {
+    const covers = qsa<HTMLElement>('figure.cover-image');
+    for (const fig of covers) {
+        addDimensions(fig).catch(logFailure('Failed to insert image information'));
+    }
+}
+
 function addSeedLinkToCover(coverElement: HTMLElement, mbid: string, origin: string): void {
     let coverUrl = qs<HTMLImageElement>('img', coverElement).src;
 
@@ -80,4 +92,29 @@ function addSeedLinkToCover(coverElement: HTMLElement, mbid: string, origin: str
     // Append the link to the cover container
     qs<HTMLElement>('figcaption', coverElement)
         .insertAdjacentElement('beforeend', seedLink);
+}
+
+async function addDimensions(fig: HTMLElement): Promise<void> {
+    const imageUrl = qs<HTMLImageElement>('img', fig).src;
+    const dimSpan = (
+        <span className="label">
+            loading…
+        </span>
+    );
+    qs('figcaption', fig).insertAdjacentElement('beforeend', dimSpan);
+
+    const imageInfo = await getImageInfo(imageUrl);
+
+    const infoStringParts = [
+        imageInfo.dimensions ? `${imageInfo.dimensions.width}x${imageInfo.dimensions.height}` : '',
+        imageInfo.size !== undefined ? formatFileSize(imageInfo.size) : '',
+        imageInfo.fileType,
+    ];
+    const infoString = infoStringParts.filter(Boolean).join(', ');
+
+    if (infoString) {
+        dimSpan.textContent = infoString;
+    } else {
+        dimSpan.remove();
+    }
 }

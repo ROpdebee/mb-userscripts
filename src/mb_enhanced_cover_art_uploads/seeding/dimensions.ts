@@ -1,10 +1,11 @@
 import pRetry from 'p-retry';
 
-import type { Dimensions, FileInfo } from '@src/mb_caa_dimensions/image-info';
+import type { Dimensions, FileInfo, ImageInfo } from '@src/mb_caa_dimensions/image-info';
 import { LOGGER } from '@lib/logging/logger';
 import { safeParseJSON } from '@lib/util/json';
 import { HTTPResponseError, request } from '@lib/util/request';
 import { BaseImage } from '@src/mb_caa_dimensions/image';
+import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
 
 // Use a multiple of 3, most a-tisket releases have 3 images.
 // Currently set to 30, should allow 10 releases open in parallel.
@@ -106,7 +107,7 @@ export /* for tests */ const localStorageCache = {
     },
 };
 
-export class AtisketImage extends BaseImage {
+export class SeederImage extends BaseImage {
     public constructor(imageUrl: string) {
         super(imageUrl, localStorageCache);
     }
@@ -132,4 +133,38 @@ export class AtisketImage extends BaseImage {
             size: fileSize ? Number.parseInt(fileSize) : /* istanbul ignore next: Probably won't happen */ undefined,
         };
     }
+}
+
+export async function getImageInfo(imageUrl: string): Promise<ImageInfo> {
+    // Try maximising the image
+    for await (const maxCandidate of getMaximisedCandidates(new URL(imageUrl))) {
+        // Skip likely broken images. Happens on Apple Music images a lot as the
+        // first candidate.
+        if (maxCandidate.likely_broken) continue;
+
+        LOGGER.debug(`Trying to get image information for maximised candidate ${maxCandidate.url}`);
+        const seederImage = new SeederImage(maxCandidate.url.toString());
+        // Query dimensions and file info separately, don't use `Image#getImageInfo`
+        // since it resolves even if both queries fail. We're dealing with images
+        // that may not exist, so instead we'll call both parts separately and
+        // check their output.
+
+        // Load file info first, and skip loading dimensions if file info failed.
+        // File info does a HEAD request and fails immediately on 404, dimensions
+        // will retry on 404, which would be wasteful.
+        const fileInfo = await seederImage.getFileInfo();
+        const dimensions = fileInfo && await seederImage.getDimensions();
+        if (!dimensions) {
+            LOGGER.warn(`Failed to load dimensions for maximised candidate ${maxCandidate.url}`);
+            continue;
+        }
+
+        return {
+            dimensions,
+            ...fileInfo,
+        };
+    }
+
+    // Fall back on original URL. Using `Image#getImageInfo` is fine here.
+    return new SeederImage(imageUrl).getImageInfo();
 }
