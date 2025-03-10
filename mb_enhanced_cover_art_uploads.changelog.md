@@ -1,3 +1,4 @@
+- **2025.3.10**: New feature: Display image dimensions and seed release URLs from Harmony ([#811](https://github.com/ROpdebee/mb-userscripts/pull/811))
 - **2025.3.9**: New feature: Seed cover art from Harmony release actions pages ([#810](https://github.com/ROpdebee/mb-userscripts/pull/810))
 - **2024.10.14**: Bug fix: update Discogs query hash again ([#799](https://github.com/ROpdebee/mb-userscripts/pull/799))
 - **2024.8.27**: New feature: update Image Max URL to maximise Spotify covers ([#791](https://github.com/ROpdebee/mb-userscripts/pull/791))
