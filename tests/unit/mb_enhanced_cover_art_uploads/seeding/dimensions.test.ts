@@ -1,8 +1,8 @@
 import retry from 'retry';
 
-import type { CacheEntry } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
+import type { CacheEntry } from '@src/mb_enhanced_cover_art_uploads/seeding/dimensions';
 import { request } from '@lib/util/request';
-import { AtisketImage, CACHE_LOCALSTORAGE_KEY, localStorageCache, MAX_CACHED_IMAGES } from '@src/mb_enhanced_cover_art_uploads/seeding/atisket/dimensions';
+import { CACHE_LOCALSTORAGE_KEY, localStorageCache, MAX_CACHED_IMAGES, SeederImage } from '@src/mb_enhanced_cover_art_uploads/seeding/dimensions';
 import { setupPolly } from '@test-utils/pollyjs';
 
 describe('local storage cache', () => {
@@ -243,7 +243,7 @@ describe('a-tisket images', () => {
     const pollyContext = setupPolly();
 
     it('loads file info for Apple Music images', async () => {
-        const image = new AtisketImage('https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg');
+        const image = new SeederImage('https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg');
 
         await expect(image.getFileInfo()).resolves.toStrictEqual({
             size: 1_826_850,
@@ -252,7 +252,7 @@ describe('a-tisket images', () => {
     });
 
     it('loads file info for Apple Music PNG images', async () => {
-        const image = new AtisketImage('https://a1.mzstatic.com/us/r1000/063/Music126/v4/48/4f/49/484f49a5-fb52-37b3-f3c6-244e20f74b7c/5052075509815.png');
+        const image = new SeederImage('https://a1.mzstatic.com/us/r1000/063/Music126/v4/48/4f/49/484f49a5-fb52-37b3-f3c6-244e20f74b7c/5052075509815.png');
 
         await expect(image.getFileInfo()).resolves.toStrictEqual({
             size: 23_803_429, // I'm glad we're just getting headers, this is huge!
@@ -261,7 +261,7 @@ describe('a-tisket images', () => {
     });
 
     it('loads file info for Spotify images', async () => {
-        const image = new AtisketImage('https://i.scdn.co/image/ab67616d0000b273843b6bc2dc1517b7f7f0f424');
+        const image = new SeederImage('https://i.scdn.co/image/ab67616d0000b273843b6bc2dc1517b7f7f0f424');
 
         await expect(image.getFileInfo()).resolves.toStrictEqual({
             fileType: 'JPEG',
@@ -270,7 +270,7 @@ describe('a-tisket images', () => {
     });
 
     it('loads file info for Deezer images', async () => {
-        const image = new AtisketImage('https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg');
+        const image = new SeederImage('https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg');
 
         await expect(image.getFileInfo()).resolves.toStrictEqual({
             fileType: 'JPEG',
@@ -297,7 +297,7 @@ describe('a-tisket images', () => {
                 .intercept((_request, response) => {
                     response.sendStatus(429);
                 });
-            const image = new AtisketImage('https://example.com/test');
+            const image = new SeederImage('https://example.com/test');
 
             await expect(image.getFileInfo()).resolves.toBeUndefined();
             expect(requestSpy).toHaveBeenCalledTimes(6); // First try + 5 retries
@@ -309,7 +309,7 @@ describe('a-tisket images', () => {
                 .intercept((_request, response) => {
                     response.sendStatus(404);
                 });
-            const image = new AtisketImage('https://example.com/test');
+            const image = new SeederImage('https://example.com/test');
 
             await expect(image.getFileInfo()).resolves.toBeUndefined();
             expect(requestSpy).toHaveBeenCalledTimes(1);
@@ -321,7 +321,7 @@ describe('a-tisket images', () => {
                 .intercept((_request, response) => {
                     response.sendStatus(503);
                 });
-            const image = new AtisketImage('https://example.com/test');
+            const image = new SeederImage('https://example.com/test');
 
             await expect(image.getFileInfo()).resolves.toBeUndefined();
             expect(requestSpy).toHaveBeenCalledTimes(6);
