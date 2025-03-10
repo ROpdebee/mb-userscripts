@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Validate Work Codes
-// @version      2023.12.07
+// @version      2025.3.10
 // @description  Validate work identifier codes: Highlight invalid or ill-formatted work codes.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -15,7 +15,7 @@
 // @match        *://*.musicbrainz.org/collection/*
 // @exclude      *://*.musicbrainz.org/work/*/edit
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
-// @require      https://raw.github.com/ROpdebee/mb-userscripts/main/lib/work_identifiers.js?v=2023.12.07
+// @require      https://raw.github.com/ROpdebee/mb-userscripts/main/lib/work_identifiers.js?v=2025.03.09
 // @run-at       document-end
 // ==/UserScript==
 
