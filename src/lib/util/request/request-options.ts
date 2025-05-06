@@ -1,3 +1,5 @@
+import type { Response } from './response';
+
 export enum RequestBackend {
     FETCH = 1,
     GMXHR = 2,
@@ -31,9 +33,11 @@ export interface RequestOptions {
     throwForStatus?: boolean;
     /**
      * Custom error messages to use based on HTTP status code. Ignored if
-     * `throwForStatus` is false.
+     * `throwForStatus` is false. Can be a callable that takes the response and
+     * constructs an error message. If the callable returns undefined, the default
+     * is used.
      */
-    httpErrorMessages?: Record<number, string | undefined>;
+    httpErrorMessages?: Record<number, string | ((response: Response) => string | undefined) | undefined>;
 
     /**
      * Callback for progress events. Ignored for fetch backend.

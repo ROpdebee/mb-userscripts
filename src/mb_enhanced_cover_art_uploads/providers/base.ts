@@ -1,6 +1,6 @@
 import type { Promisable } from 'type-fest';
 
-import type { RequestOptions } from '@lib/util/request';
+import type { RequestOptions, TextResponse } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { collatedSort, filterNonNull, groupBy } from '@lib/util/array';
@@ -111,6 +111,13 @@ export abstract class CoverArtProvider {
                 404: `${this.name} release does not exist`,
                 // 410: Gone used on e.g. Juno Download
                 410: `${this.name} release does not exist`,
+                // 403: Check for Captchas.
+                403: (errorResponse) => {
+                    // Check for Cloudflare Captcha pages. Solving the challenge manually sets the required cookies.
+                    const hasCaptcha = Object.hasOwn(errorResponse, 'text') && (errorResponse as TextResponse).text.includes('<title>Just a moment...</title>');
+                    /* istanbul ignore next: Difficult to cover, default behaviour */
+                    return hasCaptcha ? 'Cloudflare captcha page detected. Please navigate to the page, solve the challenge, and try again.' : undefined;
+                },
             },
             ...options,
         });

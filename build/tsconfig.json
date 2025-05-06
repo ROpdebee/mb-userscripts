@@ -2,6 +2,7 @@
     "extends": "../configs/tsconfig.base-node",
     "include": ["**/*", "../src/*/meta.ts"],
     "references": [
-        { "path": "../src/lib" }
+        { "path": "../src/lib" },
+        { "path": "../tests/unit/utils" }
     ]
 }

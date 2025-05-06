@@ -1,11 +1,12 @@
-import { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import { LOGGER } from '@lib/logging/logger';
 import { assertHasValue } from '@lib/util/assert';
-import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 
 import type { CoverArt } from '../types';
-import { CoverArtProvider } from './base';
+import { HeadMetaPropertyProvider } from './base';
 
-export class RateYourMusicProvider extends CoverArtProvider {
+// The meta property in the HTML <head> provides a 1200px image. Full-resolution
+// images can only be accessed on `/buy` pages and require submitting a Captcha.
+export class RateYourMusicProvider extends HeadMetaPropertyProvider {
     public readonly supportedDomains = ['rateyourmusic.com'];
     public readonly favicon = 'https://e.snmc.io/2.5/img/sonemic.png';
     public readonly name = 'RateYourMusic';
@@ -14,24 +15,13 @@ export class RateYourMusicProvider extends CoverArtProvider {
     // below. Release type can be "single", "album", "ep", "musicvideo", etc.
     protected readonly urlRegex = /\/release\/(\w+(?:\/[^/]+){2})(?:\/|$)/;
 
-    public async findImages(url: URL): Promise<CoverArt[]> {
+    public override async findImages(url: URL): Promise<CoverArt[]> {
         const releaseId = this.extractId(url);
         assertHasValue(releaseId);
-        // Need to go through the Buy page to find full-res images. The user
-        // must be logged in to get the full-res image. We can't use the
-        // thumbnails in case the user is not logged in, since they're served
-        // as WebP, which isn't supported by CAA (yet).
-        const buyUrl = `https://rateyourmusic.com/release/${releaseId}/buy`;
-        const buyDocument = parseDOM(await this.fetchPage(new URL(buyUrl)), buyUrl);
+        const coverArtUrl = `https://rateyourmusic.com/release/${releaseId}/coverart/`;
 
-        if (qsMaybe('.header_profile_logged_in', buyDocument) === null) {
-            throw new Error('Extracting covers from RYM requires being logged in to an RYM account.');
-        }
+        LOGGER.warn(`Fetched RateYourMusic images are limited to 1200px. Better quality images can be accessed at ${coverArtUrl} but require solving a captcha.`);
 
-        const fullResolutionUrl = qs<HTMLAnchorElement>('.qq a', buyDocument).href;
-        return [{
-            url: new URL(fullResolutionUrl),
-            types: [ArtworkTypeIDs.Front],
-        }];
+        return super.findImages(url);
     }
 }

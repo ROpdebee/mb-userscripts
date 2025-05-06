@@ -27,7 +27,7 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Musik-Sammler | ✔️ | ❌ |
 | NetEase | ✔️ | ✔️ | A.k.a. music.163.com |
 | Qobuz | ✔️ | ✔️ | Goodies are grabbed whenever possible. Back covers might not be supported at this time, if you have a release with a back cover, please let me know. Maximised to original source image. |
-| RateYourMusic | ✔️ | ✔️ | Requires being logged in to RYM. |
+| RateYourMusic | ✔️ | ✔️ | Fetched images are limited to 1200px. Better quality images are available but require manually solving a captcha. |
 | Rockipedia | ✔️ | ❌ |
 | SoundCloud | ✔️ | ✔️ | Grabs custom track images. |
 | Spotify | ✔️ | ✔️ |

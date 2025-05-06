@@ -1,3 +1,5 @@
+import fs from 'node:fs/promises';
+
 import type { Har, HarEntry, HarRequest, HarResponse } from '@pollyjs/persister';
 import { concatChunks, WARCRecord, WARCSerializer } from 'warcio';
 
@@ -6,6 +8,7 @@ import { assert, assertHasValue } from '@lib/util/assert';
 // Importing from ./types will allow declaration merging to fix PollyJS
 // declaration problems.
 import type { WARCRecordMetadataFields } from './types';
+import warc2har from './warc2har';
 
 const ENCODER = new TextEncoder();
 
@@ -132,4 +135,29 @@ function createWarcMetadataRecord(url: string, entry: HarEntry, responseId: stri
             'WARC-Concurrent-To': responseId,
         },
     }, chunker());
+}
+
+export async function replaceWarcFile(inputHarPath: string, outputWarcPath: string): Promise<void> {
+    const harFileContent = await fs.readFile(inputHarPath, { encoding: 'utf8' });
+    const newHar = JSON.parse(harFileContent) as Har;
+
+    const oldWarc = await fs.readFile(outputWarcPath);
+    const oldHar = await warc2har(oldWarc);
+
+    if (oldHar.log.entries.length != newHar.log.entries.length) {
+        throw new Error('Old and new HAR files need to have the same number of entries');
+    }
+
+    // Throw out request cookies and populate requires PollyJS data.
+    for (const [index, newEntry] of newHar.log.entries.entries()) {
+        newEntry.request.cookies = [];
+        newEntry._id = oldHar.log.entries[index]._id;
+        newEntry._order = oldHar.log.entries[index]._order;
+    }
+    newHar.log._recordingName = oldHar.log._recordingName;
+    newHar.log.browser = oldHar.log.browser;
+    newHar.log.creator = oldHar.log.creator;
+
+    const newWarc = await har2warc(newHar);
+    await fs.writeFile(outputWarcPath, newWarc);
 }
