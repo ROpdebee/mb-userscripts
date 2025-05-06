@@ -15,7 +15,7 @@ interface AllMusicImage {
 
 export class AllMusicProvider extends CoverArtProvider {
     public readonly supportedDomains = ['allmusic.com'];
-    public readonly favicon = 'https://cdn-gce.allmusic.com/images/favicon/favicon-32x32.png';
+    public readonly favicon = 'https://fastly-gce.allmusic.com/images/favicon/favicon-32x32.png';
     public readonly name = 'AllMusic';
     protected readonly urlRegex = /album\/release\/.*(mr\d+)(?:\/|$)/;
 
