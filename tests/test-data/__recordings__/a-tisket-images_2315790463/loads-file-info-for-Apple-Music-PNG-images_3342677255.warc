@@ -1,22 +1,22 @@
 WARC/1.1
 WARC-Filename: a-tisket images/loads file info for Apple Music PNG images
-WARC-Date: 2022-06-13T14:57:07.684Z
+WARC-Date: 2025-05-06T15:11:03.932Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:16e81a2e-5386-43dc-9001-174d8819c1b8>
+WARC-Record-ID: <urn:uuid:a86f8247-565e-469f-8b87-b48bee4cd8cd>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:64874ec8-9b9b-40db-8b1b-1aedf2c17aca>
+WARC-Concurrent-To: <urn:uuid:f0223133-b647-4b7c-8a7c-7ddee3a5189c>
 WARC-Target-URI: https://a1.mzstatic.com/us/r1000/063/Music126/v4/48/4f/49/484f49a5-fb52-37b3-f3c6-244e20f74b7c/5052075509815.png
-WARC-Date: 2022-06-13T14:57:07.685Z
+WARC-Date: 2025-05-06T15:11:03.932Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:a2ee2983-a591-4804-9967-5a7784f4476e>
+WARC-Record-ID: <urn:uuid:3b61cb1b-2bf5-4eca-858f-6379cd3e4f75>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:2b12599f4397620162f07ed09c6b5a5a8d67a84d9d5774ac3e7ce0253331cf7b
@@ -27,38 +27,38 @@ HEAD /us/r1000/063/Music126/v4/48/4f/49/484f49a5-fb52-37b3-f3c6-244e20f74b7c/505
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:64874ec8-9b9b-40db-8b1b-1aedf2c17aca>
+WARC-Concurrent-To: <urn:uuid:f0223133-b647-4b7c-8a7c-7ddee3a5189c>
 WARC-Target-URI: https://a1.mzstatic.com/us/r1000/063/Music126/v4/48/4f/49/484f49a5-fb52-37b3-f3c6-244e20f74b7c/5052075509815.png
-WARC-Date: 2022-06-13T14:57:07.685Z
+WARC-Date: 2025-05-06T15:11:03.932Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:9b96464f-4e37-483c-9659-bb31f7f17772>
+WARC-Record-ID: <urn:uuid:c9ae3f2b-d59b-4fd5-9cc2-d86ec4020bbf>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:87bd74abdf240c366bc58fe770985c10cf6559df201a42f74f7448d1c0f15dcf
-WARC-Block-Digest: sha256:87bd74abdf240c366bc58fe770985c10cf6559df201a42f74f7448d1c0f15dcf
-Content-Length: 352
+WARC-Payload-Digest: sha256:9f4720572f2fe712baf76488e2e99fb695aa7c3e9684d88042ec675fd5a879a8
+WARC-Block-Digest: sha256:9f4720572f2fe712baf76488e2e99fb695aa7c3e9684d88042ec675fd5a879a8
+Content-Length: 348
 
 harEntryId: 834ded94b78fb45509a7c0cda35af2af
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-06-13T14:57:06.451Z
-time: 1232
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1232,"receive":0,"ssl":-1}
+startedDateTime: 2025-05-06T15:11:03.860Z
+time: 71
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":71,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 132
 warcRequestCookies: []
-warcResponseHeadersSize: 1374
+warcResponseHeadersSize: 1712
 warcResponseCookies: []
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://a1.mzstatic.com/us/r1000/063/Music126/v4/48/4f/49/484f49a5-fb52-37b3-f3c6-244e20f74b7c/5052075509815.png
-WARC-Date: 2022-06-13T14:57:07.684Z
+WARC-Date: 2025-05-06T15:11:03.932Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:64874ec8-9b9b-40db-8b1b-1aedf2c17aca>
+WARC-Record-ID: <urn:uuid:f0223133-b647-4b7c-8a7c-7ddee3a5189c>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:d64f4b3c88299ad859fcca8582ee11268db0375365aa5f678e077aea1d695501
-Content-Length: 1391
+WARC-Block-Digest: sha256:53421cb72ccff329eb6ce70dc5795921e6c4e30fb19df4446c50d6d17340623c
+Content-Length: 1729
 
 HTTP/1.1 200 OK
 accept-ranges: bytes
@@ -68,26 +68,32 @@ access-control-allow-methods: HEAD, GET, PUT
 access-control-allow-origin: *
 access-control-expose-headers: *
 access-control-max-age: 3000
-cache-control: public, max-age=2587115
-cdnuuid: 22f1b6ed-ee50-4829-a4c0-779d49b3a016-1075891399
-connection: close
+apple-asset-repo-auth-info: user-id=ar-resolver-origin; on-behalf-of=applecdn-amp-assets, user-id=applecdn-amp-assets
+apple-asset-repo-download-chunk-size: 335544320
+apple-asset-repo-download-max-attempts: 7
+apple-asset-repo-download-parallelism: 4
+apple-balance-left: 99
+apple-originating-system: ar-resolver-origin
+apple-seq: 0.0
+apple-tk: false
+b3: 9a4c284c36b7696c57df088db44b8bb7-74be14ae68adad43
+cache-control: no-transform, max-age=2575365
+cdnuuid: 857bc660-2c41-4989-8fda-cd54b3dc82d5-6911825710
+connection: keep-alive
 content-length: 23803429
+content-md5: sM2PtIqU7Ml3Ev130Fqzdw==
 content-type: image/png
-date: Mon, 13 Jun 2022 14:57:07 GMT
-etag: "B0CD8FB48A94ECC97712FD77D05AB377"
-last-modified: Fri, 12 Nov 2021 02:20:35 GMT
-server: dlb/1.0.2
-x-amz-storage-class: STANDARD
-x-apple-ms-content-length: 23803429
-x-apple-request-uuid: 5f9e3faa-dbb2-4c07-b14d-2f2b3fb5dc89, 5f9e3faa-dbb2-4c07-b14d-2f2b3fb5dc89
-x-apple-store-id: 026
-x-cache: TCP_MISS from a104-126-37-174.deploy.akamaitechnologies.com (AkamaiGHost/10.8.2-41758951) (-)
-x-cache-remote: TCP_MISS from a95-100-97-76.deploy.akamaitechnologies.com (AkamaiGHost/10.8.2-41841244) (-)
-x-dlb-upstream: 10.117.38.197:8081
-x-icloud-availability: [DL, L, B]
-x-icloud-content-length: 23803429
-x-icloud-versionid: 1e941ca0-435f-11ec-8272-248a0755c7bc
-x-responding-server: massilia_protocol_026:426004802:pv49p01if-zteh12154001.pv.if.apple.com:8081:22H218:a76f9edcdd82
+date: Tue, 06 May 2025 15:11:03 GMT
+etag: "sM2PtIqU7Ml3Ev130Fqzdw=="
+last-modified: Fri, 12 Nov 2021 02:20:36 GMT
+server: daiquiri/5
+x-apple-jingle-correlation-key: TJGCQTBWW5UWYV67BCG3IS4LW4
+x-apple-request-uuid: 9a4c284c-36b7-696c-57df-088db44b8bb7
+x-b3-parentspanid: e2d6479160420ddd
+x-b3-spanid: 74be14ae68adad43
+x-b3-traceid: 287e91fa65ef3030
+x-cache: TCP_HIT from a92-123-71-52.deploy.akamaitechnologies.com (AkamaiGHost/22.1.1.1-c4fce450b4824ba2e51e32b4cbf189c7) (-)
+x-daiquiri-instance: daiquiri:17173003:mr85p00it-hyhk03124601:7987:25RELEASE50:daiquiri-amp-processing-asset-int-001-mr, daiquiri:37173001:pv50p00it-hyhk10033901:7987:25RELEASE50:daiquiri-amp-processing-asset-int-001-pv
 x-pollyjs-finalurl: https://a1.mzstatic.com/us/r1000/063/Music126/v4/48/4f/49/484f49a5-fb52-37b3-f3c6-244e20f74b7c/5052075509815.png
 
 

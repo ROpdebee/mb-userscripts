@@ -1,22 +1,22 @@
 WARC/1.1
 WARC-Filename: a-tisket images/loads file info for Spotify images
-WARC-Date: 2022-06-13T14:57:07.878Z
+WARC-Date: 2025-05-06T15:11:04.052Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:41cd4ec5-2191-4ade-bcd5-74de046ca7e3>
+WARC-Record-ID: <urn:uuid:8d6402d5-822a-44bf-aa06-424eaa2fd056>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:38e32789-bfdd-4beb-9a69-76b3f8ab2054>
+WARC-Concurrent-To: <urn:uuid:802fd7b5-c688-4236-a77d-70cbd3f675c6>
 WARC-Target-URI: https://i.scdn.co/image/ab67616d0000b273843b6bc2dc1517b7f7f0f424
-WARC-Date: 2022-06-13T14:57:07.879Z
+WARC-Date: 2025-05-06T15:11:04.052Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:d71b4d73-5d8e-4a2c-87f2-67a61c21de04>
+WARC-Record-ID: <urn:uuid:4fe2e77d-c447-465d-97f8-0ee78343fc3f>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:d7eefdc4f9db1b4f6ebefe0e418139d9e4474fd93f4b7c07bf501c922a951200
@@ -27,54 +27,55 @@ HEAD /image/ab67616d0000b273843b6bc2dc1517b7f7f0f424 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:38e32789-bfdd-4beb-9a69-76b3f8ab2054>
+WARC-Concurrent-To: <urn:uuid:802fd7b5-c688-4236-a77d-70cbd3f675c6>
 WARC-Target-URI: https://i.scdn.co/image/ab67616d0000b273843b6bc2dc1517b7f7f0f424
-WARC-Date: 2022-06-13T14:57:07.879Z
+WARC-Date: 2025-05-06T15:11:04.052Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:8273aa11-4e8b-411c-9365-b0e8cbf8c545>
+WARC-Record-ID: <urn:uuid:42663e43-c0d7-4254-a58c-91d4f8bff1b8>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:7e9260d0fef477b8df5d6d6cca1d047e973ae3fb2815f4c5082b3a7e0252a0cc
-WARC-Block-Digest: sha256:7e9260d0fef477b8df5d6d6cca1d047e973ae3fb2815f4c5082b3a7e0252a0cc
+WARC-Payload-Digest: sha256:3d625c6523416124da33a66c77a49472fc3c7ebfe620f432c4cffaced2522c09
+WARC-Block-Digest: sha256:3d625c6523416124da33a66c77a49472fc3c7ebfe620f432c4cffaced2522c09
 Content-Length: 348
 
 harEntryId: ecda0e76255d71853d10386e83dc78ec
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-06-13T14:57:07.689Z
-time: 188
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":188,"receive":0,"ssl":-1}
+startedDateTime: 2025-05-06T15:11:03.936Z
+time: 115
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":115,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 84
 warcRequestCookies: []
-warcResponseHeadersSize: 533
+warcResponseHeadersSize: 574
 warcResponseCookies: []
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://i.scdn.co/image/ab67616d0000b273843b6bc2dc1517b7f7f0f424
-WARC-Date: 2022-06-13T14:57:07.879Z
+WARC-Date: 2025-05-06T15:11:04.052Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:38e32789-bfdd-4beb-9a69-76b3f8ab2054>
+WARC-Record-ID: <urn:uuid:802fd7b5-c688-4236-a77d-70cbd3f675c6>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:0fa1c7f61bc8447b987e467254eee84b39ac1fc93d65538933c35c83fa2833f3
-Content-Length: 550
+WARC-Block-Digest: sha256:9ce2a0d0374e9124ab1d33aae91d4721aa206f78e62487ca28c30d4f0106efc2
+Content-Length: 591
 
 HTTP/1.1 200 OK
 accept-ranges: bytes
+access-control-allow-headers: range
+access-control-allow-methods: GET
 access-control-allow-origin: *
-age: 316534
-cache-control: max-age=315360000
-connection: close
+access-control-max-age: 86400
+cache-control: max-age=15780000
+connection: keep-alive
 content-length: 102281
 content-type: image/jpeg
-date: Mon, 13 Jun 2022 14:57:07 GMT
+date: Tue, 06 May 2025 15:11:04 GMT
 etag: "b8b46268b1a9fffea6ab2d8db3ee4dd1"
+expires: Tue, 06 May 2025 15:11:04 GMT
 last-modified: Tue, 03 Sep 2019 12:39:51 GMT
 timing-allow-origin: *
-x-cache: MISS, HIT, HIT
-x-cache-hits: 0, 1, 1
-x-served-by: cache-ord1733-ORD, cache-chi-kigq8000034-CHI, cache-lhr7354-LHR
+x-amz-checksum-crc32c: KI2qUA==
 x-pollyjs-finalurl: https://i.scdn.co/image/ab67616d0000b273843b6bc2dc1517b7f7f0f424
 
 
