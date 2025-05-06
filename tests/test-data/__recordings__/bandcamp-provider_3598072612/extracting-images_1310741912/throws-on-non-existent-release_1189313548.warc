@@ -1,22 +1,22 @@
 WARC/1.1
 WARC-Filename: bandcamp provider/extracting images/throws on non-existent release
-WARC-Date: 2021-12-11T20:26:49.405Z
+WARC-Date: 2025-05-06T14:54:16.204Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:52efdf50-12e9-4772-ac9b-7347228e1373>
+WARC-Record-ID: <urn:uuid:75b734f1-88a2-4b77-bd44-1815563bfd7b>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.4","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:383142bd-a8e1-41ff-8dee-4f5692753dd5>
+WARC-Concurrent-To: <urn:uuid:ba679d28-aadb-4acf-b791-5114cf41211d>
 WARC-Target-URI: https://powergameheavy.bandcamp.com/album/404
-WARC-Date: 2021-12-11T20:26:49.406Z
+WARC-Date: 2025-05-06T14:54:16.205Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:f3a88900-0359-4c41-ab2f-2ac9878f992c>
+WARC-Record-ID: <urn:uuid:aa286da8-5b96-4798-9061-c581a1d9f2f8>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:484b6f28c60f60d305ceecdb23711a48da226e7a44655a94212c9726330d63e7
@@ -27,58 +27,59 @@ GET /album/404 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:383142bd-a8e1-41ff-8dee-4f5692753dd5>
+WARC-Concurrent-To: <urn:uuid:ba679d28-aadb-4acf-b791-5114cf41211d>
 WARC-Target-URI: https://powergameheavy.bandcamp.com/album/404
-WARC-Date: 2021-12-11T20:26:49.406Z
+WARC-Date: 2025-05-06T14:54:16.205Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:35d625d4-083f-4537-a086-349109fe53f7>
+WARC-Record-ID: <urn:uuid:3e00ee19-0d47-4cf7-94b8-1b563700a633>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:40708f203f815aff1c8905fbb6f585c2d89e26e209090df20be300d71b96b511
-WARC-Block-Digest: sha256:40708f203f815aff1c8905fbb6f585c2d89e26e209090df20be300d71b96b511
-Content-Length: 586
+WARC-Payload-Digest: sha256:085a9fe3abfef5f497d5ba3b52afcd06f7417673d051d322676e8eac5735c056
+WARC-Block-Digest: sha256:085a9fe3abfef5f497d5ba3b52afcd06f7417673d051d322676e8eac5735c056
+Content-Length: 424
 
 harEntryId: be99428f034c3ad4d2c03d907278ab5c
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2021-12-11T20:26:48.963Z
-time: 441
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":441,"receive":0,"ssl":-1}
+startedDateTime: 2025-05-06T14:54:15.873Z
+time: 330
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":330,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 64
 warcRequestCookies: []
-warcResponseHeadersSize: 806
-warcResponseCookies: [{"name":"client_id","value":"BD94BA944C358873AB623C4D31522D8A25D24DE79AD143EBF0C3795EEB383167","domain":".bandcamp.com","path":"/","expires":"2031-12-11T20:26:49.000Z","secure":true,"httpOnly":true,"sameSite":"None, BACKENDID=bender21-5"}]
+warcResponseHeadersSize: 730
+warcResponseCookies: [{"name":"BACKENDID3","value":"flexocentral-6p1z-4","path":"/","secure":true}]
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://powergameheavy.bandcamp.com/album/404
-WARC-Date: 2021-12-11T20:26:49.405Z
+WARC-Date: 2025-05-06T14:54:16.205Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:383142bd-a8e1-41ff-8dee-4f5692753dd5>
+WARC-Record-ID: <urn:uuid:ba679d28-aadb-4acf-b791-5114cf41211d>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:dde85498054be0c98511722ebe5bc35035b226a7c0daaf60cbe58e714ebdcc21
-WARC-Block-Digest: sha256:e635c374cd04758d0874211bd5208de3409246e496293c611b82c742e04d279e
-Content-Length: 40849
+WARC-Payload-Digest: sha256:7786b1a0b4e6605ed39ed349c6c61276ccd33b73ef3048f7ac6d1d60d639b1ef
+WARC-Block-Digest: sha256:8f494e4705745a4f8a6433542a7eef336d4c5b20366c8cc979afc138aa8d28a5
+Content-Length: 47576
 
 HTTP/1.1 404 Not Found
 accept-ranges: bytes
 cache-control: no-cache, no-store
-connection: close
+connection: keep-alive
 content-encoding: gzip
 content-type: text/html; charset=UTF-8
-date: Sat, 11 Dec 2021 20:26:49 GMT
+date: Tue, 06 May 2025 14:54:16 GMT
 link: <https://powergameheavy.bandcamp.com/album/404>;   rel="canonical"
 referrer-policy: no-referrer-when-downgrade
 server: nginx
-set-cookie: client_id=BD94BA944C358873AB623C4D31522D8A25D24DE79AD143EBF0C3795EEB383167; domain=.bandcamp.com; path=/; expires=Thu, 11 Dec 2031 20:26:49 -0000; secure; HttpOnly; SameSite=None, BACKENDID=bender21-5; path=/; Secure
+set-cookie: BACKENDID3=flexocentral-6p1z-4; path=/; Secure
+strict-transport-security: max-age=63072000
 transfer-encoding: chunked
 vary: Accept-Encoding
-via: 1.1 varnish
-x-cache: MISS
-x-cache-hits: 0
+via: 1.1 varnish, 1.1 varnish
+x-cache: MISS, MISS
+x-cache-hits: 0, 0
 x-robots-tag: noindex
-x-served-by: cache-ams21033-AMS
-x-timer: S1639254409.113302,VS0,VE304
+x-served-by: cache-ams2100119-AMS, cache-ams21038-AMS
+x-timer: S1746543256.905544,VS0,VE314
 x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 
     
@@ -110,8 +111,9 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 
 <meta name="msapplication-TileColor" content="#603cba">
 <meta name="theme-color" content="#ffffff">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+
     
+
     
 
     
@@ -134,7 +136,7 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
     
     
 
-    <link type="text/css" rel="stylesheet" href="https://s4.bcbits.com/bundle/bundle/1/global-0930daa8354c1d2faafe01ce7c425631.css">
+    <link type="text/css" rel="stylesheet" href="https://s4.bcbits.com/bundle/bundle/1/global-58e9477fd99e70106658aede186034ec.css">
 
     <meta id="js-crumbs-data" data-crumbs="{}">
     
@@ -145,12 +147,14 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
     
     
 
+    
+
 </head>
 
 
 
 
-<body class="" lang="en">
+<body class="gecko mac enable-cookie-control " lang="en">
 
 
 
@@ -237,6 +241,11 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
         <path d="M21.5 25a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
         <circle cx="8.5" cy="23.5" r="1.5" opacity=".9"/>
         <path fill-rule="nonzero" d="M4.57 2H.5a.5.5 0 010-1h4.48a.5.5 0 01.5.4l.5 2.7 18.52.18c.31 0 .54.28.5.58l-2.28 13.72a.5.5 0 01-.49.42H8.16a.5.5 0 01-.49-.4L4.57 2zm1.6 3.1L8.57 18h13.24l2.1-12.73L6.17 5.1z"/>
+    </g>
+    <g id="menubar-phone-menu-icon">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 6.25H3V4.75H21V6.25Z" fill="#222222"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 12.75H3V11.25H21V12.75Z" fill="#222222"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 19.75L3 19.75V18.25H12L21 18.25V19.75Z" fill="#222222"/>
     </g>
     <g id="bandcamp-logo-color-bcaqua">
         <path d="M26.62 0h2.42v5.8h.04a3.96 3.96 0 013.28-1.78c3.46 0 5.14 2.73 5.14 6.05C37.5 13.12 36 16 32.76 16c-1.49 0-3.08-.37-3.8-1.87h-.05v1.57h-2.3V0m5.43 6c-2.04 0-3.08 1.6-3.08 4.02 0 2.29 1.12 4 3.08 4 2.2 0 3.04-2.02 3.04-4 0-2.06-1.05-4.02-3.04-4.02" id="b" fill="#333"/>
@@ -391,7 +400,7 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
         <path d="M34.56 20v95.7h-7.9V20h7.9zm7.78 5.01s9.54-10 19.34 0c21.28 21.72 40.61-.65 40.61-.65v46.58s-19.33 22.37-40.61.65c-9.8-10-19.34 0-19.34 0z"/>
     </g>
 
-    
+
     <!-- <svg id="icon-allow-comment" width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg> -->
     <g id="allow-comment-icon">
         <polygon points="15.981 3 6.573 13.501 2.708 9.635 2 10.342 6.614 14.956 16.726 3.668"></polygon>
@@ -428,7 +437,7 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
     <g id="ban-user-icon">
         <path d="M8.0002,0.0002 C3.5822,0.0002 0.0002,3.5822 0.0002,8.0002 C0.0002,12.4182 3.5822,16.0002 8.0002,16.0002 C12.4182,16.0002 16.0002,12.4182 16.0002,8.0002 C16.0002,3.5822 12.4182,0.0002 8.0002,0.0002 L8.0002,0.0002 Z M8.0002,1.0002 C11.8602,1.0002 15.0002,4.1402 15.0002,8.0002 C15.0002,11.8592 11.8602,15.0002 8.0002,15.0002 C4.1402,15.0002 1.0002,11.8592 1.0002,8.0002 C1.0002,4.1402 4.1402,1.0002 8.0002,1.0002 L8.0002,1.0002 Z M8.7072,8.0002 L11.6472,10.9402 L10.9402,11.6472 L8.0002,8.7072 L5.0592,11.6472 L4.3522,10.9402 L7.2922,8.0002 L4.3522,5.0592 L5.0592,4.3522 L8.0002,7.2932 L10.9402,4.3522 L11.6472,5.0592 L8.7072,8.0002 Z"></path>
     </g>
-    
+
 
     <!-- <svg id="icon-delete-comment" fill-rule="evenodd" width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg> -->
     <g id="delete-comment-icon" fill-rule="evenodd">
@@ -465,12 +474,46 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
             <circle fill="#8D8F8F" transform="rotate(135 250.1 250.1)" cx="250.1" cy="250.1" r="35"/>
         </g>
     </g>
+    <!-- <svg class="arrow" viewBox="0 0 24 24"><use href="#discover-arrow"></svg> -->
+    <path id="discover-arrow" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+    <g id="fan-app-icon" fill="none" fill-rule="evenodd">
+        <rect fill="#FFF" width="23" height="23" rx="3"/>
+        <path fill="url(#fanAppGradient)" d="M4 15.9l4.78-8.8h10.21l-4.77 8.8z"/>
+    </g>
+
+    <!-- <svg width="22px" height="15px" viewBox="0 0 22 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> -->
+    <g id="view-eyeball-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="adminControls---OFF-AIR-Copy" transform="translate(-823.000000, -743.000000)">
+            <g id="component/video/sound-check" transform="translate(134.000000, 222.000000)">
+                <g id="Group" transform="translate(689.000000, 521.000000)">
+                    <g transform="translate(0.000000, 0.000000)" id="Oval">
+                        <circle fill="currentColor" cx="11" cy="7.28" r="3"></circle>
+                        <path d="M11,1 C15.6667595,1 19.5502286,5.64619254 20.7714147,7.28017631 C19.5496534,8.91449561 15.6664139,13.56 11,13.56 C6.33324048,13.56 2.44977141,8.91380746 1.22858526,7.27982369 C2.45034662,5.64550439 6.33358609,1 11,1 Z" stroke="currentColor" stroke-width="2"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+
+    <path id="check" fill="none" stroke-width="1.5" d="M1.5 6.5l4 5 8-11" />
+    <g id="two-person-silhouette">
+        <path d='M12.81 8.64c-.244-.359-.808-.605-1.858-.986-1.046-.38-1.38-.701-1.38-1.388 0-.412.32-.277.46-1.032.058-.313.34-.005.394-.72 0-.285-.154-.357-.154-.357s.078-.42.109-.745c.037-.404-.042-1.579-1.494-1.579S6.971 3.008 7.01 3.413c.03.323.108.744.108.744s-.154.072-.154.357c.054.715.336.407.394.72.14.755.46.62.46 1.032 0 .467-.156.765-.583 1.027 2.284.995 2.24 1.2 2.24 2.09V11H13s-.028-2.12-.19-2.36zm-6.046-.7c-1.308-.518-1.726-.954-1.726-1.888 0-.56.399-.378.574-1.404.072-.426.426-.007.493-.98 0-.387-.192-.484-.192-.484s.098-.573.136-1.014C6.097 1.62 5.676 0 3.859 0 2.044 0 1.782 1.62 1.83 2.17c.039.441.136 1.014.136 1.014s-.192.097-.192.484c.067.973.42.554.493.98.175 1.026.575.843.575 1.404 0 .934-.418 1.37-1.727 1.887C.717 8.097 0 8.213 0 8.8V11h8.821V9.35c0-.536-.745-.892-2.057-1.41z' />
+    </g>
+
+    
+    <path id="read-more-arr" d="M10.815,3.12018899 C10.809,3.11518899 6.58,0.0611889922 6.58,0.0611889922 C6.427,-0.0388110078 6.221,-0.0138110078 6.097,0.124188992 C5.973,0.260188992 5.967,0.467188992 6.083,0.610188992 L7.863,3.00018899 L0.5,3.00018899 C0.224,3.00018899 0,3.22418899 0,3.50018899 C0,3.77618899 0.224,4.00018899 0.5,4.00018899 L7.863,4.00018899 L6.083,6.39018899 C5.967,6.53318899 5.973,6.74018899 6.097,6.87618899 C6.221,7.01418899 6.427,7.03918899 6.58,6.93918899 L10.802,3.89918899 C10.926,3.78818899 11,3.65518899 11,3.50018899 C11,3.34518899 10.926,3.21218899 10.815,3.12018899 Z"></path>
+    <path id="close-weekly-archive" d="M7.4,6l2.8-2.8c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0L6,4.6L3.2,1.8c-0.4-0.4-1-0.4-1.4,0 c-0.4,0.4-0.4,1,0,1.4L4.6,6L1.8,8.8c-0.4,0.4-0.4,1,0,1.4c0.4,0.4,1,0.4,1.4,0L6,7.4l2.8,2.8c0.4,0.4,1,0.4,1.4,0 c0.4-0.4,0.4-1,0-1.4L7.4,6z"></path>
+    <path id="nn-view-album" d="M1.43682992,0L0 1.44492059 9.03679561 10.0650366 0.00617548675 18.5439879 1.43065443 20 12 10.0771364z"></path>
+    <path id="nn-own-this" d="M18.1085095,1.66536531 C16.7611171,0.429117108 15.3262573,-0.0849663045 13.8432411,0.146575233 C12.1400821,0.40973698 10.7946553,1.62150502 9.97698178,2.57215133 C9.22220618,1.60722493 7.97112632,0.38423681 6.31317524,0.0741547518 C4.77610618,-0.210427137 3.24493381,0.32099639 1.70786476,1.71942567 C0.531476234,2.97709402 -0.0414849278,4.41734358 0.00274020481,6.00039409 C0.0725176362,8.52287084 1.68722637,11.252409 4.93728222,14.3481295 L4.93728222,14.3491495 C7.46106312,16.7492254 9.23596511,18.9850803 9.25365516,19.0075204 L10.0379142,19.999987 L10.791707,18.9840603 C10.8084143,18.9616201 12.4820898,16.7186252 14.973439,14.3450695 C18.3561702,11.1198081 20.0013452,8.32804954 20.0003624,5.81169284 C20.0003624,4.25516251 19.3674516,2.86489328 18.1085095,1.66536531"></path>
+    <path id="nn-wishlisted" d="M18.1081467,1.66537829 C16.7607543,0.429130081 15.3258944,-0.0849533313 13.8428783,0.146588206 C12.1397193,0.409749953 10.7942925,1.621518 9.97661895,2.57216431 C9.22184336,1.6072379 7.97076349,0.384249783 6.31281241,0.074167725 C4.77574336,-0.210414164 3.24457099,0.321009364 1.70750194,1.71943865 C0.531113412,2.977107 -0.0418477507,4.41735656 0.00237738193,6.00040707 C0.0721548134,8.52288381 1.68686354,11.2524219 4.9369194,14.3481425 L4.9369194,14.3491625 C7.4607003,16.7492384 9.23560229,18.9850933 9.25329234,19.0075334 L10.0375514,20 L10.7913442,18.9840733 C10.8080514,18.9616331 12.481727,16.7186382 14.9730762,14.3450825 C18.3558074,11.1198211 20.0009823,8.32806252 19.9999996,5.81170581 C19.9999996,4.25517548 19.3670888,2.86490625 18.1081467,1.66537829"></path>
+    <path id="nn-add-wishlist" d="M6.26532856,12.8438659 C7.90059563,14.4003455 9.21450913,15.8670674 9.99381609,16.7758637 C10.7485547,15.8548277 12.0251244,14.3840259 13.643685,12.8428459 C16.5574872,10.0634181 18.0355171,7.69911951 18.0345343,5.81216853 C18.0345343,4.83707385 17.6286658,3.97621622 16.793343,3.18165685 C15.9010218,2.36261813 15.0195107,2.02806682 14.1311204,2.16474327 C12.2285501,2.45747566 10.7858986,4.80953457 10.7711576,4.83299396 L9.87981911,6.33643491 L9.07004744,4.78403523 C9.05923738,4.76261579 7.80428783,2.42075662 5.95675052,2.08110544 C5.03494733,1.91178984 4.06302478,2.28714009 3.05965478,3.19797643 C2.31474346,3.99967561 1.93835687,4.91561181 1.96685611,5.94170516 C2.02090641,7.85619543 3.46650608,10.1786751 6.26532856,12.8448859 L6.26532856,12.8438659 Z M10.0370563,20 L9.2528357,19.0075658 C9.23514652,18.9851264 7.46033142,16.7493444 4.93667407,14.3483268 L4.93667407,14.3473068 C1.68677732,11.2516872 0.0731303674,8.52223813 0.00237361922,6.00086363 C-0.0418493484,4.41786474 0.532066498,2.97766215 1.7074147,1.72003482 C3.24440851,0.320631169 4.77452319,-0.209755055 6.31249973,0.07379758 C7.96938691,0.384889499 9.22138826,1.60681776 9.97612691,2.5717127 C10.7927777,1.62211736 12.1391214,0.409368864 13.842197,0.147235672 C15.3221923,-0.0822583664 16.7599301,0.42874836 18.1082393,1.66597622 C19.3671198,2.86444509 19.9990168,4.25568896 19.9999996,5.81216853 C20.0009823,8.32742319 18.3558879,11.1190907 14.9723395,14.3452669 C12.4811123,16.7177253 10.8085014,18.960647 10.7908122,18.9841064 L10.0370563,20 Z"></path>
+    <path id="bc-daily-expand" d="M9,4H6V1c0-0.6-0.4-1-1-1S4,0.4,4,1v3H1C0.4,4,0,4.4,0,5c0,0.6,0.4,1,1,1h3v3c0,0.6,0.4,1,1,1 s1-0.4,1-1V6h3c0.6,0,1-0.4,1-1C10,4.4,9.6,4,9,4z"></path>
+    
 </svg>
 
 
 
-
-    <div id="pagedata" data-blob="{&quot;templglobals&quot;:{&quot;is_phone&quot;:false,&quot;endpoint_mobilized&quot;:true},&quot;help_center_url&quot;:&quot;https://get.bandcamp.help/hc/en-us&quot;,&quot;localize_page&quot;:true,&quot;recaptcha_public_key&quot;:&quot;6LfhSPgSAAAAAPwto_qzHuwSmjgfrkg35xXXu_8K&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;invisible_recaptcha_public_key&quot;:&quot;6Ld7hz4UAAAAANlndw60vAheGUwN0Mb-qeWD_LHr&quot;,&quot;cfg&quot;:{&quot;tko&quot;:true},&quot;languages&quot;:{&quot;en&quot;:&quot;English&quot;,&quot;ja&quot;:&quot;日本語&quot;,&quot;fr&quot;:&quot;Français&quot;}}"></div>
+    <div id="pagedata" data-blob="{&quot;recaptcha_public_key&quot;:&quot;6LfhSPgSAAAAAPwto_qzHuwSmjgfrkg35xXXu_8K&quot;,&quot;invisible_recaptcha_public_key&quot;:&quot;6Ld7hz4UAAAAANlndw60vAheGUwN0Mb-qeWD_LHr&quot;,&quot;templglobals&quot;:{&quot;endpoint_mobilized&quot;:true,&quot;is_phone&quot;:false},&quot;localize_page&quot;:true,&quot;locale&quot;:&quot;en&quot;,&quot;languages&quot;:{&quot;en&quot;:&quot;English&quot;,&quot;de&quot;:&quot;Deutsch&quot;,&quot;es&quot;:&quot;Español&quot;,&quot;fr&quot;:&quot;Français&quot;,&quot;pt&quot;:&quot;Português&quot;,&quot;ja&quot;:&quot;日本語&quot;},&quot;help_center_url&quot;:&quot;https://get.bandcamp.help/hc/en-us&quot;}"></div>
 
 
 
@@ -500,6 +543,8 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 
 
 
+
+
     
     
     
@@ -509,6 +554,10 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 <div class="corpbanner newsletter-invite-banner" style="display: none;">
     <span class="tell-us-what-you-like">Get fresh music recommendations delivered to your inbox every Friday.</span> <svg class="dismiss" width="18" height="18" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#material-close"></use></svg>
 </div>
+
+
+
+
 
 
 
@@ -584,54 +633,14 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 
             <div style="clear:both"></div>
         </div>
-        
-            <div id="pgFt">
-            
-                
-                
-<div id="pgFt-inner" class="pgft-desktop">
 
-    <div id="footer-logo-wrapper">
-    
-        <a id="footer-logo" href="https://bandcamp.com?from=logo"><span class="hiddenAccess">Bandcamp</span></a>
-    
-        <span id="webapp-selector-ui" class="webapp-selector-ui" style="display:none" data-webapps="[{&quot;appNumbers&quot;:[7],&quot;hostnameRange&quot;:[13,29],&quot;hostnameBase&quot;:&quot;bender&quot;}]" data-backendid="bender21-5" data-bccookie=""></span>
-    </div>
-    
-    <ul id="legal" class="horizNav">
-        
-        <li id="login"><a href="https://bandcamp.com/login?from=footer">log in</a></li>
-        
-        <li><a href="https://bandcamp.com/terms_of_use">terms of use</a></li>
-        <li><a href="https://bandcamp.com/privacy">privacy</a></li>
-        <li><a href="https://bandcamp.com/copyright">copyright policy</a></li>
-        
-        
-        <li class="view-switcher desktop"><a>switch to mobile view</a></li>
-        
-        
-            <li id="lang-picker-vm" class="lang-picker"
-    style="display:none" data-bind="visible: $data"
->
-    <span class="lang-picker-lang">language:&nbsp; </span>
-    <a href="#" data-bind="text: display_locale" class="lang-picker-current-lang"></a>
-    <ul id="lang-picker-content" class="lang-picker-content"
-        data-bind="foreach: otherLocales"
-    >
-        <li><a href="#" data-bind="text: value, click: $parent.update_locale"></a></li>
-    </ul> 
-</li>
-        
-    </ul>
-    <span class="static-content">&nbsp;</span>
-
-</div>
-
-
-            
-            </div>
         
 
+        
+            <span id="webapp-selector-ui" class="webapp-selector-ui" style="display:none" data-webapps="[&quot;flexotest01-1&quot;,&quot;flexotest01-2&quot;,&quot;flexotest01-3&quot;,&quot;flexotest01-4&quot;,&quot;flexotest01-5&quot;,&quot;flexotest01-6&quot;,&quot;flexotest01-7&quot;,&quot;flexotest01-8&quot;,&quot;flexotest01-9&quot;,&quot;flexotest01-10&quot;,&quot;flexotest01-11&quot;,&quot;flexotest01-12&quot;,&quot;flexotest01-13&quot;,&quot;flexotest01-14&quot;,&quot;flexotest01-15&quot;,&quot;flexotest01-16&quot;]" data-backendid="flexocentral-6p1z-4" data-bccookie="" data-cookiename="bc_webapp3"></span>
+
+            <page-footer page-context="{&quot;env&quot;:&quot;production&quot;,&quot;fanId&quot;:null,&quot;isAdmin&quot;:null,&quot;isMobile&quot;:false,&quot;userId&quot;:null,&quot;isLoggedIn&quot;:false,&quot;colorScheme&quot;:&quot;light&quot;,&quot;languages&quot;:{&quot;en&quot;:&quot;English&quot;,&quot;de&quot;:&quot;Deutsch&quot;,&quot;es&quot;:&quot;Español&quot;,&quot;fr&quot;:&quot;Français&quot;,&quot;pt&quot;:&quot;Português&quot;,&quot;ja&quot;:&quot;日本語&quot;},&quot;bcStrings&quot;:null,&quot;isPageMobilized&quot;:true}" ></page-footer>
+              
         
     </div>
 </div>
@@ -642,8 +651,6 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 
 
 
-
-    
 
 
 
@@ -661,7 +668,7 @@ x-pollyjs-finalurl: https://powergameheavy.bandcamp.com/album/404
 
 </body>
 </html>
-<!-- bender21-5 Sat Dec 11 20:26:49 UTC 2021 -->
+<!-- flexocentral-6p1z-4 2025-05-06 14:54:15 UTC -->
 
 
 

@@ -172,7 +172,8 @@ export class BandcampProvider extends ProviderWithTrackImages {
     }
 
     protected override imageToThumbnailUrl(imageUrl: string): string {
-        // 150x150
-        return imageUrl.replace(/_\d+\.(\w+)$/, '_7.$1');
+        // Need to use slightly larger thumbnails, `_7` somehow has differences
+        // even though the source images are identical.
+        return imageUrl.replace(/_\d+\.(\w+)$/, '_10.$1');
     }
 }
