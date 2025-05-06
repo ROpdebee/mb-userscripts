@@ -16,4 +16,5 @@ export enum ArtworkTypeIDs {
     'Matrix/Runout' = 15,
     Top = 48,
     Bottom = 49,
+    Panel = 81,
 }
