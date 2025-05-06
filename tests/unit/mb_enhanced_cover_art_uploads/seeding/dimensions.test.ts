@@ -246,7 +246,7 @@ describe('a-tisket images', () => {
         const image = new SeederImage('https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg');
 
         await expect(image.getFileInfo()).resolves.toStrictEqual({
-            size: 1_826_850,
+            size: 1_826_848,
             fileType: 'JPEG',
         });
     });
@@ -274,7 +274,7 @@ describe('a-tisket images', () => {
 
         await expect(image.getFileInfo()).resolves.toStrictEqual({
             fileType: 'JPEG',
-            size: 365_960,
+            size: 45_776,
         });
     });
 

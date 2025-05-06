@@ -1,22 +1,22 @@
 WARC/1.1
 WARC-Filename: a-tisket images/loads file info for Apple Music images
-WARC-Date: 2022-06-13T14:57:06.442Z
+WARC-Date: 2025-05-06T15:11:03.842Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:07db5a2b-82b5-4642-a26c-df10f22aee45>
+WARC-Record-ID: <urn:uuid:e3174952-5d83-426b-8d35-51244ce01e69>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:72414f2d-63cf-487a-8b3a-a3022c817e97>
+WARC-Concurrent-To: <urn:uuid:2ea58df2-bc09-44ba-83d1-654a8efbc50b>
 WARC-Target-URI: https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg
-WARC-Date: 2022-06-13T14:57:06.443Z
+WARC-Date: 2025-05-06T15:11:03.844Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:9c53b375-962a-4dda-b18c-cd32efb14963>
+WARC-Record-ID: <urn:uuid:e18f7af6-89f1-465c-b8cc-248bcd7c4f5e>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:92a9aac19b35e75639c4604720fbdc00fb0b402b9f9ca4aac1791068a8481a91
@@ -27,63 +27,68 @@ HEAD /image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/8845018
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:72414f2d-63cf-487a-8b3a-a3022c817e97>
+WARC-Concurrent-To: <urn:uuid:2ea58df2-bc09-44ba-83d1-654a8efbc50b>
 WARC-Target-URI: https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg
-WARC-Date: 2022-06-13T14:57:06.444Z
+WARC-Date: 2025-05-06T15:11:03.844Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:f8eb7c14-a396-4eaf-a5c6-76e82288e42c>
+WARC-Record-ID: <urn:uuid:1160f2e4-dcaa-4ca0-b278-6bcf5ace53b3>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:c01562fed521e54e795a955394b67f7d5043add7a0f1293b0b982901dbf438fd
-WARC-Block-Digest: sha256:c01562fed521e54e795a955394b67f7d5043add7a0f1293b0b982901dbf438fd
+WARC-Payload-Digest: sha256:1351280b28b9d0896ce5af3e7e8cc6dc27b7542db06d33fe1c8c33e46ef0ccb4
+WARC-Block-Digest: sha256:1351280b28b9d0896ce5af3e7e8cc6dc27b7542db06d33fe1c8c33e46ef0ccb4
 Content-Length: 350
 
 harEntryId: 3b2fc26069c8b0517f1f82a8bd9f4d21
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2022-06-13T14:57:06.225Z
-time: 212
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":212,"receive":0,"ssl":-1}
+startedDateTime: 2025-05-06T15:11:03.506Z
+time: 312
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":312,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 150
 warcRequestCookies: []
-warcResponseHeadersSize: 1349
+warcResponseHeadersSize: 1676
 warcResponseCookies: []
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg
-WARC-Date: 2022-06-13T14:57:06.442Z
+WARC-Date: 2025-05-06T15:11:03.843Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:72414f2d-63cf-487a-8b3a-a3022c817e97>
+WARC-Record-ID: <urn:uuid:2ea58df2-bc09-44ba-83d1-654a8efbc50b>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:874b0ad7467be14fd48a48ce650e6d88e08c9ca7a89617b978d96f6708fd4149
-Content-Length: 1366
+WARC-Block-Digest: sha256:32e1e836f0fe20cd4758b21d5ad2c3429d692e8a1de59a02eeed8130e74ce205
+Content-Length: 1693
 
 HTTP/1.1 200 OK
+accept-ranges: bytes
 access-control-allow-origin: *
 access-control-expose-headers: Content-Length,Content-Type,ETag,Cache-Control,Expires,Last-Modified
-apple-originating-system: UnknownOriginatingSystem
-apple-seq: 0.0
-apple-tk: false
-b3: 8a26894cd12e045a5be796db4861a04d-35ad78ebf433fc59
-cache-control: no-transform, max-age=13235202
-cdnuuid: c8a5e60f-aad7-4a50-b11a-eb9edb257fc0-1949909649
-connection: close
-content-length: 1826850
+age: 16596
+alt-svc: h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
+cache-control: max-age=14161264, no-transform
+cdnuuid: 7e68bac0-c1fc-4156-8c2a-592095dd6692-8724047791
+connection: keep-alive
+content-length: 1826848
 content-type: image/jpeg
-date: Mon, 13 Jun 2022 14:57:06 GMT
-etag: "MSwxLjI3LTIyRyxWZXJzaW9uIDExLjMuMSAoQnVpbGQgMjBFMjQxKSwxNjU0MDgyNzAzNjAwLGlzQnVpbGRWZXJzaW9uTm90U2V0LDUwMDQ1LG5vRWZmZWN0"
-last-modified: Wed, 01 Jun 2022 11:25:03 GMT
-server: daiquiri/3.0.0
+date: Tue, 06 May 2025 15:11:03 GMT
+etag: "MSwxLjkwLjMsVmVyc2lvbiAxMy41LjIgKEJ1aWxkIDIyRzkxKSwxNzQ2NTI3NjcwODEwLHByb2R1Y3Rpb24xNTYsdHZ2d24sbm9FZmZlY3Q="
+last-modified: Tue, 06 May 2025 10:34:30 GMT
+server: daiquiri/5
 strict-transport-security: max-age=31536000; includeSubDomains
 timing-allow-origin: *
-x-apple-jingle-correlation-key: RITISTGRFYCFUW7HS3NUQYNAJU
-x-apple-request-uuid: 8a26894c-d12e-045a-5be7-96db4861a04d
-x-b3-spanid: 35ad78ebf433fc59
-x-b3-traceid: 8a26894cd12e045a5be796db4861a04d
-x-cache: TCP_HIT from a2-19-194-101.deploy.akamaitechnologies.com (AkamaiGHost/10.8.2-41758951) (-)
-x-daiquiri-instance: daiquiri:13624002:mr85p00it-hyhk03094901:7987:22RELEASE72:daiquiri-amp-processing-shared-int-001-mr
+via: https/1.1 uklon5-vp-vst-004.ts.apple.com (acdn/268.14469), https/1.1 uklon5-vp-vfe-012.ts.apple.com (acdn/268.14469), http/1.1 frmrs1-edge-mx-008.ts.apple.com (acdn/268.14469), https/1.1 frmrs1-edge-fx-023.ts.apple.com (acdn/4.16219), 1.1 varnish
+x-apple-jingle-correlation-key: QKPQQMHUZIBE75JXMB5MDNFKKU
+x-b3-traceid: 5870ba7fc61af6f5
+x-cache: miss, miss, hit-fresh, miss, MISS
+x-cache-hits: 0
+x-cdn: fsly
+x-content-type-options: nosniff
+x-daiquiri-instance: daiquiri:43624002:st44p00it-hyhk15014701:7987:25RELEASE50:daiquiri-amp-processing-shared-int-001-st, daiquiri:41338003:st47p00it-qujn13041901:7987:25RELEASE50:daiquiri-amp-all-l7shared-int-001-st
+x-frame-options: DENY
+x-served-by: cache-toj-leto2350055-TOJ
+x-timer: S1746544264.725134,VS0,VE105
+x-xss-protection: 0
 x-pollyjs-finalurl: https://is2-ssl.mzstatic.com/image/thumb/Music/v4/05/f3/b2/05f3b216-755e-6472-e998-f72a3b487dc0/884501818353.jpg/9999x9999-100.jpg
 
 
