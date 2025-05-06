@@ -32,6 +32,17 @@ const hasGMXHR = (
     // eslint-disable-next-line @typescript-eslint/prefer-optional-chain, @typescript-eslint/no-unnecessary-condition -- Might be using GMv3 API.
     || (typeof GM !== 'undefined' && GM.xmlHttpRequest !== undefined));
 
+function constructErrorMessage(options: RequestOptions | undefined, response: Response): string | undefined {
+    const messageHandler = options?.httpErrorMessages?.[response.status];
+    if (typeof messageHandler === 'string') {
+        return messageHandler;
+    } else if (messageHandler !== undefined) {
+        return messageHandler(response);
+    } else {
+        return undefined;
+    }
+}
+
 export const request: RequestFunction = async function (method: RequestMethod, url: URL | string, options?: RequestOptions) {
     // istanbul ignore next: Difficult to test.
     const backend = options?.backend ?? (hasGMXHR ? RequestBackend.GMXHR : RequestBackend.FETCH);
@@ -39,7 +50,8 @@ export const request: RequestFunction = async function (method: RequestMethod, u
 
     const throwForStatus = options?.throwForStatus ?? true;
     if (throwForStatus && response.status >= 400) {
-        throw new HTTPResponseError(url, response, options?.httpErrorMessages?.[response.status]);
+        const errorMessage = constructErrorMessage(options, response);
+        throw new HTTPResponseError(url, response, errorMessage);
     }
 
     return response;
