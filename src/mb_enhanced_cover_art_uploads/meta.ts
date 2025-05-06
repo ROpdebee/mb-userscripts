@@ -27,7 +27,7 @@ const metadata: UserscriptMetadata = {
         'GM.getResourceURL',
     ],
     'connect': '*',
-    'require': ['https://github.com/qsniyg/maxurl/blob/b2f5a3edd335f623602befcec9ea47adc5ac994c/userscript.user.js?raw=true'],
+    'require': ['https://github.com/qsniyg/maxurl/blob/ef4cd2c5d66ba9cca9c487a25579d1a6bd10ca06/userscript.user.js?raw=true'],
     'resource': ['amazonFavicon https://www.amazon.com/favicon.ico'],
     'blurb': dedent`
       Enhance the cover art uploader!
