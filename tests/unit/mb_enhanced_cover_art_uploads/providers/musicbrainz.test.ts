@@ -62,7 +62,7 @@ describe('musicbrainz provider', () => {
             }, {
                 index: 6,
                 urlPart: '02cd52d7-2d0c-41a4-bf9c-59894bebab8c-37108051684.png',
-                types: [ArtworkTypeIDs['Raw/Unedited']],
+                types: [ArtworkTypeIDs.Panel, ArtworkTypeIDs['Raw/Unedited']],
                 comment: '',
             }],
         }];
