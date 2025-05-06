@@ -16,7 +16,6 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Beatport | ✔️ | ✔️ | Beware of upscales. 1400x1400 on older releases is probably upscaled. |
 | Booth | ✔ | ❌ | Types only filled for the first image. Note that Booth also contains products that aren't music albums (comics, stickers, etc.). |
 | Bugs! | ✔️ | ✔️ |
-| DatPiff | ✔️ | ✔️ |
 | Deezer | ✔️ | ✔️ |
 | Discogs | Partial | ❌ | Images are limited to 600x600, see [qsniyg/maxurl#689](https://github.com/qsniyg/maxurl/issues/689) |
 | Jamendo | ✔️ | ✔️ |
