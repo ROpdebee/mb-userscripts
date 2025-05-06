@@ -1,3 +1,4 @@
+- **2025.5.6.2**: Bug fix: upstream provider fixes ([#816](https://github.com/ROpdebee/mb-userscripts/pull/816))
 - **2025.5.6**: Bug fix: extract RateYourMusic covers again ([#815](https://github.com/ROpdebee/mb-userscripts/pull/815))
 - **2025.3.10**: New feature: Display image dimensions and seed release URLs from Harmony ([#811](https://github.com/ROpdebee/mb-userscripts/pull/811))
 - **2025.3.9**: New feature: Seed cover art from Harmony release actions pages ([#810](https://github.com/ROpdebee/mb-userscripts/pull/810))
