@@ -12,7 +12,7 @@
         float: none !important; // Need to set !important because MB's own CSS has more specific selectors.
     }
 
-    > input#ROpdebee_paste_front_only {
+    > input[type="checkbox"] {
         display: inline;
     }
 

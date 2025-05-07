@@ -25,6 +25,10 @@ const metadata: UserscriptMetadata = {
         'GM.xmlhttpRequest',
         // Used for some favicons
         'GM.getResourceURL',
+        // Configuration settings
+        'GM.getValue',
+        'GM.setValue',
+        'GM.deleteValue',
     ],
     'connect': '*',
     'require': ['https://github.com/qsniyg/maxurl/blob/ef4cd2c5d66ba9cca9c487a25579d1a6bd10ca06/userscript.user.js?raw=true'],

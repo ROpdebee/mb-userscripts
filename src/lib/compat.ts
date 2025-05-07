@@ -6,6 +6,9 @@
 // Declare v3 GM_* APIs, but not globally.
 declare function GM_xmlhttpRequest<T>(details: GM.Request<T>): void;
 declare function GM_getResourceURL(resourceName: string): string;
+declare function GM_getValue(name: string): GM.Value | undefined;
+declare function GM_setValue(name: string, value: GM.Value): void;
+declare function GM_deleteValue(name: string): void;
 declare const GM_info: typeof GM.info;
 
 function existsInGM(name: string): boolean {
@@ -24,6 +27,29 @@ export function GMxmlHttpRequest(details: GM.Request): void {
         GM.xmlHttpRequest(details);
     } else {
         GM_xmlhttpRequest(details);
+    }
+}
+
+export function GMgetValue(name: string): Promise<GM.Value | undefined> {
+    // eslint-disable-next-line sonarjs/no-use-of-empty-return-value
+    return existsInGM('getValue') ? GM.getValue(name) : Promise.resolve(GM_getValue(name));
+}
+
+export function GMsetValue(name: string, value: GM.Value): Promise<void> {
+    if (existsInGM('setValue')) {
+        return GM.setValue(name, value);
+    } else {
+        GM_setValue(name, value);
+        return Promise.resolve();
+    }
+}
+
+export function GMdeleteValue(name: string): Promise<void> {
+    if (existsInGM('deleteValue')) {
+        return GM.deleteValue(name);
+    } else {
+        GM_deleteValue(name);
+        return Promise.resolve();
     }
 }
 
@@ -76,7 +102,7 @@ interface CloneIntoOptions {
  * ```
  * In this way privileged code, such as an add-on, can share an object with
  * less-privileged code like a normal web page script.
- * @param {T} obj   The object to clone.
+ * @param {T} object   The object to clone.
  * @param {object} targetScope   The object to attach the object to.
  * @param {CloneIntoOptions | undefined } options   Options
  * @returns {T} A reference to the cloned object.
