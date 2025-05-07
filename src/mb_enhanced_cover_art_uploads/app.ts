@@ -11,6 +11,7 @@ import { qs } from '@lib/util/dom';
 import { ObservableSemaphore } from '@lib/util/observable';
 
 import type { BareCoverArt, QueuedImageBatch } from './types';
+import { CONFIG } from './config';
 import { ImageFetcher } from './fetch';
 import { fillEditNote } from './form';
 import { getProvider } from './providers';
@@ -24,7 +25,6 @@ export class App {
     private readonly urlsInProgress: Set<string>;
     private readonly loggingSink = new GuiSink();
     private readonly fetchingSema: ObservableSemaphore;
-    public onlyFront = false;
 
     public constructor() {
         this.note = EditNote.withFooterFromGMInfo();
@@ -78,7 +78,7 @@ export class App {
                     LOGGER.info(`Fetching ${coverArt.url}`);
                 }
                 try {
-                    const fetchResult = await this.fetcher.fetchImages(coverArt, this.onlyFront);
+                    const fetchResult = await this.fetcher.fetchImages(coverArt, await CONFIG.fetchFrontOnly.get());
                     fetchedBatches.push(fetchResult);
                 } catch (error) {
                     LOGGER.error('Failed to fetch or enqueue images', error);

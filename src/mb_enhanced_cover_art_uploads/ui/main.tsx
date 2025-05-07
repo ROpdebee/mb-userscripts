@@ -1,14 +1,15 @@
+import type { ConfigProperty } from '@lib/config';
 import type { ProgressEvent } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
 import { filterNonNull } from '@lib/util/array';
 import { assertDefined } from '@lib/util/assert';
-import { createPersistentCheckbox } from '@lib/util/checkboxes';
 import { insertStylesheet } from '@lib/util/css';
 import { parseDOM, qs, qsa } from '@lib/util/dom';
 
 import type { App } from '../app';
 import type { FetcherHooks } from '../fetch';
 import type { CoverArtProvider } from '../providers/base';
+import { CONFIG } from '../config';
 
 import css from './main.scss';
 
@@ -85,6 +86,38 @@ function parsePlainURLs(text: string): string[] {
     return text.trim().split(/\s+/);
 }
 
+function createCheckbox(property: ConfigProperty<boolean>): [HTMLInputElement, HTMLLabelElement] {
+    const checkbox = (
+        <input
+            type="checkbox"
+            id={property.name}
+        />) as HTMLInputElement;
+
+    // The property getter is async, so we need to do some trickery to get the
+    // default value. Event listener should be registered AFTERWARDS so that
+    // we don't explicitly store the default value.
+    property.get().then((value) => {
+        checkbox.checked = value;
+        checkbox.addEventListener('change', () => {
+            property.set(checkbox.checked)
+                // eslint-disable-next-line promise/no-nesting -- Not nested.
+                .catch((error) => {
+                    LOGGER.error(`Error when saving checkbox value for ${property.name}: ${error}`);
+                });
+        });
+    }).catch((error) => {
+        LOGGER.error(`Error when initialising value for ${property.name} checkbox: ${error}`);
+    });
+
+    const labelElement = (
+        <label htmlFor={property.name}>
+            {property.description}
+        </label>
+    ) as HTMLLabelElement;
+
+    return [checkbox, labelElement];
+}
+
 export class InputForm implements FetcherHooks {
     private readonly urlInput: HTMLInputElement;
     private readonly buttonContainer: HTMLDivElement;
@@ -150,13 +183,7 @@ export class InputForm implements FetcherHooks {
                 }}
             />) as HTMLInputElement;
 
-        const [onlyFrontCheckbox, onlyFrontLabel] = createPersistentCheckbox(
-            'ROpdebee_paste_front_only',
-            'Fetch front image only',
-            (event_) => {
-                app.onlyFront = (event_.currentTarget as HTMLInputElement | undefined)?.checked ?? false;
-            });
-        app.onlyFront = onlyFrontCheckbox.checked;
+        const [onlyFrontCheckbox, onlyFrontLabel] = createCheckbox(CONFIG.fetchFrontOnly);
 
         // Container element for the URL input and additional information
         const container = (

@@ -124,6 +124,7 @@ async function run(windowInstance: Window): Promise<void> {
     // functionality as soon as possible without waiting for the whole page to load.
     const editor = await retryTimes(() => getExternalLinksEditor(windowInstance.MB), 100, 50);
     const splitter = new LinkSplitter(editor);
+    // TODO: Switch to ConfigProperty -- Needs event listeners on ConfigProperty.
     const [checkboxElement, labelElement] = createPersistentCheckbox('ROpdebee_multi_links_no_split', "Don't split links", () => {
         splitter.toggle();
     });
