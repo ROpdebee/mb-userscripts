@@ -9,6 +9,7 @@ import { HTTPResponseError, request } from '@lib/util/request';
 import { urlBasename } from '@lib/util/urls';
 
 import type { CoverArt } from '../types';
+import { CONFIG } from '../config';
 import { ProviderWithTrackImages } from './base';
 
 // Incomplete, only what we need.
@@ -136,7 +137,7 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
         return url.pathname.slice(1); // Remove leading slash
     }
 
-    public async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         const pageContent = await this.fetchPage(url);
         const metadata = this.extractMetadataFromJS(pageContent)
             ?.find((data) => ['sound', 'playlist'].includes(data.hydratable));
@@ -145,10 +146,10 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
         }
 
         if (metadata.hydratable === 'sound') {
-            return this.extractCoverFromTrackMetadata(metadata as SCHydrationSound, onlyFront);
+            return this.extractCoverFromTrackMetadata(metadata as SCHydrationSound);
         } else {
             assert(metadata.hydratable === 'playlist');
-            return this.extractCoversFromSetMetadata(metadata as SCHydrationPlaylist, onlyFront);
+            return this.extractCoversFromSetMetadata(metadata as SCHydrationPlaylist);
         }
     }
 
@@ -159,7 +160,7 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
         return safeParseJSON<SCHydration[]>(jsonData);
     }
 
-    private extractCoverFromTrackMetadata(metadata: SCHydrationSound, onlyFront: boolean): CoverArt[] {
+    private extractCoverFromTrackMetadata(metadata: SCHydrationSound): CoverArt[] {
         if (!metadata.data.artwork_url) {
             return [];
         }
@@ -169,20 +170,19 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
             types: [ArtworkTypeIDs.Front],
         }];
 
-        if (!onlyFront) {
-            // Check for backdrop images.
-            const backdrops = this.extractVisuals(metadata.data);
-            covers.push(...backdrops.map((backdropUrl) => ({
-                url: new URL(backdropUrl),
-                types: [ArtworkTypeIDs.Other],
-                comment: 'SoundCloud backdrop',
-            })));
-        }
+        // Check for backdrop images. They may be filtered out later if undesired
+        // (e.g., because `fetchOnlyFront` is set).
+        const backdrops = this.extractVisuals(metadata.data);
+        covers.push(...backdrops.map((backdropUrl) => ({
+            url: new URL(backdropUrl),
+            types: [ArtworkTypeIDs.Other],
+            comment: 'SoundCloud backdrop',
+        })));
 
         return covers;
     }
 
-    private async extractCoversFromSetMetadata(metadata: SCHydrationPlaylist, onlyFront: boolean): Promise<CoverArt[]> {
+    private async extractCoversFromSetMetadata(metadata: SCHydrationPlaylist): Promise<CoverArt[]> {
         const covers: CoverArt[] = [];
         /* istanbul ignore else: Cannot find case */
         if (metadata.data.artwork_url) {
@@ -193,7 +193,7 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
         }
 
         // Don't bother extracting track covers if they won't be used anyway
-        if (onlyFront) return covers;
+        if (await CONFIG.soundcloud.skipTrackImages) return covers;
 
         // SoundCloud page only contains data for the first 5 tracks at first,
         // we need to load the rest of the tracks.
