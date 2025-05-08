@@ -94,7 +94,7 @@
     "terser": "5.27.0",
     "ts-dedent": "2.2.0",
     "ts-jest": "29.1.2",
-    "tsx": "4.7.0",
+    "tsx": "4.19.4",
     "type-fest": "4.10.2",
     "typescript": "5.3.3",
     "warcio": "2.2.1"
