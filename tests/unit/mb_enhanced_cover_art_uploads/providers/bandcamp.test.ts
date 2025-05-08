@@ -1,5 +1,6 @@
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
+import { CONFIG } from '@src/mb_enhanced_cover_art_uploads/config';
 import { BandcampProvider } from '@src/mb_enhanced_cover_art_uploads/providers/bandcamp';
 import { itBehavesLike } from '@test-utils/shared-behaviour';
 
@@ -123,7 +124,10 @@ describe('bandcamp provider', () => {
         });
 
         it('grabs no track covers if they will not be used', async () => {
-            const coverUrls = await provider.findImages(new URL('https://nyokee.bandcamp.com/album/quarantine-pixel-party'), true);
+            const spy = jest.spyOn(CONFIG.bandcamp, 'skipTrackImages', 'get');
+            spy.mockResolvedValueOnce(true);
+
+            const coverUrls = await provider.findImages(new URL('https://nyokee.bandcamp.com/album/quarantine-pixel-party'));
 
             expect(coverUrls).toBeArrayOfSize(1);
             expect(coverUrls[0]).toMatchCoverArt({

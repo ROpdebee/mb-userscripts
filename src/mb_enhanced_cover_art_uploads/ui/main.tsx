@@ -134,6 +134,11 @@ function createConfig(): HTMLElement {
                 <summary>Configure…</summary>
                 <div className="ROpdebee_ecau_config_options">
                     {createCheckbox(CONFIG.fetchFrontOnly)}
+                    {createCheckbox(CONFIG.skipTrackImagesProperty)}
+                    <h3>Bandcamp</h3>
+                    {createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty)}
+                    <h3>Soundcloud</h3>
+                    {createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty)}
                 </div>
             </details>
         </div>

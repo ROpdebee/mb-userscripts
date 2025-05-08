@@ -8,6 +8,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { HTTPResponseError } from '@lib/util/request';
 import { NetworkError, request } from '@lib/util/request';
+import { CONFIG } from '@src/mb_enhanced_cover_art_uploads/config';
 import { ImageFetcher } from '@src/mb_enhanced_cover_art_uploads/fetch';
 import { enqueueImage } from '@src/mb_enhanced_cover_art_uploads/form';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
@@ -465,7 +466,7 @@ describe('fetching images from providers', () => {
     it('returns no images if provider provides no images', async () => {
         mockFindImages.mockResolvedValueOnce([]);
 
-        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false))
+        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
             .resolves.toMatchObject({
                 images: [],
                 containerUrl: {
@@ -480,7 +481,7 @@ describe('fetching images from providers', () => {
             createCoverArt('https://example.com/2'),
         ]);
 
-        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false))
+        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
             .resolves.toMatchObject({
                 images: [{
                     content: {
@@ -506,7 +507,7 @@ describe('fetching images from providers', () => {
             }),
         ]);
 
-        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false))
+        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
             .resolves.toMatchObject({
                 images: [{
                     content: {
@@ -524,7 +525,7 @@ describe('fetching images from providers', () => {
         const cover = createCoverArt('https://example.com/1');
         mockFindImages.mockResolvedValue([cover, cover]);
 
-        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false))
+        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
             .resolves.toMatchObject({
                 images: [{
                     content: {
@@ -557,7 +558,7 @@ describe('fetching images from providers', () => {
             .mockImplementationOnce(mockedImplementation)
             .mockImplementationOnce(mockedImplementation);
 
-        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false))
+        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
             .resolves.toMatchObject({
                 images: [{
                     content: {
@@ -578,7 +579,7 @@ describe('fetching images from providers', () => {
         ]);
         mockFetchImageContents.mockRejectedValueOnce(new Error('1 has an unsupported file type'));
 
-        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false))
+        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
             .resolves.toMatchObject({
                 images: [],
                 containerUrl: {
@@ -595,7 +596,7 @@ describe('fetching images from providers', () => {
             }),
         ]);
 
-        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false))
+        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
             .resolves.toMatchObject({
                 images: [{
                     wasMaximised: false,
@@ -617,7 +618,7 @@ describe('fetching images from providers', () => {
             createCoverArt('https://example.com/2'),
         ]);
 
-        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, provider, false))
+        await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, provider))
             .resolves.toMatchObject({
                 images: [{
                     originalUrl: {
@@ -635,7 +636,7 @@ describe('fetching images from providers', () => {
                 comment: 'comment',
             }),
         ]);
-        await fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false);
+        await fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider);
 
         expect(mockEnqueueImage).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Bad type defs.
@@ -648,6 +649,16 @@ describe('fetching images from providers', () => {
     });
 
     describe('fetching only front images', () => {
+        const fetchFrontOnlyPropertySpy = jest.spyOn(CONFIG.fetchFrontOnly, 'get');
+
+        beforeEach(() => {
+            fetchFrontOnlyPropertySpy.mockResolvedValue(true);
+        });
+
+        afterAll(() => {
+            fetchFrontOnlyPropertySpy.mockRestore();
+        });
+
         it('removes non-front images', async () => {
             mockFindImages.mockResolvedValueOnce([
                 createCoverArt({
@@ -660,7 +671,7 @@ describe('fetching images from providers', () => {
                 }),
             ]);
 
-            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, true))
+            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
                 .resolves.toMatchObject({
                     images: [{
                         originalUrl: {
@@ -684,7 +695,7 @@ describe('fetching images from providers', () => {
                 }),
             ]);
 
-            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, true))
+            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
                 .resolves.toMatchObject({
                     images: [{
                         originalUrl: {
@@ -708,7 +719,7 @@ describe('fetching images from providers', () => {
                 }),
             ]);
 
-            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, true))
+            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
                 .resolves.toMatchObject({
                     images: expect.toBeArrayOfSize(2) as QueuedImage[],
                 });
@@ -727,7 +738,7 @@ describe('fetching images from providers', () => {
                 }),
             ]);
 
-            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, true))
+            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
                 .resolves.toMatchObject({
                     images: [{
                         originalUrl: {
@@ -754,7 +765,7 @@ describe('fetching images from providers', () => {
                 .mockResolvedValueOnce(resolvedValue)
                 .mockResolvedValueOnce(resolvedValue);
 
-            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, true))
+            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
                 .resolves.toMatchObject({
                     images: [{
                         originalUrl: {
@@ -763,9 +774,12 @@ describe('fetching images from providers', () => {
                         types: [ArtworkTypeIDs.Front],
                     }],
                 });
+
             // Call again but allow non-front now, should only return the last one since the first is already
             // done.
-            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false))
+            fetchFrontOnlyPropertySpy.mockResolvedValueOnce(false);
+
+            await expect(fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
                 .resolves.toMatchObject({
                     images: [{
                         originalUrl: {
@@ -786,7 +800,7 @@ describe('fetching images from providers', () => {
                 comment: 'comment',
             }),
         ]);
-        await fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider, false);
+        await fetchImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider);
 
         expect(hooks.onFetchStarted).toHaveBeenCalledWith(0, new URL('https://example.com/1'));
         expect(hooks.onFetchFinished).toHaveBeenCalledWith(0);
@@ -813,7 +827,7 @@ describe('fetching images', () => {
     });
 
     it('fetches single image if no provider found', async () => {
-        const result = await fetcher.fetchImages({ url: new URL('https://example.com/1') }, false);
+        const result = await fetcher.fetchImages({ url: new URL('https://example.com/1') });
 
         expect(result.images).toBeArrayOfSize(1);
         expect(result.images[0]).toMatchObject({
@@ -835,7 +849,7 @@ describe('fetching images', () => {
             }),
         ]);
 
-        const result = await fetcher.fetchImages({ url: new URL('https://example.com/1') }, false);
+        const result = await fetcher.fetchImages({ url: new URL('https://example.com/1') });
 
         expect(result.images).toBeArrayOfSize(2);
         expect(result.images[0]).toMatchObject({
@@ -854,9 +868,9 @@ describe('fetching images', () => {
     });
 
     it('does not fetch URL which was already fetched', async () => {
-        await fetcher.fetchImages({ url: new URL('https://example.com/1') }, false);
+        await fetcher.fetchImages({ url: new URL('https://example.com/1') });
 
-        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }))
             .resolves.toHaveProperty('images', []);
     });
 
@@ -867,10 +881,10 @@ describe('fetching images', () => {
             createCoverArt('https://example.com/2'),
         ]);
 
-        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }))
             .resolves.toHaveProperty('images', expect.toBeArrayOfSize(2));
         // Second fetch should be blocked, since all previous images are done.
-        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }))
             .resolves.toHaveProperty('images', []);
         expect(mockFindImages).toHaveBeenCalledOnce();
     });
@@ -884,14 +898,14 @@ describe('fetching images', () => {
         mockFetchImageContents.mockRejectedValueOnce(new Error('test'));
 
         // First fetch will fail to fetch the first of the two images.
-        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }))
             .resolves.toHaveProperty('images', [
                 expect.objectContaining({
                     fetchedUrl: new URL('https://example.com/2'),
                 }),
             ]);
         // Second fetch should now only fetch the first image, second one already fetched previously.
-        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }, false))
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/1') }))
             .resolves.toHaveProperty('images', [
                 expect.objectContaining({
                     fetchedUrl: new URL('https://example.com/1'),
@@ -901,7 +915,7 @@ describe('fetching images', () => {
     });
 
     it('does not fetch maximised URL which was already fetched previously', async () => {
-        await fetcher.fetchImages({ url: new URL('https://example.com/1') }, false);
+        await fetcher.fetchImages({ url: new URL('https://example.com/1') });
 
         // Simulate 1 being maximal version of 2
         // eslint-disable-next-line @typescript-eslint/require-await
@@ -914,12 +928,12 @@ describe('fetching images', () => {
             return undefined;
         });
 
-        await expect(fetcher.fetchImages({ url: new URL('https://example.com/2') }, false))
+        await expect(fetcher.fetchImages({ url: new URL('https://example.com/2') }))
             .resolves.toHaveProperty('images', []);
     });
 
     it('enqueues the image', async () => {
-        await fetcher.fetchImages({ url: new URL('https://example.com/1'), types: [ArtworkTypeIDs.Medium], comment: 'comment' }, false);
+        await fetcher.fetchImages({ url: new URL('https://example.com/1'), types: [ArtworkTypeIDs.Medium], comment: 'comment' });
 
         expect(mockEnqueueImage).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Bad type defs.
@@ -930,7 +944,7 @@ describe('fetching images', () => {
     });
 
     it('calls the hooks', async () => {
-        await fetcher.fetchImages({ url: new URL('https://example.com/1') }, false);
+        await fetcher.fetchImages({ url: new URL('https://example.com/1') });
 
         expect(hooks.onFetchStarted).toHaveBeenCalledWith(0, new URL('https://example.com/1'));
         expect(hooks.onFetchFinished).toHaveBeenCalledWith(0);

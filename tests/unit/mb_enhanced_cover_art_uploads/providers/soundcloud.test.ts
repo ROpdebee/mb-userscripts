@@ -1,5 +1,6 @@
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import { CONFIG } from '@src/mb_enhanced_cover_art_uploads/config';
 import { SoundCloudProvider } from '@src/mb_enhanced_cover_art_uploads/providers/soundcloud';
 import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared-behaviour';
@@ -136,7 +137,10 @@ describe('soundcloud provider', () => {
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
 
         it('grabs no track images if they will not be used', async () => {
-            const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/isolationep'), true);
+            const spy = jest.spyOn(CONFIG.soundcloud, 'skipTrackImages', 'get');
+            spy.mockResolvedValueOnce(true);
+
+            const covers = await provider.findImages(new URL('https://soundcloud.com/officialpandaeyes/sets/isolationep'));
 
             expect(covers).toBeArrayOfSize(1);
             expect(covers[0]).toMatchCoverArt({

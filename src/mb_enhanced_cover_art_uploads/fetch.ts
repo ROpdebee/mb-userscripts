@@ -11,6 +11,7 @@ import { urlBasename } from '@lib/util/urls';
 
 import type { CoverArtProvider } from './providers/base';
 import type { BareCoverArt, CoverArt, FetchedImage, ImageContents, QueuedImage, QueuedImageBatch } from './types';
+import { CONFIG } from './config';
 import { enqueueImage } from './form';
 import { getMaximisedCandidates } from './maximise';
 import { getProvider, getProviderByDomain } from './providers';
@@ -44,7 +45,7 @@ export class ImageFetcher {
         this.hooks = hooks;
     }
 
-    public async fetchImages(coverArt: BareCoverArt, onlyFront: boolean): Promise<QueuedImageBatch> {
+    public async fetchImages(coverArt: BareCoverArt): Promise<QueuedImageBatch> {
         const { url } = coverArt;
         if (this.urlAlreadyAdded(url)) {
             LOGGER.warn(`${url} has already been added`);
@@ -55,7 +56,7 @@ export class ImageFetcher {
 
         const provider = getProvider(url);
         if (provider) {
-            return this.fetchImagesFromProvider(coverArt, provider, onlyFront);
+            return this.fetchImagesFromProvider(coverArt, provider);
         }
 
         const { types: defaultTypes, comment: defaultComment } = coverArt;
@@ -131,14 +132,14 @@ export class ImageFetcher {
         }
     }
 
-    private async fetchImagesFromProvider({ url, types: defaultTypes, comment: defaultComment }: BareCoverArt, provider: CoverArtProvider, onlyFront: boolean): Promise<QueuedImageBatch> {
+    private async fetchImagesFromProvider({ url, types: defaultTypes, comment: defaultComment }: BareCoverArt, provider: CoverArtProvider): Promise<QueuedImageBatch> {
         LOGGER.info(`Searching for images in ${provider.name} release…`);
 
         // This could throw, assuming caller will catch.
-        const images = await provider.findImages(url, onlyFront);
-        const finalImages = onlyFront ? this.retainOnlyFront(images) : images;
+        const images = await provider.findImages(url);
+        const finalImages = (await CONFIG.fetchFrontOnly.get()) ? this.retainOnlyFront(images) : images;
         // FIXME: This may be broken for providers which skip checking track images.
-        const hasMoreImages = onlyFront && images.length !== finalImages.length;
+        const hasMoreImages = images.length !== finalImages.length;
 
         // eslint-disable-next-line unicorn/explicit-length-check
         LOGGER.info(`Found ${finalImages.length || 'no'} image(s) in ${provider.name} release`);

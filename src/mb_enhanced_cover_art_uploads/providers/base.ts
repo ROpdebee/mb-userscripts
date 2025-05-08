@@ -46,10 +46,9 @@ export abstract class CoverArtProvider {
      * Find the provider's images.
      *
      * @param      {string}     url           The URL to the release. Guaranteed to have passed validation.
-     * @param      {boolean}    onlyFront     True if we'll only enqueue the front image, can be used to skip expensive lookups. Providers can still return all images, they'll be filtered later.
      * @return     {Promise<CoverArt[]>}  List of cover arts that should be imported.
      */
-    public abstract findImages(url: URL, onlyFront: boolean): Promisable<CoverArt[]>;
+    public abstract findImages(url: URL): Promisable<CoverArt[]>;
 
     /**
      * Postprocess a fetched image. By default, does nothing, however,

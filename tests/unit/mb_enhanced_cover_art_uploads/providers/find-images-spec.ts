@@ -40,7 +40,7 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
 
     if (extractionCases.length > 0) {
         it.each(extractionCases)('extracts covers for $description', async (extractionCase) => {
-            const covers = await provider.findImages(new URL(extractionCase.url), false);
+            const covers = await provider.findImages(new URL(extractionCase.url));
 
             expect(covers).toBeArrayOfSize(extractionCase.imageCount);
 
@@ -56,7 +56,7 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
                 recordFailedRequests: true,
             });
 
-            await expect(provider.findImages(new URL(extractionFailedCase.url), false))
+            await expect(provider.findImages(new URL(extractionFailedCase.url)))
                 .rejects.toThrowWithMessage(Error, extractionFailedCase.errorMessage ?? `${provider.name} release does not exist`);
         });
     }

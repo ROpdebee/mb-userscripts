@@ -9,6 +9,7 @@ import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 
 import type { CoverArt } from '../types';
 import type { ParsedTrackImage } from './base';
+import { CONFIG } from '../config';
 import { ProviderWithTrackImages } from './base';
 
 export class BandcampProvider extends ProviderWithTrackImages {
@@ -24,7 +25,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
             .join('/');
     }
 
-    public async findImages(url: URL, onlyFront = false): Promise<CoverArt[]> {
+    public async findImages(url: URL): Promise<CoverArt[]> {
         const responseDocument = parseDOM(await this.fetchPage(url), url.href);
         const albumCoverUrl = this.extractCover(responseDocument);
 
@@ -39,8 +40,9 @@ export class BandcampProvider extends ProviderWithTrackImages {
             LOGGER.warn('Bandcamp release has no cover');
         }
 
-        // Don't bother extracting track images if we only need the front cover
-        const trackImages = onlyFront ? [] : await this.findTrackImages(responseDocument, albumCoverUrl);
+        const trackImages = (await CONFIG.bandcamp.skipTrackImages)
+            ? []
+            : await this.findTrackImages(responseDocument, albumCoverUrl);
 
         return this.amendSquareThumbnails([...covers, ...trackImages]);
     }
