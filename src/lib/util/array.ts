@@ -66,3 +66,19 @@ export function insertBetween<T1, T2>(array: readonly T1[], newElement: T2 | (()
         ...array.slice(1).flatMap((element) => [isFactory(newElement) ? newElement() : newElement, element]),
     ];
 }
+
+/**
+ * Split an array into chunks.
+ *
+ * @param      {T[]}     array      The array.
+ * @param      {number}  chunkSize  The chunk size.
+ * @return     {T[][]}   Resulting chunks.
+ */
+export function splitChunks<T>(array: T[], chunkSize: number): T[][] {
+    const chunks = [];
+    for (let index = 0; index < array.length; index += chunkSize) {
+        chunks.push(array.slice(index, index + chunkSize));
+    }
+
+    return chunks;
+}

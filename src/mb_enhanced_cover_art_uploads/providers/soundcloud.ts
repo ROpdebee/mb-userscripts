@@ -1,7 +1,7 @@
 import type { TextResponse } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
-import { collatedSort, filterNonNull } from '@lib/util/array';
+import { collatedSort, filterNonNull, splitChunks } from '@lib/util/array';
 import { assert } from '@lib/util/assert';
 import { parseDOM, qsa } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
@@ -51,6 +51,7 @@ type SCHydrationTrack = LazyAPITrack | LoadedAPITrack;
 const SC_CLIENT_ID_REGEX = /client_id\s*:\s*"([a-zA-Z\d]{32})"/;
 const SC_CLIENT_ID_CACHE_KEY = 'ROpdebee_ECAU_SC_ID';
 const SC_HOMEPAGE = 'https://soundcloud.com/';
+const SC_MAX_TRACK_BATCH_SIZE = 50; // Maximum number of track IDs that can be provided to the API.
 
 export class SoundCloudProvider extends ProviderWithTrackImages {
     public readonly supportedDomains = ['soundcloud.com'];
@@ -203,7 +204,7 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
             .flatMap((track, trackNumber) => {
                 const trackImages = [];
                 if (!track.artwork_url) {
-                    LOGGER.warn(`Track #${trackNumber} has no track image?`);
+                    LOGGER.warn(`Track #${trackNumber + 1} has no track image?`);
                 } else {
                     trackImages.push({
                         url: track.artwork_url,
@@ -259,11 +260,25 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
         });
     }
 
-    private async getTrackData(lazyTrackIDs: number[], firstTry = true): Promise<SCHydrationTrack[]> {
+    private async getTrackData(lazyTrackIDs: number[]): Promise<SCHydrationTrack[]> {
         LOGGER.info('Loading SoundCloud track data');
+        const batches = splitChunks(lazyTrackIDs, SC_MAX_TRACK_BATCH_SIZE);
+
+        const batchInfos = [];
+        // For loop so that all API requests happen in sequence instead of potentially in parallel.
+        for (const batch of batches) {
+            batchInfos.push(await this.getTrackDataBatch(batch));
+        }
+
+        return batchInfos.flat();
+    }
+
+    private async getTrackDataBatch(lazyTrackIDs: number[], firstTry = true): Promise<SCHydrationTrack[]> {
+        assert(lazyTrackIDs.length <= SC_MAX_TRACK_BATCH_SIZE, 'Too many tracks to process');
+
+        LOGGER.debug('Loading batch of SoundCloud track data');
         const clientId = await SoundCloudProvider.getClientID();
 
-        // TODO: Does this work still work if we pass a large list of IDs?
         const parameters = new URLSearchParams({
             ids: lazyTrackIDs.join(','),
             client_id: clientId,
@@ -279,7 +294,7 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
 
             LOGGER.debug('Attempting to refresh client ID');
             await SoundCloudProvider.refreshClientID();
-            return this.getTrackData(lazyTrackIDs, firstTry = false);
+            return this.getTrackDataBatch(lazyTrackIDs, firstTry = false);
         }
 
         return safeParseJSON<LoadedAPITrack[]>(trackDataResponse.text, 'Failed to parse SoundCloud API response');
