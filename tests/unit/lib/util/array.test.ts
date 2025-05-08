@@ -1,4 +1,4 @@
-import { filterNonNull, findRight, groupBy, insertBetween } from '@lib/util/array';
+import { filterNonNull, findRight, groupBy, insertBetween, splitChunks } from '@lib/util/array';
 
 describe('filtering null values', () => {
     it('retains non-null values', () => {
@@ -107,5 +107,31 @@ describe('insert between', () => {
 
             expect(result).toStrictEqual([1, 0, 2, 1, 3]);
         });
+    });
+});
+
+describe('splitting chunks', () => {
+    it('returns one chunk in case the array is smaller than the chunk size', () => {
+        const result = splitChunks([1, 2, 3], 5);
+
+        expect(result).toStrictEqual([[1, 2, 3]]);
+    });
+
+    it('returns the correct chunks when array needs to be split', () => {
+        const result = splitChunks([1, 2, 3], 2);
+
+        expect(result).toStrictEqual([[1, 2], [3]]);
+    });
+
+    it('returns the correct chunks when array length is a multiple of chunk size', () => {
+        const result = splitChunks([1, 2, 3, 4], 2);
+
+        expect(result).toStrictEqual([[1, 2], [3, 4]]);
+    });
+
+    it('returns the correct chunks when array length is equal to chunk size', () => {
+        const result = splitChunks([1, 2, 3, 4], 4);
+
+        expect(result).toStrictEqual([[1, 2, 3, 4]]);
     });
 });

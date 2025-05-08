@@ -136,6 +136,13 @@ describe('soundcloud provider', () => {
         // eslint-disable-next-line jest/require-hook
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
 
+        // eslint-disable-next-line jest/no-disabled-tests -- TODO! Requires more efficient track image duplicate detection, otherwise the test recording will be huge.
+        it.skip('grabs track images for sets with more than 50 tracks', async () => {
+            const covers = await provider.findImages(new URL('https://soundcloud.com/user-367170376/sets/skyrim-sleep'));
+
+            expect(covers).toBeArrayOfSize(89);
+        });
+
         it('grabs no track images if they will not be used', async () => {
             const spy = jest.spyOn(CONFIG.soundcloud, 'skipTrackImages', 'get');
             spy.mockResolvedValueOnce(true);
