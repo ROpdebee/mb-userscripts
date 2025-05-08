@@ -1,84 +1,84 @@
 WARC/1.1
 WARC-Filename: soundcloud provider/extracting images/grabs no images if track has no image
-WARC-Date: 2023-07-19T00:37:45.301Z
+WARC-Date: 2025-05-08T17:46:12.074Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:7bc072e5-3437-43dc-9792-bf13525050c9>
+WARC-Record-ID: <urn:uuid:c66eca74-4606-4e22-88bd-fb5f11bef774>
 Content-Type: application/warc-fields
 Content-Length: 119
 
 software: warcio.js
 harVersion: 1.2
-harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:eadff66e-514a-48e9-b12e-6e17fac1302d>
-WARC-Target-URI: https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard
-WARC-Date: 2023-07-19T00:37:45.301Z
+WARC-Concurrent-To: <urn:uuid:70f983e1-857a-49d0-ae6e-7dc0f4e433a6>
+WARC-Target-URI: https://soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm
+WARC-Date: 2025-05-08T17:46:12.075Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:e6ca0116-7f66-4e57-b838-6ab7633feea3>
+WARC-Record-ID: <urn:uuid:bc6265b9-d892-4ea1-8b14-02c2020b69d6>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:57c3e3dd932b48ce2b001afaee8024ce925a169505ff0162ada642ad0a4c7366
+WARC-Block-Digest: sha256:b2a47e9193d651b0885c699b626ae2cc026f3abacede9d483a3a27fb394ad9aa
 Content-Length: 61
 
-GET /imnotfromlondonrecords/try-hard-or-die-hard HTTP/1.1
+GET /nue-donger/05-jeremy-soule-eye-of-the-storm HTTP/1.1
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:eadff66e-514a-48e9-b12e-6e17fac1302d>
-WARC-Target-URI: https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard
-WARC-Date: 2023-07-19T00:37:45.301Z
+WARC-Concurrent-To: <urn:uuid:70f983e1-857a-49d0-ae6e-7dc0f4e433a6>
+WARC-Target-URI: https://soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm
+WARC-Date: 2025-05-08T17:46:12.075Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:f7e819d5-907c-46b1-870b-c6a7452fd97e>
+WARC-Record-ID: <urn:uuid:707aaf02-dcac-44e6-997f-0305169a3461>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:aae6ee2ffb461f9ef1be5ff8879e473146cc07a729eb990ca6adbcb17c253d61
-WARC-Block-Digest: sha256:aae6ee2ffb461f9ef1be5ff8879e473146cc07a729eb990ca6adbcb17c253d61
+WARC-Payload-Digest: sha256:318e35eede2540e5c140cdae73529220aea5553aa7dd8827401a5c09ae8628bd
+WARC-Block-Digest: sha256:318e35eede2540e5c140cdae73529220aea5553aa7dd8827401a5c09ae8628bd
 Content-Length: 349
 
-harEntryId: 88809a70cbe95181f64fcf4e65b2e0f8
+harEntryId: 54c771ca759dfed094b3775237e71679
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2023-07-19T00:37:44.790Z
-time: 509
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":509,"receive":0,"ssl":-1}
+startedDateTime: 2025-05-08T17:46:11.779Z
+time: 292
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":292,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 85
 warcRequestCookies: []
-warcResponseHeadersSize: 1048
+warcResponseHeadersSize: 1004
 warcResponseCookies: []
 responseDecoded: false
 
 
 WARC/1.1
-WARC-Target-URI: https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard
-WARC-Date: 2023-07-19T00:37:45.301Z
+WARC-Target-URI: https://soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm
+WARC-Date: 2025-05-08T17:46:12.075Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:eadff66e-514a-48e9-b12e-6e17fac1302d>
+WARC-Record-ID: <urn:uuid:70f983e1-857a-49d0-ae6e-7dc0f4e433a6>
 Content-Type: application/http; msgtype=response
-WARC-Payload-Digest: sha256:bdf44b6a2fb55122a30f2f6bbedefeb3f71c9e2197f944e5fcff11cfcc7d0cf4
-WARC-Block-Digest: sha256:b2741c6fade1c7b2d53feef384342d51bc3d43619ff58aac2dec5b05e6cb2c95
-Content-Length: 30430
+WARC-Payload-Digest: sha256:578449e82f4d777557f27370d552e0508c8689562b99fe29c14bc07e950a2437
+WARC-Block-Digest: sha256:afac2252b3e0acb29c2d90ec49f1c552b1edaafe9e9c696564d87a7b0f1091ee
+Content-Length: 32175
 
 HTTP/1.1 200 OK
 cache-control: private, max-age=0, no-cache, no-store
-connection: close
+connection: keep-alive
 content-encoding: gzip
 content-type: text/html
-date: Wed, 19 Jul 2023 00:37:45 GMT
+date: Thu, 08 May 2025 17:46:12 GMT
 server: am/2
-server-timing: enabledFeatures; dur=4.498621; desc="api-v2/enabledFeatures", experiments; dur=6.6961; desc="api-v2/experiments", geoip; dur=1.174637; desc="geoip/geoip", resolve; dur=29.654117; desc="api-v2/resolve", privacySettings; dur=4.856006; desc="api-v2/privacySettings", user; dur=6.637868; desc="api-v2/user", trackComments; dur=111.73963; desc="api-v2/trackComments"
+server-timing: enabledFeatures; dur=64.084477; desc="api-v2/enabledFeatures", geoip; dur=9.210494; desc="geoip/geoip", resolve; dur=56.381641; desc="api-v2/resolve", privacySettings; dur=12.439722; desc="api-v2/privacySettings", user; dur=29.125509; desc="api-v2/user", trackComments; dur=29.48712; desc="api-v2/trackComments"
 strict-transport-security: max-age=63072000; includeSubdomains; preload
 transfer-encoding: chunked
 vary: Accept-Encoding
-via: 1.1 f2326bbf2931f6ba9298fd3b76f36978.cloudfront.net (CloudFront)
-x-amz-cf-id: bU_4cFZ5h6IKlUnQ5p-r4M619kjMjmKsrilhB5R3mkwYQXWtBf13hA==
-x-amz-cf-pop: DFW3-C1
+via: 1.1 941049c97e511f86acc1525badae21c2.cloudfront.net (CloudFront)
+x-amz-cf-id: QVtkbsl8CWlNJw_tDJroN2-fuL1RCnTYgRndwtZgEC_RjsbhifybRA==
+x-amz-cf-pop: AMS58-P1
 x-cache: Miss from cloudfront
 x-frame-options: SAMEORIGIN
 x-pants: distant-towel
 x-xss-protection: 1; mode=block
-x-pollyjs-finalurl: https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard
+x-pollyjs-finalurl: https://soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm
 
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +100,7 @@ x-pollyjs-finalurl: https://soundcloud.com/imnotfromlondonrecords/try-hard-or-di
 <link rel="dns-prefetch" href="//wis.sndcdn.com">
 <link rel="dns-prefetch" href="//va.sndcdn.com">
 <link rel="dns-prefetch" href="//pixel.quantserve.com">
-<title>Stream Baby Godzilla - Try Hard Or Die Hard by I&#39;MNOTFROMLONDONRECORDS | Listen online for free on SoundCloud</title>
+<title>Stream 05 - Jeremy Soule - Eye Of The Storm by Nue Donger | Listen online for free on SoundCloud</title>
 <meta content="record, sounds, share, sound, audio, tracks, music, soundcloud" name="keywords">
 <meta name="referrer" content="origin">
 <meta name="google-site-verification" content="dY0CigqM8Inubs_hgrYMwk-zGchKwrvJLcvI_G8631Q">
@@ -116,8 +116,8 @@ x-pollyjs-finalurl: https://soundcloud.com/imnotfromlondonrecords/try-hard-or-di
 <meta content="SoundCloud" property="twitter:app:name:googleplay">
 <meta content="com.soundcloud.android" property="twitter:app:id:googleplay">
 <link href="/sc-opensearch.xml" rel="search" title="SoundCloud" type="application/opensearchdescription+xml">
-<meta name="description" content="Stream Baby Godzilla - Try Hard Or Die Hard by I&#39;MNOTFROMLONDONRECORDS on desktop and mobile. Play over 320 million tracks for free on SoundCloud."><meta property="twitter:app:name:iphone" content="SoundCloud"><meta property="twitter:app:id:iphone" content="336353151"><meta property="twitter:app:name:ipad" content="SoundCloud"><meta property="twitter:app:id:ipad" content="336353151"><meta property="twitter:app:name:googleplay" content="SoundCloud"><meta property="twitter:app:id:googleplay" content="com.soundcloud.android"><meta property="twitter:title" content="Baby Godzilla - Try Hard Or Die Hard"><meta property="twitter:description" content="B Side to the cassette only release of Baby Godzilla&#39;s 2011 single Powerboat Disaster. "><meta property="twitter:card" content="player"><meta property="twitter:player" content="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F39644093&amp;auto_play=false&amp;show_artwork=true&amp;visual=true&amp;origin=twitter"><meta property="twitter:url" content="https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard"><meta property="twitter:player:height" content="400"><meta property="twitter:player:width" content="435"><meta property="twitter:image" content="https://i1.sndcdn.com/avatars-000003537698-zfajjf-t500x500.jpg"><meta property="twitter:app:url:googleplay" content="soundcloud://sounds:39644093"><meta property="twitter:app:url:iphone" content="soundcloud://sounds:39644093"><meta property="twitter:app:url:ipad" content="soundcloud://sounds:39644093"><meta property="al:ios:app_name" content="SoundCloud"><meta property="al:ios:app_store_id" content="336353151"><meta property="al:android:app_name" content="SoundCloud"><meta property="al:android:package" content="com.soundcloud.android"><meta property="og:type" content="music.song"><meta property="og:url" content="https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard"><meta property="og:title" content="Baby Godzilla - Try Hard Or Die Hard"><meta property="og:image" content="https://i1.sndcdn.com/avatars-000003537698-zfajjf-t500x500.jpg"><meta property="og:image:width" content="500"><meta property="og:image:height" content="500"><meta property="og:description" content="B Side to the cassette only release of Baby Godzilla&#39;s 2011 single Powerboat Disaster. "><meta property="al:web:should_fallback" content="false"><meta property="al:ios:url" content="soundcloud://sounds:39644093"><meta property="al:android:url" content="soundcloud://sounds:39644093"><meta property="soundcloud:user" content="https://soundcloud.com/imnotfromlondonrecords"><meta property="soundcloud:play_count" content="274"><meta property="soundcloud:download_count" content="0"><meta property="soundcloud:comments_count" content="2"><meta property="soundcloud:like_count" content="7">
-<link rel="canonical" href="https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard"><link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard"><link rel="alternate" type="text/xml+oembed" href="https://soundcloud.com/oembed?url=https%3A%2F%2Fsoundcloud.com%2Fimnotfromlondonrecords%2Ftry-hard-or-die-hard&amp;format=xml"><link rel="alternate" type="text/json+oembed" href="https://soundcloud.com/oembed?url=https%3A%2F%2Fsoundcloud.com%2Fimnotfromlondonrecords%2Ftry-hard-or-die-hard&amp;format=json"><link rel="author" href="/imnotfromlondonrecords"><link rel="alternate" href="android-app://com.soundcloud.android/soundcloud/sounds:39644093"><link rel="alternate" href="ios-app://336353151/soundcloud/sounds:39644093">
+<meta name="description" content="Stream 05 - Jeremy Soule - Eye Of The Storm by Nue Donger on desktop and mobile. Play over 320 million tracks for free on SoundCloud."><meta property="twitter:app:name:iphone" content="SoundCloud"><meta property="twitter:app:id:iphone" content="336353151"><meta property="twitter:app:name:ipad" content="SoundCloud"><meta property="twitter:app:id:ipad" content="336353151"><meta property="twitter:app:name:googleplay" content="SoundCloud"><meta property="twitter:app:id:googleplay" content="com.soundcloud.android"><meta property="twitter:title" content="05 - Jeremy Soule - Eye Of The Storm"><meta property="twitter:description" content="Listen to 05 - Jeremy Soule - Eye Of The Storm by Nue Donger #np on #SoundCloud"><meta property="twitter:card" content="player"><meta property="twitter:player" content="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F251566410&amp;auto_play=false&amp;show_artwork=true&amp;visual=true&amp;origin=twitter"><meta property="twitter:url" content="https://soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm"><meta property="twitter:player:height" content="400"><meta property="twitter:player:width" content="435"><meta property="twitter:image" content="https://i1.sndcdn.com/avatars-000165214956-hyzrxh-t500x500.jpg"><meta property="twitter:app:url:googleplay" content="soundcloud://sounds:251566410"><meta property="twitter:app:url:iphone" content="soundcloud://sounds:251566410"><meta property="twitter:app:url:ipad" content="soundcloud://sounds:251566410"><meta property="al:ios:app_name" content="SoundCloud"><meta property="al:ios:app_store_id" content="336353151"><meta property="al:android:app_name" content="SoundCloud"><meta property="al:android:package" content="com.soundcloud.android"><meta property="og:type" content="music.song"><meta property="og:url" content="https://soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm"><meta property="og:title" content="05 - Jeremy Soule - Eye Of The Storm"><meta property="og:image" content="https://i1.sndcdn.com/avatars-000165214956-hyzrxh-t500x500.jpg"><meta property="og:image:width" content="500"><meta property="og:image:height" content="500"><meta property="og:description" content="Listen to 05 - Jeremy Soule - Eye Of The Storm by Nue Donger #np on #SoundCloud"><meta property="al:web:should_fallback" content="false"><meta property="al:ios:url" content="soundcloud://sounds:251566410"><meta property="al:android:url" content="soundcloud://sounds:251566410"><meta property="soundcloud:user" content="https://soundcloud.com/nue-donger"><meta property="soundcloud:play_count" content="1277"><meta property="soundcloud:download_count" content="0"><meta property="soundcloud:comments_count" content="0"><meta property="soundcloud:like_count" content="33">
+<link rel="canonical" href="https://soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm"><link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm"><link rel="alternate" type="text/xml+oembed" href="https://soundcloud.com/oembed?url=https%3A%2F%2Fsoundcloud.com%2Fnue-donger%2F05-jeremy-soule-eye-of-the-storm&amp;format=xml"><link rel="alternate" type="text/json+oembed" href="https://soundcloud.com/oembed?url=https%3A%2F%2Fsoundcloud.com%2Fnue-donger%2F05-jeremy-soule-eye-of-the-storm&amp;format=json"><link rel="author" href="/nue-donger"><link rel="alternate" href="android-app://com.soundcloud.android/soundcloud/sounds:251566410"><link rel="alternate" href="ios-app://336353151/soundcloud/sounds:251566410">
 <meta name="application-name" content="SoundCloud">
 <meta name="msapplication-tooltip" content="Launch SoundCloud">
 <meta name="msapplication-TileImage" content="https://a-v2.sndcdn.com/assets/images/sc-icons/win8-2dc974a18a.png">
@@ -129,25 +129,39 @@ x-pollyjs-finalurl: https://soundcloud.com/imnotfromlondonrecords/try-hard-or-di
 <script>
   (function () {
     window.ddjskey = '7FC6D561817844F25B65CDD97F28A1';
+    // https://docs.datadome.co/docs/how-to-configure-the-javascript-tag
     window.ddoptions = {
-      ajaxListenerPath: [
-        { host: 'soundcloud.com', path: 'comments', strict: true },
-        { host: 'soundcloud.io', path: 'comments', strict: true },
-      ],
+      ajaxListenerPath: [{"host":"api-v2.soundcloud.com","path":"/tracks","strict":true},{"host":"api-v2.soundcloud.com","path":"/tracks/*/comments","strict":true},{"host":"api-v2.soundcloud.com","path":"/users/*/conversations/*","strict":true},{"host":"api-v2.soundcloud.com","path":"/me/followings/*","strict":true},{"host":"api-v2.soundcloud.com","path":"/users/*/track_likes/*","strict":true},{"host":"api-v2.soundcloud.com","path":"/users/*/playlist_likes/*","strict":true},{"host":"api-v2.soundcloud.com","path":"/users/*/system_playlist_likes/*","strict":true},{"host":"api-v2.soundcloud.com","path":"/users/*/emails","strict":true},{"host":"api-v2.soundcloud.com","path":"/playlists","strict":true},{"host":"api-v2.soundcloud.com","path":"/playlists/*","strict":true},{"host":"api-v2.soundcloud.com","path":"/me","strict":true},{"host":"api-v2.soundcloud.com","path":"/me/track_reposts/*","strict":true},{"host":"api-v2.soundcloud.com","path":"/me/track_reposts/*/caption","strict":true},{"host":"api-v2.soundcloud.com","path":"/me/playlist_reposts/*","strict":true},{"host":"api-v2.soundcloud.com","path":"/uploads/*/track-transcoding","strict":true},{"host":"api-v2.soundcloud.com","path":"/uploads/track-upload-policy","strict":true},{"host":"graph.soundcloud.com","path":"/graphql","strict":true}],
       overrideAbortFetch: true,
       sessionByHeader: true,
-      endpoint: 'https://dwt.soundcloud.com/js/'
+      cookieName: 'datadome',
+      endpoint: 'https://dwt.soundcloud.com/js/',
+      disableAutoRefreshOnCaptchaPassed: true,
+      enableTagEvents: true,
+      abortAsyncOnCaptchaDisplay: false,
     };
   })();
 </script>
 <script src="https://dwt.soundcloud.com/tags.js" async></script>
 
-<script>!function(){var o,a,r;function e(a){return a.test(o)}o=window.navigator.userAgent.toLowerCase();var i,t,n,s=void 0!==window.opera&&"[object Opera]"===window.opera.toString(),p=o.match(/\sopr\/([0-9]+)\./),d=e(/chrome/),c=e(/webkit/),m=!d&&e(/safari/),w=!s&&e(/msie|trident/),f=!c&&e(/gecko/);i=p?parseInt(p[1],10):(n=o.match(/(opera|chrome|safari|firefox|msie|rv:)\/?\s*(\.?\d+(\.\d+)*)/i))&&(t=o.match(/version\/([.\d]+)/i))?parseInt(t[1],10):n?parseInt(n[2],10):null;var h=e(/mobile|android|iphone|ipod|symbianos|nokia|s60|playbook|playstation/);f&&(r=(a=o.match(/(firefox)\/?\s*(\.?\d+(\.\d+)*)/i))&&a.length>1&&parseInt(a[2],10)>=47),i&&!h&&(d&&!p&&i<49||f&&!p&&!1===r||m&&i<9||w||s&&i<13||p&&i<27)&&(window.__sc_abortApp=!0)}()</script>
-<link rel="stylesheet" href="https://style.sndcdn.com/css/interstate-a86f07cf94ae5a496b24.css">
 
-<link rel="stylesheet" href="https://a-v2.sndcdn.com/assets/css/app-007c4401ae752d36f518.css">
+
+<script>!function(){var o,a,r;function e(a){return a.test(o)}o=window.navigator.userAgent.toLowerCase();var i,t,n,s=void 0!==window.opera&&"[object Opera]"===window.opera.toString(),p=o.match(/\sopr\/([0-9]+)\./),d=e(/chrome/),c=e(/webkit/),m=!d&&e(/safari/),w=!s&&e(/msie|trident/),f=!c&&e(/gecko/);i=p?parseInt(p[1],10):(n=o.match(/(opera|chrome|safari|firefox|msie|rv:)\/?\s*(\.?\d+(\.\d+)*)/i))&&(t=o.match(/version\/([.\d]+)/i))?parseInt(t[1],10):n?parseInt(n[2],10):null;var h=e(/mobile|android|iphone|ipod|symbianos|nokia|s60|playbook|playstation/);f&&(r=(a=o.match(/(firefox)\/?\s*(\.?\d+(\.\d+)*)/i))&&a.length>1&&parseInt(a[2],10)>=47),i&&!h&&(d&&!p&&i<51||f&&!p&&!1===r||m&&i<9||w||s&&i<13||p&&i<27)&&(window.__sc_abortApp=!0)}()</script>
+<link rel="stylesheet" href="https://style.sndcdn.com/css/inter-standard-b7568c5c2cbd63a52396.css">
+
+<link rel="stylesheet" href="https://a-v2.sndcdn.com/assets/css/ui-evolution-747f4a726f1e0ca3b2d3.css">
 </head>
-<body class="sc-classic">
+<body class="theme-light">
+<script>
+  (function () {
+    var theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+
+    document.body.classList.remove('theme-light');
+    document.body.classList.add('theme-' + theme);
+  })();
+</script>
 
 <div id="app">
 <style>.header{width:100%;background:var(--background-surface-color);height:46px}.sc-classic .header{background:#333}.header__logo{background:var(--background-surface-color)}.sc-classic .header__logo{background:#333}body:not(.sc-classic) .header__logoLink{display:flex;flex-direction:column;justify-content:center;align-content:center}.header__logoLink{height:46px;width:48px}.header__logoLink svg{color:var(--primary-color)}.sc-classic .header__logoLink{background:transparent url(https://a-v2.sndcdn.com/assets/images/header/brand-1b72dd8210.svg) no-repeat 0 11px;background-size:49px 22px;display:block;height:46px;width:49px;margin-right:23px}.sc-classic .header__logoLink{background-image:url(https://a-v2.sndcdn.com/assets/images/header/cloud-e365a472bf.png);background-position-x:12px;background-size:48px 22px;width:69px;margin-right:unset}.sc-classic .header__logoLink svg{display:none}.header__logoLink:focus{background-color:rgba(255,72,0,.8);outline:0}#header__loading{margin:13px auto 0;width:16px;background:url(https://a-v2.sndcdn.com/assets/images/loader-dark-45940ae3d4.gif) center no-repeat;background-size:16px 16px}@media (-webkit-min-device-pixel-ratio:2),(min-resolution:192dpi),(min-resolution:2dppx){.sc-classic .header__logoLink{background-image:url(https://a-v2.sndcdn.com/assets/images/header/cloud@2x-e5fba4606d.png)}}</style>
@@ -179,46 +193,33 @@ SoundCloud
 </noscript>
 <noscript><article itemscope itemtype="http://schema.org/MusicRecording">
   <header>
-    <h1 itemprop="name"><a itemprop="url" href="/imnotfromlondonrecords/try-hard-or-die-hard">Baby Godzilla - Try Hard Or Die Hard</a>
-by <a href="/imnotfromlondonrecords">I&#x27;MNOTFROMLONDONRECORDS</a></h1>
-published on <time pubdate>2012-03-13T17:28:03Z</time>
+    <h1 itemprop="name"><a itemprop="url" href="/nue-donger/05-jeremy-soule-eye-of-the-storm">05 - Jeremy Soule - Eye Of The Storm</a>
+by <a href="/nue-donger">Nue Donger</a></h1>
+published on <time pubdate>2016-03-12T22:17:02Z</time>
 
-      <meta itemprop="duration" content="PT00H03M54S" />
-  <meta itemprop="genre" content="Hardcore" />
+      <meta itemprop="duration" content="PT00H02M19S" />
 
-        <meta itemprop="interactionCount" content="UserLikes:7" />
+        <meta itemprop="interactionCount" content="UserLikes:33" />
         <meta itemprop="interactionCount" content="UserDownloads:0" />
-        <meta itemprop="interactionCount" content="UserComments:2" />
+        <meta itemprop="interactionCount" content="UserComments:0" />
 
-      <div itemscope itemprop="audio" itemtype="http://schema.org/AudioObject"><meta itemprop="embedUrl" content="https://w.soundcloud.com/player/?url&#x3D;https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F39644093&amp;auto_play&#x3D;false&amp;show_artwork&#x3D;true&amp;visual&#x3D;true&amp;origin&#x3D;schema.org" /><meta itemprop="height" content="400px" /></div>
-      <div itemscope itemprop="byArtist" itemtype="http://schema.org/MusicGroup"><meta itemprop="name" content="I&#x27;MNOTFROMLONDONRECORDS" /><meta itemprop="url" content="/imnotfromlondonrecords" /></div>
+      <div itemscope itemprop="audio" itemtype="http://schema.org/AudioObject"><meta itemprop="embedUrl" content="https://w.soundcloud.com/player/?url&#x3D;https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F251566410&amp;auto_play&#x3D;false&amp;show_artwork&#x3D;true&amp;visual&#x3D;true&amp;origin&#x3D;schema.org" /><meta itemprop="height" content="400px" /></div>
+      <div itemscope itemprop="byArtist" itemtype="http://schema.org/MusicGroup"><meta itemprop="name" content="Nue Donger" /><meta itemprop="url" content="/nue-donger" /></div>
       <div itemscope itemprop="provider" itemtype="http://schema.org/Organization"><meta itemprop="name" content="SoundCloud" /><meta itemprop="image" content="http://developers.soundcloud.com/assets/logo_white-8bf7615eb575eeb114fc65323068e1e4.png" /></div>
   </header>
   <p>
-    <img src="https://i1.sndcdn.com/avatars-000003537698-zfajjf-t500x500.jpg" width="" height="" alt="Baby Godzilla - Try Hard Or Die Hard" itemprop="image">
-    B Side to the cassette only release of Baby Godzilla&#x27;s 2011 single Powerboat Disaster. 
-    <meta itemprop="description" content="B Side to the cassette only release of Baby Godzilla&#x27;s 2011 single Powerboat Disaster. " />
+    <img src="https://i1.sndcdn.com/avatars-000165214956-hyzrxh-t1080x1080.jpg" width="" height="" alt="05 - Jeremy Soule - Eye Of The Storm" itemprop="image">
+    
+    <meta itemprop="description" content="" />
   </p>
-    <dl>
-      <dt>Genre</dt>
-      <dd><a href="/tags/Hardcore">Hardcore</a></dd>
-    </dl>
 
-    <section class="comments">
-      <h2>Comment by <a href="/max-banks-1">Max Banks 1</a></h2>
-<p>music silence </p>
-<time pubdate>2012-10-24T01:16:36Z</time>
-      <h2>Comment by <a href="/cain-miguel-banks">Make Shift Mafia</a></h2>
-<p>fucking pumpeder </p>
-<time pubdate>2012-09-10T18:53:13Z</time>
-    </section>
 
   <footer>
       <ul>
-  <li><a href="/imnotfromlondonrecords/try-hard-or-die-hard/likes">Users who like Baby Godzilla - Try Hard Or Die Hard</a></li>
-  <li><a href="/imnotfromlondonrecords/try-hard-or-die-hard/reposts">Users who reposted Baby Godzilla - Try Hard Or Die Hard</a></li>
-  <li><a href="/imnotfromlondonrecords/try-hard-or-die-hard/sets">Playlists containing Baby Godzilla - Try Hard Or Die Hard</a></li>
-  <li><a href="/imnotfromlondonrecords/try-hard-or-die-hard/recommended">More tracks like Baby Godzilla - Try Hard Or Die Hard</a></li>
+  <li><a href="/nue-donger/05-jeremy-soule-eye-of-the-storm/likes">Users who like 05 - Jeremy Soule - Eye Of The Storm</a></li>
+  <li><a href="/nue-donger/05-jeremy-soule-eye-of-the-storm/reposts">Users who reposted 05 - Jeremy Soule - Eye Of The Storm</a></li>
+  <li><a href="/nue-donger/05-jeremy-soule-eye-of-the-storm/sets">Playlists containing 05 - Jeremy Soule - Eye Of The Storm</a></li>
+  <li><a href="/nue-donger/05-jeremy-soule-eye-of-the-storm/recommended">More tracks like 05 - Jeremy Soule - Eye Of The Storm</a></li>
 </ul>
     License: all-rights-reserved
   </footer>
@@ -255,7 +256,37 @@ Please download one of our supported browsers.
 </p>
 </div>
 <script crossorigin src="https://a-v2.sndcdn.com/assets/53-aed4402d.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/51-2b6a5d26.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/51-0d9ce10a.js"></script>
+<script type="text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied',
+    'functionality_storage': 'denied',
+    'personalization_storage': 'denied',
+    'security_storage': 'granted',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'region': [
+          'BE', 'EL', 'LT', 'PT', 'BG', 'ES', 'LU', 'RO',
+          'CZ', 'FR', 'HU', 'SI', 'DK', 'HR', 'MT', 'SK',
+          'DE', 'IT', 'NL', 'FI', 'EE', 'CY', 'AT', 'SE',
+          'IE', 'LV', 'PL', 'US-CA'
+    ]
+  });
+  gtag('consent', 'default', {
+    'ad_storage': 'granted',
+    'analytics_storage': 'granted',
+    'functionality_storage': 'granted',
+    'personalization_storage': 'granted',
+    'security_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted'
+  });
+</script>
 <script
   async
   src="https://cdn.cookielaw.org/consent/7e62c772-c97a-4d95-8d0a-f99bbeadcf61/otSDKStub.js"
@@ -286,18 +317,20 @@ Please download one of our supported browsers.
   }(window));
 </script>
 
-<script>window.__sc_version="1689322736"</script>
-<script>window.__sc_hydration = [{"hydratable":"anonymousId","data":"81247-310048-250227-832686"},{"hydratable":"features","data":{"features":["mobi_webauth_oauth_mode","mobi_report_content_links","checkout_use_new_plan_picker","v2_use_onetrust_eu2","v2_use_onetrust_tcfv2_us_ca","mobi_enable_onetrust_tcfv2","mobi_tracking_send_session_id","mobi_use_onetrust_eu1","mobi_use_onetrust_gb","mobi_use_onetrust_tcfv2_us_ca","v2_use_onetrust_user_id_eu2","v2_enable_sourcepoint_tcfv2","mobi_peace_ukraine_logo_takeover","mobi_use_auth_internal_analytics","v2_peace_ukraine_logo_takeover","mobi_use_onetrust_tcfv2_eu2","v2_test_feature_toggle","checkout_send_segment_events_to_event_gateway","mobi_use_onetrust_user_id_eu1","mobi_use_onetrust_user_id_ex_us","mobi_use_onetrust_tcfv2_eu1","v2_post_with_caption","v2_report_content_links","mobi_use_dwt","v2_use_onetrust_tcfv2_eu1","mobi_use_onetrust_eu4","featured_artists_banner","v2_repost_redirect_page","v2_use_onetrust_gb","use_onetrust_async","v2_signals_collection","v2_track_level_distro_to_plan_picker","v2_direct_support_link","v2_api_auth_sign_out","v2_ie11_support_end","sc4a_benefits_carousel","cd_repost_to_artists","v2_hq_file_storage_release","mobi_use_onetrust_user_id_eu2","creator_plan_names_repositioning","v2_use_onetrust_eu4","v2_stories_onboarding","v2_use_dwt","v2_use_updated_alert_banner_quota_upsell","mobi_nea_report_content_links","v2_enable_onetrust","mobi_nea_report_content_form","v2_import_playlist_experiment","v2_disable_sidebar_comments_count","fpi_messaging_drawer","v2_use_onetrust_us","mobi_use_audio_ads","v2_comment_sorting","checkout_use_recurly_with_paypal","v2_use_onetrust_tcfv2_ex_us","v2_show_for_artists_link","mobi_use_onetrust_eu3","mobi_use_onetrust_elsewhere","mobi_report_content_form","v2_use_onetrust_eu3","mobi_use_onetrust_us","v2_oscp_german_tax_fields_support","v2_fallback_queue_for_search","v2_use_onetrust_user_id_ex_us","v2_use_new_connect","v2_use_onetrust_tcfv2_eu2","v2_send_segment_events_to_event_gateway","v2_use_onetrust_eu1","v2_enable_sourcepoint","v2_repost_with_caption_graphql","next_pro_annual_discount_promotion_2022","mobi_use_onetrust_tcfv2_ex_us","v2_tags_recent_tracks","mobi_use_onetrust_eu2","v2_enable_new_web_errors","v2_use_onetrust_elsewhere","mobi_sign_in_experiment","mobi_enable_onetrust","v2_nea_report_content_links","v2_webauth_use_local_tracking","v2_can_see_insights","fpi_20_fans_rollout","mobi_trinity","v2_webauth_oauth_mode","v2_google_one_tap","v2_enable_pwa","mobi_use_hls_hack","v2_stories","v2_use_onetrust_user_id_eu1","v2_use_onetrust_user_id_global","use_recurly_checkout","v2_show_side_by_side_upsell_experience","v2_enable_onetrust_tcfv2","v2_enable_tcfv2_consent_string_cache","mobi_send_segment_events_to_event_gateway","use_on_soundcloud_short_links"]}},{"hydratable":"experiments","data":{}},{"hydratable":"geoip","data":{"country_code":"CA","country_name":"Canada","region":"ON","city":"Toronto","postal_code":"M5A","latitude":43.6547,"longitude":-79.3623}},{"hydratable":"privacySettings","data":{"allows_messages_from_unfollowed_users":false,"analytics_opt_in":true,"communications_opt_in":true,"targeted_advertising_opt_in":false,"legislation":[]}},{"hydratable":"trackingBrowserTabId","data":"329735"},{"hydratable":"user","data":{"avatar_url":"https://i1.sndcdn.com/avatars-000003537698-zfajjf-large.jpg","city":"Nottingham","comments_count":0,"country_code":"GB","created_at":"2011-05-01T15:28:46Z","creator_subscriptions":[{"product":{"id":"creator-pro-unlimited"}}],"creator_subscription":{"product":{"id":"creator-pro-unlimited"}},"description":"\"With more tentacles than a multi-limbed mutant octopus, I’m Not From London are a record label, a film making outfit, an events promotion organisation and much, much, much, much more.\"\n\n- Art Rocker Magazine","followers_count":272,"followings_count":237,"first_name":"I'm Not","full_name":"I'm Not From London","groups_count":0,"id":4469708,"kind":"user","last_modified":"2023-04-14T11:02:40Z","last_name":"From London","likes_count":36,"playlist_likes_count":8,"permalink":"imnotfromlondonrecords","permalink_url":"https://soundcloud.com/imnotfromlondonrecords","playlist_count":4,"reposts_count":null,"track_count":56,"uri":"https://api.soundcloud.com/users/4469708","urn":"soundcloud:users:4469708","username":"I'MNOTFROMLONDONRECORDS","verified":false,"visuals":{"urn":"soundcloud:users:4469708","enabled":true,"visuals":[{"urn":"soundcloud:visuals:115218000","entry_time":0,"visual_url":"https://i1.sndcdn.com/visuals-000004469708-xiFfFS-original.jpg"}],"tracking":null},"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:4469708","station_permalink":"artist-stations:4469708","url":"/imnotfromlondonrecords"}},{"hydratable":"sound","data":{"artwork_url":null,"caption":null,"commentable":true,"comment_count":2,"created_at":"2012-03-13T17:28:03Z","description":"B Side to the cassette only release of Baby Godzilla's 2011 single Powerboat Disaster. ","downloadable":false,"download_count":0,"duration":234903,"full_duration":234903,"embeddable_by":"all","genre":"Hardcore","has_downloads_left":false,"id":39644093,"kind":"track","label_name":"","last_modified":"2023-04-14T11:02:42Z","license":"all-rights-reserved","likes_count":7,"permalink":"try-hard-or-die-hard","permalink_url":"https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard","playback_count":274,"public":true,"publisher_metadata":null,"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":1,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"hardcore rock metal babygodzilla","title":"Baby Godzilla - Try Hard Or Die Hard","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/39644093","urn":"soundcloud:tracks:39644093","user_id":4469708,"visuals":null,"waveform_url":"https://wave.sndcdn.com/2j0K981pFR43_m.json","display_date":"2012-03-13T17:28:03Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:39644093/d2c55b40-a7a5-45be-82e2-722ec175018e/stream/hls","preset":"mp3_0_0","duration":234903,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:39644093/d2c55b40-a7a5-45be-82e2-722ec175018e/stream/progressive","preset":"mp3_0_0","duration":234903,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:39644093","station_permalink":"track-stations:39644093","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6IjEzMTQzMmNmLWEyOTMtNDgyZC05ZmZjLTIyZWIxMjNhYmQwNiIsImlhdCI6MTY4OTcyNzA2NX0.kNg0WIAf1NTYUj7rC1WSRFuiG3p8vvM071P2wV3LwoQ","monetization_model":"BLACKBOX","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-000003537698-zfajjf-large.jpg","city":"Nottingham","comments_count":0,"country_code":"GB","created_at":"2011-05-01T15:28:46Z","creator_subscriptions":[{"product":{"id":"creator-pro-unlimited"}}],"creator_subscription":{"product":{"id":"creator-pro-unlimited"}},"description":"\"With more tentacles than a multi-limbed mutant octopus, I’m Not From London are a record label, a film making outfit, an events promotion organisation and much, much, much, much more.\"\n\n- Art Rocker Magazine","followers_count":272,"followings_count":237,"first_name":"I'm Not","full_name":"I'm Not From London","groups_count":0,"id":4469708,"kind":"user","last_modified":"2023-04-14T11:02:40Z","last_name":"From London","likes_count":36,"playlist_likes_count":8,"permalink":"imnotfromlondonrecords","permalink_url":"https://soundcloud.com/imnotfromlondonrecords","playlist_count":4,"reposts_count":null,"track_count":56,"uri":"https://api.soundcloud.com/users/4469708","urn":"soundcloud:users:4469708","username":"I'MNOTFROMLONDONRECORDS","verified":false,"visuals":{"urn":"soundcloud:users:4469708","enabled":true,"visuals":[{"urn":"soundcloud:visuals:115218000","entry_time":0,"visual_url":"https://i1.sndcdn.com/visuals-000004469708-xiFfFS-original.jpg"}],"tracking":null},"badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:4469708","station_permalink":"artist-stations:4469708"}}}];</script>
+<script>window.__sc_version="1746717941"</script>
+<script>window.__sc_hydration = [{"hydratable":"anonymousId","data":"587910-872148-889484-879038"},{"hydratable":"features","data":{"features":["v2_dsa_report_content_links","mobi_webauth_oauth_mode","mobi_use_auth_internal_analytics","v2_use_onetrust_tcfv2_us_ca","mobi_enable_onetrust_tcfv2","mobi_tracking_send_session_id","mobi_use_onetrust_eu1","mobi_use_onetrust_gb","mobi_use_onetrust_tcfv2_us_ca","mobi_dsa_report_content_form","v2_use_onetrust_user_id_eu2","v2_enable_sourcepoint_tcfv2","mobi_use_onetrust_tcfv2_eu2","checkout_send_segment_events_to_event_gateway","mobi_use_onetrust_user_id_eu1","trolley","v2_nigeria_creator_banner","mobi_use_onetrust_user_id_ex_us","mobi_use_onetrust_tcfv2_eu1","v2_post_with_caption","v2_use_drm_transcodings","v2_webi_embed_container","v2_report_content_links","mobi_use_dwt","v2_use_onetrust_tcfv2_eu1","mobi_use_onetrust_eu4","featured_artists_banner","v2_repost_redirect_page","v2_use_onetrust_gb","v2_dsa_ad_compliance","checkout_use_extole","use_onetrust_async","creator_mid_tier_not_us","mobi_dsa_report_content_links","v2_signals_collection","v2_track_level_distro_to_plan_picker","v2_direct_support_link","checkout_web_products","v2_api_auth_sign_out","v2_ie11_support_end","checkout_use_new_connect","mobi_dsa_ad_compliance","cd_repost_to_artists","v2_enable_crossfade","v2_tracking_moengage_integration","mobi_report_content_links","creator_mid_tier_canada","v2_hq_file_storage_release","gql_tracks","creator_plan_names_repositioning","v2_use_onetrust_eu4","v2_stories_onboarding","mobi_use_onetrust_user_id_eu2","mobi_tracking_moengage_integration","v2_use_dwt","v2_use_updated_alert_banner_quota_upsell","creator_mid_tier_downgrade_downgrade","v2_enable_onetrust","v2_signed_out_cancellation_flow","v2_import_playlist_experiment","v2_disable_sidebar_comments_count","v2_upload_redirection","v2_subhub_churn_intercept","checkout_use_new_plan_picker","v2_signage_on_home","v2_use_onetrust_eu2","next_pro_first_fans","v2_comscore_udm_2","checkout_creator_coupon_codes_enabled","fpi_messaging_drawer","v2_use_onetrust_us","v2_featured_fans_opt_out","v2_comment_sorting","shorten_on_soundcloud","sc4a_benefits_iframe","checkout_use_recurly_with_paypal","creator_mid_tier_not_germany_france_us","v2_show_for_artists_link","mobi_use_onetrust_eu3","mobi_use_onetrust_elsewhere","v2_use_onetrust_eu3","v2_use_onetrust_tcfv2_ex_us","creator_mid_tier","mobi_use_onetrust_us","v2_oscp_german_tax_fields_support","v2_fallback_queue_for_search","v2_use_onetrust_user_id_ex_us","creator_mid_tier_upgrade_downgrade","v2_use_new_connect","v2_use_onetrust_tcfv2_eu2","mobi_interstitial_ad","v2_get_heard","v2_next_pro_brazil_banner","v2_interstitial_ad","v2_send_segment_events_to_event_gateway","v2_ui_evolution","v2_use_onetrust_eu1","v2_enable_sourcepoint","v2_repost_with_caption_graphql","mobi_use_onetrust_tcfv2_ex_us","creator_mid_tier_anz","v2_tags_recent_tracks","sc4a_onboarding_checklist","mobi_new_ad_placements","mobi_use_onetrust_eu2","v2_velvetcake_profile_widget","v2_enable_new_web_errors","v2_use_onetrust_elsewhere","checkout_use_dwt","v2_webauth_use_local_tracking","mobi_sign_in_experiment","mobi_enable_onetrust","v2_can_see_insights","fpi_20_fans_rollout","mobi_trinity","v2_enable_crossfade_upload","request_takedown","v2_monetization_mx","v2_webauth_oauth_mode","v2_google_one_tap","v2_enable_pwa","v2_use_extole","mobi_use_drm_transcodings","mobi_use_hls_hack","creator_mid_tier_uk","v2_stories","v2_use_onetrust_user_id_eu1","v2_use_onetrust_user_id_global","use_recurly_checkout","v2_show_side_by_side_upsell_experience","v2_enable_onetrust_tcfv2","v2_enable_crossfade_track_manager","v2_enable_tcfv2_consent_string_cache","v2_track_manager_redirection","use_on_soundcloud_short_links","mobi_send_segment_events_to_event_gateway","artist_fan_connection_widget","v2_update_sidebar_module_headers"]}},{"hydratable":"geoip","data":{"country_code":"NL","country_name":"The Netherlands","region":"NH","city":"Amsterdam","postal_code":"1012","latitude":52.3759,"longitude":4.8975}},{"hydratable":"privacySettings","data":{"allows_messages_from_unfollowed_users":false,"analytics_opt_in":true,"communications_opt_in":true,"targeted_advertising_opt_in":false,"legislation":[]}},{"hydratable":"trackingBrowserTabId","data":"42b3cd"},{"hydratable":"user","data":{"avatar_url":"https://i1.sndcdn.com/avatars-000165214956-hyzrxh-large.jpg","city":null,"comments_count":0,"country_code":null,"created_at":"2015-08-21T20:17:25Z","creator_subscriptions":[{"product":{"id":"free"}}],"creator_subscription":{"product":{"id":"free"}},"description":null,"followers_count":10,"followings_count":20,"first_name":"Nue","full_name":"Nue Donger","groups_count":0,"id":169700035,"kind":"user","last_modified":"2016-06-01T07:22:37Z","last_name":"Donger","likes_count":8,"playlist_likes_count":1,"permalink":"nue-donger","permalink_url":"https://soundcloud.com/nue-donger","playlist_count":0,"reposts_count":null,"track_count":10,"uri":"https://api.soundcloud.com/users/169700035","urn":"soundcloud:users:169700035","username":"Nue Donger","verified":false,"visuals":null,"badges":{"pro":false,"creator_mid_tier":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:169700035","station_permalink":"artist-stations:169700035","url":"/nue-donger"}},{"hydratable":"sound","data":{"artwork_url":null,"caption":null,"commentable":true,"comment_count":0,"created_at":"2016-03-12T22:17:02Z","description":"","downloadable":false,"download_count":0,"duration":139167,"full_duration":139167,"embeddable_by":"all","genre":"","has_downloads_left":false,"id":251566410,"kind":"track","label_name":null,"last_modified":"2016-03-12T22:17:02Z","license":"all-rights-reserved","likes_count":33,"permalink":"05-jeremy-soule-eye-of-the-storm","permalink_url":"https://soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm","playback_count":1277,"public":true,"publisher_metadata":null,"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":0,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"","title":"05 - Jeremy Soule - Eye Of The Storm","uri":"https://api.soundcloud.com/tracks/251566410","urn":"soundcloud:tracks:251566410","user_id":169700035,"visuals":null,"waveform_url":"https://wave.sndcdn.com/fleQ4QvURrQw_m.json","display_date":"2016-03-12T22:17:02Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:251566410/e8274e77-73cd-4c2e-a5c4-23cab1e9d9f3/stream/hls","preset":"mp3_0_0","duration":139167,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq","is_legacy_transcoding":true},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:251566410/e8274e77-73cd-4c2e-a5c4-23cab1e9d9f3/stream/progressive","preset":"mp3_0_0","duration":139167,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq","is_legacy_transcoding":true}]},"station_urn":"soundcloud:system-playlists:track-stations:251566410","station_permalink":"track-stations:251566410","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJOTCIsInN1YiI6IiIsInJpZCI6IjQ4YWE1NDkxLWM3NGYtNGQ0NC05ZGU1LTFhZjNhZWZjNDJmMCIsImlhdCI6MTc0NjcyNjM3Mn0.vTLgCIS9LcQ6JdBsbqALRG60W2XGjR2RNnBAQ4qdW2Q","monetization_model":"BLACKBOX","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-000165214956-hyzrxh-large.jpg","city":null,"comments_count":0,"country_code":null,"created_at":"2015-08-21T20:17:25Z","creator_subscriptions":[{"product":{"id":"free"}}],"creator_subscription":{"product":{"id":"free"}},"description":null,"followers_count":10,"followings_count":20,"first_name":"Nue","full_name":"Nue Donger","groups_count":0,"id":169700035,"kind":"user","last_modified":"2016-06-01T07:22:37Z","last_name":"Donger","likes_count":8,"playlist_likes_count":1,"permalink":"nue-donger","permalink_url":"https://soundcloud.com/nue-donger","playlist_count":0,"reposts_count":null,"track_count":10,"uri":"https://api.soundcloud.com/users/169700035","urn":"soundcloud:users:169700035","username":"Nue Donger","verified":false,"visuals":null,"badges":{"pro":false,"creator_mid_tier":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:169700035","station_permalink":"artist-stations:169700035"}}}];</script>
 
 
 
-<script src="https://a-v2.sndcdn.com/assets/19-399f83dd.js" crossorigin></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/52-b4197a42.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/1-5ff9cc41.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/3-900d2fae.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/2-db10acbb.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/0-d7819495.js"></script>
-<script crossorigin src="https://a-v2.sndcdn.com/assets/50-000f2d54.js"></script>
+<script src="https://a-v2.sndcdn.com/assets/19-503a610e.js" crossorigin></script>
+
+
+<script crossorigin src="https://a-v2.sndcdn.com/assets/52-21ba8c32.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/1-ed9e607a.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/0-d52db131.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/2-888f8509.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/50-e123f2e9.js"></script>
+<script crossorigin src="https://a-v2.sndcdn.com/assets/49-ffe81ee0.js"></script>
 </body>
 </html>
 
