@@ -1,3 +1,4 @@
+- **2025.5.8.2**: Bug fix: extract track images for Soundcloud sets with >50 tracks ([#821](https://github.com/ROpdebee/mb-userscripts/pull/821))
 - **2025.5.8**: New feature: configuration options ([#819](https://github.com/ROpdebee/mb-userscripts/pull/819))
 - **2025.5.6.2**: Bug fix: upstream provider fixes ([#816](https://github.com/ROpdebee/mb-userscripts/pull/816))
 - **2025.5.6**: Bug fix: extract RateYourMusic covers again ([#815](https://github.com/ROpdebee/mb-userscripts/pull/815))
