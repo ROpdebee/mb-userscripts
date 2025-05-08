@@ -158,7 +158,8 @@ describe('soundcloud provider', () => {
 
         it('grabs no images if track has no image', async () => {
             // Make sure it doesn't grab artist image instead.
-            const covers = await provider.findImages(new URL('https://soundcloud.com/imnotfromlondonrecords/try-hard-or-die-hard'));
+            // https://soundcloud.com/user-367170376/sets/skyrim-sleep has a few of these.
+            const covers = await provider.findImages(new URL('https://soundcloud.com/nue-donger/05-jeremy-soule-eye-of-the-storm'));
 
             expect(covers).toBeEmpty();
         });
