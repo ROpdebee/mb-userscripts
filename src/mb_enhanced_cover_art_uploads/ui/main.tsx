@@ -86,11 +86,12 @@ function parsePlainURLs(text: string): string[] {
     return text.trim().split(/\s+/);
 }
 
-function createCheckbox(property: ConfigProperty<boolean>): [HTMLInputElement, HTMLLabelElement] {
+function createCheckbox(property: ConfigProperty<boolean>): HTMLElement {
+    const propertyId = `ROpdebee_ecau_${property.name}`;
     const checkbox = (
         <input
             type="checkbox"
-            id={property.name}
+            id={propertyId}
         />) as HTMLInputElement;
 
     // The property getter is async, so we need to do some trickery to get the
@@ -109,13 +110,34 @@ function createCheckbox(property: ConfigProperty<boolean>): [HTMLInputElement, H
         LOGGER.error(`Error when initialising value for ${property.name} checkbox: ${error}`);
     });
 
-    const labelElement = (
-        <label htmlFor={property.name}>
-            {property.description}
-        </label>
-    ) as HTMLLabelElement;
+    return (
+        <div>
+            {checkbox}
+            <label htmlFor={propertyId}>
+                {property.description}
+            </label>
+        </div>
+    );
+}
 
-    return [checkbox, labelElement];
+function createConfig(): HTMLElement {
+    return (
+        <div className="ROpdebee_ecau_config">
+            <a
+                href="https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md"
+                target="_blank"
+                id="ROpdebee_ecau_providers_link"
+            >
+                Supported providers
+            </a>
+            <details>
+                <summary>Configure…</summary>
+                <div className="ROpdebee_ecau_config_options">
+                    {createCheckbox(CONFIG.fetchFrontOnly)}
+                </div>
+            </details>
+        </div>
+    );
 }
 
 export class InputForm implements FetcherHooks {
@@ -183,20 +205,11 @@ export class InputForm implements FetcherHooks {
                 }}
             />) as HTMLInputElement;
 
-        const [onlyFrontCheckbox, onlyFrontLabel] = createCheckbox(CONFIG.fetchFrontOnly);
-
         // Container element for the URL input and additional information
         const container = (
             <div className="ROpdebee_paste_url_cont">
                 {this.urlInput}
-                <a
-                    href="https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md"
-                    target="_blank"
-                >
-                    Supported providers
-                </a>
-                {onlyFrontCheckbox}
-                {onlyFrontLabel}
+                {createConfig()}
             </div>
         );
 
