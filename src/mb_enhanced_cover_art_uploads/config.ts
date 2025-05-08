@@ -28,4 +28,8 @@ export const CONFIG = {
             return _or(CONFIG.skipTrackImages, CONFIG.soundcloud.skipTrackImagesProperty.get());
         },
     },
+
+    vgmdb: {
+        keepEntireComment: new ConfigProperty('vgmdb.keepEntireComment', 'Keep entire cover art comment', false),
+    },
 } as const;
