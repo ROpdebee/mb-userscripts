@@ -2,18 +2,10 @@
     display: inline-block;
     margin-left: 32px;
     vertical-align: middle;
+    position: relative;
 
     > * {
         display: block;
-    }
-
-    > label {
-        display: inline;
-        float: none !important; // Need to set !important because MB's own CSS has more specific selectors.
-    }
-
-    > input[type="checkbox"] {
-        display: inline;
     }
 
     > a {
@@ -24,6 +16,58 @@
     + span {
         margin-left: 32px;
     }
+}
+
+.ROpdebee_ecau_config {
+    // Positioning this absolutely allows the URL pasting input field to be
+    // vertically centered in relation to the rest of the content in the row.
+    position: absolute;
+    width: 100%;
+
+    input[type="checkbox"], label {
+        display: inline;
+        vertical-align: center;
+    }
+
+    label {
+        float: none !important; // Need to set !important because MB's own CSS has more specific selectors.
+        margin-left: 0.5em;
+    }
+
+    details {
+        padding: 0.5em 0.5em 0;
+    }
+
+    // Position the "Supported providers" link on the top right.
+    a#ROpdebee_ecau_providers_link {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+    }
+
+    .ROpdebee_ecau_config_options {
+        // Absolute positioning so that it "pops up" over the thumbnails etc.,
+        // rather than resizing the entire row and shifting all other elements.
+        position: absolute;
+        width: 95%;
+        padding: 0.5em;
+        background-color: #ddd;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    summary {
+        font-weight: bold;
+        margin: -0.5em -0.5em 0;
+        padding: 0.5em;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+    summary:hover {
+        text-decoration: underline;
+    }
+
 }
 
 .ROpdebee_import_url_buttons {
