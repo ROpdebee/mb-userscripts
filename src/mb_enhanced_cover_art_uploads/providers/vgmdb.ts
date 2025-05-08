@@ -7,6 +7,7 @@ import { request } from '@lib/util/request';
 import { urlBasename } from '@lib/util/urls';
 
 import type { CoverArt } from '../types';
+import { CONFIG } from '../config';
 import { CoverArtProvider } from './base';
 
 // Not full, only what we need
@@ -192,7 +193,7 @@ function cleanupCaption(captionRest: string): string {
         .replace(/^[-–:]\s*/, '');
 }
 
-function convertCaption(caption: string): { types?: ArtworkTypeIDs[]; comment: string } {
+async function convertCaption(caption: string): Promise<{ types?: ArtworkTypeIDs[]; comment: string }> {
     LOGGER.debug(`Found caption “${caption}”`);
     const [captionType, ...captionRestParts] = caption.trim().split(/(?=[^a-zA-Z\d-])/);
     const captionRest = cleanupCaption(captionRestParts.join('').trim());
@@ -206,10 +207,13 @@ function convertCaption(caption: string): { types?: ArtworkTypeIDs[]; comment: s
 
     const mappedResult = mapper(captionRest);
     LOGGER.debug(`Mapped caption to types ${mappedResult.types} and comment “${mappedResult.comment}”`);
+    if (mappedResult.comment !== '' && await CONFIG.vgmdb.keepEntireComment.get()) {
+        mappedResult.comment = caption;
+    }
     return mappedResult;
 }
 
-export function convertCaptions(cover: { url: string; caption: string }): CoverArt {
+export async function convertCaptions(cover: { url: string; caption: string }): Promise<CoverArt> {
     const url = new URL(cover.url);
     if (!cover.caption) {
         return { url };
@@ -217,7 +221,7 @@ export function convertCaptions(cover: { url: string; caption: string }): CoverA
 
     return {
         url,
-        ...convertCaption(cover.caption),
+        ...await convertCaption(cover.caption),
     };
 }
 
@@ -241,7 +245,7 @@ export class VGMdbProvider extends CoverArtProvider {
         }
 
         const coverGallery = qsMaybe('#cover_gallery', pageDom);
-        const galleryCovers = coverGallery ? VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [];
+        const galleryCovers = coverGallery ? await VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [];
 
         // Add the main cover if it's not in the gallery
         const mainCoverUrl = qsMaybe<HTMLDivElement>('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)?.[1];
@@ -263,12 +267,12 @@ export class VGMdbProvider extends CoverArtProvider {
         return galleryCovers;
     }
 
-    public static extractCoversFromDOMGallery(coverGallery: Element): CoverArt[] {
+    public static extractCoversFromDOMGallery(coverGallery: Element): Promise<CoverArt[]> {
         const coverElements = qsa<HTMLAnchorElement>('a[id*="thumb_"]', coverGallery);
-        return coverElements.map(this.extractCoverFromAnchor.bind(this));
+        return Promise.all(coverElements.map(this.extractCoverFromAnchor.bind(this)));
     }
 
-    private static extractCoverFromAnchor(anchor: HTMLAnchorElement): CoverArt {
+    private static extractCoverFromAnchor(anchor: HTMLAnchorElement): Promise<CoverArt> {
         return convertCaptions({
             url: anchor.href,
             caption: qs('.label', anchor).textContent ?? /* istanbul ignore next */ '',
@@ -288,7 +292,7 @@ export class VGMdbProvider extends CoverArtProvider {
         return VGMdbProvider.extractImagesFromApiMetadata(metadata);
     }
 
-    private static extractImagesFromApiMetadata(metadata: AlbumMetadata): CoverArt[] {
+    private static extractImagesFromApiMetadata(metadata: AlbumMetadata): Promise<CoverArt[]> {
         const covers = metadata.covers.map((cover) => {
             return { url: cover.full, caption: cover.name };
         });
@@ -298,6 +302,6 @@ export class VGMdbProvider extends CoverArtProvider {
             covers.unshift({ url: metadata.picture_full, caption: 'Front' });
         }
 
-        return covers.map((cover) => convertCaptions(cover));
+        return Promise.all(covers.map((cover) => convertCaptions(cover)));
     }
 }

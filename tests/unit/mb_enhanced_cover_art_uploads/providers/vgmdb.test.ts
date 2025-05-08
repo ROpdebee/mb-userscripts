@@ -1,4 +1,5 @@
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import { CONFIG } from '@src/mb_enhanced_cover_art_uploads/config';
 import { convertCaptions, VGMdbProvider } from '@src/mb_enhanced_cover_art_uploads/providers/vgmdb';
 import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared-behaviour';
@@ -30,6 +31,12 @@ describe('vgmdb provider', () => {
     });
 
     describe('caption type mapping', () => {
+        const configPropertySpy = jest.spyOn(CONFIG.vgmdb.keepEntireComment, 'get');
+
+        afterEach(() => {
+            configPropertySpy.mockReset();
+        });
+
         const mappingCases: Array<[string, ArtworkTypeIDs[], string]> = [
             ['Front', [ArtworkTypeIDs.Front], ''],
             ['Back', [ArtworkTypeIDs.Back], ''],
@@ -80,9 +87,9 @@ describe('vgmdb provider', () => {
             ['Sleeve Interior', [ArtworkTypeIDs.Tray], 'Sleeve'], // Might be wrong.
         ];
 
-        it.each(mappingCases)('should map %s to the correct type', (caption, expectedTypes, expectedComment) => {
-            expect(convertCaptions({ url: 'https://example.com/', caption }))
-                .toMatchObject({
+        it.each(mappingCases)('should map %s to the correct type', async (caption, expectedTypes, expectedComment) => {
+            await expect(convertCaptions({ url: 'https://example.com/', caption }))
+                .resolves.toMatchObject({
                     types: expectedTypes,
                     comment: expectedComment,
                     url: {
@@ -91,19 +98,32 @@ describe('vgmdb provider', () => {
                 });
         });
 
-        it('does not map types if there is no caption', () => {
-            expect(convertCaptions({ url: 'https://example.com/', caption: '' }))
-                .toMatchObject({
+        it.each(mappingCases)('should map %s to the correct type but keep caption intact if it contains just the type', async (caption, expectedTypes, convertedCaption) => {
+            configPropertySpy.mockResolvedValue(true);
+
+            await expect(convertCaptions({ url: 'https://example.com/', caption }))
+                .resolves.toMatchObject({
+                    types: expectedTypes,
+                    comment: convertedCaption === '' ? '' : caption,
                     url: {
                         href: 'https://example.com/',
                     },
                 });
         });
 
-        it('does not map types if the caption type is unknown', () => {
+        it('does not map types if there is no caption', async () => {
+            await expect(convertCaptions({ url: 'https://example.com/', caption: '' }))
+                .resolves.toMatchObject({
+                    url: {
+                        href: 'https://example.com/',
+                    },
+                });
+        });
+
+        it('does not map types if the caption type is unknown', async () => {
             // Cannot find a real-life example of this, so let's mock a fake one
-            expect(convertCaptions({ url: 'https://example.com/', caption: 'not a correct caption' }))
-                .toMatchObject({
+            await expect(convertCaptions({ url: 'https://example.com/', caption: 'not a correct caption' }))
+                .resolves.toMatchObject({
                     comment: 'not a correct caption',
                     url: {
                         href: 'https://example.com/',
@@ -111,9 +131,9 @@ describe('vgmdb provider', () => {
                 });
         });
 
-        it('removes unnecessary parentheses', () => {
-            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc (CD1)' }))
-                .toMatchObject({
+        it('removes unnecessary parentheses', async () => {
+            await expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc (CD1)' }))
+                .resolves.toMatchObject({
                     types: [ArtworkTypeIDs.Medium],
                     comment: 'CD1',
                     url: {
@@ -122,11 +142,37 @@ describe('vgmdb provider', () => {
                 });
         });
 
-        it('removes unnecessary dashes', () => {
-            expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc - CD1' }))
-                .toMatchObject({
+        it('removes unnecessary dashes', async () => {
+            await expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc - CD1' }))
+                .resolves.toMatchObject({
                     types: [ArtworkTypeIDs.Medium],
                     comment: 'CD1',
+                    url: {
+                        href: 'https://example.com/',
+                    },
+                });
+        });
+
+        it('keeps captions with parentheses when property is set', async () => {
+            configPropertySpy.mockResolvedValueOnce(true);
+
+            await expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc (CD1)' }))
+                .resolves.toMatchObject({
+                    types: [ArtworkTypeIDs.Medium],
+                    comment: 'Disc (CD1)',
+                    url: {
+                        href: 'https://example.com/',
+                    },
+                });
+        });
+
+        it('keeps captions with dashes when property is set', async () => {
+            configPropertySpy.mockResolvedValueOnce(true);
+
+            await expect(convertCaptions({ url: 'https://example.com/', caption: 'Disc - CD1' }))
+                .resolves.toMatchObject({
+                    types: [ArtworkTypeIDs.Medium],
+                    comment: 'Disc - CD1',
                     url: {
                         href: 'https://example.com/',
                     },

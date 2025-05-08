@@ -55,7 +55,7 @@ function getMBReleases(): Promise<string[]> {
 }
 
 async function extractCovers(): Promise<VGMdbCovers> {
-    const covers = VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery'));
+    const covers = await VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery'));
 
     // Split the extracted covers into public and private, to provide the option
     // to seed only private covers.
