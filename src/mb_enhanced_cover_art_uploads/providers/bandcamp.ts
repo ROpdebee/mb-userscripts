@@ -159,17 +159,20 @@ export class BandcampProvider extends ProviderWithTrackImages {
                 return [cover];
             }
 
-            // Queue originals before the thumbnail
-            return [{
+            const originalCover: CoverArt = {
                 ...cover,
                 comment: filterNonNull([cover.comment, 'Bandcamp full-sized cover']).join(' - '),
-            }, {
+            };
+            const squareCrop: CoverArt = {
                 types: cover.types,
                 // *_16.jpg URLs are the largest square crop available, always 700x700
                 url: new URL(cover.url.href.replace(/_\d+\.(\w+)$/, '_16.$1')),
                 comment: filterNonNull([cover.comment, 'Bandcamp square crop']).join(' - '),
                 skipMaximisation: true,
-            }];
+            };
+
+            const squareCropFirst = await CONFIG.bandcamp.squareCropFirst.get();
+            return squareCropFirst ? [squareCrop, originalCover] : [originalCover, squareCrop];
         })).then((nestedCovers) => nestedCovers.flat());
     }
 

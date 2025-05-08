@@ -86,21 +86,25 @@ describe('bandcamp provider', () => {
         // eslint-disable-next-line jest/require-hook
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
 
-        it('grabs square thumbnails for non-square covers', async () => {
+        it.each([false, true])('grabs square thumbnails for non-square covers', async (orderSquareFirst) => {
             mockGetImageDimensions.mockResolvedValueOnce({
                 // Actual dimensions of that image.
                 height: 1714,
                 width: 4096,
             });
+            jest.spyOn(CONFIG.bandcamp.squareCropFirst, 'get').mockResolvedValueOnce(orderSquareFirst);
+            const squareIndex = orderSquareFirst ? 0 : 1;
+            const originalIndex = orderSquareFirst ? 1 : 0;
+
             const coverUrls = await provider.findImages(new URL('https://level2three.bandcamp.com/track/the-bridge'));
 
             expect(coverUrls).toBeArrayOfSize(2);
-            expect(coverUrls[0]).toMatchCoverArt({
+            expect(coverUrls[originalIndex]).toMatchCoverArt({
                 urlPart: 'a4081865950_10.jpg',
                 types: [ArtworkTypeIDs.Front],
                 comment: 'Bandcamp full-sized cover',
             });
-            expect(coverUrls[1]).toMatchCoverArt({
+            expect(coverUrls[squareIndex]).toMatchCoverArt({
                 urlPart: 'a4081865950_16.jpg',
                 types: [ArtworkTypeIDs.Front],
                 comment: 'Bandcamp square crop',

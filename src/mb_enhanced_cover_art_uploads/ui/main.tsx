@@ -137,6 +137,7 @@ function createConfig(): HTMLElement {
                     {createCheckbox(CONFIG.skipTrackImagesProperty)}
                     <h3>Bandcamp</h3>
                     {createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty)}
+                    {createCheckbox(CONFIG.bandcamp.squareCropFirst)}
                     <h3>Soundcloud</h3>
                     {createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty)}
                     <h3>VGMdb</h3>

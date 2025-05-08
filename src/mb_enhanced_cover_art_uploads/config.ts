@@ -20,6 +20,7 @@ export const CONFIG = {
         get skipTrackImages(): Promise<boolean> {
             return _or(CONFIG.skipTrackImages, CONFIG.bandcamp.skipTrackImagesProperty.get());
         },
+        squareCropFirst: new ConfigProperty('bandcamp.squareCropFirst', 'Place square cropped artwork before original artwork', false),
     },
 
     soundcloud: {
