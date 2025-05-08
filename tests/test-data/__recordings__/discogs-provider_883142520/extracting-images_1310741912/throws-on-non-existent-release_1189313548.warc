@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: discogs provider/extracting images/throws on non-existent release
-WARC-Date: 2023-11-30T10:12:52.708Z
+WARC-Date: 2025-05-08T16:37:58.046Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:ba2c35a1-49d0-4755-a651-359e666e612f>
+WARC-Record-ID: <urn:uuid:2755152c-afe7-40bc-91df-485d44269912>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,68 +12,82 @@ harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:14a247eb-0603-495d-be7c-a0ebf4873367>
-WARC-Target-URI: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A32342343%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22cd0fe8a7199e97a9027f676838dd25bf88346435f7096fddd79b055d68ea98c8%22%7D%7D
-WARC-Date: 2023-11-30T10:12:52.709Z
+WARC-Concurrent-To: <urn:uuid:00588160-f894-4555-9ec1-25fde3e931f4>
+WARC-Target-URI: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A999999999%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22c7033a9fd1facb3e69fa50074b47e8aa0076857a968e6ed086153840e02b988a%22%7D%7D
+WARC-Date: 2025-05-08T16:37:58.048Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:8ea5d014-7b4a-4fc4-a0e0-8650deabe8c3>
+WARC-Record-ID: <urn:uuid:e1ba9831-d7c0-49f9-83e4-5861e36b18e1>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:d750b3e2ad514d0037f89d61f9efccfe05be2bea983873575eeb115db88ca3e3
-Content-Length: 301
+WARC-Block-Digest: sha256:74362447fdd73468a460701e4accc86795516c5568e8f68ccdb7eb217213a4dc
+Content-Length: 643
 
-GET /internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A32342343%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22cd0fe8a7199e97a9027f676838dd25bf88346435f7096fddd79b055d68ea98c8%22%7D%7D HTTP/1.1
+GET /internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A999999999%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22c7033a9fd1facb3e69fa50074b47e8aa0076857a968e6ed086153840e02b988a%22%7D%7D HTTP/3
+Host: www.discogs.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0
+Accept: */*
+Accept-Language: en-GB,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Origin: null
+DNT: 1
+Connection: keep-alive
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+Priority: u=4
 
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:14a247eb-0603-495d-be7c-a0ebf4873367>
-WARC-Target-URI: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A32342343%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22cd0fe8a7199e97a9027f676838dd25bf88346435f7096fddd79b055d68ea98c8%22%7D%7D
-WARC-Date: 2023-11-30T10:12:52.709Z
+WARC-Concurrent-To: <urn:uuid:00588160-f894-4555-9ec1-25fde3e931f4>
+WARC-Target-URI: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A999999999%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22c7033a9fd1facb3e69fa50074b47e8aa0076857a968e6ed086153840e02b988a%22%7D%7D
+WARC-Date: 2025-05-08T16:37:58.048Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:bdb1f517-6e10-4b5d-a2c9-f1a9a54ae5a4>
+WARC-Record-ID: <urn:uuid:47bdd4da-9814-4e81-9e26-f58d5ec62287>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:a44b42bedf0fb0b5194faf81d97e9855b8acb6a107b640f4a430d88e5ec3c526
-WARC-Block-Digest: sha256:a44b42bedf0fb0b5194faf81d97e9855b8acb6a107b640f4a430d88e5ec3c526
-Content-Length: 643
+WARC-Payload-Digest: sha256:57a32a3f5c7ce2ee90fcc25d48b400a172aaced1bac6b8f6598eb6e5447cc8ec
+WARC-Block-Digest: sha256:57a32a3f5c7ce2ee90fcc25d48b400a172aaced1bac6b8f6598eb6e5447cc8ec
+Content-Length: 550
 
-harEntryId: 605ff88ad0ad43bf6dbcae541a9a63c1
+harEntryId: 425e20bd9d89b1f922ef79da7240dcaf
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2023-11-30T10:12:52.489Z
-time: 218
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":218,"receive":0,"ssl":-1}
-warcRequestHeadersSize: 326
+startedDateTime: 2025-05-08T18:37:14.862+02:00
+time: 448
+timings: {"blocked":0,"dns":0,"connect":14,"ssl":0,"send":0,"wait":434,"receive":0}
+warcRequestHeadersSize: 645
 warcRequestCookies: []
-warcResponseHeadersSize: 991
-warcResponseCookies: [{"name":"__cf_bm","value":"RmY0bWi2YvUc8V1qAeVHZ9ojSITq3tprTz6iuxs_mks-1701339172-0-AVtDXzIayf1G1NEQygHPtkhF6y5VioB+ppC/EEkNWxwwnMfuBZUAx5+p5PRmEL/bbSTSsABucSUIyGYg8X2jkOg=","path":"/","expires":"2023-11-30T10:42:52.000Z","domain":".discogs.com","httpOnly":true,"secure":true,"sameSite":"None"}]
+warcResponseHeadersSize: 815
+warcResponseCookies: [{"name":"__cf_bm","value":"ZuqwxxONcYJ.IAVg8C.HsNoV5hqYbtckbSLDPMm97MM-1746722235-1.0.1.1-BIYxluZHhkxwy5q3MurtKZcCEtHzJiyjuQW.xcvzuyRc9MUmxgNg.nnprphrTTuC3FXocnkfCDSj2sZa_nF_J9TLJYtbiWA3HqVi.yQx4Z4"}]
 responseDecoded: false
 
 
 WARC/1.1
-WARC-Target-URI: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A32342343%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22cd0fe8a7199e97a9027f676838dd25bf88346435f7096fddd79b055d68ea98c8%22%7D%7D
-WARC-Date: 2023-11-30T10:12:52.708Z
+WARC-Target-URI: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A999999999%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22c7033a9fd1facb3e69fa50074b47e8aa0076857a968e6ed086153840e02b988a%22%7D%7D
+WARC-Date: 2025-05-08T16:37:58.048Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:14a247eb-0603-495d-be7c-a0ebf4873367>
+WARC-Record-ID: <urn:uuid:00588160-f894-4555-9ec1-25fde3e931f4>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:a9afa3078d4bc051d472df2be27c0a495235113e3f126e0b6983e92ce22e0310
-WARC-Block-Digest: sha256:edb5d7a9916daeb072aef6812c3bbbfe91a538b26d5cbccdd95bf3a4790106be
-Content-Length: 1033
+WARC-Block-Digest: sha256:487b6d84d6aca2ad1d34caead11314414e4779259c4a3073634d9bd59c29a2bd
+Content-Length: 840
 
-HTTP/1.1 200 OK
-alt-svc: h3=":443"; ma=86400
-cf-cache-status: DYNAMIC
-cf-ray: 82e250844c7eb767-AMS
-connection: keep-alive
-content-length: 25
+HTTP/3 200 
+date: Thu, 08 May 2025 16:37:15 GMT
 content-type: application/json; charset=utf-8
-date: Thu, 30 Nov 2023 10:12:52 GMT
-server: cloudflare
-set-cookie: __cf_bm=RmY0bWi2YvUc8V1qAeVHZ9ojSITq3tprTz6iuxs_mks-1701339172-0-AVtDXzIayf1G1NEQygHPtkhF6y5VioB+ppC/EEkNWxwwnMfuBZUAx5+p5PRmEL/bbSTSsABucSUIyGYg8X2jkOg=; path=/; expires=Thu, 30-Nov-23 10:42:52 GMT; domain=.discogs.com; HttpOnly; Secure; SameSite=None
+cf-ray: 93ca6171ad414f5f-AMS
+cf-cache-status: DYNAMIC
+access-control-allow-origin: null
+content-encoding: gzip
 strict-transport-security: max-age=15552000
-vary: Origin, Accept-Encoding
-x-discogs-flags: ssr_login=1, ssr_user=0, ssr_defer=0, disable_ads=0, esi_header=1
-x-pollyjs-finalurl: https://www.discogs.com/internal/release-page/api/graphql?operationName=ReleaseAllImages&variables=%7B%22discogsId%22%3A32342343%2C%22count%22%3A500%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22cd0fe8a7199e97a9027f676838dd25bf88346435f7096fddd79b055d68ea98c8%22%7D%7D
+vary: Accept-Encoding, Origin
+access-control-allow-credentials: true
+x-discogs-flags: ssr_login=1, ssr_user=0, ssr_defer=0, disable_ads=0, esi_header=1, ld_flag_int=1
+priority: u=4,i=?0
+set-cookie: __cf_bm=ZuqwxxONcYJ.IAVg8C.HsNoV5hqYbtckbSLDPMm97MM-1746722235-1.0.1.1-BIYxluZHhkxwy5q3MurtKZcCEtHzJiyjuQW.xcvzuyRc9MUmxgNg.nnprphrTTuC3FXocnkfCDSj2sZa_nF_J9TLJYtbiWA3HqVi.yQx4Z4; path=/; expires=Thu, 08-May-25 17:07:15 GMT; domain=.discogs.com; HttpOnly; Secure; SameSite=None
+server: cloudflare
+alt-svc: h3=":443"; ma=86400
+server-timing: cfExtPri
 
 {"data":{"release":null}}
 

@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-disabled-tests */
 import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/discogs';
 import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared-behaviour';
@@ -36,7 +35,7 @@ describe('discogs provider', () => {
         itBehavesLike(urlMatchingSpec, { provider, supportedUrls, unsupportedUrls });
     });
 
-    describe.skip('extracting images', () => {
+    describe('extracting images', () => {
         const extractionCases = [{
             description: 'release',
             url: 'https://www.discogs.com/release/9892912',
@@ -58,14 +57,14 @@ describe('discogs provider', () => {
 
         const extractionFailedCases = [{
             description: 'non-existent release',
-            url: 'https://www.discogs.com/release/32342343',
+            url: 'https://www.discogs.com/release/999999999',
         }];
 
         // eslint-disable-next-line jest/require-hook
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
     });
 
-    describe.skip('maximising image', () => {
+    describe('maximising image', () => {
         it('finds the image', async () => {
             const maxUrl = await DiscogsProvider.maximiseImage(new URL('https://i.discogs.com/wAcTcCu1v8cmYfw_D_I00DNR_RcxJfBUMb3ls7yG9Wo/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4OTI5/MTItMTU3OTQ1Njcw/Ny0yMzIwLmpwZWc.jpeg'));
 
@@ -81,7 +80,7 @@ describe('discogs provider', () => {
         });
     });
 
-    describe.skip('caching API responses', () => {
+    describe('caching API responses', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Needed to spy on private method.
         const requestSpy = jest.spyOn(DiscogsProvider as any, 'actuallyGetReleaseImages');
         const discogsUrl = new URL('https://www.discogs.com/release/9892912');
