@@ -23,14 +23,10 @@ export class FreeMusicArchiveProvider extends CoverArtProvider {
         // .object-cover.hidden is the blurred backdrop, .object-cover without .hidden is the actual cover art.
         const coverImage = qs<HTMLImageElement>('.object-cover:not(.hidden)', responseDocument);
 
-        // Slightly transform the cover image URL to workaround qsniyg/maxurl#1430.
-        // The new URL doesn't actually exist, but gets transformed correctly.
-        const coverUrl = coverImage.src.replace(/image\/\?file=/, 'image?file=');
-
         this.checkStandaloneTracks(responseDocument);
 
         return [{
-            url: new URL(coverUrl),
+            url: new URL(coverImage.src),
             types: [ArtworkTypeIDs.Front],
         }];
     }
