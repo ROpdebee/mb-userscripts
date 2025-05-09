@@ -1,0 +1,959 @@
+WARC/1.1
+WARC-Filename: free music archive provider/extracting images/warns about non-standalone track releases
+WARC-Date: 2025-05-09T10:33:14.652Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:630d17c4-82e4-410c-a03e-cfc8e3c6755c>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:bfb39469-4fae-4530-92ba-d6e03a339ab3>
+WARC-Target-URI: https://freemusicarchive.org/music/holiznacc0/winter-lofi/snow-drift/
+WARC-Date: 2025-05-09T10:33:14.653Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:de347ebb-18b9-4297-9324-12e3d9975ea4>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:d895b8a0822a6ccf3e2ceb2955b76126c6cba3d8b9e6449d19125c06c9c6cafa
+Content-Length: 58
+
+GET /music/holiznacc0/winter-lofi/snow-drift/ HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:bfb39469-4fae-4530-92ba-d6e03a339ab3>
+WARC-Target-URI: https://freemusicarchive.org/music/holiznacc0/winter-lofi/snow-drift/
+WARC-Date: 2025-05-09T10:33:14.653Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:919b92e7-752f-4f5a-8d0b-0bced2503729>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:ca6e012970675514f545102f9cf8172cd81e89fe48c435ee6cecb543cd83f292
+WARC-Block-Digest: sha256:ca6e012970675514f545102f9cf8172cd81e89fe48c435ee6cecb543cd83f292
+Content-Length: 819
+
+harEntryId: 62ec20249db3bfababaca5a0ed43cfde
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2025-05-09T10:33:14.292Z
+time: 330
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":330,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 88
+warcRequestCookies: []
+warcResponseHeadersSize: 2237
+warcResponseCookies: [{"name":"XSRF-TOKEN","value":"eyJpdiI6ImJReFp5Y21xZGJQd1owVGZEYjRuVFE9PSIsInZhbHVlIjoiaHZMUllCeXlxa2lOQTFaZldkUVlqcVFHdVFaS3ZFVGJuTzNUdnQ4T3VSSHFPNm1ZM0paL08ySDBCQXowR29RZUhZb1YyYWVNc0hILzRGbTNpVzY5U2lMbHgyTHIxNHNpSm1MYzdLckhsUk1DbkI2amNKNUQzMTBTRmZGUmlHOHYiLCJtYWMiOiIyZWMzYTI5ZTY5ZTNjMDEwMTMwYjQ1MzBhODE1MWNhNTQ5ODM4OGQ1NDdlNzdlOGNkMDRmNWJlNmUzZjMwZWFmIn0=","expires":"2025-05-10T10:33:14.000Z","maxAge":86400,"path":"/","secure":true,"sameSite":"lax","httpOnly":true}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://freemusicarchive.org/music/holiznacc0/winter-lofi/snow-drift/
+WARC-Date: 2025-05-09T10:33:14.653Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:bfb39469-4fae-4530-92ba-d6e03a339ab3>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:684780d5b8b22606f0822e74b8663d34e7f1feba7d27847acd37b307f571a385
+WARC-Block-Digest: sha256:c683a89f3db6837cb4e85febc435ee1df53c6d918cc97ab03a86ff97afeba83d
+Content-Length: 47420
+
+HTTP/1.1 200 OK
+cache-control: no-cache, private
+cf-cache-status: DYNAMIC
+cf-ray: 93d089992cc20b5a-AMS
+connection: keep-alive
+content-encoding: br
+content-type: text/html; charset=UTF-8
+date: Fri, 09 May 2025 10:33:14 GMT
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=X%2B4uiB7XkLktPjwjwaUyPQZE7cSenVqHJPz7n97yulhVSWf4VrB76Z4jRD6Yk07QvDR7tO1ymA4MSrl9dTEpiE4YCoLGvJHJLE3iBJkxKVy4clTNouCGdBmr8W%2B9GHh0NcvuWkvc"}],"group":"cf-nel","max_age":604800}
+server: cloudflare
+server-timing: cfL4;desc="?proto=TCP&rtt=24887&min_rtt=8207&rtt_var=20178&sent=57&recv=57&lost=0&retrans=1&sent_bytes=39033&recv_bytes=2769&delivery_rate=1613061&cwnd=229&unsent_bytes=0&cid=98d29eda3c63aa59&ts=1477&x=0"
+set-cookie: XSRF-TOKEN=eyJpdiI6ImJReFp5Y21xZGJQd1owVGZEYjRuVFE9PSIsInZhbHVlIjoiaHZMUllCeXlxa2lOQTFaZldkUVlqcVFHdVFaS3ZFVGJuTzNUdnQ4T3VSSHFPNm1ZM0paL08ySDBCQXowR29RZUhZb1YyYWVNc0hILzRGbTNpVzY5U2lMbHgyTHIxNHNpSm1MYzdLckhsUk1DbkI2amNKNUQzMTBTRmZGUmlHOHYiLCJtYWMiOiIyZWMzYTI5ZTY5ZTNjMDEwMTMwYjQ1MzBhODE1MWNhNTQ5ODM4OGQ1NDdlNzdlOGNkMDRmNWJlNmUzZjMwZWFmIn0%3D; expires=Fri, 23-May-2025 10:33:14 GMT; Max-Age=1209600; path=/; secure; samesite=lax, free_music_archive_session=eyJpdiI6IjkvVkppaFIzYUNqNEQrNllZZnRUVVE9PSIsInZhbHVlIjoiY1NXUGlqekl0c05OT2ZUUUVvdkF4RG5odlhZa25QaGtZSEVsRXprL0NhRjRJU09qS2dEVlo5MmxwQXFJdElrTThDSnYxRGZjUkhEaHAzMG52NTRERmliUTMzOVlwK05VUi9oYjN3OUp1V2pVcG5Wc3NBcStXS1ZTTUJCUGo2dGYiLCJtYWMiOiJlZDI0Y2JjZGIxMTk0YzVmMTE5NTIwMzY1NjRjNGEyY2IwMDNmMDIxOTk5NzdhYTRkYTk3YzQ4OTQyOWRjNDI4In0%3D; expires=Fri, 23-May-2025 10:33:14 GMT; Max-Age=1209600; path=/; secure; httponly; samesite=lax, first_browse=eyJpdiI6InRmVmV5TDhUT1F0MGVqL1p1SFlhWHc9PSIsInZhbHVlIjoiRjloemtidVhIUzdPT2htdzRSRllYRzBGeHUzUWcvOTQ1R1FITDJXYWt6MGxFRlkwNGlsdXF6Q0xzRlVvNzd6cDVKcUpLRDRBYjVEUnJNdnVMTlJ2QlE9PSIsIm1hYyI6Ijc2OTM4MTljZjEzZDlkM2RlZjYzY2UwZTZiZDIwZTM2YmY0OGVmYmZlNjdiMDVlZDk4YTViMTdhMWM3MmIwY2MifQ%3D%3D; expires=Sat, 10-May-2025 10:33:14 GMT; Max-Age=86400; path=/; secure; httponly; samesite=lax
+transfer-encoding: chunked
+vary: accept-encoding
+x-frame-options: SAMEORIGIN
+x-pollyjs-finalurl: https://freemusicarchive.org/music/holiznacc0/winter-lofi/snow-drift/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script
+    id="Cookiebot"
+    src="https://consent.cookiebot.com/uc.js"
+    data-cbid="ddc77b98-22e4-4592-8485-87aa94702238"
+    data-framework="TCFv2.2"
+    type="text/javascript"
+    async
+  ></script>
+  <meta charset="utf-8">
+  <meta name="csrf-token" content="yUyM9nhSvgb0ny6rMU55dPGi3obEM5qltqmYnEPA">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+                <title>HoliznaCC0 - Snow Drift - Free Music Archive</title>
+      
+  
+          
+  
+  <link rel="shortcut icon" href="/img/favicon.svg" type="image/x-icon">
+  <link rel="author" href="https://freemusicarchive.org/home">
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('.freestar-ads').remove();
+  });
+</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet"> 
+  
+  <link rel="stylesheet" href="https://freemusicarchive.org/css/app.css?3518df03333af01421b9b78d63404abc87bf0f380c0276e43b6302496f1616d8" media="all">
+  <link rel="stylesheet" href="https://freemusicarchive.org/css/player.css?3518df03333af01421b9b78d63404abc87bf0f380c0276e43b6302496f1616d8" media="all">
+  </head>
+
+<body class="m-0 relative bg-white ">
+    <div class=" pt-16 md:pt-20  w-full h-full">
+    <div 
+  id="navigation" 
+  class="
+          fixed
+              top-0 bg-white shadow-sm
+        transition-all duration-75 ease-in-out w-screen md:w-full h-16 md:h-20 z-40
+  ">
+  <div class="container md:px-8 h-full">
+    <nav class="flex justify-center items-center h-full">
+      <a class="mr-auto w-20 md:mr-0 md:order-1 inline-flex md:w-32 h-full text-blue" href="https://freemusicarchive.org/home" title="Home">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 498.38 151.27">
+  <path d="m112.99 4.98-.1 9.08c0 8.92-.13 16.86-.39 23.83-7.62.65-18.03.98-31.25.98l-22.56.1v2.83l-.2 8.59c0 2.28.1 4.49.29 6.64 16.27-1.37 28.34-2.05 36.18-2.05s12.65.59 14.4 1.76v32.71c0 2.15-.42 3.58-1.27 4.3-.85.72-2.15 1.07-3.91 1.07h-1.27l-5.27-.2c-11.65.65-24.58 1.14-38.77 1.46l.68 38.87-.1 3.32v9.18c0 1.95-.59 2.99-1.76 3.12l-55.86.49c-.13-.39-.62-1.27-1.46-2.64-.26-4.3-.39-7.94-.39-10.94L.59 1.66C.59.81 5.01.39 13.87.39l2.44.1h6.64L70.12 0l33.5.39h3.32l1.46-.1c1.82 0 3.04.41 3.66 1.22.62.81.93 1.97.93 3.47ZM174.12 63.87c-.78 18.42-1.17 37.37-1.17 56.84v29.1h-7.13l-2.44-.1-34.67.29c-2.21 0-3.39.03-3.52.1 0-.07.13-.62.39-1.66v-.59l.1-.39c-.33-4.69-.49-10.38-.49-17.09l.39-109.08-.1-5.08v-4.88l-.2-9.18c0-.65.36-1.33 1.07-2.05h13.38l7.81-.1c18.36 0 31.49.26 39.4.78s13.59.78 17.04.78c1.89 11.2 4.69 26.04 8.4 44.53l6.93 34.96h3.42l12.5-63.87c.2-.98.65-3.82 1.37-8.54.72-4.72 1.27-7.34 1.66-7.86h.39l63.57-.59 3.81.1h10.94c.59.26.91 1.46.98 3.61l.98 36.91c.78 30.6 1.33 54.43 1.66 71.48 0 13.15-.2 25.49-.59 37.01-.2.78-1.5 1.24-3.91 1.37l-4.39.2c-3.52.13-6.12.2-7.81.2h-5.08c-6.32.06-15.62.1-27.93.1-2.28-2.02-3.42-10.74-3.42-26.17l.2-30.66v-7.91c0-6.97-.03-12.11-.1-15.43l-3.71-.68c-2.15 7.88-6.28 25.42-12.4 52.64l-.88 3.91c-.46 2.02-1.22 5.62-2.29 10.79s-1.94 9.1-2.59 11.77c-.78.91-4.23 1.37-10.35 1.37h-1.27l-10.94-.29-5.96.1h-4.59l-7.71.1h-2.73c-3 0-4.66-.68-4.98-2.05l.1.1-8.89-38.77c-.26-.98-.85-3.11-1.76-6.4-.91-3.29-1.43-6.04-1.56-8.25l-7.32-31.64-3.61.2ZM444.77.2c3.91 0 5.86.78 5.86 2.34 6.51 18.16 15.2 44.3 26.07 78.42 10.87 34.12 16.99 53.29 18.36 57.52l1.37 4.88c.46 1.76 1.11 3.61 1.95 5.57-.07.85-1.86 1.27-5.37 1.27h-8.98l-6.05.1h-5.96l-9.47.1c-9.44 0-17.29-.23-23.54-.68-.2-.07-.42-.46-.68-1.17l-.49-2.05c-.59-6.7-2.12-13.18-4.59-19.43l-41.8.39c-.26 1.11-1.11 4.39-2.54 9.86s-2.51 9.6-3.22 12.4c-.65.65-3.74.98-9.28.98l-2.44-.1h-5.66l-25.39.59h-2.93l-2.73.1h-6.84c-.46-.46-.94-1.04-1.46-1.76 6.51-22.52 15.33-50.45 26.46-83.79l2.25-6.93h-.1l2.64-8.11c.85-2.6 3.27-9.83 7.28-21.68 4-11.85 6.51-19.5 7.52-22.95 1.01-3.45 1.61-5.24 1.81-5.37h16.21L427.7.21m-25.98 95.41 4 .1 23.34-.1c-.98-7.75-1.73-13.44-2.25-17.09l-3.71-16.7c-3.91-17.25-5.92-26.04-6.05-26.37-.13-.33-.24-.63-.34-.93s-.18-.49-.24-.59c-.07-.1-.15-.28-.24-.54-.1-.26-.2-.44-.29-.54s-.21-.24-.34-.44c-.46-.78-1.4-1.46-2.83-2.05-1.76.39-7 19.99-15.72 58.79l-1.07 6.45h5.76Z" fill="currentColor"/>
+</svg>
+              </a>
+
+      <span id="toggleMainMenu" class="ml-auto hamburger">
+        <div></div>
+      </span>
+    
+      <div 
+  class="
+    md:order-2
+    absolute bg-white border-t-2 border-gray md:border-none overflow-scroll top-20 left-0 md:top-0 md:bg-transparent md:overflow-visible md:relative text-lg 
+     md:ml-12 lg:ml-16   "
+  id="mainMenu"
+  >
+  <ul class="flex flex-col gap-4 md:flex-row md:gap-10">
+    <div class="desktop--hidden flex w-full">
+      <form class="flex w-full" name="fmasearch" action="/search/" method="get" onsubmit="$('.fmasearch').submit();">
+                <div class="flex flex-col w-full">
+          <div class="relative flex w-full">
+            <span class="absolute left-5 w-4 top-1/2" style="transform: translateY(-50%)"> 
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z" fill="currentColor"/>
+</svg>
+            </span>
+            <input 
+              type="text" 
+              class="placeholder:text-black/30 border-2 border-transparent rounded transition-all ease-in-out duration-75 px-4 py-3 pl-14 bg-gray-light max-w-full w-96 focus:border-blue" 
+              placeholder="Search" 
+              id="quicksearch" 
+              name="quicksearch" 
+              value="" 
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <li class="dropdown-toggle" data-dropdown-id="Discover">
+  <span class="flex gap-2 cursor-pointer hover:text-blue transition-colors ease-in-out">
+    Discover
+    <span class="flex items-center justify-center w-6 my-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z" fill="currentColor"/>
+</svg>
+    </span>
+  </span>
+      <ul>
+              <li>
+          <a href="https://freemusicarchive.org/genres">
+            Genres
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/music/charts/this-week">
+            Charts
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/music/artistShuffle">
+            Artist shuffle
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/curator/all/">
+            Curators
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/label/all/">
+            Netlabels
+          </a>
+        </li>
+          </ul>
+  </li>    <li class="dropdown-toggle" data-dropdown-id="Create">
+  <span class="flex gap-2 cursor-pointer hover:text-blue transition-colors ease-in-out">
+    Create
+    <span class="flex items-center justify-center w-6 my-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z" fill="currentColor"/>
+</svg>
+    </span>
+  </span>
+      <ul>
+              <li>
+          <a href="https://freemusicarchive.org/FAQ_For_Musicians/">
+            Music
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/FAQ_For_Videos/">
+            Video &amp; film
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/faq-for-podcasters">
+            Podcast
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/FAQ_For_Educators/">
+            OER
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/app-developers">
+            Apps
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/other-media">
+            Other media
+          </a>
+        </li>
+          </ul>
+  </li>    <li class="dropdown-toggle" data-dropdown-id="About">
+  <span class="flex gap-2 cursor-pointer hover:text-blue transition-colors ease-in-out">
+    About
+    <span class="flex items-center justify-center w-6 my-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z" fill="currentColor"/>
+</svg>
+    </span>
+  </span>
+      <ul>
+              <li>
+          <a href="https://freemusicarchive.org/about/">
+            About
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/License_Guide">
+            License guide
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/faq/">
+            FAQ
+          </a>
+        </li>
+              <li>
+          <a href="https://takenode.org/set_language.php?language=en">
+            TakeNode
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/coil">
+            Web monetization
+          </a>
+        </li>
+              <li>
+          <a href="https://freemusicarchive.org/contact/">
+            Contact
+          </a>
+        </li>
+          </ul>
+  </li>          <li class="desktop--hidden">
+        <a href="https://freemusicarchive.org/login/" class="font-[500] hover:text-blue" title="Sign in">
+          Sign in
+        </a>
+      </li>
+      <li class="desktop--hidden">
+        <a href="https://freemusicarchive.org/register/" class="font-[500] hover:text-blue" title="Sign up">
+          Sign up
+        </a>
+      </li>
+      </ul>
+</div>
+              <div class="mx-auto hidden xl:flex md:order-3">
+  <form class="flex" name="fmasearch" action="/search/" method="get" onsubmit="$('.fmasearch').submit();">
+        <div class="flex relative">
+      <span class="absolute left-5 w-4 top-1/2" style="transform: translateY(-50%)"> 
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z" fill="currentColor"/>
+</svg>
+      </span>
+      <input 
+        type="text" 
+        class="placeholder:text-black/30 border-2 border-transparent rounded transition-all ease-in-out duration-75 px-4 py-3 pl-14 bg-gray-light max-w-full w-96 focus:border-blue" 
+        placeholder="Search" 
+        id="quicksearch" 
+        name="quicksearch" 
+        value="" />
+    </div>
+  </form>
+</div>      
+      <div class="ml-auto md:order-4 hidden md:inline-flex">
+        <ul class="flex gap-2">
+                      <li>
+              <a 
+   href="https://freemusicarchive.org/login/"    title="Sign in"             class="font-medium inline-flex justify-center items-center rounded relative 
+    px-4 py-2   
+  inline-flex transition-colors duration-75 pointer 
+  hover:text-blue-100">
+    <span class="text">
+    Sign in
+  </span>
+  </a>            </li>
+            <li>
+              <a 
+   href="https://freemusicarchive.org/register/"    title="Sign up"             class="font-medium inline-flex justify-center items-center rounded relative 
+    px-4 py-2   
+  inline-flex transition-colors duration-75 pointer 
+  text-white bg-blue hover:bg-blue-100">
+    <span class="text">
+    Sign up
+  </span>
+  </a>            </li>
+                  </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+        
+  
+  <section class="w-full relative py-8 md:py-12 overflow-hidden">
+  <div class="absolute top-[-10%] left-[-10%] h-[120%] w-[120%]">
+    <img
+    src="https://freemusicarchive.org/image/?file=album_image%2F8fbwBtv07nezpm8y3hvW1RhligQSCsNyzKZePS7l.png&amp;width=400&amp;height=400&amp;type=album"
+    alt=""
+    title=""
+    class="object-cover hidden md:block h-full w-full rounded blur-md z-[1] bg-blend-multiply"
+    />
+    <div class="bg-black opacity-50 w-full h-full top-0 left-0 absolute z-[2]"></div>
+  </div>
+  <div class="mx-auto max-w-6xl px-4 md:px-8 text-white">
+    <div class="flex flex-col gap-4 md:flex-row md:gap-0 z-10 relative">
+      <div class="flex flex-col max-w-xl gap-4 my-auto">
+        <h1 class="text-4xl text-center md:text-left inline-flex justify-center gap-2">
+          Snow Drift
+          <span class="bg-gray-light hidden md:inline-flex mb-auto py-1 px-2 rounded text-black text-xs !font-body font-[500]">
+  Track
+</span>        </h1>
+        <h2 class="font-body mx-auto md:mx-0">
+          <a href="https://freemusicarchive.org/music/holiznacc0/" title="Back to artist page" class="hover:text-orange transition-colors ease-in-out duration-75">
+            HoliznaCC0
+          </a>
+        </h2>
+      </div>
+      <div class="flex flex-col mr-auto md:mr-0 ml-auto">
+        <div class="flex flex-col h-full">
+          <div class="flex divide-x divide-white/[.24] ml-auto mb-auto">
+            <span class="flex pr-8 flex-col gap-2 mt-auto">
+              <span class="text-2xl md:text-4xl ml-auto inline-flex font-light">
+                                  12.2K
+                              </span>
+              <span class="uppercase font-[500] ml-auto inline-flex">
+                plays
+              </span>
+            </span>
+            <span class="flex pl-8 gap-2 flex-col mt-auto">
+              <span class="text-2xl md:text-4xl mr-auto md:mr-0 md:ml-auto inline-flex font-light">
+                                  1.2K
+                              </span>
+              <span class="uppercase font-[500]">
+                downloads
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  <div class="max-w-6xl px-4 md:px-8 mx-auto py-8 md:py-12">
+    <div class="grid grid-cols-1 gap-y-4 md:grid-cols-3 md:gap-8">
+      <div class="col-span-1 flex flex-col gap-8">
+        
+        <div class="w-full flex flex-col rounded overflow-hidden">
+          <div class="w-full h-80">
+            <img
+    src="https://freemusicarchive.org/image/?file=album_image%2F8fbwBtv07nezpm8y3hvW1RhligQSCsNyzKZePS7l.png&amp;width=290&amp;height=290&amp;type=album"
+    alt=""
+    title=""
+    class="object-cover h-full w-full"
+    />
+          </div>
+          <div class="bg-gray-light py-4 px-6 w-full flex gap-6" data-track-info='{"id":212221,"handle":"snow-drift","url":"https:\/\/freemusicarchive.org\/music\/holiznacc0\/winter-lofi\/snow-drift\/","title":"Snow Drift","artistName":"HoliznaCC0","artistUrl":"https:\/\/freemusicarchive.org\/music\/holiznacc0\/","albumTitle":"Winter Lofi","playbackUrl":"https:\/\/freemusicarchive.org\/track\/snow-drift\/stream\/","downloadUrl":"https:\/\/freemusicarchive.org\/track\/snow-drift\/download\/","fileName":"K0WPofXI9S27E24ORSKxrYhlyFe2g7zldVkmR6KF.mp3","fileUrl":"https:\/\/files.freemusicarchive.org\/storage-freemusicarchive-org\/tracks\/K0WPofXI9S27E24ORSKxrYhlyFe2g7zldVkmR6KF.mp3"}'>
+            <a href="https://freemusicarchive.org/login/"
+     class="transition-colors inline-flex justify-center items-center ease-in-out duration-75 hover:text-blue">
+    <span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5" viewBox="0 0 24.963 22.118">
+  <path data-name="Icon feather-heart" d="M21.896 3.067a5.858 5.858 0 0 0-8.286 0l-1.129 1.129-1.129-1.129a5.86 5.86 0 1 0-8.286 8.286l1.129 1.129 8.286 8.286 8.286-8.286 1.129-1.129a5.858 5.858 0 0 0 0-8.286Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7"/>
+</svg>    </span>
+  </a>
+            <a href="javascript:;" class="inline-flex justify-center items-center js-download w-4 transition-colors ease-in-out duration-75 hover:text-blue" data-url="https://freemusicarchive.org/track/snow-drift/downloadOverlay/" title="Download">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.596 24.363" class="w-4">
+  <g data-name="Icon feather-arrow-down" fill="none" stroke="currentColor">
+    <path data-name="Path 663" d="M10.689 0v17.848" stroke-linejoin="round" stroke-width="2.7"/>
+    <path data-name="Path 664" d="m19.613 8.924-8.924 8.924-8.924-8.924" stroke-linejoin="round" stroke-width="2.7"/>
+    <path data-name="Line 121" stroke-linecap="round" stroke-width="2.6" d="M1.3 23.063h18.996"/>
+  </g>
+</svg>
+</a>
+            <a href="#" class="inline-flex justify-center items-center add-to-mix" title="Add to Mix">
+  <span class="inline-flex justify-center items-center w-4 transition-colors ease-in-out duration-75 hover:text-blue">
+    <svg data-name="Icon feather-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.049 22.049">
+  <path data-name="Path 668" d="M11.025 0v22.049" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="3"/>
+  <path data-name="Path 669" d="M0 11.025h22.049" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="3"/>
+</svg>
+  </span>
+</a>            <button 
+         type="button"         class="font-medium inline-flex justify-center items-center rounded relative 
+    px-2.5 py-1.5   
+  inline-flex transition-colors duration-75 pointer 
+  text-black hover:text-blue w-7 !p-0 share">
+             <span class="icon inline-flex justify-center w-6 max-h-6 mr-2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z" fill="currentColor"/>
+</svg>
+      </span>
+        <span class="text">
+    
+  </span>
+      <div class="share-msg top-0 z-10 absolute bg-blue px-2 py-2 w-32 text-white transition-all ease-in-out duration-75">
+      Link copied!
+    </div>
+  </button>          </div>
+        </div>
+
+        <div class="bg-gray-light rounded py-4 px-6 w-full flex flex-col gap-4 text-gray-dark">
+          <div class="grid grid-cols-5 gap-4">
+            <span class="col-span-3 grid grid-cols-5 font-[500] flex gap-3 items-center">
+              <span class="col-span-1 inline-flex justify-center">
+                <span class="w-4 justify-center inline-flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.365 21.284">
+  <g data-name="Icon feather-calendar" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1">
+    <path data-name="Path 670" d="M2.968 2.968h13.429a1.918 1.918 0 0 1 1.918 1.918v13.429a1.918 1.918 0 0 1-1.918 1.918H2.968a1.918 1.918 0 0 1-1.918-1.918V4.886a1.918 1.918 0 0 1 1.918-1.918Z"/>
+    <path data-name="Path 671" d="M13.519 1.05v3.837"/>
+    <path data-name="Path 672" d="M5.846 1.05v3.837"/>
+    <path data-name="Path 673" d="M1.05 8.723h17.265"/>
+  </g>
+</svg>
+                </span>
+              </span>
+              <span class="col-span-4">
+                Released
+              </span>
+            </span>
+            <span class="col-span-2">
+              Jan 29, 2023
+            </span>
+          </div>
+          <div class="grid grid-cols-5 gap-4">
+            <span class="col-span-3 grid grid-cols-5 font-[500] flex gap-3 items-center">
+              <span class="col-span-1 inline-flex justify-center">
+                <span class="w-6 inline-flex justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m-2 14.5 6-4.5-6-4.5v9Z" fill="currentColor"/>
+</svg>
+                </span>
+              </span>
+              <span class="col-span-4">
+                Plays
+              </span>
+            </span>
+            <span class="col-span-2" title="12197">
+                              12.2K
+                          </span>
+          </div>
+          <div class="grid grid-cols-5 gap-4">
+            <span class="col-span-3 grid grid-cols-5 font-[500] flex gap-3 items-center">
+              <span class="col-span-1 inline-flex justify-center">
+                <span class="w-6 inline-flex justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.596 24.363" class="w-4">
+  <g data-name="Icon feather-arrow-down" fill="none" stroke="currentColor">
+    <path data-name="Path 663" d="M10.689 0v17.848" stroke-linejoin="round" stroke-width="2.7"/>
+    <path data-name="Path 664" d="m19.613 8.924-8.924 8.924-8.924-8.924" stroke-linejoin="round" stroke-width="2.7"/>
+    <path data-name="Line 121" stroke-linecap="round" stroke-width="2.6" d="M1.3 23.063h18.996"/>
+  </g>
+</svg>
+                </span>
+              </span>
+              <span class="col-span-4">
+                Downloads
+              </span>
+            </span>
+            <span class="col-span-2" title="1216">
+                              1.2K
+                          </span>
+          </div>
+          <div class="grid grid-cols-5 gap-4">
+            <span class="col-span-3 grid grid-cols-5 font-[500] flex gap-3 items-center">
+              <span class="col-span-1 inline-flex justify-center">
+                <span class="w-6 inline-flex justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5" viewBox="0 0 24.963 22.118">
+  <path data-name="Icon feather-heart" d="M21.896 3.067a5.858 5.858 0 0 0-8.286 0l-1.129 1.129-1.129-1.129a5.86 5.86 0 1 0-8.286 8.286l1.129 1.129 8.286 8.286 8.286-8.286 1.129-1.129a5.858 5.858 0 0 0 0-8.286Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7"/>
+</svg>                </span>
+              </span>
+              <span class="col-span-4">
+                Favorites
+              </span>
+            </span>
+            <span class="col-span-2">
+              132
+            </span>
+          </div>
+        </div>
+
+        <div class="bg-gray-light py-4 px-4 rounded">
+            <a rel="license" class="mb-2 inline-flex w-full" target="_blank" href="https://creativecommons.org/publicdomain/zero/1.0/">
+        <img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" />
+      </a>
+    
+    <span class="font-[500]" xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Sound" property="dc:title" rel="dc:type">Snow Drift</span>
+
+          by <a class="font-[500] underline hover:text-orange" target="_blank" xmlns:cc="http://creativecommons.org/ns#" href="https://freemusicarchive.org/music/holiznacc0/" property="cc:attributionName">
+      HoliznaCC0</a>
+    
+    is licensed under a <a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="font-[500] underline hover:text-orange">CC0 1.0 Universal License</a>.
+  </div>
+
+  <div class="bg-gray-light py-4 px-4 rounded cms flex flex-col gap-3">
+    <span class="text-lg font-[500]">Contact artist</span>
+    <p>For more questions regarding usage, feel free to contact the artist directly.</p>
+    <a class="button mt-2" href="https://freemusicarchive.org/music/holiznacc0/contact?title=Snow+Drift">Contact artist</a>
+  </div>
+
+        
+      </div>
+
+      <div class="md:col-span-2 flex flex-col gap-8">
+
+        <div class="w-full">
+          <div class="flex flex-col gap-4">
+          <div
+        class="flex items-center gap-4 px-4 py-2 bg-gray-light py-4 rounded mx-auto w-full gcol gid-electronic tid-212221 play-item"
+        data-track-info='{"id":212221,"handle":"snow-drift","url":"https:\/\/freemusicarchive.org\/music\/holiznacc0\/winter-lofi\/snow-drift\/","title":"Snow Drift","artistName":"HoliznaCC0","artistUrl":"https:\/\/freemusicarchive.org\/music\/holiznacc0\/","albumTitle":"Winter Lofi","playbackUrl":"https:\/\/freemusicarchive.org\/track\/snow-drift\/stream\/","downloadUrl":"https:\/\/freemusicarchive.org\/track\/snow-drift\/download\/","fileName":"K0WPofXI9S27E24ORSKxrYhlyFe2g7zldVkmR6KF.mp3","fileUrl":"https:\/\/files.freemusicarchive.org\/storage-freemusicarchive-org\/tracks\/K0WPofXI9S27E24ORSKxrYhlyFe2g7zldVkmR6KF.mp3"}'>
+        <span class="inline-flex col-span-1 big-play">
+          <span class="doplay">
+            <a href="#" class=""></a>
+          </span>
+        </span>
+        <span class="inline-flex truncate pr-4 overflow-hidden col-span-3 md:gap-2 items-center">
+                      <span class="font-[500] text-xl inline-flex mr-4 md:mr-2">
+              1.
+            </span>
+                    <div class="inline-flex flex-col">
+            <a href="https://freemusicarchive.org/music/holiznacc0/winter-lofi/snow-drift/" 
+              class="inline-flex font-[500] underline decoration-transparent transition-all ease-in-out duration-75 hover:decoration-black">
+              Snow Drift
+            </a>
+            <span class="flex gap-1">
+              <span class="inline-flex">by</span>
+                              <a class="inline-flex font-[500] underline decoration-transparent transition-all ease-in-out duration-75 hover:decoration-black" href="https://freemusicarchive.org/music/holiznacc0/">
+                  HoliznaCC0
+                </a>
+                          </span>
+          </div>
+        </span>
+        <span class="col-span-2 hidden md:inline-flex justify-center px-2 gap-4 ml-auto">
+          <a href="https://freemusicarchive.org/login/"
+     class="transition-colors inline-flex justify-center items-center ease-in-out duration-75 hover:text-blue">
+    <span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5" viewBox="0 0 24.963 22.118">
+  <path data-name="Icon feather-heart" d="M21.896 3.067a5.858 5.858 0 0 0-8.286 0l-1.129 1.129-1.129-1.129a5.86 5.86 0 1 0-8.286 8.286l1.129 1.129 8.286 8.286 8.286-8.286 1.129-1.129a5.858 5.858 0 0 0 0-8.286Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7"/>
+</svg>    </span>
+  </a>
+          <a href="#" class="inline-flex justify-center items-center add-to-mix" title="Add to Mix">
+  <span class="inline-flex justify-center items-center w-4 transition-colors ease-in-out duration-75 hover:text-blue">
+    <svg data-name="Icon feather-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.049 22.049">
+  <path data-name="Path 668" d="M11.025 0v22.049" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="3"/>
+  <path data-name="Path 669" d="M0 11.025h22.049" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="3"/>
+</svg>
+  </span>
+</a>          <a href="javascript:;" class="inline-flex justify-center items-center js-download w-4 transition-colors ease-in-out duration-75 hover:text-blue" data-url="https://freemusicarchive.org/track/snow-drift/downloadOverlay/" title="Download">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.596 24.363" class="w-4">
+  <g data-name="Icon feather-arrow-down" fill="none" stroke="currentColor">
+    <path data-name="Path 663" d="M10.689 0v17.848" stroke-linejoin="round" stroke-width="2.7"/>
+    <path data-name="Path 664" d="m19.613 8.924-8.924 8.924-8.924-8.924" stroke-linejoin="round" stroke-width="2.7"/>
+    <path data-name="Line 121" stroke-linecap="round" stroke-width="2.6" d="M1.3 23.063h18.996"/>
+  </g>
+</svg>
+</a>
+        </span>
+                  <span class="w-12 ml-auto md:ml-0 col-span-2 inline-flex justify-end items-center">
+            02:53
+          </span>
+              </div>
+          </div>
+        </div>
+
+        <div class="pt-6 flex flex-col gap-4 border-t border-gray">
+          <span class="font-[500]">Track info</span>
+          <div class="px-8 py-2 bg-gray-light flex flex-col divide-y divide-gray">
+                                      <div class="grid grid-cols-1 md:grid-cols-8 gap-4 py-6">
+                <span class="font-[500] md:col-span-2">
+                  Album
+                </span>
+                <p class="md:col-span-6">
+                  <a href="https://freemusicarchive.org/music/holiznacc0/winter-lofi">
+                    Winter Lofi
+                  </a>
+                </p>
+              </div>
+                                      <div class="grid grid-cols-1 md:grid-cols-8 gap-4 py-6">
+                <span class="font-[500] md:col-span-2">
+                  Genres
+                </span>
+                <span class="md:col-span-6 flex flex-wrap gap-3">
+                                      <a 
+                      href="https://freemusicarchive.org/genre/Pop/" 
+                      class="py-1 px-2 rounded border border-blue bg-transparent text-blue font-[500] transition-all ease-in-out duration-75 text-sm hover:bg-blue hover:text-white"
+                    >
+                      Pop
+                    </a>
+                                      <a 
+                      href="https://freemusicarchive.org/genre/Easy_Listening/" 
+                      class="py-1 px-2 rounded border border-blue bg-transparent text-blue font-[500] transition-all ease-in-out duration-75 text-sm hover:bg-blue hover:text-white"
+                    >
+                      Easy Listening
+                    </a>
+                                      <a 
+                      href="https://freemusicarchive.org/genre/Hip-Hop/" 
+                      class="py-1 px-2 rounded border border-blue bg-transparent text-blue font-[500] transition-all ease-in-out duration-75 text-sm hover:bg-blue hover:text-white"
+                    >
+                      Hip-Hop
+                    </a>
+                                      <a 
+                      href="https://freemusicarchive.org/genre/Chill-out/" 
+                      class="py-1 px-2 rounded border border-blue bg-transparent text-blue font-[500] transition-all ease-in-out duration-75 text-sm hover:bg-blue hover:text-white"
+                    >
+                      Chill-out
+                    </a>
+                                      <a 
+                      href="https://freemusicarchive.org/genre/hiphop/" 
+                      class="py-1 px-2 rounded border border-blue bg-transparent text-blue font-[500] transition-all ease-in-out duration-75 text-sm hover:bg-blue hover:text-white"
+                    >
+                      hiphop
+                    </a>
+                                      <a 
+                      href="https://freemusicarchive.org/genre/Instrumental/" 
+                      class="py-1 px-2 rounded border border-blue bg-transparent text-blue font-[500] transition-all ease-in-out duration-75 text-sm hover:bg-blue hover:text-white"
+                    >
+                      Instrumental
+                    </a>
+                                      <a 
+                      href="https://freemusicarchive.org/genre/Lo-fi-Hip-Hop/" 
+                      class="py-1 px-2 rounded border border-blue bg-transparent text-blue font-[500] transition-all ease-in-out duration-75 text-sm hover:bg-blue hover:text-white"
+                    >
+                      Lo-fi Hip-Hop
+                    </a>
+                                      <a 
+                      href="https://freemusicarchive.org/genre/Lo-fi-Soul-RnB/" 
+                      class="py-1 px-2 rounded border border-blue bg-transparent text-blue font-[500] transition-all ease-in-out duration-75 text-sm hover:bg-blue hover:text-white"
+                    >
+                      Lo-fi Soul-RnB
+                    </a>
+                                  </span>
+              </div>
+            
+            
+            <div class="grid grid-cols-1 md:grid-cols-8 py-6">
+              <span class="font-[500] md:col-span-2">
+                Instrumental
+              </span>
+              <span class="md:col-span-6">
+                Yes
+              </span>
+            </div>
+
+            
+            
+            <div class="grid grid-cols-1 md:grid-cols-8 py-6">
+              <span class="font-[500] md:col-span-2">
+                AI generated?
+              </span>
+              <span class="md:col-span-6">
+                No
+              </span>
+            </div>
+
+          </div>
+        </div>
+              </div>
+    </div>
+  </div>
+
+    <footer class="w-full bg-black text-white">
+  <div class="container">
+    <div class="flex flex-col divide-y divide-slate-800">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pt-8 md:pt-24 pb-8">
+        <div class="flex flex-col gap-4">
+          <h2 class="mb-2 font-medium text-xl">
+            FMA
+          </h2>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://www.tribeofnoise.com/pages/about" target="_blank">
+                <span>
+                  About Tribe of Noise
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/about/">
+                <span>
+                  About FMA
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/royalty-free-music/">
+                <span>
+                  Royalty free music
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/Help/">
+                <span>
+                  Helping musicians
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/curator/fma-team/">
+                <span>
+                  Blog
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h2 class="mb-2 font-medium text-xl">
+            Discover
+          </h2>
+          <ul class="flex flex-col gap-2 text-white-100">
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/genres">
+                <span>
+                  Browse by genre
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/music/charts/all?sort=downloads">
+                <span>
+                  Top downloads
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/curator/fma-team/">
+                <span>
+                  Featured mixes
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/search">
+                <span>
+                  Search
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/music/">
+                <span>
+                  List of artists
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/music/monetized">
+                <span>
+                  Web monetized
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h2 class="mb-2 font-medium text-xl">
+            Support
+          </h2>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/register/">
+                <span>
+                  Sign up
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/login/">
+                <span>
+                  Log in
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/Help/">
+                <span>
+                  Helpdesk
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/contact/">
+                <span>
+                  Contact us
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://donorbox.org/free-music-archive-next" target="_blank">
+                <span>
+                  Donate
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h2 class="mb-2 font-medium text-xl">
+            Socials
+          </h2>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a target="_blank" class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://www.youtube.com/user/TribeofNoise" target="_blank">
+                <span class="flex justify-center items-center w-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 310" xml:space="preserve">
+  <path fill="currentColor" d="M297.917 64.645c-11.19-13.302-31.85-18.728-71.306-18.728H83.386c-40.359 0-61.369 5.776-72.517 19.938C0 79.663 0 100.008 0 128.166v53.669c0 54.551 12.896 82.248 83.386 82.248h143.226c34.216 0 53.176-4.788 65.442-16.527C304.633 235.518 310 215.863 310 181.835v-53.669c0-29.695-.841-50.16-12.083-63.521zm-98.896 97.765-65.038 33.991a9.997 9.997 0 0 1-14.632-8.863v-67.764a10 10 0 0 1 14.609-8.874l65.038 33.772a10 10 0 0 1 .023 17.738z"/>
+</svg>
+                </span>
+                <span>
+                  YouTube
+                </span>
+              </a>
+            </li>
+            <li>
+              <a target="_blank" class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://www.instagram.com/tribeofnoise/" target="_blank">
+                <span class="flex justify-center items-center w-4">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path fill="none" d="M0 0h24v24H0z"/>
+  <path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0-2a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm6.5-.25a1.25 1.25 0 0 1-2.5 0 1.25 1.25 0 0 1 2.5 0zM12 4c-2.474 0-2.878.007-4.029.058-.784.037-1.31.142-1.798.332a2.886 2.886 0 0 0-1.08.703 2.89 2.89 0 0 0-.704 1.08c-.19.49-.295 1.015-.331 1.798C4.006 9.075 4 9.461 4 12c0 2.474.007 2.878.058 4.029.037.783.142 1.31.331 1.797.17.435.37.748.702 1.08.337.336.65.537 1.08.703.494.191 1.02.297 1.8.333C9.075 19.994 9.461 20 12 20c2.474 0 2.878-.007 4.029-.058.782-.037 1.309-.142 1.797-.331a2.92 2.92 0 0 0 1.08-.702c.337-.337.538-.65.704-1.08.19-.493.296-1.02.332-1.8.052-1.104.058-1.49.058-4.029 0-2.474-.007-2.878-.058-4.029-.037-.782-.142-1.31-.332-1.798a2.911 2.911 0 0 0-.703-1.08 2.884 2.884 0 0 0-1.08-.704c-.49-.19-1.016-.295-1.798-.331C14.925 4.006 14.539 4 12 4zm0-2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2z" fill="currentColor"/>
+</svg>
+                </span>
+                <span>
+                  Instagram
+                </span>
+              </a>
+            </li>
+            <li>
+              <a target="_blank" class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://www.facebook.com/freemusicarchive/">
+                <span class="flex justify-center items-center w-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.364 31.364">
+  <path data-name="Icon ionic-logo-facebook" d="M29.632 0h-27.9A1.732 1.732 0 0 0 0 1.732v27.9a1.732 1.732 0 0 0 1.732 1.732h13.95V18.949h-3.749v-4.574h3.749v-3.381c0-4.051 2.81-6.256 6.428-6.256 1.732 0 3.594.131 4.027.188v4.231h-2.884c-1.968 0-2.344.931-2.344 2.3v2.916H25.6l-.613 4.574h-4.078v12.417h8.723a1.732 1.732 0 0 0 1.732-1.732v-27.9A1.732 1.732 0 0 0 29.632 0Z" fill="currentColor"/>
+</svg>
+                </span>
+                <span>
+                  Facebook
+                </span>
+              </a>
+            </li>
+            <li>
+              <a target="_blank" class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://x.com/freemusicarchiv">
+                <span class="flex justify-center items-center w-4">
+                  <svg width="1200" height="1227" viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="white"/>
+</svg>
+                </span>
+                <span>
+                  X
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row py-8 gap-6 py-8 md:py-12 text-sm">
+        <ul class="flex flex-col md:flex-row gap-3 md:gap-8 md:ml-auto md:order-2">
+          <li>
+            <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/terms_of_use">
+              Terms of Use
+            </a>
+          </li>
+          <li>
+            <a class="inline-flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity ease-in-out" href="https://freemusicarchive.org/privacy_policy">
+              Privacy policy
+            </a>
+          </li>
+        </ul>
+        <span class="opacity-70 md:order-1">
+          &copy; 2025 Tribe of Noise
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>  </div>
+
+  <script src="https://freemusicarchive.org/js/front-end/main.js?3518df03333af01421b9b78d63404abc87bf0f380c0276e43b6302496f1616d8" defer></script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-148153981-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-148153981-1', {
+      'anonymize_ip': true,
+      'linker': {
+        'domains': ['prosearch.tribeofnoise.com']
+      }
+    });
+  </script>
+      <script type="text/javascript" defer="" src="https://donorbox.org/install-popup-button.js" id="donorbox-popup-button-installer"></script>
+  <a class="dbox-donation-button" href="https://donorbox.org/free-music-archive-next?default_interval=o"></a>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      setTimeout(function() {
+        $('.dbox-donation-button')[0].click();
+      }, 60000);
+    });
+  </script>
+  </body>
+</html>
+
+
