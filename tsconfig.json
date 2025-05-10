@@ -8,9 +8,11 @@
     "files": [
         "./babel.config.cjs",
         "./jest.config.cjs",
-        "./.eslintrc.cjs"
+        "./eslint.config.js"
     ],
-    "include": [],
+    "include": [
+        "./configs/eslint/*"
+    ],
     // Specific compiler options necessary for `tsconfig-paths`. It expects the
     // path mapping in the root `tsconfig.json`, it cannot extract it from
     // referenced projects. These mappings do not have an impact on the

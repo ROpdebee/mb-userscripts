@@ -1,8 +1,0 @@
-/dist/**
-/coverage/*
-# Ignore top-level scripts for now
-/mb_*.js
-/lib/*
-/node_modules/**
-# Auxiliary files of jest HTML reporter
-/jest-html-reporters-attach/**
