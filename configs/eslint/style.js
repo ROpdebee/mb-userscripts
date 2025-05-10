@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const stylistic = require('@stylistic/eslint-plugin');
+import stylistic from '@stylistic/eslint-plugin';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const stylisticCustom = stylistic.configs.customize({
@@ -11,10 +10,9 @@ const stylisticCustom = stylistic.configs.customize({
     arrowParens: true,
 });
 
-module.exports = {
-    plugins: [
-        '@stylistic',
-    ],
+/** @type {import('eslint/lib/types').Linter.Config[]} */
+export default [{
+    ...stylisticCustom,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     rules: {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -29,4 +27,4 @@ module.exports = {
             avoidEscape: true,
         }],
     },
-};
+}];
