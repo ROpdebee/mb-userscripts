@@ -1,6 +1,6 @@
 {
   "extends": [
-    "config:base",
+    "config:recommended",
     ":semanticCommitTypeAll(build)",
     ":maintainLockFilesMonthly",
     ":label(dependencies)"
@@ -12,7 +12,7 @@
     "enabled": true,
     "automerge": true,
     "automergeType": "branch",
-    "recreateClosed": true,
+    "recreateWhen": "always",
     "schedule": [
       "at any time"
     ]
