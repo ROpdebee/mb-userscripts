@@ -15,7 +15,7 @@ const esModules = [
     'base32-encode',
 ].join('|');
 
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
     testEnvironment: './tests/unit/utils/extended-jsdom-environment.ts',
     moduleNameMapper: {
