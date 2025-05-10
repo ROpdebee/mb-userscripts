@@ -32,8 +32,8 @@
     "matchPackageNames": [
       "@babel/**",
       "@rollup/**",
-      "@types/babel_**",
-      "@types/rollup_**",
+      "@types/babel**",
+      "@types/rollup**",
       "core-js",
       "postcss**",
       "rollup**",
