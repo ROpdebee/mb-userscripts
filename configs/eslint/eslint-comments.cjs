@@ -1,8 +1,8 @@
 module.exports = {
-    extends: ['plugin:eslint-comments/recommended'],
+    extends: ['plugin:@eslint-community/eslint-comments/recommended'],
     rules: {
-        'eslint-comments/no-unused-disable': 'warn',
-        'eslint-comments/disable-enable-pair': ['warn', {
+        '@eslint-community/eslint-comments/no-unused-disable': 'warn',
+        '@eslint-community/eslint-comments/disable-enable-pair': ['warn', {
             allowWholeFile: true,
         }],
     },
