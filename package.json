@@ -59,7 +59,6 @@
     "core-js": "3.35.1",
     "eslint": "8.56.0",
     "eslint-plugin-array-func": "4.0.0",
-    "eslint-plugin-deprecation": "2.0.0",
     "eslint-plugin-jest": "27.6.3",
     "eslint-plugin-jest-async": "1.0.3",
     "eslint-plugin-jest-formatting": "3.1.0",
