@@ -1,10 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const builtinModulesJoined = require('node:module').builtinModules.join('|');
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
-module.exports = {
-    plugins: [
-        'simple-import-sort',
-    ],
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+import { builtinModules } from 'node:module';
+const builtinModulesJoined = builtinModules.join('|');
+
+/** @type {import('eslint/lib/types').Linter.Config[]} */
+export default [{
+    plugins: {
+        'simple-import-sort': simpleImportSort,
+    },
     rules: {
         'simple-import-sort/imports': ['error', {
             groups: [
@@ -29,4 +33,4 @@ module.exports = {
         }],
         'simple-import-sort/exports': 'error',
     },
-};
+}];
