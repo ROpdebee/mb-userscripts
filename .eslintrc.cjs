@@ -8,7 +8,6 @@ const baseEslintConfig = {
         './configs/eslint/general.cjs',
         './configs/eslint/typescript.cjs',
         './configs/eslint/style.cjs',
-        './configs/eslint/deprecation.cjs',
         './configs/eslint/sort-imports.cjs',
         './configs/eslint/eslint-comments.cjs',
         './configs/eslint/sonarjs.cjs',
