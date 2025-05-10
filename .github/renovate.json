@@ -10,6 +10,7 @@
   "schedule": [
     "* 0 29 2 *"
   ],
+  "separateMajorMinor": false,
   "pin": {
     "enabled": true,
     "automerge": true,
