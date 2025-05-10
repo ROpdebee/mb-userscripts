@@ -78,7 +78,6 @@
     "jest-extended": "4.0.2",
     "jest-html-reporters": "3.1.7",
     "jest-when": "3.6.0",
-    "license-checker": "25.0.1",
     "nativejsx": "github:ROpdebee/nativejsx",
     "node-fetch": "3.3.2",
     "postcss": "8.4.33",
