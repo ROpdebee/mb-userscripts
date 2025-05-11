@@ -16,7 +16,7 @@ export class YoutubeProvider extends HeadMetaPropertyProvider {
         return document_.body.innerHTML.includes("This video isn't available anymore");
     }
 
-    protected override fetchPage(url: URL, options?: RequestOptions | undefined): Promise<string> {
+    protected override fetchPage(url: URL, options?: RequestOptions): Promise<string> {
         // Override to add a language header, otherwise the 404 check will break depending on countries.
         return super.fetchPage(url, {
             ...options,

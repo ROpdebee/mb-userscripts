@@ -30,9 +30,7 @@ interface SpecificationArguments {
 }
 
 export const findImagesSpec = ({ provider, extractionCases, extractionFailedCases, pollyContext }: SpecificationArguments): void => {
-    if (pollyContext === undefined) {
-        pollyContext = setupPolly();
-    }
+    pollyContext ??= setupPolly();
 
     beforeAll(() => {
         registerMatchers();

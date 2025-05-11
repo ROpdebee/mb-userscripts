@@ -134,12 +134,8 @@ export class DispatchMap<Leaf> {
     private retrieveLeaf(key: string): Leaf | undefined {
         let child = this._get(key);
         if (child instanceof DispatchMap) {
-            let newChild = child._get('');
-            if (newChild === undefined) {
-                // Also match *.example.com to example.com
-                newChild = child._get('*');
-            }
-            child = newChild;
+            // Also match *.example.com to example.com
+            child = child._get('') ?? child._get('*');
         }
 
         return child;
