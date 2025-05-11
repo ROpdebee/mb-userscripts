@@ -17,6 +17,8 @@ export default [
             }],
             '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }],
             '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
+            // In strict mode, minimum description length is set to 10, which is a bit too strict.
+            '@typescript-eslint/ban-ts-comment': ['error', { minimumDescriptionLength: 3 }],
 
             // Enable rules not included in the recommended presets
             '@typescript-eslint/consistent-type-exports': 'error',

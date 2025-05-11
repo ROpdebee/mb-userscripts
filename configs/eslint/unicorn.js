@@ -62,5 +62,11 @@ export default [
 
             // Doesn't always work with transpiling into userscripts, ts-node, etc.
             'unicorn/prefer-top-level-await': 'off',
+
+            // Might be dangerous in userscripts.
+            'unicorn/prefer-global-this': 'off',
+
+            // Too verbose.
+            'unicorn/prefer-string-raw': 'off',
         },
     }];
