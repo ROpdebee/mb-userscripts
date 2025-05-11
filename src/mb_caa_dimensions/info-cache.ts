@@ -282,7 +282,7 @@ async function maybePruneDatabase(database: IDBPDatabase<CacheDBSchema>): Promis
 // Legacy stuff
 
 interface CacheDBSchemaV1 extends DBSchema {
-    'cacheStore': {
+    cacheStore: {
         key: string;
         value: {
             url: string;

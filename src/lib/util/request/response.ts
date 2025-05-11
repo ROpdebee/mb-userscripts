@@ -17,12 +17,12 @@ export class ResponseHeadersImpl {
     public constructor(crlfHeaders: string) {
         const headerList = crlfHeaders
             ? crlfHeaders
-                .split('\r\n')
-                .filter(Boolean)
-                .map((header) => {
-                    const [name, ...value] = header.split(':');
-                    return [name.toLowerCase().trim(), value.join(':').trim()];
-                })
+                    .split('\r\n')
+                    .filter(Boolean)
+                    .map((header) => {
+                        const [name, ...value] = header.split(':');
+                        return [name.toLowerCase().trim(), value.join(':').trim()];
+                    })
             : /* istanbul ignore next: Shouldn't happen in practice. */[];
 
         const headerMultimap = groupBy(headerList, ([name]) => name, ([, value]) => value);

@@ -1,6 +1,6 @@
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
-
 import { builtinModules } from 'node:module';
+
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 const builtinModulesJoined = builtinModules.join('|');
 
 /** @type {import('eslint').Linter.Config[]} */

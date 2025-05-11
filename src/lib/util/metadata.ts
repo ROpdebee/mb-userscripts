@@ -3,17 +3,17 @@
  */
 
 export interface UserscriptCustomMetadata {
-    name: string;
-    description: string;
-    match: string | readonly string[];
-    exclude?: string | readonly string[];
-    require?: string | readonly string[];
+    'name': string;
+    'description': string;
+    'match': string | readonly string[];
+    'exclude'?: string | readonly string[];
+    'require'?: string | readonly string[];
     // https://wiki.greasespot.net/Metadata_Block#.40run-at
     'run-at'?: 'document-end' | 'document-idle' | 'document-start';
-    grant?: string | readonly string[];
-    connect?: string | readonly string[];
-    resource?: string | readonly string[];
-    blurb: string;
+    'grant'?: string | readonly string[];
+    'connect'?: string | readonly string[];
+    'resource'?: string | readonly string[];
+    'blurb': string;
 }
 
 export interface UserscriptDefaultMetadata {

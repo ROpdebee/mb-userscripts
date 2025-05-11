@@ -10,4 +10,4 @@ export default [
             'no-use-extend-native/no-use-extend-native': 'error',
         },
     },
-]
+];

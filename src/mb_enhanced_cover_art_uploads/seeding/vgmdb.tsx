@@ -114,7 +114,8 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
         containedElements.push(
             <span style={{ display: 'block' }}>
                 This album is not linked to any MusicBrainz releases!
-            </span>);
+            </span>,
+        );
     }
 
     const container = (

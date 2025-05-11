@@ -6,7 +6,7 @@ declare module 'eslint-plugin-array-func' {
     export const configs: {
         all: Linter.Config;
         recommended: Linter.Config;
-    }
+    };
 }
 
 declare module 'eslint-plugin-no-unsanitized' {
