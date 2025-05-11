@@ -44,3 +44,14 @@ declare module 'eslint-plugin-json' {
 
     export const configs: Record<string, Linter.Config>;
 }
+
+declare module 'eslint-plugin-jest-extended' {
+    import type { Linter } from 'eslint';
+
+    export const configs: {
+        all: Linter.Config;
+        recommended: Linter.Config;
+        ['flat/all']: Linter.Config;
+        ['flat/recommended']: Linter.Config;
+    };
+}

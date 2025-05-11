@@ -48,13 +48,13 @@ describe('observable semaphores', () => {
         sema.acquire();
         sema.release();
 
-        expect(callbacks.onAcquired).toHaveBeenCalledTimes(1);
-        expect(callbacks.onReleased).toHaveBeenCalledTimes(1);
+        expect(callbacks.onAcquired).toHaveBeenCalledOnce();
+        expect(callbacks.onReleased).toHaveBeenCalledOnce();
 
         sema.acquire();
 
         expect(callbacks.onAcquired).toHaveBeenCalledTimes(2);
-        expect(callbacks.onReleased).toHaveBeenCalledTimes(1);
+        expect(callbacks.onReleased).toHaveBeenCalledOnce();
 
         sema.release();
 

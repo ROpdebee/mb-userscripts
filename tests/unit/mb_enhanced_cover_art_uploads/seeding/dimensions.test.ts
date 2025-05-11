@@ -312,7 +312,7 @@ describe('a-tisket images', () => {
             const image = new SeederImage('https://example.com/test');
 
             await expect(image.getFileInfo()).resolves.toBeUndefined();
-            expect(requestSpy).toHaveBeenCalledTimes(1);
+            expect(requestSpy).toHaveBeenCalledOnce();
         });
 
         it('retries on 503 errors', async () => {
