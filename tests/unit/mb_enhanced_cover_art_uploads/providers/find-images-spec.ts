@@ -50,7 +50,7 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
 
     if (extractionFailedCases.length > 0) {
         it.each(extractionFailedCases)('throws on $description', async (extractionFailedCase) => {
-            pollyContext!.polly.configure({
+            pollyContext.polly.configure({
                 recordFailedRequests: true,
             });
 

@@ -25,7 +25,7 @@ const browserGlobals = {
     ...globals.es2021,
 };
 
-/** @type {import('typescript-eslint/dist/config-helper').ConfigWithExtends} */
+/** @type {import('typescript-eslint').ConfigWithExtends} */
 const baseEslintConfig = {
     languageOptions: {
         parserOptions: {

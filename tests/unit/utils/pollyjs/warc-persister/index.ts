@@ -22,7 +22,7 @@ export class WarcPersister extends Persister<Options> {
 
         try {
             const warcContent = await fs.readFile(searchPath);
-            return await warc2har(warcContent);
+            return await warc2har(new Uint8Array(warcContent));
         } catch (error) {
             if (Object.prototype.hasOwnProperty.call(error, 'errno')
                 && (error as NodeJS.ErrnoException).code === 'ENOENT') {
