@@ -17,7 +17,7 @@ async function checkReadmeContent(): Promise<void> {
 // CommonJS modules.
 buildUserscripts(getVersionForToday())
     .then(checkReadmeContent)
-    .catch((error) => {
+    .catch((error: unknown) => {
         console.error(error);
         process.exit(1);
     });

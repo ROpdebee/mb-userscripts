@@ -8,7 +8,7 @@ import { seederFactory } from './seeding';
 const seeder = seederFactory(document.location);
 if (seeder) {
     Promise.resolve(seeder.insertSeedLinks())
-        .catch((error) => {
+        .catch((error: unknown) => {
             LOGGER.error('Failed to add seeding links', error);
         });
 } else if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
@@ -19,11 +19,11 @@ if (seeder) {
     const app = new App();
 
     app.processSeedingParameters()
-        .catch((error) => {
+        .catch((error: unknown) => {
             LOGGER.error('Failed to process seeded cover art parameters', error);
         });
     app.addImportButtons()
-        .catch((error) => {
+        .catch((error: unknown) => {
             LOGGER.error('Failed to add some provider import buttons', error);
         });
 } else {

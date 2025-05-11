@@ -123,7 +123,7 @@ async function scanAndPush(): Promise<void> {
     }
 }
 
-scanAndPush().catch((error) => {
+scanAndPush().catch((error: unknown) => {
     console.error(error);
     process.exit(1);
 });

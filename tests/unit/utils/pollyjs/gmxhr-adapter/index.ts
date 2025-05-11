@@ -29,7 +29,7 @@ export default class GMXHRAdapter<Context> extends Adapter<object, RequestType<C
                 headers: options.headers ?? {},
                 body: options.data,
                 requestArguments: options,
-            }).catch((error) => {
+            }).catch((error: unknown) => {
                 const response: GM.Response<Context> = {
                     readyState: 4,
                     status: 0,

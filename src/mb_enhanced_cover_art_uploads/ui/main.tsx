@@ -102,11 +102,11 @@ function createCheckbox(property: ConfigProperty<boolean>): HTMLElement {
         checkbox.addEventListener('change', () => {
             property.set(checkbox.checked)
                 // eslint-disable-next-line promise/no-nesting -- Not nested.
-                .catch((error) => {
+                .catch((error: unknown) => {
                     LOGGER.error(`Error when saving checkbox value for ${property.name}: ${error}`);
                 });
         });
-    }).catch((error) => {
+    }).catch((error: unknown) => {
         LOGGER.error(`Error when initialising value for ${property.name} checkbox: ${error}`);
     });
 
