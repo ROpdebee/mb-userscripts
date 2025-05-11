@@ -66,7 +66,7 @@ function createWarcResponseRecord(url: string, response: HarResponse): WARCRecor
     if (!response.content.text) {
         content = new Uint8Array();
     } else {
-        content = Buffer.from(response.content.text, shouldDecodeResponse(response) ? 'base64' : 'utf8');
+        content = new Uint8Array(Buffer.from(response.content.text, shouldDecodeResponse(response) ? 'base64' : 'utf8'));
     }
     function* chunker(): Iterable<Uint8Array> {
         yield content;
@@ -142,7 +142,7 @@ export async function replaceWarcFile(inputHarPath: string, outputWarcPath: stri
     const newHar = JSON.parse(harFileContent) as Har;
 
     const oldWarc = await fs.readFile(outputWarcPath);
-    const oldHar = await warc2har(oldWarc);
+    const oldHar = await warc2har(new Uint8Array(oldWarc));
 
     if (oldHar.log.entries.length != newHar.log.entries.length) {
         throw new Error('Old and new HAR files need to have the same number of entries');

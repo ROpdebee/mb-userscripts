@@ -27,7 +27,7 @@
         "jsx": "preserve",
 
         // We use ES modules, but run certain scripts in node.
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "esModuleInterop": true,
 
         // Make errors and warnings prettier
