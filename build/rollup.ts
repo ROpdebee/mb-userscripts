@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
-import type { OutputPlugin, Plugin, RenderedChunk, RollupOutput } from 'rollup';
+import type { OutputPlugin, RenderedChunk, RollupOutput } from 'rollup';
 import type { MinifyOptions } from 'terser';
 import alias from '@rollup/plugin-alias';
 import { babel } from '@rollup/plugin-babel';
@@ -12,7 +12,6 @@ import virtual from '@rollup/plugin-virtual';
 import postcssPresetEnv from 'postcss-preset-env';
 import { rollup } from 'rollup';
 import postcss from 'rollup-plugin-postcss';
-import progress from 'rollup-plugin-progress';
 import { minify } from 'terser';
 
 import { parseChangelogEntries } from './changelog';
@@ -161,11 +160,6 @@ async function buildUserscriptPassOne(userscriptDirectory: string, userscriptMet
             extensions: ['.css', '.scss', '.sass'],
         }),
     ];
-
-    // Progress in CI just leads to noisy logs.
-    if (!process.env.CI) {
-        plugins.unshift(progress() as Plugin);
-    }
 
     const bundle = await rollup({
         input: inputPath,
