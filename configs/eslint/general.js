@@ -1,7 +1,7 @@
 import js from '@eslint/js';
 import restrictedGlobals from 'confusing-browser-globals';
 
-/** @type {import('eslint/lib/types').Linter.Config[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
     js.configs.recommended,
     {

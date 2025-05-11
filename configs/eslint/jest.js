@@ -1,6 +1,6 @@
 import eslintJest from 'eslint-plugin-jest';
 
-/** @type {import('eslint/lib/types').Linter.Config[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
     eslintJest.configs['flat/all'],
     {

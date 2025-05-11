@@ -1,6 +1,5 @@
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-// @ts-expect-error -- No declarations.
 import eslintJson from 'eslint-plugin-json';
 
 
@@ -99,7 +98,7 @@ export default tseslint.config({
     },
 }, {
     files: ['**/*.json'],
-    extends: [eslintJson.configs['recommended']],
+    extends: [eslintJson.configs.recommended],
 }, {
     files: ['**/tsconfig*.json'],
     extends: [eslintJson.configs['recommended-with-comments']]

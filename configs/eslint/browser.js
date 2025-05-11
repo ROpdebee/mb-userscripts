@@ -1,8 +1,7 @@
 import restrictedGlobals from 'confusing-browser-globals';
-// @ts-expect-error -- Missing type declarations.
 import nounsanitized from 'eslint-plugin-no-unsanitized';
 
-/** @type {import('eslint/lib/types').Linter.Config[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
     nounsanitized.configs.recommended,
     {

@@ -9,7 +9,8 @@
     // configuration can use all of them.
     "include": [
         "../**/*",
-        "../eslint.config.js"
+        "../eslint.config.js",
+        "../src/types/eslint-plugins.d.ts"
     ],
     // Specifically include jest-extended types, otherwise `@typescript-eslint`
     // will think every extension matcher is `any`. We can't set these in the

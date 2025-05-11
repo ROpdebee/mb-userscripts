@@ -1,7 +1,6 @@
-// @ts-expect-error -- Missing type declarations.
 import eslintPluginNoUseExtendNative from 'eslint-plugin-no-use-extend-native';
 
-/** @type {import('eslint/lib/types').Linter.Config[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
     {
         plugins: {

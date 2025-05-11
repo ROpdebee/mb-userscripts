@@ -1,7 +1,6 @@
 import tseslint from 'typescript-eslint';
 
-/** @type {import('eslint/lib/types').Linter.Config[]} */
-// @ts-expect-error -- Bad type definitions.
+/** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
 export default [
     tseslint.configs.eslintRecommended,
     ...tseslint.configs.strictTypeChecked,

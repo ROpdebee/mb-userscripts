@@ -1,6 +1,6 @@
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
-/** @type {import('eslint/lib/types').Linter.Config[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
     eslintPluginUnicorn.configs.recommended,
     {
