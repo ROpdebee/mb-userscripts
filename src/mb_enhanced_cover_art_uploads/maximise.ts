@@ -9,7 +9,7 @@ import { urlBasename } from '@lib/util/urls';
 
 import { DiscogsProvider } from './providers/discogs';
 
-interface maxurlOptions {
+interface MaxurlOptions {
     /**
      * If set to false, it will return only the URL if there aren't any special properties.
      * Recommended to keep true.
@@ -78,10 +78,10 @@ interface maxurlOptions {
      */
     do_request?: typeof GMxmlHttpRequest;
     /** Callback. */
-    cb?: (result: maxurlResult[]) => void;
+    cb?: (result: MaxurlResult[]) => void;
 }
 
-export interface maxurlResult {
+export interface MaxurlResult {
     /** The URL of the image. */
     url: string;
 
@@ -190,23 +190,23 @@ export interface maxurlResult {
     };
 }
 
-export interface maxurlInterface {
-    (url: string, options: maxurlOptions): void;
+export interface MaxurlInterface {
+    (url: string, options: MaxurlOptions): void;
 
     check_bad_if(badif: Array<Record<string, unknown>>, response: XMLHttpRequestResponseType): boolean;
-    default_options: maxurlOptions;
+    default_options: MaxurlOptions;
     is_internet_url(url: string): boolean;
     clear_caches(): void;
     // loop: any
 }
 
-declare const $$IMU_EXPORT$$: maxurlInterface;
+declare const $$IMU_EXPORT$$: MaxurlInterface;
 
 // IMU does its initialisation synchronously, and it's loaded before the
 // userscript is executed, so $$IMU_EXPORT$$ should already exist now. However,
 // it does not exist in tests, and we can't straightforwardly inject this variable
 // without importing the module, thereby dereferencing it.
-function maxurl(url: string, options: maxurlOptions): Promise<void> {
+function maxurl(url: string, options: MaxurlOptions): Promise<void> {
     // In environments with GM.* APIs, the GM.getValue and GM.setValue functions
     // are asynchronous, leading to IMU defining its exports asynchronously too.
     // We can't await that, unfortunately. This is only really an issue when
@@ -217,7 +217,7 @@ function maxurl(url: string, options: maxurlOptions): Promise<void> {
     }, 100, 500); // Pretty large number of retries, but eventually it should work.
 }
 
-const options: maxurlOptions = {
+const options: MaxurlOptions = {
     fill_object: true,
     exclude_videos: true,
     /* istanbul ignore next: Cannot test in unit tests, IMU unavailable */
@@ -245,7 +245,7 @@ export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<Max
 }
 
 async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
-    const results = await new Promise<maxurlResult[]>((resolve) => {
+    const results = await new Promise<MaxurlResult[]>((resolve) => {
         maxurl(smallurl.href, {
             ...options,
             // eslint-disable-next-line unicorn/prevent-abbreviations -- 3rd party code

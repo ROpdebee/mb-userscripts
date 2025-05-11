@@ -294,7 +294,7 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
 
             LOGGER.debug('Attempting to refresh client ID');
             await SoundCloudProvider.refreshClientID();
-            return this.getTrackDataBatch(lazyTrackIDs, firstTry = false);
+            return this.getTrackDataBatch(lazyTrackIDs, false);
         }
 
         return safeParseJSON<LoadedAPITrack[]>(trackDataResponse.text, 'Failed to parse SoundCloud API response');

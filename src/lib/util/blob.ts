@@ -2,6 +2,7 @@ import { getFromPageContext } from '@lib/compat';
 
 function hexEncode(buffer: ArrayBuffer): string {
     // https://stackoverflow.com/a/40031979
+    // eslint-disable-next-line sonarjs/no-globals-shadowing
     const Uint8Array = getFromPageContext('Uint8Array');
     return [...new Uint8Array(buffer)]
         .map((b) => b.toString(16).padStart(2, '0'))

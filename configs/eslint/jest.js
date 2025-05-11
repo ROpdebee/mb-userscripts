@@ -49,5 +49,13 @@ export default [
 
             // Strings are often repeated in test code, which is not a big problem.
             'sonarjs/no-duplicate-string': 'off',
+            // Test data.
+            'sonarjs/pseudo-random': 'off',
+            'sonarjs/no-hardcoded-ip': 'off',
+            'sonarjs/no-clear-text-protocols': 'off',
+            // Doesn't recognise `itBehavesLike` inside a `describe` as a test.
+            'sonarjs/no-empty-test-file': 'off',
+            // Sonar counts nested `describe` and `it` as nested functions too.
+            'sonarjs/no-nested-functions': 'off',
         },
     }];
