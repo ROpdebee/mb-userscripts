@@ -54,7 +54,7 @@ const fakeProvider = new FakeProvider();
 
 // Utility setup functions
 function disableMaximisation(): void {
-    // eslint-disable-next-line require-yield, @typescript-eslint/require-await
+    // eslint-disable-next-line require-yield, @typescript-eslint/require-await, sonarjs/generator-without-yield
     mockGetMaximisedCandidates.mockImplementation(async function* (): AsyncGenerator<MaximisedImage, undefined, undefined> {
         return;
     });

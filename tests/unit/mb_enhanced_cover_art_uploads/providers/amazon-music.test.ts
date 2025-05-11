@@ -27,19 +27,6 @@ describe('amazon music provider', () => {
     });
 
     describe('extracting images', () => {
-        /*
-        const extractionCases = [{
-            description: 'release using Amazon provider',
-            url: 'https://music.amazon.com/albums/B08MCFCQD8',
-            imageCount: 1,
-            expectedImages: [{
-                index: 0,
-                urlPart: '81NnKXVjJvL',
-                types: [ArtworkTypeIDs.Front],
-            }],
-        }];
-        */
-
         const extractionFailedCases = [{
             description: 'release using Amazon provider',
             url: 'https://music.amazon.com/albums/B08MCFCQD8',

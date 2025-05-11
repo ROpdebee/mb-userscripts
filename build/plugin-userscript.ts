@@ -20,7 +20,7 @@ interface PluginOptions {
     include: Readonly<RegExp>;
 }
 
-interface _UserscriptOptionsWithDefaults extends UserscriptOptions {
+interface UserscriptOptionsWithDefaults extends UserscriptOptions {
     metadataOrder: readonly string[];
     branchName: string;
 }
@@ -84,12 +84,12 @@ async function loadPackageJson(): Promise<PackageJson> {
 }
 
 export class MetadataGenerator {
-    public readonly options: Readonly<_UserscriptOptionsWithDefaults>;
+    public readonly options: Readonly<UserscriptOptionsWithDefaults>;
     private readonly longestMetadataFieldLength: number;
     public readonly npmPackage: Readonly<PackageJson>;
     public readonly gitURLs: Readonly<GitURLs>;
 
-    public /* for tests */ constructor(options: Readonly<_UserscriptOptionsWithDefaults>, npmPackage: Readonly<PackageJson>) {
+    public /* for tests */ constructor(options: Readonly<UserscriptOptionsWithDefaults>, npmPackage: Readonly<PackageJson>) {
         this.options = options;
         this.longestMetadataFieldLength = Math.max(...options.metadataOrder.map((field) => field.length));
 

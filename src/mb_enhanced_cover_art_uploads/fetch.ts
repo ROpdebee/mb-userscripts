@@ -286,6 +286,7 @@ export class ImageFetcher {
             const reader = new FileReader();
             // istanbul ignore next: Copied from MB.
             reader.addEventListener('load', () => {
+                // eslint-disable-next-line sonarjs/no-globals-shadowing
                 const Uint32Array = getFromPageContext('Uint32Array');
                 const uint32view = new Uint32Array(reader.result as ArrayBuffer);
                 if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {

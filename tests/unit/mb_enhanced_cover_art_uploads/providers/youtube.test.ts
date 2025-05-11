@@ -38,6 +38,7 @@ describe('youtube provider', () => {
 
         // Failure case test doesn't currently work because YouTube seems to redirect
         // to a consent page on missing releases, which blocks the test.
+        // eslint-disable-next-line sonarjs/no-commented-code
         /*
         const extractionFailedCases = [{
             description: 'non-existent video',

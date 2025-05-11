@@ -32,6 +32,7 @@ describe('comparing versions', () => {
         const v2 = parseVersion(v2s);
 
         expect(versionLessThan(v1, v2)).toBeTrue();
+        // eslint-disable-next-line sonarjs/arguments-order
         expect(versionLessThan(v2, v1)).toBeFalse();
     });
 });

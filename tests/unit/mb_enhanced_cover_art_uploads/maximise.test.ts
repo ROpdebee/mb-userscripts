@@ -1,11 +1,11 @@
-import type { maxurlInterface, maxurlResult } from '@src/mb_enhanced_cover_art_uploads/maximise';
+import type { MaxurlInterface, MaxurlResult } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import * as libAsync from '@lib/util/async';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
 import { DiscogsProvider } from '@src/mb_enhanced_cover_art_uploads/providers/discogs';
 
-const fakeImu = jest.fn<ReturnType<maxurlInterface>, Parameters<maxurlInterface>>();
+const fakeImu = jest.fn<ReturnType<MaxurlInterface>, Parameters<MaxurlInterface>>();
 
-function setIMUResult(results: maxurlResult[]): void {
+function setIMUResult(results: MaxurlResult[]): void {
     fakeImu.mockImplementation((_url, options) => {
         options.cb?.(results);
     });
@@ -30,7 +30,7 @@ beforeEach(() => {
 
 describe('maximising images', () => {
     it('yields the maximised image', async () => {
-        setIMUResult([{ url: 'https://example.com/max' } as unknown as maxurlResult]);
+        setIMUResult([{ url: 'https://example.com/max' } as unknown as MaxurlResult]);
 
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://example.com/')));
 
@@ -40,7 +40,7 @@ describe('maximising images', () => {
     });
 
     it('skips bad images', async () => {
-        setIMUResult([{ bad: true } as unknown as maxurlResult]);
+        setIMUResult([{ bad: true } as unknown as MaxurlResult]);
 
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://example.com/')));
 
@@ -48,7 +48,7 @@ describe('maximising images', () => {
     });
 
     it('skips broken images', async () => {
-        setIMUResult([{ likely_broken: true } as unknown as maxurlResult]);
+        setIMUResult([{ likely_broken: true } as unknown as MaxurlResult]);
 
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://example.com/')));
 
@@ -56,7 +56,7 @@ describe('maximising images', () => {
     });
 
     it('skips fake images', async () => {
-        setIMUResult([{ fake: true } as unknown as maxurlResult]);
+        setIMUResult([{ fake: true } as unknown as MaxurlResult]);
 
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://example.com/')));
 
@@ -64,7 +64,7 @@ describe('maximising images', () => {
     });
 
     it('skips videos', async () => {
-        setIMUResult([{ video: true } as unknown as maxurlResult]);
+        setIMUResult([{ video: true } as unknown as MaxurlResult]);
 
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://example.com/')));
 
@@ -72,7 +72,7 @@ describe('maximising images', () => {
     });
 
     it('eventually returns all images', async () => {
-        setIMUResult([{ url: 'https://example.com/max' }, { url: 'https://example.com/max2' }] as unknown as maxurlResult[]);
+        setIMUResult([{ url: 'https://example.com/max' }, { url: 'https://example.com/max2' }] as unknown as MaxurlResult[]);
 
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://example.com/')));
 
@@ -113,7 +113,7 @@ describe('maximising Discogs images', () => {
 describe('maximising Apple Music images', () => {
     beforeAll(() => {
         fakeImu.mockImplementation((url, options) => {
-            options.cb?.([{ url } as unknown as maxurlResult]);
+            options.cb?.([{ url } as unknown as MaxurlResult]);
         });
     });
 
@@ -123,7 +123,7 @@ describe('maximising Apple Music images', () => {
                 url: 'https://a1.mzstatic.com/us/r1000/063/Music114/v4/cc/fc/dc/ccfcdc3b-5d9b-6305-8d59-687db6c67fd2/source',
             }, {
                 url: 'https://a1.mzstatic.com/us/r1000/063/Music114/v4/cc/fc/dc/ccfcdc3b-5d9b-6305-8d59-687db6c67fd2/20UMGIM63158.rgb.jpg',
-            }] as unknown as maxurlResult[]);
+            }] as unknown as MaxurlResult[]);
         });
 
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://is4-ssl.mzstatic.com/image/thumb/Music114/v4/cc/fc/dc/ccfcdc3b-5d9b-6305-8d59-687db6c67fd2/20UMGIM63158.rgb.jpg/1000x1000bb.webp')));
@@ -139,7 +139,7 @@ describe('maximising Apple Music images', () => {
                 url: 'https://a1.mzstatic.com/us/r1000/063/Music114/v4/6e/ff/f5/6efff51c-17f2-1d8b-21f3-b8029fa28434/source',
             }, {
                 url: 'https://is3-ssl.mzstatic.com/image/thumb/Music114/v4/6e/ff/f5/6efff51c-17f2-1d8b-21f3-b8029fa28434/source/999999999x0w-999.png',
-            }] as unknown as maxurlResult[]);
+            }] as unknown as MaxurlResult[]);
         });
 
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://is3-ssl.mzstatic.com/image/thumb/Music114/v4/6e/ff/f5/6efff51c-17f2-1d8b-21f3-b8029fa28434/source/9999x9999-100.jpg')));
@@ -153,7 +153,7 @@ describe('maximising Apple Music images', () => {
         fakeImu.mockImplementation((url, options) => {
             options.cb?.([{
                 url: 'https://a1.mzstatic.com/us/r1000/063/Music111/v4/e1/dc/68/e1dc6808-6d55-1e38-a34d-a3807d488859/source',
-            }] as unknown as maxurlResult[]);
+            }] as unknown as MaxurlResult[]);
         });
 
         const result = await asyncIteratorToArray(getMaximisedCandidates(new URL('https://a1.mzstatic.com/us/r1000/063/Music111/v4/e1/dc/68/e1dc6808-6d55-1e38-a34d-a3807d488859/191061355977.jpg')));

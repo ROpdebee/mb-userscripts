@@ -91,6 +91,7 @@ class LinkSplitter {
     }
 
     public setEnabled(enabled: boolean): void {
+        // eslint-disable-next-line sonarjs/no-selector-parameter
         if (enabled) {
             this.enable();
         } else {
