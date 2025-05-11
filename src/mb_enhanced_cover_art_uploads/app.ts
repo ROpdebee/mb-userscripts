@@ -120,7 +120,7 @@ export class App {
         const syncProcessURL = (url: URL): void => {
             void pFinally(
                 this.processURLs([url])
-                    .catch((error) => {
+                    .catch((error: unknown) => {
                         LOGGER.error(`Failed to process URL ${url.href}`, error);
                     }),
                 this.clearLogLater.bind(this));

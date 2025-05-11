@@ -241,7 +241,7 @@ export interface MaximisedImage {
 export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<MaximisedImage, void, undefined> {
     const exceptionFunction = IMU_EXCEPTIONS.get(smallurl.hostname);
     const iterable = await (exceptionFunction ?? maximiseGeneric)(smallurl);
-    yield * iterable;
+    yield* iterable;
 }
 
 async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
@@ -250,7 +250,7 @@ async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
             ...options,
             // eslint-disable-next-line unicorn/prevent-abbreviations -- 3rd party code
             cb: resolve,
-        }).catch((error) => {
+        }).catch((error: unknown) => {
             LOGGER.error('Could not maximise image, maxurl unavailable?', error);
             // Just return no maximised candidates and proceed as usual.
             resolve([]);

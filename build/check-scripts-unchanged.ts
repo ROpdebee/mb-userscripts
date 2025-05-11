@@ -35,7 +35,7 @@ async function checkUserscriptsChanged(): Promise<void> {
     }
 }
 
-checkUserscriptsChanged().catch((error) => {
+checkUserscriptsChanged().catch((error: unknown) => {
     console.error(error);
     process.exit(1);
 });

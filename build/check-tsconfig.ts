@@ -37,7 +37,7 @@ async function check(): Promise<void> {
 }
 
 check()
-    .catch((error) => {
+    .catch((error: unknown) => {
         console.error(error);
         process.exit(1);
     });
