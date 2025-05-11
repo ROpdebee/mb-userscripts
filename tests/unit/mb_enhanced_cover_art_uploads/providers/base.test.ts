@@ -13,11 +13,10 @@ import { registerMatchers } from '../test-utils/matchers';
 
 jest.mock('@lib/util/request');
 jest.mock('@lib/logging/logger');
-// eslint-disable-next-line jest/unbound-method
-const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [URL | string, unknown]>;
-// eslint-disable-next-line jest/unbound-method
-const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
 
+// eslint-disable-next-line jest/prefer-jest-mocked, jest/unbound-method -- jest.mocked doesn't work because of generic return type.
+const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [URL | string, unknown]>;
+const mockLoggerWarn = jest.mocked(LOGGER.warn);
 const findImagesMock = jest.fn();
 
 beforeAll(() => {

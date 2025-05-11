@@ -9,8 +9,8 @@ import { findImagesSpec } from './find-images-spec';
 import { urlMatchingSpec } from './url-matching-spec';
 
 jest.mock('@lib/logging/logger');
-// eslint-disable-next-line jest/unbound-method
-const mockLoggerError = LOGGER.error as unknown as jest.Mock<void, [string, unknown]>;
+
+const mockLoggerError = jest.mocked(LOGGER.error);
 
 afterEach(() => {
     mockLoggerError.mockReset();

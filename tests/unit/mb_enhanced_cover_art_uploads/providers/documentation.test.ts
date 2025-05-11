@@ -7,8 +7,7 @@ import { DispatchMap } from '@lib/util/domain-dispatch';
 
 jest.mock('@lib/util/domain-dispatch');
 
-// eslint-disable-next-line jest/unbound-method
-const spyDispatchMapSet = DispatchMap.prototype.set as jest.MockedFunction<DispatchMap<CoverArtProvider>['set']>;
+const spyDispatchMapSet = jest.mocked((DispatchMap.prototype as DispatchMap<CoverArtProvider>).set);
 
 function getAllProviderNamesInSource(): Set<string> {
     const providerNames = new Set<string>();

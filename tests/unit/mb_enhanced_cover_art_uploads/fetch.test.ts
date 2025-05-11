@@ -29,18 +29,18 @@ jest.mock<{ getMaximisedCandidates: typeof getMaximisedCandidates }>('@src/mb_en
 jest.mock('@src/mb_enhanced_cover_art_uploads/providers');
 jest.mock('@src/mb_enhanced_cover_art_uploads/form');
 
-const mockpRetry = pRetry as jest.MockedFunction<typeof pRetry>;
-// eslint-disable-next-line jest/unbound-method
+const mockpRetry = jest.mocked(pRetry);
+// eslint-disable-next-line jest/prefer-jest-mocked, jest/unbound-method -- jest.mocked doesn't work because of generic return type.
 const mockRequestGet = request.get as unknown as jest.Mock<Promise<Response>, [URL | string, unknown]>;
-// eslint-disable-next-line jest/unbound-method
-const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
-const mockGetMaximisedCandidates = getMaximisedCandidates as jest.MockedFunction<typeof getMaximisedCandidates>;
-const mockGetProvider = getProvider as jest.MockedFunction<typeof getProvider>;
-const mockGetProviderByDomain = getProviderByDomain as jest.MockedFunction<typeof getProvider>;
-const mockEnqueueImage = enqueueImage as jest.MockedFunction<typeof enqueueImage>;
+const mockLoggerWarn = jest.mocked(LOGGER.warn);
+const mockGetMaximisedCandidates = jest.mocked(getMaximisedCandidates);
+const mockGetProvider = jest.mocked(getProvider);
+const mockGetProviderByDomain = jest.mocked(getProviderByDomain);
+const mockEnqueueImage = jest.mocked(enqueueImage);
 
 // Fake provider to enable us to control which images are extracted through
 // this mock function.
+// eslint-disable-next-line jest/prefer-jest-mocked -- Need type annotation.
 const mockFindImages = jest.fn() as jest.MockedFunction<CoverArtProvider['findImages']>;
 class FakeProvider extends CoverArtProvider {
     public readonly name = 'test';
