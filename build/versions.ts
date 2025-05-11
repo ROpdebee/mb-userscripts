@@ -11,7 +11,7 @@ export function getVersionForToday(): string {
 }
 
 export function extractVersion(fileContent: string): string {
-    const version = fileContent.match(/\/\/\s*@version\s+(\S+)/)?.[1];
+    const version = /\/\/\s*@version\s+(\S+)/.exec(fileContent)?.[1];
     if (!version) {
         throw new Error('Could not extract version of existing built script!');
     }

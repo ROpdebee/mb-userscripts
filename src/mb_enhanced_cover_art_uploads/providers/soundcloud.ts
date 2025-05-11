@@ -83,7 +83,7 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
         for (const scriptUrl of scriptUrls) {
             const contentResponse = await request.get(scriptUrl);
             const content = contentResponse.text;
-            const clientId = content.match(SC_CLIENT_ID_REGEX);
+            const clientId = SC_CLIENT_ID_REGEX.exec(content);
 
             if (clientId?.[1]) {
                 return clientId[1];
@@ -155,7 +155,7 @@ export class SoundCloudProvider extends ProviderWithTrackImages {
     }
 
     private extractMetadataFromJS(pageContent: string): SCHydration[] | undefined {
-        const jsonData = pageContent.match(/>window\.__sc_hydration = (.+);<\/script>/)?.[1];
+        const jsonData = />window\.__sc_hydration = (.+);<\/script>/.exec(pageContent)?.[1];
         /* istanbul ignore if: Shouldn't happen */
         if (!jsonData) return;
         return safeParseJSON<SCHydration[]>(jsonData);

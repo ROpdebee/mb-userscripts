@@ -85,11 +85,11 @@ export abstract class CoverArtProvider {
      */
     public extractId(url: URL): string | undefined {
         if (!Array.isArray(this.urlRegex)) {
-            return this.cleanUrl(url).match(this.urlRegex)?.[1];
+            return this.urlRegex.exec(this.cleanUrl(url))?.[1];
         }
 
         return this.urlRegex
-            .map((regex) => this.cleanUrl(url).match(regex)?.[1])
+            .map((regex) => regex.exec(this.cleanUrl(url))?.[1])
             .find((id) => id !== undefined);
     }
 

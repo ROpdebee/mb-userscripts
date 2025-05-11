@@ -83,7 +83,7 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     private extractEmbeddedJSImages(pageContent: string, jsonRegex: RegExp): object[] | null {
-        const embeddedImages = pageContent.match(jsonRegex)?.[1];
+        const embeddedImages = jsonRegex.exec(pageContent)?.[1];
         if (!embeddedImages) {
             LOGGER.debug('Could not extract embedded JS images, regex did not match');
             return null;

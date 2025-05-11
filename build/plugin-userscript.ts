@@ -39,7 +39,7 @@ export /* for tests */ class GitURLs {
     private readonly repoName: string;
 
     private constructor(repoUrl: string) {
-        const [owner, repoName] = new URL(repoUrl).pathname.match(/^\/([^/]+)\/([^/]+?)(?:\.git|$)/)?.slice(1) ?? [];
+        const [owner, repoName] = /^\/([^/]+)\/([^/]+?)(?:\.git|$)/.exec(new URL(repoUrl).pathname)?.slice(1) ?? [];
         if (!owner || !repoName) throw new Error(`Malformed git URL ${repoUrl}`);
 
         this.owner = owner;
@@ -103,7 +103,7 @@ export class MetadataGenerator {
     }
 
     private transformGMFunction(name: string): string[] {
-        const bareName = name.match(/GM[_.](.+)$/)?.[1];
+        const bareName = /GM[_.](.+)$/.exec(name)?.[1];
         if (!bareName) return [name];
 
         // Some functions had capitalisation changes.

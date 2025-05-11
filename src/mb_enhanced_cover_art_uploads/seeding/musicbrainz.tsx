@@ -13,7 +13,7 @@ export const MusicBrainzSeeder: Seeder = {
     supportedRegexes: [/release\/[a-f\d-]{36}\/cover-art/],
 
     async insertSeedLinks(): Promise<void> {
-        const mbid = window.location.href.match(/musicbrainz\.org\/release\/([a-f\d-]+)\//)?.[1];
+        const mbid = /musicbrainz\.org\/release\/([a-f\d-]+)\//.exec(window.location.href)?.[1];
         assertHasValue(mbid);
         const attachedURLs = await getURLsForRelease(mbid, {
             excludeEnded: true,

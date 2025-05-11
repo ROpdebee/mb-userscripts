@@ -19,8 +19,7 @@ export class BandcampProvider extends ProviderWithTrackImages {
     protected readonly urlRegex = /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/;
 
     public override extractId(url: URL): string | undefined {
-        return this.cleanUrl(url)
-            .match(this.urlRegex)
+        return this.urlRegex.exec(this.cleanUrl(url))
             ?.slice(1)
             .join('/');
     }
