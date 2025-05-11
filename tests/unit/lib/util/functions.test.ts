@@ -12,7 +12,7 @@ describe('memoization', () => {
 
         expect(memoizedFunction('hello', 'world')).toBe('hello world');
 
-        expect(function_).toHaveBeenCalledTimes(1);
+        expect(function_).toHaveBeenCalledOnce();
     });
 
     it('does not perform subsequent evaluation', () => {
@@ -21,7 +21,7 @@ describe('memoization', () => {
 
         expect(memoizedFunction('hello', 'universe')).toBe('hello universe');
 
-        expect(function_).toHaveBeenCalledTimes(1);
+        expect(function_).toHaveBeenCalledOnce();
     });
 
     it('allows custom key functions', () => {

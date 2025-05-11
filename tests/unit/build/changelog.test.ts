@@ -99,16 +99,14 @@ describe('updating changelog', () => {
         changelogReaderMock.mockRejectedValue(new Error('File not found'));
         await updateChangelog('testScript', '1.2.3', 'testRepo', prInfo);
 
-        expect(changelogWriterMock).toHaveBeenCalledTimes(1);
-        expect(changelogWriterMock).toHaveBeenCalledWith(expectedPath, expectedChangelog);
+        expect(changelogWriterMock).toHaveBeenCalledExactlyOnceWith(expectedPath, expectedChangelog);
     });
 
     it('prepends existing changelog if one exists', async () => {
         changelogReaderMock.mockResolvedValue('Existing\nchangelog\ncontent');
         await updateChangelog('testScript', '1.2.3', 'testRepo', prInfo);
 
-        expect(changelogWriterMock).toHaveBeenCalledTimes(1);
-        expect(changelogWriterMock).toHaveBeenCalledWith(expectedPath, expectedChangelog + 'Existing\nchangelog\ncontent');
+        expect(changelogWriterMock).toHaveBeenCalledExactlyOnceWith(expectedPath, expectedChangelog + 'Existing\nchangelog\ncontent');
     });
 });
 

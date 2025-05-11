@@ -746,7 +746,7 @@ describe('fetching images from providers', () => {
                         types: [ArtworkTypeIDs.Medium],
                     }],
                 });
-            expect(mockFetchImageContents).toHaveBeenCalledTimes(1);
+            expect(mockFetchImageContents).toHaveBeenCalledOnce();
         });
 
         it('allows re-fetching a provider release', async () => {

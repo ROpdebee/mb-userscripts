@@ -1,8 +1,10 @@
 import eslintJest from 'eslint-plugin-jest';
+import eslintJestExtended from 'eslint-plugin-jest-extended';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
     eslintJest.configs['flat/all'],
+    eslintJestExtended.configs['flat/all'],
     {
         plugins: {
             jest: eslintJest,
