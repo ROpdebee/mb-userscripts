@@ -1,7 +1,6 @@
+import eslintJson from 'eslint-plugin-json';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import eslintJson from 'eslint-plugin-json';
-
 
 import arrays from './configs/eslint/arrays.js';
 import browser from './configs/eslint/browser.js';
@@ -47,7 +46,7 @@ const baseEslintConfig = {
         ...arrays,
         ...promise,
         ...noUseExtendNative,
-    ]
+    ],
 };
 
 const JAVASCRIPT_EXTENSIONS = ['ts', 'js', 'cjs', 'mjs', 'tsx', 'jsx'];
@@ -55,16 +54,16 @@ const JAVASCRIPT_EXTENSIONS_PATTERN = `{${JAVASCRIPT_EXTENSIONS.join(',')}}`;
 
 export default tseslint.config({
     ignores: [
-        "./dist/**",
-        "./coverage/*",
+        './dist/**',
+        './coverage/*',
         // Ignore top-level scripts for now
-        "./mb_*.js",
-        "./lib/*",
-        "./node_modules/**",
-        "./.tsc-build/**",
+        './mb_*.js',
+        './lib/*',
+        './node_modules/**',
+        './.tsc-build/**',
         // Auxiliary files of jest HTML reporter
-        "./jest-html-reporters-attach/**",
-    ]
+        './jest-html-reporters-attach/**',
+    ],
 }, {
     files: [`**/*.${JAVASCRIPT_EXTENSIONS_PATTERN}`],
     ...baseEslintConfig,
@@ -101,5 +100,5 @@ export default tseslint.config({
     extends: [eslintJson.configs.recommended],
 }, {
     files: ['**/tsconfig*.json'],
-    extends: [eslintJson.configs['recommended-with-comments']]
+    extends: [eslintJson.configs['recommended-with-comments']],
 });
