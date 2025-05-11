@@ -73,7 +73,7 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     private findGenericPhysicalImages(_url: URL, pageContent: string): CoverArt[] {
-        const imgs = this.extractEmbeddedJSImages(pageContent, /\s*'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
+        const imgs = this.extractEmbeddedJSImages(pageContent, /'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
         assertNonNull(imgs, 'Failed to extract images from embedded JS on generic physical page');
 
         return imgs.map((image) => {

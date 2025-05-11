@@ -126,7 +126,7 @@ export class SeederImage extends BaseImage {
         });
 
         const fileSize = response.headers.get('Content-Length')?.match(/\d+/)?.[0];
-        const fileType = response.headers.get('Content-Type')?.match(/\w+\/(\w+)/)?.[1];
+        const fileType = response.headers.get('Content-Type')?.match(/^\w+\/(\w+)$/)?.[1];
 
         return {
             fileType: fileType?.toUpperCase(),
