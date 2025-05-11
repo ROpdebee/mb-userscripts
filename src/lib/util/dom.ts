@@ -9,6 +9,7 @@ import { assertNonNull } from './assert';
  *
  * If element is not provided, defaults to document.
  */
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 export function qs<T extends Element>(query: string, element?: Document | Element): T {
     const queryResult = qsMaybe<T>(query, element);
     assertNonNull(queryResult, 'Could not find required element');
@@ -20,6 +21,10 @@ export function qs<T extends Element>(query: string, element?: Document | Elemen
  *
  * If element is not provided, defaults to document.
  */
+// TODO: Need to perform an actual type check instead of just using useless type parameter.
+// https://effectivetypescript.com/2020/07/27/safe-queryselector/
+// Although really, the entire API should probably be adjusted.
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 export function qsMaybe<T extends Element>(query: string, element?: Document | Element): T | null {
     const target = element ?? document;
     return target.querySelector<T>(query);
