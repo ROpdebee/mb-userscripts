@@ -27,6 +27,12 @@ export default [
             // Too verbose, already implied by test file name.
             'jest/require-top-level-describe': 'off',
 
+            // TODO: Enable this one. It'd be better practice not to rely on
+            // injected globals but it'll require tinkering with TypeScript
+            // declarations so that `jest-extended` `expect` extensions are
+            // available.
+            'jest/prefer-importing-jest-globals': 'off',
+
             //
             // Disable rules from other presets that conflict with testing code.
             //
