@@ -126,7 +126,7 @@ export class DiscogsProvider extends CoverArtProvider {
         // Maximising by querying the API for all images of the release, finding
         // the right one, and extracting the "full size" (i.e., 600x600 JPEG) URL.
         const imageName = this.getFilenameFromUrl(url);
-        const releaseId = imageName.match(/^R-(\d+)/)?.[1];
+        const releaseId = /^R-(\d+)/.exec(imageName)?.[1];
 
         /* istanbul ignore if: Should never happen on valid image */
         if (!releaseId) return url;

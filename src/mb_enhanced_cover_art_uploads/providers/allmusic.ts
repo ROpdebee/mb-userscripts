@@ -25,7 +25,7 @@ export class AllMusicProvider extends CoverArtProvider {
         // out and raise an error.
         const page = await this.fetchPage(url);
         // Extracting from embedded JS which contains a JSON array of all images
-        const galleryJson = page.match(/var imageGallery = (.+);$/m)?.[1];
+        const galleryJson = /var imageGallery = (.+);$/m.exec(page)?.[1];
         // istanbul ignore if: Difficult to cover
         if (!galleryJson) {
             throw new Error('Failed to extract AllMusic images from embedded JS');

@@ -11,7 +11,7 @@ function encodeValue(value: unknown): string {
 
 function decodeSingleKeyValue(key: string, value: string, images: BareCoverArt[]): void {
     const keyName = key.split('.').pop()!;
-    const imageIndexString = key.match(/x_seed\.image\.(\d+)\./)?.[1];
+    const imageIndexString = /x_seed\.image\.(\d+)\./.exec(key)?.[1];
     if (!imageIndexString || !['url', 'types', 'comment'].includes(keyName)) {
         throw new Error(`Unsupported seeded key: ${key}`);
     }

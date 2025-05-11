@@ -159,7 +159,7 @@ function parseCAAIDs(url: string): [string, string] {
 
     if (IMG_DOMAINS.test(urlObject.host) && /^\/(event|release)\//.test(urlObject.pathname)) {
         const [releaseId, thumbName] = urlObject.pathname.split('/').slice(2);
-        const imageId = thumbName.match(/^(\d+)/)?.[0];
+        const imageId = /^(\d+)/.exec(thumbName)?.[0];
         assertDefined(imageId, 'Malformed URL');
         return [`mbid-${releaseId}`, imageId];
     }
@@ -168,7 +168,7 @@ function parseCAAIDs(url: string): [string, string] {
         throw new Error('Unsupported URL');
     }
 
-    const matchGroups = urlObject.pathname.match(CAA_ID_REGEX);
+    const matchGroups = CAA_ID_REGEX.exec(urlObject.pathname);
     if (matchGroups === null) {
         LOGGER.error(`Failed to extract image ID from URL ${url}`);
         throw new Error('Invalid URL');

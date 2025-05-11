@@ -14,7 +14,7 @@ async function iterCommits(repo: SimpleGit): Promise<void> {
         // Skip commits which aren't deployments by the bot
         if (!commit.message.startsWith('🤖')) continue;
 
-        const messageMatch = commit.message.match(/🤖 (\w+) ([\d.]+)$/);
+        const messageMatch = /🤖 (\w+) ([\d.]+)$/.exec(commit.message);
         if (messageMatch === null) throw new Error(`Malformed commit? ${commit.message}`);
         const [scriptName, version] = messageMatch.slice(1);
         let entryList = changelogEntries.get(scriptName);
@@ -23,7 +23,7 @@ async function iterCommits(repo: SimpleGit): Promise<void> {
             changelogEntries.set(scriptName, entryList);
         }
 
-        const bodyMatch = commit.body.trim().match(/(.+?) \(#(\d+)\)$/);
+        const bodyMatch = /(.+?) \(#(\d+)\)$/.exec(commit.body.trim());
         if (bodyMatch === null) {
             // Malformed body? Fix manually
             entryList.push(`- **${version}**: FAILED!!! ${commit.message} ${commit.body.trim()}`);

@@ -293,7 +293,7 @@ IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
     // largest possible image.
 
     const results: MaximisedImage[] = [];
-    const smallOriginalName = smallurl.href.match(/(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/)?.[1];
+    const smallOriginalName = /(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/.exec(smallurl.href)?.[1];
 
     for await (const imageGeneric of maximiseGeneric(smallurl)) {
         if (urlBasename(imageGeneric.url) === 'source' && smallOriginalName !== 'source') {

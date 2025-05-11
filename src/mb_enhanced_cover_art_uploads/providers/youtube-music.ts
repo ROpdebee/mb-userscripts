@@ -73,7 +73,7 @@ export class YoutubeMusicProvider extends CoverArtProvider {
     }
 
     private extractPageInfo(document_: string): YTMusicPageInfo {
-        const documentMatch = document_.match(YOUTUBE_MUSIC_DATA_REGEXP);
+        const documentMatch = YOUTUBE_MUSIC_DATA_REGEXP.exec(document_);
         assertHasValue(documentMatch, 'Failed to extract page information, non-existent release?');
 
         const [stringParameters, stringData] = documentMatch.slice(1).map((string_) => this.unescapeJson(string_));
@@ -105,7 +105,7 @@ export class YoutubeMusicProvider extends CoverArtProvider {
     private checkAlbumPage(pageInfo: YTMusicPageInfo): void {
         const config = safeParseJSON<YTMusicBrowseEndpointContextSupportedConfigs>(pageInfo.parameters.browseEndpointContextSupportedConfigs)!;
         const pageType = config.browseEndpointContextMusicConfig.pageType;
-        const pageTypeReadable = pageType.match(/_([A-Z]+)$/)?.[1].toLowerCase() ?? /* istanbul ignore next: Should not happen */ pageType;
+        const pageTypeReadable = /_([A-Z]+)$/.exec(pageType)?.[1].toLowerCase() ?? /* istanbul ignore next: Should not happen */ pageType;
         assert(pageType === 'MUSIC_PAGE_TYPE_ALBUM', `Expected an album, got ${pageTypeReadable} instead`);
     }
 
