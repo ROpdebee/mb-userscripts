@@ -18,8 +18,7 @@ const FAKE_HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/113.0',
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export default class GMXHRAdapter<Context> extends Adapter<{}, RequestType<Context>> {
+export default class GMXHRAdapter<Context> extends Adapter<object, RequestType<Context>> {
     public static override readonly id = 'GM_xmlhttpRequest';
 
     public override onConnect(): void {

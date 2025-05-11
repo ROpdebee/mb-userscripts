@@ -44,9 +44,9 @@ export class ObservableSemaphore {
      *
      * @param {ObservableSemaphoreCallbacks}  callbacks  State change callbacks.
      */
-    public constructor({ onAcquired, onReleased }: ObservableSemaphoreCallbacks) {
-        this.onAcquired = onAcquired;
-        this.onReleased = onReleased;
+    public constructor(callbacks: ObservableSemaphoreCallbacks) {
+        this.onAcquired = callbacks.onAcquired.bind(callbacks);
+        this.onReleased = callbacks.onReleased.bind(callbacks);
     }
 
     /**
