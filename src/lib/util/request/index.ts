@@ -29,7 +29,7 @@ interface RequestFunction {
 const hasGMXHR = (
     // @ts-expect-error GMv3 API.
     typeof GM_xmlHttpRequest !== 'undefined'
-    // eslint-disable-next-line @typescript-eslint/prefer-optional-chain, @typescript-eslint/no-unnecessary-condition -- Might be using GMv3 API.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- Might be using GMv3 API.
     || (typeof GM !== 'undefined' && GM.xmlHttpRequest !== undefined));
 
 function constructErrorMessage(options: RequestOptions | undefined, response: Response): string | undefined {
