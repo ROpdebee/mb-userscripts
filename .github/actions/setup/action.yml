@@ -3,9 +3,9 @@ name: Set up environment
 description: Set up NodeJS and install npm dependencies
 inputs:
   node-version:
-    description: Node version to install, defaults to v16
+    description: Node version to install, defaults to v23
     required: false
-    default: '18'
+    default: "23"
 runs:
   using: composite
   steps:
@@ -38,14 +38,13 @@ runs:
 
     - name: Retrieve current date
       id: curr-date
-      run:
-        echo "date=$(date +%Y-%m)" >> $GITHUB_OUTPUT
+      run: echo "date=$(date +%Y-%m)" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Cache npm package downloads
       uses: actions/cache@v4
       with:
-        path: '~/.npm'
+        path: "~/.npm"
         key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ steps.curr-date.outputs.date }}-${{ hashFiles('package-lock.json') }}
         # Allow restoring the download cache if package-lock.json has changed, but only in the same month.
         # In a different month, the cache should be rebuilt from scratch in the beginning.
@@ -56,8 +55,7 @@ runs:
     # node_modules cache.
     - name: Get node version
       id: node-version
-      run:
-        echo "node-version=$(node --version)" >> $GITHUB_OUTPUT
+      run: echo "node-version=$(node --version)" >> $GITHUB_OUTPUT
       shell: bash
     # Cache node_modules specifically for this OS, specific node version, and
     # package-lock.json.
