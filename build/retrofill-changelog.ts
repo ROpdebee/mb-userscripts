@@ -23,6 +23,7 @@ async function iterCommits(repo: SimpleGit): Promise<void> {
             changelogEntries.set(scriptName, entryList);
         }
 
+        // eslint-disable-next-line sonarjs/slow-regex -- Valid but unimportant.
         const bodyMatch = /(.+?) \(#(\d+)\)$/.exec(commit.body.trim());
         if (bodyMatch === null) {
             // Malformed body? Fix manually
