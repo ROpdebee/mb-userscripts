@@ -91,7 +91,6 @@ export default class GMXHRAdapter<Context> extends Adapter<object, RequestType<C
         // Extract the final URL from the headers. We stored these in
         // the passthrough
         const headers = { ...response.headers };
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         const finalUrl = headers['x-pollyjs-finalurl'] ?? options.url;
         delete headers['x-pollyjs-finalUrl'];
 

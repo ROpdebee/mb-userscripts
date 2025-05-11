@@ -114,7 +114,6 @@ describe('fetching image contents', () => {
         // Mock retrying behaviour so we can test it.
         mockpRetry.mockImplementation(async (function_, options) => {
             try {
-                // eslint-disable-next-line @typescript-eslint/return-await
                 return await function_(0);
             } catch (error) {
                 Object.defineProperties(error, {

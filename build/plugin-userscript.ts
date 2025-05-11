@@ -164,7 +164,6 @@ export class MetadataGenerator {
     public async loadMetadata(): Promise<AllUserscriptMetadata> {
         // Use file URLs for compatibility with Windows, otherwise drive letters are recognized as an invalid protocol.
         const metadataFile = pathToFileURL(path.resolve('./src', this.options.userscriptName, 'meta.ts')).href;
-        // eslint-disable-next-line no-unsanitized/method -- Fine.
         const specificMetadata = (await import(metadataFile) as { default: UserscriptMetadata }).default;
         return this.insertDefaultMetadata(specificMetadata);
     }
