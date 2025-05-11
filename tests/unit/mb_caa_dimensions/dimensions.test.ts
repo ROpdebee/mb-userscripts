@@ -11,7 +11,7 @@ jest.mock<{ memoize: typeof mockMemoize }>('@lib/util/functions', () => ({
 
 jest.mock('p-retry');
 
-const mockpRetry = pRetry as jest.MockedFunction<typeof pRetry>;
+const mockpRetry = jest.mocked(pRetry);
 
 beforeAll(() => {
     mockpRetry.mockImplementation(((function_) => (function_(0))) as typeof pRetry);

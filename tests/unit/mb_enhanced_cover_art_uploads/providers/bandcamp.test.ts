@@ -10,7 +10,7 @@ import { urlMatchingSpec } from './url-matching-spec';
 // We need to mock getImageDimensions since jsdom doesn't actually load images.
 // See also tests/mb_caa_dimensions/dimensions.test.ts
 jest.mock('@src/mb_caa_dimensions/dimensions');
-const mockGetImageDimensions = getImageDimensions as jest.MockedFunction<typeof getImageDimensions>;
+const mockGetImageDimensions = jest.mocked(getImageDimensions);
 
 describe('bandcamp provider', () => {
     const provider = new BandcampProvider();

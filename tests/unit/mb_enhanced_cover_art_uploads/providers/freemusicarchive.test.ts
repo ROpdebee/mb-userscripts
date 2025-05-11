@@ -35,8 +35,7 @@ describe('free music archive provider', () => {
     });
 
     describe('extracting images', () => {
-        // eslint-disable-next-line jest/unbound-method
-        const mockLoggerWarn = LOGGER.warn as unknown as jest.Mock<void, [string, unknown]>;
+        const mockLoggerWarn = jest.mocked(LOGGER.warn);
 
         afterEach(() => {
             mockLoggerWarn.mockReset();

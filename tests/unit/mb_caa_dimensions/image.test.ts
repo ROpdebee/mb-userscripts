@@ -8,8 +8,8 @@ jest.mock('@src/mb_caa_dimensions/info-cache');
 jest.mock('@src/mb_caa_dimensions/caa-info');
 jest.mock('@src/mb_caa_dimensions/dimensions');
 
-const mockGetImageDimensions = getImageDimensions as jest.MockedFunction<typeof getImageDimensions>;
-const mockGetCAAInfo = getCAAInfo as jest.MockedFunction<typeof getCAAInfo>;
+const mockGetImageDimensions = jest.mocked(getImageDimensions);
+const mockGetCAAInfo = jest.mocked(getCAAInfo);
 
 afterEach(() => {
     mockCache.getDimensions.mockReset();
