@@ -8,7 +8,8 @@
     "files": [
         "./babel.config.cjs",
         "./jest.config.cjs",
-        "./eslint.config.js"
+        "./eslint.config.js",
+        "./src/types/eslint-plugins.d.ts"
     ],
     "include": [
         "./configs/eslint/*"

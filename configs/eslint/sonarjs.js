@@ -1,6 +1,6 @@
 import sonarjs from 'eslint-plugin-sonarjs';
 
-/** @type {import('eslint/lib/types').Linter.Config[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
     sonarjs.configs.recommended,
     {

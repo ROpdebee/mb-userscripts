@@ -1,7 +1,6 @@
-// @ts-expect-error -- missing type defs
 import arrayFunc from 'eslint-plugin-array-func';
 
-/** @type {import('eslint/lib/types').Linter.Config[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
     arrayFunc.configs.recommended,
     {

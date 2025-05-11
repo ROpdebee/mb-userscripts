@@ -1,7 +1,6 @@
-// @ts-expect-error -- missing type defs
 import eslintComments from '@eslint-community/eslint-plugin-eslint-comments/configs';
 
-/** @type {import('eslint/lib/types').Linter.Config[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
     eslintComments.recommended,
     {
