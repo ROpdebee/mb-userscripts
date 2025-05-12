@@ -1,0 +1,251 @@
+WARC/1.1
+WARC-Filename: metal archives provider/extracting images/throws on non-existent release
+WARC-Date: 2025-05-12T15:39:34.668Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:11b9feb9-a586-46e0-a694-bcb82c244096>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e51ab7cf-9837-4cc2-a0a5-57c6707feab2>
+WARC-Target-URI: https://www.metal-archives.com/albums/eede/abdd/99999999
+WARC-Date: 2025-05-12T15:39:34.669Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:51139c97-225f-49d1-8165-2ce688bbb44c>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:168e4eefe1363e1af3e50f15d866124d597821f54556ad5a47264aeadb5021fb
+Content-Length: 43
+
+GET /albums/eede/abdd/99999999 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e51ab7cf-9837-4cc2-a0a5-57c6707feab2>
+WARC-Target-URI: https://www.metal-archives.com/albums/eede/abdd/99999999
+WARC-Date: 2025-05-12T15:39:34.670Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:54dad69f-0faf-4a60-9199-35aef280046d>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:cc883f386d3a119c9d5484a6e9ce38451c54e47b7b8caf7480cd3771edb19cc2
+WARC-Block-Digest: sha256:cc883f386d3a119c9d5484a6e9ce38451c54e47b7b8caf7480cd3771edb19cc2
+Content-Length: 425
+
+harEntryId: 88e1999d017b14fa06a177d83a44d49d
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2025-05-12T15:39:32.125Z
+time: 2540
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":2540,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 75
+warcRequestCookies: []
+warcResponseHeadersSize: 1179
+warcResponseCookies: [{"name":"PHPSESSID","value":"3cc92ba6ce7b0ac076cf46111efadc03","path":"/"}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.metal-archives.com/albums/eede/abdd/99999999
+WARC-Date: 2025-05-12T15:39:34.669Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:e51ab7cf-9837-4cc2-a0a5-57c6707feab2>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:c0345149889e5c6ff9e61ec70f69f6758ae0423da2b8b7a44f77af465a0c16b7
+WARC-Block-Digest: sha256:ce1f05ae15febfcfd11f30292fa7d3ffa21d7654b1e7ff0bdc2032f725f2f4e1
+Content-Length: 9303
+
+HTTP/1.1 404 Not Found
+alt-svc: h3=":443"; ma=86400
+cache-control: no-store, no-cache, must-revalidate
+cf-cache-status: DYNAMIC
+cf-ray: 93eb02671f8214bd-AMS
+connection: keep-alive
+content-encoding: br
+content-security-policy: frame-ancestors 'self'
+content-type: text/html; charset=UTF-8
+date: Mon, 12 May 2025 15:39:34 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+pragma: no-cache
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=IRv0jpxWA%2FtpzuR5e05otNnyXYggrQWMxiixjDNCaJ0jKGxBCO1oS7pB%2F%2FwSEcYJ6GvjIm%2FdHnmn20t1cDDY%2BU3w%2B%2F53LskpILjDkWWTftJeJdKwgsb7rGE66vmlBlVDF9Xf0434PT74"}],"group":"cf-nel","max_age":604800}
+server: cloudflare
+server-timing: cfL4;desc="?proto=TCP&rtt=10055&min_rtt=10050&rtt_var=2836&sent=6&recv=8&lost=0&retrans=0&sent_bytes=3935&recv_bytes=1945&delivery_rate=407344&cwnd=228&unsent_bytes=0&cid=d27117344be65c4b&ts=2506&x=0"
+set-cookie: PHPSESSID=3cc92ba6ce7b0ac076cf46111efadc03; Path=/
+transfer-encoding: chunked
+vary: Accept-Encoding,User-Agent
+x-frame-options: SAMEORIGIN
+x-pollyjs-finalurl: https://www.metal-archives.com/albums/eede/abdd/99999999
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Error 404 - album not found - Encyclopaedia Metallum: The Metal Archives</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+							<link rel="stylesheet" type="text/css" href="/min/index.php?g=css&v=125" />
+				
+					<script type="69e97e72c05638f8e4546a34-text/javascript" src="/min/index.php?g=js&v=127"></script>
+				<script type="69e97e72c05638f8e4546a34-text/javascript">
+			var URL_SITE	= 'https://www.metal-archives.com/';
+			var URL_IMAGES	= 'https://www.metal-archives.com/images/';
+			var URL_CSS		= 'https://www.metal-archives.com/css/';
+			var csrfToken	= '';
+
+			$(document).ready(function() {
+				toggleFixedPositioning(1280, 600);
+				executeOnAllPages();
+				
+											});
+
+
+		</script>
+		<noscript>
+			<style type="text/css">
+				.no-js { display: block !important; }
+			</style>
+		</noscript>
+		
+		<!--[if lt IE 8]>
+			<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>
+			 <link rel="stylesheet" type="text/css" href="https://www.metal-archives.com/css/default/oldie.css" />
+		<![endif]-->		
+
+		<script type="69e97e72c05638f8e4546a34-text/javascript">
+			  var _gaq = _gaq || [];
+			  _gaq.push(['_setAccount', 'UA-4046749-4']);
+			  _gaq.push(['_trackPageview']);
+
+			  (function() {
+			    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			  })();
+		</script>
+	</head>
+	<body >
+		<div id="wrapper">
+	        <div id="header">
+	            <a href="https://www.metal-archives.com/" id="MA_logo">Metal Archives</a>
+				<div class="clear loading"><img src="https://www.metal-archives.com/images/loading.gif" alt="loading" width="12" height="12" /> loading...</div>
+	            <div id="search_box">
+		            <form id="search_form" action="https://www.metal-archives.com/search" method="get">
+						<div>
+							<label>Search:</label><br/>
+							<input name="searchString" type="text" id="searchQueryBox" size="25" value="" tabindex="1" />
+							<select name="type" tabindex="2">
+								<option value="band_name">Band name</option>
+								<option value="band_genre">Music genre</option>
+								<option value="band_themes">Themes</option>
+								<option value="album_title">Album title</option>
+								<option value="song_title">Song title</option>
+								<option value="label_name">Label</option>
+								<option value="artist_alias">Artist</option>
+								<option value="user_name">User profile</option>
+								<option value="google">Google</option>
+							</select>
+							<br/>
+							<a href="https://www.metal-archives.com/search/advanced/?searchString=&type=" class="float_left" tabindex="4">Advanced search</a>
+							<button type="submit" class="btn_submit float_right" tabindex="3">Submit</button>
+						</div>
+		            </form>
+		        </div>
+	            
+	            <div id="top_menu_box">
+	                <ul class="menu_style_1">
+	                    <li><a href="https://www.metal-archives.com/content/help">Help</a></li>
+						<li><a href="https://www.metal-archives.com/content/rules">Rules</a></li>
+						<li><a href="https://metalarchives.threadless.com/" target="_top">Store</a></li>
+						<li><a href="https://forum.metal-archives.com" target="_top">Forum</a></li>
+	                </ul>
+	                <ul class="menu_style_2">
+						<li><a href="https://www.metal-archives.com/content/faq">FAQ</a></li>
+												<li><a href="https://www.metal-archives.com/content/support">Support Us</a></li>
+	                    <li><a href="https://www.metal-archives.com/content/tools">Add-ons</a></li>
+	              </ul>
+	            </div>        
+	        </div>
+	        <div id="left_col">
+	            <div id="member_box">
+	            		            				                <form name="login_form" id="login_form" action="https://www.metal-archives.com/authentication/login" method="post">
+							<div>
+								<label>Username</label><br/>
+								<input type="text" name="loginUsername" />
+								<label>Password</label><br/>
+								<input type="password" name="loginPassword" />
+								<input type="hidden" name="origin" value="/albums/eede/abdd/99999999" />
+								<button type="submit" class="btn_login float_right">Login</button>
+							</div>
+		                </form>
+		                <a href="https://www.metal-archives.com/user/signup" class="float-left writeAction">Register</a>  
+		                <span class="float_right"><a href="https://www.metal-archives.com/user/forgot-password" class="float-left writeAction">Forgot login?</a>  </span>
+						<div class="clear"> </div>
+		            	            </div>
+	            <div id="left_menu_box">
+	            		                <ul class="menu_style_3 block_spacer_20">
+	                	<li>
+	                		Bands 
+	                		<ul>
+			                    <li><a href="https://www.metal-archives.com/browse/letter">alphabetical</a></li>
+			                    <li><a href="https://www.metal-archives.com/browse/country">country</a></li>
+			                    <li><a href="https://www.metal-archives.com/browse/genre">genre</a></li>
+	                    	</ul>
+	                    </li>
+	                    <li>
+	                    	Labels
+	                    	<ul>
+			                    <li><a href="https://www.metal-archives.com/label">alphabetical</a></li>
+			                    <li><a href="https://www.metal-archives.com/label/country">country</a></li>
+	                    	</ul>
+	                    </li>
+	                    <li><a href="https://www.metal-archives.com/review/browse">Reviews</a></li>
+	                </ul>
+	                <ul class="menu_style_3 block_spacer_20">
+	                    <li><a href="https://www.metal-archives.com/artist/rip">R.I.P.</a></li>
+	                    <li><a href="https://www.metal-archives.com/band/random">Random Band</a></li>
+	                    <li><a href="https://www.metal-archives.com/user/list">User rankings</a></li>
+	                	<li><a href="https://www.metal-archives.com/news">News archive</a></li>
+					</ul>
+					 <ul class="menu_style_3 ornement_30">
+	                    <li><a href="https://www.metal-archives.com/report/list">Reports</a></li>
+	                    <li><a href="https://www.metal-archives.com/todo">Contribute / To do</a></li>
+	                </ul>
+	            </div>
+	            <div id="left_text_box">
+	           		<p class="small_text center"> &copy; 2002-2025<br/>Encyclopaedia Metallum </p>
+	            </div>
+	            <div>
+	            	<p class="small_text center"><a href="https://www.metal-archives.com/content/pp">Privacy Policy</a></p>
+	            </div>
+	        </div>
+	        <div id="content_wrapper">
+				<h3>Error 404</h3>
+<h4>Album not found</h4>
+
+
+	
+	<p>
+		We are sorry, the album <strong>eede - abdd</strong> you were looking for could not be found. Perhaps the entry has been deleted, or is still pending moderation approval.
+	</p>
+
+<p>
+	If you followed a link from an external site, it was most likely out of date. 
+	If you followed a link from within the site and believe this is an error, please report the dead URL below immediately.
+	(Make sure to tell us where you clicked to end up on this page.)
+</p>
+	
+<strong>https://www.metal-archives.com/albums/eede/abdd/99999999</strong>
+
+<p>Thank you for your comprehension.</p>
+
+	        </div>
+	    </div>
+	<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="69e97e72c05638f8e4546a34-|49" defer></script></body>
+</html>
+
+

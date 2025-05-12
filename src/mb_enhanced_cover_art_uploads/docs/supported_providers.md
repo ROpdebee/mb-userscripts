@@ -22,6 +22,7 @@ The following table describes the types of links supported by MB: Upload to CAA 
 | Jamendo | ✔️ | ✔️ |
 | Juno Download | ✔️ | ✔️ | Likely limited to 700x700. |
 | Melon | ✔️ | ✔️ |
+| Metal Archives | ✔️ | ✔️ |
 | Monstercat | ✔️ | ✔️ | Quality is bad for some releases, Bandcamp may have better artwork for those. |
 | MusicBrainz/Cover Art Archive | ✔️ | ✔️ | To copy images from one release to another. |
 | MusicCircle | ✔️ | ❌ |
