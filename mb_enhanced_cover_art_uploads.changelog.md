@@ -1,3 +1,4 @@
+- **2025.5.12**: New feature: add MusicCircle provider ([#839](https://github.com/ROpdebee/mb-userscripts/pull/839))
 - **2025.5.11**: Internal changes: lock file maintenance ([#838](https://github.com/ROpdebee/mb-userscripts/pull/838))
 - **2025.5.9**: New feature: add Free Music Archive provider ([#822](https://github.com/ROpdebee/mb-userscripts/pull/822))
 - **2025.5.8.2**: Bug fix: extract track images for Soundcloud sets with >50 tracks ([#821](https://github.com/ROpdebee/mb-userscripts/pull/821))
