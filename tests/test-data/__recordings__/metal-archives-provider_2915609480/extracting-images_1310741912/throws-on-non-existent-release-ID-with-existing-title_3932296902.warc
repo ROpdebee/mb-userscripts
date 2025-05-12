@@ -1,0 +1,834 @@
+WARC/1.1
+WARC-Filename: metal archives provider/extracting images/throws on non-existent release ID with existing title
+WARC-Date: 2025-05-12T15:39:35.826Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:3c4840e4-7b53-440e-a186-555833ca7f3e>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:1f65f3a9-3e9c-49b0-bd52-208aa00e5e73>
+WARC-Target-URI: https://www.metal-archives.com/albums/Desaster/The_Evil_Dead_Will_Rise_Again/99999999
+WARC-Date: 2025-05-12T15:39:35.826Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:aa40b1d0-cb89-409d-b769-d3bac2ae00bd>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:aaaea6b557672f3bb1d4860341fab17102d73e8a43db4391b75618d4d8287f98
+Content-Length: 72
+
+GET /albums/Desaster/The_Evil_Dead_Will_Rise_Again/99999999 HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:1f65f3a9-3e9c-49b0-bd52-208aa00e5e73>
+WARC-Target-URI: https://www.metal-archives.com/albums/Desaster/The_Evil_Dead_Will_Rise_Again/99999999
+WARC-Date: 2025-05-12T15:39:35.827Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:a709d10c-f28b-47d5-aa84-fcf100810172>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:00112b8258f913111e7fe2d8cde6819aa6806357781ad365a70257ce0079195a
+WARC-Block-Digest: sha256:00112b8258f913111e7fe2d8cde6819aa6806357781ad365a70257ce0079195a
+Content-Length: 426
+
+harEntryId: 69b4b8013bcb5fb5ec8fa7d649e68415
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2025-05-12T15:39:34.680Z
+time: 1102
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":1102,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 104
+warcRequestCookies: []
+warcResponseHeadersSize: 1204
+warcResponseCookies: [{"name":"PHPSESSID","value":"709e01c33261bc786c2b8acf03c0bbfb","path":"/"}]
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://www.metal-archives.com/albums/Desaster/The_Evil_Dead_Will_Rise_Again/99999999
+WARC-Date: 2025-05-12T15:39:35.826Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:1f65f3a9-3e9c-49b0-bd52-208aa00e5e73>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e019f75e08a7cab780561e3a3b82067b6c76279133b5d9c9d0aec145e4ccdf2a
+WARC-Block-Digest: sha256:fb26bf282caad1e8056db46cb2532d3b21264712e9e573f8dc3d37aaf16a662f
+Content-Length: 29281
+
+HTTP/1.1 200 OK
+alt-svc: h3=":443"; ma=86400
+cache-control: no-store, no-cache, must-revalidate
+cf-cache-status: DYNAMIC
+cf-ray: 93eb0276e84c14bd-AMS
+connection: keep-alive
+content-encoding: br
+content-security-policy: frame-ancestors 'self'
+content-type: text/html; charset=UTF-8
+date: Mon, 12 May 2025 15:39:35 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+pragma: no-cache
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=WVTm%2BJi3o6GBX1KQEngD0YcdYJ%2F5QBsa3zRtCGZT29wE23TZl9K%2FBJZ3zb7qqkhrAyp6jrj4lra2PASPpCzVFNlOxkJO0CtEtqjDMGjjlO0a%2B6tcktSBV6zkqEqlKTnmvxc2Ulsct8n4"}],"group":"cf-nel","max_age":604800}
+server: cloudflare
+server-timing: cfL4;desc="?proto=TCP&rtt=10945&min_rtt=10050&rtt_var=3138&sent=15&recv=13&lost=0&retrans=0&sent_bytes=7919&recv_bytes=2240&delivery_rate=691108&cwnd=229&unsent_bytes=0&cid=d27117344be65c4b&ts=3626&x=0"
+set-cookie: PHPSESSID=709e01c33261bc786c2b8acf03c0bbfb; Path=/
+transfer-encoding: chunked
+vary: Accept-Encoding,User-Agent
+x-frame-options: SAMEORIGIN
+x-pollyjs-finalurl: https://www.metal-archives.com/albums/Desaster/The_Evil_Dead_Will_Rise_Again/99999999
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Desaster - The Evil Dead Will Rise Again - Encyclopaedia Metallum: The Metal Archives</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+							<link rel="stylesheet" type="text/css" href="/min/index.php?g=css&v=125" />
+				
+					<script type="abf0c48a064a832a5c69d870-text/javascript" src="/min/index.php?g=js&v=127"></script>
+				<script type="abf0c48a064a832a5c69d870-text/javascript">
+			var URL_SITE	= 'https://www.metal-archives.com/';
+			var URL_IMAGES	= 'https://www.metal-archives.com/images/';
+			var URL_CSS		= 'https://www.metal-archives.com/css/';
+			var csrfToken	= '';
+
+			$(document).ready(function() {
+				toggleFixedPositioning(1280, 600);
+				executeOnAllPages();
+				
+											});
+
+
+		</script>
+		<noscript>
+			<style type="text/css">
+				.no-js { display: block !important; }
+			</style>
+		</noscript>
+		
+		<!--[if lt IE 8]>
+			<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>
+			 <link rel="stylesheet" type="text/css" href="https://www.metal-archives.com/css/default/oldie.css" />
+		<![endif]-->		
+
+		<script type="abf0c48a064a832a5c69d870-text/javascript">
+			  var _gaq = _gaq || [];
+			  _gaq.push(['_setAccount', 'UA-4046749-4']);
+			  _gaq.push(['_trackPageview']);
+
+			  (function() {
+			    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			  })();
+		</script>
+	</head>
+	<body >
+		<div id="wrapper">
+	        <div id="header">
+	            <a href="https://www.metal-archives.com/" id="MA_logo">Metal Archives</a>
+				<div class="clear loading"><img src="https://www.metal-archives.com/images/loading.gif" alt="loading" width="12" height="12" /> loading...</div>
+	            <div id="search_box">
+		            <form id="search_form" action="https://www.metal-archives.com/search" method="get">
+						<div>
+							<label>Search:</label><br/>
+							<input name="searchString" type="text" id="searchQueryBox" size="25" value="" tabindex="1" />
+							<select name="type" tabindex="2">
+								<option value="band_name">Band name</option>
+								<option value="band_genre">Music genre</option>
+								<option value="band_themes">Themes</option>
+								<option value="album_title">Album title</option>
+								<option value="song_title">Song title</option>
+								<option value="label_name">Label</option>
+								<option value="artist_alias">Artist</option>
+								<option value="user_name">User profile</option>
+								<option value="google">Google</option>
+							</select>
+							<br/>
+							<a href="https://www.metal-archives.com/search/advanced/?searchString=&type=" class="float_left" tabindex="4">Advanced search</a>
+							<button type="submit" class="btn_submit float_right" tabindex="3">Submit</button>
+						</div>
+		            </form>
+		        </div>
+	            
+	            <div id="top_menu_box">
+	                <ul class="menu_style_1">
+	                    <li><a href="https://www.metal-archives.com/content/help">Help</a></li>
+						<li><a href="https://www.metal-archives.com/content/rules">Rules</a></li>
+						<li><a href="https://metalarchives.threadless.com/" target="_top">Store</a></li>
+						<li><a href="https://forum.metal-archives.com" target="_top">Forum</a></li>
+	                </ul>
+	                <ul class="menu_style_2">
+						<li><a href="https://www.metal-archives.com/content/faq">FAQ</a></li>
+												<li><a href="https://www.metal-archives.com/content/support">Support Us</a></li>
+	                    <li><a href="https://www.metal-archives.com/content/tools">Add-ons</a></li>
+	              </ul>
+	            </div>        
+	        </div>
+	        <div id="left_col">
+	            <div id="member_box">
+	            		            				                <form name="login_form" id="login_form" action="https://www.metal-archives.com/authentication/login" method="post">
+							<div>
+								<label>Username</label><br/>
+								<input type="text" name="loginUsername" />
+								<label>Password</label><br/>
+								<input type="password" name="loginPassword" />
+								<input type="hidden" name="origin" value="/albums/Desaster/The_Evil_Dead_Will_Rise_Again/99999999" />
+								<button type="submit" class="btn_login float_right">Login</button>
+							</div>
+		                </form>
+		                <a href="https://www.metal-archives.com/user/signup" class="float-left writeAction">Register</a>  
+		                <span class="float_right"><a href="https://www.metal-archives.com/user/forgot-password" class="float-left writeAction">Forgot login?</a>  </span>
+						<div class="clear"> </div>
+		            	            </div>
+	            <div id="left_menu_box">
+	            		                <ul class="menu_style_3 block_spacer_20">
+	                	<li>
+	                		Bands 
+	                		<ul>
+			                    <li><a href="https://www.metal-archives.com/browse/letter">alphabetical</a></li>
+			                    <li><a href="https://www.metal-archives.com/browse/country">country</a></li>
+			                    <li><a href="https://www.metal-archives.com/browse/genre">genre</a></li>
+	                    	</ul>
+	                    </li>
+	                    <li>
+	                    	Labels
+	                    	<ul>
+			                    <li><a href="https://www.metal-archives.com/label">alphabetical</a></li>
+			                    <li><a href="https://www.metal-archives.com/label/country">country</a></li>
+	                    	</ul>
+	                    </li>
+	                    <li><a href="https://www.metal-archives.com/review/browse">Reviews</a></li>
+	                </ul>
+	                <ul class="menu_style_3 block_spacer_20">
+	                    <li><a href="https://www.metal-archives.com/artist/rip">R.I.P.</a></li>
+	                    <li><a href="https://www.metal-archives.com/band/random">Random Band</a></li>
+	                    <li><a href="https://www.metal-archives.com/user/list">User rankings</a></li>
+	                	<li><a href="https://www.metal-archives.com/news">News archive</a></li>
+					</ul>
+					 <ul class="menu_style_3 ornement_30">
+	                    <li><a href="https://www.metal-archives.com/report/list">Reports</a></li>
+	                    <li><a href="https://www.metal-archives.com/todo">Contribute / To do</a></li>
+	                </ul>
+	            </div>
+	            <div id="left_text_box">
+	           		<p class="small_text center"> &copy; 2002-2025<br/>Encyclopaedia Metallum </p>
+	            </div>
+	            <div>
+	            	<p class="small_text center"><a href="https://www.metal-archives.com/content/pp">Privacy Policy</a></p>
+	            </div>
+	        </div>
+	        <div id="content_wrapper">
+				<script type="abf0c48a064a832a5c69d870-text/javascript" src="https://www.metal-archives.com/js/jquery/jquery.form.js"></script>
+<script type="abf0c48a064a832a5c69d870-text/javascript">
+
+	$(document).ready(function() {
+		$(".no-js").removeClass("no-js");
+		$('#album_tabs').tabs({ beforeLoad: cacheTab }).show();
+		$('#album_members').tabs();
+		$('.albumMenu').click(toggleAlbumMenu);
+							var message = 'Release ID "99999999" not found: showing match for "The Evil Dead Will Rise Again".';
+			outputErrors({ status: message}, '#message');
+							toggleLyrics(0);
+			});
+	
+	function hideToolMenu(event) {
+		 $('.toolMenu-content').hide();
+	}
+	
+	function makeChildVersion() {
+		var releaseId = 671199;
+		var newParentId = prompt("Make a child of which album ID?");
+		
+		if(newParentId != null) {
+		
+			$('.loading').show();
+			$.post(URL_SITE + 'review/ajax-validate-move/json/1', { 'releaseId' : newParentId, "oldReleaseId": releaseId }, function(result) {
+				$('.loading').hide();
+				if(result.reviewConflict) {
+					alert("This action would cause at least two reviews by the same user to be listed for one album. This is not allowed. One of the reviews will need to be deleted first.");
+				}
+				else if(result.success) {
+					var confirmMove = confirm("Make this album (and all its own versions, if any) a version of " + result.band + " - " + result.release + "?");
+					
+					if(confirmMove) {
+						var params = { 'releaseId' : releaseId, "newParentId" : newParentId, 'csrfToken': window.csrfToken};
+						$('.loading').show();
+						$.post(URL_SITE + 'release/ajax-make-child/json/1', params, function(result) {
+							$('.loading').hide();
+							if(result.success) {
+								location.href = "https://www.metal-archives.com/albums/Desaster/The_Evil_Dead_Will_Rise_Again/671199";
+							}
+							else {
+								alert("An error occurred: " + result.error);
+							}
+						}, 'json');
+					}
+				}
+				else {
+					alert("An error occurred: " + result.error);
+				}
+			}, 'json');			
+		}
+	}
+    
+    
+</script>
+
+<div id="album_sidebar">
+
+	<a href="https://www.metal-archives.com/bands/Desaster/277#band_tab_discography">Desaster</a>
+	
+						> The Evil Dead Will Rise Again
+					
+			<!-- *** Album cover *** -->
+		<div class="album_img">
+			<a class="image" id="cover" title="Desaster - The Evil Dead Will Rise Again" href="https://www.metal-archives.com/images/6/7/1/1/671199.jpg?0631"><img src="https://www.metal-archives.com/images/6/7/1/1/671199.jpg?0631" title="Click to zoom" alt="Desaster - The Evil Dead Will Rise Again" border="0" /></a>
+		</div>
+			
+			<!-- *** Affiliation block *** -->
+		
+			<div id="affiliation-links">
+			<span class="title">Buy from...</span>
+			<br />
+			<ul id="buyLinks" class="menu_style_5">
+									<li>
+						<a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=29&rid=671199">eBay</a> 
+						 
+							more... <a href="#more" onclick="if (!window.__cfRLUnblockHandlers) return false; $('#sub29').toggle(); return false;" data-cf-modified-abf0c48a064a832a5c69d870-="">>></a><br />
+							<ul id="sub29" style="display: none; margin-top: 0px; margin-bottom: 0px;">
+																	<li><a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=23&rid=671199">eBay Canada</a></li>
+																	<li><a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=25&rid=671199">eBay UK</a></li>
+																	<li><a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=58&rid=671199">eBay Germany</a></li>
+																	<li><a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=24&rid=671199">eBay France</a></li>
+																	<li><a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=37&rid=671199">eBay Spain</a></li>
+																	<li><a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=35&rid=671199">eBay Belgium</a></li>
+																	<li><a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=26&rid=671199">eBay Netherlands</a></li>
+																	<li><a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=27&rid=671199">eBay Italy</a></li>
+																	<li><a target="_blank" rel="nofollow" href="https://www.metal-archives.com/affiliate/?pid=28&rid=671199">eBay Australia</a></li>
+															</ul>
+											</li>
+							</ul>
+			<div class="affil_disclaimer">
+				Clicking on the affiliate links above may result in this site earning a commission on purchases.
+				<a href="https://www.metal-archives.com/content/pp#affiliation">Learn more</a>
+			</div>
+		</div>
+	
+		
+		<!-- *** Discography / Chronology *** -->
+		
+			<table cellspacing="1" cellpadding="1" width="262" class="chronology">
+			<tr class="hidden">
+				<th class="spacer"></th>
+				<th colspan="2"></th>
+				<th class="spacer"></th>
+			</tr>
+							<tr>
+					<th colspan="4"><span>Desaster</span> discography (demos)</th>
+				</tr>
+				<tr class="prevNext">
+					<td class="arrows"> </td>
+					<td class="prev">
+											</td>
+					
+					<td class="next">
+													<a href="https://www.metal-archives.com/albums/Desaster/The_Fog_of_Avalon/10879" title="The Fog of Avalon (Demo)">The Fog of Avalon</a><br />(1993)
+											</td>
+					<td class="arrows"><a href="https://www.metal-archives.com/albums/Desaster/The_Fog_of_Avalon/10879" title="The Fog of Avalon (Demo)">></a> </td>
+				</tr>
+										<tr>
+					<th colspan="4"><span>Desaster</span> discography (all)</th>
+				</tr>
+				<tr class="prevNext">
+					<td class="arrows"> </td>
+					<td class="prev">
+											</td>
+					
+					<td class="next">
+													<a href="https://www.metal-archives.com/albums/Desaster/The_Fog_of_Avalon/10879" title="The Fog of Avalon (Demo)">The Fog of Avalon</a><br />(1993)
+											</td>
+					<td class="arrows"><a href="https://www.metal-archives.com/albums/Desaster/The_Fog_of_Avalon/10879" title="The Fog of Avalon (Demo)">></a> </td>
+				</tr>
+					</table>
+	
+		
+	</div>
+
+<div id="album_content">
+	<div class="tool_strip right">
+		<ul>
+			          		<li><a title="Report a mistake or additional information for this page" href="javascript:popupReportDialog(4, 671199);" class="btn_report_error writeAction"> </a></li>
+      		          	<li>
+	          	
+					          		<a href="https://www.metal-archives.com/bands/Desaster/277" title="Back to Desaster" class="btn_back"> </a>
+	      		          	</li>
+        </ul>
+    </div>
+    <!-- ********** ALBUM IMFO ********** -->
+    <div id="album_info">
+		<!-- Headers -->
+			<h1 class="album_name"><a href="https://www.metal-archives.com/albums/Desaster/The_Evil_Dead_Will_Rise_Again/671199">The Evil Dead Will Rise Again</a></h1>
+	<h2 class="band_name">
+		<a href="https://www.metal-archives.com/bands/Desaster/277">Desaster</a>
+			</h2>
+
+                <!-- Error / OK messages -->
+        <div class="clear block_spacer_5"></div>
+        <div id="message"> </div>
+        <!-- Album details -->
+        <div class="clear block_spacer_20"></div>
+        	<dl class="float_left">
+	          <dt>Type:</dt>
+	          <dd>Demo</dd>
+	          <dt>Release date:</dt>
+	          <dd>1989</dd>
+			  <dt>Catalog ID:</dt>
+	          <dd>N/A</dd>
+			  				<dt>Version desc.:</dt>
+				<dd>Limited edition</dd>
+			  			  	        </dl>
+			<dl class="float_right">
+	          <dt>Label:</dt>
+	          <dd>Independent</dd>
+			  <dt>Format:</dt>
+	          <dd>Cassette</dd>
+			  	          <dt>Reviews:</dt>
+	          <dd>
+									None yet
+					          </dd>
+	        </dl>
+      </div>        
+      <div id="album_tabs" class="clear tabs block_spacer_top_20 ui-tabs no-js">
+          <ul class="ui-tabs-nav">
+            <li><a href="#album_tabs_tracklist">Songs</a></li>
+            <li><a href="#album_tabs_lineup">Lineup</a></li>
+			            <li><a href="#album_tabs_reviews">Reviews</a></li>            <li><a href="#album_tabs_notes">Additional notes</a></li>                      </ul>
+          <!-- ***** Songs *******-->
+          <div id="album_tabs_tracklist" class="ui-tabs-hide">
+            <div id="album_songs" class="tabs2lvl">
+              <!--<div class="tool_strip top right">
+                <ul>
+                  <li><a href="#" class="btn_add">Add</a></li>
+                </ul>
+              </div>-->
+            </div>
+            <div class="ui-tabs-panel-content block_spacer_top_20">
+				<script type="abf0c48a064a832a5c69d870-text/javascript">
+function toggleLyrics(songId) {
+    var lyricsRow = $('#song' + songId);
+    lyricsRow.toggle();
+    var lyrics = $('#lyrics_' + songId);
+	if (lyrics.html() == '(loading lyrics...)') {
+    	var realId = songId;
+		if(!$.isNumeric(songId.substring(songId.length -1, songId.length))) {
+			realId = songId.substring(0, songId.length -1);
+		}
+		lyrics.load(URL_SITE + "release/ajax-view-lyrics/id/" + realId);
+    }
+    // toggle link
+    var linkLabel = "lyrics";
+    $("#lyricsButton" + songId).text(lyricsRow.css("display") == "none" ? "Show " + linkLabel : "Hide " + linkLabel);
+    return false;
+}
+
+</script>
+
+<table class="display table_lyrics" cellpadding="0" cellspacing="0">
+	<tbody>
+		
+																				
+				
+	
+		
+										
+						
+																							<tr class="sideRow">
+												<td colspan="4">
+							Side A													</td>
+					</tr>
+												<tr class="even">
+			<td width="20"><a name="4346602A" class="anchor"> </a>1.</td>
+			<td class="wrapWords">
+								Scream for Mercy
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346602A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346602A">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346603A" class="anchor"> </a>2.</td>
+			<td class="wrapWords">
+								Scream on the Butterbloom
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346603A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346603A">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="even">
+			<td width="20"><a name="4346604A" class="anchor"> </a>3.</td>
+			<td class="wrapWords">
+								Voices of Death
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346604A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346604A">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346605A" class="anchor"> </a>4.</td>
+			<td class="wrapWords">
+								Drunken Becker
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346605A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346605A">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="even">
+			<td width="20"><a name="4346606A" class="anchor"> </a>5.</td>
+			<td class="wrapWords">
+								God Is Dead
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346606A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346606A">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346607A" class="anchor"> </a>6.</td>
+			<td class="wrapWords">
+								Käpt'n Iglo
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346607A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346607A">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="even">
+			<td width="20"><a name="4346608A" class="anchor"> </a>7.</td>
+			<td class="wrapWords">
+								Devil's Swords
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346608A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346608A">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346609A" class="anchor"> </a>8.</td>
+			<td class="wrapWords">
+								Highway to Hell
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346609A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346609A">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="even">
+			<td width="20"><a name="4346610A" class="anchor"> </a>9.</td>
+			<td class="wrapWords">
+								Evil Arschloch I + II
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346610A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346610A">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346611A" class="anchor"> </a>10.</td>
+			<td class="wrapWords">
+								Ballad
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346611A" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346611A">(loading lyrics...)</td>
+		</tr>
+	
+																					<tr class="sideRow">
+												<td colspan="4">
+							Side B													</td>
+					</tr>
+												<tr class="even">
+			<td width="20"><a name="4346612B" class="anchor"> </a>11.</td>
+			<td class="wrapWords">
+								God Is Dead
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346612B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346612B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346613B" class="anchor"> </a>12.</td>
+			<td class="wrapWords">
+								Voices of Death
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346613B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346613B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="even">
+			<td width="20"><a name="4346614B" class="anchor"> </a>13.</td>
+			<td class="wrapWords">
+								Evil Arschloch III + IV
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346614B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346614B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346615B" class="anchor"> </a>14.</td>
+			<td class="wrapWords">
+								Scream for Mercy
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346615B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346615B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="even">
+			<td width="20"><a name="4346616B" class="anchor"> </a>15.</td>
+			<td class="wrapWords">
+								Slaughter Dream
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346616B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346616B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346617B" class="anchor"> </a>16.</td>
+			<td class="wrapWords">
+								Mass at Darkness
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346617B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346617B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="even">
+			<td width="20"><a name="4346618B" class="anchor"> </a>17.</td>
+			<td class="wrapWords">
+								Bäh!
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346618B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346618B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346619B" class="anchor"> </a>18.</td>
+			<td class="wrapWords">
+								Desaster Christmas Time
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346619B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346619B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="even">
+			<td width="20"><a name="4346620B" class="anchor"> </a>19.</td>
+			<td class="wrapWords">
+								Best Guitar Solo
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346620B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346620B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="odd">
+			<td width="20"><a name="4346621B" class="anchor"> </a>20.</td>
+			<td class="wrapWords">
+								God Is Dead
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346621B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346621B">(loading lyrics...)</td>
+		</tr>
+	
+													<tr class="even">
+			<td width="20"><a name="4346622B" class="anchor"> </a>21.</td>
+			<td class="wrapWords">
+								Kill Messiah
+			</td>
+			<td align="right"></td>
+			<td nowrap="nowrap">&nbsp;
+							</td>
+		</tr>
+		<tr id="song4346622B" class="displayNone" height="0">
+			<td>&nbsp;</td>
+			<td colspan="3" id="lyrics_4346622B">(loading lyrics...)</td>
+		</tr>
+	
+										</tbody>
+</table>
+            </div>
+          </div>
+          <!-- //***** Songs *******-->
+          <!-- **** Lineup ******-->
+          
+        <div id="album_tabs_lineup">
+	    	<div id="album_members" class="tabs2lvl">
+	    		
+	    							<ul>
+		            			            	<li><a href="#album_members_lineup">Band members</a></li>	            			            				            </ul>
+		            	            		            				            <!-- Album members-->
+			            <div id="album_members_lineup">
+			                <div class="ui-tabs-panel-content">
+			                    	<em>(None)</em>
+
+			                </div>
+			            </div>
+		            							            	             
+	        </div>
+	    </div>
+          <!-- //**** lineup ******-->
+		  
+		<!-- **** Other versions ****-->
+		<!-- AJAX -->
+		<!-- //**** Other versions ****-->
+		  
+          <!-- **** Reviews ******-->
+                <div id="album_tabs_reviews" class="ui-tabs-hide">
+            <div id="album_reviews" class="tabs2lvl">
+              <div class="tool_strip top right writeAction">
+              		                <ul>
+	                  <li><a href="https://www.metal-archives.com/review/write/releaseId/671199" class="btn_add">Add</a></li>
+	                </ul>
+                              </div>
+            </div>
+            <div class="ui-tabs-panel-content block_spacer_top_36">
+                        	There are no reviews for The Evil Dead Will Rise Again yet. 
+            		            			<span class="writeAction">You can <a href="https://www.metal-archives.com/review/write/releaseId/671199">write</a> one.</span>
+        			                        </div>
+          </div>
+          <!-- //**** Reviews ******-->
+                          	<!-- ****** Additional notes *******-->
+	          <div id="album_tabs_notes" class="ui-tabs-hide">
+	            <div id="album_notes" class="tabs2lvl"></div>
+	            <div class="ui-tabs-panel-content  block_spacer_top_20">
+	              <p class="block_spacer_20">Contains two rehearsal.<br />
+<br />
+Not seen as an official release according to the band (see notes in the The Fog Of Avalon, 2024 vinyl release).</p>
+				  				  	            </div>
+	          </div>
+          	<!-- //****** Additional notes *******-->
+                  </div>
+        <!--**** Footer ***-->
+<div id="auditTrail">
+	<table>
+		<tr>
+			<td>Added by: <a href="https://www.metal-archives.com/users/Necrodictator" class="profileMenu">Necrodictator</a></td>
+			<td align="right">Modified by: <a href="https://www.metal-archives.com/users/Necrodictator" class="profileMenu">Necrodictator</a></td>
+		</tr>
+		<tr>
+			<td>Added on: 2017-09-17 10:47:07</td>
+			<td align="right">Last modified on: 2024-05-05 13:22:59</td>
+		</tr>
+		<tr>
+			<td valign="top">
+									&nbsp;
+							</td>
+			<td align="right" valign="top">
+											</td>
+		</tr>
+			</table>
+</div>
+    <!-- // ********** ALBUM IMFO ********** -->
+</div>
+	        </div>
+	    </div>
+	<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="abf0c48a064a832a5c69d870-|49" defer></script></body>
+</html>
+
+
