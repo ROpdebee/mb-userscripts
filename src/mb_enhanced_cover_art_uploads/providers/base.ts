@@ -3,7 +3,8 @@ import type { Promisable } from 'type-fest';
 import type { RequestOptions, TextResponse } from '@lib/util/request';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
-import { collatedSort, filterNonNull, groupBy } from '@lib/util/array';
+import { collatedSort, deduplicate, filterNonNull, groupBy, splitChunks } from '@lib/util/array';
+import { assertDefined } from '@lib/util/assert';
 import { blobToDigest } from '@lib/util/blob';
 import { parseDOM, qs } from '@lib/util/dom';
 import { request } from '@lib/util/request';
@@ -165,6 +166,9 @@ export abstract class HeadMetaPropertyProvider extends CoverArtProvider {
     }
 }
 
+// All URLs in a URL group are expected to be equivalent.
+type URLGroup = string[];
+
 export abstract class ProviderWithTrackImages extends CoverArtProvider {
     // Providers that provide track images which need to be deduplicated. The
     // base class supports deduping by URL and thumbnail content.
@@ -177,95 +181,123 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
     // payload is identical if the source images are identical, so then we don't
     // have to load the full image.
 
-    private groupIdenticalImages<T>(images: T[], getImageUniqueId: (image: T) => string, mainUniqueId?: string): Map<string, T[]> {
-        const uniqueImages = images.filter((image) => getImageUniqueId(image) !== mainUniqueId);
-        return groupBy(uniqueImages, getImageUniqueId, (image) => image);
-    }
-
-    private async urlToDigest(imageUrl: string): Promise<string> {
-        const response = await request.get(this.imageToThumbnailUrl(imageUrl), {
-            responseType: 'blob',
-        });
-
-        return blobToDigest(response.blob);
-    }
-
     protected imageToThumbnailUrl(imageUrl: string): string {
         // To be overridden by subclass if necessary.
         return imageUrl;
     }
 
+    /**
+     * Create groups of image URLs.
+     *
+     * Effectively, this just removes duplicates and creates singleton groups
+     * for each URL.
+     */
+    private groupImageUrls(imageUrls: string[]): URLGroup[] {
+        return splitChunks(deduplicate(imageUrls), 1);
+    }
+
+    private async groupImageUrlsByContent(imageGroups: URLGroup[]): Promise<URLGroup[]> {
+        LOGGER.info('Deduplicating track images by content, this may take a while…');
+
+        // Extend the track image with the track's unique digest. We compute
+        // this digest once for each unique URL.
+        let numberProcessed = 0;
+        const imagesWithDigest = await Promise.all(imageGroups.map(async (group) => {
+            const digest = await urlToDigest(group[0]);
+            // Cannot use `map`'s index argument since this is asynchronous
+            // and might resolve out of order.
+            numberProcessed++;
+            LOGGER.info(`Deduplicating track images by content, this may take a while… (${numberProcessed}/${imageGroups.length})`);
+            return {
+                group,
+                digest,
+            };
+        }));
+        const groupedByContent = groupBy(imagesWithDigest, (image) => image.digest, (image) => image.group);
+
+        return [...groupedByContent.values()].map((groups) => groups.flat());
+    }
+
     protected async mergeTrackImages(parsedTrackImages: Array<ParsedTrackImage | undefined>, mainUrl: string | undefined, byContent: boolean): Promise<CoverArt[]> {
         const allTrackImages = filterNonNull(parsedTrackImages);
+        const urlToTrackImages = groupBy(
+            allTrackImages,
+            // Convert URLs to consistent URLs already.
+            (image) => this.imageToThumbnailUrl(image.url),
+            (image) => image,
+        );
+
+        let allTrackImageUrls = allTrackImages.map((image) => image.url);
+        if (mainUrl) {
+            allTrackImageUrls.push(this.imageToThumbnailUrl(mainUrl));
+        }
+        // Convert URLs to consistent URLs.
+        allTrackImageUrls = allTrackImageUrls.map((url) => this.imageToThumbnailUrl(url));
 
         // First pass: URL only
-        const groupedImages = this.groupIdenticalImages(allTrackImages, (image) => image.url, mainUrl);
+        let imageGroups = this.groupImageUrls(allTrackImageUrls);
 
-        // Second pass: Thumbnail content
-        // We do not need to deduplicate by content if there's only one track
-        // image and there's no main URL to compare to.
-        if (byContent && groupedImages.size > 0 && !(groupedImages.size === 1 && !mainUrl)) {
-            LOGGER.info('Deduplicating track images by content, this may take a while…');
-
-            // Compute unique digests of all thumbnail images. We'll use these
-            // digests in `#groupIdenticalImages` to group by thumbnail content.
-            const mainDigest = mainUrl ? await this.urlToDigest(mainUrl) : '';
-
-            // Extend the track image with the track's unique digest. We compute
-            // this digest once for each unique URL.
-            let numberProcessed = 0;
-            const tracksWithDigest = await Promise.all([...groupedImages.entries()]
-                .map(async ([coverUrl, trackImages]) => {
-                    const digest = await this.urlToDigest(coverUrl);
-                    // Cannot use `map`'s index argument since this is asynchronous
-                    // and might resolve out of order.
-                    numberProcessed++;
-                    LOGGER.info(`Deduplicating track images by content, this may take a while… (${numberProcessed}/${groupedImages.size})`);
-                    return trackImages.map((trackImage) => {
-                        return {
-                            ...trackImage,
-                            digest,
-                        };
-                    });
-                }));
-
-            const groupedThumbnails = this.groupIdenticalImages(tracksWithDigest.flat(), (trackWithDigest) => trackWithDigest.digest, mainDigest);
-            // The previous `groupedImages` map groups images by URL. Overwrite
-            // this to group images by thumbnail content. Keys will remain URLs,
-            // we'll use the URL of the first image in the group. It doesn't
-            // really matter which URL we use, as we've already asserted that
-            // the images behind all these URLs in the group are identical.
-            groupedImages.clear();
-            for (const trackImages of groupedThumbnails.values()) {
-                const representativeUrl = trackImages[0].url;
-                groupedImages.set(representativeUrl, trackImages);
-            }
+        // Second pass: By content. Two images may have a different URL but the
+        // same content. Only bother doing this if there are multiple groups.
+        if (byContent && imageGroups.length > 1) {
+            imageGroups = await this.groupImageUrlsByContent(imageGroups);
         }
 
-        // Queue one item for each group of track images. We'll create a comment
-        // to indicate which tracks this image belongs to.
-        return [...groupedImages.entries()].map(([imageUrl, trackImages]) => ({
+        return createCoverArtForTrackImageGroups(imageGroups, urlToTrackImages, mainUrl);
+    }
+}
+
+async function urlToDigest(imageUrl: string): Promise<string> {
+    const response = await request.get(imageUrl, {
+        responseType: 'blob',
+    });
+
+    return blobToDigest(response.blob);
+}
+
+function createCoverArtForTrackImageGroups(imageGroups: string[][], urlToTrackImages: Map<string, ParsedTrackImage[]>, mainUrl?: string): CoverArt[] {
+    // Queue one item for each group of track images. We'll create a comment
+    // to indicate which tracks this image belongs to.
+    const covers = imageGroups.map((group) => {
+        // Don't queue the main URL again.
+        if (mainUrl && group.includes(mainUrl)) {
+            return null;
+        }
+
+        const trackImages = filterNonNull(group.flatMap((url) => {
+            const tracks = urlToTrackImages.get(url);
+            assertDefined(tracks, 'Could not map URL back to track images!');
+            return tracks;
+        }));
+
+        // We can just use the first URL as the source, we've already established
+        // that all URLs are identical.
+        const imageUrl = group[0];
+        return {
             url: new URL(imageUrl),
             types: [ArtworkTypeIDs.Track],
-            comment: this.createTrackImageComment(trackImages) || undefined,
-        }));
-    }
+            comment: createTrackImageComment(trackImages) || undefined,
+        };
+    });
 
-    private createTrackImageComment(tracks: ParsedTrackImage[]): string {
-        const definedTrackNumbers = tracks.filter((track) => Boolean(track.trackNumber));
-        if (definedTrackNumbers.length === 0) return '';
+    // One of them could be null if a group contained the main image.
+    return filterNonNull(covers);
+}
 
-        const commentBins = groupBy(definedTrackNumbers, (track) => track.customCommentPrefix?.[0] ?? 'Track', (track) => track);
-        const commentChunks = [...commentBins.values()].map((bin) => {
-            const prefixes = bin[0].customCommentPrefix ?? ['Track', 'Tracks'];
-            const prefix = prefixes[bin.length === 1 ? 0 : 1];
-            const trackNumbers = bin.map((track) => track.trackNumber!);
-            // Use a collated sort here to make sure we keep numeric ordering.
-            // We can't just parse track numbers to actual numbers here, as the
-            // tracks may reasonably be numbered as strings (e.g. Vinyl sides)
-            return `${prefix} ${collatedSort(trackNumbers).join(', ')}`;
-        });
+function createTrackImageComment(tracks: ParsedTrackImage[]): string {
+    const definedTrackNumbers = tracks.filter((track) => Boolean(track.trackNumber));
+    if (definedTrackNumbers.length === 0) return '';
 
-        return commentChunks.join('; ');
-    }
+    const commentBins = groupBy(definedTrackNumbers, (track) => track.customCommentPrefix?.[0] ?? 'Track', (track) => track);
+    const commentChunks = [...commentBins.values()].map((bin) => {
+        const prefixes = bin[0].customCommentPrefix ?? ['Track', 'Tracks'];
+        const prefix = prefixes[bin.length === 1 ? 0 : 1];
+        const trackNumbers = bin.map((track) => track.trackNumber!);
+        // Use a collated sort here to make sure we keep numeric ordering.
+        // We can't just parse track numbers to actual numbers here, as the
+        // tracks may reasonably be numbered as strings (e.g. Vinyl sides)
+        return `${prefix} ${collatedSort(trackNumbers).join(', ')}`;
+    });
+
+    return commentChunks.join('; ');
 }
