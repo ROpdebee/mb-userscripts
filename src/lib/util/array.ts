@@ -82,3 +82,15 @@ export function splitChunks<T>(array: T[], chunkSize: number): T[][] {
 
     return chunks;
 }
+
+/**
+ * Deduplicate an array.
+ *
+ * @param      {T[]}  array   The array.
+ * @return     {T[]}  Array without duplicates.
+ */
+export function deduplicate<T>(array: T[]): T[] {
+    // Set iteration apparently happens in insertion order, so this should retain
+    // the same order.
+    return [...new Set(array)];
+}

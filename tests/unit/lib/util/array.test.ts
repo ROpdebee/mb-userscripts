@@ -1,4 +1,4 @@
-import { filterNonNull, findRight, groupBy, insertBetween, splitChunks } from '@lib/util/array';
+import { deduplicate, filterNonNull, findRight, groupBy, insertBetween, splitChunks } from '@lib/util/array';
 
 describe('filtering null values', () => {
     it('retains non-null values', () => {
@@ -133,5 +133,29 @@ describe('splitting chunks', () => {
         const result = splitChunks([1, 2, 3, 4], 4);
 
         expect(result).toStrictEqual([[1, 2, 3, 4]]);
+    });
+});
+
+describe('deduplicate', () => {
+    it('returns empty array for empty array', () => {
+        expect(deduplicate([])).toStrictEqual([]);
+    });
+
+    it('returns same array for singleton array', () => {
+        expect(deduplicate(['abc'])).toStrictEqual(['abc']);
+    });
+
+    it('returns same array for array without duplicates without changing order', () => {
+        expect(deduplicate(['abc', 'def'])).toStrictEqual(['abc', 'def']);
+        expect(deduplicate(['def', 'abc'])).toStrictEqual(['def', 'abc']);
+    });
+
+    it('removes repeated elements', () => {
+        expect(deduplicate(['abc', 'abc'])).toStrictEqual(['abc']);
+        expect(deduplicate(['def', 'abc', 'abc', 'ggg'])).toStrictEqual(['def', 'abc', 'ggg']);
+    });
+
+    it('removes non-consecutive repeated elements', () => {
+        expect(deduplicate(['abc', 'def', 'abc'])).toStrictEqual(['abc', 'def']);
     });
 });
