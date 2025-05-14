@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: soundcloud provider/extracting images/extracts covers for set release with >5 track images and backdrop images
-WARC-Date: 2023-07-19T00:37:43.378Z
+WARC-Date: 2025-05-14T14:07:40.348Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:bbaf47c7-79a7-4f54-83a6-33c9f2488945>
+WARC-Record-ID: <urn:uuid:45cb45e3-91fa-4b8b-9e37-97efc3ce17f1>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.5","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:901f6b0a-2b97-42d9-a6fa-7e14e73dcbeb>
+WARC-Concurrent-To: <urn:uuid:d71669e6-8470-4e1b-8e33-3baa6899c18e>
 WARC-Target-URI: https://soundcloud.com/soundcloud/sets/i-am-other-vol-2
-WARC-Date: 2023-07-19T00:37:43.379Z
+WARC-Date: 2025-05-14T14:07:40.349Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:625da783-4cd4-4350-ae0c-28eb80b038e4>
+WARC-Record-ID: <urn:uuid:ee164e68-110c-4bad-b071-f7959c4eb3c7>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:277d65b87d0c830e0ed2ad9a50d805606a9204663140c3e884a92cc2a132f88a
@@ -27,11 +27,11 @@ GET /soundcloud/sets/i-am-other-vol-2 HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:901f6b0a-2b97-42d9-a6fa-7e14e73dcbeb>
+WARC-Concurrent-To: <urn:uuid:d71669e6-8470-4e1b-8e33-3baa6899c18e>
 WARC-Target-URI: https://soundcloud.com/soundcloud/sets/i-am-other-vol-2
-WARC-Date: 2023-07-19T00:37:43.379Z
+WARC-Date: 2025-05-14T14:07:40.349Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:755c4c23-14b4-47fc-bec6-6ede9db9f93a>
+WARC-Record-ID: <urn:uuid:6d4a1a69-046b-405d-980a-f9be86879830>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:e6bdc2d032b7ef2d997698cae999c091683e07e3782167efc152b244781b3ffb
 WARC-Block-Digest: sha256:e6bdc2d032b7ef2d997698cae999c091683e07e3782167efc152b244781b3ffb
@@ -52,12 +52,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://soundcloud.com/soundcloud/sets/i-am-other-vol-2
-WARC-Date: 2023-07-19T00:37:43.379Z
+WARC-Date: 2025-05-14T14:07:40.348Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:901f6b0a-2b97-42d9-a6fa-7e14e73dcbeb>
+WARC-Record-ID: <urn:uuid:d71669e6-8470-4e1b-8e33-3baa6899c18e>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:30dea2d7eb1840344e30f349b512659a04d7170037f3dbc3ae80845cbd9d5ce6
-WARC-Block-Digest: sha256:44e02ea40733b77323ba6064cef289d3474d6184fa02e9557a9a9c8fe73f81bf
+WARC-Block-Digest: sha256:6d32ab17f6c26d7a3527222588245f9df6dfdc2ece6f907f738ddfa8668e0e0e
 Content-Length: 53906
 
 HTTP/1.1 200 OK
@@ -77,8 +77,8 @@ x-amz-cf-pop: DFW3-C1
 x-cache: Miss from cloudfront
 x-frame-options: SAMEORIGIN
 x-pants: distant-towel
-x-xss-protection: 1; mode=block
 x-pollyjs-finalurl: https://soundcloud.com/soundcloud/sets/i-am-other-vol-2
+x-xss-protection: 1; mode=block
 
 <!DOCTYPE html>
 <html lang="en">
@@ -332,11 +332,11 @@ Please download one of our supported browsers.
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:5a18a971-d2cd-4056-9b86-65751bacacc2>
+WARC-Concurrent-To: <urn:uuid:738c813e-912d-4bea-a282-fb973567a05f>
 WARC-Target-URI: https://api-v2.soundcloud.com/tracks?ids=936081436%2C979362370%2C940358692%2C980086120%2C842889523%2C979970554%2C875510698%2C978452818%2C877767379%2C979362247%2C875288959%2C979827871%2C831976345%2C979329205%2C872340862&client_id=w2Cs8NzMrJqhjiCIinZ1xxNBqPNgTVIe
-WARC-Date: 2023-07-19T00:37:43.379Z
+WARC-Date: 2025-05-14T14:07:40.350Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:f044db9a-fa16-4a0e-9c44-de394a9657f3>
+WARC-Record-ID: <urn:uuid:e40b90b8-1d40-4bfe-b3fa-4d1e514b8c0c>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:26cda371528804ef1abd64b6a9edd25c114f0c6f68272258a2fa03b2ff56ed63
@@ -347,11 +347,11 @@ GET /tracks?ids=936081436%2C979362370%2C940358692%2C980086120%2C842889523%2C9799
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:5a18a971-d2cd-4056-9b86-65751bacacc2>
+WARC-Concurrent-To: <urn:uuid:738c813e-912d-4bea-a282-fb973567a05f>
 WARC-Target-URI: https://api-v2.soundcloud.com/tracks?ids=936081436%2C979362370%2C940358692%2C980086120%2C842889523%2C979970554%2C875510698%2C978452818%2C877767379%2C979362247%2C875288959%2C979827871%2C831976345%2C979329205%2C872340862&client_id=w2Cs8NzMrJqhjiCIinZ1xxNBqPNgTVIe
-WARC-Date: 2023-07-19T00:37:43.379Z
+WARC-Date: 2025-05-14T14:07:40.351Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:4e206618-cec9-4e9f-a4a2-684b0bafe1ab>
+WARC-Record-ID: <urn:uuid:5e921541-b8fd-4951-8034-47440a22e660>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:f2b28de5073344e094e6052113ffa4e8a56c9c004e58fbceab700bad69c86bd8
 WARC-Block-Digest: sha256:f2b28de5073344e094e6052113ffa4e8a56c9c004e58fbceab700bad69c86bd8
@@ -372,12 +372,12 @@ responseDecoded: false
 
 WARC/1.1
 WARC-Target-URI: https://api-v2.soundcloud.com/tracks?ids=936081436%2C979362370%2C940358692%2C980086120%2C842889523%2C979970554%2C875510698%2C978452818%2C877767379%2C979362247%2C875288959%2C979827871%2C831976345%2C979329205%2C872340862&client_id=w2Cs8NzMrJqhjiCIinZ1xxNBqPNgTVIe
-WARC-Date: 2023-07-19T00:37:43.379Z
+WARC-Date: 2025-05-14T14:07:40.349Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:5a18a971-d2cd-4056-9b86-65751bacacc2>
+WARC-Record-ID: <urn:uuid:738c813e-912d-4bea-a282-fb973567a05f>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:7490dc0ab72c25befd5bf22e451b38c3c79c2b1c3194dff4f4013b0c9364850c
-WARC-Block-Digest: sha256:52c615675eba6314dac1d21ecf6b810cab99461e4e036cffa355dcb218e4550c
+WARC-Block-Digest: sha256:4b9376114b679f3fc1a4d6b69d9acd6c329278ce3a01b5419a957ea4219a772b
 Content-Length: 66760
 
 HTTP/1.1 200 OK
@@ -396,17 +396,17 @@ x-amz-cf-pop: DFW3-C1
 x-cache: Miss from cloudfront
 x-content-type-options: nosniff
 x-frame-options: DENY
-x-robots-tag: noindex
 x-pollyjs-finalurl: https://api-v2.soundcloud.com/tracks?ids=936081436%2C979362370%2C940358692%2C980086120%2C842889523%2C979970554%2C875510698%2C978452818%2C877767379%2C979362247%2C875288959%2C979827871%2C831976345%2C979329205%2C872340862&client_id=w2Cs8NzMrJqhjiCIinZ1xxNBqPNgTVIe
+x-robots-tag: noindex
 
 [{"artwork_url":"https://i1.sndcdn.com/artworks-UUfKsOBXmySzGgdg-60CYLg-large.jpg","caption":"Black Lives Matter Stop killing US!!!!!!","commentable":true,"comment_count":102,"created_at":"2020-06-19T04:00:44Z","description":"As 2020 comes to a close, SoundCloud is proud to announce ‚Äúi am OTHER, Volume 2,‚Äù a compilation turned passion project by Pharrell‚Äôs creative collective i am OTHER. Featuring ten independent Black artists hand-picked by i am OTHER, the project sources on-platform talent in real-time and highlights the voices speaking up and out about empowerment, unity, and racial injustice. SoundCloud and i am OTHER will also make a contribution to support organizations working on the frontlines of empowering marginalized communities and advancing social change.\n\n\nStream now on SoundCloud\nhttps://soundcloud.com/soundcloud/sets/i-am-other-vol-2/s-nlpPZhuy1JT\n\nStream now on all stores! https://fanlink.to/iamothervol2","downloadable":false,"download_count":1,"duration":165956,"full_duration":165956,"embeddable_by":"all","genre":"Hip-hop & Rap","has_downloads_left":false,"id":842889523,"kind":"track","label_name":null,"last_modified":"2022-01-03T00:38:33Z","license":"all-rights-reserved","likes_count":2558,"permalink":"sister-act-3","permalink_url":"https://soundcloud.com/v_hanani/sister-act-3","playback_count":154078,"public":true,"publisher_metadata":{"id":842889523,"urn":"soundcloud:tracks:842889523","artist":"HANANI","contains_music":true,"isrc":"QZHZD2024177"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":235,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"hanani \"sister \" act rap \"Hip Hop\" \"good \" music blm blacklivesmatter stop stopkillingus SCxiamOTHER2","title":"Sister Act 2 (feat. Jaycarlos)","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/842889523","urn":"soundcloud:tracks:842889523","user_id":95825468,"visuals":{"urn":"soundcloud:tracks:842889523","enabled":true,"visuals":[{"urn":"soundcloud:visuals:119663208","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:842889523/b7e42d17-3aad-4767-81c7-8b34ae169517.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/C915ZZ87tq9x_m.json","display_date":"2020-06-19T04:00:44Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:842889523/a30389b3-4f94-4ea6-a8c8-bbcebf3cdc29/stream/hls","preset":"mp3_0_1","duration":165956,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:842889523/a30389b3-4f94-4ea6-a8c8-bbcebf3cdc29/stream/progressive","preset":"mp3_0_1","duration":165956,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:842889523/93cc3369-01fc-4818-b43d-66527a68ed18/stream/hls","preset":"opus_0_0","duration":165919,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:842889523","station_permalink":"track-stations:842889523","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6IjMwZjVmY2UzLTM3ODQtNGM4Ny1hZTA3LWE4Mzg5MmZkOGZkYSIsImlhdCI6MTY4OTcyNzA2Mn0.spUFk5yaOIyrwp4XVADSmc5t8WYJMRk7AUEXIecJQVU","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-000278936485-attgy5-large.jpg","first_name":"","followers_count":1183,"full_name":"","id":95825468,"kind":"user","last_modified":"2021-10-15T18:46:53Z","last_name":"","permalink":"v_hanani","permalink_url":"https://soundcloud.com/v_hanani","uri":"https://api.soundcloud.com/users/95825468","urn":"soundcloud:users:95825468","username":"HANANI","verified":false,"city":"Arlington ","country_code":"US","badges":{"pro":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:95825468","station_permalink":"artist-stations:95825468"}},{"artwork_url":"https://i1.sndcdn.com/artworks-KpIyUkAq5oVzu13w-fG1XUg-large.jpg","caption":null,"commentable":true,"comment_count":115,"created_at":"2020-12-03T03:37:11Z","description":"As 2020 comes to a close, SoundCloud is proud to announce ‚Äúi am OTHER, Volume 2,‚Äù a compilation turned passion project by Pharrell‚Äôs creative collective i am OTHER. Featuring ten independent Black artists hand-picked by i am OTHER, the project sources on-platform talent in real-time and highlights the voices speaking up and out about empowerment, unity, and racial injustice. SoundCloud and i am OTHER will also make a contribution to support organizations working on the frontlines of empowering marginalized communities and advancing social change. \n\nStream now on SoundCloud\nhttps://soundcloud.com/soundcloud/sets/i-am-other-vol-2/s-nlpPZhuy1JT\n\nStream now on all stores! https://fanlink.to/iamothervol2\n\nLyrics\n\nThe situation dey gimme high tension\nSo many things that I can‚Äôt mention\nThe story dey lead me to depression\nThe matter dey fear me to ask question\nYou know, you know know know\n\nPolice go stop us\nThe want to choke us\nThey wan control us\nThey tryna hold us down\nWanna hold us down\nTogether we stronger\nWe no dey bother\nWe standing taller\nThey tryna hold us down\nCannot hold us down\n\nI‚Äôm proud to be me\nI‚Äôm born to be free\nI still dey believe\nI follow my dreams\nI‚Äôm proud to be me\nI‚Äôm born to be free\nI still dey believe\nI follow my dreams\n\nFreedom freedom freedom ey\nFreedom freedom freedom ey\nFreedom freedom freedom ey\n\nFreedom freedom freedom\ney ey ey (I‚Äôm free)\nEey ey ey (I‚Äôm free)\nEey ey ey (I‚Äôm free)\nEey ey ey (I‚Äôm free)\n\nThis life you chop, I chop\nIf I bellefull I go still dey chop\nMonkey dey work baboon dey chop\nNo be for my head them go open shop\nWhether you white or black\nNobody holy pass\nWhether you white or black\nThem no fit hold you back\nCos\n\nPolice go stop us\nThe want to choke us\nThey wan control us\nThey tryna hold us down\n(Wanna hold us down)\nTogether we stronger\nWe no dey bothe\nWe standing taller\nThey tryna hold us down\n(Cannot hold us down)\nI‚Äôm proud to be me\nI‚Äôm born to be free\nI still dey believe\nI follow my dreams\nI‚Äôm proud to be me\nI‚Äôm born to be free\nI still dey believe\nI follow my dreams\nFreedom freedom freedom ey\nFreedom freedom freedom ey\nFreedom freedom freedom ey\nFreedom freedom freedom\ney ey ey (I‚Äôm free)\nEey ey ey (I‚Äôm free)\nEey ey ey (I‚Äôm free)\nEey ey ey (I‚Äôm free)","downloadable":false,"download_count":0,"duration":178808,"full_duration":178808,"embeddable_by":"all","genre":"World","has_downloads_left":false,"id":940358692,"kind":"track","label_name":null,"last_modified":"2021-12-13T23:53:45Z","license":"all-rights-reserved","likes_count":3362,"permalink":"bond-free-ft-cuppy","permalink_url":"https://soundcloud.com/stbondmusic/bond-free-ft-cuppy","playback_count":186416,"public":true,"publisher_metadata":{"id":940358692,"urn":"soundcloud:tracks:940358692","artist":"Saint Bond, Cuppy","contains_music":true,"isrc":"QZMHK2069193"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":216,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"SCxiamOTHER2","title":"Saint Bond - Free (ft. Cuppy)","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/940358692","urn":"soundcloud:tracks:940358692","user_id":53639074,"visuals":{"urn":"soundcloud:tracks:940358692","enabled":true,"visuals":[{"urn":"soundcloud:visuals:119663181","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:940358692/46042a78-a829-4887-963a-3d61f180d517.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/it5sRZj07H0Z_m.json","display_date":"2020-12-11T05:07:14Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:940358692/d2501d8e-2916-49c0-a48b-71f566df5e78/stream/hls","preset":"mp3_0_1","duration":178808,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:940358692/d2501d8e-2916-49c0-a48b-71f566df5e78/stream/progressive","preset":"mp3_0_1","duration":178808,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:940358692/9339f3e9-534e-418b-884b-01471e14702f/stream/hls","preset":"opus_0_0","duration":178782,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:940358692","station_permalink":"track-stations:940358692","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6IjBhMWZiZGI4LTkxYzItNDc3Mi1hNjE1LWNhNjI1MmQ4ZTFhOSIsImlhdCI6MTY4OTcyNzA2Mn0.ja6AupyF1lXaS0ZSfGQwDn-DYX4B4kuX-4-zaVWJlGU","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-SkITAvbynSteFPXv-Q1C5sw-large.jpg","first_name":"Ini","followers_count":502,"full_name":"Ini Umoren","id":53639074,"kind":"user","last_modified":"2022-05-25T00:00:01Z","last_name":"Umoren","permalink":"stbondmusic","permalink_url":"https://soundcloud.com/stbondmusic","uri":"https://api.soundcloud.com/users/53639074","urn":"soundcloud:users:53639074","username":"Saint Bond","verified":false,"city":"Lagos","country_code":"NG","badges":{"pro":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:53639074","station_permalink":"artist-stations:53639074"}},{"artwork_url":"https://i1.sndcdn.com/artworks-OtKSqeQAz1A0EyEY-GoQiBQ-large.jpg","caption":null,"commentable":true,"comment_count":56,"created_at":"2020-08-14T03:01:30Z","description":"Play On Video - https://youtu.be/a101-syEHtQ\n\nAs 2020 comes to a close, SoundCloud is proud to announce ‚Äúi am OTHER, Volume 2,‚Äù a compilation turned passion project by Pharrell‚Äôs creative collective i am OTHER. Featuring ten independent Black artists hand-picked by i am OTHER, the project sources on-platform talent in real-time and highlights the voices speaking up and out about empowerment, unity, and racial injustice. SoundCloud and i am OTHER will also make a contribution to support organizations working on the frontlines of empowering marginalized communities and advancing social change. \n\nStream now on SoundCloud\nhttps://soundcloud.com/soundcloud/sets/i-am-other-vol-2/s-nlpPZhuy1JT\n\nStream now on all stores! https://fanlink.to/iamothervol2\n\nLyrics\n\nYou play on playa, you keep on playa, they can't stop something from shining, shine on playa\nI know they hate you with your blackass, you look like greatness with your...\n\n Hey this no cap on a beat I black, put it on anything and I bet it on black\nWe are not the same and I might catch flack, having black friends never made you black\nBlack so cool even how we say gang make you want to say gang, you ain't never been gang\nEven though we had to take whips to the back, we all know that black don't crack\nSo play on playa, you keep on playa, they can't stop something from shining shine on playa\nBelieve me I know life is what you make it to be the struggle is real as can be\nWhat does that mean for people that's looking like me who want that american dream\n\nYou play on playa, you keep on playa, they cant stop something from shining shine on playa\nYe ye ye\nI know they hate you with your blackass, you look like greatness with your blackass\nI stay high, I keep up, I been low, came back up, we bounce back, now we up now we up we stay up, ye ye ye\nI know they hate you with your blackass, you look like greatness with your blackass\n\nYes Im a rapper I tend to think bigger no matter how rich, we labeled as niggers, they copy the drip thats a wanted to be nigga, don't hate me just tell me I love you my nigga\nBut I ain't your nigga better know my name, I know being bitter won't erase the pain\nBeen praying and praying all we want is change im thinking that god don't hear what Im saying \nSo I don't know what to do no more, and so I stay alive and Im staying ten toes\nIf I wild out then im up town, my whole life thrown away thinking what now\nWill it get any better im playing the fence its apart of the game but if you on the bench\n\nYou play on playa, you keep on playa, they cant stop something from shining shine on playa\nYe ye ye\nI know they hate you with your blackass, you look like greatness with your blackass\nI stay high, I keep up, I been low, came back up, we bounce back, now we up now we up we stay up, ye ye ye\nI know they hate you with your blackass, you look like greatness with your blackass\n\nPlay on you keep on playa, they can't stop something from shining shine on playa\nYe ye ye\nI know they hate you with your blackass, you look like greatness with your blackass","downloadable":false,"download_count":0,"duration":145685,"full_duration":145685,"embeddable_by":"all","genre":"Hip-hop & Rap","has_downloads_left":false,"id":875510698,"kind":"track","label_name":null,"last_modified":"2022-06-12T23:06:46Z","license":"all-rights-reserved","likes_count":2208,"permalink":"play-on","permalink_url":"https://soundcloud.com/wishgrantedmusic/play-on","playback_count":153420,"public":true,"publisher_metadata":{"id":875510698,"urn":"soundcloud:tracks:875510698","artist":"WishGranted","contains_music":true,"isrc":"QZMHP2019117"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":95,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"SCxiamOTHER2 SCFirst","title":"Play On","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/875510698","urn":"soundcloud:tracks:875510698","user_id":118249980,"visuals":null,"waveform_url":"https://wave.sndcdn.com/OyKNIvJxnnnA_m.json","display_date":"2020-12-11T05:08:35Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:875510698/8647f7e0-b9ec-41d6-a42f-c90b79bca4f8/stream/hls","preset":"mp3_0_1","duration":145685,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:875510698/8647f7e0-b9ec-41d6-a42f-c90b79bca4f8/stream/progressive","preset":"mp3_0_1","duration":145685,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:875510698/df5f34e7-efe9-46a3-8499-6e68a937f72f/stream/hls","preset":"opus_0_0","duration":145642,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:875510698","station_permalink":"track-stations:875510698","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6IjMzZmFkMjQxLWQ3OGMtNDdjMC1hZjRjLTg2MTkwNzNmZmQ4MyIsImlhdCI6MTY4OTcyNzA2Mn0.NoC8APUPdUxHD9KII_-3d8YgWb9WG_J252GJvP2mwjY","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-4zR2Si7wPvRSHh72-JDuu3Q-large.jpg","first_name":"Wish","followers_count":1632,"full_name":"Wish Granted","id":118249980,"kind":"user","last_modified":"2022-08-29T08:32:40Z","last_name":"Granted","permalink":"wishgrantedmusic","permalink_url":"https://soundcloud.com/wishgrantedmusic","uri":"https://api.soundcloud.com/users/118249980","urn":"soundcloud:users:118249980","username":"WishGranted","verified":false,"city":"Baltimore","country_code":"US","badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:118249980","station_permalink":"artist-stations:118249980"}},{"artwork_url":"https://i1.sndcdn.com/artworks-UreEA5uXxnwRBb2d-zIaZ1A-large.jpg","caption":"Devon Sangs Introduces Change The World","commentable":true,"comment_count":26,"created_at":"2021-02-04T23:19:53Z","description":"Devon Sangs Change The World Intro","downloadable":false,"download_count":0,"duration":131213,"full_duration":131213,"embeddable_by":"all","genre":"Hip-hop & Rap","has_downloads_left":false,"id":979329205,"kind":"track","label_name":null,"last_modified":"2021-07-06T22:27:06Z","license":"all-rights-reserved","likes_count":146,"permalink":"change-the-world-intro","permalink_url":"https://soundcloud.com/devonsangs/change-the-world-intro","playback_count":13919,"public":true,"publisher_metadata":{"id":979329205,"urn":"soundcloud:tracks:979329205","contains_music":true},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":7,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"BHM \"Black live matter\" pharrell soundcloud devonsangs R&B Rap \"Hip Hop\" African afropop","title":"Change The World Intro","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/979329205","urn":"soundcloud:tracks:979329205","user_id":800752789,"visuals":null,"waveform_url":"https://wave.sndcdn.com/mEX5NvmKG2fV_m.json","display_date":"2021-02-04T23:19:53Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979329205/bd177c23-440f-4564-aaf2-362f828bdc8c/stream/hls","preset":"mp3_0_1","duration":131213,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979329205/bd177c23-440f-4564-aaf2-362f828bdc8c/stream/progressive","preset":"mp3_0_1","duration":131213,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979329205/3fcc3635-61d6-44e3-acec-c6e1a13f6c8b/stream/hls","preset":"opus_0_0","duration":131173,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:979329205","station_permalink":"track-stations:979329205","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6IjE3MWNkZDIxLTI1OWYtNGRkMy04NjI3LWQ5Zjk0NmI1YmVmMSIsImlhdCI6MTY4OTcyNzA2Mn0.dUxXJ_pNAV6yKEufxFA4YAjoAP_RWruZQzv9trDsaHU","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-yOUletGn3jPOyjcP-qjuHyw-large.jpg","first_name":"Devon","followers_count":312,"full_name":"Devon Sangs","id":800752789,"kind":"user","last_modified":"2022-05-20T00:00:01Z","last_name":"Sangs","permalink":"devonsangs","permalink_url":"https://soundcloud.com/devonsangs","uri":"https://api.soundcloud.com/users/800752789","urn":"soundcloud:users:800752789","username":"Devon Sangs","verified":false,"city":"Atlanta","country_code":"US","badges":{"pro":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:800752789","station_permalink":"artist-stations:800752789"}},{"artwork_url":"https://i1.sndcdn.com/artworks-lkyv3A52h4DxwbpL-NUIw9A-large.jpg","caption":null,"commentable":true,"comment_count":163,"created_at":"2020-08-13T18:51:17Z","description":"As 2020 comes to a close, SoundCloud is proud to announce ‚Äúi am OTHER, Volume 2,‚Äù a compilation turned passion project by Pharrell‚Äôs creative collective i am OTHER. Featuring ten independent Black artists hand-picked by i am OTHER, the project sources on-platform talent in real-time and highlights the voices speaking up and out about empowerment, unity, and racial injustice. SoundCloud and i am OTHER will also make a contribution to support organizations working on the frontlines of empowering marginalized communities and advancing social change. \n\n\nStream now on SoundCloud\nhttps://soundcloud.com/soundcloud/sets/i-am-other-vol-2/s-nlpPZhuy1JT\n\nStream now on all stores! https://fanlink.to/iamothervol2\n\nVan Gammon delivers a list of violent acts, both overt and subtle, outward and inward, detailed over production by ReezyTunez with additional help from SirTim and supporting vocals of YawnyBlew and arrangement by Nikal Fieldz. \n\nLyrics\nI grew tired of situational violence\nIf I‚Äôma catch a body, it won‚Äôt be cuz of the climate\nBut I might take a life if it‚Äôs fighting to keep the system\nCan‚Äôt cure the disease if all you treat are the symptoms\nOh that beautiful, pharmaceutical distributor\nMoney, glory, or the girls; which one you living for\nTold to speak my mind but the SRI wants that info\nSaw I was protected, now they eye‚Äôs a pair of emeralds\nPut all my shooter in suits just so we can keep it corporate\nI heard it‚Äôs okay to murder people who ain‚Äôt important\nFor a plate of prosperity when justice ain‚Äôt been served\nYa income makes you eligible to purge\nSchool to prison pipeline, and my diet all swine\nEating all the failure, what they tell ya I‚Äôma die tryin\nTo be rich, least that I could do is look the part\nMy aura lookin‚Äô dark, my peace been pulled apart\nConvinced that I‚Äôm too black for therapy\nRacial wealth gap, Ya I learned that from Dairity\nSmoke screened inhaled, rap verse like intel\nI‚Äôve been feeling ill but my inkwell\n60 Thousand plus women went missing and they all black\nThese cases ain‚Äôt reported and they rarely get resolved, facts\nAye what you call that\nTold God I Hate it Here He ain‚Äôt respond back\nAye what you call that\nWhat you call that\nGot the youth dem prepared for combat\n\nTell me why they diving in the deep\nLucky me survived another week\nNew world got no more violins\nNewborns know one thing, violence\n\nPut a fork in em\nYa he done for\nPut a fork in em\nYa he done for\nNew world got no more violins\nNewborns know one thing, violence\n\nCapping and peelin‚Äô\nImagine the villains are sipping and mixing up pills\nSlim as a bum on the block with a cup\nBut they pockets is stuffed like they missing no meals\nAll the ills, screaming for help like they well \nDwelling and failing to feel\nBack in the ville\nAll that I had was this baggage to last me a couple of years\nI‚Äôve been trying to pack but doubt I‚Äôll make it back in decent time\nThis habitat ain‚Äôt ever have humanity in mind\nIt‚Äôs all trap and ain‚Äôt no answers where all the secrets lie\nWe just all get amped up, living backwards just to keep from dying\n\nTell me why they diving in the deep\nLucky me survived another week\nNew world got no more violins\nNewborns know one thing, violence\n\nPut a fork in em\nYa he done for\nPut a fork in em\nYa he done for\nNew world got no more violins\nNewborns know one thing, violence\n\nPut a fork in em\nYa he done for\nPut a fork in em\nYa he done for\nPut a fork in em\nYa he done for\nGuess somebody shoulda told ‚Äòem this a blood sport\nWhoa","downloadable":false,"download_count":0,"duration":208536,"full_duration":208536,"embeddable_by":"all","genre":"Hip-hop & Rap","has_downloads_left":false,"id":875288959,"kind":"track","label_name":null,"last_modified":"2021-11-26T00:48:02Z","license":"all-rights-reserved","likes_count":2158,"permalink":"van-gammon-new-world","permalink_url":"https://soundcloud.com/van-go-1/van-gammon-new-world","playback_count":119053,"public":true,"publisher_metadata":{"id":875288959,"urn":"soundcloud:tracks:875288959","artist":"Van Gammon","contains_music":true,"isrc":"QZCZX2000001"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":110,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"SCxiamOTHER2","title":"Van Gammon - New World","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/875288959","urn":"soundcloud:tracks:875288959","user_id":1161541,"visuals":{"urn":"soundcloud:tracks:875288959","enabled":true,"visuals":[{"urn":"soundcloud:visuals:119710356","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:sounds:875288959/IAmOther_Vol2_VisualTrack_1.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/JqirZIdIV21F_m.json","display_date":"2020-08-18T02:12:56Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:875288959/a4ecfa16-a7d9-4011-bc86-da7a6cd593b9/stream/hls","preset":"mp3_0_1","duration":208536,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:875288959/a4ecfa16-a7d9-4011-bc86-da7a6cd593b9/stream/progressive","preset":"mp3_0_1","duration":208536,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:875288959/af914150-9217-4090-bbe7-75e118a714e2/stream/hls","preset":"opus_0_0","duration":208507,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:875288959","station_permalink":"track-stations:875288959","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6ImNlMmJkYTZjLTRjODgtNDZjOC04ODQwLTg4NjE1YjQ5YjE3NSIsImlhdCI6MTY4OTcyNzA2Mn0.AZkiX6HlX54EWvz52TsWqv4w4REdd0OEaFu5So87CnA","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-QyazJU5wIjFhyxyu-xYOBwA-large.jpg","first_name":"Van","followers_count":925,"full_name":"Van Gammon","id":1161541,"kind":"user","last_modified":"2023-05-02T18:57:01Z","last_name":"Gammon","permalink":"van-go-1","permalink_url":"https://soundcloud.com/van-go-1","uri":"https://api.soundcloud.com/users/1161541","urn":"soundcloud:users:1161541","username":"Van Gammon","verified":false,"city":"Arlington, TX","country_code":"US","badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1161541","station_permalink":"artist-stations:1161541"}},{"artwork_url":"https://i1.sndcdn.com/artworks-veuqQjozNuCASsvd-VZy7pw-large.jpg","caption":null,"commentable":true,"comment_count":5,"created_at":"2021-02-06T03:15:38Z","description":"the inspriation and where it came from","downloadable":false,"download_count":0,"duration":97855,"full_duration":97855,"embeddable_by":"all","genre":"Hip-hop & Rap","has_downloads_left":false,"id":980086120,"kind":"track","label_name":null,"last_modified":"2022-02-03T05:27:25Z","license":"all-rights-reserved","likes_count":190,"permalink":"hanani-talks-how-sister-act-2-came-to-be","permalink_url":"https://soundcloud.com/v_hanani/hanani-talks-how-sister-act-2-came-to-be","playback_count":31472,"public":true,"publisher_metadata":{"id":980086120,"urn":"soundcloud:tracks:980086120","contains_music":false},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":15,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"\"Hanani \" iam Other sister act 2 Music","title":"Hanani Talks how Sister Act 2 came to be","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/980086120","urn":"soundcloud:tracks:980086120","user_id":95825468,"visuals":null,"waveform_url":"https://wave.sndcdn.com/mv0aC42NlKN1_m.json","display_date":"2021-02-06T03:15:38Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:980086120/d6615b50-de11-4c65-bb5a-3be5f0b455e8/stream/hls","preset":"mp3_0_1","duration":97855,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:980086120/d6615b50-de11-4c65-bb5a-3be5f0b455e8/stream/progressive","preset":"mp3_0_1","duration":97855,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:980086120/7fe558da-62e2-4112-a474-d7e359bbf1a5/stream/hls","preset":"opus_0_0","duration":97820,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:980086120","station_permalink":"track-stations:980086120","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6ImZlZjFjZGEzLTY3NDYtNDgwYi05NjExLTgyZTc4ZWVlNzI3ZSIsImlhdCI6MTY4OTcyNzA2Mn0.7cxWQzrABZ0mtD_tcMuFzHDNDTZoHqjak4GGMiUczV8","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-000278936485-attgy5-large.jpg","first_name":"","followers_count":1183,"full_name":"","id":95825468,"kind":"user","last_modified":"2021-10-15T18:46:53Z","last_name":"","permalink":"v_hanani","permalink_url":"https://soundcloud.com/v_hanani","uri":"https://api.soundcloud.com/users/95825468","urn":"soundcloud:users:95825468","username":"HANANI","verified":false,"city":"Arlington ","country_code":"US","badges":{"pro":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:95825468","station_permalink":"artist-stations:95825468"}},{"artwork_url":"https://i1.sndcdn.com/artworks-5RsczJERGuVhva54-zOScuQ-large.jpg","caption":"ENOUGH IS ENOUGH! IT IS TIME FOR ACTION FROM ALL OF US! WE NEED TO SEE SOME REAL CHANGE! FROM EVERYONE! ","commentable":true,"comment_count":167,"created_at":"2020-06-01T03:30:01Z","description":"As 2020 comes to a close, SoundCloud is proud to announce ‚Äúi am OTHER, Volume 2,‚Äù a compilation turned passion project by Pharrell‚Äôs creative collective i am OTHER. Featuring ten independent Black artists hand-picked by i am OTHER, the project sources on-platform talent in real-time and highlights the voices speaking up and out about empowerment, unity, and racial injustice. SoundCloud and i am OTHER will also make a contribution to support organizations working on the frontlines of empowering marginalized communities and advancing social change. \n\nStream now on SoundCloud\nhttps://soundcloud.com/soundcloud/sets/i-am-other-vol-2/s-nlpPZhuy1JT\n\nStream now on all stores! https://fanlink.to/iamothervol2","downloadable":false,"download_count":1,"duration":200542,"full_duration":200542,"embeddable_by":"all","genre":"Hip-hop & Rap","has_downloads_left":false,"id":831976345,"kind":"track","label_name":null,"last_modified":"2022-01-03T12:48:37Z","license":"all-rights-reserved","likes_count":2563,"permalink":"loose-change","permalink_url":"https://soundcloud.com/oblereed/loose-change","playback_count":121425,"public":true,"publisher_metadata":{"id":831976345,"urn":"soundcloud:tracks:831976345","artist":"Moondrop","contains_music":true,"isrc":"QZHN72092245"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":131,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"BLM SCxiamOTHER2","title":"LOOSE CHANGE","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/831976345","urn":"soundcloud:tracks:831976345","user_id":167549169,"visuals":{"urn":"soundcloud:tracks:831976345","enabled":true,"visuals":[{"urn":"soundcloud:visuals:119663499","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:831976345/ba5130e2-e7b0-418c-9e99-ed1a30ed59f3.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/PUQpaWsxnSNN_m.json","display_date":"2020-06-01T03:30:01Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:831976345/58e07e1a-a43b-4eef-ae53-7260bcab5662/stream/hls","preset":"mp3_0_1","duration":200542,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:831976345/58e07e1a-a43b-4eef-ae53-7260bcab5662/stream/progressive","preset":"mp3_0_1","duration":200542,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:831976345/46cbe69c-a714-4cb5-9fb7-c69158f154ff/stream/hls","preset":"opus_0_0","duration":200522,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:831976345","station_permalink":"track-stations:831976345","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6Ijc4MDQyNGZlLThkMDQtNDMyMS04MjgyLWQ1MjkyOTFlNmFlZSIsImlhdCI6MTY4OTcyNzA2Mn0.NmBYQ0jNB3SlPvrEKIwS9pYQ72TiXb2702qKgPEkr4k","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-CRbnZOMnUQ3N2lY1-xjtnLQ-large.jpg","first_name":"","followers_count":746,"full_name":"","id":167549169,"kind":"user","last_modified":"2022-11-21T09:45:53Z","last_name":"","permalink":"oblereed","permalink_url":"https://soundcloud.com/oblereed","uri":"https://api.soundcloud.com/users/167549169","urn":"soundcloud:users:167549169","username":"Obl√© Reed","verified":false,"city":"Seattle","country_code":"US","badges":{"pro":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:167549169","station_permalink":"artist-stations:167549169"}},{"artwork_url":"https://i1.sndcdn.com/artworks-qvOgqyHDpubhJ9Lt-ihZ38g-large.jpg","caption":null,"commentable":true,"comment_count":2,"created_at":"2021-02-05T22:38:01Z","description":"","downloadable":false,"download_count":0,"duration":45923,"full_duration":45923,"embeddable_by":"all","genre":"","has_downloads_left":false,"id":979970554,"kind":"track","label_name":null,"last_modified":"2021-09-10T14:37:05Z","license":"all-rights-reserved","likes_count":153,"permalink":"wishgranted-audio","permalink_url":"https://soundcloud.com/wishgrantedmusic/wishgranted-audio","playback_count":20726,"public":true,"publisher_metadata":{"id":979970554,"urn":"soundcloud:tracks:979970554","artist":"Wishgranted","contains_music":true,"isrc":"QZF8N2109261"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":4,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"","title":"\"Wishgranted - Play On Intro\"","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/979970554","urn":"soundcloud:tracks:979970554","user_id":118249980,"visuals":null,"waveform_url":"https://wave.sndcdn.com/S3TB4seHAES2_m.json","display_date":"2021-02-05T22:38:01Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979970554/97dccd68-dabe-4cdc-ab44-228683f17516/stream/hls","preset":"mp3_0_1","duration":45923,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979970554/97dccd68-dabe-4cdc-ab44-228683f17516/stream/progressive","preset":"mp3_0_1","duration":45923,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979970554/95cef55d-483b-4121-a733-426a90fb82f9/stream/hls","preset":"opus_0_0","duration":45886,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:979970554","station_permalink":"track-stations:979970554","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6ImU3OWE1ODBmLTM1NTUtNDFmNi1iZjY1LTdhNTlkNDA1Nzg4NiIsImlhdCI6MTY4OTcyNzA2Mn0.BTzIjL6q1EPx6_IerXKZ1Rnl035FhLu_MUY88anzbuM","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-4zR2Si7wPvRSHh72-JDuu3Q-large.jpg","first_name":"Wish","followers_count":1632,"full_name":"Wish Granted","id":118249980,"kind":"user","last_modified":"2022-08-29T08:32:40Z","last_name":"Granted","permalink":"wishgrantedmusic","permalink_url":"https://soundcloud.com/wishgrantedmusic","uri":"https://api.soundcloud.com/users/118249980","urn":"soundcloud:users:118249980","username":"WishGranted","verified":false,"city":"Baltimore","country_code":"US","badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:118249980","station_permalink":"artist-stations:118249980"}},{"artwork_url":"https://i1.sndcdn.com/artworks-LtizD2mYW7tWc1Vj-OfCmzA-large.jpg","caption":null,"commentable":true,"comment_count":104,"created_at":"2020-08-18T09:44:48Z","description":"As 2020 comes to a close, SoundCloud is proud to announce ‚Äúi am OTHER, Volume 2,‚Äù a compilation turned passion project by Pharrell‚Äôs creative collective i am OTHER. Featuring ten independent Black artists hand-picked by i am OTHER, the project sources on-platform talent in real-time and highlights the voices speaking up and out about empowerment, unity, and racial injustice. SoundCloud and i am OTHER will also make a contribution to support organizations working on the frontlines of empowering marginalized communities and advancing social change. \n\n\nStream now on SoundCloud\nhttps://soundcloud.com/soundcloud/sets/i-am-other-vol-2/s-nlpPZhuy1JT\n\nStream now on all stores! https://fanlink.to/iamothervol2\n\nLyrics\n\nAgainst The Wall\nPerformed and composed by Harrison First, Marley Waters\n\nVerse (Marley Waters)\nAin ºt no freedom in my mind I need away out. Sick and tired of sitting on our\nhands, watch it play out.\nHash-tagging Black Lives\nBlack Bodies Laid Out\nCops Kill a Nigga Get Promoted Better Pay Outs\nOne Too Many Kings Killed By The Chrome\nSend Your Baby Off they Might Never Make It Home\nPressures From The System Trying To Tamper With My Soul\nSuffer on These Streets Blood Stains On The road\nPre hook\nMalcolm ºs Pain In The Music\nThis right here a Revolution\nTrying to take what ºs ours,\nWhat we worked so hard for,\nCan ºt stop now\nWe keep pushing\nHook\nWay too long had our backs against the wall\nback against the wall\nX4\nRap Bridge (Harrison First)\nLove me or hate me\nor live in light\nShow me a gun before you choose to read my rights\nWant me to run\nSo you can shoot me in the night\nI ºm not your boy","downloadable":false,"download_count":0,"duration":176065,"full_duration":176065,"embeddable_by":"all","genre":"Hip-hop & Rap","has_downloads_left":false,"id":877767379,"kind":"track","label_name":null,"last_modified":"2022-07-05T18:06:56Z","license":"all-rights-reserved","likes_count":3078,"permalink":"harrison-first-marley-waters-against-the-wall","permalink_url":"https://soundcloud.com/harrisonfirst/harrison-first-marley-waters-against-the-wall","playback_count":182381,"public":true,"publisher_metadata":{"id":877767379,"urn":"soundcloud:tracks:877767379","artist":"Harrison First, Marley Waters","contains_music":true,"isrc":"QZMHK2046686"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":237,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"\"SCFIRST \" \"Harrison First\" \"Marley Waters \" SCxiamOTHER2","title":"Harrison First & Marley Waters - Against The Wall","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/877767379","urn":"soundcloud:tracks:877767379","user_id":5074382,"visuals":{"urn":"soundcloud:tracks:877767379","enabled":true,"visuals":[{"urn":"soundcloud:visuals:119710338","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:sounds:877767379/IAmOther_Vol2_VisualTrack_1.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/DyurwnMN2UEb_m.json","display_date":"2020-12-11T00:31:39Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:877767379/fbfd4467-8e4b-4588-a549-46810d795dcd/stream/hls","preset":"mp3_0_1","duration":176065,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:877767379/fbfd4467-8e4b-4588-a549-46810d795dcd/stream/progressive","preset":"mp3_0_1","duration":176065,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:877767379/7260f522-3466-4fa7-8bcd-08a742cb3cde/stream/hls","preset":"opus_0_0","duration":176037,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:877767379","station_permalink":"track-stations:877767379","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6IjZjOTdiZjExLTQ0MmItNDNlYy1hNDlhLWFkZmExNWJmNmE2ZSIsImlhdCI6MTY4OTcyNzA2Mn0.cFqPkGkDhZ5rfdbVIBuVeHpT0kqqkwFdkaNsUpPdCdU","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-f4jspMhlx7SlJH6g-xfgK7Q-large.jpg","first_name":"","followers_count":4598,"full_name":"","id":5074382,"kind":"user","last_modified":"2023-05-15T03:49:49Z","last_name":"","permalink":"harrisonfirst","permalink_url":"https://soundcloud.com/harrisonfirst","uri":"https://api.soundcloud.com/users/5074382","urn":"soundcloud:users:5074382","username":"Harrison $First","verified":true,"city":"Stockholm/New York","country_code":null,"badges":{"pro":true,"pro_unlimited":false,"verified":true},"station_urn":"soundcloud:system-playlists:artist-stations:5074382","station_permalink":"artist-stations:5074382"}},{"artwork_url":"https://i1.sndcdn.com/artworks-hSgO9aE9A86a1KNr-rccTyQ-large.jpg","caption":null,"commentable":true,"comment_count":260,"created_at":"2020-08-08T11:17:14Z","description":"As 2020 comes to a close, SoundCloud is proud to announce ‚Äúi am OTHER, Volume 2,‚Äù a compilation turned passion project by Pharrell‚Äôs creative collective i am OTHER. Featuring ten independent Black artists hand-picked by i am OTHER, the project sources on-platform talent in real-time and highlights the voices speaking up and out about empowerment, unity, and racial injustice. SoundCloud and i am OTHER will also make a contribution to support organizations working on the frontlines of empowering marginalized communities and advancing social change.\n\n12yr old Atlanta native Devon Sangs ‚ÄúChange The World‚Äù addresses racism, structural inequalities and social injustices faced by black & brown people in today‚Äôs society.\n\nStream now on SoundCloud\nhttps://soundcloud.com/soundcloud/sets/i-am-other-vol-2/s-nlpPZhuy1JT\n\n\nStream now on all stores! https://fanlink.to/iamothervol2\n\nLyrics\nWorld Turning  (Turning) \nTurn on the news and the whole world burning  (world burning) \nPeople marching  \n(marching) \nRemind me of Dream from a King name Martin (martin) \n2020 X the spot like Malcolm  (malcolm) \nRemember when we had separate fountains It's like Deja Vu \nNever thought that we would have to fight this fight too But Hey Here We Are \nI just wanna breathe just like you \nI just wanna run in peace can I jog too \nI just wanna feel safe like you do \nWhen I see them blue lights hope they don‚Äôt SHOOT PLEASE DON‚ÄôT SHOOT \nWe gotta Change The World \nEvery man and woman boy and girl \nSaid we gotta Change The World \nEvery man and woman boy and girl\nNow my skin \n(my skin) \nWhy do you hate my skin \n(my skin) \nIf all that you see is race \n(Is race) \nThen you got to change your ways \nBut you won‚Äôt respect us till we move in masses These tears of frustration they ain‚Äôt from tear gases Just so we on the same page \nWE AIN‚ÄôT GOT NO MASTERS \nBut Hey Here We Are \nI just wanna breathe just like you \nI just wanna run in peace can I jog too \nI just wanna feel safe like you do \nWhen I see them blue lights hope they don‚Äôt SHOOT PLEASE DON‚ÄôT SHOOT \nWe gotta Change The World \n(we gotta change the world) \nEvery man and woman boy and girl \n(everybody everybody yeah) \nSaid we gotta Change The World\n(we gotta Change the world) Every man and woman boy and girl (every man and woman boy and girl) \nWe gotta make a change yeah We gotta make a CHANGE \nWe gotta make a change yeah We gotta make a CHANGE","downloadable":false,"download_count":0,"duration":135941,"full_duration":135941,"embeddable_by":"all","genre":"R&B & Soul","has_downloads_left":false,"id":872340862,"kind":"track","label_name":null,"last_modified":"2022-01-02T02:02:45Z","license":"all-rights-reserved","likes_count":1552,"permalink":"change-the-world","permalink_url":"https://soundcloud.com/devonsangs/change-the-world","playback_count":92267,"public":true,"publisher_metadata":{"id":872340862,"urn":"soundcloud:tracks:872340862","artist":"Devon Sangs","contains_music":true,"isrc":"TCAEZ2081032"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":82,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"atlanta police blm africa arfrican R&B Rap Trap afrobeats afropop chrisbrown davido beyonce blackisking thisisamerica Americana Hot newmusic lionking childishgambino tobenwigwe devonsangs changetheworld SCxiamOTHER2","title":"Change The World","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/872340862","urn":"soundcloud:tracks:872340862","user_id":800752789,"visuals":{"urn":"soundcloud:tracks:872340862","enabled":true,"visuals":[{"urn":"soundcloud:visuals:119663520","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:872340862/4fb70a0d-fda3-4493-a466-9c0a71ffba50.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/2QBp2syGyoC7_m.json","display_date":"2020-08-08T11:17:14Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:872340862/36778452-d338-43be-9e47-adb55eae3a95/stream/hls","preset":"mp3_0_1","duration":135941,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:872340862/36778452-d338-43be-9e47-adb55eae3a95/stream/progressive","preset":"mp3_0_1","duration":135941,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:872340862/26903346-a1be-42d5-a98b-a1ae7542fb21/stream/hls","preset":"opus_0_0","duration":135922,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:872340862","station_permalink":"track-stations:872340862","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6ImI2ODA5OTdkLTRlNWYtNDRiZS1hZmJiLTBiYWQ5ZDU0ZTU1OSIsImlhdCI6MTY4OTcyNzA2Mn0.1XyXbzhgz7TDxmn1nTcIuWGmi0yy01WjzKUYtpRnb24","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-yOUletGn3jPOyjcP-qjuHyw-large.jpg","first_name":"Devon","followers_count":312,"full_name":"Devon Sangs","id":800752789,"kind":"user","last_modified":"2022-05-20T00:00:01Z","last_name":"Sangs","permalink":"devonsangs","permalink_url":"https://soundcloud.com/devonsangs","uri":"https://api.soundcloud.com/users/800752789","urn":"soundcloud:users:800752789","username":"Devon Sangs","verified":false,"city":"Atlanta","country_code":"US","badges":{"pro":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:800752789","station_permalink":"artist-stations:800752789"}},{"artwork_url":null,"caption":null,"commentable":true,"comment_count":1,"created_at":"2021-02-05T18:33:42Z","description":"","downloadable":false,"download_count":0,"duration":220264,"full_duration":220264,"embeddable_by":"all","genre":"","has_downloads_left":false,"id":979827871,"kind":"track","label_name":null,"last_modified":"2021-02-05T18:33:58Z","license":"all-rights-reserved","likes_count":155,"permalink":"moondrop-loose-change-intro","permalink_url":"https://soundcloud.com/oblereed/moondrop-loose-change-intro","playback_count":15955,"public":true,"publisher_metadata":{"id":979827871,"urn":"soundcloud:tracks:979827871","artist":"Moondrop","contains_music":true,"isrc":"QZKDK2161264"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":9,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"","title":"Moondrop- Loose Change Intro","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/979827871","urn":"soundcloud:tracks:979827871","user_id":167549169,"visuals":null,"waveform_url":"https://wave.sndcdn.com/PVVfl5RL9KUT_m.json","display_date":"2021-02-05T18:33:42Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979827871/a6e36f9f-3917-4a79-9b35-d7508e98ade2/stream/hls","preset":"mp3_0_1","duration":220264,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979827871/a6e36f9f-3917-4a79-9b35-d7508e98ade2/stream/progressive","preset":"mp3_0_1","duration":220264,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979827871/fcf4e536-14ec-4aeb-b5ad-fdbe0730bf2a/stream/hls","preset":"opus_0_0","duration":220227,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:979827871","station_permalink":"track-stations:979827871","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6IjgwM2Y3ZjMwLTg2ZjItNDU4NC1hZmRlLTAwZWJkMTQ2ZTUwZSIsImlhdCI6MTY4OTcyNzA2Mn0.4lMCOUklCN6lT1cr6cMUg7D2ScQgsk-NO1f0vm_6KoM","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-CRbnZOMnUQ3N2lY1-xjtnLQ-large.jpg","first_name":"","followers_count":746,"full_name":"","id":167549169,"kind":"user","last_modified":"2022-11-21T09:45:53Z","last_name":"","permalink":"oblereed","permalink_url":"https://soundcloud.com/oblereed","uri":"https://api.soundcloud.com/users/167549169","urn":"soundcloud:users:167549169","username":"Obl√© Reed","verified":false,"city":"Seattle","country_code":"US","badges":{"pro":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:167549169","station_permalink":"artist-stations:167549169"}},{"artwork_url":"https://i1.sndcdn.com/artworks-TcaXp1LG59JKxs8s-XrXniw-large.jpg","caption":null,"commentable":true,"comment_count":4,"created_at":"2021-02-05T00:27:15Z","description":"","downloadable":false,"download_count":0,"duration":187533,"full_duration":187533,"embeddable_by":"all","genre":"Storytelling","has_downloads_left":false,"id":979362247,"kind":"track","label_name":null,"last_modified":"2021-06-27T18:05:34Z","license":"all-rights-reserved","likes_count":155,"permalink":"van-gammon-new-world-intro","permalink_url":"https://soundcloud.com/van-go-1/van-gammon-new-world-intro","playback_count":18015,"public":true,"publisher_metadata":{"id":979362247,"urn":"soundcloud:tracks:979362247","contains_music":true},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":14,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"","title":"Van Gammon - New World Intro","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/979362247","urn":"soundcloud:tracks:979362247","user_id":1161541,"visuals":null,"waveform_url":"https://wave.sndcdn.com/JNqVLfR7zYXJ_m.json","display_date":"2021-02-05T00:27:15Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979362247/0671eb79-f62d-4bf0-a776-ea51c5e1b8d3/stream/hls","preset":"mp3_0_1","duration":187533,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979362247/0671eb79-f62d-4bf0-a776-ea51c5e1b8d3/stream/progressive","preset":"mp3_0_1","duration":187533,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979362247/4fa04f34-12e4-4f7d-afbf-2481afc4127c/stream/hls","preset":"opus_0_0","duration":187493,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:979362247","station_permalink":"track-stations:979362247","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6Ijc2MDc0OWZlLWRjOWQtNDc1Ny1iZDQzLWI0NTE3MzQwODNmNCIsImlhdCI6MTY4OTcyNzA2Mn0.rJfLQwE7IGt63X7uHQ-cwwEmAkRYa7x0HLJyskJu2zk","monetization_model":"BLACKBOX","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-QyazJU5wIjFhyxyu-xYOBwA-large.jpg","first_name":"Van","followers_count":925,"full_name":"Van Gammon","id":1161541,"kind":"user","last_modified":"2023-05-02T18:57:01Z","last_name":"Gammon","permalink":"van-go-1","permalink_url":"https://soundcloud.com/van-go-1","uri":"https://api.soundcloud.com/users/1161541","urn":"soundcloud:users:1161541","username":"Van Gammon","verified":false,"city":"Arlington, TX","country_code":"US","badges":{"pro":false,"pro_unlimited":true,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:1161541","station_permalink":"artist-stations:1161541"}},{"artwork_url":"https://i1.sndcdn.com/artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg","caption":null,"commentable":true,"comment_count":584,"created_at":"2020-11-25T21:45:40Z","description":"As 2020 comes to a close, SoundCloud is proud to announce ‚Äúi am OTHER, Volume 2,‚Äù a compilation turned passion project by Pharrell‚Äôs creative collective i am OTHER. Featuring ten independent Black artists hand-picked by i am OTHER, the project sources on-platform talent in real-time and highlights the voices speaking up and out about empowerment, unity, and racial injustice. SoundCloud and i am OTHER will also make a contribution to support organizations working on the frontlines of empowering marginalized communities and advancing social change. \n\nStream now on SoundCloud\nhttps://soundcloud.com/soundcloud/sets/i-am-other-vol-2/s-nlpPZhuy1JT\n\nStream now on all stores! https://fanlink.to/iamothervol2\n \nLyrics\n \nLook how the melanin drippin\nLook how the melanin drippin\nLook how the melanin drippin\n \nLook how the melanin drippin, my skin is so black like the deepest love\nBlack like a beetle bug, ain't no different I'm black just like Jesus was\nPressed and you stressed when you see my success, I'm a blessing, You sound like you need a hug\nBlessed and I'm flexin ain't doing no regressing, I move with the movement now speed it up\n \nLook, came thru straight wreckin shit, cause ain't none of these truths self evident\nWe rock solid like core, like sediment, we ain't got no motherfuckin president hoe\nBlack power black excellence, these ignorant motherfuckas ain't pressin me\nI been gifted since school, ain't testing me, they too damn small minded for the best of me\n \nThe worst of me what they thirst to see, Your stereotypes don't work for me\nOne day your racist ass kids gon work for me\nThat's gon hurt to see, like certainly\nThey won't charge these cops with the first degree\nWhen their agenda is surrender or they hurting me\nMelanin drippin guess that's why they trippin, We different, they scared of the pigment\n \nLook how the melanin drippin\nLook how the melanin drippin\nLook how the melanin drippin\nI do not fit your description\nLook how the melanin drippin\nAye, look how the melanin drippin\n \nLook how immaculate, black is no accident, how could you begin to challenge it\nMe I'm too passionate look how I'm matchin I'm what the others was lackin in\nI don't think small, I want it all, I want a mill to be average\nLife of the lavish, covered in hundreds, don't get to sleep in the mansion\n \nAll it takes is a solid motive, we been moving like we got controllers\nWe been waiting for the perfect opportunity to show em it's a lot colder\nTryna bubble like a dropped soda, different reasons why they eyes on ya\nSome wanna see you do good, others see you as a threat, got me like bet\n \nSee you the ignorant kind, I thought you coulda been different\nThought after four hundred years of the same that level of ignorance just to ridiculous\nGuess we still got a distance, I guess we still seen as niggas\nMelanin drippin, guess that's why they trippin, we different, they scared of the pigment\n \nLook how the melanin drippin\nLook how the melanin drippin\nLook how the melanin drippin\nI do not fit your description\nLook how the melanin drippin\nAye, look how the melanin drippin","downloadable":false,"download_count":0,"duration":140539,"full_duration":140539,"embeddable_by":"all","genre":"Hip-hop & Rap","has_downloads_left":false,"id":936081436,"kind":"track","label_name":"THE FUTURE WILL BANG, LLC","last_modified":"2022-01-08T10:45:38Z","license":"all-rights-reserved","likes_count":6829,"permalink":"melanindrip","permalink_url":"https://soundcloud.com/armedrhymery/melanindrip","playback_count":492645,"public":true,"publisher_metadata":{"id":936081436,"urn":"soundcloud:tracks:936081436","artist":"Armed Rhymery","contains_music":true,"isrc":"QZMHP2052840"},"purchase_title":null,"purchase_url":null,"release_date":"2020-12-10T00:00:00Z","reposts_count":272,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"SCxiamOTHER2","title":"Melanin Drip","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/936081436","urn":"soundcloud:tracks:936081436","user_id":89779577,"visuals":{"urn":"soundcloud:tracks:936081436","enabled":true,"visuals":[{"urn":"soundcloud:visuals:119663133","entry_time":0,"visual_url":"https://va.sndcdn.com/bg/soundcloud:tracks:936081436/df31bbd7-7d6d-480e-af58-7ab2562922aa.jpg"}],"tracking":null},"waveform_url":"https://wave.sndcdn.com/R8e1jO7Gd7ZW_m.json","display_date":"2020-12-11T05:05:25Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:936081436/9563bd52-7bb2-46f0-a939-3faf4cfdbf66/stream/hls","preset":"mp3_0_1","duration":140539,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:936081436/9563bd52-7bb2-46f0-a939-3faf4cfdbf66/stream/progressive","preset":"mp3_0_1","duration":140539,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:936081436/b6c80b30-1ee3-4380-a9ca-17d9b79a0ffd/stream/hls","preset":"opus_0_0","duration":140514,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:936081436","station_permalink":"track-stations:936081436","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6ImYwNjdjODI4LTJjYjItNGFkYy1hMDY2LTUxMzFlMjA3NzY3YiIsImlhdCI6MTY4OTcyNzA2Mn0.--sTdSBym8pp3YIbsMEwXWjnAt5P-QC1Y8v6LKWV_OM","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-yeaBlkEyeo6RQyXz-HmvhfQ-large.jpg","first_name":"Kween Mo","followers_count":2901,"full_name":"Kween Mo & Edward X","id":89779577,"kind":"user","last_modified":"2023-06-14T02:58:44Z","last_name":"& Edward X","permalink":"armedrhymery","permalink_url":"https://soundcloud.com/armedrhymery","uri":"https://api.soundcloud.com/users/89779577","urn":"soundcloud:users:89779577","username":"Armed Rhymery","verified":true,"city":"Louisiana","country_code":"US","badges":{"pro":false,"pro_unlimited":false,"verified":true},"station_urn":"soundcloud:system-playlists:artist-stations:89779577","station_permalink":"artist-stations:89779577"}},{"artwork_url":null,"caption":null,"commentable":true,"comment_count":9,"created_at":"2021-02-05T00:27:29Z","description":"","downloadable":false,"download_count":0,"duration":45505,"full_duration":45505,"embeddable_by":"all","genre":"","has_downloads_left":false,"id":979362370,"kind":"track","label_name":null,"last_modified":"2021-06-27T18:05:34Z","license":"all-rights-reserved","likes_count":231,"permalink":"saint-bond","permalink_url":"https://soundcloud.com/stbondmusic/saint-bond","playback_count":33139,"public":true,"publisher_metadata":{"id":979362370,"urn":"soundcloud:tracks:979362370","artist":"Saint Bond","contains_music":true,"isrc":"QZMHL2024061"},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":7,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"","title":"Saint Bond - Free (ft. Cuppy) intro","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/979362370","urn":"soundcloud:tracks:979362370","user_id":53639074,"visuals":null,"waveform_url":"https://wave.sndcdn.com/l8EITtUS0lis_m.json","display_date":"2021-02-05T00:27:29Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979362370/e8462753-668c-4046-834c-c831b1bb688d/stream/hls","preset":"mp3_0_1","duration":45505,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979362370/e8462753-668c-4046-834c-c831b1bb688d/stream/progressive","preset":"mp3_0_1","duration":45505,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:979362370/2d6fea04-ed07-4c15-a5aa-d8b7ba4907e7/stream/hls","preset":"opus_0_0","duration":45473,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:979362370","station_permalink":"track-stations:979362370","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6ImM5OWNjMDVlLTY4NGEtNDAwMC04MDZhLWRmNDM5ZTJhNGExYyIsImlhdCI6MTY4OTcyNzA2Mn0.Ti6fMJK6dHH-31u05ypJUb9jDgKiOpUnyinDc61cKIQ","monetization_model":"AD_SUPPORTED","policy":"MONETIZE","user":{"avatar_url":"https://i1.sndcdn.com/avatars-SkITAvbynSteFPXv-Q1C5sw-large.jpg","first_name":"Ini","followers_count":502,"full_name":"Ini Umoren","id":53639074,"kind":"user","last_modified":"2022-05-25T00:00:01Z","last_name":"Umoren","permalink":"stbondmusic","permalink_url":"https://soundcloud.com/stbondmusic","uri":"https://api.soundcloud.com/users/53639074","urn":"soundcloud:users:53639074","username":"Saint Bond","verified":false,"city":"Lagos","country_code":"NG","badges":{"pro":false,"pro_unlimited":false,"verified":false},"station_urn":"soundcloud:system-playlists:artist-stations:53639074","station_permalink":"artist-stations:53639074"}},{"artwork_url":"https://i1.sndcdn.com/artworks-xqWUh8Pk7sGNHpj8-KebyWQ-large.jpg","caption":null,"commentable":true,"comment_count":4,"created_at":"2021-02-03T18:54:24Z","description":"","downloadable":false,"download_count":0,"duration":163109,"full_duration":163109,"embeddable_by":"all","genre":"Storytelling","has_downloads_left":false,"id":978452818,"kind":"track","label_name":null,"last_modified":"2021-06-27T18:05:34Z","license":"all-rights-reserved","likes_count":172,"permalink":"harrison-first-marley-waters-against-the-wall-explained","permalink_url":"https://soundcloud.com/harrisonfirst/harrison-first-marley-waters-against-the-wall-explained","playback_count":20792,"public":true,"publisher_metadata":{"id":978452818,"urn":"soundcloud:tracks:978452818","contains_music":true},"purchase_title":null,"purchase_url":null,"release_date":null,"reposts_count":14,"secret_token":null,"sharing":"public","state":"finished","streamable":true,"tag_list":"","title":"Harrison First &  Marley Waters (Against The Wall Explained)","track_format":"single-track","uri":"https://api.soundcloud.com/tracks/978452818","urn":"soundcloud:tracks:978452818","user_id":5074382,"visuals":null,"waveform_url":"https://wave.sndcdn.com/q9K0FEvUgslZ_m.json","display_date":"2021-02-03T18:54:24Z","media":{"transcodings":[{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:978452818/e78e1427-8593-44bf-b23c-7fb1b7a2902b/stream/hls","preset":"mp3_0_1","duration":163109,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:978452818/e78e1427-8593-44bf-b23c-7fb1b7a2902b/stream/progressive","preset":"mp3_0_1","duration":163109,"snipped":false,"format":{"protocol":"progressive","mime_type":"audio/mpeg"},"quality":"sq"},{"url":"https://api-v2.soundcloud.com/media/soundcloud:tracks:978452818/607f62cc-74e7-4a58-9c86-581e9e45bfca/stream/hls","preset":"opus_0_0","duration":163066,"snipped":false,"format":{"protocol":"hls","mime_type":"audio/ogg; codecs=\"opus\""},"quality":"sq"}]},"station_urn":"soundcloud:system-playlists:track-stations:978452818","station_permalink":"track-stations:978452818","track_authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJnZW8iOiJDQSIsInN1YiI6IiIsInJpZCI6IiIsImlhdCI6MTY4OTcyNzA2Mn0.uc8DAtOxKPMBz3ed-by5wilx0l7RwykDs6WNT2IdTbM","monetization_model":"NOT_APPLICABLE","policy":"ALLOW","user":{"avatar_url":"https://i1.sndcdn.com/avatars-f4jspMhlx7SlJH6g-xfgK7Q-large.jpg","first_name":"","followers_count":4598,"full_name":"","id":5074382,"kind":"user","last_modified":"2023-05-15T03:49:49Z","last_name":"","permalink":"harrisonfirst","permalink_url":"https://soundcloud.com/harrisonfirst","uri":"https://api.soundcloud.com/users/5074382","urn":"soundcloud:users:5074382","username":"Harrison $First","verified":true,"city":"Stockholm/New York","country_code":null,"badges":{"pro":true,"pro_unlimited":false,"verified":true},"station_urn":"soundcloud:system-playlists:artist-stations:5074382","station_permalink":"artist-stations:5074382"}}]
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:7cfb2b78-96d4-4d42-b709-504819d28a3a>
+WARC-Concurrent-To: <urn:uuid:68abb1b1-a6b4-4ad2-9474-910e578f55e7>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-waWa9GoBmtNTbqo1-pwoMvA-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.352Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:d93c111e-5f97-4f35-b5cf-0c8f30e5fbc3>
+WARC-Record-ID: <urn:uuid:46d345ba-d5ad-4c3d-bb17-5c4a6154ce1e>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:ab991f57ffedd49702e1ee75cf752a40464771ddf5528b1ee0440542bfee2778
@@ -417,11 +417,11 @@ GET /artworks-waWa9GoBmtNTbqo1-pwoMvA-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:7cfb2b78-96d4-4d42-b709-504819d28a3a>
+WARC-Concurrent-To: <urn:uuid:68abb1b1-a6b4-4ad2-9474-910e578f55e7>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-waWa9GoBmtNTbqo1-pwoMvA-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.352Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:d3da142d-5fa3-439c-a5f9-6fb5b336054d>
+WARC-Record-ID: <urn:uuid:5d4d8e85-af06-4c92-90ec-7f017fc1e5f2>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:cbabdb293f25e7e91f1566e5bf71d156f5a7e63f76709bfdf582af88d67beabf
 WARC-Block-Digest: sha256:cbabdb293f25e7e91f1566e5bf71d156f5a7e63f76709bfdf582af88d67beabf
@@ -443,9 +443,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-waWa9GoBmtNTbqo1-pwoMvA-large.jpg
-WARC-Date: 2023-07-19T00:37:43.379Z
+WARC-Date: 2025-05-14T14:07:40.351Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:7cfb2b78-96d4-4d42-b709-504819d28a3a>
+WARC-Record-ID: <urn:uuid:68abb1b1-a6b4-4ad2-9474-910e578f55e7>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:6d136ded19a26ef36e2517556909dee07b3d918b06582e47988591e540aa3dfd
 WARC-Block-Digest: sha256:c60333319c79d4ae4ccdbae6a59e175683fafccacf068365ddad814b0fd33a26
@@ -506,11 +506,11 @@ Y6 ®Îc˚·â*ø&ª,%6•hU“”(‹®®Ñ£–[UµΩ±G<∫‹’óU"ÍK™ yà∑kﬂé≈©?MÊ¶Û0¶Zµ%'·Èèê“
   ﬁ¿Ñ‹⁄€ìé¥€‘*Ï”&KgÍrV‘ó5Çµ ‡ë±=»ƒƒ¿r mïO›øæ:w`™r (Fƒ&ﬁOÎøæ4<çMÀ\5Ffäe…©πo˘-k7@∫`lï(ﬂÆ˜«r%-û R‚2ñõnóm∆)l%*`¨ß¶¬„†µ±10'rÌR‚æ≥1Øülä’+ﬁ^|V-®f Q O I€‘˘‚ﬁ?≤„¬-Aˆdπ!¿√éj|ê≤∞u\{ﬂ¯©öêä€–⁄∂(∆l'˛õh!		Ù∞òòavIu_Ò⁄œ¨ —x2dn£o-º±Q>’˜∑5≤å∫ïZåÀÒ∏$ëÚ˘±€õ*èCu˙T ÃxH}i-¥–NΩ	 πÎúPMQß«m»˚-e7'}∑6¯ƒƒ√ßÏ’mF†n˘íœpL˘¡"}qS{L®Ì‘5©±ïRè 7ÿË6¬âXÃYW5…ÅFíÀqê¿[!f‰õÓq110i’ôÊiG;∫ßNÂ’CòÿÏ«O; Ï”¢Ø∫)∫ª…Ì™Uz(YöÖ&f$nK$ìÊN?ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8c07467b-8ce2-43c2-b021-fdc4caf7771c>
+WARC-Concurrent-To: <urn:uuid:105a318f-6aae-4451-808c-f90704194772>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-yKWEoE0xZS11dixW-tVPxNA-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.353Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:72efb1fb-db1f-49ed-8d11-dee1604ffb17>
+WARC-Record-ID: <urn:uuid:b04693ce-5d70-4bd3-8097-735642d7f74f>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:483bd8a048e26989a0a7b4b58f408c486438cef0de75670f07bc13cdb34f829a
@@ -521,11 +521,11 @@ GET /artworks-yKWEoE0xZS11dixW-tVPxNA-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8c07467b-8ce2-43c2-b021-fdc4caf7771c>
+WARC-Concurrent-To: <urn:uuid:105a318f-6aae-4451-808c-f90704194772>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-yKWEoE0xZS11dixW-tVPxNA-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.353Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:8191464c-47dc-481b-9cc1-288d7abac426>
+WARC-Record-ID: <urn:uuid:1bebfffd-2404-4b49-b1cd-944d93c3947f>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:82be1aa3c3514fd535f3ddc9cd6525e85fc68877dcb1e3121e7a6c45bf3530a3
 WARC-Block-Digest: sha256:82be1aa3c3514fd535f3ddc9cd6525e85fc68877dcb1e3121e7a6c45bf3530a3
@@ -547,9 +547,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-yKWEoE0xZS11dixW-tVPxNA-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.352Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:8c07467b-8ce2-43c2-b021-fdc4caf7771c>
+WARC-Record-ID: <urn:uuid:105a318f-6aae-4451-808c-f90704194772>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:dc9a0caa0071e6379c94a26010ee2442ef4015ebdfce94694ab75171fc637bfe
 WARC-Block-Digest: sha256:b2626da74c0a8c6dceb084d2a30550ccad6b9e93916b041495f75a183508d24a
@@ -641,11 +641,11 @@ UØ~ªﬂUô´ıYßÿï@X^9‰œ$t≈wòjz˙ÌRú°[RŒ‚,ë∫˛#$Ib=#—)LÁÍDFR”m“‚©ä[IJò÷S”aq–Zÿå
 /a˝˛8¿∏ë≈ú≈îÛ\ö}K-∆HlÖõíoπ¬wh˙Û8…≥Ø≤Q©!	7H&HûøLzi˚0~Ãûk› ﬁwû≤‚ﬂSãL•¬êò  ò˜ì&O1 ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:e8b62023-beb0-4bb8-813e-01cd959688b2>
+WARC-Concurrent-To: <urn:uuid:aa8e4a4a-236f-4c0e-81f9-8566da8d897f>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-zY2HTkauzmNxTA50-Chh4zw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.354Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:aa38bc1f-a033-48cc-835c-c0d813cef5ee>
+WARC-Record-ID: <urn:uuid:6ab235a8-e161-4a60-bd05-699eeff35f72>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:add8d928b654c28f61ee8f82384ce006a115ac170d0dc1977a266ad7a6a3b531
@@ -656,11 +656,11 @@ GET /artworks-zY2HTkauzmNxTA50-Chh4zw-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:e8b62023-beb0-4bb8-813e-01cd959688b2>
+WARC-Concurrent-To: <urn:uuid:aa8e4a4a-236f-4c0e-81f9-8566da8d897f>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-zY2HTkauzmNxTA50-Chh4zw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.354Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:1c4d0e4a-4112-42ff-847f-b69a98f8718c>
+WARC-Record-ID: <urn:uuid:c2d887b3-803d-49b7-a500-6f6f3559939b>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:a90feb2ec33b549e46a19e20d5a2eb3b9f10a36ceda61f00330e27913b03cb46
 WARC-Block-Digest: sha256:a90feb2ec33b549e46a19e20d5a2eb3b9f10a36ceda61f00330e27913b03cb46
@@ -682,9 +682,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-zY2HTkauzmNxTA50-Chh4zw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.353Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:e8b62023-beb0-4bb8-813e-01cd959688b2>
+WARC-Record-ID: <urn:uuid:aa8e4a4a-236f-4c0e-81f9-8566da8d897f>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:54f89346648a1ddf0d13f2682f940814f2da761801e33f57a0de5ddec9963491
 WARC-Block-Digest: sha256:045e7a9eef010a668fc4f9cf4daac53c79d29ea44879785d6da3cf2fddce0eac
@@ -737,11 +737,11 @@ uó
 KàP@!YNO«<c]+J# yJ|†ü∑#ˇ ZZZ°sÖÄ°=pÑ‹ãZìR{r§∏¯díx		p‡mA∫3Æ å7JÉSh5ù)∆v¸:’«Àîç--;¯Á≈)0˛•æã¶¨&M˚AaeAπ√K ˇ Ö@ÉØE/üˆ4K]ÁYÖ0>òæoûeÂE‰„ë«c«”KKE™ëÏk7I?d:8ò˜?xÅ˜U{©ı©W/Ñ∫d⁄™˜»â[j"úå∂⁄Tüô«’[u¥îúèm--z¿§Ê(Uñ∆O *_q£¸5©<˚f*IÊC›ˇ úÈik≤íπY!ktÂ’≠g?‚Q:µ~õHÍ]m“2∂®ªSìÿ)ÊÛ˛√KKA©˝ó'Ë?}ΩÍ¯HÇ€/, ´Áúˇ ¶ñññ≥ÎWeˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:93853fc4-0c23-4161-878c-53fe09c672c0>
+WARC-Concurrent-To: <urn:uuid:f0b3d7f2-14d3-4f3a-82c8-74bc03baa192>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-qLvJJfstzJcnCP3S-F9GwNQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.354Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:8b0d32b4-29cb-4f5e-8fd6-3b9dba9d19e6>
+WARC-Record-ID: <urn:uuid:d2f457a0-2d28-4c0e-baf5-cc7c874d1ef9>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:5c86b5ff4d037ce7b10d06f357b339d4531eb02a297e00ab5190718d10c0937a
@@ -752,11 +752,11 @@ GET /artworks-qLvJJfstzJcnCP3S-F9GwNQ-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:93853fc4-0c23-4161-878c-53fe09c672c0>
+WARC-Concurrent-To: <urn:uuid:f0b3d7f2-14d3-4f3a-82c8-74bc03baa192>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-qLvJJfstzJcnCP3S-F9GwNQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.354Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:be32336a-55c1-4931-a777-2df3dcaca77a>
+WARC-Record-ID: <urn:uuid:c2fd2779-a76f-4a86-87fb-b1cd90d25323>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:68b90a0557fce6cb19f44f72c862c03752efe4abce340b890dad1a76c5c279e2
 WARC-Block-Digest: sha256:68b90a0557fce6cb19f44f72c862c03752efe4abce340b890dad1a76c5c279e2
@@ -778,9 +778,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-qLvJJfstzJcnCP3S-F9GwNQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.354Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:93853fc4-0c23-4161-878c-53fe09c672c0>
+WARC-Record-ID: <urn:uuid:f0b3d7f2-14d3-4f3a-82c8-74bc03baa192>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:bf6b729c062d0f8abc9307cb87ceb8d110566a3852a75de9bb994a3c9159fd11
 WARC-Block-Digest: sha256:7f113dc24e0cc4d9c8f0f3ec1d6a404206f0c4a768d76eb7f909979ba6106a60
@@ -826,11 +826,11 @@ H˜Ûπv{⁄Oï’÷≤ôÃ’f˛êÀ’í$úÿí¥÷-}√ø‹)‰Y„é©1 ‰°K∑JüØ›KTikz˚Gf±ôe“2Q•ì©ãî:¢ÿÚß
 º∏˙¸Tù˝t™±4M'Û¨cc‰<Tùâÿˆ?÷˝vªUQ—˙ñ;Ÿ®Â±UQÅÖ[Ú Æ˚0+øaπmœ¡ÿàç@¥éNIqs,ï§`Íä°xÉˇ Å;mÒ∑¯ÍKEO•‚ã6⁄‡dV≠≈ßm¸Ô*Û-ÕH GœaË∑±‘v≠ü6NE”ëœ`b3,\à*>|`~˜ıπ€–>¡Ís.òπÖÌœwçqÕÓ◊`EQ˝å7‹ø/Ÿˇ }@„¨}¨`¿Hv Ó˘ÈèÙÂŸ‹Ou≤π…5tó+‚±—”Ø∞HcﬁÂ´qƒÅõãm≈˜1ÙGπ nzdÎ£Z’™Àê“ëVï, ø%[s%Î_i%hêƒB¥¢$*—∫â•|ªGäÌï=&ÿ<öd€'åVø*Hßk@,é9ÊÖLdä±ÂÔ`®·±˜÷xè{oˇ G©léYÊ˛+ô´áé08ôaíS!?ÿ(˝z˘#Á≠Ÿ,.ù'öé~ΩÈónGRD-ª}∑°∞ ˇ Ωø]A®#‰|ıêﬂoè˙Î◊cﬂÎ¶˜`4ô÷«05ã™öØ	áó=Ä<Ω$QÿØ◊FΩÃÏœo⁄=î”7„ñZuﬁZSÅ&”2L©≈w$[˚ﬂ„o◊Ó∂$º¿Ì÷ vÿm∑«˝ıΩ‚H‘ÄãÛÚG^BØJ£ıËu‰èü˚ÎGœ˘Î ˛?]zØ=düc¨é≤≥ImíGø≥¡àﬂ¨µôù8<“≤m˝%…ﬂ„Æi?´˝uˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:80d267d9-99ae-4224-86b2-a17cd9361ea0>
+WARC-Concurrent-To: <urn:uuid:f7f4a03a-eb2f-4f91-bf1e-e20c3e628d1e>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-EjZrLL9ryGLzFDyB-Pm0Vrw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.355Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:cd87300d-6d87-4a81-995c-30f8e21b35cb>
+WARC-Record-ID: <urn:uuid:e9e33b86-7056-4612-ba55-4442de0a26f0>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:c65d68f303fa1822dc407cc9e4cdedce4277146be47943da077ccf0a34e9f510
@@ -841,11 +841,11 @@ GET /artworks-EjZrLL9ryGLzFDyB-Pm0Vrw-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:80d267d9-99ae-4224-86b2-a17cd9361ea0>
+WARC-Concurrent-To: <urn:uuid:f7f4a03a-eb2f-4f91-bf1e-e20c3e628d1e>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-EjZrLL9ryGLzFDyB-Pm0Vrw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.355Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:bf1de110-e3fd-47fa-9c02-1146b4b70685>
+WARC-Record-ID: <urn:uuid:93877820-11a9-4068-aa34-837ca7d126b3>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:dad1ba8a9b497e1b4b8c1a173b686b0f47d8dc3ab66c83c9e107bdff68b82b7a
 WARC-Block-Digest: sha256:dad1ba8a9b497e1b4b8c1a173b686b0f47d8dc3ab66c83c9e107bdff68b82b7a
@@ -867,9 +867,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-EjZrLL9ryGLzFDyB-Pm0Vrw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.354Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:80d267d9-99ae-4224-86b2-a17cd9361ea0>
+WARC-Record-ID: <urn:uuid:f7f4a03a-eb2f-4f91-bf1e-e20c3e628d1e>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:4437a0cd5e635d131aee32d196a09a680f1e60e59daf0be1ec9b4036cda230b0
 WARC-Block-Digest: sha256:0b4c2e86c352342676e0a53bff2c37b19d89022836637d81ad939b0fbc829e17
@@ -919,11 +919,11 @@ Zk;ó°ÉÃ‚≥ÿ‹NZzıÆVôX^ÖXxÊQ˝»Î∑∆˚{∫pˆ√Aˆs+§ÎÍû‚jh(e&fNTÀ•O,åºàhÂê)Pœ¿n)‹⁄∫C
 6ıµ?w˚>˛z⁄"Dè“É∫èë◊¿ã±<Fˇ Án±*;¨Jèœ_xç«Yé±#ŸÎ«ˆèûæÅÔØæGÅπBÔ±*ƒø«Æ∂˝ıØcÓ¨ÏÁvfˆ~=˚ˇ GP6ÎˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:590b30c3-9d39-4aa3-b6fe-e0ac384fe25d>
+WARC-Concurrent-To: <urn:uuid:3d4a4f0c-835a-40f2-99ef-968441af28d5>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-KpIyUkAq5oVzu13w-fG1XUg-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.355Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:6f4e5ae6-bc09-4275-94dd-4ed3c8b64876>
+WARC-Record-ID: <urn:uuid:3664ba4e-6d78-4229-bae1-321795e41880>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:6ca35c5a02abc64148ae4cea130bf766def40a6133324db08cc3561a68991bca
@@ -934,11 +934,11 @@ GET /artworks-KpIyUkAq5oVzu13w-fG1XUg-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:590b30c3-9d39-4aa3-b6fe-e0ac384fe25d>
+WARC-Concurrent-To: <urn:uuid:3d4a4f0c-835a-40f2-99ef-968441af28d5>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-KpIyUkAq5oVzu13w-fG1XUg-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.355Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:28082d35-892e-40ed-8d4e-77402261c8f1>
+WARC-Record-ID: <urn:uuid:3faeca44-7539-4d9a-aa76-11d0263bae08>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:93a4e4a192fcb3fdf81ca895fd7e538b79d1e12a6ea5338087c0fba1842ae2ee
 WARC-Block-Digest: sha256:93a4e4a192fcb3fdf81ca895fd7e538b79d1e12a6ea5338087c0fba1842ae2ee
@@ -960,9 +960,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-KpIyUkAq5oVzu13w-fG1XUg-large.jpg
-WARC-Date: 2023-07-19T00:37:43.380Z
+WARC-Date: 2025-05-14T14:07:40.355Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:590b30c3-9d39-4aa3-b6fe-e0ac384fe25d>
+WARC-Record-ID: <urn:uuid:3d4a4f0c-835a-40f2-99ef-968441af28d5>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:eae1f61e0dbbb3ad387d4380fcb73aecf114468063f5fb63d9096fc582136408
 WARC-Block-Digest: sha256:6b68ab6a37fe3b8bdef99579ae223daf49faf436421d68e737875211292cfa01
@@ -1018,11 +1018,11 @@ K≠ÊJΩ1,îu≤"åW=[o\ ~LÁÖƒbüO”ië%æ-T” À(çeTµ∂çß#˛¸.ÎπX‰}(o…oéRÇGÒ•™®!®©`
 “º~∂«±$d˝…‚s†ÆSQi®k)v«"I%!T ´°ÜGÄ=Y])ˆ9Ô¬·p¶Î,&hb}5±]EK<À5M%$”T"À$èNôfaíN…·p∏\(⁄/¶±√H]§@u]Á÷øˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8ee328e8-bbd0-4505-a1cf-e64535466087>
+WARC-Concurrent-To: <urn:uuid:b61a15d9-4ce6-42fb-940b-502ffe2ca0b0>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.356Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:c2cf1be9-9c59-462b-afd4-a7cdbeb5699f>
+WARC-Record-ID: <urn:uuid:06c063b4-5857-4569-a005-a09370ae5f41>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:06714202c4dcc079cc4704171e03a9415eb0019f70964345889feceaeb2cb99e
@@ -1033,11 +1033,11 @@ GET /artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8ee328e8-bbd0-4505-a1cf-e64535466087>
+WARC-Concurrent-To: <urn:uuid:b61a15d9-4ce6-42fb-940b-502ffe2ca0b0>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.356Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:94d30571-952b-4b0f-842a-2f7bad7ac225>
+WARC-Record-ID: <urn:uuid:57ab9117-c844-46ba-99a3-6bec130b98da>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:d092f73ba2df6aaf429aa03ec6aad8807735bce6207b19f4e9c565455ac72284
 WARC-Block-Digest: sha256:d092f73ba2df6aaf429aa03ec6aad8807735bce6207b19f4e9c565455ac72284
@@ -1059,9 +1059,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.355Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:8ee328e8-bbd0-4505-a1cf-e64535466087>
+WARC-Record-ID: <urn:uuid:b61a15d9-4ce6-42fb-940b-502ffe2ca0b0>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:c2ce908d6848cd0df778e25d9c2f121fe50f443f0ee6128a2b336fcc33515746
 WARC-Block-Digest: sha256:e78c6a1f96c0b789f4e1b161a5d25186b25437834de6d82f1333dedc5ae22c83
@@ -1100,11 +1100,11 @@ Z ‹≥‚U˙j•ëÁ⁄†úÌ_@™‡‰ëj†∏•πJ?rsW9r•∑J2"	‚´*sÌJrÅèœö Æ°ƒhUk‰`w¢ô√∏à∆8¢ä¶
 T§∆ãë∆ÉøkèeöFá|•ÄõGŒF íkÃ¯	˙HÖÉ«äÈ›E®ÿk¨Z§È:ÇÆ-n-h[a • ≠{êF–§•%3∏fπù·Iºv'oÕT˙‰◊âXÔä*Ê–¨¯Ñú9geÜÏ¿Ô˝ıP"G1ﬂ÷≠t§£û"ëQâÌPbÎRE÷∏⁄…|sÎW,ßÂˆÉƒR±èƒT⁄"gΩ£EZ∆F	≈ŒDçºE]:+H*T˛—äH˚π¢ä{•¯®m ∏AÏ&ô‰ÄRGÓ¡¢äCT~)êV‚	ß}"†L≈Q∏Nñ*∞ÄVë5k…9QEÑÄ±U«‘ë‰≈Z‚GÀ$~ﬁ(¢É®Ob®8Ô^áTÌä(†ÏÜÓº™dåy¢ä)†/ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:502c9f36-e9cf-4ecb-8914-118e70fba94a>
+WARC-Concurrent-To: <urn:uuid:eaf3cb87-08e4-459a-b4c1-ad00f0dedbef>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-veuqQjozNuCASsvd-VZy7pw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.356Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:9ab01d0c-d5b2-4a19-a9db-4e4c230c4984>
+WARC-Record-ID: <urn:uuid:03affd2a-4018-4bb3-847f-1a9e001aa0a2>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:a54372aef6a5b74206a16123609a0465bbcba6df4b97e2f8629e7b9998beac9a
@@ -1115,11 +1115,11 @@ GET /artworks-veuqQjozNuCASsvd-VZy7pw-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:502c9f36-e9cf-4ecb-8914-118e70fba94a>
+WARC-Concurrent-To: <urn:uuid:eaf3cb87-08e4-459a-b4c1-ad00f0dedbef>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-veuqQjozNuCASsvd-VZy7pw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.356Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:8598c778-de92-43bb-8789-d8df8d73a6f0>
+WARC-Record-ID: <urn:uuid:16506ccc-b020-4f7f-9454-a92e25c954c9>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:7ba8f3ed9c34dfa05746dc46acd526b91411d542ff50a1485896d75964573e61
 WARC-Block-Digest: sha256:7ba8f3ed9c34dfa05746dc46acd526b91411d542ff50a1485896d75964573e61
@@ -1141,9 +1141,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-veuqQjozNuCASsvd-VZy7pw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.356Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:502c9f36-e9cf-4ecb-8914-118e70fba94a>
+WARC-Record-ID: <urn:uuid:eaf3cb87-08e4-459a-b4c1-ad00f0dedbef>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:6e632473487241fb228891070177b0f467486b6457387bc93627c94d77601f31
 WARC-Block-Digest: sha256:2942fec8d58732806c609a8966e65b45b86bd96814c38c2c7b565691132c6f6c
@@ -1195,11 +1195,11 @@ fA¨ü0X>ÜÁyâìÚÑòËiƒ•òs†í“O3RBVï\yíR∑MŒxÄ‰J€Íê“¬_BCN∂Eµ≤Tü∑c”
 ü$,¨W˘øÏ1U5!∑°¥9l&WÜl'˛€i:RÈ`110√ÏéÍπœkæ≥+E‡…ë∫çº∂€lTOµ}ÌÕl£.•V£2¸n	$|æGlvf £—~ï3q%∂ö◊† 5πÎúPNQß∞€ëçñ≤õìæ€õ|bba’ˆi∂£P-G@[ædÅ3‹>pHü\Tæ”*;ujlIU (Ω∞–mÑ¯±ò≤Æjìç%ñ„ Ñ≠ê≥rM˜8òòò4ÍÃÛ4£ù›SßrÍ°Ã Ï ˆ „ßΩêvk—W›î›]‰ˆ’*Ω,ÕBì37%äíIÛ'ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f3a01d71-9ad2-461e-ac21-cc5c3c330bdb>
+WARC-Concurrent-To: <urn:uuid:2e9fd5f2-8479-4c65-a2a0-fbf365de9020>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-OtKSqeQAz1A0EyEY-GoQiBQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.357Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:6cf8995a-610a-4b85-a3f1-788a446c32b2>
+WARC-Record-ID: <urn:uuid:8effdde2-3c36-44b5-99cd-fa3dd39ef8f7>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:d84652e2ae3065d90c9bfb2c7eafc2163c4475aaebe501dabde4032147cc58af
@@ -1210,11 +1210,11 @@ GET /artworks-OtKSqeQAz1A0EyEY-GoQiBQ-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f3a01d71-9ad2-461e-ac21-cc5c3c330bdb>
+WARC-Concurrent-To: <urn:uuid:2e9fd5f2-8479-4c65-a2a0-fbf365de9020>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-OtKSqeQAz1A0EyEY-GoQiBQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.357Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:43a5654a-2b20-4dd5-a7fc-58ac6f2a875f>
+WARC-Record-ID: <urn:uuid:f4a140ed-0c12-4617-94b8-b5af8d1ad1db>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:8152bd355ebd56ab624aa3a411ec3d20ba94de3767c0e8ff703d3c1946da60d2
 WARC-Block-Digest: sha256:8152bd355ebd56ab624aa3a411ec3d20ba94de3767c0e8ff703d3c1946da60d2
@@ -1236,9 +1236,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-OtKSqeQAz1A0EyEY-GoQiBQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.356Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:f3a01d71-9ad2-461e-ac21-cc5c3c330bdb>
+WARC-Record-ID: <urn:uuid:2e9fd5f2-8479-4c65-a2a0-fbf365de9020>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:33d501118e4c3ec1739d6a5f2337e696abf2c59700262e950412d00f2bebe6d3
 WARC-Block-Digest: sha256:420f04a58159bdd2830438fe791e99fbaca5a16a3a594dea6301058820be15ae
@@ -1272,11 +1272,11 @@ x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-OtKSqeQAz1A0EyEY-GoQiBQ-large
 Ω$õÇ	˙|<¸ª˘>ıÆÍÁ-≥,å3ï 0c†v{˘¸5ÈI¡ÜÕxÕ¨c[…]≈5È"âåÉIQîLV&yùÄ!Nª◊|ìê≥Pø5∏¢k©îtO}Jt¨)[ê˜˘	.<]¯æıÃ≥[¢*…(£D M©Zbµ¥∑óAjç$”0DEÿüJû8WŸ˛¬÷g‚â§∫∏e÷ËzQO¿˙öcr6|-ß,‹Esºã¨ºQ§iI◊s‰º∑Vy‚¯ä\qO`ì~úw√Ü≥â«}ö›F¡äæ;’mXûD/;*ç≥*í‘‘˘ÀŸ˘´ö¥·ÏEû+/'‹¨-Ã6Û@Õdï&F^ûùì÷<» ıy+?à∆÷?ü8Ó∏"‹c,Õ¿XU∑+J{r≈úÄ;7P:™|ï–™ŸMïK∞Tòù …≠¬)Q«"π t ˛ï({/‡õ3ŒLD·£â0qMíi%¸bB#'±ˇ ë£Ù4£œ¸ùˆw!¬<{˚Õqú≤Ò!ú"$ê4N$çI_2ÇPÅà¯}ˆA%‹ª†qÍ»Çki#ó√1»$'!øJ÷cer≤++5a¢*‚r¬LG+7Û	q‡áOsp∑ºÊÊ·˙∫à√[IÍ]í@}{U€[Àé=Ê-µœ»e∏‚<‹mz˚Û3Ã:ıÚ˜à-På¨Œ4#>>Í;E∫{kïµs§úƒ¬6? ⁄—ÆiDEgGU¬≈HÙ>µ}mx÷^3ÊørÕbÅ¯˝/∂V-f£Ò<üe1 y U#∏;i›O˝DˆJ·¸Tãﬂ¯LYÃ`"ç∫û‚ﬁﬂ†\lzeu–Û‘fóÂˆÜ¯˝>9ô∆-√6fåó=’u èû™ΩÂÛWY{óñÚR≈èóï[o‚w ì⁄(‚ñIc˚ÇŸ√;ñ;i&$l˜–Ú 5⁄©—Jå¶‰QGä2Iû1§b¬ä¬äPˆ:˘Yéì'«∏x£µéÌpÚ« ⁄Ù2~ûü=UøËÍ˙T-Ï’√(ò¸Ürd˛l“}û#…Gv#ÛÌSoIÒËFN‹w«Ô√‹îÂòÂ˜EéŒõ)mÚÁ|©x±(^àÊ(z’C ÊIÆ^A‹„ØywÃúWf1v7ºD`Åg…_Dì1'Y&_DÒ,{€!è©®MTlùVF ˛` ç“†˘≤y‡LVí∏ûpÀp˛g ú?7=ù‹@ﬁ5 uI·(v-–∆0Jì¢ß·M[˚ÃO˚)‚Ì¶…X&Ö8â„Ü¬Kà÷y-$≈ë?©Üœp<?M≠ú¡Êﬁ+Çßö≈#{úîqÔ•@#∂ˇ jáì⁄äHŸçãÑ-µ0x ~ïπ-Ç∫/ûl4~ÀúP∑KÛﬂ|,6ÿˆπE∏ñíÕŸï7‘SqMv'„Qf‡b38Ãã°u∞ºÜ‡™˘∞G°˙T[…Œb\Ò⁄ebÃòÖÂ¥ã,Jã†"n⁄FΩI7R£ |)”Ù+^ÀáïìÉÌ¯€#ÕºØÏÿãÏ4”¿ö_µ[4%#¨7[S•HÍRORÄáqíÒ÷/ó∏.NÁô®æ‹O≈cx≤œiG,	`á§3(*eﬁâ›WgP“È^≥Ê⁄ÔIπÎı∆bÓ&bT&ä«ÌôŒÙƒÔä1QÌ!ˆæ…„Ú÷CáÏ£67)<}Cƒ⁄ı!#ccc”uP∂I¯öRœ›µÓJiXÔ©…¨∏z“;õ∂{èˆ‚]˜¯ü*ÇVË´mlÊÉ$ÒımW‰hß$¶ (=ÓüQÎESÇ'…ìá(x√c√ÿºI ∫E◊q±#û‰Ó•AUõÉŸ◊â1∆“‚u◊ÎVe∫7C$R99.œzE{≠QEL°Pyª‚KÃ\‚›±WK¢ˆËt˛⁄¶pä5y? )„Œ´ï∫Ênm£	*∆~™ä¯ß#yai∆í›dsÀ#YYH´`ËJ˛g!⁄∞÷á≥fÓ◊Ôã˚õIb∂πä4∑ô◊AÙI:˝™`ør“•Vv´¨iQØJ"ç )6w„ulhîŒ}Í£˛ne˛≈Öí5:i¶üÛG•@\‰ŒåáŸïª'ò™M‘DÇπÑœ÷‰¸M.`:a±ñV‹ö◊«µ 7ù*€M·ÿDÉ∂ÿ±®cŸ\íË\66GM4É©˝ÌÂE'…‹t∏ {†QU˛≤EÂÂ∑è≈¯Â# ^Ø–UéÖWÓSJ/x ›ÜèÑåj∞ Óì.√â}Bè≠ó≈Yd¡ﬁN˛C°kjÓœ]ø}TäîÔéÚ+∆y´µ;YØd*~Aà‚Æw≤Á+€1 º\Ò¿˙ûrÚ».aãIÈÓßæ•œoónÙZG2»ŒÁlÏI?3Wcì\S&/ñxHa∑∂ô%¥åü1 çyhèUÚ¢ìfd¥‹ßñÍœ∆ÖInÚ»Ìv5⁄9ü∑Úˇ ¯7Ø®¯ˆã≥ÿ”å…›€Ï∑DHmÉ“ƒy˙˘S≤.5öJõl†øWÛŒÜàË˜·Ó{|œƒ”3%v◊2;∞ »ÂéºÜŒÍ∏ÏúÍÑª˚•∂≥ñG:MUÆ6»}„ù∏êÇÁU>Û#+˜~nì¢WB´5‹∆i›âŸ&∂g‡lK…¢ªcﬂÑ˝+à“´@m•Uî6á“ì2hÌ≤⁄Ÿ|_ƒ;Q\BÂX±§o∞S…{ê$‚Üa›ab?QVQE.MÜÂQ∑¥‰∂‹∏∫X[B{à£öÔz˝®¢êtU:∑ú®$ÚÎø˝A˛MS√`c¶W(ÑèJO∫Mè:(´Dúàoú˜íã4åõ∏®=ø˙—EK/Ëx~O+∂+πdÎgmñ;¢äˆihƒv¢ä(ÅˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:9a3d8765-fc47-4114-9981-cd28c80d09ca>
+WARC-Concurrent-To: <urn:uuid:7de797ca-b2c3-41c9-8c8b-3e853e02a843>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-qvOgqyHDpubhJ9Lt-ihZ38g-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.360Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:4c5cad88-228e-4cc6-aba7-1dd6e375509c>
+WARC-Record-ID: <urn:uuid:6a32f8b4-fd40-415f-80d9-fc9bc600b210>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:0e6424511a5594688a990e377bd9389c5e63f6fb2843789f53884f44b4f82de2
@@ -1287,11 +1287,11 @@ GET /artworks-qvOgqyHDpubhJ9Lt-ihZ38g-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:9a3d8765-fc47-4114-9981-cd28c80d09ca>
+WARC-Concurrent-To: <urn:uuid:7de797ca-b2c3-41c9-8c8b-3e853e02a843>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-qvOgqyHDpubhJ9Lt-ihZ38g-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.360Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:cf94f1e3-864b-439d-99e6-8a5aeca6febd>
+WARC-Record-ID: <urn:uuid:ccafca77-8190-4c39-999a-ea50df9d8189>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:43f6760ba81cc50e50883a60059940d342b73ea8e6bc3502d799b5ff268ed43d
 WARC-Block-Digest: sha256:43f6760ba81cc50e50883a60059940d342b73ea8e6bc3502d799b5ff268ed43d
@@ -1313,9 +1313,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-qvOgqyHDpubhJ9Lt-ihZ38g-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.357Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:9a3d8765-fc47-4114-9981-cd28c80d09ca>
+WARC-Record-ID: <urn:uuid:7de797ca-b2c3-41c9-8c8b-3e853e02a843>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:193d3b297a8da3fcdc72199e98dcb0a14a40fcb316bcc6120b1687844156b52e
 WARC-Block-Digest: sha256:6c6c004ae94a40a74a2fbc2b8598984c1e2743b8b782e33ec30b0898fdf64cd6
@@ -1353,11 +1353,11 @@ O}; ÛÍÊ"!!)\)*= ﬁ˘—ú¥ñôÙπêu\ñeÍ˝E+¢⁄->û™„‹{¬ﬂı∂ˆ%ïÔàF∑ZûØ’'Í’ŸßßÍU‹
 YE-6ÄÑJw'Ñf7ﬂYŒ†ˇ Ji–%≤9È‰ÂΩÏysraGëîlYƒvÚSîÖ%Èƒ2yé&êHtmÌµ≈øRîÙâ.zNbó8‰•R]˘)∂TRÏºÀEßGÇí†?1Q˝g:É˝)§@ï˛»}g:É˝)§@ï˛»ïâ©åíƒ∆◊^P´"ôé≠⁄≈«:≥∑gNîS¡®äà¿Õ∫π…∫Ü†HQ≤•bF£O¶Ny‰≤¶3,RÔëπR	+W(§tGâ©X¡™jc;≤e)‘©5¢Œ¶º8^ûyƒîêìÌ/r€-|í®˝ÒŒäÏ}3Q%≤6∏Îî∆ªKL≤•+õy<¬	>ù[ÌË—Ë«"µîÓ"z’~¨ÆO›l92…¢ZRQA†4æ‰∫v€µsnJtßñ„íGu<∑*≠…y≠ïÔ˙ıﬂu∫™‹3Àõò·'Öæ#›m?≤ÑÑ†|#Ñ"!!!Õ√zï…8dØ›3Ù…EØçÍkªLIº|Jò^È˛r@W∆)Ÿ_*.…VÿŒÿZ√Ω‘ÑÑó“d¸xm‡?rÑB∞ä.ƒkø”’Áç,⁄bpsItIÉˇ ˛¬^~T‹ç;JU'[vé9ßlCfBTM<ÿ˝í∞ñáÚ¢.Ñ5x^∑AØ?[æ´U:˝ZgÌ'**y¬<	<í<6¿GDBBBBBBBBBˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:1931150f-8e41-459c-be6c-112ee652922f>
+WARC-Concurrent-To: <urn:uuid:8cba4fc1-b4e6-4f1b-8f2e-bec72b298b25>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-xqWUh8Pk7sGNHpj8-KebyWQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.360Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:f2336845-d9e7-4f94-88d7-8209429feac7>
+WARC-Record-ID: <urn:uuid:1d40c63f-cef7-4af2-a146-45468dfe20f7>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:118c42ec5fc903453eb80bab1ae818844785a023b7d296c974890deb29cf0639
@@ -1368,11 +1368,11 @@ GET /artworks-xqWUh8Pk7sGNHpj8-KebyWQ-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:1931150f-8e41-459c-be6c-112ee652922f>
+WARC-Concurrent-To: <urn:uuid:8cba4fc1-b4e6-4f1b-8f2e-bec72b298b25>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-xqWUh8Pk7sGNHpj8-KebyWQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.360Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:9b2ff0bf-4572-4e9c-a1df-66a4640a49d1>
+WARC-Record-ID: <urn:uuid:653c4cbd-6411-4463-bc27-dc0e027a9b1e>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:a909487c9ecb09f777aa09832ceeee5f866a6315823699c80beaa9b4398ed42f
 WARC-Block-Digest: sha256:a909487c9ecb09f777aa09832ceeee5f866a6315823699c80beaa9b4398ed42f
@@ -1394,9 +1394,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-xqWUh8Pk7sGNHpj8-KebyWQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.360Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:1931150f-8e41-459c-be6c-112ee652922f>
+WARC-Record-ID: <urn:uuid:8cba4fc1-b4e6-4f1b-8f2e-bec72b298b25>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:d5d5d3d0e3e8fdbe33dcbcc8b2ac723f8b126f81fa4e5d937b0509207ca24890
 WARC-Block-Digest: sha256:7625cc4b2294b4d970919f0bb142346776e8f3048690779ca796ba478d7c3707
@@ -1434,11 +1434,11 @@ Kì	—Ç|‘îW¢t@.∫¢j
 S√)8πE≈<nø‹£‰3Q’]¬$“H≥ q∂õU√◊{ˆæC∫Ò£¨…¥öTpû3á ª∂œ—o˚+ôr˛˚ˇ t:f9≤Sy{Á˜æ˚Û+nÚüÈı˛ŒgŸ/?u¸c∑Ò˝eÌéyzå%∏∏Q‰Bd`Ùº$4Éƒ‚c[xÆnœ’ÍiÅ¬x√≤Íp;∂∂Å¸‹˛ãcÙË$uºK~<uæ@˜(tË∂Od˜ØﬁÍÔ}˘(SßÖß◊ƒ“v˜NM™çgu¶©ıÉÈß]<´6v|ÆÑfÈœ«/-‘≠xg≤I‹¿p…¿Ø•˛,|hÒAáÄ„gâÓwÍWUú‰õ—`ı€”©b§úû¯˘%Ë˚*õã§O$@SÃD@ZNHâ–2vÒPuDFHÓù-TDRIZ,""ÄèˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:58d41ecf-a2f5-4561-9cd6-baccbc9fa42e>
+WARC-Concurrent-To: <urn:uuid:deab4586-c0da-431c-9c19-abc47a871d4d>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-LtizD2mYW7tWc1Vj-OfCmzA-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.361Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:80a106dd-90ae-435e-a34b-a055a942d6f9>
+WARC-Record-ID: <urn:uuid:fd1a2b7e-5065-4fc3-8b02-567face193be>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:88fbbdabbe67f7b68efa79ba3281e995cf8bcea57c462cd9423558a8ceb51776
@@ -1449,11 +1449,11 @@ GET /artworks-LtizD2mYW7tWc1Vj-OfCmzA-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:58d41ecf-a2f5-4561-9cd6-baccbc9fa42e>
+WARC-Concurrent-To: <urn:uuid:deab4586-c0da-431c-9c19-abc47a871d4d>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-LtizD2mYW7tWc1Vj-OfCmzA-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.361Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:a8ef1112-d2c1-4001-8b0e-1fec59519614>
+WARC-Record-ID: <urn:uuid:83faf88c-e83b-4473-86e7-4b94f6d2ef5b>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:75ebfab2e261da9607eb6c2597c44c9149b00aa49aa196d52694e6a3a2a12bd6
 WARC-Block-Digest: sha256:75ebfab2e261da9607eb6c2597c44c9149b00aa49aa196d52694e6a3a2a12bd6
@@ -1475,9 +1475,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-LtizD2mYW7tWc1Vj-OfCmzA-large.jpg
-WARC-Date: 2023-07-19T00:37:43.381Z
+WARC-Date: 2025-05-14T14:07:40.360Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:58d41ecf-a2f5-4561-9cd6-baccbc9fa42e>
+WARC-Record-ID: <urn:uuid:deab4586-c0da-431c-9c19-abc47a871d4d>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:39d8385d29484341d5a2a38b35ef7d527e97078d5f400e290930039b3a1b061c
 WARC-Block-Digest: sha256:658fa93b0497a94c2f5799efa91080302fa89ac7d42453c11a0020114b7d4895
@@ -1515,11 +1515,11 @@ g¨c•lMcI¯Ï.#ÄO⁄ﬁ´™VOQqJ—¸aÌ^,cN`@Û∞•m›NÎ%,'AM∂ﬁ˙y{ı2R~Ì,îŒ—†ô"Ûi:èB~Ñ-gUÁ‘
 ÙDT§M—D@ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:b3fa3501-ea71-46e1-b861-1a4516902f06>
+WARC-Concurrent-To: <urn:uuid:2a9d86d8-b13d-4bca-a89a-1cb1cbd6c64e>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-UUfKsOBXmySzGgdg-60CYLg-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.361Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:4b19ef58-3720-4934-83a8-71a762b43417>
+WARC-Record-ID: <urn:uuid:646ea3e5-0570-453d-b66d-a6983a963a86>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:ce35b66b1c78ab2bd3fef5823018782df034ab3029adfea053604ca3909f3114
@@ -1530,11 +1530,11 @@ GET /artworks-UUfKsOBXmySzGgdg-60CYLg-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:b3fa3501-ea71-46e1-b861-1a4516902f06>
+WARC-Concurrent-To: <urn:uuid:2a9d86d8-b13d-4bca-a89a-1cb1cbd6c64e>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-UUfKsOBXmySzGgdg-60CYLg-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.361Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:3be17898-9ef4-482d-8cd1-4d23d8754f51>
+WARC-Record-ID: <urn:uuid:aead773c-508d-4087-9340-a2315af62560>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:8dbcdb8ca7d2ad0ba165fc15f3d4924ad10bdd2d846b9d27a4891c5e56b68cb4
 WARC-Block-Digest: sha256:8dbcdb8ca7d2ad0ba165fc15f3d4924ad10bdd2d846b9d27a4891c5e56b68cb4
@@ -1556,9 +1556,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-UUfKsOBXmySzGgdg-60CYLg-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.361Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:b3fa3501-ea71-46e1-b861-1a4516902f06>
+WARC-Record-ID: <urn:uuid:2a9d86d8-b13d-4bca-a89a-1cb1cbd6c64e>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:6a25e719fa725e888dbe0413dc5994e0450c27cf467acf5e509aa7a7dd8f4dfb
 WARC-Block-Digest: sha256:6bad9e2779be333c02fbb98cb4fbaf0f0520b4e22a8c7be7d0e528021f116863
@@ -1602,11 +1602,11 @@ d.1…+Ë<f‘ﬁOLî˛dÊ^&3‚ñW∏„ak~£ı6•ßÈ¯—4á@ÕÆ∫¢xÍâ„è4°∫cLŒ’∑Üm÷Ü˘ºÈ îI˜Rè∞ËY6kÜ›
 I(Pe*tÍ>Ù´ÍÇ˝w‘õ˘¨ÊjÑLD§\<≥daﬂ( ‘RPë’Ü⁄ ‡dzÁ4¢*∂î•)JQî•)JQ§[y∏≠≠÷6ÌQ£d7Ûj.Ø8 ]JJ€Sj T>ï®u•(äÈãıˇ º–¬{ıµ)B m•‰Â=Oa˚ +™o◊∂Ò‹f\%Kø@[˜>^eb÷»ÂÀ9¿	¬Í0iJ"®w7rØªª≠'j≠q!ôWõäCÓ≤¬YIK,°ñ¿B@m#ı∆iJQˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:782513f0-f644-4ea7-91d3-94d79c7ea77b>
+WARC-Concurrent-To: <urn:uuid:2d9a7f07-7d5f-448b-878c-2a6531edd60f>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-TcaXp1LG59JKxs8s-XrXniw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.362Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:11ad62f1-78ab-4fd6-9dab-017beef4b86a>
+WARC-Record-ID: <urn:uuid:12f8979b-242f-440e-945f-32df4723a006>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:50a4848ac1f11672ab573de46fb1dbe23a618697cc7ac234b996fd89e417a717
@@ -1617,11 +1617,11 @@ GET /artworks-TcaXp1LG59JKxs8s-XrXniw-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:782513f0-f644-4ea7-91d3-94d79c7ea77b>
+WARC-Concurrent-To: <urn:uuid:2d9a7f07-7d5f-448b-878c-2a6531edd60f>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-TcaXp1LG59JKxs8s-XrXniw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.362Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:398c6185-de6b-43ec-ba44-2906553f0b1a>
+WARC-Record-ID: <urn:uuid:5571b642-90d2-4d51-a06c-6559e7238755>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:99f6ec95ff69b61d184b9d4ff55fc9ffb1c657feafdd6e34e26fce76920ed18c
 WARC-Block-Digest: sha256:99f6ec95ff69b61d184b9d4ff55fc9ffb1c657feafdd6e34e26fce76920ed18c
@@ -1643,9 +1643,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-TcaXp1LG59JKxs8s-XrXniw-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.361Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:782513f0-f644-4ea7-91d3-94d79c7ea77b>
+WARC-Record-ID: <urn:uuid:2d9a7f07-7d5f-448b-878c-2a6531edd60f>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:fb8c589321f35410a5c9a67e775b3fef3b18ab5501353169f34356c57df83d90
 WARC-Block-Digest: sha256:c509dd81c29af131bffd056385eb05eb44866140a7a3cb077748fa3fd3c7831a
@@ -1700,11 +1700,11 @@ J∑ˆjï8'IIâ~µdk-±Un/”TΩMM=]'£MM›öPúvî…o°¿Ù·£Æ∂X(Í.4PºY6‚å»0ì‰‡>ô˙xÃK
 ∞≤Q›ØÔG[(+<D7µÅ Å®≈yπ“ÿ:Åw[°J4TÉ5èò¿g˚v4joòCx¢P wxÙX˚ÄÄxUQŸSãV#âj3ﬁ'ÈˆéVüP+´Í∂˛¡©íÈv”—ª˚kÂQ!*ü◊Ü˜c»œŒ£ã◊P∑™Á[4´£ïÙaTñ∂VP•ªúrÛﬂŒçÄª*N€w™€ÂäQu©ûß˛∫hs,ŒÁá§ÆI'±”Fÿú(+¶Feñ2Q\y ëë£F©≈˚^Á’5∂{)ˇ +[˙ƒ™ñ/,l]≥•∑˘bπÍ†ûÊB≤p\ü†Q€˜'ÁZkÌv’∂Q‘X™ñ¶™.RŒø÷~Ÿ¯a£F´ˆêï≤†°2‚ÁœsÕ>¥B\∑p,Lº‰ŒÛÛ„XÎ{ª4íW‹jeb{í˛u≥I_,‘Ÿ~<âÓ¿w?π—£Aˆõ@Ñ$ANnXi§ ÑÅøA6Ù≤Â5fŒ‹"íÜ‡(cí%‚∆FX©dπÚ5&nåEb∏F2V!â9n]ò˝«¡—£Uï˘”~ò€æ~ÒXÔµ÷[7W‰§~•Œüº3Û5<ÙÕxÙ˜nåìãt]…Ó}∫4h÷¯k‡O•W∏Ïõ_˙—¯EˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:3c563294-c5cf-4d01-9d1e-7ae44683b68b>
+WARC-Concurrent-To: <urn:uuid:f43ccb32-0893-4736-9ffe-8d87b83ccbdb>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-5RsczJERGuVhva54-zOScuQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.362Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:82c1d83b-9f4d-4fda-99de-a4840d208e2d>
+WARC-Record-ID: <urn:uuid:90f272df-8897-408b-bd00-a021899c3c29>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:451a6d427aca506570912008247d40d7ef93e4abd9ce2304e9620d5af3609371
@@ -1715,11 +1715,11 @@ GET /artworks-5RsczJERGuVhva54-zOScuQ-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:3c563294-c5cf-4d01-9d1e-7ae44683b68b>
+WARC-Concurrent-To: <urn:uuid:f43ccb32-0893-4736-9ffe-8d87b83ccbdb>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-5RsczJERGuVhva54-zOScuQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.362Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:81a58883-043e-4f19-b1bc-8604bdbf47fb>
+WARC-Record-ID: <urn:uuid:6f9f1a7d-5511-4b40-a8af-dc0790750e3f>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:70dba4e2a962332f50ea36116b9722c2d700c64554e9f3b0a118b76b7389a631
 WARC-Block-Digest: sha256:70dba4e2a962332f50ea36116b9722c2d700c64554e9f3b0a118b76b7389a631
@@ -1741,9 +1741,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-5RsczJERGuVhva54-zOScuQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.362Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:3c563294-c5cf-4d01-9d1e-7ae44683b68b>
+WARC-Record-ID: <urn:uuid:f43ccb32-0893-4736-9ffe-8d87b83ccbdb>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:2d50d8c41b421e11dca14e54e7214603caa1e5824c871a266020dffdb141a302
 WARC-Block-Digest: sha256:782f2b70d73ab8f7969a82c5ce35ce8929e7d3778fb4b4c864bfbaec3af9bef3
@@ -1789,11 +1789,11 @@ lÎ›Õ+ÓR-Ô*EW^gOïsLvÍcå`zjíÌ}Ωwﬂ[ÇFﬂ§ö·sØêê®	ÈŸ€Ÿ@…'€VØƒj°tøs¡ZÒFEΩ›UÄ î!î)c
 –ê˘éµ=“∂¢åGQYU,OP“4o)e/Åñ¡˛cìŒ±6‡π#Z˙¿#ßÚ0ÈãÄs¬˝;iikê“4ÅZ-Á"q’ä„UIMÂR‘OR7[«¨™ÃøÖ∞pFA÷¨µSV’<ıìIQ4ä]‰ïã≥ëÓNs€◊KKZ$:n,§$ú´¬§∂x8ÔÙ“““÷î=ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:e95ae0cf-2766-4193-ad35-990b33e9ebbc>
+WARC-Concurrent-To: <urn:uuid:ff2724fc-c629-46ea-90ab-46bf57bfc4af>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-lkyv3A52h4DxwbpL-NUIw9A-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.363Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:0a49acc9-6df9-4e85-8f47-6b3d03c65f61>
+WARC-Record-ID: <urn:uuid:394879c8-0668-4b09-ba92-f8688c777878>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:48e1a9e588e83d8ee1d18acc8dc20082cfde4ef1e59833dd8928b5531128627b
@@ -1804,11 +1804,11 @@ GET /artworks-lkyv3A52h4DxwbpL-NUIw9A-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:e95ae0cf-2766-4193-ad35-990b33e9ebbc>
+WARC-Concurrent-To: <urn:uuid:ff2724fc-c629-46ea-90ab-46bf57bfc4af>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-lkyv3A52h4DxwbpL-NUIw9A-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.363Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:5c83fc26-a452-4bc7-ad12-e1c9a684eebf>
+WARC-Record-ID: <urn:uuid:13bbfb8c-504e-46df-a992-3ab39eebc4d5>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:6270332b8dc2e272b545d96bd5edbc5b596712baeb37e10eca5583f2c2ca16c7
 WARC-Block-Digest: sha256:6270332b8dc2e272b545d96bd5edbc5b596712baeb37e10eca5583f2c2ca16c7
@@ -1830,9 +1830,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-lkyv3A52h4DxwbpL-NUIw9A-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.362Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:e95ae0cf-2766-4193-ad35-990b33e9ebbc>
+WARC-Record-ID: <urn:uuid:ff2724fc-c629-46ea-90ab-46bf57bfc4af>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:d97f9ca11416cc90daef2314331a3468ef9b01aa468ac17effe4b565d85796a3
 WARC-Block-Digest: sha256:3d90d4e37d44a5e3a050a9206676ddca7abee4e548d570c7c671db1a4bf57e45
@@ -1884,11 +1884,11 @@ P˚ïE ∂y∆ºÛMó}™»åF∑û;ˆÌÛ“%Œˇ P¡ ` ƒÖ¸æ∫õx”PäVÌ“≠˝˛Cì|ÿ∂*‰´˜¡4Ÿ‰ÁÁÛ:5!É#n
 àNÙq€€é1Ì£FÄãÇinıLµ≤»·‰X….I ‰ûNyÙéN∂C≠∏•<Q#ad›ÇXpx'˙ù4,ïÕ1ÃÒ«!˙‰Å’äk|"ŸC<aëÁàyÄ1*‹∂2}Ä4h	+Eö§‹≠$ysê§c˜FçˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:b7cc5b65-44ef-4d34-a485-235e8c4c27bf>
+WARC-Concurrent-To: <urn:uuid:19f82eb5-1991-448a-94fa-c1a2063b7700>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-hSgO9aE9A86a1KNr-rccTyQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.363Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:de7a38b0-22f2-4a1b-92da-6dc03b8f2d1e>
+WARC-Record-ID: <urn:uuid:77206146-4aee-46d5-8b61-ded1f86955b6>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:4c0d528796c899513d9c1fafd885024f06792ee4d60f793372504056859650d0
@@ -1899,11 +1899,11 @@ GET /artworks-hSgO9aE9A86a1KNr-rccTyQ-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:b7cc5b65-44ef-4d34-a485-235e8c4c27bf>
+WARC-Concurrent-To: <urn:uuid:19f82eb5-1991-448a-94fa-c1a2063b7700>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-hSgO9aE9A86a1KNr-rccTyQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.363Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:a343eede-9f27-4081-b8ac-f4d9f29c69dd>
+WARC-Record-ID: <urn:uuid:a5910d21-7c5e-467c-b0ab-4ce612a96e68>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:84a856fa644202e9f925b6b981c028895dd4fcfe6e7b6e3da0042b24d633ea88
 WARC-Block-Digest: sha256:84a856fa644202e9f925b6b981c028895dd4fcfe6e7b6e3da0042b24d633ea88
@@ -1925,9 +1925,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-hSgO9aE9A86a1KNr-rccTyQ-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.363Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:b7cc5b65-44ef-4d34-a485-235e8c4c27bf>
+WARC-Record-ID: <urn:uuid:19f82eb5-1991-448a-94fa-c1a2063b7700>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:901d961a6b446a668874cd2516786f63f144f509abfa6eb6f61ac2fcf289eb16
 WARC-Block-Digest: sha256:c0170950dc395edbb7a939929fc6af0fddc8536551860d21448993a3b44d3ef7
@@ -1965,11 +1965,11 @@ x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-hSgO9aE9A86a1KNr-rccTyQ-large
 lH„êç¬2‡√…≈ïß~ä¢◊:Ë?G3æ±’tû´6ÀµQõ0É0zÈVè√ﬁB°rZF⁄∫Ìÿ	C∫{ˆ=éM”˝E[E3Í!™√gî”6Ëü/éwMæ„√ü0Ê˜ƒ^≤Á˙Å>Ÿ4}H”πnuòÂ)]A!≠††úÜ8#ä†X¢∫Ÿ|A è>¯’∫üˆ†¨—ùPÃﬂ#…ı&†—ëi°5E>U*'ﬁ&B·€x[%ôPü•∆Ño®ª?pÀ≠*€Âuª4ÀÛN©Íâ¥Ì4YcÊ”≠$B±"FåUv™Ä ;oÛ¿Tu,º^÷∆ìêt÷üT–˝ÈùV÷≈SQ<æ$h´‹1π7ΩÔãX∫9í«*'ØòπÍ‰l;|ÒÁrÊr»‰l¬*1H•—ì“eâ_#ä¶B6_ﬁ@8˙~ÉûATçó3~'åÛ]t.€èS«üëƒd”9D!TRD†eE!G ¯±ç#éÀNª ¿ >C])<œ,ô°=L^ä(ê,¸Çº¸0±Àmª∑?†¬ƒ≈éL6≠˘«EùWõ7¨ébmqéæ)Uπ„á6≤õEÉL™;ûp¡*0-~<¸Ò_„xå∞>§·∆@^ÿï0~±®©»ıÖd˘EUE$ìêI≠¿.˚ã‚EZuÂ*RÎJë†WÔ9XoÿûE˘ƒN¢8mO ∏¿åÅÍ-ﬂﬂîá·)(™e)æP['VıüµUUSùääÎ˚TÇ±¡û‚«}è<ﬂj:©¨ˆŸµ>}$Deˆ˘îﬂ∞∞„·ÅÉ%…ib¿Ï 0¯‚2…'ÂìPäm}8™ÒÙÖ)ê≥0ñQ∫˜Ω‹õüÆ	ƒ®,@ªc=Èfpµ‘†⁄JY…*y≤∑#¯Ó¡Å®˜æí‰±:'ô¡=Üıõp1ÍÖ»/ÚæÌ∑ƒBü„;_π¬ƒ&®ÁÖ'”;xCùÂTπmK«O’O˜òüı≈_·é1ÒÒoﬂ6Jë·Xèxc˙∑Ôè[√nß’ø|,,u≥©yñï ≥äëS_F$ôP "WQœì|q˙ê∞±°‡ˇ ﬂì˘∞∞±%9%‹W°áß:xõ˚ø˘â?õˇ √Ω?{˚ø˘â?õ›/a§O ¥÷Wêô~Ì£HÃˆﬁZGk⁄ˆÓ~8∞¬xR√¸M˚·acõgRáø∞èÍﬂæ, Á¸M˚·a`[:êgîhåÆ∂âeô&«ù≤ê0∞∞±€ü∞m^èˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:aeba317c-8dd0-4d6e-a4ef-e1064511d0c5>
+WARC-Concurrent-To: <urn:uuid:883cced0-4eee-4805-86e6-4f1528664adf>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-UreEA5uXxnwRBb2d-zIaZ1A-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.364Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:b85609df-79d6-4856-a9eb-4f221c1a2ca9>
+WARC-Record-ID: <urn:uuid:02d80cb6-62de-4e8a-b055-67bb5e5b8d51>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:77e19eb67ef10a561c9fc3032450d076c4bd2b9161436cf944a0079f1f2b5da8
@@ -1980,11 +1980,11 @@ GET /artworks-UreEA5uXxnwRBb2d-zIaZ1A-large.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:aeba317c-8dd0-4d6e-a4ef-e1064511d0c5>
+WARC-Concurrent-To: <urn:uuid:883cced0-4eee-4805-86e6-4f1528664adf>
 WARC-Target-URI: https://i1.sndcdn.com/artworks-UreEA5uXxnwRBb2d-zIaZ1A-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.364Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:1a306e0a-1762-42f5-b1a9-276835c5cc8a>
+WARC-Record-ID: <urn:uuid:535cc887-c0d9-4294-a607-72583c197f67>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:a98ec499d6636074192b0b2284f83d44425e940b4ba400023520434631b13cfb
 WARC-Block-Digest: sha256:a98ec499d6636074192b0b2284f83d44425e940b4ba400023520434631b13cfb
@@ -2006,9 +2006,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://i1.sndcdn.com/artworks-UreEA5uXxnwRBb2d-zIaZ1A-large.jpg
-WARC-Date: 2023-07-19T00:37:43.382Z
+WARC-Date: 2025-05-14T14:07:40.363Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:aeba317c-8dd0-4d6e-a4ef-e1064511d0c5>
+WARC-Record-ID: <urn:uuid:883cced0-4eee-4805-86e6-4f1528664adf>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:b66f74e092b050ee4d87a4b885524c0410db244040facbc27451a180abd3b9e7
 WARC-Block-Digest: sha256:e1c08ad57c0ae871005b205eeba2015e066d6f30becd23e4ceab10e6531702d7
@@ -2051,11 +2051,11 @@ c!g"YFÏÁ>˘9˛:'ÛQpqñ’{·e›j,RÉâig$©Á
 ‹è„ªF–	Áù#%»D«ÊpXv˝u£‘q¿”™∆Ô„≠}§é®‚YHzg9Ó⁄Zdj9‡>ZZÓô€¬›¶ñ›RÒ”∆J©„sì˛:ãƒcè%8˘∑Û““’≠ñ§`¨Gº1˛Ì¸ıñÚ€º1˛Ì¸Ù¥µ÷…Iw.ïµ^*V¶æêI2¶¿DÆ0Ω˝Á¶øËâÜ˛<üÊ““’‘‰ór6ØCOËÁßâœ∞˚â?Õ¨ˇ G}?ú˚œ¸ƒüÊ““’w?Ri≠]5k∞ô~Ì£HÃ¯ﬁZGl„8Ó~zêŸ1‰ßÓﬂœKKP€;jó˜˛Ì¸ıº4∞H„0Ø?oÁ••Æ≤)ñ~â∂V–¨≤¨·òÛ∂Rñññ¶ŸW°ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:512b806b-7ec8-4a4a-be19-e13fe33bdaba>
+WARC-Concurrent-To: <urn:uuid:c8e836fb-8eca-4e04-a509-6b9d05a4cf70>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:944780617/cdcc9c19-bfb1-4962-9aca-6590cfb8efba.jpg
-WARC-Date: 2023-07-19T00:37:43.383Z
+WARC-Date: 2025-05-14T14:07:40.364Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:d03e0a8e-8fd5-47f0-a8d6-beec75108a49>
+WARC-Record-ID: <urn:uuid:4712cce8-5a18-4e67-9672-ef406a4ed169>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:9baec36e5cfd550ec422a2ed11cb277cba1a240d3889cd297b4febfd4ccdcfc2
@@ -2066,11 +2066,11 @@ GET /bg/soundcloud:tracks:944780617/cdcc9c19-bfb1-4962-9aca-6590cfb8efba.jpg HTT
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:512b806b-7ec8-4a4a-be19-e13fe33bdaba>
+WARC-Concurrent-To: <urn:uuid:c8e836fb-8eca-4e04-a509-6b9d05a4cf70>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:944780617/cdcc9c19-bfb1-4962-9aca-6590cfb8efba.jpg
-WARC-Date: 2023-07-19T00:37:43.383Z
+WARC-Date: 2025-05-14T14:07:40.364Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:25a7166a-99e6-4992-865a-7bc89e00319e>
+WARC-Record-ID: <urn:uuid:508dd985-9cfc-4518-a6ba-b8b122f63996>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:557cd0ffa8769a8533bb7021d3f8f392eb24df472131d58df51fdb48445e6157
 WARC-Block-Digest: sha256:557cd0ffa8769a8533bb7021d3f8f392eb24df472131d58df51fdb48445e6157
@@ -2092,9 +2092,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:944780617/cdcc9c19-bfb1-4962-9aca-6590cfb8efba.jpg
-WARC-Date: 2023-07-19T00:37:43.383Z
+WARC-Date: 2025-05-14T14:07:40.364Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:512b806b-7ec8-4a4a-be19-e13fe33bdaba>
+WARC-Record-ID: <urn:uuid:c8e836fb-8eca-4e04-a509-6b9d05a4cf70>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:c435cad579dc185a590e008a06c65c1a693beb245256dc66e56d2e6e65c09798
 WARC-Block-Digest: sha256:d8b02235f93c33b16fd7aee7444e1a093ac99e13730e54f7ec72b9aeae62f68e
@@ -2421,11 +2421,11 @@ t⁄OSæå‚û•{>`$˜=*‹*Àñv»ÌMÜ-@ÅR; \g5RïﬁÇØU+ÿdí‡7¶+ï’ßo4Ö8'Ç=kvvh£.yπ€ò÷mÚêw’ŸÉ
 ìLG«ï|G+©∏ª¢„t¥-‰EBíÜäﬂñ∆n-ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d834cf03-08a5-496d-974c-28dea52a7908>
+WARC-Concurrent-To: <urn:uuid:495b9726-454f-4ddd-8880-15e5bd0c4624>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:913782583/9b0d4395-cc72-4aa9-84e1-17b807264e2f.jpg
-WARC-Date: 2023-07-19T00:37:43.383Z
+WARC-Date: 2025-05-14T14:07:40.365Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:970817e2-41c0-4e33-a975-6bb05709a9c4>
+WARC-Record-ID: <urn:uuid:b612c7f1-4ef3-459e-b745-f03b5e4a3b42>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:5af33ca02efd6d1c7351a82a756013f9a4b6b001935e1394193df0775e89a040
@@ -2436,11 +2436,11 @@ GET /bg/soundcloud:tracks:913782583/9b0d4395-cc72-4aa9-84e1-17b807264e2f.jpg HTT
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d834cf03-08a5-496d-974c-28dea52a7908>
+WARC-Concurrent-To: <urn:uuid:495b9726-454f-4ddd-8880-15e5bd0c4624>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:913782583/9b0d4395-cc72-4aa9-84e1-17b807264e2f.jpg
-WARC-Date: 2023-07-19T00:37:43.383Z
+WARC-Date: 2025-05-14T14:07:40.365Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:addaed80-8a53-4d5d-9991-2b7735817354>
+WARC-Record-ID: <urn:uuid:2a3f51eb-6d1e-457b-abc9-abb8600ea8fc>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:06afc7b4eabfca97784514d794ee7f9be93cdafc29729f509c72493554215cc4
 WARC-Block-Digest: sha256:06afc7b4eabfca97784514d794ee7f9be93cdafc29729f509c72493554215cc4
@@ -2462,9 +2462,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:913782583/9b0d4395-cc72-4aa9-84e1-17b807264e2f.jpg
-WARC-Date: 2023-07-19T00:37:43.383Z
+WARC-Date: 2025-05-14T14:07:40.364Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:d834cf03-08a5-496d-974c-28dea52a7908>
+WARC-Record-ID: <urn:uuid:495b9726-454f-4ddd-8880-15e5bd0c4624>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:c435cad579dc185a590e008a06c65c1a693beb245256dc66e56d2e6e65c09798
 WARC-Block-Digest: sha256:dd17e3a6096354cdc5af3e3bc55856cb6908e7434a6644aa8944afbe9348da45
@@ -2791,11 +2791,11 @@ t⁄OSæå‚û•{>`$˜=*‹*Àñv»ÌMÜ-@ÅR; \g5RïﬁÇØU+ÿdí‡7¶+ï’ßo4Ö8'Ç=kvvh£.yπ€ò÷mÚêw’ŸÉ
 ìLG«ï|G+©∏ª¢„t¥-‰EBíÜäﬂñ∆n-ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:c68496d0-14a3-4f09-8561-825821fbe3e0>
+WARC-Concurrent-To: <urn:uuid:a0e16266-e280-4fa3-a88a-12cb92bef62d>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:872340862/4fb70a0d-fda3-4493-a466-9c0a71ffba50.jpg
-WARC-Date: 2023-07-19T00:37:43.384Z
+WARC-Date: 2025-05-14T14:07:40.365Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:ce88a03a-bfc3-4ce1-b085-d41f35e898f0>
+WARC-Record-ID: <urn:uuid:1b38a67b-f9c1-436a-bc54-f164adc04f3e>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:d83c6b0f61606ea4e19049a8a98cd21e13582b58328e43d1f3d1bf837f42c6ce
@@ -2806,11 +2806,11 @@ GET /bg/soundcloud:tracks:872340862/4fb70a0d-fda3-4493-a466-9c0a71ffba50.jpg HTT
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:c68496d0-14a3-4f09-8561-825821fbe3e0>
+WARC-Concurrent-To: <urn:uuid:a0e16266-e280-4fa3-a88a-12cb92bef62d>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:872340862/4fb70a0d-fda3-4493-a466-9c0a71ffba50.jpg
-WARC-Date: 2023-07-19T00:37:43.384Z
+WARC-Date: 2025-05-14T14:07:40.366Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:013566a5-af23-4e30-970a-8dbe06b2079c>
+WARC-Record-ID: <urn:uuid:c06a8fa5-37b3-4a5b-a8b1-0fe78e2b6f8c>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:0f5d5bd21cd036e766e8714049dadbd4b5a99d4fe9bddcb863ffb69afe980279
 WARC-Block-Digest: sha256:0f5d5bd21cd036e766e8714049dadbd4b5a99d4fe9bddcb863ffb69afe980279
@@ -2832,9 +2832,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:872340862/4fb70a0d-fda3-4493-a466-9c0a71ffba50.jpg
-WARC-Date: 2023-07-19T00:37:43.383Z
+WARC-Date: 2025-05-14T14:07:40.365Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:c68496d0-14a3-4f09-8561-825821fbe3e0>
+WARC-Record-ID: <urn:uuid:a0e16266-e280-4fa3-a88a-12cb92bef62d>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:c435cad579dc185a590e008a06c65c1a693beb245256dc66e56d2e6e65c09798
 WARC-Block-Digest: sha256:6bc0b9bddc8a086f895cb2f9450dac87fa45adaa4681883f6a09c7541650734e
@@ -3161,11 +3161,11 @@ t⁄OSæå‚û•{>`$˜=*‹*Àñv»ÌMÜ-@ÅR; \g5RïﬁÇØU+ÿdí‡7¶+ï’ßo4Ö8'Ç=kvvh£.yπ€ò÷mÚêw’ŸÉ
 ìLG«ï|G+©∏ª¢„t¥-‰EBíÜäﬂñ∆n-ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8fb988ec-2ded-4d16-81e0-af01ea51e9bb>
+WARC-Concurrent-To: <urn:uuid:4f913a05-a275-4af1-a2a0-c7e90f0b8755>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:936081436/df31bbd7-7d6d-480e-af58-7ab2562922aa.jpg
-WARC-Date: 2023-07-19T00:37:43.384Z
+WARC-Date: 2025-05-14T14:07:40.366Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:9fd0c4a0-88c4-4691-a9f1-bbc6de130937>
+WARC-Record-ID: <urn:uuid:f33eb192-a4c2-48a4-aaf8-410f5187787b>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:d565a62c724aa38261e2da9ef90767d9763ab90a80adc76ecf05d03cc456b641
@@ -3176,11 +3176,11 @@ GET /bg/soundcloud:tracks:936081436/df31bbd7-7d6d-480e-af58-7ab2562922aa.jpg HTT
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:8fb988ec-2ded-4d16-81e0-af01ea51e9bb>
+WARC-Concurrent-To: <urn:uuid:4f913a05-a275-4af1-a2a0-c7e90f0b8755>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:936081436/df31bbd7-7d6d-480e-af58-7ab2562922aa.jpg
-WARC-Date: 2023-07-19T00:37:43.384Z
+WARC-Date: 2025-05-14T14:07:40.366Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:93cd9d06-aed7-4996-b2d7-6d6f5e334469>
+WARC-Record-ID: <urn:uuid:a161e682-6a0a-4b88-8405-d46fbfde890f>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:5dcecb01bf27e2ece1e86f87207431fca61f42b67edd8985619d130c3c6f8ff0
 WARC-Block-Digest: sha256:5dcecb01bf27e2ece1e86f87207431fca61f42b67edd8985619d130c3c6f8ff0
@@ -3202,9 +3202,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:936081436/df31bbd7-7d6d-480e-af58-7ab2562922aa.jpg
-WARC-Date: 2023-07-19T00:37:43.384Z
+WARC-Date: 2025-05-14T14:07:40.366Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:8fb988ec-2ded-4d16-81e0-af01ea51e9bb>
+WARC-Record-ID: <urn:uuid:4f913a05-a275-4af1-a2a0-c7e90f0b8755>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:c435cad579dc185a590e008a06c65c1a693beb245256dc66e56d2e6e65c09798
 WARC-Block-Digest: sha256:a03d5d36465cec7be743f6ff9a7cef17f8db07b86b2c3ae6fa60519e9410f94b
@@ -3531,11 +3531,11 @@ t⁄OSæå‚û•{>`$˜=*‹*Àñv»ÌMÜ-@ÅR; \g5RïﬁÇØU+ÿdí‡7¶+ï’ßo4Ö8'Ç=kvvh£.yπ€ò÷mÚêw’ŸÉ
 ìLG«ï|G+©∏ª¢„t¥-‰EBíÜäﬂñ∆n-ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:189d3be5-c5c5-4cb9-ac6f-34e9a17ae9f1>
+WARC-Concurrent-To: <urn:uuid:756ff575-5b94-4f87-9dcf-4d0c31055140>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:831976345/ba5130e2-e7b0-418c-9e99-ed1a30ed59f3.jpg
-WARC-Date: 2023-07-19T00:37:43.384Z
+WARC-Date: 2025-05-14T14:07:40.367Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:c8a67029-6062-4714-9d2a-0929aa7d66b3>
+WARC-Record-ID: <urn:uuid:439d66e5-eeca-4542-a671-df86bef878a5>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:555d13e8c3bf5bd223dec491d13b41494d06d3f5c655340b9fa14a0a6c0c6480
@@ -3546,11 +3546,11 @@ GET /bg/soundcloud:tracks:831976345/ba5130e2-e7b0-418c-9e99-ed1a30ed59f3.jpg HTT
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:189d3be5-c5c5-4cb9-ac6f-34e9a17ae9f1>
+WARC-Concurrent-To: <urn:uuid:756ff575-5b94-4f87-9dcf-4d0c31055140>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:831976345/ba5130e2-e7b0-418c-9e99-ed1a30ed59f3.jpg
-WARC-Date: 2023-07-19T00:37:43.384Z
+WARC-Date: 2025-05-14T14:07:40.367Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:a5523266-e551-4349-96f7-01ef2119988d>
+WARC-Record-ID: <urn:uuid:784ad78d-d1c0-4212-92f4-d0fc116c8b97>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:f9ee4862461ec86c239bc57e5e392a5bfeae2edca223a4bd6bb6858419d76838
 WARC-Block-Digest: sha256:f9ee4862461ec86c239bc57e5e392a5bfeae2edca223a4bd6bb6858419d76838
@@ -3572,9 +3572,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:831976345/ba5130e2-e7b0-418c-9e99-ed1a30ed59f3.jpg
-WARC-Date: 2023-07-19T00:37:43.384Z
+WARC-Date: 2025-05-14T14:07:40.366Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:189d3be5-c5c5-4cb9-ac6f-34e9a17ae9f1>
+WARC-Record-ID: <urn:uuid:756ff575-5b94-4f87-9dcf-4d0c31055140>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:c435cad579dc185a590e008a06c65c1a693beb245256dc66e56d2e6e65c09798
 WARC-Block-Digest: sha256:74f2ee2c74f8dca03d0268c261359f0d9ca7fdf22243f5ffce324de35772538d
@@ -3901,11 +3901,11 @@ t⁄OSæå‚û•{>`$˜=*‹*Àñv»ÌMÜ-@ÅR; \g5RïﬁÇØU+ÿdí‡7¶+ï’ßo4Ö8'Ç=kvvh£.yπ€ò÷mÚêw’ŸÉ
 ìLG«ï|G+©∏ª¢„t¥-‰EBíÜäﬂñ∆n-ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:28b52db1-9162-4255-8793-0aec33eda5ee>
+WARC-Concurrent-To: <urn:uuid:17ef86e9-2c04-46a6-baf9-5361321501cf>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:842889523/b7e42d17-3aad-4767-81c7-8b34ae169517.jpg
-WARC-Date: 2023-07-19T00:37:43.385Z
+WARC-Date: 2025-05-14T14:07:40.367Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:852350cf-4ba3-4165-9eb1-a05e74a87d12>
+WARC-Record-ID: <urn:uuid:a48a50ad-1f17-44af-a8a9-ede9032601ba>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:0d02d7ad4af6e350537a4a98ae7467d007d922674b32ae34871b7a5cfcc57fd7
@@ -3916,11 +3916,11 @@ GET /bg/soundcloud:tracks:842889523/b7e42d17-3aad-4767-81c7-8b34ae169517.jpg HTT
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:28b52db1-9162-4255-8793-0aec33eda5ee>
+WARC-Concurrent-To: <urn:uuid:17ef86e9-2c04-46a6-baf9-5361321501cf>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:842889523/b7e42d17-3aad-4767-81c7-8b34ae169517.jpg
-WARC-Date: 2023-07-19T00:37:43.385Z
+WARC-Date: 2025-05-14T14:07:40.367Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:ababa38e-c634-41ca-aa34-6ea9e512beeb>
+WARC-Record-ID: <urn:uuid:0afee64d-aa87-4984-a017-d5bc49d10595>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:86bb93f7c297ff6550564429ae96526aa173875615bfa461320f42e387c7294e
 WARC-Block-Digest: sha256:86bb93f7c297ff6550564429ae96526aa173875615bfa461320f42e387c7294e
@@ -3942,9 +3942,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:842889523/b7e42d17-3aad-4767-81c7-8b34ae169517.jpg
-WARC-Date: 2023-07-19T00:37:43.385Z
+WARC-Date: 2025-05-14T14:07:40.367Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:28b52db1-9162-4255-8793-0aec33eda5ee>
+WARC-Record-ID: <urn:uuid:17ef86e9-2c04-46a6-baf9-5361321501cf>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:c435cad579dc185a590e008a06c65c1a693beb245256dc66e56d2e6e65c09798
 WARC-Block-Digest: sha256:8f0448417171ab0abc5f1db3d693c3312a6499d99ad323fd7883fcd05c3452d1
@@ -4271,11 +4271,11 @@ t⁄OSæå‚û•{>`$˜=*‹*Àñv»ÌMÜ-@ÅR; \g5RïﬁÇØU+ÿdí‡7¶+ï’ßo4Ö8'Ç=kvvh£.yπ€ò÷mÚêw’ŸÉ
 ìLG«ï|G+©∏ª¢„t¥-‰EBíÜäﬂñ∆n-ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:9bfc4221-8873-46fc-a96a-471f4eab9b38>
+WARC-Concurrent-To: <urn:uuid:854b6570-10f5-43c7-b771-40c039308c04>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:940358692/46042a78-a829-4887-963a-3d61f180d517.jpg
-WARC-Date: 2023-07-19T00:37:43.385Z
+WARC-Date: 2025-05-14T14:07:40.368Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:8bd27be9-d803-4706-b8de-16c7079b9b94>
+WARC-Record-ID: <urn:uuid:efbad900-6512-4a7c-ac08-d6df66d93c05>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:79947295527a66b3cb9b703fbdf04a62238a6104f5ca9fc3c9b8fc003ff674c4
@@ -4286,11 +4286,11 @@ GET /bg/soundcloud:tracks:940358692/46042a78-a829-4887-963a-3d61f180d517.jpg HTT
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:9bfc4221-8873-46fc-a96a-471f4eab9b38>
+WARC-Concurrent-To: <urn:uuid:854b6570-10f5-43c7-b771-40c039308c04>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:940358692/46042a78-a829-4887-963a-3d61f180d517.jpg
-WARC-Date: 2023-07-19T00:37:43.385Z
+WARC-Date: 2025-05-14T14:07:40.368Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:5d07cf05-cd03-4157-ad84-9d4a5b6dd3c6>
+WARC-Record-ID: <urn:uuid:1a989e3b-8461-436a-b4c0-07bb9be3f7c3>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:3127526c17b75c55946458761618e5d4a0e9fe1170c990ebf67fe544c81bea2a
 WARC-Block-Digest: sha256:3127526c17b75c55946458761618e5d4a0e9fe1170c990ebf67fe544c81bea2a
@@ -4312,9 +4312,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:tracks:940358692/46042a78-a829-4887-963a-3d61f180d517.jpg
-WARC-Date: 2023-07-19T00:37:43.385Z
+WARC-Date: 2025-05-14T14:07:40.367Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:9bfc4221-8873-46fc-a96a-471f4eab9b38>
+WARC-Record-ID: <urn:uuid:854b6570-10f5-43c7-b771-40c039308c04>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:c435cad579dc185a590e008a06c65c1a693beb245256dc66e56d2e6e65c09798
 WARC-Block-Digest: sha256:8ee799c671a581a9d796194caf46adecc06b8b37860fa0cce323d061b5b9757b
@@ -4641,11 +4641,11 @@ t⁄OSæå‚û•{>`$˜=*‹*Àñv»ÌMÜ-@ÅR; \g5RïﬁÇØU+ÿdí‡7¶+ï’ßo4Ö8'Ç=kvvh£.yπ€ò÷mÚêw’ŸÉ
 ìLG«ï|G+©∏ª¢„t¥-‰EBíÜäﬂñ∆n-ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:19804683-db3c-4657-a5ee-d10cd82035c6>
+WARC-Concurrent-To: <urn:uuid:2e89ab39-9530-4ee6-9a81-e9722bdc226b>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:sounds:877767379/IAmOther_Vol2_VisualTrack_1.jpg
-WARC-Date: 2023-07-19T00:37:43.386Z
+WARC-Date: 2025-05-14T14:07:40.368Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:2c3d6dc0-c5f7-4c9a-b71a-82985cd8b31d>
+WARC-Record-ID: <urn:uuid:c8bd0b3e-9dc9-4879-bb37-38d0f18048e5>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:4e17bff13dc8bda0b600d4308478aad0662aa7f2cb50d7786c5b77760692ff3c
@@ -4656,11 +4656,11 @@ GET /bg/soundcloud:sounds:877767379/IAmOther_Vol2_VisualTrack_1.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:19804683-db3c-4657-a5ee-d10cd82035c6>
+WARC-Concurrent-To: <urn:uuid:2e89ab39-9530-4ee6-9a81-e9722bdc226b>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:sounds:877767379/IAmOther_Vol2_VisualTrack_1.jpg
-WARC-Date: 2023-07-19T00:37:43.386Z
+WARC-Date: 2025-05-14T14:07:40.368Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:bcb8c0d9-768f-4e81-98cb-40166fded91a>
+WARC-Record-ID: <urn:uuid:6586c851-0a41-4ebd-bc8e-fdacda162ca4>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:6a70169527c6a5b7a77d21c46c78b09ff6fd4db05f5e08e6db238826130afaa7
 WARC-Block-Digest: sha256:6a70169527c6a5b7a77d21c46c78b09ff6fd4db05f5e08e6db238826130afaa7
@@ -4682,9 +4682,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:sounds:877767379/IAmOther_Vol2_VisualTrack_1.jpg
-WARC-Date: 2023-07-19T00:37:43.385Z
+WARC-Date: 2025-05-14T14:07:40.368Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:19804683-db3c-4657-a5ee-d10cd82035c6>
+WARC-Record-ID: <urn:uuid:2e89ab39-9530-4ee6-9a81-e9722bdc226b>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:67258c8d9d62842eb6fa7f734568f40eac9162b54e619f39e7d8d59cd8f3a7c3
 WARC-Block-Digest: sha256:8a67cf3af4616075fbaf778d17e34022c7872050f2af432679b52cfb681c2f3d
@@ -5398,11 +5398,11 @@ wP(G4∏R‘àL¥øÖ¢ÅŒih¢êÑ¥Q@Rgä LQKILaEP=Ëß„S∆bå{”Ë„≠à:QKKäWƒÍ ßRb
 ÒTÂ'•kvpUìå] “ç˝*æ¬5erG7®Æ∫RÂíπ‚VÇír$^îÜô‘‹_eÑ≠	AXÛåbÙ≈U<*À6¡ÅU¯'5ÂÊìÑ‰¢∑.∆RÓ4•qExÔö:â‚Ê•⁄†âπ≈YØ•¿rŒäL∆Z2ªEœú25#*æÏúW=xR£/w©I∂!˘õn4P*ìEL≤µxÑ‹ô›Üúcπ{pûô€ö¶Ó’a}Œâ„vHø$ºsT«ÃŸ§…4‰RMt–§‹íGjŒ{í`‚¢*sä∂ ≈D¿^÷#Ó¶ŒXÀRc≠ ß7ZexÛ¥edhK∏üîS\0<“îÊ§‹Ö59‘íÉzh®ﬂ®àÖè53 F?†¶œı8<$h«MŒw&ı)4-ø+KrN–µw*ß,iíÄT◊lk'+\’M›\…Üﬂ~wTh|π˛oZ‘VPúVsF“>·]1ïÔs¢3rΩÕcÛ®*iÏªóädIµ2)Ë˘5«Zöú\∆¸àB”ûEãäê˜«˘Õf›ó¥ë«#È\∏,$)…§ç!gfh>Yœæ|√Z0]V+9‰]Áäı®CñÈ#¢å[Lç¡’∫’¬˚ÚTïHÕv¿Ìß£‘jHÑlq¯’y#16EDNMÊM¶µÂi›V∂®–∂uq¡ÈZ2ÂâßzÊ‘≤û*¯∫põkîùÓôÕRï›—y]8^ıòäÁÊy€YMvfç∂eËÇ‚¥#+YQÇ_åÕr‘GTM"g•W¡Œ*Ë‰T/9ÛÜ◊©(K£TÉNùøuöacRLEèj¨ôæy&Õ%nd—ê.I•A$¨Ùí¸Ñäâ\gææ1[§wFtÑ Ó»´Ò0≈B†Sà+»ÈJN˙7}8Ú*‚V\nxÕhFƒä‰úN±,jhÅöpÕr ù›Ãò`UcÇ’qÜj´.k¡Ã©5fçi±¨ªN)ËhŒÒäjú5yòy%5sYÆ®≥Ç)¡©A»¶0ÙØ´¯4^á7êÍëEt¬JJËAIO§≈P\(îRcõãÊM ÷¶äsSkQ°Ù u4–~x£4ﬁŸ§¢¡bPi¶êZ[éöM8”R)ó5i˘¢√hêZàp4ö%£ˇŸ
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d1b5e2a6-61a2-4d27-89d7-15625e3d4694>
+WARC-Concurrent-To: <urn:uuid:732caf10-cf68-4ef1-afbf-7c88a3c0605b>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:sounds:875288959/IAmOther_Vol2_VisualTrack_1.jpg
-WARC-Date: 2023-07-19T00:37:43.386Z
+WARC-Date: 2025-05-14T14:07:40.369Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:5cdb3cc4-2191-433b-b782-7d0c58948781>
+WARC-Record-ID: <urn:uuid:d2123016-eed3-4519-8a84-38ec37037686>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:c4bc38aa282f90f362d2b3268e065997400a50667eb993e380cc5f53a78d8dd1
@@ -5413,11 +5413,11 @@ GET /bg/soundcloud:sounds:875288959/IAmOther_Vol2_VisualTrack_1.jpg HTTP/1.1
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:d1b5e2a6-61a2-4d27-89d7-15625e3d4694>
+WARC-Concurrent-To: <urn:uuid:732caf10-cf68-4ef1-afbf-7c88a3c0605b>
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:sounds:875288959/IAmOther_Vol2_VisualTrack_1.jpg
-WARC-Date: 2023-07-19T00:37:43.386Z
+WARC-Date: 2025-05-14T14:07:40.369Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:3f7c4798-c821-46b2-a55c-039aa099248b>
+WARC-Record-ID: <urn:uuid:61e10786-b945-430c-9ac8-a047bfe34bdf>
 Content-Type: application/warc-fields
 WARC-Payload-Digest: sha256:ca59ba3e1691188663bdf3f4d1c2ed2f9f33a2fe1fad86bd9be9179d3023f146
 WARC-Block-Digest: sha256:ca59ba3e1691188663bdf3f4d1c2ed2f9f33a2fe1fad86bd9be9179d3023f146
@@ -5439,9 +5439,9 @@ warcResponseContentEncoding: base64
 
 WARC/1.1
 WARC-Target-URI: https://va.sndcdn.com/bg/soundcloud:sounds:875288959/IAmOther_Vol2_VisualTrack_1.jpg
-WARC-Date: 2023-07-19T00:37:43.386Z
+WARC-Date: 2025-05-14T14:07:40.369Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:d1b5e2a6-61a2-4d27-89d7-15625e3d4694>
+WARC-Record-ID: <urn:uuid:732caf10-cf68-4ef1-afbf-7c88a3c0605b>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:67258c8d9d62842eb6fa7f734568f40eac9162b54e619f39e7d8d59cd8f3a7c3
 WARC-Block-Digest: sha256:449040afe44fdd330b9c7d98b2bfb4070f513f5f1a5b16eb109378022f412f23
@@ -6153,4 +6153,337 @@ P¯§◊`k∞Á#®™ÁûqO-û)ô™J≈≈Xf)qNßÅ≈U l`Zz©ÕJ®1R™‘99âÇF)6‡
 wP(G4∏R‘àL¥øÖ¢ÅŒih¢êÑ¥Q@Rgä LQKILaEP=Ëß„S∆bå{”Ë„≠à:QKKäWƒÍ ßRbTÄP ÎR©lÜ¿—åqRccµEÃÓG∑öp\TÅEß\9ÜR*ÁìHj`*[!∞
 )qNË)EÃÔ®√UXˆ´F*±99≠ ç`∫ëÕFM<ìPü≠léà°¿vß®¶äëEÉd™π´H¢öãSt¨$ŒY»i§¢ÉRræ‡.x¶u§-⁄ã6ÇìBµB∆ëMW.ÜÆ•†sNÕD¥ÍñéòÀKíSv—ö\“-HäAï5WÀ»Õ]aöf ∏ ∆∞ï¥ã¥TÇî-.6“n‚î∫±@¶0Ùßñ®â§å'$»∑w¶π©
 ÒTÂ'•kvpUìå] “ç˝*æ¬5erG7®Æ∫RÂíπ‚VÇír$^îÜô‘‹_eÑ≠	AXÛåbÙ≈U<*À6¡ÅU¯'5ÂÊìÑ‰¢∑.∆RÓ4•qExÔö:â‚Ê•⁄†âπ≈YØ•¿rŒäL∆Z2ªEœú25#*æÏúW=xR£/w©I∂!˘õn4P*ìEL≤µxÑ‹ô›Üúcπ{pûô€ö¶Ó’a}Œâ„vHø$ºsT«ÃŸ§…4‰RMt–§‹íGjŒ{í`‚¢*sä∂ ≈D¿^÷#Ó¶ŒXÀRc≠ ß7ZexÛ¥edhK∏üîS\0<“îÊ§‹Ö59‘íÉzh®ﬂ®àÖè53 F?†¶œı8<$h«MŒw&ı)4-ø+KrN–µw*ß,iíÄT◊lk'+\’M›\…Üﬂ~wTh|π˛oZ‘VPúVsF“>·]1ïÔs¢3rΩÕcÛ®*iÏªóädIµ2)Ë˘5«Zöú\∆¸àB”ûEãäê˜«˘Õf›ó¥ë«#È\∏,$)…§ç!gfh>Yœæ|√Z0]V+9‰]Áäı®CñÈ#¢å[Lç¡’∫’¬˚ÚTïHÕv¿Ìß£‘jHÑlq¯’y#16EDNMÊM¶µÂi›V∂®–∂uq¡ÈZ2ÂâßzÊ‘≤û*¯∫põkîùÓôÕRï›—y]8^ıòäÁÊy€YMvfç∂eËÇ‚¥#+YQÇ_åÕr‘GTM"g•W¡Œ*Ë‰T/9ÛÜ◊©(K£TÉNùøuöacRLEèj¨ôæy&Õ%nd—ê.I•A$¨Ùí¸Ñäâ\gææ1[§wFtÑ Ó»´Ò0≈B†Sà+»ÈJN˙7}8Ú*‚V\nxÕhFƒä‰úN±,jhÅöpÕr ù›Ãò`UcÇ’qÜj´.k¡Ã©5fçi±¨ªN)ËhŒÒäjú5yòy%5sYÆ®≥Ç)¡©A»¶0ÙØ´¯4^á7êÍëEt¬JJËAIO§≈P\(îRcõãÊM ÷¶äsSkQ°Ù u4–~x£4ﬁŸ§¢¡bPi¶êZ[éöM8”R)ó5i˘¢√hêZàp4ö%£ˇŸ
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e83a0feb-1956-4105-85f0-7052d65399d8>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-yKWEoE0xZS11dixW-tVPxNA-large.jpg
+WARC-Date: 2025-05-14T14:07:40.369Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:6d069135-bd91-4e50-9fda-39c777a2276a>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:c6f81089539a505fedea72468401c5969dc11a2377336ad30283ca436ca04cb5
+Content-Length: 61
+
+HEAD /artworks-yKWEoE0xZS11dixW-tVPxNA-large.jpg HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e83a0feb-1956-4105-85f0-7052d65399d8>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-yKWEoE0xZS11dixW-tVPxNA-large.jpg
+WARC-Date: 2025-05-14T14:07:40.370Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:3c9bbbbb-c75d-469d-9a81-6cd615b05c74>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:97c131c21b80831f47964560acccb41c6582209a3c2b70afc37bc72205eaa176
+WARC-Block-Digest: sha256:97c131c21b80831f47964560acccb41c6582209a3c2b70afc37bc72205eaa176
+Content-Length: 348
+
+harEntryId: 84a40afb98544e717097e9926df7b645
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2025-05-14T14:07:39.813Z
+time: 123
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":123,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 84
+warcRequestCookies: []
+warcResponseHeadersSize: 602
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://i1.sndcdn.com/artworks-yKWEoE0xZS11dixW-tVPxNA-large.jpg
+WARC-Date: 2025-05-14T14:07:40.369Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:e83a0feb-1956-4105-85f0-7052d65399d8>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:66f55183737dc101d633bc8d636fa382301daa1fa137bbaa2a32b88f6a98c74e
+Content-Length: 619
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
+access-control-allow-methods: GET
+access-control-allow-origin: *
+age: 671
+cache-control: public,max-age=3628800
+connection: keep-alive
+content-length: 11406
+content-type: image/jpeg
+date: Wed, 14 May 2025 13:56:29 GMT
+via: 1.1 72bbe9480cff98da945e2581db417030.cloudfront.net (CloudFront)
+x-amz-cf-id: CFwZDIP_d0-cqzUpjeZGZez-6j0pzycIIu3-u-Cz83SrO-W0oT4v8g==
+x-amz-cf-pop: LHR50-P5
+x-cache: Hit from cloudfront
+x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-yKWEoE0xZS11dixW-tVPxNA-large.jpg
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:3cc82f8a-278a-423c-b94b-e3873b65828e>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-zY2HTkauzmNxTA50-Chh4zw-large.jpg
+WARC-Date: 2025-05-14T14:07:40.370Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:5548be6b-6cdd-4398-90d9-6a6e23da1303>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:eaf25e540d595c40fc33e8b1edd2aac13000931913c58f2bb194bd16acc991fe
+Content-Length: 61
+
+HEAD /artworks-zY2HTkauzmNxTA50-Chh4zw-large.jpg HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:3cc82f8a-278a-423c-b94b-e3873b65828e>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-zY2HTkauzmNxTA50-Chh4zw-large.jpg
+WARC-Date: 2025-05-14T14:07:40.370Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:5217b713-8e84-4142-9177-d134123719a6>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:9ac5458138cd8692bb219693583720ce5ee12e436cb1ae75d08741da593a83b4
+WARC-Block-Digest: sha256:9ac5458138cd8692bb219693583720ce5ee12e436cb1ae75d08741da593a83b4
+Content-Length: 348
+
+harEntryId: f8db1d3955aeafcf85c06088416d4e60
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2025-05-14T14:07:39.813Z
+time: 125
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":125,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 84
+warcRequestCookies: []
+warcResponseHeadersSize: 579
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://i1.sndcdn.com/artworks-zY2HTkauzmNxTA50-Chh4zw-large.jpg
+WARC-Date: 2025-05-14T14:07:40.370Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:3cc82f8a-278a-423c-b94b-e3873b65828e>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:d7f5b09b740a6c0d8782a46855f88f711db7ce72d36b6507b6be40ff93e19a7c
+Content-Length: 596
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
+access-control-allow-methods: GET
+access-control-allow-origin: *
+age: 670
+cache-control: public,max-age=3628800
+connection: keep-alive
+content-type: image/jpeg
+date: Wed, 14 May 2025 13:56:29 GMT
+via: 1.1 6d5e3d9ab9ac8268b8796ccae45ff34e.cloudfront.net (CloudFront)
+x-amz-cf-id: xzJq7n3cQK3oxpGseIFimxeGiD26IyRpe9ch_WqcY0WmmXDTPEkRTQ==
+x-amz-cf-pop: LHR50-P5
+x-cache: Hit from cloudfront
+x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-zY2HTkauzmNxTA50-Chh4zw-large.jpg
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:9d0182c4-0fe3-4f48-b37f-3aefc7e84988>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-EjZrLL9ryGLzFDyB-Pm0Vrw-large.jpg
+WARC-Date: 2025-05-14T14:07:40.425Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:23768be0-2901-441a-8e24-259cea29e955>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:af32281c06b06145c054654084411b763912401070e839d86eaecce2d933f5d3
+Content-Length: 61
+
+HEAD /artworks-EjZrLL9ryGLzFDyB-Pm0Vrw-large.jpg HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:9d0182c4-0fe3-4f48-b37f-3aefc7e84988>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-EjZrLL9ryGLzFDyB-Pm0Vrw-large.jpg
+WARC-Date: 2025-05-14T14:07:40.425Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:b006e0ee-7bd2-487c-b418-c17fe492b558>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:e903f7e6b335822adb5db335ebedd823d4f3ae1266d8be50990cd940d313538f
+WARC-Block-Digest: sha256:e903f7e6b335822adb5db335ebedd823d4f3ae1266d8be50990cd940d313538f
+Content-Length: 348
+
+harEntryId: ee8b02201a57e5b74bd4a5489b297969
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2025-05-14T14:07:39.813Z
+time: 442
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":442,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 84
+warcRequestCookies: []
+warcResponseHeadersSize: 601
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://i1.sndcdn.com/artworks-EjZrLL9ryGLzFDyB-Pm0Vrw-large.jpg
+WARC-Date: 2025-05-14T14:07:40.370Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:9d0182c4-0fe3-4f48-b37f-3aefc7e84988>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:f389ffa915cff3606f6aed8842c09d83d52bbae9c45213fc677a7cd76dff35da
+Content-Length: 618
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
+access-control-allow-methods: GET
+access-control-allow-origin: *
+age: 671
+cache-control: public,max-age=3628800
+connection: keep-alive
+content-length: 6314
+content-type: image/jpeg
+date: Wed, 14 May 2025 13:56:29 GMT
+via: 1.1 1ebee81f497eb06c92039c3b1faacc38.cloudfront.net (CloudFront)
+x-amz-cf-id: eSkLEJZ4ArHayXnETGxlzW2lJAnikl_HdF8Jh2NufECJGtsQpXkJ5A==
+x-amz-cf-pop: LHR50-P5
+x-cache: Hit from cloudfront
+x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-EjZrLL9ryGLzFDyB-Pm0Vrw-large.jpg
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:6817983d-9e49-4cfe-b7f9-b54695353dd5>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg
+WARC-Date: 2025-05-14T14:07:40.425Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:a4179506-e2f6-490d-a035-49c8d6435d5c>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:4cdd058d757cd1c11eeddcb26cc7f6895f88ea02e1c7ad9c4ffadd4a4b713fbd
+Content-Length: 61
+
+HEAD /artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:6817983d-9e49-4cfe-b7f9-b54695353dd5>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg
+WARC-Date: 2025-05-14T14:07:40.426Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:728bb711-85a2-43db-8939-91acdd19fae8>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:a2b3372b1713f7d3b7f253310f6704d8e87d2e185a4043df3c8d3c8ee25dddc3
+WARC-Block-Digest: sha256:a2b3372b1713f7d3b7f253310f6704d8e87d2e185a4043df3c8d3c8ee25dddc3
+Content-Length: 348
+
+harEntryId: c720c971795dd324cb109c7c8324a718
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2025-05-14T14:07:39.813Z
+time: 482
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":482,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 84
+warcRequestCookies: []
+warcResponseHeadersSize: 601
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://i1.sndcdn.com/artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg
+WARC-Date: 2025-05-14T14:07:40.425Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:6817983d-9e49-4cfe-b7f9-b54695353dd5>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:f2cc4bc92264233a50f03c88b7056a887ba3a8eb2e3ffeb00c35f8189d70e70e
+Content-Length: 618
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
+access-control-allow-methods: GET
+access-control-allow-origin: *
+age: 671
+cache-control: public,max-age=3624457
+connection: keep-alive
+content-length: 2688
+content-type: image/jpeg
+date: Wed, 14 May 2025 13:56:29 GMT
+via: 1.1 b5451ddffd7def7e4bf1c43f965bcbda.cloudfront.net (CloudFront)
+x-amz-cf-id: ZTE0mkBmDCZMceAG6oB_KwxfOdFvsvvHAWj1BQvphNdgL5JQbNmV3A==
+x-amz-cf-pop: LHR50-P5
+x-cache: Hit from cloudfront
+x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-1z5AemY1kIczRbg6-oixGUQ-large.jpg
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:a565f4e5-839e-4a49-a88e-80137f30294c>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-qLvJJfstzJcnCP3S-F9GwNQ-large.jpg
+WARC-Date: 2025-05-14T14:07:40.426Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:90f7b571-0dbf-4fce-80c7-ef5723b34cc7>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:20c7f16bc8165097b20ad272d742ae4133b7788b7915eada1a9050f7e2df90de
+Content-Length: 61
+
+HEAD /artworks-qLvJJfstzJcnCP3S-F9GwNQ-large.jpg HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:a565f4e5-839e-4a49-a88e-80137f30294c>
+WARC-Target-URI: https://i1.sndcdn.com/artworks-qLvJJfstzJcnCP3S-F9GwNQ-large.jpg
+WARC-Date: 2025-05-14T14:07:40.426Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:3512e4d9-8168-470a-8b1c-55999aa546a0>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:80551bc1a6a7bd2f82493db5e9ec7b343e80872d58138abc408558521b65da75
+WARC-Block-Digest: sha256:80551bc1a6a7bd2f82493db5e9ec7b343e80872d58138abc408558521b65da75
+Content-Length: 348
+
+harEntryId: 91803c082a4a776f84e3f0d06ef8f4f8
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2025-05-14T14:07:39.813Z
+time: 484
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":484,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 84
+warcRequestCookies: []
+warcResponseHeadersSize: 579
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://i1.sndcdn.com/artworks-qLvJJfstzJcnCP3S-F9GwNQ-large.jpg
+WARC-Date: 2025-05-14T14:07:40.426Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:a565f4e5-839e-4a49-a88e-80137f30294c>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:34c6db652ecc02dfd626274e30db32470654c138573af25c7c5b05fec7fe6813
+Content-Length: 596
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Accept, Accept-Encoding, Authorization, Content-Type, Origin
+access-control-allow-methods: GET
+access-control-allow-origin: *
+age: 671
+cache-control: public,max-age=3628800
+connection: keep-alive
+content-type: image/jpeg
+date: Wed, 14 May 2025 13:56:29 GMT
+via: 1.1 5b66c49d121e11542e2a99a7bf794c2c.cloudfront.net (CloudFront)
+x-amz-cf-id: TAf9ym-JUlv4-rcSjGUKPDieRWGigsxZpIjf-Em-bopTdl2Zvr8KdQ==
+x-amz-cf-pop: LHR50-P5
+x-cache: Hit from cloudfront
+x-pollyjs-finalurl: https://i1.sndcdn.com/artworks-qLvJJfstzJcnCP3S-F9GwNQ-large.jpg
+
+
 

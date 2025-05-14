@@ -197,25 +197,45 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
     }
 
     private async groupImageUrlsByContent(imageGroups: URLGroup[]): Promise<URLGroup[]> {
-        LOGGER.info('Deduplicating track images by content, this may take a while…');
+        LOGGER.info('Deduplicating track images by file size, this may take a while…');
 
-        // Extend the track image with the track's unique digest. We compute
-        // this digest once for each unique URL.
+        let groupedBySize: URLGroup[][];
+        try {
+            const imagesWithSize = await getImageSizes(imageGroups);
+            groupedBySize = [...groupBy(imagesWithSize, (image) => image.size, (image) => image.group).values()];
+        } catch (error) {
+            LOGGER.error('Cannot deduplicate based on file size', error);
+            groupedBySize = [imageGroups];
+        }
+
+        // Groups with the same file size need to be further compared based on
+        // content.
+        LOGGER.info('Deduplicating track images by file contents, this may take a while…');
         let numberProcessed = 0;
-        const imagesWithDigest = await Promise.all(imageGroups.map(async (group) => {
-            const digest = await urlToDigest(group[0]);
-            // Cannot use `map`'s index argument since this is asynchronous
-            // and might resolve out of order.
-            numberProcessed++;
-            LOGGER.info(`Deduplicating track images by content, this may take a while… (${numberProcessed}/${imageGroups.length})`);
-            return {
-                group,
-                digest,
-            };
-        }));
-        const groupedByContent = groupBy(imagesWithDigest, (image) => image.digest, (image) => image.group);
+        const groupedByContent = await Promise.all(groupedBySize.map(async (groups) => {
+            // `groups` is a list of groups with the same size. URLs in individual
+            // groups are equivalent, but they might not be equivalent across
+            // different groups.
 
-        return [...groupedByContent.values()].map((groups) => groups.flat());
+            numberProcessed++;
+            LOGGER.info(`Deduplicating track images by file contents, this may take a while… (${numberProcessed}/${groupedBySize.length})`);
+
+            // No need to check if there's only one group.
+            if (groups.length <= 1) {
+                return groups;
+            }
+
+            // Compute a digest of the image content for each group of images that
+            // need to be compared.
+            const imagesWithDigest = await getImageDigests(groups);
+            const groupedImages = groupBy(imagesWithDigest, (image) => image.digest, (image) => image.group);
+            // groupedImages = { digest1 -> [g1, g2]; digest2 -> [g3]; ... }
+            // Now merge the equivalent groups: { digest1 -> g12; digest2 -> g3; ... }
+            // and return the groups.
+            return [...groupedImages.values()].map((matchedGroups) => matchedGroups.flat());
+        }));
+
+        return groupedByContent.flat();
     }
 
     protected async mergeTrackImages(parsedTrackImages: Array<ParsedTrackImage | undefined>, mainUrl: string | undefined, byContent: boolean): Promise<CoverArt[]> {
@@ -247,7 +267,46 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
     }
 }
 
-async function urlToDigest(imageUrl: string): Promise<string> {
+interface URLGroupWithSize { group: URLGroup; size: number };
+interface URLGroupWithDigest { group: URLGroup; digest: string };
+
+async function getImageSizes(imageGroups: URLGroup[]): Promise<URLGroupWithSize[]> {
+    // Cannot use `map`'s index argument since the callbacks are asynchronous
+    // and might resolve out of order, so we need to keep track of a counter.
+    let numberProcessed = 0;
+    let results: URLGroupWithSize[] = [];
+
+    // Do it in batches: Any URL may trigger a failure, and we want to skip the
+    // remaining URLs in case that happens. We don't want to do it one-by-one
+    // though.
+    for (const batch of splitChunks(imageGroups, 10)) {
+        const batchResults = await Promise.all(batch.map(async (group) =>
+            ({ group, size: await getFileSize(group[0]) }),
+        ));
+
+        results = [...results, ...batchResults];
+        numberProcessed += batchResults.length;
+        LOGGER.info(`Deduplicating track images by file size, this may take a while… (${numberProcessed}/${imageGroups.length})`);
+    }
+
+    return results;
+}
+
+async function getFileSize(imageUrl: string): Promise<number> {
+    const response = await request.head(imageUrl);
+    const fileSize = response.headers.get('Content-Length')?.match(/\d+/)?.[0];
+    // This often happens on Soundcloud images.
+    assertDefined(fileSize, `Could not fetch file size for ${imageUrl}`);
+    return Number.parseInt(fileSize);
+}
+
+function getImageDigests(groups: URLGroup[]): Promise<URLGroupWithDigest[]> {
+    return Promise.all(groups.map(async (group) =>
+        ({ group, digest: await getFileDigest(group[0]) }),
+    ));
+}
+
+async function getFileDigest(imageUrl: string): Promise<string> {
     const response = await request.get(imageUrl, {
         responseType: 'blob',
     });
