@@ -36,7 +36,6 @@ const BABEL_OPTIONS: RollupBabelInputPluginOptions = {
 
 const TERSER_OPTIONS: MinifyOptions = {
     ecma: 5,
-    safari10: true, // Supported by MB
     compress: {
         passes: 4,
     },
