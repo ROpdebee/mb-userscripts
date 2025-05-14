@@ -12,6 +12,7 @@
         // Include ambient declarations by default for stuff that is available
         // by default in userscripts, like the GM API and JSX types provided by
         // nativejsx, which we use during transpilation.
-        "types": ["greasemonkey", "nativejsx/types/jsx"]
+        "types": ["greasemonkey", "nativejsx/types/jsx"],
+        "lib": ["ES2022", "DOM.Iterable"]
     }
 }
