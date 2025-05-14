@@ -8,7 +8,7 @@ function splitDomain(domain: string): string[] {
     let splitIndex = -2;
     // Watch out for e.g. amazon.co.uk or amazon.com.au. Our handling of this is
     // pretty naive (co.be is a valid site for example), but it works well enough.
-    if (['org', 'co', 'com'].includes(parts[parts.length - 2])) {
+    if (['org', 'co', 'com'].includes(parts.at(-2)!)) {
         splitIndex = -3;
     }
     return [

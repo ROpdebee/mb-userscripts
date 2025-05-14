@@ -1,7 +1,6 @@
-# Browser versions released since 2021-01-01
-chrome >= 88
-edge >= 88
-firefox >= 85
-# Safari 15 was released after 2021-01-01, but we need at least version 15 to support IDBCursor.request, which is needed by idb. See https://caniuse.com/mdn-api_idbcursor_request
-safari >= 15
-opera >= 73
+# Browser versions that support ES2022
+chrome >= 93
+edge >= 93
+firefox >= 92
+safari >= 15.4
+opera >= 79
