@@ -1,7 +1,6 @@
 // ES modules which need to be transformed by babel for use in jest.
 const esModules = [
     'node-fetch',
-    'p-throttle',
     'p-retry',
     'warcio',
     // Imported by node-fetch

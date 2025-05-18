@@ -1,16 +1,35 @@
-import pThrottle from 'p-throttle';
-
 import type { Dimensions } from '@src/mb_caa_dimensions/image-info';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { filterNonNull } from '@lib/util/array';
-import { parseDOM, qs, qsa, qsMaybe } from '@lib/util/dom';
+import { assert, assertDefined } from '@lib/util/assert';
+import { parseDOM, qs } from '@lib/util/dom';
+import { safeParseJSON } from '@lib/util/json';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 
 import type { CoverArt } from '../types';
-import type { ParsedTrackImage } from './base';
 import { CONFIG } from '../config';
 import { ProviderWithTrackImages } from './base';
+
+// JSON type definitions adapted from Kellnerd, released under MIT license.
+// https://github.com/kellnerd/harmony/blob/eeafbd6244f358f68debc74cd8a1ee240d49ede0/providers/Bandcamp/json_types.ts
+interface TrAlbum {
+    art_id: number | null;
+    item_type: 'album' | 'track';
+    id: number;
+    /** Relative URL of the release this track is part of (`null` for standalone tracks), not present for album type. */
+    album_url?: string | null;
+}
+
+interface PlayerData {
+    album_art_id: number;
+    tracks: Array<{
+        /** ID of the track art. */
+        art_id: number | null;
+        /** Number of the track (zero-based index). */
+        tracknum: number;
+    }>;
+}
 
 export class BandcampProvider extends ProviderWithTrackImages {
     public readonly supportedDomains = ['*.bandcamp.com'];
@@ -25,13 +44,19 @@ export class BandcampProvider extends ProviderWithTrackImages {
     }
 
     public async findImages(url: URL): Promise<CoverArt[]> {
-        const responseDocument = parseDOM(await this.fetchPage(url), url.href);
-        const albumCoverUrl = this.extractCover(responseDocument);
+        const tralbum = await this.extractAlbumData(url);
+
+        const albumArtId = tralbum.art_id;
+        const isAlbum = tralbum.item_type === 'album';
+
+        if (!isAlbum && tralbum.album_url) {
+            LOGGER.warn('This Bandcamp track is part of an album rather than a standalone release');
+        }
 
         const covers: CoverArt[] = [];
-        if (albumCoverUrl) {
+        if (albumArtId) {
             covers.push({
-                url: new URL(albumCoverUrl),
+                url: new URL(this.constructArtUrl(albumArtId)),
                 types: [ArtworkTypeIDs.Front],
             });
         } else {
@@ -39,55 +64,36 @@ export class BandcampProvider extends ProviderWithTrackImages {
             LOGGER.warn('Bandcamp release has no cover');
         }
 
-        const trackImages = (await CONFIG.bandcamp.skipTrackImages)
-            ? []
-            : await this.findTrackImages(responseDocument, albumCoverUrl);
+        const shouldExtractTrackImages = isAlbum && !(await CONFIG.bandcamp.skipTrackImages);
+        const trackImages = shouldExtractTrackImages ? await this.findTrackImages(tralbum.id, albumArtId) : [];
 
         return this.amendSquareThumbnails([...covers, ...trackImages]);
     }
 
-    private extractCover(document_: Document): string | undefined {
-        if (qsMaybe('#missing-tralbum-art', document_) !== null) {
-            // No images
-            return;
-        }
-
-        return qs<HTMLAnchorElement>('#tralbumArt > .popupImage', document_).href;
+    private constructArtUrl(artId: number): string {
+        return `https://f4.bcbits.com/img/a${artId}_10.jpg`;
     }
 
-    private async findTrackImages(document_: Document, mainUrl?: string): Promise<CoverArt[]> {
-        // Unfortunately it doesn't seem like they can be extracted from the
-        // album page itself, so we have to load each of the tracks separately.
-        // Deliberately throttling these requests as to not flood Bandcamp and
-        // potentially get banned.
-        // It appears that they used to have an API which returned all track
-        // images in one request, but that API has been locked down :(
-        // https://michaelherger.github.io/Bandcamp-API/#/Albums/get_api_album_2_info
-        const trackRows = qsa<HTMLTableRowElement>('#track_table .track_row_view', document_);
-        if (trackRows.length === 0) return [];
-        LOGGER.info('Checking for Bandcamp track images, this may take a few seconds…');
+    private async findTrackImages(albumId: number, frontArtId: number | null): Promise<CoverArt[]> {
+        // It's possible to load all track image artwork from the embedded player
+        // https://github.com/ROpdebee/mb-userscripts/issues/765
+        const playerData = await this.extractPlayerData(albumId);
+        assert(playerData.album_art_id === frontArtId, 'Mismatching front album art between Bandcamp embedded player and release page');
 
-        // Max 5 requests per second
-        const throttledFetchPage = pThrottle({
-            interval: 1000,
-            limit: 5,
-        })(this.fetchPage.bind(this));
+        const trackImages = playerData.tracks.map((track) => {
+            if (track.art_id) {
+                return {
+                    url: this.constructArtUrl(track.art_id),
+                    trackNumber: (track.tracknum + 1).toString(),
+                };
+            }
+            return undefined;
+        });
 
-        // This isn't the most efficient, as it'll have to request all tracks
-        // before it even returns the main album cover. Although fixable by
-        // e.g. using an async generator, it might lead to issues with users
-        // submitting the upload form before all track images are fetched...
-        let numberProcessed = 0;
-        const trackImages = await Promise.all(trackRows
-            .map(async (trackRow) => {
-                const trackImage = await this.findTrackImage(trackRow, throttledFetchPage);
-                // Cannot use `map`'s index argument since this is asynchronous
-                // and might resolve out of order.
-                numberProcessed++;
-                LOGGER.info(`Checking for Bandcamp track images, this may take a few seconds… (${numberProcessed}/${trackRows.length})`);
-                return trackImage;
-            }));
-        const mergedTrackImages = await this.mergeTrackImages(trackImages, mainUrl, true);
+        /* istanbul ignore next: Cannot find negative case. */
+        const frontArtUrl = frontArtId ? this.constructArtUrl(frontArtId) : undefined;
+        const mergedTrackImages = await this.mergeTrackImages(trackImages, frontArtUrl, true);
+
         if (mergedTrackImages.length > 0) {
             LOGGER.info(`Found ${mergedTrackImages.length} unique track images`);
         } else {
@@ -97,34 +103,19 @@ export class BandcampProvider extends ProviderWithTrackImages {
         return mergedTrackImages;
     }
 
-    private async findTrackImage(trackRow: HTMLTableRowElement, fetchPage: (url: URL) => Promise<string>): Promise<ParsedTrackImage | undefined> {
-        // Account for alphabetical track numbers too
-        const trackNumber = trackRow.getAttribute('rel')?.match(/tracknum=(\w+)/)?.[1];
-        const trackUrl = qsMaybe<HTMLAnchorElement>('.title > a', trackRow)?.href;
+    private async extractAlbumData(url: URL): Promise<TrAlbum> {
+        const responseDocument = parseDOM(await this.fetchPage(url), url.href);
+        const tralbum = safeParseJSON<TrAlbum>(qs<HTMLScriptElement>('[data-tralbum]', responseDocument).dataset.tralbum!);
+        assertDefined(tralbum, 'Could not extract Bandcamp tralbum JSON info');
+        return tralbum;
+    }
 
-        /* istanbul ignore if: Cannot immediately find a release where a track is not linked */
-        if (!trackUrl) {
-            LOGGER.warn(`Could not check track ${trackNumber} for track images`);
-            return;
-        }
-
-        try {
-            const trackPage = parseDOM(await fetchPage(new URL(trackUrl)), trackUrl);
-            const imageUrl = this.extractCover(trackPage);
-            /* istanbul ignore if: Cannot find example */
-            if (!imageUrl) {
-                // Track has no cover
-                return;
-            }
-
-            return {
-                url: imageUrl,
-                trackNumber: trackNumber,
-            };
-        } catch (error) /* istanbul ignore next: Difficult to test */ {
-            LOGGER.error(`Could not check track ${trackNumber} for track images`, error);
-            return;
-        }
+    private async extractPlayerData(albumId: number): Promise<PlayerData> {
+        const playerUrl = `https://bandcamp.com/EmbeddedPlayer/album=${albumId}`;
+        const responseDocument = parseDOM(await this.fetchPage(new URL(playerUrl)), playerUrl);
+        const playerData = safeParseJSON<PlayerData>(qs<HTMLScriptElement>('[data-player-data]', responseDocument).dataset.playerData!);
+        assertDefined(playerData, 'Could not extract player data from Bandcamp embedded player');
+        return playerData;
     }
 
     private async amendSquareThumbnails(covers: CoverArt[]): Promise<CoverArt[]> {

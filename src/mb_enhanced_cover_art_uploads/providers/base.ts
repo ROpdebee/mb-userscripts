@@ -249,7 +249,7 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
 
         let allTrackImageUrls = allTrackImages.map((image) => image.url);
         if (mainUrl) {
-            allTrackImageUrls.push(this.imageToThumbnailUrl(mainUrl));
+            allTrackImageUrls.push(mainUrl);
         }
         // Convert URLs to consistent URLs.
         allTrackImageUrls = allTrackImageUrls.map((url) => this.imageToThumbnailUrl(url));
@@ -263,7 +263,11 @@ export abstract class ProviderWithTrackImages extends CoverArtProvider {
             imageGroups = await this.groupImageUrlsByContent(imageGroups);
         }
 
-        return createCoverArtForTrackImageGroups(imageGroups, urlToTrackImages, mainUrl);
+        return createCoverArtForTrackImageGroups(
+            imageGroups, urlToTrackImages,
+            // Main URL may have been adjusted to a thumbnail URL, need to
+            // the same so that comparisons continue working.
+            mainUrl ? this.imageToThumbnailUrl(mainUrl) : undefined);
     }
 }
 
