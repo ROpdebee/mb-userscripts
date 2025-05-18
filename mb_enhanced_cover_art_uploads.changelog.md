@@ -1,3 +1,4 @@
+- **2025.5.18**: Performance improvements: optimise track image extraction and deduplication ([#842](https://github.com/ROpdebee/mb-userscripts/pull/842))
 - **2025.5.12.2**: New feature: add Metal Archives provider ([#840](https://github.com/ROpdebee/mb-userscripts/pull/840))
 - **2025.5.12**: New feature: add MusicCircle provider ([#839](https://github.com/ROpdebee/mb-userscripts/pull/839))
 - **2025.5.11**: Internal changes: lock file maintenance ([#838](https://github.com/ROpdebee/mb-userscripts/pull/838))
