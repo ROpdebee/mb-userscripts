@@ -1,3 +1,4 @@
+import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 import { CONFIG } from '@src/mb_enhanced_cover_art_uploads/config';
@@ -10,7 +11,13 @@ import { urlMatchingSpec } from './url-matching-spec';
 // We need to mock getImageDimensions since jsdom doesn't actually load images.
 // See also tests/mb_caa_dimensions/dimensions.test.ts
 jest.mock('@src/mb_caa_dimensions/dimensions');
+jest.mock('@lib/logging/logger');
 const mockGetImageDimensions = jest.mocked(getImageDimensions);
+const mockLoggerWarn = jest.mocked(LOGGER.warn);
+
+afterEach(() => {
+    mockLoggerWarn.mockReset();
+});
 
 describe('bandcamp provider', () => {
     const provider = new BandcampProvider();
@@ -148,6 +155,13 @@ describe('bandcamp provider', () => {
         it('deduplicates track images by thumbnail content', async () => {
             await expect(provider.findImages(new URL('https://inhuman1.bandcamp.com/album/course-of-human-destruction')))
                 .resolves.toBeArrayOfSize(1);
+        });
+
+        it('warns about non-standalone track releases', async () => {
+            const results = await provider.findImages(new URL('https://nyokee.bandcamp.com/track/nyokee-sweet-obsession'));
+
+            expect(results).toBeArrayOfSize(1);
+            expect(mockLoggerWarn).toHaveBeenCalledWith(expect.stringContaining('part of an album'));
         });
     });
 });
