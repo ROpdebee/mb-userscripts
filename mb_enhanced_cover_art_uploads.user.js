@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2025.5.18
+// @version      2025.5.30
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -773,6 +773,10 @@
     }
     async findTrackImages(albumId, frontArtId) {
       const playerData = await this.extractPlayerData(albumId);
+      if (playerData === undefined) {
+        LOGGER.warn('Failed to extract track images: Player data could not be loaded. This may happen when tracks cannot be played (e.g., subscriber-only releases).');
+        return [];
+      }
       assert(playerData.album_art_id === frontArtId, 'Mismatching front album art between Bandcamp embedded player and release page');
       const trackImages = playerData.tracks.map(track => {
         if (track.art_id) {
@@ -799,10 +803,18 @@
       return tralbum;
     }
     async extractPlayerData(albumId) {
+      var _qsMaybe;
       const playerUrl = `https://bandcamp.com/EmbeddedPlayer/album=${albumId}`;
       const responseDocument = parseDOM(await this.fetchPage(new URL(playerUrl)), playerUrl);
-      const playerData = safeParseJSON(qs('[data-player-data]', responseDocument).dataset.playerData);
-      assertDefined(playerData, 'Could not extract player data from Bandcamp embedded player');
+      const playerDataJson = (_qsMaybe = qsMaybe('[data-player-data]', responseDocument)) === null || _qsMaybe === void 0 ? void 0 : _qsMaybe.dataset.playerData;
+      if (playerDataJson === undefined) {
+        LOGGER.warn('Could not extract player data from page');
+        return undefined;
+      }
+      const playerData = safeParseJSON(playerDataJson);
+      if (playerData === undefined) {
+        LOGGER.warn('Could not parse player data from page');
+      }
       return playerData;
     }
     async amendSquareThumbnails(covers) {

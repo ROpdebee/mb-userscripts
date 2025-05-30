@@ -1,3 +1,4 @@
+- **2025.5.30**: Bug fix: gracefully handle failures in Bandcamp track image extraction ([#844](https://github.com/ROpdebee/mb-userscripts/pull/844))
 - **2025.5.18**: Performance improvements: optimise track image extraction and deduplication ([#842](https://github.com/ROpdebee/mb-userscripts/pull/842))
 - **2025.5.12.2**: New feature: add Metal Archives provider ([#840](https://github.com/ROpdebee/mb-userscripts/pull/840))
 - **2025.5.12**: New feature: add MusicCircle provider ([#839](https://github.com/ROpdebee/mb-userscripts/pull/839))
