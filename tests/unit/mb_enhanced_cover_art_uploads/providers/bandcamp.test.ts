@@ -79,6 +79,15 @@ describe('bandcamp provider', () => {
                 types: [ArtworkTypeIDs.Track],
                 comment: 'Track 5',
             }],
+        }, {
+            description: 'subscriber-only releases',
+            url: 'https://arbee.bandcamp.com/album/des-papiers-ii',
+            imageCount: 1,
+            expectedImages: [{
+                index: 0,
+                urlPart: 'a1289075493_',
+                types: [ArtworkTypeIDs.Front],
+            }],
         }];
 
         const extractionFailedCases = [{

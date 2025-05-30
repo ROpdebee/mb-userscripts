@@ -3,7 +3,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { filterNonNull } from '@lib/util/array';
 import { assert, assertDefined } from '@lib/util/assert';
-import { parseDOM, qs } from '@lib/util/dom';
+import { parseDOM, qs, qsMaybe } from '@lib/util/dom';
 import { safeParseJSON } from '@lib/util/json';
 import { getImageDimensions } from '@src/mb_caa_dimensions/dimensions';
 
@@ -78,6 +78,10 @@ export class BandcampProvider extends ProviderWithTrackImages {
         // It's possible to load all track image artwork from the embedded player
         // https://github.com/ROpdebee/mb-userscripts/issues/765
         const playerData = await this.extractPlayerData(albumId);
+        if (playerData === undefined) {
+            LOGGER.warn('Failed to extract track images: Player data could not be loaded. This may happen when tracks cannot be played (e.g., subscriber-only releases).');
+            return [];
+        }
         assert(playerData.album_art_id === frontArtId, 'Mismatching front album art between Bandcamp embedded player and release page');
 
         const trackImages = playerData.tracks.map((track) => {
@@ -110,11 +114,20 @@ export class BandcampProvider extends ProviderWithTrackImages {
         return tralbum;
     }
 
-    private async extractPlayerData(albumId: number): Promise<PlayerData> {
+    private async extractPlayerData(albumId: number): Promise<PlayerData | undefined> {
         const playerUrl = `https://bandcamp.com/EmbeddedPlayer/album=${albumId}`;
         const responseDocument = parseDOM(await this.fetchPage(new URL(playerUrl)), playerUrl);
-        const playerData = safeParseJSON<PlayerData>(qs<HTMLScriptElement>('[data-player-data]', responseDocument).dataset.playerData!);
-        assertDefined(playerData, 'Could not extract player data from Bandcamp embedded player');
+
+        const playerDataJson = qsMaybe<HTMLScriptElement>('[data-player-data]', responseDocument)?.dataset.playerData;
+        if (playerDataJson === undefined) {
+            LOGGER.warn('Could not extract player data from page');
+            return undefined;
+        }
+        const playerData = safeParseJSON<PlayerData>(playerDataJson);
+        /* istanbul ignore next: Should not happen. */
+        if (playerData === undefined) {
+            LOGGER.warn('Could not parse player data from page');
+        }
         return playerData;
     }
 
