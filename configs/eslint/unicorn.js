@@ -45,9 +45,6 @@ export default [
             // places where in my opinion, an explicit `undefined` reduced confusion.
             'unicorn/no-useless-undefined': 'off',
 
-            // Not available in all supported browsers, and too expensive to polyfill.
-            'unicorn/prefer-at': 'off',
-
             // Not available in `jsdom`, so using it breaks tests.
             'unicorn/prefer-blob-reading-methods': 'off',
 
