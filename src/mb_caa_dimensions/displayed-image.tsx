@@ -15,7 +15,7 @@ export interface DisplayedImage {
 
 export function createDimensionsString(imageInfo: ImageInfo): string {
     return (imageInfo.dimensions !== undefined
-        ? `${imageInfo.dimensions.width}x${imageInfo.dimensions.height}`
+        ? `${imageInfo.dimensions.width}×${imageInfo.dimensions.height}`
         : 'failed :(');
 }
 
@@ -183,7 +183,7 @@ export class DisplayedQueuedUploadImage extends BaseDisplayedImage {
         if (this.imageElement.src.endsWith('/static/images/icons/pdf-icon.png')) return;
 
         const dimensions = await this.image.getDimensions();
-        const infoString = `${dimensions.width}x${dimensions.height}`;
+        const infoString = `${dimensions.width}×${dimensions.height}`;
         this.dimensionsSpan.textContent = infoString;
     }
 }

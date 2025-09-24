@@ -131,7 +131,7 @@ async function addDimensions(fig: HTMLElement): Promise<void> {
     const imageInfo = await getImageInfo(imageUrl);
 
     const infoStringParts = [
-        imageInfo.dimensions ? `${imageInfo.dimensions.width}x${imageInfo.dimensions.height}` : '',
+        imageInfo.dimensions ? `${imageInfo.dimensions.width}×${imageInfo.dimensions.height}` : '',
         imageInfo.size !== undefined ? formatFileSize(imageInfo.size) : '',
         imageInfo.fileType,
     ];
