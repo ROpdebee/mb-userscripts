@@ -1,6 +1,7 @@
 import { qsMaybe } from '@lib/util/dom';
 
 import { HeadMetaPropertyProvider } from './base';
+import type { RequestOptions } from '@lib/util/request';
 
 export class SpotifyProvider extends HeadMetaPropertyProvider {
     public readonly supportedDomains = ['open.spotify.com'];
@@ -10,5 +11,15 @@ export class SpotifyProvider extends HeadMetaPropertyProvider {
 
     protected override is404Page(document_: Document): boolean {
         return qsMaybe('head > meta[property="og:title"]', document_) === null;
+    }
+
+    protected override fetchPage(url: URL, options?: RequestOptions): Promise<string> {
+        return super.fetchPage(url, {
+            ...options,
+            headers: {
+                ...options?.headers,
+                'User-Agent': null,
+            },
+        });
     }
 }
