@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Display CAA image dimensions
 // @description  Displays the dimensions and size of images in the cover art archive.
-// @version      2025.5.11
+// @version      2025.10.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -261,7 +261,7 @@
   }
 
   function createDimensionsString(imageInfo) {
-      return imageInfo.dimensions !== undefined ? `${ imageInfo.dimensions.width }x${ imageInfo.dimensions.height }` : 'failed :(';
+      return imageInfo.dimensions !== undefined ? `${ imageInfo.dimensions.width }×${ imageInfo.dimensions.height }` : 'failed :(';
   }
   function createFileInfoString(imageInfo) {
       const details = [];
@@ -390,7 +390,7 @@
           if (this.imageElement.src.endsWith('/static/images/icons/pdf-icon.png'))
               return;
           const dimensions = await this.image.getDimensions();
-          const infoString = `${ dimensions.width }x${ dimensions.height }`;
+          const infoString = `${ dimensions.width }×${ dimensions.height }`;
           this.dimensionsSpan.textContent = infoString;
       }
   }
