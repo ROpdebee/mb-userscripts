@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2025.5.30
+// @version      2025.10.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2861,7 +2861,7 @@
       qs('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
       const imageInfo = await getImageInfo(imageUrl);
       const infoStringParts = [
-          imageInfo.dimensions ? `${ imageInfo.dimensions.width }x${ imageInfo.dimensions.height }` : '',
+          imageInfo.dimensions ? `${ imageInfo.dimensions.width }×${ imageInfo.dimensions.height }` : '',
           imageInfo.size !== undefined ? formatFileSize(imageInfo.size) : '',
           imageInfo.fileType
       ];
@@ -2967,7 +2967,7 @@
       qs('figcaption', fig).insertAdjacentElement('beforeend', dimSpan);
       const imageInfo = await getImageInfo(imageUrl);
       const infoStringParts = [
-          imageInfo.dimensions ? `${ imageInfo.dimensions.width }x${ imageInfo.dimensions.height }` : '',
+          imageInfo.dimensions ? `${ imageInfo.dimensions.width }×${ imageInfo.dimensions.height }` : '',
           imageInfo.size !== undefined ? formatFileSize(imageInfo.size) : '',
           imageInfo.fileType
       ];
