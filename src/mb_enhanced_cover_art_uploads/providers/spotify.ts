@@ -1,3 +1,4 @@
+import type { RequestOptions } from '@lib/util/request';
 import { qsMaybe } from '@lib/util/dom';
 
 import { HeadMetaPropertyProvider } from './base';
@@ -10,5 +11,16 @@ export class SpotifyProvider extends HeadMetaPropertyProvider {
 
     protected override is404Page(document_: Document): boolean {
         return qsMaybe('head > meta[property="og:title"]', document_) === null;
+    }
+
+    // Spotify messes with Open Graph tags based on User-Agent. See also https://community.metabrainz.org/t/551947/210
+    protected override fetchPage(url: URL, options?: RequestOptions): Promise<string> {
+        return super.fetchPage(url, {
+            ...options,
+            headers: {
+                ...options?.headers,
+                'User-Agent': '',
+            },
+        });
     }
 }
