@@ -4,7 +4,7 @@ import { HeadMetaPropertyProvider } from './base';
 
 export class AppleMusicProvider extends HeadMetaPropertyProvider {
     public readonly supportedDomains = ['music.apple.com', 'itunes.apple.com'];
-    public readonly favicon = 'https://music.apple.com/favicon.ico';
+    public readonly favicon = 'https://music.apple.com/assets/favicon/favicon-32.png';
     public readonly name = 'Apple Music';
     protected readonly urlRegex = /\w{2}\/album\/(?:.+\/)?(?:id)?(\d+)/;
 
