@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2025.10.6
+// @version      2025.12.31
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -617,7 +617,7 @@
     constructor() {
       super(...arguments);
       _defineProperty(this, "supportedDomains", ['music.apple.com', 'itunes.apple.com']);
-      _defineProperty(this, "favicon", 'https://music.apple.com/favicon.ico');
+      _defineProperty(this, "favicon", 'https://music.apple.com/assets/favicon/favicon-32.png');
       _defineProperty(this, "name", 'Apple Music');
       _defineProperty(this, "urlRegex", /\w{2}\/album\/(?:.+\/)?(?:id)?(\d+)/);
     }
@@ -918,7 +918,7 @@
     constructor() {
       super(...arguments);
       _defineProperty(this, "supportedDomains", ['deezer.com']);
-      _defineProperty(this, "favicon", 'https://e-cdns-files.dzcdn.net/cache/images/common/favicon/favicon-16x16.526cde4edf20647be4ee32cdf35c1c13.png');
+      _defineProperty(this, "favicon", 'https://cdn-files.dzcdn.net/cache/images/common/favicon/favicon-16x16.1e6ae1b5b7794f3e00c0.png');
       _defineProperty(this, "name", 'Deezer');
       _defineProperty(this, "urlRegex", /(?:\w{2}\/)?album\/(\d+)/);
     }
