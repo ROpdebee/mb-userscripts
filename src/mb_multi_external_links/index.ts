@@ -16,7 +16,7 @@ function getExternalLinksEditor(mbInstance: typeof window.MB): ExternalLinks {
 
 function getLastInput(editor: ExternalLinks): HTMLInputElement {
     const linkInputs = qsa<HTMLInputElement>('input.value', editor.tableRef.current);
-    return linkInputs[linkInputs.length - 1];
+    return linkInputs.at(-1)!;
 }
 
 async function submitUrls(editor: ExternalLinks, urls: string[]): Promise<void> {
@@ -61,7 +61,7 @@ class LinkSplitter {
                 return;
             }
 
-            const lastUrl = splitUrls[splitUrls.length - 1];
+            const lastUrl = splitUrls.at(-1)!;
             const firstUrls = splitUrls.slice(0, -1);
             // Submit all but the last URL.
             submitUrls(editor, firstUrls)

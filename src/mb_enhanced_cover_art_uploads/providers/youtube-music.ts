@@ -111,7 +111,7 @@ export class YoutubeMusicProvider extends CoverArtProvider {
 
     private extractImages(pageInfo: YTMusicPageInfo): CoverArt[] {
         const thumbnails = pageInfo.data.background.musicThumbnailRenderer.thumbnail.thumbnails;
-        const thumbnailUrl = thumbnails[thumbnails.length - 1].url;
+        const thumbnailUrl = thumbnails.at(-1)!.url;
 
         return [{
             url: new URL(thumbnailUrl),
