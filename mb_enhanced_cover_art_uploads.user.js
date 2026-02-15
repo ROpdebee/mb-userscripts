@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2025.12.31
+// @version      2026.2.15
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -2225,7 +2225,7 @@
     }
   }
 
-  var css_248z = ".ROpdebee_paste_url_cont{display:inline-block;margin-left:32px;position:relative;vertical-align:middle}.ROpdebee_paste_url_cont>*{display:block}.ROpdebee_paste_url_cont>a{font-size:smaller;text-align:right}.ROpdebee_paste_url_cont+span{margin-left:32px}.ROpdebee_ecau_config{position:absolute;width:100%}.ROpdebee_ecau_config input[type=checkbox],.ROpdebee_ecau_config label{display:inline;vertical-align:center}.ROpdebee_ecau_config label{float:none!important;margin-left:.5em}.ROpdebee_ecau_config details{padding:.5em .5em 0}.ROpdebee_ecau_config a#ROpdebee_ecau_providers_link{position:absolute;right:.5em;top:.5em}.ROpdebee_ecau_config .ROpdebee_ecau_config_options{background-color:#ddd;border:1px solid #ccc;border-radius:6px;padding:.5em;position:absolute;width:95%}.ROpdebee_ecau_config summary{cursor:pointer;font-weight:700;margin:-.5em -.5em 0;padding:.5em;width:-moz-fit-content;width:fit-content}.ROpdebee_ecau_config summary:hover{-webkit-text-decoration:underline;text-decoration:underline}.ROpdebee_import_url_buttons{margin-left:32px;vertical-align:middle}.ROpdebee_import_url_buttons>button{display:block;float:none;margin:4px}";
+  var css_248z = ".ROpdebee_paste_url_cont{column-gap:.5rem;display:inline-grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;margin-left:32px;margin-top:10px;position:relative;row-gap:.25rem}.ROpdebee_paste_url_cont>input#ROpdebee_paste_url{grid-column:1/-1}.ROpdebee_paste_url_cont>details.ROpdebee_ecau_config{grid-column:1}.ROpdebee_paste_url_cont>a#ROpdebee_ecau_providers_link{grid-column:2}.ROpdebee_paste_url_cont+span{margin-left:32px}a#ROpdebee_ecau_providers_link{font-size:smaller;text-align:right}.ROpdebee_ecau_config input[type=checkbox],.ROpdebee_ecau_config label{display:inline;vertical-align:center}.ROpdebee_ecau_config label{float:none!important;margin-left:.5em}.ROpdebee_ecau_config details{padding:.5em .5em 0}.ROpdebee_ecau_config .ROpdebee_ecau_config_options{background-color:#ddd;border:1px solid #ccc;border-radius:6px;box-shadow:0 0 5px gray;padding:.5em;position:absolute;width:95%;z-index:2}.ROpdebee_ecau_config summary{cursor:pointer;font-weight:700;margin:-.5em -.5em 0;padding:.5em;width:-moz-fit-content;width:fit-content}.ROpdebee_ecau_config summary:hover{-webkit-text-decoration:underline;text-decoration:underline}.ROpdebee_import_url_buttons{margin-left:32px;vertical-align:middle}.ROpdebee_import_url_buttons>button{display:block;float:none;margin:4px}";
 
   const INPUT_PLACEHOLDER_TEXT = 'or paste one or more URLs here';
   class ProgressElement {
@@ -2337,42 +2337,33 @@
   }
   function createConfig() {
       return function () {
-          var $$u = document.createElement('div');
+          var $$u = document.createElement('details');
           $$u.setAttribute('class', 'ROpdebee_ecau_config');
-          var $$v = document.createElement('a');
-          $$v.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md');
-          $$v.setAttribute('target', '_blank');
-          $$v.setAttribute('id', 'ROpdebee_ecau_providers_link');
+          var $$v = document.createElement('summary');
           $$u.appendChild($$v);
-          var $$w = document.createTextNode('Supported providers');
+          var $$w = document.createTextNode('Configure\u2026');
           $$v.appendChild($$w);
-          var $$x = document.createElement('details');
+          var $$x = document.createElement('div');
+          $$x.setAttribute('class', 'ROpdebee_ecau_config_options');
           $$u.appendChild($$x);
-          var $$y = document.createElement('summary');
-          $$x.appendChild($$y);
-          var $$z = document.createTextNode('Configure\u2026');
-          $$y.appendChild($$z);
-          var $$aa = document.createElement('div');
-          $$aa.setAttribute('class', 'ROpdebee_ecau_config_options');
+          appendChildren($$x, createCheckbox(CONFIG.fetchFrontOnly));
+          appendChildren($$x, createCheckbox(CONFIG.skipTrackImagesProperty));
+          var $$aa = document.createElement('h3');
           $$x.appendChild($$aa);
-          appendChildren($$aa, createCheckbox(CONFIG.fetchFrontOnly));
-          appendChildren($$aa, createCheckbox(CONFIG.skipTrackImagesProperty));
-          var $$dd = document.createElement('h3');
-          $$aa.appendChild($$dd);
-          var $$ee = document.createTextNode('Bandcamp');
-          $$dd.appendChild($$ee);
-          appendChildren($$aa, createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty));
-          appendChildren($$aa, createCheckbox(CONFIG.bandcamp.squareCropFirst));
+          var $$bb = document.createTextNode('Bandcamp');
+          $$aa.appendChild($$bb);
+          appendChildren($$x, createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty));
+          appendChildren($$x, createCheckbox(CONFIG.bandcamp.squareCropFirst));
+          var $$ee = document.createElement('h3');
+          $$x.appendChild($$ee);
+          var $$ff = document.createTextNode('Soundcloud');
+          $$ee.appendChild($$ff);
+          appendChildren($$x, createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty));
           var $$hh = document.createElement('h3');
-          $$aa.appendChild($$hh);
-          var $$ii = document.createTextNode('Soundcloud');
+          $$x.appendChild($$hh);
+          var $$ii = document.createTextNode('VGMdb');
           $$hh.appendChild($$ii);
-          appendChildren($$aa, createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty));
-          var $$kk = document.createElement('h3');
-          $$aa.appendChild($$kk);
-          var $$ll = document.createTextNode('VGMdb');
-          $$kk.appendChild($$ll);
-          appendChildren($$aa, createCheckbox(CONFIG.vgmdb.keepEntireComment));
+          appendChildren($$x, createCheckbox(CONFIG.vgmdb.keepEntireComment));
           return $$u;
       }.call(this);
   }
@@ -2387,12 +2378,12 @@
           _defineProperty(this, 'progressElements', new Map());
           insertStylesheet(css_248z);
           this.urlInput = function () {
-              var $$nn = document.createElement('input');
-              $$nn.setAttribute('type', 'url');
-              $$nn.setAttribute('placeholder', INPUT_PLACEHOLDER_TEXT);
-              $$nn.setAttribute('size', 47);
-              $$nn.setAttribute('id', 'ROpdebee_paste_url');
-              $$nn.addEventListener('paste', async event_ => {
+              var $$kk = document.createElement('input');
+              $$kk.setAttribute('type', 'url');
+              $$kk.setAttribute('placeholder', INPUT_PLACEHOLDER_TEXT);
+              $$kk.setAttribute('size', 47);
+              $$kk.setAttribute('id', 'ROpdebee_paste_url');
+              $$kk.addEventListener('paste', async event_ => {
                   if (!event_.clipboardData) {
                       LOGGER.warn('No clipboard data?');
                       return;
@@ -2420,59 +2411,66 @@
                       this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
                   }
               });
-              return $$nn;
+              return $$kk;
           }.call(this);
           const container = function () {
-              var $$oo = document.createElement('div');
-              $$oo.setAttribute('class', 'ROpdebee_paste_url_cont');
-              appendChildren($$oo, this.urlInput);
-              appendChildren($$oo, createConfig());
-              return $$oo;
+              var $$ll = document.createElement('div');
+              $$ll.setAttribute('class', 'ROpdebee_paste_url_cont');
+              appendChildren($$ll, this.urlInput);
+              appendChildren($$ll, createConfig());
+              var $$oo = document.createElement('a');
+              $$oo.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md');
+              $$oo.setAttribute('target', '_blank');
+              $$oo.setAttribute('id', 'ROpdebee_ecau_providers_link');
+              $$ll.appendChild($$oo);
+              var $$pp = document.createTextNode('Supported providers');
+              $$oo.appendChild($$pp);
+              return $$ll;
           }.call(this);
           this.buttonContainer = function () {
-              var $$rr = document.createElement('div');
-              $$rr.setAttribute('class', 'ROpdebee_import_url_buttons buttons');
-              return $$rr;
+              var $$qq = document.createElement('div');
+              $$qq.setAttribute('class', 'ROpdebee_import_url_buttons buttons');
+              return $$qq;
           }.call(this);
           this.orSpan = function () {
-              var $$ss = document.createElement('span');
-              setStyles($$ss, { display: 'none' });
-              var $$tt = document.createTextNode('or');
-              $$ss.appendChild($$tt);
-              return $$ss;
+              var $$rr = document.createElement('span');
+              setStyles($$rr, { display: 'none' });
+              var $$ss = document.createTextNode('or');
+              $$rr.appendChild($$ss);
+              return $$rr;
           }.call(this);
           (_qs$insertAdjacentEle = qs('#drop-zone').insertAdjacentElement('afterend', container)) === null || _qs$insertAdjacentEle === void 0 || (_qs$insertAdjacentEle = _qs$insertAdjacentEle.insertAdjacentElement('afterend', this.orSpan)) === null || _qs$insertAdjacentEle === void 0 || _qs$insertAdjacentEle.insertAdjacentElement('afterend', this.buttonContainer);
           this.realSubmitButton = qs('button#add-cover-art-submit');
           this.fakeSubmitButton = function () {
-              var $$uu = document.createElement('button');
-              $$uu.setAttribute('type', 'button');
-              $$uu.setAttribute('class', 'submit positive');
-              $$uu.disabled = true;
-              $$uu.setAttribute('hidden', true);
-              var $$vv = document.createTextNode('Enter edit');
-              $$uu.appendChild($$vv);
-              return $$uu;
+              var $$tt = document.createElement('button');
+              $$tt.setAttribute('type', 'button');
+              $$tt.setAttribute('class', 'submit positive');
+              $$tt.disabled = true;
+              $$tt.setAttribute('hidden', true);
+              var $$uu = document.createTextNode('Enter edit');
+              $$tt.appendChild($$uu);
+              return $$tt;
           }.call(this);
           qs('form > .buttons').append(this.fakeSubmitButton);
       }
       async addImportButton(onClickCallback, url, provider) {
           const favicon = await provider.favicon;
           const button = function () {
-              var $$ww = document.createElement('button');
-              $$ww.setAttribute('type', 'button');
-              $$ww.setAttribute('title', url);
-              $$ww.addEventListener('click', event_ => {
+              var $$vv = document.createElement('button');
+              $$vv.setAttribute('type', 'button');
+              $$vv.setAttribute('title', url);
+              $$vv.addEventListener('click', event_ => {
                   event_.preventDefault();
                   onClickCallback();
               });
-              var $$xx = document.createElement('img');
-              $$xx.setAttribute('src', favicon);
-              $$xx.setAttribute('alt', provider.name);
-              $$ww.appendChild($$xx);
-              var $$yy = document.createElement('span');
-              $$ww.appendChild($$yy);
-              appendChildren($$yy, 'Import from ' + provider.name);
-              return $$ww;
+              var $$ww = document.createElement('img');
+              $$ww.setAttribute('src', favicon);
+              $$ww.setAttribute('alt', provider.name);
+              $$vv.appendChild($$ww);
+              var $$xx = document.createElement('span');
+              $$vv.appendChild($$xx);
+              appendChildren($$xx, 'Import from ' + provider.name);
+              return $$vv;
           }.call(this);
           this.orSpan.style.display = '';
           this.buttonContainer.insertAdjacentElement('beforeend', button);

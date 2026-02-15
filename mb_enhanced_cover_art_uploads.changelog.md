@@ -1,3 +1,4 @@
+- **2026.2.15**: Bug fix: prevent config button overlapping with import buttons ([#867](https://github.com/ROpdebee/mb-userscripts/pull/867))
 - **2025.12.31**: Bug fix: Update favicons for Deezer and Apple Music ([#859](https://github.com/ROpdebee/mb-userscripts/pull/859))
 - **2025.10.6**: Bug fix: remove User-Agent header ([#850](https://github.com/ROpdebee/mb-userscripts/pull/850))
 - **2025.10.3**: Bug fix: Use multiplication sign instead of letter x ([#849](https://github.com/ROpdebee/mb-userscripts/pull/849))
