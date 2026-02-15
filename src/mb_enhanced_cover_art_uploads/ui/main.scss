@@ -1,16 +1,26 @@
 .ROpdebee_paste_url_cont {
-    display: inline-block;
+    position: relative;  // Needed so that config <details> can extend to full width.
     margin-left: 32px;
-    vertical-align: middle;
-    position: relative;
+    margin-top: 10px;
 
-    > * {
-        display: block;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.5rem;
+    row-gap: 0.25rem;
+
+    > input#ROpdebee_paste_url {
+        grid-column: 1 / -1;
     }
 
-    > a {
-        text-align: right;
-        font-size: smaller;
+    // Position the config dropdown on the left below the input
+    > details.ROpdebee_ecau_config {
+        grid-column: 1;
+    }
+
+    // Position the "Supported providers" link on the right below the input.
+    > a#ROpdebee_ecau_providers_link {
+        grid-column: 2;
     }
 
     + span {
@@ -18,12 +28,12 @@
     }
 }
 
-.ROpdebee_ecau_config {
-    // Positioning this absolutely allows the URL pasting input field to be
-    // vertically centered in relation to the rest of the content in the row.
-    position: absolute;
-    width: 100%;
+a#ROpdebee_ecau_providers_link {
+    text-align: right;
+    font-size: smaller;
+}
 
+.ROpdebee_ecau_config {
     input[type="checkbox"], label {
         display: inline;
         vertical-align: center;
@@ -38,13 +48,6 @@
         padding: 0.5em 0.5em 0;
     }
 
-    // Position the "Supported providers" link on the top right.
-    a#ROpdebee_ecau_providers_link {
-        position: absolute;
-        top: 0.5em;
-        right: 0.5em;
-    }
-
     .ROpdebee_ecau_config_options {
         // Absolute positioning so that it "pops up" over the thumbnails etc.,
         // rather than resizing the entire row and shifting all other elements.
@@ -54,6 +57,8 @@
         background-color: #ddd;
         border: 1px solid #ccc;
         border-radius: 6px;
+        z-index: 2;  // In small-width displays, may otherwise somehow end up behind thumbnails
+        box-shadow: 0px 0px 5px gray;
     }
 
     summary {
