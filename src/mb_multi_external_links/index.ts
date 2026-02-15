@@ -1,111 +1,108 @@
 // istanbul ignore file: Better suited for E2E test.
 
-import type { ExternalLinks } from '@lib/MB/types';
 import { LOGGER } from '@lib/logging/logger';
-import { assertHasValue } from '@lib/util/assert';
+import { assert } from '@lib/util/assert';
 import { asyncSleep, logFailure, retryTimes } from '@lib/util/async';
 import { createPersistentCheckbox } from '@lib/util/checkboxes';
-import { onAddEntityDialogLoaded, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
+import { onAddEntityDialogLoaded, onDOMNodeAdded, qs, qsMaybe, setInputValue } from '@lib/util/dom';
 
-function getExternalLinksEditor(mbInstance: typeof window.MB): ExternalLinks {
-    // Can be found in the MB object, but exact property depends on actual page.
-    const editor = (mbInstance.releaseEditor?.externalLinks.externalLinksEditorRef ?? mbInstance.sourceExternalLinksEditor)?.current;
-    assertHasValue(editor, 'Cannot find external links editor object');
-    return editor;
-}
+class ExternalLinksEditor {
+    public readonly element: HTMLTableElement;
 
-function getLastInput(editor: ExternalLinks): HTMLInputElement {
-    const linkInputs = qsa<HTMLInputElement>('input.value', editor.tableRef.current);
-    return linkInputs[linkInputs.length - 1];
-}
+    public constructor(element: HTMLTableElement) {
+        this.element = element;
+    }
 
-async function submitUrls(editor: ExternalLinks, urls: string[]): Promise<void> {
-    // Technically we're recursively calling the patched methods, but the
-    // patched methods just pass through to the originals when there's only
-    // one link.
-    if (urls.length === 0) return;
+    public static async create(thisWindow: Window): Promise<ExternalLinksEditor> {
+        // We might be running before the release editor is loaded, so retry a couple of times
+        // until it is. We could also just have a different @run-at or listen for the window
+        // load event, but if the page takes an extraordinary amount to load e.g. an image,
+        // the external links editor may be ready long before we run. We want to add our
+        // functionality as soon as possible without waiting for the whole page to load.
+        const editor = await retryTimes(
+            () => qs<HTMLTableElement>('#external-links-editor', thisWindow.document),
+            100, 50);
+        return new ExternalLinksEditor(editor);
+    }
 
-    const lastInput = getLastInput(editor);
-
-    LOGGER.debug(`Submitting URL ${urls[0]}`);
-    setInputValue(lastInput, urls[0]);
-    // Need to wait a while before the input event is processed before we can
-    // fire the blur event, otherwise things get messy.
-    await asyncSleep();
-    lastInput.dispatchEvent(new Event('focusout', { bubbles: true }));
-    await submitUrls(editor, urls.slice(1));
+    public get urlInput(): HTMLInputElement {
+        return qs('tr:last-child input[type="url"]', this.element);
+    }
 }
 
 class LinkSplitter {
-    private readonly editor: ExternalLinks;
-    private readonly originalOnChange: ExternalLinks['handleUrlChange'];
-    private readonly patchedOnChange: ExternalLinks['handleUrlChange'];
+    private readonly editor: ExternalLinksEditor;
+    private enabled = false;
+    private readonly hookedInputs = new Set<HTMLInputElement>();
 
-    public constructor(editor: ExternalLinks) {
+    public constructor(editor: ExternalLinksEditor) {
         this.editor = editor;
-        this.originalOnChange = editor.handleUrlChange.bind(editor);
-
-        // Accepting and passing arguments as array to prevent potential problems
-        // when the signature of the patched methods change.
-        this.patchedOnChange = (...arguments_): void => {
-            // Split the URLs and submit all but the last URL into the actual
-            // handlers separately. The last URL will be entered, but not
-            // blurred.
-            const rawUrl = arguments_[2];
-            LOGGER.debug(`onchange received URLs ${rawUrl}`);
-            const splitUrls = rawUrl.trim().split(/\s+/);
-
-            // No links to split, just use the standard handlers.
-            if (splitUrls.length <= 1) {
-                this.originalOnChange(...arguments_);
-                return;
-            }
-
-            const lastUrl = splitUrls[splitUrls.length - 1];
-            const firstUrls = splitUrls.slice(0, -1);
-            // Submit all but the last URL.
-            submitUrls(editor, firstUrls)
-                // Afterwards, enter the last URL, but don't submit it.
-                .then(() => {
-                    const lastInput = getLastInput(this.editor);
-                    LOGGER.debug(`Submitting URL ${lastUrl}`);
-                    setInputValue(lastInput, lastUrl);
-                    lastInput.focus();
-                })
-                .catch(logFailure('Something went wrong. onUrlBlur signature change?'));
-        };
+        this.hookInput(editor.urlInput);
+        onDOMNodeAdded(editor.element, 'tr input[type="url"]', this.hookInput.bind(this));
     }
 
-    public enable(): void {
-        LOGGER.debug('Enabling link splitter');
-        this.editor.handleUrlChange = this.patchedOnChange;
+    private hookInput(input: HTMLInputElement): void {
+        LOGGER.debug(`Hooking input ${input.dataset.index}`);
+        // Note that it is possible for multiple input elements to be active at the same time,
+        // and all of them should be hooked.
+        if (this.hookedInputs.has(input)) return;
+
+        input.addEventListener('input', this.handleInput.bind(this));
+
+        this.hookedInputs.add(input);
     }
 
-    public disable(): void {
-        LOGGER.debug('Disabling link splitter');
-        this.editor.handleUrlChange = this.originalOnChange;
+    private handleInput(event: Event): void {
+        if (!this.enabled) return;
+
+        const thisInput = event.target as HTMLInputElement;
+        const rawUrl = thisInput.value;
+        LOGGER.debug(`onchange received URLs ${rawUrl}`);
+        const splitUrls = rawUrl.split(/\s+/);
+
+        // If there is just one URL, we don't need to do anything.
+        // It's important we skip the subsequent processing, otherwise
+        // we'll get into an infinite loop in this event handler (as it
+        // will trigger itself).
+        if (splitUrls.length <= 1) return;
+
+        this.submitUrls(splitUrls, thisInput)
+            .catch(logFailure('Something went wrong.'));
+    }
+
+    private async submitUrls(urls: string[], currentInput: HTMLInputElement): Promise<void> {
+        // Enter the first URL via the current input, and the remaining URLs via the new input
+        // field that will be created later. We "schedule" the remaining URLs for the next event
+        // loop cycle to allow event handlers to run normally and insert that input field.
+
+        for (const url of urls) {
+            LOGGER.debug(`Submitting URL ${url} into input ${currentInput.dataset.index}`);
+            setInputValue(currentInput, url);
+            currentInput.focus();
+
+            // This causes us to wait until the next cycle, at which point a new input
+            // element should have been added.
+            await asyncSleep();
+            currentInput = this.editor.urlInput;
+            assert(currentInput.value === '', 'Expected input element to be empty!');
+        }
     }
 
     public toggle(): void {
-        this.setEnabled(this.editor.handleUrlChange === this.originalOnChange);
+        this.enabled = !this.enabled;
     }
 
     public setEnabled(enabled: boolean): void {
-        // eslint-disable-next-line sonarjs/no-selector-parameter
-        if (enabled) {
-            this.enable();
-        } else {
-            this.disable();
-        }
+        this.enabled = enabled;
     }
 }
 
-function insertCheckboxElements(editor: ExternalLinks, checkboxElement: HTMLInputElement, labelElement: HTMLLabelElement): void {
+function insertCheckboxElements(editor: ExternalLinksEditor, checkboxElement: HTMLInputElement, labelElement: HTMLLabelElement): void {
     // Adding the checkbox beneath the last input element would require constantly
     // removing and reinserting while react re-renders the link editor. Instead,
     // let's just add it outside of the table and align it with JS.
-    editor.tableRef.current.after(checkboxElement, labelElement);
-    const lastInput = getLastInput(editor);
+    editor.element.after(checkboxElement, labelElement);
+    const lastInput = editor.urlInput;
     const marginLeft = lastInput.offsetLeft + (lastInput.parentElement?.offsetLeft ?? 0);
     checkboxElement.style.marginLeft = `${marginLeft}px`;
 }
@@ -118,13 +115,9 @@ async function run(windowInstance: Window): Promise<void> {
     const editorContainer = qsMaybe<HTMLElement>('#external-links-editor-container', windowInstance.document);
     if (!editorContainer) return;
 
-    // We might be running before the release editor is loaded, so retry a couple of times
-    // until it is. We could also just have a different @run-at or listen for the window
-    // load event, but if the page takes an extraordinary amount to load e.g. an image,
-    // the external links editor may be ready long before we run. We want to add our
-    // functionality as soon as possible without waiting for the whole page to load.
-    const editor = await retryTimes(() => getExternalLinksEditor(windowInstance.MB), 100, 50);
+    const editor = await ExternalLinksEditor.create(windowInstance);
     const splitter = new LinkSplitter(editor);
+
     // TODO: Switch to ConfigProperty -- Needs event listeners on ConfigProperty.
     const [checkboxElement, labelElement] = createPersistentCheckbox('ROpdebee_multi_links_no_split', "Don't split links", () => {
         splitter.toggle();
@@ -133,36 +126,23 @@ async function run(windowInstance: Window): Promise<void> {
     insertCheckboxElements(editor, checkboxElement, labelElement);
 }
 
-function onIframeAdded(iframe: HTMLIFrameElement): void {
+const INIT_IFRAMES = new Set<HTMLIFrameElement>();
+
+function injectIntoIframe(iframe: HTMLIFrameElement): void {
+    // the iframe observer triggers multiple times for the same iframe
+    if (INIT_IFRAMES.has(iframe)) return;
+    INIT_IFRAMES.add(iframe);
+
     LOGGER.debug(`Initialising on iframe ${iframe.src}`);
 
     onAddEntityDialogLoaded(iframe, () => {
+        LOGGER.debug(`Iframe ${iframe.src} initialized`);
         run(iframe.contentWindow!).catch(logFailure());
-    });
-}
-
-// Observe for additions of embedded entity creation dialogs and run the link
-// splitter on those as well.
-function listenForIframes(): void {
-    const iframeObserver = new MutationObserver((mutations) => {
-        for (const addedNode of mutations.flatMap((mut) => [...mut.addedNodes])) {
-            if (addedNode instanceof HTMLElement && addedNode.classList.contains('iframe-dialog')) {
-                // Addition of a dialog: Get the iframe and run the splitter
-                const iframe = qsMaybe<HTMLIFrameElement>('iframe', addedNode);
-
-                if (iframe) {
-                    onIframeAdded(iframe);
-                }
-            }
-        }
-    });
-
-    iframeObserver.observe(document, {
-        subtree: true,
-        childList: true,
     });
 }
 
 run(window).catch(logFailure());
 
-listenForIframes();
+// Observe for additions of embedded entity creation dialogs and run the link
+// splitter on those as well.
+onDOMNodeAdded(document, '.iframe-dialog iframe', injectIntoIframe);
