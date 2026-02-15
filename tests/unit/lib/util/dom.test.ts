@@ -1,5 +1,6 @@
 import { AssertionError } from '@lib/util/assert';
-import { onAddEntityDialogLoaded, onDocumentLoaded, onWindowLoaded, parseDOM, qs, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
+import { asyncSleep } from '@lib/util/async';
+import { onAddEntityDialogLoaded, onDocumentLoaded, onDOMNodeAdded, onWindowLoaded, parseDOM, qs, qsa, qsMaybe, setInputValue } from '@lib/util/dom';
 
 describe('qs', () => {
     it('selects from the document by default', () => {
@@ -238,6 +239,59 @@ describe('setting input value', () => {
         const handler = jest.fn();
         input.addEventListener('input', handler);
         setInputValue(input, 'test123', false);
+
+        expect(handler).not.toHaveBeenCalled();
+    });
+});
+
+describe('monitoring DOM changes', () => {
+    const domContent = '<html><body><div id="abc"><span>Hello world</span></div></body></html>';
+
+    it('monitors newly added nodes', async () => {
+        const dom = parseDOM(domContent, 'https://example.com');
+        const newNode = '<p class="test">Testing</p>';
+        const handler = jest.fn();
+        onDOMNodeAdded(dom, 'p.test', handler);
+
+        qs('div#abc', dom).insertAdjacentHTML('beforeend', newNode);
+        // Need to sleep here, something async is going on with the mutation observer in the tests.
+        await asyncSleep();
+
+        expect(handler).toHaveBeenCalledExactlyOnceWith(dom.querySelector('p.test'));
+    });
+
+    it('monitors newly added nodes with nested selector', async () => {
+        const dom = parseDOM(domContent, 'https://example.com');
+        const newNode = '<p class="test">Testing</p>';
+        const handler = jest.fn();
+        onDOMNodeAdded(dom, 'div#abc > p.test', handler);
+
+        qs('div#abc', dom).insertAdjacentHTML('beforeend', newNode);
+        await asyncSleep();
+
+        expect(handler).toHaveBeenCalledExactlyOnceWith(dom.querySelector('p.test'));
+    });
+
+    it('monitors newly added nested nodes', async () => {
+        const dom = parseDOM(domContent, 'https://example.com');
+        const newNode = '<div id="def"><p class="test">Testing</p></div>';
+        const handler = jest.fn();
+        onDOMNodeAdded(dom, 'p.test', handler);
+
+        qs('div#abc', dom).insertAdjacentHTML('beforeend', newNode);
+        await asyncSleep();
+
+        expect(handler).toHaveBeenCalledExactlyOnceWith(dom.querySelector('p.test'));
+    });
+
+    it('ignores non-HTML nodes', async () => {
+        const dom = parseDOM(domContent, 'https://example.com');
+        const newNode = 'Just text';
+        const handler = jest.fn();
+        onDOMNodeAdded(dom, 'p.test', handler);
+
+        qs('div#abc', dom).insertAdjacentText('beforeend', newNode);
+        await asyncSleep();
 
         expect(handler).not.toHaveBeenCalled();
     });
