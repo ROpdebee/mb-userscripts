@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-globals */
-
 import { GMxmlHttpRequest } from '@lib/compat';
 
 import type { RequestMethod, RequestOptions } from './request-options';
