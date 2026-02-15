@@ -122,29 +122,20 @@ function createCheckbox(property: ConfigProperty<boolean>): HTMLElement {
 
 function createConfig(): HTMLElement {
     return (
-        <div className="ROpdebee_ecau_config">
-            <a
-                href="https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md"
-                target="_blank"
-                id="ROpdebee_ecau_providers_link"
-            >
-                Supported providers
-            </a>
-            <details>
-                <summary>Configure…</summary>
-                <div className="ROpdebee_ecau_config_options">
-                    {createCheckbox(CONFIG.fetchFrontOnly)}
-                    {createCheckbox(CONFIG.skipTrackImagesProperty)}
-                    <h3>Bandcamp</h3>
-                    {createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty)}
-                    {createCheckbox(CONFIG.bandcamp.squareCropFirst)}
-                    <h3>Soundcloud</h3>
-                    {createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty)}
-                    <h3>VGMdb</h3>
-                    {createCheckbox(CONFIG.vgmdb.keepEntireComment)}
-                </div>
-            </details>
-        </div>
+        <details className="ROpdebee_ecau_config">
+            <summary>Configure…</summary>
+            <div className="ROpdebee_ecau_config_options">
+                {createCheckbox(CONFIG.fetchFrontOnly)}
+                {createCheckbox(CONFIG.skipTrackImagesProperty)}
+                <h3>Bandcamp</h3>
+                {createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty)}
+                {createCheckbox(CONFIG.bandcamp.squareCropFirst)}
+                <h3>Soundcloud</h3>
+                {createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty)}
+                <h3>VGMdb</h3>
+                {createCheckbox(CONFIG.vgmdb.keepEntireComment)}
+            </div>
+        </details>
     );
 }
 
@@ -218,6 +209,13 @@ export class InputForm implements FetcherHooks {
             <div className="ROpdebee_paste_url_cont">
                 {this.urlInput}
                 {createConfig()}
+                <a
+                    href="https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md"
+                    target="_blank"
+                    id="ROpdebee_ecau_providers_link"
+                >
+                    Supported providers
+                </a>
             </div>
         );
 
