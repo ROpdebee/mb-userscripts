@@ -97,3 +97,37 @@ export function setInputValue(input: HTMLInputElement, value: string, dispatchEv
         input.dispatchEvent(new Event('input', { bubbles: true }));
     }
 }
+
+/**
+ * Observe the DOM for added nodes and invoke a callback when a matching node is added.
+ * @param root The root node to monitor for changes.
+ * @param nodeMatcher CSS selector to select nodes to invoke the callback with.
+ * @param callback Callback to invoke when a matching node is added.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
+export function onDOMNodeAdded<NodeType extends HTMLElement>(root: Node, nodeMatcher: string, callback: (node: NodeType) => void): void {
+    // Some trickery for iframe nodes: An iframe's HTMLElement != the main window's HTMLElement, so using
+    // bare HTMLElement causes instance checks to fail. So, we should use the HTMLElement from the node's
+    // global environment. We'll check relative to the root.
+    const RelativeHTMLElement = root.ownerDocument?.defaultView?.HTMLElement ?? HTMLElement;
+    const observer = new MutationObserver((mutations) => {
+        for (const addedNode of mutations.flatMap((mut) => [...mut.addedNodes])) {
+            if (!(addedNode instanceof RelativeHTMLElement)) continue;
+
+            // Node matches the selector directly.
+            if (addedNode.matches(nodeMatcher)) {
+                callback(addedNode as NodeType);
+            }
+
+            // Search added node's children for ones that match the selector.
+            for (const node of qsa(nodeMatcher, addedNode)) {
+                callback(node as NodeType);
+            }
+        }
+    });
+
+    observer.observe(root, {
+        subtree: true,
+        childList: true,
+    });
+}
