@@ -25,3 +25,7 @@ export function memoize<T extends unknown[], V>(function_: (...arguments_: T) =>
         return memoMap.get(key)!;
     };
 }
+
+export function identity<T>(argument: T): T {
+    return argument;
+}

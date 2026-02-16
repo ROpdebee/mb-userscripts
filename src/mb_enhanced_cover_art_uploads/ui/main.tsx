@@ -7,7 +7,7 @@ import { insertStylesheet } from '@lib/util/css';
 import { parseDOM, qs, qsa } from '@lib/util/dom';
 
 import type { App } from '../app';
-import type { FetcherHooks } from '../fetch';
+import type { CoverArtDownloaderHooks } from '../images/download';
 import type { CoverArtProvider } from '../providers/base';
 import { CONFIG } from '../config';
 
@@ -139,7 +139,7 @@ function createConfig(): HTMLElement {
     );
 }
 
-export class InputForm implements FetcherHooks {
+export class InputForm implements CoverArtDownloaderHooks {
     private readonly urlInput: HTMLInputElement;
     private readonly buttonContainer: HTMLDivElement;
     private readonly orSpan: HTMLSpanElement;
@@ -275,19 +275,19 @@ export class InputForm implements FetcherHooks {
         this.fakeSubmitButton.hidden = true;
     }
 
-    public onFetchStarted(id: number, url: URL): void {
+    public onDownloadStarted(id: number, url: URL): void {
         const progressElement = new ProgressElement(url);
         this.progressElements.set(id, progressElement);
         qs('form#add-cover-art tbody').append(progressElement.rootElement);
     }
 
-    public onFetchFinished(id: number): void {
+    public onDownloadFinished(id: number): void {
         const progressElement = this.progressElements.get(id);
         progressElement?.rootElement.remove();
         this.progressElements.delete(id);
     }
 
-    public onFetchProgress(id: number, url: URL, progress: ProgressEvent): void {
+    public onDownloadProgress(id: number, url: URL, progress: ProgressEvent): void {
         const progressElement = this.progressElements.get(id);
         assertDefined(progressElement);
         progressElement.url = url;

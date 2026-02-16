@@ -6,7 +6,7 @@ import { EditNote } from '@lib/MB/edit-note';
 import { qs } from '@lib/util/dom';
 import { enqueueImage, fillEditNote } from '@src/mb_enhanced_cover_art_uploads/form';
 
-import { createFetchedImage, createImageFile } from './test-utils/dummy-data';
+import { createImageFile, createQueuedImage } from './test-utils/dummy-data';
 
 beforeAll(() => {
     // Need to mock DataTransfer and DragEvent.
@@ -66,7 +66,7 @@ describe('enqueuing images', () => {
 
     it('triggers the correct drop event', async () => {
         const image = createImageFile();
-        await enqueueImage(createFetchedImage({
+        await enqueueImage(createQueuedImage({
             content: image,
         }));
 
@@ -74,7 +74,7 @@ describe('enqueuing images', () => {
     });
 
     it('fills the correct parameters', async () => {
-        await enqueueImage(createFetchedImage({
+        await enqueueImage(createQueuedImage({
             types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
             comment: 'test comment',
         }));
@@ -86,36 +86,12 @@ describe('enqueuing images', () => {
     });
 
     it('uses the default parameters when none are set', async () => {
-        await enqueueImage(createFetchedImage(), [ArtworkTypeIDs.Booklet], 'default comment');
+        await enqueueImage(createQueuedImage({ types: [ArtworkTypeIDs.Booklet], comment: 'default comment' }));
         const row = document.querySelector('tr');
 
         expect(getSelectedTypes(row))
             .toStrictEqual([ArtworkTypeIDs.Booklet]);
         expect(getComment(row)).toBe('default comment');
-    });
-
-    it('does not use default parameters when specific ones are set', async () => {
-        await enqueueImage(createFetchedImage({
-            types: [ArtworkTypeIDs.Front, ArtworkTypeIDs.Back],
-            comment: 'test comment',
-        }), [ArtworkTypeIDs.Booklet], 'default comment');
-        const row = document.querySelector('tr');
-
-        expect(getSelectedTypes(row))
-            .toStrictEqual([ArtworkTypeIDs.Front, ArtworkTypeIDs.Back]);
-        expect(getComment(row)).toBe('test comment');
-    });
-
-    it('allows specific types and comment to be empty', async () => {
-        await enqueueImage(createFetchedImage({
-            types: [],
-            comment: '',
-        }), [ArtworkTypeIDs.Booklet], 'default comment');
-        const row = document.querySelector('tr');
-
-        expect(getSelectedTypes(row))
-            .toStrictEqual([]);
-        expect(getComment(row)).toBe('');
     });
 });
 
@@ -145,6 +121,7 @@ describe('filling edit notes', () => {
         it('does not fill an edit note if no images were queued', () => {
             const fetchedImages = {
                 containerUrl: arguments_.containerUrl,
+                jobUrl: arguments_.containerUrl ?? new URL('https://example.com/'),
                 images: [],
             };
 
@@ -154,9 +131,10 @@ describe('filling edit notes', () => {
         });
 
         it('fills information for non-maximised URL', () => {
-            const image = createFetchedImage();
+            const image = createQueuedImage();
             const fetchedImages = {
                 containerUrl: arguments_.containerUrl,
+                jobUrl: arguments_.containerUrl ?? image.originalUrl,
                 images: [image],
             };
             const expectedLines = [arguments_.prefix + image.originalUrl.href];
@@ -167,11 +145,12 @@ describe('filling edit notes', () => {
         });
 
         it('fills information for maximised URL', () => {
-            const image = createFetchedImage({
+            const image = createQueuedImage({
                 wasMaximised: true,
             });
             const fetchedImages = {
                 containerUrl: arguments_.containerUrl,
+                jobUrl: arguments_.containerUrl ?? image.originalUrl,
                 images: [image],
             };
             const expectedLines = [
@@ -185,16 +164,17 @@ describe('filling edit notes', () => {
         });
 
         it('fills information for redirected URL', () => {
-            const image = createFetchedImage({
+            const image = createQueuedImage({
                 wasRedirected: true,
             });
             const fetchedImages = {
                 containerUrl: arguments_.containerUrl,
+                jobUrl: arguments_.containerUrl ?? image.originalUrl,
                 images: [image],
             };
             const expectedLines = [
                 arguments_.prefix + image.originalUrl.href,
-                ' '.repeat(arguments_.prefix.length) + '→ Redirected to ' + image.fetchedUrl.href,
+                ' '.repeat(arguments_.prefix.length) + '→ Redirected to ' + image.finalUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -203,18 +183,19 @@ describe('filling edit notes', () => {
         });
 
         it('fills information for maximised and redirected URL', () => {
-            const image = createFetchedImage({
+            const image = createQueuedImage({
                 wasMaximised: true,
                 wasRedirected: true,
             });
             const fetchedImages = {
                 containerUrl: arguments_.containerUrl,
+                jobUrl: arguments_.containerUrl ?? image.originalUrl,
                 images: [image],
             };
             const expectedLines = [
                 arguments_.prefix + image.originalUrl.href,
                 ' '.repeat(arguments_.prefix.length) + '→ Maximised to ' + image.maximisedUrl.href,
-                ' '.repeat(arguments_.prefix.length) + '→ Redirected to ' + image.fetchedUrl.href,
+                ' '.repeat(arguments_.prefix.length) + '→ Redirected to ' + image.finalUrl.href,
             ];
 
             fillEditNote([fetchedImages], '', editNote);
@@ -223,11 +204,12 @@ describe('filling edit notes', () => {
         });
 
         it('skips data URLs', () => {
-            const image = createFetchedImage({
+            const image = createQueuedImage({
                 originalUrl: new URL('data:testtesttest'),
             });
             const fetchedImages = {
                 containerUrl: arguments_.containerUrl,
+                jobUrl: arguments_.containerUrl ?? image.originalUrl,
                 images: [image],
             };
             const expectedLines = [
@@ -241,15 +223,16 @@ describe('filling edit notes', () => {
 
         it('fills for multiple URLs', () => {
             const images = [
-                createFetchedImage({
+                createQueuedImage({
                     wasMaximised: true,
                 }),
-                createFetchedImage({
+                createQueuedImage({
                     wasMaximised: true,
                 }),
             ];
             const fetchedImages = {
                 containerUrl: arguments_.containerUrl,
+                jobUrl: arguments_.containerUrl ?? images[0].originalUrl,
                 images,
             };
             const expectedLines = [
@@ -266,13 +249,14 @@ describe('filling edit notes', () => {
 
         it('fills at most 3 URLs', () => {
             const images = [
-                createFetchedImage(),
-                createFetchedImage(),
-                createFetchedImage(),
-                createFetchedImage(),
+                createQueuedImage(),
+                createQueuedImage(),
+                createQueuedImage(),
+                createQueuedImage(),
             ];
             const fetchedImages = {
                 containerUrl: arguments_.containerUrl,
+                jobUrl: arguments_.containerUrl ?? images[0].originalUrl,
                 images,
             };
             const expectedLines = [
@@ -289,14 +273,15 @@ describe('filling edit notes', () => {
 
         it('fills at most 3 URLs with separate fetch results', () => {
             const images = [
-                createFetchedImage(),
-                createFetchedImage(),
-                createFetchedImage(),
-                createFetchedImage(),
+                createQueuedImage(),
+                createQueuedImage(),
+                createQueuedImage(),
+                createQueuedImage(),
             ];
             const fetchedImages = images.map((image) => {
                 return {
                     containerUrl: arguments_.containerUrl,
+                    jobUrl: arguments_.containerUrl ?? images[0].originalUrl,
                     images: [image],
                 };
             });
@@ -314,9 +299,10 @@ describe('filling edit notes', () => {
         });
 
         it('includes seeding origin if provided', () => {
-            const image = createFetchedImage();
+            const image = createQueuedImage();
             const fetchedImages = {
                 containerUrl: arguments_.containerUrl,
+                jobUrl: arguments_.containerUrl ?? image.originalUrl,
                 images: [image],
             };
             const expectedLines = [

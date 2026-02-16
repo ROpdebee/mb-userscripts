@@ -67,7 +67,7 @@ describe('7digital provider', () => {
         it('filters out placeholder images', async () => {
             const cover = createCoverArt('https://artwork-cdn.7static.com/static/img/sleeveart/00/083/541/0008354116_800.jpg');
             const fetchedImage = createFetchedImageFromCoverArt(cover, {
-                fetchedUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/000/000/0000000016_800.jpg'),
+                finalUrl: new URL('https://artwork-cdn.7static.com/static/img/sleeveart/00/000/000/0000000016_800.jpg'),
             });
 
             const afterFetch = await provider.postprocessImage(fetchedImage);
