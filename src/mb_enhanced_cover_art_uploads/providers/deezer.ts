@@ -5,7 +5,7 @@ import { HeadMetaPropertyProvider } from './base';
 
 export class DeezerProvider extends HeadMetaPropertyProvider {
     public readonly supportedDomains = ['deezer.com'];
-    public readonly favicon = 'https://cdn-files.dzcdn.net/cache/images/common/favicon/favicon-16x16.1e6ae1b5b7794f3e00c0.png';
+    public readonly favicon = 'https://cdn-files.dzcdn.net/cache/images/common/favicon/favicon-32x32.ed120c279a693bed3a44.png';
     public readonly name = 'Deezer';
     protected readonly urlRegex = /(?:\w{2}\/)?album\/(\d+)/;
 
