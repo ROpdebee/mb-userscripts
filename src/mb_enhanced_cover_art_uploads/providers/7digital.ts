@@ -17,8 +17,8 @@ export class SevenDigitalProvider extends HeadMetaPropertyProvider {
     public override postprocessImage(image: FetchedImage): Promisable<FetchedImage | null> {
         // Filter out images that either are, or were redirected to the cover
         // with ID 0000000016. This is a placeholder image.
-        if (/\/0{8}16_\d+/.test(image.fetchedUrl.pathname)) {
-            LOGGER.warn(`Skipping "${image.fetchedUrl}" as it matches a placeholder cover`);
+        if (/\/0{8}16_\d+/.test(image.finalUrl.pathname)) {
+            LOGGER.warn(`Skipping "${image.finalUrl}" as it matches a placeholder cover`);
             return null;
         }
         return image;

@@ -2,6 +2,7 @@
 
 import type { BlobResponse, Response, TextResponse } from '@lib/util/request';
 import type { CoverArt, FetchedImage } from '@src/mb_enhanced_cover_art_uploads/types';
+import type { QueuedImage } from '@src/mb_enhanced_cover_art_uploads/types';
 import { HTTPResponseError } from '@lib/util/request';
 
 export interface DummyImageData {
@@ -30,19 +31,19 @@ export function createRandomURL(): URL {
     return new URL(`https://example.com/${randomSuffix}`);
 }
 
-export function createFetchedImage(data?: Partial<FetchedImage>): FetchedImage {
+export function createQueuedImage(data?: Partial<QueuedImage>): QueuedImage {
     data = data ?? {};
     const originalUrl = data.originalUrl ?? createRandomURL();
     const maximisedUrl = data.maximisedUrl ?? (data.wasMaximised ? createRandomURL() : originalUrl);
-    const fetchedUrl = data.fetchedUrl ?? (data.wasRedirected ? createRandomURL() : maximisedUrl);
+    const fetchedUrl = data.finalUrl ?? (data.wasRedirected ? createRandomURL() : maximisedUrl);
 
     return {
         content: data.content ?? createImageFile(),
-        comment: data.comment,
-        types: data.types,
+        comment: data.comment ?? '',
+        types: data.types ?? [],
         originalUrl,
         maximisedUrl,
-        fetchedUrl,
+        finalUrl: fetchedUrl,
         wasMaximised: maximisedUrl.href !== originalUrl.href,
         wasRedirected: fetchedUrl.href !== maximisedUrl.href,
     };
@@ -70,7 +71,7 @@ export function createCoverArt(data?: Partial<CoverArt> | URL | string): CoverAr
 }
 
 export function createFetchedImageFromCoverArt(cover: CoverArt, data?: Partial<FetchedImage>): FetchedImage {
-    return createFetchedImage({
+    return createQueuedImage({
         ...cover,
         ...data,
         originalUrl: cover.url,

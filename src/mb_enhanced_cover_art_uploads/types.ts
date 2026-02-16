@@ -2,6 +2,9 @@
 
 import type { ArtworkTypeIDs } from '@lib/MB/cover-art';
 
+import type { MaximisedImage } from './images/maximise';
+import type { CoverArtProvider } from './providers/base';
+
 export interface CoverArtOptions {
     /**
      * Artwork types to set. May be empty or undefined.
@@ -27,7 +30,7 @@ export interface CoverArt extends CoverArtOptions {
 }
 
 /** Cover art that still needs to be checked before it can be fetched, i.e. URLs provided by the user. */
-export interface BareCoverArt extends CoverArtOptions {
+export interface CoverArtJob extends CoverArtOptions {
     url: URL;
 }
 
@@ -39,29 +42,34 @@ export interface ImageContents {
     file: File;
 }
 
-interface BaseFetchedImage {
+export interface CoverArtMetadata extends Required<CoverArtOptions> {
     originalUrl: URL;
-    maximisedUrl: URL;
-    fetchedUrl: URL;
-    wasMaximised: boolean;
-    wasRedirected: boolean;
+    maximisedUrlCandidates: MaximisedImage[];
 }
 
 /** Image that was fetched, but not yet queued. */
-export interface FetchedImage extends BaseFetchedImage {
+export interface FetchedImage {
+    originalUrl: URL;
+    maximisedUrl: URL;
+    wasMaximised: boolean;
+    finalUrl: URL;
+    wasRedirected: boolean;
+
     content: File;
-    // types and comment may be empty or undefined. If undefined, the value
-    // will be replaced by the default, if any. If defined but empty, the
-    // default will not be used.
-    types?: ArtworkTypeIDs[];
-    comment?: string; // Can be empty string
 }
+
+interface Batch<ImageType> {
+    jobUrl: URL;
+    provider?: CoverArtProvider;
+    images: ImageType[];
+}
+
+export type CoverArtBatch = Batch<CoverArtMetadata>;
 
 /** Image that was fetched and queued. */
-export type QueuedImage = BaseFetchedImage;
+export type QueuedImage = FetchedImage & Required<CoverArtOptions>;
 
 /** Batch of images that were queued, possibly from a provider. */
-export interface QueuedImageBatch {
-    images: QueuedImage[];
+export interface QueuedImageBatch extends Batch<QueuedImage> {
     containerUrl?: URL;
-}
+};

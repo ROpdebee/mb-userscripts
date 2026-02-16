@@ -5,7 +5,7 @@ import { LOGGER } from '@lib/logging/logger';
 import { safeParseJSON } from '@lib/util/json';
 import { HTTPResponseError, request } from '@lib/util/request';
 import { BaseImage } from '@src/mb_caa_dimensions/image';
-import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/maximise';
+import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/images/maximise';
 
 // Use a multiple of 3, most a-tisket releases have 3 images.
 // Currently set to 30, should allow 10 releases open in parallel.
@@ -137,7 +137,7 @@ export class SeederImage extends BaseImage {
 
 export async function getImageInfo(imageUrl: string): Promise<ImageInfo> {
     // Try maximising the image
-    for await (const maxCandidate of getMaximisedCandidates(new URL(imageUrl))) {
+    for (const maxCandidate of await getMaximisedCandidates(new URL(imageUrl))) {
         // Skip likely broken images. Happens on Apple Music images a lot as the
         // first candidate.
         if (maxCandidate.likely_broken) continue;

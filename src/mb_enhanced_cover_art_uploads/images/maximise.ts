@@ -7,7 +7,7 @@ import { retryTimes } from '@lib/util/async';
 import { DispatchMap } from '@lib/util/domain-dispatch';
 import { urlBasename } from '@lib/util/urls';
 
-import { DiscogsProvider } from './providers/discogs';
+import { DiscogsProvider } from '../providers/discogs';
 
 interface MaxurlOptions {
     /**
@@ -238,13 +238,12 @@ export interface MaximisedImage {
     likely_broken?: boolean;
 }
 
-export async function* getMaximisedCandidates(smallurl: URL): AsyncGenerator<MaximisedImage, void, undefined> {
+export async function getMaximisedCandidates(smallurl: URL): Promise<MaximisedImage[]> {
     const exceptionFunction = IMU_EXCEPTIONS.get(smallurl.hostname);
-    const iterable = await (exceptionFunction ?? maximiseGeneric)(smallurl);
-    yield* iterable;
+    return (exceptionFunction ?? maximiseGeneric)(smallurl);
 }
 
-async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
+async function maximiseGeneric(smallurl: URL): Promise<MaximisedImage[]> {
     const results = await new Promise<MaxurlResult[]>((resolve) => {
         maxurl(smallurl.href, {
             ...options,
@@ -257,21 +256,16 @@ async function* maximiseGeneric(smallurl: URL): AsyncIterable<MaximisedImage> {
         });
     });
 
-    for (const maximisedResult of results) {
+    return results
         // Filter out results that will definitely not work
         // FIXME: We blanket-ban videos at the moment, even though in the future
         // we may want videos (e.g. Apple Music front cover videos). Currently
         // videos aren't supported though.
-        if (maximisedResult.fake || maximisedResult.bad || maximisedResult.video) continue;
-        try {
-            yield {
-                ...maximisedResult,
-                url: new URL(maximisedResult.url),
-            };
-        } catch {
-            // pass, invalid URL
-        }
-    }
+        .filter((result) => !(result.fake || result.bad || result.video))
+        .map((result) => ({
+            ...result,
+            url: new URL(result.url),
+        }));
 }
 
 // Discogs
@@ -295,7 +289,7 @@ IMU_EXCEPTIONS.set('*.mzstatic.com', async (smallurl) => {
     const results: MaximisedImage[] = [];
     const smallOriginalName = /(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/.exec(smallurl.href)?.[1];
 
-    for await (const imageGeneric of maximiseGeneric(smallurl)) {
+    for (const imageGeneric of await maximiseGeneric(smallurl)) {
         if (urlBasename(imageGeneric.url) === 'source' && smallOriginalName !== 'source') {
             // Mark the `/source` image as likely broken if the alleged original
             // name isn't "source", but instead e.g. "20UMGIM63158.rgb.jpg".

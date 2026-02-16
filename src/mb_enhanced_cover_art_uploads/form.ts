@@ -5,16 +5,15 @@ import { assertDefined } from '@lib/util/assert';
 import { retryTimes } from '@lib/util/async';
 import { qs, qsa } from '@lib/util/dom';
 
-import type { FetchedImage, QueuedImage, QueuedImageBatch } from './types';
+import type { QueuedImage, QueuedImageBatch } from './types';
 
-export async function enqueueImage(image: FetchedImage, defaultTypes: ArtworkTypeIDs[] = [], defaultComment = ''): Promise<void> {
+export async function enqueueImage(image: QueuedImage): Promise<void> {
     dropImage(image.content);
     await retryTimes(setImageParameters.bind(
         null,
         image.content.name,
-        // Only use the defaults if the specific one is undefined
-        image.types ?? defaultTypes,
-        (image.comment ?? defaultComment).trim()), 5, 500);
+        image.types,
+        image.comment.trim()), 5, 500);
 }
 
 function dropImage(imageData: File): void {
@@ -77,7 +76,7 @@ function fillEditNoteFragment(editNote: EditNote, images: QueuedImage[], contain
             editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + decodeURI(queuedUrl.maximisedUrl.href));
         }
         if (queuedUrl.wasRedirected) {
-            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.fetchedUrl.href));
+            editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.finalUrl.href));
         }
     }
 }

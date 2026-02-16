@@ -10,16 +10,18 @@ import { pFinally } from '@lib/util/async';
 import { qs } from '@lib/util/dom';
 import { ObservableSemaphore } from '@lib/util/observable';
 
-import type { BareCoverArt, QueuedImageBatch } from './types';
-import { ImageFetcher } from './fetch';
+import type { CoverArtJob, QueuedImageBatch } from './types';
 import { fillEditNote } from './form';
+import { CoverArtDownloader } from './images/download';
+import { CoverArtResolver } from './images/resolve';
 import { getProvider } from './providers';
 import { SeedParameters } from './seeding/parameters';
 import { InputForm } from './ui/main';
 
 export class App {
     private readonly note: EditNote;
-    private readonly fetcher: ImageFetcher;
+    private readonly resolver: CoverArtResolver;
+    private readonly downloader: CoverArtDownloader;
     private readonly ui: InputForm;
     private readonly urlsInProgress: Set<string>;
     private readonly loggingSink = new GuiSink();
@@ -43,7 +45,8 @@ export class App {
             },
         });
         this.ui = new InputForm(this);
-        this.fetcher = new ImageFetcher(this.ui);
+        this.resolver = new CoverArtResolver();
+        this.downloader = new CoverArtDownloader(this.ui);
     }
 
     public async processURLs(urls: URL[]): Promise<void> {
@@ -54,39 +57,40 @@ export class App {
         this.loggingSink.clearAllLater();
     }
 
-    private async _processURLs(coverArts: readonly BareCoverArt[], origin?: string): Promise<void> {
+    private async _processURLs(jobs: readonly CoverArtJob[], origin?: string): Promise<void> {
         // Run the fetcher in a section during which submitting the edit form
         // will be blocked. This is to prevent users from submitting the edits
         // while we're still adding images. We run the whole loop in the section
         // to prevent toggling the button in between two URLs.
         const batches = await this.fetchingSema.runInSection(async () => {
-            const fetchedBatches: QueuedImageBatch[] = [];
+            const queuedBatches: QueuedImageBatch[] = [];
 
-            for (const [coverArt, index] of enumerate(coverArts)) {
+            for (const [job, index] of enumerate(jobs)) {
                 // Don't process a URL if we're already doing so, e.g. a user
                 // clicked a button that was already processing via a seed param.
-                if (this.urlsInProgress.has(coverArt.url.href)) {
+                if (this.urlsInProgress.has(job.url.href)) {
                     continue;
                 }
 
-                this.urlsInProgress.add(coverArt.url.href);
-                if (coverArts.length > 1) {
-                    LOGGER.info(`Fetching ${coverArt.url} (${index + 1}/${coverArts.length})`);
+                this.urlsInProgress.add(job.url.href);
+                if (jobs.length > 1) {
+                    LOGGER.info(`Fetching ${job.url} (${index + 1}/${jobs.length})`);
                 } else {
                     // Don't specify progress if there's just one image to process.
-                    LOGGER.info(`Fetching ${coverArt.url}`);
+                    LOGGER.info(`Fetching ${job.url}`);
                 }
                 try {
-                    const fetchResult = await this.fetcher.fetchImages(coverArt);
-                    fetchedBatches.push(fetchResult);
+                    const batchMetadata = await this.resolver.resolveImages(job);
+                    const fetchResult = await this.downloader.enqueueCoverArt(batchMetadata);
+                    queuedBatches.push(fetchResult);
                 } catch (error) {
                     LOGGER.error('Failed to fetch or enqueue images', error);
                 }
 
-                this.urlsInProgress.delete(coverArt.url.href);
+                this.urlsInProgress.delete(job.url.href);
             }
 
-            return fetchedBatches;
+            return queuedBatches;
         });
 
         fillEditNote(batches, origin ?? '', this.note);

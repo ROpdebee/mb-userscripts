@@ -8,7 +8,7 @@ import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { request } from '@lib/util/request';
 import { CoverArtProvider, HeadMetaPropertyProvider, ProviderWithTrackImages } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
-import { createBlob, createBlobResponse, createFetchedImage, createTextResponse } from '../test-utils/dummy-data';
+import { createBlob, createBlobResponse, createQueuedImage, createTextResponse } from '../test-utils/dummy-data';
 import { registerMatchers } from '../test-utils/matchers';
 
 jest.mock('@lib/util/request');
@@ -185,7 +185,7 @@ describe('cover art providers', () => {
 
     describe('post-processing images', () => {
         it('does no post-processing by default', async () => {
-            const fetchedImage = createFetchedImage();
+            const fetchedImage = createQueuedImage();
 
             const result = await fakeProvider.postprocessImage(fetchedImage);
 
