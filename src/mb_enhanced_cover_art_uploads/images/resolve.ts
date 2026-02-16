@@ -34,7 +34,7 @@ export class CoverArtResolver {
         return result;
     }
 
-    private async resolveImagesFromProvider(job: CoverArtJob, provider: CoverArtProvider): Promise<CoverArtBatch> {
+    protected async resolveImagesFromProvider(job: CoverArtJob, provider: CoverArtProvider): Promise<CoverArtBatch> {
         LOGGER.info(`Searching for images in ${provider.name} release…`);
         const { url } = job;
 

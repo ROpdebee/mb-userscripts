@@ -48,8 +48,9 @@ export class CoverArtDownloader {
         this.hooks = hooks;
     }
 
-    public async enqueueCoverArt(batch: CoverArtBatch): Promise<QueuedImageBatch> {
+    public async fetchAndEnqueueCoverArt(batch: CoverArtBatch): Promise<QueuedImageBatch> {
         if (batch.images.length === 0) return { ...batch, images: [] };
+
         if (this.urlAlreadyAdded(batch.jobUrl)) {
             LOGGER.warn(`${batch.jobUrl} has already been added`);
             return {
@@ -121,13 +122,13 @@ export class CoverArtDownloader {
         return queuedResults;
     }
 
-    private async downloadImage(image: CoverArtMetadata): Promise<FetchedImage | null> {
+    protected async downloadImage(image: CoverArtMetadata): Promise<FetchedImage | null> {
         const { originalUrl } = image;
         const id = this.getImageId();
         this.hooks.onDownloadStarted?.(id, originalUrl);
 
         try {
-            const fetchResult = await this.downloadMaxImage(image, id);
+            const fetchResult = await this.downloadBestImage(image, id);
             if (fetchResult === null) return null;
 
             this.doneImages.add(fetchResult.fetchedUrl.href);
@@ -147,7 +148,7 @@ export class CoverArtDownloader {
         }
     }
 
-    private async downloadMaxImage(image: CoverArtMetadata, id: number): Promise<ImageContents | null> {
+    private async downloadBestImage(image: CoverArtMetadata, id: number): Promise<ImageContents | null> {
         const { originalUrl, maximisedUrlCandidates } = image;
 
         for (const maxCandidate of maximisedUrlCandidates) {
@@ -185,7 +186,7 @@ export class CoverArtDownloader {
         return `${filenameWithoutExtension}.${id}.${mimeType.split('/')[1]}`;
     }
 
-    private async downloadImageContents(url: URL, fileName: string, id: number, headers: Record<string, string>): Promise<ImageContents> {
+    protected async downloadImageContents(url: URL, fileName: string, id: number, headers: Record<string, string>): Promise<ImageContents> {
         const xhrOptions = {
             responseType: 'blob',
             headers: headers,

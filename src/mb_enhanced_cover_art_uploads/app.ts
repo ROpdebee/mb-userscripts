@@ -81,7 +81,7 @@ export class App {
                 }
                 try {
                     const batchMetadata = await this.resolver.resolveImages(job);
-                    const fetchResult = await this.downloader.enqueueCoverArt(batchMetadata);
+                    const fetchResult = await this.downloader.fetchAndEnqueueCoverArt(batchMetadata);
                     queuedBatches.push(fetchResult);
                 } catch (error) {
                     LOGGER.error('Failed to fetch or enqueue images', error);

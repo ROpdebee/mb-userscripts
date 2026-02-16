@@ -1,19 +1,22 @@
+import type { CoverArtBatch, CoverArtJob } from '@src/mb_enhanced_cover_art_uploads/types';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { getMaximisedCandidates } from '@src/mb_enhanced_cover_art_uploads/images/maximise';
-import { CoverArtResolver } from '@src/mb_enhanced_cover_art_uploads/images/resolve';
+import { CoverArtResolver as OriginalCoverArtResolver } from '@src/mb_enhanced_cover_art_uploads/images/resolve';
 import { getProvider } from '@src/mb_enhanced_cover_art_uploads/providers';
 import { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
 import { createCoverArt } from '../test-utils/dummy-data';
 
+// Hoist visibility of protected members for use in test.
+class CoverArtResolver extends OriginalCoverArtResolver {
+    public override resolveImagesFromProvider(job: CoverArtJob, provider: CoverArtProvider): Promise<CoverArtBatch> {
+        return super.resolveImagesFromProvider(job, provider);
+    }
+}
+
 jest.mock('@lib/logging/logger');
-// We need to provide a mock factory, because for some reason, either jest or
-// rewire is not recognising the generator, leading to `getMaximisedCandidates`
-// being undefined in this test suite.
-jest.mock<{ getMaximisedCandidates: typeof getMaximisedCandidates }>('@src/mb_enhanced_cover_art_uploads/images/maximise', () => ({
-    getMaximisedCandidates: jest.fn(),
-}));
+jest.mock('@src/mb_enhanced_cover_art_uploads/images/maximise');
 jest.mock('@src/mb_enhanced_cover_art_uploads/providers');
 jest.mock('@src/mb_enhanced_cover_art_uploads/form');
 
@@ -23,8 +26,7 @@ const mockGetProvider = jest.mocked(getProvider);
 
 // Fake provider to enable us to control which images are extracted through
 // this mock function.
-// eslint-disable-next-line jest/prefer-jest-mocked -- Need type annotation.
-const mockFindImages = jest.fn() as jest.MockedFunction<CoverArtProvider['findImages']>;
+const mockFindImages: jest.MockedFunction<CoverArtProvider['findImages']> = jest.fn();
 class FakeProvider extends CoverArtProvider {
     public readonly name = 'test';
     public readonly findImages = mockFindImages;
@@ -47,21 +49,22 @@ beforeEach(() => {
 });
 
 describe('resolving images from providers', () => {
-    let resolveImagesFromProvider: CoverArtResolver['resolveImagesFromProvider'];
+    let resolver: CoverArtResolver;
 
     beforeAll(() => {
         disableMaximisation();
     });
 
     beforeEach(() => {
-        const resolver = new CoverArtResolver();
-        resolveImagesFromProvider = resolver['resolveImagesFromProvider'].bind(resolver);
+        resolver = new CoverArtResolver();
     });
 
     it('returns no images if provider provides no images', async () => {
         mockFindImages.mockResolvedValueOnce([]);
 
-        await expect(resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
+        const result = resolver.resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider);
+
+        await expect(result)
             .resolves.toMatchObject({
                 images: [],
                 provider: fakeProvider,
@@ -77,7 +80,9 @@ describe('resolving images from providers', () => {
             createCoverArt('https://example.com/2'),
         ]);
 
-        await expect(resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
+        const result = resolver.resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider);
+
+        await expect(result)
             .resolves.toMatchObject({
                 images: [{
                     originalUrl: {
@@ -104,7 +109,9 @@ describe('resolving images from providers', () => {
             }),
         ]);
 
-        await expect(resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
+        const result = resolver.resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider);
+
+        await expect(result)
             .resolves.toMatchObject({
                 images: [{
                     originalUrl: {
@@ -134,7 +141,9 @@ describe('resolving images from providers', () => {
         }];
         mockGetMaximisedCandidates.mockResolvedValueOnce(candidates);
 
-        await expect(resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
+        const result = resolver.resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider);
+
+        await expect(result)
             .resolves.toMatchObject({
                 images: [{
                     originalUrl: {
@@ -153,7 +162,9 @@ describe('resolving images from providers', () => {
             }),
         ]);
 
-        await expect(resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider))
+        const result = resolver.resolveImagesFromProvider({ url: new URL('https://example.com') }, fakeProvider);
+
+        await expect(result)
             .resolves.toMatchObject({
                 images: [{
                     originalUrl: {
@@ -246,7 +257,9 @@ describe('resolving images', () => {
         }];
         mockGetMaximisedCandidates.mockResolvedValueOnce(candidates);
 
-        await expect(resolver.resolveImages({ url: new URL('https://example.com') }))
+        const result = resolver.resolveImages({ url: new URL('https://example.com') });
+
+        await expect(result)
             .resolves.toMatchObject({
                 images: [{
                     originalUrl: {
