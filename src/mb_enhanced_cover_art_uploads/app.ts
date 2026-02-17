@@ -130,10 +130,15 @@ export class App {
                 this.clearLogLater.bind(this));
         };
 
-        await Promise.all(supportedURLs.map((url) => {
-            const provider = getProvider(url);
-            assertHasValue(provider);
-            return this.ui.addImportButton(syncProcessURL.bind(this, url), url.href, provider);
-        }));
+        const providers = supportedURLs
+            .map((url) => {
+                const provider = getProvider(url);
+                assertHasValue(provider);
+                return { url, provider };
+            })
+            .sort((a, b) => a.provider.name.localeCompare(b.provider.name));
+
+        await Promise.all(providers.map(
+            ({ url, provider }) => this.ui.addImportButton(syncProcessURL.bind(this, url), url.href, provider)));
     }
 }
