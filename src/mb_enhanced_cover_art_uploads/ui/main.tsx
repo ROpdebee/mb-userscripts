@@ -251,7 +251,8 @@ export class InputForm implements CoverArtDownloaderHooks {
                 }}
             >
                 <img src={favicon} alt={provider.name} />
-                <span>{'Import from ' + provider.name}</span>
+                <span className="provider-title">{'Import from ' + provider.name}</span>
+                <span className="provider-metadata hidden">12 images · 3000×3000 · 18 MB</span>
             </button>
         );
 

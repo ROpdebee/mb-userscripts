@@ -78,11 +78,39 @@ a#ROpdebee_ecau_providers_link {
 .ROpdebee_import_url_buttons {
     margin-left: 32px;
     vertical-align: middle;
+    display: inline-block;
 
-    > button {
-        // So that they're stacked.
-        display: block;
+    button {
         float: none;
         margin: 4px;
+
+        display: grid;
+        grid-template-columns: 16px 1fr;
+        grid-template-rows: auto auto;
+        column-gap: 0.5rem;
+        align-items: center;
+        justify-items: center;
+        width: 100%;
+
+        > img {
+            grid-row: 1 / -1;
+            margin: 0 !important;  // MB adds some margin for some reason, but it doesn't align well for our buttons
+            width: 16px;
+            height: 16px;
+        }
+
+        > .provider-title {
+            grid-row: 1;
+        }
+
+        > .provider-metadata {
+            grid-row: 2;
+            font-size: x-small;
+            color: gray;
+
+            & .hidden {
+                display: none;
+            }
+        }
     }
 }
