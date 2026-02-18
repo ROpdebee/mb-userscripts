@@ -31,6 +31,10 @@ export const CONFIG = {
         },
     },
 
+    tidal: {
+        checkAllCountries: new ConfigProperty('tidal.checkAllCountries', 'Check other countries when release cannot be found', false),
+    },
+
     vgmdb: {
         keepEntireComment: new ConfigProperty('vgmdb.keepEntireComment', 'Keep entire cover art comment', false),
     },

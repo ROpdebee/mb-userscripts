@@ -1,0 +1,210 @@
+WARC/1.1
+WARC-Filename: tidal provider/extracting images/searching other country APIs/finds existing release in another country if configured to do so
+WARC-Date: 2026-02-18T22:49:01.092Z
+WARC-Type: warcinfo
+WARC-Record-ID: <urn:uuid:ca0d941e-fee1-4625-bc2c-a77a042047c0>
+Content-Type: application/warc-fields
+Content-Length: 119
+
+software: warcio.js
+harVersion: 1.2
+harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:a6006782-25f5-4fab-b74b-7ac60af95de5>
+WARC-Target-URI: https://listen.tidal.com/v1/ping
+WARC-Date: 2026-02-18T22:49:01.093Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:60e8ffdf-77dd-4aed-8d42-173e4574672e>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:a4291b722c9f4e08c6aeac93fdb1c1506f4ab5f0e747a8ea7b6501609fe69d5f
+Content-Length: 25
+
+GET /v1/ping HTTP/1.1
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:a6006782-25f5-4fab-b74b-7ac60af95de5>
+WARC-Target-URI: https://listen.tidal.com/v1/ping
+WARC-Date: 2026-02-18T22:49:01.093Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:efe450c2-8e61-4386-acf0-836ca4313786>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:0969b7b7def8098918aa7ab0f435d365129a7f434ac2a6799bccc55d17aa2823
+WARC-Block-Digest: sha256:0969b7b7def8098918aa7ab0f435d365129a7f434ac2a6799bccc55d17aa2823
+Content-Length: 348
+
+harEntryId: 47c39b1a5162a6c91ca5b413317109d4
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2026-02-18T22:49:00.213Z
+time: 413
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":413,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 51
+warcRequestCookies: []
+warcResponseHeadersSize: 398
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://listen.tidal.com/v1/ping
+WARC-Date: 2026-02-18T22:49:01.092Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:a6006782-25f5-4fab-b74b-7ac60af95de5>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3
+WARC-Block-Digest: sha256:2f16edb283bab87bec670e3f86ca72ce5ffa30983f78d1e358b68654f27b374d
+Content-Length: 417
+
+HTTP/1.1 200 OK
+cache-control: no-cache
+connection: keep-alive
+content-length: 2
+content-type: text/plain
+date: Wed, 18 Feb 2026 22:49:00 GMT
+server: noyb
+via: 1.1 411234c039d8f1de63b7f2192e5e24d4.cloudfront.net (CloudFront)
+x-amz-cf-id: wL_xMDWrSYN4BGpWQRdIVizbiXvAtwCOi2iiHee-Sc3mB1txbxowig==
+x-amz-cf-pop: AMS58-P5
+x-cache: Miss from cloudfront
+x-pollyjs-finalurl: https://listen.tidal.com/v1/ping
+
+OK
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e7cde931-b634-4e56-9ccc-f506a67fbd9d>
+WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=496065886&countryCode=NL&deviceType=BROWSER
+WARC-Date: 2026-02-18T22:49:01.094Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:560c0687-7812-422c-aeaf-a1e1ea438d15>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:b606df19ddb1c64fde427cdea2dedfb98580b4c1d8a1dea755b26b5983b991b0
+Content-Length: 117
+
+GET /v1/pages/album?albumId=496065886&countryCode=NL&deviceType=BROWSER HTTP/1.1
+x-tidal-token: CzET4vdadNUFQ5JU
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:e7cde931-b634-4e56-9ccc-f506a67fbd9d>
+WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=496065886&countryCode=NL&deviceType=BROWSER
+WARC-Date: 2026-02-18T22:49:01.094Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:f3a2ce16-f8b6-41bc-8867-7a276aed094a>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:a8eadcea9b984cfa09dbd6120e4020260a9b404044078afdf24884a28cd592bd
+WARC-Block-Digest: sha256:a8eadcea9b984cfa09dbd6120e4020260a9b404044078afdf24884a28cd592bd
+Content-Length: 349
+
+harEntryId: 8c5ecdce398b55e582adf97621236f54
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2026-02-18T22:49:00.627Z
+time: 299
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":299,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 141
+warcRequestCookies: []
+warcResponseHeadersSize: 518
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=496065886&countryCode=NL&deviceType=BROWSER
+WARC-Date: 2026-02-18T22:49:01.093Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:e7cde931-b634-4e56-9ccc-f506a67fbd9d>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:a4ef321624cba823b888055a4c9de66b371bf63766e35d141a3fc631bcdce4f5
+WARC-Block-Digest: sha256:6465c6bee39eab8c173863e947d803fca2cf2836d6b75e4b65b279196079cce4
+Content-Length: 599
+
+HTTP/1.1 404 Not Found
+cache-control: no-cache
+connection: keep-alive
+content-length: 57
+content-type: application/json
+date: Wed, 18 Feb 2026 22:49:01 GMT
+server: noyb
+vary: x-tidal-sessionid,x-tidal-token,authorization
+via: 1.1 411234c039d8f1de63b7f2192e5e24d4.cloudfront.net (CloudFront)
+x-amz-cf-id: 8luHQp0YRMn9zKPV4oJ3uLiOr47-z7QuS2BF0MRIMkjDABSA0gM_Rw==
+x-amz-cf-pop: AMS58-P5
+x-cache: Error from cloudfront
+x-pollyjs-finalurl: https://listen.tidal.com/v1/pages/album?albumId=496065886&countryCode=NL&deviceType=BROWSER
+
+{"status":404,"subStatus":2001,"userMessage":"Not found"}
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:afe7510c-6b42-4b79-b5bb-95d809d4b49b>
+WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=496065886&countryCode=NZ&deviceType=BROWSER
+WARC-Date: 2026-02-18T22:49:01.095Z
+WARC-Type: request
+WARC-Record-ID: <urn:uuid:09bbc737-3aa9-439d-84fd-6b9ebdb75f42>
+Content-Type: application/http; msgtype=request
+WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+WARC-Block-Digest: sha256:79bb06d41b2bc5b9d54674e840d9805b38b1011cdb48a04c4fd0dd5cad526933
+Content-Length: 117
+
+GET /v1/pages/album?albumId=496065886&countryCode=NZ&deviceType=BROWSER HTTP/1.1
+x-tidal-token: CzET4vdadNUFQ5JU
+
+
+
+WARC/1.1
+WARC-Concurrent-To: <urn:uuid:afe7510c-6b42-4b79-b5bb-95d809d4b49b>
+WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=496065886&countryCode=NZ&deviceType=BROWSER
+WARC-Date: 2026-02-18T22:49:01.095Z
+WARC-Type: metadata
+WARC-Record-ID: <urn:uuid:758a223e-f978-4bfe-bd66-d0a52d13cd47>
+Content-Type: application/warc-fields
+WARC-Payload-Digest: sha256:16e3163b1e8ebb92cc7c1f02b56028d144b5d76215ea44cc2cf520c9b4284fc5
+WARC-Block-Digest: sha256:16e3163b1e8ebb92cc7c1f02b56028d144b5d76215ea44cc2cf520c9b4284fc5
+Content-Length: 349
+
+harEntryId: 1064fdce8f2e39e33208f6c2108b4c35
+harEntryOrder: 0
+cache: {}
+startedDateTime: 2026-02-18T22:49:00.927Z
+time: 161
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":161,"receive":0,"ssl":-1}
+warcRequestHeadersSize: 141
+warcRequestCookies: []
+warcResponseHeadersSize: 577
+warcResponseCookies: []
+responseDecoded: false
+
+
+WARC/1.1
+WARC-Target-URI: https://listen.tidal.com/v1/pages/album?albumId=496065886&countryCode=NZ&deviceType=BROWSER
+WARC-Date: 2026-02-18T22:49:01.094Z
+WARC-Type: response
+WARC-Record-ID: <urn:uuid:afe7510c-6b42-4b79-b5bb-95d809d4b49b>
+Content-Type: application/http; msgtype=response
+WARC-Payload-Digest: sha256:6cb1d5ddabe64eb9c12e8c43661d1aaf4ad04a53b6fb5b2c7a4d1e995e2bb47d
+WARC-Block-Digest: sha256:1a95babf337c22f8aff960843bd26a1320e3d5e590058c2a6b4bfd9fbe0909b6
+Content-Length: 5617
+
+HTTP/1.1 200 OK
+cache-control: private, max-age=1, s-max-age=1,
+connection: keep-alive
+content-length: 5023
+content-type: application/json;charset=UTF-8
+date: Wed, 18 Feb 2026 22:49:01 GMT
+etag: "1838834280"
+server: noyb
+vary: x-tidal-sessionid,x-tidal-token,authorization
+via: 1.1 411234c039d8f1de63b7f2192e5e24d4.cloudfront.net (CloudFront)
+x-amz-cf-id: Vm3cOA1Ny2pYul0pIxdHZRbMNsw0S9QjZ5ty9G8mC68AXjp_wh2tfw==
+x-amz-cf-pop: AMS58-P5
+x-cache: Miss from cloudfront
+x-pollyjs-finalurl: https://listen.tidal.com/v1/pages/album?albumId=496065886&countryCode=NZ&deviceType=BROWSER
+
+{"selfLink":null,"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzfQ==","title":"Heart Said No","rows":[{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiOTg3YjJiZGUtMGE5MS00YzYxLWFkNGItNzllYzdkNGY5NmU0IiwibVYiOjEsIm1IIjoiYzQwZDVhYjAifQ==","type":"ALBUM_HEADER","width":100,"description":"","album":{"id":496065886,"title":"Heart Said No","duration":574,"streamReady":true,"payToStream":false,"streamStartDate":"2026-02-19T00:00:00.000+00:00","allowStreaming":true,"numberOfTracks":3,"numberOfVideos":0,"numberOfVolumes":1,"releaseDate":"2026-02-19","copyright":"Nuclear Blast","type":"SINGLE","version":null,"url":"http://www.tidal.com/album/496065886","cover":"8ea4f98b-3484-4b42-97e4-00f0de357601","videoCover":null,"explicit":false,"popularity":0,"audioQuality":"LOSSLESS","audioModes":["STEREO"],"artists":[{"id":72689193,"name":"HOKKA","type":"MAIN","picture":null,"handle":null,"userId":null,"contributionLinkUrl":null}],"mediaMetadata":{"tags":["LOSSLESS"]},"upload":false},"review":{"text":null,"source":null},"credits":{"items":[]},"playbackControls":[{"shuffle":false,"playbackMode":"PLAY","title":"Play","icon":"play_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiMjI1MDkzN2MifQ=="},{"shuffle":true,"playbackMode":"SHUFFLE","title":"Shuffle","icon":"shuffle_tracks","targetModuleId":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiMjI1MDkzN2MifQ=="}],"title":"","preTitle":""}]},{"modules":[{"id":"eyJwIjoiZTZlM2ZmMWItZDZjNC00NzczLTg4ZDAtMGNmOTdjY2ZjYjU5IiwicFYiOjEzLCJtIjoiNjJmY2NhZTUtNDIwZC00MGJlLWJjZGMtZTUzODIwYzAwZjA5IiwibVYiOjEsIm1IIjoiMjI1MDkzN2MifQ==","type":"ALBUM_ITEMS","width":100,"showMore":null,"title":"","description":"","releaseDate":"2026-02-19","copyright":"Nuclear Blast","listFormat":"NUMBERS","pagedList":{"dataApiPath":"pages/data/2fbf68c2-dc58-49b1-b1be-6958e66383f3?albumId=496065886","limit":9999,"offset":0,"totalNumberOfItems":3,"items":[{"item":{"id":496065888,"title":"Heart Said No","duration":203,"version":null,"url":"https://tidal.com/browse/track/496065888","artists":[{"id":72689193,"name":"HOKKA","type":"MAIN","picture":null,"handle":null,"userId":null}],"album":{"id":496065886,"title":"Heart Said No","cover":"8ea4f98b-3484-4b42-97e4-00f0de357601","vibrantColor":"#c9dce6","videoCover":null,"url":"https://tidal.com/browse/album/496065886","releaseDate":"2026-02-19"},"explicit":false,"volumeNumber":1,"trackNumber":1,"popularity":0,"doublePopularity":0.0,"allowStreaming":true,"streamReady":true,"streamStartDate":"2026-02-19T00:00:00.000+0000","adSupportedStreamReady":true,"djReady":true,"stemReady":false,"editable":false,"replayGain":-9.77,"audioQuality":"LOSSLESS","audioModes":["STEREO"],"mixes":null,"mediaMetadata":{"tags":["LOSSLESS"]},"upload":false,"payToStream":false,"accessType":"PUBLIC","spotlighted":false},"type":"track"},{"item":{"id":496065889,"title":"Death by Cupid's Arrow","duration":176,"version":null,"url":"https://tidal.com/browse/track/496065889","artists":[{"id":72689193,"name":"HOKKA","type":"MAIN","picture":null,"handle":null,"userId":null}],"album":{"id":496065886,"title":"Heart Said No","cover":"8ea4f98b-3484-4b42-97e4-00f0de357601","vibrantColor":"#c9dce6","videoCover":null,"url":"https://tidal.com/browse/album/496065886","releaseDate":"2026-02-19"},"explicit":false,"volumeNumber":1,"trackNumber":2,"popularity":0,"doublePopularity":0.0,"allowStreaming":true,"streamReady":true,"streamStartDate":"2026-02-19T00:00:00.000+0000","adSupportedStreamReady":true,"djReady":true,"stemReady":false,"editable":false,"replayGain":-9.77,"audioQuality":"LOSSLESS","audioModes":["STEREO"],"mixes":null,"mediaMetadata":{"tags":["LOSSLESS"]},"upload":false,"payToStream":false,"accessType":"PUBLIC","spotlighted":false},"type":"track"},{"item":{"id":496065890,"title":"In the Darkness","duration":195,"version":null,"url":"https://tidal.com/browse/track/496065890","artists":[{"id":72689193,"name":"HOKKA","type":"MAIN","picture":null,"handle":null,"userId":null}],"album":{"id":496065886,"title":"Heart Said No","cover":"8ea4f98b-3484-4b42-97e4-00f0de357601","vibrantColor":"#c9dce6","videoCover":null,"url":"https://tidal.com/browse/album/496065886","releaseDate":"2026-02-19"},"explicit":false,"volumeNumber":1,"trackNumber":3,"popularity":0,"doublePopularity":0.0,"allowStreaming":true,"streamReady":true,"streamStartDate":"2026-02-19T00:00:00.000+0000","adSupportedStreamReady":true,"djReady":true,"stemReady":false,"editable":false,"replayGain":-9.77,"audioQuality":"LOSSLESS","audioModes":["STEREO"],"mixes":null,"mediaMetadata":{"tags":["LOSSLESS"]},"upload":false,"payToStream":false,"accessType":"PUBLIC","spotlighted":false},"type":"track"}]},"playButton":true,"shuffleButton":true,"supportsPaging":false,"quickPlay":false,"preTitle":null}]}]}
+

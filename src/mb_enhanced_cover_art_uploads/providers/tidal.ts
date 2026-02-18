@@ -1,9 +1,12 @@
+import type { TextResponse } from '@lib/util/request';
+import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { assert, assertHasValue } from '@lib/util/assert';
 import { safeParseJSON } from '@lib/util/json';
 import { request } from '@lib/util/request';
 
 import type { CoverArt } from '../types';
+import { CONFIG } from '../config';
 import { CoverArtProvider } from './base';
 
 // Extracted from listen.tidal.com JS. There seem to be at least 10 different
@@ -14,6 +17,9 @@ import { CoverArtProvider } from './base';
 // 3 years already, I doubt this will stop working any time soon.
 // https://web.archive.org/web/20181015184006/https://listen.tidal.com/app.9dbb572e8121f8755b73.js
 const APP_ID = 'CzET4vdadNUFQ5JU';
+
+// Country list from https://xythium.github.io/tidal.html
+const COUNTRIES = ['NZ', 'US', 'CA', 'GB', 'NL', 'JP', 'IT', 'DE'];
 
 // Incomplete and not entirely correct, but good enough for our purposes.
 interface AlbumMetadata {
@@ -50,21 +56,7 @@ export class TidalProvider extends CoverArtProvider {
     }
 
     private async getCoverUrlFromMetadata(albumId: string): Promise<string> {
-        const countryCode = await this.getCountryCode();
-        // Not sure whether it's strictly necessary to ping, but let's impersonate
-        // the browser as much as we can to avoid getting accidentally blocked.
-        await request.get('https://listen.tidal.com/v1/ping');
-        const apiUrl = `https://listen.tidal.com/v1/pages/album?albumId=${albumId}&countryCode=${countryCode}&deviceType=BROWSER`;
-        const response = await request.get(apiUrl, {
-            headers: {
-                'x-tidal-token': APP_ID,
-            },
-            httpErrorMessages: {
-                404: 'Tidal release does not exist',
-            },
-        });
-
-        const metadata = safeParseJSON<AlbumMetadata>(response.text, 'Invalid response from Tidal API');
+        const metadata = await this.getMetadata(albumId);
         const albumMetadata = metadata.rows[0]?.modules?.[0]?.album;
         assertHasValue(albumMetadata, 'Tidal API returned no album, 404?');
         assert(albumMetadata.id.toString() === albumId, `Tidal returned wrong release: Requested ${albumId}, got ${albumMetadata.id}`);
@@ -72,6 +64,45 @@ export class TidalProvider extends CoverArtProvider {
         const coverId = albumMetadata.cover;
         assertHasValue(coverId, 'Could not find cover in Tidal metadata');
         return `https://resources.tidal.com/images/${coverId.replaceAll('-', '/')}/origin.jpg`;
+    }
+
+    private async getMetadata(albumId: string): Promise<AlbumMetadata> {
+        const countryCode = await this.getCountryCode();
+        // Not sure whether it's strictly necessary to ping, but let's impersonate
+        // the browser as much as we can to avoid getting accidentally blocked.
+        await request.get('https://listen.tidal.com/v1/ping');
+
+        const countries = [countryCode];
+        if (await CONFIG.tidal.checkAllCountries.get()) {
+            countries.push(...COUNTRIES);
+        }
+
+        const response = await this.getMetadataFromCountries(albumId, countries);
+        return safeParseJSON<AlbumMetadata>(response.text, 'Invalid response from Tidal API');
+    }
+
+    private async getMetadataFromCountries(albumId: string, countries: string[]): Promise<TextResponse> {
+        let lastError: unknown;
+
+        for (const countryCode of countries) {
+            const apiUrl = `https://listen.tidal.com/v1/pages/album?albumId=${albumId}&countryCode=${countryCode}&deviceType=BROWSER`;
+            try {
+                const response = await request.get(apiUrl, {
+                    headers: {
+                        'x-tidal-token': APP_ID,
+                    },
+                    httpErrorMessages: {
+                        404: 'Tidal release does not exist or is not available in your country',
+                    },
+                });
+                return response;
+            } catch (error) {
+                lastError = error;
+                LOGGER.warn(`Could not load Tidal album ${albumId} from ${countryCode} API`);
+            }
+        }
+
+        throw lastError;
     }
 
     public async findImages(url: URL): Promise<CoverArt[]> {
