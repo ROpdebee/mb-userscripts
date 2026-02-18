@@ -9,6 +9,7 @@ async function _or(...promises: Array<Promise<boolean>>): Promise<boolean> {
 export const CONFIG = {
     fetchFrontOnly: new ConfigProperty('fetchFrontOnly', 'Fetch front image only', false),
     skipTrackImagesProperty: new ConfigProperty('skipTrackImages', 'Skip extracting track images', false),
+    prefetchMetadata: new ConfigProperty('prefetchMetadata', 'Always get cover art metadata', false),
 
     get skipTrackImages(): Promise<boolean> {
         return _or(CONFIG.fetchFrontOnly.get(), CONFIG.skipTrackImagesProperty.get());

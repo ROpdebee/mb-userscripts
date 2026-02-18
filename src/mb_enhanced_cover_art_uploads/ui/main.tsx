@@ -16,6 +16,8 @@ import css from './main.scss';
 
 const INPUT_PLACEHOLDER_TEXT = 'or paste one or more URLs here';
 
+type ProviderButtonHandle = ProviderHandle & { button: HTMLButtonElement };
+
 class ProgressElement {
     private readonly urlSpan: HTMLSpanElement;
     private readonly progressbar: HTMLElement;
@@ -128,6 +130,7 @@ function createConfig(): HTMLElement {
             <div className="ROpdebee_ecau_config_options">
                 {createCheckbox(CONFIG.fetchFrontOnly)}
                 {createCheckbox(CONFIG.skipTrackImagesProperty)}
+                {createCheckbox(CONFIG.prefetchMetadata)}
                 <h3>Bandcamp</h3>
                 {createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty)}
                 {createCheckbox(CONFIG.bandcamp.squareCropFirst)}
@@ -164,7 +167,6 @@ function providerInfoToString(infos: ImageInfo[]): string {
 
     return parts.join(' · ');
 }
-
 export class InputForm implements CoverArtDownloaderHooks {
     private readonly urlInput: HTMLInputElement;
     private readonly buttonContainer: HTMLDivElement;
@@ -172,7 +174,7 @@ export class InputForm implements CoverArtDownloaderHooks {
     private readonly loadProviderInfoButton: HTMLButtonElement;
     private readonly orSpan: HTMLSpanElement;
 
-    private readonly providers: Array<ProviderHandle & { button: HTMLButtonElement }> = [];
+    private readonly providers: ProviderButtonHandle[] = [];
 
     private readonly fakeSubmitButton: HTMLButtonElement;
     private readonly realSubmitButton: HTMLButtonElement;
@@ -305,31 +307,41 @@ export class InputForm implements CoverArtDownloaderHooks {
             </button>
         ) as HTMLButtonElement;
 
-        this.providers.push({ ...handle, button });
+        const buttonHandle = { ...handle, button };
+        this.providers.push(buttonHandle);
 
         this.orSpan.style.display = '';
         this.buttonContainer.style.display = '';
         this.buttonList.insertAdjacentElement('beforeend', button);
+
+        if (await CONFIG.prefetchMetadata.get()) {
+            this.loadCoverArtInfoForProvider(buttonHandle);
+            this.loadProviderInfoButton.style.display = 'none';
+        }
     }
 
     private loadCoverArtInfo(): void {
         this.loadProviderInfoButton.style.display = 'none';
         for (const handle of this.providers) {
-            const metadataSpan = handle.button.querySelector('.provider-metadata')!;
-            handle.getInfo()
-                .then((info) => {
-                    metadataSpan.textContent = providerInfoToString(info);
-                    metadataSpan.classList.remove('content-loading');
-                    // Log something so that the log window doesn't seem "stuck" on "getting image dimensions"
-                    LOGGER.info(`Successfully retrieved image info for ${handle.provider.name}`);
-                }).catch((error: unknown) => {
-                    LOGGER.error(`Could not retrieve information for ${handle.url}`, error);
-                    metadataSpan.textContent = 'Error :(';
-                    metadataSpan.classList.remove('content-loading');
-                });
-
-            metadataSpan.classList.remove('hidden');
+            this.loadCoverArtInfoForProvider(handle);
         }
+    }
+
+    private loadCoverArtInfoForProvider(handle: ProviderButtonHandle): void {
+        const metadataSpan = handle.button.querySelector('.provider-metadata')!;
+        handle.getInfo()
+            .then((info) => {
+                metadataSpan.textContent = providerInfoToString(info);
+                metadataSpan.classList.remove('content-loading');
+                // Log something so that the log window doesn't seem "stuck" on "getting image dimensions"
+                LOGGER.info(`Successfully retrieved image info for ${handle.provider.name}`);
+            }).catch((error: unknown) => {
+                LOGGER.error(`Could not retrieve information for ${handle.url}`, error);
+                metadataSpan.textContent = 'Error :(';
+                metadataSpan.classList.remove('content-loading');
+            });
+
+        metadataSpan.classList.remove('hidden');
     }
 
     // MB has its own submission disabling logic which we don't want to interfere
