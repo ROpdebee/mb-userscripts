@@ -7,6 +7,8 @@ const mbMatchedUrls = [
     'release/*/add-cover-art',
     'release/*/add-cover-art?*',
     'release/*/cover-art',
+    'event/*/add-event-art',
+    'event/*/add-event-art?*',
 ].map((url) => transformMBMatchURL(url));
 
 const metadata: UserscriptMetadata = {

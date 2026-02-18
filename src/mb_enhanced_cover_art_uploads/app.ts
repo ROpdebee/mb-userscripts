@@ -15,13 +15,14 @@ import { ObservableSemaphore } from '@lib/util/observable';
 
 import type { CoverArtProvider } from './providers/base';
 import type { CoverArtJob, QueuedImageBatch } from './types';
+import type { InputForm } from './ui/main';
 import { fillEditNote } from './form';
 import { CoverArtDownloader } from './images/download';
 import { CoverArtResolver } from './images/resolve';
 import { getProvider } from './providers';
 import { getMaximisedImageInfo } from './seeding/dimensions';
 import { SeedParameters } from './seeding/parameters';
-import { InputForm } from './ui/main';
+import { EventInputForm, ReleaseInputForm } from './ui/main';
 
 const PROMISE_LIMIT = 8;
 
@@ -33,14 +34,25 @@ export interface ProviderHandle {
     getInfo(): Promise<ImageInfo[]>;
 }
 
-export class App {
+export abstract class App {
     private readonly note: EditNote;
-    private readonly resolver: CoverArtResolver;
-    private readonly downloader: CoverArtDownloader;
-    private readonly ui: InputForm;
+    protected readonly resolver: CoverArtResolver;
+    protected readonly downloader: CoverArtDownloader;
+    protected readonly ui: InputForm;
     private readonly urlsInProgress: Set<string>;
     private readonly loggingSink = new GuiSink();
     private readonly fetchingSema: ObservableSemaphore;
+
+    public static create(): App {
+        const pageType = (/^\/(\w+)\//.exec(window.location.pathname))?.[1];
+        if (pageType === 'release') {
+            return new ReleaseApp();
+        }
+        if (pageType === 'event') {
+            return new EventApp();
+        }
+        throw new Error(`Unsupported page type: ${pageType}`);
+    }
 
     public constructor() {
         this.note = EditNote.withFooterFromGMInfo();
@@ -59,10 +71,12 @@ export class App {
                 this.ui.enableSubmissions();
             },
         });
-        this.ui = new InputForm(this);
+        this.ui = this.createInputForm();
         this.resolver = new CoverArtResolver();
         this.downloader = new CoverArtDownloader(this.ui);
     }
+
+    protected abstract createInputForm(): InputForm;
 
     public async processURLs(urls: URL[]): Promise<void> {
         return this._processURLs(urls.map((url) => ({ url })));
@@ -72,7 +86,7 @@ export class App {
         this.loggingSink.clearAllLater();
     }
 
-    private async _processURLs(jobs: readonly CoverArtJob[], origin?: string): Promise<void> {
+    protected async _processURLs(jobs: readonly CoverArtJob[], origin?: string): Promise<void> {
         // Run the fetcher in a section during which submitting the edit form
         // will be blocked. This is to prevent users from submitting the edits
         // while we're still adding images. We run the whole loop in the section
@@ -121,7 +135,7 @@ export class App {
         this.clearLogLater();
     }
 
-    private async prefetchCoverArtInfo(url: URL): Promise<ImageInfo[]> {
+    protected async prefetchCoverArtInfo(url: URL): Promise<ImageInfo[]> {
         const artInfo = await this.resolver.resolveImages({ url });
 
         const limit = pLimit(PROMISE_LIMIT);
@@ -140,7 +154,15 @@ export class App {
         return infos;
     }
 
-    public async addImportButtons(): Promise<void> {
+    public abstract addImportButtons(): Promise<void>;
+}
+
+class ReleaseApp extends App {
+    protected override createInputForm(): InputForm {
+        return new ReleaseInputForm(this);
+    }
+
+    public override async addImportButtons(): Promise<void> {
         const mbid = /musicbrainz\.org\/release\/([a-f\d-]+)\//.exec(window.location.href)?.[1];
         assertHasValue(mbid);
         const attachedURLs = await getURLsForRelease(mbid, {
@@ -179,5 +201,16 @@ export class App {
                 onClick: syncProcessURL.bind(this, url),
                 getInfo: this.prefetchCoverArtInfo.bind(this, url),
             })));
+    }
+}
+
+class EventApp extends App {
+    protected override createInputForm(): InputForm {
+        return new EventInputForm(this);
+    }
+
+    public override addImportButtons(): Promise<void> {
+        // No event art providers supported at this time.
+        return Promise.resolve();
     }
 }
