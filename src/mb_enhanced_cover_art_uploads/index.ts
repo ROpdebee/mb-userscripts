@@ -16,7 +16,7 @@ if (seeder) {
     // The only reason we're using an app here is so we can easily access the
     // UI and fetcher instances without having to pass them around as
     // parameters.
-    const app = new App();
+    const app = App.create();
 
     app.processSeedingParameters()
         .catch((error: unknown) => {

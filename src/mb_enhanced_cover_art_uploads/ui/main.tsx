@@ -168,7 +168,7 @@ function providerInfoToString(infos: ImageInfo[]): string {
 
     return parts.join(' · ');
 }
-export class InputForm implements CoverArtDownloaderHooks {
+export abstract class InputForm implements CoverArtDownloaderHooks {
     private readonly urlInput: HTMLInputElement;
     private readonly buttonContainer: HTMLElement;
     private readonly buttonList: HTMLElement;
@@ -178,7 +178,9 @@ export class InputForm implements CoverArtDownloaderHooks {
     private readonly providers: ProviderButtonHandle[] = [];
 
     private readonly fakeSubmitButton: HTMLElement;
-    private readonly realSubmitButton: HTMLElement;
+    protected abstract realSubmitButton: HTMLElement;
+
+    protected abstract formId: string; // ID of the cover art upload form, used in CSS selectors.
 
     private readonly progressElements = new Map<number, ProgressElement>();
 
@@ -275,7 +277,6 @@ export class InputForm implements CoverArtDownloaderHooks {
             ?.insertAdjacentElement('afterend', this.orSpan)
             ?.insertAdjacentElement('afterend', this.buttonContainer);
 
-        this.realSubmitButton = qs<HTMLButtonElement>('button#add-cover-art-submit');
         this.fakeSubmitButton = (
             <button type="button" className="submit positive" disabled={true} hidden={true}>
                 Enter edit
@@ -358,7 +359,7 @@ export class InputForm implements CoverArtDownloaderHooks {
     public onDownloadStarted(id: number, url: URL): void {
         const progressElement = new ProgressElement(url);
         this.progressElements.set(id, progressElement);
-        qs('form#add-cover-art tbody').append(progressElement.rootElement);
+        qs(`form#${this.formId} tbody`).append(progressElement.rootElement);
     }
 
     public onDownloadFinished(id: number): void {
@@ -374,5 +375,25 @@ export class InputForm implements CoverArtDownloaderHooks {
         if (progress.lengthComputable && progress.total > 0) {
             progressElement.progress = progress.loaded / progress.total;
         }
+    }
+}
+
+export class ReleaseInputForm extends InputForm {
+    protected override readonly realSubmitButton: HTMLButtonElement;
+    protected override readonly formId = 'add-cover-art';
+
+    public constructor(app: App) {
+        super(app);
+        this.realSubmitButton = qs<HTMLButtonElement>('button#add-cover-art-submit');
+    }
+}
+
+export class EventInputForm extends InputForm {
+    protected override readonly realSubmitButton: HTMLButtonElement;
+    protected override readonly formId = 'add-event-art';
+
+    public constructor(app: App) {
+        super(app);
+        this.realSubmitButton = qs<HTMLButtonElement>('button#add-event-art-submit');
     }
 }
