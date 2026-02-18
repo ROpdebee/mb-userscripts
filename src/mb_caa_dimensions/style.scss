@@ -68,3 +68,8 @@ div.thumb-position {
 img.uploader-preview-column > span.ROpdebee_dimensions {
     display: inline;
 }
+
+.artwork-cont a.unavailable {
+    color: gray;
+    text-decoration: line-through;
+}

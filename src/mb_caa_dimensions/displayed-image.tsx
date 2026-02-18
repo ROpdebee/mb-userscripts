@@ -1,7 +1,7 @@
 import { LOGGER } from '@lib/logging/logger';
 import { assertDefined, assertNonNull } from '@lib/util/assert';
 import { logFailure } from '@lib/util/async';
-import { qs, qsMaybe } from '@lib/util/dom';
+import { qsa, qsMaybe } from '@lib/util/dom';
 import { formatFileSize } from '@lib/util/format';
 
 import type { ImageInfo } from './image-info';
@@ -75,6 +75,7 @@ abstract class BaseDisplayedImage implements DisplayedImage {
 
 abstract class DisplayedCAAImage extends BaseDisplayedImage {
     private readonly image: CAAImage;
+    protected imageInfo: ImageInfo | null = null;
 
     public constructor(imageElement: HTMLImageElement, image: CAAImage) {
         super(imageElement);
@@ -90,8 +91,8 @@ abstract class DisplayedCAAImage extends BaseDisplayedImage {
         this.displayInfo('pending…');
 
         try {
-            const imageInfo = await this.image.getImageInfo();
-            this.displayInfo(this.createDimensionsString(imageInfo), this.createFileInfoString(imageInfo));
+            this.imageInfo = await this.image.getImageInfo();
+            this.displayInfo(this.createDimensionsString(this.imageInfo), this.createFileInfoString(this.imageInfo));
         } catch (error) {
             LOGGER.error('Failed to load image information', error);
             this.displayInfo('failed :(');
@@ -139,11 +140,33 @@ export class ArtworkImageAnchorCAAImage extends DisplayedCAAImage {
  * Full-size URL needs to be retrieved from the anchors below the image.
  */
 export class CoverArtTabCAAImage extends DisplayedCAAImage {
+    private readonly anchors: HTMLAnchorElement[];
+
     public constructor(imageElement: HTMLImageElement, cache: InfoCache) {
         const container = imageElement.closest('div.artwork-cont');
         assertNonNull(container);
-        const fullSizeUrl = qs<HTMLAnchorElement>('p.small > a:last-of-type', container).href;
+        const anchors = qsa<HTMLAnchorElement>('p.small > a', container);
+        const fullSizeUrl = anchors[anchors.length - 1].href;
         super(imageElement, new CAAImage(fullSizeUrl, cache));
+        this.anchors = anchors;
+    }
+
+    public override async loadAndDisplay(): Promise<void> {
+        await super.loadAndDisplay();
+        if (this.imageInfo?.dimensions === undefined) return;
+
+        const { height, width } = this.imageInfo.dimensions;
+        const maxDimension = Math.max(height, width);
+
+        for (const anchor of this.anchors) {
+            const resolutionString = /^(\d+)\s*px/.exec(anchor.textContent?.trim() ?? '')?.[1];
+            if (resolutionString === undefined) continue;
+
+            const resolution = Number.parseInt(resolutionString);
+            if (resolution > maxDimension) {
+                anchor.classList.add('unavailable');
+            }
+        }
     }
 }
 
