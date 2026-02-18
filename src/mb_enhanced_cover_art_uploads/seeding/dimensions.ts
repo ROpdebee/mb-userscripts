@@ -1,6 +1,7 @@
 import pRetry from 'p-retry';
 
 import type { Dimensions, FileInfo, ImageInfo } from '@src/mb_caa_dimensions/image-info';
+import type { MaximisedImage } from '@src/mb_enhanced_cover_art_uploads/images/maximise';
 import { LOGGER } from '@lib/logging/logger';
 import { safeParseJSON } from '@lib/util/json';
 import { HTTPResponseError, request } from '@lib/util/request';
@@ -135,9 +136,9 @@ export class SeederImage extends BaseImage {
     }
 }
 
-export async function getImageInfo(imageUrl: string): Promise<ImageInfo> {
+export async function getMaximisedImageInfo(imageUrl: string, maximisedCandidates: MaximisedImage[]): Promise<ImageInfo> {
     // Try maximising the image
-    for (const maxCandidate of await getMaximisedCandidates(new URL(imageUrl))) {
+    for (const maxCandidate of maximisedCandidates) {
         // Skip likely broken images. Happens on Apple Music images a lot as the
         // first candidate.
         if (maxCandidate.likely_broken) continue;
@@ -167,4 +168,8 @@ export async function getImageInfo(imageUrl: string): Promise<ImageInfo> {
 
     // Fall back on original URL. Using `Image#getImageInfo` is fine here.
     return new SeederImage(imageUrl).getImageInfo();
+}
+
+export async function getImageInfo(imageUrl: string): Promise<ImageInfo> {
+    return getMaximisedImageInfo(imageUrl, await getMaximisedCandidates(new URL(imageUrl)));
 }
