@@ -1,5 +1,7 @@
 /* istanbul ignore file: Covered by E2E */
 
+import pLimit from 'p-limit';
+
 import type { ImageInfo } from '@src/mb_caa_dimensions/image-info';
 import { GuiSink } from '@lib/logging/gui-sink';
 import { LOGGER } from '@lib/logging/logger';
@@ -20,6 +22,8 @@ import { getProvider } from './providers';
 import { getMaximisedImageInfo } from './seeding/dimensions';
 import { SeedParameters } from './seeding/parameters';
 import { InputForm } from './ui/main';
+
+const PROMISE_LIMIT = 8;
 
 export interface ProviderHandle {
     url: string;
@@ -120,8 +124,9 @@ export class App {
     private async prefetchCoverArtInfo(url: URL): Promise<ImageInfo[]> {
         const artInfo = await this.resolver.resolveImages({ url });
 
+        const limit = pLimit(PROMISE_LIMIT);
         const infoPromises = await Promise.allSettled(
-            artInfo.images.map((image) => getMaximisedImageInfo(image.originalUrl.href, image.maximisedUrlCandidates)));
+            artInfo.images.map((image) => limit(() => getMaximisedImageInfo(image.originalUrl.href, image.maximisedUrlCandidates))));
 
         const infos = [];
         for (const [infoPromise, index] of enumerate(infoPromises)) {
