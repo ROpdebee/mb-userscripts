@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2026.2.15
+// @version      2026.2.18
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -38,53 +38,20 @@
 (function () {
   'use strict';
 
-  /* minified: babel helpers, nativejsx, ts-custom-error, retry, is-network-error, p-retry */
-  function _defineProperty(t,r,e){return (r=_toPropertyKey(r))in t?Object.defineProperty(t,r,{value:e,enumerable:true,configurable:true,writable:true}):t[r]=e,t}function _toPrimitive(t,r){if("object"!=typeof t||!t)return t;var e=t[Symbol.toPrimitive];if(void 0!==e){var o=e.call(t,r);if("object"!=typeof o)return o;throw new TypeError("@@toPrimitive must return a primitive value.")}return ("string"===r?String:Number)(t)}function _toPropertyKey(t){var r=_toPrimitive(t,"string");return "symbol"==typeof r?r:r+""}function getDefaultExportFromCjs(t){return t&&t.__esModule&&Object.prototype.hasOwnProperty.call(t,"default")?t.default:t}var appendChildren$1,hasRequiredAppendChildren;function requireAppendChildren(){return hasRequiredAppendChildren?appendChildren$1:(hasRequiredAppendChildren=1,appendChildren$1=function(t,r){(r=Array.isArray(r)?r:[r]).forEach((function(r){r instanceof HTMLElement?t.appendChild(r):(r||"string"==typeof r)&&t.appendChild(document.createTextNode(r.toString()));}));})}var setStyles$1,hasRequiredSetStyles,appendChildrenExports=requireAppendChildren(),appendChildren=getDefaultExportFromCjs(appendChildrenExports);function requireSetStyles(){return hasRequiredSetStyles?setStyles$1:(hasRequiredSetStyles=1,setStyles$1=function(t,r){for(const e in r)t.style[e]=r[e];})}var setStylesExports=requireSetStyles(),setStyles=getDefaultExportFromCjs(setStylesExports);function fixProto(t,r){var e=Object.setPrototypeOf;e?e(t,r):t.__proto__=r;}function fixStack(t,r){ void 0===r&&(r=t.constructor);var e=Error.captureStackTrace;e&&e(t,r);}var retry_operation,hasRequiredRetry_operation,hasRequiredRetry$1,retry$1,hasRequiredRetry,__extends=function(){var t=function(r,e){return t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,r){t.__proto__=r;}||function(t,r){for(var e in r)Object.prototype.hasOwnProperty.call(r,e)&&(t[e]=r[e]);},t(r,e)};return function(r,e){if("function"!=typeof e&&null!==e)throw new TypeError("Class extends value "+String(e)+" is not a constructor or null");function o(){this.constructor=r;}t(r,e),r.prototype=null===e?Object.create(e):(o.prototype=e.prototype,new o);}}(),CustomError=function(t){function r(r,e){var o=this.constructor,i=t.call(this,r,e)||this;return Object.defineProperty(i,"name",{value:o.name,enumerable:false,configurable:true}),fixProto(i,o.prototype),fixStack(i),i}return __extends(r,t),r}(Error),retry$2={};function requireRetry_operation(){if(hasRequiredRetry_operation)return retry_operation;function t(t,r){"boolean"==typeof r&&(r={forever:r}),this._originalTimeouts=JSON.parse(JSON.stringify(t)),this._timeouts=t,this._options=r||{},this._maxRetryTime=r&&r.maxRetryTime||1/0,this._fn=null,this._errors=[],this._attempts=1,this._operationTimeout=null,this._operationTimeoutCb=null,this._timeout=null,this._operationStart=null,this._timer=null,this._options.forever&&(this._cachedTimeouts=this._timeouts.slice(0));}return hasRequiredRetry_operation=1,retry_operation=t,t.prototype.reset=function(){this._attempts=1,this._timeouts=this._originalTimeouts.slice(0);},t.prototype.stop=function(){this._timeout&&clearTimeout(this._timeout),this._timer&&clearTimeout(this._timer),this._timeouts=[],this._cachedTimeouts=null;},t.prototype.retry=function(t){if(this._timeout&&clearTimeout(this._timeout),!t)return  false;var r=(new Date).getTime();if(t&&r-this._operationStart>=this._maxRetryTime)return this._errors.push(t),this._errors.unshift(new Error("RetryOperation timeout occurred")),false;this._errors.push(t);var e=this._timeouts.shift();if(void 0===e){if(!this._cachedTimeouts)return  false;this._errors.splice(0,this._errors.length-1),e=this._cachedTimeouts.slice(-1);}var o=this;return this._timer=setTimeout((function(){o._attempts++,o._operationTimeoutCb&&(o._timeout=setTimeout((function(){o._operationTimeoutCb(o._attempts);}),o._operationTimeout),o._options.unref&&o._timeout.unref()),o._fn(o._attempts);}),e),this._options.unref&&this._timer.unref(),true},t.prototype.attempt=function(t,r){this._fn=t,r&&(r.timeout&&(this._operationTimeout=r.timeout),r.cb&&(this._operationTimeoutCb=r.cb));var e=this;this._operationTimeoutCb&&(this._timeout=setTimeout((function(){e._operationTimeoutCb();}),e._operationTimeout)),this._operationStart=(new Date).getTime(),this._fn(this._attempts);},t.prototype.try=function(t){console.log("Using RetryOperation.try() is deprecated"),this.attempt(t);},t.prototype.start=function(t){console.log("Using RetryOperation.start() is deprecated"),this.attempt(t);},t.prototype.start=t.prototype.try,t.prototype.errors=function(){return this._errors},t.prototype.attempts=function(){return this._attempts},t.prototype.mainError=function(){if(0===this._errors.length)return null;for(var t={},r=null,e=0,o=0;o<this._errors.length;o++){var i=this._errors[o],n=i.message,s=(t[n]||0)+1;t[n]=s,s>=e&&(r=i,e=s);}return r},retry_operation}function requireRetry$1(){return hasRequiredRetry$1||(hasRequiredRetry$1=1,t=retry$2,r=requireRetry_operation(),t.operation=function(e){var o=t.timeouts(e);return new r(o,{forever:e&&(e.forever||e.retries===1/0),unref:e&&e.unref,maxRetryTime:e&&e.maxRetryTime})},t.timeouts=function(t){if(t instanceof Array)return [].concat(t);var r={retries:10,factor:2,minTimeout:1e3,maxTimeout:1/0,randomize:false};for(var e in t)r[e]=t[e];if(r.minTimeout>r.maxTimeout)throw new Error("minTimeout is greater than maxTimeout");for(var o=[],i=0;i<r.retries;i++)o.push(this.createTimeout(i,r));return t&&t.forever&&!o.length&&o.push(this.createTimeout(i,r)),o.sort((function(t,r){return t-r})),o},t.createTimeout=function(t,r){var e=r.randomize?Math.random()+1:1,o=Math.round(e*Math.max(r.minTimeout,1)*Math.pow(r.factor,t));return Math.min(o,r.maxTimeout)},t.wrap=function(r,e,o){if(e instanceof Array&&(o=e,e=null),!o)for(var i in o=[],r)"function"==typeof r[i]&&o.push(i);for(var n=0;n<o.length;n++){var s=o[n],a=r[s];r[s]=function(o){var i=t.operation(e),n=Array.prototype.slice.call(arguments,1),s=n.pop();n.push((function(t){i.retry(t)||(t&&(arguments[0]=i.mainError()),s.apply(this,arguments));})),i.attempt((function(){o.apply(r,n);}));}.bind(r,a),r[s].options=e;}}),retry$2;var t,r;}function requireRetry(){return hasRequiredRetry?retry$1:(hasRequiredRetry=1,retry$1=requireRetry$1())}var retryExports=requireRetry(),retry=getDefaultExportFromCjs(retryExports);const objectToString=Object.prototype.toString,isError=t=>"[object Error]"===objectToString.call(t),errorMessages=new Set(["network error","Failed to fetch","NetworkError when attempting to fetch resource.","The Internet connection appears to be offline.","Load failed","Network request failed","fetch failed","terminated"]);function isNetworkError(t){return !(!t||!isError(t)||"TypeError"!==t.name||"string"!=typeof t.message)&&("Load failed"===t.message?void 0===t.stack:errorMessages.has(t.message))}class AbortError extends Error{constructor(t){super(),t instanceof Error?(this.originalError=t,({message:t}=t)):(this.originalError=new Error(t),this.originalError.stack=this.stack),this.name="AbortError",this.message=t;}}const decorateErrorWithCounts=(t,r,e)=>{const o=e.retries-(r-1);return t.attemptNumber=r,t.retriesLeft=o,t};async function pRetry(t,r){return new Promise(((e,o)=>{r={...r},r.onFailedAttempt??=()=>{},r.shouldRetry??=()=>true,r.retries??=10;const i=retry.operation(r),n=()=>{var t;i.stop(),o(null===(t=r.signal)||void 0===t?void 0:t.reason);};r.signal&&!r.signal.aborted&&r.signal.addEventListener("abort",n,{once:true});const s=()=>{var t;null===(t=r.signal)||void 0===t||t.removeEventListener("abort",n),i.stop();};i.attempt((async n=>{try{const r=await t(n);s(),e(r);}catch(a){try{if(!(a instanceof Error))throw new TypeError(`Non-error was thrown: "${a}". You should only throw errors.`);if(a instanceof AbortError)throw a.originalError;if(a instanceof TypeError&&!isNetworkError(a))throw a;if(decorateErrorWithCounts(a,n,r),await r.shouldRetry(a)||(i.stop(),o(a)),await r.onFailedAttempt(a),!i.retry(a))throw i.mainError()}catch(u){decorateErrorWithCounts(u,n,r),s(),o(u);}}}));}))}
+  /* minified: babel helpers, yocto-queue, p-limit, nativejsx, ts-custom-error, retry, is-network-error, p-retry */
+  function _assertClassBrand(e,t,r){if("function"==typeof e?e===t:e.has(t))return arguments.length<3?t:r;throw new TypeError("Private element is not present on this object")}function _checkPrivateRedeclaration(e,t){if(t.has(e))throw new TypeError("Cannot initialize the same private elements twice on an object")}function _classPrivateFieldGet2(e,t){return e.get(_assertClassBrand(e,t))}function _classPrivateFieldInitSpec(e,t,r){_checkPrivateRedeclaration(e,t),t.set(e,r);}function _classPrivateFieldSet2(e,t,r){return e.set(_assertClassBrand(e,t),r),r}function _defineProperty(e,t,r){return (t=_toPropertyKey(t))in e?Object.defineProperty(e,t,{value:r,enumerable:true,configurable:true,writable:true}):e[t]=r,e}function _toPrimitive(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var i=r.call(e,t);if("object"!=typeof i)return i;throw new TypeError("@@toPrimitive must return a primitive value.")}return ("string"===t?String:Number)(e)}function _toPropertyKey(e){var t=_toPrimitive(e,"string");return "symbol"==typeof t?t:t+""}class Node{constructor(e){_defineProperty(this,"value",void 0),_defineProperty(this,"next",void 0),this.value=e;}}var appendChildren$1,hasRequiredAppendChildren,_head=new WeakMap,_tail=new WeakMap,_size=new WeakMap;class Queue{constructor(){_classPrivateFieldInitSpec(this,_head,void 0),_classPrivateFieldInitSpec(this,_tail,void 0),_classPrivateFieldInitSpec(this,_size,void 0),this.clear();}enqueue(e){var t;const r=new Node(e);_classPrivateFieldGet2(_head,this)?(_classPrivateFieldGet2(_tail,this).next=r,_classPrivateFieldSet2(_tail,this,r)):(_classPrivateFieldSet2(_head,this,r),_classPrivateFieldSet2(_tail,this,r)),_classPrivateFieldSet2(_size,this,(t=_classPrivateFieldGet2(_size,this),++t));}dequeue(){var e;const t=_classPrivateFieldGet2(_head,this);if(t)return _classPrivateFieldSet2(_head,this,_classPrivateFieldGet2(_head,this).next),_classPrivateFieldSet2(_size,this,(e=_classPrivateFieldGet2(_size,this),--e)),_classPrivateFieldGet2(_head,this)||_classPrivateFieldSet2(_tail,this,void 0),t.value}peek(){if(_classPrivateFieldGet2(_head,this))return _classPrivateFieldGet2(_head,this).value}clear(){_classPrivateFieldSet2(_head,this,void 0),_classPrivateFieldSet2(_tail,this,void 0),_classPrivateFieldSet2(_size,this,0);}get size(){return _classPrivateFieldGet2(_size,this)}*[Symbol.iterator](){let e=_classPrivateFieldGet2(_head,this);for(;e;)yield e.value,e=e.next;}*drain(){for(;_classPrivateFieldGet2(_head,this);)yield this.dequeue();}}function pLimit(e){let t=false;if("object"==typeof e&&({concurrency:e,rejectOnClear:t=false}=e),validateConcurrency(e),"boolean"!=typeof t)throw new TypeError("Expected `rejectOnClear` to be a boolean");const r=new Queue;let i=0;const o=()=>{i<e&&r.size>0&&(i++,r.dequeue().run());},n=async(e,t,r)=>{const n=(async()=>e(...r))();t(n);try{await n;}catch{}i--,o();},s=function(t){for(var s=arguments.length,a=new Array(s>1?s-1:0),u=1;u<s;u++)a[u-1]=arguments[u];return new Promise(((s,u)=>{((t,s,a,u)=>{const c={reject:a};new Promise((e=>{c.run=e,r.enqueue(c);})).then(n.bind(void 0,t,s,u)),i<e&&o();})(t,s,u,a);}))};return Object.defineProperties(s,{activeCount:{get:()=>i},pendingCount:{get:()=>r.size},clearQueue:{value(){if(!t)return void r.clear();const e=AbortSignal.abort().reason;for(;r.size>0;)r.dequeue().reject(e);}},concurrency:{get:()=>e,set(t){validateConcurrency(t),e=t,queueMicrotask((()=>{for(;i<e&&r.size>0;)o();}));}},map:{async value(e,t){const r=Array.from(e,((e,r)=>this(t,e,r)));return Promise.all(r)}}}),s}function validateConcurrency(e){if(!Number.isInteger(e)&&e!==Number.POSITIVE_INFINITY||!(e>0))throw new TypeError("Expected `concurrency` to be a number from 1 and up")}function getDefaultExportFromCjs(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}function requireAppendChildren(){return hasRequiredAppendChildren?appendChildren$1:(hasRequiredAppendChildren=1,appendChildren$1=function(e,t){(t=Array.isArray(t)?t:[t]).forEach((function(t){t instanceof HTMLElement?e.appendChild(t):(t||"string"==typeof t)&&e.appendChild(document.createTextNode(t.toString()));}));})}var setStyles$1,hasRequiredSetStyles,appendChildrenExports=requireAppendChildren(),appendChildren=getDefaultExportFromCjs(appendChildrenExports);function requireSetStyles(){return hasRequiredSetStyles?setStyles$1:(hasRequiredSetStyles=1,setStyles$1=function(e,t){for(const r in t)e.style[r]=t[r];})}var setStylesExports=requireSetStyles(),setStyles=getDefaultExportFromCjs(setStylesExports);function fixProto(e,t){var r=Object.setPrototypeOf;r?r(e,t):e.__proto__=t;}function fixStack(e,t){ void 0===t&&(t=e.constructor);var r=Error.captureStackTrace;r&&r(e,t);}var retry_operation,hasRequiredRetry_operation,hasRequiredRetry$1,retry$1,hasRequiredRetry,__extends=function(){var e=function(t,r){return e=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(e,t){e.__proto__=t;}||function(e,t){for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);},e(t,r)};return function(t,r){if("function"!=typeof r&&null!==r)throw new TypeError("Class extends value "+String(r)+" is not a constructor or null");function i(){this.constructor=t;}e(t,r),t.prototype=null===r?Object.create(r):(i.prototype=r.prototype,new i);}}(),CustomError=function(e){function t(t,r){var i=this.constructor,o=e.call(this,t,r)||this;return Object.defineProperty(o,"name",{value:i.name,enumerable:false,configurable:true}),fixProto(o,i.prototype),fixStack(o),o}return __extends(t,e),t}(Error),retry$2={};function requireRetry_operation(){if(hasRequiredRetry_operation)return retry_operation;function e(e,t){"boolean"==typeof t&&(t={forever:t}),this._originalTimeouts=JSON.parse(JSON.stringify(e)),this._timeouts=e,this._options=t||{},this._maxRetryTime=t&&t.maxRetryTime||1/0,this._fn=null,this._errors=[],this._attempts=1,this._operationTimeout=null,this._operationTimeoutCb=null,this._timeout=null,this._operationStart=null,this._timer=null,this._options.forever&&(this._cachedTimeouts=this._timeouts.slice(0));}return hasRequiredRetry_operation=1,retry_operation=e,e.prototype.reset=function(){this._attempts=1,this._timeouts=this._originalTimeouts.slice(0);},e.prototype.stop=function(){this._timeout&&clearTimeout(this._timeout),this._timer&&clearTimeout(this._timer),this._timeouts=[],this._cachedTimeouts=null;},e.prototype.retry=function(e){if(this._timeout&&clearTimeout(this._timeout),!e)return  false;var t=(new Date).getTime();if(e&&t-this._operationStart>=this._maxRetryTime)return this._errors.push(e),this._errors.unshift(new Error("RetryOperation timeout occurred")),false;this._errors.push(e);var r=this._timeouts.shift();if(void 0===r){if(!this._cachedTimeouts)return  false;this._errors.splice(0,this._errors.length-1),r=this._cachedTimeouts.slice(-1);}var i=this;return this._timer=setTimeout((function(){i._attempts++,i._operationTimeoutCb&&(i._timeout=setTimeout((function(){i._operationTimeoutCb(i._attempts);}),i._operationTimeout),i._options.unref&&i._timeout.unref()),i._fn(i._attempts);}),r),this._options.unref&&this._timer.unref(),true},e.prototype.attempt=function(e,t){this._fn=e,t&&(t.timeout&&(this._operationTimeout=t.timeout),t.cb&&(this._operationTimeoutCb=t.cb));var r=this;this._operationTimeoutCb&&(this._timeout=setTimeout((function(){r._operationTimeoutCb();}),r._operationTimeout)),this._operationStart=(new Date).getTime(),this._fn(this._attempts);},e.prototype.try=function(e){console.log("Using RetryOperation.try() is deprecated"),this.attempt(e);},e.prototype.start=function(e){console.log("Using RetryOperation.start() is deprecated"),this.attempt(e);},e.prototype.start=e.prototype.try,e.prototype.errors=function(){return this._errors},e.prototype.attempts=function(){return this._attempts},e.prototype.mainError=function(){if(0===this._errors.length)return null;for(var e={},t=null,r=0,i=0;i<this._errors.length;i++){var o=this._errors[i],n=o.message,s=(e[n]||0)+1;e[n]=s,s>=r&&(t=o,r=s);}return t},retry_operation}function requireRetry$1(){return hasRequiredRetry$1||(hasRequiredRetry$1=1,e=retry$2,t=requireRetry_operation(),e.operation=function(r){var i=e.timeouts(r);return new t(i,{forever:r&&(r.forever||r.retries===1/0),unref:r&&r.unref,maxRetryTime:r&&r.maxRetryTime})},e.timeouts=function(e){if(e instanceof Array)return [].concat(e);var t={retries:10,factor:2,minTimeout:1e3,maxTimeout:1/0,randomize:false};for(var r in e)t[r]=e[r];if(t.minTimeout>t.maxTimeout)throw new Error("minTimeout is greater than maxTimeout");for(var i=[],o=0;o<t.retries;o++)i.push(this.createTimeout(o,t));return e&&e.forever&&!i.length&&i.push(this.createTimeout(o,t)),i.sort((function(e,t){return e-t})),i},e.createTimeout=function(e,t){var r=t.randomize?Math.random()+1:1,i=Math.round(r*Math.max(t.minTimeout,1)*Math.pow(t.factor,e));return Math.min(i,t.maxTimeout)},e.wrap=function(t,r,i){if(r instanceof Array&&(i=r,r=null),!i)for(var o in i=[],t)"function"==typeof t[o]&&i.push(o);for(var n=0;n<i.length;n++){var s=i[n],a=t[s];t[s]=function(i){var o=e.operation(r),n=Array.prototype.slice.call(arguments,1),s=n.pop();n.push((function(e){o.retry(e)||(e&&(arguments[0]=o.mainError()),s.apply(this,arguments));})),o.attempt((function(){i.apply(t,n);}));}.bind(t,a),t[s].options=r;}}),retry$2;var e,t;}function requireRetry(){return hasRequiredRetry?retry$1:(hasRequiredRetry=1,retry$1=requireRetry$1())}var retryExports=requireRetry(),retry=getDefaultExportFromCjs(retryExports);const objectToString=Object.prototype.toString,isError=e=>"[object Error]"===objectToString.call(e),errorMessages=new Set(["network error","Failed to fetch","NetworkError when attempting to fetch resource.","The Internet connection appears to be offline.","Load failed","Network request failed","fetch failed","terminated"]);function isNetworkError(e){return !(!e||!isError(e)||"TypeError"!==e.name||"string"!=typeof e.message)&&("Load failed"===e.message?void 0===e.stack:errorMessages.has(e.message))}class AbortError extends Error{constructor(e){super(),e instanceof Error?(this.originalError=e,({message:e}=e)):(this.originalError=new Error(e),this.originalError.stack=this.stack),this.name="AbortError",this.message=e;}}const decorateErrorWithCounts=(e,t,r)=>{const i=r.retries-(t-1);return e.attemptNumber=t,e.retriesLeft=i,e};async function pRetry(e,t){return new Promise(((r,i)=>{t={...t},t.onFailedAttempt??=()=>{},t.shouldRetry??=()=>true,t.retries??=10;const o=retry.operation(t),n=()=>{var e;o.stop(),i(null===(e=t.signal)||void 0===e?void 0:e.reason);};t.signal&&!t.signal.aborted&&t.signal.addEventListener("abort",n,{once:true});const s=()=>{var e;null===(e=t.signal)||void 0===e||e.removeEventListener("abort",n),o.stop();};o.attempt((async n=>{try{const t=await e(n);s(),r(t);}catch(a){try{if(!(a instanceof Error))throw new TypeError(`Non-error was thrown: "${a}". You should only throw errors.`);if(a instanceof AbortError)throw a.originalError;if(a instanceof TypeError&&!isNetworkError(a))throw a;if(decorateErrorWithCounts(a,n,t),await t.shouldRetry(a)||(o.stop(),i(a)),await t.onFailedAttempt(a),!o.retry(a))throw o.mainError()}catch(u){decorateErrorWithCounts(u,n,t),s(),i(u);}}}));}))}
 
   /* minified: lib */
-  class ConsoleSink{constructor(e){_defineProperty(this,"scriptName",void 0),_defineProperty(this,"onSuccess",this.onInfo.bind(this)),this.scriptName=e;}formatMessage(e){return `[${this.scriptName}] ${e}`}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel=function(e){return e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR",e}({});const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){_defineProperty(this,"_configuration",void 0),this._configuration={...DEFAULT_OPTIONS,...e};}fireHandlers(e,t,r){if(!(e<this._configuration.logLevel))for(const s of this._configuration.sinks){const n=s[HANDLER_NAMES[e]];n&&(r?n.call(s,t,r):n.call(s,t));}}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";function filterNonNull(e){return e.filter((e=>!(null==e)))}function groupBy(e,t,r){const s=new Map;for(const o of e){var n;const e=t(o),i=r(o);s.has(e)?null===(n=s.get(e))||void 0===n||n.push(i):s.set(e,[i]);}return s}function collatedSort(e){const t=new Intl.Collator("en",{numeric:true});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map(((e,t)=>[e,t]))}function isFactory(e){return "function"==typeof e}function insertBetween(e,t){return [...e.slice(0,1),...e.slice(1).flatMap((e=>[isFactory(t)?t():t,e]))]}function splitChunks(e,t){const r=[];for(let s=0;s<e.length;s+=t)r.push(e.slice(s,s+t));return r}function deduplicate(e){return [...new Set(e)]}class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(t??"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,t??"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,t??"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,t??"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (t??document).querySelector(e)}function qsa(e,t){return [...(t??document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){const e=r.createElement("base");e.href=t,r.head.insertAdjacentElement("beforeend",e);}return r}function insertStylesheet(e,t){if(t??=`ROpdebee_${USERSCRIPT_ID}_css`,null!==qsMaybe(`style#${t}`))return;const r=function(){var r=document.createElement("style");return r.setAttribute("id",t),appendChildren(r,e),r}.call(this);document.head.insertAdjacentElement("beforeend",r);}var css_248z$1="#ROpdebee_log_container{margin:1.5rem auto;width:75%}#ROpdebee_log_container .msg{border:1px solid;border-radius:4px;display:block;font-weight:500;margin-bottom:.5rem;overflow-wrap:break-word;padding:.5rem .75rem;width:100%}#ROpdebee_log_container .msg.error{background-color:#f8d7da;border-color:#f5c6cb;color:#721c24;font-weight:600}#ROpdebee_log_container .msg.warning{background-color:#fff3cd;border-color:#ffeeba;color:#856404}#ROpdebee_log_container .msg.success{background-color:#d4edda;border-color:#c3e6cb;color:#155724}#ROpdebee_log_container .msg.info{background-color:#e2e3e5;border-color:#d6d8db;color:#383d41}";class GuiSink{constructor(){_defineProperty(this,"rootElement",void 0),_defineProperty(this,"persistentMessages",[]),_defineProperty(this,"transientMessages",[]),_defineProperty(this,"onInfo",this.onLog.bind(this)),insertStylesheet(css_248z$1,"ROpdebee_GUI_Logger"),this.rootElement=function(){var e=document.createElement("div");return e.setAttribute("id","ROpdebee_log_container"),setStyles(e,{display:"none"}),e}.call(this);}createMessage(e,t,r){const s=insertBetween((t+(r instanceof Error?`: ${r.message}`:"")).split(/(?=[/?&%])/),(()=>function(){return document.createElement("wbr")}.call(this)));return function(){var t=document.createElement("span");return t.setAttribute("class",`msg ${e}`),appendChildren(t,s),t}.call(this)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){for(const e of this.transientMessages)e.remove();this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetValue(e){return existsInGM("getValue")?GM.getValue(e):Promise.resolve(GM_getValue(e))}function GMsetValue(e,t){return existsInGM("setValue")?GM.setValue(e,t):(GM_setValue(e,t),Promise.resolve())}function GMdeleteValue(e){return existsInGM("deleteValue")?GM.deleteValue(e):(GM_deleteValue(e),Promise.resolve())}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){_defineProperty(this,"footer",void 0),_defineProperty(this,"extraInfoLines",void 0),_defineProperty(this,"editNoteTextArea",void 0),this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map((e=>e.trimEnd())):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let[t,...r]=this.editNoteTextArea.value.split(separator);t=(t+"\n"+e).trim(),this.editNoteTextArea.value=[t,...r].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter((e=>e.trim()!==this.footer));this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t=`${e.name} ${e.version}\n${e.namespace}`;return new EditNote(t)}}class ResponseHeadersImpl{constructor(e){_defineProperty(this,"map",void 0),_defineProperty(this,Symbol.iterator,void 0),_defineProperty(this,"entries",void 0),_defineProperty(this,"keys",void 0),_defineProperty(this,"values",void 0);const t=groupBy(e?e.split("\r\n").filter(Boolean).map((e=>{const[t,...r]=e.split(":");return [t.toLowerCase().trim(),r.join(":").trim()]})):[],(e=>{let[t]=e;return t}),(e=>{let[,t]=e;return t}));this.map=new Map([...t.entries()].map((e=>{let[t,r]=e;return [t,r.join(",")]}))),this.entries=this.map.entries.bind(this.map),this.keys=this.map.keys.bind(this.map),this.values=this.map.values.bind(this.map),this[Symbol.iterator]=this.map[Symbol.iterator].bind(this.map);}get(e){return this.map.get(e.toLowerCase())??null}has(e){return this.map.has(e.toLowerCase())}forEach(e){for(const[t,r]of this.map.entries())e(r,t,this);}}function createTextResponse(e,t){return {...e,text:t,json(){return JSON.parse(this.text)}}}function convertFetchOptions(e,t){if(t)return {method:e,body:t.body,headers:t.headers}}async function createFetchResponse(e,t){const r=(null==e?void 0:e.responseType)??"text",s={headers:t.headers,url:t.url,status:t.status,statusText:t.statusText,rawResponse:t};switch(r){case "text":return createTextResponse(s,await t.text());case "blob":return {...s,blob:await t.blob()};case "arraybuffer":return {...s,arrayBuffer:await t.arrayBuffer()}}}async function performFetchRequest(e,t,r){return createFetchResponse(r,await fetch(new URL(t),convertFetchOptions(e,r)))}class ResponseError extends CustomError{constructor(e,t){super(t),_defineProperty(this,"url",void 0),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t,r){r?(super(e,r),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):t.statusText.trim()?(super(e,`HTTP error ${t.status}: ${t.statusText}`),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):(super(e,`HTTP error ${t.status}`),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function createGMXHRResponse(e,t){const r=(null==e?void 0:e.responseType)??"text",s={headers:new ResponseHeadersImpl(t.responseHeaders),url:t.finalUrl,status:t.status,statusText:t.statusText,rawResponse:t};switch(r){case "text":return createTextResponse(s,t.responseText);case "blob":return {...s,blob:t.response};case "arraybuffer":return {...s,arrayBuffer:t.response}}}function performGMXHRRequest(e,t,r){return new Promise(((s,n)=>{GMxmlHttpRequest({method:e,url:t instanceof URL?t.href:t,headers:null==r?void 0:r.headers,data:null==r?void 0:r.body,responseType:null==r?void 0:r.responseType,onload:e=>{s(createGMXHRResponse(r,e));},onerror:()=>{n(new NetworkError(t));},onabort:()=>{n(new AbortedError(t));},ontimeout:()=>{n(new TimeoutError(t));},onprogress:null==r?void 0:r.onProgress});}))}let RequestBackend=function(e){return e[e.FETCH=1]="FETCH",e[e.GMXHR=2]="GMXHR",e}({});const hasGMXHR="undefined"!=typeof GM_xmlHttpRequest||"undefined"!=typeof GM&&void 0!==GM.xmlHttpRequest;function constructErrorMessage(e,t){var r;const s=null==e||null===(r=e.httpErrorMessages)||void 0===r?void 0:r[t.status];return "string"==typeof s?s:void 0!==s?s(t):void 0}const request=async function(e,t,r){const s=(null==r?void 0:r.backend)??(hasGMXHR?RequestBackend.GMXHR:RequestBackend.FETCH),n=await performRequest(s,e,t,r);if(((null==r?void 0:r.throwForStatus)??1)&&n.status>=400){const e=constructErrorMessage(r,n);throw new HTTPResponseError(t,n,e)}return n};function performRequest(e,t,r,s){switch(e){case RequestBackend.FETCH:return performFetchRequest(t,r,s);case RequestBackend.GMXHR:return performGMXHRRequest(t,r,s)}}async function getReleaseUrlARs(e){const t=await request.get(`https://musicbrainz.org/ws/2/release/${e}?inc=url-rels&fmt=json`);return (await t.json()).relations??[]}async function getURLsForRelease(e,t){const{excludeEnded:r,excludeDuplicates:s}=t??{};let n=await getReleaseUrlARs(e);r&&(n=n.filter((e=>!e.ended)));let o=n.map((e=>e.url.resource));return s&&(o=[...new Set(o)]),o.flatMap((e=>{try{return [new URL(e)]}catch{return console.warn(`Found malformed URL linked to release: ${e}`),[]}}))}async function getReleaseIDsForURL(e){var t;const r=await request.get(`https://musicbrainz.org/ws/2/url?resource=${encodeURIComponent(e)}&inc=release-rels&fmt=json`,{throwForStatus:false});return (null===(t=(await r.json()).relations)||void 0===t?void 0:t.map((e=>e.release.id)))??[]}function asyncSleep(e){return new Promise((t=>setTimeout(t,e)))}function retryTimes(e,t,r){return t<=0?Promise.reject(new TypeError(`Invalid number of retry times: ${t}`)):async function t(s){try{return await e()}catch(n){if(s<=1)throw n;return asyncSleep(r).then((()=>t(s-1)))}}(t)}function logFailure(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"An error occurred";return LOGGER.error.bind(LOGGER,e)}async function pFinally(e,t){try{return await e}finally{await t();}}request.get=request.bind(void 0,"GET"),request.post=request.bind(void 0,"POST"),request.head=request.bind(void 0,"HEAD");class ObservableSemaphore{constructor(e){_defineProperty(this,"onAcquired",void 0),_defineProperty(this,"onReleased",void 0),_defineProperty(this,"counter",0),this.onAcquired=e.onAcquired.bind(e),this.onReleased=e.onReleased.bind(e);}acquire(){this.counter++,1===this.counter&&this.onAcquired();}release(){this.counter--,0===this.counter&&this.onReleased();}runInSection(e){let t;this.acquire();try{return t=e(),t}finally{t instanceof Promise?pFinally(t,this.release.bind(this)).catch((()=>{})):this.release();}}}let ArtworkTypeIDs=function(e){return e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e["Raw/Unedited"]=14]="Raw/Unedited",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark",e[e["Matrix/Runout"]=15]="Matrix/Runout",e[e.Top=48]="Top",e[e.Bottom=49]="Bottom",e[e.Panel=81]="Panel",e}({});function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map((e=>e.toString(16).padStart(2,"0"))).join("")}async function blobToDigest(e){var t,r;const s=await blobToBuffer(e);return hexEncode(await((null===(t=crypto)||void 0===t||null===(t=t.subtle)||void 0===t||null===(r=t.digest)||void 0===r?void 0:r.call(t,"SHA-256",s))??s))}function blobToBuffer(e){return new Promise(((t,r)=>{const s=new FileReader;s.addEventListener("error",r),s.addEventListener("load",(()=>{t(s.result);})),s.readAsArrayBuffer(e);}))}function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var r=arguments.length,s=new Array(r>1?r-1:0),n=1;n<r;n++)s[n-1]=arguments[n];for(const o of s)t=new URL(o,t);return t}class ConfigProperty{constructor(e,t,r){_defineProperty(this,"name",void 0),_defineProperty(this,"description",void 0),_defineProperty(this,"defaultValue",void 0),this.name=e,this.description=t,this.defaultValue=r;}async get(){const e=await GMgetValue(this.name);if(void 0===e)return this.defaultValue;if("string"!=typeof e)return LOGGER.error(`Invalid stored configuration data for property ${this.name}: expected a string, got ${e}.`),await GMdeleteValue(this.name),this.defaultValue;try{return JSON.parse(e)}catch(t){return LOGGER.error(`Invalid stored configuration data for property ${this.name}: Failed to parse JSON data: ${t}.`),await GMdeleteValue(this.name),this.defaultValue}}set(e){return GMsetValue(this.name,JSON.stringify(e))}}function splitDomain(e){const t=e.split(".");let r=-2;return ["org","co","com"].includes(t[t.length-2])&&(r=-3),[...t.slice(0,r),t.slice(r).join(".")]}class DispatchMap{constructor(){_defineProperty(this,"map",new Map);}set(e,t){const r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((e=>e.includes("*"))))throw new Error("Invalid pattern: "+e);return this.insert([...r].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const r=this._get(e);r?(assert(r instanceof DispatchMap&&!r.map.has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}insertInternal(e,t){const r=e[0],s=this._get(r);let n;s instanceof DispatchMap?n=s:(n=new DispatchMap,this._set(r,n),void 0!==s&&n._set("",s)),n.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);return t instanceof DispatchMap&&(t=t._get("")??t._get("*")),t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){return (1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e))??this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error(`${t}: ${r}`);return}}async function getItemMetadata(e){const t=safeParseJSON((await request.get(new URL(`https://archive.org/metadata/${e}`))).text,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}function memoize(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:e=>`${e[0]}`;const r=new Map;return function(){for(var s=arguments.length,n=new Array(s),o=0;o<s;o++)n[o]=arguments[o];const i=t(n);if(!r.has(i)){const t=e(...n);r.set(i,t);}return r.get(i)}}function formatFileSize(e){const t=0===e?0:Math.floor(Math.log(e)/Math.log(1024));return `${Number((e/Math.pow(1024,t)).toFixed(2))} ${["B","kB","MB","GB","TB"][t]}`}function parseVersion(e){return e.split(".").map((e=>Number.parseInt(e)))}function versionLessThan(e,t){let r=0;for(;r<e.length&&r<t.length;){if(e[r]<t[r])return  true;if(e[r]>t[r])return  false;r++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2025.5.12.2",description:"add Metal Archives provider"},{versionAdded:"2025.5.12",description:"add MusicCircle provider"},{versionAdded:"2025.5.9",description:"add Free Music Archive provider"},{versionAdded:"2025.5.8",description:"configuration options"},{versionAdded:"2025.3.10",description:"Display image dimensions and seed release URLs from Harmony"},{versionAdded:"2025.3.9",description:"Seed cover art from Harmony release actions pages"},{versionAdded:"2024.8.27",description:"update Image Max URL to maximise Spotify covers"},{versionAdded:"2023.12.22",description:"add YouTube and YouTube Music provider"},{versionAdded:"2023.6.28",description:"add Traxsource provider"}],css_248z$2=".ROpdebee_feature_list{font-weight:300;margin:0 auto;width:-moz-fit-content;width:fit-content}.ROpdebee_feature_list ul{margin:6px 28px 0 0;text-align:left}";const LAST_DISPLAYED_KEY=`ROpdebee_${USERSCRIPT_ID}_last_notified_update`;function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const r=parseVersion(e),s=USERSCRIPT_FEATURE_HISTORY.filter((e=>versionLessThan(r,parseVersion(e.versionAdded))));0!==s.length&&showFeatureNotification(t.name,t.version,s.map((e=>e.description)));}function showFeatureNotification(e,t,r){insertStylesheet(css_248z$2,"ROpdebee_Update_Banner");const s=function(){var n=document.createElement("div");n.setAttribute("class","banner warning-header");var o=document.createElement("p");n.appendChild(o),appendChildren(o,`${e} was updated to v${t}! `);var i=document.createElement("a");i.setAttribute("href",CHANGELOG_URL),o.appendChild(i);var a=document.createTextNode("See full changelog here");i.appendChild(a);var u=document.createTextNode(". New features since last update:");o.appendChild(u);var d=document.createElement("div");d.setAttribute("class","ROpdebee_feature_list"),n.appendChild(d);var l=document.createElement("ul");d.appendChild(l),appendChildren(l,r.map((e=>function(){var t=document.createElement("li");return appendChildren(t,e),t}.call(this))));var c=document.createElement("button");return c.setAttribute("class","dismiss-banner remove-item icon"),c.setAttribute("data-banner-name","alert"),c.setAttribute("type","button"),c.addEventListener("click",(()=>{s.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);})),n.appendChild(c),n}.call(this);qs("#page").insertAdjacentElement("beforebegin",s);}
+  class ConsoleSink{constructor(e){_defineProperty(this,"scriptName",void 0),_defineProperty(this,"onSuccess",this.onInfo.bind(this)),this.scriptName=e;}formatMessage(e){return `[${this.scriptName}] ${e}`}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel=function(e){return e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR",e}({});const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){_defineProperty(this,"_configuration",void 0),this._configuration={...DEFAULT_OPTIONS,...e};}fireHandlers(e,t,r){if(!(e<this._configuration.logLevel))for(const s of this._configuration.sinks){const n=s[HANDLER_NAMES[e]];n&&(r?n.call(s,t,r):n.call(s,t));}}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";function filterNonNull(e){return e.filter((e=>!(null==e)))}function groupBy(e,t,r){const s=new Map;for(const o of e){var n;const e=t(o),i=r(o);s.has(e)?null===(n=s.get(e))||void 0===n||n.push(i):s.set(e,[i]);}return s}function collatedSort(e){const t=new Intl.Collator("en",{numeric:true});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map(((e,t)=>[e,t]))}function isFactory(e){return "function"==typeof e}function insertBetween(e,t){return [...e.slice(0,1),...e.slice(1).flatMap((e=>[isFactory(t)?t():t,e]))]}function splitChunks(e,t){const r=[];for(let s=0;s<e.length;s+=t)r.push(e.slice(s,s+t));return r}function deduplicate(e){return [...new Set(e)]}class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(t??"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,t??"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,t??"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,t??"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (t??document).querySelector(e)}function qsa(e,t){return [...(t??document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){const e=r.createElement("base");e.href=t,r.head.insertAdjacentElement("beforeend",e);}return r}function insertStylesheet(e,t){if(t??=`ROpdebee_${USERSCRIPT_ID}_css`,null!==qsMaybe(`style#${t}`))return;const r=function(){var r=document.createElement("style");return r.setAttribute("id",t),appendChildren(r,e),r}.call(this);document.head.insertAdjacentElement("beforeend",r);}var css_248z$1="#ROpdebee_log_container{margin:1.5rem auto;width:75%}#ROpdebee_log_container .msg{border:1px solid;border-radius:4px;display:block;font-weight:500;margin-bottom:.5rem;overflow-wrap:break-word;padding:.5rem .75rem;width:100%}#ROpdebee_log_container .msg.error{background-color:#f8d7da;border-color:#f5c6cb;color:#721c24;font-weight:600}#ROpdebee_log_container .msg.warning{background-color:#fff3cd;border-color:#ffeeba;color:#856404}#ROpdebee_log_container .msg.success{background-color:#d4edda;border-color:#c3e6cb;color:#155724}#ROpdebee_log_container .msg.info{background-color:#e2e3e5;border-color:#d6d8db;color:#383d41}";class GuiSink{constructor(){_defineProperty(this,"rootElement",void 0),_defineProperty(this,"persistentMessages",[]),_defineProperty(this,"transientMessages",[]),_defineProperty(this,"onInfo",this.onLog.bind(this)),insertStylesheet(css_248z$1,"ROpdebee_GUI_Logger"),this.rootElement=function(){var e=document.createElement("div");return e.setAttribute("id","ROpdebee_log_container"),setStyles(e,{display:"none"}),e}.call(this);}createMessage(e,t,r){const s=insertBetween((t+(r instanceof Error?`: ${r.message}`:"")).split(/(?=[/?&%])/),(()=>function(){return document.createElement("wbr")}.call(this)));return function(){var t=document.createElement("span");return t.setAttribute("class",`msg ${e}`),appendChildren(t,s),t}.call(this)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){for(const e of this.transientMessages)e.remove();this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetValue(e){return existsInGM("getValue")?GM.getValue(e):Promise.resolve(GM_getValue(e))}function GMsetValue(e,t){return existsInGM("setValue")?GM.setValue(e,t):(GM_setValue(e,t),Promise.resolve())}function GMdeleteValue(e){return existsInGM("deleteValue")?GM.deleteValue(e):(GM_deleteValue(e),Promise.resolve())}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){_defineProperty(this,"footer",void 0),_defineProperty(this,"extraInfoLines",void 0),_defineProperty(this,"editNoteTextArea",void 0),this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map((e=>e.trimEnd())):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let[t,...r]=this.editNoteTextArea.value.split(separator);t=(t+"\n"+e).trim(),this.editNoteTextArea.value=[t,...r].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter((e=>e.trim()!==this.footer));this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t=`${e.name} ${e.version}\n${e.namespace}`;return new EditNote(t)}}class ResponseHeadersImpl{constructor(e){_defineProperty(this,"map",void 0),_defineProperty(this,Symbol.iterator,void 0),_defineProperty(this,"entries",void 0),_defineProperty(this,"keys",void 0),_defineProperty(this,"values",void 0);const t=groupBy(e?e.split("\r\n").filter(Boolean).map((e=>{const[t,...r]=e.split(":");return [t.toLowerCase().trim(),r.join(":").trim()]})):[],(e=>{let[t]=e;return t}),(e=>{let[,t]=e;return t}));this.map=new Map([...t.entries()].map((e=>{let[t,r]=e;return [t,r.join(",")]}))),this.entries=this.map.entries.bind(this.map),this.keys=this.map.keys.bind(this.map),this.values=this.map.values.bind(this.map),this[Symbol.iterator]=this.map[Symbol.iterator].bind(this.map);}get(e){return this.map.get(e.toLowerCase())??null}has(e){return this.map.has(e.toLowerCase())}forEach(e){for(const[t,r]of this.map.entries())e(r,t,this);}}function createTextResponse(e,t){return {...e,text:t,json(){return JSON.parse(this.text)}}}function convertFetchOptions(e,t){if(t)return {method:e,body:t.body,headers:t.headers}}async function createFetchResponse(e,t){const r=(null==e?void 0:e.responseType)??"text",s={headers:t.headers,url:t.url,status:t.status,statusText:t.statusText,rawResponse:t};switch(r){case "text":return createTextResponse(s,await t.text());case "blob":return {...s,blob:await t.blob()};case "arraybuffer":return {...s,arrayBuffer:await t.arrayBuffer()}}}async function performFetchRequest(e,t,r){return createFetchResponse(r,await fetch(new URL(t),convertFetchOptions(e,r)))}class ResponseError extends CustomError{constructor(e,t){super(t),_defineProperty(this,"url",void 0),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t,r){r?(super(e,r),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):t.statusText.trim()?(super(e,`HTTP error ${t.status}: ${t.statusText}`),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):(super(e,`HTTP error ${t.status}`),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function createGMXHRResponse(e,t){const r=(null==e?void 0:e.responseType)??"text",s={headers:new ResponseHeadersImpl(t.responseHeaders),url:t.finalUrl,status:t.status,statusText:t.statusText,rawResponse:t};switch(r){case "text":return createTextResponse(s,t.responseText);case "blob":return {...s,blob:t.response};case "arraybuffer":return {...s,arrayBuffer:t.response}}}function performGMXHRRequest(e,t,r){return new Promise(((s,n)=>{GMxmlHttpRequest({method:e,url:t instanceof URL?t.href:t,headers:null==r?void 0:r.headers,data:null==r?void 0:r.body,responseType:null==r?void 0:r.responseType,onload:e=>{s(createGMXHRResponse(r,e));},onerror:()=>{n(new NetworkError(t));},onabort:()=>{n(new AbortedError(t));},ontimeout:()=>{n(new TimeoutError(t));},onprogress:null==r?void 0:r.onProgress});}))}let RequestBackend=function(e){return e[e.FETCH=1]="FETCH",e[e.GMXHR=2]="GMXHR",e}({});const hasGMXHR="undefined"!=typeof GM_xmlHttpRequest||"undefined"!=typeof GM&&void 0!==GM.xmlHttpRequest;function constructErrorMessage(e,t){var r;const s=null==e||null===(r=e.httpErrorMessages)||void 0===r?void 0:r[t.status];return "string"==typeof s?s:void 0!==s?s(t):void 0}const request=async function(e,t,r){const s=(null==r?void 0:r.backend)??(hasGMXHR?RequestBackend.GMXHR:RequestBackend.FETCH),n=await performRequest(s,e,t,r);if(((null==r?void 0:r.throwForStatus)??1)&&n.status>=400){const e=constructErrorMessage(r,n);throw new HTTPResponseError(t,n,e)}return n};function performRequest(e,t,r,s){switch(e){case RequestBackend.FETCH:return performFetchRequest(t,r,s);case RequestBackend.GMXHR:return performGMXHRRequest(t,r,s)}}async function getReleaseUrlARs(e){const t=await request.get(`https://musicbrainz.org/ws/2/release/${e}?inc=url-rels&fmt=json`);return (await t.json()).relations??[]}async function getURLsForRelease(e,t){const{excludeEnded:r,excludeDuplicates:s}=t??{};let n=await getReleaseUrlARs(e);r&&(n=n.filter((e=>!e.ended)));let o=n.map((e=>e.url.resource));return s&&(o=[...new Set(o)]),o.flatMap((e=>{try{return [new URL(e)]}catch{return console.warn(`Found malformed URL linked to release: ${e}`),[]}}))}async function getReleaseIDsForURL(e){var t;const r=await request.get(`https://musicbrainz.org/ws/2/url?resource=${encodeURIComponent(e)}&inc=release-rels&fmt=json`,{throwForStatus:false});return (null===(t=(await r.json()).relations)||void 0===t?void 0:t.map((e=>e.release.id)))??[]}function asyncSleep(e){return new Promise((t=>setTimeout(t,e)))}function retryTimes(e,t,r){return t<=0?Promise.reject(new TypeError(`Invalid number of retry times: ${t}`)):async function t(s){try{return await e()}catch(n){if(s<=1)throw n;return asyncSleep(r).then((()=>t(s-1)))}}(t)}function logFailure(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"An error occurred";return LOGGER.error.bind(LOGGER,e)}async function pFinally(e,t){try{return await e}finally{await t();}}request.get=request.bind(void 0,"GET"),request.post=request.bind(void 0,"POST"),request.head=request.bind(void 0,"HEAD");class ObservableSemaphore{constructor(e){_defineProperty(this,"onAcquired",void 0),_defineProperty(this,"onReleased",void 0),_defineProperty(this,"counter",0),this.onAcquired=e.onAcquired.bind(e),this.onReleased=e.onReleased.bind(e);}acquire(){this.counter++,1===this.counter&&this.onAcquired();}release(){this.counter--,0===this.counter&&this.onReleased();}runInSection(e){let t;this.acquire();try{return t=e(),t}finally{t instanceof Promise?pFinally(t,this.release.bind(this)).catch((()=>{})):this.release();}}}let ArtworkTypeIDs=function(e){return e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e["Raw/Unedited"]=14]="Raw/Unedited",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark",e[e["Matrix/Runout"]=15]="Matrix/Runout",e[e.Top=48]="Top",e[e.Bottom=49]="Bottom",e[e.Panel=81]="Panel",e}({});function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map((e=>e.toString(16).padStart(2,"0"))).join("")}async function blobToDigest(e){var t,r;const s=await blobToBuffer(e);return hexEncode(await((null===(t=crypto)||void 0===t||null===(t=t.subtle)||void 0===t||null===(r=t.digest)||void 0===r?void 0:r.call(t,"SHA-256",s))??s))}function blobToBuffer(e){return new Promise(((t,r)=>{const s=new FileReader;s.addEventListener("error",r),s.addEventListener("load",(()=>{t(s.result);})),s.readAsArrayBuffer(e);}))}function memoize(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:e=>`${e[0]}`;const r=new Map;return function(){for(var s=arguments.length,n=new Array(s),o=0;o<s;o++)n[o]=arguments[o];const i=t(n);if(!r.has(i)){const t=e(...n);r.set(i,t);}return r.get(i)}}function identity(e){return e}function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var r=arguments.length,s=new Array(r>1?r-1:0),n=1;n<r;n++)s[n-1]=arguments[n];for(const o of s)t=new URL(o,t);return t}class ConfigProperty{constructor(e,t,r){_defineProperty(this,"name",void 0),_defineProperty(this,"description",void 0),_defineProperty(this,"defaultValue",void 0),this.name=e,this.description=t,this.defaultValue=r;}async get(){const e=await GMgetValue(this.name);if(void 0===e)return this.defaultValue;if("string"!=typeof e)return LOGGER.error(`Invalid stored configuration data for property ${this.name}: expected a string, got ${e}.`),await GMdeleteValue(this.name),this.defaultValue;try{return JSON.parse(e)}catch(t){return LOGGER.error(`Invalid stored configuration data for property ${this.name}: Failed to parse JSON data: ${t}.`),await GMdeleteValue(this.name),this.defaultValue}}set(e){return GMsetValue(this.name,JSON.stringify(e))}}function splitDomain(e){const t=e.split(".");let r=-2;return ["org","co","com"].includes(t[t.length-2])&&(r=-3),[...t.slice(0,r),t.slice(r).join(".")]}class DispatchMap{constructor(){_defineProperty(this,"map",new Map);}set(e,t){const r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((e=>e.includes("*"))))throw new Error("Invalid pattern: "+e);return this.insert([...r].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const r=this._get(e);r?(assert(r instanceof DispatchMap&&!r.map.has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}insertInternal(e,t){const r=e[0],s=this._get(r);let n;s instanceof DispatchMap?n=s:(n=new DispatchMap,this._set(r,n),void 0!==s&&n._set("",s)),n.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);return t instanceof DispatchMap&&(t=t._get("")??t._get("*")),t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){return (1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e))??this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error(`${t}: ${r}`);return}}async function getItemMetadata(e){const t=safeParseJSON((await request.get(new URL(`https://archive.org/metadata/${e}`))).text,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}function formatFileSize(e){const t=0===e?0:Math.floor(Math.log(e)/Math.log(1024));return `${Number((e/Math.pow(1024,t)).toFixed(2))} ${["B","kB","MB","GB","TB"][t]}`}function parseVersion(e){return e.split(".").map((e=>Number.parseInt(e)))}function versionLessThan(e,t){let r=0;for(;r<e.length&&r<t.length;){if(e[r]<t[r])return  true;if(e[r]>t[r])return  false;r++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2026.2.18",description:"prefetch cover art metadata"},{versionAdded:"2025.5.12.2",description:"add Metal Archives provider"},{versionAdded:"2025.5.12",description:"add MusicCircle provider"},{versionAdded:"2025.5.9",description:"add Free Music Archive provider"},{versionAdded:"2025.5.8",description:"configuration options"},{versionAdded:"2025.3.10",description:"Display image dimensions and seed release URLs from Harmony"},{versionAdded:"2025.3.9",description:"Seed cover art from Harmony release actions pages"},{versionAdded:"2024.8.27",description:"update Image Max URL to maximise Spotify covers"},{versionAdded:"2023.12.22",description:"add YouTube and YouTube Music provider"}],css_248z$2=".ROpdebee_feature_list{font-weight:300;margin:0 auto;width:-moz-fit-content;width:fit-content}.ROpdebee_feature_list ul{margin:6px 28px 0 0;text-align:left}";const LAST_DISPLAYED_KEY=`ROpdebee_${USERSCRIPT_ID}_last_notified_update`;function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const r=parseVersion(e),s=USERSCRIPT_FEATURE_HISTORY.filter((e=>versionLessThan(r,parseVersion(e.versionAdded))));0!==s.length&&showFeatureNotification(t.name,t.version,s.map((e=>e.description)));}function showFeatureNotification(e,t,r){insertStylesheet(css_248z$2,"ROpdebee_Update_Banner");const s=function(){var n=document.createElement("div");n.setAttribute("class","banner warning-header");var o=document.createElement("p");n.appendChild(o),appendChildren(o,`${e} was updated to v${t}! `);var i=document.createElement("a");i.setAttribute("href",CHANGELOG_URL),o.appendChild(i);var a=document.createTextNode("See full changelog here");i.appendChild(a);var u=document.createTextNode(". New features since last update:");o.appendChild(u);var d=document.createElement("div");d.setAttribute("class","ROpdebee_feature_list"),n.appendChild(d);var l=document.createElement("ul");d.appendChild(l),appendChildren(l,r.map((e=>function(){var t=document.createElement("li");return appendChildren(t,e),t}.call(this))));var c=document.createElement("button");return c.setAttribute("class","dismiss-banner remove-item icon"),c.setAttribute("data-banner-name","alert"),c.setAttribute("type","button"),c.addEventListener("click",(()=>{s.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);})),n.appendChild(c),n}.call(this);qs("#page").insertAdjacentElement("beforebegin",s);}
 
   LOGGER.configure({
       logLevel: LogLevel.INFO,
   });
   LOGGER.addSink(new ConsoleSink(USERSCRIPT_ID));
 
-  async function _or() {
-    for (var _len = arguments.length, promises = new Array(_len), _key = 0; _key < _len; _key++) {
-      promises[_key] = arguments[_key];
-    }
-    const booleans = await Promise.all(promises);
-    return booleans.some(Boolean);
-  }
-  const CONFIG = {
-    fetchFrontOnly: new ConfigProperty('fetchFrontOnly', 'Fetch front image only', false),
-    skipTrackImagesProperty: new ConfigProperty('skipTrackImages', 'Skip extracting track images', false),
-    get skipTrackImages() {
-      return _or(CONFIG.fetchFrontOnly.get(), CONFIG.skipTrackImagesProperty.get());
-    },
-    bandcamp: {
-      skipTrackImagesProperty: new ConfigProperty('bandcamp.skipTrackImages', 'Skip extracting track images', false),
-      get skipTrackImages() {
-        return _or(CONFIG.skipTrackImages, CONFIG.bandcamp.skipTrackImagesProperty.get());
-      },
-      squareCropFirst: new ConfigProperty('bandcamp.squareCropFirst', 'Place square cropped artwork before original artwork', false)
-    },
-    soundcloud: {
-      skipTrackImagesProperty: new ConfigProperty('soundcloud.skipTrackImages', 'Skip extracting track images', false),
-      get skipTrackImages() {
-        return _or(CONFIG.skipTrackImages, CONFIG.soundcloud.skipTrackImagesProperty.get());
-      }
-    },
-    vgmdb: {
-      keepEntireComment: new ConfigProperty('vgmdb.keepEntireComment', 'Keep entire cover art comment', false)
-    }
-  };
-
   async function enqueueImage(image) {
-    let defaultTypes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-    let defaultComment = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
     dropImage(image.content);
-    await retryTimes(setImageParameters.bind(null, image.content.name, image.types ?? defaultTypes, (image.comment ?? defaultComment).trim()), 5, 500);
+    await retryTimes(setImageParameters.bind(null, image.content.name, image.types, image.comment.trim()), 5, 500);
   }
   function dropImage(imageData) {
     const DataTransfer = getFromPageContext('DataTransfer');
@@ -127,7 +94,7 @@
         editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Maximised to ' + decodeURI(queuedUrl.maximisedUrl.href));
       }
       if (queuedUrl.wasRedirected) {
-        editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.fetchedUrl.href));
+        editNote.addExtraInfo(' '.repeat(prefix.length) + '→ Redirected to ' + decodeURI(queuedUrl.finalUrl.href));
       }
     }
   }
@@ -153,6 +120,38 @@
     }
     editNote.addFooter();
   }
+
+  async function _or() {
+    for (var _len = arguments.length, promises = new Array(_len), _key = 0; _key < _len; _key++) {
+      promises[_key] = arguments[_key];
+    }
+    const booleans = await Promise.all(promises);
+    return booleans.some(Boolean);
+  }
+  const CONFIG = {
+    fetchFrontOnly: new ConfigProperty('fetchFrontOnly', 'Fetch front image only', false),
+    skipTrackImagesProperty: new ConfigProperty('skipTrackImages', 'Skip extracting track images', false),
+    prefetchMetadata: new ConfigProperty('prefetchMetadata', 'Always get cover art metadata', false),
+    get skipTrackImages() {
+      return _or(CONFIG.fetchFrontOnly.get(), CONFIG.skipTrackImagesProperty.get());
+    },
+    bandcamp: {
+      skipTrackImagesProperty: new ConfigProperty('bandcamp.skipTrackImages', 'Skip extracting track images', false),
+      get skipTrackImages() {
+        return _or(CONFIG.skipTrackImages, CONFIG.bandcamp.skipTrackImagesProperty.get());
+      },
+      squareCropFirst: new ConfigProperty('bandcamp.squareCropFirst', 'Place square cropped artwork before original artwork', false)
+    },
+    soundcloud: {
+      skipTrackImagesProperty: new ConfigProperty('soundcloud.skipTrackImages', 'Skip extracting track images', false),
+      get skipTrackImages() {
+        return _or(CONFIG.skipTrackImages, CONFIG.soundcloud.skipTrackImagesProperty.get());
+      }
+    },
+    vgmdb: {
+      keepEntireComment: new ConfigProperty('vgmdb.keepEntireComment', 'Keep entire cover art comment', false)
+    }
+  };
 
   class CoverArtProvider {
     constructor() {
@@ -337,155 +336,6 @@
     return commentChunks.join('; ');
   }
 
-  const QUERY_SHA256 = 'c7033a9fd1facb3e69fa50074b47e8aa0076857a968e6ed086153840e02b988a';
-  class DiscogsProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['discogs.com']);
-      _defineProperty(this, "favicon", 'https://catalog-assets.discogs.com/e95f0cd9.png');
-      _defineProperty(this, "name", 'Discogs');
-      _defineProperty(this, "urlRegex", /\/release\/(\d+)/);
-    }
-    async findImages(url) {
-      const releaseId = this.extractId(url);
-      assertHasValue(releaseId);
-      const data = await DiscogsProvider.getReleaseImages(releaseId);
-      return data.data.release.images.edges.map(edge => {
-        return {
-          url: new URL(edge.node.fullsize.sourceUrl)
-        };
-      });
-    }
-    static getReleaseImages(releaseId) {
-      let responseProm = this.apiResponseCache.get(releaseId);
-      if (responseProm === undefined) {
-        responseProm = this.actuallyGetReleaseImages(releaseId);
-        this.apiResponseCache.set(releaseId, responseProm);
-      }
-      responseProm.catch(() => {
-        if (this.apiResponseCache.get(releaseId) === responseProm) {
-          this.apiResponseCache.delete(releaseId);
-        }
-      });
-      return responseProm;
-    }
-    static async actuallyGetReleaseImages(releaseId) {
-      const graphqlParameters = new URLSearchParams({
-        operationName: 'ReleaseAllImages',
-        variables: JSON.stringify({
-          discogsId: Number.parseInt(releaseId),
-          count: 500
-        }),
-        extensions: JSON.stringify({
-          persistedQuery: {
-            version: 1,
-            sha256Hash: QUERY_SHA256
-          }
-        })
-      });
-      const response = await request.get(`https://www.discogs.com/internal/release-page/api/graphql?${graphqlParameters}`);
-      const metadata = safeParseJSON(response.text, 'Invalid response from Discogs API');
-      assertHasValue(metadata.data.release, 'Discogs release does not exist');
-      const responseId = metadata.data.release.discogsId.toString();
-      assert(responseId === undefined || responseId === releaseId, `Discogs returned wrong release: Requested ${releaseId}, got ${responseId}`);
-      return metadata;
-    }
-    static getFilenameFromUrl(url) {
-      const urlParts = url.pathname.split('/');
-      const firstFilenameIndex = urlParts.slice(2).findIndex(urlPart => !/^\w+:/.test(urlPart)) + 2;
-      const s3Url = urlParts.slice(firstFilenameIndex).join('');
-      const s3UrlDecoded = atob(s3Url.slice(0, s3Url.indexOf('.')));
-      return s3UrlDecoded.split('/').pop();
-    }
-    static async maximiseImage(url) {
-      var _exec;
-      const imageName = this.getFilenameFromUrl(url);
-      const releaseId = (_exec = /^R-(\d+)/.exec(imageName)) === null || _exec === void 0 ? void 0 : _exec[1];
-      if (!releaseId) return url;
-      const releaseData = await this.getReleaseImages(releaseId);
-      const matchedImage = releaseData.data.release.images.edges.find(image => this.getFilenameFromUrl(new URL(image.node.fullsize.sourceUrl)) === imageName);
-      if (!matchedImage) return url;
-      return new URL(matchedImage.node.fullsize.sourceUrl);
-    }
-  }
-  _defineProperty(DiscogsProvider, "apiResponseCache", new Map());
-
-  function maxurl(url, options) {
-    return retryTimes(() => {
-      $$IMU_EXPORT$$(url, options);
-    }, 100, 500);
-  }
-  const options = {
-    fill_object: true,
-    exclude_videos: true,
-    filter(url) {
-      return !url.toLowerCase().endsWith('.webp') && !/:format(webp)/.test(url.toLowerCase());
-    }
-  };
-  const IMU_EXCEPTIONS = new DispatchMap();
-  async function* getMaximisedCandidates(smallurl) {
-    const exceptionFunction = IMU_EXCEPTIONS.get(smallurl.hostname);
-    const iterable = await (exceptionFunction ?? maximiseGeneric)(smallurl);
-    yield* iterable;
-  }
-  async function* maximiseGeneric(smallurl) {
-    const results = await new Promise(resolve => {
-      maxurl(smallurl.href, {
-        ...options,
-        cb: resolve
-      }).catch(error => {
-        LOGGER.error('Could not maximise image, maxurl unavailable?', error);
-        resolve([]);
-      });
-    });
-    for (const maximisedResult of results) {
-      if (maximisedResult.fake || maximisedResult.bad || maximisedResult.video) continue;
-      try {
-        yield {
-          ...maximisedResult,
-          url: new URL(maximisedResult.url)
-        };
-      } catch {}
-    }
-  }
-  IMU_EXCEPTIONS.set('i.discogs.com', async smallurl => {
-    const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
-    return [{
-      url: fullSizeURL,
-      filename: DiscogsProvider.getFilenameFromUrl(smallurl),
-      headers: {}
-    }];
-  });
-  IMU_EXCEPTIONS.set('*.mzstatic.com', async smallurl => {
-    var _exec;
-    const results = [];
-    const smallOriginalName = (_exec = /(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/.exec(smallurl.href)) === null || _exec === void 0 ? void 0 : _exec[1];
-    for await (const imageGeneric of maximiseGeneric(smallurl)) {
-      if (urlBasename(imageGeneric.url) === 'source' && smallOriginalName !== 'source') {
-        imageGeneric.likely_broken = true;
-      }
-      results.push(imageGeneric);
-    }
-    return results;
-  });
-  IMU_EXCEPTIONS.set('usercontent.jamendo.com', smallurl => {
-    return [{
-      url: new URL(smallurl.href.replace(/([&?])width=\d+/, '$1width=0')),
-      filename: '',
-      headers: {}
-    }];
-  });
-  IMU_EXCEPTIONS.set('hw-img.datpiff.com', smallurl => {
-    const urlNoSuffix = smallurl.href.replace(/-(?:large|medium)(\.\w+$)/, '$1');
-    return ['-large', '-medium', ''].map(suffix => {
-      return {
-        url: new URL(urlNoSuffix.replace(/\.(\w+)$/, `${suffix}.$1`)),
-        filename: '',
-        headers: {}
-      };
-    });
-  });
-
   class SevenDigitalProvider extends HeadMetaPropertyProvider {
     constructor() {
       super(...arguments);
@@ -495,8 +345,8 @@
       _defineProperty(this, "urlRegex", /release\/.*-(\d+)(?:\/|$)/);
     }
     postprocessImage(image) {
-      if (/\/0{8}16_\d+/.test(image.fetchedUrl.pathname)) {
-        LOGGER.warn(`Skipping "${image.fetchedUrl}" as it matches a placeholder cover`);
+      if (/\/0{8}16_\d+/.test(image.finalUrl.pathname)) {
+        LOGGER.warn(`Skipping "${image.finalUrl}" as it matches a placeholder cover`);
         return null;
       }
       return image;
@@ -918,7 +768,7 @@
     constructor() {
       super(...arguments);
       _defineProperty(this, "supportedDomains", ['deezer.com']);
-      _defineProperty(this, "favicon", 'https://cdn-files.dzcdn.net/cache/images/common/favicon/favicon-16x16.1e6ae1b5b7794f3e00c0.png');
+      _defineProperty(this, "favicon", 'https://cdn-files.dzcdn.net/cache/images/common/favicon/favicon-32x32.ed120c279a693bed3a44.png');
       _defineProperty(this, "name", 'Deezer');
       _defineProperty(this, "urlRegex", /(?:\w{2}\/)?album\/(\d+)/);
     }
@@ -933,6 +783,79 @@
       });
     }
   }
+
+  const QUERY_SHA256 = 'c7033a9fd1facb3e69fa50074b47e8aa0076857a968e6ed086153840e02b988a';
+  class DiscogsProvider extends CoverArtProvider {
+    constructor() {
+      super(...arguments);
+      _defineProperty(this, "supportedDomains", ['discogs.com']);
+      _defineProperty(this, "favicon", 'https://catalog-assets.discogs.com/e95f0cd9.png');
+      _defineProperty(this, "name", 'Discogs');
+      _defineProperty(this, "urlRegex", /\/release\/(\d+)/);
+    }
+    async findImages(url) {
+      const releaseId = this.extractId(url);
+      assertHasValue(releaseId);
+      const data = await DiscogsProvider.getReleaseImages(releaseId);
+      return data.data.release.images.edges.map(edge => {
+        return {
+          url: new URL(edge.node.fullsize.sourceUrl)
+        };
+      });
+    }
+    static getReleaseImages(releaseId) {
+      let responseProm = this.apiResponseCache.get(releaseId);
+      if (responseProm === undefined) {
+        responseProm = this.actuallyGetReleaseImages(releaseId);
+        this.apiResponseCache.set(releaseId, responseProm);
+      }
+      responseProm.catch(() => {
+        if (this.apiResponseCache.get(releaseId) === responseProm) {
+          this.apiResponseCache.delete(releaseId);
+        }
+      });
+      return responseProm;
+    }
+    static async actuallyGetReleaseImages(releaseId) {
+      const graphqlParameters = new URLSearchParams({
+        operationName: 'ReleaseAllImages',
+        variables: JSON.stringify({
+          discogsId: Number.parseInt(releaseId),
+          count: 500
+        }),
+        extensions: JSON.stringify({
+          persistedQuery: {
+            version: 1,
+            sha256Hash: QUERY_SHA256
+          }
+        })
+      });
+      const response = await request.get(`https://www.discogs.com/internal/release-page/api/graphql?${graphqlParameters}`);
+      const metadata = safeParseJSON(response.text, 'Invalid response from Discogs API');
+      assertHasValue(metadata.data.release, 'Discogs release does not exist');
+      const responseId = metadata.data.release.discogsId.toString();
+      assert(responseId === undefined || responseId === releaseId, `Discogs returned wrong release: Requested ${releaseId}, got ${responseId}`);
+      return metadata;
+    }
+    static getFilenameFromUrl(url) {
+      const urlParts = url.pathname.split('/');
+      const firstFilenameIndex = urlParts.slice(2).findIndex(urlPart => !/^\w+:/.test(urlPart)) + 2;
+      const s3Url = urlParts.slice(firstFilenameIndex).join('');
+      const s3UrlDecoded = atob(s3Url.slice(0, s3Url.indexOf('.')));
+      return s3UrlDecoded.split('/').pop();
+    }
+    static async maximiseImage(url) {
+      var _exec;
+      const imageName = this.getFilenameFromUrl(url);
+      const releaseId = (_exec = /^R-(\d+)/.exec(imageName)) === null || _exec === void 0 ? void 0 : _exec[1];
+      if (!releaseId) return url;
+      const releaseData = await this.getReleaseImages(releaseId);
+      const matchedImage = releaseData.data.release.images.edges.find(image => this.getFilenameFromUrl(new URL(image.node.fullsize.sourceUrl)) === imageName);
+      if (!matchedImage) return url;
+      return new URL(matchedImage.node.fullsize.sourceUrl);
+    }
+  }
+  _defineProperty(DiscogsProvider, "apiResponseCache", new Map());
 
   class FreeMusicArchiveProvider extends CoverArtProvider {
     constructor() {
@@ -1910,7 +1833,7 @@
   function getFilename(url) {
     return decodeURIComponent(urlBasename(url, 'image'));
   }
-  class ImageFetcher {
+  class CoverArtDownloader {
     constructor(hooks) {
       _defineProperty(this, "doneImages", void 0);
       _defineProperty(this, "hooks", void 0);
@@ -1918,46 +1841,103 @@
       this.doneImages = new Set();
       this.hooks = hooks;
     }
-    async fetchImages(coverArt) {
-      const {
-        url
-      } = coverArt;
-      if (this.urlAlreadyAdded(url)) {
-        LOGGER.warn(`${url} has already been added`);
+    async fetchAndEnqueueCoverArt(batch) {
+      var _batch$provider;
+      if (batch.images.length === 0) return {
+        ...batch,
+        images: []
+      };
+      if (this.urlAlreadyAdded(batch.jobUrl)) {
+        LOGGER.warn(`${batch.jobUrl} has already been added`);
         return {
+          ...batch,
           images: []
         };
       }
-      const provider = getProvider(url);
-      if (provider) {
-        return this.fetchImagesFromProvider(coverArt, provider);
+      const finalImages = (await CONFIG.fetchFrontOnly.get()) ? this.retainOnlyFront(batch.images) : batch.images;
+      const hasMoreImages = batch.images.length !== finalImages.length;
+      if (hasMoreImages) {
+        LOGGER.info(`Skipping ${batch.images.length - finalImages.length} non-front image(s)`);
       }
-      const {
-        types: defaultTypes,
-        comment: defaultComment
-      } = coverArt;
-      const result = await this.fetchImageFromURL(url);
-      if (!result) {
-        return {
-          images: []
-        };
+      LOGGER.info(`Fetching ${finalImages.length} image(s) for ${batch.jobUrl}…`);
+      const queuedResults = await this.fetchAndEnqueue(finalImages, ((_batch$provider = batch.provider) === null || _batch$provider === void 0 ? void 0 : _batch$provider.postprocessImage.bind(batch.provider)) ?? identity);
+      if (!hasMoreImages && queuedResults.length === finalImages.length) {
+        this.doneImages.add(batch.jobUrl.href);
       }
-      await enqueueImage(result, defaultTypes, defaultComment);
+      const containerUrl = queuedResults.length === 1 && queuedResults[0].originalUrl.href === batch.jobUrl.href ? undefined : batch.jobUrl;
       return {
-        images: [result]
+        ...batch,
+        containerUrl,
+        images: queuedResults
       };
     }
-    async fetchMaximisedImage(url, id) {
-      for await (const maxCandidate of getMaximisedCandidates(url)) {
+    async fetchAndEnqueue(images, postprocessImage) {
+      const queuedResults = [];
+      for (const [image, index] of enumerate(images)) {
+        if (this.urlAlreadyAdded(image.originalUrl)) {
+          LOGGER.warn(`${image.originalUrl} has already been added`);
+          continue;
+        }
+        LOGGER.info(`Fetching ${image.originalUrl} (${index + 1}/${images.length})`);
+        try {
+          const fetchedImage = await this.downloadImage(image);
+          const postprocessedImage = fetchedImage && (await postprocessImage(fetchedImage));
+          if (postprocessedImage) {
+            const queuedImage = {
+              types: image.types,
+              comment: image.comment,
+              ...fetchedImage
+            };
+            await enqueueImage(queuedImage);
+            queuedResults.push(queuedImage);
+          }
+        } catch (error) {
+          LOGGER.warn(`Skipping ${image.originalUrl}`, error);
+        }
+      }
+      return queuedResults;
+    }
+    async downloadImage(image) {
+      var _this$hooks$onDownloa, _this$hooks;
+      const {
+        originalUrl
+      } = image;
+      const id = this.getImageId();
+      (_this$hooks$onDownloa = (_this$hooks = this.hooks).onDownloadStarted) === null || _this$hooks$onDownloa === void 0 || _this$hooks$onDownloa.call(_this$hooks, id, originalUrl);
+      try {
+        const fetchResult = await this.downloadBestImage(image, id);
+        if (fetchResult === null) return null;
+        this.doneImages.add(fetchResult.fetchedUrl.href);
+        this.doneImages.add(fetchResult.requestedUrl.href);
+        this.doneImages.add(originalUrl.href);
+        return {
+          content: fetchResult.file,
+          originalUrl: originalUrl,
+          maximisedUrl: fetchResult.requestedUrl,
+          finalUrl: fetchResult.fetchedUrl,
+          wasMaximised: originalUrl.href !== fetchResult.requestedUrl.href,
+          wasRedirected: fetchResult.wasRedirected
+        };
+      } finally {
+        var _this$hooks$onDownloa2, _this$hooks2;
+        (_this$hooks$onDownloa2 = (_this$hooks2 = this.hooks).onDownloadFinished) === null || _this$hooks$onDownloa2 === void 0 || _this$hooks$onDownloa2.call(_this$hooks2, id);
+      }
+    }
+    async downloadBestImage(image, id) {
+      const {
+        originalUrl,
+        maximisedUrlCandidates
+      } = image;
+      for (const maxCandidate of maximisedUrlCandidates) {
         const candidateName = maxCandidate.filename || getFilename(maxCandidate.url);
         if (this.urlAlreadyAdded(maxCandidate.url)) {
           LOGGER.warn(`${maxCandidate.url} has already been added`);
-          return;
+          return null;
         }
         try {
-          const result = await this.fetchImageContents(maxCandidate.url, candidateName, id, maxCandidate.headers);
-          if (maxCandidate.url.href !== url.href) {
-            LOGGER.info(`Maximised ${url.href} to ${maxCandidate.url.href}`);
+          const result = await this.downloadImageContents(maxCandidate.url, candidateName, id, maxCandidate.headers);
+          if (maxCandidate.url.href !== originalUrl.href) {
+            LOGGER.info(`Maximised ${originalUrl.href} to ${maxCandidate.url.href}`);
           }
           return result;
         } catch (error) {
@@ -1965,83 +1945,7 @@
           LOGGER.warn(`Skipping maximised candidate ${maxCandidate.url}`, error);
         }
       }
-      return this.fetchImageContents(url, getFilename(url), id, {});
-    }
-    async fetchImageFromURL(url) {
-      var _this$hooks$onFetchSt, _this$hooks;
-      let skipMaximisation = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      const id = this.getImageId();
-      (_this$hooks$onFetchSt = (_this$hooks = this.hooks).onFetchStarted) === null || _this$hooks$onFetchSt === void 0 || _this$hooks$onFetchSt.call(_this$hooks, id, url);
-      try {
-        const fetchResult = await (skipMaximisation ? this.fetchImageContents(url, getFilename(url), id, {}) : this.fetchMaximisedImage(url, id));
-        if (!fetchResult) return;
-        this.doneImages.add(fetchResult.fetchedUrl.href);
-        this.doneImages.add(fetchResult.requestedUrl.href);
-        this.doneImages.add(url.href);
-        return {
-          content: fetchResult.file,
-          originalUrl: url,
-          maximisedUrl: fetchResult.requestedUrl,
-          fetchedUrl: fetchResult.fetchedUrl,
-          wasMaximised: url.href !== fetchResult.requestedUrl.href,
-          wasRedirected: fetchResult.wasRedirected
-        };
-      } finally {
-        var _this$hooks$onFetchFi, _this$hooks2;
-        (_this$hooks$onFetchFi = (_this$hooks2 = this.hooks).onFetchFinished) === null || _this$hooks$onFetchFi === void 0 || _this$hooks$onFetchFi.call(_this$hooks2, id);
-      }
-    }
-    async fetchImagesFromProvider(_ref, provider) {
-      let {
-        url,
-        types: defaultTypes,
-        comment: defaultComment
-      } = _ref;
-      LOGGER.info(`Searching for images in ${provider.name} release…`);
-      const images = await provider.findImages(url);
-      const finalImages = (await CONFIG.fetchFrontOnly.get()) ? this.retainOnlyFront(images) : images;
-      const hasMoreImages = images.length !== finalImages.length;
-      LOGGER.info(`Found ${finalImages.length || 'no'} image(s) in ${provider.name} release`);
-      const queuedResults = [];
-      for (const [image, index] of enumerate(finalImages)) {
-        if (this.urlAlreadyAdded(image.url)) {
-          LOGGER.warn(`${image.url} has already been added`);
-          continue;
-        }
-        LOGGER.info(`Fetching ${image.url} (${index + 1}/${finalImages.length})`);
-        try {
-          const result = await this.fetchImageFromURL(image.url, image.skipMaximisation);
-          if (!result) continue;
-          const fetchedImage = {
-            ...result,
-            types: image.types,
-            comment: image.comment
-          };
-          const postprocessedImage = await provider.postprocessImage(fetchedImage);
-          if (postprocessedImage) {
-            await enqueueImage(fetchedImage, defaultTypes, defaultComment);
-            queuedResults.push(postprocessedImage);
-          }
-        } catch (error) {
-          LOGGER.warn(`Skipping ${image.url}`, error);
-        }
-      }
-      if (!hasMoreImages && queuedResults.length === finalImages.length) {
-        this.doneImages.add(url.href);
-      } else if (hasMoreImages) {
-        LOGGER.warn(`Not all images were fetched: ${images.length - finalImages.length} covers were skipped.`);
-      }
-      return {
-        containerUrl: url,
-        images: queuedResults
-      };
-    }
-    retainOnlyFront(images) {
-      const filtered = images.filter(image => {
-        var _image$types;
-        return (_image$types = image.types) === null || _image$types === void 0 ? void 0 : _image$types.includes(ArtworkTypeIDs.Front);
-      });
-      return filtered.length > 0 ? filtered : images.slice(0, 1);
+      return this.downloadImageContents(originalUrl, getFilename(originalUrl), id, {});
     }
     getImageId() {
       return this.lastId++;
@@ -2050,12 +1954,12 @@
       const filenameWithoutExtension = filename.replace(/\.(?:png|jpe?g|gif|pdf)$/i, '');
       return `${filenameWithoutExtension}.${id}.${mimeType.split('/')[1]}`;
     }
-    async fetchImageContents(url, fileName, id, headers) {
-      var _this$hooks$onFetchPr;
+    async downloadImageContents(url, fileName, id, headers) {
+      var _this$hooks$onDownloa3;
       const xhrOptions = {
         responseType: 'blob',
         headers: headers,
-        onProgress: (_this$hooks$onFetchPr = this.hooks.onFetchProgress) === null || _this$hooks$onFetchPr === void 0 ? void 0 : _this$hooks$onFetchPr.bind(this.hooks, id, url)
+        onProgress: (_this$hooks$onDownloa3 = this.hooks.onDownloadProgress) === null || _this$hooks$onDownloa3 === void 0 ? void 0 : _this$hooks$onDownloa3.bind(this.hooks, id, url)
       };
       const response = await pRetry(() => request.get(url, xhrOptions), {
         retries: 10,
@@ -2145,452 +2049,135 @@
     urlAlreadyAdded(url) {
       return this.doneImages.has(url.href);
     }
-  }
-
-  function encodeValue(value) {
-    if (value instanceof URL) return value.href;
-    if (typeof value === 'string') return value;
-    return JSON.stringify(value);
-  }
-  function decodeSingleKeyValue(key, value, images) {
-    var _exec;
-    const keyName = key.split('.').pop();
-    const imageIndexString = (_exec = /x_seed\.image\.(\d+)\./.exec(key)) === null || _exec === void 0 ? void 0 : _exec[1];
-    if (!imageIndexString || !['url', 'types', 'comment'].includes(keyName)) {
-      throw new Error(`Unsupported seeded key: ${key}`);
-    }
-    const imageIndex = Number.parseInt(imageIndexString);
-    if (!images[imageIndex]) {
-      images[imageIndex] = {};
-    }
-    if (keyName === 'url') {
-      images[imageIndex].url = new URL(value);
-    } else if (keyName === 'types') {
-      const types = safeParseJSON(value);
-      if (!Array.isArray(types) || types.some(type => typeof type !== 'number')) {
-        throw new Error(`Invalid 'types' parameter: ${value}`);
-      }
-      images[imageIndex].types = types;
-    } else {
-      images[imageIndex].comment = value;
-    }
-  }
-  class SeedParameters {
-    constructor(images, origin) {
-      _defineProperty(this, "_images", void 0);
-      _defineProperty(this, "origin", void 0);
-      this._images = [...(images ?? [])];
-      this.origin = origin;
-    }
-    get images() {
-      return this._images;
-    }
-    addImage(image) {
-      this._images.push(image);
-    }
-    encode() {
-      const seedParameters = new URLSearchParams(this.images.flatMap((image, index) => Object.entries(image).map(_ref => {
-        let [key, value] = _ref;
-        return [`x_seed.image.${index}.${key}`, encodeValue(value)];
-      })));
-      if (this.origin) {
-        seedParameters.append('x_seed.origin', this.origin);
-      }
-      return seedParameters;
-    }
-    createSeedURL(releaseId) {
-      let domain = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'musicbrainz.org';
-      return `https://${domain}/release/${releaseId}/add-cover-art?${this.encode()}`;
-    }
-    static decode(seedParameters) {
-      let images = [];
-      for (const [key, value] of seedParameters) {
-        if (!key.startsWith('x_seed.image.')) continue;
-        try {
-          decodeSingleKeyValue(key, value, images);
-        } catch (error) {
-          LOGGER.error(`Invalid image seeding param ${key}=${value}`, error);
-        }
-      }
-      images = images.filter((image, index) => {
-        if (image.url) {
-          return true;
-        } else {
-          LOGGER.warn(`Ignoring seeded image ${index}: No URL provided`);
-          return false;
-        }
-      });
-      const origin = seedParameters.get('x_seed.origin') ?? undefined;
-      return new SeedParameters(images, origin);
+    retainOnlyFront(images) {
+      const filtered = images.filter(image => image.types.includes(ArtworkTypeIDs.Front));
+      return filtered.length > 0 ? filtered : images.slice(0, 1);
     }
   }
 
-  var css_248z = ".ROpdebee_paste_url_cont{column-gap:.5rem;display:inline-grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;margin-left:32px;margin-top:10px;position:relative;row-gap:.25rem}.ROpdebee_paste_url_cont>input#ROpdebee_paste_url{grid-column:1/-1}.ROpdebee_paste_url_cont>details.ROpdebee_ecau_config{grid-column:1}.ROpdebee_paste_url_cont>a#ROpdebee_ecau_providers_link{grid-column:2}.ROpdebee_paste_url_cont+span{margin-left:32px}a#ROpdebee_ecau_providers_link{font-size:smaller;text-align:right}.ROpdebee_ecau_config input[type=checkbox],.ROpdebee_ecau_config label{display:inline;vertical-align:center}.ROpdebee_ecau_config label{float:none!important;margin-left:.5em}.ROpdebee_ecau_config details{padding:.5em .5em 0}.ROpdebee_ecau_config .ROpdebee_ecau_config_options{background-color:#ddd;border:1px solid #ccc;border-radius:6px;box-shadow:0 0 5px gray;padding:.5em;position:absolute;width:95%;z-index:2}.ROpdebee_ecau_config summary{cursor:pointer;font-weight:700;margin:-.5em -.5em 0;padding:.5em;width:-moz-fit-content;width:fit-content}.ROpdebee_ecau_config summary:hover{-webkit-text-decoration:underline;text-decoration:underline}.ROpdebee_import_url_buttons{margin-left:32px;vertical-align:middle}.ROpdebee_import_url_buttons>button{display:block;float:none;margin:4px}";
-
-  const INPUT_PLACEHOLDER_TEXT = 'or paste one or more URLs here';
-  class ProgressElement {
-      constructor(url) {
-          _defineProperty(this, 'urlSpan', void 0);
-          _defineProperty(this, 'progressbar', void 0);
-          _defineProperty(this, 'rootElement', void 0);
-          this.urlSpan = function () {
-              var $$a = document.createElement('span');
-              appendChildren($$a, url.href);
-              return $$a;
-          }.call(this);
-          this.progressbar = function () {
-              var $$c = document.createElement('div');
-              $$c.setAttribute('class', 'ui-progressbar-value ui-widget-header ui-corner-left');
-              setStyles($$c, {
-                  backgroundColor: '#cce5ff',
-                  width: '0%'
-              });
-              appendChildren($$c, '\xA0');
-              return $$c;
-          }.call(this);
-          this.rootElement = function () {
-              var $$e = document.createElement('tr');
-              setStyles($$e, { display: 'flex' });
-              var $$f = document.createElement('td');
-              $$f.setAttribute('class', 'uploader-preview-column');
-              $$e.appendChild($$f);
-              var $$g = document.createElement('div');
-              $$g.setAttribute('class', 'content-loading');
-              setStyles($$g, {
-                  width: '120px',
-                  height: '120px',
-                  position: 'relative'
-              });
-              $$f.appendChild($$g);
-              var $$h = document.createElement('td');
-              setStyles($$h, { width: '65%' });
-              $$e.appendChild($$h);
-              var $$i = document.createElement('div');
-              $$i.setAttribute('class', 'row');
-              $$h.appendChild($$i);
-              var $$j = document.createElement('label');
-              $$i.appendChild($$j);
-              var $$k = document.createTextNode('URL:');
-              $$j.appendChild($$k);
-              appendChildren($$i, this.urlSpan);
-              var $$m = document.createElement('td');
-              setStyles($$m, { flexGrow: 1 });
-              $$e.appendChild($$m);
-              var $$n = document.createElement('div');
-              $$n.setAttribute('class', 'ui-progressbar ui-widget ui-widget-content ui-corner-all');
-              $$n.setAttribute('role', 'progressbar');
-              setStyles($$n, { width: '100%' });
-              $$m.appendChild($$n);
-              appendChildren($$n, this.progressbar);
-              return $$e;
-          }.call(this);
-      }
-      set url(url) {
-          this.urlSpan.textContent = url.href;
-      }
-      set progress(progressPercentage) {
-          this.progressbar.style.width = `${ progressPercentage * 100 }%`;
-      }
+  function maxurl(url, options) {
+    return retryTimes(() => {
+      $$IMU_EXPORT$$(url, options);
+    }, 100, 500);
   }
-  function parseHTMLURLs(htmlText) {
-      LOGGER.debug(`Extracting URLs from ${ htmlText }`);
-      const document_ = parseDOM(htmlText, document.location.origin);
-      let urls = qsa('img', document_).map(image => image.src);
-      if (urls.length === 0) {
-          urls = qsa('a', document_).map(anchor => anchor.href);
-      }
-      if (urls.length === 0) {
-          return parsePlainURLs(document_.textContent ?? '');
-      }
-      return [...new Set(urls)].filter(url => /^(?:https?|data):/.test(url));
+  const options = {
+    fill_object: true,
+    exclude_videos: true,
+    filter(url) {
+      return !url.toLowerCase().endsWith('.webp') && !/:format(webp)/.test(url.toLowerCase());
+    }
+  };
+  const IMU_EXCEPTIONS = new DispatchMap();
+  async function getMaximisedCandidates(smallurl) {
+    const exceptionFunction = IMU_EXCEPTIONS.get(smallurl.hostname);
+    return (exceptionFunction ?? maximiseGeneric)(smallurl);
   }
-  function parsePlainURLs(text) {
-      return text.trim().split(/\s+/);
-  }
-  function createCheckbox(property) {
-      const propertyId = `ROpdebee_ecau_${ property.name }`;
-      const checkbox = function () {
-          var $$p = document.createElement('input');
-          $$p.setAttribute('type', 'checkbox');
-          $$p.setAttribute('id', propertyId);
-          return $$p;
-      }.call(this);
-      property.get().then(value => {
-          checkbox.checked = value;
-          checkbox.addEventListener('change', () => {
-              property.set(checkbox.checked).catch(error => {
-                  LOGGER.error(`Error when saving checkbox value for ${ property.name }: ${ error }`);
-              });
-          });
+  async function maximiseGeneric(smallurl) {
+    const results = await new Promise(resolve => {
+      maxurl(smallurl.href, {
+        ...options,
+        cb: resolve
       }).catch(error => {
-          LOGGER.error(`Error when initialising value for ${ property.name } checkbox: ${ error }`);
+        LOGGER.error('Could not maximise image, maxurl unavailable?', error);
+        resolve([]);
       });
-      return function () {
-          var $$q = document.createElement('div');
-          appendChildren($$q, checkbox);
-          var $$s = document.createElement('label');
-          $$s.setAttribute('for', propertyId);
-          $$q.appendChild($$s);
-          appendChildren($$s, property.description);
-          return $$q;
-      }.call(this);
+    });
+    return results.filter(result => !(result.fake || result.bad || result.video)).map(result => ({
+      ...result,
+      url: new URL(result.url)
+    }));
   }
-  function createConfig() {
-      return function () {
-          var $$u = document.createElement('details');
-          $$u.setAttribute('class', 'ROpdebee_ecau_config');
-          var $$v = document.createElement('summary');
-          $$u.appendChild($$v);
-          var $$w = document.createTextNode('Configure\u2026');
-          $$v.appendChild($$w);
-          var $$x = document.createElement('div');
-          $$x.setAttribute('class', 'ROpdebee_ecau_config_options');
-          $$u.appendChild($$x);
-          appendChildren($$x, createCheckbox(CONFIG.fetchFrontOnly));
-          appendChildren($$x, createCheckbox(CONFIG.skipTrackImagesProperty));
-          var $$aa = document.createElement('h3');
-          $$x.appendChild($$aa);
-          var $$bb = document.createTextNode('Bandcamp');
-          $$aa.appendChild($$bb);
-          appendChildren($$x, createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty));
-          appendChildren($$x, createCheckbox(CONFIG.bandcamp.squareCropFirst));
-          var $$ee = document.createElement('h3');
-          $$x.appendChild($$ee);
-          var $$ff = document.createTextNode('Soundcloud');
-          $$ee.appendChild($$ff);
-          appendChildren($$x, createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty));
-          var $$hh = document.createElement('h3');
-          $$x.appendChild($$hh);
-          var $$ii = document.createTextNode('VGMdb');
-          $$hh.appendChild($$ii);
-          appendChildren($$x, createCheckbox(CONFIG.vgmdb.keepEntireComment));
-          return $$u;
-      }.call(this);
-  }
-  class InputForm {
-      constructor(app) {
-          var _qs$insertAdjacentEle;
-          _defineProperty(this, 'urlInput', void 0);
-          _defineProperty(this, 'buttonContainer', void 0);
-          _defineProperty(this, 'orSpan', void 0);
-          _defineProperty(this, 'fakeSubmitButton', void 0);
-          _defineProperty(this, 'realSubmitButton', void 0);
-          _defineProperty(this, 'progressElements', new Map());
-          insertStylesheet(css_248z);
-          this.urlInput = function () {
-              var $$kk = document.createElement('input');
-              $$kk.setAttribute('type', 'url');
-              $$kk.setAttribute('placeholder', INPUT_PLACEHOLDER_TEXT);
-              $$kk.setAttribute('size', 47);
-              $$kk.setAttribute('id', 'ROpdebee_paste_url');
-              $$kk.addEventListener('paste', async event_ => {
-                  if (!event_.clipboardData) {
-                      LOGGER.warn('No clipboard data?');
-                      return;
-                  }
-                  const htmlText = event_.clipboardData.getData('text/html');
-                  const plainText = event_.clipboardData.getData('text');
-                  const urls = htmlText.length > 0 ? parseHTMLURLs(htmlText) : parsePlainURLs(plainText);
-                  event_.preventDefault();
-                  event_.currentTarget.placeholder = urls.join('\n');
-                  const inputUrls = filterNonNull(urls.map(inputUrl => {
-                      try {
-                          return new URL(inputUrl);
-                      } catch (error) {
-                          LOGGER.error(`Invalid URL: ${ inputUrl }`, error);
-                          return null;
-                      }
-                  }));
-                  if (inputUrls.length === 0) {
-                      LOGGER.info('No URLs found in input');
-                      return;
-                  }
-                  await app.processURLs(inputUrls);
-                  app.clearLogLater();
-                  if (this.urlInput.placeholder === urls.join('\n')) {
-                      this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
-                  }
-              });
-              return $$kk;
-          }.call(this);
-          const container = function () {
-              var $$ll = document.createElement('div');
-              $$ll.setAttribute('class', 'ROpdebee_paste_url_cont');
-              appendChildren($$ll, this.urlInput);
-              appendChildren($$ll, createConfig());
-              var $$oo = document.createElement('a');
-              $$oo.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md');
-              $$oo.setAttribute('target', '_blank');
-              $$oo.setAttribute('id', 'ROpdebee_ecau_providers_link');
-              $$ll.appendChild($$oo);
-              var $$pp = document.createTextNode('Supported providers');
-              $$oo.appendChild($$pp);
-              return $$ll;
-          }.call(this);
-          this.buttonContainer = function () {
-              var $$qq = document.createElement('div');
-              $$qq.setAttribute('class', 'ROpdebee_import_url_buttons buttons');
-              return $$qq;
-          }.call(this);
-          this.orSpan = function () {
-              var $$rr = document.createElement('span');
-              setStyles($$rr, { display: 'none' });
-              var $$ss = document.createTextNode('or');
-              $$rr.appendChild($$ss);
-              return $$rr;
-          }.call(this);
-          (_qs$insertAdjacentEle = qs('#drop-zone').insertAdjacentElement('afterend', container)) === null || _qs$insertAdjacentEle === void 0 || (_qs$insertAdjacentEle = _qs$insertAdjacentEle.insertAdjacentElement('afterend', this.orSpan)) === null || _qs$insertAdjacentEle === void 0 || _qs$insertAdjacentEle.insertAdjacentElement('afterend', this.buttonContainer);
-          this.realSubmitButton = qs('button#add-cover-art-submit');
-          this.fakeSubmitButton = function () {
-              var $$tt = document.createElement('button');
-              $$tt.setAttribute('type', 'button');
-              $$tt.setAttribute('class', 'submit positive');
-              $$tt.disabled = true;
-              $$tt.setAttribute('hidden', true);
-              var $$uu = document.createTextNode('Enter edit');
-              $$tt.appendChild($$uu);
-              return $$tt;
-          }.call(this);
-          qs('form > .buttons').append(this.fakeSubmitButton);
+  IMU_EXCEPTIONS.set('i.discogs.com', async smallurl => {
+    const fullSizeURL = await DiscogsProvider.maximiseImage(smallurl);
+    return [{
+      url: fullSizeURL,
+      filename: DiscogsProvider.getFilenameFromUrl(smallurl),
+      headers: {}
+    }];
+  });
+  IMU_EXCEPTIONS.set('*.mzstatic.com', async smallurl => {
+    var _exec;
+    const results = [];
+    const smallOriginalName = (_exec = /(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/.exec(smallurl.href)) === null || _exec === void 0 ? void 0 : _exec[1];
+    for (const imageGeneric of await maximiseGeneric(smallurl)) {
+      if (urlBasename(imageGeneric.url) === 'source' && smallOriginalName !== 'source') {
+        imageGeneric.likely_broken = true;
       }
-      async addImportButton(onClickCallback, url, provider) {
-          const favicon = await provider.favicon;
-          const button = function () {
-              var $$vv = document.createElement('button');
-              $$vv.setAttribute('type', 'button');
-              $$vv.setAttribute('title', url);
-              $$vv.addEventListener('click', event_ => {
-                  event_.preventDefault();
-                  onClickCallback();
-              });
-              var $$ww = document.createElement('img');
-              $$ww.setAttribute('src', favicon);
-              $$ww.setAttribute('alt', provider.name);
-              $$vv.appendChild($$ww);
-              var $$xx = document.createElement('span');
-              $$vv.appendChild($$xx);
-              appendChildren($$xx, 'Import from ' + provider.name);
-              return $$vv;
-          }.call(this);
-          this.orSpan.style.display = '';
-          this.buttonContainer.insertAdjacentElement('beforeend', button);
-      }
-      disableSubmissions() {
-          this.realSubmitButton.hidden = true;
-          this.fakeSubmitButton.hidden = false;
-      }
-      enableSubmissions() {
-          this.realSubmitButton.hidden = false;
-          this.fakeSubmitButton.hidden = true;
-      }
-      onFetchStarted(id, url) {
-          const progressElement = new ProgressElement(url);
-          this.progressElements.set(id, progressElement);
-          qs('form#add-cover-art tbody').append(progressElement.rootElement);
-      }
-      onFetchFinished(id) {
-          const progressElement = this.progressElements.get(id);
-          progressElement === null || progressElement === void 0 || progressElement.rootElement.remove();
-          this.progressElements.delete(id);
-      }
-      onFetchProgress(id, url, progress) {
-          const progressElement = this.progressElements.get(id);
-          assertDefined(progressElement);
-          progressElement.url = url;
-          if (progress.lengthComputable && progress.total > 0) {
-              progressElement.progress = progress.loaded / progress.total;
-          }
-      }
-  }
-
-  class App {
-    constructor() {
-      _defineProperty(this, "note", void 0);
-      _defineProperty(this, "fetcher", void 0);
-      _defineProperty(this, "ui", void 0);
-      _defineProperty(this, "urlsInProgress", void 0);
-      _defineProperty(this, "loggingSink", new GuiSink());
-      _defineProperty(this, "fetchingSema", void 0);
-      this.note = EditNote.withFooterFromGMInfo();
-      this.urlsInProgress = new Set();
-      LOGGER.addSink(this.loggingSink);
-      qs('.add-files').insertAdjacentElement('afterend', this.loggingSink.rootElement);
-      this.fetchingSema = new ObservableSemaphore({
-        onAcquired: () => {
-          this.ui.disableSubmissions();
-        },
-        onReleased: () => {
-          this.ui.enableSubmissions();
-        }
-      });
-      this.ui = new InputForm(this);
-      this.fetcher = new ImageFetcher(this.ui);
+      results.push(imageGeneric);
     }
-    async processURLs(urls) {
-      return this._processURLs(urls.map(url => ({
-        url
-      })));
-    }
-    clearLogLater() {
-      this.loggingSink.clearAllLater();
-    }
-    async _processURLs(coverArts, origin) {
-      const batches = await this.fetchingSema.runInSection(async () => {
-        const fetchedBatches = [];
-        for (const [coverArt, index] of enumerate(coverArts)) {
-          if (this.urlsInProgress.has(coverArt.url.href)) {
-            continue;
-          }
-          this.urlsInProgress.add(coverArt.url.href);
-          if (coverArts.length > 1) {
-            LOGGER.info(`Fetching ${coverArt.url} (${index + 1}/${coverArts.length})`);
-          } else {
-            LOGGER.info(`Fetching ${coverArt.url}`);
-          }
-          try {
-            const fetchResult = await this.fetcher.fetchImages(coverArt);
-            fetchedBatches.push(fetchResult);
-          } catch (error) {
-            LOGGER.error('Failed to fetch or enqueue images', error);
-          }
-          this.urlsInProgress.delete(coverArt.url.href);
-        }
-        return fetchedBatches;
-      });
-      fillEditNote(batches, origin ?? '', this.note);
-      const totalNumberImages = batches.reduce((accumulator, batch) => accumulator + batch.images.length, 0);
-      if (totalNumberImages > 0) {
-        LOGGER.success(`Successfully added ${totalNumberImages} image(s)`);
-      }
-    }
-    async processSeedingParameters() {
-      const parameters = SeedParameters.decode(new URLSearchParams(document.location.search));
-      await this._processURLs(parameters.images, parameters.origin);
-      this.clearLogLater();
-    }
-    async addImportButtons() {
-      var _exec;
-      const mbid = (_exec = /musicbrainz\.org\/release\/([a-f\d-]+)\//.exec(window.location.href)) === null || _exec === void 0 ? void 0 : _exec[1];
-      assertHasValue(mbid);
-      const attachedURLs = await getURLsForRelease(mbid, {
-        excludeEnded: true,
-        excludeDuplicates: true
-      });
-      const supportedURLs = attachedURLs.filter(url => {
-        var _getProvider;
-        return (_getProvider = getProvider(url)) === null || _getProvider === void 0 ? void 0 : _getProvider.allowButtons;
-      });
-      if (supportedURLs.length === 0) return;
-      const syncProcessURL = url => {
-        void pFinally(this.processURLs([url]).catch(error => {
-          LOGGER.error(`Failed to process URL ${url.href}`, error);
-        }), this.clearLogLater.bind(this));
+    return results;
+  });
+  IMU_EXCEPTIONS.set('usercontent.jamendo.com', smallurl => {
+    return [{
+      url: new URL(smallurl.href.replace(/([&?])width=\d+/, '$1width=0')),
+      filename: '',
+      headers: {}
+    }];
+  });
+  IMU_EXCEPTIONS.set('hw-img.datpiff.com', smallurl => {
+    const urlNoSuffix = smallurl.href.replace(/-(?:large|medium)(\.\w+$)/, '$1');
+    return ['-large', '-medium', ''].map(suffix => {
+      return {
+        url: new URL(urlNoSuffix.replace(/\.(\w+)$/, `${suffix}.$1`)),
+        filename: '',
+        headers: {}
       };
-      await Promise.all(supportedURLs.map(url => {
-        const provider = getProvider(url);
-        assertHasValue(provider);
-        return this.ui.addImportButton(syncProcessURL.bind(this, url), url.href, provider);
-      }));
+    });
+  });
+
+  class CoverArtResolver {
+    constructor() {
+      _defineProperty(this, "cache", new Map());
+    }
+    async resolveImages(job) {
+      const {
+        url
+      } = job;
+      if (this.cache.has(url.href)) {
+        return this.cache.get(url.href);
+      }
+      let result;
+      const provider = getProvider(url);
+      if (provider) {
+        result = await this.resolveImagesFromProvider(job, provider);
+      } else {
+        const coverArt = await this.augmentCoverArt({
+          url: job.url
+        }, job);
+        result = {
+          jobUrl: url,
+          images: [coverArt]
+        };
+      }
+      this.cache.set(url.href, result);
+      return result;
+    }
+    async resolveImagesFromProvider(job, provider) {
+      LOGGER.info(`Searching for images in ${provider.name} release…`);
+      const {
+        url
+      } = job;
+      const bareImages = await provider.findImages(url);
+      const images = await Promise.all(bareImages.map(image => this.augmentCoverArt(image, job)));
+      LOGGER.info(`Found ${bareImages.length || 'no'} image(s) in ${provider.name} release`);
+      return {
+        provider,
+        jobUrl: url,
+        images
+      };
+    }
+    async augmentCoverArt(image, job) {
+      const {
+        types: defaultTypes,
+        comment: defaultComment
+      } = job;
+      return {
+        ...image,
+        types: image.types ?? defaultTypes ?? [],
+        comment: image.comment ?? defaultComment ?? '',
+        originalUrl: image.url,
+        maximisedUrlCandidates: await getMaximisedCandidates(image.url)
+      };
     }
   }
 
@@ -2752,8 +2339,8 @@
       };
     }
   }
-  async function getImageInfo(imageUrl) {
-    for await (const maxCandidate of getMaximisedCandidates(new URL(imageUrl))) {
+  async function getMaximisedImageInfo(imageUrl, maximisedCandidates) {
+    for (const maxCandidate of maximisedCandidates) {
       if (maxCandidate.likely_broken) continue;
       LOGGER.debug(`Trying to get image information for maximised candidate ${maxCandidate.url}`);
       const seederImage = new SeederImage(maxCandidate.url.toString());
@@ -2769,6 +2356,573 @@
       };
     }
     return new SeederImage(imageUrl).getImageInfo();
+  }
+  async function getImageInfo(imageUrl) {
+    return getMaximisedImageInfo(imageUrl, await getMaximisedCandidates(new URL(imageUrl)));
+  }
+
+  function encodeValue(value) {
+    if (value instanceof URL) return value.href;
+    if (typeof value === 'string') return value;
+    return JSON.stringify(value);
+  }
+  function decodeSingleKeyValue(key, value, images) {
+    var _exec;
+    const keyName = key.split('.').pop();
+    const imageIndexString = (_exec = /x_seed\.image\.(\d+)\./.exec(key)) === null || _exec === void 0 ? void 0 : _exec[1];
+    if (!imageIndexString || !['url', 'types', 'comment'].includes(keyName)) {
+      throw new Error(`Unsupported seeded key: ${key}`);
+    }
+    const imageIndex = Number.parseInt(imageIndexString);
+    if (!images[imageIndex]) {
+      images[imageIndex] = {};
+    }
+    if (keyName === 'url') {
+      images[imageIndex].url = new URL(value);
+    } else if (keyName === 'types') {
+      const types = safeParseJSON(value);
+      if (!Array.isArray(types) || types.some(type => typeof type !== 'number')) {
+        throw new Error(`Invalid 'types' parameter: ${value}`);
+      }
+      images[imageIndex].types = types;
+    } else {
+      images[imageIndex].comment = value;
+    }
+  }
+  class SeedParameters {
+    constructor(images, origin) {
+      _defineProperty(this, "_images", void 0);
+      _defineProperty(this, "origin", void 0);
+      this._images = [...(images ?? [])];
+      this.origin = origin;
+    }
+    get images() {
+      return this._images;
+    }
+    addImage(image) {
+      this._images.push(image);
+    }
+    encode() {
+      const seedParameters = new URLSearchParams(this.images.flatMap((image, index) => Object.entries(image).map(_ref => {
+        let [key, value] = _ref;
+        return [`x_seed.image.${index}.${key}`, encodeValue(value)];
+      })));
+      if (this.origin) {
+        seedParameters.append('x_seed.origin', this.origin);
+      }
+      return seedParameters;
+    }
+    createSeedURL(releaseId) {
+      let domain = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'musicbrainz.org';
+      return `https://${domain}/release/${releaseId}/add-cover-art?${this.encode()}`;
+    }
+    static decode(seedParameters) {
+      let images = [];
+      for (const [key, value] of seedParameters) {
+        if (!key.startsWith('x_seed.image.')) continue;
+        try {
+          decodeSingleKeyValue(key, value, images);
+        } catch (error) {
+          LOGGER.error(`Invalid image seeding param ${key}=${value}`, error);
+        }
+      }
+      images = images.filter((image, index) => {
+        if (image.url) {
+          return true;
+        } else {
+          LOGGER.warn(`Ignoring seeded image ${index}: No URL provided`);
+          return false;
+        }
+      });
+      const origin = seedParameters.get('x_seed.origin') ?? undefined;
+      return new SeedParameters(images, origin);
+    }
+  }
+
+  var css_248z = ".ROpdebee_paste_url_cont{column-gap:.5rem;display:inline-grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;margin-left:32px;margin-top:10px;position:relative;row-gap:.25rem}.ROpdebee_paste_url_cont>input#ROpdebee_paste_url{grid-column:1/-1}.ROpdebee_paste_url_cont>details.ROpdebee_ecau_config{grid-column:1}.ROpdebee_paste_url_cont>a#ROpdebee_ecau_providers_link{grid-column:2}.ROpdebee_paste_url_cont+span{margin-left:32px}a#ROpdebee_ecau_providers_link{font-size:smaller;text-align:right}.ROpdebee_ecau_config input[type=checkbox],.ROpdebee_ecau_config label{display:inline;vertical-align:center}.ROpdebee_ecau_config label{float:none!important;margin-left:.5em}.ROpdebee_ecau_config details{padding:.5em .5em 0}.ROpdebee_ecau_config .ROpdebee_ecau_config_options{background-color:#ddd;border:1px solid #ccc;border-radius:6px;box-shadow:0 0 5px gray;padding:.5em;position:absolute;width:95%;z-index:2}.ROpdebee_ecau_config summary{cursor:pointer;font-weight:700;margin:-.5em -.5em 0;padding:.5em;width:-moz-fit-content;width:fit-content}.ROpdebee_ecau_config summary:hover{-webkit-text-decoration:underline;text-decoration:underline}.ROpdebee_import_url_buttons{display:inline-block;margin-left:32px;vertical-align:middle}.ROpdebee_import_url_buttons>#load-info{display:block;font-size:x-small;margin:auto}.ROpdebee_import_url_buttons>div>button{align-items:center;column-gap:.5rem;display:grid;float:none;grid-template-columns:16px 1fr;grid-template-rows:auto auto;justify-items:center;margin:4px;width:100%}.ROpdebee_import_url_buttons>div>button>img{grid-row:1/-1;height:16px;margin:0!important;width:16px}.ROpdebee_import_url_buttons>div>button>.provider-title{grid-row:1}.ROpdebee_import_url_buttons>div>button>.provider-metadata{color:gray;font-size:x-small;grid-row:2}.ROpdebee_import_url_buttons>div>button>.provider-metadata.hidden{display:none}.ROpdebee_import_url_buttons>div>button>.provider-metadata.content-loading{background-color:inherit;min-height:16px;position:relative!important}";
+
+  const INPUT_PLACEHOLDER_TEXT = 'or paste one or more URLs here';
+  class ProgressElement {
+      constructor(url) {
+          _defineProperty(this, 'urlSpan', void 0);
+          _defineProperty(this, 'progressbar', void 0);
+          _defineProperty(this, 'rootElement', void 0);
+          this.urlSpan = function () {
+              var $$a = document.createElement('span');
+              appendChildren($$a, url.href);
+              return $$a;
+          }.call(this);
+          this.progressbar = function () {
+              var $$c = document.createElement('div');
+              $$c.setAttribute('class', 'ui-progressbar-value ui-widget-header ui-corner-left');
+              setStyles($$c, {
+                  backgroundColor: '#cce5ff',
+                  width: '0%'
+              });
+              appendChildren($$c, '\xA0');
+              return $$c;
+          }.call(this);
+          this.rootElement = function () {
+              var $$e = document.createElement('tr');
+              setStyles($$e, { display: 'flex' });
+              var $$f = document.createElement('td');
+              $$f.setAttribute('class', 'uploader-preview-column');
+              $$e.appendChild($$f);
+              var $$g = document.createElement('div');
+              $$g.setAttribute('class', 'content-loading');
+              setStyles($$g, {
+                  width: '120px',
+                  height: '120px',
+                  position: 'relative'
+              });
+              $$f.appendChild($$g);
+              var $$h = document.createElement('td');
+              setStyles($$h, { width: '65%' });
+              $$e.appendChild($$h);
+              var $$i = document.createElement('div');
+              $$i.setAttribute('class', 'row');
+              $$h.appendChild($$i);
+              var $$j = document.createElement('label');
+              $$i.appendChild($$j);
+              var $$k = document.createTextNode('URL:');
+              $$j.appendChild($$k);
+              appendChildren($$i, this.urlSpan);
+              var $$m = document.createElement('td');
+              setStyles($$m, { flexGrow: 1 });
+              $$e.appendChild($$m);
+              var $$n = document.createElement('div');
+              $$n.setAttribute('class', 'ui-progressbar ui-widget ui-widget-content ui-corner-all');
+              $$n.setAttribute('role', 'progressbar');
+              setStyles($$n, { width: '100%' });
+              $$m.appendChild($$n);
+              appendChildren($$n, this.progressbar);
+              return $$e;
+          }.call(this);
+      }
+      set url(url) {
+          this.urlSpan.textContent = url.href;
+      }
+      set progress(progressPercentage) {
+          this.progressbar.style.width = `${ progressPercentage * 100 }%`;
+      }
+  }
+  function parseHTMLURLs(htmlText) {
+      LOGGER.debug(`Extracting URLs from ${ htmlText }`);
+      const document_ = parseDOM(htmlText, document.location.origin);
+      let urls = qsa('img', document_).map(image => image.src);
+      if (urls.length === 0) {
+          urls = qsa('a', document_).map(anchor => anchor.href);
+      }
+      if (urls.length === 0) {
+          return parsePlainURLs(document_.textContent ?? '');
+      }
+      return [...new Set(urls)].filter(url => /^(?:https?|data):/.test(url));
+  }
+  function parsePlainURLs(text) {
+      return text.trim().split(/\s+/);
+  }
+  function createCheckbox(property) {
+      const propertyId = `ROpdebee_ecau_${ property.name }`;
+      const checkbox = function () {
+          var $$p = document.createElement('input');
+          $$p.setAttribute('type', 'checkbox');
+          $$p.setAttribute('id', propertyId);
+          return $$p;
+      }.call(this);
+      property.get().then(value => {
+          checkbox.checked = value;
+          checkbox.addEventListener('change', () => {
+              property.set(checkbox.checked).catch(error => {
+                  LOGGER.error(`Error when saving checkbox value for ${ property.name }: ${ error }`);
+              });
+          });
+      }).catch(error => {
+          LOGGER.error(`Error when initialising value for ${ property.name } checkbox: ${ error }`);
+      });
+      return function () {
+          var $$q = document.createElement('div');
+          appendChildren($$q, checkbox);
+          var $$s = document.createElement('label');
+          $$s.setAttribute('for', propertyId);
+          $$q.appendChild($$s);
+          appendChildren($$s, property.description);
+          return $$q;
+      }.call(this);
+  }
+  function createConfig() {
+      return function () {
+          var $$u = document.createElement('details');
+          $$u.setAttribute('class', 'ROpdebee_ecau_config');
+          var $$v = document.createElement('summary');
+          $$u.appendChild($$v);
+          var $$w = document.createTextNode('Configure\u2026');
+          $$v.appendChild($$w);
+          var $$x = document.createElement('div');
+          $$x.setAttribute('class', 'ROpdebee_ecau_config_options');
+          $$u.appendChild($$x);
+          appendChildren($$x, createCheckbox(CONFIG.fetchFrontOnly));
+          appendChildren($$x, createCheckbox(CONFIG.skipTrackImagesProperty));
+          appendChildren($$x, createCheckbox(CONFIG.prefetchMetadata));
+          var $$bb = document.createElement('h3');
+          $$x.appendChild($$bb);
+          var $$cc = document.createTextNode('Bandcamp');
+          $$bb.appendChild($$cc);
+          appendChildren($$x, createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty));
+          appendChildren($$x, createCheckbox(CONFIG.bandcamp.squareCropFirst));
+          var $$ff = document.createElement('h3');
+          $$x.appendChild($$ff);
+          var $$gg = document.createTextNode('Soundcloud');
+          $$ff.appendChild($$gg);
+          appendChildren($$x, createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty));
+          var $$ii = document.createElement('h3');
+          $$x.appendChild($$ii);
+          var $$jj = document.createTextNode('VGMdb');
+          $$ii.appendChild($$jj);
+          appendChildren($$x, createCheckbox(CONFIG.vgmdb.keepEntireComment));
+          return $$u;
+      }.call(this);
+  }
+  function providerInfoToString(infos) {
+      if (infos.length === 0) {
+          return '0 images';
+      }
+      const fileTypes = new Set(filterNonNull(infos.map(info => info.fileType)));
+      let maxDimensions = {
+          width: 0,
+          height: 0
+      };
+      for (const currentDimension of infos.map(info => info.dimensions)) {
+          if (currentDimension === undefined)
+              continue;
+          if (currentDimension.width * currentDimension.height > maxDimensions.width * maxDimensions.height) {
+              maxDimensions = currentDimension;
+          }
+      }
+      const maxSize = Math.max(...filterNonNull(infos.map(info => info.size)));
+      const parts = [
+          infos.length === 1 ? '1 image' : `${ infos.length } images`,
+          [...fileTypes].join('/'),
+          `${ maxDimensions.width }×${ maxDimensions.height }`,
+          formatFileSize(maxSize)
+      ];
+      return parts.join(' \xB7 ');
+  }
+  class InputForm {
+      constructor(app) {
+          var _qs$insertAdjacentEle;
+          _defineProperty(this, 'urlInput', void 0);
+          _defineProperty(this, 'buttonContainer', void 0);
+          _defineProperty(this, 'buttonList', void 0);
+          _defineProperty(this, 'loadProviderInfoButton', void 0);
+          _defineProperty(this, 'orSpan', void 0);
+          _defineProperty(this, 'providers', []);
+          _defineProperty(this, 'fakeSubmitButton', void 0);
+          _defineProperty(this, 'realSubmitButton', void 0);
+          _defineProperty(this, 'progressElements', new Map());
+          insertStylesheet(css_248z);
+          this.urlInput = function () {
+              var $$ll = document.createElement('input');
+              $$ll.setAttribute('type', 'url');
+              $$ll.setAttribute('placeholder', INPUT_PLACEHOLDER_TEXT);
+              $$ll.setAttribute('size', 47);
+              $$ll.setAttribute('id', 'ROpdebee_paste_url');
+              $$ll.addEventListener('paste', async event_ => {
+                  if (!event_.clipboardData) {
+                      LOGGER.warn('No clipboard data?');
+                      return;
+                  }
+                  const htmlText = event_.clipboardData.getData('text/html');
+                  const plainText = event_.clipboardData.getData('text');
+                  const urls = htmlText.length > 0 ? parseHTMLURLs(htmlText) : parsePlainURLs(plainText);
+                  event_.preventDefault();
+                  event_.currentTarget.placeholder = urls.join('\n');
+                  const inputUrls = filterNonNull(urls.map(inputUrl => {
+                      try {
+                          return new URL(inputUrl);
+                      } catch (error) {
+                          LOGGER.error(`Invalid URL: ${ inputUrl }`, error);
+                          return null;
+                      }
+                  }));
+                  if (inputUrls.length === 0) {
+                      LOGGER.info('No URLs found in input');
+                      return;
+                  }
+                  await app.processURLs(inputUrls);
+                  app.clearLogLater();
+                  if (this.urlInput.placeholder === urls.join('\n')) {
+                      this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
+                  }
+              });
+              return $$ll;
+          }.call(this);
+          const container = function () {
+              var $$mm = document.createElement('div');
+              $$mm.setAttribute('class', 'ROpdebee_paste_url_cont');
+              appendChildren($$mm, this.urlInput);
+              appendChildren($$mm, createConfig());
+              var $$pp = document.createElement('a');
+              $$pp.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md');
+              $$pp.setAttribute('target', '_blank');
+              $$pp.setAttribute('id', 'ROpdebee_ecau_providers_link');
+              $$mm.appendChild($$pp);
+              var $$qq = document.createTextNode('Supported providers');
+              $$pp.appendChild($$qq);
+              return $$mm;
+          }.call(this);
+          this.buttonList = function () {
+              var $$rr = document.createElement('div');
+              $$rr.setAttribute('class', 'buttons');
+              return $$rr;
+          }.call(this);
+          this.loadProviderInfoButton = function () {
+              var $$ss = document.createElement('button');
+              $$ss.setAttribute('id', 'load-info');
+              $$ss.addEventListener('click', event_ => {
+                  event_.preventDefault();
+                  this.loadCoverArtInfo();
+              });
+              var $$tt = document.createTextNode('Load cover art info\u2026');
+              $$ss.appendChild($$tt);
+              return $$ss;
+          }.call(this);
+          this.buttonContainer = function () {
+              var $$uu = document.createElement('div');
+              $$uu.setAttribute('class', 'ROpdebee_import_url_buttons');
+              setStyles($$uu, { display: 'none' });
+              appendChildren($$uu, this.buttonList);
+              appendChildren($$uu, this.loadProviderInfoButton);
+              return $$uu;
+          }.call(this);
+          this.orSpan = function () {
+              var $$xx = document.createElement('span');
+              setStyles($$xx, { display: 'none' });
+              var $$yy = document.createTextNode('or');
+              $$xx.appendChild($$yy);
+              return $$xx;
+          }.call(this);
+          (_qs$insertAdjacentEle = qs('#drop-zone').insertAdjacentElement('afterend', container)) === null || _qs$insertAdjacentEle === void 0 || (_qs$insertAdjacentEle = _qs$insertAdjacentEle.insertAdjacentElement('afterend', this.orSpan)) === null || _qs$insertAdjacentEle === void 0 || _qs$insertAdjacentEle.insertAdjacentElement('afterend', this.buttonContainer);
+          this.realSubmitButton = qs('button#add-cover-art-submit');
+          this.fakeSubmitButton = function () {
+              var $$zz = document.createElement('button');
+              $$zz.setAttribute('type', 'button');
+              $$zz.setAttribute('class', 'submit positive');
+              $$zz.disabled = true;
+              $$zz.setAttribute('hidden', true);
+              var $$aaa = document.createTextNode('Enter edit');
+              $$zz.appendChild($$aaa);
+              return $$zz;
+          }.call(this);
+          qs('form > .buttons').append(this.fakeSubmitButton);
+      }
+      async addImportButton(handle) {
+          const {provider, url} = handle;
+          const favicon = await provider.favicon;
+          const button = function () {
+              var $$bbb = document.createElement('button');
+              $$bbb.setAttribute('type', 'button');
+              $$bbb.setAttribute('title', url);
+              $$bbb.addEventListener('click', event_ => {
+                  event_.preventDefault();
+                  handle.onClick();
+              });
+              var $$ccc = document.createElement('img');
+              $$ccc.setAttribute('src', favicon);
+              $$ccc.setAttribute('alt', provider.name);
+              $$bbb.appendChild($$ccc);
+              var $$ddd = document.createElement('span');
+              $$ddd.setAttribute('class', 'provider-title');
+              $$bbb.appendChild($$ddd);
+              appendChildren($$ddd, 'Import from ' + provider.name);
+              var $$fff = document.createElement('span');
+              $$fff.setAttribute('class', 'provider-metadata hidden content-loading');
+              $$bbb.appendChild($$fff);
+              return $$bbb;
+          }.call(this);
+          const buttonHandle = {
+              ...handle,
+              button
+          };
+          this.providers.push(buttonHandle);
+          this.orSpan.style.display = '';
+          this.buttonContainer.style.display = '';
+          this.buttonList.insertAdjacentElement('beforeend', button);
+          if (await CONFIG.prefetchMetadata.get()) {
+              this.loadCoverArtInfoForProvider(buttonHandle);
+              this.loadProviderInfoButton.style.display = 'none';
+          }
+      }
+      loadCoverArtInfo() {
+          this.loadProviderInfoButton.style.display = 'none';
+          for (const handle of this.providers) {
+              this.loadCoverArtInfoForProvider(handle);
+          }
+      }
+      loadCoverArtInfoForProvider(handle) {
+          const metadataSpan = handle.button.querySelector('.provider-metadata');
+          handle.getInfo().then(info => {
+              metadataSpan.textContent = providerInfoToString(info);
+              metadataSpan.classList.remove('content-loading');
+              LOGGER.info(`Successfully retrieved image info for ${ handle.provider.name }`);
+          }).catch(error => {
+              LOGGER.error(`Could not retrieve information for ${ handle.url }`, error);
+              metadataSpan.textContent = 'Error :(';
+              metadataSpan.classList.remove('content-loading');
+          });
+          metadataSpan.classList.remove('hidden');
+      }
+      disableSubmissions() {
+          this.realSubmitButton.hidden = true;
+          this.fakeSubmitButton.hidden = false;
+      }
+      enableSubmissions() {
+          this.realSubmitButton.hidden = false;
+          this.fakeSubmitButton.hidden = true;
+      }
+      onDownloadStarted(id, url) {
+          const progressElement = new ProgressElement(url);
+          this.progressElements.set(id, progressElement);
+          qs('form#add-cover-art tbody').append(progressElement.rootElement);
+      }
+      onDownloadFinished(id) {
+          const progressElement = this.progressElements.get(id);
+          progressElement === null || progressElement === void 0 || progressElement.rootElement.remove();
+          this.progressElements.delete(id);
+      }
+      onDownloadProgress(id, url, progress) {
+          const progressElement = this.progressElements.get(id);
+          assertDefined(progressElement);
+          progressElement.url = url;
+          if (progress.lengthComputable && progress.total > 0) {
+              progressElement.progress = progress.loaded / progress.total;
+          }
+      }
+  }
+
+  const PROMISE_LIMIT = 8;
+  class App {
+    constructor() {
+      _defineProperty(this, "note", void 0);
+      _defineProperty(this, "resolver", void 0);
+      _defineProperty(this, "downloader", void 0);
+      _defineProperty(this, "ui", void 0);
+      _defineProperty(this, "urlsInProgress", void 0);
+      _defineProperty(this, "loggingSink", new GuiSink());
+      _defineProperty(this, "fetchingSema", void 0);
+      this.note = EditNote.withFooterFromGMInfo();
+      this.urlsInProgress = new Set();
+      LOGGER.addSink(this.loggingSink);
+      qs('.add-files').insertAdjacentElement('afterend', this.loggingSink.rootElement);
+      this.fetchingSema = new ObservableSemaphore({
+        onAcquired: () => {
+          this.ui.disableSubmissions();
+        },
+        onReleased: () => {
+          this.ui.enableSubmissions();
+        }
+      });
+      this.ui = new InputForm(this);
+      this.resolver = new CoverArtResolver();
+      this.downloader = new CoverArtDownloader(this.ui);
+    }
+    async processURLs(urls) {
+      return this._processURLs(urls.map(url => ({
+        url
+      })));
+    }
+    clearLogLater() {
+      this.loggingSink.clearAllLater();
+    }
+    async _processURLs(jobs, origin) {
+      const batches = await this.fetchingSema.runInSection(async () => {
+        const queuedBatches = [];
+        for (const [job, index] of enumerate(jobs)) {
+          if (this.urlsInProgress.has(job.url.href)) {
+            continue;
+          }
+          this.urlsInProgress.add(job.url.href);
+          if (jobs.length > 1) {
+            LOGGER.info(`Fetching ${job.url} (${index + 1}/${jobs.length})`);
+          } else {
+            LOGGER.info(`Fetching ${job.url}`);
+          }
+          try {
+            const batchMetadata = await this.resolver.resolveImages(job);
+            const fetchResult = await this.downloader.fetchAndEnqueueCoverArt(batchMetadata);
+            queuedBatches.push(fetchResult);
+          } catch (error) {
+            LOGGER.error('Failed to fetch or enqueue images', error);
+          }
+          this.urlsInProgress.delete(job.url.href);
+        }
+        return queuedBatches;
+      });
+      fillEditNote(batches, origin ?? '', this.note);
+      const totalNumberImages = batches.reduce((accumulator, batch) => accumulator + batch.images.length, 0);
+      if (totalNumberImages > 0) {
+        LOGGER.success(`Successfully added ${totalNumberImages} image(s)`);
+      }
+    }
+    async processSeedingParameters() {
+      const parameters = SeedParameters.decode(new URLSearchParams(document.location.search));
+      await this._processURLs(parameters.images, parameters.origin);
+      this.clearLogLater();
+    }
+    async prefetchCoverArtInfo(url) {
+      const artInfo = await this.resolver.resolveImages({
+        url
+      });
+      const limit = pLimit(PROMISE_LIMIT);
+      const infoPromises = await Promise.allSettled(artInfo.images.map(image => limit(() => getMaximisedImageInfo(image.originalUrl.href, image.maximisedUrlCandidates))));
+      const infos = [];
+      for (const [infoPromise, index] of enumerate(infoPromises)) {
+        if (infoPromise.status === 'rejected') {
+          LOGGER.warn(`Could not retrieve image info for ${artInfo.images[index].originalUrl.href}`, infoPromise.reason);
+        } else {
+          infos.push(infoPromise.value);
+        }
+      }
+      return infos;
+    }
+    async addImportButtons() {
+      var _exec;
+      const mbid = (_exec = /musicbrainz\.org\/release\/([a-f\d-]+)\//.exec(window.location.href)) === null || _exec === void 0 ? void 0 : _exec[1];
+      assertHasValue(mbid);
+      const attachedURLs = await getURLsForRelease(mbid, {
+        excludeEnded: true,
+        excludeDuplicates: true
+      });
+      const supportedURLs = attachedURLs.filter(url => {
+        var _getProvider;
+        return (_getProvider = getProvider(url)) === null || _getProvider === void 0 ? void 0 : _getProvider.allowButtons;
+      });
+      if (supportedURLs.length === 0) return;
+      const syncProcessURL = url => {
+        void pFinally(this.processURLs([url]).catch(error => {
+          LOGGER.error(`Failed to process URL ${url.href}`, error);
+        }), this.clearLogLater.bind(this));
+      };
+      const providers = supportedURLs.map(url => {
+        const provider = getProvider(url);
+        assertHasValue(provider);
+        return {
+          url,
+          provider
+        };
+      }).sort((a, b) => a.provider.name.localeCompare(b.provider.name));
+      await Promise.all(providers.map(_ref => {
+        let {
+          url,
+          provider
+        } = _ref;
+        return this.ui.addImportButton({
+          provider,
+          url: url.href,
+          onClick: syncProcessURL.bind(this, url),
+          getInfo: this.prefetchCoverArtInfo.bind(this, url)
+        });
+      }));
+    }
   }
 
   const AtisketSeeder = {
