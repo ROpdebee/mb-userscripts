@@ -1,5 +1,7 @@
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
+import { CONFIG } from '@src/mb_enhanced_cover_art_uploads/config';
 import { TidalProvider } from '@src/mb_enhanced_cover_art_uploads/providers/tidal';
+import { setupPolly } from '@test-utils/pollyjs';
 import { itBehavesLike } from '@test-utils/shared-behaviour';
 
 import { findImagesSpec } from './find-images-spec';
@@ -7,6 +9,7 @@ import { urlMatchingSpec } from './url-matching-spec';
 
 describe('tidal provider', () => {
     const provider = new TidalProvider();
+    const pollyContext = setupPolly();
 
     describe('url matching', () => {
         const supportedUrls = [{
@@ -85,9 +88,51 @@ describe('tidal provider', () => {
         const extractionFailedCases = [{
             description: 'non-existent release',
             url: 'https://listen.tidal.com/album/1',
+            errorMessage: 'Tidal release does not exist or is not available in your country',
         }];
 
         // eslint-disable-next-line jest/require-hook
-        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
+        itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases, pollyContext });
+
+        describe('searching other country APIs', () => {
+            const configSpy = jest.spyOn(CONFIG.tidal.checkAllCountries, 'get');
+
+            beforeEach(() => {
+                pollyContext.polly.configure({
+                    recordFailedRequests: true,
+                });
+            });
+
+            afterEach(() => {
+                configSpy.mockReset();
+            });
+
+            it('finds existing release in another country if configured to do so', async () => {
+                configSpy.mockResolvedValue(true);
+
+                // This release shouldn't be available in my country, but is available in one of the other countries.
+                const results = await provider.findImages(new URL('https://tidal.com/album/496065886'));
+
+                expect(results).toBeArrayOfSize(1);
+            });
+
+            it('does not search other countries if configured not to', async () => {
+                configSpy.mockResolvedValue(false);
+
+                // This release shouldn't be available in my country, but is available in one of the other countries.
+                const results = provider.findImages(new URL('https://tidal.com/album/496065886'));
+
+                await expect(results).toReject();
+            });
+
+            it('does not find non-existent release in another country', async () => {
+                configSpy.mockResolvedValue(true);
+
+                // This release shouldn't be available in my country, but is available in one of the other countries.
+                const results = provider.findImages(new URL('https://listen.tidal.com/album/1'));
+
+                await expect(results).toReject();
+            });
+        });
     });
 });
