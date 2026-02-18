@@ -80,7 +80,13 @@ a#ROpdebee_ecau_providers_link {
     vertical-align: middle;
     display: inline-block;
 
-    button {
+    > #load-info {
+        display: block;
+        font-size: x-small;
+        margin: auto;
+    }
+
+    > div > button {
         float: none;
         margin: 4px;
 
@@ -108,8 +114,14 @@ a#ROpdebee_ecau_providers_link {
             font-size: x-small;
             color: gray;
 
-            & .hidden {
+            &.hidden {
                 display: none;
+            }
+
+            &.content-loading {
+                position: relative !important;
+                background-color: inherit;
+                min-height: 16px;  // For the loading icon.
             }
         }
     }

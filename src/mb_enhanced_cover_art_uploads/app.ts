@@ -1,5 +1,6 @@
 /* istanbul ignore file: Covered by E2E */
 
+import type { ImageInfo } from '@src/mb_caa_dimensions/image-info';
 import { GuiSink } from '@lib/logging/gui-sink';
 import { LOGGER } from '@lib/logging/logger';
 import { EditNote } from '@lib/MB/edit-note';
@@ -10,13 +11,23 @@ import { pFinally } from '@lib/util/async';
 import { qs } from '@lib/util/dom';
 import { ObservableSemaphore } from '@lib/util/observable';
 
+import type { CoverArtProvider } from './providers/base';
 import type { CoverArtJob, QueuedImageBatch } from './types';
 import { fillEditNote } from './form';
 import { CoverArtDownloader } from './images/download';
 import { CoverArtResolver } from './images/resolve';
 import { getProvider } from './providers';
+import { getMaximisedImageInfo } from './seeding/dimensions';
 import { SeedParameters } from './seeding/parameters';
 import { InputForm } from './ui/main';
+
+export interface ProviderHandle {
+    url: string;
+    provider: CoverArtProvider;
+
+    onClick(): void;
+    getInfo(): Promise<ImageInfo[]>;
+}
 
 export class App {
     private readonly note: EditNote;
@@ -106,6 +117,24 @@ export class App {
         this.clearLogLater();
     }
 
+    private async prefetchCoverArtInfo(url: URL): Promise<ImageInfo[]> {
+        const artInfo = await this.resolver.resolveImages({ url });
+
+        const infoPromises = await Promise.allSettled(
+            artInfo.images.map((image) => getMaximisedImageInfo(image.originalUrl.href, image.maximisedUrlCandidates)));
+
+        const infos = [];
+        for (const [infoPromise, index] of enumerate(infoPromises)) {
+            if (infoPromise.status === 'rejected') {
+                LOGGER.warn(`Could not retrieve image info for ${artInfo.images[index].originalUrl.href}`, infoPromise.reason);
+            } else {
+                infos.push(infoPromise.value);
+            }
+        }
+
+        return infos;
+    }
+
     public async addImportButtons(): Promise<void> {
         const mbid = /musicbrainz\.org\/release\/([a-f\d-]+)\//.exec(window.location.href)?.[1];
         assertHasValue(mbid);
@@ -139,6 +168,11 @@ export class App {
             .sort((a, b) => a.provider.name.localeCompare(b.provider.name));
 
         await Promise.all(providers.map(
-            ({ url, provider }) => this.ui.addImportButton(syncProcessURL.bind(this, url), url.href, provider)));
+            ({ url, provider }) => this.ui.addImportButton({
+                provider,
+                url: url.href,
+                onClick: syncProcessURL.bind(this, url),
+                getInfo: this.prefetchCoverArtInfo.bind(this, url),
+            })));
     }
 }

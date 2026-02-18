@@ -1,14 +1,15 @@
 import type { ConfigProperty } from '@lib/config';
 import type { ProgressEvent } from '@lib/util/request';
+import type { ImageInfo } from '@src/mb_caa_dimensions/image-info';
 import { LOGGER } from '@lib/logging/logger';
 import { filterNonNull } from '@lib/util/array';
 import { assertDefined } from '@lib/util/assert';
 import { insertStylesheet } from '@lib/util/css';
 import { parseDOM, qs, qsa } from '@lib/util/dom';
+import { formatFileSize } from '@lib/util/format';
 
-import type { App } from '../app';
+import type { App, ProviderHandle } from '../app';
 import type { CoverArtDownloaderHooks } from '../images/download';
-import type { CoverArtProvider } from '../providers/base';
 import { CONFIG } from '../config';
 
 import css from './main.scss';
@@ -139,10 +140,39 @@ function createConfig(): HTMLElement {
     );
 }
 
+function providerInfoToString(infos: ImageInfo[]): string {
+    if (infos.length === 0) {
+        return '0 images';
+    }
+
+    const fileTypes = new Set(filterNonNull(infos.map((info) => info.fileType)));
+    let maxDimensions = { width: 0, height: 0 };
+    for (const currentDimension of infos.map((info) => info.dimensions)) {
+        if (currentDimension === undefined) continue;
+        if (currentDimension.width * currentDimension.height > maxDimensions.width * maxDimensions.height) {
+            maxDimensions = currentDimension;
+        }
+    }
+    const maxSize = Math.max(...filterNonNull(infos.map((info) => info.size)));
+
+    const parts = [
+        infos.length === 1 ? '1 image' : `${infos.length} images`,
+        [...fileTypes].join('/'),
+        `${maxDimensions.width}×${maxDimensions.height}`,
+        formatFileSize(maxSize),
+    ];
+
+    return parts.join(' · ');
+}
+
 export class InputForm implements CoverArtDownloaderHooks {
     private readonly urlInput: HTMLInputElement;
     private readonly buttonContainer: HTMLDivElement;
+    private readonly buttonList: HTMLDivElement;
+    private readonly loadProviderInfoButton: HTMLButtonElement;
     private readonly orSpan: HTMLSpanElement;
+
+    private readonly providers: Array<ProviderHandle & { button: HTMLButtonElement }> = [];
 
     private readonly fakeSubmitButton: HTMLButtonElement;
     private readonly realSubmitButton: HTMLButtonElement;
@@ -219,7 +249,25 @@ export class InputForm implements CoverArtDownloaderHooks {
             </div>
         );
 
-        this.buttonContainer = <div className="ROpdebee_import_url_buttons buttons" /> as HTMLDivElement;
+        this.buttonList = <div className="buttons" /> as HTMLDivElement;
+        this.loadProviderInfoButton = (
+            <button
+                id="load-info"
+                onClick={(event_): void => {
+                    event_.preventDefault();
+                    this.loadCoverArtInfo();
+                }}
+            >
+                Load cover art info…
+            </button>
+        ) as HTMLButtonElement;
+
+        this.buttonContainer = (
+            <div className="ROpdebee_import_url_buttons" style={{ display: 'none' }}>
+                {this.buttonList}
+                {this.loadProviderInfoButton}
+            </div>
+        ) as HTMLDivElement;
 
         // If we inline this into the function call below, nativejsx crashes.
         // It might have something to do with the optional chaining on the
@@ -239,7 +287,8 @@ export class InputForm implements CoverArtDownloaderHooks {
         qs('form > .buttons').append(this.fakeSubmitButton);
     }
 
-    public async addImportButton(onClickCallback: () => void, url: string, provider: CoverArtProvider): Promise<void> {
+    public async addImportButton(handle: ProviderHandle): Promise<void> {
+        const { provider, url } = handle;
         const favicon = await provider.favicon;
         const button = (
             <button
@@ -247,17 +296,40 @@ export class InputForm implements CoverArtDownloaderHooks {
                 title={url}
                 onClick={(event_): void => {
                     event_.preventDefault();
-                    onClickCallback();
+                    handle.onClick();
                 }}
             >
                 <img src={favicon} alt={provider.name} />
                 <span className="provider-title">{'Import from ' + provider.name}</span>
-                <span className="provider-metadata hidden">12 images · 3000×3000 · 18 MB</span>
+                <span className="provider-metadata hidden content-loading"></span>
             </button>
-        );
+        ) as HTMLButtonElement;
+
+        this.providers.push({ ...handle, button });
 
         this.orSpan.style.display = '';
-        this.buttonContainer.insertAdjacentElement('beforeend', button);
+        this.buttonContainer.style.display = '';
+        this.buttonList.insertAdjacentElement('beforeend', button);
+    }
+
+    private loadCoverArtInfo(): void {
+        this.loadProviderInfoButton.style.display = 'none';
+        for (const handle of this.providers) {
+            const metadataSpan = handle.button.querySelector('.provider-metadata')!;
+            handle.getInfo()
+                .then((info) => {
+                    metadataSpan.textContent = providerInfoToString(info);
+                    metadataSpan.classList.remove('content-loading');
+                    // Log something so that the log window doesn't seem "stuck" on "getting image dimensions"
+                    LOGGER.info(`Successfully retrieved image info for ${handle.provider.name}`);
+                }).catch((error: unknown) => {
+                    LOGGER.error(`Could not retrieve information for ${handle.url}`, error);
+                    metadataSpan.textContent = 'Error :(';
+                    metadataSpan.classList.remove('content-loading');
+                });
+
+            metadataSpan.classList.remove('hidden');
+        }
     }
 
     // MB has its own submission disabling logic which we don't want to interfere
