@@ -47,6 +47,8 @@ export default [
 
             // Not available in all supported browsers, and too expensive to polyfill.
             'unicorn/prefer-at': 'off',
+            'unicorn/no-array-sort': 'off',
+            'unicorn/no-array-reverse': 'off',
 
             // Not available in `jsdom`, so using it breaks tests.
             'unicorn/prefer-blob-reading-methods': 'off',

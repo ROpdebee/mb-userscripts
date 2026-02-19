@@ -42,7 +42,6 @@ export class CoverArtResolver {
         const bareImages = await provider.findImages(url);
         const images = await Promise.all(bareImages.map((image) => this.augmentCoverArt(image, job)));
 
-        // eslint-disable-next-line unicorn/explicit-length-check
         LOGGER.info(`Found ${bareImages.length || 'no'} image(s) in ${provider.name} release`);
 
         return {

@@ -158,7 +158,7 @@ describe('downloading image contents', () => {
             blob: new Blob(['test']),
             headers: new Headers({ 'Content-Type': 'text/html; charset=utf-8' }),
         }));
-        mockGetProviderByDomain.mockImplementationOnce(() => fakeProvider);
+        mockGetProviderByDomain.mockReturnValueOnce(fakeProvider);
 
         const result = downloader.downloadImageContents(new URL('https://example.com/not-an-album'), 'test.jpg', 0, {});
 

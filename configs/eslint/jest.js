@@ -29,6 +29,13 @@ export default [
             // Too verbose, already implied by test file name.
             'jest/require-top-level-describe': 'off',
 
+            // This incorrectly flags all .toResolve() and .toReject() checks from jest-extended.
+            // Should already be covered by general TypeScript checks too.
+            'jest/valid-expect-with-promise': 'off',
+
+            // Many false positives due to mapped paths (@src/...)
+            'jest/valid-mock-module-path': 'off',
+
             // TODO: Enable this one. It'd be better practice not to rely on
             // injected globals but it'll require tinkering with TypeScript
             // declarations so that `jest-extended` `expect` extensions are

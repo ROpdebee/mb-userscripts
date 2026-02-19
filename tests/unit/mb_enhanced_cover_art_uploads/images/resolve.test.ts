@@ -200,7 +200,7 @@ describe('resolving images', () => {
     });
 
     it('resolves provider images', async () => {
-        mockGetProvider.mockImplementationOnce(() => fakeProvider);
+        mockGetProvider.mockReturnValueOnce(fakeProvider);
         mockFindImages.mockResolvedValueOnce([
             createCoverArt('https://example.com/1'),
             createCoverArt({
@@ -229,7 +229,7 @@ describe('resolving images', () => {
     });
 
     it('reuses cache', async () => {
-        mockGetProvider.mockImplementationOnce(() => fakeProvider);
+        mockGetProvider.mockReturnValueOnce(fakeProvider);
         mockFindImages.mockResolvedValueOnce([
             createCoverArt('https://example.com/1'),
             createCoverArt({
@@ -271,7 +271,7 @@ describe('resolving images', () => {
     });
 
     it('inserts default types and comments when specific ones are not set', async () => {
-        mockGetProvider.mockImplementationOnce(() => fakeProvider);
+        mockGetProvider.mockReturnValueOnce(fakeProvider);
         mockFindImages.mockResolvedValueOnce([
             createCoverArt('https://example.com/1'),
         ]);
@@ -294,7 +294,7 @@ describe('resolving images', () => {
     });
 
     it('does not use default parameters when specific ones are set', async () => {
-        mockGetProvider.mockImplementationOnce(() => fakeProvider);
+        mockGetProvider.mockReturnValueOnce(fakeProvider);
         mockFindImages.mockResolvedValueOnce([
             createCoverArt({
                 url: new URL('https://example.com/1'),
@@ -321,7 +321,7 @@ describe('resolving images', () => {
     });
 
     it('allows specific types and comment to be empty', async () => {
-        mockGetProvider.mockImplementationOnce(() => fakeProvider);
+        mockGetProvider.mockReturnValueOnce(fakeProvider);
         mockFindImages.mockResolvedValueOnce([
             createCoverArt({
                 url: new URL('https://example.com/1'),
