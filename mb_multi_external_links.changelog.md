@@ -1,3 +1,4 @@
+- **2026.2.19**: Internal changes: miscellaneous modernisation ([#873](https://github.com/ROpdebee/mb-userscripts/pull/873))
 - **2026.2.15**: Bug fix: run on new URL editor ([#866](https://github.com/ROpdebee/mb-userscripts/pull/866))
 - **2024.9.24**: Internal changes: bump rollup from 4.9.6 to 4.22.4 ([#796](https://github.com/ROpdebee/mb-userscripts/pull/796))
 - **2024.7.26**: Bug fix: remove extraneous spacing in JSX-transpiled HTML ([#781](https://github.com/ROpdebee/mb-userscripts/pull/781))
