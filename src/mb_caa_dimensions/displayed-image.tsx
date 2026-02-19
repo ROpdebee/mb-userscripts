@@ -159,7 +159,7 @@ export class CoverArtTabCAAImage extends DisplayedCAAImage {
         const maxDimension = Math.max(height, width);
 
         for (const anchor of this.anchors) {
-            const resolutionString = /^(\d+)\s*px/.exec(anchor.textContent?.trim() ?? '')?.[1];
+            const resolutionString = /^(\d+)\s*px/.exec(anchor.textContent.trim())?.[1];
             if (resolutionString === undefined) continue;
 
             const resolution = Number.parseInt(resolutionString);

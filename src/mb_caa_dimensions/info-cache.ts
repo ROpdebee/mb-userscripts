@@ -119,6 +119,7 @@ class IndexedDBInfoCache {
             let wasBlocked = false;
 
             const databasePromise = openDB(CACHE_DB_NAME, CACHE_DB_VERSION, {
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises -- Fairly sure it awaits this.
                 async upgrade(database: IDBPDatabase<CacheDBSchema>, oldVersion: number, newVersion: number, tx: IDBPTransaction<CacheDBSchema, Array<StoreNames<CacheDBSchema>>, 'versionchange'>): Promise<void> {
                     LOGGER.info(`Creating or upgrading IndexedDB cache version ${newVersion}`);
                     if (oldVersion < 1) {

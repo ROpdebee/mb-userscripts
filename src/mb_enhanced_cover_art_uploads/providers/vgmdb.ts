@@ -275,7 +275,7 @@ export class VGMdbProvider extends CoverArtProvider {
     private static extractCoverFromAnchor(anchor: HTMLAnchorElement): Promise<CoverArt> {
         return convertCaptions({
             url: anchor.href,
-            caption: qs('.label', anchor).textContent ?? /* istanbul ignore next */ '',
+            caption: qs('.label', anchor).textContent,
         });
     }
 

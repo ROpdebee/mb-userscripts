@@ -76,7 +76,7 @@ function parseHTMLURLs(htmlText: string): string[] {
         // If there aren't any <img> or <a> elements whatsoever, assume the user
         // copied a list of plain-text URLs that happened to be on a HTML page
         // and parse it as plain text
-        return parsePlainURLs(document_.textContent ?? '');
+        return parsePlainURLs(document_.body.textContent);
     }
 
     // Deduplicate URLs and retain only http:, https:, or data: URLs,
