@@ -43,7 +43,7 @@ describe('async timeout', () => {
 describe('retryTimes', () => {
     it('resolves immediately if function does not fail', async () => {
         jest.useFakeTimers();
-        const mock = jest.fn().mockImplementation(() => 42);
+        const mock = jest.fn().mockReturnValue(42);
 
         await expect(retryTimes(mock, 5, 500)).resolves.toBe(42);
         expect(mock).toHaveBeenCalledOnce();
@@ -51,7 +51,7 @@ describe('retryTimes', () => {
 
     it('does not call the function twice', async () => {
         jest.useFakeTimers();
-        const mock = jest.fn().mockImplementation(() => 42);
+        const mock = jest.fn().mockReturnValue(42);
 
         await expect(retryTimes(mock, 5, 500)).resolves.toBe(42);
 
@@ -63,7 +63,7 @@ describe('retryTimes', () => {
     it('retries the function until it passes', async () => {
         jest.useFakeTimers();
         const mock = jest.fn()
-            .mockImplementation(() => 42)
+            .mockReturnValue(42)
             .mockImplementationOnce(() => {
                 throw new Error('test');
             });
