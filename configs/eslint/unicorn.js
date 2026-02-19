@@ -46,7 +46,6 @@ export default [
             'unicorn/no-useless-undefined': 'off',
 
             // Not available in all supported browsers, and too expensive to polyfill.
-            'unicorn/prefer-at': 'off',
             'unicorn/no-array-sort': 'off',
             'unicorn/no-array-reverse': 'off',
 
