@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import conventionalCommitsParser from 'conventional-commits-parser';
+import { CommitParser } from 'conventional-commits-parser';
 
 import { filterNonNull } from '@lib/util/array';
 
@@ -19,31 +19,20 @@ export interface ChangeInfo {
     subject: string;
 }
 
-// Incomplete.
-interface CCInfo {
-    type: string | null;
-    scope: string | null;
-    subject: string;
-}
-
 export function parsePullRequestTitle(prInfo: PullRequestInfo): Promise<ChangeInfo> {
     return new Promise((resolve, reject) => {
-        const ccParser = conventionalCommitsParser();
-        ccParser.on('readable', () => {
-            const ccInfo = ccParser.read() as CCInfo;
+        const ccParser = new CommitParser();
+        const ccInfo = ccParser.parse(prInfo.title);
 
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            if (ccInfo.type === null || ccInfo.type === undefined) {
-                reject(new Error('Could not parse pull request title'));
-            } else {
-                resolve({
-                    type: ccInfo.type,
-                    subject: ccInfo.subject,
-                });
-            }
-        });
-
-        ccParser.write(prInfo.title);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (ccInfo.type === null || ccInfo.type === undefined || ccInfo.subject === null) {
+            reject(new Error('Could not parse pull request title'));
+        } else {
+            resolve({
+                type: ccInfo.type,
+                subject: ccInfo.subject,
+            });
+        }
     });
 }
 

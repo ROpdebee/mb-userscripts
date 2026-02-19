@@ -3,6 +3,7 @@ const esModules = [
     'node-fetch',
     'p-retry',
     'warcio',
+    'conventional-commits-parser',
     // Imported by node-fetch
     'fetch-blob',
     'data-uri-to-buffer',
@@ -14,13 +15,15 @@ const esModules = [
     'base32-encode',
 ].join('|');
 
-/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
+/** @type {import('@jest/types').Config} */
 module.exports = {
     testEnvironment: './tests/unit/utils/extended-jsdom-environment.ts',
     moduleNameMapper: {
         '^@lib/(.*)$': '<rootDir>/src/lib/$1',
         '^@test-utils/(.*)$': '<rootDir>/tests/unit/utils/$1',
         '^@src/(.*)$': '<rootDir>/src/$1',
+        // FIXME: For whatever reason, jest cannot resolve this module properly.
+        'conventional-commits-parser': '<rootDir>/node_modules/conventional-commits-parser/dist',
     },
     setupFilesAfterEnv: [
         'jest-extended/all',
