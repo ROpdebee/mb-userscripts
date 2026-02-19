@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2026.2.19.2
+// @version      2026.2.19.3
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -17,7 +17,7 @@
 // @match        *://harmony.pulsewidth.org.uk/release/actions?*
 // @match        *://vgmdb.net/album/*
 // @exclude      *://atisket.pulsewidth.org.uk/
-// @require      https://github.com/qsniyg/maxurl/blob/c28a8ee7b997dd6b7b98c47052e246ca4523020c/userscript.user.js?raw=true
+// @require      https://github.com/qsniyg/maxurl/blob/db61f498677c6b0073c2e7fbf8afe745f7b994e7/userscript.user.js?raw=true
 // @resource     amazonFavicon https://www.amazon.com/favicon.ico
 // @run-at       document-end
 // @grant        GM_xmlhttpRequest
@@ -38,11 +38,11 @@
 (function () {
   'use strict';
 
-  /* minified: babel helpers, yocto-queue, p-limit, nativejsx, ts-custom-error, retry, is-network-error, p-retry */
-  function _assertClassBrand(e,t,r){if("function"==typeof e?e===t:e.has(t))return arguments.length<3?t:r;throw new TypeError("Private element is not present on this object")}function _checkPrivateRedeclaration(e,t){if(t.has(e))throw new TypeError("Cannot initialize the same private elements twice on an object")}function _classPrivateFieldGet2(e,t){return e.get(_assertClassBrand(e,t))}function _classPrivateFieldInitSpec(e,t,r){_checkPrivateRedeclaration(e,t),t.set(e,r);}function _classPrivateFieldSet2(e,t,r){return e.set(_assertClassBrand(e,t),r),r}function _defineProperty(e,t,r){return (t=_toPropertyKey(t))in e?Object.defineProperty(e,t,{value:r,enumerable:true,configurable:true,writable:true}):e[t]=r,e}function _toPrimitive(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var i=r.call(e,t);if("object"!=typeof i)return i;throw new TypeError("@@toPrimitive must return a primitive value.")}return ("string"===t?String:Number)(e)}function _toPropertyKey(e){var t=_toPrimitive(e,"string");return "symbol"==typeof t?t:t+""}class Node{constructor(e){_defineProperty(this,"value",void 0),_defineProperty(this,"next",void 0),this.value=e;}}var appendChildren$1,hasRequiredAppendChildren,_head=new WeakMap,_tail=new WeakMap,_size=new WeakMap;class Queue{constructor(){_classPrivateFieldInitSpec(this,_head,void 0),_classPrivateFieldInitSpec(this,_tail,void 0),_classPrivateFieldInitSpec(this,_size,void 0),this.clear();}enqueue(e){var t;const r=new Node(e);_classPrivateFieldGet2(_head,this)?(_classPrivateFieldGet2(_tail,this).next=r,_classPrivateFieldSet2(_tail,this,r)):(_classPrivateFieldSet2(_head,this,r),_classPrivateFieldSet2(_tail,this,r)),_classPrivateFieldSet2(_size,this,(t=_classPrivateFieldGet2(_size,this),++t));}dequeue(){var e;const t=_classPrivateFieldGet2(_head,this);if(t)return _classPrivateFieldSet2(_head,this,_classPrivateFieldGet2(_head,this).next),_classPrivateFieldSet2(_size,this,(e=_classPrivateFieldGet2(_size,this),--e)),_classPrivateFieldGet2(_head,this)||_classPrivateFieldSet2(_tail,this,void 0),t.value}peek(){if(_classPrivateFieldGet2(_head,this))return _classPrivateFieldGet2(_head,this).value}clear(){_classPrivateFieldSet2(_head,this,void 0),_classPrivateFieldSet2(_tail,this,void 0),_classPrivateFieldSet2(_size,this,0);}get size(){return _classPrivateFieldGet2(_size,this)}*[Symbol.iterator](){let e=_classPrivateFieldGet2(_head,this);for(;e;)yield e.value,e=e.next;}*drain(){for(;_classPrivateFieldGet2(_head,this);)yield this.dequeue();}}function pLimit(e){let t=false;if("object"==typeof e&&({concurrency:e,rejectOnClear:t=false}=e),validateConcurrency(e),"boolean"!=typeof t)throw new TypeError("Expected `rejectOnClear` to be a boolean");const r=new Queue;let i=0;const o=()=>{i<e&&r.size>0&&(i++,r.dequeue().run());},n=async(e,t,r)=>{const n=(async()=>e(...r))();t(n);try{await n;}catch{}i--,o();},s=function(t){for(var s=arguments.length,a=new Array(s>1?s-1:0),u=1;u<s;u++)a[u-1]=arguments[u];return new Promise(((s,u)=>{((t,s,a,u)=>{const c={reject:a};new Promise((e=>{c.run=e,r.enqueue(c);})).then(n.bind(void 0,t,s,u)),i<e&&o();})(t,s,u,a);}))};return Object.defineProperties(s,{activeCount:{get:()=>i},pendingCount:{get:()=>r.size},clearQueue:{value(){if(!t)return void r.clear();const e=AbortSignal.abort().reason;for(;r.size>0;)r.dequeue().reject(e);}},concurrency:{get:()=>e,set(t){validateConcurrency(t),e=t,queueMicrotask((()=>{for(;i<e&&r.size>0;)o();}));}},map:{async value(e,t){const r=Array.from(e,((e,r)=>this(t,e,r)));return Promise.all(r)}}}),s}function validateConcurrency(e){if(!Number.isInteger(e)&&e!==Number.POSITIVE_INFINITY||!(e>0))throw new TypeError("Expected `concurrency` to be a number from 1 and up")}function getDefaultExportFromCjs(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}function requireAppendChildren(){return hasRequiredAppendChildren?appendChildren$1:(hasRequiredAppendChildren=1,appendChildren$1=function(e,t){(t=Array.isArray(t)?t:[t]).forEach((function(t){t instanceof HTMLElement?e.appendChild(t):(t||"string"==typeof t)&&e.appendChild(document.createTextNode(t.toString()));}));})}var setStyles$1,hasRequiredSetStyles,appendChildrenExports=requireAppendChildren(),appendChildren=getDefaultExportFromCjs(appendChildrenExports);function requireSetStyles(){return hasRequiredSetStyles?setStyles$1:(hasRequiredSetStyles=1,setStyles$1=function(e,t){for(const r in t)e.style[r]=t[r];})}var setStylesExports=requireSetStyles(),setStyles=getDefaultExportFromCjs(setStylesExports);function fixProto(e,t){var r=Object.setPrototypeOf;r?r(e,t):e.__proto__=t;}function fixStack(e,t){ void 0===t&&(t=e.constructor);var r=Error.captureStackTrace;r&&r(e,t);}var retry_operation,hasRequiredRetry_operation,hasRequiredRetry$1,retry$1,hasRequiredRetry,__extends=function(){var e=function(t,r){return e=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(e,t){e.__proto__=t;}||function(e,t){for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);},e(t,r)};return function(t,r){if("function"!=typeof r&&null!==r)throw new TypeError("Class extends value "+String(r)+" is not a constructor or null");function i(){this.constructor=t;}e(t,r),t.prototype=null===r?Object.create(r):(i.prototype=r.prototype,new i);}}(),CustomError=function(e){function t(t,r){var i=this.constructor,o=e.call(this,t,r)||this;return Object.defineProperty(o,"name",{value:i.name,enumerable:false,configurable:true}),fixProto(o,i.prototype),fixStack(o),o}return __extends(t,e),t}(Error),retry$2={};function requireRetry_operation(){if(hasRequiredRetry_operation)return retry_operation;function e(e,t){"boolean"==typeof t&&(t={forever:t}),this._originalTimeouts=JSON.parse(JSON.stringify(e)),this._timeouts=e,this._options=t||{},this._maxRetryTime=t&&t.maxRetryTime||1/0,this._fn=null,this._errors=[],this._attempts=1,this._operationTimeout=null,this._operationTimeoutCb=null,this._timeout=null,this._operationStart=null,this._timer=null,this._options.forever&&(this._cachedTimeouts=this._timeouts.slice(0));}return hasRequiredRetry_operation=1,retry_operation=e,e.prototype.reset=function(){this._attempts=1,this._timeouts=this._originalTimeouts.slice(0);},e.prototype.stop=function(){this._timeout&&clearTimeout(this._timeout),this._timer&&clearTimeout(this._timer),this._timeouts=[],this._cachedTimeouts=null;},e.prototype.retry=function(e){if(this._timeout&&clearTimeout(this._timeout),!e)return  false;var t=(new Date).getTime();if(e&&t-this._operationStart>=this._maxRetryTime)return this._errors.push(e),this._errors.unshift(new Error("RetryOperation timeout occurred")),false;this._errors.push(e);var r=this._timeouts.shift();if(void 0===r){if(!this._cachedTimeouts)return  false;this._errors.splice(0,this._errors.length-1),r=this._cachedTimeouts.slice(-1);}var i=this;return this._timer=setTimeout((function(){i._attempts++,i._operationTimeoutCb&&(i._timeout=setTimeout((function(){i._operationTimeoutCb(i._attempts);}),i._operationTimeout),i._options.unref&&i._timeout.unref()),i._fn(i._attempts);}),r),this._options.unref&&this._timer.unref(),true},e.prototype.attempt=function(e,t){this._fn=e,t&&(t.timeout&&(this._operationTimeout=t.timeout),t.cb&&(this._operationTimeoutCb=t.cb));var r=this;this._operationTimeoutCb&&(this._timeout=setTimeout((function(){r._operationTimeoutCb();}),r._operationTimeout)),this._operationStart=(new Date).getTime(),this._fn(this._attempts);},e.prototype.try=function(e){console.log("Using RetryOperation.try() is deprecated"),this.attempt(e);},e.prototype.start=function(e){console.log("Using RetryOperation.start() is deprecated"),this.attempt(e);},e.prototype.start=e.prototype.try,e.prototype.errors=function(){return this._errors},e.prototype.attempts=function(){return this._attempts},e.prototype.mainError=function(){if(0===this._errors.length)return null;for(var e={},t=null,r=0,i=0;i<this._errors.length;i++){var o=this._errors[i],n=o.message,s=(e[n]||0)+1;e[n]=s,s>=r&&(t=o,r=s);}return t},retry_operation}function requireRetry$1(){return hasRequiredRetry$1||(hasRequiredRetry$1=1,e=retry$2,t=requireRetry_operation(),e.operation=function(r){var i=e.timeouts(r);return new t(i,{forever:r&&(r.forever||r.retries===1/0),unref:r&&r.unref,maxRetryTime:r&&r.maxRetryTime})},e.timeouts=function(e){if(e instanceof Array)return [].concat(e);var t={retries:10,factor:2,minTimeout:1e3,maxTimeout:1/0,randomize:false};for(var r in e)t[r]=e[r];if(t.minTimeout>t.maxTimeout)throw new Error("minTimeout is greater than maxTimeout");for(var i=[],o=0;o<t.retries;o++)i.push(this.createTimeout(o,t));return e&&e.forever&&!i.length&&i.push(this.createTimeout(o,t)),i.sort((function(e,t){return e-t})),i},e.createTimeout=function(e,t){var r=t.randomize?Math.random()+1:1,i=Math.round(r*Math.max(t.minTimeout,1)*Math.pow(t.factor,e));return Math.min(i,t.maxTimeout)},e.wrap=function(t,r,i){if(r instanceof Array&&(i=r,r=null),!i)for(var o in i=[],t)"function"==typeof t[o]&&i.push(o);for(var n=0;n<i.length;n++){var s=i[n],a=t[s];t[s]=function(i){var o=e.operation(r),n=Array.prototype.slice.call(arguments,1),s=n.pop();n.push((function(e){o.retry(e)||(e&&(arguments[0]=o.mainError()),s.apply(this,arguments));})),o.attempt((function(){i.apply(t,n);}));}.bind(t,a),t[s].options=r;}}),retry$2;var e,t;}function requireRetry(){return hasRequiredRetry?retry$1:(hasRequiredRetry=1,retry$1=requireRetry$1())}var retryExports=requireRetry(),retry=getDefaultExportFromCjs(retryExports);const objectToString=Object.prototype.toString,isError=e=>"[object Error]"===objectToString.call(e),errorMessages=new Set(["network error","Failed to fetch","NetworkError when attempting to fetch resource.","The Internet connection appears to be offline.","Load failed","Network request failed","fetch failed","terminated"]);function isNetworkError(e){return !(!e||!isError(e)||"TypeError"!==e.name||"string"!=typeof e.message)&&("Load failed"===e.message?void 0===e.stack:errorMessages.has(e.message))}class AbortError extends Error{constructor(e){super(),e instanceof Error?(this.originalError=e,({message:e}=e)):(this.originalError=new Error(e),this.originalError.stack=this.stack),this.name="AbortError",this.message=e;}}const decorateErrorWithCounts=(e,t,r)=>{const i=r.retries-(t-1);return e.attemptNumber=t,e.retriesLeft=i,e};async function pRetry(e,t){return new Promise(((r,i)=>{t={...t},t.onFailedAttempt??=()=>{},t.shouldRetry??=()=>true,t.retries??=10;const o=retry.operation(t),n=()=>{var e;o.stop(),i(null===(e=t.signal)||void 0===e?void 0:e.reason);};t.signal&&!t.signal.aborted&&t.signal.addEventListener("abort",n,{once:true});const s=()=>{var e;null===(e=t.signal)||void 0===e||e.removeEventListener("abort",n),o.stop();};o.attempt((async n=>{try{const t=await e(n);s(),r(t);}catch(a){try{if(!(a instanceof Error))throw new TypeError(`Non-error was thrown: "${a}". You should only throw errors.`);if(a instanceof AbortError)throw a.originalError;if(a instanceof TypeError&&!isNetworkError(a))throw a;if(decorateErrorWithCounts(a,n,t),await t.shouldRetry(a)||(o.stop(),i(a)),await t.onFailedAttempt(a),!o.retry(a))throw o.mainError()}catch(u){decorateErrorWithCounts(u,n,t),s(),i(u);}}}));}))}
+  /* minified: yocto-queue, p-limit, svg-tag-names, dom-chef, ts-custom-error, is-network-error, p-retry */
+  let Node$1=class{constructor(e){this.value=e;}};class Queue{#e;#t;#r;constructor(){this.clear();}enqueue(e){const t=new Node$1(e);this.#e?(this.#t.next=t,this.#t=t):(this.#e=t,this.#t=t),this.#r++;}dequeue(){const e=this.#e;if(e)return this.#e=this.#e.next,this.#r--,this.#e||(this.#t=void 0),e.value}peek(){if(this.#e)return this.#e.value}clear(){this.#e=void 0,this.#t=void 0,this.#r=0;}get size(){return this.#r}*[Symbol.iterator](){let e=this.#e;for(;e;)yield e.value,e=e.next;}*drain(){for(;this.#e;)yield this.dequeue();}}function pLimit(e){let t=false;if("object"==typeof e&&({concurrency:e,rejectOnClear:t=false}=e),validateConcurrency(e),"boolean"!=typeof t)throw new TypeError("Expected `rejectOnClear` to be a boolean");const r=new Queue;let o=0;const n=()=>{o<e&&r.size>0&&(o++,r.dequeue().run());},i=async(e,t,r)=>{const i=(async()=>e(...r))();t(i);try{await i;}catch{}o--,n();},a=function(t){for(var a=arguments.length,s=new Array(a>1?a-1:0),c=1;c<a;c++)s[c-1]=arguments[c];return new Promise((a,c)=>{((t,a,s,c)=>{const l={reject:s};new Promise(e=>{l.run=e,r.enqueue(l);}).then(i.bind(void 0,t,a,c)),o<e&&n();})(t,a,c,s);})};return Object.defineProperties(a,{activeCount:{get:()=>o},pendingCount:{get:()=>r.size},clearQueue:{value(){if(!t)return void r.clear();const e=AbortSignal.abort().reason;for(;r.size>0;)r.dequeue().reject(e);}},concurrency:{get:()=>e,set(t){validateConcurrency(t),e=t,queueMicrotask(()=>{for(;o<e&&r.size>0;)n();});}},map:{async value(e,t){const r=Array.from(e,(e,r)=>this(t,e,r));return Promise.all(r)}}}),a}function validateConcurrency(e){if(!Number.isInteger(e)&&e!==Number.POSITIVE_INFINITY||!(e>0))throw new TypeError("Expected `concurrency` to be a number from 1 and up")}const svgTagNames=["a","altGlyph","altGlyphDef","altGlyphItem","animate","animateColor","animateMotion","animateTransform","animation","audio","canvas","circle","clipPath","color-profile","cursor","defs","desc","discard","ellipse","feBlend","feColorMatrix","feComponentTransfer","feComposite","feConvolveMatrix","feDiffuseLighting","feDisplacementMap","feDistantLight","feDropShadow","feFlood","feFuncA","feFuncB","feFuncG","feFuncR","feGaussianBlur","feImage","feMerge","feMergeNode","feMorphology","feOffset","fePointLight","feSpecularLighting","feSpotLight","feTile","feTurbulence","filter","font","font-face","font-face-format","font-face-name","font-face-src","font-face-uri","foreignObject","g","glyph","glyphRef","handler","hkern","iframe","image","line","linearGradient","listener","marker","mask","metadata","missing-glyph","mpath","path","pattern","polygon","polyline","prefetch","radialGradient","rect","script","set","solidColor","stop","style","svg","switch","symbol","tbreak","text","textArea","textPath","title","tref","tspan","unknown","use","video","view","vkern"],svgTags=new Set(svgTagNames);svgTags.delete("a"),svgTags.delete("audio"),svgTags.delete("canvas"),svgTags.delete("iframe"),svgTags.delete("script"),svgTags.delete("video");const IS_NON_DIMENSIONAL=/acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i,isFragment=e=>e===DocumentFragment,setCSSProps=(e,t)=>{for(const[r,o]of Object.entries(t))r.startsWith("-")?e.style.setProperty(r,o):"number"!=typeof o||IS_NON_DIMENSIONAL.test(r)?e.style[r]=o:e.style[r]=`${o}px`;},create=e=>"string"==typeof e?svgTags.has(e)?document.createElementNS("http://www.w3.org/2000/svg",e):document.createElement(e):isFragment(e)?document.createDocumentFragment():e(e.defaultProps),setAttribute=(e,t,r)=>{null!=r&&(/^xlink[AHRST]/.test(t)?e.setAttributeNS("http://www.w3.org/1999/xlink",t.replace("xlink","xlink:").toLowerCase(),r):e.setAttribute(t,r));},addChildren=(e,t)=>{for(const r of t)r instanceof Node?e.appendChild(r):Array.isArray(r)?addChildren(e,r):"boolean"!=typeof r&&null!=r&&e.appendChild(document.createTextNode(r));},booleanishAttributes=new Set(["contentEditable","draggable","spellCheck","value","autoReverse","externalResourcesRequired","focusable","preserveAlpha"]),h=function(e,t){var r;const o=create(e);for(var n=arguments.length,i=new Array(n>2?n-2:0),a=2;a<n;a++)i[a-2]=arguments[a];if(addChildren(o,i),o instanceof DocumentFragment||!t)return o;for(let[e,n]of Object.entries(t))if("htmlFor"===e&&(e="for"),"class"===e||"className"===e){const e=null!==(r=o.getAttribute("class"))&&void 0!==r?r:"";setAttribute(o,"class",(e+" "+String(n)).trim());}else if("style"===e)setCSSProps(o,n);else if(e.startsWith("on")){const t=e.slice(2).toLowerCase().replace(/^-/,"");o.addEventListener(t,n);}else "dangerouslySetInnerHTML"===e&&"__html"in n?o.innerHTML=n.__html:"key"===e||!booleanishAttributes.has(e)&&false===n||setAttribute(o,e,true===n?"":n);return o};function fixProto(e,t){var r=Object.setPrototypeOf;r?r(e,t):e.__proto__=t;}function fixStack(e,t){ void 0===t&&(t=e.constructor);var r=Error.captureStackTrace;r&&r(e,t);}var __extends=function(){var e=function(t,r){return e=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(e,t){e.__proto__=t;}||function(e,t){for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);},e(t,r)};return function(t,r){if("function"!=typeof r&&null!==r)throw new TypeError("Class extends value "+String(r)+" is not a constructor or null");function o(){this.constructor=t;}e(t,r),t.prototype=null===r?Object.create(r):(o.prototype=r.prototype,new o);}}(),CustomError=function(e){function t(t,r){var o=this.constructor,n=e.call(this,t,r)||this;return Object.defineProperty(n,"name",{value:o.name,enumerable:false,configurable:true}),fixProto(n,o.prototype),fixStack(n),n}return __extends(t,e),t}(Error);const objectToString=Object.prototype.toString,isError=e=>"[object Error]"===objectToString.call(e),errorMessages=new Set(["network error","Failed to fetch","NetworkError when attempting to fetch resource.","The Internet connection appears to be offline.","Network request failed","fetch failed","terminated"," A network error occurred.","Network connection lost"]);function isNetworkError(e){if(!e||!isError(e)||"TypeError"!==e.name||"string"!=typeof e.message)return  false;const{message:t,stack:r}=e;return "Load failed"===t?void 0===r||"__sentry_captured__"in e:!!t.startsWith("error sending request for url")||errorMessages.has(t)}function validateRetries(e){if("number"==typeof e){if(e<0)throw new TypeError("Expected `retries` to be a non-negative number.");if(Number.isNaN(e))throw new TypeError("Expected `retries` to be a valid number or Infinity, got NaN.")}else if(void 0!==e)throw new TypeError("Expected `retries` to be a number or Infinity.")}function validateNumberOption(e,t){let{min:r=0,allowInfinity:o=false}=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};if(void 0!==t){if("number"!=typeof t||Number.isNaN(t))throw new TypeError(`Expected \`${e}\` to be a number${o?" or Infinity":""}.`);if(!o&&!Number.isFinite(t))throw new TypeError(`Expected \`${e}\` to be a finite number.`);if(t<r)throw new TypeError(`Expected \`${e}\` to be ≥ ${r}.`)}}class AbortError extends Error{constructor(e){super(),e instanceof Error?(this.originalError=e,({message:e}=e)):(this.originalError=new Error(e),this.originalError.stack=this.stack),this.name="AbortError",this.message=e;}}function calculateDelay(e,t){const r=Math.max(1,e+1),o=t.randomize?Math.random()+1:1;let n=Math.round(o*t.minTimeout*t.factor**(r-1));return n=Math.min(n,t.maxTimeout),n}function calculateRemainingTime(e,t){return Number.isFinite(t)?t-(performance.now()-e):t}async function onAttemptFailure(e){let{error:t,attemptNumber:r,retriesConsumed:o,startTime:n,options:i}=e;const a=t instanceof Error?t:new TypeError(`Non-error was thrown: "${t}". You should only throw errors.`);if(a instanceof AbortError)throw a.originalError;const s=Number.isFinite(i.retries)?Math.max(0,i.retries-o):i.retries,c=i.maxRetryTime??Number.POSITIVE_INFINITY,l=Object.freeze({error:a,attemptNumber:r,retriesLeft:s,retriesConsumed:o});if(await i.onFailedAttempt(l),calculateRemainingTime(n,c)<=0)throw a;const u=await i.shouldConsumeRetry(l),f=calculateRemainingTime(n,c);if(f<=0||s<=0)throw a;if(a instanceof TypeError&&!isNetworkError(a)){if(u)throw a;return i.signal?.throwIfAborted(),false}if(!await i.shouldRetry(l))throw a;if(!u)return i.signal?.throwIfAborted(),false;const m=calculateDelay(o,i),d=Math.min(m,f);return i.signal?.throwIfAborted(),d>0&&await new Promise((e,t)=>{const r=()=>{clearTimeout(o),i.signal?.removeEventListener("abort",r),t(i.signal.reason);},o=setTimeout(()=>{i.signal?.removeEventListener("abort",r),e();},d);i.unref&&o.unref?.(),i.signal?.addEventListener("abort",r,{once:true});}),i.signal?.throwIfAborted(),true}async function pRetry(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};if(t={...t},validateRetries(t.retries),Object.hasOwn(t,"forever"))throw new Error("The `forever` option is no longer supported. For many use-cases, you can set `retries: Infinity` instead.");t.retries??=10,t.factor??=2,t.minTimeout??=1e3,t.maxTimeout??=Number.POSITIVE_INFINITY,t.maxRetryTime??=Number.POSITIVE_INFINITY,t.randomize??=false,t.onFailedAttempt??=()=>{},t.shouldRetry??=()=>true,t.shouldConsumeRetry??=()=>true,validateNumberOption("factor",t.factor,{min:0,allowInfinity:false}),validateNumberOption("minTimeout",t.minTimeout,{min:0,allowInfinity:false}),validateNumberOption("maxTimeout",t.maxTimeout,{min:0,allowInfinity:true}),validateNumberOption("maxRetryTime",t.maxRetryTime,{min:0,allowInfinity:true}),t.factor>0||(t.factor=1),t.signal?.throwIfAborted();let r=0,o=0;const n=performance.now();for(;!Number.isFinite(t.retries)||o<=t.retries;){r++;try{t.signal?.throwIfAborted();const o=await e(r);return t.signal?.throwIfAborted(),o}catch(e){await onAttemptFailure({error:e,attemptNumber:r,retriesConsumed:o,startTime:n,options:t})&&o++;}}throw new Error("Retry attempts exhausted without throwing an error.")}
 
   /* minified: lib */
-  class ConsoleSink{constructor(e){_defineProperty(this,"scriptName",void 0),_defineProperty(this,"onSuccess",this.onInfo.bind(this)),this.scriptName=e;}formatMessage(e){return `[${this.scriptName}] ${e}`}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel=function(e){return e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR",e}({});const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){_defineProperty(this,"_configuration",void 0),this._configuration={...DEFAULT_OPTIONS,...e};}fireHandlers(e,t,r){if(!(e<this._configuration.logLevel))for(const s of this._configuration.sinks){const n=s[HANDLER_NAMES[e]];n&&(r?n.call(s,t,r):n.call(s,t));}}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";function filterNonNull(e){return e.filter((e=>!(null==e)))}function groupBy(e,t,r){const s=new Map;for(const o of e){var n;const e=t(o),i=r(o);s.has(e)?null===(n=s.get(e))||void 0===n||n.push(i):s.set(e,[i]);}return s}function collatedSort(e){const t=new Intl.Collator("en",{numeric:true});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map(((e,t)=>[e,t]))}function isFactory(e){return "function"==typeof e}function insertBetween(e,t){return [...e.slice(0,1),...e.slice(1).flatMap((e=>[isFactory(t)?t():t,e]))]}function splitChunks(e,t){const r=[];for(let s=0;s<e.length;s+=t)r.push(e.slice(s,s+t));return r}function deduplicate(e){return [...new Set(e)]}class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(t??"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,t??"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,t??"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,t??"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const r=qsMaybe(e,t);return assertNonNull(r,"Could not find required element"),r}function qsMaybe(e,t){return (t??document).querySelector(e)}function qsa(e,t){return [...(t??document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const r=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",r.head)){const e=r.createElement("base");e.href=t,r.head.insertAdjacentElement("beforeend",e);}return r}function insertStylesheet(e,t){if(t??=`ROpdebee_${USERSCRIPT_ID}_css`,null!==qsMaybe(`style#${t}`))return;const r=function(){var r=document.createElement("style");return r.setAttribute("id",t),appendChildren(r,e),r}.call(this);document.head.insertAdjacentElement("beforeend",r);}var css_248z$1="#ROpdebee_log_container{margin:1.5rem auto;width:75%}#ROpdebee_log_container .msg{border:1px solid;border-radius:4px;display:block;font-weight:500;margin-bottom:.5rem;overflow-wrap:break-word;padding:.5rem .75rem;width:100%}#ROpdebee_log_container .msg.error{background-color:#f8d7da;border-color:#f5c6cb;color:#721c24;font-weight:600}#ROpdebee_log_container .msg.warning{background-color:#fff3cd;border-color:#ffeeba;color:#856404}#ROpdebee_log_container .msg.success{background-color:#d4edda;border-color:#c3e6cb;color:#155724}#ROpdebee_log_container .msg.info{background-color:#e2e3e5;border-color:#d6d8db;color:#383d41}";class GuiSink{constructor(){_defineProperty(this,"rootElement",void 0),_defineProperty(this,"persistentMessages",[]),_defineProperty(this,"transientMessages",[]),_defineProperty(this,"onInfo",this.onLog.bind(this)),insertStylesheet(css_248z$1,"ROpdebee_GUI_Logger"),this.rootElement=function(){var e=document.createElement("div");return e.setAttribute("id","ROpdebee_log_container"),setStyles(e,{display:"none"}),e}.call(this);}createMessage(e,t,r){const s=insertBetween((t+(r instanceof Error?`: ${r.message}`:"")).split(/(?=[/?&%])/),(()=>function(){return document.createElement("wbr")}.call(this)));return function(){var t=document.createElement("span");return t.setAttribute("class",`msg ${e}`),appendChildren(t,s),t}.call(this)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){for(const e of this.transientMessages)e.remove();this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetValue(e){return existsInGM("getValue")?GM.getValue(e):Promise.resolve(GM_getValue(e))}function GMsetValue(e,t){return existsInGM("setValue")?GM.setValue(e,t):(GM_setValue(e,t),Promise.resolve())}function GMdeleteValue(e){return existsInGM("deleteValue")?GM.deleteValue(e):(GM_deleteValue(e),Promise.resolve())}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){_defineProperty(this,"footer",void 0),_defineProperty(this,"extraInfoLines",void 0),_defineProperty(this,"editNoteTextArea",void 0),this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map((e=>e.trimEnd())):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let[t,...r]=this.editNoteTextArea.value.split(separator);t=(t+"\n"+e).trim(),this.editNoteTextArea.value=[t,...r].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter((e=>e.trim()!==this.footer));this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t=`${e.name} ${e.version}\n${e.namespace}`;return new EditNote(t)}}class ResponseHeadersImpl{constructor(e){_defineProperty(this,"map",void 0),_defineProperty(this,Symbol.iterator,void 0),_defineProperty(this,"entries",void 0),_defineProperty(this,"keys",void 0),_defineProperty(this,"values",void 0);const t=groupBy(e?e.split("\r\n").filter(Boolean).map((e=>{const[t,...r]=e.split(":");return [t.toLowerCase().trim(),r.join(":").trim()]})):[],(e=>{let[t]=e;return t}),(e=>{let[,t]=e;return t}));this.map=new Map([...t.entries()].map((e=>{let[t,r]=e;return [t,r.join(",")]}))),this.entries=this.map.entries.bind(this.map),this.keys=this.map.keys.bind(this.map),this.values=this.map.values.bind(this.map),this[Symbol.iterator]=this.map[Symbol.iterator].bind(this.map);}get(e){return this.map.get(e.toLowerCase())??null}has(e){return this.map.has(e.toLowerCase())}forEach(e){for(const[t,r]of this.map.entries())e(r,t,this);}}function createTextResponse(e,t){return {...e,text:t,json(){return JSON.parse(this.text)}}}function convertFetchOptions(e,t){if(t)return {method:e,body:t.body,headers:t.headers}}async function createFetchResponse(e,t){const r=(null==e?void 0:e.responseType)??"text",s={headers:t.headers,url:t.url,status:t.status,statusText:t.statusText,rawResponse:t};switch(r){case "text":return createTextResponse(s,await t.text());case "blob":return {...s,blob:await t.blob()};case "arraybuffer":return {...s,arrayBuffer:await t.arrayBuffer()}}}async function performFetchRequest(e,t,r){return createFetchResponse(r,await fetch(new URL(t),convertFetchOptions(e,r)))}class ResponseError extends CustomError{constructor(e,t){super(t),_defineProperty(this,"url",void 0),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t,r){r?(super(e,r),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):t.statusText.trim()?(super(e,`HTTP error ${t.status}: ${t.statusText}`),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)):(super(e,`HTTP error ${t.status}`),_defineProperty(this,"statusCode",void 0),_defineProperty(this,"statusText",void 0),_defineProperty(this,"response",void 0)),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function createGMXHRResponse(e,t){const r=(null==e?void 0:e.responseType)??"text",s={headers:new ResponseHeadersImpl(t.responseHeaders),url:t.finalUrl,status:t.status,statusText:t.statusText,rawResponse:t};switch(r){case "text":return createTextResponse(s,t.responseText);case "blob":return {...s,blob:t.response};case "arraybuffer":return {...s,arrayBuffer:t.response}}}function performGMXHRRequest(e,t,r){return new Promise(((s,n)=>{GMxmlHttpRequest({method:e,url:t instanceof URL?t.href:t,headers:null==r?void 0:r.headers,data:null==r?void 0:r.body,responseType:null==r?void 0:r.responseType,onload:e=>{s(createGMXHRResponse(r,e));},onerror:()=>{n(new NetworkError(t));},onabort:()=>{n(new AbortedError(t));},ontimeout:()=>{n(new TimeoutError(t));},onprogress:null==r?void 0:r.onProgress});}))}let RequestBackend=function(e){return e[e.FETCH=1]="FETCH",e[e.GMXHR=2]="GMXHR",e}({});const hasGMXHR="undefined"!=typeof GM_xmlHttpRequest||"undefined"!=typeof GM&&void 0!==GM.xmlHttpRequest;function constructErrorMessage(e,t){var r;const s=null==e||null===(r=e.httpErrorMessages)||void 0===r?void 0:r[t.status];return "string"==typeof s?s:void 0!==s?s(t):void 0}const request=async function(e,t,r){const s=(null==r?void 0:r.backend)??(hasGMXHR?RequestBackend.GMXHR:RequestBackend.FETCH),n=await performRequest(s,e,t,r);if(((null==r?void 0:r.throwForStatus)??1)&&n.status>=400){const e=constructErrorMessage(r,n);throw new HTTPResponseError(t,n,e)}return n};function performRequest(e,t,r,s){switch(e){case RequestBackend.FETCH:return performFetchRequest(t,r,s);case RequestBackend.GMXHR:return performGMXHRRequest(t,r,s)}}async function getReleaseUrlARs(e){const t=await request.get(`https://musicbrainz.org/ws/2/release/${e}?inc=url-rels&fmt=json`);return (await t.json()).relations??[]}async function getURLsForRelease(e,t){const{excludeEnded:r,excludeDuplicates:s}=t??{};let n=await getReleaseUrlARs(e);r&&(n=n.filter((e=>!e.ended)));let o=n.map((e=>e.url.resource));return s&&(o=[...new Set(o)]),o.flatMap((e=>{try{return [new URL(e)]}catch{return console.warn(`Found malformed URL linked to release: ${e}`),[]}}))}async function getReleaseIDsForURL(e){var t;const r=await request.get(`https://musicbrainz.org/ws/2/url?resource=${encodeURIComponent(e)}&inc=release-rels&fmt=json`,{throwForStatus:false});return (null===(t=(await r.json()).relations)||void 0===t?void 0:t.map((e=>e.release.id)))??[]}function asyncSleep(e){return new Promise((t=>setTimeout(t,e)))}function retryTimes(e,t,r){return t<=0?Promise.reject(new TypeError(`Invalid number of retry times: ${t}`)):async function t(s){try{return await e()}catch(n){if(s<=1)throw n;return asyncSleep(r).then((()=>t(s-1)))}}(t)}function logFailure(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"An error occurred";return LOGGER.error.bind(LOGGER,e)}async function pFinally(e,t){try{return await e}finally{await t();}}request.get=request.bind(void 0,"GET"),request.post=request.bind(void 0,"POST"),request.head=request.bind(void 0,"HEAD");class ObservableSemaphore{constructor(e){_defineProperty(this,"onAcquired",void 0),_defineProperty(this,"onReleased",void 0),_defineProperty(this,"counter",0),this.onAcquired=e.onAcquired.bind(e),this.onReleased=e.onReleased.bind(e);}acquire(){this.counter++,1===this.counter&&this.onAcquired();}release(){this.counter--,0===this.counter&&this.onReleased();}runInSection(e){let t;this.acquire();try{return t=e(),t}finally{t instanceof Promise?pFinally(t,this.release.bind(this)).catch((()=>{})):this.release();}}}let ArtworkTypeIDs=function(e){return e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e["Raw/Unedited"]=14]="Raw/Unedited",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark",e[e["Matrix/Runout"]=15]="Matrix/Runout",e[e.Top=48]="Top",e[e.Bottom=49]="Bottom",e[e.Panel=81]="Panel",e}({});function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map((e=>e.toString(16).padStart(2,"0"))).join("")}async function blobToDigest(e){var t,r;const s=await blobToBuffer(e);return hexEncode(await((null===(t=crypto)||void 0===t||null===(t=t.subtle)||void 0===t||null===(r=t.digest)||void 0===r?void 0:r.call(t,"SHA-256",s))??s))}function blobToBuffer(e){return new Promise(((t,r)=>{const s=new FileReader;s.addEventListener("error",r),s.addEventListener("load",(()=>{t(s.result);})),s.readAsArrayBuffer(e);}))}function memoize(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:e=>`${e[0]}`;const r=new Map;return function(){for(var s=arguments.length,n=new Array(s),o=0;o<s;o++)n[o]=arguments[o];const i=t(n);if(!r.has(i)){const t=e(...n);r.set(i,t);}return r.get(i)}}function identity(e){return e}function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var r=arguments.length,s=new Array(r>1?r-1:0),n=1;n<r;n++)s[n-1]=arguments[n];for(const o of s)t=new URL(o,t);return t}class ConfigProperty{constructor(e,t,r){_defineProperty(this,"name",void 0),_defineProperty(this,"description",void 0),_defineProperty(this,"defaultValue",void 0),this.name=e,this.description=t,this.defaultValue=r;}async get(){const e=await GMgetValue(this.name);if(void 0===e)return this.defaultValue;if("string"!=typeof e)return LOGGER.error(`Invalid stored configuration data for property ${this.name}: expected a string, got ${e}.`),await GMdeleteValue(this.name),this.defaultValue;try{return JSON.parse(e)}catch(t){return LOGGER.error(`Invalid stored configuration data for property ${this.name}: Failed to parse JSON data: ${t}.`),await GMdeleteValue(this.name),this.defaultValue}}set(e){return GMsetValue(this.name,JSON.stringify(e))}}function splitDomain(e){const t=e.split(".");let r=-2;return ["org","co","com"].includes(t[t.length-2])&&(r=-3),[...t.slice(0,r),t.slice(r).join(".")]}class DispatchMap{constructor(){_defineProperty(this,"map",new Map);}set(e,t){const r=splitDomain(e);if("*"===e||r[0].includes("*")&&"*"!==r[0]||r.slice(1).some((e=>e.includes("*"))))throw new Error("Invalid pattern: "+e);return this.insert([...r].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const r=this._get(e);r?(assert(r instanceof DispatchMap&&!r.map.has(""),"Duplicate leaf!"),r._set("",t)):this._set(e,t);}insertInternal(e,t){const r=e[0],s=this._get(r);let n;s instanceof DispatchMap?n=s:(n=new DispatchMap,this._set(r,n),void 0!==s&&n._set("",s)),n.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);return t instanceof DispatchMap&&(t=t._get("")??t._get("*")),t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){return (1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e))??this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(r){if(t)throw new Error(`${t}: ${r}`);return}}async function getItemMetadata(e){const t=safeParseJSON((await request.get(new URL(`https://archive.org/metadata/${e}`))).text,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}function formatFileSize(e){const t=0===e?0:Math.floor(Math.log(e)/Math.log(1024));return `${Number((e/Math.pow(1024,t)).toFixed(2))} ${["B","kB","MB","GB","TB"][t]}`}function parseVersion(e){return e.split(".").map((e=>Number.parseInt(e)))}function versionLessThan(e,t){let r=0;for(;r<e.length&&r<t.length;){if(e[r]<t[r])return  true;if(e[r]>t[r])return  false;r++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2026.2.19",description:"search multiple Tidal countries for release (needs to be enabled in config)"},{versionAdded:"2026.2.18",description:"prefetch cover art metadata"},{versionAdded:"2025.5.12.2",description:"add Metal Archives provider"},{versionAdded:"2025.5.12",description:"add MusicCircle provider"},{versionAdded:"2025.5.9",description:"add Free Music Archive provider"},{versionAdded:"2025.5.8",description:"configuration options"},{versionAdded:"2025.3.10",description:"Display image dimensions and seed release URLs from Harmony"},{versionAdded:"2025.3.9",description:"Seed cover art from Harmony release actions pages"},{versionAdded:"2024.8.27",description:"update Image Max URL to maximise Spotify covers"}],css_248z$2=".ROpdebee_feature_list{font-weight:300;margin:0 auto;width:-moz-fit-content;width:fit-content}.ROpdebee_feature_list ul{margin:6px 28px 0 0;text-align:left}";const LAST_DISPLAYED_KEY=`ROpdebee_${USERSCRIPT_ID}_last_notified_update`;function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const r=parseVersion(e),s=USERSCRIPT_FEATURE_HISTORY.filter((e=>versionLessThan(r,parseVersion(e.versionAdded))));0!==s.length&&showFeatureNotification(t.name,t.version,s.map((e=>e.description)));}function showFeatureNotification(e,t,r){insertStylesheet(css_248z$2,"ROpdebee_Update_Banner");const s=function(){var n=document.createElement("div");n.setAttribute("class","banner warning-header");var o=document.createElement("p");n.appendChild(o),appendChildren(o,`${e} was updated to v${t}! `);var i=document.createElement("a");i.setAttribute("href",CHANGELOG_URL),o.appendChild(i);var a=document.createTextNode("See full changelog here");i.appendChild(a);var u=document.createTextNode(". New features since last update:");o.appendChild(u);var d=document.createElement("div");d.setAttribute("class","ROpdebee_feature_list"),n.appendChild(d);var l=document.createElement("ul");d.appendChild(l),appendChildren(l,r.map((e=>function(){var t=document.createElement("li");return appendChildren(t,e),t}.call(this))));var c=document.createElement("button");return c.setAttribute("class","dismiss-banner remove-item icon"),c.setAttribute("data-banner-name","alert"),c.setAttribute("type","button"),c.addEventListener("click",(()=>{s.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);})),n.appendChild(c),n}.call(this);qs("#page").insertAdjacentElement("beforebegin",s);}
+  class ConsoleSink{constructor(e){this.scriptName=e;}formatMessage(e){return `[${this.scriptName}] ${e}`}onDebug(e){console.debug(this.formatMessage(e));}onLog(e){console.log(this.formatMessage(e));}onInfo(e){console.info(this.formatMessage(e));}onSuccess=this.onInfo.bind(this);onWarn(e,t){e=this.formatMessage(e),t?console.warn(e,t):console.warn(e);}onError(e,t){e=this.formatMessage(e),t?console.error(e,t):console.error(e);}}let LogLevel=function(e){return e[e.DEBUG=0]="DEBUG",e[e.LOG=1]="LOG",e[e.INFO=2]="INFO",e[e.SUCCESS=3]="SUCCESS",e[e.WARNING=4]="WARNING",e[e.ERROR=5]="ERROR",e}({});const HANDLER_NAMES={[LogLevel.DEBUG]:"onDebug",[LogLevel.LOG]:"onLog",[LogLevel.INFO]:"onInfo",[LogLevel.SUCCESS]:"onSuccess",[LogLevel.WARNING]:"onWarn",[LogLevel.ERROR]:"onError"},DEFAULT_OPTIONS={logLevel:LogLevel.INFO,sinks:[]};class Logger{constructor(e){this._configuration={...DEFAULT_OPTIONS,...e};}fireHandlers(e,t,s){if(!(e<this._configuration.logLevel))for(const r of this._configuration.sinks){const n=r[HANDLER_NAMES[e]];n&&(s?n.call(r,t,s):n.call(r,t));}}debug(e){this.fireHandlers(LogLevel.DEBUG,e);}log(e){this.fireHandlers(LogLevel.LOG,e);}info(e){this.fireHandlers(LogLevel.INFO,e);}success(e){this.fireHandlers(LogLevel.SUCCESS,e);}warn(e,t){this.fireHandlers(LogLevel.WARNING,e,t);}error(e,t){this.fireHandlers(LogLevel.ERROR,e,t);}configure(e){Object.assign(this._configuration,e);}get configuration(){return this._configuration}addSink(e){this._configuration.sinks.push(e);}}const LOGGER=new Logger;var USERSCRIPT_ID="mb_enhanced_cover_art_uploads";function filterNonNull(e){return e.filter(e=>!(null==e))}function groupBy(e,t,s){const r=new Map;for(const n of e){const e=t(n),o=s(n);r.has(e)?r.get(e)?.push(o):r.set(e,[o]);}return r}function collatedSort(e){const t=new Intl.Collator("en",{numeric:true});return e.sort(t.compare.bind(t))}function enumerate(e){return e.map((e,t)=>[e,t])}function isFactory(e){return "function"==typeof e}function insertBetween(e,t){return [...e.slice(0,1),...e.slice(1).flatMap(e=>[isFactory(t)?t():t,e])]}function splitChunks(e,t){const s=[];for(let r=0;r<e.length;r+=t)s.push(e.slice(r,r+t));return s}function deduplicate(e){return [...new Set(e)]}class AssertionError extends Error{}function assert(e,t){if(!e)throw new AssertionError(t??"Assertion failed")}function assertDefined(e,t){assert(void 0!==e,t??"Assertion failed: Expected value to be defined");}function assertNonNull(e,t){assert(null!==e,t??"Assertion failed: Expected value to be non-null");}function assertHasValue(e,t){assert(null!=e,t??"Assertion failed: Expected value to be defined and non-null");}function qs(e,t){const s=qsMaybe(e,t);return assertNonNull(s,"Could not find required element"),s}function qsMaybe(e,t){return (t??document).querySelector(e)}function qsa(e,t){return [...(t??document).querySelectorAll(e)]}function onDocumentLoaded(e){"loading"!==document.readyState?e():document.addEventListener("DOMContentLoaded",e);}function parseDOM(e,t){const s=(new DOMParser).parseFromString(e,"text/html");if(!qsMaybe("base",s.head)){const e=s.createElement("base");e.href=t,s.head.insertAdjacentElement("beforeend",e);}return s}function insertStylesheet(e,t){if(t??=`ROpdebee_${USERSCRIPT_ID}_css`,null!==qsMaybe(`style#${t}`))return;const s=h("style",{id:t},e);document.head.insertAdjacentElement("beforeend",s);}const guiSink="#ROpdebee_log_container{width:75%;margin:1.5rem auto}#ROpdebee_log_container .msg{overflow-wrap:break-word;border:1px solid;border-radius:4px;width:100%;margin-bottom:.5rem;padding:.5rem .75rem;font-weight:500;display:block}#ROpdebee_log_container .msg.error{color:#721c24;background-color:#f8d7da;border-color:#f5c6cb;font-weight:600}#ROpdebee_log_container .msg.warning{color:#856404;background-color:#fff3cd;border-color:#ffeeba}#ROpdebee_log_container .msg.success{color:#155724;background-color:#d4edda;border-color:#c3e6cb}#ROpdebee_log_container .msg.info{color:#383d41;background-color:#e2e3e5;border-color:#d6d8db}";class GuiSink{persistentMessages=[];transientMessages=[];constructor(){insertStylesheet(guiSink,"ROpdebee_GUI_Logger"),this.rootElement=h("div",{id:"ROpdebee_log_container",style:{display:"none"}});}createMessage(e,t,s){const r=insertBetween((t+(s instanceof Error?`: ${s.message}`:"")).split(/(?=[/?&%])/),()=>h("wbr",null));return h("span",{className:`msg ${e}`},r)}addMessage(e){this.removeTransientMessages(),this.rootElement.append(e),this.rootElement.style.display="block";}removeTransientMessages(){for(const e of this.transientMessages)e.remove();this.transientMessages=[];}addPersistentMessage(e){this.addMessage(e),this.persistentMessages.push(e);}addTransientMessage(e){this.addMessage(e),this.transientMessages.push(e);}onLog(e){this.addTransientMessage(this.createMessage("info",e));}onInfo=this.onLog.bind(this);onSuccess(e){this.addTransientMessage(this.createMessage("success",e));}onWarn(e,t){this.addPersistentMessage(this.createMessage("warning",e,t));}onError(e,t){this.addPersistentMessage(this.createMessage("error",e,t));}clearAllLater(){this.transientMessages=[...this.transientMessages,...this.persistentMessages],this.persistentMessages=[];}}function existsInGM(e){return "undefined"!=typeof GM&&void 0!==GM[e]}function GMxmlHttpRequest(e){existsInGM("xmlHttpRequest")?GM.xmlHttpRequest(e):GM_xmlhttpRequest(e);}function GMgetValue(e){return existsInGM("getValue")?GM.getValue(e):Promise.resolve(GM_getValue(e))}function GMsetValue(e,t){return existsInGM("setValue")?GM.setValue(e,t):(GM_setValue(e,t),Promise.resolve())}function GMdeleteValue(e){return existsInGM("deleteValue")?GM.deleteValue(e):(GM_deleteValue(e),Promise.resolve())}function GMgetResourceUrl(e){return existsInGM("getResourceUrl")?GM.getResourceUrl(e):existsInGM("getResourceURL")?GM.getResourceURL(e):Promise.resolve(GM_getResourceURL(e))}const GMinfo=existsInGM("info")?GM.info:GM_info;function cloneIntoPageContext(e){return "undefined"!=typeof cloneInto&&"undefined"!=typeof unsafeWindow?cloneInto(e,unsafeWindow):e}function getFromPageContext(e){return ("undefined"!=typeof unsafeWindow?unsafeWindow:window)[e]}const separator="\n–\n";class EditNote{constructor(e){this.footer=e,this.editNoteTextArea=qs("textarea.edit-note");const t=this.editNoteTextArea.value.split(separator)[0];this.extraInfoLines=new Set(t?t.split("\n").map(e=>e.trimEnd()):null);}addExtraInfo(e){if(this.extraInfoLines.has(e))return;let[t,...s]=this.editNoteTextArea.value.split(separator);t=(t+"\n"+e).trim(),this.editNoteTextArea.value=[t,...s].join(separator),this.extraInfoLines.add(e);}addFooter(){this.removePreviousFooter();const e=this.editNoteTextArea.value;this.editNoteTextArea.value=[e,separator,this.footer].join("");}removePreviousFooter(){const e=this.editNoteTextArea.value.split(separator).filter(e=>e.trim()!==this.footer);this.editNoteTextArea.value=e.join(separator);}static withFooterFromGMInfo(){const e=GMinfo.script,t=`${e.name} ${e.version}\n${e.namespace}`;return new EditNote(t)}}class ResponseHeadersImpl{constructor(e){const t=groupBy(e?e.split("\r\n").filter(Boolean).map(e=>{const[t,...s]=e.split(":");return [t.toLowerCase().trim(),s.join(":").trim()]}):[],e=>{let[t]=e;return t},e=>{let[,t]=e;return t});this.map=new Map([...t.entries()].map(e=>{let[t,s]=e;return [t,s.join(",")]})),this.entries=this.map.entries.bind(this.map),this.keys=this.map.keys.bind(this.map),this.values=this.map.values.bind(this.map),this[Symbol.iterator]=this.map[Symbol.iterator].bind(this.map);}get(e){return this.map.get(e.toLowerCase())??null}has(e){return this.map.has(e.toLowerCase())}forEach(e){for(const[t,s]of this.map.entries())e(s,t,this);}}function createTextResponse(e,t){return {...e,text:t,json(){return JSON.parse(this.text)}}}function convertFetchOptions(e,t){if(t)return {method:e,body:t.body,headers:t.headers}}async function createFetchResponse(e,t){const s=e?.responseType??"text",r={headers:t.headers,url:t.url,status:t.status,statusText:t.statusText,rawResponse:t};switch(s){case "text":return createTextResponse(r,await t.text());case "blob":return {...r,blob:await t.blob()};case "arraybuffer":return {...r,arrayBuffer:await t.arrayBuffer()}}}async function performFetchRequest(e,t,s){return createFetchResponse(s,await fetch(new URL(t),convertFetchOptions(e,s)))}class ResponseError extends CustomError{constructor(e,t){super(t),this.url=e;}}class HTTPResponseError extends ResponseError{constructor(e,t,s){s?super(e,s):t.statusText.trim()?super(e,`HTTP error ${t.status}: ${t.statusText}`):super(e,`HTTP error ${t.status}`),this.response=t,this.statusCode=t.status,this.statusText=t.statusText;}}class TimeoutError extends ResponseError{constructor(e){super(e,"Request timed out");}}class AbortedError extends ResponseError{constructor(e){super(e,"Request aborted");}}class NetworkError extends ResponseError{constructor(e){super(e,"Network error");}}function createGMXHRResponse(e,t){const s=e?.responseType??"text",r={headers:new ResponseHeadersImpl(t.responseHeaders),url:t.finalUrl,status:t.status,statusText:t.statusText,rawResponse:t};switch(s){case "text":return createTextResponse(r,t.responseText);case "blob":return {...r,blob:t.response};case "arraybuffer":return {...r,arrayBuffer:t.response}}}function performGMXHRRequest(e,t,s){return new Promise((r,n)=>{GMxmlHttpRequest({method:e,url:t instanceof URL?t.href:t,headers:s?.headers,data:s?.body,responseType:s?.responseType,onload:e=>{r(createGMXHRResponse(s,e));},onerror:()=>{n(new NetworkError(t));},onabort:()=>{n(new AbortedError(t));},ontimeout:()=>{n(new TimeoutError(t));},onprogress:s?.onProgress});})}let RequestBackend=function(e){return e[e.FETCH=1]="FETCH",e[e.GMXHR=2]="GMXHR",e}({});const hasGMXHR="undefined"!=typeof GM_xmlHttpRequest||"undefined"!=typeof GM&&void 0!==GM.xmlHttpRequest;function constructErrorMessage(e,t){const s=e?.httpErrorMessages?.[t.status];return "string"==typeof s?s:void 0!==s?s(t):void 0}const request=async function(e,t,s){const r=s?.backend??(hasGMXHR?RequestBackend.GMXHR:RequestBackend.FETCH),n=await performRequest(r,e,t,s);if((s?.throwForStatus??1)&&n.status>=400){const e=constructErrorMessage(s,n);throw new HTTPResponseError(t,n,e)}return n};function performRequest(e,t,s,r){switch(e){case RequestBackend.FETCH:return performFetchRequest(t,s,r);case RequestBackend.GMXHR:return performGMXHRRequest(t,s,r)}}async function getReleaseUrlARs(e){const t=await request.get(`https://musicbrainz.org/ws/2/release/${e}?inc=url-rels&fmt=json`);return (await t.json()).relations??[]}async function getURLsForRelease(e,t){const{excludeEnded:s,excludeDuplicates:r}=t??{};let n=await getReleaseUrlARs(e);s&&(n=n.filter(e=>!e.ended));let o=n.map(e=>e.url.resource);return r&&(o=[...new Set(o)]),o.flatMap(e=>{try{return [new URL(e)]}catch{return console.warn(`Found malformed URL linked to release: ${e}`),[]}})}async function getReleaseIDsForURL(e){const t=await request.get(`https://musicbrainz.org/ws/2/url?resource=${encodeURIComponent(e)}&inc=release-rels&fmt=json`,{throwForStatus:false}),s=await t.json();return s.relations?.map(e=>e.release.id)??[]}function asyncSleep(e){return new Promise(t=>setTimeout(t,e))}function retryTimes(e,t,s){return t<=0?Promise.reject(new TypeError(`Invalid number of retry times: ${t}`)):async function t(r){try{return await e()}catch(e){if(r<=1)throw e;return asyncSleep(s).then(()=>t(r-1))}}(t)}function logFailure(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"An error occurred";return LOGGER.error.bind(LOGGER,e)}async function pFinally(e,t){try{return await e}finally{await t();}}request.get=request.bind(void 0,"GET"),request.post=request.bind(void 0,"POST"),request.head=request.bind(void 0,"HEAD");class ObservableSemaphore{counter=0;constructor(e){this.onAcquired=e.onAcquired.bind(e),this.onReleased=e.onReleased.bind(e);}acquire(){this.counter++,1===this.counter&&this.onAcquired();}release(){this.counter--,0===this.counter&&this.onReleased();}runInSection(e){let t;this.acquire();try{return t=e(),t}finally{t instanceof Promise?pFinally(t,this.release.bind(this)).catch(()=>{}):this.release();}}}let ArtworkTypeIDs=function(e){return e[e.Back=2]="Back",e[e.Booklet=3]="Booklet",e[e.Front=1]="Front",e[e.Liner=12]="Liner",e[e.Medium=4]="Medium",e[e.Obi=5]="Obi",e[e.Other=8]="Other",e[e.Poster=11]="Poster",e[e["Raw/Unedited"]=14]="Raw/Unedited",e[e.Spine=6]="Spine",e[e.Sticker=10]="Sticker",e[e.Track=7]="Track",e[e.Tray=9]="Tray",e[e.Watermark=13]="Watermark",e[e["Matrix/Runout"]=15]="Matrix/Runout",e[e.Top=48]="Top",e[e.Bottom=49]="Bottom",e[e.Panel=81]="Panel",e}({});function hexEncode(e){return [...new(getFromPageContext("Uint8Array"))(e)].map(e=>e.toString(16).padStart(2,"0")).join("")}async function blobToDigest(e){const t=await blobToBuffer(e);return hexEncode(await(crypto?.subtle?.digest?.("SHA-256",t)??t))}function blobToBuffer(e){return new Promise((t,s)=>{const r=new FileReader;r.addEventListener("error",s),r.addEventListener("load",()=>{t(r.result);}),r.readAsArrayBuffer(e);})}function memoize(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:e=>`${e[0]}`;const s=new Map;return function(){for(var r=arguments.length,n=new Array(r),o=0;o<r;o++)n[o]=arguments[o];const a=t(n);if(!s.has(a)){const t=e(...n);s.set(a,t);}return s.get(a)}}function identity(e){return e}function urlBasename(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return "string"!=typeof e&&(e=e.pathname),e.split("/").pop()||t}function urlJoin(e){let t=new URL(e);for(var s=arguments.length,r=new Array(s>1?s-1:0),n=1;n<s;n++)r[n-1]=arguments[n];for(const e of r)t=new URL(e,t);return t}class ConfigProperty{constructor(e,t,s){this.name=e,this.description=t,this.defaultValue=s;}async get(){const e=await GMgetValue(this.name);if(void 0===e)return this.defaultValue;if("string"!=typeof e)return LOGGER.error(`Invalid stored configuration data for property ${this.name}: expected a string, got ${e}.`),await GMdeleteValue(this.name),this.defaultValue;try{return JSON.parse(e)}catch(e){return LOGGER.error(`Invalid stored configuration data for property ${this.name}: Failed to parse JSON data: ${e}.`),await GMdeleteValue(this.name),this.defaultValue}}set(e){return GMsetValue(this.name,JSON.stringify(e))}}function splitDomain(e){const t=e.split(".");let s=-2;return ["org","co","com"].includes(t.at(-2))&&(s=-3),[...t.slice(0,s),t.slice(s).join(".")]}class DispatchMap{map=(()=>new Map)();set(e,t){const s=splitDomain(e);if("*"===e||s[0].includes("*")&&"*"!==s[0]||s.slice(1).some(e=>e.includes("*")))throw new Error("Invalid pattern: "+e);return this.insert([...s].reverse(),t),this}get(e){return this.retrieve([...splitDomain(e)].reverse())}_get(e){return this.map.get(e)}_set(e,t){return this.map.set(e,t),this}insertLeaf(e,t){const s=this._get(e);s?(assert(s instanceof DispatchMap&&!s.map.has(""),"Duplicate leaf!"),s._set("",t)):this._set(e,t);}insertInternal(e,t){const s=e[0],r=this._get(s);let n;r instanceof DispatchMap?n=r:(n=new DispatchMap,this._set(s,n),void 0!==r&&n._set("",r)),n.insert(e.slice(1),t);}insert(e,t){e.length>1?this.insertInternal(e,t):(assert(1===e.length,"Empty domain parts?!"),this.insertLeaf(e[0],t));}retrieveLeaf(e){let t=this._get(e);return t instanceof DispatchMap&&(t=t._get("")??t._get("*")),t}retrieveInternal(e){const t=this._get(e[0]);if(t instanceof DispatchMap)return t.retrieve(e.slice(1))}retrieve(e){return (1===e.length?this.retrieveLeaf(e[0]):this.retrieveInternal(e))??this._get("*")}}function safeParseJSON(e,t){try{return JSON.parse(e)}catch(e){if(t)throw new Error(`${t}: ${e}`);return}}async function getItemMetadata(e){const t=safeParseJSON((await request.get(new URL(`https://archive.org/metadata/${e}`))).text,"Could not parse IA metadata");if(!t.server)throw new Error("Empty IA metadata, item might not exist");if(t.is_dark)throw new Error("Cannot access IA metadata: This item is darkened");return t}function formatFileSize(e){const t=0===e?0:Math.floor(Math.log(e)/Math.log(1024));return `${Number((e/Math.pow(1024,t)).toFixed(2))} ${["B","kB","MB","GB","TB"][t]}`}function parseVersion(e){return e.split(".").map(e=>Number.parseInt(e))}function versionLessThan(e,t){let s=0;for(;s<e.length&&s<t.length;){if(e[s]<t[s])return  true;if(e[s]>t[s])return  false;s++;}return e.length<t.length}var CHANGELOG_URL="https://github.com/ROpdebee/mb-userscripts/blob/dist/mb_enhanced_cover_art_uploads.changelog.md",USERSCRIPT_FEATURE_HISTORY=[{versionAdded:"2026.2.19",description:"search multiple Tidal countries for release (needs to be enabled in config)"},{versionAdded:"2026.2.18",description:"prefetch cover art metadata"},{versionAdded:"2025.5.12.2",description:"add Metal Archives provider"},{versionAdded:"2025.5.12",description:"add MusicCircle provider"},{versionAdded:"2025.5.9",description:"add Free Music Archive provider"},{versionAdded:"2025.5.8",description:"configuration options"},{versionAdded:"2025.3.10",description:"Display image dimensions and seed release URLs from Harmony"},{versionAdded:"2025.3.9",description:"Seed cover art from Harmony release actions pages"},{versionAdded:"2024.8.27",description:"update Image Max URL to maximise Spotify covers"}];const banner=".ROpdebee_feature_list{width:-moz-fit-content;width:fit-content;margin:0 auto;font-weight:300}.ROpdebee_feature_list ul{text-align:left;margin:6px 28px 0 0}",LAST_DISPLAYED_KEY=`ROpdebee_${USERSCRIPT_ID}_last_notified_update`;function maybeDisplayNewFeatures(){const e=localStorage.getItem(LAST_DISPLAYED_KEY),t=GM.info.script;if(!e)return void localStorage.setItem(LAST_DISPLAYED_KEY,t.version);const s=parseVersion(e),r=USERSCRIPT_FEATURE_HISTORY.filter(e=>versionLessThan(s,parseVersion(e.versionAdded)));0!==r.length&&showFeatureNotification(t.name,t.version,r.map(e=>e.description));}function showFeatureNotification(e,t,s){insertStylesheet(banner,"ROpdebee_Update_Banner");const r=h("div",{className:"banner warning-header"},h("p",null,`${e} was updated to v${t}! `,h("a",{href:CHANGELOG_URL},"See full changelog here"),". New features since last update:"),h("div",{className:"ROpdebee_feature_list"},h("ul",null,s.map(e=>h("li",null,e)))),h("button",{className:"dismiss-banner remove-item icon","data-banner-name":"alert",type:"button",onClick:()=>{r.remove(),localStorage.setItem(LAST_DISPLAYED_KEY,GM.info.script.version);}}));qs("#page").insertAdjacentElement("beforebegin",r);}
 
   LOGGER.configure({
       logLevel: LogLevel.INFO,
@@ -157,12 +157,7 @@
   };
 
   class CoverArtProvider {
-    constructor() {
-      _defineProperty(this, "supportedDomains", void 0);
-      _defineProperty(this, "name", void 0);
-      _defineProperty(this, "urlRegex", void 0);
-      _defineProperty(this, "allowButtons", true);
-    }
+    allowButtons = true;
     postprocessImage(image) {
       return Promise.resolve(image);
     }
@@ -177,13 +172,9 @@
     }
     extractId(url) {
       if (!Array.isArray(this.urlRegex)) {
-        var _this$urlRegex$exec;
-        return (_this$urlRegex$exec = this.urlRegex.exec(this.cleanUrl(url))) === null || _this$urlRegex$exec === void 0 ? void 0 : _this$urlRegex$exec[1];
+        return this.urlRegex.exec(this.cleanUrl(url))?.[1];
       }
-      return this.urlRegex.map(regex => {
-        var _regex$exec;
-        return (_regex$exec = regex.exec(this.cleanUrl(url))) === null || _regex$exec === void 0 ? void 0 : _regex$exec[1];
-      }).find(id => id !== undefined);
+      return this.urlRegex.map(regex => regex.exec(this.cleanUrl(url))?.[1]).find(id => id !== undefined);
     }
     isSafeRedirect(originalUrl, redirectedUrl) {
       const id = this.extractId(originalUrl);
@@ -286,9 +277,8 @@
     return results;
   }
   async function getFileSize(imageUrl) {
-    var _response$headers$get;
     const response = await request.head(imageUrl);
-    const fileSize = (_response$headers$get = response.headers.get('Content-Length')) === null || _response$headers$get === void 0 || (_response$headers$get = _response$headers$get.match(/\d+/)) === null || _response$headers$get === void 0 ? void 0 : _response$headers$get[0];
+    const fileSize = response.headers.get('Content-Length')?.match(/\d+/)?.[0];
     assertDefined(fileSize, `Could not fetch file size for ${imageUrl}`);
     return Number.parseInt(fileSize);
   }
@@ -326,10 +316,7 @@
   function createTrackImageComment(tracks) {
     const definedTrackNumbers = tracks.filter(track => Boolean(track.trackNumber));
     if (definedTrackNumbers.length === 0) return '';
-    const commentBins = groupBy(definedTrackNumbers, track => {
-      var _track$customCommentP;
-      return ((_track$customCommentP = track.customCommentPrefix) === null || _track$customCommentP === void 0 ? void 0 : _track$customCommentP[0]) ?? 'Track';
-    }, track => track);
+    const commentBins = groupBy(definedTrackNumbers, track => track.customCommentPrefix?.[0] ?? 'Track', track => track);
     const commentChunks = [...commentBins.values()].map(bin => {
       const prefixes = bin[0].customCommentPrefix ?? ['Track', 'Tracks'];
       const prefix = prefixes[bin.length === 1 ? 0 : 1];
@@ -340,13 +327,10 @@
   }
 
   class SevenDigitalProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['*.7digital.com']);
-      _defineProperty(this, "favicon", 'https://css-cdn.7digital.com/static/build/images/favicons/7digital/touch-ipad-retina.png');
-      _defineProperty(this, "name", '7digital');
-      _defineProperty(this, "urlRegex", /release\/.*-(\d+)(?:\/|$)/);
-    }
+    supportedDomains = ['*.7digital.com'];
+    favicon = 'https://css-cdn.7digital.com/static/build/images/favicons/7digital/touch-ipad-retina.png';
+    name = '7digital';
+    urlRegex = /release\/.*-(\d+)(?:\/|$)/;
     postprocessImage(image) {
       if (/\/0{8}16_\d+/.test(image.finalUrl.pathname)) {
         LOGGER.warn(`Skipping "${image.finalUrl}" as it matches a placeholder cover`);
@@ -357,17 +341,13 @@
   }
 
   class AllMusicProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['allmusic.com']);
-      _defineProperty(this, "favicon", 'https://fastly-gce.allmusic.com/images/favicon/favicon-32x32.png');
-      _defineProperty(this, "name", 'AllMusic');
-      _defineProperty(this, "urlRegex", /album\/release\/.*(mr\d+)(?:\/|$)/);
-    }
+    supportedDomains = ['allmusic.com'];
+    favicon = 'https://fastly-gce.allmusic.com/images/favicon/favicon-32x32.png';
+    name = 'AllMusic';
+    urlRegex = /album\/release\/.*(mr\d+)(?:\/|$)/;
     async findImages(url) {
-      var _exec;
       const page = await this.fetchPage(url);
-      const galleryJson = (_exec = /var imageGallery = (.+);$/m.exec(page)) === null || _exec === void 0 ? void 0 : _exec[1];
+      const galleryJson = /var imageGallery = (.+);$/m.exec(page)?.[1];
       if (!galleryJson) {
         throw new Error('Failed to extract AllMusic images from embedded JS');
       }
@@ -392,15 +372,12 @@
   };
   const MUSIC_DIGITAL_PAGE_QUERY = 'img.logo[src*="amazon_music_"]';
   class AmazonProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['amazon.ae', 'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.eg', 'amazon.es', 'amazon.fr', 'amazon.in', 'amazon.it', 'amazon.jp', 'amazon.nl', 'amazon.pl', 'amazon.sa', 'amazon.se', 'amazon.sg', 'amazon.co.jp', 'amazon.co.uk', 'amazon.com', 'amazon.com.au', 'amazon.com.br', 'amazon.com.mx', 'amazon.com.tr']);
-      _defineProperty(this, "name", 'Amazon');
-      _defineProperty(this, "urlRegex", /\/(?:gp\/product|dp|hz\/audible\/mlp\/mfpdp)\/([A-Za-z\d]{10})(?:\/|$)/);
-    }
+    supportedDomains = ['amazon.ae', 'amazon.ca', 'amazon.cn', 'amazon.de', 'amazon.eg', 'amazon.es', 'amazon.fr', 'amazon.in', 'amazon.it', 'amazon.jp', 'amazon.nl', 'amazon.pl', 'amazon.sa', 'amazon.se', 'amazon.sg', 'amazon.co.jp', 'amazon.co.uk', 'amazon.com', 'amazon.com.au', 'amazon.com.br', 'amazon.com.mx', 'amazon.com.tr'];
     get favicon() {
       return GMgetResourceUrl('amazonFavicon');
     }
+    name = 'Amazon';
+    urlRegex = /\/(?:gp\/product|dp|hz\/audible\/mlp\/mfpdp)\/([A-Za-z\d]{10})(?:\/|$)/;
     async findImages(url) {
       const pageContent = await this.fetchPage(url);
       const pageDom = parseDOM(pageContent, url.href);
@@ -424,8 +401,7 @@
       });
     }
     extractEmbeddedJSImages(pageContent, jsonRegex) {
-      var _jsonRegex$exec;
-      const embeddedImages = (_jsonRegex$exec = jsonRegex.exec(pageContent)) === null || _jsonRegex$exec === void 0 ? void 0 : _jsonRegex$exec[1];
+      const embeddedImages = jsonRegex.exec(pageContent)?.[1];
       if (!embeddedImages) {
         LOGGER.debug('Could not extract embedded JS images, regex did not match');
         return null;
@@ -454,39 +430,32 @@
   }
 
   class AmazonMusicProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['music.amazon.ca', 'music.amazon.de', 'music.amazon.es', 'music.amazon.fr', 'music.amazon.in', 'music.amazon.it', 'music.amazon.co.jp', 'music.amazon.co.uk', 'music.amazon.com', 'music.amazon.com.au', 'music.amazon.com.br', 'music.amazon.com.mx']);
-      _defineProperty(this, "favicon", 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png');
-      _defineProperty(this, "name", 'Amazon Music');
-      _defineProperty(this, "urlRegex", /\/albums\/([A-Za-z\d]{10})(?:\/|$)/);
-    }
+    supportedDomains = ['music.amazon.ca', 'music.amazon.de', 'music.amazon.es', 'music.amazon.fr', 'music.amazon.in', 'music.amazon.it', 'music.amazon.co.jp', 'music.amazon.co.uk', 'music.amazon.com', 'music.amazon.com.au', 'music.amazon.com.br', 'music.amazon.com.mx'];
+    favicon = 'https://d5fx445wy2wpk.cloudfront.net/icons/amznMusic_favicon.png';
+    name = 'Amazon Music';
+    urlRegex = /\/albums\/([A-Za-z\d]{10})(?:\/|$)/;
     findImages() {
       return Promise.reject(new Error('Amazon Music releases are currently not supported. Please use a different provider or copy the image URL manually.'));
     }
   }
 
   class AppleMusicProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['music.apple.com', 'itunes.apple.com']);
-      _defineProperty(this, "favicon", 'https://music.apple.com/assets/favicon/favicon-32.png');
-      _defineProperty(this, "name", 'Apple Music');
-      _defineProperty(this, "urlRegex", /\w{2}\/album\/(?:.+\/)?(?:id)?(\d+)/);
-    }
+    supportedDomains = ['music.apple.com', 'itunes.apple.com'];
+    favicon = 'https://music.apple.com/assets/favicon/favicon-32.png';
+    name = 'Apple Music';
+    urlRegex = /\w{2}\/album\/(?:.+\/)?(?:id)?(\d+)/;
     is404Page(document_) {
       return qsMaybe('head > title', document_) === null;
     }
   }
 
   class ArchiveProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['archive.org']);
-      _defineProperty(this, "favicon", 'https://archive.org/images/glogo.jpg');
-      _defineProperty(this, "name", 'Archive.org');
-      _defineProperty(this, "urlRegex", /(?:details|metadata|download)\/([^/?#]+)/);
-    }
+    supportedDomains = ['archive.org'];
+    favicon = 'https://archive.org/images/glogo.jpg';
+    name = 'Archive.org';
+    urlRegex = /(?:details|metadata|download)\/([^/?#]+)/;
+    static CAA_ITEM_REGEX = /^mbid-[a-f\d-]+$/;
+    static IMAGE_FILE_FORMATS = ['JPEG', 'PNG', 'Text PDF', 'Animated GIF'];
     async findImages(url) {
       const itemId = this.extractId(url);
       assertDefined(itemId);
@@ -531,17 +500,12 @@
       return urlJoin(`https://${itemMetadata.server}`, `${itemMetadata.dir}/`);
     }
   }
-  _defineProperty(ArchiveProvider, "CAA_ITEM_REGEX", /^mbid-[a-f\d-]+$/);
-  _defineProperty(ArchiveProvider, "IMAGE_FILE_FORMATS", ['JPEG', 'PNG', 'Text PDF', 'Animated GIF']);
 
   class AudiomackProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['audiomack.com']);
-      _defineProperty(this, "name", 'Audiomack');
-      _defineProperty(this, "favicon", 'https://audiomack.com/static/favicon-32x32.png');
-      _defineProperty(this, "urlRegex", /\.com\/([^/]+\/(?:song|album)\/[^/?#]+)/);
-    }
+    supportedDomains = ['audiomack.com'];
+    name = 'Audiomack';
+    favicon = 'https://audiomack.com/static/favicon-32x32.png';
+    urlRegex = /\.com\/([^/]+\/(?:song|album)\/[^/?#]+)/;
   }
 
   function _getImageDimensions(url) {
@@ -584,22 +548,21 @@
   }
   const getImageDimensions = memoize(url => pRetry(() => _getImageDimensions(url), {
     retries: 5,
-    onFailedAttempt: error => {
+    onFailedAttempt: _ref => {
+      let {
+        error
+      } = _ref;
       LOGGER.warn(`Failed to retrieve image dimensions: ${error.message}. Retrying…`);
     }
   }));
 
   class BandcampProvider extends ProviderWithTrackImages {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['*.bandcamp.com']);
-      _defineProperty(this, "favicon", 'https://s4.bcbits.com/img/favicon/favicon-32x32.png');
-      _defineProperty(this, "name", 'Bandcamp');
-      _defineProperty(this, "urlRegex", /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/);
-    }
+    supportedDomains = ['*.bandcamp.com'];
+    favicon = 'https://s4.bcbits.com/img/favicon/favicon-32x32.png';
+    name = 'Bandcamp';
+    urlRegex = /^(.+)\.bandcamp\.com\/(track|album)\/([^/]+)(?:\/|$)/;
     extractId(url) {
-      var _this$urlRegex$exec;
-      return (_this$urlRegex$exec = this.urlRegex.exec(this.cleanUrl(url))) === null || _this$urlRegex$exec === void 0 ? void 0 : _this$urlRegex$exec.slice(1).join('/');
+      return this.urlRegex.exec(this.cleanUrl(url))?.slice(1).join('/');
     }
     async findImages(url) {
       const tralbum = await this.extractAlbumData(url);
@@ -656,10 +619,9 @@
       return tralbum;
     }
     async extractPlayerData(albumId) {
-      var _qsMaybe;
       const playerUrl = `https://bandcamp.com/EmbeddedPlayer/album=${albumId}`;
       const responseDocument = parseDOM(await this.fetchPage(new URL(playerUrl)), playerUrl);
-      const playerDataJson = (_qsMaybe = qsMaybe('[data-player-data]', responseDocument)) === null || _qsMaybe === void 0 ? void 0 : _qsMaybe.dataset.playerData;
+      const playerDataJson = qsMaybe('[data-player-data]', responseDocument)?.dataset.playerData;
       if (playerDataJson === undefined) {
         LOGGER.warn('Could not extract player data from page');
         return undefined;
@@ -706,13 +668,10 @@
   }
 
   class BeatportProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['beatport.com']);
-      _defineProperty(this, "favicon", 'https://www.beatport.com/images/favicon-48x48.png');
-      _defineProperty(this, "name", 'Beatport');
-      _defineProperty(this, "urlRegex", /release\/[^/]+\/(\d+)(?:\/|$)/);
-    }
+    supportedDomains = ['beatport.com'];
+    favicon = 'https://www.beatport.com/images/favicon-48x48.png';
+    name = 'Beatport';
+    urlRegex = /release\/[^/]+\/(\d+)(?:\/|$)/;
     async findImages(url) {
       const responseDocument = parseDOM(await this.fetchPage(url), url.href);
       const releaseDataText = qs('script#__NEXT_DATA__', responseDocument).textContent;
@@ -726,13 +685,10 @@
   }
 
   class BoothProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['*.booth.pm']);
-      _defineProperty(this, "favicon", 'https://booth.pm/static-images/pwa/icon_size_96.png');
-      _defineProperty(this, "name", 'Booth');
-      _defineProperty(this, "urlRegex", /items\/(\d+)/);
-    }
+    supportedDomains = ['*.booth.pm'];
+    favicon = 'https://booth.pm/static-images/pwa/icon_size_96.png';
+    name = 'Booth';
+    urlRegex = /items\/(\d+)/;
     async findImages(url) {
       const itemId = this.extractId(url);
       assertDefined(itemId);
@@ -752,13 +708,10 @@
   }
 
   class BugsProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['music.bugs.co.kr']);
-      _defineProperty(this, "favicon", 'https://file.bugsm.co.kr/wbugs/common/faviconBugs.ico');
-      _defineProperty(this, "name", 'Bugs!');
-      _defineProperty(this, "urlRegex", /album\/(\d+)/);
-    }
+    supportedDomains = ['music.bugs.co.kr'];
+    favicon = 'https://file.bugsm.co.kr/wbugs/common/faviconBugs.ico';
+    name = 'Bugs!';
+    urlRegex = /album\/(\d+)/;
     isSafeRedirect(originalUrl, redirectedUrl) {
       return redirectedUrl.pathname === '/noMusic' || super.isSafeRedirect(originalUrl, redirectedUrl);
     }
@@ -768,13 +721,10 @@
   }
 
   class DeezerProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['deezer.com']);
-      _defineProperty(this, "favicon", 'https://cdn-files.dzcdn.net/cache/images/common/favicon/favicon-32x32.ed120c279a693bed3a44.png');
-      _defineProperty(this, "name", 'Deezer');
-      _defineProperty(this, "urlRegex", /(?:\w{2}\/)?album\/(\d+)/);
-    }
+    supportedDomains = ['deezer.com'];
+    favicon = 'https://cdn-files.dzcdn.net/cache/images/common/favicon/favicon-32x32.ed120c279a693bed3a44.png';
+    name = 'Deezer';
+    urlRegex = /(?:\w{2}\/)?album\/(\d+)/;
     async findImages(url) {
       const covers = await super.findImages(url);
       return covers.filter(cover => {
@@ -789,13 +739,11 @@
 
   const QUERY_SHA256 = 'c7033a9fd1facb3e69fa50074b47e8aa0076857a968e6ed086153840e02b988a';
   class DiscogsProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['discogs.com']);
-      _defineProperty(this, "favicon", 'https://catalog-assets.discogs.com/e95f0cd9.png');
-      _defineProperty(this, "name", 'Discogs');
-      _defineProperty(this, "urlRegex", /\/release\/(\d+)/);
-    }
+    supportedDomains = ['discogs.com'];
+    favicon = 'https://catalog-assets.discogs.com/e95f0cd9.png';
+    name = 'Discogs';
+    urlRegex = /\/release\/(\d+)/;
+    static apiResponseCache = (() => new Map())();
     async findImages(url) {
       const releaseId = this.extractId(url);
       assertHasValue(releaseId);
@@ -848,9 +796,8 @@
       return s3UrlDecoded.split('/').pop();
     }
     static async maximiseImage(url) {
-      var _exec;
       const imageName = this.getFilenameFromUrl(url);
-      const releaseId = (_exec = /^R-(\d+)/.exec(imageName)) === null || _exec === void 0 ? void 0 : _exec[1];
+      const releaseId = /^R-(\d+)/.exec(imageName)?.[1];
       if (!releaseId) return url;
       const releaseData = await this.getReleaseImages(releaseId);
       const matchedImage = releaseData.data.release.images.edges.find(image => this.getFilenameFromUrl(new URL(image.node.fullsize.sourceUrl)) === imageName);
@@ -858,16 +805,12 @@
       return new URL(matchedImage.node.fullsize.sourceUrl);
     }
   }
-  _defineProperty(DiscogsProvider, "apiResponseCache", new Map());
 
   class FreeMusicArchiveProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['freemusicarchive.org']);
-      _defineProperty(this, "favicon", 'https://freemusicarchive.org/img/favicon.svg');
-      _defineProperty(this, "name", 'Free Music Archive');
-      _defineProperty(this, "urlRegex", /music\/([^/]+(?:\/[^/]+){1,2})(\/?$|\?)/);
-    }
+    supportedDomains = ['freemusicarchive.org'];
+    favicon = 'https://freemusicarchive.org/img/favicon.svg';
+    name = 'Free Music Archive';
+    urlRegex = /music\/([^/]+(?:\/[^/]+){1,2})(\/?$|\?)/;
     async findImages(url) {
       const responseDocument = parseDOM(await this.fetchPage(url), url.href);
       const coverImage = qs('.object-cover:not(.hidden)', responseDocument);
@@ -878,11 +821,10 @@
       }];
     }
     checkStandaloneTracks(responseDocument) {
-      var _qsMaybe, _qsMaybe2;
-      if (((_qsMaybe = qsMaybe('h1 span', responseDocument)) === null || _qsMaybe === void 0 || (_qsMaybe = _qsMaybe.textContent) === null || _qsMaybe === void 0 ? void 0 : _qsMaybe.trim()) !== 'Track') {
+      if (qsMaybe('h1 span', responseDocument)?.textContent.trim() !== 'Track') {
         return;
       }
-      const trackInfoJson = (_qsMaybe2 = qsMaybe('[data-track-info]', responseDocument)) === null || _qsMaybe2 === void 0 ? void 0 : _qsMaybe2.dataset.trackInfo;
+      const trackInfoJson = qsMaybe('[data-track-info]', responseDocument)?.dataset.trackInfo;
       if (trackInfoJson === undefined) {
         LOGGER.warn('Could not process FMA track information');
         return;
@@ -895,33 +837,24 @@
   }
 
   class JamendoProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['jamendo.com']);
-      _defineProperty(this, "favicon", 'https://www.jamendo.com/Client/assets/toolkit/images/icon/favicon-32x32.png');
-      _defineProperty(this, "name", 'Jamendo');
-      _defineProperty(this, "urlRegex", /album\/(\d+)\/?/);
-    }
+    supportedDomains = ['jamendo.com'];
+    favicon = 'https://www.jamendo.com/Client/assets/toolkit/images/icon/favicon-32x32.png';
+    name = 'Jamendo';
+    urlRegex = /album\/(\d+)\/?/;
   }
 
   class JunoDownloadProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['junodownload.com']);
-      _defineProperty(this, "favicon", 'https://wwwcdn.junodownload.com/14000200/images/digital/icons/favicon-32x32.png');
-      _defineProperty(this, "name", 'Juno Download');
-      _defineProperty(this, "urlRegex", /products(?:\/.+)?\/(\d+-\d+)/);
-    }
+    supportedDomains = ['junodownload.com'];
+    favicon = 'https://wwwcdn.junodownload.com/14000200/images/digital/icons/favicon-32x32.png';
+    name = 'Juno Download';
+    urlRegex = /products(?:\/.+)?\/(\d+-\d+)/;
   }
 
   class MelonProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['melon.com']);
-      _defineProperty(this, "favicon", 'https://www.melon.com/favicon.ico');
-      _defineProperty(this, "name", 'Melon');
-      _defineProperty(this, "urlRegex", /album\/detail\.htm.*[?&]albumId=(\d+)/);
-    }
+    supportedDomains = ['melon.com'];
+    favicon = 'https://www.melon.com/favicon.ico';
+    name = 'Melon';
+    urlRegex = /album\/detail\.htm.*[?&]albumId=(\d+)/;
     cleanUrl(url) {
       return super.cleanUrl(url) + url.search;
     }
@@ -931,13 +864,10 @@
   }
 
   class MetalArchivesProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['metal-archives.com']);
-      _defineProperty(this, "favicon", 'https://www.metal-archives.com/favicon.ico');
-      _defineProperty(this, "name", 'Metal Archives');
-      _defineProperty(this, "urlRegex", /albums\/([^/]+\/[^/]+(?:\/\d+)?)/);
-    }
+    supportedDomains = ['metal-archives.com'];
+    favicon = 'https://www.metal-archives.com/favicon.ico';
+    name = 'Metal Archives';
+    urlRegex = /albums\/([^/]+\/[^/]+(?:\/\d+)?)/;
     async findImages(url) {
       const responseContent = await this.fetchPage(url);
       if (/'Release ID "\d+" not found/.test(responseContent)) {
@@ -953,13 +883,10 @@
   }
 
   class MonstercatProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['monstercat.com', 'player.monstercat.app']);
-      _defineProperty(this, "favicon", 'https://www.monstercat.com/favicon.ico');
-      _defineProperty(this, "name", 'Monstercat');
-      _defineProperty(this, "urlRegex", /release\/([^/]+)/);
-    }
+    supportedDomains = ['monstercat.com', 'player.monstercat.app'];
+    favicon = 'https://www.monstercat.com/favicon.ico';
+    name = 'Monstercat';
+    urlRegex = /release\/([^/]+)/;
     async findImages(url) {
       const releaseId = this.extractId(url);
       assertDefined(releaseId);
@@ -973,14 +900,11 @@
   }
 
   class MusicBrainzProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['musicbrainz.org', 'beta.musicbrainz.org']);
-      _defineProperty(this, "favicon", 'https://musicbrainz.org/static/images/favicons/favicon-32x32.png');
-      _defineProperty(this, "allowButtons", false);
-      _defineProperty(this, "name", 'MusicBrainz');
-      _defineProperty(this, "urlRegex", /release\/([a-f\d-]+)/);
-    }
+    supportedDomains = ['musicbrainz.org', 'beta.musicbrainz.org'];
+    favicon = 'https://musicbrainz.org/static/images/favicons/favicon-32x32.png';
+    allowButtons = false;
+    name = 'MusicBrainz';
+    urlRegex = /release\/([a-f\d-]+)/;
     async findImages(url) {
       const mbid = this.extractId(url);
       assertDefined(mbid);
@@ -988,23 +912,17 @@
     }
   }
   class CoverArtArchiveProvider extends MusicBrainzProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['coverartarchive.org']);
-      _defineProperty(this, "favicon", 'https://coverartarchive.org/favicon.png');
-      _defineProperty(this, "name", 'Cover Art Archive');
-      _defineProperty(this, "urlRegex", /release\/([a-f\d-]+)\/?$/);
-    }
+    supportedDomains = ['coverartarchive.org'];
+    favicon = 'https://coverartarchive.org/favicon.png';
+    name = 'Cover Art Archive';
+    urlRegex = /release\/([a-f\d-]+)\/?$/;
   }
 
   class MusicCircleProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['musiccircle.co.in']);
-      _defineProperty(this, "favicon", 'https://musiccircle.co.in/cdn/shop/files/musiccircle_siteicon_b3ee4fab-31d5-4ff6-aa1d-9a88c84ffaf0.png');
-      _defineProperty(this, "name", 'MusicCircle');
-      _defineProperty(this, "urlRegex", /products\/([a-zA-Z\d-]+)/);
-    }
+    supportedDomains = ['musiccircle.co.in'];
+    favicon = 'https://musiccircle.co.in/cdn/shop/files/musiccircle_siteicon_b3ee4fab-31d5-4ff6-aa1d-9a88c84ffaf0.png';
+    name = 'MusicCircle';
+    urlRegex = /products\/([a-zA-Z\d-]+)/;
     async findImages(url) {
       const responseDocument = parseDOM(await this.fetchPage(url), url.href);
       const imageDivs = qsa('.productView-images-wrapper .productView-thumbnail-link', responseDocument);
@@ -1025,13 +943,10 @@
   }
 
   class MusikSammlerProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['musik-sammler.de']);
-      _defineProperty(this, "name", 'Musik-Sammler');
-      _defineProperty(this, "favicon", 'https://www.musik-sammler.de/favicon.ico');
-      _defineProperty(this, "urlRegex", /release\/(?:.*-)?(\d+)(?:\/|$)/);
-    }
+    supportedDomains = ['musik-sammler.de'];
+    name = 'Musik-Sammler';
+    favicon = 'https://www.musik-sammler.de/favicon.ico';
+    urlRegex = /release\/(?:.*-)?(\d+)(?:\/|$)/;
     async findImages(url) {
       const page = parseDOM(await this.fetchPage(url), url.href);
       const coverElements = qsa('#imageGallery > li', page);
@@ -1048,13 +963,10 @@
   const ERROR_404_QUERY = '.n-for404';
   const COVER_IMG_QUERY = '.cover > img.j-img';
   class NetEaseProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['music.163.com']);
-      _defineProperty(this, "name", 'NetEase');
-      _defineProperty(this, "favicon", 'https://s1.music.126.net/style/favicon.ico');
-      _defineProperty(this, "urlRegex", /\/album\?id=(\d+)/);
-    }
+    supportedDomains = ['music.163.com'];
+    name = 'NetEase';
+    favicon = 'https://s1.music.126.net/style/favicon.ico';
+    urlRegex = /\/album\?id=(\d+)/;
     cleanUrl(url) {
       return url.href;
     }
@@ -1076,16 +988,14 @@
   }
 
   class QobuzProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['qobuz.com', 'open.qobuz.com']);
-      _defineProperty(this, "favicon", 'https://www.qobuz.com/favicon.ico');
-      _defineProperty(this, "name", 'Qobuz');
-      _defineProperty(this, "urlRegex", [/open\.qobuz\.com\/(?:.+?\/)?album\/([A-Za-z\d]+)(?:\/|$)/, /album\/[^/]+\/([A-Za-z\d]+)(?:\/|$)/]);
-    }
+    supportedDomains = ['qobuz.com', 'open.qobuz.com'];
+    favicon = 'https://www.qobuz.com/favicon.ico';
+    name = 'Qobuz';
+    urlRegex = [/open\.qobuz\.com\/(?:.+?\/)?album\/([A-Za-z\d]+)(?:\/|$)/, /album\/[^/]+\/([A-Za-z\d]+)(?:\/|$)/];
     static get QOBUZ_APP_ID() {
       return '712109809';
     }
+    static apiFallbackStatusCodes = [403, 404];
     static idToCoverUrl(id) {
       const d1 = id.slice(-2);
       const d2 = id.slice(-4, -2);
@@ -1140,16 +1050,12 @@
       }, ...goodies];
     }
   }
-  _defineProperty(QobuzProvider, "apiFallbackStatusCodes", [403, 404]);
 
   class RateYourMusicProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['rateyourmusic.com']);
-      _defineProperty(this, "favicon", 'https://e.snmc.io/2.5/img/sonemic.png');
-      _defineProperty(this, "name", 'RateYourMusic');
-      _defineProperty(this, "urlRegex", /\/release\/(\w+(?:\/[^/]+){2})(?:\/|$)/);
-    }
+    supportedDomains = ['rateyourmusic.com'];
+    favicon = 'https://e.snmc.io/2.5/img/sonemic.png';
+    name = 'RateYourMusic';
+    urlRegex = /\/release\/(\w+(?:\/[^/]+){2})(?:\/|$)/;
     async findImages(url) {
       const releaseId = this.extractId(url);
       assertHasValue(releaseId);
@@ -1160,13 +1066,10 @@
   }
 
   class RockipediaProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['rockipedia.no']);
-      _defineProperty(this, "favicon", 'https://www.rockipedia.no/wp-content/themes/rockipedia/img/favicon.ico');
-      _defineProperty(this, "name", 'Rockipedia');
-      _defineProperty(this, "urlRegex", /utgivelser\/.+?-(\d+)/);
-    }
+    supportedDomains = ['rockipedia.no'];
+    favicon = 'https://www.rockipedia.no/wp-content/themes/rockipedia/img/favicon.ico';
+    name = 'Rockipedia';
+    urlRegex = /utgivelser\/.+?-(\d+)/;
     async findImages(url) {
       const id = this.extractId(url);
       assertDefined(id);
@@ -1191,13 +1094,12 @@
   const SC_HOMEPAGE = 'https://soundcloud.com/';
   const SC_MAX_TRACK_BATCH_SIZE = 50;
   class SoundCloudProvider extends ProviderWithTrackImages {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['soundcloud.com']);
-      _defineProperty(this, "favicon", 'https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico');
-      _defineProperty(this, "name", 'SoundCloud');
-      _defineProperty(this, "urlRegex", []);
-    }
+    supportedDomains = ['soundcloud.com'];
+    favicon = 'https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico';
+    name = 'SoundCloud';
+    urlRegex = [];
+    static badArtistIDs = (() => new Set(['you', 'discover', 'stream', 'upload', 'search']))();
+    static badSubpaths = (() => new Set(['likes', 'followers', 'following', 'reposts', 'albums', 'tracks', 'popular-tracks', 'comments', 'sets', 'recommended']))();
     static async loadClientID() {
       const pageResponse = await request.get(SC_HOMEPAGE);
       const pageDom = parseDOM(pageResponse.text, SC_HOMEPAGE);
@@ -1207,7 +1109,7 @@
         const contentResponse = await request.get(scriptUrl);
         const content = contentResponse.text;
         const clientId = SC_CLIENT_ID_REGEX.exec(content);
-        if (clientId !== null && clientId !== void 0 && clientId[1]) {
+        if (clientId?.[1]) {
           return clientId[1];
         }
       }
@@ -1236,9 +1138,8 @@
       return url.pathname.slice(1);
     }
     async findImages(url) {
-      var _this$extractMetadata;
       const pageContent = await this.fetchPage(url);
-      const metadata = (_this$extractMetadata = this.extractMetadataFromJS(pageContent)) === null || _this$extractMetadata === void 0 ? void 0 : _this$extractMetadata.find(data => ['sound', 'playlist'].includes(data.hydratable));
+      const metadata = this.extractMetadataFromJS(pageContent)?.find(data => ['sound', 'playlist'].includes(data.hydratable));
       if (!metadata) {
         throw new Error('Could not extract metadata from SoundCloud page. The release may have been removed.');
       }
@@ -1250,8 +1151,7 @@
       }
     }
     extractMetadataFromJS(pageContent) {
-      var _exec;
-      const jsonData = (_exec = />window\.__sc_hydration = (.+);<\/script>/.exec(pageContent)) === null || _exec === void 0 ? void 0 : _exec[1];
+      const jsonData = />window\.__sc_hydration = (.+);<\/script>/.exec(pageContent)?.[1];
       if (!jsonData) return;
       return safeParseJSON(jsonData);
     }
@@ -1355,21 +1255,15 @@
       return safeParseJSON(trackDataResponse.text, 'Failed to parse SoundCloud API response');
     }
     extractVisuals(track) {
-      var _track$visuals;
-      return ((_track$visuals = track.visuals) === null || _track$visuals === void 0 ? void 0 : _track$visuals.visuals.map(visual => visual.visual_url)) ?? [];
+      return track.visuals?.visuals.map(visual => visual.visual_url) ?? [];
     }
   }
-  _defineProperty(SoundCloudProvider, "badArtistIDs", new Set(['you', 'discover', 'stream', 'upload', 'search']));
-  _defineProperty(SoundCloudProvider, "badSubpaths", new Set(['likes', 'followers', 'following', 'reposts', 'albums', 'tracks', 'popular-tracks', 'comments', 'sets', 'recommended']));
 
   class SpotifyProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['open.spotify.com']);
-      _defineProperty(this, "favicon", 'https://open.spotifycdn.com/cdn/images/favicon32.8e66b099.png');
-      _defineProperty(this, "name", 'Spotify');
-      _defineProperty(this, "urlRegex", /\/album\/(\w+)/);
-    }
+    supportedDomains = ['open.spotify.com'];
+    favicon = 'https://open.spotifycdn.com/cdn/images/favicon32.8e66b099.png';
+    name = 'Spotify';
+    urlRegex = /\/album\/(\w+)/;
     is404Page(document_) {
       return qsMaybe('head > meta[property="og:title"]', document_) === null;
     }
@@ -1377,7 +1271,7 @@
       return super.fetchPage(url, {
         ...options,
         headers: {
-          ...(options === null || options === void 0 ? void 0 : options.headers),
+          ...options?.headers,
           'User-Agent': ''
         }
       });
@@ -1387,14 +1281,11 @@
   const APP_ID = 'CzET4vdadNUFQ5JU';
   const COUNTRIES = ['NZ', 'US', 'CA', 'GB', 'NL', 'JP', 'IT', 'DE'];
   class TidalProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['tidal.com', 'listen.tidal.com', 'store.tidal.com']);
-      _defineProperty(this, "favicon", 'https://listen.tidal.com/favicon.ico');
-      _defineProperty(this, "name", 'Tidal');
-      _defineProperty(this, "urlRegex", /\/album\/(\d+)/);
-      _defineProperty(this, "countryCode", null);
-    }
+    supportedDomains = ['tidal.com', 'listen.tidal.com', 'store.tidal.com'];
+    favicon = 'https://listen.tidal.com/favicon.ico';
+    name = 'Tidal';
+    urlRegex = /\/album\/(\d+)/;
+    countryCode = null;
     async getCountryCode() {
       if (!this.countryCode) {
         const response = await request.get('https://listen.tidal.com/v1/country/context?countryCode=WW&locale=en_US&deviceType=BROWSER', {
@@ -1409,9 +1300,8 @@
       return this.countryCode;
     }
     async getCoverUrlFromMetadata(albumId) {
-      var _metadata$rows$;
       const metadata = await this.getMetadata(albumId);
-      const albumMetadata = (_metadata$rows$ = metadata.rows[0]) === null || _metadata$rows$ === void 0 || (_metadata$rows$ = _metadata$rows$.modules) === null || _metadata$rows$ === void 0 || (_metadata$rows$ = _metadata$rows$[0]) === null || _metadata$rows$ === void 0 ? void 0 : _metadata$rows$.album;
+      const albumMetadata = metadata.rows[0]?.modules?.[0]?.album;
       assertHasValue(albumMetadata, 'Tidal API returned no album, 404?');
       assert(albumMetadata.id.toString() === albumId, `Tidal returned wrong release: Requested ${albumId}, got ${albumMetadata.id}`);
       const coverId = albumMetadata.cover;
@@ -1461,13 +1351,10 @@
   }
 
   class TraxsourceProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['traxsource.com']);
-      _defineProperty(this, "favicon", 'https://geo-static.traxsource.com/img/favicon-128x128.png');
-      _defineProperty(this, "name", 'Traxsource');
-      _defineProperty(this, "urlRegex", /title\/(\d+)/);
-    }
+    supportedDomains = ['traxsource.com'];
+    favicon = 'https://geo-static.traxsource.com/img/favicon-128x128.png';
+    name = 'Traxsource';
+    urlRegex = /title\/(\d+)/;
   }
 
   function mapPackagingType(packaging, caption) {
@@ -1619,15 +1506,11 @@
     };
   }
   class VGMdbProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['vgmdb.net']);
-      _defineProperty(this, "favicon", 'https://vgmdb.net/favicon.ico');
-      _defineProperty(this, "name", 'VGMdb');
-      _defineProperty(this, "urlRegex", /\/album\/(\d+)(?:\/|$)/);
-    }
+    supportedDomains = ['vgmdb.net'];
+    favicon = 'https://vgmdb.net/favicon.ico';
+    name = 'VGMdb';
+    urlRegex = /\/album\/(\d+)(?:\/|$)/;
     async findImages(url) {
-      var _qsMaybe;
       const pageSource = await this.fetchPage(url);
       if (pageSource.includes('/db/img/banner-error.gif')) {
         throw new Error('VGMdb returned an error');
@@ -1638,7 +1521,7 @@
       }
       const coverGallery = qsMaybe('#cover_gallery', pageDom);
       const galleryCovers = coverGallery ? await VGMdbProvider.extractCoversFromDOMGallery(coverGallery) : [];
-      const mainCoverUrl = (_qsMaybe = qsMaybe('#coverart', pageDom)) === null || _qsMaybe === void 0 || (_qsMaybe = _qsMaybe.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)) === null || _qsMaybe === void 0 ? void 0 : _qsMaybe[1];
+      const mainCoverUrl = qsMaybe('#coverart', pageDom)?.style.backgroundImage.match(/url\(["']?(.+?)["']?\)/)?.[1];
       if (mainCoverUrl && mainCoverUrl !== PLACEHOLDER_URL && !galleryCovers.some(cover => urlBasename(cover.url) === urlBasename(mainCoverUrl))) {
         if (mainCoverUrl === NSFW_PLACEHOLDER_URL) {
           LOGGER.warn('Heads up! The main cover of this VGMdb release is marked as NSFW. The original image may have been skipped. Please adjust your VGMdb preferences to show NSFW images to enable fetching these.');
@@ -1659,7 +1542,7 @@
     static extractCoverFromAnchor(anchor) {
       return convertCaptions({
         url: anchor.href,
-        caption: qs('.label', anchor).textContent ?? ''
+        caption: qs('.label', anchor).textContent
       });
     }
     async findImagesWithApi(url) {
@@ -1689,21 +1572,17 @@
   }
 
   class VKMusicProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['*.vk.com']);
-      _defineProperty(this, "favicon", 'https://vk.com/images/icons/favicons/fav_logo_2x.ico');
-      _defineProperty(this, "name", 'VK Music');
-      _defineProperty(this, "urlRegex", [/music\/album\/-(\d+_\d+)/, /audio\?act=audio_playlist-(\d+_\d+)/]);
-    }
+    supportedDomains = ['*.vk.com'];
+    favicon = 'https://vk.com/images/icons/favicons/fav_logo_2x.ico';
+    name = 'VK Music';
+    urlRegex = [/music\/album\/-(\d+_\d+)/, /audio\?act=audio_playlist-(\d+_\d+)/];
     cleanUrl(url) {
       return url.host + url.pathname + url.search;
     }
     async findImages(url) {
-      var _coverElement$getAttr;
       const page = parseDOM(await this.fetchPage(url), url.href);
       const coverElement = qs('.AudioPlaylistSnippet__cover, .audioPlaylist__cover', page);
-      const coverUrl = (_coverElement$getAttr = coverElement.getAttribute('style')) === null || _coverElement$getAttr === void 0 || (_coverElement$getAttr = _coverElement$getAttr.match(/background-image:\s*url\('(.+)'\);/)) === null || _coverElement$getAttr === void 0 ? void 0 : _coverElement$getAttr[1];
+      const coverUrl = coverElement.getAttribute('style')?.match(/background-image:\s*url\('(.+)'\);/)?.[1];
       assertHasValue(coverUrl, 'Could not extract cover URL');
       return [{
         url: new URL(coverUrl, url),
@@ -1713,23 +1592,17 @@
   }
 
   class YandexMusicProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['music.yandex.com', 'music.yandex.ru', 'music.yandex.by', 'music.yandex.uz', 'music.yandex.kz']);
-      _defineProperty(this, "favicon", 'https://music.yandex.com/favicon32.png');
-      _defineProperty(this, "name", 'Yandex Music');
-      _defineProperty(this, "urlRegex", /album\/(\d+)/);
-    }
+    supportedDomains = ['music.yandex.com', 'music.yandex.ru', 'music.yandex.by', 'music.yandex.uz', 'music.yandex.kz'];
+    favicon = 'https://music.yandex.com/favicon32.png';
+    name = 'Yandex Music';
+    urlRegex = /album\/(\d+)/;
   }
 
   class YoutubeProvider extends HeadMetaPropertyProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['youtube.com']);
-      _defineProperty(this, "favicon", 'https://www.youtube.com/s/desktop/e4d15d2c/img/favicon_144x144.png');
-      _defineProperty(this, "name", 'YouTube');
-      _defineProperty(this, "urlRegex", /watch\?v=(\w+)/);
-    }
+    supportedDomains = ['youtube.com'];
+    favicon = 'https://www.youtube.com/s/desktop/e4d15d2c/img/favicon_144x144.png';
+    name = 'YouTube';
+    urlRegex = /watch\?v=(\w+)/;
     cleanUrl(url) {
       return super.cleanUrl(url) + url.search;
     }
@@ -1740,7 +1613,7 @@
       return super.fetchPage(url, {
         ...options,
         headers: {
-          ...(options === null || options === void 0 ? void 0 : options.headers),
+          ...options?.headers,
           'Accept-Language': 'en-GB,en;q=0.5'
         }
       });
@@ -1749,13 +1622,10 @@
 
   const YOUTUBE_MUSIC_DATA_REGEXP = /initialData\.push\({path: '\\\/browse', params: JSON\.parse\('(.+?)'\), data: '(.+?)'}\);/;
   class YoutubeMusicProvider extends CoverArtProvider {
-    constructor() {
-      super(...arguments);
-      _defineProperty(this, "supportedDomains", ['music.youtube.com']);
-      _defineProperty(this, "favicon", 'https://music.youtube.com/img/favicon_144.png');
-      _defineProperty(this, "name", 'YouTube Music');
-      _defineProperty(this, "urlRegex", /\/(?:playlist\?list=|browse\/|watch\?v=)(\w+)/);
-    }
+    supportedDomains = ['music.youtube.com'];
+    favicon = 'https://music.youtube.com/img/favicon_144.png';
+    name = 'YouTube Music';
+    urlRegex = /\/(?:playlist\?list=|browse\/|watch\?v=)(\w+)/;
     cleanUrl(url) {
       return super.cleanUrl(url) + url.search;
     }
@@ -1785,16 +1655,15 @@
       return safeParseJSON(stringified, 'Could not decode YT Music JSON data');
     }
     checkAlbumPage(pageInfo) {
-      var _exec;
       const config = safeParseJSON(pageInfo.parameters.browseEndpointContextSupportedConfigs);
       const pageType = config.browseEndpointContextMusicConfig.pageType;
-      const pageTypeReadable = ((_exec = /_([A-Z]+)$/.exec(pageType)) === null || _exec === void 0 ? void 0 : _exec[1].toLowerCase()) ?? pageType;
+      const pageTypeReadable = /_([A-Z]+)$/.exec(pageType)?.[1].toLowerCase() ?? pageType;
       assert(pageType === 'MUSIC_PAGE_TYPE_ALBUM', `Expected an album, got ${pageTypeReadable} instead`);
     }
     extractImages(pageInfo) {
       assert(pageInfo.data.background !== undefined, 'Failed to extract page information, non-existent release?');
       const thumbnails = pageInfo.data.background.musicThumbnailRenderer.thumbnail.thumbnails;
-      const thumbnailUrl = thumbnails[thumbnails.length - 1].url;
+      const thumbnailUrl = thumbnails.at(-1).url;
       return [{
         url: new URL(thumbnailUrl),
         types: [ArtworkTypeIDs.Front]
@@ -1849,7 +1718,7 @@
   }
   function getProvider(url) {
     const provider = getProviderByDomain(url);
-    return provider !== null && provider !== void 0 && provider.supportsUrl(url) ? provider : undefined;
+    return provider?.supportsUrl(url) ? provider : undefined;
   }
   function getProviderByDomain(url) {
     return PROVIDER_DISPATCH.get(extractDomain(url));
@@ -1859,15 +1728,12 @@
     return decodeURIComponent(urlBasename(url, 'image'));
   }
   class CoverArtDownloader {
+    lastId = 0;
     constructor(hooks) {
-      _defineProperty(this, "doneImages", void 0);
-      _defineProperty(this, "hooks", void 0);
-      _defineProperty(this, "lastId", 0);
       this.doneImages = new Set();
       this.hooks = hooks;
     }
     async fetchAndEnqueueCoverArt(batch) {
-      var _batch$provider;
       if (batch.images.length === 0) return {
         ...batch,
         images: []
@@ -1885,7 +1751,7 @@
         LOGGER.info(`Skipping ${batch.images.length - finalImages.length} non-front image(s)`);
       }
       LOGGER.info(`Fetching ${finalImages.length} image(s) for ${batch.jobUrl}…`);
-      const queuedResults = await this.fetchAndEnqueue(finalImages, ((_batch$provider = batch.provider) === null || _batch$provider === void 0 ? void 0 : _batch$provider.postprocessImage.bind(batch.provider)) ?? identity);
+      const queuedResults = await this.fetchAndEnqueue(finalImages, batch.provider?.postprocessImage.bind(batch.provider) ?? identity);
       if (!hasMoreImages && queuedResults.length === finalImages.length) {
         this.doneImages.add(batch.jobUrl.href);
       }
@@ -1923,12 +1789,11 @@
       return queuedResults;
     }
     async downloadImage(image) {
-      var _this$hooks$onDownloa, _this$hooks;
       const {
         originalUrl
       } = image;
       const id = this.getImageId();
-      (_this$hooks$onDownloa = (_this$hooks = this.hooks).onDownloadStarted) === null || _this$hooks$onDownloa === void 0 || _this$hooks$onDownloa.call(_this$hooks, id, originalUrl);
+      this.hooks.onDownloadStarted?.(id, originalUrl);
       try {
         const fetchResult = await this.downloadBestImage(image, id);
         if (fetchResult === null) return null;
@@ -1944,8 +1809,7 @@
           wasRedirected: fetchResult.wasRedirected
         };
       } finally {
-        var _this$hooks$onDownloa2, _this$hooks2;
-        (_this$hooks$onDownloa2 = (_this$hooks2 = this.hooks).onDownloadFinished) === null || _this$hooks$onDownloa2 === void 0 || _this$hooks$onDownloa2.call(_this$hooks2, id);
+        this.hooks.onDownloadFinished?.(id);
       }
     }
     async downloadBestImage(image, id) {
@@ -1980,19 +1844,21 @@
       return `${filenameWithoutExtension}.${id}.${mimeType.split('/')[1]}`;
     }
     async downloadImageContents(url, fileName, id, headers) {
-      var _this$hooks$onDownloa3;
       const xhrOptions = {
         responseType: 'blob',
         headers: headers,
-        onProgress: (_this$hooks$onDownloa3 = this.hooks.onDownloadProgress) === null || _this$hooks$onDownloa3 === void 0 ? void 0 : _this$hooks$onDownloa3.bind(this.hooks, id, url)
+        onProgress: this.hooks.onDownloadProgress?.bind(this.hooks, id, url)
       };
       const response = await pRetry(() => request.get(url, xhrOptions), {
         retries: 10,
-        onFailedAttempt: error => {
+        onFailedAttempt: context => {
+          const {
+            error
+          } = context;
           if (!(error instanceof HTTPResponseError) || error.statusCode < 500 && error.statusCode !== 429) {
             throw error;
           }
-          LOGGER.info(`Failed to retrieve image contents after ${error.attemptNumber} attempt(s): ${error.message}. Retrying (${error.retriesLeft} attempt(s) left)…`);
+          LOGGER.info(`Failed to retrieve image contents after ${context.attemptNumber} attempt(s): ${error.message}. Retrying (${context.retriesLeft} attempt(s) left)…`);
         }
       });
       if (response.url === undefined) {
@@ -2008,7 +1874,7 @@
         isImage
       } = await this.determineMimeType(response);
       if (!isImage) {
-        if (!(mimeType !== null && mimeType !== void 0 && mimeType.startsWith('text/'))) {
+        if (!mimeType?.startsWith('text/')) {
           throw new Error(`Expected "${fileName}" to be an image, but received ${mimeType ?? 'unknown file type'}.`);
         }
         const candidateProvider = getProviderByDomain(url);
@@ -2032,7 +1898,6 @@
       return new Promise(resolve => {
         const reader = new FileReader();
         reader.addEventListener('load', () => {
-          var _response$headers$get;
           const Uint32Array = getFromPageContext('Uint32Array');
           const uint32view = new Uint32Array(reader.result);
           if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
@@ -2062,7 +1927,7 @@
                 break;
               default:
                 resolve({
-                  mimeType: (_response$headers$get = response.headers.get('Content-Type')) === null || _response$headers$get === void 0 || (_response$headers$get = _response$headers$get.match(/[^;\s]+/)) === null || _response$headers$get === void 0 ? void 0 : _response$headers$get[0],
+                  mimeType: response.headers.get('Content-Type')?.match(/[^;\s]+/)?.[0],
                   isImage: false
                 });
             }
@@ -2121,9 +1986,8 @@
     }];
   });
   IMU_EXCEPTIONS.set('*.mzstatic.com', async smallurl => {
-    var _exec;
     const results = [];
-    const smallOriginalName = (_exec = /(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/.exec(smallurl.href)) === null || _exec === void 0 ? void 0 : _exec[1];
+    const smallOriginalName = /(?:[a-f\d]{2}\/){3}[a-f\d-]{36}\/([^/]+)/.exec(smallurl.href)?.[1];
     for (const imageGeneric of await maximiseGeneric(smallurl)) {
       if (urlBasename(imageGeneric.url) === 'source' && smallOriginalName !== 'source') {
         imageGeneric.likely_broken = true;
@@ -2151,9 +2015,7 @@
   });
 
   class CoverArtResolver {
-    constructor() {
-      _defineProperty(this, "cache", new Map());
-    }
+    cache = (() => new Map())();
     async resolveImages(job) {
       const {
         url
@@ -2208,17 +2070,13 @@
 
   class BaseImage {
     constructor(imageUrl, cache, cacheKey) {
-      _defineProperty(this, "imageUrl", void 0);
-      _defineProperty(this, "cacheKey", void 0);
-      _defineProperty(this, "cache", void 0);
       this.imageUrl = imageUrl;
       this.cacheKey = cacheKey ?? imageUrl;
       this.cache = cache;
     }
     async getDimensions() {
       try {
-        var _this$cache;
-        const cachedResult = await ((_this$cache = this.cache) === null || _this$cache === void 0 ? void 0 : _this$cache.getDimensions(this.cacheKey));
+        const cachedResult = await this.cache?.getDimensions(this.cacheKey);
         if (cachedResult !== undefined) {
           return cachedResult;
         }
@@ -2226,9 +2084,8 @@
         LOGGER.warn('Failed to retrieve image dimensions from cache', error);
       }
       try {
-        var _this$cache2;
         const liveResult = await getImageDimensions(this.imageUrl);
-        await ((_this$cache2 = this.cache) === null || _this$cache2 === void 0 ? void 0 : _this$cache2.putDimensions(this.cacheKey, liveResult));
+        await this.cache?.putDimensions(this.cacheKey, liveResult);
         return liveResult;
       } catch (error) {
         LOGGER.error('Failed to retrieve image dimensions', error);
@@ -2237,8 +2094,7 @@
     }
     async getFileInfo() {
       try {
-        var _this$cache3;
-        const cachedResult = await ((_this$cache3 = this.cache) === null || _this$cache3 === void 0 ? void 0 : _this$cache3.getFileInfo(this.cacheKey));
+        const cachedResult = await this.cache?.getFileInfo(this.cacheKey);
         if (cachedResult !== undefined) {
           return cachedResult;
         }
@@ -2246,9 +2102,8 @@
         LOGGER.warn('Failed to retrieve image file info from cache', error);
       }
       try {
-        var _this$cache4;
         const liveResult = await this.loadFileInfo();
-        await ((_this$cache4 = this.cache) === null || _this$cache4 === void 0 ? void 0 : _this$cache4.putFileInfo(this.cacheKey, liveResult));
+        await this.cache?.putFileInfo(this.cacheKey, liveResult);
         return liveResult;
       } catch (error) {
         LOGGER.error('Failed to retrieve image file info', error);
@@ -2317,12 +2172,10 @@
       this.putStore(store);
     },
     getDimensions: function (imageUrl) {
-      var _this$getInfo;
-      return Promise.resolve((_this$getInfo = this.getInfo(imageUrl)) === null || _this$getInfo === void 0 ? void 0 : _this$getInfo.dimensions);
+      return Promise.resolve(this.getInfo(imageUrl)?.dimensions);
     },
     getFileInfo: function (imageUrl) {
-      var _this$getInfo2;
-      return Promise.resolve((_this$getInfo2 = this.getInfo(imageUrl)) === null || _this$getInfo2 === void 0 ? void 0 : _this$getInfo2.fileInfo);
+      return Promise.resolve(this.getInfo(imageUrl)?.fileInfo);
     },
     putDimensions: function (imageUrl, dimensions) {
       const previousEntry = this.getInfo(imageUrl);
@@ -2346,20 +2199,22 @@
       super(imageUrl, localStorageCache);
     }
     async loadFileInfo() {
-      var _response$headers$get, _response$headers$get2;
       const response = await pRetry(() => request.head(this.imageUrl), {
         retries: 5,
-        onFailedAttempt: error => {
+        onFailedAttempt: context => {
+          const {
+            error
+          } = context;
           if (error instanceof HTTPResponseError && error.statusCode < 500 && error.statusCode !== 429) {
             throw error;
           }
           LOGGER.warn(`Failed to retrieve image file info: ${error.message}. Retrying…`);
         }
       });
-      const fileSize = (_response$headers$get = response.headers.get('Content-Length')) === null || _response$headers$get === void 0 || (_response$headers$get = _response$headers$get.match(/\d+/)) === null || _response$headers$get === void 0 ? void 0 : _response$headers$get[0];
-      const fileType = (_response$headers$get2 = response.headers.get('Content-Type')) === null || _response$headers$get2 === void 0 || (_response$headers$get2 = _response$headers$get2.match(/^\w+\/(\w+)$/)) === null || _response$headers$get2 === void 0 ? void 0 : _response$headers$get2[1];
+      const fileSize = response.headers.get('Content-Length')?.match(/\d+/)?.[0];
+      const fileType = response.headers.get('Content-Type')?.match(/^\w+\/(\w+)$/)?.[1];
       return {
-        fileType: fileType === null || fileType === void 0 ? void 0 : fileType.toUpperCase(),
+        fileType: fileType?.toUpperCase(),
         size: fileSize ? Number.parseInt(fileSize) : undefined
       };
     }
@@ -2392,9 +2247,8 @@
     return JSON.stringify(value);
   }
   function decodeSingleKeyValue(key, value, images) {
-    var _exec;
     const keyName = key.split('.').pop();
-    const imageIndexString = (_exec = /x_seed\.image\.(\d+)\./.exec(key)) === null || _exec === void 0 ? void 0 : _exec[1];
+    const imageIndexString = /x_seed\.image\.(\d+)\./.exec(key)?.[1];
     if (!imageIndexString || !['url', 'types', 'comment'].includes(keyName)) {
       throw new Error(`Unsupported seeded key: ${key}`);
     }
@@ -2416,8 +2270,6 @@
   }
   class SeedParameters {
     constructor(images, origin) {
-      _defineProperty(this, "_images", void 0);
-      _defineProperty(this, "origin", void 0);
       this._images = [...(images ?? [])];
       this.origin = origin;
     }
@@ -2464,381 +2316,276 @@
     }
   }
 
-  var css_248z = ".ROpdebee_paste_url_cont{column-gap:.5rem;display:inline-grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;margin-left:32px;margin-top:10px;position:relative;row-gap:.25rem}.ROpdebee_paste_url_cont>input#ROpdebee_paste_url{grid-column:1/-1}.ROpdebee_paste_url_cont>details.ROpdebee_ecau_config{grid-column:1}.ROpdebee_paste_url_cont>a#ROpdebee_ecau_providers_link{grid-column:2}.ROpdebee_paste_url_cont+span{margin-left:32px}a#ROpdebee_ecau_providers_link{font-size:smaller;text-align:right}.ROpdebee_ecau_config input[type=checkbox],.ROpdebee_ecau_config label{display:inline;vertical-align:center}.ROpdebee_ecau_config label{float:none!important;margin-left:.5em}.ROpdebee_ecau_config details{padding:.5em .5em 0}.ROpdebee_ecau_config .ROpdebee_ecau_config_options{background-color:#ddd;border:1px solid #ccc;border-radius:6px;box-shadow:0 0 5px gray;padding:.5em;position:absolute;width:95%;z-index:2}.ROpdebee_ecau_config summary{cursor:pointer;font-weight:700;margin:-.5em -.5em 0;padding:.5em;width:-moz-fit-content;width:fit-content}.ROpdebee_ecau_config summary:hover{-webkit-text-decoration:underline;text-decoration:underline}.ROpdebee_import_url_buttons{display:inline-block;margin-left:32px;vertical-align:middle}.ROpdebee_import_url_buttons>#load-info{display:block;font-size:x-small;margin:auto}.ROpdebee_import_url_buttons>div>button{align-items:center;column-gap:.5rem;display:grid;float:none;grid-template-columns:16px 1fr;grid-template-rows:auto auto;justify-items:center;margin:4px;width:100%}.ROpdebee_import_url_buttons>div>button>img{grid-row:1/-1;height:16px;margin:0!important;width:16px}.ROpdebee_import_url_buttons>div>button>.provider-title{grid-row:1}.ROpdebee_import_url_buttons>div>button>.provider-metadata{color:gray;font-size:x-small;grid-row:2}.ROpdebee_import_url_buttons>div>button>.provider-metadata.hidden{display:none}.ROpdebee_import_url_buttons>div>button>.provider-metadata.content-loading{background-color:inherit;min-height:16px;position:relative!important}";
+  const main = ".ROpdebee_paste_url_cont{grid-template-rows:auto auto;grid-template-columns:1fr 1fr;gap:.25rem .5rem;margin-top:10px;margin-left:32px;display:inline-grid;position:relative}.ROpdebee_paste_url_cont>input#ROpdebee_paste_url{grid-column:1/-1}.ROpdebee_paste_url_cont>details.ROpdebee_ecau_config{grid-column:1}.ROpdebee_paste_url_cont>a#ROpdebee_ecau_providers_link{grid-column:2}.ROpdebee_paste_url_cont+span{margin-left:32px}a#ROpdebee_ecau_providers_link{text-align:right;font-size:smaller}.ROpdebee_ecau_config input[type=checkbox],.ROpdebee_ecau_config label{vertical-align:center;display:inline}.ROpdebee_ecau_config label{margin-left:.5em;float:none!important}.ROpdebee_ecau_config details{padding:.5em .5em 0}.ROpdebee_ecau_config .ROpdebee_ecau_config_options{z-index:2;background-color:#ddd;border:1px solid #ccc;border-radius:6px;width:95%;padding:.5em;position:absolute;box-shadow:0 0 5px gray}.ROpdebee_ecau_config summary{cursor:pointer;width:-moz-fit-content;width:fit-content;margin:-.5em -.5em 0;padding:.5em;font-weight:700}.ROpdebee_ecau_config summary:hover{text-decoration:underline}.ROpdebee_import_url_buttons{vertical-align:middle;margin-left:32px;display:inline-block}.ROpdebee_import_url_buttons>#load-info{margin:auto;font-size:x-small;display:block}.ROpdebee_import_url_buttons>div>button{float:none;grid-template-rows:auto auto;grid-template-columns:16px 1fr;place-items:center;column-gap:.5rem;width:100%;margin:4px;display:grid}.ROpdebee_import_url_buttons>div>button>img{grid-row:1/-1;width:16px;height:16px;margin:0!important}.ROpdebee_import_url_buttons>div>button>.provider-title{grid-row:1}.ROpdebee_import_url_buttons>div>button>.provider-metadata{color:gray;grid-row:2;font-size:x-small}.ROpdebee_import_url_buttons>div>button>.provider-metadata.hidden{display:none}.ROpdebee_import_url_buttons>div>button>.provider-metadata.content-loading{background-color:inherit;min-height:16px;position:relative!important}";
 
   const INPUT_PLACEHOLDER_TEXT = 'or paste one or more URLs here';
   class ProgressElement {
-      constructor(url) {
-          _defineProperty(this, 'urlSpan', void 0);
-          _defineProperty(this, 'progressbar', void 0);
-          _defineProperty(this, 'rootElement', void 0);
-          this.urlSpan = function () {
-              var $$a = document.createElement('span');
-              appendChildren($$a, url.href);
-              return $$a;
-          }.call(this);
-          this.progressbar = function () {
-              var $$c = document.createElement('div');
-              $$c.setAttribute('class', 'ui-progressbar-value ui-widget-header ui-corner-left');
-              setStyles($$c, {
-                  backgroundColor: '#cce5ff',
-                  width: '0%'
-              });
-              appendChildren($$c, '\xA0');
-              return $$c;
-          }.call(this);
-          this.rootElement = function () {
-              var $$e = document.createElement('tr');
-              setStyles($$e, { display: 'flex' });
-              var $$f = document.createElement('td');
-              $$f.setAttribute('class', 'uploader-preview-column');
-              $$e.appendChild($$f);
-              var $$g = document.createElement('div');
-              $$g.setAttribute('class', 'content-loading');
-              setStyles($$g, {
-                  width: '120px',
-                  height: '120px',
-                  position: 'relative'
-              });
-              $$f.appendChild($$g);
-              var $$h = document.createElement('td');
-              setStyles($$h, { width: '65%' });
-              $$e.appendChild($$h);
-              var $$i = document.createElement('div');
-              $$i.setAttribute('class', 'row');
-              $$h.appendChild($$i);
-              var $$j = document.createElement('label');
-              $$i.appendChild($$j);
-              var $$k = document.createTextNode('URL:');
-              $$j.appendChild($$k);
-              appendChildren($$i, this.urlSpan);
-              var $$m = document.createElement('td');
-              setStyles($$m, { flexGrow: 1 });
-              $$e.appendChild($$m);
-              var $$n = document.createElement('div');
-              $$n.setAttribute('class', 'ui-progressbar ui-widget ui-widget-content ui-corner-all');
-              $$n.setAttribute('role', 'progressbar');
-              setStyles($$n, { width: '100%' });
-              $$m.appendChild($$n);
-              appendChildren($$n, this.progressbar);
-              return $$e;
-          }.call(this);
-      }
-      set url(url) {
-          this.urlSpan.textContent = url.href;
-      }
-      set progress(progressPercentage) {
-          this.progressbar.style.width = `${ progressPercentage * 100 }%`;
-      }
+    constructor(url) {
+      this.urlSpan = h("span", null, url.href);
+      this.progressbar = h("div", {
+        className: "ui-progressbar-value ui-widget-header ui-corner-left",
+        style: {
+          backgroundColor: '#cce5ff',
+          width: '0%'
+        }
+      }, "\xA0");
+      this.rootElement = h("tr", {
+        style: {
+          display: 'flex'
+        }
+      }, h("td", {
+        className: "uploader-preview-column"
+      }, h("div", {
+        className: "content-loading",
+        style: {
+          width: '120px',
+          height: '120px',
+          position: 'relative'
+        }
+      })), h("td", {
+        style: {
+          width: '65%'
+        }
+      }, h("div", {
+        className: "row"
+      }, h("label", null, "URL:"), this.urlSpan)), h("td", {
+        style: {
+          flexGrow: 1
+        }
+      }, h("div", {
+        className: "ui-progressbar ui-widget ui-widget-content ui-corner-all",
+        role: "progressbar",
+        style: {
+          width: '100%'
+        }
+      }, this.progressbar)));
+    }
+    set url(url) {
+      this.urlSpan.textContent = url.href;
+    }
+    set progress(progressPercentage) {
+      this.progressbar.style.width = `${progressPercentage * 100}%`;
+    }
   }
   function parseHTMLURLs(htmlText) {
-      LOGGER.debug(`Extracting URLs from ${ htmlText }`);
-      const document_ = parseDOM(htmlText, document.location.origin);
-      let urls = qsa('img', document_).map(image => image.src);
-      if (urls.length === 0) {
-          urls = qsa('a', document_).map(anchor => anchor.href);
-      }
-      if (urls.length === 0) {
-          return parsePlainURLs(document_.textContent ?? '');
-      }
-      return [...new Set(urls)].filter(url => /^(?:https?|data):/.test(url));
+    LOGGER.debug(`Extracting URLs from ${htmlText}`);
+    const document_ = parseDOM(htmlText, document.location.origin);
+    let urls = qsa('img', document_).map(image => image.src);
+    if (urls.length === 0) {
+      urls = qsa('a', document_).map(anchor => anchor.href);
+    }
+    if (urls.length === 0) {
+      return parsePlainURLs(document_.body.textContent);
+    }
+    return [...new Set(urls)].filter(url => /^(?:https?|data):/.test(url));
   }
   function parsePlainURLs(text) {
-      return text.trim().split(/\s+/);
+    return text.trim().split(/\s+/);
   }
   function createCheckbox(property) {
-      const propertyId = `ROpdebee_ecau_${ property.name }`;
-      const checkbox = function () {
-          var $$p = document.createElement('input');
-          $$p.setAttribute('type', 'checkbox');
-          $$p.setAttribute('id', propertyId);
-          return $$p;
-      }.call(this);
-      property.get().then(value => {
-          checkbox.checked = value;
-          checkbox.addEventListener('change', () => {
-              property.set(checkbox.checked).catch(error => {
-                  LOGGER.error(`Error when saving checkbox value for ${ property.name }: ${ error }`);
-              });
-          });
-      }).catch(error => {
-          LOGGER.error(`Error when initialising value for ${ property.name } checkbox: ${ error }`);
+    const propertyId = `ROpdebee_ecau_${property.name}`;
+    const checkbox = h("input", {
+      type: "checkbox",
+      id: propertyId
+    });
+    property.get().then(value => {
+      checkbox.checked = value;
+      checkbox.addEventListener('change', () => {
+        property.set(checkbox.checked).catch(error => {
+          LOGGER.error(`Error when saving checkbox value for ${property.name}: ${error}`);
+        });
       });
-      return function () {
-          var $$q = document.createElement('div');
-          appendChildren($$q, checkbox);
-          var $$s = document.createElement('label');
-          $$s.setAttribute('for', propertyId);
-          $$q.appendChild($$s);
-          appendChildren($$s, property.description);
-          return $$q;
-      }.call(this);
+    }).catch(error => {
+      LOGGER.error(`Error when initialising value for ${property.name} checkbox: ${error}`);
+    });
+    return h("div", null, checkbox, h("label", {
+      htmlFor: propertyId
+    }, property.description));
   }
   function createConfig() {
-      return function () {
-          var $$u = document.createElement('details');
-          $$u.setAttribute('class', 'ROpdebee_ecau_config');
-          var $$v = document.createElement('summary');
-          $$u.appendChild($$v);
-          var $$w = document.createTextNode('Configure\u2026');
-          $$v.appendChild($$w);
-          var $$x = document.createElement('div');
-          $$x.setAttribute('class', 'ROpdebee_ecau_config_options');
-          $$u.appendChild($$x);
-          appendChildren($$x, createCheckbox(CONFIG.fetchFrontOnly));
-          appendChildren($$x, createCheckbox(CONFIG.skipTrackImagesProperty));
-          appendChildren($$x, createCheckbox(CONFIG.prefetchMetadata));
-          var $$bb = document.createElement('h3');
-          $$x.appendChild($$bb);
-          var $$cc = document.createTextNode('Bandcamp');
-          $$bb.appendChild($$cc);
-          appendChildren($$x, createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty));
-          appendChildren($$x, createCheckbox(CONFIG.bandcamp.squareCropFirst));
-          var $$ff = document.createElement('h3');
-          $$x.appendChild($$ff);
-          var $$gg = document.createTextNode('Soundcloud');
-          $$ff.appendChild($$gg);
-          appendChildren($$x, createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty));
-          var $$ii = document.createElement('h3');
-          $$x.appendChild($$ii);
-          var $$jj = document.createTextNode('Tidal');
-          $$ii.appendChild($$jj);
-          appendChildren($$x, createCheckbox(CONFIG.tidal.checkAllCountries));
-          var $$ll = document.createElement('h3');
-          $$x.appendChild($$ll);
-          var $$mm = document.createTextNode('VGMdb');
-          $$ll.appendChild($$mm);
-          appendChildren($$x, createCheckbox(CONFIG.vgmdb.keepEntireComment));
-          return $$u;
-      }.call(this);
+    return h("details", {
+      className: "ROpdebee_ecau_config"
+    }, h("summary", null, "Configure\u2026"), h("div", {
+      className: "ROpdebee_ecau_config_options"
+    }, createCheckbox(CONFIG.fetchFrontOnly), createCheckbox(CONFIG.skipTrackImagesProperty), createCheckbox(CONFIG.prefetchMetadata), h("h3", null, "Bandcamp"), createCheckbox(CONFIG.bandcamp.skipTrackImagesProperty), createCheckbox(CONFIG.bandcamp.squareCropFirst), h("h3", null, "Soundcloud"), createCheckbox(CONFIG.soundcloud.skipTrackImagesProperty), h("h3", null, "Tidal"), createCheckbox(CONFIG.tidal.checkAllCountries), h("h3", null, "VGMdb"), createCheckbox(CONFIG.vgmdb.keepEntireComment)));
   }
   function providerInfoToString(infos) {
-      if (infos.length === 0) {
-          return '0 images';
+    if (infos.length === 0) {
+      return '0 images';
+    }
+    const fileTypes = new Set(filterNonNull(infos.map(info => info.fileType)));
+    let maxDimensions = {
+      width: 0,
+      height: 0
+    };
+    for (const currentDimension of infos.map(info => info.dimensions)) {
+      if (currentDimension === undefined) continue;
+      if (currentDimension.width * currentDimension.height > maxDimensions.width * maxDimensions.height) {
+        maxDimensions = currentDimension;
       }
-      const fileTypes = new Set(filterNonNull(infos.map(info => info.fileType)));
-      let maxDimensions = {
-          width: 0,
-          height: 0
-      };
-      for (const currentDimension of infos.map(info => info.dimensions)) {
-          if (currentDimension === undefined)
-              continue;
-          if (currentDimension.width * currentDimension.height > maxDimensions.width * maxDimensions.height) {
-              maxDimensions = currentDimension;
-          }
-      }
-      const maxSize = Math.max(...filterNonNull(infos.map(info => info.size)));
-      const parts = [
-          infos.length === 1 ? '1 image' : `${ infos.length } images`,
-          [...fileTypes].join('/'),
-          `${ maxDimensions.width }×${ maxDimensions.height }`,
-          formatFileSize(maxSize)
-      ];
-      return parts.join(' \xB7 ');
+    }
+    const maxSize = Math.max(...filterNonNull(infos.map(info => info.size)));
+    const parts = [infos.length === 1 ? '1 image' : `${infos.length} images`, [...fileTypes].join('/'), `${maxDimensions.width}×${maxDimensions.height}`, formatFileSize(maxSize)];
+    return parts.join(' · ');
   }
   class InputForm {
-      constructor(app) {
-          var _qs$insertAdjacentEle;
-          _defineProperty(this, 'urlInput', void 0);
-          _defineProperty(this, 'buttonContainer', void 0);
-          _defineProperty(this, 'buttonList', void 0);
-          _defineProperty(this, 'loadProviderInfoButton', void 0);
-          _defineProperty(this, 'orSpan', void 0);
-          _defineProperty(this, 'providers', []);
-          _defineProperty(this, 'fakeSubmitButton', void 0);
-          _defineProperty(this, 'realSubmitButton', void 0);
-          _defineProperty(this, 'progressElements', new Map());
-          insertStylesheet(css_248z);
-          this.urlInput = function () {
-              var $$oo = document.createElement('input');
-              $$oo.setAttribute('type', 'url');
-              $$oo.setAttribute('placeholder', INPUT_PLACEHOLDER_TEXT);
-              $$oo.setAttribute('size', 47);
-              $$oo.setAttribute('id', 'ROpdebee_paste_url');
-              $$oo.addEventListener('paste', async event_ => {
-                  if (!event_.clipboardData) {
-                      LOGGER.warn('No clipboard data?');
-                      return;
-                  }
-                  const htmlText = event_.clipboardData.getData('text/html');
-                  const plainText = event_.clipboardData.getData('text');
-                  const urls = htmlText.length > 0 ? parseHTMLURLs(htmlText) : parsePlainURLs(plainText);
-                  event_.preventDefault();
-                  event_.currentTarget.placeholder = urls.join('\n');
-                  const inputUrls = filterNonNull(urls.map(inputUrl => {
-                      try {
-                          return new URL(inputUrl);
-                      } catch (error) {
-                          LOGGER.error(`Invalid URL: ${ inputUrl }`, error);
-                          return null;
-                      }
-                  }));
-                  if (inputUrls.length === 0) {
-                      LOGGER.info('No URLs found in input');
-                      return;
-                  }
-                  await app.processURLs(inputUrls);
-                  app.clearLogLater();
-                  if (this.urlInput.placeholder === urls.join('\n')) {
-                      this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
-                  }
-              });
-              return $$oo;
-          }.call(this);
-          const container = function () {
-              var $$pp = document.createElement('div');
-              $$pp.setAttribute('class', 'ROpdebee_paste_url_cont');
-              appendChildren($$pp, this.urlInput);
-              appendChildren($$pp, createConfig());
-              var $$ss = document.createElement('a');
-              $$ss.setAttribute('href', 'https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md');
-              $$ss.setAttribute('target', '_blank');
-              $$ss.setAttribute('id', 'ROpdebee_ecau_providers_link');
-              $$pp.appendChild($$ss);
-              var $$tt = document.createTextNode('Supported providers');
-              $$ss.appendChild($$tt);
-              return $$pp;
-          }.call(this);
-          this.buttonList = function () {
-              var $$uu = document.createElement('div');
-              $$uu.setAttribute('class', 'buttons');
-              return $$uu;
-          }.call(this);
-          this.loadProviderInfoButton = function () {
-              var $$vv = document.createElement('button');
-              $$vv.setAttribute('id', 'load-info');
-              $$vv.addEventListener('click', event_ => {
-                  event_.preventDefault();
-                  this.loadCoverArtInfo();
-              });
-              var $$ww = document.createTextNode('Load cover art info\u2026');
-              $$vv.appendChild($$ww);
-              return $$vv;
-          }.call(this);
-          this.buttonContainer = function () {
-              var $$xx = document.createElement('div');
-              $$xx.setAttribute('class', 'ROpdebee_import_url_buttons');
-              setStyles($$xx, { display: 'none' });
-              appendChildren($$xx, this.buttonList);
-              appendChildren($$xx, this.loadProviderInfoButton);
-              return $$xx;
-          }.call(this);
-          this.orSpan = function () {
-              var $$aaa = document.createElement('span');
-              setStyles($$aaa, { display: 'none' });
-              var $$bbb = document.createTextNode('or');
-              $$aaa.appendChild($$bbb);
-              return $$aaa;
-          }.call(this);
-          (_qs$insertAdjacentEle = qs('#drop-zone').insertAdjacentElement('afterend', container)) === null || _qs$insertAdjacentEle === void 0 || (_qs$insertAdjacentEle = _qs$insertAdjacentEle.insertAdjacentElement('afterend', this.orSpan)) === null || _qs$insertAdjacentEle === void 0 || _qs$insertAdjacentEle.insertAdjacentElement('afterend', this.buttonContainer);
-          this.realSubmitButton = qs('button#add-cover-art-submit');
-          this.fakeSubmitButton = function () {
-              var $$ccc = document.createElement('button');
-              $$ccc.setAttribute('type', 'button');
-              $$ccc.setAttribute('class', 'submit positive');
-              $$ccc.disabled = true;
-              $$ccc.setAttribute('hidden', true);
-              var $$ddd = document.createTextNode('Enter edit');
-              $$ccc.appendChild($$ddd);
-              return $$ccc;
-          }.call(this);
-          qs('form > .buttons').append(this.fakeSubmitButton);
-      }
-      async addImportButton(handle) {
-          const {provider, url} = handle;
-          const favicon = await provider.favicon;
-          const button = function () {
-              var $$eee = document.createElement('button');
-              $$eee.setAttribute('type', 'button');
-              $$eee.setAttribute('title', url);
-              $$eee.addEventListener('click', event_ => {
-                  event_.preventDefault();
-                  handle.onClick();
-              });
-              var $$fff = document.createElement('img');
-              $$fff.setAttribute('src', favicon);
-              $$fff.setAttribute('alt', provider.name);
-              $$eee.appendChild($$fff);
-              var $$ggg = document.createElement('span');
-              $$ggg.setAttribute('class', 'provider-title');
-              $$eee.appendChild($$ggg);
-              appendChildren($$ggg, 'Import from ' + provider.name);
-              var $$iii = document.createElement('span');
-              $$iii.setAttribute('class', 'provider-metadata hidden content-loading');
-              $$eee.appendChild($$iii);
-              return $$eee;
-          }.call(this);
-          const buttonHandle = {
-              ...handle,
-              button
-          };
-          this.providers.push(buttonHandle);
-          this.orSpan.style.display = '';
-          this.buttonContainer.style.display = '';
-          this.buttonList.insertAdjacentElement('beforeend', button);
-          if (await CONFIG.prefetchMetadata.get()) {
-              this.loadCoverArtInfoForProvider(buttonHandle);
-              this.loadProviderInfoButton.style.display = 'none';
+    providers = [];
+    progressElements = (() => new Map())();
+    constructor(app) {
+      insertStylesheet(main);
+      this.urlInput = h("input", {
+        type: "url",
+        placeholder: INPUT_PLACEHOLDER_TEXT,
+        size: 47,
+        id: "ROpdebee_paste_url",
+        onPaste: async event_ => {
+          const htmlText = event_.clipboardData.getData('text/html');
+          const plainText = event_.clipboardData.getData('text');
+          const urls = htmlText.length > 0 ? parseHTMLURLs(htmlText) : parsePlainURLs(plainText);
+          event_.preventDefault();
+          event_.currentTarget.placeholder = urls.join('\n');
+          const inputUrls = filterNonNull(urls.map(inputUrl => {
+            try {
+              return new URL(inputUrl);
+            } catch (error) {
+              LOGGER.error(`Invalid URL: ${inputUrl}`, error);
+              return null;
+            }
+          }));
+          if (inputUrls.length === 0) {
+            LOGGER.info('No URLs found in input');
+            return;
           }
-      }
-      loadCoverArtInfo() {
-          this.loadProviderInfoButton.style.display = 'none';
-          for (const handle of this.providers) {
-              this.loadCoverArtInfoForProvider(handle);
+          await app.processURLs(inputUrls);
+          app.clearLogLater();
+          if (this.urlInput.placeholder === urls.join('\n')) {
+            this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
           }
+        }
+      });
+      const container = h("div", {
+        className: "ROpdebee_paste_url_cont"
+      }, this.urlInput, createConfig(), h("a", {
+        href: "https://github.com/ROpdebee/mb-userscripts/blob/main/src/mb_enhanced_cover_art_uploads/docs/supported_providers.md",
+        target: "_blank",
+        id: "ROpdebee_ecau_providers_link"
+      }, "Supported providers"));
+      this.buttonList = h("div", {
+        className: "buttons"
+      });
+      this.loadProviderInfoButton = h("button", {
+        id: "load-info",
+        onClick: event_ => {
+          event_.preventDefault();
+          this.loadCoverArtInfo();
+        }
+      }, "Load cover art info\u2026");
+      this.buttonContainer = h("div", {
+        className: "ROpdebee_import_url_buttons",
+        style: {
+          display: 'none'
+        }
+      }, this.buttonList, this.loadProviderInfoButton);
+      this.orSpan = h("span", {
+        style: {
+          display: 'none'
+        }
+      }, "or");
+      qs('#drop-zone').insertAdjacentElement('afterend', container)?.insertAdjacentElement('afterend', this.orSpan)?.insertAdjacentElement('afterend', this.buttonContainer);
+      this.realSubmitButton = qs('button#add-cover-art-submit');
+      this.fakeSubmitButton = h("button", {
+        type: "button",
+        className: "submit positive",
+        disabled: true,
+        hidden: true
+      }, "Enter edit");
+      qs('form > .buttons').append(this.fakeSubmitButton);
+    }
+    async addImportButton(handle) {
+      const {
+        provider,
+        url
+      } = handle;
+      const favicon = await provider.favicon;
+      const button = h("button", {
+        type: "button",
+        title: url,
+        onClick: event_ => {
+          event_.preventDefault();
+          handle.onClick();
+        }
+      }, h("img", {
+        src: favicon,
+        alt: provider.name
+      }), h("span", {
+        className: "provider-title"
+      }, 'Import from ' + provider.name), h("span", {
+        className: "provider-metadata hidden content-loading"
+      }));
+      const buttonHandle = {
+        ...handle,
+        button
+      };
+      this.providers.push(buttonHandle);
+      this.orSpan.style.display = '';
+      this.buttonContainer.style.display = '';
+      this.buttonList.insertAdjacentElement('beforeend', button);
+      if (await CONFIG.prefetchMetadata.get()) {
+        this.loadCoverArtInfoForProvider(buttonHandle);
+        this.loadProviderInfoButton.style.display = 'none';
       }
-      loadCoverArtInfoForProvider(handle) {
-          const metadataSpan = handle.button.querySelector('.provider-metadata');
-          handle.getInfo().then(info => {
-              metadataSpan.textContent = providerInfoToString(info);
-              metadataSpan.classList.remove('content-loading');
-              LOGGER.info(`Successfully retrieved image info for ${ handle.provider.name }`);
-          }).catch(error => {
-              LOGGER.error(`Could not retrieve information for ${ handle.url }`, error);
-              metadataSpan.textContent = 'Error :(';
-              metadataSpan.classList.remove('content-loading');
-          });
-          metadataSpan.classList.remove('hidden');
+    }
+    loadCoverArtInfo() {
+      this.loadProviderInfoButton.style.display = 'none';
+      for (const handle of this.providers) {
+        this.loadCoverArtInfoForProvider(handle);
       }
-      disableSubmissions() {
-          this.realSubmitButton.hidden = true;
-          this.fakeSubmitButton.hidden = false;
+    }
+    loadCoverArtInfoForProvider(handle) {
+      const metadataSpan = handle.button.querySelector('.provider-metadata');
+      handle.getInfo().then(info => {
+        metadataSpan.textContent = providerInfoToString(info);
+        metadataSpan.classList.remove('content-loading');
+        LOGGER.info(`Successfully retrieved image info for ${handle.provider.name}`);
+      }).catch(error => {
+        LOGGER.error(`Could not retrieve information for ${handle.url}`, error);
+        metadataSpan.textContent = 'Error :(';
+        metadataSpan.classList.remove('content-loading');
+      });
+      metadataSpan.classList.remove('hidden');
+    }
+    disableSubmissions() {
+      this.realSubmitButton.hidden = true;
+      this.fakeSubmitButton.hidden = false;
+    }
+    enableSubmissions() {
+      this.realSubmitButton.hidden = false;
+      this.fakeSubmitButton.hidden = true;
+    }
+    onDownloadStarted(id, url) {
+      const progressElement = new ProgressElement(url);
+      this.progressElements.set(id, progressElement);
+      qs('form#add-cover-art tbody').append(progressElement.rootElement);
+    }
+    onDownloadFinished(id) {
+      const progressElement = this.progressElements.get(id);
+      progressElement?.rootElement.remove();
+      this.progressElements.delete(id);
+    }
+    onDownloadProgress(id, url, progress) {
+      const progressElement = this.progressElements.get(id);
+      assertDefined(progressElement);
+      progressElement.url = url;
+      if (progress.lengthComputable && progress.total > 0) {
+        progressElement.progress = progress.loaded / progress.total;
       }
-      enableSubmissions() {
-          this.realSubmitButton.hidden = false;
-          this.fakeSubmitButton.hidden = true;
-      }
-      onDownloadStarted(id, url) {
-          const progressElement = new ProgressElement(url);
-          this.progressElements.set(id, progressElement);
-          qs('form#add-cover-art tbody').append(progressElement.rootElement);
-      }
-      onDownloadFinished(id) {
-          const progressElement = this.progressElements.get(id);
-          progressElement === null || progressElement === void 0 || progressElement.rootElement.remove();
-          this.progressElements.delete(id);
-      }
-      onDownloadProgress(id, url, progress) {
-          const progressElement = this.progressElements.get(id);
-          assertDefined(progressElement);
-          progressElement.url = url;
-          if (progress.lengthComputable && progress.total > 0) {
-              progressElement.progress = progress.loaded / progress.total;
-          }
-      }
+    }
   }
 
   const PROMISE_LIMIT = 8;
   class App {
+    loggingSink = (() => new GuiSink())();
     constructor() {
-      _defineProperty(this, "note", void 0);
-      _defineProperty(this, "resolver", void 0);
-      _defineProperty(this, "downloader", void 0);
-      _defineProperty(this, "ui", void 0);
-      _defineProperty(this, "urlsInProgress", void 0);
-      _defineProperty(this, "loggingSink", new GuiSink());
-      _defineProperty(this, "fetchingSema", void 0);
       this.note = EditNote.withFooterFromGMInfo();
       this.urlsInProgress = new Set();
       LOGGER.addSink(this.loggingSink);
@@ -2915,17 +2662,13 @@
       return infos;
     }
     async addImportButtons() {
-      var _exec;
-      const mbid = (_exec = /musicbrainz\.org\/release\/([a-f\d-]+)\//.exec(window.location.href)) === null || _exec === void 0 ? void 0 : _exec[1];
+      const mbid = /musicbrainz\.org\/release\/([a-f\d-]+)\//.exec(window.location.href)?.[1];
       assertHasValue(mbid);
       const attachedURLs = await getURLsForRelease(mbid, {
         excludeEnded: true,
         excludeDuplicates: true
       });
-      const supportedURLs = attachedURLs.filter(url => {
-        var _getProvider;
-        return (_getProvider = getProvider(url)) === null || _getProvider === void 0 ? void 0 : _getProvider.allowButtons;
-      });
+      const supportedURLs = attachedURLs.filter(url => getProvider(url)?.allowButtons);
       if (supportedURLs.length === 0) return;
       const syncProcessURL = url => {
         void pFinally(this.processURLs([url]).catch(error => {
@@ -2956,117 +2699,95 @@
   }
 
   const AtisketSeeder = {
-      supportedDomains: [
-          'atisket.pulsewidth.org.uk',
-          'etc.marlonob.info'
-      ],
-      supportedRegexes: [/(?:\.uk|\.info\/atisket)\/\?.+/],
-      insertSeedLinks() {
-          addDimensionsToCovers$1();
-          const alreadyInMBItems = qsa('.already-in-mb-item');
-          if (alreadyInMBItems.length === 0) {
-              return;
-          }
-          const mbids = alreadyInMBItems.map(alreadyInMB => {
-              var _qs$textContent;
-              return encodeURIComponent((((_qs$textContent = qs('a.mb', alreadyInMB).textContent) === null || _qs$textContent === void 0) ? void 0 : _qs$textContent.trim()) ?? '');
-          }).filter(Boolean);
-          const cachedAnchor = qsMaybe('#submit-button + div > a');
-          addSeedLinkToCovers(mbids, ((cachedAnchor === null || cachedAnchor === void 0) ? void 0 : cachedAnchor.href) ?? document.location.href);
+    supportedDomains: ['atisket.pulsewidth.org.uk', 'etc.marlonob.info'],
+    supportedRegexes: [/(?:\.uk|\.info\/atisket)\/\?.+/],
+    insertSeedLinks() {
+      addDimensionsToCovers$1();
+      const alreadyInMBItems = qsa('.already-in-mb-item');
+      if (alreadyInMBItems.length === 0) {
+        return;
       }
+      const mbids = alreadyInMBItems.map(alreadyInMB => encodeURIComponent(qs('a.mb', alreadyInMB).textContent.trim())).filter(Boolean);
+      const cachedAnchor = qsMaybe('#submit-button + div > a');
+      addSeedLinkToCovers(mbids, cachedAnchor?.href ?? document.location.href);
+    }
   };
   const AtasketSeeder = {
-      supportedDomains: [
-          'atisket.pulsewidth.org.uk',
-          'etc.marlonob.info'
-      ],
-      supportedRegexes: [/(?:\.uk|\.info\/atisket)\/atasket\.php\?/],
-      insertSeedLinks() {
-          addDimensionsToCovers$1();
-          const urlParameters = new URLSearchParams(document.location.search);
-          const mbid = urlParameters.get('release_mbid');
-          const selfId = urlParameters.get('self_id');
-          if (!mbid || !selfId) {
-              LOGGER.error('Cannot extract IDs! Seeding is disabled :(');
-              return;
-          }
-          const cachedUrl = document.location.origin + '/?cached=' + selfId;
-          addSeedLinkToCovers([mbid], cachedUrl);
+    supportedDomains: ['atisket.pulsewidth.org.uk', 'etc.marlonob.info'],
+    supportedRegexes: [/(?:\.uk|\.info\/atisket)\/atasket\.php\?/],
+    insertSeedLinks() {
+      addDimensionsToCovers$1();
+      const urlParameters = new URLSearchParams(document.location.search);
+      const mbid = urlParameters.get('release_mbid');
+      const selfId = urlParameters.get('self_id');
+      if (!mbid || !selfId) {
+        LOGGER.error('Cannot extract IDs! Seeding is disabled :(');
+        return;
       }
+      const cachedUrl = document.location.origin + '/?cached=' + selfId;
+      addSeedLinkToCovers([mbid], cachedUrl);
+    }
   };
   function addSeedLinkToCovers(mbids, origin) {
-      const covers = qsa('figure.cover');
-      for (const fig of covers) {
-          addSeedLinkToCover$1(fig, mbids, origin);
-      }
+    const covers = qsa('figure.cover');
+    for (const fig of covers) {
+      addSeedLinkToCover$1(fig, mbids, origin);
+    }
   }
   function addDimensionsToCovers$1() {
-      const covers = qsa('figure.cover');
-      for (const fig of covers) {
-          addDimensions$1(fig).catch(logFailure('Failed to insert image information'));
-      }
+    const covers = qsa('figure.cover');
+    for (const fig of covers) {
+      addDimensions$1(fig).catch(logFailure('Failed to insert image information'));
+    }
   }
   function tryExtractReleaseUrl(fig) {
-      var _fig$closest;
-      const countryCode = (_fig$closest = fig.closest('div')) === null || _fig$closest === void 0 ? void 0 : _fig$closest.dataset.matchedCountry;
-      const vendorId = fig.dataset.vendorId;
-      const vendorCode = [...fig.classList].find(klass => [
-          'spf',
-          'deez',
-          'itu'
-      ].includes(klass));
-      if (!vendorCode || !vendorId || typeof countryCode !== 'string' || vendorCode === 'itu' && countryCode === '') {
-          LOGGER.error('Could not extract required data for ' + fig.classList.value);
-          return;
-      }
-      return RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
+    const countryCode = fig.closest('div')?.dataset.matchedCountry;
+    const vendorId = fig.dataset.vendorId;
+    const vendorCode = [...fig.classList].find(klass => ['spf', 'deez', 'itu'].includes(klass));
+    if (!vendorCode || !vendorId || typeof countryCode !== 'string' || vendorCode === 'itu' && countryCode === '') {
+      LOGGER.error('Could not extract required data for ' + fig.classList.value);
+      return;
+    }
+    return RELEASE_URL_CONSTRUCTORS[vendorCode](vendorId, countryCode);
   }
   function addSeedLinkToCover$1(fig, mbids, origin) {
-      const imageUrl = qs('a.icon', fig).href;
-      const realUrl = tryExtractReleaseUrl(fig) ?? imageUrl;
-      const parameters = new SeedParameters([{ url: new URL(realUrl) }], origin);
-      for (const mbid of mbids) {
-          const seedUrl = parameters.createSeedURL(mbid);
-          const seedLink = function () {
-              var $$a = document.createElement('a');
-              $$a.setAttribute('href', seedUrl);
-              setStyles($$a, { display: 'block' });
-              var $$b = document.createTextNode('Add to release');
-              $$a.appendChild($$b);
-              appendChildren($$a, ' ');
-              appendChildren($$a, mbids.length > 1 ? mbid.split('-')[0] : '');
-              return $$a;
-          }.call(this);
-          qs('figcaption', fig).insertAdjacentElement('beforeend', seedLink);
-      }
+    const imageUrl = qs('a.icon', fig).href;
+    const realUrl = tryExtractReleaseUrl(fig) ?? imageUrl;
+    const parameters = new SeedParameters([{
+      url: new URL(realUrl)
+    }], origin);
+    for (const mbid of mbids) {
+      const seedUrl = parameters.createSeedURL(mbid);
+      const seedLink = h("a", {
+        href: seedUrl,
+        style: {
+          display: 'block'
+        }
+      }, "Add to release", ' ', mbids.length > 1 ? mbid.split('-')[0] : '');
+      qs('figcaption', fig).insertAdjacentElement('beforeend', seedLink);
+    }
   }
   async function addDimensions$1(fig) {
-      const imageUrl = qs('a.icon', fig).href;
-      const dimSpan = function () {
-          var $$e = document.createElement('span');
-          setStyles($$e, { display: 'block' });
-          var $$f = document.createTextNode('loading\u2026');
-          $$e.appendChild($$f);
-          return $$e;
-      }.call(this);
-      qs('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
-      const imageInfo = await getImageInfo(imageUrl);
-      const infoStringParts = [
-          imageInfo.dimensions ? `${ imageInfo.dimensions.width }×${ imageInfo.dimensions.height }` : '',
-          imageInfo.size !== undefined ? formatFileSize(imageInfo.size) : '',
-          imageInfo.fileType
-      ];
-      const infoString = infoStringParts.filter(Boolean).join(', ');
-      if (infoString) {
-          dimSpan.textContent = infoString;
-      } else {
-          dimSpan.remove();
+    const imageUrl = qs('a.icon', fig).href;
+    const dimSpan = h("span", {
+      style: {
+        display: 'block'
       }
+    }, "loading\u2026");
+    qs('figcaption > a', fig).insertAdjacentElement('afterend', dimSpan);
+    const imageInfo = await getImageInfo(imageUrl);
+    const infoStringParts = [imageInfo.dimensions ? `${imageInfo.dimensions.width}×${imageInfo.dimensions.height}` : '', imageInfo.size !== undefined ? formatFileSize(imageInfo.size) : '', imageInfo.fileType];
+    const infoString = infoStringParts.filter(Boolean).join(', ');
+    if (infoString) {
+      dimSpan.textContent = infoString;
+    } else {
+      dimSpan.remove();
+    }
   }
   const RELEASE_URL_CONSTRUCTORS = {
-      itu: (id, country) => `https://music.apple.com/${ country.toLowerCase() }/album/${ id }`,
-      deez: id => 'https://www.deezer.com/album/' + id,
-      spf: id => 'https://open.spotify.com/album/' + id
+    itu: (id, country) => `https://music.apple.com/${country.toLowerCase()}/album/${id}`,
+    deez: id => 'https://www.deezer.com/album/' + id,
+    spf: id => 'https://open.spotify.com/album/' + id
   };
 
   function seederSupportsURL(seeder, url) {
@@ -3082,243 +2803,198 @@
     }
   }
   function seederFactory(url) {
-    var _SEEDER_DISPATCH_MAP$;
-    return (_SEEDER_DISPATCH_MAP$ = SEEDER_DISPATCH_MAP.get(url.hostname.replace(/^www\./, ''))) === null || _SEEDER_DISPATCH_MAP$ === void 0 ? void 0 : _SEEDER_DISPATCH_MAP$.find(seeder => seederSupportsURL(seeder, url));
+    return SEEDER_DISPATCH_MAP.get(url.hostname.replace(/^www\./, ''))?.find(seeder => seederSupportsURL(seeder, url));
   }
 
   const HarmonySeeder = {
-      supportedDomains: ['harmony.pulsewidth.org.uk'],
-      supportedRegexes: [/\/release\/actions.*release_mbid=([a-f\d-]{36})/],
-      insertSeedLinks() {
-          const originUrl = new URL(document.location.href);
-          const mbid = originUrl.searchParams.get('release_mbid');
-          if (!mbid) {
-              LOGGER.error('Release MBID not found in URL.');
-              return;
-          }
-          addDimensionsToCovers();
-          if (!originUrl.searchParams.has('ts')) {
-              const cacheTimestamp = Math.floor(Date.now() / 1000);
-              originUrl.searchParams.set('ts', cacheTimestamp.toString());
-          }
-          addSeedLinksToCovers(mbid, originUrl.href);
+    supportedDomains: ['harmony.pulsewidth.org.uk'],
+    supportedRegexes: [/\/release\/actions.*release_mbid=([a-f\d-]{36})/],
+    insertSeedLinks() {
+      const originUrl = new URL(document.location.href);
+      const mbid = originUrl.searchParams.get('release_mbid');
+      if (!mbid) {
+        LOGGER.error('Release MBID not found in URL.');
+        return;
       }
+      addDimensionsToCovers();
+      if (!originUrl.searchParams.has('ts')) {
+        const cacheTimestamp = Math.floor(Date.now() / 1000);
+        originUrl.searchParams.set('ts', cacheTimestamp.toString());
+      }
+      addSeedLinksToCovers(mbid, originUrl.href);
+    }
   };
   let providerReleaseUrlMap;
   function addSeedLinksToCovers(mbid, origin) {
-      const covers = qsa('figure.cover-image');
-      if (covers.length === 0) {
-          LOGGER.warn('No cover images found on the page.');
-          return;
-      }
-      providerReleaseUrlMap = Object.fromEntries(qsa('ul.provider-list > li').map(li => [
-          li.dataset.provider,
-          qs('a.provider-id', li).href
-      ]));
-      for (const coverElement of covers) {
-          addSeedLinkToCover(coverElement, mbid, origin);
-      }
+    const covers = qsa('figure.cover-image');
+    if (covers.length === 0) {
+      LOGGER.warn('No cover images found on the page.');
+      return;
+    }
+    providerReleaseUrlMap = Object.fromEntries(qsa('ul.provider-list > li').map(li => [li.dataset.provider, qs('a.provider-id', li).href]));
+    for (const coverElement of covers) {
+      addSeedLinkToCover(coverElement, mbid, origin);
+    }
   }
   function addDimensionsToCovers() {
-      const covers = qsa('figure.cover-image');
-      for (const fig of covers) {
-          addDimensions(fig).catch(logFailure('Failed to insert image information'));
-      }
+    const covers = qsa('figure.cover-image');
+    for (const fig of covers) {
+      addDimensions(fig).catch(logFailure('Failed to insert image information'));
+    }
   }
   function addSeedLinkToCover(coverElement, mbid, origin) {
-      let coverUrl = qs('img', coverElement).src;
-      const providerName = coverElement.dataset.provider;
-      if (providerName) {
-          const releaseUrl = providerReleaseUrlMap[providerName];
-          if (releaseUrl && getProvider(new URL(releaseUrl))) {
-              coverUrl = releaseUrl;
-          }
+    let coverUrl = qs('img', coverElement).src;
+    const providerName = coverElement.dataset.provider;
+    if (providerName) {
+      const releaseUrl = providerReleaseUrlMap[providerName];
+      if (releaseUrl && getProvider(new URL(releaseUrl))) {
+        coverUrl = releaseUrl;
       }
-      const parameters = new SeedParameters([{ url: new URL(coverUrl) }], origin);
-      const seedUrl = parameters.createSeedURL(mbid);
-      const seedLink = function () {
-          var $$a = document.createElement('a');
-          $$a.setAttribute('class', 'label');
-          $$a.setAttribute('href', seedUrl);
-          var $$b = document.createTextNode('+ Add Cover Art');
-          $$a.appendChild($$b);
-          return $$a;
-      }.call(this);
-      qs('figcaption', coverElement).insertAdjacentElement('beforeend', seedLink);
+    }
+    const parameters = new SeedParameters([{
+      url: new URL(coverUrl)
+    }], origin);
+    const seedUrl = parameters.createSeedURL(mbid);
+    const seedLink = h("a", {
+      className: "label",
+      href: seedUrl
+    }, "+ Add Cover Art");
+    qs('figcaption', coverElement).insertAdjacentElement('beforeend', seedLink);
   }
   async function addDimensions(fig) {
-      const imageUrl = qs('img', fig).src;
-      const dimSpan = function () {
-          var $$c = document.createElement('span');
-          $$c.setAttribute('class', 'label');
-          var $$d = document.createTextNode('loading\u2026');
-          $$c.appendChild($$d);
-          return $$c;
-      }.call(this);
-      qs('figcaption', fig).insertAdjacentElement('beforeend', dimSpan);
-      const imageInfo = await getImageInfo(imageUrl);
-      const infoStringParts = [
-          imageInfo.dimensions ? `${ imageInfo.dimensions.width }×${ imageInfo.dimensions.height }` : '',
-          imageInfo.size !== undefined ? formatFileSize(imageInfo.size) : '',
-          imageInfo.fileType
-      ];
-      const infoString = infoStringParts.filter(Boolean).join(', ');
-      if (infoString) {
-          dimSpan.textContent = infoString;
-      } else {
-          dimSpan.remove();
-      }
+    const imageUrl = qs('img', fig).src;
+    const dimSpan = h("span", {
+      className: "label"
+    }, "loading\u2026");
+    qs('figcaption', fig).insertAdjacentElement('beforeend', dimSpan);
+    const imageInfo = await getImageInfo(imageUrl);
+    const infoStringParts = [imageInfo.dimensions ? `${imageInfo.dimensions.width}×${imageInfo.dimensions.height}` : '', imageInfo.size !== undefined ? formatFileSize(imageInfo.size) : '', imageInfo.fileType];
+    const infoString = infoStringParts.filter(Boolean).join(', ');
+    if (infoString) {
+      dimSpan.textContent = infoString;
+    } else {
+      dimSpan.remove();
+    }
   }
 
   const MusicBrainzSeeder = {
-      supportedDomains: [
-          'musicbrainz.org',
-          'beta.musicbrainz.org'
-      ],
-      supportedRegexes: [/release\/[a-f\d-]{36}\/cover-art/],
-      async insertSeedLinks() {
-          var _exec;
-          const mbid = (_exec = /musicbrainz\.org\/release\/([a-f\d-]+)\//.exec(window.location.href)) === null || _exec === void 0 ? void 0 : _exec[1];
-          assertHasValue(mbid);
-          const attachedURLs = await getURLsForRelease(mbid, {
-              excludeEnded: true,
-              excludeDuplicates: true
-          });
-          const buttons = await Promise.all(attachedURLs.map(async url => {
-              const provider = getProvider(url);
-              if (!(provider !== null && provider !== void 0 && provider.allowButtons))
-                  return;
-              const favicon = await provider.favicon;
-              const seedUrl = new SeedParameters([{ url }]).createSeedURL(mbid, window.location.host);
-              return function () {
-                  var $$a = document.createElement('a');
-                  $$a.setAttribute('title', url.href);
-                  $$a.setAttribute('href', seedUrl);
-                  var $$b = document.createElement('img');
-                  $$b.setAttribute('src', favicon);
-                  $$b.setAttribute('alt', provider.name);
-                  $$a.appendChild($$b);
-                  var $$c = document.createElement('span');
-                  $$a.appendChild($$c);
-                  appendChildren($$c, 'Import from ' + provider.name);
-                  return $$a;
-              }.call(this);
-          }));
-          const buttonRow = qs('#content > .buttons');
-          for (const button of filterNonNull(buttons)) {
-              buttonRow.append(button);
-          }
+    supportedDomains: ['musicbrainz.org', 'beta.musicbrainz.org'],
+    supportedRegexes: [/release\/[a-f\d-]{36}\/cover-art/],
+    async insertSeedLinks() {
+      const mbid = /musicbrainz\.org\/release\/([a-f\d-]+)\//.exec(window.location.href)?.[1];
+      assertHasValue(mbid);
+      const attachedURLs = await getURLsForRelease(mbid, {
+        excludeEnded: true,
+        excludeDuplicates: true
+      });
+      const buttons = await Promise.all(attachedURLs.map(async url => {
+        const provider = getProvider(url);
+        if (!provider?.allowButtons) return;
+        const favicon = await provider.favicon;
+        const seedUrl = new SeedParameters([{
+          url
+        }]).createSeedURL(mbid, window.location.host);
+        return h("a", {
+          title: url.href,
+          href: seedUrl
+        }, h("img", {
+          src: favicon,
+          alt: provider.name
+        }), h("span", null, 'Import from ' + provider.name));
+      }));
+      const buttonRow = qs('#content > .buttons');
+      for (const button of filterNonNull(buttons)) {
+        buttonRow.append(button);
       }
+    }
   };
 
   const VGMdbSeeder = {
-      supportedDomains: ['vgmdb.net'],
-      supportedRegexes: [/\/album\/(\d+)(?:\/|#|\?|$)/],
-      async insertSeedLinks() {
-          var _qsMaybe;
-          if (!isLoggedIn()) {
-              return;
-          }
-          const coverHeading = (_qsMaybe = qsMaybe('#covernav')) === null || _qsMaybe === void 0 ? void 0 : _qsMaybe.parentElement;
-          if (!coverHeading) {
-              LOGGER.info('No covers in release, not inserting seeding menu');
-              return;
-          }
-          const releaseIdsProm = getMBReleases();
-          const coversProm = extractCovers();
-          try {
-              const [releaseIds, covers] = await Promise.all([
-                  releaseIdsProm,
-                  coversProm
-              ]);
-              insertSeedButtons(coverHeading, releaseIds, covers);
-          } catch (error) {
-              LOGGER.error('Failed to insert seed links', error);
-          }
+    supportedDomains: ['vgmdb.net'],
+    supportedRegexes: [/\/album\/(\d+)(?:\/|#|\?|$)/],
+    async insertSeedLinks() {
+      if (!isLoggedIn()) {
+        return;
       }
+      const coverHeading = qsMaybe('#covernav')?.parentElement;
+      if (!coverHeading) {
+        LOGGER.info('No covers in release, not inserting seeding menu');
+        return;
+      }
+      const releaseIdsProm = getMBReleases();
+      const coversProm = extractCovers();
+      try {
+        const [releaseIds, covers] = await Promise.all([releaseIdsProm, coversProm]);
+        insertSeedButtons(coverHeading, releaseIds, covers);
+      } catch (error) {
+        LOGGER.error('Failed to insert seed links', error);
+      }
+    }
   };
   function isLoggedIn() {
-      return qsMaybe('#navmember') !== null;
+    return qsMaybe('#navmember') !== null;
   }
   function getMBReleases() {
-      const releaseUrl = 'https://vgmdb.net' + document.location.pathname;
-      return getReleaseIDsForURL(releaseUrl);
+    const releaseUrl = 'https://vgmdb.net' + document.location.pathname;
+    return getReleaseIDsForURL(releaseUrl);
   }
   async function extractCovers() {
-      const covers = await VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery'));
-      const publicCovers = await new VGMdbProvider().findImagesWithApi(new URL(document.location.href));
-      const publicCoverURLs = new Set(publicCovers.map(cover => cover.url.href));
-      const result = {
-          allCovers: covers,
-          privateCovers: covers.filter(cover => !publicCoverURLs.has(cover.url.href))
-      };
-      return result;
+    const covers = await VGMdbProvider.extractCoversFromDOMGallery(qs('#cover_gallery'));
+    const publicCovers = await new VGMdbProvider().findImagesWithApi(new URL(document.location.href));
+    const publicCoverURLs = new Set(publicCovers.map(cover => cover.url.href));
+    const result = {
+      allCovers: covers,
+      privateCovers: covers.filter(cover => !publicCoverURLs.has(cover.url.href))
+    };
+    return result;
   }
   function insertSeedButtons(coverHeading, releaseIds, covers) {
-      var _coverHeading$nextEle;
-      const seedParametersPrivate = new SeedParameters(covers.privateCovers, document.location.href);
-      const seedParametersAll = new SeedParameters(covers.allCovers, document.location.href);
-      const releaseIdToAnchors = new Map(releaseIds.map(releaseId => {
-          const a = function () {
-              var $$a = document.createElement('a');
-              $$a.setAttribute('href', seedParametersPrivate.createSeedURL(releaseId));
-              $$a.setAttribute('target', '_blank');
-              $$a.setAttribute('rel', 'noopener noreferrer');
-              setStyles($$a, { display: 'block' });
-              appendChildren($$a, 'Seed covers to ' + releaseId.split('-')[0]);
-              return $$a;
-          }.call(this);
-          return [
-              releaseId,
-              a
-          ];
-      }));
-      const anchors = [...releaseIdToAnchors.values()];
-      const inclPublicCheckbox = function () {
-          var $$c = document.createElement('input');
-          $$c.setAttribute('type', 'checkbox');
-          $$c.setAttribute('id', 'ROpdebee_incl_public_checkbox');
-          $$c.addEventListener('change', event_ => {
-              for (const [releaseId, a] of releaseIdToAnchors.entries()) {
-                  const seedParameters = event_.currentTarget.checked ? seedParametersAll : seedParametersPrivate;
-                  a.href = seedParameters.createSeedURL(releaseId);
-              }
-          });
-          return $$c;
-      }.call(this);
-      const inclPublicLabel = function () {
-          var $$d = document.createElement('label');
-          $$d.setAttribute('for', 'ROpdebee_incl_public_checkbox');
-          $$d.setAttribute('title', 'Leave this unchecked to only seed covers which cannot be extracted by the VGMdb provider');
-          setStyles($$d, { cursor: 'help' });
-          var $$e = document.createTextNode('Include publicly accessible covers');
-          $$d.appendChild($$e);
-          return $$d;
-      }.call(this);
-      const containedElements = [
-          inclPublicCheckbox,
-          inclPublicLabel,
-          ...anchors
-      ];
-      if (anchors.length === 0) {
-          containedElements.push(function () {
-              var $$f = document.createElement('span');
-              setStyles($$f, { display: 'block' });
-              var $$g = document.createTextNode('This album is not linked to any MusicBrainz releases!');
-              $$f.appendChild($$g);
-              return $$f;
-          }.call(this));
+    const seedParametersPrivate = new SeedParameters(covers.privateCovers, document.location.href);
+    const seedParametersAll = new SeedParameters(covers.allCovers, document.location.href);
+    const releaseIdToAnchors = new Map(releaseIds.map(releaseId => {
+      const a = h("a", {
+        href: seedParametersPrivate.createSeedURL(releaseId),
+        target: "_blank",
+        rel: "noopener noreferrer",
+        style: {
+          display: 'block'
+        }
+      }, 'Seed covers to ' + releaseId.split('-')[0]);
+      return [releaseId, a];
+    }));
+    const anchors = [...releaseIdToAnchors.values()];
+    const inclPublicCheckbox = h("input", {
+      type: "checkbox",
+      id: "ROpdebee_incl_public_checkbox",
+      onChange: event_ => {
+        for (const [releaseId, a] of releaseIdToAnchors.entries()) {
+          const seedParameters = event_.currentTarget.checked ? seedParametersAll : seedParametersPrivate;
+          a.href = seedParameters.createSeedURL(releaseId);
+        }
       }
-      const container = function () {
-          var $$h = document.createElement('div');
-          setStyles($$h, {
-              padding: '8px 8px 0px 8px',
-              fontSize: '8pt'
-          });
-          appendChildren($$h, containedElements);
-          return $$h;
-      }.call(this);
-      (_coverHeading$nextEle = coverHeading.nextElementSibling) === null || _coverHeading$nextEle === void 0 || _coverHeading$nextEle.insertAdjacentElement('afterbegin', container);
+    });
+    const inclPublicLabel = h("label", {
+      htmlFor: "ROpdebee_incl_public_checkbox",
+      title: "Leave this unchecked to only seed covers which cannot be extracted by the VGMdb provider",
+      style: {
+        cursor: 'help'
+      }
+    }, "Include publicly accessible covers");
+    const containedElements = [inclPublicCheckbox, inclPublicLabel, ...anchors];
+    if (anchors.length === 0) {
+      containedElements.push(h("span", {
+        style: {
+          display: 'block'
+        }
+      }, "This album is not linked to any MusicBrainz releases!"));
+    }
+    const container = h("div", {
+      style: {
+        padding: '8px 8px 0px 8px',
+        fontSize: '8pt'
+      }
+    }, containedElements);
+    coverHeading.nextElementSibling?.insertAdjacentElement('afterbegin', container);
   }
 
   registerSeeder(AtisketSeeder);

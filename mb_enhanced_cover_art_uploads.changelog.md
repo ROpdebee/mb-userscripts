@@ -1,3 +1,4 @@
+- **2026.2.19.3**: Internal changes: miscellaneous modernisation ([#873](https://github.com/ROpdebee/mb-userscripts/pull/873))
 - **2026.2.19.2**: Bug fix: upstream provider fixes ([#872](https://github.com/ROpdebee/mb-userscripts/pull/872))
 - **2026.2.19**: New feature: search multiple Tidal countries for release (needs to be enabled in config) ([#871](https://github.com/ROpdebee/mb-userscripts/pull/871))
 - **2026.2.18**: New feature: prefetch cover art metadata ([#868](https://github.com/ROpdebee/mb-userscripts/pull/868))
