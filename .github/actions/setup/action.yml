@@ -5,7 +5,7 @@ inputs:
   node-version:
     description: Node version to install, defaults to v23
     required: false
-    default: "23"
+    default: "24"
 runs:
   using: composite
   steps:
