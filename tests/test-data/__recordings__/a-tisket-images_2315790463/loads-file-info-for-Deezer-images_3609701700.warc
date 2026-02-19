@@ -1,8 +1,8 @@
 WARC/1.1
 WARC-Filename: a-tisket images/loads file info for Deezer images
-WARC-Date: 2025-05-06T15:11:04.603Z
+WARC-Date: 2026-02-19T08:27:55.550Z
 WARC-Type: warcinfo
-WARC-Record-ID: <urn:uuid:181e7484-5ea1-4f1f-a35c-638d3a0bea03>
+WARC-Record-ID: <urn:uuid:e745f795-7e4d-413a-9e22-233390e846c8>
 Content-Type: application/warc-fields
 Content-Length: 119
 
@@ -12,11 +12,11 @@ harCreator: {"name":"Polly.JS","version":"6.0.6","comment":"persister:fs-warc"}
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f3a8dd72-c228-4533-8b86-218fb4eefc5a>
+WARC-Concurrent-To: <urn:uuid:5ca3c0eb-010e-46bf-a4b7-94813ab9a7c0>
 WARC-Target-URI: https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg
-WARC-Date: 2025-05-06T15:11:04.604Z
+WARC-Date: 2026-02-19T08:27:55.550Z
 WARC-Type: request
-WARC-Record-ID: <urn:uuid:8637e567-5d32-418f-84f4-4119ec665917>
+WARC-Record-ID: <urn:uuid:b3e20ad8-9bae-4c35-bb56-f3a9077bc823>
 Content-Type: application/http; msgtype=request
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 WARC-Block-Digest: sha256:457216300c0deb4b1eedd78c7ef7bddc78beb20d9fba61d61db372ac553fc231
@@ -27,57 +27,59 @@ HEAD /images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg HT
 
 
 WARC/1.1
-WARC-Concurrent-To: <urn:uuid:f3a8dd72-c228-4533-8b86-218fb4eefc5a>
+WARC-Concurrent-To: <urn:uuid:5ca3c0eb-010e-46bf-a4b7-94813ab9a7c0>
 WARC-Target-URI: https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg
-WARC-Date: 2025-05-06T15:11:04.604Z
+WARC-Date: 2026-02-19T08:27:55.551Z
 WARC-Type: metadata
-WARC-Record-ID: <urn:uuid:2d0328d9-9c71-4a28-baee-d481422a70b4>
+WARC-Record-ID: <urn:uuid:38200488-dcbe-4598-928a-eb25d282384d>
 Content-Type: application/warc-fields
-WARC-Payload-Digest: sha256:f6901bc8c2be1d219e9db00bea100faa599d9941c42ed127b904df34465e01ce
-WARC-Block-Digest: sha256:f6901bc8c2be1d219e9db00bea100faa599d9941c42ed127b904df34465e01ce
+WARC-Payload-Digest: sha256:ddc3faf2aca9e4a4d1a608bee60be9bac6da173708b60cb291eb7fc1e71fd931
+WARC-Block-Digest: sha256:ddc3faf2aca9e4a4d1a608bee60be9bac6da173708b60cb291eb7fc1e71fd931
 Content-Length: 349
 
 harEntryId: e2999d54c7a0124f04f7b51ff2b16768
 harEntryOrder: 0
 cache: {}
-startedDateTime: 2025-05-06T15:11:04.056Z
-time: 544
-timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":544,"receive":0,"ssl":-1}
+startedDateTime: 2026-02-19T08:27:55.196Z
+time: 352
+timings: {"blocked":-1,"dns":-1,"connect":-1,"send":0,"wait":352,"receive":0,"ssl":-1}
 warcRequestHeadersSize: 123
 warcRequestCookies: []
-warcResponseHeadersSize: 741
+warcResponseHeadersSize: 834
 warcResponseCookies: []
 responseDecoded: false
 
 
 WARC/1.1
 WARC-Target-URI: https://e-cdns-images.dzcdn.net/images/cover/2d8c720d7fee9506e40c5f16760c3640/1200x0-000000-100-0-0.jpg
-WARC-Date: 2025-05-06T15:11:04.603Z
+WARC-Date: 2026-02-19T08:27:55.550Z
 WARC-Type: response
-WARC-Record-ID: <urn:uuid:f3a8dd72-c228-4533-8b86-218fb4eefc5a>
+WARC-Record-ID: <urn:uuid:5ca3c0eb-010e-46bf-a4b7-94813ab9a7c0>
 Content-Type: application/http; msgtype=response
 WARC-Payload-Digest: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-WARC-Block-Digest: sha256:95851fe10e27d965b9e307922921539507036345fbee37fd4404899293e81aad
-Content-Length: 758
+WARC-Block-Digest: sha256:1b6971680f39d2f270eb0568afd1008f1afef6f08759bcc80f21d0789ab628ad
+Content-Length: 851
 
 HTTP/1.1 200 OK
+accept-ranges: bytes
 access-control-allow-origin: *
-access-control-expose-headers: x-deezer-client-ip,Akamai-Request-BC
-cache-control: public
+access-control-expose-headers: x-deezer-client-ip, content-length, content-range
+age: 1062231
+cache-control: public, max-age=12960000
 connection: keep-alive
-content-length: 45776
+content-length: 64653
 content-type: image/jpeg
-date: Tue, 06 May 2025 15:11:04 GMT
-expires: Wed, 11 Jun 2025 09:28:17 GMT
-last-modified: Tue, 07 Nov 2023 17:30:59 GMT
-p3p: policyref="/w3c/p3p.xml" CP="IDC DSP COR CURa ADMa OUR IND PHY ONL COM STA"
-pragma: 
-server: Apache
-strict-transport-security: max-age=31536000; includeSubDomains
-x-deezer-cache: MISS
+date: Thu, 19 Feb 2026 08:27:55 GMT
+edge-cache-tag: cover-d41d8cd98f00b204e9800998ecf8427e
+last-modified: Wed, 14 Jan 2026 20:48:10 GMT
+server: Google Frontend
+via: 1.1 google, 1.1 varnish, 1.1 varnish
+x-cache: HIT, HIT
+x-cache-hits: 6, 0
+x-cloud-trace-context: 69e9dd63ad9f5530f4b9932d8e55daa9
 x-deezer-client-ip: 89.248.160.168
-x-host: blm-static-01
-x-md5: d41d8cd98f00b204e9800998ecf8427e
+x-served-by: cache-par-lfpg1960049-PAR, cache-fra-etou8220040-FRA
+x-timer: S1771489676.560293,VS0,VE1
 x-pollyjs-finalurl: https://e-cdns-images.dzcdn.net/images/cover/d41d8cd98f00b204e9800998ecf8427e/1200x0-000000-100-0-0.jpg
 
 
