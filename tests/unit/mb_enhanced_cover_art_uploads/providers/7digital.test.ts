@@ -76,3 +76,5 @@ describe('7digital provider', () => {
         });
     });
 });
+
+// 2026-02: Test cases hit a Fastly captcha but manually confirmed working.

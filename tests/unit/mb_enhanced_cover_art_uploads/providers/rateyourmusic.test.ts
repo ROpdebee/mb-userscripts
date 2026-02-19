@@ -79,3 +79,5 @@ describe('rateyourmusic provider', () => {
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });
+
+// 2026-02: RYM not reachable, unknown if working.

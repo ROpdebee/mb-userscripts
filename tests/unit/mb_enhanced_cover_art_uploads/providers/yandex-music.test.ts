@@ -48,3 +48,5 @@ describe('yandex music provider', () => {
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });
+
+// 2026-02: Geoblocked, not sure if it still works.
