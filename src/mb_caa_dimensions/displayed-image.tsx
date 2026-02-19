@@ -146,7 +146,7 @@ export class CoverArtTabCAAImage extends DisplayedCAAImage {
         const container = imageElement.closest('div.artwork-cont');
         assertNonNull(container);
         const anchors = qsa<HTMLAnchorElement>('p.small > a', container);
-        const fullSizeUrl = anchors[anchors.length - 1].href;
+        const fullSizeUrl = anchors.at(-1)!.href;
         super(imageElement, new CAAImage(fullSizeUrl, cache));
         this.anchors = anchors;
     }

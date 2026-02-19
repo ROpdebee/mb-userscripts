@@ -121,10 +121,11 @@ export async function reportPreview({ github, context }) {
         .map((comment) => comment.id);
 
     if (existingBotCommentIds.length > 0) {
-        const commentId = existingBotCommentIds[existingBotCommentIds.length - 1];
+        const commentId = existingBotCommentIds.at(-1);
         await github.rest.issues.updateComment({
             owner: context.repo.owner,
             repo: context.repo.repo,
+            // @ts-expect-error -- False positive, array is not empty.
             comment_id: commentId,
             body: content,
         });
