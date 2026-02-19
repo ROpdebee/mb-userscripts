@@ -1,6 +1,6 @@
+import { defineConfig } from 'eslint/config';
 import eslintJson from 'eslint-plugin-json';
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
 
 import arrays from './configs/eslint/arrays.js';
 import browser from './configs/eslint/browser.js';
@@ -25,7 +25,7 @@ const browserGlobals = {
     ...globals.es2021,
 };
 
-/** @type {import('typescript-eslint').ConfigWithExtends} */
+/** @type {import('@eslint/config-helpers').ConfigWithExtends} */
 const baseEslintConfig = {
     languageOptions: {
         parserOptions: {
@@ -52,7 +52,7 @@ const baseEslintConfig = {
 const JAVASCRIPT_EXTENSIONS = ['ts', 'js', 'cjs', 'mjs', 'tsx', 'jsx'];
 const JAVASCRIPT_EXTENSIONS_PATTERN = `{${JAVASCRIPT_EXTENSIONS.join(',')}}`;
 
-export default tseslint.config({
+export default defineConfig({
     ignores: [
         './dist/**',
         './coverage/*',

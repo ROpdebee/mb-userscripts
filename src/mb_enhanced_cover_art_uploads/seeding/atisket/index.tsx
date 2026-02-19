@@ -23,7 +23,7 @@ export const AtisketSeeder: Seeder = {
         }
 
         const mbids = alreadyInMBItems
-            .map((alreadyInMB) => encodeURIComponent(qs<HTMLAnchorElement>('a.mb', alreadyInMB).textContent?.trim() ?? ''))
+            .map((alreadyInMB) => encodeURIComponent(qs<HTMLAnchorElement>('a.mb', alreadyInMB).textContent.trim()))
             .filter(Boolean);
 
         // Try to use the cached link as the origin instead of the page URL itself,

@@ -136,6 +136,7 @@ function createOtherDB(version = 1, options?: OpenDBCallbacks<unknown>): Promise
 
 describe('database migrations', () => {
     describe('blocked upgrades', () => {
+        // eslint-disable-next-line jest/prefer-ending-with-an-expect
         it('falls back on no cache if blocked by an open DB that will not close', async () => {
             const oldDB = await createOtherDB();
             const cache = await createCache();

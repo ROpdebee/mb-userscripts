@@ -12,6 +12,7 @@ describe('console logging sink', () => {
     const allLevels: LogLevel[] = ['debug', 'log', 'info', 'warn', 'error'];
     const levelsWithExceptions: LogLevel[] = ['error', 'warn'];
 
+    // eslint-disable-next-line jest/prefer-ending-with-an-expect
     it.each(allLevels)('uses console.%s', (levelName) => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         const consoleMethod = jest.spyOn(console, levelName).mockImplementationOnce(() => {});

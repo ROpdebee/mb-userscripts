@@ -34,7 +34,7 @@ export class FreeMusicArchiveProvider extends CoverArtProvider {
     // Check and warn about track pages that are part of a larger album rather
     // than standalone.
     private checkStandaloneTracks(responseDocument: Document): void {
-        if (qsMaybe('h1 span', responseDocument)?.textContent?.trim() !== 'Track') {
+        if (qsMaybe('h1 span', responseDocument)?.textContent.trim() !== 'Track') {
             // Not a track page.
             return;
         }

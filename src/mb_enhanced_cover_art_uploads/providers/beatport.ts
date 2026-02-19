@@ -25,7 +25,7 @@ export class BeatportProvider extends CoverArtProvider {
 
     public async findImages(url: URL): Promise<CoverArt[]> {
         const responseDocument = parseDOM(await this.fetchPage(url), url.href);
-        const releaseDataText = qs<HTMLScriptElement>('script#__NEXT_DATA__', responseDocument).textContent!;
+        const releaseDataText = qs<HTMLScriptElement>('script#__NEXT_DATA__', responseDocument).textContent;
         const releaseData = safeParseJSON<HydratedData>(releaseDataText, 'Failed to parse Beatport release data');
         const cover = releaseData.props.pageProps.release.image;
 

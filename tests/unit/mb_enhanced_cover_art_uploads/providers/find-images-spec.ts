@@ -37,6 +37,7 @@ export const findImagesSpec = ({ provider, extractionCases, extractionFailedCase
     });
 
     if (extractionCases.length > 0) {
+        // eslint-disable-next-line jest/prefer-ending-with-an-expect
         it.each(extractionCases)('extracts covers for $description', async (extractionCase) => {
             const covers = await provider.findImages(new URL(extractionCase.url));
 

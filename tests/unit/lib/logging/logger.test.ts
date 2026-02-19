@@ -88,6 +88,7 @@ describe('logger', () => {
             }
         });
 
+        // eslint-disable-next-line jest/prefer-ending-with-an-expect
         it.each(loggerMethodNames)('calls the %s handler', (level) => {
             logger[level]('test message');
             const handlerName = loggerToHandlerNames[level];
@@ -145,6 +146,7 @@ describe('logger', () => {
             }
         });
 
+        // eslint-disable-next-line jest/prefer-ending-with-an-expect
         it.each(loggerMethodNames)('calls %s handlers of all sinks if multiple are attached', (level) => {
             logger[level]('test message');
             const handlerName = loggerToHandlerNames[level];
