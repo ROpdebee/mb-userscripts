@@ -9,9 +9,10 @@ import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import virtual from '@rollup/plugin-virtual';
-import postcssPresetEnv from 'postcss-preset-env';
+import browserslist from 'browserslist';
+import { browserslistToTargets, transform as cssTransform } from 'lightningcss';
 import { rollup } from 'rollup';
-import postcss from 'rollup-plugin-postcss';
+import sass from 'rollup-plugin-sass';
 import { minify } from 'terser';
 
 import { parseChangelogEntries } from './changelog';
@@ -108,6 +109,8 @@ async function buildUserscriptPassOne(userscriptDirectory: string, userscriptMet
             `${userscriptDirectory}.changelog.md`,
         );
 
+    const browsers = browserslist();
+
     const plugins = [
         updateNotifications({
             include: inputPath,
@@ -150,14 +153,14 @@ async function buildUserscriptPassOne(userscriptDirectory: string, userscriptMet
             include: '**/*.tsx',
         }),
         // To bundle and import CSS/SCSS etc
-        postcss({
-            inject: false,
-            minimize: true,
-            plugins: [
-                // Transpile CSS for older browsers
-                postcssPresetEnv,
-            ],
-            extensions: ['.css', '.scss', '.sass'],
+        sass({
+            api: 'modern',
+            processor: (css, id) => cssTransform({
+                filename: `${id}.css`,
+                code: Buffer.from(css),
+                minify: true,
+                targets: browserslistToTargets(browsers),
+            }).code.toString(),
         }),
     ];
 
