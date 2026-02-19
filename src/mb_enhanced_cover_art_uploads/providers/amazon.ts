@@ -34,7 +34,7 @@ const VARIANT_TYPE_MAPPING: Record<string, ArtworkTypeIDs | undefined> = {
 };
 
 // CSS queries to figure out which type of page we're on
-const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]'; // Dynamically loaded Amazon Music digital pages.
+const MUSIC_DIGITAL_PAGE_QUERY = 'img.logo[src*="amazon_music_"]'; // Dynamically loaded Amazon Music digital pages, searches for the Amazon Music logo.
 
 export class AmazonProvider extends CoverArtProvider {
     public readonly supportedDomains = [
