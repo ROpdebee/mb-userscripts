@@ -1,5 +1,4 @@
-// CommonJS module since we're using it in Jest to transpile TypeScript,
-// ESM -> CJS, and add rewire support to the modules.
+// CommonJS module since we're using it in Jest to transpile TypeScript and ESM -> CJS
 const testConfig = {
     plugins: [
         '@babel/plugin-transform-typescript',
