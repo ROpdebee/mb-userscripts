@@ -48,7 +48,6 @@
     "@types/babel__core": "7.20.5",
     "@types/confusing-browser-globals": "1.0.3",
     "@types/conventional-commits-parser": "5.0.2",
-    "@types/glob": "8.1.0",
     "@types/greasemonkey": "4.0.7",
     "@types/jest": "30.0.0",
     "@types/jest-when": "3.5.5",
