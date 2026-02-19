@@ -1,3 +1,4 @@
+- **2026.2.19**: New feature: gray out thumbnail sizes that are unavailable ([#870](https://github.com/ROpdebee/mb-userscripts/pull/870))
 - **2025.10.3**: Bug fix: Use multiplication sign instead of letter x ([#849](https://github.com/ROpdebee/mb-userscripts/pull/849))
 - **2025.5.11**: Internal changes: lock file maintenance ([#838](https://github.com/ROpdebee/mb-userscripts/pull/838))
 - **2025.5.6**: Bug fix: extract RateYourMusic covers again ([#815](https://github.com/ROpdebee/mb-userscripts/pull/815))
