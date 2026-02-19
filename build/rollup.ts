@@ -17,8 +17,8 @@ import { minify } from 'terser';
 
 import { parseChangelogEntries } from './changelog';
 import { consts } from './plugin-consts';
+import { injectJsxRenderer } from './plugin-inject-jsx-renderer';
 import { logger } from './plugin-logger';
-import { nativejsx } from './plugin-nativejsx';
 import { updateNotifications } from './plugin-update-notifications';
 import { MetadataGenerator, userscript } from './plugin-userscript';
 
@@ -139,18 +139,9 @@ async function buildUserscriptPassOne(userscriptDirectory: string, userscriptMet
         commonjs(),
         // Transpilation
         babel(BABEL_OPTIONS),
-        // NativeJSX transformations. Must be run after babel to remove
-        // TypeScript syntax. Using NativeJSX instead of builtin babel
-        // transpilation with custom createElement pragmas because NativeJSX
-        // produces more natural code. However, it doesn't support all JSX
-        // features yet.
-        nativejsx({
-            prototypes: 'module',
-            acorn: {
-                ecmaVersion: 'latest',
-                sourceType: 'module',
-            },
-            include: '**/*.tsx',
+        // Inject the JSX helpers. Needs to happen after Babel transpiles JSX.
+        injectJsxRenderer({
+            include: ['**/*.tsx', '**/*.jsx'],
         }),
         // To bundle and import CSS/SCSS etc
         sass({

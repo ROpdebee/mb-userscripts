@@ -38,7 +38,7 @@ export function maybeDisplayNewFeatures(): void {
 function showFeatureNotification(scriptName: string, newVersion: string, newFeatures: string[]): void {
     insertStylesheet(bannerStyle, 'ROpdebee_Update_Banner');
 
-    const banner = (
+    const banner: HTMLElement = (
         <div className="banner warning-header">
             <p>
                 {`${scriptName} was updated to v${newVersion}! `}

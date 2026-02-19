@@ -6,6 +6,6 @@
         { "path": "../mb_caa_dimensions/" }
     ],
     "compilerOptions": {
-        "types": ["nativejsx/types/jsx", "greasemonkey"]
+        "types": ["dom-chef", "greasemonkey"]
     }
 }

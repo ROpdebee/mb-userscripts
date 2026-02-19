@@ -23,7 +23,7 @@
         // included.
         "checkJs": true,
 
-        // JSX will be transpiled with nativejsx.
+        // JSX will be transpiled with dom-chef.
         "jsx": "preserve",
 
         // We use ES modules, but run certain scripts in node.

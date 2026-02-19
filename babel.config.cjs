@@ -23,6 +23,11 @@ const productionConfig = {
             regenerator: true,
             helpers: false,
         }],
+        ['@babel/plugin-transform-react-jsx', {
+            pragma: 'h',
+            pragmaFrag: 'Fragment',
+        }],
+
     ],
     sourceType: 'unambiguous',
     comments: false,

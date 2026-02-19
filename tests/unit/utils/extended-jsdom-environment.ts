@@ -14,9 +14,7 @@ export default class ExtendedJSDOMEnvironment extends JSDOMEnvironment {
 
     private patchTextEncoder(): void {
         // JSDom removes TextEncoder and TextDecoder from the node global env, restore them
-        // @ts-expect-error: Some incompatibilities between node and web.
         this.global.TextDecoder = TextDecoder;
-        // @ts-expect-error: Some incompatibilities between node and web.
         this.global.TextEncoder = TextEncoder;
     }
 
