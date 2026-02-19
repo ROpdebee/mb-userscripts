@@ -12,7 +12,7 @@ import type { FileInfo } from './image-info';
 // Don't cache metadata across page loads, as it might change.
 const fetchIAMetadata = memoize((itemId: string) => pRetry(() => getItemMetadata(itemId), {
     retries: 5,
-    onFailedAttempt: /* istanbul ignore next: Difficult to cover */ (error) => {
+    onFailedAttempt: /* istanbul ignore next: Difficult to cover */ ({ error }) => {
         LOGGER.warn(`Failed to retrieve IA metadata: ${error.cause}. Retrying…`);
     },
 }));
