@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MB: Enhanced Cover Art Uploads
 // @description  Enhance the cover art uploader! Upload directly from a URL, automatically import covers from Discogs/Spotify/Apple Music/..., automatically retrieve the largest version, and more!
-// @version      2026.2.19
+// @version      2026.2.19.2
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
 // @namespace    https://github.com/ROpdebee/mb-userscripts
@@ -390,7 +390,7 @@
     BACK: ArtworkTypeIDs.Back,
     SIDE: ArtworkTypeIDs.Spine
   };
-  const MUSIC_DIGITAL_PAGE_QUERY = '#nav-global-location-data-modal-action[data-a-modal*="dmusicRetailMp3Player"]';
+  const MUSIC_DIGITAL_PAGE_QUERY = 'img.logo[src*="amazon_music_"]';
   class AmazonProvider extends CoverArtProvider {
     constructor() {
       super(...arguments);
@@ -1792,6 +1792,7 @@
       assert(pageType === 'MUSIC_PAGE_TYPE_ALBUM', `Expected an album, got ${pageTypeReadable} instead`);
     }
     extractImages(pageInfo) {
+      assert(pageInfo.data.background !== undefined, 'Failed to extract page information, non-existent release?');
       const thumbnails = pageInfo.data.background.musicThumbnailRenderer.thumbnail.thumbnails;
       const thumbnailUrl = thumbnails[thumbnails.length - 1].url;
       return [{
