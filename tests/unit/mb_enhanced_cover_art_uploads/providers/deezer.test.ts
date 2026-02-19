@@ -61,3 +61,6 @@ describe('deezer provider', () => {
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });
+
+// 2026-02: Release with placeholder image is 404, but the placeholder image still has the same hash
+//          as evidenced by the Deezer image in `dimensions.test.ts`.

@@ -55,3 +55,5 @@ describe('traxsource provider', () => {
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });
+
+// 2026-02: Test case bumps into a 502 error but confirmed working in the built scripts.

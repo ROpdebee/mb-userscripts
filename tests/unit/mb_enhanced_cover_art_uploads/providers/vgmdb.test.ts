@@ -271,3 +271,6 @@ describe('vgmdb provider', () => {
         });
     });
 });
+
+// 2026-02: Test cases failing due to Cloudflare captcha, cannot check manually as VGMdb just goes into a captcha loop.
+//          Seems like the site might be misconfigured?

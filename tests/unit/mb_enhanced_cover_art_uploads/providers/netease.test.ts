@@ -58,3 +58,5 @@ describe('netease provider', () => {
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });
+
+// 2026-02: Album information now seems authwalled.

@@ -133,3 +133,5 @@ describe('discogs provider', () => {
         });
     });
 });
+
+// 2026-02: findImages test cases fail due to Cloudflare captcha, but verified manually.

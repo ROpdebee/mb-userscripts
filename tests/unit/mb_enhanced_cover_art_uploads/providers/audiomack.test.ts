@@ -61,3 +61,6 @@ describe('audiomack provider', () => {
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });
+
+// 2026-02: Audiomack is broken, now returns WebP images. Old URLs still work but also served as WebP,
+//          but page displays new URLs with seemingly no way to get the old ones.

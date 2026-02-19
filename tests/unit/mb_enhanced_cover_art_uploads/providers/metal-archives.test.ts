@@ -56,3 +56,5 @@ describe('metal archives provider', () => {
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });
+
+// 2026-02: Test cases run into a Cloudflare page but manually confirmed working.

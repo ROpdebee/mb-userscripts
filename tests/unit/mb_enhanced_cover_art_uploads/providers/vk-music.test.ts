@@ -53,3 +53,5 @@ describe('vk music provider', () => {
         itBehavesLike(findImagesSpec, { provider, extractionCases, extractionFailedCases });
     });
 });
+
+// 2026-02: Authwalled.
