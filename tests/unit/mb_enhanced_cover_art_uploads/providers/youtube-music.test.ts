@@ -70,7 +70,7 @@ describe('youtube music provider', () => {
             description: 'non-existent playlist URL',
             // Slightly adapted from real URL
             url: 'https://music.youtube.com/playlist?list=OLAK5uy_NQz7CSR5A1-ZX_IrI1pbocN9LT051QEi4',
-            errorMessage: 'Failed to extract page information, non-existent release?',
+            errorMessage: 'Expected an album, got playlist instead',
         }, {
             description: 'non-existent browse URL',
             // Slightly adapted from real URL
