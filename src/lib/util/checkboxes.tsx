@@ -7,7 +7,7 @@
  * @param      {EventListener}                         changedCb  Callback to be called when checked status changes.
  * @return     {[HTMLInputElement, HTMLLabelElement]}  Checkbox and its label.
  */
-export function createPersistentCheckbox(id: string, label: string, changedCallback: EventListener): [HTMLInputElement, HTMLLabelElement] {
+export function createPersistentCheckbox(id: string, label: string, changedCallback: (event: React.ChangeEvent<HTMLInputElement>) => void): [HTMLInputElement, HTMLLabelElement] {
     const checkbox = (
         <input
             type="checkbox"
@@ -21,13 +21,13 @@ export function createPersistentCheckbox(id: string, label: string, changedCallb
                 changedCallback(event_);
             }}
             defaultChecked={!!localStorage.getItem(id)}
-        />) as HTMLInputElement;
+        />) as HTMLElement as HTMLInputElement;
 
     const labelElement = (
         <label htmlFor={id}>
             {label}
         </label>
-    ) as HTMLLabelElement;
+    ) as HTMLElement as HTMLLabelElement;
 
     return [checkbox, labelElement];
 }

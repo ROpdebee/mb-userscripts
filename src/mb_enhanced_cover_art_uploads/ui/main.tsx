@@ -16,7 +16,7 @@ import css from './main.scss';
 
 const INPUT_PLACEHOLDER_TEXT = 'or paste one or more URLs here';
 
-type ProviderButtonHandle = ProviderHandle & { button: HTMLButtonElement };
+type ProviderButtonHandle = ProviderHandle & { button: HTMLElement };
 
 class ProgressElement {
     private readonly urlSpan: HTMLSpanElement;
@@ -25,12 +25,10 @@ class ProgressElement {
 
     public constructor(url: URL) {
         this.urlSpan = <span>{url.href}</span>;
-        // Need to insert a nbsp, otherwise it'll have a height of 0. For some
-        // reason just adding &nbsp; doesn't work (NativeJSX removing it?), but
-        // this does.
+        // Need to insert a nbsp, otherwise it'll have a height of 0.
         this.progressbar = (
             <div className="ui-progressbar-value ui-widget-header ui-corner-left" style={{ backgroundColor: '#cce5ff', width: '0%' }}>
-                {'\u00A0'}
+                &nbsp;
             </div>
         );
 
@@ -95,7 +93,8 @@ function createCheckbox(property: ConfigProperty<boolean>): HTMLElement {
         <input
             type="checkbox"
             id={propertyId}
-        />) as HTMLInputElement;
+        />
+    ) as HTMLElement as HTMLInputElement;
 
     // The property getter is async, so we need to do some trickery to get the
     // default value. Event listener should be registered AFTERWARDS so that
@@ -171,15 +170,15 @@ function providerInfoToString(infos: ImageInfo[]): string {
 }
 export class InputForm implements CoverArtDownloaderHooks {
     private readonly urlInput: HTMLInputElement;
-    private readonly buttonContainer: HTMLDivElement;
-    private readonly buttonList: HTMLDivElement;
-    private readonly loadProviderInfoButton: HTMLButtonElement;
-    private readonly orSpan: HTMLSpanElement;
+    private readonly buttonContainer: HTMLElement;
+    private readonly buttonList: HTMLElement;
+    private readonly loadProviderInfoButton: HTMLElement;
+    private readonly orSpan: HTMLElement;
 
     private readonly providers: ProviderButtonHandle[] = [];
 
-    private readonly fakeSubmitButton: HTMLButtonElement;
-    private readonly realSubmitButton: HTMLButtonElement;
+    private readonly fakeSubmitButton: HTMLElement;
+    private readonly realSubmitButton: HTMLElement;
 
     private readonly progressElements = new Map<number, ProgressElement>();
 
@@ -196,11 +195,6 @@ export class InputForm implements CoverArtDownloaderHooks {
                 id="ROpdebee_paste_url"
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onPaste={async (event_): Promise<void> => {
-                    if (!event_.clipboardData) {
-                        LOGGER.warn('No clipboard data?');
-                        return;
-                    }
-
                     // Get both HTML and plain text. If the user pastes just plain
                     // text, HTML will be empty.
                     const htmlText = event_.clipboardData.getData('text/html');
@@ -236,7 +230,8 @@ export class InputForm implements CoverArtDownloaderHooks {
                         this.urlInput.placeholder = INPUT_PLACEHOLDER_TEXT;
                     }
                 }}
-            />) as HTMLInputElement;
+            />
+        ) as HTMLElement as HTMLInputElement;
 
         // Container element for the URL input and additional information
         const container = (
@@ -253,7 +248,7 @@ export class InputForm implements CoverArtDownloaderHooks {
             </div>
         );
 
-        this.buttonList = <div className="buttons" /> as HTMLDivElement;
+        this.buttonList = <div className="buttons" />;
         this.loadProviderInfoButton = (
             <button
                 id="load-info"
@@ -264,18 +259,15 @@ export class InputForm implements CoverArtDownloaderHooks {
             >
                 Load cover art info…
             </button>
-        ) as HTMLButtonElement;
+        );
 
         this.buttonContainer = (
             <div className="ROpdebee_import_url_buttons" style={{ display: 'none' }}>
                 {this.buttonList}
                 {this.loadProviderInfoButton}
             </div>
-        ) as HTMLDivElement;
+        );
 
-        // If we inline this into the function call below, nativejsx crashes.
-        // It might have something to do with the optional chaining on the
-        // function calls.
         this.orSpan = <span style={{ display: 'none' }}>or</span>;
 
         qs('#drop-zone')
@@ -287,7 +279,8 @@ export class InputForm implements CoverArtDownloaderHooks {
         this.fakeSubmitButton = (
             <button type="button" className="submit positive" disabled={true} hidden={true}>
                 Enter edit
-            </button>) as HTMLButtonElement;
+            </button>
+        );
         qs('form > .buttons').append(this.fakeSubmitButton);
     }
 
@@ -307,7 +300,7 @@ export class InputForm implements CoverArtDownloaderHooks {
                 <span className="provider-title">{'Import from ' + provider.name}</span>
                 <span className="provider-metadata hidden content-loading"></span>
             </button>
-        ) as HTMLButtonElement;
+        );
 
         const buttonHandle = { ...handle, button };
         this.providers.push(buttonHandle);

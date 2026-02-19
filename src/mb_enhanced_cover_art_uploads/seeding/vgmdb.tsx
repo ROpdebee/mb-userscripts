@@ -82,7 +82,8 @@ function insertSeedButtons(coverHeading: Element, releaseIds: string[], covers: 
                 style={{ display: 'block' }}
             >
                 {'Seed covers to ' + releaseId.split('-')[0]}
-            </a>) as HTMLAnchorElement;
+            </a>
+        ) as HTMLElement as HTMLAnchorElement;
         return [releaseId, a];
     }));
     const anchors = [...releaseIdToAnchors.values()];

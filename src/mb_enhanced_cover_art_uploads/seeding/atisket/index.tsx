@@ -121,7 +121,7 @@ function addSeedLinkToCover(fig: HTMLElement, mbids: string[], origin: string): 
 
 async function addDimensions(fig: HTMLElement): Promise<void> {
     const imageUrl = qs<HTMLAnchorElement>('a.icon', fig).href;
-    const dimSpan = (
+    const dimSpan: HTMLSpanElement = (
         <span style={{ display: 'block' }}>
             loading…
         </span>
