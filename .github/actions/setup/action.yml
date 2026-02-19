@@ -10,7 +10,7 @@ runs:
   using: composite
   steps:
     - name: Set up node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ inputs.node-version }}
 
@@ -42,7 +42,7 @@ runs:
       shell: bash
 
     - name: Cache npm package downloads
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: "~/.npm"
         key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ steps.curr-date.outputs.date }}-${{ hashFiles('package-lock.json') }}
@@ -61,7 +61,7 @@ runs:
     # package-lock.json.
     - name: Cache node_modules
       id: cache-node-modules
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ./node_modules
         key: modules-${{ runner.os }}-node-${{ steps.node-version.outputs.node-version }}-${{ steps.curr-date.outputs.date }}-${{ hashFiles('package-lock.json') }}

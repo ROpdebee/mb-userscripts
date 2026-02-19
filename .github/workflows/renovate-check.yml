@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # Fetch the whole repository history, as we need to check out an old
           # ref to compare compiled scripts from before and after the change.
@@ -23,7 +23,7 @@ jobs:
       - name: Set up environment
         uses: ./.github/actions/setup
       - name: Checkout second dist copy
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: repoDist
           ref: dist
