@@ -40,5 +40,8 @@
       "sass",
       "terser"
     ]
+  }, {
+    "groupName": "github actions",
+    "matchManagers": ["github-actions"]
   }]
 }
