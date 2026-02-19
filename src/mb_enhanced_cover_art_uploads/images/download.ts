@@ -198,13 +198,14 @@ export class CoverArtDownloader {
         // TODO: Copied from seeding/atisket/dimensions.ts, should be put in lib.
         const response = await pRetry(() => request.get(url, xhrOptions), {
             retries: 10,
-            onFailedAttempt: (error) => {
+            onFailedAttempt: (context) => {
+                const { error } = context;
                 // Don't retry on 4xx status codes except for 429. Anything below 400 doesn't throw a HTTPResponseError.
                 if (!(error instanceof HTTPResponseError) || (error.statusCode < 500 && error.statusCode !== 429)) {
                     throw error;
                 }
 
-                LOGGER.info(`Failed to retrieve image contents after ${error.attemptNumber} attempt(s): ${error.message}. Retrying (${error.retriesLeft} attempt(s) left)…`);
+                LOGGER.info(`Failed to retrieve image contents after ${context.attemptNumber} attempt(s): ${error.message}. Retrying (${context.retriesLeft} attempt(s) left)…`);
             },
         });
 

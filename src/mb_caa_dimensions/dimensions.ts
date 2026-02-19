@@ -61,7 +61,7 @@ function _getImageDimensions(url: string): Promise<Dimensions> {
 
 export const getImageDimensions = memoize((url: string) => pRetry(() => _getImageDimensions(url), {
     retries: 5,
-    onFailedAttempt: /* istanbul ignore next: Difficult to cover */ (error) => {
+    onFailedAttempt: /* istanbul ignore next: Difficult to cover */ ({ error }) => {
         LOGGER.warn(`Failed to retrieve image dimensions: ${error.message}. Retrying…`);
     },
 }));

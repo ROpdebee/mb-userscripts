@@ -1,4 +1,3 @@
-import type { FailedAttemptError } from 'p-retry';
 import pRetry from 'p-retry';
 
 import type { Response } from '@lib/util/request';
@@ -99,11 +98,12 @@ describe('downloading image contents', () => {
             try {
                 return await function_(0);
             } catch (error) {
-                Object.defineProperties(error, {
-                    attemptNumber: { value: 1, writable: false },
-                    retriesLeft: { value: 1, writable: false },
+                await options?.onFailedAttempt?.({
+                    error: error as Error,
+                    attemptNumber: 1,
+                    retriesLeft: 1,
+                    retriesConsumed: 0,
                 });
-                await options?.onFailedAttempt?.(error as FailedAttemptError);
                 // Call the onRetry mock so we can verify when a retry would've
                 // occurred.
                 onRetry();

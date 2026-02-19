@@ -95,7 +95,7 @@
   "dependencies": {
     "idb": "8.0.3",
     "p-limit": "7.3.0",
-    "p-retry": "6.2.1",
+    "p-retry": "7.1.1",
     "ts-custom-error": "3.3.1"
   }
 }

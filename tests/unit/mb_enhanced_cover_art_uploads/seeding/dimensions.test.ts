@@ -1,9 +1,37 @@
-import retry from 'retry';
+import pRetry from 'p-retry';
 
 import type { CacheEntry } from '@src/mb_enhanced_cover_art_uploads/seeding/dimensions';
 import { request } from '@lib/util/request';
 import { CACHE_LOCALSTORAGE_KEY, localStorageCache, MAX_CACHED_IMAGES, SeederImage } from '@src/mb_enhanced_cover_art_uploads/seeding/dimensions';
 import { setupPolly } from '@test-utils/pollyjs';
+
+jest.mock('p-retry');
+
+const mockpRetry = jest.mocked(pRetry);
+
+// Mock p-retry with a simplistic implementation so we can test the retry logic later.
+beforeEach(() => {
+    mockpRetry.mockImplementation(async (input, options = {}) => {
+        let currentAttempt = 0;
+        let lastError: unknown;
+        const retries = options.retries ?? 10;
+        while (currentAttempt <= retries) {
+            currentAttempt++;
+            try {
+                return await input(currentAttempt);
+            } catch (error) {
+                lastError = error;
+                await options.onFailedAttempt?.({
+                    error: error as Error,
+                    attemptNumber: currentAttempt,
+                    retriesLeft: retries - currentAttempt,
+                    retriesConsumed: currentAttempt - 1,
+                });
+            }
+        }
+        throw lastError;
+    });
+});
 
 describe('local storage cache', () => {
     const dummyDimensions = {
@@ -279,15 +307,9 @@ describe('a-tisket images', () => {
     });
 
     describe('retrying', () => {
-        // We won't mock out the p-retry module, since replicating its behaviour
-        // will be tricky. Instead, we'll mock out the function that creates the
-        // underlying timeouts, so retries are done immediately and the tests don't
-        // time out.
-        const timeoutsSpy = jest.spyOn(retry, 'timeouts');
         const requestSpy = jest.spyOn(request, 'head');
 
         beforeEach(() => {
-            timeoutsSpy.mockReturnValue([0, 0, 0, 0, 0]);
             requestSpy.mockClear();
         });
 
