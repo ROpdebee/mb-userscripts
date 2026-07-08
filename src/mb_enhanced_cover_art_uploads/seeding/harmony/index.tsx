@@ -9,7 +9,7 @@ import { getImageInfo } from '../dimensions';
 import { SeedParameters } from '../parameters';
 
 export const HarmonySeeder: Seeder = {
-    supportedDomains: ['harmony.pulsewidth.org.uk'],
+    supportedDomains: ['harmony.pulsewidth.org.uk', 'harmony.mybrainz.dev'],
     supportedRegexes: [/\/release\/actions.*release_mbid=([a-f\d-]{36})/],
 
     insertSeedLinks(): void {
