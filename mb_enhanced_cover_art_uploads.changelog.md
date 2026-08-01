@@ -1,3 +1,4 @@
+- **2026.8.1**: New feature: support harmony.mybrainz.dev ([#902](https://github.com/ROpdebee/mb-userscripts/pull/902))
 - **2026.2.21**: New feature: support URL input on event art upload pages ([#869](https://github.com/ROpdebee/mb-userscripts/pull/869))
 - **2026.2.19.3**: Internal changes: miscellaneous modernisation ([#873](https://github.com/ROpdebee/mb-userscripts/pull/873))
 - **2026.2.19.2**: Bug fix: upstream provider fixes ([#872](https://github.com/ROpdebee/mb-userscripts/pull/872))
