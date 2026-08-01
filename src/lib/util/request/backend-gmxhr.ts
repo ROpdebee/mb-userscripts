@@ -6,6 +6,19 @@ import { AbortedError, NetworkError, TimeoutError } from './errors';
 import { createTextResponse } from './response';
 import { ResponseHeadersImpl } from './response';
 
+function binaryStringToArrayBuffer(binaryString: string): ArrayBuffer {
+    const buffer = new ArrayBuffer(binaryString.length);
+    const view = new Uint8Array(buffer);
+    for (let index = 0; index < binaryString.length; index++) {
+        view[index] = binaryString.charCodeAt(index) & 0xFF;
+    }
+    return buffer;
+}
+
+function isArrayBuffer(value: unknown): value is ArrayBuffer {
+    return value instanceof ArrayBuffer || Object.prototype.toString.call(value) === '[object ArrayBuffer]';
+}
+
 function createGMXHRResponse(options: RequestOptions | undefined, rawResponse: GM.Response<never>): Response {
     const responseType = options?.responseType ?? 'text';
     const baseResponse = {
@@ -29,7 +42,9 @@ function createGMXHRResponse(options: RequestOptions | undefined, rawResponse: G
         case 'arraybuffer':
             return {
                 ...baseResponse,
-                arrayBuffer: rawResponse.response as ArrayBuffer,
+                arrayBuffer: isArrayBuffer(rawResponse.response)
+                    ? rawResponse.response
+                    : binaryStringToArrayBuffer(String(rawResponse.responseText ?? rawResponse.response ?? '')),
             };
     }
 }
@@ -41,7 +56,8 @@ export function performGMXHRRequest(method: RequestMethod, url: URL | string, op
             url: url instanceof URL ? url.href : url,
             headers: options?.headers,
             data: options?.body,
-            responseType: options?.responseType,
+            responseType: options?.responseType === 'arraybuffer' ? 'text' : options?.responseType,
+            overrideMimeType: options?.responseType === 'arraybuffer' ? 'text/plain; charset=x-user-defined' : undefined,
 
             onload: (rawResponse) => { resolve(createGMXHRResponse(options, rawResponse)); },
             onerror: () => { reject(new NetworkError(url)); },
