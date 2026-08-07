@@ -11,3 +11,7 @@ export function formatFileSize(size: number): string {
     const truncatedSize = Number((size / Math.pow(1024, order)).toFixed(2));
     return `${truncatedSize} ${suffixes[order]}`;
 }
+
+export function formatPercentage(perc: number): string {
+    return `${(perc * 100).toFixed(2)}%`;
+}
