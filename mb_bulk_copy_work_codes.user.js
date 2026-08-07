@@ -144,6 +144,28 @@ function deduplicateCodes(codes, key) {
     return results;
 }
 
+async function waitForMatchingElements(parent, selector, minCount, matcher = () => true, timeout = 2000) {
+    const elements = [...parent.querySelectorAll(selector)].filter(matcher);
+    if (elements.length >= minCount) return elements;
+
+    return new Promise((resolve) => {
+        const timeoutId = setTimeout(() => {
+            observer.disconnect();
+            resolve([...parent.querySelectorAll(selector)].filter(matcher));
+        }, timeout);
+
+        const observer = new MutationObserver(() => {
+            const matched = [...parent.querySelectorAll(selector)].filter(matcher);
+            if (matched.length >= minCount) {
+                observer.disconnect();
+                clearTimeout(timeoutId);
+                resolve(matched);
+            }
+        });
+        observer.observe(parent, { subtree: true, childList: true });
+    });
+}
+
 function fillInput(inp, val) {
     inp.value = val;
     inp.style.backgroundColor = 'yellow';
@@ -294,18 +316,22 @@ class BaseWorkForm {
             .filter(({ length }) => length);
     }
 
-    findEmptyRow(parentSelector, inputName) {
+    async createEmptyRows(parentSelector, inputName, count) {
         let parent = this.form.querySelector(parentSelector);
         let rows = [...parent.querySelectorAll('input[name*="' + inputName + '"]')];
         let emptyRows = rows.filter(({value}) => !value.length);
-        if (emptyRows.length) {
-            return emptyRows[0];
+        // MB doesn't care about extra empty rows
+        let toCreate = count - emptyRows.length;
+        if (toCreate <= 0) return emptyRows;
+        let newRowBtn = parent.querySelector('button.add-item');
+        for (let i = 0; i < toCreate; i++) {
+            newRowBtn.click();
         }
 
-        // Need to add a new row
-        let newRowBtn = parent.querySelector('button.add-item');
-        newRowBtn.click();
-        return this.findEmptyRow(parentSelector, inputName);
+        // Let DOM render changes so we can fill with values
+        emptyRows = await waitForMatchingElements(parent, 'input[name*="' + inputName + '"]', count);
+        return emptyRows;
+
     }
 
     checkAndFill(rawData) {
@@ -337,9 +363,9 @@ class BaseWorkForm {
 
         // Confirm in case of conflicts.
         let confirmProm = conflicts.length ? this.promptForConfirmation(conflicts) : new Promise((resolve, reject) => resolve());
-        confirmProm.then(() => {
+        confirmProm.then(async () => {
             let newCodes = this.retainOnlyNew(externalCodes, mbCodes);
-            this.fillData(newISWCs, newCodes, data['title'], data['source']);
+            await this.fillData(newISWCs, newCodes, data['title'], data['source']);
             let numWarnings = this.form.querySelectorAll('div#ROpdebee_MB_Paste_Work_Log > div').length;
             this.log('success', 'Filled successfully' + (numWarnings ? ` (${numWarnings} message(s))` : ''));
         });
@@ -359,23 +385,14 @@ class BaseWorkForm {
         }, {});
     }
 
-    fillData(iswcs, codes, title, source) {
-        iswcs.forEach(this.fillISWC.bind(this));
-        let entries = Object.entries(codes);
-        entries.sort();
-        let unknownAgencyCodes = entries.reduce(
-            (acc, [agencyKey, agencyCodes]) => {
-                try {
-                    this.fillAgencyCodes(agencyKey, agencyCodes);
-                } catch (e) {
-                    if (e.message === 'Unknown agency key') {
-                        acc.push([agencyKey, agencyCodes]);
-                    } else {
-                        throw e;
-                    }
-                }
-                return acc;
-            }, []);
+    async fillData(iswcs, codes, title, source) {
+        await this.fillISWCs(iswcs);
+        const flattenedCodes = [];
+        for (const [agencyKey, agencyCodes] of Object.entries(codes)) {
+            flattenedCodes.push(...agencyCodes.map(code => ({ agencyKey, code })));
+        }
+        flattenedCodes.sort((a, b) => a.agencyKey.localeCompare(b.agencyKey) || a.code.localeCompare(b.code));
+        let unknownAgencyCodes = await this.fillAgencyCodes(flattenedCodes);
 
         if (unknownAgencyCodes.length) {
             const lis = unknownAgencyCodes.reduce((acc, [agency, codes]) => {
@@ -410,18 +427,35 @@ class BaseWorkForm {
             .click();
     }
 
-    fillISWC(iswc) {
-        let row = this.findEmptyRow('div.form-row-text-list', 'edit-work.iswcs.');
-        fillInput(row, iswc);
+    async fillISWCs(iswcs) {
+        const rows = await this.createEmptyRows('div.form-row-text-list', 'edit-work.iswcs.', iswcs.length);
+        iswcs.forEach((iswc, idx) => fillInput(rows[idx], iswc));
     }
 
-    fillAgencyCodes(agencyKey, agencyCodes) {
-        agencyCodes.forEach(code => {
-            let input = this.findEmptyRow('table#work-attributes', 'edit-work.attributes.');
-            // Will throw when the agency isn't know the MB, handled by caller.
-            setRowKey(input.closest('tr').querySelector('td > select'), agencyKey);
-            fillInput(input, code);
+    async fillAgencyCodes(flattenedAgencyCodes) {
+        const rows = await this.createEmptyRows('table#work-attributes', 'edit-work.attributes.', flattenedAgencyCodes.length);
+        let unknownAgencyCodes = [];
+        flattenedAgencyCodes.forEach(( { agencyKey, code }, idx) => {
+            let input = rows[idx];
+            try {
+                setRowKey(input.closest('tr').querySelector('td > select'), agencyKey);
+                fillInput(input, code);
+            } catch (e) {
+                if (e.message === 'Unknown agency key') {
+                    unknownAgencyCodes.push([agencyKey, code]);
+                } else {
+                    throw e;
+                }
+            }
         });
+        if (rows.length) {
+            // Let DOM render changes so the checker can highlight misformatted codes
+            await waitForMatchingElements(this.form,
+                'table#work-attributes input[name*="edit-work.attributes."]',
+                rows.length,
+                (input) => input.value.length > 0);
+        }
+        return unknownAgencyCodes;
     }
 
 
