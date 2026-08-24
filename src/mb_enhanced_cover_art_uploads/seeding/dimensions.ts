@@ -162,6 +162,7 @@ export async function getMaximisedImageInfo(imageUrl: string, maximisedCandidate
         }
 
         return {
+            url: maxCandidate.url.href,
             dimensions,
             ...fileInfo,
         };
