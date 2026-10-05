@@ -73,7 +73,7 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     private findGenericPhysicalImages(_url: URL, pageContent: string): CoverArt[] {
-        const imgs = this.extractEmbeddedJSImages(pageContent, /'colorImages': { 'initial': (.+)},$/m) as AmazonImage[] | null;
+        const imgs = this.extractEmbeddedJSImages(pageContent, /'colorImages': { 'initial': (?:A\.\$\.parseJSON\('(.+)'\)|(.+))},$/m) as AmazonImage[] | null;
         assertNonNull(imgs, 'Failed to extract images from embedded JS on generic physical page');
 
         return imgs.map((image) => {
@@ -83,7 +83,9 @@ export class AmazonProvider extends CoverArtProvider {
     }
 
     private extractEmbeddedJSImages(pageContent: string, jsonRegex: RegExp): object[] | null {
-        const embeddedImages = jsonRegex.exec(pageContent)?.[1];
+        const match = jsonRegex.exec(pageContent);
+        // Group 1 holds JSON wrapped in a single-quoted JS string literal, which still needs to be unescaped.
+        const embeddedImages = match?.[1]?.replaceAll(/\\(['\\])/g, '$1') ?? match?.[2];
         if (!embeddedImages) {
             LOGGER.debug('Could not extract embedded JS images, regex did not match');
             return null;

@@ -128,6 +128,40 @@ describe('amazon provider', () => {
             ['is invalid type', "'colorImages': { 'initial': 123 },"],
         ];
 
+        it('grabs generic images from raw JSON array', () => {
+            const url = new URL('https://www.amazon.com/dp/fake');
+            const content = String.raw`'colorImages': { 'initial': [{"hiRes":null,"large":"https://m.media-amazon.com/images/I/51f7hRG0IrL.jpg","variant":"BACK","altText":"It's \"quoted\" \\ here"}]},`;
+
+            expect(provider['findGenericPhysicalImages'](url, content)).toStrictEqual([{
+                url: new URL('https://m.media-amazon.com/images/I/51f7hRG0IrL.jpg'),
+                types: [ArtworkTypeIDs.Back],
+            }]);
+        });
+
+        it('grabs generic images from JSON wrapped in parseJSON call', () => {
+            const url = new URL('https://www.amazon.com/dp/fake');
+            const content = String.raw`'colorImages': { 'initial': A.$.parseJSON('[{"hiRes":"https://m.media-amazon.com/images/I/91fiiqmlYAL._SL1500_.jpg","large":"https://m.media-amazon.com/images/I/51kdgSt-adL.jpg","variant":"MAIN","altText":"It\'s \\"quoted\\""}]')},`;
+
+            expect(provider['findGenericPhysicalImages'](url, content)).toStrictEqual([{
+                url: new URL('https://m.media-amazon.com/images/I/91fiiqmlYAL._SL1500_.jpg'),
+                types: [ArtworkTypeIDs.Front],
+            }]);
+        });
+
+        it('grabs generic images when parseJSON string contains closing quote and paren', () => {
+            const url = new URL('https://www.amazon.com/dp/fake');
+            const content = String.raw`'colorImages': { 'initial': A.$.parseJSON('[{"hiRes":"https://m.media-amazon.com/images/I/91fiiqmlYAL._SL1500_.jpg","variant":"MAIN","altText":"x\')},y"}]')},`;
+
+            expect(provider['findGenericPhysicalImages'](url, content)).toHaveLength(1);
+        });
+
+        it('grabs no images from empty parseJSON array', () => {
+            const url = new URL('https://www.amazon.com/dp/fake');
+            const content = String.raw`'colorImages': { 'initial': A.$.parseJSON('[]')},`;
+
+            expect(provider['findGenericPhysicalImages'](url, content)).toBeEmpty();
+        });
+
         it.each(physicalJsonFailCases)('fails to grab generic images if JSON %s', (_1, content) => {
             const url = new URL('https://www.amazon.com/dp/fake');
 
