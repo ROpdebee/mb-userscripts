@@ -12,7 +12,7 @@ import { CoverArtDownloader as OriginalCoverArtDownloader } from '@src/mb_enhanc
 import { getProviderByDomain } from '@src/mb_enhanced_cover_art_uploads/providers';
 import { CoverArtProvider } from '@src/mb_enhanced_cover_art_uploads/providers/base';
 
-import { createBlobResponse, createHttpError, createImageFile } from '../test-utils/dummy-data';
+import { createArrayBufferResponse, createHttpError, createImageFile } from '../test-utils/dummy-data';
 
 jest.mock('p-retry');
 jest.mock('@lib/logging/logger');
@@ -131,7 +131,7 @@ describe('downloading image contents', () => {
     });
 
     it('rejects on HTTP 404 error', async () => {
-        mockRequestGet.mockRejectedValue(createHttpError(createBlobResponse({ status: 404 })));
+        mockRequestGet.mockRejectedValue(createHttpError(createArrayBufferResponse({ status: 404 })));
 
         const result = downloader.downloadImageContents(new URL('https://example.com/broken'), 'test.jpg', 0, {});
 
@@ -140,9 +140,9 @@ describe('downloading image contents', () => {
     });
 
     it('rejects on text response', async () => {
-        mockRequestGet.mockResolvedValueOnce(createBlobResponse({
+        mockRequestGet.mockResolvedValueOnce(createArrayBufferResponse({
             url: 'https://example.com/broken',
-            blob: new Blob(['test']),
+            arrayBuffer: Uint8Array.from([0x74, 0x65, 0x73, 0x74]).buffer,
             headers: new Headers({ 'Content-Type': 'text/html; charset=utf-8' }),
         }));
 
@@ -153,9 +153,9 @@ describe('downloading image contents', () => {
     });
 
     it('rejects on unsupported provider page', async () => {
-        mockRequestGet.mockResolvedValueOnce(createBlobResponse({
+        mockRequestGet.mockResolvedValueOnce(createArrayBufferResponse({
             url: 'https://example.com/not-an-album',
-            blob: new Blob(['test']),
+            arrayBuffer: Uint8Array.from([0x74, 0x65, 0x73, 0x74]).buffer,
             headers: new Headers({ 'Content-Type': 'text/html; charset=utf-8' }),
         }));
         mockGetProviderByDomain.mockReturnValueOnce(fakeProvider);
@@ -167,9 +167,9 @@ describe('downloading image contents', () => {
     });
 
     it('rejects on invalid image', async () => {
-        mockRequestGet.mockResolvedValueOnce(createBlobResponse({
+        mockRequestGet.mockResolvedValueOnce(createArrayBufferResponse({
             url: 'https://example.com/broken',
-            blob: new Blob(['test']),
+            arrayBuffer: Uint8Array.from([0x74, 0x65, 0x73, 0x74]).buffer,
             headers: new Headers({ 'Content-Type': 'application/json' }),
         }));
 
@@ -180,9 +180,9 @@ describe('downloading image contents', () => {
     });
 
     it('rejects on invalid image without content-type header', async () => {
-        mockRequestGet.mockResolvedValueOnce(createBlobResponse({
+        mockRequestGet.mockResolvedValueOnce(createArrayBufferResponse({
             url: 'https://example.com/broken',
-            blob: new Blob(['test']),
+            arrayBuffer: Uint8Array.from([0x74, 0x65, 0x73, 0x74]).buffer,
         }));
 
         const result = downloader.downloadImageContents(new URL('https://example.com/broken'), 'test.jpg', 0, {});
@@ -192,9 +192,9 @@ describe('downloading image contents', () => {
     });
 
     it('resolves with fetched image', async () => {
-        mockRequestGet.mockResolvedValueOnce(createBlobResponse({
+        mockRequestGet.mockResolvedValueOnce(createArrayBufferResponse({
             url: 'https://example.com/working',
-            blob: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
+            arrayBuffer: Uint32Array.from([0x474E5089, 0xDEADBEEF]).buffer,
         }));
 
         const result = downloader.downloadImageContents(new URL('https://example.com/working'), 'test.jpg', 0, {});
@@ -215,13 +215,31 @@ describe('downloading image contents', () => {
             });
     });
 
+    it('accepts image content type when magic bytes cannot be detected', async () => {
+        mockRequestGet.mockResolvedValueOnce(createArrayBufferResponse({
+            url: 'https://example.com/working',
+            arrayBuffer: Uint8Array.from([0x74, 0x65, 0x73, 0x74]).buffer,
+            headers: new Headers({ 'Content-Type': 'image/jpeg' }),
+        }));
+
+        const result = downloader.downloadImageContents(new URL('https://example.com/working'), 'test.jpg', 0, {});
+
+        await expect(result)
+            .resolves.toMatchObject({
+                file: {
+                    type: 'image/jpeg',
+                    name: 'test.0.jpeg',
+                },
+            });
+    });
+
     it('retries on 429 response', async () => {
-        mockRequestGet.mockRejectedValueOnce(createHttpError(createBlobResponse({
+        mockRequestGet.mockRejectedValueOnce(createHttpError(createArrayBufferResponse({
             status: 429,
         })));
-        mockRequestGet.mockResolvedValueOnce(createBlobResponse({
+        mockRequestGet.mockResolvedValueOnce(createArrayBufferResponse({
             url: 'https://example.com/working',
-            blob: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
+            arrayBuffer: Uint32Array.from([0x474E5089, 0xDEADBEEF]).buffer,
         }));
 
         const result = downloader.downloadImageContents(new URL('https://example.com/working'), 'test.jpg', 0, {});
@@ -244,10 +262,10 @@ describe('downloading image contents', () => {
     });
 
     it('rejects on too many 429 responses', async () => {
-        mockRequestGet.mockRejectedValueOnce(createHttpError(createBlobResponse({
+        mockRequestGet.mockRejectedValueOnce(createHttpError(createArrayBufferResponse({
             status: 429,
         })));
-        mockRequestGet.mockRejectedValueOnce(createHttpError(createBlobResponse({
+        mockRequestGet.mockRejectedValueOnce(createHttpError(createArrayBufferResponse({
             status: 429,
         })));
 
@@ -259,9 +277,9 @@ describe('downloading image contents', () => {
     });
 
     it('retains redirection information', async () => {
-        mockRequestGet.mockResolvedValueOnce(createBlobResponse({
+        mockRequestGet.mockResolvedValueOnce(createArrayBufferResponse({
             url: 'https://example.com/redirected',
-            blob: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
+            arrayBuffer: Uint32Array.from([0x474E5089, 0xDEADBEEF]).buffer,
         }));
 
         const result = downloader.downloadImageContents(new URL('https://example.com/working'), 'test.jpg', 0, {});
@@ -279,10 +297,10 @@ describe('downloading image contents', () => {
     });
 
     it('warns when redirect could not be determined', async () => {
-        const response = createBlobResponse({
-            blob: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
+        const response = createArrayBufferResponse({
+            arrayBuffer: Uint32Array.from([0x474E5089, 0xDEADBEEF]).buffer,
         });
-        // Need to set explicitly because `createBlobResponse` creates a random
+        // Need to set explicitly because `createArrayBufferResponse` creates a random
         // URL if we provide it `undefined`.
         Object.defineProperty(response, 'url', { value: undefined });
         mockRequestGet.mockResolvedValueOnce(response);
@@ -296,13 +314,13 @@ describe('downloading image contents', () => {
 
     it('assigns unique ID to each file name', async () => {
         mockRequestGet
-            .mockResolvedValueOnce(createBlobResponse({
+            .mockResolvedValueOnce(createArrayBufferResponse({
                 url: 'https://example.com/working',
-                blob: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
+                arrayBuffer: Uint32Array.from([0x474E5089, 0xDEADBEEF]).buffer,
             }))
-            .mockResolvedValueOnce(createBlobResponse({
+            .mockResolvedValueOnce(createArrayBufferResponse({
                 url: 'https://example.com/working',
-                blob: new Blob([Uint32Array.from([0x474E5089, 0xDEADBEEF])]),
+                arrayBuffer: Uint32Array.from([0x474E5089, 0xDEADBEEF]).buffer,
             }));
 
         let result = downloader.downloadImageContents(new URL('https://example.com/working'), 'test.jpg', 0, {});

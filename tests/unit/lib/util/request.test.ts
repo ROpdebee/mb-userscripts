@@ -103,6 +103,29 @@ describe('request', () => {
             expect(onProgress).toHaveBeenNthCalledWith(1, response1);
             expect(onProgress).toHaveBeenNthCalledWith(2, response2);
         });
+
+        it('falls back to responseText for broken arraybuffer responses', async () => {
+            mockGMxmlHttpRequest.mockImplementation((options) => {
+                expect(options.responseType).toBe('text');
+                expect(options.overrideMimeType).toBe('text/plain; charset=x-user-defined');
+                options.onload?.({
+                    ...stubResponse,
+                    finalUrl: 'test',
+                    response: null,
+                    responseHeaders: '',
+                    responseText: '\xFF\xD8\xFF\xE1',
+                    status: 200,
+                    statusText: 'OK',
+                });
+            });
+
+            const response = await request.get('test', {
+                backend: RequestBackend.GMXHR,
+                responseType: 'arraybuffer',
+            });
+
+            expect([...new Uint8Array(response.arrayBuffer)]).toStrictEqual([0xFF, 0xD8, 0xFF, 0xE1]);
+        });
     });
 
     describe('frontend', () => {

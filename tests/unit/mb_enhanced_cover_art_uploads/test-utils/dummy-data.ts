@@ -1,6 +1,6 @@
 // Abstractions to create dummy data
 
-import type { BlobResponse, Response, TextResponse } from '@lib/util/request';
+import type { ArrayBufferResponse, BlobResponse, Response, TextResponse } from '@lib/util/request';
 import type { CoverArt, FetchedImage } from '@src/mb_enhanced_cover_art_uploads/types';
 import type { QueuedImage } from '@src/mb_enhanced_cover_art_uploads/types';
 import { HTTPResponseError } from '@lib/util/request';
@@ -94,6 +94,14 @@ export function createBlobResponse(response?: Partial<BlobResponse>): BlobRespon
     return {
         ...createResponse(response),
         blob: response.blob ?? createBlob(),
+    };
+}
+
+export function createArrayBufferResponse(response?: Partial<ArrayBufferResponse>): ArrayBufferResponse {
+    response = response ?? {};
+    return {
+        ...createResponse(response),
+        arrayBuffer: response.arrayBuffer ?? new ArrayBuffer(0),
     };
 }
 

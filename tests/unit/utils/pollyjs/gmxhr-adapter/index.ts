@@ -121,6 +121,11 @@ export default class GMXHRAdapter<Context> extends Adapter<object, RequestType<C
                     ...response_,
                     response: arrayBuffer,
                 });
+            } else if (responseType === 'text') {
+                options.onload({
+                    ...response_,
+                    responseText: buffer.toString('binary'),
+                });
             } else {
                 throw new Error(`Unknown response type: ${responseType}`);
             }

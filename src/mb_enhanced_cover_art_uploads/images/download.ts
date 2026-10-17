@@ -1,11 +1,10 @@
 import pRetry from 'p-retry';
 
-import type { BlobResponse, ProgressEvent } from '@lib/util/request';
+import type { ArrayBufferResponse, ProgressEvent } from '@lib/util/request';
 import { getFromPageContext } from '@lib/compat';
 import { LOGGER } from '@lib/logging/logger';
 import { ArtworkTypeIDs } from '@lib/MB/cover-art';
 import { enumerate } from '@lib/util/array';
-import { blobToBuffer } from '@lib/util/blob';
 import { identity } from '@lib/util/functions';
 import { HTTPResponseError, request } from '@lib/util/request';
 import { urlBasename } from '@lib/util/urls';
@@ -188,7 +187,7 @@ export class CoverArtDownloader {
 
     protected async downloadImageContents(url: URL, fileName: string, id: number, headers: Record<string, string>): Promise<ImageContents> {
         const xhrOptions = {
-            responseType: 'blob',
+            responseType: 'arraybuffer',
             headers: headers,
             onProgress: this.hooks.onDownloadProgress?.bind(this.hooks, id, url),
         } as const;
@@ -220,7 +219,9 @@ export class CoverArtDownloader {
             LOGGER.warn(`Followed redirect of ${url.href} -> ${fetchedUrl.href} while fetching image contents`);
         }
 
-        const { mimeType, isImage } = await this.determineMimeType(response);
+        const contentType = response.headers.get('Content-Type')?.match(/[^;\s]+/)?.[0];
+        const responseBlob = new Blob([response.arrayBuffer], { type: contentType ?? '' });
+        const { mimeType, isImage } = await this.determineMimeType(responseBlob, response.headers);
 
         if (!isImage) {
             if (!mimeType?.startsWith('text/')) {
@@ -239,10 +240,9 @@ export class CoverArtDownloader {
             throw new Error('Expected to receive an image, but received text. Perhaps this provider is not supported yet?');
         }
 
-        // Convert and copy the response blob to a buffer.
-        // We copy the content to make sure the contents do not get unloaded
+        // Copy the response buffer to make sure the contents do not get unloaded
         // before the image is uploaded. See https://github.com/ROpdebee/mb-userscripts/issues/582
-        const contentBuffer = await blobToBuffer(response.blob);
+        const contentBuffer = response.arrayBuffer.slice(0);
 
         return {
             requestedUrl: url,
@@ -255,8 +255,7 @@ export class CoverArtDownloader {
         };
     }
 
-    private async determineMimeType(response: BlobResponse): Promise<{ isImage: false; mimeType: string | undefined } | { isImage: true; mimeType: string }> {
-        const rawFile = new File([response.blob], 'image');
+    private async determineMimeType(blob: Blob, headers: ArrayBufferResponse['headers']): Promise<{ isImage: false; mimeType: string | undefined } | { isImage: true; mimeType: string }> {
         return new Promise((resolve) => {
             // Adapted from https://github.com/metabrainz/musicbrainz-server/blob/2b00b844f3fe4293fc4ccb9de1c30e3c2ddc95c1/root/static/scripts/edit/MB/CoverArt.js#L139
             // We can't use MB.CoverArt.validate_file since it's not available
@@ -285,15 +284,22 @@ export class CoverArtDownloader {
                             resolve({ mimeType: 'application/pdf', isImage: true });
                             break;
 
-                        default:
+                        default: {
+                            const contentType = headers.get('Content-Type')?.match(/[^;\s]+/)?.[0];
+                            if (contentType?.startsWith('image/') === true) {
+                                resolve({ mimeType: contentType, isImage: true });
+                                break;
+                            }
+
                             resolve({
-                                mimeType: response.headers.get('Content-Type')?.match(/[^;\s]+/)?.[0],
+                                mimeType: contentType,
                                 isImage: false,
                             });
+                        }
                     }
                 }
             });
-            reader.readAsArrayBuffer(rawFile.slice(0, 4));
+            reader.readAsArrayBuffer(blob.slice(0, 4));
         });
     }
 
