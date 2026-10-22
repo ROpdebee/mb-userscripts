@@ -94,6 +94,12 @@ function addSeedLinkToCover(coverElement: HTMLElement, mbid: string, origin: str
         .insertAdjacentElement('beforeend', seedLink);
 }
 
+function updateCoverUrl(fig: HTMLElement, url?: string): void {
+    if (url) {
+        qs<HTMLAnchorElement>('a', fig).href = url;
+    }
+}
+
 async function addDimensions(fig: HTMLElement): Promise<void> {
     const imageUrl = qs<HTMLImageElement>('img', fig).src;
     const dimSpan: HTMLSpanElement = (
@@ -104,6 +110,7 @@ async function addDimensions(fig: HTMLElement): Promise<void> {
     qs('figcaption', fig).insertAdjacentElement('beforeend', dimSpan);
 
     const imageInfo = await getImageInfo(imageUrl);
+    updateCoverUrl(fig, imageInfo.url);
 
     const infoStringParts = [
         imageInfo.dimensions ? `${imageInfo.dimensions.width}×${imageInfo.dimensions.height}` : '',
