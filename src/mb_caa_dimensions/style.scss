@@ -28,6 +28,11 @@ div.thumb-position {
     }
 }
 
+// Reserve space for dimension labels below sidebar cover art (MB default is 218px).
+#sidebar .cover-art.present {
+    min-height: 244px;
+}
+
 // Styling of the info spans
 // TODO: beta.MBS of May 24 2024 changed the classname from "cover-art-image" to "artwork-image".
 //       Change this when new class name lands in production MBS.
