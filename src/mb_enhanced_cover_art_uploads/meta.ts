@@ -34,7 +34,7 @@ const metadata: UserscriptMetadata = {
         'GM.deleteValue',
     ],
     'connect': '*',
-    'require': ['https://github.com/qsniyg/maxurl/blob/db61f498677c6b0073c2e7fbf8afe745f7b994e7/userscript.user.js?raw=true'],
+    'require': ['https://github.com/qsniyg/maxurl/blob/045102cc7c5ac821254eadc52970343ddd04f036/userscript.user.js?raw=true'],
     'resource': ['amazonFavicon https://www.amazon.com/favicon.ico'],
     'blurb': dedent`
       Enhance the cover art uploader!
