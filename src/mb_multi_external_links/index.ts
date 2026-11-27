@@ -112,7 +112,7 @@ async function run(windowInstance: Window): Promise<void> {
     // for its existence enables us to skip attempting to find the link input on
     // edit pages that don't have external links, without having to exclude
     // specific pages.
-    const editorContainer = qsMaybe<HTMLElement>('#external-links-editor-container', windowInstance.document);
+    const editorContainer = qsMaybe<HTMLElement>('.external-links-editor-container', windowInstance.document);
     if (!editorContainer) return;
 
     const editor = await ExternalLinksEditor.create(windowInstance);
