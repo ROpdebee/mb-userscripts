@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MB: Bulk copy-paste work codes
-// @version      2025.3.10
+// @version      2026.5.25
 // @description  Copy work identifiers from various online repertoires and paste them into MB works with ease.
 // @author       ROpdebee
 // @license      MIT; https://opensource.org/licenses/MIT
@@ -8,7 +8,7 @@
 // @downloadURL  https://raw.github.com/ROpdebee/mb-userscripts/main/mb_bulk_copy_work_codes.user.js
 // @updateURL    https://raw.github.com/ROpdebee/mb-userscripts/main/mb_bulk_copy_work_codes.user.js
 // @match        https://iswcnet.cisac.org/*
-// @match        https://online.gema.de/werke/search.faces*
+// @match        https://portal.gema.de/app/repertoiresuche/werksuche
 // @match        *://musicbrainz.org/*/edit
 // @match        *://*.musicbrainz.org/*/edit
 // @match        *://musicbrainz.org/release/*/edit-relationships
@@ -714,72 +714,82 @@ function handleISWCNet() {
 
 function handleGEMA() {
 
-    function findAgencyWorkCodes(tr) {
+    function findAgencyWorkCodes(trHeader) {
         return {
             'GEMA': [
-                tr.querySelector('.workSocworkcde').innerText.match(/(\d{0,8})[\-‐](\d{3})/)[0],
+                trHeader.querySelector('td.mat-column-werkfassungsnummer').innerText.match(/(\d{0,8})[\-‐](\d{3})/)[0],
             ],
         };
     }
 
-    function findIswcs(tr) {
+    function findIswcs(trBody) {
         return [
-            tr.querySelector('.workIswc').innerText.match(iswcRegex)[0],
+            trBody.querySelector('[data-selector="werkinformation-iswc"]').innerText.match(iswcRegex)[0],
         ];
     }
 
-    function findTitle(tr) {
-        return tr.querySelector('.workSearchedTitle').innerText;
+    function findTitle(trHeader) {
+        return trHeader.querySelector('.mat-column-titel').innerText;
     }
 
-    function parseAndCopy(tr) {
-        let workCodes = findAgencyWorkCodes(tr);
-        let iswcs = findIswcs(tr);
-        let title = findTitle(tr);
+    function parseAndCopy(trHeader, trBody) {
+        let workCodes = findAgencyWorkCodes(trHeader);
+        let iswcs = findIswcs(trBody);
+        let title = findTitle(trHeader);
 
         storeData('GEMA Repertoire Search', iswcs, workCodes, title);
     }
 
-    function injectButtons(parentNode = document) {
-        parentNode.querySelectorAll('[id="auswahlForm:searchResultItems:tb"] > tr').forEach((tr) => {
-            let button = document.createElement('button');
-            button.innerText = 'Copy work codes';
-            button.addEventListener('click', (event) => {
-                event.preventDefault();
-                parseAndCopy(tr);
-            });
-            tr.querySelector('.empty').prepend(button);
+    function injectButtons(trHeader) {
+        const trBody = trHeader.nextElementSibling;
+        let button = document.createElement('button');
+        button.innerText = 'Copy work codes';
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            parseAndCopy(trHeader, trBody);
         });
+        trBody.querySelector("td").prepend(button);
     }
 
-    /** @type {MutationCallback} */
-    function handleChangeGEMA(mutationRec) {
-        if (mutationRec.length == 0 || mutationRec[0].addedNodes.length == 0) return; // Not an addition
-
-        const searchResults = mutationRec[0].addedNodes[0];
-        if (searchResults.nodeType !== Node.ELEMENT_NODE) return;
-
-        injectButtons(searchResults);
+    function handleChangeGEMA(records, observer) {
+        for (const record of records) {
+            for (const node of record.addedNodes) {
+                if (node.nodeType !== Node.ELEMENT_NODE) continue;
+                if (node.classList.contains("collapsed-werk-row")) {
+                    injectButtons(node)
+                }
+            }
+        }
     }
 
-    // GEMA overwrites `JSON.stringify()` with a custom implementation which causes `JSON.parse()` to fail on MB.
-    // Restore it again using the original implementation which seems to be backed up as `Object.toJSON()`.
-    if (Object.toJSON) {
-        JSON.stringify = Object.toJSON;
+    function initGEMA(records, initObserver) {
+        for (const record of records) {
+            if (record.addedNodes === undefined) continue;
+            const container = record.addedNodes.values()
+                .filter(node => node.nodeType === Node.ELEMENT_NODE)
+                .find(node => node.tagName.toLowerCase() === "ers-werksuche");
+            if (container !== undefined) {
+                initObserver.disconnect();
+                const observer = new MutationObserver(handleChangeGEMA);
+                observer.observe(container.querySelector("ers-werksuche-ergebnis-tabelle tbody.mdc-data-table__content"), {
+                    childList: true,
+                })
+                return
+            }
+        }
     }
 
-    const observer = new MutationObserver(handleChangeGEMA);
-    observer.observe(document.querySelector('div.body'), {
+    const observer = new MutationObserver(initGEMA);
+    observer.observe(document.querySelector('app-root'), {
         childList: true,
+        subtree: true,
     });
-
-    injectButtons(); // initial loading might remember the last search
 }
 
 
 const repertoireToHandler = {
     'iswcnet.cisac.org': handleISWCNet,
-    'online.gema.de': handleGEMA,
+    'portal.gema.de': handleGEMA,
 };
 
 if (document.location.hostname === 'musicbrainz.org' || document.location.hostname.endsWith('.musicbrainz.org')) {
